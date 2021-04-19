@@ -25,33 +25,39 @@ const commonProps = {
 const stories = storiesOf('Calendar', module)
 
 stories.add('default', () => <Calendar {...commonProps} />)
-stories.add('default - half/half of the year', () => <Calendar
-    {...{
-        ...baseProps,
-        from: new Date(2019, 6, 10).toISOString(),
-        to: new Date(2020, 5, 31).toISOString(),
-        data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
-    }}
-/>)
+stories.add('default - half/half of the year', () => (
+    <Calendar
+        {...{
+            ...baseProps,
+            from: new Date(2019, 6, 10).toISOString(),
+            to: new Date(2020, 5, 31).toISOString(),
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31)),
+        }}
+    />
+))
 stories.add('exact - first half of the year', () => <Calendar exact {...commonProps} />)
-stories.add('exact - starting at 07-05, ending at 12-25 ', () => <Calendar
-    exact
-    {...{
-        ...baseProps,
-        from: new Date(2019, 6, 5).toISOString(),
-        to: new Date(2019, 11, 25).toISOString(),
-        data: generateDayCounts(new Date(2019, 6, 1), new Date(2019, 11, 30))
-    }}
-/>)
-stories.add('exact - half/half of the year', () => <Calendar
-    exact
-    {...{
-        ...baseProps,
-        from: new Date(2019, 6, 10).toISOString(),
-        to: new Date(2020, 5, 31).toISOString(),
-        data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
-    }}
-/>)
+stories.add('exact - starting at 07-05, ending at 12-25 ', () => (
+    <Calendar
+        exact
+        {...{
+            ...baseProps,
+            from: new Date(2019, 6, 5).toISOString(),
+            to: new Date(2019, 11, 25).toISOString(),
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2019, 11, 30)),
+        }}
+    />
+))
+stories.add('exact - half/half of the year', () => (
+    <Calendar
+        exact
+        {...{
+            ...baseProps,
+            from: new Date(2019, 6, 10).toISOString(),
+            to: new Date(2020, 5, 31).toISOString(),
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31)),
+        }}
+    />
+))
 const japaneseMonths = [
     '一月',
     '二月',
@@ -78,15 +84,16 @@ stories.add('vertical calendar', () => (
     <Calendar direction="vertical" {...commonProps} height={600} />
 ))
 stories.add('vertical calendar half/half', () => (
-    <Calendar direction="vertical"
+    <Calendar
+        direction="vertical"
         {...{
             ...baseProps,
             from: new Date(2019, 6, 10).toISOString(),
             to: new Date(2020, 5, 10).toISOString(),
-            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31)),
         }}
-        height={600} 
-        />
+        height={600}
+    />
 ))
 
 stories.add('vertical calendar - exact', () => (
@@ -101,9 +108,9 @@ stories.add('vertical calemdar - exact half/half', () => (
             ...baseProps,
             from: new Date(2019, 6, 10).toISOString(),
             to: new Date(2020, 5, 10).toISOString(),
-            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31)),
         }}
-        height={600} 
+        height={600}
     />
 ))
 
