@@ -10,7 +10,7 @@ import * as React from 'react'
 import { Dimensions, Theme, Box, BoxAlign } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
 
-declare module '@nivo/calendar' {
+declare module '@scherler/nivo-calendar' {
     export type DateOrString = string | Date
 
     export interface CalendarDatum {
@@ -47,7 +47,7 @@ declare module '@nivo/calendar' {
     }
 
     export interface ColorScale {
-        (value: number | { valueOf(): number }): Range
+        (value: number | { valueOf: ()=>number }): any
         ticks(count?: number): number[]
     }
 

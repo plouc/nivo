@@ -1,6 +1,6 @@
 {
-  "name": "@nivo/calendar",
-  "version": "0.67.0",
+  "name": "@scherler/nivo-calendar",
+  "version": "0.67.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
