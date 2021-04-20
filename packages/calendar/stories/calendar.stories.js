@@ -16,25 +16,12 @@ const baseProps = {
         left: 50,
     },
 }
-const legends = [{
-    itemCount: data.length,
-    anchor: 'bottom',
-    direction: 'row',
-    justify: false,
-    itemsSpacing: 80,
-    itemWidth: 120,
-    itemHeight: 20,
-}]
+
 const commonProps = {
     ...baseProps,
     from: from.toISOString(),
     to: to.toISOString(),
-    data,
-    legendFormat: (value) => {
-        console.log('legendFormat', value);
-        return value;
-    },
-    legends
+    data
 }
 const stories = storiesOf('Calendar', module)
 
@@ -50,10 +37,6 @@ stories.add('default - half/half of the year', () => (
     />
 ))
 stories.add('exact - first half of the year', () => <Calendar exact {...commonProps} />)
-stories.add('exact - custom legends', () => <Calendar exact {...{
-    ...commonProps,
-    
-}} />)
 stories.add('exact - starting at 07-05, ending at 12-25 ', () => (
     <Calendar
         exact
@@ -156,9 +139,9 @@ stories.add('custom legend formater', () => (
         height={460}
         legends={[
             {
-                anchor: 'top',
+                anchor: 'bottom',
                 direction: 'row',
-                translateY: 36,
+                translateY: -130,
                 itemCount: 4,
                 itemWidth: 42,
                 itemHeight: 36,
@@ -168,3 +151,23 @@ stories.add('custom legend formater', () => (
         ]}
     />
 ))
+
+stories.add('exact - custom legends', () => (
+    <Calendar
+        exact
+        {...commonProps}
+        margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+        valueFormat=".2f"
+        legendFormat={formater}
+        height={460}
+        legends={[{
+            translateY:-110,
+            itemCount: 4,
+            itemWidth: 42,
+            itemHeight: 36,
+            itemsSpacing: 14,
+            anchor: 'bottom',
+            direction: 'row',
+            itemDirection: 'right-to-left',
+        }]}
+    />))

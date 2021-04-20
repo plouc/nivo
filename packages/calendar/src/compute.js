@@ -84,7 +84,7 @@ const computeCellSize = ({
     let hCellSize
     let vCellSize
     if (direction === 'horizontal') {
-        hCellSize = (width - monthSpacing * maxMonth - daySpacing * maxWeeks) / maxWeeks
+        hCellSize = (width - monthSpacing * 12 - daySpacing * maxWeeks) / maxWeeks
         vCellSize =
             (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
@@ -92,9 +92,8 @@ const computeCellSize = ({
         hCellSize =
             (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
-        vCellSize = (height - monthSpacing * maxMonth - daySpacing * maxWeeks) / maxWeeks
+        vCellSize = (height - monthSpacing * 12 - daySpacing * maxWeeks) / maxWeeks
     }
-
     return Math.min(hCellSize, vCellSize)
 }
 const getElapsedMonths = (from, to) => {
@@ -161,12 +160,10 @@ const monthPathAndBBox = ({
     let bbox = { x: xO, y: yO, width: 0, height: 0 }
     if (direction === 'horizontal') {
         path = [
-            `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${
-                yO + firstDay * (cellSize + daySpacing)
+            `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${yO + firstDay * (cellSize + daySpacing)
             }`,
             `H${xO + firstWeek * (cellSize + daySpacing)}V${yO + 7 * (cellSize + daySpacing)}`,
-            `H${xO + lastWeek * (cellSize + daySpacing)}V${
-                yO + (lastDay + 1) * (cellSize + daySpacing)
+            `H${xO + lastWeek * (cellSize + daySpacing)}V${yO + (lastDay + 1) * (cellSize + daySpacing)
             }`,
             `H${xO + (lastWeek + 1) * (cellSize + daySpacing)}V${yO}`,
             `H${xO + (firstWeek + 1) * (cellSize + daySpacing)}Z`,
@@ -177,12 +174,10 @@ const monthPathAndBBox = ({
         bbox.height = 7 * (cellSize + daySpacing)
     } else {
         path = [
-            `M${xO + firstDay * (cellSize + daySpacing)},${
-                yO + (firstWeek + 1) * (cellSize + daySpacing)
+            `M${xO + firstDay * (cellSize + daySpacing)},${yO + (firstWeek + 1) * (cellSize + daySpacing)
             }`,
             `H${xO}V${yO + (lastWeek + 1) * (cellSize + daySpacing)}`,
-            `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${
-                yO + lastWeek * (cellSize + daySpacing)
+            `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${yO + lastWeek * (cellSize + daySpacing)
             }`,
             `H${xO + 7 * (cellSize + daySpacing)}V${yO + firstWeek * (cellSize + daySpacing)}`,
             `H${xO + firstDay * (cellSize + daySpacing)}Z`,
@@ -348,10 +343,22 @@ export const computeLayout = ({
     const inititialBox = {
         x: 0,
         y: 0,
-        width,
-        height,
     }
-    const [originX, originY] = alignBox(inititialBox, inititialBox, align)
+    const monthsSize = cellSize * maxWeeks + daySpacing * maxWeeks + monthSpacing * 12
+    const yearsSize =
+        (cellSize + daySpacing) * 7 * yearRange.length + yearSpacing * (yearRange.length - 1)
+
+    const calendarWidth = direction === 'horizontal' ? monthsSize : yearsSize
+    const calendarHeight = direction === 'horizontal' ? yearsSize : monthsSize
+    const [originX, originY] = alignBox({
+        ...inititialBox,
+        width: calendarWidth,
+        height: calendarHeight,
+    }, {
+        ...inititialBox,
+        width,
+        height
+    }, align)
 
     let cellPosition
     if (direction === 'horizontal') {
