@@ -119,6 +119,10 @@ packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
+packages-lint-fix: ##@1 packages run eslint on all packages with a fix option
+	@echo "${YELLOW}Running eslint on all packages${RESET}"
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
+
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
 
