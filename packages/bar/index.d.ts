@@ -51,7 +51,7 @@ declare module '@nivo/bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
-    type GraphicsContainer = HTMLCanvasElement | SVGRectElement
+    type GraphicsContainer = HTMLCanvasElement | SVGElement
 
     export type BarMouseEventHandler<T = GraphicsContainer> = (
         datum: BarExtendedDatum,
@@ -146,9 +146,9 @@ declare module '@nivo/bar' {
         SvgDefsAndFill<BarDatum> &
         Partial<{
             layers: Layer[]
-            onClick: BarMouseEventHandler<SVGRectElement>
-            onMouseEnter: BarMouseEventHandler<SVGRectElement>
-            onMouseLeave: BarMouseEventHandler<SVGRectElement>
+            onClick: BarMouseEventHandler<SVGElement>
+            onMouseEnter: BarMouseEventHandler<SVGElement>
+            onMouseLeave: BarMouseEventHandler<SVGElement>
             role: string
         }>
 
