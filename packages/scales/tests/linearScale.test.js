@@ -73,3 +73,24 @@ it(`should allow to clamping`, () => {
     expect(scale(0.5)).toBe(100)
     expect(scale(1)).toBe(0)
 })
+
+it(`should allow nice`, () => {
+    const scale = linearScale(
+        { axis: 'x', nice: true },
+        { x: { min: 0.243, max: 0.933 } },
+        100,
+        100
+    )
+
+    expect(scale(0)).toBe(0)
+    expect(scale(0.5)).toBe(50)
+    expect(scale(1)).toBe(100)
+})
+
+it(`should allow numeric nice`, () => {
+    const scale = linearScale({ axis: 'x', nice: 2 }, { x: { min: 0.243, max: 0.933 } }, 100, 100)
+
+    expect(scale(0)).toBe(0)
+    expect(scale(0.5)).toBe(50)
+    expect(scale(1)).toBe(100)
+})
