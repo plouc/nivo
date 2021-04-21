@@ -1,5 +1,42 @@
+<a name="v0.67.0"></a>
+## v0.67.0 (2020-12-10)
+
+
+#### Features
+
+* **bar:**  typescript - uses string unions to define BarLayerType (#1322) ([a1e08f57](https://github.com/plouc/nivo/commit/a1e08f57d3c69e4f4fd2d0b9c8c4976739ef00cd))
+* **sunburst:**
+  *  add layers support ([3a6537b0](https://github.com/plouc/nivo/commit/3a6537b011955ad70a4e1bcdaff8ac0afc1cf0de))
+  *  add tests ([66edc5a4](https://github.com/plouc/nivo/commit/66edc5a48d2a5dac57194979a36d8c8f15cd69be))
+  *  add valueFormat prop and move event handlers to hook ([c4273501](https://github.com/plouc/nivo/commit/c4273501871e5f662e69ba15d7e88d39557132f2))
+  *  add parent to node data ([c586676b](https://github.com/plouc/nivo/commit/c586676b254ef8e8de29ceb7cec0c203dae78c0c))
+  *  add animation support ([9b4630a9](https://github.com/plouc/nivo/commit/9b4630a90a829d669ad73f7e23315ce44833ec81))
+  *  add pattern and gradient support ([1fecdffe](https://github.com/plouc/nivo/commit/1fecdffeedfae5d24c3544ed5badb6fb33601301))
+  *  remove recompose ([3c0586b3](https://github.com/plouc/nivo/commit/3c0586b3c6a4a4f0229746635d13f957122fd7d2))
+  *  init package migration to typescript ([0542c6ce](https://github.com/plouc/nivo/commit/0542c6ce91df618bd2c5f48443052b1edcc6ecbe))
+
+#### Bug Fixes
+
+* **area-bump:**  Return a new serie reference when color or styles change ([844c311f](https://github.com/plouc/nivo/commit/844c311f66884f7e855a9e57de7421c3ec91a6de), closes [#1301](https://github.com/plouc/nivo/issues/1301))
+* **bump:**  Return a new serie reference when color or styles change ([07c8ba10](https://github.com/plouc/nivo/commit/07c8ba102fd6f3a846a46ea86f46b386eeb10692))
+* **generators:**  change duplicate keys in tree data ([149d1a64](https://github.com/plouc/nivo/commit/149d1a6491580ff7cc3eba21108f6411a0c4ea35))
+* **pie:**  fix types related to d3-shape ([624d5859](https://github.com/plouc/nivo/commit/624d5859e46a678ef7db3ddf5350a93f639124e2))
+* **sunburst:**
+  *  fix logic with radius and centerX/Y ([ee593828](https://github.com/plouc/nivo/commit/ee593828d34ece6191da29051c9a4ded5cf1e176))
+  *  get build passing again ([77fcc219](https://github.com/plouc/nivo/commit/77fcc219a195c5f4c9c0fc2e69d51ba5daae5c44))
+  *  fix with child color modifier story ([96ac069f](https://github.com/plouc/nivo/commit/96ac069fb14b7a2488fdc8d98eb6379056b9103a))
+* **website:**  update sunburst to not crash on hover ([952ad507](https://github.com/plouc/nivo/commit/952ad5075b478d3dace43086073b7d5a270bbba5))
+
+#### Chore
+
+* **build:**  workaround lerna issues ([98be804e](https://github.com/plouc/nivo/commit/98be804ebb69220580b410a016aa0569b2a96967))
+* **changelog:**  update changelog ([0fb693bc](https://github.com/plouc/nivo/commit/0fb693bc6328be90dbe9c8e43243e87a404c836a))
+* **sunburst:**  rename slice label props for consistency ([6717e5b0](https://github.com/plouc/nivo/commit/6717e5b0b6b68fa03e54bbe391799db5b90dfab8))
+
+
+
 <a name="v0.66.0"></a>
-## v0.66.0 (%cs)
+## v0.66.0 (2020-11-27)
 
 
 #### Features
@@ -19,7 +56,7 @@
 
 
 <a name="v0.65.1"></a>
-## v0.65.1 (%cs)
+## v0.65.1 (2020-11-17)
 
 
 #### Chore
@@ -30,7 +67,7 @@
 
 
 <a name="v0.65.0"></a>
-## v0.65.0 (%cs)
+## v0.65.0 (2020-11-17)
 
 
 #### Features
@@ -148,7 +185,7 @@
 
 
 <a name="v0.64.0"></a>
-## v0.64.0 (%cs)
+## v0.64.0 (2020-11-06)
 
 
 #### Features
@@ -239,7 +276,7 @@
 
 
 <a name="v0.63.1"></a>
-## v0.63.1 (%cs)
+## v0.63.1 (2020-10-22)
 
 
 #### Bug Fixes
@@ -265,7 +302,7 @@
 
 
 <a name="v0.63.0"></a>
-## v0.63.0 (%cs)
+## v0.63.0 (2020-10-19)
 
 
 #### Features
@@ -389,7 +426,7 @@
 
 
 <a name="v0.62.0"></a>
-## v0.62.0 (%cs)
+## v0.62.0 (2020-05-31)
 
 
 #### Features
@@ -443,7 +480,7 @@
 
 
 <a name="v0.61.2"></a>
-## v0.61.2 (%cs)
+## v0.61.2 (2019-12-31)
 
 
 #### Features
@@ -457,7 +494,7 @@
 
 
 <a name="v0.61.1"></a>
-## v0.61.1 (%cs)
+## v0.61.1 (2019-12-21)
 
 
 #### Bug Fixes
@@ -475,7 +512,7 @@
 
 
 <a name="v0.61.0"></a>
-## v0.61.0 (%cs)
+## v0.61.0 (2019-12-19)
 
 
 #### Features
@@ -498,7 +535,7 @@
 
 
 <a name="v0.60.1"></a>
-## v0.60.1 (%cs)
+## v0.60.1 (2019-12-13)
 
 
 #### Features
@@ -522,7 +559,7 @@
 
 
 <a name="v0.60.0"></a>
-## v0.60.0 (%cs)
+## v0.60.0 (2019-12-13)
 
 
 #### Features
@@ -571,7 +608,7 @@
 
 
 <a name="v0.59.3"></a>
-## v0.59.3 (%cs)
+## v0.59.3 (2019-07-13)
 
 
 #### Features
@@ -590,7 +627,7 @@
 
 
 <a name="v0.59.2"></a>
-## v0.59.2 (%cs)
+## v0.59.2 (2019-07-12)
 
 
 #### Features
@@ -606,7 +643,7 @@
 
 
 <a name="v0.59.1"></a>
-## v0.59.1 (%cs)
+## v0.59.1 (2019-06-29)
 
 
 #### Features
@@ -626,7 +663,7 @@
 
 
 <a name="v0.59.0"></a>
-## v0.59.0 (%cs)
+## v0.59.0 (2019-06-09)
 
 
 #### Features
@@ -654,7 +691,7 @@
 
 
 <a name="v0.58.0"></a>
-## v0.58.0 (%cs)
+## v0.58.0 (2019-05-16)
 
 
 #### Features
@@ -676,7 +713,7 @@
 
 
 <a name="v0.57.2"></a>
-## v0.57.2 (%cs)
+## v0.57.2 (2019-05-10)
 
 
 #### Bug Fixes
@@ -687,7 +724,7 @@
 
 
 <a name="v0.57.1"></a>
-## v0.57.1 (%cs)
+## v0.57.1 (2019-05-10)
 
 
 #### Bug Fixes
@@ -697,7 +734,7 @@
 
 
 <a name="v0.57.0"></a>
-## v0.57.0 (%cs)
+## v0.57.0 (2019-05-09)
 
 
 #### Features
@@ -719,7 +756,7 @@
 
 
 <a name="v0.56.2"></a>
-## v0.56.2 (%cs)
+## v0.56.2 (2019-04-24)
 
 
 #### Features
@@ -730,7 +767,7 @@
 
 
 <a name="v0.56.1"></a>
-## v0.56.1 (%cs)
+## v0.56.1 (2019-04-24)
 
 
 #### Features
@@ -740,7 +777,7 @@
 
 
 <a name="v0.56.0"></a>
-## v0.56.0 (%cs)
+## v0.56.0 (2019-04-17)
 
 
 #### Features
@@ -795,7 +832,7 @@
 
 
 <a name="v0.55.0"></a>
-## v0.55.0 (%cs)
+## v0.55.0 (2019-03-27)
 
 
 #### Features
@@ -826,7 +863,7 @@
 
 
 <a name="v0.54.0"></a>
-## v0.54.0 (%cs)
+## v0.54.0 (2019-03-24)
 
 
 #### Features
@@ -862,7 +899,7 @@
 
 
 <a name="v0.53.1"></a>
-## v0.53.1 (%cs)
+## v0.53.1 (2019-03-22)
 
 
 #### Features
@@ -878,7 +915,7 @@
 
 
 <a name="v0.53.0"></a>
-## v0.53.0 (%cs)
+## v0.53.0 (2019-03-21)
 
 
 #### Features
@@ -906,7 +943,7 @@
 
 
 <a name="v0.52.1"></a>
-## v0.52.1 (%cs)
+## v0.52.1 (2019-01-24)
 
 
 #### Features
@@ -932,7 +969,7 @@
 
 
 <a name="v0.52.0"></a>
-## v0.52.0 (%cs)
+## v0.52.0 (2018-12-10)
 
 
 #### Features
@@ -952,7 +989,7 @@
 
 
 <a name="v0.51.6"></a>
-## v0.51.6 (%cs)
+## v0.51.6 (2018-11-29)
 
 
 #### Features
@@ -963,7 +1000,7 @@
 
 
 <a name="v0.51.5"></a>
-## v0.51.5 (%cs)
+## v0.51.5 (2018-11-18)
 
 
 #### Features
@@ -973,7 +1010,7 @@
 
 
 <a name="v0.51.4"></a>
-## v0.51.4 (%cs)
+## v0.51.4 (2018-11-18)
 
 
 #### Features
@@ -983,7 +1020,7 @@
 
 
 <a name="v0.51.3"></a>
-## v0.51.3 (%cs)
+## v0.51.3 (2018-11-17)
 
 
 #### Features
@@ -993,7 +1030,7 @@
 
 
 <a name="v0.51.2"></a>
-## v0.51.2 (%cs)
+## v0.51.2 (2018-11-14)
 
 
 #### Features
@@ -1003,7 +1040,7 @@
 
 
 <a name="v0.51.1"></a>
-## v0.51.1 (%cs)
+## v0.51.1 (2018-11-14)
 
 
 #### Features
@@ -1016,7 +1053,7 @@
 
 
 <a name="v0.51.0"></a>
-## v0.51.0 (%cs)
+## v0.51.0 (2018-11-02)
 
 
 #### Features
@@ -1042,7 +1079,7 @@
 
 
 <a name="v0.50.0"></a>
-## v0.50.0 (%cs)
+## v0.50.0 (2018-10-17)
 
 
 #### Features
@@ -1059,7 +1096,7 @@
 
 
 <a name="v0.49.1"></a>
-## v0.49.1 (%cs)
+## v0.49.1 (2018-09-08)
 
 
 #### Features
@@ -1071,7 +1108,7 @@
 
 
 <a name="v0.49.0"></a>
-## v0.49.0 (%cs)
+## v0.49.0 (2018-09-08)
 
 
 #### Features
@@ -1086,7 +1123,7 @@
 
 
 <a name="v0.48.1"></a>
-## v0.48.1 (%cs)
+## v0.48.1 (2018-09-04)
 
 
 #### Features
@@ -1101,7 +1138,7 @@
 
 
 <a name="v0.48.0"></a>
-## v0.48.0 (%cs)
+## v0.48.0 (2018-09-04)
 
 
 #### Features
@@ -1115,7 +1152,7 @@
 
 
 <a name="v0.47.1"></a>
-## v0.47.1 (%cs)
+## v0.47.1 (2018-08-30)
 
 
 #### Features
@@ -1126,7 +1163,7 @@
 
 
 <a name="v0.47.0"></a>
-## v0.47.0 (%cs)
+## v0.47.0 (2018-08-30)
 
 
 #### Features
@@ -1153,7 +1190,7 @@
 
 
 <a name="v0.46.0"></a>
-## v0.46.0 (%cs)
+## v0.46.0 (2018-08-26)
 
 
 #### Features
@@ -1169,7 +1206,7 @@
 
 
 <a name="v0.45.0"></a>
-## v0.45.0 (%cs)
+## v0.45.0 (2018-08-26)
 
 
 #### Features
@@ -1198,7 +1235,7 @@
 
 
 <a name="v0.44.0"></a>
-## v0.44.0 (%cs)
+## v0.44.0 (2018-08-24)
 
 
 #### Features
@@ -1220,7 +1257,7 @@
 
 
 <a name="v0.43.0"></a>
-## v0.43.0 (%cs)
+## v0.43.0 (2018-06-05)
 
 
 #### Features
@@ -1234,7 +1271,7 @@
 
 
 <a name="v0.42.1"></a>
-## v0.42.1 (%cs)
+## v0.42.1 (2018-06-05)
 
 
 #### Features
@@ -1250,7 +1287,7 @@
 
 
 <a name="v0.42.0"></a>
-## v0.42.0 (%cs)
+## v0.42.0 (2018-06-05)
 
 
 #### Features
@@ -1264,7 +1301,7 @@
 
 
 <a name="v0.41.0"></a>
-## v0.41.0 (%cs)
+## v0.41.0 (2018-05-30)
 
 
 #### Features
@@ -1277,7 +1314,7 @@
 
 
 <a name="v0.40.0"></a>
-## v0.40.0 (%cs)
+## v0.40.0 (2018-05-30)
 
 
 #### Features
@@ -1298,7 +1335,7 @@
 
 
 <a name="v0.39.0"></a>
-## v0.39.0 (%cs)
+## v0.39.0 (2018-05-30)
 
 
 #### Features
@@ -1308,7 +1345,7 @@
 
 
 <a name="v0.38.0"></a>
-## v0.38.0 (%cs)
+## v0.38.0 (2018-05-29)
 
 
 #### Features
@@ -1325,7 +1362,7 @@
 
 
 <a name="v0.37.0"></a>
-## v0.37.0 (%cs)
+## v0.37.0 (2018-05-19)
 
 
 #### Features
@@ -1336,7 +1373,7 @@
 
 
 <a name="v0.36.0"></a>
-## v0.36.0 (%cs)
+## v0.36.0 (2018-05-19)
 
 
 #### Features
@@ -1348,7 +1385,7 @@
 
 
 <a name="v0.35.2"></a>
-## v0.35.2 (%cs)
+## v0.35.2 (2018-05-19)
 
 
 #### Features
@@ -1362,7 +1399,7 @@
 
 
 <a name="v0.35.1"></a>
-## v0.35.1 (%cs)
+## v0.35.1 (2018-05-19)
 
 
 #### Bug Fixes
@@ -1372,7 +1409,7 @@
 
 
 <a name="v0.35.0"></a>
-## v0.35.0 (%cs)
+## v0.35.0 (2018-05-19)
 
 
 #### Features
@@ -1399,7 +1436,7 @@
 
 
 <a name="v0.34.0-1"></a>
-## v0.34.0-1 (%cs)
+## v0.34.0-1 (2017-12-18)
 
 
 #### Features
@@ -1436,7 +1473,7 @@
 
 
 <a name="v0.33.0"></a>
-## v0.33.0 (%cs)
+## v0.33.0 (2017-12-09)
 
 
 #### Features
@@ -1453,7 +1490,7 @@
 
 
 <a name="v0.33.0-8"></a>
-## v0.33.0-8 (%cs)
+## v0.33.0-8 (2017-12-09)
 
 
 #### Features
@@ -1463,13 +1500,13 @@
 
 
 <a name="v0.33.0-7"></a>
-## v0.33.0-7 (%cs)
+## v0.33.0-7 (2017-12-09)
 
 
 
 
 <a name="v0.33.0-6"></a>
-## v0.33.0-6 (%cs)
+## v0.33.0-6 (2017-12-09)
 
 
 #### Bug Fixes
@@ -1479,7 +1516,7 @@
 
 
 <a name="v0.33.0-5"></a>
-## v0.33.0-5 (%cs)
+## v0.33.0-5 (2017-12-09)
 
 
 #### Features
@@ -1510,7 +1547,7 @@
 
 
 <a name="v0.33.0-4"></a>
-## v0.33.0-4 (%cs)
+## v0.33.0-4 (2017-12-08)
 
 
 #### Features
@@ -1533,7 +1570,7 @@
 
 
 <a name="v0.33.0-3"></a>
-## v0.33.0-3 (%cs)
+## v0.33.0-3 (2017-12-07)
 
 
 #### Features
@@ -1544,7 +1581,7 @@
 
 
 <a name="v0.33.0-2"></a>
-## v0.33.0-2 (%cs)
+## v0.33.0-2 (2017-12-07)
 
 
 #### Features
@@ -1554,7 +1591,7 @@
 
 
 <a name="v0.33.0-1"></a>
-## v0.33.0-1 (%cs)
+## v0.33.0-1 (2017-12-07)
 
 
 #### Features
@@ -1567,7 +1604,7 @@
 
 
 <a name="v0.33.0-0"></a>
-## v0.33.0-0 (%cs)
+## v0.33.0-0 (2017-12-07)
 
 
 #### Features
@@ -1586,7 +1623,7 @@
 
 
 <a name="v0.32.0"></a>
-## v0.32.0 (%cs)
+## v0.32.0 (2017-12-06)
 
 
 #### Features
@@ -1616,7 +1653,7 @@
 
 
 <a name="v0.32.0-12"></a>
-## v0.32.0-12 (%cs)
+## v0.32.0-12 (2017-12-06)
 
 
 #### Features
@@ -1626,7 +1663,7 @@
 
 
 <a name="v0.32.0-11"></a>
-## v0.32.0-11 (%cs)
+## v0.32.0-11 (2017-12-06)
 
 
 #### Features
@@ -1638,7 +1675,7 @@
 
 
 <a name="v0.32.0-10"></a>
-## v0.32.0-10 (%cs)
+## v0.32.0-10 (2017-12-06)
 
 
 #### Features
@@ -1652,7 +1689,7 @@
 
 
 <a name="v0.32.0-9"></a>
-## v0.32.0-9 (%cs)
+## v0.32.0-9 (2017-12-06)
 
 
 #### Bug Fixes
@@ -1662,7 +1699,7 @@
 
 
 <a name="v0.32.0-8"></a>
-## v0.32.0-8 (%cs)
+## v0.32.0-8 (2017-12-06)
 
 
 #### Features
@@ -1672,7 +1709,7 @@
 
 
 <a name="v0.32.0-7"></a>
-## v0.32.0-7 (%cs)
+## v0.32.0-7 (2017-12-06)
 
 
 #### Bug Fixes
@@ -1682,7 +1719,7 @@
 
 
 <a name="v0.32.0-5"></a>
-## v0.32.0-5 (%cs)
+## v0.32.0-5 (2017-12-06)
 
 
 #### Bug Fixes
@@ -1692,25 +1729,25 @@
 
 
 <a name="v0.32.0-4"></a>
-## v0.32.0-4 (%cs)
+## v0.32.0-4 (2017-12-06)
 
 
 
 
 <a name="v0.32.0-3"></a>
-## v0.32.0-3 (%cs)
+## v0.32.0-3 (2017-12-05)
 
 
 
 
 <a name="v0.32.0-2"></a>
-## v0.32.0-2 (%cs)
+## v0.32.0-2 (2017-12-05)
 
 
 
 
 <a name="v0.32.0-1"></a>
-## v0.32.0-1 (%cs)
+## v0.32.0-1 (2017-12-05)
 
 
 
