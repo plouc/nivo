@@ -20,7 +20,7 @@ const SliceTooltip = ({ slice, axis }) => {
             rows={slice.points.map(point => [
                 <Chip key="chip" color={point.serieColor} style={theme.tooltip.chip} />,
                 point.serieId,
-                <span key="value" style={{ ...theme.tooltip.tableCellValue }}>
+                <span key="value" style={theme.tooltip.tableCellValue}>
                     {point.data[`${otherAxis}Formatted`]}
                 </span>,
             ])}
