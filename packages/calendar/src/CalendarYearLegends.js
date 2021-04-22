@@ -9,20 +9,22 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-const CalendarYearLegends = memo(({ years, legend, theme }) => (
-    <>
-        {years.map(year => (
-            <text
-                key={year.year}
-                transform={`translate(${year.x},${year.y}) rotate(${year.rotation})`}
-                textAnchor="middle"
-                style={theme.labels.text}
-            >
-                {legend(year.year)}
-            </text>
-        ))}
-    </>
-))
+const CalendarYearLegends = memo(({ years, legend, theme }) => {
+    return (
+        <>
+            {years.map(year => (
+                <text
+                    key={year.year}
+                    transform={`translate(${year.x},${year.y}) rotate(${year.rotation})`}
+                    textAnchor="middle"
+                    style={theme.labels.text}
+                >
+                    {legend(year.year)}
+                </text>
+            ))}
+        </>
+    )
+})
 
 CalendarYearLegends.propTypes = {
     years: PropTypes.array.isRequired,

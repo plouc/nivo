@@ -138,7 +138,7 @@ const monthPathAndBBox = ({
     // if the toDate is not the last of the months, we do not need to paint the path
     const lastDayOfMonth = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0)
     // ranges
-    let firstWeek = timeWeek.count(startDate, date)
+    const firstWeek = timeWeek.count(startDate, date)
     const lastWeek = timeWeek.count(lastDate, t1)
     const firstDay = date.getDay()
     const lastDay = t1.getDay()
