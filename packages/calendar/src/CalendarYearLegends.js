@@ -12,16 +12,18 @@ import PropTypes from 'prop-types'
 const CalendarYearLegends = memo(({ years, legend, theme }) => {
     return (
         <>
-            {years.map(year => (
-                <text
-                    key={year.year}
-                    transform={`translate(${year.x},${year.y}) rotate(${year.rotation})`}
-                    textAnchor="middle"
-                    style={theme.labels.text}
-                >
-                    {legend(year.year)}
-                </text>
-            ))}
+            {years.map(year => {
+                return (
+                    <text
+                        key={year.year}
+                        transform={`translate(${year.x},${year.y}) rotate(${year.rotation})`}
+                        textAnchor="middle"
+                        style={theme.labels.text}
+                    >
+                        {legend(year.year)}
+                    </text>
+                )
+            })}
         </>
     )
 })
