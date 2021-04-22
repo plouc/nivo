@@ -87,6 +87,7 @@ declare module '@nivo/core' {
             chip: Partial<React.CSSProperties>
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
+            tableCellValue: Partial<React.CSSProperties>
         }
         annotations: {
             text: Partial<React.CSSProperties>
