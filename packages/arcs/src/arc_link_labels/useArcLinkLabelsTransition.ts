@@ -244,7 +244,7 @@ export const useArcLinkLabelsTransition = <Datum extends DatumWithArcAndColor>({
     })
 
     const transition = useTransition<Datum, AnimatedProps>(filteredData, {
-        key: datum => datum.id,
+        keys: datum => datum.id,
         initial: transitionPhases.update,
         from: transitionPhases.enter,
         enter: transitionPhases.update,

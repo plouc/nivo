@@ -63,7 +63,7 @@ export const BulletMarkers = ({
     const transition = useTransition<MarkerWithPosition, PositionWithColor>(
         markers.map(marker => ({ ...marker, position: getPosition(marker) })),
         {
-            key: marker => `${marker.index}`,
+            keys: marker => `${marker.index}`,
             enter: ({ color, position }: MarkerWithPosition) => ({
                 color,
                 transform: `rotate(${position.rotation}, ${position.x}, ${position.y})`,
