@@ -138,7 +138,7 @@ export const computeCartesianTicks = ({
     const line = { lineX: 0, lineY: 0 }
     const text = { textX: 0, textY: 0 }
 
-    const isRTL = document.dir === 'rtl'
+    const isRTL = typeof document === 'object' ? document.dir === 'rtl' : false
     let translate
     let textAlign = textProps.align.center
     let textBaseline = textProps.baseline.center
