@@ -37,7 +37,7 @@ export const BulletRects = ({
 
     const { animate, config: springConfig } = useMotionConfig()
     const transition = useTransition<BulletRectComputedRect, BulletRectAnimatedProps>(rects, {
-        key: rect => `${rect.data.index}`,
+        keys: rect => `${rect.data.index}`,
         enter: rect => ({
             x: rect.x,
             y: rect.y,

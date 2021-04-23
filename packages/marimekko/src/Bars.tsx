@@ -33,7 +33,7 @@ export const Bars = <RawDatum,>({
             borderColor: string
         }
     >(bars, {
-        key: bar => bar.key,
+        keys: bar => bar.key,
         initial: bar => ({
             x: bar.x,
             y: bar.y,

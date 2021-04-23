@@ -87,6 +87,7 @@ declare module '@nivo/core' {
             chip: Partial<React.CSSProperties>
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
+            tableCellValue: Partial<React.CSSProperties>
         }
         annotations: {
             text: Partial<React.CSSProperties>
@@ -165,8 +166,10 @@ declare module '@nivo/core' {
 
     export interface CartesianMarkerProps {
         axis: 'x' | 'y'
-        value: string | number | Date
+        value: DatumValue
         legend?: string
+        legendOrientation?: 'horizontal' | 'vertical'
+        legendPosition?: BoxAlign
         lineStyle?: Partial<React.CSSProperties>
         textStyle?: Partial<React.CSSProperties>
     }

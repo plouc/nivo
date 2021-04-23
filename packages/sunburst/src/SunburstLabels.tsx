@@ -51,30 +51,33 @@ export const SunburstLabels = <RawDatum,>({
             .filter(node => node.angleDeg > skipAngle)
     }, [nodes, skipAngle])
 
-    const transition = useTransition(labelNodes, {
-        key: node => node.data.id,
-        initial: node => ({
-            opacity: 1,
-            transform: `translate(${node.position.x},${node.position.y})`,
-        }),
-        from: node => ({
-            opacity: 0,
-            transform: `translate(${node.position.x},${node.position.y})`,
-        }),
-        enter: node => ({
-            opacity: 1,
-            transform: `translate(${node.position.x},${node.position.y})`,
-        }),
-        update: node => ({
-            opacity: 1,
-            transform: `translate(${node.position.x},${node.position.y})`,
-        }),
-        leave: {
-            opacity: 0,
-        },
-        config: springConfig,
-        immediate: !animate,
-    })
+    const transition = useTransition<typeof labelNodes[0], { opacity: number; transform: string }>(
+        labelNodes,
+        {
+            keys: node => node.data.id,
+            initial: node => ({
+                opacity: 1,
+                transform: `translate(${node.position.x},${node.position.y})`,
+            }),
+            from: node => ({
+                opacity: 0,
+                transform: `translate(${node.position.x},${node.position.y})`,
+            }),
+            enter: node => ({
+                opacity: 1,
+                transform: `translate(${node.position.x},${node.position.y})`,
+            }),
+            update: node => ({
+                opacity: 1,
+                transform: `translate(${node.position.x},${node.position.y})`,
+            }),
+            leave: {
+                opacity: 0,
+            },
+            config: springConfig,
+            immediate: !animate,
+        }
+    )
 
     return (
         <>
