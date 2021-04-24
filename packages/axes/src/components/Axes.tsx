@@ -1,8 +1,7 @@
 import React from 'react'
 import { Axis } from './Axis'
+import { positions } from '../props'
 import { AnyScale, AxisProp, AxisValue } from '../types'
-
-const positions = ['top', 'right', 'bottom', 'left'] as const
 
 export const Axes = <X extends AxisValue, Y extends AxisValue>({
     xScale,

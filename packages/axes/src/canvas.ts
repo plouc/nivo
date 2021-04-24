@@ -1,5 +1,6 @@
 import { degreesToRadians, CompleteTheme } from '@nivo/core'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
+import { positions } from './props'
 import {
     AxisValue,
     TicksSpec,
@@ -23,7 +24,7 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
-        format,
+        format: _format,
 
         legend,
         legendPosition = 'end',
@@ -80,6 +81,8 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
         ctx.stroke()
     }
 
+    const format = typeof _format === 'function' ? _format : (value: unknown) => `${value}`
+
     ticks.forEach(tick => {
         if ((theme.axis.ticks.line.strokeWidth ?? 0) > 0) {
             ctx.lineWidth = Number(theme.axis.ticks.line.strokeWidth)
@@ -95,7 +98,7 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
             ctx.stroke()
         }
 
-        const value = typeof format === 'function' ? format(tick.value) : (tick.value as string)
+        const value = format(tick.value)
 
         ctx.save()
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
@@ -157,8 +160,6 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
 
     ctx.restore()
 }
-
-const positions = ['top', 'right', 'bottom', 'left'] as const
 
 export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
     ctx: CanvasRenderingContext2D,

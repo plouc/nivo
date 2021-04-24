@@ -138,18 +138,18 @@ export const computeCartesianTicks = <Value extends AxisValue>({
     scale,
     ticksPosition,
     tickValues,
-    tickSize = NaN,
-    tickPadding = NaN,
-    tickRotation = NaN,
+    tickSize,
+    tickPadding,
+    tickRotation,
     engine = 'svg',
 }: {
     axis: 'x' | 'y'
     scale: AnyScale
     ticksPosition?: 'after' | 'before'
     tickValues?: TicksSpec<Value>
-    tickSize?: number
-    tickPadding?: number
-    tickRotation?: number
+    tickSize: number
+    tickPadding: number
+    tickRotation: number
     engine?: 'svg' | 'canvas'
 }) => {
     const values = getScaleTicks(scale, tickValues)
@@ -255,25 +255,22 @@ export const computeGridLines = <Value extends AxisValue>({
 
     const position = 'bandwidth' in scale ? centerScale(scale) : scale
 
-    const lines: Line[] = values.map(value => {
-        const key = `${value}`
-
-        return axis === 'x'
-            ? {
-                  key,
+    const lines: Line[] =
+        axis === 'x'
+            ? values.map(value => ({
+                  key: `${value}`,
                   x1: position(value) ?? 0,
                   x2: position(value) ?? 0,
                   y1: 0,
                   y2: height,
-              }
-            : {
-                  key,
+              }))
+            : values.map(value => ({
+                  key: `${value}`,
                   x1: 0,
                   x2: width,
                   y1: position(value) ?? 0,
                   y2: position(value) ?? 0,
-              }
-    })
+              }))
 
     return lines
 }

@@ -21,3 +21,5 @@ export const axisPropTypes = {
 }
 
 export const axisPropType = PropTypes.shape(axisPropTypes)
+
+export const positions = ['top', 'right', 'bottom', 'left'] as const
