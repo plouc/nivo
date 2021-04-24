@@ -94,8 +94,11 @@ export const Axis = <Value extends string | number | Date>({
         immediate: !animate,
     })
 
-    const transition = useTransition(ticks, {
-        key: tick => tick.key,
+    const transition = useTransition<
+        typeof ticks[0],
+        { opacity: number; transform: string; textTransform: string }
+    >(ticks, {
+        keys: tick => tick.key,
         initial: tick => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
