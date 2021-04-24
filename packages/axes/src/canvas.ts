@@ -1,8 +1,15 @@
 import { degreesToRadians, CompleteTheme } from '@nivo/core'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
-import { TicksSpec, AnyScale, AxisLegendPosition, CanvasAxisProp, ValueFormatter } from './types'
+import {
+    AxisValue,
+    TicksSpec,
+    AnyScale,
+    AxisLegendPosition,
+    CanvasAxisProp,
+    ValueFormatter,
+} from './types'
 
-export const renderAxisToCanvas = <Value extends string | number | Date>(
+export const renderAxisToCanvas = <Value extends AxisValue>(
     ctx: CanvasRenderingContext2D,
     {
         axis,
@@ -153,10 +160,7 @@ export const renderAxisToCanvas = <Value extends string | number | Date>(
 
 const positions = ['top', 'right', 'bottom', 'left'] as const
 
-export const renderAxesToCanvas = <
-    X extends string | number | Date,
-    Y extends string | number | Date
->(
+export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
     ctx: CanvasRenderingContext2D,
     {
         xScale,
@@ -210,7 +214,7 @@ export const renderAxesToCanvas = <
     })
 }
 
-export const renderGridLinesToCanvas = <Value extends string | number | Date>(
+export const renderGridLinesToCanvas = <Value extends AxisValue>(
     ctx: CanvasRenderingContext2D,
     {
         width,

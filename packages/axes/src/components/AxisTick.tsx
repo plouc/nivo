@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 import { animated } from 'react-spring'
 import { useTheme } from '@nivo/core'
-import { AxisTickProps } from '../types'
+import { AxisTickProps, AxisValue } from '../types'
 
-export const AxisTick = <Value extends string | number | Date>({
+export const AxisTick = <Value extends AxisValue>({
     value: _value,
     format,
     lineX,

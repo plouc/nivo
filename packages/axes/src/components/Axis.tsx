@@ -3,9 +3,9 @@ import { useSpring, useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'
-import { AxisProps } from '../types'
+import { AxisProps, AxisValue } from '../types'
 
-export const Axis = <Value extends string | number | Date>({
+export const Axis = <Value extends AxisValue>({
     axis,
     scale,
     x = 0,
