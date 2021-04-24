@@ -1,4 +1,4 @@
-export default [
+export const countryCodes = [
     'AD',
     'AE',
     'AF',

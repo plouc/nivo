@@ -1,12 +1,17 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import random from 'lodash/random'
+
+type Link = {
+    distance: number
+    source: string
+    target: string
+}
+
+type ExtraNode = {
+    color: string
+    depth: number
+    id: string
+    radius: number
+}
 
 export const generateNetworkData = ({
     rootNodeRadius = 12,
@@ -23,15 +28,15 @@ export const generateNetworkData = ({
         depth: 0,
         color: 'rgb(244, 117, 96)',
     }
-    let nodes = Array.from({ length: random(minMidNodes, maxMidNodes) }, (v, k) => ({
+    let nodes = Array.from({ length: random(minMidNodes, maxMidNodes) }, (_, k) => ({
         id: `${k + 1}`,
         radius: midNodeRadius,
         depth: 1,
         color: 'rgb(97, 205, 187)',
     }))
 
-    const links = []
-    const extraNodes = []
+    const links: Link[] = []
+    const extraNodes: ExtraNode[] = []
     nodes.forEach(source => {
         links.push({
             source: '0',
@@ -47,7 +52,7 @@ export const generateNetworkData = ({
                 })
             }
         })
-        Array.from({ length: random(minLeaves, maxLeaves) }, (v, k) => {
+        Array.from({ length: random(minLeaves, maxLeaves) }, (_, k) => {
             extraNodes.push({
                 id: `${source.id}.${k}`,
                 radius: leafRadius,
@@ -59,6 +64,8 @@ export const generateNetworkData = ({
                 target: `${source.id}.${k}`,
                 distance: 30,
             })
+
+            return null
         })
     })
 

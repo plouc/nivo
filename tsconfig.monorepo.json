@@ -13,8 +13,8 @@
         { "path": "./packages/arcs" },
 
         // Utility package
-        // { "path": "./packages/generators" },
-         { "path": "./packages/recompose" },
+        { "path": "./packages/generators" },
+        { "path": "./packages/recompose" },
 
         // Charts now
         { "path": "./packages/bullet" },
