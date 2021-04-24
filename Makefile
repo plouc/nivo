@@ -143,11 +143,11 @@ packages-test: ##@1 packages run tests for all packages
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
 packages-watch-test: ##@1 packages run tests for all packages and watch for changes
-	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
 
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
-	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
 packages-types: ##@1 packages build all package types
