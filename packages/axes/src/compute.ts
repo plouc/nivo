@@ -45,7 +45,7 @@ import {
     Line,
 } from './types'
 
-export const centerScale = (scale: ScaleWithBandwidth) => {
+export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
     const bandwidth = scale.bandwidth()
 
     if (bandwidth === 0) return scale
@@ -55,7 +55,7 @@ export const centerScale = (scale: ScaleWithBandwidth) => {
         offset = Math.round(offset)
     }
 
-    return <T>(d: T) => (scale(d) ?? 0) + offset
+    return <T extends Value>(d: T) => (scale(d) ?? 0) + offset
 }
 
 const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
@@ -161,7 +161,7 @@ export const computeCartesianTicks = <Value extends AxisValue>({
     const text = { textX: 0, textY: 0 }
 
     const isRTL = typeof document === 'object' ? document.dir === 'rtl' : false
-    let translate: (value: string | number) => Point
+    let translate: (value: Value) => Point
     let textAlign: CanvasTextAlign = textProps.align.center
     let textBaseline: CanvasTextBaseline = textProps.baseline.center
 
