@@ -55,7 +55,7 @@ export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
 export type ValueFormatter<Value extends AxisValue> = (value: Value) => Value | string
 
-export interface AxisProp<Value extends AxisValue> {
+export interface SingleAxisProp<Value extends AxisValue> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
     tickSize?: number
@@ -69,7 +69,7 @@ export interface AxisProp<Value extends AxisValue> {
 }
 
 export interface CanvasAxisProp<Value extends string | number | Date>
-    extends Omit<AxisProp<Value>, 'legend'> {
+    extends Omit<SingleAxisProp<Value>, 'legend'> {
     legend?: string
 }
 
