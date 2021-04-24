@@ -32,11 +32,11 @@ export type ScaleWithBandwidth =
     | (ScalePoint<any> & { type: 'point' })
 
 export type AnyScale =
-    | (ScaleLinear<any, any> & { type: 'linear' })
-    | (ScaleOrdinal<any, any> & { type: 'ordinal' })
-    | (ScaleTime<any, any> & { useUTC: boolean; type: 'time' })
-    | (ScaleSymLog<any, any> & { type: 'symlog' })
-    | (ScaleLogarithmic<any, any> & { type: 'log' })
+    | (ScaleLinear<any, number> & { type: 'linear' })
+    | (ScaleOrdinal<any, number> & { type: 'ordinal' })
+    | (ScaleTime<any, number> & { useUTC: boolean; type: 'time' })
+    | (ScaleSymLog<any, number> & { type: 'symlog' })
+    | (ScaleLogarithmic<any, number> & { type: 'log' })
     | ScaleWithBandwidth
 
 export type TicksSpec<Value extends AxisValue> =
@@ -53,7 +53,7 @@ export type TicksSpec<Value extends AxisValue> =
 
 export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
-export type ValueFormatter<Value extends AxisValue> = (value: Value) => Value
+export type ValueFormatter<Value extends AxisValue> = (value: Value) => Value | string
 
 export interface AxisProp<Value extends AxisValue> {
     ticksPosition?: 'before' | 'after'
@@ -89,14 +89,14 @@ export interface AxisProps<Value extends AxisValue = any> {
     legend?: React.ReactNode
     legendPosition?: 'start' | 'middle' | 'end'
     legendOffset?: number
-    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value) => void
+    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
     ariaHidden?: boolean
 }
 
 export interface AxisTickProps<Value extends AxisValue> {
     tickIndex: number
     value: Value
-    format?: string | ValueFormatter<Value>
+    format?: ValueFormatter<Value>
     x: number
     y: number
     lineX: number
@@ -112,7 +112,7 @@ export interface AxisTickProps<Value extends AxisValue> {
         textTransform: string
         transform: string
     }>
-    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value) => void
+    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }
 
 export type Line = {

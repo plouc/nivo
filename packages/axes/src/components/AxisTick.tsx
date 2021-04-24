@@ -15,10 +15,7 @@ export const AxisTick = <Value extends AxisValue>({
 }: AxisTickProps<Value>) => {
     const theme = useTheme()
 
-    let value = _value
-    if (typeof format === 'function') {
-        value = format(value)
-    }
+    const value = format?.(_value) ?? _value
 
     const props = useMemo(() => {
         const style = { opacity: animatedProps.opacity }
