@@ -10,6 +10,8 @@ import {
 } from 'd3-scale'
 import React from 'react'
 
+export type AxisValue = string | number | Date
+
 export type GridValuesBuilder<T> = T extends number
     ? number[]
     : T extends string
@@ -18,7 +20,7 @@ export type GridValuesBuilder<T> = T extends number
     ? Date[]
     : never
 
-export type GridValues<T extends string | number | Date> = number | GridValuesBuilder<T>
+export type GridValues<T extends AxisValue> = number | GridValuesBuilder<T>
 
 export type Point = {
     x: number
@@ -37,7 +39,7 @@ export type AnyScale =
     | (ScaleLogarithmic<any, any> & { type: 'log' })
     | ScaleWithBandwidth
 
-export type TicksSpec<Value extends string | number | Date> =
+export type TicksSpec<Value extends AxisValue> =
     // exact number of ticks, please note that
     // depending on the current range of values,
     // you might not get this exact count
@@ -51,9 +53,9 @@ export type TicksSpec<Value extends string | number | Date> =
 
 export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
-export type ValueFormatter<Value extends string | number | Date> = (value: Value) => Value
+export type ValueFormatter<Value extends AxisValue> = (value: Value) => Value
 
-export interface AxisProp<Value extends string | number | Date> {
+export interface AxisProp<Value extends AxisValue> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
     tickSize?: number
@@ -71,7 +73,7 @@ export interface CanvasAxisProp<Value extends string | number | Date>
     legend?: string
 }
 
-export interface AxisProps<Value extends number | string | Date = any> {
+export interface AxisProps<Value extends AxisValue = any> {
     axis: 'x' | 'y'
     scale: AnyScale
     x?: number
@@ -91,7 +93,7 @@ export interface AxisProps<Value extends number | string | Date = any> {
     ariaHidden?: boolean
 }
 
-export interface AxisTickProps<Value extends number | string | Date> {
+export interface AxisTickProps<Value extends AxisValue> {
     tickIndex: number
     value: Value
     format?: string | ValueFormatter<Value>

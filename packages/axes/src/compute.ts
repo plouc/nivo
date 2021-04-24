@@ -35,7 +35,15 @@ import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 // @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
-import { Point, TicksSpec, AnyScale, ScaleWithBandwidth, ValueFormatter, Line } from './types'
+import {
+    AxisValue,
+    Point,
+    TicksSpec,
+    AnyScale,
+    ScaleWithBandwidth,
+    ValueFormatter,
+    Line,
+} from './types'
 
 export const centerScale = (scale: ScaleWithBandwidth) => {
     const bandwidth = scale.bandwidth()
@@ -76,7 +84,7 @@ const isInteger = (value: unknown): value is number =>
 
 const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
 
-export const getScaleTicks = <Value extends string | number | Date>(
+export const getScaleTicks = <Value extends AxisValue>(
     scale: AnyScale,
     spec?: TicksSpec<Value>
 ) => {
@@ -125,7 +133,7 @@ export const getScaleTicks = <Value extends string | number | Date>(
     return scale.domain()
 }
 
-export const computeCartesianTicks = <Value extends string | number | Date>({
+export const computeCartesianTicks = <Value extends AxisValue>({
     axis,
     scale,
     ticksPosition,
@@ -212,7 +220,7 @@ export const computeCartesianTicks = <Value extends string | number | Date>({
     }
 }
 
-export const getFormatter = <Value extends string | number | Date>(
+export const getFormatter = <Value extends AxisValue>(
     format: string | ValueFormatter<Value> | undefined,
     scale: AnyScale
 ): ValueFormatter<Value> | undefined => {
@@ -227,7 +235,7 @@ export const getFormatter = <Value extends string | number | Date>(
     return (d3Format(format) as unknown) as ValueFormatter<Value>
 }
 
-export const computeGridLines = <Value extends string | number | Date>({
+export const computeGridLines = <Value extends AxisValue>({
     width,
     height,
     scale,

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 import { GridLines } from './GridLines'
 import { computeGridLines } from '../compute'
-import { AnyScale } from '../types'
+import { AnyScale, AxisValue } from '../types'
 
-export const Grid = <X extends number | string | Date, Y extends number | string | Date>({
+export const Grid = <X extends AxisValue, Y extends AxisValue>({
     width,
     height,
     xScale,
