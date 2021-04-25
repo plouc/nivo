@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
+import { CirclePackingSvgProps } from './types'
 import { CirclePacking } from './CirclePacking'
-import { CirclePackSvgProps } from './types'
 
 type ResponsiveCirclePackingProps<RawDatum> = Partial<
     Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>
