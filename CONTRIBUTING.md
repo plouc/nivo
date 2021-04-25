@@ -58,7 +58,7 @@ To automate this process, you can start a watcher on the package you're working
 on, for example if you want to make some change on the `@nivo/bar` package,
 you should run `make package-dev-bar` and then start the website `make website`,
 this way each change you make will trigger a build and will be (almost :))
-immedialty visible on the website.
+immediately visible on the website.
 
 You can also build the packages without running a watcher, you have two options:
 
