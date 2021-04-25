@@ -8,10 +8,10 @@
  */
 import React, { Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
-import setDisplayName from 'recompose/setDisplayName'
 import { getRelativeCursor, isCursorInRect, LegacyContainer } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { setDisplayName } from '@nivo/recompose'
 import { BasicTooltip } from '@nivo/tooltip'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import { BarDefaultProps, BarPropTypes } from './props'

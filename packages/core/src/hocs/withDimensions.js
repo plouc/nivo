@@ -6,12 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { compose, setPropTypes, defaultProps, withPropsOnChange } from '@nivo/recompose'
 import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
-import compose from 'recompose/compose'
-import setPropTypes from 'recompose/setPropTypes'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
 import { marginPropType } from '../props'
 import { defaultMargin } from '../defaults'
 
