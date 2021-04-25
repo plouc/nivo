@@ -139,8 +139,8 @@ const InnerCirclePacking = <RawDatum,>({
             role={role}
         >
             {layers.map((layer, i) => {
-                if (layerById[layer as CirclePackLayerId] !== undefined) {
-                    return layerById[layer as CirclePackLayerId]
+                if (layerById[layer as CirclePackingLayerId] !== undefined) {
+                    return layerById[layer as CirclePackingLayerId]
                 }
 
                 if (typeof layer === 'function') {
@@ -154,10 +154,10 @@ const InnerCirclePacking = <RawDatum,>({
 }
 
 export const CirclePacking = <RawDatum,>({
+    theme,
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
-    theme,
     ...otherProps
 }: Partial<Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
     Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (

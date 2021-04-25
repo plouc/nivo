@@ -30,13 +30,15 @@ export interface ComputedDatum<RawDatum> {
     parent?: ComputedDatum<RawDatum>
 }
 
-export type CirclePackLayerId = 'circles' | 'labels'
+export type CirclePackingLayerId = 'circles' | 'labels'
 
-export interface CirclePackCustomLayerProps<RawDatum extends DatumWithChildren<RawDatum>> {}
+export interface CirclePackingCustomLayerProps<RawDatum> {
+    nodes: ComputedDatum<RawDatum>[]
+}
 
-export type CirclePackCustomLayer<RawDatum> = React.FC<CirclePackCustomLayerProps<RawDatum>>
+export type CirclePackingCustomLayer<RawDatum> = React.FC<CirclePackingCustomLayerProps<RawDatum>>
 
-export type CirclePackLayer<RawDatum> = CirclePackLayerId | CirclePackCustomLayer<RawDatum>
+export type CirclePackingLayer<RawDatum> = CirclePackingLayerId | CirclePackingCustomLayer<RawDatum>
 
 export type MouseHandler<RawDatum> = (
     datum: ComputedDatum<RawDatum>,

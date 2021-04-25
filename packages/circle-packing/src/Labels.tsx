@@ -68,7 +68,7 @@ export const Labels = <RawDatum,>({
             opacity: number
         }
     >(labels, {
-        key: label => label.node.id,
+        keys: label => label.node.id,
         initial: transitionPhases.update,
         from: transitionPhases.enter,
         enter: transitionPhases.update,
