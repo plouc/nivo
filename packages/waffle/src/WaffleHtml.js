@@ -8,7 +8,7 @@
  */
 import React, { Component, Fragment } from 'react'
 import partial from 'lodash.partial'
-import setDisplayName from 'recompose/setDisplayName'
+import { setDisplayName } from '@nivo/recompose'
 import { TransitionMotion, spring } from 'react-motion'
 import { LegacyContainer } from '@nivo/core'
 import enhance from './enhance'
