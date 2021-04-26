@@ -9,7 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import partial from 'lodash.partial'
 import { TransitionMotion, spring } from 'react-motion'
-import setDisplayName from 'recompose/setDisplayName'
+import { setDisplayName } from '@nivo/recompose'
 import { LegacyContainer, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { WafflePropTypes } from './props'
