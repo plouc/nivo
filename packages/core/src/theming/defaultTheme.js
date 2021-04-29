@@ -38,9 +38,7 @@ export const defaultTheme = {
         },
     },
     legends: {
-        text: {
-            fill: '#333333',
-        },
+        text: {},
     },
     labels: {
         text: {},
@@ -73,6 +71,9 @@ export const defaultTheme = {
         table: {},
         tableCell: {
             padding: '3px 5px',
+        },
+        tableCellValue: {
+            fontWeight: 'bold',
         },
     },
     crosshair: {

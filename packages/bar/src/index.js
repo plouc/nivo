@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 export { default as Bar } from './Bar'
+export { default as BarItem } from './BarItem'
 export { default as BarCanvas } from './BarCanvas'
 export { default as ResponsiveBar } from './ResponsiveBar'
 export { default as ResponsiveBarCanvas } from './ResponsiveBarCanvas'

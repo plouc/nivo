@@ -138,6 +138,7 @@ export const computeCartesianTicks = ({
     const line = { lineX: 0, lineY: 0 }
     const text = { textX: 0, textY: 0 }
 
+    const isRTL = typeof document === 'object' ? document.dir === 'rtl' : false
     let translate
     let textAlign = textProps.align.center
     let textBaseline = textProps.baseline.center
@@ -160,13 +161,13 @@ export const computeCartesianTicks = ({
             (ticksPosition === 'after' && tickRotation < 0) ||
             (ticksPosition === 'before' && tickRotation > 0)
         ) {
-            textAlign = textProps.align.right
+            textAlign = textProps.align[isRTL ? 'left' : 'right']
             textBaseline = textProps.baseline.center
         } else if (
             (ticksPosition === 'after' && tickRotation > 0) ||
             (ticksPosition === 'before' && tickRotation < 0)
         ) {
-            textAlign = textProps.align.left
+            textAlign = textProps.align[isRTL ? 'right' : 'left']
             textBaseline = textProps.baseline.center
         }
     } else {
@@ -183,7 +184,7 @@ export const computeCartesianTicks = ({
     }
 
     const ticks = values.map(value => ({
-        key: value,
+        key: typeof value === 'number' || typeof value === 'string' ? value : `${value}`,
         value,
         ...translate(value),
         ...line,

@@ -1,0 +1,31 @@
+flavors:
+  - flavor: svg
+    path: /marimekko/
+
+Marimekko:
+  package: '@nivo/marimekko'
+  tags: 
+    - svg
+    - isomorphic
+  stories:
+    - label: using arrays for data
+      link: marimekko--using-arrays-for-data
+    - label: diverging chart
+      link: marimekko--diverging
+    - label: custom layers
+      link: marimekko--custom-layers
+  description: |
+    The `Marimekko` component is somewhat similar to a bar chart,
+    but it allows you to use an extra dimension to compute the
+    thickness of each bar.
+
+    It also shares some behavior of the `Stream` chart regarding
+    the way we can configure the `offset`.
+
+    The responsive alternative of this component is `ResponsiveMarimekko`.
+
+    You can also see more example usages in
+    [the storybook](storybook:marimekko--default).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.

@@ -2,20 +2,20 @@
 
 [![version](https://img.shields.io/npm/v/@bitbloom/nivo-circle-packing.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-circle-packing)
 
-## Bubble
+## CirclePacking
 
-[documentation](http://nivo.rocks/bubble)
+[documentation](http://nivo.rocks/circle-pack)
 
-![Bubble](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/bubble.png)
+![CirclePacking](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/circle-packing.png)
 
-## BubbleHtml
+## CirclePackingHtml
 
-[documentation](http://nivo.rocks/bubble/html)
+[documentation](http://nivo.rocks/circle-pack/html)
 
-![BubbleHtml](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/bubble-html.png)
+![CirclePackingHtml](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/circle-packing-html.png)
 
-## BubbleCanvas
+## CirclePackingCanvas
 
-[documentation](http://nivo.rocks/bubble/canvas)
+[documentation](http://nivo.rocks/circle-packing/canvas)
 
-![BubbleCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/bubble-canvas.png)
+![CirclePackingCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/circle-packing-canvas.png)

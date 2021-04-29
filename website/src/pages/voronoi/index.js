@@ -1,14 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import range from 'lodash/range'
+<<<<<<< HEAD
 import { ResponsiveVoronoi, VoronoiDefaultProps } from '@bitbloom/nivo-voronoi'
+=======
+import { ResponsiveVoronoi, defaultVoronoiProps } from '@nivo/voronoi'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/voronoi/meta.yml'
 import { groups } from '../../data/components/voronoi/props'
@@ -20,7 +16,7 @@ const generateData = () =>
     range(100).map(id => ({ id, x: Math.random() * xDomain[1], y: Math.random() * yDomain[1] }))
 
 const initialProperties = {
-    ...ResponsiveVoronoi.defaultProps,
+    ...defaultVoronoiProps,
 
     xDomain,
     yDomain,
@@ -55,7 +51,7 @@ const Voronoi = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={VoronoiDefaultProps}
+            defaultProperties={defaultVoronoiProps}
             generateData={generateData}
         >
             {(properties, data, theme) => {

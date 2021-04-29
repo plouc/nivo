@@ -15,7 +15,8 @@ import GridLine from './GridLine'
 const GridLines = ({ lines }) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const transitions = useTransition(lines, line => line.key, {
+    const transition = useTransition(lines, {
+        key: line => line.key,
         initial: line => ({
             opacity: 1,
             x1: line.x1,
@@ -53,8 +54,8 @@ const GridLines = ({ lines }) => {
 
     return (
         <g>
-            {transitions.map(({ item: line, props: animatedProps, key }) => (
-                <GridLine {...line} key={key} animatedProps={animatedProps} />
+            {transition((animatedProps, line) => (
+                <GridLine {...line} key={line.key} animatedProps={animatedProps} />
             ))}
         </g>
     )

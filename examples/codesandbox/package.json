@@ -1,0 +1,60 @@
+{
+  "name": "nivo",
+  "version": "1.0.0",
+  "description": "Nivo example starter project",
+  "keywords": [
+    "nivo",
+    "starter"
+  ],
+  "main": "src/index.js",
+  "dependencies": {
+    "@nivo/annotations": "0.63.1",
+    "@nivo/axes": "0.63.0",
+    "@nivo/bar": "0.63.1",
+    "@nivo/bullet": "0.63.1",
+    "@nivo/bump": "0.63.1",
+    "@nivo/calendar": "0.63.1",
+    "@nivo/chord": "0.63.1",
+    "@nivo/circle-packing": "0.63.1",
+    "@nivo/colors": "0.63.0",
+    "@nivo/core": "0.63.1",
+    "@nivo/funnel": "0.63.1",
+    "@nivo/generators": "0.63.0",
+    "@nivo/geo": "0.63.1",
+    "@nivo/heatmap": "0.63.0",
+    "@nivo/legends": "0.63.1",
+    "@nivo/line": "0.63.1",
+    "@nivo/network": "0.63.1",
+    "@nivo/parallel-coordinates": "0.63.1",
+    "@nivo/pie": "0.63.1",
+    "@nivo/radar": "0.63.1",
+    "@nivo/sankey": "0.63.1",
+    "@nivo/scales": "0.63.0",
+    "@nivo/scatterplot": "0.63.1",
+    "@nivo/stream": "0.63.1",
+    "@nivo/sunburst": "0.63.1",
+    "@nivo/swarmplot": "0.63.1",
+    "@nivo/tooltip": "0.63.0",
+    "@nivo/treemap": "0.63.0",
+    "@nivo/voronoi": "0.63.1",
+    "@nivo/waffle": "0.63.1",
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
+    "react-scripts": "3.4.3"
+  },
+  "devDependencies": {
+    "typescript": "3.8.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

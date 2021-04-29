@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Dimensions, Box, Theme } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
 
 declare module '@bitbloom/nivo-treemap' {
     export type TreeMapTile = 'binary' | 'squarify' | 'slice' | 'dice' | 'sliceDice' | 'resquarify'
@@ -57,18 +57,18 @@ declare module '@bitbloom/nivo-treemap' {
         innerPadding?: number
         outerPadding?: number
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         colorBy?: string
         nodeOpacity?: number
         borderWidth?: number
-        borderColor?: InheritedColorProp<
+        borderColor?: InheritedColorConfig<
             Omit<TreeMapNodeDatum, 'borderColor' | 'labelTextColor' | 'parentLabelTextColor'>
         >
         enableLabel?: boolean
         label?: string
         labelSkipSize?: number
         orientLabel?: boolean
-        labelTextColor?: InheritedColorProp<
+        labelTextColor?: InheritedColorConfig<
             Omit<TreeMapNodeDatum, 'labelTextColor' | 'parentLabelTextColor'>
         >
         enableParentLabel?: boolean
@@ -76,7 +76,7 @@ declare module '@bitbloom/nivo-treemap' {
         parentLabelSize?: number
         parentLabelPosition?: 'top' | 'right' | 'bottom' | 'left'
         parentLabelPadding?: number
-        parentLabelTextColor?: InheritedColorProp<Omit<TreeMapNodeDatum, 'parentLabelTextColor'>>
+        parentLabelTextColor?: InheritedColorConfig<Omit<TreeMapNodeDatum, 'parentLabelTextColor'>>
         isInteractive?: boolean
         animate?: boolean
     }

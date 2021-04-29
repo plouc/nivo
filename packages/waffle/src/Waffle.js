@@ -9,9 +9,15 @@
 import React, { Component, Fragment } from 'react'
 import partial from 'lodash.partial'
 import { TransitionMotion, spring } from 'react-motion'
+<<<<<<< HEAD
 import setDisplayName from 'recompose/setDisplayName'
 import { Container, SvgWrapper } from '@bitbloom/nivo-core'
 import { BoxLegendSvg } from '@bitbloom/nivo-legends'
+=======
+import { setDisplayName } from '@nivo/recompose'
+import { LegacyContainer, SvgWrapper } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
 import { applyDataToGrid } from './compute'
@@ -92,7 +98,7 @@ export class Waffle extends Component {
         })
 
         return (
-            <Container
+            <LegacyContainer
                 isInteractive={isInteractive}
                 theme={theme}
                 animate={animate}
@@ -207,7 +213,7 @@ export class Waffle extends Component {
                         </SvgWrapper>
                     )
                 }}
-            </Container>
+            </LegacyContainer>
         )
     }
 }

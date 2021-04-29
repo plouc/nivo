@@ -17,7 +17,7 @@ declare module '@bitbloom/nivo-axes' {
 
     export type Orient = 'top' | 'right' | 'bottom' | 'left'
 
-    type AxisPositions = { [K in Orient]: AxisProps }
+    type AxisPositions = Partial<{ [K in Orient]: AxisProps }>
 
     interface Scales {
         xScale?: Scale

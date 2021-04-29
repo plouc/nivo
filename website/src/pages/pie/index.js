@@ -1,14 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
+<<<<<<< HEAD
 import { ResponsivePie, PieDefaultProps } from '@bitbloom/nivo-pie'
 import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
+=======
+import { ResponsivePie, defaultProps } from '@nivo/pie'
+import { generateProgrammingLanguageStats } from '@nivo/generators'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'
@@ -29,15 +26,19 @@ const initialProperties = {
         left: 80,
     },
 
-    startAngle: 0,
-    endAngle: 360,
-    sortByValue: false,
+    valueFormat: { format: '', enabled: false },
+
+    startAngle: defaultProps.startAngle,
+    endAngle: defaultProps.endAngle,
+    sortByValue: defaultProps.sortByValue,
     innerRadius: 0.5,
     padAngle: 0.7,
     cornerRadius: 3,
-    fit: true,
+    fit: defaultProps.fit,
+    activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset: 8,
 
-    colors: { scheme: 'nivo' },
+    colors: defaultProps.colors,
 
     borderWidth: 1,
     borderColor: {
@@ -45,25 +46,25 @@ const initialProperties = {
         modifiers: [['darker', 0.2]],
     },
 
-    enableRadialLabels: true,
-    radialLabel: 'id',
-    radialLabelsSkipAngle: 10,
-    radialLabelsTextXOffset: 6,
-    radialLabelsTextColor: '#333333',
-    radialLabelsLinkOffset: 0,
-    radialLabelsLinkDiagonalLength: 16,
-    radialLabelsLinkHorizontalLength: 24,
-    radialLabelsLinkStrokeWidth: 1,
-    radialLabelsLinkColor: { from: 'color' },
+    enableArcLinkLabels: defaultProps.enableArcLinkLabels,
+    arcLinkLabel: defaultProps.arcLinkLabel,
+    arcLinkLabelsSkipAngle: 10,
+    arcLinkLabelsTextOffset: 6,
+    arcLinkLabelsTextColor: '#333333',
+    arcLinkLabelsOffset: 0,
+    arcLinkLabelsDiagonalLength: 16,
+    arcLinkLabelsStraightLength: 24,
+    arcLinkLabelsThickness: 2,
+    arcLinkLabelsColor: { from: 'color' },
 
-    enableSlicesLabels: true,
-    sliceLabel: 'value',
-    slicesLabelsSkipAngle: 10,
-    slicesLabelsTextColor: '#333333',
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    enableArcLabels: true,
+    arcLabel: 'formattedValue',
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsSkipAngle: 10,
+    arcLabelsTextColor: {
+        from: 'color',
+        modifiers: [['darker', 2]],
+    },
 
     isInteractive: true,
     'custom tooltip example': false,
@@ -73,19 +74,25 @@ const initialProperties = {
     defs: [],
     fill: [],
 
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
+    transitionMode: defaultProps.transitionMode,
+
     legends: [
         {
             anchor: 'bottom',
             direction: 'row',
+            justify: false,
+            translateX: 0,
             translateY: 56,
+            itemsSpacing: 0,
             itemWidth: 100,
             itemHeight: 18,
             itemTextColor: '#999',
+            itemDirection: 'left-to-right',
+            itemOpacity: 1,
             symbolSize: 18,
             symbolShape: 'circle',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
             effects: [
                 {
                     on: 'hover',
@@ -108,23 +115,39 @@ const Pie = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={PieDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
+                const handleArcClick = slice => {
+                    logAction({
+                        type: 'click',
+                        label: `[arc] ${slice.id}: ${slice.formattedValue}`,
+                        color: slice.color,
+                        data: slice,
+                    })
+                }
+
+                const handleLegendClick = legendItem => {
+                    logAction({
+                        type: 'click',
+                        label: `[legend] ${legendItem.label}: ${legendItem.formattedValue}`,
+                        color: legendItem.color,
+                        data: legendItem,
+                    })
+                }
+
                 return (
                     <ResponsivePie
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={slice => {
-                            logAction({
-                                type: 'click',
-                                label: `[arc] ${slice.label}: ${slice.value}`,
-                                data: slice,
-                            })
-                        }}
+                        onClick={handleArcClick}
+                        legends={properties.legends.map(legend => ({
+                            ...legend,
+                            onClick: handleLegendClick,
+                        }))}
                     />
                 )
             }}

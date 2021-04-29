@@ -148,47 +148,53 @@ const ChoroplethCanvas = memo(
         ])
 
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
-        const handleMouseMove = useCallback(() => {
-            if (!isInteractive || !Tooltip) return
+        const handleMouseMove = useCallback(
+            event => {
+                if (!isInteractive || !Tooltip) return
 
-            const feature = getFeatureFromMouseEvent(
-                event,
-                canvasEl.current,
+                const feature = getFeatureFromMouseEvent(
+                    event,
+                    canvasEl.current,
+                    boundFeatures,
+                    projection
+                )
+                if (feature) {
+                    showTooltipFromEvent(<Tooltip feature={feature} />, event)
+                } else {
+                    hideTooltip()
+                }
+                onMouseMove && onMouseMove(feature || null, event)
+            },
+            [
+                showTooltipFromEvent,
+                hideTooltip,
+                isInteractive,
+                Tooltip,
+                canvasEl,
                 boundFeatures,
-                projection
-            )
-            if (feature) {
-                showTooltipFromEvent(<Tooltip feature={feature} />, event)
-            } else {
-                hideTooltip()
-            }
-            onMouseMove && onMouseMove(feature || null, event)
-        }, [
-            showTooltipFromEvent,
-            hideTooltip,
-            isInteractive,
-            Tooltip,
-            canvasEl,
-            boundFeatures,
-            projection,
-        ])
+                projection,
+            ]
+        )
         const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
             isInteractive,
             hideTooltip,
         ])
-        const handleClick = useCallback(() => {
-            if (!isInteractive || !onClick) return
+        const handleClick = useCallback(
+            event => {
+                if (!isInteractive || !onClick) return
 
-            const feature = getFeatureFromMouseEvent(
-                event,
-                canvasEl.current,
-                boundFeatures,
-                projection
-            )
-            if (feature) {
-                onClick(feature, event)
-            }
-        }, [isInteractive, canvasEl, boundFeatures, projection, onClick])
+                const feature = getFeatureFromMouseEvent(
+                    event,
+                    canvasEl.current,
+                    boundFeatures,
+                    projection
+                )
+                if (feature) {
+                    onClick(feature, event)
+                }
+            },
+            [isInteractive, canvasEl, boundFeatures, projection, onClick]
+        )
 
         return (
             <canvas

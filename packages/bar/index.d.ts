@@ -16,7 +16,7 @@ import {
     CartesianMarkerProps,
 } from '@bitbloom/nivo-core'
 import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
 
 declare module '@bitbloom/nivo-bar' {
@@ -39,7 +39,6 @@ declare module '@bitbloom/nivo-bar' {
         value: number
         index: number
         indexValue: Value
-        color: string
         data: BarDatum
     }
 
@@ -51,19 +50,18 @@ declare module '@bitbloom/nivo-bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
-    export type BarMouseEventHandler<T = HTMLCanvasElement> = (
+    type GraphicsContainer = HTMLCanvasElement | SVGElement
+
+    export type BarMouseEventHandler<T = GraphicsContainer> = (
         datum: BarExtendedDatum,
         event: React.MouseEvent<T>
     ) => void
 
-    export type TooltipProp = React.StatelessComponent<BarExtendedDatum>
+    export type BarTooltipDatum = BarExtendedDatum & { color: string }
+    export type TooltipProp = React.FC<BarTooltipDatum>
 
     export interface BarItemProps {
-        data: {
-            id: string | number
-            value: number
-            indexValue: string | number
-        }
+        data: BarExtendedDatum
         x: number
         y: number
         width: number
@@ -80,7 +78,7 @@ declare module '@bitbloom/nivo-bar' {
         onMouseLeave: BarMouseEventHandler
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp
-        showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<HTMLCanvasElement>) => void
+        showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<GraphicsContainer>) => void
         hideTooltip: () => void
         theme: Theme
     }
@@ -99,6 +97,9 @@ declare module '@bitbloom/nivo-bar' {
         maxValue: number | 'auto'
         padding: number
 
+        valueScale: Scale
+        indexScale: BandScale
+
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null
         axisRight: AxisProps | null
@@ -109,18 +110,18 @@ declare module '@bitbloom/nivo-bar' {
         enableGridY: boolean
         gridYValues: GridValues<Value>
 
-        barComponent: React.StatelessComponent<BarItemProps>
+        barComponent: React.FC<BarItemProps>
 
         enableLabel: boolean
         label: string | AccessorFunc
         labelFormat: string | LabelFormatter
-        labelLinkColor: InheritedColorProp<BarDatumWithColor>
+        labelLinkColor: InheritedColorConfig<BarDatumWithColor>
         labelSkipWidth: number
         labelSkipHeight: number
-        labelTextColor: InheritedColorProp<BarDatumWithColor>
+        labelTextColor: InheritedColorConfig<BarDatumWithColor>
 
-        colors: OrdinalColorsInstruction
-        borderColor: InheritedColorProp<BarDatumWithColor>
+        colors: OrdinalColorScaleConfig
+        borderColor: InheritedColorConfig<BarDatumWithColor>
         borderRadius: number
         borderWidth: number
         theme: Theme
@@ -135,13 +136,7 @@ declare module '@bitbloom/nivo-bar' {
         markers: CartesianMarkerProps[]
     }>
 
-    export enum BarLayerType {
-        Grid = 'grid',
-        Axes = 'axes',
-        Bars = 'bars',
-        Markers = 'markers',
-        Legends = 'legends',
-    }
+    export type BarLayerType = 'grid' | 'axes' | 'bars' | 'markers' | 'legends'
     export type BarCustomLayer = (props: any) => React.ReactNode
     export type Layer = BarLayerType | BarCustomLayer
 
@@ -151,9 +146,9 @@ declare module '@bitbloom/nivo-bar' {
         SvgDefsAndFill<BarDatum> &
         Partial<{
             layers: Layer[]
-            onClick: BarMouseEventHandler<SVGRectElement>
-            onMouseEnter: BarMouseEventHandler<SVGRectElement>
-            onMouseLeave: BarMouseEventHandler<SVGRectElement>
+            onClick: BarMouseEventHandler<SVGElement>
+            onMouseEnter: BarMouseEventHandler<SVGElement>
+            onMouseLeave: BarMouseEventHandler<SVGElement>
             role: string
         }>
 

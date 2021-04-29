@@ -6,7 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 import { BulletDefaultProps as defaults } from '@bitbloom/nivo-bullet'
+=======
+import { defaultProps } from '@nivo/bullet'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
@@ -73,7 +77,7 @@ const props = [
         help: `How to display items.`,
         type: 'string',
         required: false,
-        defaultValue: defaults.layout,
+        defaultValue: defaultProps.layout,
         controlType: 'radio',
         controlOptions: {
             choices: [
@@ -93,7 +97,7 @@ const props = [
         `,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.reverse,
+        defaultValue: defaultProps.reverse,
         controlType: 'switch',
     },
     {
@@ -109,7 +113,7 @@ const props = [
         help: 'define spacing between items.',
         type: 'number',
         required: false,
-        defaultValue: defaults.spacing,
+        defaultValue: defaultProps.spacing,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -123,7 +127,7 @@ const props = [
         help: 'define size of measure related to item size, expressed as a ratio.',
         type: 'number',
         required: false,
-        defaultValue: defaults.measureSize,
+        defaultValue: defaultProps.measureSize,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -137,7 +141,7 @@ const props = [
         help: 'define size of markers related to item size, expressed as a ratio.',
         type: 'number',
         required: false,
-        defaultValue: defaults.markerSize,
+        defaultValue: defaultProps.markerSize,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -165,7 +169,7 @@ const props = [
         `,
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.rangeColors,
+        defaultValue: defaultProps.rangeColors,
         controlType: 'colors',
         group: 'Style',
         controlOptions: {
@@ -190,7 +194,7 @@ const props = [
         `,
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.measureColors,
+        defaultValue: defaultProps.measureColors,
         controlType: 'colors',
         group: 'Style',
         controlOptions: {
@@ -215,7 +219,7 @@ const props = [
         `,
         type: 'string | Function| string[]',
         required: false,
-        defaultValue: defaults.markerColors,
+        defaultValue: defaultProps.markerColors,
         controlType: 'colors',
         group: 'Style',
         controlOptions: {
@@ -227,7 +231,7 @@ const props = [
         help: `Where to put axis.`,
         type: 'string',
         required: false,
-        defaultValue: defaults.axisPosition,
+        defaultValue: defaultProps.axisPosition,
         controlType: 'radio',
         group: 'Axes',
         controlOptions: {
@@ -242,7 +246,7 @@ const props = [
         help: `Where to put title.`,
         type: 'string',
         required: false,
-        defaultValue: defaults.titlePosition,
+        defaultValue: defaultProps.titlePosition,
         controlType: 'radio',
         group: 'Title',
         controlOptions: {
@@ -257,7 +261,7 @@ const props = [
         help: `title alignment.`,
         type: 'string',
         required: false,
-        defaultValue: defaults.titleAlign,
+        defaultValue: defaultProps.titleAlign,
         controlType: 'choices',
         group: 'Title',
         controlOptions: {
@@ -273,7 +277,7 @@ const props = [
         help: 'title x offset from bullet edge.',
         type: 'number',
         required: false,
-        defaultValue: defaults.titleOffset,
+        defaultValue: defaultProps.titleOffset,
         controlType: 'range',
         group: 'Title',
         controlOptions: {
@@ -287,7 +291,7 @@ const props = [
         help: 'title y offset from bullet edge.',
         type: 'number',
         required: false,
-        defaultValue: defaults.titleOffset,
+        defaultValue: defaultProps.titleOffset,
         controlType: 'range',
         group: 'Title',
         controlOptions: {
@@ -301,7 +305,7 @@ const props = [
         help: 'title rotation.',
         type: 'number',
         required: false,
-        defaultValue: defaults.titleRotation,
+        defaultValue: defaultProps.titleRotation,
         controlType: 'angle',
         group: 'Title',
         controlOptions: {
@@ -321,7 +325,7 @@ const props = [
         description: `
             onClick handler for ranges, will receive range
             data as first argument & event as second one.
-            
+
             The data has the following shape:
             \`\`\`
             {
@@ -332,7 +336,7 @@ const props = [
                 color: string,
             }
             \`\`\`
-            
+
             \`v1\` is the value of the range while
             \`v0\` is the value of previous range.
         `,
@@ -347,7 +351,7 @@ const props = [
         description: `
             onClick handler for measures, will receive measure
             data as first argument & event as second one.
-            
+
             The data has the following shape:
             \`\`\`
             {
@@ -385,7 +389,7 @@ const props = [
             \`\`\`
         `,
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

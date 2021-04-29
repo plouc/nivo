@@ -6,6 +6,11 @@
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/stream"
+  },
   "keywords": [
     "nivo",
     "dataviz",
@@ -30,12 +35,15 @@
     "@bitbloom/nivo-tooltip": "^0.62.5",
     "d3-scale": "^3.0.0",
     "d3-shape": "^1.3.5",
-    "react-spring": "^8.0.27"
+    "react-spring": "9.1.2"
+  },
+  "devDependencies": {
+    "@nivo/core": "0.68.0"
   },
   "peerDependencies": {
     "@bitbloom/nivo-core": "^0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 17.0.0"
+    "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"

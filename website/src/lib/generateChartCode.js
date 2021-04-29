@@ -78,6 +78,8 @@ const generate = (
         properties.push(`${key}=${value}`)
     })
 
+    const install = `// yarn add @nivo/core ${pkg}`
+
     const imports = [name, ...children.map(([c]) => c)].map(i => `import { ${i} } from '${pkg}'`)
 
     let responsiveWarning = ''
@@ -92,7 +94,9 @@ const generate = (
         ].join('\n')
     }
 
-    return `${imports.join('\n')}
+    return `// install (please make sure versions match peerDependencies)
+${install}
+${imports.join('\n')}
 ${responsiveWarning}
 const My${name} = (${args}) => (
     <${name}

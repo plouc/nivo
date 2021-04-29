@@ -1,0 +1,6 @@
+{
+  "installCommand": "make:init",
+  "buildCommand": false,
+  "packages": ["packages/*"],
+  "sandboxes": ["/examples/codesandbox", "/website"]
+}

@@ -1,6 +1,5 @@
 {
   "name": "nivo",
-  "version": "0.52.0",
   "private": true,
   "licenses": [
     {
@@ -16,6 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
+<<<<<<< HEAD
     "@bitbloom/nivo-generators": "^0.62.0",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-info": "^5.3.19",
@@ -25,18 +25,45 @@
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
     "@storybook/theming": "^5.3.19",
+=======
+    "@nivo/generators": "*",
+    "@rollup/plugin-babel": "^5.0.3",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-knobs": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/addon-storysource": "^6.0.26",
+    "@storybook/addons": "^6.0.26",
+    "@storybook/react": "^6.0.26",
+    "@storybook/theming": "^6.0.26",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.15",
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.16",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "@wyze/clog-cli": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
+    "babel-plugin-lodash": "^3.3.4",
     "babel-preset-react-app": "^9.1.2",
     "chalk": "^2.4.2",
-    "clog-cli": "^1.0.0",
-    "enzyme": "^3.10.0",
+    "core-js": "^3.0.1",
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "eslint": "^7.3.0",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^1.0.0",
     "jest": "^26.0.1",
     "jsdom": "^16.2.2",
@@ -50,22 +77,25 @@
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",
     "rollup": "^2.17.1",
-    "@rollup/plugin-babel": "^5.0.3",
     "rollup-plugin-cleanup": "^3.1.1",
-    "@rollup/plugin-node-resolve": "^8.0.1",
     "rollup-plugin-prettier": "^2.1.0",
+    "rollup-plugin-size": "^0.2.2",
     "rollup-plugin-strip-banner": "^2.0.0",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-visualizer": "^4.2.0",
     "serve": "^11.2.0",
-    "tslint": "^6.1.2",
-    "typescript": "^3.9.5"
+    "typescript": "^4.0.5"
   },
   "resolutions": {
+    "@types/react": "^16.9.16",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },
   "scripts": {
-    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
+    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
+    "make:init": "make init",
+    "prepublishOnly": "yarn release:prepare",
+    "release:prepare": "node scripts/bump-peer-deps.js && yarn changelog",
+    "version": "yarn release:prepare"
   },
   "workspaces": [
     "packages/*",

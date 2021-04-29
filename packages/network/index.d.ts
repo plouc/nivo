@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps } from '@bitbloom/nivo-core'
-import { InheritedColorProp } from '@bitbloom/nivo-colors'
+import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -67,10 +67,10 @@ declare module '@bitbloom/nivo-network' {
 
         nodeColor: string | NodeAccessor<ComputedNode, string>
         nodeBorderWidth?: number
-        nodeBorderColor?: InheritedColorProp<ComputedNode>
+        nodeBorderColor?: InheritedColorConfig<ComputedNode>
 
         linkThickness?: number | LinkAccessor<ComputedLink, number>
-        linkColor?: InheritedColorProp<ComputedLink>
+        linkColor?: InheritedColorConfig<ComputedLink>
 
         theme?: Theme
 

@@ -1,10 +1,20 @@
 {
+<<<<<<< HEAD
   "name": "@bitbloom/nivo-circle-packing",
   "version": "0.62.5",
+=======
+  "name": "@nivo/circle-packing",
+  "version": "0.68.0",
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/circle-packing"
   },
   "keywords": [
     "nivo",
@@ -16,23 +26,34 @@
   ],
   "main": "./dist/nivo-circle-packing.cjs.js",
   "module": "./dist/nivo-circle-packing.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
+<<<<<<< HEAD
     "@bitbloom/nivo-colors": "^0.62.5",
     "@bitbloom/nivo-core": "^0.62.5",
     "@bitbloom/nivo-tooltip": "^0.62.5",
+=======
+    "@nivo/colors": "0.68.0",
+    "@nivo/tooltip": "0.68.0",
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.11",
-    "react-motion": "^0.5.2",
-    "recompose": "^0.30.0"
+    "react-spring": "9.1.2"
+  },
+  "devDependencies": {
+    "@nivo/core": "0.68.0",
+    "@types/d3-hierarchy": "^1.1.7"
   },
   "peerDependencies": {
+    "@nivo/core": "0.68.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 17.0.0"
+    "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"

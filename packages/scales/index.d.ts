@@ -13,6 +13,8 @@ declare module '@bitbloom/nivo-scales' {
         max?: 'auto' | number
         stacked?: boolean
         reverse?: boolean
+        clamp?: boolean
+        nice?: boolean | number
     }
 
     export interface PointScale {
@@ -34,6 +36,7 @@ declare module '@bitbloom/nivo-scales' {
         useUTC?: boolean
         min?: 'auto' | Date
         max?: 'auto' | Date
+        nice?: boolean | number | CountableTimeInterval
     }
 
     export interface LogScale {
@@ -50,6 +53,11 @@ declare module '@bitbloom/nivo-scales' {
         max?: 'auto' | number
     }
 
+    export interface BandScale {
+        type: 'band'
+        round?: boolean
+    }
+
     export type Scale =
         | LinearScale
         | PointScale
@@ -57,6 +65,7 @@ declare module '@bitbloom/nivo-scales' {
         | TimeScaleFormatted
         | LogScale
         | SymlogScale
+        | BandScale
 
     export type ScaleFunc = (value: string | number | Date) => number
 }

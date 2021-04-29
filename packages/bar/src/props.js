@@ -15,6 +15,7 @@ import {
 } from '@bitbloom/nivo-colors'
 import { axisPropType } from '@bitbloom/nivo-axes'
 import { LegendPropShape } from '@bitbloom/nivo-legends'
+import { scalePropType, bandScalePropTypes } from '@nivo/scales'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {
@@ -32,6 +33,8 @@ export const BarPropTypes = {
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     reverse: PropTypes.bool.isRequired,
+    valueScale: scalePropType.isRequired,
+    indexScale: bandScalePropTypes.isRequired,
 
     minValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
@@ -111,6 +114,10 @@ export const BarDefaultProps = {
 
     minValue: 'auto',
     maxValue: 'auto',
+
+    valueScale: { type: 'linear' },
+    indexScale: { type: 'band', round: true },
+
     padding: 0.1,
     innerPadding: 0,
 

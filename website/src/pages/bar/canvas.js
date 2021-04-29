@@ -40,6 +40,9 @@ const initialProperties = {
     layout: 'horizontal',
     reverse: false,
 
+    valueScale: { type: 'linear' },
+    indexScale: { type: 'band', round: true },
+
     colors: { scheme: 'red_blue' },
     colorBy: 'id',
     borderWidth: 0,

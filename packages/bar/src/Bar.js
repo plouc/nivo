@@ -8,11 +8,11 @@
  */
 import React, { Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { bindDefs, Container, SvgWrapper, CartesianMarkers } from '@bitbloom/nivo-core'
+import { bindDefs, LegacyContainer, SvgWrapper, CartesianMarkers } from '@bitbloom/nivo-core'
 import { Axes, Grid } from '@bitbloom/nivo-axes'
 import { BoxLegendSvg } from '@bitbloom/nivo-legends'
+import { setDisplayName } from '@bitbloom/nivo-recompose'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
-import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarSvgDefaultProps, BarSvgPropTypes } from './props'
 import BarAnnotations from './BarAnnotations'
@@ -56,6 +56,9 @@ const Bar = props => {
         reverse,
         minValue,
         maxValue,
+
+        valueScale,
+        indexScale,
 
         margin,
         width,
@@ -111,7 +114,8 @@ const Bar = props => {
 
         role,
     } = props
-    const options = {
+    const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
+    const result = generateBars({
         layout,
         reverse,
         data,
@@ -124,9 +128,9 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
-    }
-    const result =
-        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
+        valueScale,
+        indexScale,
+    })
 
     const motionProps = {
         animate,
@@ -158,7 +162,7 @@ const Bar = props => {
     })
 
     return (
-        <Container
+        <LegacyContainer
             isInteractive={isInteractive}
             theme={theme}
             animate={animate}
@@ -190,16 +194,18 @@ const Bar = props => {
                             key="bars"
                             willEnter={willEnter}
                             willLeave={willLeave}
-                            styles={result.bars.map(bar => ({
-                                key: bar.key,
-                                data: bar,
-                                style: {
-                                    x: spring(bar.x, springConfig),
-                                    y: spring(bar.y, springConfig),
-                                    width: spring(bar.width, springConfig),
-                                    height: spring(bar.height, springConfig),
-                                },
-                            }))}
+                            styles={result.bars
+                                .filter(bar => bar.data.value !== null)
+                                .map(bar => ({
+                                    key: bar.key,
+                                    data: bar,
+                                    style: {
+                                        x: spring(bar.x, springConfig),
+                                        y: spring(bar.y, springConfig),
+                                        width: spring(bar.width, springConfig),
+                                        height: spring(bar.height, springConfig),
+                                    },
+                                }))}
                         >
                             {interpolatedStyles => (
                                 <g>
@@ -224,18 +230,20 @@ const Bar = props => {
                         </TransitionMotion>
                     )
                 } else {
-                    bars = result.bars.map(d =>
-                        React.createElement(barComponent, {
-                            key: d.key,
-                            ...d,
-                            ...commonProps,
-                            label: getLabel(d.data),
-                            shouldRenderLabel: shouldRenderLabel(d),
-                            labelColor: getLabelTextColor(d, theme),
-                            borderColor: getBorderColor(d),
-                            theme,
-                        })
-                    )
+                    bars = result.bars
+                        .filter(bar => bar.data.value !== null)
+                        .map(d =>
+                            React.createElement(barComponent, {
+                                key: d.key,
+                                ...d,
+                                ...commonProps,
+                                label: getLabel(d.data),
+                                shouldRenderLabel: shouldRenderLabel(d),
+                                labelColor: getLabelTextColor(d, theme),
+                                borderColor: getBorderColor(d),
+                                theme,
+                            })
+                        )
                 }
 
                 const layerById = {
@@ -332,7 +340,7 @@ const Bar = props => {
                     </SvgWrapper>
                 )
             }}
-        </Container>
+        </LegacyContainer>
     )
 }
 

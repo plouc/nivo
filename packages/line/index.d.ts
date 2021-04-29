@@ -17,7 +17,7 @@ import {
     DataFormatter,
     DatumValue as CoreDatumValue,
 } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction } from '@bitbloom/nivo-colors'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
 import { Scale, ScaleFunc } from '@bitbloom/nivo-scales'
 import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
@@ -154,7 +154,7 @@ declare module '@bitbloom/nivo-line' {
 
         lineWidth?: number
 
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         theme?: Theme
 
         axisTop?: AxisProps | null

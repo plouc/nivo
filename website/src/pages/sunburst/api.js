@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { generateLibTree } from '@bitbloom/nivo-generators'
 import SEO from '../../components/seo'
@@ -32,25 +24,31 @@ const SunburstApi = () => {
                     width: 600,
                     height: 600,
                     data: JSON.stringify(data, null, '  '),
-
                     margin: {
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10,
                     },
-
-                    identity: 'name',
+                    id: 'name',
                     value: 'loc',
-
+                    valueFormat: { format: '', enabled: false },
                     cornerRadius: 2,
-
                     borderWidth: 1,
                     borderColor: 'white',
-
                     colors: { scheme: 'nivo' },
+                    colorBy: 'id',
+                    inheritColorFromParent: false,
                     childColor: {
                         from: 'color',
+                    },
+                    enableArcLabels: true,
+                    arcLabel: 'formattedValue',
+                    arcLabelsRadiusOffset: 0.5,
+                    arcLabelsSkipAngle: 10,
+                    arcLabelsTextColor: {
+                        from: 'color',
+                        modifiers: [['darker', 1.4]],
                     },
                 }}
             />

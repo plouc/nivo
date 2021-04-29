@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Theme, Dimensions, MotionProps, ColorProps, SvgDefsAndFill } from '@bitbloom/nivo-core'
-import { InheritedColorProp } from '@bitbloom/nivo-colors'
+import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 
 declare module '@bitbloom/nivo-waffle' {
     export type WaffleFillDirection = 'top' | 'right' | 'bottom' | 'left'
@@ -40,7 +40,7 @@ declare module '@bitbloom/nivo-waffle' {
             emptyColor: string
             emptyOpacity: number
             borderWidth: number
-            borderColor: InheritedColorProp<WaffleDatum>
+            borderColor: InheritedColorConfig<WaffleDatum>
 
             enableLabels: boolean
 

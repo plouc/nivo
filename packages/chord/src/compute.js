@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { arc as d3Arc } from 'd3-shape'
 import { chord as d3Chord, ribbon as d3Ribbon } from 'd3-chord'
 

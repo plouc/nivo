@@ -9,8 +9,13 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
+<<<<<<< HEAD
 import { useSpring, animated } from 'react-spring'
 import { curveFromProp, useMotionConfig } from '@bitbloom/nivo-core'
+=======
+import { animated } from 'react-spring'
+import { curveFromProp, useAnimatedPath } from '@nivo/core'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const lineGenerator = line()
     .x(d => d.x)
@@ -52,18 +57,13 @@ const ParallelCoordinatesAxisDensityPoly = ({ axis, variable, variablesScale }) 
         })
     })
 
-    const { animate, config: springConfig } = useMotionConfig()
-    const animatedProps = useSpring({
-        path: lineGenerator(points),
-        config: springConfig,
-        immediate: !animate,
-    })
+    const animatedPath = useAnimatedPath(lineGenerator(points))
 
     if (variable.densityBins.length === 0) return null
 
     return (
         <animated.path
-            d={animatedProps.path}
+            d={animatedPath}
             fill="rgba(0,0,0,.06)"
             stroke="rgba(0,0,0,.3)"
             strokeWidth={1}

@@ -187,10 +187,10 @@ export const useBump = ({
     const series = useMemo(
         () =>
             rawSeries.map(serie => {
-                serie.color = getColor(serie)
-                serie.style = getSerieStyle(serie)
-
-                return serie
+                const nextSerie = { ...serie }
+                nextSerie.color = getColor(nextSerie)
+                nextSerie.style = getSerieStyle(nextSerie)
+                return nextSerie
             }),
         [rawSeries, getColor, getSerieStyle]
     )

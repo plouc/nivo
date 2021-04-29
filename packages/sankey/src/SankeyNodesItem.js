@@ -8,9 +8,15 @@
  */
 import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
+<<<<<<< HEAD
 import { useSpring, animated } from 'react-spring'
 import { useMotionConfig } from '@bitbloom/nivo-core'
 import { BasicTooltip, useTooltip } from '@bitbloom/nivo-tooltip'
+=======
+import { useSpring, animated, to } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
+import { BasicTooltip, useTooltip } from '@nivo/tooltip'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const SankeyNodesItem = ({
     node,
@@ -80,8 +86,8 @@ const SankeyNodesItem = ({
         <animated.rect
             x={animatedProps.x}
             y={animatedProps.y}
-            width={animatedProps.width.interpolate(v => Math.max(v, 0))}
-            height={animatedProps.height.interpolate(v => Math.max(v, 0))}
+            width={to(animatedProps.width, v => Math.max(v, 0))}
+            height={to(animatedProps.height, v => Math.max(v, 0))}
             fill={animatedProps.color}
             fillOpacity={animatedProps.opacity}
             strokeWidth={borderWidth}

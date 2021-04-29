@@ -14,8 +14,8 @@ import { SwarmPlot } from '../src'
 
 const CustomNode = d => {
     const getArcColor = useOrdinalColorScale({ scheme: 'purple_orange' }, v => v)
-    const { arcs, arcGenerator } = usePie({
-        data: d.node.data.categories,
+    const { dataWithArc, arcGenerator } = usePie({
+        data: d.node.data.categories.map((value, id) => ({ id, value })),
         radius: d.size / 2,
         innerRadius: (d.size / 2) * 0.7,
         sortByValue: true,
@@ -25,8 +25,8 @@ const CustomNode = d => {
         <g transform={`translate(${d.x},${d.y})`}>
             <circle r={d.size / 2} stroke="rgb(216, 218, 235)" strokeWidth={12} />
             <circle r={d.size / 2} fill="rgb(45, 0, 75)" stroke="rgb(45, 0, 75)" strokeWidth={6} />
-            {arcs.map((arc, i) => {
-                return <path key={i} d={arcGenerator(arc)} fill={getArcColor(i)} />
+            {dataWithArc.map((datum, i) => {
+                return <path key={i} d={arcGenerator(datum.arc)} fill={getArcColor(i)} />
             })}
             {d.size > 52 && (
                 <text

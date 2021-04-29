@@ -7,12 +7,20 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+<<<<<<< HEAD
 import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@bitbloom/nivo-core'
 import { ordinalColorsPropType } from '@bitbloom/nivo-colors'
 import { axisPropType } from '@bitbloom/nivo-axes'
 import { scalePropType } from '@bitbloom/nivo-scales'
 import { LegendPropShape } from '@bitbloom/nivo-legends'
 import { crosshairPropTypes } from '@bitbloom/nivo-tooltip'
+=======
+import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
+import { axisPropType } from '@nivo/axes'
+import { scalePropType } from '@nivo/scales'
+import { LegendPropShape } from '@nivo/legends'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
 
@@ -128,7 +136,7 @@ const commonPropTypes = {
     sliceTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     enableCrosshair: PropTypes.bool.isRequired,
-    crosshairType: crosshairPropTypes.type.isRequired,
+    crosshairType: PropTypes.string.isRequired,
 }
 
 export const LinePropTypes = {

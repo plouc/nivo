@@ -15,7 +15,8 @@ const ParallelCoordinatesAxisDensityCircles = ({ axis, variable, variablesScale 
     const otherPosition = variablesScale(variable.key)
 
     const { animate, config: springConfig } = useMotionConfig()
-    const transitions = useTransition(variable.densityBins, bin => bin.id, {
+    const transition = useTransition(variable.densityBins, {
+        key: bin => bin.id,
         enter: bin => ({
             radius: 0,
             x: axis === 'y' ? otherPosition : bin.position,
@@ -33,9 +34,9 @@ const ParallelCoordinatesAxisDensityCircles = ({ axis, variable, variablesScale 
 
     return (
         <g>
-            {transitions.map(({ props: animatedProps, key }) => (
+            {transition((animatedProps, bin) => (
                 <animated.circle
-                    key={key}
+                    key={bin.id}
                     r={animatedProps.radius}
                     cx={animatedProps.x}
                     cy={animatedProps.y}

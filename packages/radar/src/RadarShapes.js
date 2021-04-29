@@ -8,15 +8,20 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useSprings, animated } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 import { lineRadial } from 'd3-shape'
+<<<<<<< HEAD
 import { useMotionConfig, useTheme, blendModePropType } from '@bitbloom/nivo-core'
 import { useInheritedColor, inheritedColorPropType } from '@bitbloom/nivo-colors'
+=======
+import { useMotionConfig, useTheme, useAnimatedPath, blendModePropType } from '@nivo/core'
+import { useInheritedColor, inheritedColorPropType } from '@nivo/colors'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const RadarShapes = memo(
     ({
         data,
-        keys,
+        item: key,
         colorByKey,
         radiusScale,
         angleStep,
@@ -37,39 +42,32 @@ const RadarShapes = memo(
         }, [radiusScale, angleStep, curveInterpolator])
 
         const { animate, config: springConfig } = useMotionConfig()
-        const springs = useSprings(
-            keys.length,
-            keys.map(key => ({
-                path: lineGenerator(data.map(d => d[key])),
-                fill: colorByKey[key],
-                stroke: getBorderColor({ key, color: colorByKey[key] }),
-                config: springConfig,
-                immediate: !animate,
-            }))
-        )
-
-        return springs.map((animatedProps, index) => {
-            const key = keys[index]
-
-            return (
-                <animated.path
-                    key={key}
-                    d={animatedProps.path}
-                    fill={animatedProps.fill}
-                    fillOpacity={fillOpacity}
-                    stroke={animatedProps.stroke}
-                    strokeWidth={borderWidth}
-                    style={{ mixBlendMode: blendMode }}
-                />
-            )
+        const animatedPath = useAnimatedPath(lineGenerator(data.map(d => d[key])))
+        const animatedProps = useSpring({
+            fill: colorByKey[key],
+            stroke: getBorderColor({ key, color: colorByKey[key] }),
+            config: springConfig,
+            immediate: !animate,
         })
+
+        return (
+            <animated.path
+                key={key}
+                d={animatedPath}
+                fill={animatedProps.fill}
+                fillOpacity={fillOpacity}
+                stroke={animatedProps.stroke}
+                strokeWidth={borderWidth}
+                style={{ mixBlendMode: blendMode }}
+            />
+        )
     }
 )
 
 RadarShapes.displayName = 'RadarShapes'
 RadarShapes.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     colorByKey: PropTypes.object.isRequired,
 
     radiusScale: PropTypes.func.isRequired,

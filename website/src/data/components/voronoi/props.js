@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * This file is part of the nivo project.
  *
@@ -7,6 +8,9 @@
  * file that was distributed with this source code.
  */
 import { VoronoiDefaultProps as defaults } from '@bitbloom/nivo-voronoi'
+=======
+import { defaultVoronoiProps } from '@nivo/voronoi'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
@@ -33,7 +37,7 @@ const props = [
         help: 'Defines the x values domain.',
         type: '[number, number]',
         required: false,
-        defaultValue: defaults.xDomain,
+        defaultValue: defaultVoronoiProps.xDomain,
     },
     {
         key: 'yDomain',
@@ -41,7 +45,7 @@ const props = [
         help: 'Defines the y values domain.',
         type: '[number, number]',
         required: false,
-        defaultValue: defaults.yDomain,
+        defaultValue: defaultVoronoiProps.yDomain,
     },
     {
         key: 'width',
@@ -104,14 +108,14 @@ const props = [
             data and must return a valid SVG element.
         `,
         required: false,
-        defaultValue: defaults.layers,
+        defaultValue: defaultVoronoiProps.layers,
     },
     {
         key: 'enableLinks',
         help: 'Enable/disable links.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableLinks,
+        defaultValue: defaultVoronoiProps.enableLinks,
         controlType: 'switch',
         group: 'Links',
     },
@@ -120,7 +124,7 @@ const props = [
         help: 'Links line width.',
         type: 'number',
         required: false,
-        defaultValue: defaults.linkLineWidth,
+        defaultValue: defaultVoronoiProps.linkLineWidth,
         controlType: 'lineWidth',
         group: 'Links',
     },
@@ -129,7 +133,7 @@ const props = [
         help: 'Links color.',
         type: 'string',
         required: false,
-        defaultValue: defaults.linkLineColor,
+        defaultValue: defaultVoronoiProps.linkLineColor,
         controlType: 'colorPicker',
         group: 'Links',
     },
@@ -138,7 +142,7 @@ const props = [
         help: 'Enable/disable cells.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableCells,
+        defaultValue: defaultVoronoiProps.enableCells,
         controlType: 'switch',
         group: 'Cells',
     },
@@ -147,7 +151,7 @@ const props = [
         help: 'Border width for cells.',
         type: 'number',
         required: false,
-        defaultValue: defaults.cellLineWidth,
+        defaultValue: defaultVoronoiProps.cellLineWidth,
         controlType: 'lineWidth',
         group: 'Cells',
     },
@@ -156,7 +160,7 @@ const props = [
         help: 'Border color for cells.',
         type: 'string',
         required: false,
-        defaultValue: defaults.cellLineColor,
+        defaultValue: defaultVoronoiProps.cellLineColor,
         controlType: 'colorPicker',
         group: 'Cells',
     },
@@ -165,7 +169,7 @@ const props = [
         help: 'Enable/disable points.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enablePoints,
+        defaultValue: defaultVoronoiProps.enablePoints,
         controlType: 'switch',
         group: 'Points',
     },
@@ -174,7 +178,7 @@ const props = [
         help: 'Size of points.',
         type: 'number',
         required: false,
-        defaultValue: defaults.siteSize,
+        defaultValue: defaultVoronoiProps.pointSize,
         controlType: 'range',
         group: 'Points',
         controlOptions: {
@@ -189,7 +193,7 @@ const props = [
         help: 'Points color.',
         type: 'string',
         required: false,
-        defaultValue: defaults.pointColor,
+        defaultValue: defaultVoronoiProps.pointColor,
         controlType: 'colorPicker',
         group: 'Points',
     },

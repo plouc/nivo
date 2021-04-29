@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+<<<<<<< HEAD
 import React, { Component, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { tooltipContext, useTooltipHandlers, TooltipWrapper } from '@bitbloom/nivo-tooltip'
@@ -74,22 +75,35 @@ Container.propTypes = {
     motionConfig: MotionConfigProvider.propTypes.config,
     renderWrapper: PropTypes.bool,
 }
+=======
+import React, { Component } from 'react'
+import { Container } from '../components/Container'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 export const withContainer = WrappedComponent => {
     // eslint-disable-next-line react/display-name
     return class extends Component {
         render() {
             // eslint-disable-next-line react/prop-types
-            const { theme, renderWrapper, ...childProps } = this.props
+            const {
+                theme,
+                renderWrapper,
+                animate,
+                motionStiffness,
+                motionDamping,
+                motionConfig,
+                ...childProps
+            } = this.props
 
             return (
                 <Container
                     theme={theme}
                     renderWrapper={renderWrapper}
-                    animate={childProps.animate}
-                    motionStiffness={childProps.motionStiffness}
-                    motionDamping={childProps.motionDamping}
-                    motionConfig={childProps.motionConfig}
+                    isInteractive={childProps.isInteractive}
+                    animate={animate}
+                    motionStiffness={motionStiffness}
+                    motionDamping={motionDamping}
+                    motionConfig={motionConfig}
                 >
                     <WrappedComponent {...childProps} />
                 </Container>

@@ -9,7 +9,10 @@ package-lock.json
 .npmrc
 
 build
+*.tsbuildinfo
 
 /packages/*/dist
 
 *.lerna_backup
+
+/stats

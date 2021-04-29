@@ -6,6 +6,11 @@
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/pie"
+  },
   "keywords": [
     "nivo",
     "dataviz",
@@ -16,11 +21,12 @@
   ],
   "main": "./dist/nivo-pie.cjs.js",
   "module": "./dist/nivo-pie.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@bitbloom/nivo-colors": "^0.62.5",
@@ -33,8 +39,8 @@
     "recompose": "^0.30.0"
   },
   "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 17.0.0"
+    "@nivo/core": "0.68.0",
+    "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"

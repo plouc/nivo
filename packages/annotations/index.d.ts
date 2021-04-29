@@ -8,7 +8,6 @@
  */
 import { Component, ReactNode } from 'react'
 import { MotionProps } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
 
 declare module '@bitbloom/nivo-annotations' {
     export type AnnotationType = 'circle' | 'dot' | 'rect'

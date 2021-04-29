@@ -1,22 +1,20 @@
-parser: babel-eslint
-
-parserOptions:
-  ecmaVersion: 6
-  sourceType:  module
-  ecmaFeatures:
-    jsx:                          true
-    experimentalObjectRestSpread: true
-
-env:
-  browser: true
-  es6:     true
-
-globals:
-  global: true
-
 extends:
+  - react-app
   - eslint:recommended
-  - plugin:react/recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:prettier/recommended
+  - prettier
+  - prettier/@typescript-eslint
+  - prettier/react
+
+rules:
+  # Leave this as a warning while we convert the codebase, then remove it
+  '@typescript-eslint/ban-ts-comment': 'warn'
+  '@typescript-eslint/explicit-module-boundary-types': 'off'
+  '@typescript-eslint/no-empty-interface': 'warn'
+  '@typescript-eslint/no-empty-function': 'warn'
+  '@typescript-eslint/no-use-before-define': 'warn'
+  'no-use-before-define': 'off'
 
 settings:
   react:

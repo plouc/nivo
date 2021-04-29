@@ -1,15 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import sortBy from 'lodash/sortBy'
 import areaBump from './components/area-bump/meta.yml'
 import bar from './components/bar/meta.yml'
-import bubble from './components/bubble/meta.yml'
+import circlePacking from './components/circle-packing/meta.yml'
 import bump from './components/bump/meta.yml'
 import bullet from './components/bullet/meta.yml'
 import calendar from './components/calendar/meta.yml'
@@ -19,6 +11,7 @@ import funnel from './components/funnel/meta.yml'
 import geomap from './components/geomap/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
 import line from './components/line/meta.yml'
+import marimekko from './components/marimekko/meta.yml'
 import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
 import pie from './components/pie/meta.yml'
@@ -46,10 +39,10 @@ export const components = [
         tags: bar.Bar.tags,
     },
     {
-        label: 'Bubble',
-        path: '/bubble/',
+        label: 'CirclePacking',
+        path: '/circle-packing/',
         icon: 'circle-packing',
-        tags: bubble.Bubble.tags,
+        tags: circlePacking.CirclePacking.tags,
     },
     {
         label: 'Bump',
@@ -104,6 +97,12 @@ export const components = [
         path: '/line/',
         icon: 'line',
         tags: line.Line.tags,
+    },
+    {
+        label: 'Marimekko',
+        path: '/marimekko/',
+        icon: 'marimekko',
+        tags: marimekko.Marimekko.tags,
     },
     {
         label: 'Network',
@@ -193,23 +192,24 @@ const all = components.concat([
         tags: [...bar.Bar.tags, 'HTTP API'],
     },
     {
-        label: 'BubbleHtml',
-        path: '/bubble/html/',
+        label: 'CirclePackingHtml',
+        path: '/circle-packing/html/',
         icon: 'circle-packing',
-        tags: bubble.BubbleHtml.tags,
+        tags: circlePacking.CirclePackingHtml.tags,
     },
     {
-        label: 'BubbleCanvas',
-        path: '/bubble/canvas/',
+        label: 'CirclePackingCanvas',
+        path: '/circle-packing/canvas/',
         icon: 'circle-packing',
-        tags: bubble.BubbleCanvas.tags,
+        tags: circlePacking.CirclePackingCanvas.tags,
     },
-    {
-        label: 'Bubble HTTP API',
-        path: '/bubble/api/',
-        icon: 'circle-packing',
-        tags: [...bubble.Bubble.tags, 'HTTP API'],
-    },
+    // Disabled until the API is fixed
+    // {
+    //     label: 'CirclePacking HTTP API',
+    //     path: '/circle-packing/api/',
+    //     icon: 'circle-packing',
+    //     tags: [...circlePacking.CirclePacking.tags, 'HTTP API'],
+    // },
     {
         label: 'CalendarCanvas',
         path: '/calendar/canvas/',

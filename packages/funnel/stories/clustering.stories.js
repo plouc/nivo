@@ -15,7 +15,7 @@ import { ResponsiveWaffle } from '../../waffle/src'
 import { ResponsiveBar } from '../../bar/src'
 import { ResponsiveFunnel } from '../src'
 
-const stories = storiesOf('Funnel/sub-clustering', module)
+const stories = storiesOf('Funnel', module)
 
 const steps = ['sent', 'viewed', 'clicked', 'add_to_card', 'purchased']
 const baseValue = 100000
@@ -342,4 +342,4 @@ const Sample = () => {
     )
 }
 
-stories.add('demo', () => <Sample />)
+stories.add('sub-clustering', () => <Sample />)

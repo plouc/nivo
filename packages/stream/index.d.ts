@@ -17,7 +17,7 @@ import {
     AreaCurve,
     SvgDefsAndFill,
 } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
 import { Scale } from '@bitbloom/nivo-scales'
 import { AxisProps } from '@bitbloom/nivo-axes'
@@ -64,19 +64,19 @@ declare module '@bitbloom/nivo-stream' {
         enableGridX: boolean
         enableGridY: boolean
 
-        colors: OrdinalColorsInstruction
+        colors: OrdinalColorScaleConfig
         fillOpacity: number
 
         borderWidth: number
-        borderColor: InheritedColorProp
+        borderColor: InheritedColorConfig
 
         enableDots: boolean
         renderDot: StreamDotsItem
         dotPosition: 'start' | 'center' | 'end'
         dotSize: DatumToNumber | number
-        dotColor: InheritedColorProp
+        dotColor: InheritedColorConfig
         dotBorderWidth: DatumToNumber | number
-        dotBorderColor: InheritedColorProp
+        dotBorderColor: InheritedColorConfig
 
         isInteractive: boolean
         tooltipLabel: TooltipLabel<T>

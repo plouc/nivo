@@ -8,14 +8,14 @@
  */
 import { Component, MouseEvent } from 'react'
 import { Dimensions, Box, Theme, MotionProps, SvgDefsAndFill, CssMixBlendMode } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
 
 declare module '@bitbloom/nivo-bump' {
     type SerieDerivedProp<Serie, T> = (serie: Serie) => T
 
     export interface BumpInputDatum {
-        x: string | number
-        y: string | number
+        x?: string | number | null
+        y?: string | number | null
         [key: string]: any
     }
 
@@ -42,23 +42,23 @@ declare module '@bitbloom/nivo-bump' {
         xPadding?: number
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
 
         startLabel?: BumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColorProp
+        startLabelTextColor?: InheritedColorConfig
         endLabel?: BumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColorProp
+        endLabelTextColor?: InheritedColorConfig
 
         pointSize?: number
         activePointSize?: number
         inactivePointSize?: number
-        pointColor?: InheritedColorProp
+        pointColor?: InheritedColorConfig
         pointBorderWidth?: number
         activePointBorderWidth?: number
         inactivePointBorderWidth?: number
-        pointBorderColor?: InheritedColorProp
+        pointBorderColor?: InheritedColorConfig
 
         enableGridX?: boolean
         enableGridY?: boolean
@@ -141,7 +141,7 @@ declare module '@bitbloom/nivo-bump' {
         xPadding?: number
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         blendMode?: CssMixBlendMode
         fillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeFillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
@@ -149,17 +149,17 @@ declare module '@bitbloom/nivo-bump' {
         borderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
-        borderColor?: InheritedColorProp
+        borderColor?: InheritedColorConfig
         borderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
 
         startLabel?: AreaBumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColorProp
+        startLabelTextColor?: InheritedColorConfig
         endLabel?: AreaBumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColorProp
+        endLabelTextColor?: InheritedColorConfig
 
         enableGridX?: boolean
         axisTop?: any

@@ -9,7 +9,11 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
+<<<<<<< HEAD
 import { useMotionConfig } from '@bitbloom/nivo-core'
+=======
+import { useAnimatedPath, useMotionConfig } from '@nivo/core'
+>>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { useSerieHandlers } from './hooks'
 
 const Line = ({
@@ -39,8 +43,8 @@ const Line = ({
 
     const linePath = lineGenerator(serie.linePoints)
 
+    const animatedPath = useAnimatedPath(linePath)
     const animatedProps = useSpring({
-        path: linePath,
         color: serie.color,
         opacity: serie.style.opacity,
         lineWidth: serie.style.lineWidth,
@@ -52,7 +56,7 @@ const Line = ({
         <>
             <animated.path
                 fill="none"
-                d={animatedProps.path}
+                d={animatedPath}
                 stroke={animatedProps.color}
                 strokeWidth={animatedProps.lineWidth}
                 strokeLinecap="round"

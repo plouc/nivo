@@ -124,29 +124,35 @@ const GeoMapCanvas = memo(props => {
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const handleMouseMove = useCallback(() => {
-        if (!isInteractive || !Tooltip) return
+    const handleMouseMove = useCallback(
+        event => {
+            if (!isInteractive || !Tooltip) return
 
-        const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
-        if (feature) {
-            showTooltipFromEvent(<Tooltip feature={feature} />, event)
-        } else {
-            hideTooltip()
-        }
-        onMouseMove && onMouseMove(feature || null, event)
-    }, [showTooltipFromEvent, hideTooltip, isInteractive, Tooltip, canvasEl, features, projection])
+            const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
+            if (feature) {
+                showTooltipFromEvent(<Tooltip feature={feature} />, event)
+            } else {
+                hideTooltip()
+            }
+            onMouseMove && onMouseMove(feature || null, event)
+        },
+        [showTooltipFromEvent, hideTooltip, isInteractive, Tooltip, canvasEl, features, projection]
+    )
     const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
         isInteractive,
         hideTooltip,
     ])
-    const handleClick = useCallback(() => {
-        if (!isInteractive || !onClick) return
+    const handleClick = useCallback(
+        event => {
+            if (!isInteractive || !onClick) return
 
-        const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
-        if (feature) {
-            onClick(feature, event)
-        }
-    }, [isInteractive, canvasEl, features, projection, onClick])
+            const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
+            if (feature) {
+                onClick(feature, event)
+            }
+        },
+        [isInteractive, canvasEl, features, projection, onClick]
+    )
 
     return (
         <canvas
