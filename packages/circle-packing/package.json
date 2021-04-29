@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "name": "@bitbloom/nivo-circle-packing",
   "version": "0.62.5",
-=======
-  "name": "@nivo/circle-packing",
-  "version": "0.68.0",
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -34,14 +29,9 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-<<<<<<< HEAD
     "@bitbloom/nivo-colors": "^0.62.5",
     "@bitbloom/nivo-core": "^0.62.5",
     "@bitbloom/nivo-tooltip": "^0.62.5",
-=======
-    "@nivo/colors": "0.68.0",
-    "@nivo/tooltip": "0.68.0",
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.11",
     "react-spring": "9.1.2"
