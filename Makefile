@@ -51,10 +51,6 @@ init: ##@0 global cleanup/install/bootstrap
 	@yarn install
 	@$(MAKE) bootstrap
 	@$(MAKE) packages-build
-<<<<<<< HEAD
-	#@$(MAKE) examples-install
-=======
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
@@ -121,44 +117,11 @@ package-lint-%: ##@1 packages run eslint on package
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-<<<<<<< HEAD
-	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
-
-package-tslint-%: ##@1 packages run tslint on package
-	@echo "${YELLOW}Running tslint on package ${WHITE}@bitbloom/nivo-${*}${RESET}"
-	@./node_modules/.bin/tslint ./packages/${*}/index.d.ts
-
-packages-tslint: ##@1 packages run tslint on all packages
-	@echo "${YELLOW}Running tslint on all packages${RESET}"
-	@./node_modules/.bin/tslint \
-        ./packages/annotations/index.d.ts \
-        ./packages/axes/index.d.ts \
-        ./packages/bar/index.d.ts \
-        ./packages/calendar/index.d.ts \
-        ./packages/chord/index.d.ts \
-        ./packages/colors/index.d.ts \
-        ./packages/core/index.d.ts \
-        ./packages/geo/index.d.ts \
-        ./packages/heatmap/index.d.ts \
-        ./packages/legends/index.d.ts \
-        ./packages/line/index.d.ts \
-        ./packages/network/index.d.ts \
-        ./packages/pie/index.d.ts \
-        ./packages/radar/index.d.ts \
-        ./packages/sankey/index.d.ts \
-        ./packages/scales/index.d.ts \
-        ./packages/scatterplot/index.d.ts \
-        ./packages/stream/index.d.ts \
-        ./packages/swarmplot/index.d.ts \
-        ./packages/waffle/index.d.ts \
-        ./packages/voronoi/index.d.ts
-=======
 	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
 packages-lint-fix: ##@1 packages run eslint on all packages with a fix option
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
@@ -190,11 +153,6 @@ packages-build: packages-types ##@1 packages build all packages
         | sed 's|^./packages/||' \
         | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
-<<<<<<< HEAD
-package-build-%: ##@1 packages build a package
-	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
-	@rm -rf ./packages/${*}/dist
-=======
 package-types-%: ##@1 packages build a package types
 	@if [ -f "./packages/${*}/tsconfig.json" ]; \
     then \
@@ -208,8 +166,7 @@ package-types-%: ##@1 packages build a package types
 
 package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
-	@-rm -rf ./packages/${*}/dist/nivo-${*}*
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+	@-rm -rf ./packages/${*}/dist/
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
@@ -227,13 +184,8 @@ packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish --npm-tag=next from-git --yes
 
-<<<<<<< HEAD
 package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@bitbloom/nivo-${*}${RESET}"
-=======
-package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-watch-bar`
-	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 	@rm -rf ./packages/${*}/cjs
 	@rm -rf ./packages/${*}/umd
 	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.js -w
