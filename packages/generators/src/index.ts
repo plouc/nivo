@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import range from 'lodash/range'
 import random from 'lodash/random'
 import shuffle from 'lodash/shuffle'
@@ -33,10 +25,10 @@ export const generateProgrammingLanguageStats = (shouldShuffle = true, limit = -
     }))
 }
 
-export const uniqRand = generator => {
-    const used = []
+export const uniqRand = <T>(generator: (...args: unknown[]) => T) => {
+    const used: T[] = []
 
-    return (...args) => {
+    return (...args: unknown[]) => {
         let value
         do {
             value = generator(...args)
@@ -50,12 +42,22 @@ export const uniqRand = generator => {
 
 export const randCountryCode = () => shuffle(sets.countryCodes)[0]
 
+type DrinkDatum = {
+    id: string
+    color: string
+    data: Array<{
+        color: string
+        x: string
+        y: number
+    }>
+}
+
 export const generateDrinkStats = (xSize = 16) => {
     const rand = () => random(0, 60)
     const types = ['whisky', 'rhum', 'gin', 'vodka', 'cognac']
     const country = uniqRand(randCountryCode)
 
-    const data = types.map(id => ({
+    const data: DrinkDatum[] = types.map(id => ({
         id,
         color: randColor(),
         data: [],
@@ -64,7 +66,7 @@ export const generateDrinkStats = (xSize = 16) => {
     range(xSize).forEach(() => {
         const x = country()
         types.forEach(id => {
-            data.find(d => d.id === id).data.push({
+            data.find(d => d.id === id)?.data.push({
                 color: randColor(),
                 x,
                 y: rand(),
@@ -81,7 +83,7 @@ export const generateSerie = (xSize = 20) => {
     return range(xSize).map(() => Math.round(Math.random() * max))
 }
 
-export const generateSeries = (ids, xKeys) =>
+export const generateSeries = (ids: string[], xKeys: string[]) =>
     ids.map(id => ({
         id,
         color: randColor(),
@@ -93,8 +95,8 @@ export const generateStackData = (size = 3) => {
     return range(size).map(() => generateSerie(length).map((v, i) => ({ x: i, y: v })))
 }
 
-export const generateCountriesPopulation = size => {
-    const countryCode = uniqRand(randCountryCode())
+export const generateCountriesPopulation = (size: number) => {
+    const countryCode = uniqRand(randCountryCode)
 
     return range(size).map(() => ({
         country: countryCode(),
@@ -102,7 +104,7 @@ export const generateCountriesPopulation = size => {
     }))
 }
 
-export const generateDayCounts = (from, to, maxSize = 0.9) => {
+export const generateDayCounts = (from: Date, to: Date, maxSize = 0.9) => {
     const days = timeDays(from, to)
 
     const size =
@@ -122,11 +124,11 @@ export const generateDayCounts = (from, to, maxSize = 0.9) => {
 }
 
 export const generateCountriesData = (
-    keys,
+    keys: string[],
     { size = 12, min = 0, max = 200, withColors = true } = {}
 ) =>
     sets.countryCodes.slice(0, size).map(country => {
-        const d = {
+        const d: Record<string, unknown> = {
             country,
         }
         keys.forEach(key => {
@@ -221,22 +223,22 @@ const libTreeItems = [
     ],
 ]
 
-export const generateLibTree = (name = 'nivo', limit, children = libTreeItems) => {
+export const generateLibTree = (name = 'nivo', limit?: number | null, children = libTreeItems) => {
     limit = limit || children.length
     if (limit > children.length) {
         limit = children.length
     }
 
-    const tree = {
+    const tree: Record<string, unknown> = {
         name,
         color: randColor(),
     }
-    if (children && children.length > 0) {
-        tree.children = range(limit).map((o, i) => {
+    if (children?.length > 0) {
+        tree.children = range(limit).map((_, i) => {
             const leaf = children[i]
 
             // full path `${name}.${leaf[0]}`
-            return generateLibTree(leaf[0], null, leaf[1] || [])
+            return generateLibTree(leaf[0] as string, null, (leaf[1] ?? []) as any)
         })
     } else {
         tree.loc = Math.round(Math.random() * 200000)
@@ -247,9 +249,10 @@ export const generateLibTree = (name = 'nivo', limit, children = libTreeItems) =
 
 const wines = ['chardonay', 'carmenere', 'syrah']
 const wineTastes = ['fruity', 'bitter', 'heavy', 'strong', 'sunny']
+
 export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     const data = wineTastes.map(taste => {
-        const d = { taste }
+        const d: Record<string, unknown> = { taste }
         wines.forEach(wine => {
             d[wine] = random(randMin, randMax)
         })

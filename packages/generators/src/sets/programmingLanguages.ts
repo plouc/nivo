@@ -1,4 +1,4 @@
-export default [
+export const programmingLanguages = [
     'php',
     'make',
     'javascript',

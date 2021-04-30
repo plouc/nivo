@@ -1,14 +1,15 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import random from 'lodash/random'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
+
+type Options = Partial<{
+    size: number
+    keys: Array<{
+        key: string
+        random?: [number, number]
+        shuffle?: string[]
+    }>
+}>
 
 export const generateParallelCoordinatesData = ({
     size = 26,
@@ -19,7 +20,7 @@ export const generateParallelCoordinatesData = ({
         { key: 'target', shuffle: ['A', 'B', 'C', 'D', 'E'] },
         { key: 'volume', random: [0.2, 7.6] },
     ],
-} = {}) => {
+}: Options = {}) => {
     const datumGenerator = () =>
         keys.reduce((acc, key) => {
             let value
