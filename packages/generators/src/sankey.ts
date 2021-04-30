@@ -1,20 +1,18 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import range from 'lodash/range'
 import random from 'lodash/random'
 import shuffle from 'lodash/shuffle'
 import { randColor } from './color'
 import { names } from './sets'
 
+type Link = {
+    source: string
+    target: string
+    value: number
+}
+
 const availableNodes = names.map(name => ({ id: name }))
 
-const getNodeTargets = (id, links, currentPath) => {
+const getNodeTargets = (id: string, links: Link[], currentPath?: string[]): string[] => {
     const targets = links
         .filter(({ source }) => source === id)
         .map(({ target }) => {
@@ -23,7 +21,7 @@ const getNodeTargets = (id, links, currentPath) => {
                     `[sankey] a node cannot be linked on itself:\n  link: ${id} —> ${id}`
                 )
             }
-            if (currentPath && currentPath.includes(target)) {
+            if (currentPath?.includes(target)) {
                 throw new Error(
                     `[sankey] found cyclic dependency:\n  link: ${currentPath.join(
                         ' —> '
@@ -46,8 +44,8 @@ const getNodeTargets = (id, links, currentPath) => {
     )
 }
 
-const getNodesTargets = links =>
-    links.reduce((targetsById, link) => {
+const getNodesTargets = (links: Link[]) =>
+    links.reduce<Record<string, string[]>>((targetsById, link) => {
         if (!targetsById[link.source]) {
             targetsById[link.source] = getNodeTargets(link.source, links)
         }
@@ -55,14 +53,20 @@ const getNodesTargets = links =>
         return targetsById
     }, {})
 
-export const generateSankeyData = ({ nodeCount, maxIterations = 3 } = {}) => {
+export const generateSankeyData = ({
+    nodeCount,
+    maxIterations = 3,
+}: {
+    nodeCount?: number
+    maxIterations?: number
+} = {}) => {
     const nodes = availableNodes.slice(0, nodeCount).map(node =>
         Object.assign({}, node, {
             color: randColor(),
         })
     )
 
-    const links = []
+    const links: Link[] = []
     shuffle(nodes).forEach(({ id }) => {
         range(random(1, maxIterations)).forEach(() => {
             const targetsById = getNodesTargets(links)

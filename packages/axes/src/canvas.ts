@@ -1,16 +1,17 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { degreesToRadians } from './utils'
+import { degreesToRadians, CompleteTheme } from '@nivo/core'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
+import { positions } from './props'
+import {
+    AxisValue,
+    TicksSpec,
+    AnyScale,
+    AxisLegendPosition,
+    CanvasAxisProp,
+    ValueFormatter,
+} from './types'
 
-export const renderAxisToCanvas = (
-    ctx,
+export const renderAxisToCanvas = <Value extends AxisValue>(
+    ctx: CanvasRenderingContext2D,
     {
         axis,
         scale,
@@ -23,13 +24,29 @@ export const renderAxisToCanvas = (
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
-        format,
+        format: _format,
 
         legend,
         legendPosition = 'end',
         legendOffset = 0,
 
         theme,
+    }: {
+        axis: 'x' | 'y'
+        scale: AnyScale
+        x?: number
+        y?: number
+        length: number
+        ticksPosition: 'before' | 'after'
+        tickValues?: TicksSpec<Value>
+        tickSize?: number
+        tickPadding?: number
+        tickRotation?: number
+        format?: string | ValueFormatter<Value>
+        legend?: string
+        legendPosition?: AxisLegendPosition
+        legendOffset?: number
+        theme: CompleteTheme
     }
 ) => {
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
@@ -50,34 +67,48 @@ export const renderAxisToCanvas = (
     ctx.textBaseline = textBaseline
     ctx.font = `${theme.axis.ticks.text.fontSize}px ${theme.axis.ticks.text.fontFamily}`
 
-    if (theme.axis.domain.line.strokeWidth > 0) {
-        ctx.lineWidth = theme.axis.domain.line.strokeWidth
+    if ((theme.axis.domain.line.strokeWidth ?? 0) > 0) {
+        ctx.lineWidth = Number(theme.axis.domain.line.strokeWidth)
         ctx.lineCap = 'square'
-        ctx.strokeStyle = theme.axis.domain.line.stroke
+
+        if (theme.axis.domain.line.stroke) {
+            ctx.strokeStyle = theme.axis.domain.line.stroke
+        }
+
         ctx.beginPath()
         ctx.moveTo(0, 0)
         ctx.lineTo(axis === 'x' ? length : 0, axis === 'x' ? 0 : length)
         ctx.stroke()
     }
 
+    const format = typeof _format === 'function' ? _format : (value: unknown) => `${value}`
+
     ticks.forEach(tick => {
-        if (theme.axis.ticks.line.strokeWidth > 0) {
-            ctx.lineWidth = theme.axis.ticks.line.strokeWidth
+        if ((theme.axis.ticks.line.strokeWidth ?? 0) > 0) {
+            ctx.lineWidth = Number(theme.axis.ticks.line.strokeWidth)
             ctx.lineCap = 'square'
-            ctx.strokeStyle = theme.axis.ticks.line.stroke
+
+            if (theme.axis.ticks.line.stroke) {
+                ctx.strokeStyle = theme.axis.ticks.line.stroke
+            }
+
             ctx.beginPath()
             ctx.moveTo(tick.x, tick.y)
             ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)
             ctx.stroke()
         }
 
-        const value = format !== undefined ? format(tick.value) : tick.value
+        const value = format(tick.value)
 
         ctx.save()
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
-        ctx.fillStyle = theme.axis.ticks.text.fill
-        ctx.fillText(value, 0, 0)
+
+        if (theme.axis.ticks.text.fill) {
+            ctx.fillStyle = theme.axis.ticks.text.fill
+        }
+
+        ctx.fillText(String(value), 0, 0)
         ctx.restore()
     })
 
@@ -85,7 +116,7 @@ export const renderAxisToCanvas = (
         let legendX = 0
         let legendY = 0
         let legendRotation = 0
-        let textAlign
+        let textAlign: CanvasTextAlign = 'center'
 
         if (axis === 'y') {
             legendRotation = -90
@@ -117,7 +148,11 @@ export const renderAxisToCanvas = (
         ctx.font = `${
             theme.axis.legend.text.fontWeight ? `${theme.axis.legend.text.fontWeight} ` : ''
         }${theme.axis.legend.text.fontSize}px ${theme.axis.legend.text.fontFamily}`
-        ctx.fillStyle = theme.axis.legend.text.fill
+
+        if (theme.axis.legend.text.fill) {
+            ctx.fillStyle = theme.axis.legend.text.fill
+        }
+
         ctx.textAlign = textAlign
         ctx.textBaseline = 'middle'
         ctx.fillText(legend, 0, 0)
@@ -126,10 +161,8 @@ export const renderAxisToCanvas = (
     ctx.restore()
 }
 
-const positions = ['top', 'right', 'bottom', 'left']
-
-export const renderAxesToCanvas = (
-    ctx,
+export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
+    ctx: CanvasRenderingContext2D,
     {
         xScale,
         yScale,
@@ -142,12 +175,24 @@ export const renderAxesToCanvas = (
         left,
 
         theme,
+    }: {
+        xScale: AnyScale
+        yScale: AnyScale
+        width: number
+        height: number
+        top?: CanvasAxisProp<X>
+        right?: CanvasAxisProp<Y>
+        bottom?: CanvasAxisProp<X>
+        left?: CanvasAxisProp<Y>
+        theme: CompleteTheme
     }
 ) => {
     const axes = { top, right, bottom, left }
 
     positions.forEach(position => {
-        const axis = axes[position]
+        const axis = axes[position] as typeof position extends 'bottom' | 'top'
+            ? CanvasAxisProp<X> | undefined
+            : CanvasAxisProp<Y> | undefined
 
         if (!axis) return null
 
@@ -170,7 +215,22 @@ export const renderAxesToCanvas = (
     })
 }
 
-export const renderGridLinesToCanvas = (ctx, { width, height, scale, axis, values }) => {
+export const renderGridLinesToCanvas = <Value extends AxisValue>(
+    ctx: CanvasRenderingContext2D,
+    {
+        width,
+        height,
+        scale,
+        axis,
+        values,
+    }: {
+        width: number
+        height: number
+        scale: AnyScale
+        axis: 'x' | 'y'
+        values?: TicksSpec<Value>
+    }
+) => {
     const lines = computeGridLines({ width, height, scale, axis, values })
 
     lines.forEach(line => {

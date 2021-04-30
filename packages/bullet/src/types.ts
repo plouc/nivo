@@ -22,7 +22,7 @@ export interface Datum {
 }
 
 export type EnhancedDatum = Datum & {
-    scale: ScaleLinear<number, number, never>
+    scale: ScaleLinear<number, number, never> & { type: 'linear' }
 }
 
 export interface ComputedRangeDatum {

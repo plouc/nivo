@@ -1,12 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import {
+    CountableTimeInterval,
     timeMillisecond,
     utcMillisecond,
     timeSecond,
@@ -40,9 +33,25 @@ import {
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
+<<<<<<< HEAD:packages/axes/src/compute.js
 import { textPropsByEngine } from '@bitbloom/nivo-core'
 
 export const centerScale = scale => {
+=======
+// @ts-ignore
+import { textPropsByEngine } from '@nivo/core'
+import {
+    AxisValue,
+    Point,
+    TicksSpec,
+    AnyScale,
+    ScaleWithBandwidth,
+    ValueFormatter,
+    Line,
+} from './types'
+
+export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
+>>>>>>> 2675b60a6d4c5eeb44b9fa67b6271e356a4c3c4d:packages/axes/src/compute.ts
     const bandwidth = scale.bandwidth()
 
     if (bandwidth === 0) return scale
@@ -52,10 +61,10 @@ export const centerScale = scale => {
         offset = Math.round(offset)
     }
 
-    return d => scale(d) + offset
+    return <T extends Value>(d: T) => (scale(d) ?? 0) + offset
 }
 
-const timeByType = {
+const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
     millisecond: [timeMillisecond, utcMillisecond],
     second: [timeSecond, utcSecond],
     minute: [timeMinute, utcMinute],
@@ -76,17 +85,22 @@ const timeByType = {
 const timeTypes = Object.keys(timeByType)
 const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
 
-const isInteger = value =>
+const isInteger = (value: unknown): value is number =>
     typeof value === 'number' && isFinite(value) && Math.floor(value) === value
 
-export const getScaleTicks = (scale, spec) => {
+const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
+
+export const getScaleTicks = <Value extends AxisValue>(
+    scale: AnyScale,
+    spec?: TicksSpec<Value>
+) => {
     // specific values
     if (Array.isArray(spec)) {
         return spec
     }
 
     // continuous scales
-    if (scale.ticks) {
+    if ('ticks' in scale) {
         // default behaviour
         if (spec === undefined) {
             return scale.ticks()
@@ -97,7 +111,7 @@ export const getScaleTicks = (scale, spec) => {
             return scale.ticks(spec)
         }
 
-        if (typeof spec === 'string') {
+        if (typeof spec === 'string' && 'useUTC' in scale) {
             // time interval
             const matches = spec.match(timeIntervalRegexp)
             if (matches) {
@@ -105,11 +119,16 @@ export const getScaleTicks = (scale, spec) => {
                 // however local time could be used too
                 // let's see how it fits users' requirements
                 const timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0]
+
                 if (matches[1] === undefined) {
                     return scale.ticks(timeType)
                 }
 
-                return scale.ticks(timeType.every(Number(matches[1])))
+                const interval = timeType.every(Number(matches[1]))
+
+                if (interval) {
+                    return scale.ticks(interval)
+                }
             }
 
             throw new Error(`Invalid tickValues: ${spec}`)
@@ -120,7 +139,7 @@ export const getScaleTicks = (scale, spec) => {
     return scale.domain()
 }
 
-export const computeCartesianTicks = ({
+export const computeCartesianTicks = <Value extends AxisValue>({
     axis,
     scale,
     ticksPosition,
@@ -129,22 +148,31 @@ export const computeCartesianTicks = ({
     tickPadding,
     tickRotation,
     engine = 'svg',
+}: {
+    axis: 'x' | 'y'
+    scale: AnyScale
+    ticksPosition?: 'after' | 'before'
+    tickValues?: TicksSpec<Value>
+    tickSize: number
+    tickPadding: number
+    tickRotation: number
+    engine?: 'svg' | 'canvas'
 }) => {
     const values = getScaleTicks(scale, tickValues)
 
     const textProps = textPropsByEngine[engine]
 
-    const position = scale.bandwidth ? centerScale(scale) : scale
+    const position = 'bandwidth' in scale ? centerScale(scale) : scale
     const line = { lineX: 0, lineY: 0 }
     const text = { textX: 0, textY: 0 }
 
     const isRTL = typeof document === 'object' ? document.dir === 'rtl' : false
-    let translate
-    let textAlign = textProps.align.center
-    let textBaseline = textProps.baseline.center
+    let translate: (value: Value) => Point
+    let textAlign: CanvasTextAlign = textProps.align.center
+    let textBaseline: CanvasTextBaseline = textProps.baseline.center
 
     if (axis === 'x') {
-        translate = d => ({ x: position(d), y: 0 })
+        translate = d => ({ x: position(d) ?? 0, y: 0 })
 
         line.lineY = tickSize * (ticksPosition === 'after' ? 1 : -1)
         text.textY = (tickSize + tickPadding) * (ticksPosition === 'after' ? 1 : -1)
@@ -171,7 +199,7 @@ export const computeCartesianTicks = ({
             textBaseline = textProps.baseline.center
         }
     } else {
-        translate = d => ({ x: 0, y: position(d) })
+        translate = d => ({ x: 0, y: position(d) ?? 0 })
 
         line.lineX = tickSize * (ticksPosition === 'after' ? 1 : -1)
         text.textX = (tickSize + tickPadding) * (ticksPosition === 'after' ? 1 : -1)
@@ -198,43 +226,57 @@ export const computeCartesianTicks = ({
     }
 }
 
-export const getFormatter = (format, scale) => {
-    if (!format || typeof format === 'function') return format
+export const getFormatter = <Value extends AxisValue>(
+    format: string | ValueFormatter<Value> | undefined,
+    scale: AnyScale
+): ValueFormatter<Value> | undefined => {
+    if (typeof format === 'undefined' || typeof format === 'function') return format
 
     if (scale.type === 'time') {
-        const f = timeFormat(format)
-        return d => f(new Date(d))
+        const formatter = timeFormat(format)
+
+        return (d => formatter(d instanceof Date ? d : new Date(d))) as ValueFormatter<Value>
     }
 
-    return d3Format(format)
+    return (d3Format(format) as unknown) as ValueFormatter<Value>
 }
 
-export const computeGridLines = ({ width, height, scale, axis, values: _values }) => {
-    const lineValues = Array.isArray(_values) ? _values : undefined
+export const computeGridLines = <Value extends AxisValue>({
+    width,
+    height,
+    scale,
+    axis,
+    values: _values,
+}: {
+    width: number
+    height: number
+    scale: AnyScale
+    axis: 'x' | 'y'
+    values?: TicksSpec<Value>
+}) => {
+    const lineValues = isArray<number>(_values) ? _values : undefined
     const lineCount = isInteger(_values) ? _values : undefined
 
     const values = lineValues || getScaleTicks(scale, lineCount)
 
-    const position = scale.bandwidth ? centerScale(scale) : scale
+    const position = 'bandwidth' in scale ? centerScale(scale) : scale
 
-    let lines
-    if (axis === 'x') {
-        lines = values.map(v => ({
-            key: `${v}`,
-            x1: position(v),
-            x2: position(v),
-            y1: 0,
-            y2: height,
-        }))
-    } else if (axis === 'y') {
-        lines = values.map(v => ({
-            key: `${v}`,
-            x1: 0,
-            x2: width,
-            y1: position(v),
-            y2: position(v),
-        }))
-    }
+    const lines: Line[] =
+        axis === 'x'
+            ? values.map(value => ({
+                  key: `${value}`,
+                  x1: position(value) ?? 0,
+                  x2: position(value) ?? 0,
+                  y1: 0,
+                  y2: height,
+              }))
+            : values.map(value => ({
+                  key: `${value}`,
+                  x1: 0,
+                  x2: width,
+                  y1: position(value) ?? 0,
+                  y2: position(value) ?? 0,
+              }))
 
     return lines
 }

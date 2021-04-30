@@ -137,7 +137,6 @@ export const BulletItem = ({
     const axis = (
         <g transform={`translate(${axisX},${axisY})`}>
             <Axis
-                // @ts-ignore
                 axis={layout === 'horizontal' ? 'x' : 'y'}
                 length={layout === 'horizontal' ? width : height}
                 scale={scale}
