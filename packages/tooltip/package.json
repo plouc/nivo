@@ -27,7 +27,7 @@
     "@bitbloom/nivo-core": "0.69.0"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "^0.62.0",
+    "@bitbloom/nivo-core": "^0.69.0",
     "prop-types": ">= 15.5.10 < 16.0.0"
   },
   "publishConfig": {

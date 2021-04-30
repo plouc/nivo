@@ -15,7 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-    "@bitbloom/nivo-generators": "^0.62.0",
+    "@bitbloom/nivo-generators": "^0.69.0",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-info": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",
