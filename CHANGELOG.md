@@ -1,3 +1,70 @@
+<a name="v0.69.0"></a>
+## v0.69.0 (2021-04-30)
+
+
+#### Features
+
+* **axes:**  init migration to typescript ([73f98032](https://github.com/plouc/nivo/commit/73f98032b6faed65ea89b57ef9d5e1043c1a1acb))
+* **build:**  add test watch commands to makefile ([e706d48e](https://github.com/plouc/nivo/commit/e706d48eaaaec05d0680c4c4c78562309da8fe87))
+* **circle-packing:**
+  *  update default childColor ([ca07b9e6](https://github.com/plouc/nivo/commit/ca07b9e601c9259eaa364e4e443f83dab25c883c))
+  *  restore patterns and gradients support for the SVG implementation ([08ee5155](https://github.com/plouc/nivo/commit/08ee5155fb8227716f6135639768bd1520704760))
+  *  add a dedicated prop to enable parent color inheritance ([b864de9f](https://github.com/plouc/nivo/commit/b864de9f2d90df8d23e9a1a7342b3d6bd06ad26c))
+  *  update website descriptions ([b91c0570](https://github.com/plouc/nivo/commit/b91c0570e68397ad3ca66251ef1b118603be84b4))
+  *  update stories ([9b7a3046](https://github.com/plouc/nivo/commit/9b7a304686c1a3958bc13f1104808c1423e00769))
+  *  restore border support ([2911b61c](https://github.com/plouc/nivo/commit/2911b61c46a0097c0190630e7333be3be33ab269))
+  *  restore pixelRatio property for canvas implementation ([56491038](https://github.com/plouc/nivo/commit/56491038b26250265f46a13fb5451f2a4c840b05))
+  *  add colorBy property to control which property should be used to assign a color ([10914684](https://github.com/plouc/nivo/commit/10914684f9f73057f2b72f844f7fbf8bdebc9f80))
+  *  add mouse handlers support to canvas implementation ([82cb7c55](https://github.com/plouc/nivo/commit/82cb7c55c07690c41c0787a67dfae90116bf49c3))
+  *  add zoom support ([d8c7a883](https://github.com/plouc/nivo/commit/d8c7a883f9dbeca7c9c2b807d6ab471a53a4276c))
+  *  expose hooks to be able to build fully custom charts ([03433b02](https://github.com/plouc/nivo/commit/03433b02cee275499ec7cb03a9b4b45070c71cff))
+  *  add support for custom circle component to SVG and HTML implementations ([6f8a4caf](https://github.com/plouc/nivo/commit/6f8a4caf8dd42467d4096520ea7a924c6cfc83d8))
+  *  memoize labels transition phases ([d9170572](https://github.com/plouc/nivo/commit/d9170572150330632747b2ce3ce6ca50e15a0444))
+  *  add support for mouse handlers to SVG and HTML implementations ([138eafb5](https://github.com/plouc/nivo/commit/138eafb544f6307d41a5f58a9dca2b925c5ffb64))
+  *  restore labels ([4fb658dc](https://github.com/plouc/nivo/commit/4fb658dc92812449de8ab14a354049ed50a0fb6f))
+  *  restore leavesOnly support ([07135815](https://github.com/plouc/nivo/commit/07135815e10cbf89c03db58605713bdfc1345672))
+  *  migrate canvas implementation to new architecture ([478da0ee](https://github.com/plouc/nivo/commit/478da0eeab6f4418f6cbb40a43d28a2dcb587c0f))
+  *  rename Bubble to CirclePacking ([43bb075c](https://github.com/plouc/nivo/commit/43bb075ca1af316627f400e28edf937fbbb18a3c))
+  *  init hooks ([6fb27f70](https://github.com/plouc/nivo/commit/6fb27f702b05452631f8d0419c5ec3d8e365d3f2))
+  *  remove licence headers ([1f5290a7](https://github.com/plouc/nivo/commit/1f5290a756b417b17d9e0ef19c43e045ef3951a6))
+  *  enable TS support ([e75f1c89](https://github.com/plouc/nivo/commit/e75f1c89574cd46224adcfdb6ef259628e831e97))
+* **d3-scale:**  upgrade d3-scale package ([c976d663](https://github.com/plouc/nivo/commit/c976d6637d318c51e56420ae7b80f7e9ea1e4b66))
+* **deps:**  replace `recompose` with inlined version (#1494) ([09b02069](https://github.com/plouc/nivo/commit/09b0206968aa5242e3151229413b7b76e34c1605))
+* **generators:**  migrate package to typescript (#1492) ([46d2ae0c](https://github.com/plouc/nivo/commit/46d2ae0c4fe5af3bf642fbd3e0d0f3534ab6e563))
+* **voronoi:**
+  *  fix storybook ([97b7fc85](https://github.com/plouc/nivo/commit/97b7fc85ebf9c1e58d4f918e7c7088c352036fdb))
+  *  migrate package to TypeScript and remove recompose ([9796f3f0](https://github.com/plouc/nivo/commit/9796f3f04936a03c78b302060a6067512c7df84e))
+  *  remove license headers ([f69c7992](https://github.com/plouc/nivo/commit/f69c7992106ddd7f066584e2fe53b64aaff7e4b2))
+  *  init TypeScript setup ([74621c0f](https://github.com/plouc/nivo/commit/74621c0f0531dbc4715eb302ced69e5420dde3af))
+
+#### Bug Fixes
+
+* **axes:**
+  *  update some types ([b5d5f0f3](https://github.com/plouc/nivo/commit/b5d5f0f3ada72c77f9db5089f89d257629a67f78))
+  *  create alias for axis value ([f11d0347](https://github.com/plouc/nivo/commit/f11d034700bf39bcfbd53ed890e2410300f10ce6))
+  *  improve package types ([f7fcc751](https://github.com/plouc/nivo/commit/f7fcc75196243ba990ec0c0f5ad2f923f4cb0d65))
+  *  remove undefined cursor style prop from AxisTick ([eb969df8](https://github.com/plouc/nivo/commit/eb969df88314d838720045a06ded5661f326868f))
+  *  ensure document exists in the environment (#1489) ([a2e0d891](https://github.com/plouc/nivo/commit/a2e0d891219dfb7d850fe8e30b754164f163c2a1))
+* **build:**  include latest changelog when publishing ([e9360be8](https://github.com/plouc/nivo/commit/e9360be8b62a947cdb4eaef333793314ad2b15bc))
+* **bullet:**  remove some ts-ignore comments ([b4372cf1](https://github.com/plouc/nivo/commit/b4372cf1cead6d8d8291c10b8235fc7a04b1af06))
+* **circle-packing:**
+  *  add support for controlled zoomed ID ([faf00aa8](https://github.com/plouc/nivo/commit/faf00aa84cc17291573b5dc27dd1c47be6f8b587))
+  *  fix HTML implementation overflow ([f83f2f1c](https://github.com/plouc/nivo/commit/f83f2f1c2769756e4351584148f200d711dd88f6))
+* **deps:**  remove recompose ([53b9c1cc](https://github.com/plouc/nivo/commit/53b9c1cc7b439d550e8c2084bbd420c334082881))
+* **legends:**  Add missing symbolBorderWidth to typings (#1431) ([a00ef4a1](https://github.com/plouc/nivo/commit/a00ef4a1a0e23c20a052dae4f6c6e8b6118e4101))
+
+#### Chore
+
+* **axes:**
+  *  exclude tsbuildinfo from package ([828656f7](https://github.com/plouc/nivo/commit/828656f773c81799b70b635961fdb6f8b85c5894))
+  *  changes to support react-spring v9.1.2 ([dfd3ef08](https://github.com/plouc/nivo/commit/dfd3ef08699123cdb9955ac8c6af73dbb7ca505b))
+* **build:**  update messaging in makefile ([6b9af77d](https://github.com/plouc/nivo/commit/6b9af77df1441f7fe4478b14dee89943aa1677b6))
+* **changelog:**  update changelog ([c3f293da](https://github.com/plouc/nivo/commit/c3f293dad902947df371982863997a4b8f8a3cf7))
+* **circle-packing:**  fixes after rebase to master ([89109d93](https://github.com/plouc/nivo/commit/89109d93a768cf2571733d3171696a6e2e27351d))
+* **docs:**  fix typo (#1495) ([353e9837](https://github.com/plouc/nivo/commit/353e9837291aacac93543a6833844dbe0f8082eb))
+
+
+
 <a name="v0.68.0"></a>
 ## v0.68.0 (2021-04-23)
 
