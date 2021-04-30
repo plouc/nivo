@@ -213,8 +213,17 @@ declare module '@nivo/line' {
     export class Line extends React.Component<LineSvgProps & Dimensions> {}
     export class ResponsiveLine extends React.Component<LineSvgProps> {}
 
+    export interface CustomCanvasLayerProps extends CustomLayerProps {
+        ctx: CanvasRenderingContext2D
+        lineGenerator: any
+    }
+
+    export type CustomCanvasLayer = (props: CustomCanvasLayerProps) => void
+    export type CanvasLayer = LineLayerType | CustomCanvasLayer
+
     export interface LineCanvasProps extends LineProps {
         pixelRatio?: number
+        layers?: CanvasLayer[]
     }
 
     export class LineCanvas extends React.Component<LineCanvasProps & Dimensions> {}
