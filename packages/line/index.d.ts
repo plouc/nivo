@@ -65,10 +65,19 @@ declare module '@nivo/line' {
         | 'mesh'
         | 'legends'
 
+    export interface LineGenerator {
+        (data: Datum[]): string
+        x:any
+        y:any
+        defined:any
+        curve:any
+        context:any
+    }
+
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         innerHeight: number
         innerWidth: number
-        lineGenerator: (data: Datum[]) => string
+        lineGenerator: LineGenerator
         points: Point[]
         series: ComputedSerie[]
         xScale: ScaleFunc
@@ -215,7 +224,6 @@ declare module '@nivo/line' {
 
     export interface CustomCanvasLayerProps extends CustomLayerProps {
         ctx: CanvasRenderingContext2D
-        lineGenerator: any
     }
 
     export type CustomCanvasLayer = (props: CustomCanvasLayerProps) => void
