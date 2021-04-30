@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-tooltip",
-  "version": "0.62.5",
+  "version": "0.69.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,7 +24,7 @@
     "react-spring": "9.1.2"
   },
   "devDependencies": {
-    "@bitbloom/nivo-core": "0.62.5"
+    "@bitbloom/nivo-core": "0.69.0"
   },
   "peerDependencies": {
     "@bitbloom/nivo-core": "^0.62.0",

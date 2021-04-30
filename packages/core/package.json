@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-core",
-  "version": "0.62.5",
+  "version": "0.69.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -20,7 +20,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-recompose": "0.62.5",
+    "@bitbloom/nivo-recompose": "0.69.0",
     "d3-color": "^2.0.0",
     "d3-format": "^1.4.4",
     "d3-hierarchy": "^1.1.8",
@@ -34,7 +34,7 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@bitbloom/nivo-tooltip": "0.62.5"
+    "@bitbloom/nivo-tooltip": "0.69.0"
   },
   "peerDependencies": {
     "@bitbloom/nivo-tooltip": "0.62.0",
