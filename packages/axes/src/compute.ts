@@ -34,7 +34,7 @@ import {
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 // @ts-ignore
-import { textPropsByEngine } from '@nivo/core'
+import { textPropsByEngine } from '@bitbloom/nivo-core'
 import {
     AxisValue,
     Point,

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { animated } from 'react-spring'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { AxisTickProps, AxisValue } from '../types'
 
 export const AxisTick = <Value extends AxisValue>({

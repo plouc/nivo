@@ -86,6 +86,7 @@
     "website"
   ],
   "dependencies": {
+    "@types/d3-delaunay": "^5.3.0",
     "npm-normalize-package-bin": "^1.0.1"
   },
   "repository": {

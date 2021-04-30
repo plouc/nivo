@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTransition } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { GridLine } from './GridLine'
 import { Line } from '../types'
 

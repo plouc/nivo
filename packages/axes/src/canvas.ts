@@ -1,4 +1,4 @@
-import { degreesToRadians, CompleteTheme } from '@nivo/core'
+import { degreesToRadians, CompleteTheme } from '@bitbloom/nivo-core'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
 import {

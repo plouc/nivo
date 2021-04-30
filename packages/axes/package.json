@@ -34,7 +34,10 @@
     "react-spring": "9.1.2"
   },
   "devDependencies": {
-    "@bitbloom/nivo-core": "0.69.0"
+    "@bitbloom/nivo-core": "0.69.0",
+    "@types/d3-format": "^1.4.1",
+    "@types/d3-time": "^1.1.1",
+    "@types/d3-time-format": "^2.3.1"
   },
   "peerDependencies": {
     "@bitbloom/nivo-core": "^0.69.0",
