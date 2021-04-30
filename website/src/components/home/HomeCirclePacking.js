@@ -1,6 +1,6 @@
 import React from 'react'
-import { generateLibTree } from '@nivo/generators'
-import { ResponsiveCirclePackingCanvas } from '@nivo/circle-packing'
+import { generateLibTree } from '@bitbloom/nivo-generators'
+import { ResponsiveCirclePackingCanvas } from '@bitbloom/nivo-circle-packing'
 import { HomeItem, HomeItemLabel } from './styled'
 
 export const HomeCirclePacking = ({ reversedColors }) => {

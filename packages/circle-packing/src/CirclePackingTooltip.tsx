@@ -1,5 +1,5 @@
 import React from 'react'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { ComputedDatum } from './types'
 
 export const CirclePackingTooltip = <RawDatum,>({

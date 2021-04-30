@@ -1,12 +1,7 @@
 import React from 'react'
-<<<<<<< HEAD
-import { ResponsiveSunburst } from '@bitbloom/nivo-sunburst'
+import { defaultProps, ResponsiveSunburst } from '@bitbloom/nivo-sunburst'
 import { generateLibTree } from '@bitbloom/nivo-generators'
-=======
-import { defaultProps, ResponsiveSunburst } from '@nivo/sunburst'
-import { generateLibTree } from '@nivo/generators'
 import { omit } from 'lodash'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sunburst/meta.yml'
 import mapper from '../../data/components/sunburst/mapper'

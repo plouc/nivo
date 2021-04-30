@@ -8,13 +8,8 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-import { useSprings, animated } from 'react-spring'
-import { useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
-=======
 import { useSpring, animated } from 'react-spring'
-import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 
 const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
     const { animate, config: springConfig } = useMotionConfig()

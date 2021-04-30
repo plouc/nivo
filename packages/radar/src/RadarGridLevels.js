@@ -14,7 +14,7 @@ import { useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 =======
 import { animated, useSpring, to } from 'react-spring'
-import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { useTheme, useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 >>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const RadarGridLevelCircular = memo(({ radius }) => {

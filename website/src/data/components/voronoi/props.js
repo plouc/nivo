@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { VoronoiDefaultProps as defaults } from '@bitbloom/nivo-voronoi'
-=======
-import { defaultVoronoiProps } from '@nivo/voronoi'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { defaultVoronoiProps } from '@bitbloom/nivo-voronoi'
 import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [

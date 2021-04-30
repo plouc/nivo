@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 import { useTheme } from '@bitbloom/nivo-core'
 =======
 import React, { CSSProperties, memo, ReactNode } from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 >>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881:packages/tooltip/src/TableTooltip.tsx
 
 const tableStyle = {

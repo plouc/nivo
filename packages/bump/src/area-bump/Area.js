@@ -12,7 +12,7 @@ import { useSpring, animated } from 'react-spring'
 <<<<<<< HEAD
 import { useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 =======
-import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 >>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { useSerieHandlers } from './hooks'
 

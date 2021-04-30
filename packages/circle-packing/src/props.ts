@@ -1,4 +1,4 @@
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { CirclePackingLayerId } from './types'
 import { CirclePackingTooltip } from './CirclePackingTooltip'
 

@@ -156,16 +156,16 @@ packages-build: packages-types ##@1 packages build all packages
 package-types-%: ##@1 packages build a package types
 	@if [ -f "./packages/${*}/tsconfig.json" ]; \
     then \
-        echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
+        echo "${YELLOW}Building TypeScript types for package ${WHITE}@bitbloom/nivo-${*}${RESET}"; \
         rm -rf ./packages/${*}/dist/types; \
         rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
         yarn tsc -b ./packages/${*}; \
     else \
-        echo "${YELLOW}Package ${WHITE}@nivo/${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
+        echo "${YELLOW}Package ${WHITE}@bitbloom/nivo-${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
     fi;
 
 package-build-%: package-types-% ##@1 packages build a package
-	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
+	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
 	@-rm -rf ./packages/${*}/dist/
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 

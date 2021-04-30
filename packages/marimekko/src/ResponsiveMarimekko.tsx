@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { Marimekko } from './Marimekko'
 import { SvgProps } from './types'
 

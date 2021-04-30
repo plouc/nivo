@@ -8,13 +8,8 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@bitbloom/nivo-core'
-=======
 import { useSpring, animated, to } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useMotionConfig } from '@bitbloom/nivo-core'
 
 const pointStyle = { pointerEvents: 'none' }
 

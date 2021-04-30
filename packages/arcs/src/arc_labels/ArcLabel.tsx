@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import { SpringValue, Interpolation, animated } from 'react-spring'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
 
 const staticStyle: CSSProperties = {

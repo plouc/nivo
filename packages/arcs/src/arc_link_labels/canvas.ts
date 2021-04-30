@@ -2,7 +2,7 @@ import {
     // @ts-ignore
     textPropsByEngine,
     CompleteTheme,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLinkLabel } from './types'
 

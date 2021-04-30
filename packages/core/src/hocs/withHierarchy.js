@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { compose, defaultProps, setPropTypes, withPropsOnChange } from '@nivo/recompose'
+import { compose, defaultProps, setPropTypes, withPropsOnChange } from '@bitbloom/nivo-recompose'
 import PropTypes from 'prop-types'
 import { hierarchy } from 'd3-hierarchy'
 import { getPropertyAccessor } from '../lib/propertiesConverters'

@@ -1,6 +1,6 @@
 import React from 'react'
 // @ts-ignore
-import { ResponsiveWrapper, Dimensions } from '@nivo/core'
+import { ResponsiveWrapper, Dimensions } from '@bitbloom/nivo-core'
 import { BulletSvgProps } from './types'
 import { Bullet } from './Bullet'
 

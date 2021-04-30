@@ -1,5 +1,5 @@
 import { useSpring } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { Arc, ArcGenerator } from './types'
 import { interpolateArc } from './interpolateArc'
 

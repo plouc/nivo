@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePropertyAccessor } from '@nivo/core'
+import { usePropertyAccessor } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
 import { useArcLinkLabelsTransition } from './useArcLinkLabelsTransition'
 import { ArcLinkLabelsProps } from './props'

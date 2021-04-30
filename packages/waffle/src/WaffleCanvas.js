@@ -8,15 +8,9 @@
  */
 import React, { Component } from 'react'
 import range from 'lodash.range'
-<<<<<<< HEAD
-import setDisplayName from 'recompose/setDisplayName'
-import { isCursorInRect, getRelativeCursor, Container } from '@bitbloom/nivo-core'
+import { setDisplayName } from '@bitbloom/nivo-recompose'
+import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@bitbloom/nivo-core'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
-=======
-import { setDisplayName } from '@nivo/recompose'
-import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
 import WaffleCellTooltip from './WaffleCellTooltip'

@@ -8,13 +8,8 @@
  */
 import React, { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
-<<<<<<< HEAD
-import { withKnobs, boolean } from '@storybook/addon-knobs'
-import { generateDrinkStats } from '@bitbloom/nivo-generators'
-=======
 import { withKnobs, boolean, button } from '@storybook/addon-knobs'
-import { generateDrinkStats } from '@nivo/generators'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { generateDrinkStats } from '@bitbloom/nivo-generators'
 import { LineCanvas } from '../src'
 
 const data = generateDrinkStats(32)

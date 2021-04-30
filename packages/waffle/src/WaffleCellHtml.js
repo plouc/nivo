@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { pure } from '@nivo/recompose'
+import { pure } from '@bitbloom/nivo-recompose'
 
 const WaffleCellHtml = ({
     position,

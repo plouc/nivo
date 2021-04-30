@@ -1,5 +1,5 @@
 import { useTransition } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { DatumWithArc } from './types'
 import { ArcTransitionMode, useArcTransitionMode, TransitionExtra } from './arcTransitionMode'
 import { interpolateArc } from './interpolateArc'

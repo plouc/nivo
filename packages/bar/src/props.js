@@ -15,7 +15,7 @@ import {
 } from '@bitbloom/nivo-colors'
 import { axisPropType } from '@bitbloom/nivo-axes'
 import { LegendPropShape } from '@bitbloom/nivo-legends'
-import { scalePropType, bandScalePropTypes } from '@nivo/scales'
+import { scalePropType, bandScalePropTypes } from '@bitbloom/nivo-scales'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {

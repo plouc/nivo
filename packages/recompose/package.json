@@ -1,6 +1,6 @@
 {
-  "name": "@nivo/recompose",
-  "version": "0.68.0",
+  "name": "@bitbloom/nivo-recompose",
+  "version": "0.62.5",
   "keywords": [
     "nivo",
     "react",

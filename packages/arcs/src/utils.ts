@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { radiansToDegrees } from '@nivo/core'
+import { radiansToDegrees } from '@bitbloom/nivo-core'
 import { DatumWithArc } from './types'
 
 /**

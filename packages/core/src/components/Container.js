@@ -8,14 +8,8 @@
  */
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-import { tooltipContext } from '@bitbloom/nivo-tooltip'
-import noop from '../lib/noop'
-import { themeContext } from '../theming'
-=======
-import { TooltipProvider, Tooltip } from '@nivo/tooltip'
+import { TooltipProvider, Tooltip } from '@bitbloom/nivo-tooltip'
 import { ThemeProvider } from '../theming'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
 

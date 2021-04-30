@@ -1,6 +1,6 @@
 import { BulletRectsProps, ComputedRangeDatum } from './types'
 // @ts-ignore
-import { getColorScale } from '@nivo/core'
+import { getColorScale } from '@bitbloom/nivo-core'
 
 type ComputeRect = Pick<BulletRectsProps, 'layout' | 'reverse' | 'scale' | 'height'>
 

@@ -3,11 +3,7 @@
     "packages/*",
     "api"
   ],
-<<<<<<< HEAD
   "version": "0.62.5",
-=======
-  "version": "0.68.0",
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
   "npmClient": "yarn",
   "useWorkspaces": true
 }

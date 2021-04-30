@@ -78,7 +78,7 @@ const generate = (
         properties.push(`${key}=${value}`)
     })
 
-    const install = `// yarn add @nivo/core ${pkg}`
+    const install = `// yarn add @bitbloom/nivo-core ${pkg}`
 
     const imports = [name, ...children.map(([c]) => c)].map(i => `import { ${i} } from '${pkg}'`)
 

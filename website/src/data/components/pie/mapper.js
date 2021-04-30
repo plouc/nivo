@@ -12,7 +12,7 @@ import styled from 'styled-components'
 import { patternDotsDef, patternLinesDef } from '@bitbloom/nivo-core'
 import { settingsMapper } from '../../../lib/settings'
 =======
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
+import { patternDotsDef, patternLinesDef } from '@bitbloom/nivo-core'
 import { mapFormat, settingsMapper } from '../../../lib/settings'
 >>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
