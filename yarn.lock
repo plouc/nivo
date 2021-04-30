@@ -6034,8 +6034,6 @@
   resolved "https://registry.yarnpkg.com/@types/d3-color/-/d3-color-2.0.0.tgz#febdfadade56e215a4c3f612fe3000d92999f5d5"
   integrity sha512-Bs0maTeU47rdZT+n42iQ0C4gnbnJlIDJkqHFtIsDx2tPPITDeoSdIrm+00UYXzegzArYC2GsG80eHNMwz08IAw==
 
-<<<<<<< HEAD
-=======
 "@types/d3-delaunay@^5.3.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@types/d3-delaunay/-/d3-delaunay-5.3.0.tgz#416169bb5c67a510c87b55d092a404fcab49def3"
@@ -6046,7 +6044,6 @@
   resolved "https://registry.yarnpkg.com/@types/d3-format/-/d3-format-1.4.1.tgz#1e657a219e4b1e3931508a610d570bdec8ecdd9d"
   integrity sha512-ss9G2snEKmp2In5Z3T0Jpqv8QaDBc2xHltBw83KjnV5B5w+Iwphbvq5ph/Xnu4d03fmmsdt+o1aWch379rxIbA==
 
->>>>>>> 2675b60a6d4c5eeb44b9fa67b6271e356a4c3c4d
 "@types/d3-hierarchy@^1.1.7":
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-1.1.7.tgz#14a57b0539f8929015f8ad96490de50a16211040"

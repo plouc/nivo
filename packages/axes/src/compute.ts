@@ -33,11 +33,6 @@ import {
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
-<<<<<<< HEAD:packages/axes/src/compute.js
-import { textPropsByEngine } from '@bitbloom/nivo-core'
-
-export const centerScale = scale => {
-=======
 // @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
 import {
@@ -51,7 +46,6 @@ import {
 } from './types'
 
 export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
->>>>>>> 2675b60a6d4c5eeb44b9fa67b6271e356a4c3c4d:packages/axes/src/compute.ts
     const bandwidth = scale.bandwidth()
 
     if (bandwidth === 0) return scale

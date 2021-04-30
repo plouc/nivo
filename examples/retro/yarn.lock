@@ -1261,29 +1261,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-axes@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-axes/-/axes-0.55.0.tgz#0f886505462d078bbdfd5569747c646c32990886"
-  integrity sha512-LAWgcLIcsyhBEBfXVc7Z7v0u5uLW89eicjWxeWcIxYup6sSGm6Dnhhdv4i4BDzt1K0WlQ6Rbm9Aj7lR6O7o9Zw==
-  dependencies:
-    "@bitbloom/nivo-core" "0.55.0"
-    d3-format "^1.3.2"
-    d3-time-format "^2.1.3"
-    lodash "^4.17.4"
-    react-motion "^0.5.2"
-    recompose "^0.30.0"
-
-"@bitbloom/nivo-bar@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-bar/-/bar-0.55.0.tgz#8f9d9e1a4bed391b5dc0972ff5bbf30a26092404"
-  integrity sha512-RqJjyGKUP6vMS57iJ1p81jzAVM4Ex/2vuFnDGrPz7xAeA3NDM24S/vN4Hch41bx+rt7qRgED2pWriUo/7Xqz5w==
-  dependencies:
-    "@bitbloom/nivo-axes" "0.55.0"
-    "@bitbloom/nivo-core" "0.55.0"
-    "@bitbloom/nivo-legends" "0.55.0"
-    d3-scale "^2.1.2"
-=======
 "@nivo/annotations@0.63.1":
   version "0.63.1"
   resolved "https://registry.yarnpkg.com/@nivo/annotations/-/annotations-0.63.1.tgz#bdfb344d2030c7b72dbb61e538173243ad73e90e"
@@ -1316,21 +1293,11 @@
     "@nivo/legends" "0.63.1"
     "@nivo/tooltip" "0.63.0"
     d3-scale "^3.0.0"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     d3-shape "^1.2.2"
     lodash "^4.17.11"
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-chord@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-chord/-/chord-0.55.0.tgz#8208d06998bcafb344ad8de227ae1420eb2ad5c0"
-  integrity sha512-1FOWsdC1g3b/bLcKpXab6b8D3tmDAcnAEmMyGLZ45uAvohsLpNKDqKquFh9MV//OaXOaJuxu64z370LV0cH4hg==
-  dependencies:
-    "@bitbloom/nivo-core" "0.55.0"
-    "@bitbloom/nivo-legends" "0.55.0"
-=======
 "@nivo/chord@0.63.1":
   version "0.63.1"
   resolved "https://registry.yarnpkg.com/@nivo/chord/-/chord-0.63.1.tgz#56ad52a681040a1dda93f4b07011a64d49004272"
@@ -1340,20 +1307,11 @@
     "@nivo/core" "0.63.1"
     "@nivo/legends" "0.63.1"
     "@nivo/tooltip" "0.63.0"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     d3-chord "^1.0.6"
     d3-shape "^1.3.5"
     lodash "^4.17.11"
     react-motion "^0.5.2"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-circle-packing@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-circle-packing/-/circle-packing-0.55.0.tgz#8973fa6add8a8acf11832ff571aff4b75cbb6702"
-  integrity sha512-qlQuf0wUN1oMV1K0fhJzT2yEmPRJhoJJGlr+LM+yptvNo7wLNIHIstJoPO96lNpRtwzsH4wjXS5dLfe0y4KTcw==
-  dependencies:
-    "@bitbloom/nivo-core" "0.55.0"
-=======
 "@nivo/circle-packing@0.63.1":
   version "0.63.1"
   resolved "https://registry.yarnpkg.com/@nivo/circle-packing/-/circle-packing-0.63.1.tgz#b2dd1e2250e309e28914c80e76e8391446d6ec3f"
@@ -1362,18 +1320,11 @@
     "@nivo/colors" "0.63.0"
     "@nivo/core" "0.63.1"
     "@nivo/tooltip" "0.63.0"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     d3-hierarchy "^1.1.8"
     lodash "^4.17.11"
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-core@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-core/-/core-0.55.0.tgz#913fa301768f5fa929dbe17a5cbd2978adef6051"
-  integrity sha512-3RzlMJqBhGnWvLmhyG9U63JlsxnrrlT2NFAMXo2PzpByzd21EZ9V1iPu7bhLPNm3otuMqmg9vR3dSAvzOZptqQ==
-=======
 "@nivo/colors@0.63.0":
   version "0.63.0"
   resolved "https://registry.yarnpkg.com/@nivo/colors/-/colors-0.63.0.tgz#be6a1c1f71d7a9e172a099a6c9344943f28f2e1b"
@@ -1390,7 +1341,6 @@
   version "0.63.1"
   resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.63.1.tgz#74aeedcdccc70b49a6baedded993dc9b9f1332d7"
   integrity sha512-nFMGWKxn3aSouyHjm0zkMSaDZsbmzuHrIXfZa+/z3ldRdPAnYW2/jeu+y95Ve65uq1eDb1X5vhIgXBzaTCV88g==
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
   dependencies:
     d3-color "^1.2.3"
     d3-format "^1.4.4"
@@ -1405,41 +1355,16 @@
     recompose "^0.30.0"
     resize-observer-polyfill "^1.5.1"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-generators@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-generators/-/generators-0.55.0.tgz#9e8d50e8a3f26b90a1a4b4835a1e049cb76e28db"
-  integrity sha512-ACFpsYu2JrrrLlv5Bun+Hrns6AqiILgVM0PmISSr7e7oOEUsp22QVK/MWzdeQQXKJLYC5K2T2cTIwhcT4JzRkw==
-=======
 "@nivo/generators@0.63.0":
   version "0.63.0"
   resolved "https://registry.yarnpkg.com/@nivo/generators/-/generators-0.63.0.tgz#7d1cf96f13355e53ea1efca13acda667f70dd6d5"
   integrity sha512-fXJNu/fgQs4jMf3IB9PIgJY9i1T0NvZZaf+bIpPWby7kTsUjhoJxD3nNRbH/e8bSkGKIDXpi5O/CjHA1v2a3Uw==
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
   dependencies:
     d3-random "^1.1.2"
     d3-time "^1.0.10"
     d3-time-format "^2.1.3"
     lodash "^4.17.11"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-heatmap@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-heatmap/-/heatmap-0.55.0.tgz#d63eea1898185c5c853ebcc60ccb8668c78892a5"
-  integrity sha512-k5PFmN3nGUJkXcOfxXGk+/a8mCY5/dEx4pWSlzDY0vxmxjJ08SZKBqFpUhZ1kqEE2GmxwzscLnl+5uSZdn5zcg==
-  dependencies:
-    "@bitbloom/nivo-axes" "0.55.0"
-    "@bitbloom/nivo-core" "0.55.0"
-    d3-scale "^2.1.2"
-    lodash "^4.17.4"
-    react-motion "^0.5.2"
-    recompose "^0.30.0"
-
-"@bitbloom/nivo-legends@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-legends/-/legends-0.55.0.tgz#a9a5dccef2ea87a47689fcc499ac2e5fe0598d9e"
-  integrity sha512-zrGBRlXQ+VAZ0KX2WCtvhkP/mm7ux9GXtVIcmy1AdJ9jqxCY8G7o/W5io9Pk5LbtslshqyUpI3E9cJAg20tnKA==
-=======
 "@nivo/heatmap@0.63.0":
   version "0.63.0"
   resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.63.0.tgz#29631bae73d97c87d385425baf0cf70c72d67eae"
@@ -1455,21 +1380,11 @@
   version "0.63.1"
   resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.63.1.tgz#dfc6bf373dde3c49242ea06d27a44497dd48d711"
   integrity sha512-mkDwjMfms6YSzkMtV3ejaGketycKxQxYFZ/JiPLS27B8U5sMti/Q6DzcEu7hoUGTErX8VqpXxB2gDsHfNaHMqQ==
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
   dependencies:
     "@nivo/core" "0.63.1"
     lodash "^4.17.11"
     recompose "^0.30.0"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-pie@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-pie/-/pie-0.55.0.tgz#fa6c1bfe91e1006c7a09194285f53d43c518fcd0"
-  integrity sha512-3vh85SCjwr82Ke/E7TyyVokSBo+YfMtu8+3svk2NdI2pM5MpMBa3MYxyamPGGtvoXs+fLF7qzElqd4NOoFIBmA==
-  dependencies:
-    "@bitbloom/nivo-core" "0.55.0"
-    "@bitbloom/nivo-legends" "0.55.0"
-=======
 "@nivo/pie@0.63.1":
   version "0.63.1"
   resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.63.1.tgz#bec89d73615f903830d69a5f6b38e9d9cb6c7ff9"
@@ -1479,22 +1394,10 @@
     "@nivo/core" "0.63.1"
     "@nivo/legends" "0.63.1"
     "@nivo/tooltip" "0.63.0"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     d3-shape "^1.3.5"
     lodash "^4.17.11"
     react-motion "^0.5.2"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-stream@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-stream/-/stream-0.55.0.tgz#177c2272f54aa51dc150c1b273b24c379314483c"
-  integrity sha512-kOL7oH41R0H/2y3mELnrjgJbvnoG76/dlT+fgyF4I3Sg4lE3GoplHz1RiTGNCyTku5HRuuFTG1yIqvauCBGtcw==
-  dependencies:
-    "@bitbloom/nivo-core" "0.55.0"
-    "@bitbloom/nivo-legends" "0.55.0"
-    d3-format "^1.3.2"
-    d3-scale "^2.1.2"
-=======
 "@nivo/scales@0.63.0":
   version "0.63.0"
   resolved "https://registry.yarnpkg.com/@nivo/scales/-/scales-0.63.0.tgz#ea7132221a82a8c2dae12ada2909b22d2d13068b"
@@ -1515,18 +1418,9 @@
     "@nivo/scales" "0.63.0"
     "@nivo/tooltip" "0.63.0"
     d3-scale "^3.0.0"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     d3-shape "^1.3.5"
     react-spring "^8.0.27"
 
-<<<<<<< HEAD
-"@bitbloom/nivo-treemap@0.55.0":
-  version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-treemap/-/treemap-0.55.0.tgz#b8323de55b9f9fc6445e8d3c07867c62a5956a60"
-  integrity sha512-M9exvmLsEOOFGIYveuiBkPqunmtcHnQa0BRitZb4zMPXFn+W50Q8iRTSTvZPlboHJeMeOwHSnGB9pk+H/jeeRQ==
-  dependencies:
-    "@bitbloom/nivo-core" "0.55.0"
-=======
 "@nivo/tooltip@0.63.0":
   version "0.63.0"
   resolved "https://registry.yarnpkg.com/@nivo/tooltip/-/tooltip-0.63.0.tgz#e9a8bf8ac4e4a2a34f9262fb24c84841674a4069"
@@ -1541,7 +1435,6 @@
   dependencies:
     "@nivo/colors" "0.63.0"
     "@nivo/tooltip" "0.63.0"
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     d3-hierarchy "^1.1.8"
     lodash "^4.17.11"
     react-spring "^8.0.27"
