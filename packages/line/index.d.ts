@@ -22,6 +22,7 @@ import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
+import { Line as D3Line } from 'd3-shape'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -65,19 +66,10 @@ declare module '@nivo/line' {
         | 'mesh'
         | 'legends'
 
-    export interface LineGenerator {
-        (data: Datum[]): string
-        x:any
-        y:any
-        defined:any
-        curve:any
-        context:any
-    }
-
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         innerHeight: number
         innerWidth: number
-        lineGenerator: LineGenerator
+        lineGenerator: D3Line<[number, number]>
         points: Point[]
         series: ComputedSerie[]
         xScale: ScaleFunc
