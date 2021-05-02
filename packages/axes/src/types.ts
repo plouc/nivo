@@ -55,7 +55,7 @@ export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
 export type ValueFormatter<Value extends AxisValue> = (value: Value) => Value | string
 
-export interface SingleAxisProp<Value extends AxisValue> {
+export interface AxisProps<Value extends AxisValue = any> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
     tickSize?: number
@@ -66,31 +66,12 @@ export interface SingleAxisProp<Value extends AxisValue> {
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
     legendOffset?: number
+    ariaHidden?: boolean
 }
 
 export interface CanvasAxisProp<Value extends string | number | Date>
-    extends Omit<SingleAxisProp<Value>, 'legend'> {
+    extends Omit<AxisProps<Value>, 'legend'> {
     legend?: string
-}
-
-export interface AxisProps<Value extends AxisValue = any> {
-    axis: 'x' | 'y'
-    scale: AnyScale
-    x?: number
-    y?: number
-    length: number
-    ticksPosition: 'before' | 'after'
-    tickValues?: TicksSpec<Value>
-    tickSize?: number
-    tickPadding?: number
-    tickRotation?: number
-    format?: string | ValueFormatter<Value>
-    renderTick?: (props: AxisTickProps<Value>) => JSX.Element
-    legend?: React.ReactNode
-    legendPosition?: 'start' | 'middle' | 'end'
-    legendOffset?: number
-    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
-    ariaHidden?: boolean
 }
 
 export interface AxisTickProps<Value extends AxisValue> {

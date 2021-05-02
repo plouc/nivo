@@ -1,7 +1,7 @@
 import React from 'react'
 import { Axis } from './Axis'
 import { positions } from '../props'
-import { AnyScale, SingleAxisProp, AxisValue } from '../types'
+import { AnyScale, AxisProps, AxisValue } from '../types'
 
 export const Axes = <X extends AxisValue, Y extends AxisValue>({
     xScale,
@@ -17,10 +17,10 @@ export const Axes = <X extends AxisValue, Y extends AxisValue>({
     yScale: AnyScale
     width: number
     height: number
-    top?: SingleAxisProp<X>
-    right?: SingleAxisProp<Y>
-    bottom?: SingleAxisProp<X>
-    left?: SingleAxisProp<Y>
+    top?: AxisProps<X>
+    right?: AxisProps<Y>
+    bottom?: AxisProps<X>
+    left?: AxisProps<Y>
 }) => {
     const axes = { top, right, bottom, left }
 
@@ -28,8 +28,8 @@ export const Axes = <X extends AxisValue, Y extends AxisValue>({
         <>
             {positions.map(position => {
                 const axis = axes[position] as typeof position extends 'bottom' | 'top'
-                    ? SingleAxisProp<X> | undefined
-                    : SingleAxisProp<Y> | undefined
+                    ? AxisProps<X> | undefined
+                    : AxisProps<Y> | undefined
 
                 if (!axis) return null
 
