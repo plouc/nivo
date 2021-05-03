@@ -3,4 +3,4 @@
 set -e
 
 make init
-make packages-publish
+make packages-publish-ci

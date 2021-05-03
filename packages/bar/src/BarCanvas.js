@@ -15,7 +15,6 @@ import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { generateGroupedBars, generateStackedBars, generateWaterfallBars } from './compute'
 import { BarPropTypes } from './props'
 import { setDisplayName } from '@bitbloom/nivo-recompose'
-import { generateGroupedBars, generateStackedBars } from './compute'
 import { BarDefaultProps, BarPropTypes } from './props'
 import enhance from './enhance'
 

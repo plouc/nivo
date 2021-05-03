@@ -180,8 +180,6 @@ packages-screenshots: ##@1 packages generate screenshots for packages readme (we
 	@node scripts/capture.js
 
 packages-publish-ci: ##@1 packages publish all packages
-	#@$(MAKE) packages-build
-
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish from-git --yes
 
