@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 export { default as Calendar } from './Calendar'
+export { default as TimeRange } from './TimeRange'
 export { default as ResponsiveCalendar } from './ResponsiveCalendar'
 export { default as CalendarCanvas } from './CalendarCanvas'
 export { default as ResponsiveCalendarCanvas } from './ResponsiveCalendarCanvas'
