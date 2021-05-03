@@ -11,7 +11,7 @@ package-lock.json
 build
 *.tsbuildinfo
 
-#s/packages/*/dist
+/packages/*/dist
 
 *.lerna_backup
 
