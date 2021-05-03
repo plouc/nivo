@@ -54,23 +54,35 @@ export interface ComputeWeekdays
     arrayOfWeekdays?: string[]
 }
 
+export interface Day {
+    coordinates: {
+        x: number
+        y: number
+    }
+    firstWeek: number
+    month: number
+    year: number
+    date: Date
+    color: string
+    day: string
+    value: number
+}
+
+export interface Month {
+    date: Date
+    bbox: {
+        x: number
+        y: number
+        width: number
+        height: number
+    }
+    firstWeek: number
+}
 export interface ComputeMonths
     extends ComputeBaseProps,
         ComputeBaseSpaceProps,
         ComputeBaseDimensionProps {
-    days: {
-        coordinates: {
-            x: number
-            y: number
-        }
-        firstWeek: number
-        month: number
-        year: number
-        date: Date
-        color: string
-        day: string
-        value: number
-    }[]
+    days: Day[]
 }
 
 /**
@@ -216,44 +228,45 @@ export const computeMonthLegends = ({
     cellHeight,
     cellWidth,
 }: ComputeMonths) => {
-    return days.reduce(
-        (acc, day) => {
-            if (acc.weeks.length === day.firstWeek) {
-                acc.weeks.push(day)
-                if (!Object.keys(acc.months).includes(`${day.year}-${day.month}`)) {
-                    const bbox = { x: 0, y: 0, width: 0, height: 0 }
-                    if (direction === Direction.HORIZONTAL) {
-                        bbox.x = day.coordinates.x - daySpacing
-                        bbox.height = daysInRange * cellHeight + daySpacing
-                        bbox.width = cellWidth + daySpacing * 2
-                    } else {
-                        bbox.y = day.coordinates.y - daySpacing
-                        bbox.height = cellHeight + daySpacing * 2
-                        bbox.width = daysInRange * cellWidth + daySpacing * 2
-                    }
-                    acc.months[`${day.year}-${day.month}`] = {
-                        date: day.date,
-                        bbox,
-                        firstWeek: day.firstWeek,
-                    }
+    const accumulator: {
+        months: { [key: string]: Month }
+        weeks: Day[]
+    } = {
+        months: {},
+        weeks: [],
+    }
+    return days.reduce((acc, day) => {
+        if (acc.weeks.length === day.firstWeek) {
+            acc.weeks.push(day)
+            if (!Object.keys(acc.months).includes(`${day.year}-${day.month}`)) {
+                const bbox = { x: 0, y: 0, width: 0, height: 0 }
+                if (direction === Direction.HORIZONTAL) {
+                    bbox.x = day.coordinates.x - daySpacing
+                    bbox.height = daysInRange * cellHeight + daySpacing
+                    bbox.width = cellWidth + daySpacing * 2
                 } else {
-                    // enhance width/height
-                    if (direction === Direction.HORIZONTAL) {
-                        acc.months[`${day.year}-${day.month}`].bbox.width =
-                            (day.firstWeek - acc.months[`${day.year}-${day.month}`].firstWeek) *
-                            (cellWidth + daySpacing)
-                    } else {
-                        acc.months[`${day.year}-${day.month}`].bbox.height =
-                            (day.firstWeek - acc.months[`${day.year}-${day.month}`].firstWeek) *
-                            (cellHeight + daySpacing)
-                    }
+                    bbox.y = day.coordinates.y - daySpacing
+                    bbox.height = cellHeight + daySpacing * 2
+                    bbox.width = daysInRange * cellWidth + daySpacing * 2
+                }
+                acc.months[`${day.year}-${day.month}`] = {
+                    date: day.date,
+                    bbox,
+                    firstWeek: day.firstWeek,
+                }
+            } else {
+                // enhance width/height
+                if (direction === Direction.HORIZONTAL) {
+                    acc.months[`${day.year}-${day.month}`].bbox.width =
+                        (day.firstWeek - acc.months[`${day.year}-${day.month}`].firstWeek) *
+                        (cellWidth + daySpacing)
+                } else {
+                    acc.months[`${day.year}-${day.month}`].bbox.height =
+                        (day.firstWeek - acc.months[`${day.year}-${day.month}`].firstWeek) *
+                        (cellHeight + daySpacing)
                 }
             }
-            return acc
-        },
-        {
-            months: {},
-            weeks: [],
         }
-    )
+        return acc
+    }, accumulator)
 }
