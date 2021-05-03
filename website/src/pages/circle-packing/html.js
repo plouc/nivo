@@ -59,7 +59,7 @@ const CirclePackingHtml = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBubbleHtml
+                    <ResponsiveCirclePackingHtml
                         root={data}
                         {...properties}
                         theme={theme}

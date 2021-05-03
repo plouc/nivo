@@ -38,11 +38,16 @@ const CirclePackingApi = () => {
                     valueFormat: { format: '', enabled: false },
                     colors: { scheme: 'nivo' },
                     colorBy: 'depth',
+                    inheritColorFromParent: false,
+                    childColor: {
+                        from: 'color',
+                        modifiers: [['darker', 0.3]],
+                    },
                     padding: 1,
-                    enableLabel: true,
+                    enableLabels: true,
                     leavesOnly: false,
                     label: 'id',
-                    labelSkipRadius: 8,
+                    labelsSkipRadius: 8,
                     labelTextColor: {
                         from: 'color',
                         modifiers: [['darker', 0.8]],
