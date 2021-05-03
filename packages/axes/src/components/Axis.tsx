@@ -3,7 +3,7 @@ import { useSpring, useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'
-import { AxisProps, AxisValue } from '../types'
+import { AnyScale, AxisProps, AxisValue } from '../types'
 
 export const Axis = <Value extends AxisValue>({
     axis,
@@ -23,7 +23,14 @@ export const Axis = <Value extends AxisValue>({
     legendOffset = 0,
     onClick,
     ariaHidden,
-}: AxisProps<Value>) => {
+}: AxisProps<Value> & {
+    axis: 'x' | 'y'
+    scale: AnyScale
+    x?: number
+    y?: number
+    length: number
+    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
+}) => {
     const theme = useTheme()
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
