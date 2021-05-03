@@ -8,7 +8,6 @@
  */
 import React, { Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
-import setDisplayName from 'recompose/setDisplayName'
 import { clip, getRelativeCursor, isCursorInRect, LegacyContainer } from '@bitbloom/nivo-core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'

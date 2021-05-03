@@ -44,5 +44,6 @@
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  }
+  },
+  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
 }

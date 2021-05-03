@@ -37,10 +37,11 @@
     "recompose": "^0.30.0"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "0.62.5",
+    "@bitbloom/nivo-core": "0.69.1",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  }
+  },
+  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
 }

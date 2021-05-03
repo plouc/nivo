@@ -30,6 +30,7 @@
     "dist/"
   ],
   "dependencies": {
+    "@bitbloom/nivo-axes": "^0.69.1",
     "@bitbloom/nivo-colors": "^0.69.1",
     "@bitbloom/nivo-legends": "^0.69.1",
     "@bitbloom/nivo-tooltip": "^0.69.1",

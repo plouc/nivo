@@ -173,17 +173,23 @@ package-types-%: ##@1 packages build a package types
 
 package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
-	@-rm -rf ./packages/${*}/dist/
+	@-rm -rf ./packages/${*}/dist/nivo-${*}*
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
 
-packages-publish: ##@1 packages publish all packages
+packages-publish-ci: ##@1 packages publish all packages
 	#@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish from-git --yes
+
+packages-publish: ##@1 packages publish all packages
+	@$(MAKE) packages-build
+
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish --exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build

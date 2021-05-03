@@ -38,14 +38,15 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "@bitbloom/nivo-core": "0.62.5"
+    "@bitbloom/nivo-core": "0.69.1"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "0.62.5",
+    "@bitbloom/nivo-core": "0.69.1",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  }
+  },
+  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
 }
