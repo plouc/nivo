@@ -1,7 +1,7 @@
 {
   "name": "@bitbloom/nivo-legends",
   "description": "legend components for nivo dataviz library",
-  "version": "0.69.0",
+  "version": "0.62.5",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,12 +22,12 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@bitbloom/nivo-core": "^0.69.0",
+    "@bitbloom/nivo-core": "^0.62.5",
     "lodash": "^4.17.11",
     "recompose": "^0.30.0"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "0.69.0",
+    "@bitbloom/nivo-core": "0.62.5",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
