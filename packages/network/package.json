@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-network",
-  "version": "0.62.5",
+  "version": "0.69.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -30,9 +30,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.62.5",
-    "@bitbloom/nivo-core": "^0.62.5",
-    "@bitbloom/nivo-tooltip": "^0.62.5",
+    "@bitbloom/nivo-colors": "^0.69.1",
+    "@bitbloom/nivo-core": "^0.69.1",
+    "@bitbloom/nivo-tooltip": "^0.69.1",
     "d3-force": "^2.0.1",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"

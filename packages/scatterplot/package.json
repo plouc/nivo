@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-scatterplot",
-  "version": "0.62.5",
+  "version": "0.69.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -28,14 +28,14 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-annotations": "^0.62.5",
-    "@bitbloom/nivo-axes": "^0.62.5",
-    "@bitbloom/nivo-colors": "^0.62.5",
-    "@bitbloom/nivo-core": "^0.62.5",
-    "@bitbloom/nivo-legends": "^0.62.5",
-    "@bitbloom/nivo-scales": "^0.62.5",
-    "@bitbloom/nivo-tooltip": "^0.62.5",
-    "@bitbloom/nivo-voronoi": "^0.62.5",
+    "@bitbloom/nivo-annotations": "^0.69.1",
+    "@bitbloom/nivo-axes": "^0.69.1",
+    "@bitbloom/nivo-colors": "^0.69.1",
+    "@bitbloom/nivo-core": "^0.69.1",
+    "@bitbloom/nivo-legends": "^0.69.1",
+    "@bitbloom/nivo-scales": "^0.69.1",
+    "@bitbloom/nivo-tooltip": "^0.69.1",
+    "@bitbloom/nivo-voronoi": "^0.69.1",
     "d3-scale": "^3.0.0",
     "d3-shape": "^1.3.5",
     "lodash": "^4.17.11",

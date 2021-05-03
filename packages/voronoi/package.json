@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-voronoi",
-  "version": "0.62.5",
+  "version": "0.69.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,7 +29,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@bitbloom/nivo-core": "^0.62.5",
+    "@bitbloom/nivo-core": "^0.69.1",
     "@types/d3-delaunay": "^5.3.0",
     "@types/d3-scale": "^3.2.2",
     "d3-delaunay": "^5.1.1",
