@@ -50,8 +50,8 @@ export interface ComputeWeekdays
     extends ComputeBaseProps,
         ComputeBaseSpaceProps,
         ComputeBaseDimensionProps {
-    ticks: number[]
-    arrayOfWeekdays: string[]
+    ticks?: number[]
+    arrayOfWeekdays?: string[]
 }
 
 export interface ComputeMonths

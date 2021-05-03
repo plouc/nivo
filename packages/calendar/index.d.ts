@@ -10,7 +10,7 @@ import * as React from 'react'
 import { Dimensions, Theme, Box, BoxAlign } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
 
-declare module '@nivo/calendar' {
+declare module '@scherler/nivo-calendar' {
     export type DateOrString = string | Date
 
     export interface CalendarDatum {
@@ -66,10 +66,10 @@ declare module '@nivo/calendar' {
         yearLegendOffset: number
         yearLegendPosition: 'before' | 'after'
 
-        monthLegend: (year: number, month: number, date: Date) => string | number
         monthSpacing: number
         monthBorderWidth: number
         monthBorderColor: string
+        monthLegend: (year: number, month: number, date: Date) => string | number
         monthLegendOffset: number
         monthLegendPosition: 'before' | 'after'
 
@@ -102,8 +102,56 @@ declare module '@nivo/calendar' {
             role: string
         }>
 
-    export class Calendar extends React.Component<CalendarSvgProps & Dimensions> {}
-    export class ResponsiveCalendar extends React.Component<CalendarSvgProps> {}
-    export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> {}
-    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> {}
+    export class Calendar extends React.Component<CalendarSvgProps & Dimensions> { }
+    export class ResponsiveCalendar extends React.Component<CalendarSvgProps> { }
+    export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> { }
+    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> { }
+
+    export type TimeRangeCommonProps = Partial<{
+        minValue: 'auto' | number
+        maxValue: 'auto' | number
+        direction: CalendarDirection
+        colors: string[]
+        colorScale: ColorScale
+        margin: Box
+        align: BoxAlign
+        daySpacing: number
+        dayRadius: number
+        dayBorderWidth: number
+        dayBorderColor: string
+        emptyColor: string
+        isInteractive: boolean
+        onClick?: CalendarMouseHandler
+        onMouseMove?: CalendarMouseHandler
+        onMouseLeave?: CalendarMouseHandler
+        onMouseEnter?: CalendarMouseHandler
+        tooltip: React.FunctionComponent<CalendarDayData>
+        valueFormat?: string | ValueFormatter
+        legendFormat?: string | ValueFormatter
+        legends: CalendarLegend[]
+        theme: Theme
+        weekdayLegendsOffset: number
+        monthLegend: (year: number, month: number, date: Date) => string | number
+        monthLegendOffset: number
+        monthLegendPosition: 'before' | 'after'
+    }>
+
+    export interface TimeRangeDatum {
+        day: Date
+        value: number
+    }
+
+    export interface TimeRangeData {
+        from: Date
+        to: Date
+        data: TimeRangeDatum[]
+    }
+    export type TimeRangeProps = TimeRangeData &
+        TimeRangeCommonProps &
+        Partial<{
+            onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
+            role: string
+        }> &
+        Dimensions
+
 }

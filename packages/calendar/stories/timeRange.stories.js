@@ -25,8 +25,6 @@ stories.add('TimeRange horizontal', () => {
                 bottom: number('margin-bottom',40),
                 left: number('margin-left',40),
             },
-            from,
-            to,
             data: generateOrderedDayCounts({
                 from,
                 to,
