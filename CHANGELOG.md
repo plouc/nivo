@@ -1,3 +1,14 @@
+<a name="v0.69.1"></a>
+## v0.69.1 (2021-05-03)
+
+
+#### Bug Fixes
+
+* **axes:**  fix AxisProps types to be correct (#1502) ([baad3c0e](https://github.com/plouc/nivo/commit/baad3c0e9737176d263cc2c7268882cd95509bbe))
+* **line:**  update type for custom line canvas layers (#1499) ([04547846](https://github.com/plouc/nivo/commit/04547846b9a803c3d64bbec8249aef4a163ae8b2))
+
+
+
 <a name="v0.69.0"></a>
 ## v0.69.0 (2021-04-30)
 
