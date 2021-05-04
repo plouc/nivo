@@ -13,7 +13,6 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { generateGroupedBars, generateStackedBars, generateWaterfallBars } from './compute'
-import { BarPropTypes } from './props'
 import { setDisplayName } from '@bitbloom/nivo-recompose'
 import { BarDefaultProps, BarPropTypes } from './props'
 import enhance from './enhance'

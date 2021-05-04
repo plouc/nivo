@@ -9,7 +9,6 @@
 import { compose, pure, withPropsOnChange } from '@bitbloom/nivo-recompose'
 import React from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 
 const BarItem = ({
