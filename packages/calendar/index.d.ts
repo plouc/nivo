@@ -47,7 +47,7 @@ declare module '@nivo/calendar' {
     }
 
     export interface ColorScale {
-        (value: number | { valueOf(): number }): Range
+        (value: number | { valueOf(): number }): any[]
         ticks(count?: number): number[]
     }
 
@@ -137,7 +137,8 @@ declare module '@nivo/calendar' {
     }>
 
     export interface TimeRangeDatum {
-        day: Date
+        day: string
+        date: Date
         value: number
     }
 
@@ -154,4 +155,12 @@ declare module '@nivo/calendar' {
         }> &
         Dimensions
 
+    export type TimeRangeSvgProps = TimeRangeData &
+        TimeRangeCommonProps &
+        Partial<{
+            onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
+            role: string
+        }>
+
+    export class ResponsiveTimeRange extends React.Component<TimeRangeSvgProps> { }
 }
