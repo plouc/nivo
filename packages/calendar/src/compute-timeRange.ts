@@ -38,8 +38,8 @@ export interface ComputeCellSize extends ComputeBaseProps, ComputeBaseSpaceProps
 
 export interface ComputeCellPositions
     extends ComputeBaseProps,
-    ComputeBaseSpaceProps,
-    ComputeBaseDimensionProps {
+        ComputeBaseSpaceProps,
+        ComputeBaseDimensionProps {
     data: {
         date: Date
         day: string
@@ -50,8 +50,8 @@ export interface ComputeCellPositions
 
 export interface ComputeWeekdays
     extends ComputeBaseProps,
-    ComputeBaseSpaceProps,
-    ComputeBaseDimensionProps {
+        ComputeBaseSpaceProps,
+        ComputeBaseDimensionProps {
     ticks?: number[]
     arrayOfWeekdays?: string[]
 }
@@ -82,8 +82,8 @@ export interface Month {
 }
 export interface ComputeMonths
     extends ComputeBaseProps,
-    ComputeBaseSpaceProps,
-    ComputeBaseDimensionProps {
+        ComputeBaseSpaceProps,
+        ComputeBaseDimensionProps {
     days: Day[]
 }
 
