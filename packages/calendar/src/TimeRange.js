@@ -24,6 +24,7 @@ const TimeRange = ({
     width,
     height,
 
+    square,
     colors = ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
     colorScale,
     data,
@@ -60,6 +61,7 @@ const TimeRange = ({
     const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
 
     const { cellHeight, cellWidth } = computeCellSize({
+        square,
         offset: weekdayLegendsOffset,
         totalDays: data.length + data[0].date.getDay(),
         width: innerWidth,

@@ -10,6 +10,7 @@ export const defaultProps = {
     direction: Direction.HORIZONTAL,
     daySpacing: 10,
     offset: 65,
+    square: true,
 }
 
 // Interfaces
@@ -32,12 +33,13 @@ export interface ComputeCellSize extends ComputeBaseProps, ComputeBaseSpaceProps
     totalDays: number
     width: number
     height: number
+    square?: boolean
 }
 
 export interface ComputeCellPositions
     extends ComputeBaseProps,
-        ComputeBaseSpaceProps,
-        ComputeBaseDimensionProps {
+    ComputeBaseSpaceProps,
+    ComputeBaseDimensionProps {
     data: {
         date: Date
         day: string
@@ -48,8 +50,8 @@ export interface ComputeCellPositions
 
 export interface ComputeWeekdays
     extends ComputeBaseProps,
-        ComputeBaseSpaceProps,
-        ComputeBaseDimensionProps {
+    ComputeBaseSpaceProps,
+    ComputeBaseDimensionProps {
     ticks?: number[]
     arrayOfWeekdays?: string[]
 }
@@ -80,8 +82,8 @@ export interface Month {
 }
 export interface ComputeMonths
     extends ComputeBaseProps,
-        ComputeBaseSpaceProps,
-        ComputeBaseDimensionProps {
+    ComputeBaseSpaceProps,
+    ComputeBaseDimensionProps {
     days: Day[]
 }
 
@@ -94,6 +96,7 @@ export const computeCellSize = ({
     daysInRange = defaultProps.daysInRange,
     daySpacing = defaultProps.daySpacing,
     offset = defaultProps.offset,
+    square = defaultProps.square,
     totalDays,
     width,
     height,
@@ -112,11 +115,15 @@ export const computeCellSize = ({
         rows = Math.ceil(totalDays / daysInRange)
     }
     // + 1 since we have to apply spacing to the rigth and left
+    const cellHeight = (heightRest - daySpacing * (rows + 1)) / rows
+    const cellWidth = (widthRest - daySpacing * (columns + 1)) / columns
+    // do we want square?
+    const size = Math.min(cellHeight, cellWidth)
     return {
         columns,
         rows,
-        cellHeight: (heightRest - daySpacing * (rows + 1)) / rows,
-        cellWidth: (widthRest - daySpacing * (columns + 1)) / columns,
+        cellHeight: square ? size : cellHeight,
+        cellWidth: square ? size : cellWidth,
     }
 }
 

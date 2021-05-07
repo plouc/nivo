@@ -114,7 +114,7 @@ declare module '@nivo/calendar' {
         colors: string[]
         colorScale: ColorScale
         margin: Box
-        align: BoxAlign
+        square?: boolean
         daySpacing: number
         dayRadius: number
         dayBorderWidth: number

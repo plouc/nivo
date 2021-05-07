@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, number, date } from '@storybook/addon-knobs'
+import { withKnobs, number, date, boolean } from '@storybook/addon-knobs'
 
 import { TimeRange, ResponsiveTimeRange } from '../src'
 import { generateOrderedDayCounts } from "./generateDayCounts";
@@ -17,6 +17,7 @@ stories.add('TimeRange horizontal', () => {
     const to = new Date(date('to', new Date(2021, 0, 7)))
     return <TimeRange
         {...{
+            square: boolean('square', true),
             dayRadius: number('dayRadius', 5),
             formatValue: value => value,
             margin: {
