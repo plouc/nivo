@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
-import { useTheme, usePropertyAccessor, guessQuantizeColorScale } from '@nivo/core'
+import { useTheme, usePropertyAccessor, guessQuantizeColorScale, getLabelGenerator } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 
 const computeX = (column, cellWidth, padding) => {
@@ -79,7 +79,7 @@ export const useHeatMap = ({
     nanColor,
     cellOpacity,
     cellBorderColor,
-    getLabel,
+    label,
     labelTextColor,
     hoverTarget,
     cellHoverOpacity,
@@ -89,6 +89,7 @@ export const useHeatMap = ({
 
     const getIndex = usePropertyAccessor(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
+    const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     const layoutConfig = useMemo(() => {
         const columns = keys.length

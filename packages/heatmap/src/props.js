@@ -39,7 +39,6 @@ export const HeatMapPropTypes = {
 
     enableLabels: PropTypes.bool.isRequired,
     label: PropTypes.func.isRequired,
-    getLabel: PropTypes.func.isRequired, // computed
     labelTextColor: inheritedColorPropType.isRequired,
 
     colors: quantizeColorScalePropType.isRequired,
