@@ -1,29 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import isNumber from 'lodash/isNumber'
-import isPlainObject from 'lodash/isPlainObject'
-import {
-    ANCHOR_BOTTOM,
-    ANCHOR_BOTTOM_LEFT,
-    ANCHOR_BOTTOM_RIGHT,
-    ANCHOR_CENTER,
-    ANCHOR_LEFT,
-    ANCHOR_RIGHT,
-    ANCHOR_TOP,
-    ANCHOR_TOP_RIGHT,
-    DIRECTION_BOTTOM_TO_TOP,
-    DIRECTION_COLUMN,
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_ROW,
-    DIRECTION_TOP_TO_BOTTOM,
-} from './constants'
+import { BoxLegendSvgProps, LegendAnchor, LegendItemDirection } from './types'
+
+const isObject = <T>(item: unknown): item is T =>
+    typeof item === 'object' && !Array.isArray(item) && item !== null
 
 const zeroPadding = {
     top: 0,
@@ -39,32 +17,33 @@ export const computeDimensions = ({
     itemCount,
     itemWidth,
     itemHeight,
-}) => {
-    let padding
-    if (isNumber(_padding)) {
-        padding = {
-            top: _padding,
-            right: _padding,
-            bottom: _padding,
-            left: _padding,
-        }
-    } else if (isPlainObject(_padding)) {
-        padding = {
-            ...zeroPadding,
-            ..._padding,
-        }
-    } else {
-        throw new TypeError(`Invalid property padding, must be one of: number, object`)
+}: Pick<BoxLegendSvgProps, 'direction' | 'padding'> &
+    Record<'itemsSpacing' | 'itemCount' | 'itemWidth' | 'itemHeight', number>) => {
+    if (typeof _padding !== 'number' && !isObject(_padding)) {
+        throw new Error('Invalid property padding, must be one of: number, object')
     }
+
+    const padding =
+        typeof _padding === 'number'
+            ? {
+                  top: _padding,
+                  right: _padding,
+                  bottom: _padding,
+                  left: _padding,
+              }
+            : {
+                  ...zeroPadding,
+                  ..._padding,
+              }
 
     const horizontalPadding = padding.left + padding.right
     const verticalPadding = padding.top + padding.bottom
     let width = itemWidth + horizontalPadding
     let height = itemHeight + verticalPadding
-    let spacing = (itemCount - 1) * itemsSpacing
-    if (direction === DIRECTION_ROW) {
+    const spacing = (itemCount - 1) * itemsSpacing
+    if (direction === 'row') {
         width = itemWidth * itemCount + spacing + horizontalPadding
-    } else if (direction === DIRECTION_COLUMN) {
+    } else if (direction === 'column') {
         height = itemHeight * itemCount + spacing + verticalPadding
     }
 
@@ -79,43 +58,46 @@ export const computePositionFromAnchor = ({
     containerHeight,
     width,
     height,
-}) => {
+}: { anchor: LegendAnchor } & Record<
+    'translateX' | 'translateY' | 'containerWidth' | 'containerHeight' | 'width' | 'height',
+    number
+>) => {
     let x = translateX
     let y = translateY
 
     switch (anchor) {
-        case ANCHOR_TOP:
+        case 'top':
             x += (containerWidth - width) / 2
             break
 
-        case ANCHOR_TOP_RIGHT:
+        case 'top-right':
             x += containerWidth - width
             break
 
-        case ANCHOR_RIGHT:
+        case 'right':
             x += containerWidth - width
             y += (containerHeight - height) / 2
             break
 
-        case ANCHOR_BOTTOM_RIGHT:
+        case 'bottom-right':
             x += containerWidth - width
             y += containerHeight - height
             break
 
-        case ANCHOR_BOTTOM:
+        case 'bottom':
             x += (containerWidth - width) / 2
             y += containerHeight - height
             break
 
-        case ANCHOR_BOTTOM_LEFT:
+        case 'bottom-left':
             y += containerHeight - height
             break
 
-        case ANCHOR_LEFT:
+        case 'left':
             y += (containerHeight - height) / 2
             break
 
-        case ANCHOR_CENTER:
+        case 'center':
             x += (containerWidth - width) / 2
             y += (containerHeight - height) / 2
             break
@@ -131,17 +113,20 @@ export const computeItemLayout = ({
     symbolSpacing,
     width,
     height,
-}) => {
+}: {
+    direction: LegendItemDirection
+    justify: boolean
+} & Record<'symbolSize' | 'symbolSpacing' | 'width' | 'height', number>) => {
     let symbolX
     let symbolY
 
     let labelX
     let labelY
-    let labelAnchor
-    let labelAlignment
+    let labelAnchor: 'start' | 'middle' | 'end'
+    let labelAlignment: 'alphabetic' | 'central' | 'text-before-edge'
 
     switch (direction) {
-        case DIRECTION_LEFT_TO_RIGHT:
+        case 'left-to-right':
             symbolX = 0
             symbolY = (height - symbolSize) / 2
 
@@ -156,7 +141,7 @@ export const computeItemLayout = ({
             }
             break
 
-        case DIRECTION_RIGHT_TO_LEFT:
+        case 'right-to-left':
             symbolX = width - symbolSize
             symbolY = (height - symbolSize) / 2
 
@@ -171,7 +156,7 @@ export const computeItemLayout = ({
             }
             break
 
-        case DIRECTION_TOP_TO_BOTTOM:
+        case 'top-to-bottom':
             symbolX = (width - symbolSize) / 2
             symbolY = 0
 
@@ -187,7 +172,7 @@ export const computeItemLayout = ({
             }
             break
 
-        case DIRECTION_BOTTOM_TO_TOP:
+        case 'bottom-to-top':
             symbolX = (width - symbolSize) / 2
             symbolY = height - symbolSize
 

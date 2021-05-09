@@ -8,50 +8,39 @@
  */
 import React from 'react'
 import omit from 'lodash/omit'
-import {
-    BoxLegendSvg,
-    ANCHOR_TOP_LEFT,
-    ANCHOR_TOP,
-    ANCHOR_TOP_RIGHT,
-    ANCHOR_RIGHT,
-    ANCHOR_BOTTOM_RIGHT,
-    ANCHOR_BOTTOM,
-    ANCHOR_BOTTOM_LEFT,
-    ANCHOR_LEFT,
-    ANCHOR_CENTER,
-} from '@nivo/legends'
+import { BoxLegendSvg } from '@nivo/legends'
 import { useTheme } from '../../../theming/context'
 
 const anchors = [
-    ANCHOR_TOP_LEFT,
-    ANCHOR_TOP,
-    ANCHOR_TOP_RIGHT,
-    ANCHOR_RIGHT,
-    ANCHOR_BOTTOM_RIGHT,
-    ANCHOR_BOTTOM,
-    ANCHOR_BOTTOM_LEFT,
-    ANCHOR_LEFT,
-    ANCHOR_CENTER,
+    'top-left',
+    'top',
+    'top-right',
+    'right',
+    'bottom-right',
+    'bottom',
+    'bottom-left',
+    'left',
+    'center',
 ]
 
 const translateExamples = [
     {
-        anchor: ANCHOR_TOP,
+        anchor: 'top',
         translateX: -160,
         translateY: -30,
     },
     {
-        anchor: ANCHOR_LEFT,
+        anchor: 'left',
         translateX: -30,
         translateY: 50,
     },
     {
-        anchor: ANCHOR_RIGHT,
+        anchor: 'right',
         translateX: -30,
         translateY: -60,
     },
     {
-        anchor: ANCHOR_BOTTOM,
+        anchor: 'bottom',
         translateX: 160,
         translateY: 30,
     },

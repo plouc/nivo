@@ -14,16 +14,13 @@
   },
   "main": "./dist/nivo-legends.cjs.js",
   "module": "./dist/nivo-legends.es.js",
-  "typings": "./index.d.ts",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
     "dist/",
-    "index.d.ts"
+    "!dist/tsconfig.tsbuildinfo"
   ],
-  "dependencies": {
-    "lodash": "^4.17.11"
-  },
   "devDependencies": {
     "@nivo/core": "0.69.0"
   },

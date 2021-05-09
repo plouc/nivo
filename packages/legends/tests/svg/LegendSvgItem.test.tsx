@@ -1,23 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
+// @ts-ignore
 import { ThemeProvider } from '@nivo/core'
-import BaseLegendSvgItem from '../../src/svg/LegendSvgItem'
+import { LegendSvgItem } from '../../src'
 import * as shapes from '../../src/svg/symbols'
-import {
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-} from '../../src/constants'
 
 const commonProps = {
     x: 0,
@@ -31,22 +18,19 @@ const commonProps = {
     },
 }
 
-const directions = [
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-]
+const directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
 
-const LegendSvgItem = props => (
+const LegendSvgItemWithTheme = props => (
     <ThemeProvider>
-        <BaseLegendSvgItem {...props} />
+        <LegendSvgItem {...props} />
     </ThemeProvider>
 )
 
 directions.forEach(direction => {
     it(`should support ${direction} direction`, () => {
-        const component = renderer.create(<LegendSvgItem {...commonProps} direction={direction} />)
+        const component = renderer.create(
+            <LegendSvgItemWithTheme {...commonProps} direction={direction} />
+        )
 
         const tree = component.toJSON()
         expect(tree).toMatchSnapshot()
@@ -54,7 +38,7 @@ directions.forEach(direction => {
 
     it(`should support ${direction} direction justified`, () => {
         const component = renderer.create(
-            <LegendSvgItem {...commonProps} direction={direction} justify={true} />
+            <LegendSvgItemWithTheme {...commonProps} direction={direction} justify={true} />
         )
 
         const tree = component.toJSON()
@@ -66,7 +50,7 @@ describe('symbolShape', () => {
     it('should support circle shape', () => {
         const wrapper = mount(
             <svg>
-                <LegendSvgItem {...commonProps} symbolShape="circle" />
+                <LegendSvgItemWithTheme {...commonProps} symbolShape="circle" />
             </svg>
         )
 
@@ -76,7 +60,7 @@ describe('symbolShape', () => {
     it('should support diamond shape', () => {
         const wrapper = mount(
             <svg>
-                <LegendSvgItem {...commonProps} symbolShape="diamond" />
+                <LegendSvgItemWithTheme {...commonProps} symbolShape="diamond" />
             </svg>
         )
 
@@ -86,7 +70,7 @@ describe('symbolShape', () => {
     it('should support square shape', () => {
         const wrapper = mount(
             <svg>
-                <LegendSvgItem {...commonProps} symbolShape="square" />
+                <LegendSvgItemWithTheme {...commonProps} symbolShape="square" />
             </svg>
         )
 
@@ -96,7 +80,7 @@ describe('symbolShape', () => {
     it('should support triangle shape', () => {
         const wrapper = mount(
             <svg>
-                <LegendSvgItem {...commonProps} symbolShape="triangle" />
+                <LegendSvgItemWithTheme {...commonProps} symbolShape="triangle" />
             </svg>
         )
 
@@ -107,7 +91,7 @@ describe('symbolShape', () => {
         const CustomShape = () => <g />
         const wrapper = mount(
             <svg>
-                <LegendSvgItem {...commonProps} symbolShape={CustomShape} />
+                <LegendSvgItemWithTheme {...commonProps} symbolShape={CustomShape} />
             </svg>
         )
 

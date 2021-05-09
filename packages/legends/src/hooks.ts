@@ -1,12 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useMemo } from 'react'
+
+type Scale = {
+    (value: number): number
+    invertExtent: (value: number) => [number, number]
+    range: () => number[]
+}
 
 export const useQuantizeColorScaleLegendData = ({
     scale,
@@ -14,9 +12,15 @@ export const useQuantizeColorScaleLegendData = ({
     reverse = false,
     valueFormat = v => v,
     separator = ' - ',
+}: {
+    scale: Scale
+    domain?: number[]
+    reverse?: boolean
+    valueFormat?: <T, U>(value: T) => T | U
+    separator?: string
 }) => {
     return useMemo(() => {
-        const domain = overriddenDomain || scale.range()
+        const domain = overriddenDomain ?? scale.range()
 
         const items = domain.map((domainValue, index) => {
             const [start, end] = scale.invertExtent(domainValue)
