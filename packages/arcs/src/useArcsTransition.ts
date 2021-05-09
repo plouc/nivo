@@ -28,7 +28,7 @@ export const useArcsTransition = <Datum extends DatumWithArc, ExtraProps = unkno
             outerRadius: number
         } & ExtraProps
     >(data, {
-        key: datum => datum.id,
+        keys: datum => datum.id,
         initial: phases.update,
         from: phases.enter,
         enter: phases.update,

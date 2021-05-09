@@ -8,25 +8,21 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TableTooltip } from '@nivo/tooltip'
-
-const Chip = ({ color }) => (
-    <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
-)
-
-Chip.propTypes = {
-    color: PropTypes.string.isRequired,
-}
+import { useTheme } from '@nivo/core'
+import { Chip, TableTooltip } from '@nivo/tooltip'
 
 const SliceTooltip = ({ slice, axis }) => {
+    const theme = useTheme()
     const otherAxis = axis === 'x' ? 'y' : 'x'
 
     return (
         <TableTooltip
             rows={slice.points.map(point => [
-                <Chip key="chip" color={point.serieColor} />,
+                <Chip key="chip" color={point.serieColor} style={theme.tooltip.chip} />,
                 point.serieId,
-                <strong key="value">{point.data[`${otherAxis}Formatted`]}</strong>,
+                <span key="value" style={theme.tooltip.tableCellValue}>
+                    {point.data[`${otherAxis}Formatted`]}
+                </span>,
             ])}
         />
     )

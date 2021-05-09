@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react'
-import { get } from 'lodash'
 import { pie as d3Pie } from 'd3-shape'
 import { ArcGenerator, useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
-import { degreesToRadians, radiansToDegrees, useValueFormatter } from '@nivo/core'
+import {
+    degreesToRadians,
+    radiansToDegrees,
+    useValueFormatter,
+    usePropertyAccessor,
+} from '@nivo/core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { defaultProps } from './props'
-import { CompletePieSvgProps, ComputedDatum, PieArc, PieCustomLayerProps } from './types'
+import { CompletePieSvgProps, ComputedDatum, DatumId, PieArc, PieCustomLayerProps } from './types'
 
 interface MayHaveLabel {
     label?: string | number
@@ -26,11 +30,8 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
 }: Pick<CompletePieSvgProps<RawDatum>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
     data: RawDatum[]
 }): Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[] => {
-    const getId = useMemo(() => (typeof id === 'function' ? id : (d: RawDatum) => get(d, id)), [id])
-    const getValue = useMemo(
-        () => (typeof value === 'function' ? value : (d: RawDatum) => get(d, value)),
-        [value]
-    )
+    const getId = usePropertyAccessor<RawDatum, DatumId>(id)
+    const getValue = usePropertyAccessor<RawDatum, number>(value)
     const formatValue = useValueFormatter<number>(valueFormat)
 
     const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'>>(
@@ -87,7 +88,7 @@ export const usePieArcs = <RawDatum>({
     outerRadius: number
     padAngle: number
     sortByValue: boolean
-    activeId: null | string | number
+    activeId: null | DatumId
     activeInnerRadiusOffset: number
     activeOuterRadiusOffset: number
 }): Omit<ComputedDatum<RawDatum>, 'fill'>[] => {
@@ -182,7 +183,7 @@ export const usePie = <RawDatum>({
     radius: number
     innerRadius: number
 }) => {
-    const [activeId, setActiveId] = useState<string | number | null>(null)
+    const [activeId, setActiveId] = useState<DatumId | null>(null)
     const dataWithArc = usePieArcs({
         data,
         startAngle,

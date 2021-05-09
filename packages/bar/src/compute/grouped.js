@@ -42,6 +42,7 @@ const generateVerticalGroupedBars = (
     const compare = reverse ? lt : gt
     const getY = d => (compare(d, 0) ? yScale(d) : yRef)
     const getHeight = (d, y) => (compare(d, 0) ? yRef - y : yScale(d) - yRef)
+    const cleanedData = data.map(filterNullValues)
 
     const bars = flatten(
         keys.map((key, i) =>
@@ -54,7 +55,7 @@ const generateVerticalGroupedBars = (
                     value: data[index][key],
                     index,
                     indexValue: getIndex(data[index]),
-                    data: filterNullValues(data[index]),
+                    data: cleanedData[index],
                 }
 
                 return {
@@ -98,6 +99,7 @@ const generateHorizontalGroupedBars = (
     const compare = reverse ? lt : gt
     const getX = d => (compare(d, 0) ? xRef : xScale(d))
     const getWidth = (d, x) => (compare(d, 0) ? xScale(d) - xRef : xRef - x)
+    const cleanedData = data.map(filterNullValues)
 
     const bars = flatten(
         keys.map((key, i) =>
@@ -110,7 +112,7 @@ const generateHorizontalGroupedBars = (
                     value: data[index][key],
                     index,
                     indexValue: getIndex(data[index]),
-                    data: filterNullValues(data[index]),
+                    data: cleanedData[index],
                 }
 
                 return {

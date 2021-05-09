@@ -1,53 +1,59 @@
 import React, { Fragment, ReactNode, createElement, useMemo } from 'react'
-// @ts-ignore
-import { Container, SvgWrapper, useDimensions, bindDefs } from '@nivo/core'
-import { SunburstLabels } from './SunburstLabels'
-import { SunburstArc } from './SunburstArc'
+import {
+    // @ts-ignore
+    bindDefs,
+    Container,
+    SvgWrapper,
+    useDimensions,
+} from '@nivo/core'
+import { ArcLabelsLayer } from '@nivo/arcs'
 import { defaultProps } from './props'
 import { useSunburst, useSunburstLayerContext } from './hooks'
-import { SvgProps, SunburstLayerId, SunburstLayer } from './types'
+import { SunburstSvgProps, SunburstLayerId, SunburstLayer, ComputedDatum } from './types'
+import { Arcs } from './Arcs'
+import { InheritedColorConfig } from '@nivo/colors'
+
+type InnerSunburstProps<RawDatum> = Partial<
+    Omit<
+        SunburstSvgProps<RawDatum>,
+        'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
+    >
+> &
+    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
 
 const InnerSunburst = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
-
+    cornerRadius = defaultProps.cornerRadius,
     layers = defaultProps.layers as SunburstLayer<RawDatum>[],
-
     colors = defaultProps.colors,
-    childColor = defaultProps.childColor,
-
+    colorBy = defaultProps.colorBy,
+    inheritColorFromParent = defaultProps.inheritColorFromParent,
+    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor,
     margin: partialMargin,
     width,
     height,
-
-    cornerRadius = defaultProps.cornerRadius,
-
-    borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor,
-
-    // slices labels
-    enableSliceLabels = defaultProps.enableSliceLabels,
-    sliceLabel = defaultProps.sliceLabel,
-    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
-    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
-
+    enableArcLabels = defaultProps.enableArcLabels,
+    arcLabel = defaultProps.arcLabel,
+    arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
+    arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
+    arcLabelsTextColor = defaultProps.arcLabelsTextColor,
+    arcLabelsComponent,
     defs = defaultProps.defs,
     fill = defaultProps.fill,
-
-    role = defaultProps.role,
-
-    // interactivity
+    transitionMode = defaultProps.transitionMode,
     isInteractive = defaultProps.isInteractive,
-    tooltip = defaultProps.tooltip,
-
-    // event handlers
     onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
-}: SvgProps<RawDatum>) => {
+    tooltip = defaultProps.tooltip,
+    role = defaultProps.role,
+}: InnerSunburstProps<RawDatum>) => {
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
         width,
         height,
@@ -61,65 +67,67 @@ const InnerSunburst = <RawDatum,>({
     }, [innerHeight, innerWidth])
 
     const { arcGenerator, nodes } = useSunburst({
-        childColor,
-        colors,
-        cornerRadius,
         data,
         id,
-        radius,
         value,
         valueFormat,
+        radius,
+        cornerRadius,
+        colors,
+        colorBy,
+        inheritColorFromParent,
+        childColor,
     })
 
-    const filteredNodes = useMemo(() => nodes.filter(node => node.depth > 0), [nodes])
-
     const boundDefs = bindDefs(defs, nodes, fill, {
-        dataKey: 'data',
-        colorKey: 'data.color',
-        targetKey: 'data.fill',
+        dataKey: '.',
+        colorKey: 'color',
+        targetKey: 'fill',
     })
 
     const layerById: Record<SunburstLayerId, ReactNode> = {
-        slices: null,
-        sliceLabels: null,
+        arcs: null,
+        arcLabels: null,
     }
 
-    if (layers.includes('slices')) {
-        layerById.slices = (
-            <g key="slices" transform={`translate(${centerX},${centerY})`}>
-                {filteredNodes.map(node => (
-                    <SunburstArc<RawDatum>
-                        key={node.data.id}
-                        node={node}
-                        arcGenerator={arcGenerator}
-                        borderWidth={borderWidth}
-                        borderColor={borderColor}
-                        isInteractive={isInteractive}
-                        tooltip={tooltip}
-                        onClick={onClick}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        onMouseMove={onMouseMove}
-                    />
-                ))}
-            </g>
+    if (layers.includes('arcs')) {
+        layerById.arcs = (
+            <Arcs<RawDatum>
+                key="arcs"
+                center={[centerX, centerY]}
+                data={nodes}
+                arcGenerator={arcGenerator}
+                borderWidth={borderWidth}
+                borderColor={borderColor}
+                transitionMode={transitionMode}
+                isInteractive={isInteractive}
+                tooltip={tooltip}
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                onMouseMove={onMouseMove}
+            />
         )
     }
 
-    if (enableSliceLabels && layers.includes('sliceLabels')) {
-        layerById.sliceLabels = (
-            <SunburstLabels<RawDatum>
-                key="sliceLabels"
-                nodes={nodes}
-                label={sliceLabel}
-                skipAngle={sliceLabelsSkipAngle}
-                textColor={sliceLabelsTextColor}
+    if (enableArcLabels && layers.includes('arcLabels')) {
+        layerById.arcLabels = (
+            <ArcLabelsLayer<ComputedDatum<RawDatum>>
+                key="arcLabels"
+                center={[centerX, centerY]}
+                data={nodes}
+                label={arcLabel}
+                radiusOffset={arcLabelsRadiusOffset}
+                skipAngle={arcLabelsSkipAngle}
+                textColor={arcLabelsTextColor}
+                transitionMode={transitionMode}
+                component={arcLabelsComponent}
             />
         )
     }
 
     const layerContext = useSunburstLayerContext<RawDatum>({
-        nodes: filteredNodes,
+        nodes,
         arcGenerator,
         centerX,
         centerY,
@@ -155,7 +163,8 @@ export const Sunburst = <RawDatum,>({
     motionConfig = defaultProps.motionConfig,
     theme,
     ...otherProps
-}: SvgProps<RawDatum>) => (
+}: Partial<Omit<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
+    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme }}>
         <InnerSunburst<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>

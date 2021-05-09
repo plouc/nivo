@@ -1,191 +1,133 @@
-import pick from 'lodash/pick'
-import sortBy from 'lodash/sortBy'
-import cloneDeep from 'lodash/cloneDeep'
-import React, { createElement, useCallback, useMemo } from 'react'
-import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
-import { arc, Arc } from 'd3-shape'
-import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
+import { useMemo } from 'react'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
+import cloneDeep from 'lodash/cloneDeep'
+import sortBy from 'lodash/sortBy'
+import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
+import { Arc, useArcGenerator } from '@nivo/arcs'
+import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import {
-    CommonProps,
+    SunburstCommonProps,
     ComputedDatum,
     DataProps,
-    NormalizedDatum,
-    MouseEventHandlers,
+    DatumId,
     SunburstCustomLayerProps,
 } from './types'
+import { defaultProps } from './props'
 
-type MaybeColor = { color?: string }
-
-export const useEventHandlers = <RawDatum>({
+export const useSunburst = <RawDatum>({
     data,
-    isInteractive,
-    onClick: onClickHandler,
-    onMouseEnter: onMouseEnterHandler,
-    onMouseLeave: onMouseLeaveHandler,
-    onMouseMove: onMouseMoveHandler,
-    tooltip,
-}: Pick<CommonProps<RawDatum>, 'isInteractive' | 'tooltip'> &
-    MouseEventHandlers<RawDatum, SVGPathElement> & {
-        data: NormalizedDatum<RawDatum>
-    }) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleTooltip = useCallback(
-        (event: React.MouseEvent<SVGPathElement>) =>
-            showTooltipFromEvent(createElement(tooltip, data), event),
-        [data, showTooltipFromEvent, tooltip]
-    )
-
-    const onClick = useCallback(
-        (event: React.MouseEvent<SVGPathElement>) => onClickHandler?.(data, event),
-        [data, onClickHandler]
-    )
-    const onMouseEnter = useCallback(
-        (event: React.MouseEvent<SVGPathElement>) => {
-            onMouseEnterHandler?.(data, event)
-            handleTooltip(event)
-        },
-        [data, handleTooltip, onMouseEnterHandler]
-    )
-    const onMouseLeave = useCallback(
-        (event: React.MouseEvent<SVGPathElement>) => {
-            onMouseLeaveHandler?.(data, event)
-            hideTooltip()
-        },
-        [data, hideTooltip, onMouseLeaveHandler]
-    )
-    const onMouseMove = useCallback(
-        (event: React.MouseEvent<SVGPathElement>) => {
-            onMouseMoveHandler?.(data, event)
-            handleTooltip(event)
-        },
-        [data, handleTooltip, onMouseMoveHandler]
-    )
-
-    return useMemo(() => {
-        if (!isInteractive) {
-            return {
-                onClick: undefined,
-                onMouseEnter: undefined,
-                onMouseLeave: undefined,
-                onMouseMove: undefined,
-            }
-        }
-
-        return {
-            onClick,
-            onMouseEnter,
-            onMouseLeave,
-            onMouseMove,
-        }
-    }, [isInteractive, onClick, onMouseEnter, onMouseLeave, onMouseMove])
-}
-
-export const useSunburst = <RawDatum extends MaybeColor>({
-    childColor,
-    colors,
-    cornerRadius,
-    data,
-    id,
-    value,
+    id = defaultProps.id,
+    value = defaultProps.value,
     valueFormat,
     radius,
+    cornerRadius = defaultProps.cornerRadius,
+    colors = defaultProps.colors,
+    colorBy = defaultProps.colorBy,
+    inheritColorFromParent = defaultProps.inheritColorFromParent,
+    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 }: {
-    childColor: CommonProps<RawDatum>['childColor']
-    colors: CommonProps<RawDatum>['colors']
-    cornerRadius: CommonProps<RawDatum>['cornerRadius']
     data: DataProps<RawDatum>['data']
-    id: NonNullable<DataProps<RawDatum>['id']>
+    id?: DataProps<RawDatum>['id']
+    value?: DataProps<RawDatum>['value']
+    valueFormat?: DataProps<RawDatum>['valueFormat']
     radius: number
-    value: NonNullable<DataProps<RawDatum>['value']>
-    valueFormat: DataProps<RawDatum>['valueFormat']
+    cornerRadius?: SunburstCommonProps<RawDatum>['cornerRadius']
+    colors?: SunburstCommonProps<RawDatum>['colors']
+    colorBy?: SunburstCommonProps<RawDatum>['colorBy']
+    inheritColorFromParent?: SunburstCommonProps<RawDatum>['inheritColorFromParent']
+    childColor?: SunburstCommonProps<RawDatum>['childColor']
 }) => {
     const theme = useTheme()
-    const getColor = useOrdinalColorScale<NormalizedDatum<RawDatum>>(colors, 'id')
-    const getChildColor = useInheritedColor(childColor, theme) as (
-        datum: NormalizedDatum<RawDatum>
-    ) => string
+    const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
+        colors,
+        colorBy
+    )
+    const getChildColor = useInheritedColor<ComputedDatum<RawDatum>>(childColor, theme)
 
-    const getId = usePropertyAccessor(id)
-    const getValue = usePropertyAccessor(value)
-
+    const getId = usePropertyAccessor<RawDatum, DatumId>(id)
+    const getValue = usePropertyAccessor<RawDatum, number>(value)
     const formatValue = useValueFormatter<number>(valueFormat)
 
-    const nodes = useMemo(() => {
+    const nodes: ComputedDatum<RawDatum>[] = useMemo(() => {
+        // d3 mutates the data for performance reasons,
+        // however it does not work well with reactive programming,
+        // this ensures that we don't mutate the input data
+        const clonedData = cloneDeep(data)
+
+        const hierarchy = d3Hierarchy(clonedData).sum(getValue)
+
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])
-        const hierarchy = d3Hierarchy(data).sum(getValue)
-        const descendants = partition(cloneDeep(hierarchy)).descendants()
+        // exclude root node
+        const descendants = partition(hierarchy).descendants().slice(1)
+
         const total = hierarchy.value ?? 0
 
-        return sortBy(descendants, 'depth').reduce<Array<ComputedDatum<RawDatum>>>(
-            (acc, descendant) => {
-                // Maybe the types are wrong from d3, but value prop is always present, but types make it optional
-                const node = {
-                    value: 0,
-                    ...pick(descendant, [
-                        'x0',
-                        'y0',
-                        'x1',
-                        'y1',
-                        'depth',
-                        'height',
-                        'parent',
-                        'value',
-                    ]),
-                }
+        // It's important to sort node by depth,
+        // it ensures that we assign a parent node
+        // which has already been computed, because parent nodes
+        // are going to be computed first
+        const sortedNodes = sortBy(descendants, 'depth')
 
-                const { value } = node
-                const id = getId(descendant.data)
-                const percentage = (100 * value) / total
-                const data = {
-                    color: descendant.data.color,
-                    data: descendant.data,
-                    depth: node.depth,
-                    formattedValue: valueFormat ? formatValue(value) : `${percentage.toFixed(2)}%`,
-                    id,
-                    percentage,
-                    value,
-                }
+        return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
+            const id = getId(descendant.data)
+            // d3 hierarchy node value is optional by default as it depends on
+            // a call to `count()` or `sum()`, and we previously called `sum()`,
+            // d3 typings could be improved and make it non optional when calling
+            // one of those.
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const value = descendant.value!
+            const percentage = (100 * value) / total
+            const path = descendant.ancestors().map(ancestor => getId(ancestor.data))
 
-                const parent = acc.find(
-                    computed => node.parent && computed.data.id === getId(node.parent.data)
-                )
+            const arc: Arc = {
+                startAngle: descendant.x0,
+                endAngle: descendant.x1,
+                innerRadius: Math.sqrt(descendant.y0),
+                outerRadius: Math.sqrt(descendant.y1),
+            }
 
-                const color =
-                    node.depth === 1 || childColor === 'noinherit'
-                        ? getColor(data)
-                        : parent
-                        ? getChildColor(parent.data)
-                        : descendant.data.color
+            let parent: ComputedDatum<RawDatum> | undefined
+            if (descendant.parent) {
+                // as the parent is defined by the input data, and we sorted the data
+                // by `depth`, we can safely assume it's defined.
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                parent = acc.find(node => node.id === getId(descendant.parent!.data))
+            }
 
-                return [...acc, { ...node, data: { ...data, color, parent } }]
-            },
-            []
-        )
+            const normalizedNode: ComputedDatum<RawDatum> = {
+                id,
+                path,
+                value,
+                percentage,
+                formattedValue: valueFormat ? formatValue(value) : `${percentage.toFixed(2)}%`,
+                color: '',
+                arc,
+                data: descendant.data,
+                depth: descendant.depth,
+                height: descendant.height,
+            }
+
+            if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
+                normalizedNode.color = getChildColor(parent)
+            } else {
+                normalizedNode.color = getColor(normalizedNode)
+            }
+
+            return [...acc, normalizedNode]
+        }, [])
     }, [
-        radius,
         data,
+        radius,
         getValue,
         getId,
         valueFormat,
         formatValue,
-        childColor,
         getColor,
+        inheritColorFromParent,
         getChildColor,
     ])
 
-    const arcGenerator = useMemo(
-        () =>
-            arc<ComputedDatum<RawDatum>>()
-                .startAngle(d => d.x0)
-                .endAngle(d => d.x1)
-                .innerRadius(d => Math.sqrt(d.y0))
-                .outerRadius(d => Math.sqrt(d.y1))
-                .cornerRadius(cornerRadius),
-        [cornerRadius]
-    )
+    const arcGenerator = useArcGenerator({ cornerRadius })
 
     return { arcGenerator, nodes }
 }
@@ -199,13 +141,7 @@ export const useSunburstLayerContext = <RawDatum>({
     centerX,
     centerY,
     radius,
-}: {
-    nodes: ComputedDatum<RawDatum>[]
-    arcGenerator: Arc<any, ComputedDatum<RawDatum>>
-    centerX: number
-    centerY: number
-    radius: number
-}): SunburstCustomLayerProps<RawDatum> =>
+}: SunburstCustomLayerProps<RawDatum>): SunburstCustomLayerProps<RawDatum> =>
     useMemo(
         () => ({
             nodes,

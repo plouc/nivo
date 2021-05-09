@@ -22,6 +22,7 @@ import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
+import { Line as D3Line } from 'd3-shape'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -68,7 +69,7 @@ declare module '@nivo/line' {
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         innerHeight: number
         innerWidth: number
-        lineGenerator: (data: Datum[]) => string
+        lineGenerator: D3Line<[number, number]>
         points: Point[]
         series: ComputedSerie[]
         xScale: ScaleFunc
@@ -213,8 +214,16 @@ declare module '@nivo/line' {
     export class Line extends React.Component<LineSvgProps & Dimensions> {}
     export class ResponsiveLine extends React.Component<LineSvgProps> {}
 
+    export interface CustomCanvasLayerProps extends CustomLayerProps {
+        ctx: CanvasRenderingContext2D
+    }
+
+    export type CustomCanvasLayer = (props: CustomCanvasLayerProps) => void
+    export type CanvasLayer = LineLayerType | CustomCanvasLayer
+
     export interface LineCanvasProps extends LineProps {
         pixelRatio?: number
+        layers?: CanvasLayer[]
     }
 
     export class LineCanvas extends React.Component<LineCanvasProps & Dimensions> {}

@@ -119,6 +119,10 @@ packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
+packages-lint-fix: ##@1 packages run eslint on all packages with a fix option
+	@echo "${YELLOW}Running eslint on all packages${RESET}"
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
+
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
 
@@ -131,12 +135,19 @@ package-watch-test-%: ##@1 packages run tests for a package and watch for change
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
 
+package-watch-test-%: ##@1 packages run tests for a package and watch for changes
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
+packages-watch-test: ##@1 packages run tests for all packages and watch for changes
+	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
+
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
-	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
 packages-types: ##@1 packages build all package types
@@ -207,7 +218,6 @@ website: ##@2 website start website in dev mode
 
 website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"
-	@node scripts/patch-react-spring.js
 	@cd website && yarn build
 
 website-serve: ##@2 website build & serve website

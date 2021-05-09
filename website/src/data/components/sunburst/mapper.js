@@ -1,15 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
-import { settingsMapper } from '../../../lib/settings'
+import { mapFormat, settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -42,6 +34,11 @@ const CustomTooltip = node => {
 
 export default settingsMapper(
     {
+        valueFormat: mapFormat,
+        arcLabel: value => {
+            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
+            return value
+        },
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return undefined
 

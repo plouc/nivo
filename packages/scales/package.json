@@ -1,6 +1,6 @@
 {
   "name": "@nivo/scales",
-  "version": "0.67.0",
+  "version": "0.69.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -20,7 +20,8 @@
     "dist/"
   ],
   "dependencies": {
-    "d3-scale": "^3.0.0",
+    "d3-scale": "^3.2.3",
+    "d3-time": "^1.0.11",
     "d3-time-format": "^2.1.3",
     "lodash": "^4.17.11"
   },

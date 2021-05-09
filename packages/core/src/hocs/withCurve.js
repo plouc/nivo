@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import withProps from 'recompose/withProps'
+import { withProps } from '@nivo/recompose'
 import { curveFromProp } from '../props'
 
 /**

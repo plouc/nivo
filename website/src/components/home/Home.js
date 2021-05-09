@@ -1,17 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { useTheme } from '../../theming/context'
 import { Container, HomeBaseline, HomeLogo } from './styled'
 import HomeChord from './HomeChord'
 import HomeLine from './HomeLine'
-import HomeBubble from './HomeBubble'
+import { HomeCirclePacking } from './HomeCirclePacking'
 import HomeBar from './HomeBar'
 import HomeStream from './HomeStream'
 import HomePie from './HomePie'
@@ -70,7 +62,7 @@ const Home = () => {
                 theme={theme}
                 nivoTheme={nivoTheme}
             />
-            <HomeBubble
+            <HomeCirclePacking
                 colors={colors}
                 reversedColors={reversedColors}
                 theme={theme}

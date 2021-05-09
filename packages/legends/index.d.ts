@@ -83,6 +83,7 @@ declare module '@nivo/legends' {
         symbolSpacing?: number
         symbolShape?: LegendSymbolShape | any
         symbolBorderColor?: string
+        symbolBorderWidth?: number
         textColor?: string
 
         onClick?: LegendMouseHandler

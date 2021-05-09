@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { OpaqueInterpolation, SpringConfig } from 'react-spring'
+import { Interpolation, SpringConfig } from 'react-spring'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -87,6 +87,7 @@ declare module '@nivo/core' {
             chip: Partial<React.CSSProperties>
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
+            tableCellValue: Partial<React.CSSProperties>
         }
         annotations: {
             text: Partial<React.CSSProperties>
@@ -165,8 +166,10 @@ declare module '@nivo/core' {
 
     export interface CartesianMarkerProps {
         axis: 'x' | 'y'
-        value: string | number | Date
+        value: DatumValue
         legend?: string
+        legendOrientation?: 'horizontal' | 'vertical'
+        legendPosition?: BoxAlign
         lineStyle?: Partial<React.CSSProperties>
         textStyle?: Partial<React.CSSProperties>
     }
@@ -205,7 +208,7 @@ declare module '@nivo/core' {
         | 'stepAfter'
         | 'stepBefore'
 
-    export function useAnimatedPath(path: string): OpaqueInterpolation<string>
+    export function useAnimatedPath(path: string): Interpolation<string>
 
     export type LinearGradientDef = {
         id: string
@@ -247,23 +250,25 @@ declare module '@nivo/core' {
         defs: Def[]
     }
 
-    export declare const defaultAnimate = true
-    export declare const defaultMotionStiffness = 90
-    export declare const defaultMotionDamping = 15
+    export const defaultAnimate = true
+    export const defaultMotionStiffness = 90
+    export const defaultMotionDamping = 15
 
-    export declare const motionDefaultProps = {
-        animate: true,
-        stiffness: 90,
-        damping: 15,
-        config: 'default',
+    type MotionDefaultProps = {
+        animate: true
+        stiffness: 90
+        damping: 15
+        config: 'default'
     }
+    export const motionDefaultProps: MotionDefaultProps
 
-    export declare const defaultMargin = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
+    type DefaultMargin = {
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
     }
+    export const defaultMargin: DefaultMargin
 
     export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
     export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
@@ -274,7 +279,7 @@ declare module '@nivo/core' {
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
 
-    type Accessor<T, U> = T extends string ? U[T] : never
+    type Accessor<T extends keyof U, U> = T extends string ? U[T] : never
 
     export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
@@ -290,7 +295,7 @@ declare module '@nivo/core' {
         outerHeight: number
     }
 
-    export const SvgWrapper = (
+    type SvgWrapperType = (
         props: React.PropsWithChildren<{
             width: number
             height: number
@@ -299,6 +304,7 @@ declare module '@nivo/core' {
             role?: string
         }>
     ) => JSX.Element
+    export const SvgWrapper: SvgWrapperType
 
     interface ContainerProps {
         theme?: Theme
@@ -310,17 +316,16 @@ declare module '@nivo/core' {
         motionConfig?: string | SpringConfig
     }
 
-    export const Container = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
+    type ContainerType = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
+    export const Container: ContainerType
 
-    export const ResponsiveWrapper = (props: {
+    type ResponsiveWrapperType = (props: {
         children: (dimensions: { width: number; height: number }) => JSX.Element
     }) => JSX.Element
+    export const ResponsiveWrapper: ResponsiveWrapperType
 
     export function getDistance(x1: number, y1: number, x2: number, y2: number): number
     export function getAngle(x1: number, y1: number, x2: number, y2: number): number
-
-    export function radiansToDegrees(radians: number): number
-    export function degreesToRadians(degrees: number): number
 
     export function positionFromAngle(
         angle: number,
@@ -349,4 +354,14 @@ declare module '@nivo/core' {
     export function usePropertyAccessor<Datum, Value>(
         accessor: PropertyAccessor<Datum, Value>
     ): (datum: Datum) => Value
+
+    export function getRelativeCursor(element: Element, event: React.MouseEvent): [number, number]
+    export function isCursorInRect(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        cursorX: number,
+        cursorY: number
+    ): boolean
 }

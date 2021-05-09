@@ -30,8 +30,8 @@ const chartProps = {
     },
     innerRadius: 0.6,
     padAngle: 2.5,
-    enableRadialLabels: false,
-    enableSlicesLabels: false,
+    enableArcLinkLabels: false,
+    enableArcLabels: false,
     isInteractive: false,
 }
 

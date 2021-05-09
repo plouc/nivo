@@ -1,5 +1,214 @@
+<a name="v0.69.1"></a>
+## v0.69.1 (2021-05-03)
+
+
+#### Bug Fixes
+
+* **axes:**  fix AxisProps types to be correct (#1502) ([baad3c0e](https://github.com/plouc/nivo/commit/baad3c0e9737176d263cc2c7268882cd95509bbe))
+* **line:**  update type for custom line canvas layers (#1499) ([04547846](https://github.com/plouc/nivo/commit/04547846b9a803c3d64bbec8249aef4a163ae8b2))
+
+
+
+<a name="v0.69.0"></a>
+## v0.69.0 (2021-04-30)
+
+
+#### Features
+
+* **axes:**  init migration to typescript ([73f98032](https://github.com/plouc/nivo/commit/73f98032b6faed65ea89b57ef9d5e1043c1a1acb))
+* **build:**  add test watch commands to makefile ([e706d48e](https://github.com/plouc/nivo/commit/e706d48eaaaec05d0680c4c4c78562309da8fe87))
+* **circle-packing:**
+  *  update default childColor ([ca07b9e6](https://github.com/plouc/nivo/commit/ca07b9e601c9259eaa364e4e443f83dab25c883c))
+  *  restore patterns and gradients support for the SVG implementation ([08ee5155](https://github.com/plouc/nivo/commit/08ee5155fb8227716f6135639768bd1520704760))
+  *  add a dedicated prop to enable parent color inheritance ([b864de9f](https://github.com/plouc/nivo/commit/b864de9f2d90df8d23e9a1a7342b3d6bd06ad26c))
+  *  update website descriptions ([b91c0570](https://github.com/plouc/nivo/commit/b91c0570e68397ad3ca66251ef1b118603be84b4))
+  *  update stories ([9b7a3046](https://github.com/plouc/nivo/commit/9b7a304686c1a3958bc13f1104808c1423e00769))
+  *  restore border support ([2911b61c](https://github.com/plouc/nivo/commit/2911b61c46a0097c0190630e7333be3be33ab269))
+  *  restore pixelRatio property for canvas implementation ([56491038](https://github.com/plouc/nivo/commit/56491038b26250265f46a13fb5451f2a4c840b05))
+  *  add colorBy property to control which property should be used to assign a color ([10914684](https://github.com/plouc/nivo/commit/10914684f9f73057f2b72f844f7fbf8bdebc9f80))
+  *  add mouse handlers support to canvas implementation ([82cb7c55](https://github.com/plouc/nivo/commit/82cb7c55c07690c41c0787a67dfae90116bf49c3))
+  *  add zoom support ([d8c7a883](https://github.com/plouc/nivo/commit/d8c7a883f9dbeca7c9c2b807d6ab471a53a4276c))
+  *  expose hooks to be able to build fully custom charts ([03433b02](https://github.com/plouc/nivo/commit/03433b02cee275499ec7cb03a9b4b45070c71cff))
+  *  add support for custom circle component to SVG and HTML implementations ([6f8a4caf](https://github.com/plouc/nivo/commit/6f8a4caf8dd42467d4096520ea7a924c6cfc83d8))
+  *  memoize labels transition phases ([d9170572](https://github.com/plouc/nivo/commit/d9170572150330632747b2ce3ce6ca50e15a0444))
+  *  add support for mouse handlers to SVG and HTML implementations ([138eafb5](https://github.com/plouc/nivo/commit/138eafb544f6307d41a5f58a9dca2b925c5ffb64))
+  *  restore labels ([4fb658dc](https://github.com/plouc/nivo/commit/4fb658dc92812449de8ab14a354049ed50a0fb6f))
+  *  restore leavesOnly support ([07135815](https://github.com/plouc/nivo/commit/07135815e10cbf89c03db58605713bdfc1345672))
+  *  migrate canvas implementation to new architecture ([478da0ee](https://github.com/plouc/nivo/commit/478da0eeab6f4418f6cbb40a43d28a2dcb587c0f))
+  *  rename Bubble to CirclePacking ([43bb075c](https://github.com/plouc/nivo/commit/43bb075ca1af316627f400e28edf937fbbb18a3c))
+  *  init hooks ([6fb27f70](https://github.com/plouc/nivo/commit/6fb27f702b05452631f8d0419c5ec3d8e365d3f2))
+  *  remove licence headers ([1f5290a7](https://github.com/plouc/nivo/commit/1f5290a756b417b17d9e0ef19c43e045ef3951a6))
+  *  enable TS support ([e75f1c89](https://github.com/plouc/nivo/commit/e75f1c89574cd46224adcfdb6ef259628e831e97))
+* **d3-scale:**  upgrade d3-scale package ([c976d663](https://github.com/plouc/nivo/commit/c976d6637d318c51e56420ae7b80f7e9ea1e4b66))
+* **deps:**  replace `recompose` with inlined version (#1494) ([09b02069](https://github.com/plouc/nivo/commit/09b0206968aa5242e3151229413b7b76e34c1605))
+* **generators:**  migrate package to typescript (#1492) ([46d2ae0c](https://github.com/plouc/nivo/commit/46d2ae0c4fe5af3bf642fbd3e0d0f3534ab6e563))
+* **voronoi:**
+  *  fix storybook ([97b7fc85](https://github.com/plouc/nivo/commit/97b7fc85ebf9c1e58d4f918e7c7088c352036fdb))
+  *  migrate package to TypeScript and remove recompose ([9796f3f0](https://github.com/plouc/nivo/commit/9796f3f04936a03c78b302060a6067512c7df84e))
+  *  remove license headers ([f69c7992](https://github.com/plouc/nivo/commit/f69c7992106ddd7f066584e2fe53b64aaff7e4b2))
+  *  init TypeScript setup ([74621c0f](https://github.com/plouc/nivo/commit/74621c0f0531dbc4715eb302ced69e5420dde3af))
+
+#### Bug Fixes
+
+* **axes:**
+  *  update some types ([b5d5f0f3](https://github.com/plouc/nivo/commit/b5d5f0f3ada72c77f9db5089f89d257629a67f78))
+  *  create alias for axis value ([f11d0347](https://github.com/plouc/nivo/commit/f11d034700bf39bcfbd53ed890e2410300f10ce6))
+  *  improve package types ([f7fcc751](https://github.com/plouc/nivo/commit/f7fcc75196243ba990ec0c0f5ad2f923f4cb0d65))
+  *  remove undefined cursor style prop from AxisTick ([eb969df8](https://github.com/plouc/nivo/commit/eb969df88314d838720045a06ded5661f326868f))
+  *  ensure document exists in the environment (#1489) ([a2e0d891](https://github.com/plouc/nivo/commit/a2e0d891219dfb7d850fe8e30b754164f163c2a1))
+* **build:**  include latest changelog when publishing ([e9360be8](https://github.com/plouc/nivo/commit/e9360be8b62a947cdb4eaef333793314ad2b15bc))
+* **bullet:**  remove some ts-ignore comments ([b4372cf1](https://github.com/plouc/nivo/commit/b4372cf1cead6d8d8291c10b8235fc7a04b1af06))
+* **circle-packing:**
+  *  add support for controlled zoomed ID ([faf00aa8](https://github.com/plouc/nivo/commit/faf00aa84cc17291573b5dc27dd1c47be6f8b587))
+  *  fix HTML implementation overflow ([f83f2f1c](https://github.com/plouc/nivo/commit/f83f2f1c2769756e4351584148f200d711dd88f6))
+* **deps:**  remove recompose ([53b9c1cc](https://github.com/plouc/nivo/commit/53b9c1cc7b439d550e8c2084bbd420c334082881))
+* **legends:**  Add missing symbolBorderWidth to typings (#1431) ([a00ef4a1](https://github.com/plouc/nivo/commit/a00ef4a1a0e23c20a052dae4f6c6e8b6118e4101))
+
+#### Chore
+
+* **axes:**
+  *  exclude tsbuildinfo from package ([828656f7](https://github.com/plouc/nivo/commit/828656f773c81799b70b635961fdb6f8b85c5894))
+  *  changes to support react-spring v9.1.2 ([dfd3ef08](https://github.com/plouc/nivo/commit/dfd3ef08699123cdb9955ac8c6af73dbb7ca505b))
+* **build:**  update messaging in makefile ([6b9af77d](https://github.com/plouc/nivo/commit/6b9af77df1441f7fe4478b14dee89943aa1677b6))
+* **changelog:**  update changelog ([c3f293da](https://github.com/plouc/nivo/commit/c3f293dad902947df371982863997a4b8f8a3cf7))
+* **circle-packing:**  fixes after rebase to master ([89109d93](https://github.com/plouc/nivo/commit/89109d93a768cf2571733d3171696a6e2e27351d))
+* **docs:**  fix typo (#1495) ([353e9837](https://github.com/plouc/nivo/commit/353e9837291aacac93543a6833844dbe0f8082eb))
+
+
+
+<a name="v0.68.0"></a>
+## v0.68.0 (2021-04-23)
+
+
+#### Features
+
+* **arcs:**
+  *  fix typo in useArcLinkLabelsTransition comment ([62766378](https://github.com/plouc/nivo/commit/627663785a247ab27d6fb128b721314d23138cab))
+  *  improve label accessor in ArcLinkLabelsProps ([3aa12a3b](https://github.com/plouc/nivo/commit/3aa12a3b8894fd76e8501bf2c7b3c3e46c149e8c))
+  *  finalize arc link labels ([89c52e60](https://github.com/plouc/nivo/commit/89c52e60db0ecc7b157e2f266b1049e2c4ad4596))
+  *  move canvas helpers to scoped directories ([f0d9d19c](https://github.com/plouc/nivo/commit/f0d9d19cb966e7181a1848fc4cca0f6d39af80b0))
+  *  improve labels handling ([c1bfd514](https://github.com/plouc/nivo/commit/c1bfd5143fc0878187d8d3a57891b3df67ebbd3f))
+  *  add the ability to pass custom arc label/arc link label components ([8fb574c9](https://github.com/plouc/nivo/commit/8fb574c9413ca509405a4cee456e2beef631d9f8))
+  *  provide generic arc labels/arc link labels layer ([547b6352](https://github.com/plouc/nivo/commit/547b63524776a23f08857a6e87a9d6241be772db))
+  *  normalize arc labels props ([08b75bff](https://github.com/plouc/nivo/commit/08b75bff02aab866d89cc159be6e511f72926c02))
+  *  fix arc border width ([f2223d77](https://github.com/plouc/nivo/commit/f2223d776125b8fad6cbe0060b0e0e5970ad6010))
+  *  move arc hover detection from core to arcs package ([30be4925](https://github.com/plouc/nivo/commit/30be4925ca124b80f60df28d80a5602abc9b9c1b))
+  *  add configurable transition modes ([e76747d7](https://github.com/plouc/nivo/commit/e76747d799d84331f79c097ea22e1645579a2bff))
+  *  introduce @nivo/arcs package ([afc6b8cc](https://github.com/plouc/nivo/commit/afc6b8cc6ac0d9a6b9957fe0038481cd3c383a21))
+* **chord:**  use arc hover detection from @nivo/arcs ([3eece0ad](https://github.com/plouc/nivo/commit/3eece0adf73927b6b0ca4b837c31da7373155432))
+* **core:**
+  *  improve property accessor utilities ([90958bdc](https://github.com/plouc/nivo/commit/90958bdc3296075af571977c65c7eb878566918f))
+  *  remove ts-ignore directive from useValueFormatter imports ([640393ba](https://github.com/plouc/nivo/commit/640393ba0050127427bc2d84cafe396cd81712f9))
+  *  improve value formatter typings ([5b158797](https://github.com/plouc/nivo/commit/5b158797da79430260c1e75165dd1c0cd15264e1))
+  *  remove license headers from hook modules ([09e3f839](https://github.com/plouc/nivo/commit/09e3f8393da73f49676b22587805ac113a6900a9))
+  *  remove license headers from lib modules ([e4eb8f72](https://github.com/plouc/nivo/commit/e4eb8f7282759aa4fb4efd6c2109e17d60357580))
+  *  remove license headers from props utilities ([b05913d1](https://github.com/plouc/nivo/commit/b05913d1bb559539f44356347ecf7d9ffe947bf6))
+  *  move arc bounding box unit tests to the arcs package ([6c30f05a](https://github.com/plouc/nivo/commit/6c30f05ae3b5ce2f9a6a28fe260464612502a7d2))
+* **legends:**  remove recompose from dependencies ([29e7531c](https://github.com/plouc/nivo/commit/29e7531cbe67ccf334ced15798c5397a8e4c7a63))
+* **line:**  use theme values for line slice tooltip (#1471) ([0f67123f](https://github.com/plouc/nivo/commit/0f67123f7d9ac254884a62d957c0b8b3cd698bfe))
+* **linting:**  add lint --fix option and create new make option (#1484) ([dd74cbb3](https://github.com/plouc/nivo/commit/dd74cbb3e5fa3684fe2ea2b33f6a866872b0b293))
+* **pie:**
+  *  remove lodash ([fe4f6342](https://github.com/plouc/nivo/commit/fe4f63422da855064829cd5f3ad506d585dfc082))
+  *  add story to showcase custom arc label component ([37cb3d15](https://github.com/plouc/nivo/commit/37cb3d15e44caf8c3322c50d9303eb556cd64cb2))
+  *  adjust stories according to refactoring ([4ca47ac6](https://github.com/plouc/nivo/commit/4ca47ac67f2d938bb8d8198b4d3aa53127d29736))
+  *  rename slices to arcs ([39f06445](https://github.com/plouc/nivo/commit/39f064451b195c4d228dced39698dadfd0612034))
+  *  fix typings for arc mouse handlers ([4d3d303f](https://github.com/plouc/nivo/commit/4d3d303f31a5f707aab5614d6962e6c5eae1de43))
+  *  use generic ArcsLayer from the arcs package ([b14ffcd3](https://github.com/plouc/nivo/commit/b14ffcd32935b9c2d75ad3a6501cdc736abab438))
+  *  compute radial lables in arcs package ([15625766](https://github.com/plouc/nivo/commit/156257668b51b08696a27a98d286557d8b3dfc16))
+  *  use mostly the arc package for PieCanvas ([46af372a](https://github.com/plouc/nivo/commit/46af372abd5e014d31484df635ab198fec5696f4))
+  *  use @nivo/arcs to compute PieCanvas slice labels ([ce6bb875](https://github.com/plouc/nivo/commit/ce6bb87596d093ac24a6995cf20508af8795fba0))
+  *  use Container instead of withContainer HOC ([0fb7756b](https://github.com/plouc/nivo/commit/0fb7756b585f3c47ec91c91c5105c5f968aee4bc))
+  *  fix angle padding ([3baba4c6](https://github.com/plouc/nivo/commit/3baba4c64f05816e1ec25e981a1d118773eae47b))
+  *  add radius offsets support for active arcs ([cfc0cb63](https://github.com/plouc/nivo/commit/cfc0cb6390c3059fb81d35938ae40387768cde42))
+  *  improve transitions and fix slice labels ([9365ae27](https://github.com/plouc/nivo/commit/9365ae27d0664a694775f2cf6637757f3180240b))
+  *  restore feature parity for slices ([5dbbe0cd](https://github.com/plouc/nivo/commit/5dbbe0cdff6b7ffb97193e7162cc600f29422a6f))
+  *  add transitions for arcs ([ccb1656d](https://github.com/plouc/nivo/commit/ccb1656dda852b1d282480e703224d9e4b2fb0d8))
+* **scales:**
+  *  add nice argument to linear and time scales (#1473) ([644faf46](https://github.com/plouc/nivo/commit/644faf46b9ed12d7bb0c7fad9f24e64eef8fafce))
+  *  add option to clamp linear scales (#1342) ([b5584de6](https://github.com/plouc/nivo/commit/b5584de60a2eab707f6cefe7be55bda4dbf72926))
+* **sunburst:**
+  *  improve drill down demo ([b058f7b7](https://github.com/plouc/nivo/commit/b058f7b7a9750ce923e59b03bd6413391d6fa72f))
+  *  improve color management ([c94aff4c](https://github.com/plouc/nivo/commit/c94aff4c98ec8483643d51bd2fa4b806a5f16c9e))
+  *  explain non-null assertions and remove linter warnings for those ([378c52d9](https://github.com/plouc/nivo/commit/378c52d96222bb963d1e92eb0dc883f69736771b))
+  *  improve props documentation ([d6386d9b](https://github.com/plouc/nivo/commit/d6386d9bb97dae15c62535c3edc28aedaf6732a9))
+  *  simplify types ([a6b5b926](https://github.com/plouc/nivo/commit/a6b5b92695630ffc3519cb249c36720034965d03))
+  *  also apply defaults to main hook ([beee8941](https://github.com/plouc/nivo/commit/beee89410dc9bdb39e4f62d97024f6c40ea53912))
+  *  remove unused types ([836823ec](https://github.com/plouc/nivo/commit/836823ecb6bd2a9c8a32718891d370b3adbc7aea))
+  *  fix typo ([e059e80d](https://github.com/plouc/nivo/commit/e059e80dd0b370a875dbbe732abe6644618700a8))
+  *  use arcs package ([bf225e7a](https://github.com/plouc/nivo/commit/bf225e7a475748cf1b972b27f8f3ec8afae65bec))
+* **testing:**  add enzyme types ([d66d4e92](https://github.com/plouc/nivo/commit/d66d4e92348b62e5929db943bfd1b2809672c6d7))
+* **website:**  update references ([5b2deb56](https://github.com/plouc/nivo/commit/5b2deb56f69c80ed2c2ad6104f39d9dfb47f5934))
+
+#### Bug Fixes
+
+* **arcs:**  fix packages version due to new release ([c1ddb3d0](https://github.com/plouc/nivo/commit/c1ddb3d01ca7ba91430e59a747c2d9bb0724a036))
+* **axes:**  rtl issue with x-axis (#1349) ([95f3b343](https://github.com/plouc/nivo/commit/95f3b3433971cdd037e3dba7031600d07eec27b7))
+* **axis:**  time series rendering (#1408) ([d80dafd6](https://github.com/plouc/nivo/commit/d80dafd6f730feedcf940db4624506d4d21d8d5f))
+* **bar:**
+  *  types don't allow bar component as any svg element (#1469) ([20697e57](https://github.com/plouc/nivo/commit/20697e574aae13106993f9dcf8067d7d34903004))
+  *  improve grouped bar performance (#1404) ([f37d066e](https://github.com/plouc/nivo/commit/f37d066e626e6a93aee6714dfd160626a267c9c7))
+* **core:**
+  *  fix invalid core types (#1386) ([296f5d1c](https://github.com/plouc/nivo/commit/296f5d1cff478309c18186b1bf61a7f4397f9c91))
+  *  add missing marker typings (#1440) ([ff2cc31d](https://github.com/plouc/nivo/commit/ff2cc31d71371752f05d149817e0d366c2ac3e47))
+  *  fix type definition of PatternSquaresDef (#1355) ([bf27d55d](https://github.com/plouc/nivo/commit/bf27d55ddac7f5046bae1f9e545aa9e44346692d))
+* **deps:**  upgrade react-spring to v9.1.2 (#1480) ([1d94b5f1](https://github.com/plouc/nivo/commit/1d94b5f12551be001d41cc3ec7da585ff37f301d))
+* **doc:**  fix grammar errors in docs/comments ([b5bbeda7](https://github.com/plouc/nivo/commit/b5bbeda73c498705a7e8f106aa54aa44628eaaec))
+* **funnel:**  fix dependencies on other nivo packages (#1486) ([a1a12411](https://github.com/plouc/nivo/commit/a1a1241100cdef56f2e3282d6b22bd12533ea52f))
+* **pie:**
+  *  fix pie stories ([4c8cde1e](https://github.com/plouc/nivo/commit/4c8cde1eacc90db4d8244d0f451794b7dc55decb))
+  *  fix existing tests due to usage of @nivo/arcs ([6d5fb272](https://github.com/plouc/nivo/commit/6d5fb2721235f6bdf301705f94206231db7e46d7))
+  *  fix skip angle for slice labels ([70c1ef24](https://github.com/plouc/nivo/commit/70c1ef24f15aaa4953d119fb8619cfa9c94bd233))
+* **tooltip:**  Add anchor param to showTooltipFromEvent type (#1420) ([1c2569e4](https://github.com/plouc/nivo/commit/1c2569e42de048a06b61e4db89bcb960431f5044))
+* **voronoi:**
+  *  length undefined in production (#1441) ([80a9c376](https://github.com/plouc/nivo/commit/80a9c376bdbc1836c79c1981abf36e16b82ba4fe))
+  *  fix typo in export class name (#1436) ([245b0cd4](https://github.com/plouc/nivo/commit/245b0cd4d39626368b6b6353402df874a87fe0a8))
+* **website:**  fix typo in pie props (#1380) ([ce7c755b](https://github.com/plouc/nivo/commit/ce7c755b23cfc55ead9bac9920a55ef6e764bd99))
+
+#### Chore
+
+* **changelog:**  update changelog ([f5dae750](https://github.com/plouc/nivo/commit/f5dae750aade8777b4adb59ba693a491b5de9cbe))
+
+
+
+<a name="v0.67.0"></a>
+## v0.67.0 (2020-12-10)
+
+
+#### Features
+
+* **bar:**  typescript - uses string unions to define BarLayerType (#1322) ([a1e08f57](https://github.com/plouc/nivo/commit/a1e08f57d3c69e4f4fd2d0b9c8c4976739ef00cd))
+* **sunburst:**
+  *  add layers support ([3a6537b0](https://github.com/plouc/nivo/commit/3a6537b011955ad70a4e1bcdaff8ac0afc1cf0de))
+  *  add tests ([66edc5a4](https://github.com/plouc/nivo/commit/66edc5a48d2a5dac57194979a36d8c8f15cd69be))
+  *  add valueFormat prop and move event handlers to hook ([c4273501](https://github.com/plouc/nivo/commit/c4273501871e5f662e69ba15d7e88d39557132f2))
+  *  add parent to node data ([c586676b](https://github.com/plouc/nivo/commit/c586676b254ef8e8de29ceb7cec0c203dae78c0c))
+  *  add animation support ([9b4630a9](https://github.com/plouc/nivo/commit/9b4630a90a829d669ad73f7e23315ce44833ec81))
+  *  add pattern and gradient support ([1fecdffe](https://github.com/plouc/nivo/commit/1fecdffeedfae5d24c3544ed5badb6fb33601301))
+  *  remove recompose ([3c0586b3](https://github.com/plouc/nivo/commit/3c0586b3c6a4a4f0229746635d13f957122fd7d2))
+  *  init package migration to typescript ([0542c6ce](https://github.com/plouc/nivo/commit/0542c6ce91df618bd2c5f48443052b1edcc6ecbe))
+
+#### Bug Fixes
+
+* **area-bump:**  Return a new serie reference when color or styles change ([844c311f](https://github.com/plouc/nivo/commit/844c311f66884f7e855a9e57de7421c3ec91a6de), closes [#1301](https://github.com/plouc/nivo/issues/1301))
+* **bump:**  Return a new serie reference when color or styles change ([07c8ba10](https://github.com/plouc/nivo/commit/07c8ba102fd6f3a846a46ea86f46b386eeb10692))
+* **generators:**  change duplicate keys in tree data ([149d1a64](https://github.com/plouc/nivo/commit/149d1a6491580ff7cc3eba21108f6411a0c4ea35))
+* **pie:**  fix types related to d3-shape ([624d5859](https://github.com/plouc/nivo/commit/624d5859e46a678ef7db3ddf5350a93f639124e2))
+* **sunburst:**
+  *  fix logic with radius and centerX/Y ([ee593828](https://github.com/plouc/nivo/commit/ee593828d34ece6191da29051c9a4ded5cf1e176))
+  *  get build passing again ([77fcc219](https://github.com/plouc/nivo/commit/77fcc219a195c5f4c9c0fc2e69d51ba5daae5c44))
+  *  fix with child color modifier story ([96ac069f](https://github.com/plouc/nivo/commit/96ac069fb14b7a2488fdc8d98eb6379056b9103a))
+* **website:**  update sunburst to not crash on hover ([952ad507](https://github.com/plouc/nivo/commit/952ad5075b478d3dace43086073b7d5a270bbba5))
+
+#### Chore
+
+* **build:**  workaround lerna issues ([98be804e](https://github.com/plouc/nivo/commit/98be804ebb69220580b410a016aa0569b2a96967))
+* **changelog:**  update changelog ([0fb693bc](https://github.com/plouc/nivo/commit/0fb693bc6328be90dbe9c8e43243e87a404c836a))
+* **sunburst:**  rename slice label props for consistency ([6717e5b0](https://github.com/plouc/nivo/commit/6717e5b0b6b68fa03e54bbe391799db5b90dfab8))
+
+
+
 <a name="v0.66.0"></a>
-## v0.66.0 (%cs)
+## v0.66.0 (2020-11-27)
 
 
 #### Features
@@ -19,7 +228,7 @@
 
 
 <a name="v0.65.1"></a>
-## v0.65.1 (%cs)
+## v0.65.1 (2020-11-17)
 
 
 #### Chore
@@ -30,7 +239,7 @@
 
 
 <a name="v0.65.0"></a>
-## v0.65.0 (%cs)
+## v0.65.0 (2020-11-17)
 
 
 #### Features
@@ -148,7 +357,7 @@
 
 
 <a name="v0.64.0"></a>
-## v0.64.0 (%cs)
+## v0.64.0 (2020-11-06)
 
 
 #### Features
@@ -239,7 +448,7 @@
 
 
 <a name="v0.63.1"></a>
-## v0.63.1 (%cs)
+## v0.63.1 (2020-10-22)
 
 
 #### Bug Fixes
@@ -265,7 +474,7 @@
 
 
 <a name="v0.63.0"></a>
-## v0.63.0 (%cs)
+## v0.63.0 (2020-10-19)
 
 
 #### Features
@@ -389,7 +598,7 @@
 
 
 <a name="v0.62.0"></a>
-## v0.62.0 (%cs)
+## v0.62.0 (2020-05-31)
 
 
 #### Features
@@ -443,7 +652,7 @@
 
 
 <a name="v0.61.2"></a>
-## v0.61.2 (%cs)
+## v0.61.2 (2019-12-31)
 
 
 #### Features
@@ -457,7 +666,7 @@
 
 
 <a name="v0.61.1"></a>
-## v0.61.1 (%cs)
+## v0.61.1 (2019-12-21)
 
 
 #### Bug Fixes
@@ -475,7 +684,7 @@
 
 
 <a name="v0.61.0"></a>
-## v0.61.0 (%cs)
+## v0.61.0 (2019-12-19)
 
 
 #### Features
@@ -498,7 +707,7 @@
 
 
 <a name="v0.60.1"></a>
-## v0.60.1 (%cs)
+## v0.60.1 (2019-12-13)
 
 
 #### Features
@@ -522,7 +731,7 @@
 
 
 <a name="v0.60.0"></a>
-## v0.60.0 (%cs)
+## v0.60.0 (2019-12-13)
 
 
 #### Features
@@ -571,7 +780,7 @@
 
 
 <a name="v0.59.3"></a>
-## v0.59.3 (%cs)
+## v0.59.3 (2019-07-13)
 
 
 #### Features
@@ -590,7 +799,7 @@
 
 
 <a name="v0.59.2"></a>
-## v0.59.2 (%cs)
+## v0.59.2 (2019-07-12)
 
 
 #### Features
@@ -606,7 +815,7 @@
 
 
 <a name="v0.59.1"></a>
-## v0.59.1 (%cs)
+## v0.59.1 (2019-06-29)
 
 
 #### Features
@@ -626,7 +835,7 @@
 
 
 <a name="v0.59.0"></a>
-## v0.59.0 (%cs)
+## v0.59.0 (2019-06-09)
 
 
 #### Features
@@ -654,7 +863,7 @@
 
 
 <a name="v0.58.0"></a>
-## v0.58.0 (%cs)
+## v0.58.0 (2019-05-16)
 
 
 #### Features
@@ -676,7 +885,7 @@
 
 
 <a name="v0.57.2"></a>
-## v0.57.2 (%cs)
+## v0.57.2 (2019-05-10)
 
 
 #### Bug Fixes
@@ -687,7 +896,7 @@
 
 
 <a name="v0.57.1"></a>
-## v0.57.1 (%cs)
+## v0.57.1 (2019-05-10)
 
 
 #### Bug Fixes
@@ -697,7 +906,7 @@
 
 
 <a name="v0.57.0"></a>
-## v0.57.0 (%cs)
+## v0.57.0 (2019-05-09)
 
 
 #### Features
@@ -719,7 +928,7 @@
 
 
 <a name="v0.56.2"></a>
-## v0.56.2 (%cs)
+## v0.56.2 (2019-04-24)
 
 
 #### Features
@@ -730,7 +939,7 @@
 
 
 <a name="v0.56.1"></a>
-## v0.56.1 (%cs)
+## v0.56.1 (2019-04-24)
 
 
 #### Features
@@ -740,7 +949,7 @@
 
 
 <a name="v0.56.0"></a>
-## v0.56.0 (%cs)
+## v0.56.0 (2019-04-17)
 
 
 #### Features
@@ -795,7 +1004,7 @@
 
 
 <a name="v0.55.0"></a>
-## v0.55.0 (%cs)
+## v0.55.0 (2019-03-27)
 
 
 #### Features
@@ -826,7 +1035,7 @@
 
 
 <a name="v0.54.0"></a>
-## v0.54.0 (%cs)
+## v0.54.0 (2019-03-24)
 
 
 #### Features
@@ -862,7 +1071,7 @@
 
 
 <a name="v0.53.1"></a>
-## v0.53.1 (%cs)
+## v0.53.1 (2019-03-22)
 
 
 #### Features
@@ -878,7 +1087,7 @@
 
 
 <a name="v0.53.0"></a>
-## v0.53.0 (%cs)
+## v0.53.0 (2019-03-21)
 
 
 #### Features
@@ -906,7 +1115,7 @@
 
 
 <a name="v0.52.1"></a>
-## v0.52.1 (%cs)
+## v0.52.1 (2019-01-24)
 
 
 #### Features
@@ -932,7 +1141,7 @@
 
 
 <a name="v0.52.0"></a>
-## v0.52.0 (%cs)
+## v0.52.0 (2018-12-10)
 
 
 #### Features
@@ -952,7 +1161,7 @@
 
 
 <a name="v0.51.6"></a>
-## v0.51.6 (%cs)
+## v0.51.6 (2018-11-29)
 
 
 #### Features
@@ -963,7 +1172,7 @@
 
 
 <a name="v0.51.5"></a>
-## v0.51.5 (%cs)
+## v0.51.5 (2018-11-18)
 
 
 #### Features
@@ -973,7 +1182,7 @@
 
 
 <a name="v0.51.4"></a>
-## v0.51.4 (%cs)
+## v0.51.4 (2018-11-18)
 
 
 #### Features
@@ -983,7 +1192,7 @@
 
 
 <a name="v0.51.3"></a>
-## v0.51.3 (%cs)
+## v0.51.3 (2018-11-17)
 
 
 #### Features
@@ -993,7 +1202,7 @@
 
 
 <a name="v0.51.2"></a>
-## v0.51.2 (%cs)
+## v0.51.2 (2018-11-14)
 
 
 #### Features
@@ -1003,7 +1212,7 @@
 
 
 <a name="v0.51.1"></a>
-## v0.51.1 (%cs)
+## v0.51.1 (2018-11-14)
 
 
 #### Features
@@ -1016,7 +1225,7 @@
 
 
 <a name="v0.51.0"></a>
-## v0.51.0 (%cs)
+## v0.51.0 (2018-11-02)
 
 
 #### Features
@@ -1042,7 +1251,7 @@
 
 
 <a name="v0.50.0"></a>
-## v0.50.0 (%cs)
+## v0.50.0 (2018-10-17)
 
 
 #### Features
@@ -1059,7 +1268,7 @@
 
 
 <a name="v0.49.1"></a>
-## v0.49.1 (%cs)
+## v0.49.1 (2018-09-08)
 
 
 #### Features
@@ -1071,7 +1280,7 @@
 
 
 <a name="v0.49.0"></a>
-## v0.49.0 (%cs)
+## v0.49.0 (2018-09-08)
 
 
 #### Features
@@ -1086,7 +1295,7 @@
 
 
 <a name="v0.48.1"></a>
-## v0.48.1 (%cs)
+## v0.48.1 (2018-09-04)
 
 
 #### Features
@@ -1101,7 +1310,7 @@
 
 
 <a name="v0.48.0"></a>
-## v0.48.0 (%cs)
+## v0.48.0 (2018-09-04)
 
 
 #### Features
@@ -1115,7 +1324,7 @@
 
 
 <a name="v0.47.1"></a>
-## v0.47.1 (%cs)
+## v0.47.1 (2018-08-30)
 
 
 #### Features
@@ -1126,7 +1335,7 @@
 
 
 <a name="v0.47.0"></a>
-## v0.47.0 (%cs)
+## v0.47.0 (2018-08-30)
 
 
 #### Features
@@ -1153,7 +1362,7 @@
 
 
 <a name="v0.46.0"></a>
-## v0.46.0 (%cs)
+## v0.46.0 (2018-08-26)
 
 
 #### Features
@@ -1169,7 +1378,7 @@
 
 
 <a name="v0.45.0"></a>
-## v0.45.0 (%cs)
+## v0.45.0 (2018-08-26)
 
 
 #### Features
@@ -1198,7 +1407,7 @@
 
 
 <a name="v0.44.0"></a>
-## v0.44.0 (%cs)
+## v0.44.0 (2018-08-24)
 
 
 #### Features
@@ -1220,7 +1429,7 @@
 
 
 <a name="v0.43.0"></a>
-## v0.43.0 (%cs)
+## v0.43.0 (2018-06-05)
 
 
 #### Features
@@ -1234,7 +1443,7 @@
 
 
 <a name="v0.42.1"></a>
-## v0.42.1 (%cs)
+## v0.42.1 (2018-06-05)
 
 
 #### Features
@@ -1250,7 +1459,7 @@
 
 
 <a name="v0.42.0"></a>
-## v0.42.0 (%cs)
+## v0.42.0 (2018-06-05)
 
 
 #### Features
@@ -1264,7 +1473,7 @@
 
 
 <a name="v0.41.0"></a>
-## v0.41.0 (%cs)
+## v0.41.0 (2018-05-30)
 
 
 #### Features
@@ -1277,7 +1486,7 @@
 
 
 <a name="v0.40.0"></a>
-## v0.40.0 (%cs)
+## v0.40.0 (2018-05-30)
 
 
 #### Features
@@ -1298,7 +1507,7 @@
 
 
 <a name="v0.39.0"></a>
-## v0.39.0 (%cs)
+## v0.39.0 (2018-05-30)
 
 
 #### Features
@@ -1308,7 +1517,7 @@
 
 
 <a name="v0.38.0"></a>
-## v0.38.0 (%cs)
+## v0.38.0 (2018-05-29)
 
 
 #### Features
@@ -1325,7 +1534,7 @@
 
 
 <a name="v0.37.0"></a>
-## v0.37.0 (%cs)
+## v0.37.0 (2018-05-19)
 
 
 #### Features
@@ -1336,7 +1545,7 @@
 
 
 <a name="v0.36.0"></a>
-## v0.36.0 (%cs)
+## v0.36.0 (2018-05-19)
 
 
 #### Features
@@ -1348,7 +1557,7 @@
 
 
 <a name="v0.35.2"></a>
-## v0.35.2 (%cs)
+## v0.35.2 (2018-05-19)
 
 
 #### Features
@@ -1362,7 +1571,7 @@
 
 
 <a name="v0.35.1"></a>
-## v0.35.1 (%cs)
+## v0.35.1 (2018-05-19)
 
 
 #### Bug Fixes
@@ -1372,7 +1581,7 @@
 
 
 <a name="v0.35.0"></a>
-## v0.35.0 (%cs)
+## v0.35.0 (2018-05-19)
 
 
 #### Features
@@ -1399,7 +1608,7 @@
 
 
 <a name="v0.34.0-1"></a>
-## v0.34.0-1 (%cs)
+## v0.34.0-1 (2017-12-18)
 
 
 #### Features
@@ -1436,7 +1645,7 @@
 
 
 <a name="v0.33.0"></a>
-## v0.33.0 (%cs)
+## v0.33.0 (2017-12-09)
 
 
 #### Features
@@ -1453,7 +1662,7 @@
 
 
 <a name="v0.33.0-8"></a>
-## v0.33.0-8 (%cs)
+## v0.33.0-8 (2017-12-09)
 
 
 #### Features
@@ -1463,13 +1672,13 @@
 
 
 <a name="v0.33.0-7"></a>
-## v0.33.0-7 (%cs)
+## v0.33.0-7 (2017-12-09)
 
 
 
 
 <a name="v0.33.0-6"></a>
-## v0.33.0-6 (%cs)
+## v0.33.0-6 (2017-12-09)
 
 
 #### Bug Fixes
@@ -1479,7 +1688,7 @@
 
 
 <a name="v0.33.0-5"></a>
-## v0.33.0-5 (%cs)
+## v0.33.0-5 (2017-12-09)
 
 
 #### Features
@@ -1510,7 +1719,7 @@
 
 
 <a name="v0.33.0-4"></a>
-## v0.33.0-4 (%cs)
+## v0.33.0-4 (2017-12-08)
 
 
 #### Features
@@ -1533,7 +1742,7 @@
 
 
 <a name="v0.33.0-3"></a>
-## v0.33.0-3 (%cs)
+## v0.33.0-3 (2017-12-07)
 
 
 #### Features
@@ -1544,7 +1753,7 @@
 
 
 <a name="v0.33.0-2"></a>
-## v0.33.0-2 (%cs)
+## v0.33.0-2 (2017-12-07)
 
 
 #### Features
@@ -1554,7 +1763,7 @@
 
 
 <a name="v0.33.0-1"></a>
-## v0.33.0-1 (%cs)
+## v0.33.0-1 (2017-12-07)
 
 
 #### Features
@@ -1567,7 +1776,7 @@
 
 
 <a name="v0.33.0-0"></a>
-## v0.33.0-0 (%cs)
+## v0.33.0-0 (2017-12-07)
 
 
 #### Features
@@ -1586,7 +1795,7 @@
 
 
 <a name="v0.32.0"></a>
-## v0.32.0 (%cs)
+## v0.32.0 (2017-12-06)
 
 
 #### Features
@@ -1616,7 +1825,7 @@
 
 
 <a name="v0.32.0-12"></a>
-## v0.32.0-12 (%cs)
+## v0.32.0-12 (2017-12-06)
 
 
 #### Features
@@ -1626,7 +1835,7 @@
 
 
 <a name="v0.32.0-11"></a>
-## v0.32.0-11 (%cs)
+## v0.32.0-11 (2017-12-06)
 
 
 #### Features
@@ -1638,7 +1847,7 @@
 
 
 <a name="v0.32.0-10"></a>
-## v0.32.0-10 (%cs)
+## v0.32.0-10 (2017-12-06)
 
 
 #### Features
@@ -1652,7 +1861,7 @@
 
 
 <a name="v0.32.0-9"></a>
-## v0.32.0-9 (%cs)
+## v0.32.0-9 (2017-12-06)
 
 
 #### Bug Fixes
@@ -1662,7 +1871,7 @@
 
 
 <a name="v0.32.0-8"></a>
-## v0.32.0-8 (%cs)
+## v0.32.0-8 (2017-12-06)
 
 
 #### Features
@@ -1672,7 +1881,7 @@
 
 
 <a name="v0.32.0-7"></a>
-## v0.32.0-7 (%cs)
+## v0.32.0-7 (2017-12-06)
 
 
 #### Bug Fixes
@@ -1682,7 +1891,7 @@
 
 
 <a name="v0.32.0-5"></a>
-## v0.32.0-5 (%cs)
+## v0.32.0-5 (2017-12-06)
 
 
 #### Bug Fixes
@@ -1692,25 +1901,25 @@
 
 
 <a name="v0.32.0-4"></a>
-## v0.32.0-4 (%cs)
+## v0.32.0-4 (2017-12-06)
 
 
 
 
 <a name="v0.32.0-3"></a>
-## v0.32.0-3 (%cs)
+## v0.32.0-3 (2017-12-05)
 
 
 
 
 <a name="v0.32.0-2"></a>
-## v0.32.0-2 (%cs)
+## v0.32.0-2 (2017-12-05)
 
 
 
 
 <a name="v0.32.0-1"></a>
-## v0.32.0-1 (%cs)
+## v0.32.0-1 (2017-12-05)
 
 
 

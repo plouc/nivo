@@ -5,7 +5,7 @@
         // { "path": "./packages/core" },
 
         // Shared next because charts need them
-        // { "path": "./packages/axes" },
+        { "path": "./packages/axes" },
         { "path": "./packages/colors" },
         // { "path": "./packages/legends" },
         // { "path": "./packages/scales" },
@@ -13,12 +13,15 @@
         { "path": "./packages/arcs" },
 
         // Utility package
-        // { "path": "./packages/generators" },
+        { "path": "./packages/generators" },
+        { "path": "./packages/recompose" },
 
         // Charts now
+        { "path": "./packages/voronoi" },
         { "path": "./packages/bullet" },
+        { "path": "./packages/circle-packing" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
-        { "path": "./packages/sunburst" },
+        { "path": "./packages/sunburst" }
     ]
 }

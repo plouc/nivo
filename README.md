@@ -51,7 +51,7 @@ please use the [components explorer](http://nivo.rocks/components).
 Components available through the HTTP rendering API.
 
 -   [Bar](https://nivo-api.herokuapp.com/samples/bar.svg)
--   [Bubble](https://nivo-api.herokuapp.com/samples/bubble.svg)
+-   [CirclePacking](https://nivo-api.herokuapp.com/samples/circle-packing.svg)
 -   [Chord](https://nivo-api.herokuapp.com/samples/chord.svg)
 -   [HeatMap](https://nivo-api.herokuapp.com/samples/heatmap.svg)
 -   [Line](https://nivo-api.herokuapp.com/samples/line.svg)
