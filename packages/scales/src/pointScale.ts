@@ -2,8 +2,7 @@ import { scalePoint } from 'd3-scale'
 import { ComputedSerieAxis, ScalePoint, ScalePointSpec, StringValue } from './types'
 
 export const createPointScale = <Input extends StringValue>(
-    // @ts-ignore
-    spec: ScalePointSpec,
+    _spec: ScalePointSpec,
     data: ComputedSerieAxis<Input>,
     size: number
 ) => {

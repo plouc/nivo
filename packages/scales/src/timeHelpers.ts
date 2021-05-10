@@ -49,10 +49,13 @@ export const createDateNormalizer = ({
     useUTC?: boolean
 }) => {
     const precisionFn = createPrecisionMethod(precision)
-    if (format === 'native') {
-        return (date: Date) => precisionFn(date)
-    }
 
-    const parseTime = useUTC ? utcParse(format) : timeParse(format)
-    return (dateString: string) => precisionFn(parseTime(dateString) as Date)
+    return (value: Date | string) => {
+        if (format === 'native') {
+            return precisionFn(value as Date)
+        }
+
+        const parseTime = useUTC ? utcParse(format) : timeParse(format)
+        return precisionFn(parseTime(value as string) as Date)
+    }
 }

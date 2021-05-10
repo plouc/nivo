@@ -1,20 +1,27 @@
-import { scaleLinear } from 'd3-scale'
+import { NumberValue, scaleLinear } from 'd3-scale'
 import { ScaleLinearSpec, ScaleLinear, ComputedSerieAxis, ScaleAxis } from './types'
 
-export const createLinearScale = <Output>(
-    { min = 0, max = 'auto', stacked = false, reverse = false, clamp = false, nice = false }: ScaleLinearSpec,
+export const createLinearScale = <Output extends NumberValue>(
+    {
+        min = 0,
+        max = 'auto',
+        stacked = false,
+        reverse = false,
+        clamp = false,
+        nice = false,
+    }: ScaleLinearSpec,
     data: ComputedSerieAxis<Output>,
     size: number,
     axis: ScaleAxis
 ) => {
-    let minValue: number
+    let minValue: NumberValue
     if (min === 'auto') {
         minValue = stacked === true ? data.minStacked : data.min
     } else {
         minValue = min
     }
 
-    let maxValue: number
+    let maxValue: NumberValue
     if (max === 'auto') {
         maxValue = stacked === true ? data.maxStacked : data.max
     } else {
@@ -34,7 +41,7 @@ export const createLinearScale = <Output>(
         scale.domain([minValue, maxValue])
     }
 
-    const typedScale = scale as ScaleLinear<number>
+    const typedScale = (scale as unknown) as ScaleLinear<number>
     typedScale.type = 'linear'
     typedScale.stacked = stacked
 
