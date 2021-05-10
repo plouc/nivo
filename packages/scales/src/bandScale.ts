@@ -2,8 +2,7 @@ import { scaleBand } from 'd3-scale'
 import { ComputedSerieAxis, ScaleBand, ScaleBandSpec, StringValue } from './types'
 
 export const createBandScale = <Input extends StringValue>(
-    // @ts-ignore
-    spec: ScaleBandSpec,
+    _spec: ScaleBandSpec,
     data: ComputedSerieAxis<Input>,
     size: number
 ) => {

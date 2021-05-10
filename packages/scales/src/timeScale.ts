@@ -1,8 +1,8 @@
-import { scaleTime, scaleUtc } from 'd3-scale'
+import { NumberValue, scaleTime, scaleUtc } from 'd3-scale'
 import { createDateNormalizer } from './timeHelpers'
-import { ComputedSerieAxis, ScaleTimeSpec } from './types'
+import { ComputedSerieAxis, ScaleTime, ScaleTimeSpec } from './types'
 
-export const createTimeScale = (
+export const createTimeScale = <Input extends Date | NumberValue, Output>(
     {
         format = 'native',
         precision = 'millisecond',
@@ -22,7 +22,7 @@ export const createTimeScale = (
     } else if (format !== 'native') {
         minValue = normalize(min)
     } else {
-        minValue = min
+        minValue = min as Date
     }
 
     let maxValue: Date
@@ -31,16 +31,20 @@ export const createTimeScale = (
     } else if (format !== 'native') {
         maxValue = normalize(max)
     } else {
-        maxValue = max
+        maxValue = max as Date
     }
 
     const scale = useUTC ? scaleUtc() : scaleTime()
+
     scale.domain([minValue, maxValue]).range([0, size])
+
     if (nice === true) scale.nice()
     else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice)
 
-    scale.type = 'time'
-    scale.useUTC = useUTC
+    const typedScale = (scale as unknown) as ScaleTime<Input, Output>
 
-    return scale
+    typedScale.type = 'time'
+    typedScale.useUTC = useUTC
+
+    return typedScale
 }

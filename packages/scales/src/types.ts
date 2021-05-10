@@ -4,6 +4,8 @@ import {
     ScaleBand as D3ScaleBand,
     ScaleLogarithmic as D3ScaleLogarithmic,
     ScaleSymLog as D3ScaleSymLog,
+    ScaleTime as D3ScaleTime,
+    NumberValue,
 } from 'd3-scale'
 import { TIME_PRECISION } from './timeHelpers'
 
@@ -48,7 +50,7 @@ export type ScaleLinearSpec = {
 export interface ScaleLinear<Output> extends D3ScaleLinear<number, Output, never> {
     type: 'linear'
     // default to `false`
-    stacked?: boolean
+    stacked: boolean
 }
 export const isScaleLinearSpec = (spec: ScaleSpec): spec is ScaleLinearSpec =>
     spec.type === 'linear'
@@ -102,7 +104,7 @@ export const isScaleBandSpec = (spec: ScaleSpec): spec is ScaleBandSpec => spec.
 export type ScaleTimeSpec = {
     type: 'time'
     // default to `native`
-    format?: 'native' | Exclude<string, 'native'>
+    format?: 'native' | string
     // default to `millisecond`
     precision?: TIME_PRECISION
     // default to `auto`
@@ -113,6 +115,12 @@ export type ScaleTimeSpec = {
     useUTC?: boolean
     // default to `false`
     nice?: boolean
+}
+
+export interface ScaleTime<Input extends Date | NumberValue, Output>
+    extends D3ScaleTime<Input, Output> {
+    type: 'time'
+    useUTC: boolean
 }
 
 export type Series<XValue extends ScaleValue, YValue extends ScaleValue> = {
