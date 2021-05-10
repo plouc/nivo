@@ -48,3 +48,16 @@ it('should allow to disable labels', () => {
         expect(cell.find('text').exists()).toBe(false)
     })
 })
+
+it('should allow to format labels', () => {
+    const wrapper = mount(
+        <HeatMap {...sampleProps} label={(datum, key) => datum[key].toFixed(2)} />
+    )
+
+    const cells = wrapper.find(HeatMapCellRect)
+    expect(cells).toHaveLength(9)
+    cells.forEach(cell => {
+        expect(cell.find('text').exists()).toBe(true)
+        expect(cell.find('text').text().length).toEqual(5)
+    })
+})

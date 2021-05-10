@@ -38,6 +38,7 @@ export const HeatMapPropTypes = {
     enableGridY: PropTypes.bool.isRequired,
 
     enableLabels: PropTypes.bool.isRequired,
+    label: PropTypes.func.isRequired,
     labelTextColor: inheritedColorPropType.isRequired,
 
     colors: quantizeColorScalePropType.isRequired,
@@ -83,6 +84,7 @@ export const HeatMapDefaultProps = {
 
     // labels
     enableLabels: true,
+    label: (datum, key) => datum[key],
     labelTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
 
     // theming

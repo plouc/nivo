@@ -13,7 +13,7 @@ import { useTheme, useMotionConfig } from '@nivo/core'
 
 const HeatMapCellCircle = ({
     data,
-    value,
+    label,
     x,
     y,
     width,
@@ -70,7 +70,7 @@ const HeatMapCellCircle = ({
                     }}
                     fillOpacity={animatedProps.opacity}
                 >
-                    {value}
+                    {label}
                 </animated.text>
             )}
         </animated.g>
@@ -79,7 +79,7 @@ const HeatMapCellCircle = ({
 
 HeatMapCellCircle.propTypes = {
     data: PropTypes.object.isRequired,
-    value: PropTypes.number.isRequired,
+    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,

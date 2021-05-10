@@ -23,7 +23,7 @@ const HeatMapCells = ({
         React.createElement(cellComponent, {
             key: cell.id,
             data: cell,
-            value: cell.value,
+            label: cell.label,
             x: cell.x,
             y: cell.y,
             width: cell.width,

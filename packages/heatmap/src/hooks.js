@@ -1,6 +1,11 @@
 import { useState, useMemo } from 'react'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
-import { useTheme, usePropertyAccessor, guessQuantizeColorScale } from '@nivo/core'
+import {
+    useTheme,
+    usePropertyAccessor,
+    guessQuantizeColorScale,
+    getLabelGenerator,
+} from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 
 const computeX = (column, cellWidth, padding) => {
@@ -29,12 +34,14 @@ const computeCells = ({
     cellHeight,
     colorScale,
     nanColor,
+    getLabel,
     getLabelTextColor,
 }) => {
     const cells = []
     data.forEach(datum => {
         keys.forEach(key => {
             const value = datum[key]
+            const label = getLabel(datum, key)
             const index = getIndex(datum)
             const sizeMultiplier = sizeScale ? sizeScale(value) : 1
             const width = sizeMultiplier * cellWidth
@@ -49,6 +56,7 @@ const computeCells = ({
                 width,
                 height,
                 value,
+                label,
                 color: isNaN(value) ? nanColor : colorScale(value),
                 opacity: cellOpacity,
             }
@@ -76,6 +84,7 @@ export const useHeatMap = ({
     nanColor,
     cellOpacity,
     cellBorderColor,
+    label,
     labelTextColor,
     hoverTarget,
     cellHoverOpacity,
@@ -85,6 +94,7 @@ export const useHeatMap = ({
 
     const getIndex = usePropertyAccessor(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
+    const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     const layoutConfig = useMemo(() => {
         const columns = keys.length
@@ -169,6 +179,7 @@ export const useHeatMap = ({
                 cellHeight: layoutConfig.cellHeight,
                 colorScale,
                 nanColor,
+                getLabel,
                 getLabelTextColor,
             }),
         [
@@ -181,6 +192,7 @@ export const useHeatMap = ({
             layoutConfig,
             colorScale,
             nanColor,
+            getLabel,
             getLabelTextColor,
         ]
     )

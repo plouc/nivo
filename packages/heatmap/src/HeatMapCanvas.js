@@ -41,6 +41,7 @@ const HeatMapCanvas = ({
     axisBottom,
     axisLeft,
     enableLabels,
+    label,
     labelTextColor,
     colors,
     nanColor,
@@ -77,6 +78,7 @@ const HeatMapCanvas = ({
             nanColor,
             cellOpacity,
             cellBorderColor,
+            label,
             labelTextColor,
             hoverTarget,
             cellHoverOpacity,
@@ -137,6 +139,8 @@ const HeatMapCanvas = ({
         axisRight,
         axisBottom,
         axisLeft,
+        xScale,
+        yScale,
         theme,
         enableLabels,
         pixelRatio,
@@ -179,6 +183,7 @@ const HeatMapCanvas = ({
             showTooltipFromEvent,
             hideTooltip,
             tooltip,
+            tooltipFormat,
         ]
     )
 
