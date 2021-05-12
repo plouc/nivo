@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { LegendSvgItem, DIRECTION_LEFT_TO_RIGHT } from '@nivo/legends'
+import { LegendSvgItem } from '@nivo/legends'
 import Highlight from '../../Highlight'
 import { useTheme } from '../../../theming/context'
 
@@ -76,7 +76,7 @@ const SymbolShape = () => {
                                     ...itemsProps.data,
                                     label: shape,
                                 }}
-                                direction={DIRECTION_LEFT_TO_RIGHT}
+                                direction="left-to-right"
                                 symbolShape={shape}
                             />
                         </svg>

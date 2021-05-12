@@ -7,21 +7,10 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import {
-    LegendSvgItem,
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-} from '@nivo/legends'
+import { LegendSvgItem } from '@nivo/legends'
 import { useTheme } from '../../../theming/context'
 
-const itemDirections = [
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-]
+const itemDirections = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
 
 const LegendItemDirection = () => {
     const theme = useTheme()
