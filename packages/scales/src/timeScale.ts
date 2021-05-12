@@ -2,7 +2,7 @@ import { NumberValue, scaleTime, scaleUtc } from 'd3-scale'
 import { createDateNormalizer } from './timeHelpers'
 import { ComputedSerieAxis, ScaleTime, ScaleTimeSpec } from './types'
 
-export const createTimeScale = <Input extends Date | NumberValue, Output>(
+export const createTimeScale = <Input extends Date | NumberValue>(
     {
         format = 'native',
         precision = 'millisecond',
@@ -41,7 +41,7 @@ export const createTimeScale = <Input extends Date | NumberValue, Output>(
     if (nice === true) scale.nice()
     else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice)
 
-    const typedScale = (scale as unknown) as ScaleTime<Input, Output>
+    const typedScale = (scale as unknown) as ScaleTime<Input>
 
     typedScale.type = 'time'
     typedScale.useUTC = useUTC

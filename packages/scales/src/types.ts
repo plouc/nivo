@@ -117,8 +117,7 @@ export type ScaleTimeSpec = {
     nice?: boolean
 }
 
-export interface ScaleTime<Input extends Date | NumberValue, Output>
-    extends D3ScaleTime<Input, Output> {
+export interface ScaleTime<Input extends Date | NumberValue> extends D3ScaleTime<Input, Date> {
     type: 'time'
     useUTC: boolean
 }
@@ -141,7 +140,7 @@ export type SerieAxis<Axis extends ScaleAxis, Value extends ScaleValue> = {
 export type ComputedSerieAxis<Value extends ScaleValue> = {
     all: Value[]
     min: Value
-    minStacked: Value
+    minStacked?: Value
     max: Value
-    maxStacked: Value
+    maxStacked?: Value
 }
