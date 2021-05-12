@@ -324,7 +324,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'point', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy[axis]).toEqual({ minStacked: 10, maxStacked: 33 })
                 expect(series).toEqual([
@@ -390,7 +390,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'linear', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy[axis]).toEqual({ minStacked: 10, maxStacked: 33 })
                 expect(series).toEqual([
@@ -472,7 +472,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'time', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy[axis]).toEqual({ minStacked: 10, maxStacked: 33 })
                 expect(series).toEqual([
@@ -556,7 +556,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'linear', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy).toEqual({
                     [otherAxis]: { all: [1, 2, 3] },
@@ -597,35 +597,35 @@ describe('stackAxis', () => {
     })
 })
 
-describe('computeAxisSlices', () => {
-    axes.forEach(axis => {
-        const otherAxis = axis === 'x' ? 'y' : 'x'
+// describe('computeAxisSlices', () => {
+//     axes.forEach(axis => {
+//         const otherAxis = axis === 'x' ? 'y' : 'x'
 
-        describe(`${axis} axis`, () => {
-            it('should compute slices', () => {
-                const serieA = {
-                    id: 'A',
-                    data: [
-                        { data: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
-                        { data: { [otherAxis]: 2, [axis]: 20, [`${axis}Stacked`]: 20 } },
-                        { data: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
-                    ],
-                }
-                const serieB = {
-                    id: 'B',
-                    data: [
-                        { data: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
-                        { data: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: 22 } },
-                        { data: { [otherAxis]: 3, [axis]: 3, [`${axis}Stacked`]: 33 } },
-                    ],
-                }
+//         describe(`${axis} axis`, () => {
+//             it('should compute slices', () => {
+//                 const serieA = {
+//                     id: 'A',
+//                     data: [
+//                         { data: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
+//                         { data: { [otherAxis]: 2, [axis]: 20, [`${axis}Stacked`]: 20 } },
+//                         { data: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
+//                     ],
+//                 }
+//                 const serieB = {
+//                     id: 'B',
+//                     data: [
+//                         { data: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
+//                         { data: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: 22 } },
+//                         { data: { [otherAxis]: 3, [axis]: 3, [`${axis}Stacked`]: 33 } },
+//                     ],
+//                 }
 
-                computeAxisSlices(axis, {
-                    series: [serieA, serieB],
-                    [otherAxis]: { all: [1, 2, 3] },
-                    [`${otherAxis}Scale`]: v => v,
-                })
-            })
-        })
-    })
-})
+//                 computeAxisSlices(axis, {
+//                     series: [serieA, serieB],
+//                     [otherAxis]: { all: [1, 2, 3] },
+//                     [`${otherAxis}Scale`]: v => v,
+//                 })
+//             })
+//         })
+//     })
+// })
