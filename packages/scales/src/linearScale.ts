@@ -32,14 +32,14 @@ export const createLinearScale = <Output extends NumberValue>(
         .rangeRound(axis === 'x' ? [0, size] : [size, 0])
         .clamp(clamp)
 
-    if (nice === true) scale.nice()
-    else if (typeof nice === 'number') scale.nice(nice)
-
     if (reverse === true) {
         scale.domain([maxValue, minValue])
     } else {
         scale.domain([minValue, maxValue])
     }
+
+    if (nice === true) scale.nice()
+    else if (typeof nice === 'number') scale.nice(nice)
 
     const typedScale = (scale as unknown) as ScaleLinear<number>
     typedScale.type = 'linear'

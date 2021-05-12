@@ -45,7 +45,7 @@ export type ScaleLinearSpec = {
     stacked?: boolean
     reverse?: boolean
     clamp?: boolean
-    nice?: boolean
+    nice?: boolean | number
 }
 export interface ScaleLinear<Output> extends D3ScaleLinear<number, Output, never> {
     type: 'linear'
