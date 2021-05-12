@@ -4,56 +4,93 @@ import sortBy from 'lodash/sortBy'
 import last from 'lodash/last'
 import isDate from 'lodash/isDate'
 import { createDateNormalizer } from './timeHelpers'
-import { ScaleAxis, ScaleSpec, Series, ScaleValue, SerieAxis, OtherScaleAxis } from './types'
+import { ScaleAxis, ScaleSpec, Series, ScaleValue, SerieAxis } from './types'
 import { computeScale } from './computeScale'
 
-export const getOtherAxis = (axis: ScaleAxis): OtherScaleAxis<typeof axis> =>
-    axis === 'x' ? 'y' : 'x'
+type XY = ReturnType<typeof generateSeriesXY>
 
-const a = getOtherAxis('x')
-if (a === 'x') {
-    console.log('crap')
+type StackedXY = {
+    [K in keyof XY]: XY[K] & {
+        maxStacked: number
+        minStacked: number
+    }
 }
+
+type InputXYSeries = Record<'x' | 'y', number | string | Date | null>
+
+interface Data {
+    x: number
+    xStacked: number | null
+    y: number
+    yStacked: number | null
+
+    // Allow template literal `xStacked/yStacked` to be set on line 213
+    [key: string]: number | null
+}
+
+type XYSeries = InputXYSeries & {
+    data: Data[]
+}
+
+interface ComputedXYSeries extends InputXYSeries {
+    data: Array<{
+        data: Data
+        position: {
+            x: ScaleValue | null
+            y: ScaleValue | null
+        }
+    }>
+}
+
+type Compare = <T>(a: T, b: T) => boolean
+
+export const getOtherAxis = (axis: ScaleAxis): ScaleAxis => (axis === 'x' ? 'y' : 'x')
 
 export const compareValues = (a: string | number, b: string | number) => a === b
 export const compareDateValues = (a: Date, b: Date) => a.getTime() === b.getTime()
 
-export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width, height) => {
+export const computeXYScalesForSeries = (
+    _series: XYSeries[],
+    xScaleSpec: ScaleSpec,
+    yScaleSpec: ScaleSpec,
+    width: number,
+    height: number
+) => {
     const series = _series.map(serie => ({
         ...serie,
         data: serie.data.map(d => ({ data: { ...d } })),
-    }))
+    })) as ComputedXYSeries[]
 
-    let xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
-    if (xScaleSpec.stacked === true) {
-        stackX(yScaleSpec.type, xy, series)
+    const xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
+    if ('stacked' in xScaleSpec && xScaleSpec.stacked === true) {
+        stackX(xy as StackedXY, series)
     }
-    if (yScaleSpec.stacked === true) {
-        stackY(xScaleSpec.type, xy, series)
+    if ('stacked' in yScaleSpec && yScaleSpec.stacked === true) {
+        stackY(xy as StackedXY, series)
     }
 
-    const xScale = computeScale({ ...xScaleSpec, axis: 'x' }, xy.x, width, 'x')
-    const yScale = computeScale({ ...yScaleSpec, axis: 'y' }, xy.y, height, 'y')
+    const xScale = computeScale(xScaleSpec, xy.x, width, 'x')
+    const yScale = computeScale(yScaleSpec, xy.y, height, 'y')
 
     series.forEach(serie => {
         serie.data.forEach(d => {
             d.position = {
                 x:
-                    xScale.stacked === true
+                    'stacked' in xScale && xScale.stacked === true
                         ? d.data.xStacked === null
                             ? null
                             : xScale(d.data.xStacked)
                         : d.data.x === null
                         ? null
-                        : xScale(d.data.x),
+                        : xScale(d.data.x) ?? null,
                 y:
-                    yScale.stacked === true
+                    'stacked' in yScale && yScale.stacked === true
                         ? d.data.yStacked === null
                             ? null
                             : yScale(d.data.yStacked)
                         : d.data.y === null
                         ? null
-                        : yScale(d.data.y),
+                        : yScale(d.data.y) ?? null,
             }
         })
     })
@@ -97,8 +134,9 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
         series.forEach(serie => {
             serie.data.forEach(d => {
                 const value = getValue(d)
-                if (value !== null) {
-                    setValue(d, parseFloat(value))
+
+                if (value) {
+                    setValue(d, (parseFloat(String(value)) as unknown) as Value)
                 }
             })
         })
@@ -106,55 +144,61 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
         // `native` means we already have Date instances,
         // otherwise we have to convert the values to Date.
         const parseTime = createDateNormalizer(scaleSpec)
+
         series.forEach(serie => {
             serie.data.forEach(d => {
                 const value = getValue(d)
-                setValue(d, getValue(d) === null ? null : parseTime(getValue(d)))
+
+                if (value) {
+                    setValue(d, (parseTime(value as Date) as unknown) as Value)
+                }
             })
         })
     }
 
-    let all = []
+    const values: unknown[] = []
+
     series.forEach(serie => {
         serie.data.forEach(d => {
-            all.push(getValue(d))
+            values.push(getValue(d))
         })
     })
 
-    let min, max
-    if (scaleSpec.type === 'linear') {
-        all = uniq(all)
-        all = sortBy(all, v => v)
-        min = Math.min(...all)
-        max = Math.max(...all)
-    } else if (scaleSpec.type === 'time') {
-        all = uniqBy(all, v => v.getTime())
-        all = all
-            .slice(0)
-            .sort((a, b) => b - a)
-            .reverse()
-        min = all[0]
-        max = last(all)
-    } else {
-        all = uniq(all)
-        min = all[0]
-        max = last(all)
-    }
+    switch (scaleSpec.type) {
+        case 'linear': {
+            const all = sortBy(uniq(values as number[]), v => v)
 
-    return { all, min, max }
+            return { all, min: Math.min(...all), max: Math.max(...all) }
+        }
+        case 'time': {
+            const all = uniqBy(values as Date[], v => v.getTime())
+                .slice(0)
+                .sort((a, b) => b.getTime() - a.getTime())
+                .reverse()
+
+            return { all, min: all[0], max: last(all) }
+        }
+        default: {
+            const all = uniq(values)
+
+            return { all, min: all[0], max: last(all) }
+        }
+    }
 }
 
-export const stackAxis = (axis: ScaleAxis, otherType: ScaleAxis, xy: any, series: any) => {
+export const stackAxis = (axis: ScaleAxis, xy: StackedXY, series: ComputedXYSeries[]) => {
     const otherAxis = getOtherAxis(axis)
+    const all: number[] = []
 
-    let all = []
     xy[otherAxis].all.forEach(v => {
-        const compare = isDate(v) ? compareDateValues : compareValues
-        const stack = []
+        const compare = (isDate(v) ? compareDateValues : compareValues) as Compare
+        const stack: Array<number | null> = []
+
         series.forEach(serie => {
             const datum = serie.data.find(d => compare(d.data[otherAxis], v))
             let value = null
             let stackValue = null
+
             if (datum !== undefined) {
                 value = datum.data[axis]
                 if (value !== null) {
@@ -165,45 +209,21 @@ export const stackAxis = (axis: ScaleAxis, otherType: ScaleAxis, xy: any, series
                         stackValue = head + value
                     }
                 }
+
                 datum.data[`${axis}Stacked`] = stackValue
             }
+
             stack.push(stackValue)
-            all.push(stackValue)
+
+            if (stackValue !== null) {
+                all.push(stackValue)
+            }
         })
     })
-    all = all.filter(v => v !== null)
 
     xy[axis].minStacked = Math.min(...all)
     xy[axis].maxStacked = Math.max(...all)
 }
 
-export const stackX = (xy, otherType: ScaleAxis, series) => stackAxis('x', xy, otherType, series)
-export const stackY = (xy, otherType: ScaleAxis, series) => stackAxis('y', xy, otherType, series)
-
-export const computeAxisSlices = (axis: ScaleAxis, data) => {
-    const otherAxis = getOtherAxis(axis)
-
-    return data[otherAxis].all.map(v => {
-        const slice = {
-            id: v,
-            [otherAxis]: data[`${otherAxis}Scale`](v),
-            data: [],
-        }
-        const compare = isDate(v) ? compareDateValues : compareValues
-        data.series.forEach(serie => {
-            const datum = serie.data.find(d => compare(d.data[otherAxis], v))
-            if (datum !== undefined) {
-                slice.data.push({
-                    ...datum,
-                    serie,
-                })
-            }
-        })
-        slice.data.reverse()
-
-        return slice
-    })
-}
-
-export const computeXSlices = data => computeAxisSlices('x', data)
-export const computeYSlices = data => computeAxisSlices('y', data)
+const stackX = (xy: StackedXY, series: ComputedXYSeries[]) => stackAxis('x', xy, series)
+const stackY = (xy: StackedXY, series: ComputedXYSeries[]) => stackAxis('y', xy, series)
