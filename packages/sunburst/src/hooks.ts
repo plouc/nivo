@@ -108,7 +108,7 @@ export const useSunburst = <RawDatum>({
             }
 
             if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
-                normalizedNode.color = getChildColor(parent)
+                normalizedNode.color = getChildColor(parent, descendant)
             } else {
                 normalizedNode.color = getColor(normalizedNode)
             }
