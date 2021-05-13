@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useTransition } from 'react-spring'
+import { useTransition } from '@react-spring/web'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
 import {

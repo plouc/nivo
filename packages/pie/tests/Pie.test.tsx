@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { radiansToDegrees } from '@nivo/core'
 import { Pie } from '../src/index'
 

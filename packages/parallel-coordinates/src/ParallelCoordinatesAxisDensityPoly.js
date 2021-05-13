@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { curveFromProp, useAnimatedPath } from '@nivo/core'
 
 const lineGenerator = line()

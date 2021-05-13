@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { useAnimatedPath, useTheme } from '@nivo/core'
 
 const AnnotationLink = memo(({ isOutline, ...props }) => {

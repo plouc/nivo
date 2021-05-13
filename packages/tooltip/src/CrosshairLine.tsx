@@ -1,5 +1,5 @@
 import React, { CSSProperties, memo, useMemo } from 'react'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
 interface CrosshairLineProps {

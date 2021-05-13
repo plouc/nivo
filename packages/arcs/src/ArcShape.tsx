@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { SpringValue, Interpolation, animated } from 'react-spring'
+import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { DatumWithArcAndColor } from './types'
 
 export type ArcMouseHandler<Datum extends DatumWithArcAndColor> = (

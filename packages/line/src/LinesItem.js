@@ -8,7 +8,7 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { useAnimatedPath } from '@nivo/core'
 
 const LinesItem = ({ lineGenerator, points, color, thickness }) => {

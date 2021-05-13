@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
 import { ScaleLinear } from 'd3-scale'
-import { SpringValues } from 'react-spring'
+import { SpringValues } from '@react-spring/web'
 
 export type DatumId = string | number
 export type DatumValue = number
