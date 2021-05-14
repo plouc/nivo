@@ -65,7 +65,7 @@ const InnerSwarmPlot = <RawDatum,>({
         partialMargin
     )
 
-    const { nodes, xScale, yScale } = useSwarmPlot<RawDatum>({
+    const { nodes, ...props } = useSwarmPlot<RawDatum>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -84,6 +84,9 @@ const InnerSwarmPlot = <RawDatum,>({
         forceStrength,
         simulationIterations,
     })
+
+    const xScale = props.xScale as Exclude<typeof props.xScale, ComputedDatum<RawDatum>[]>
+    const yScale = props.yScale as Exclude<typeof props.yScale, ComputedDatum<RawDatum>[]>
 
     const layerById: Record<SwarmPlotLayerId, ReactNode> = {
         grid: null,

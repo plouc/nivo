@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { ScaleLinear, ScaleOrdinal } from 'd3-scale'
+import { ScaleOrdinal } from 'd3-scale'
 import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
-import { Scale } from '@nivo/scales'
+import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import {
     computeValueScale,
     computeOrdinalScale,
@@ -24,8 +24,8 @@ export const useValueScale = <RawDatum>({
     width: number
     height: number
     axis: 'x' | 'y'
-    getValue: (datum: RawDatum) => number
-    scale: Scale
+    getValue: (datum: RawDatum) => number | Date
+    scale: ScaleLinearSpec | ScaleTimeSpec
     data: RawDatum[]
 }) =>
     useMemo(
@@ -73,7 +73,7 @@ export const useForces = <RawDatum>({
     forceStrength,
 }: {
     axis: 'x' | 'y'
-    valueScale: ScaleLinear<number, number>
+    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
     ordinalScale: ScaleOrdinal<string, number>
     spacing: number
     forceStrength: number
@@ -130,7 +130,7 @@ export const useSwarmPlot = <RawDatum>({
     const axis = layout === 'horizontal' ? 'x' : 'y'
 
     const getId = usePropertyAccessor<RawDatum, string>(id)
-    const getValue = usePropertyAccessor<RawDatum, number>(value)
+    const getValue = usePropertyAccessor(value)
     const formatValue = useValueFormatter(valueFormat)
     const getGroup = usePropertyAccessor<RawDatum, string>(groupBy)
     const getSize = useSize<RawDatum>(size)

@@ -4,15 +4,15 @@ import { ForceX, ForceY, ForceCollide } from 'd3-force'
 import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { GridValues, AxisProps } from '@nivo/axes'
-import { Scale } from '@nivo/scales'
+import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import { AnnotationMatcher } from '@nivo/annotations'
-import { ScaleLinear, ScaleOrdinal } from 'd3-scale'
+import { ScaleOrdinal } from 'd3-scale'
 
 export interface ComputedDatum<RawDatum> {
     id: string
     index: number
     group: string
-    value: number
+    value: number | Date
     formattedValue: string
     x: number
     y: number
@@ -37,8 +37,8 @@ export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'me
 
 export interface SwarmPlotCustomLayerProps<RawDatum> {
     nodes: ComputedDatum<RawDatum>[]
-    xScale: ScaleLinear<number | string | Date, number> | ScaleOrdinal<string, number>
-    yScale: ScaleLinear<number | string | Date, number> | ScaleOrdinal<string, number>
+    xScale: ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
+    yScale: ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
     innerWidth: number
     innerHeight: number
     outerWidth: number
@@ -81,9 +81,9 @@ export type SwarmPlotCommonProps<RawDatum> = {
     groups: string[]
     id: PropertyAccessor<RawDatum, string>
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
-    value: PropertyAccessor<RawDatum, number>
-    valueScale: Scale
-    valueFormat: ValueFormat<number>
+    value: PropertyAccessor<RawDatum, number | Date>
+    valueScale: ScaleLinearSpec | ScaleTimeSpec
+    valueFormat: ValueFormat<number | Date>
     groupBy: PropertyAccessor<RawDatum, string>
     size: SizeSpec<RawDatum>
     spacing: number

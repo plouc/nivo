@@ -2,28 +2,25 @@ import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
 import get from 'lodash/get'
-import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
+import { scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide, ForceX, ForceY } from 'd3-force'
 import {
-    // @ts-ignore
     computeScale,
-    // @ts-ignore
     createDateNormalizer,
-    // @ts-ignore
     generateSeriesAxis,
-    Scale,
-    TimeScaleFormatted,
+    ScaleLinear,
+    ScaleLinearSpec,
+    ScaleTime,
+    ScaleTimeSpec,
 } from '@nivo/scales'
 import { ComputedDatum, PreSimulationDatum, SizeSpec, SimulationForces } from './types'
 
-export const getParsedValue = (scaleSpec: Scale) => {
-    if (scaleSpec.type === 'linear') {
-        return parseFloat
-    } else if (scaleSpec.type === 'time' && (scaleSpec as TimeScaleFormatted).format !== 'native') {
-        return createDateNormalizer(scaleSpec)
-    } else {
-        return (x: number | string | Date) => x
+const getParsedValue = (scaleSpec: ScaleLinearSpec | ScaleTimeSpec) => {
+    if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
+        return createDateNormalizer(scaleSpec) as <T>(value: T) => T
     }
+
+    return <T>(value: T) => value
 }
 
 export const computeOrdinalScale = ({
@@ -68,23 +65,32 @@ export const computeValueScale = <RawDatum>({
     width: number
     height: number
     axis: 'x' | 'y'
-    getValue: (datum: RawDatum) => number
-    scale: Scale
+    getValue: (datum: RawDatum) => number | Date
+    scale: ScaleLinearSpec | ScaleTimeSpec
     data: RawDatum[]
 }) => {
     const values = data.map(getValue)
 
     if (scale.type === 'time') {
-        const series = [{ data: values.map(p => ({ data: { [axis]: p } })) }]
+        const series = [
+            { data: values.map(value => ({ data: { x: null, y: null, [axis]: value } })) },
+        ]
         const axes = generateSeriesAxis(series, axis, scale)
 
-        return computeScale({ ...scale, axis }, { [axis]: axes }, width, height)
+        return computeScale(scale, axes, axis === 'x' ? width : height, axis) as ScaleTime<
+            Date | string
+        >
     }
 
-    const min = Math.min(...values)
-    const max = Math.max(...values)
+    const min = Math.min(...(values as number[]))
+    const max = Math.max(...(values as number[]))
 
-    return computeScale({ ...scale, axis }, { [axis]: { min, max } }, width, height)
+    return computeScale(
+        scale,
+        { all: values, min, max },
+        axis === 'x' ? width : height,
+        axis
+    ) as ScaleLinear<number>
 }
 
 export const getSizeGenerator = <RawDatum>(size: SizeSpec<RawDatum>) => {
@@ -134,7 +140,7 @@ export const computeForces = <RawDatum>({
     forceStrength,
 }: {
     axis: 'x' | 'y'
-    valueScale: ScaleLinear<number, number>
+    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
     ordinalScale: ScaleOrdinal<string, number>
     spacing: number
     forceStrength: number
@@ -176,24 +182,26 @@ export const computeNodes = <RawDatum>({
     data: RawDatum[]
     getId: (datum: RawDatum) => string
     layout: 'vertical' | 'horizontal'
-    getValue: (datum: RawDatum) => number
-    valueScale: ScaleLinear<number, number>
+    getValue: (datum: RawDatum) => number | Date
+    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
     getGroup: (datum: RawDatum) => string
     ordinalScale: ScaleOrdinal<string, number>
     getSize: (datum: RawDatum) => number
     forces: SimulationForces<RawDatum>
     simulationIterations: number
-    valueScaleConfig: Scale
+    valueScaleConfig: ScaleLinearSpec | ScaleTimeSpec
 }) => {
     const config = {
         horizontal: ['x', 'y'],
         vertical: ['y', 'x'],
     }
 
+    const parseValue = getParsedValue(valueScaleConfig)
+
     const simulatedNodes: PreSimulationDatum<RawDatum>[] = data.map(d => ({
         id: getId(d),
         group: getGroup(d),
-        value: getParsedValue(valueScaleConfig)(getValue(d)),
+        value: parseValue(getValue(d)),
         size: getSize(d),
         data: { ...d },
     }))
