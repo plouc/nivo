@@ -19,7 +19,7 @@ import {
 } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Scale, ScaleFunc } from '@nivo/scales'
+import { ScaleSpec, Scale } from '@nivo/scales'
 import { AxisProps, TicksSpec } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 import { Line as D3Line } from 'd3-shape'
@@ -72,8 +72,8 @@ declare module '@nivo/line' {
         lineGenerator: D3Line<Array<ComputedDatum['position']>>
         points: Point[]
         series: ComputedSerie[]
-        xScale: ScaleFunc
-        yScale: ScaleFunc
+        xScale: Scale<unknown, unknown>
+        yScale: Scale<unknown, unknown>
     }
 
     export type CustomLayer = (props: CustomLayerProps) => React.ReactNode
@@ -132,9 +132,9 @@ declare module '@nivo/line' {
     export interface LineProps {
         data: Serie[]
 
-        xScale?: Scale
+        xScale?: ScaleSpec
         xFormat?: ValueFormat<DatumValue>
-        yScale?: Scale
+        yScale?: ScaleSpec
         yFormat?: ValueFormat<DatumValue>
 
         layers?: Layer[]
