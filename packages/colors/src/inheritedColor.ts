@@ -61,7 +61,7 @@ export const getInheritedColorGenerator = <Datum = any>(
 ) => {
     // user provided function
     if (typeof config === 'function') {
-        return config;
+        return config
     }
 
     if (isPlainObject(config)) {
