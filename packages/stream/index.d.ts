@@ -20,7 +20,7 @@ import {
 } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Scale } from '@nivo/scales'
+import { ScaleSpec } from '@nivo/scales'
 import { AxisProps } from '@nivo/axes'
 
 declare module '@nivo/stream' {
@@ -73,8 +73,8 @@ declare module '@nivo/stream' {
 
     interface OptionalStreamProps<T> extends SvgDefsAndFill<T>, MotionProps {
         stack: StackFunc<T>
-        xScale: Scale
-        yScale: Scale
+        xScale: ScaleSpec
+        yScale: ScaleSpec
 
         order: StackOrder
         offsetType: StackOffset
