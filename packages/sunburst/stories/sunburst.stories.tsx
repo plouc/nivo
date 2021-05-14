@@ -46,6 +46,13 @@ stories.add('with custom colors', () => (
     <Sunburst<RawDatum> {...commonProperties} colors={customPalette} />
 ))
 
+stories.add('with custom child colors', () => (
+    <Sunburst<RawDatum> {...commonProperties} childColor={(parent, child) => {
+        // @ts-expect-error
+        return child.data.color;
+    }} />
+))
+
 stories.add('with formatted tooltip value', () => (
     <Sunburst<RawDatum> {...commonProperties} valueFormat=" >-$,.2f" />
 ))
