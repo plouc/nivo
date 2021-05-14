@@ -18,13 +18,13 @@ import {
 import { AxisProps, GridValues } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Scale, BandScale } from '@nivo/scales'
+import { ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 
 declare module '@nivo/bar' {
     export type Value = string | number
 
     export interface Data {
-        data: object[]
+        data: Array<Record<string, unknown>>
     }
 
     export interface BarDatum {
@@ -99,8 +99,8 @@ declare module '@nivo/bar' {
         maxValue: number | 'auto'
         padding: number
 
-        valueScale: Scale
-        indexScale: BandScale
+        valueScale: ScaleSpec
+        indexScale: ScaleBandSpec
 
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null
