@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
 import { GridLine } from './GridLine'
 import { Line } from '../types'
 
-export const GridLines = ({ lines }: { lines: Line[] }) => {
+export const GridLines = memo(({ lines }: { lines: Line[] }) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const transition = useTransition<Line, Record<'opacity' | 'x1' | 'x2' | 'y1' | 'y2', number>>(
@@ -54,4 +54,4 @@ export const GridLines = ({ lines }: { lines: Line[] }) => {
             ))}
         </g>
     )
-}
+})
