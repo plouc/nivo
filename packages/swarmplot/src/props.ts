@@ -1,11 +1,11 @@
-import { Scale } from '@nivo/scales'
+import { ScaleLinearSpec } from '@nivo/scales'
 import { SwarmPlotLayerId } from './types'
 import { SwarmPlotTooltip } from './SwarmPlotTooltip'
 
 export const defaultProps = {
     id: 'id',
     value: 'value',
-    valueScale: { type: 'linear', min: 0, max: 'auto' } as Scale,
+    valueScale: { type: 'linear', min: 0, max: 'auto' } as ScaleLinearSpec,
     // label: 'id',
     groupBy: 'group',
     size: 6,

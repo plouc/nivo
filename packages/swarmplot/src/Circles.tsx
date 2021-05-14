@@ -122,7 +122,7 @@ export const Circles = <RawDatum,>({
             opacity: number
         }
     >(nodes, {
-        key: node => node.id,
+        keys: node => node.id,
         initial: transitionPhases.update,
         from: transitionPhases.enter,
         enter: transitionPhases.update,
