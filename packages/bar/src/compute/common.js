@@ -6,24 +6,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { scaleBand } from 'd3-scale'
+import { computeScale } from '@nivo/scales'
 
 /**
  * Generates indexed scale.
  *
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
- * @param {Array.<number>} range
  * @param {number}         padding
  * @Param {scalePropType}  indexScale
+ * @Param {number}         size
+ * @Param {'x' | 'y'}      axis
  * @returns {Function}
  */
-export const getIndexScale = (data, getIndex, range, padding, indexScale) => {
-    return scaleBand()
-        .domain(data.map(getIndex))
-        .range(range)
-        .round(Boolean(indexScale.round))
-        .padding(padding)
+export const getIndexScale = (data, getIndex, padding, indexScale, size, axis) => {
+    return computeScale(
+        indexScale,
+        { all: data.map(getIndex), min: 0, max: 0 },
+        size,
+        axis
+    ).padding(padding)
 }
 
 export const normalizeData = (data, keys) =>
