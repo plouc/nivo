@@ -7,6 +7,7 @@ export default function Navigation() {
       <Link to="area-bump">AreaBump</Link>
       <Link to="bar">Bar</Link>
       <Link to="bullet">Bullet</Link>
+      <Link to="bump">Bump</Link>
     </div>
   )
 }
