@@ -8,6 +8,7 @@ export default function Navigation() {
       <Link to="bar">Bar</Link>
       <Link to="bullet">Bullet</Link>
       <Link to="bump">Bump</Link>
+      <Link to="calendar">Calendar</Link>
     </div>
   )
 }

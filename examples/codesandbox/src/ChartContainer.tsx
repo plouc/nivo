@@ -6,6 +6,8 @@ type ChartContainerProps = {
   children: ReactNode
 }
 
+const canvases = ['bar', 'calendar']
+
 export default function ChartContainer({ children }: ChartContainerProps) {
   const [key, setKey] = useState(0)
   const [isCanvas, setIsCanvas] = useState(false)
@@ -19,14 +21,16 @@ export default function ChartContainer({ children }: ChartContainerProps) {
     <ChartContext.Provider value={[key, isCanvas]}>
       <button onClick={() => setKey((k) => k + 1)}>Generate Data</button>
       <Routes>
-        <Route
-          path="bar"
-          element={
-            <button onClick={() => setIsCanvas((value) => !value)}>
-              Use Canvas
-            </button>
-          }
-        />
+        {canvases.map((path) => (
+          <Route
+            path={path}
+            element={
+              <button onClick={() => setIsCanvas((value) => !value)}>
+                Use Canvas
+              </button>
+            }
+          />
+        ))}
       </Routes>
       <div style={{ height: 400, margin: '0 auto', width: 500 }}>
         {children}
