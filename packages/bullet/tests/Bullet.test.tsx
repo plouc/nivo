@@ -58,7 +58,7 @@ describe('Bullet', () => {
         it('should use horizontal layout by default', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} />)
             const items = wrapper.find('BulletItem')
-            const ticks = wrapper.find('Axis').first().find('AxisTick')
+            const ticks = wrapper.find('Memo(Axis)').first().find('Memo(AxisTick)')
 
             expect(
                 ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
@@ -83,8 +83,7 @@ describe('Bullet', () => {
         it('should support reverse layout', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} reverse />)
             const items = wrapper.find('BulletItem')
-            const ticks = wrapper.find('Axis').first().find('AxisTick')
-
+            const ticks = wrapper.find('Memo(Axis)').first().find('Memo(AxisTick)')
             expect(
                 ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
             ).toMatchInlineSnapshot(
