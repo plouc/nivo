@@ -1,4 +1,4 @@
-import { ChartContext } from './contexts'
+import { ChartContext, Flavor } from './contexts'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { ReactNode, useEffect, useState } from 'react'
 
@@ -6,19 +6,20 @@ type ChartContainerProps = {
   children: ReactNode
 }
 
-const canvases = ['bar', 'calendar', 'chord', 'choropleth']
+const canvases = ['bar', 'calendar', 'chord', 'choropleth', 'circle-packing']
+const htmls = ['circle-packing']
 
 export default function ChartContainer({ children }: ChartContainerProps) {
   const [key, setKey] = useState(0)
-  const [isCanvas, setIsCanvas] = useState(false)
+  const [flavor, setFlavor] = useState<Flavor>('svg')
   const { pathname } = useLocation()
 
   useEffect(() => {
-    setIsCanvas(false)
+    setFlavor('svg')
   }, [pathname])
 
   return (
-    <ChartContext.Provider value={[key, isCanvas]}>
+    <ChartContext.Provider value={[key, flavor]}>
       <button onClick={() => setKey((k) => k + 1)}>Generate Data</button>
       <Routes>
         {canvases.map((path) => (
@@ -26,8 +27,27 @@ export default function ChartContainer({ children }: ChartContainerProps) {
             key={path}
             path={path}
             element={
-              <button onClick={() => setIsCanvas((value) => !value)}>
+              <button
+                onClick={() =>
+                  setFlavor((value) => (value !== 'canvas' ? 'canvas' : 'svg'))
+                }>
                 Use Canvas
+              </button>
+            }
+          />
+        ))}
+      </Routes>
+      <Routes>
+        {htmls.map((path) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <button
+                onClick={() =>
+                  setFlavor((value) => (value !== 'html' ? 'html' : 'svg'))
+                }>
+                Use HTML
               </button>
             }
           />

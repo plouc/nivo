@@ -13,10 +13,10 @@ const props = {
 } as const
 
 export function Calendar() {
-  const [key, isCanvas] = useChart()
+  const [key, flavor] = useChart()
   const [data] = useMemo(() => [generateDayCounts(from, to), key], [key])
 
-  if (isCanvas) {
+  if (flavor === 'canvas') {
     return <ResponsiveCalendarCanvas data={data} {...props} />
   }
 

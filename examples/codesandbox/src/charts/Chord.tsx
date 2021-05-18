@@ -9,10 +9,10 @@ const props = {
 } as const
 
 export function Chord() {
-  const [key, isCanvas] = useChart()
+  const [key, flavor] = useChart()
   const [data] = useMemo(() => [generateChordData({ size: 7 }), key], [key])
 
-  if (isCanvas) {
+  if (flavor === 'canvas') {
     return <ResponsiveChordCanvas {...data} {...props} />
   }
 

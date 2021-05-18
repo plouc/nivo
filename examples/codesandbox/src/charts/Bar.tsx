@@ -15,13 +15,13 @@ const props = {
 } as const
 
 export function Bar() {
-  const [key, isCanvas] = useChart()
+  const [key, flavor] = useChart()
   const [data] = useMemo(
     () => [generateCountriesData(keys, { size: 7 }), key],
     [key]
   )
 
-  if (isCanvas) {
+  if (flavor === 'canvas') {
     return <ResponsiveBarCanvas data={data} {...props} />
   }
 

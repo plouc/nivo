@@ -11,6 +11,7 @@ export default function Navigation() {
       <Link to="calendar">Calendar</Link>
       <Link to="chord">Chord</Link>
       <Link to="choropleth">Choropleth</Link>
+      <Link to="circle-packing">CirclePacking</Link>
     </div>
   )
 }

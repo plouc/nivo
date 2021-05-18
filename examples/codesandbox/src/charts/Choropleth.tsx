@@ -11,7 +11,7 @@ const props = {
 }
 
 export function Choropleth() {
-  const [key, isCanvas] = useChart()
+  const [key, flavor] = useChart()
   const [data] = useMemo(
     () => [
       countries.features
@@ -27,7 +27,7 @@ export function Choropleth() {
     [key]
   )
 
-  if (isCanvas) {
+  if (flavor === 'canvas') {
     return <ResponsiveChoroplethCanvas data={data} {...props} />
   }
 
