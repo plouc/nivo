@@ -9,6 +9,7 @@ import {
   CirclePacking,
   Funnel,
   GeoMap,
+  HeatMap,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -39,7 +40,8 @@ export default function App() {
               <Route path="choropleth" element={<Choropleth />} />
               <Route path="circle-packing" element={<CirclePacking />} />
               <Route path="funnel" element={<Funnel />} />
-              <Route path="geo-map" element={<GeoMap />} />
+              <Route path="geomap" element={<GeoMap />} />
+              <Route path="heatmap" element={<HeatMap />} />
             </Routes>
           </ChartContainer>
         </div>

@@ -13,7 +13,8 @@ export default function Navigation() {
       <Link to="choropleth">Choropleth</Link>
       <Link to="circle-packing">CirclePacking</Link>
       <Link to="funnel">Funnel</Link>
-      <Link to="geo-map">GeoMap</Link>
+      <Link to="geomap">GeoMap</Link>
+      <Link to="heatmap">HeatMap</Link>
     </div>
   )
 }

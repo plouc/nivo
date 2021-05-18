@@ -6,7 +6,15 @@ type ChartContainerProps = {
   children: ReactNode
 }
 
-const canvases = ['bar', 'calendar', 'chord', 'choropleth', 'circle-packing']
+const canvases = [
+  'bar',
+  'calendar',
+  'chord',
+  'choropleth',
+  'circle-packing',
+  'geomap',
+  'heatmap',
+]
 const htmls = ['circle-packing']
 
 export default function ChartContainer({ children }: ChartContainerProps) {
