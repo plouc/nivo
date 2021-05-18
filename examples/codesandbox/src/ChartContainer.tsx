@@ -6,7 +6,7 @@ type ChartContainerProps = {
   children: ReactNode
 }
 
-const canvases = ['bar', 'calendar']
+const canvases = ['bar', 'calendar', 'chord']
 
 export default function ChartContainer({ children }: ChartContainerProps) {
   const [key, setKey] = useState(0)

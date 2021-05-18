@@ -9,6 +9,7 @@ export default function Navigation() {
       <Link to="bullet">Bullet</Link>
       <Link to="bump">Bump</Link>
       <Link to="calendar">Calendar</Link>
+      <Link to="chord">Chord</Link>
     </div>
   )
 }

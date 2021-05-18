@@ -5,7 +5,6 @@ import { useChart } from '../hooks'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const props = {
-  colors: { scheme: 'spectral' },
   indexBy: 'country',
   keys,
   margin: { top: 60, right: 80, bottom: 60, left: 80 },

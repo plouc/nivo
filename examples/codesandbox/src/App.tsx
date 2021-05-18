@@ -1,4 +1,4 @@
-import { AreaBump, Bar, Bullet, Bump, Calendar } from './charts'
+import { AreaBump, Bar, Bullet, Bump, Calendar, Chord } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
 import Navigation from './Navigation'
@@ -24,6 +24,7 @@ export default function App() {
               <Route path="bullet" element={<Bullet />} />
               <Route path="bump" element={<Bump />} />
               <Route path="calendar" element={<Calendar />} />
+              <Route path="chord" element={<Chord />} />
             </Routes>
           </ChartContainer>
         </div>
