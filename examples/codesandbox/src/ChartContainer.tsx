@@ -14,6 +14,7 @@ const canvases = [
   'circle-packing',
   'geomap',
   'heatmap',
+  'line',
 ]
 const htmls = ['circle-packing']
 

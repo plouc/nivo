@@ -15,6 +15,7 @@ export default function Navigation() {
       <Link to="funnel">Funnel</Link>
       <Link to="geomap">GeoMap</Link>
       <Link to="heatmap">HeatMap</Link>
+      <Link to="line">Line</Link>
     </div>
   )
 }

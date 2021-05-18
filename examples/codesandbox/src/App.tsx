@@ -10,6 +10,7 @@ import {
   Funnel,
   GeoMap,
   HeatMap,
+  Line,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -42,6 +43,7 @@ export default function App() {
               <Route path="funnel" element={<Funnel />} />
               <Route path="geomap" element={<GeoMap />} />
               <Route path="heatmap" element={<HeatMap />} />
+              <Route path="line" element={<Line />} />
             </Routes>
           </ChartContainer>
         </div>
