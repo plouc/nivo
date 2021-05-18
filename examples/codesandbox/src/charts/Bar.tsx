@@ -1,7 +1,7 @@
 import { ResponsiveBar, ResponsiveBarCanvas } from '@nivo/bar'
 import { generateCountriesData } from '@nivo/generators'
-import { useMemo } from 'react'
 import { useChart } from '../hooks'
+import { useMemo } from 'react'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const props = {

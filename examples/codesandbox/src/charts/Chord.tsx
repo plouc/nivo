@@ -1,7 +1,7 @@
 import { ResponsiveChord, ResponsiveChordCanvas } from '@nivo/chord'
 import { generateChordData } from '@nivo/generators'
-import { useMemo } from 'react'
 import { useChart } from '../hooks'
+import { useMemo } from 'react'
 
 const props = {
   margin: { top: 60, right: 80, bottom: 60, left: 80 },

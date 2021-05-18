@@ -1,12 +1,12 @@
-import { ReactNode, useEffect, useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
 import { ChartContext } from './contexts'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import { ReactNode, useEffect, useState } from 'react'
 
 type ChartContainerProps = {
   children: ReactNode
 }
 
-const canvases = ['bar', 'calendar', 'chord']
+const canvases = ['bar', 'calendar', 'chord', 'choropleth']
 
 export default function ChartContainer({ children }: ChartContainerProps) {
   const [key, setKey] = useState(0)
@@ -23,6 +23,7 @@ export default function ChartContainer({ children }: ChartContainerProps) {
       <Routes>
         {canvases.map((path) => (
           <Route
+            key={path}
             path={path}
             element={
               <button onClick={() => setIsCanvas((value) => !value)}>
@@ -32,7 +33,7 @@ export default function ChartContainer({ children }: ChartContainerProps) {
           />
         ))}
       </Routes>
-      <div style={{ height: 400, margin: '0 auto', width: 500 }}>
+      <div style={{ height: 400, margin: '0 auto', padding: 30, width: 500 }}>
         {children}
       </div>
     </ChartContext.Provider>

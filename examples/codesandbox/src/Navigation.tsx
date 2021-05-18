@@ -10,6 +10,7 @@ export default function Navigation() {
       <Link to="bump">Bump</Link>
       <Link to="calendar">Calendar</Link>
       <Link to="chord">Chord</Link>
+      <Link to="choropleth">Choropleth</Link>
     </div>
   )
 }

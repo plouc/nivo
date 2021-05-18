@@ -1,7 +1,7 @@
 import { ResponsiveBullet } from '@nivo/bullet'
 import { generateBulletData } from '@nivo/generators'
-import { useMemo } from 'react'
 import { useChart } from '../hooks'
+import { useMemo } from 'react'
 
 const props = {
   margin: { top: 40, right: 30, bottom: 50, left: 110 },
