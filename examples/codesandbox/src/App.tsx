@@ -7,6 +7,7 @@ import {
   Chord,
   Choropleth,
   CirclePacking,
+  Funnel,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="chord" element={<Chord />} />
               <Route path="choropleth" element={<Choropleth />} />
               <Route path="circle-packing" element={<CirclePacking />} />
+              <Route path="funnel" element={<Funnel />} />
             </Routes>
           </ChartContainer>
         </div>

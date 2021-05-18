@@ -12,6 +12,7 @@ export default function Navigation() {
       <Link to="chord">Chord</Link>
       <Link to="choropleth">Choropleth</Link>
       <Link to="circle-packing">CirclePacking</Link>
+      <Link to="funnel">Funnel</Link>
     </div>
   )
 }
