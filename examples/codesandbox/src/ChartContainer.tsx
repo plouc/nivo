@@ -20,7 +20,15 @@ export default function ChartContainer({ children }: ChartContainerProps) {
 
   return (
     <ChartContext.Provider value={[key, flavor]}>
-      <button onClick={() => setKey((k) => k + 1)}>Generate Data</button>
+      <Routes>
+        <Route path="geo-map" />
+        <Route
+          path="*"
+          element={
+            <button onClick={() => setKey((k) => k + 1)}>Generate Data</button>
+          }
+        />
+      </Routes>
       <Routes>
         {canvases.map((path) => (
           <Route
