@@ -29,7 +29,7 @@ Bar:
     - label: With symlog scale
       link: bar--with-symlog-scale
     - label: Race bar chart
-      link: bar-race-chart--demo
+      link: bar--race-chart
   description: |
     Bar chart which can display multiple data series, stacked or side by side. Also
     supports both vertical and horizontal layout, with negative values descending
