@@ -17,6 +17,7 @@ export default function Navigation() {
       <Link to="heatmap">HeatMap</Link>
       <Link to="line">Line</Link>
       <Link to="marimekko">Marimekko</Link>
+      <Link to="network">Network</Link>
     </div>
   )
 }

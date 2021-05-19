@@ -12,6 +12,7 @@ import {
   HeatMap,
   Line,
   Marimekko,
+  Network,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -46,6 +47,7 @@ export default function App() {
               <Route path="heatmap" element={<HeatMap />} />
               <Route path="line" element={<Line />} />
               <Route path="marimekko" element={<Marimekko />} />
+              <Route path="network" element={<Network />} />
             </Routes>
           </ChartContainer>
         </div>
