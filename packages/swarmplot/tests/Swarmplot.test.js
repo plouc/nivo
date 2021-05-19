@@ -8,30 +8,26 @@ import { SwarmPlot } from '../src'
 
 const sampleData = [
     {
-        "id": "A",
-        "group": "group A",
-        "price": 293,
-        "volume": 5
+        id: 'A',
+        group: 'group A',
+        price: 293,
+        volume: 5,
     },
     {
-        "id": "B",
-        "group": "group B",
-        "price": 300,
-        "volume": 6
+        id: 'B',
+        group: 'group B',
+        price: 300,
+        volume: 6,
     },
     {
-        "id": "C",
-        "group": "group C",
-        "price": 500,
-        "volume": 6
+        id: 'C',
+        group: 'group C',
+        price: 500,
+        volume: 6,
     },
-];
+]
 
-const groups = [
-    "group A",
-    "group B",
-    "group C"
-];
+const groups = ['group A', 'group B', 'group C']
 
 describe('SwarmPlot', () => {
     describe('interactivity', () => {
@@ -41,7 +37,7 @@ describe('SwarmPlot', () => {
                 <SwarmPlot
                     width={400}
                     height={400}
-                    groupBy='group'
+                    groupBy="group"
                     groups={groups}
                     data={sampleData}
                     onClick={onClick}
@@ -61,7 +57,7 @@ describe('SwarmPlot', () => {
                 <SwarmPlot
                     width={400}
                     height={400}
-                    groupBy='group'
+                    groupBy="group"
                     groups={groups}
                     data={sampleData}
                     onMouseEnter={onMouseEnter}
@@ -81,7 +77,7 @@ describe('SwarmPlot', () => {
                 <SwarmPlot
                     width={400}
                     height={400}
-                    groupBy='group'
+                    groupBy="group"
                     groups={groups}
                     data={sampleData}
                     onMouseMove={onMouseMove}
@@ -101,7 +97,7 @@ describe('SwarmPlot', () => {
                 <SwarmPlot
                     width={400}
                     height={400}
-                    groupBy='group'
+                    groupBy="group"
                     groups={groups}
                     data={sampleData}
                     onMouseLeave={onMouseLeave}
@@ -125,7 +121,7 @@ describe('SwarmPlot', () => {
                 <SwarmPlot
                     width={400}
                     height={400}
-                    groupBy='group'
+                    groupBy="group"
                     groups={groups}
                     data={sampleData}
                     onClick={onClick}
