@@ -23,6 +23,7 @@ export default function Navigation() {
       <Link to="radar">Radar</Link>
       <Link to="sankey">Sankey</Link>
       <Link to="scatterplot">ScatterPlot</Link>
+      <Link to="stream">Stream</Link>
     </div>
   )
 }

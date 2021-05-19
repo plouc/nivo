@@ -18,6 +18,7 @@ import {
   Radar,
   Sankey,
   ScatterPlot,
+  Stream,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -61,6 +62,7 @@ export default function App() {
               <Route path="radar" element={<Radar />} />
               <Route path="sankey" element={<Sankey />} />
               <Route path="scatterplot" element={<ScatterPlot />} />
+              <Route path="stream" element={<Stream />} />
             </Routes>
           </ChartContainer>
         </div>
