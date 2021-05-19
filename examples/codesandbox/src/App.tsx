@@ -13,6 +13,7 @@ import {
   Line,
   Marimekko,
   Network,
+  ParallelCoordinates,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -48,6 +49,10 @@ export default function App() {
               <Route path="line" element={<Line />} />
               <Route path="marimekko" element={<Marimekko />} />
               <Route path="network" element={<Network />} />
+              <Route
+                path="parallel-coordinates"
+                element={<ParallelCoordinates />}
+              />
             </Routes>
           </ChartContainer>
         </div>

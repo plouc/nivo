@@ -16,6 +16,7 @@ const canvases = [
   'heatmap',
   'line',
   'network',
+  'parallel-coordinates',
 ]
 const htmls = ['circle-packing']
 
