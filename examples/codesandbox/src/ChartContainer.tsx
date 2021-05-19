@@ -17,6 +17,7 @@ const canvases = [
   'line',
   'network',
   'parallel-coordinates',
+  'pie',
 ]
 const htmls = ['circle-packing']
 

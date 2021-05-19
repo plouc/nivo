@@ -19,6 +19,7 @@ export default function Navigation() {
       <Link to="marimekko">Marimekko</Link>
       <Link to="network">Network</Link>
       <Link to="parallel-coordinates">ParallelCoordinates</Link>
+      <Link to="pie">Pie</Link>
     </div>
   )
 }

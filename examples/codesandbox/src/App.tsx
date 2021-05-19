@@ -14,6 +14,7 @@ import {
   Marimekko,
   Network,
   ParallelCoordinates,
+  Pie,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -53,6 +54,7 @@ export default function App() {
                 path="parallel-coordinates"
                 element={<ParallelCoordinates />}
               />
+              <Route path="pie" element={<Pie />} />
             </Routes>
           </ChartContainer>
         </div>
