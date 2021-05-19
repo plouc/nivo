@@ -28,7 +28,7 @@ const SwarmPlotNode = memo(
             node,
             onMouseEnter,
         ])
-        const handleMouseMove = useCallback(event => onMouseMove && onMouseEnter(node, event), [
+        const handleMouseMove = useCallback(event => onMouseMove && onMouseMove(node, event), [
             node,
             onMouseMove,
         ])
