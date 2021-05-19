@@ -17,6 +17,7 @@ import {
   Pie,
   Radar,
   Sankey,
+  ScatterPlot,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -59,6 +60,7 @@ export default function App() {
               <Route path="pie" element={<Pie />} />
               <Route path="radar" element={<Radar />} />
               <Route path="sankey" element={<Sankey />} />
+              <Route path="scatterplot" element={<ScatterPlot />} />
             </Routes>
           </ChartContainer>
         </div>

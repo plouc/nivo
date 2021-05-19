@@ -22,6 +22,7 @@ export default function Navigation() {
       <Link to="pie">Pie</Link>
       <Link to="radar">Radar</Link>
       <Link to="sankey">Sankey</Link>
+      <Link to="scatterplot">ScatterPlot</Link>
     </div>
   )
 }
