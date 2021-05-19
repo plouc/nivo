@@ -16,6 +16,7 @@ import {
   ParallelCoordinates,
   Pie,
   Radar,
+  Sankey,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -57,6 +58,7 @@ export default function App() {
               />
               <Route path="pie" element={<Pie />} />
               <Route path="radar" element={<Radar />} />
+              <Route path="sankey" element={<Sankey />} />
             </Routes>
           </ChartContainer>
         </div>

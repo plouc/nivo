@@ -21,6 +21,7 @@ export default function Navigation() {
       <Link to="parallel-coordinates">ParallelCoordinates</Link>
       <Link to="pie">Pie</Link>
       <Link to="radar">Radar</Link>
+      <Link to="sankey">Sankey</Link>
     </div>
   )
 }
