@@ -22,6 +22,7 @@ import {
   Sunburst,
   SwarmPlot,
   TreeMap,
+  Voronoi,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -69,6 +70,7 @@ export default function App() {
               <Route path="sunburst" element={<Sunburst />} />
               <Route path="swarmplot" element={<SwarmPlot />} />
               <Route path="treemap" element={<TreeMap />} />
+              <Route path="voronoi" element={<Voronoi />} />
             </Routes>
           </ChartContainer>
         </div>
