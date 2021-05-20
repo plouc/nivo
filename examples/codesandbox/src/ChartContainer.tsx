@@ -19,6 +19,7 @@ const canvases = [
   'parallel-coordinates',
   'pie',
   'scatterplot',
+  'swarmplot',
 ]
 const htmls = ['circle-packing']
 

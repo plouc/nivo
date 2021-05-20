@@ -25,6 +25,7 @@ export default function Navigation() {
       <Link to="scatterplot">ScatterPlot</Link>
       <Link to="stream">Stream</Link>
       <Link to="sunburst">Sunburst</Link>
+      <Link to="swarmplot">SwarmPlot</Link>
     </div>
   )
 }

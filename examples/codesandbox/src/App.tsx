@@ -20,6 +20,7 @@ import {
   ScatterPlot,
   Stream,
   Sunburst,
+  SwarmPlot,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -65,6 +66,7 @@ export default function App() {
               <Route path="scatterplot" element={<ScatterPlot />} />
               <Route path="stream" element={<Stream />} />
               <Route path="sunburst" element={<Sunburst />} />
+              <Route path="swarmplot" element={<SwarmPlot />} />
             </Routes>
           </ChartContainer>
         </div>
