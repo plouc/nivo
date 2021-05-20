@@ -24,6 +24,7 @@ export default function Navigation() {
       <Link to="sankey">Sankey</Link>
       <Link to="scatterplot">ScatterPlot</Link>
       <Link to="stream">Stream</Link>
+      <Link to="sunburst">Sunburst</Link>
     </div>
   )
 }

@@ -19,6 +19,7 @@ import {
   Sankey,
   ScatterPlot,
   Stream,
+  Sunburst,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -63,6 +64,7 @@ export default function App() {
               <Route path="sankey" element={<Sankey />} />
               <Route path="scatterplot" element={<ScatterPlot />} />
               <Route path="stream" element={<Stream />} />
+              <Route path="sunburst" element={<Sunburst />} />
             </Routes>
           </ChartContainer>
         </div>
