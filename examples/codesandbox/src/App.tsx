@@ -21,6 +21,7 @@ import {
   Stream,
   Sunburst,
   SwarmPlot,
+  TreeMap,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -67,6 +68,7 @@ export default function App() {
               <Route path="stream" element={<Stream />} />
               <Route path="sunburst" element={<Sunburst />} />
               <Route path="swarmplot" element={<SwarmPlot />} />
+              <Route path="treemap" element={<TreeMap />} />
             </Routes>
           </ChartContainer>
         </div>

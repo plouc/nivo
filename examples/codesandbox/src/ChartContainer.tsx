@@ -20,8 +20,9 @@ const canvases = [
   'pie',
   'scatterplot',
   'swarmplot',
+  'treemap',
 ]
-const htmls = ['circle-packing']
+const htmls = ['circle-packing', 'treemap']
 
 export default function ChartContainer({ children }: ChartContainerProps) {
   const [key, setKey] = useState(0)
