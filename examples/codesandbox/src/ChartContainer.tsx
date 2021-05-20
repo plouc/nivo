@@ -21,8 +21,9 @@ const canvases = [
   'scatterplot',
   'swarmplot',
   'treemap',
+  'waffle',
 ]
-const htmls = ['circle-packing', 'treemap']
+const htmls = ['circle-packing', 'treemap', 'waffle']
 
 export default function ChartContainer({ children }: ChartContainerProps) {
   const [key, setKey] = useState(0)

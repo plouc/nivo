@@ -28,6 +28,7 @@ export default function Navigation() {
       <Link to="swarmplot">SwarmPlot</Link>
       <Link to="treemap">TreeMap</Link>
       <Link to="voronoi">Voronoi</Link>
+      <Link to="waffle">Waffle</Link>
     </div>
   )
 }

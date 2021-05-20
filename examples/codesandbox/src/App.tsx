@@ -23,6 +23,7 @@ import {
   SwarmPlot,
   TreeMap,
   Voronoi,
+  Waffle,
 } from './charts'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import ChartContainer from './ChartContainer'
@@ -71,6 +72,7 @@ export default function App() {
               <Route path="swarmplot" element={<SwarmPlot />} />
               <Route path="treemap" element={<TreeMap />} />
               <Route path="voronoi" element={<Voronoi />} />
+              <Route path="waffle" element={<Waffle />} />
             </Routes>
           </ChartContainer>
         </div>
