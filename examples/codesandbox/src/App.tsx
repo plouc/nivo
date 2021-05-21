@@ -25,16 +25,62 @@ import {
   Voronoi,
   Waffle,
 } from './charts'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom'
+import { css } from 'otion'
+import { useChart } from './hooks'
 import ChartContainer from './ChartContainer'
 import Navigation from './Navigation'
 
 console.clear()
 
+function Title() {
+  const [, flavor] = useChart()
+  const { pathname } = useLocation()
+  const title = pathname
+    .slice(1)
+    .split('-')
+    .concat(flavor === 'svg' ? '' : flavor)
+    .map((text) =>
+      text.replace(/((^| )(.))/g, (letter) => letter.toUpperCase())
+    )
+
+  return <h1 className={css({ textAlign: 'center' })}>{title}</h1>
+}
+
+function Welcome() {
+  return (
+    <div className={css({ fontSize: '1.2em', textAlign: 'center' })}>
+      <div>
+        Welcome to <strong>nivo</strong>'s CodeSandbox examples!
+      </div>
+      <br />
+      <div>
+        Here would be a great starting point to fork and create a reproduction
+        for your bug report.
+      </div>
+      <br />
+      <div>
+        This example will also be built with every PR and make it easier to
+        verify a bugfix or new feature.
+      </div>
+      <br />
+      <div>
+        You can get started by selecting the chart from the left side menu. You
+        can find the charts in <code>src/charts</code> to modify to your needs.
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
+      <div className={css({ display: 'flex', height: '100vh' })}>
         <Navigation />
         <div
           style={{
@@ -42,9 +88,9 @@ export default function App() {
             flex: 1,
             flexDirection: 'column',
           }}>
-          <h1 style={{ textAlign: 'center' }}>nivo</h1>
-          <ChartContainer>
+          <ChartContainer title={<Title />}>
             <Routes>
+              <Route path="" element={<Welcome />} />
               <Route path="area-bump" element={<AreaBump />} />
               <Route path="bar" element={<Bar />} />
               <Route path="bullet" element={<Bullet />} />

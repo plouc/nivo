@@ -1,34 +1,65 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { css } from 'otion'
+
+const activeStyles = {
+  background: 'rgb(0 0 0 / 10%)',
+  borderLeft: '3px solid #f47560',
+  paddingLeft: 9,
+}
+const active = css(activeStyles)
+const link = css({
+  color: '#2b2b2b',
+  padding: '6px 12px',
+  textDecoration: 'none',
+  transition: 'all 0.2s linear',
+  transitionProperty: 'background',
+
+  ':hover': activeStyles,
+})
 
 export default function Navigation() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Link to="/">Home</Link>
-      <Link to="area-bump">AreaBump</Link>
-      <Link to="bar">Bar</Link>
-      <Link to="bullet">Bullet</Link>
-      <Link to="bump">Bump</Link>
-      <Link to="calendar">Calendar</Link>
-      <Link to="chord">Chord</Link>
-      <Link to="choropleth">Choropleth</Link>
-      <Link to="circle-packing">CirclePacking</Link>
-      <Link to="funnel">Funnel</Link>
-      <Link to="geomap">GeoMap</Link>
-      <Link to="heatmap">HeatMap</Link>
-      <Link to="line">Line</Link>
-      <Link to="marimekko">Marimekko</Link>
-      <Link to="network">Network</Link>
-      <Link to="parallel-coordinates">ParallelCoordinates</Link>
-      <Link to="pie">Pie</Link>
-      <Link to="radar">Radar</Link>
-      <Link to="sankey">Sankey</Link>
-      <Link to="scatterplot">ScatterPlot</Link>
-      <Link to="stream">Stream</Link>
-      <Link to="sunburst">Sunburst</Link>
-      <Link to="swarmplot">SwarmPlot</Link>
-      <Link to="treemap">TreeMap</Link>
-      <Link to="voronoi">Voronoi</Link>
-      <Link to="waffle">Waffle</Link>
+    <div
+      className={css({
+        background: 'rgb(0 0 0 / 5%)',
+        boxShadow: 'rgb(0 0 0 / 10%) 0px 2px 6px',
+        display: 'flex',
+        flexDirection: 'column',
+      })}>
+      <NavLink activeClassName={active} className={link} end to="/">
+        Home
+      </NavLink>
+      {[
+        ['area-bump', 'AreaBump'],
+        ['bar', 'Bar'],
+        ['bullet', 'Bullet'],
+        ['bump', 'Bump'],
+        ['calendar', 'Calendar'],
+        ['chord', 'Chord'],
+        ['choropleth', 'Choropleth'],
+        ['circle-packing', 'CirclePacking'],
+        ['funnel', 'Funnel'],
+        ['geomap', 'GeoMap'],
+        ['heatmap', 'HeatMap'],
+        ['line', 'Line'],
+        ['marimekko', 'Marimekko'],
+        ['network', 'Network'],
+        ['parallel-coordinates', 'ParallelCoordinates'],
+        ['pie', 'Pie'],
+        ['radar', 'Radar'],
+        ['sankey', 'Sankey'],
+        ['scatterplot', 'ScatterPlot'],
+        ['stream', 'Stream'],
+        ['sunburst', 'Sunburst'],
+        ['swarmplot', 'SwarmPlot'],
+        ['treemap', 'TreeMap'],
+        ['voronoi', 'Voronoi'],
+        ['waffle', 'Waffle'],
+      ].map(([to, children]) => (
+        <NavLink key={to} activeClassName={active} className={link} to={to}>
+          {children}
+        </NavLink>
+      ))}
     </div>
   )
 }
