@@ -4,7 +4,6 @@ import {
 } from '@nivo/scatterplot'
 import { random, range } from '../utils'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const suffix = (suffix: 'cm' | 'kg') => (value: unknown) => `${value} ${suffix}`
 const cm = suffix('cm')
