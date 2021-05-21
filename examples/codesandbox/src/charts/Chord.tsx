@@ -1,7 +1,6 @@
 import { ResponsiveChord, ResponsiveChordCanvas } from '@nivo/chord'
 import { generateChordData } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   margin: { top: 60, right: 80, bottom: 60, left: 80 },
@@ -9,8 +8,7 @@ const props = {
 } as const
 
 export function Chord() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(() => [generateChordData({ size: 7 }), key], [key])
+  const [data, flavor] = useChart(() => generateChordData({ size: 7 }))
 
   if (flavor === 'canvas') {
     return <ResponsiveChordCanvas {...data} {...props} />

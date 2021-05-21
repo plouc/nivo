@@ -5,7 +5,6 @@ import {
 } from '@nivo/heatmap'
 import { generateCountriesData } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const keys = [
   'hot dogs',
@@ -37,17 +36,13 @@ const props = {
 }
 
 export function HeatMap() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(
-    () => [
+  const [data, flavor] = useChart(
+    () =>
       generateCountriesData(keys, {
         size: 9,
         min: 0,
         max: 100,
-      }) as HeatMapDatum[],
-      key,
-    ],
-    [key]
+      }) as HeatMapDatum[]
   )
 
   if (flavor === 'canvas') {

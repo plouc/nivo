@@ -47,21 +47,17 @@ const props = {
   yFormat: cm,
 }
 
+const generateData = () =>
+  ['group A', 'group B', 'group C', 'group D', 'group E'].map((id) => ({
+    id,
+    data: range(0, 50).map(() => ({
+      x: random(0, 100),
+      y: random(0, 120),
+    })),
+  }))
+
 export function ScatterPlot() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(
-    () => [
-      ['group A', 'group B', 'group C', 'group D', 'group E'].map((id) => ({
-        id,
-        data: range(0, 50).map(() => ({
-          x: random(0, 100),
-          y: random(0, 120),
-        })),
-      })),
-      key,
-    ],
-    [key]
-  )
+  const [data, flavor] = useChart(generateData)
 
   if (flavor === 'canvas') {
     return <ResponsiveScatterPlotCanvas data={data} {...props} />

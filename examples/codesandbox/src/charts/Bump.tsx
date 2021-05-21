@@ -1,7 +1,6 @@
 import { ResponsiveAreaBump, ResponsiveBump } from '@nivo/bump'
 import { random, range, shuffle } from '../utils'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const generateData = () => {
   const years = range(2000, 2005)
@@ -32,15 +31,13 @@ const props = {
 } as const
 
 export function AreaBump() {
-  const [key] = useChart()
-  const [data] = useMemo(() => [generateData(), key], [key])
+  const [data] = useChart(generateData)
 
   return <ResponsiveAreaBump data={data} {...props} />
 }
 
 export function Bump() {
-  const [key] = useChart()
-  const [data] = useMemo(() => [generateData(), key], [key])
+  const [data] = useChart(generateData)
 
   return <ResponsiveBump data={data} {...props} />
 }

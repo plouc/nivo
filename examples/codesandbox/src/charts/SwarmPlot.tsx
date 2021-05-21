@@ -1,7 +1,6 @@
 import { ResponsiveSwarmPlot, ResponsiveSwarmPlotCanvas } from '@nivo/swarmplot'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   groupBy: 'group',
@@ -17,16 +16,11 @@ const props = {
 }
 
 export function SwarmPlot() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(
-    () => [
-      generateSwarmPlotData(['group A', 'group B', 'group C'], {
-        min: 40,
-        max: 60,
-      }),
-      key,
-    ],
-    [key]
+  const [data, flavor] = useChart(() =>
+    generateSwarmPlotData(['group A', 'group B', 'group C'], {
+      min: 40,
+      max: 60,
+    })
   )
 
   if (flavor === 'canvas') {

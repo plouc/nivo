@@ -1,7 +1,6 @@
 import { ResponsiveRadar } from '@nivo/radar'
 import { generateWinesTastes } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   indexBy: 'taste',
@@ -9,8 +8,7 @@ const props = {
 }
 
 export function Radar() {
-  const [key] = useChart()
-  const [data] = useMemo(() => [generateWinesTastes(), key], [key])
+  const [data] = useChart(generateWinesTastes)
 
   return <ResponsiveRadar {...data} {...props} />
 }

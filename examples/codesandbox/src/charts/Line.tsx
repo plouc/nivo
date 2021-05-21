@@ -1,7 +1,6 @@
 import { ResponsiveLine, ResponsiveLineCanvas } from '@nivo/line'
 import { generateDrinkStats } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   enableSlices: 'x',
@@ -9,8 +8,7 @@ const props = {
 } as const
 
 export function Line() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(() => [generateDrinkStats(9), []], [key])
+  const [data, flavor] = useChart(() => generateDrinkStats(9))
 
   if (flavor === 'canvas') {
     return <ResponsiveLineCanvas data={data} {...props} />

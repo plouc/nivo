@@ -5,7 +5,6 @@ import {
 } from '@nivo/treemap'
 import { generateLibTree } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   identity: 'name',
@@ -15,8 +14,7 @@ const props = {
 }
 
 export function TreeMap() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(() => [generateLibTree(), key], [key])
+  const [data, flavor] = useChart(generateLibTree)
 
   switch (flavor) {
     case 'canvas':

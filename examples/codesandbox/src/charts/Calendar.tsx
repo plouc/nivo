@@ -1,7 +1,6 @@
 import { ResponsiveCalendar, ResponsiveCalendarCanvas } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const from = new Date(2019, 0, 1)
 const to = new Date(2019, 11, 31)
@@ -13,8 +12,7 @@ const props = {
 } as const
 
 export function Calendar() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(() => [generateDayCounts(from, to), key], [key])
+  const [data, flavor] = useChart(() => generateDayCounts(from, to))
 
   if (flavor === 'canvas') {
     return <ResponsiveCalendarCanvas data={data} {...props} />

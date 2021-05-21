@@ -1,7 +1,6 @@
 import { ResponsiveBar, ResponsiveBarCanvas } from '@nivo/bar'
 import { generateCountriesData } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const props = {
@@ -15,10 +14,8 @@ const props = {
 } as const
 
 export function Bar() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(
-    () => [generateCountriesData(keys, { size: 7 }), key],
-    [key]
+  const [data, flavor] = useChart(() =>
+    generateCountriesData(keys, { size: 7 })
   )
 
   if (flavor === 'canvas') {

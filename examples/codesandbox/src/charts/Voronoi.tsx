@@ -1,7 +1,6 @@
 import { ResponsiveVoronoi, VoronoiDomain } from '@nivo/voronoi'
 import { range } from '../utils'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const xDomain: VoronoiDomain = [0, 100]
 const yDomain: VoronoiDomain = [0, 100]
@@ -24,19 +23,15 @@ const props = {
   yDomain,
 }
 
+const generateData = () =>
+  range(0, 100).map((id) => ({
+    id,
+    x: Math.random() * xDomain[1],
+    y: Math.random() * yDomain[1],
+  }))
+
 export function Voronoi() {
-  const [key] = useChart()
-  const [data] = useMemo(
-    () => [
-      range(0, 100).map((id) => ({
-        id,
-        x: Math.random() * xDomain[1],
-        y: Math.random() * yDomain[1],
-      })),
-      key,
-    ],
-    [key]
-  )
+  const [data] = useChart(generateData)
 
   return <ResponsiveVoronoi data={data} {...props} />
 }

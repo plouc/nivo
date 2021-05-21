@@ -5,7 +5,6 @@ import {
 } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   id: 'name',
@@ -15,8 +14,7 @@ const props = {
 }
 
 export function CirclePacking() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(() => [generateLibTree(), key], [key])
+  const [data, flavor] = useChart(generateLibTree)
 
   switch (flavor) {
     case 'canvas':

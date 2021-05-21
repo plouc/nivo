@@ -1,7 +1,6 @@
 import { ResponsiveSunburst } from '@nivo/sunburst'
 import { generateLibTree } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   id: 'name',
@@ -9,8 +8,7 @@ const props = {
 }
 
 export function Sunburst() {
-  const [key] = useChart()
-  const [data] = useMemo(() => [generateLibTree(), key], [key])
+  const [data] = useChart(generateLibTree)
 
   return <ResponsiveSunburst data={data} {...props} />
 }

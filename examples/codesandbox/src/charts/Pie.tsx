@@ -1,7 +1,6 @@
 import { ResponsivePie, ResponsivePieCanvas } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   cornerRadius: 5,
@@ -11,16 +10,11 @@ const props = {
 }
 
 export function Pie() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(
-    () => [
-      generateProgrammingLanguageStats(true, 9).map(({ label, ...data }) => ({
-        id: label,
-        ...data,
-      })),
-      key,
-    ],
-    [key]
+  const [data, flavor] = useChart(() =>
+    generateProgrammingLanguageStats(true, 9).map(({ label, ...data }) => ({
+      id: label,
+      ...data,
+    }))
   )
 
   if (flavor === 'canvas') {

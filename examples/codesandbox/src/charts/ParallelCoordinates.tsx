@@ -4,7 +4,6 @@ import {
 } from '@nivo/parallel-coordinates'
 import { generateParallelCoordinatesData } from '@nivo/generators'
 import { useChart } from '../hooks'
-import { useMemo } from 'react'
 
 const props = {
   margin: { top: 50, right: 60, bottom: 50, left: 60 },
@@ -70,10 +69,8 @@ const props = {
 }
 
 export function ParallelCoordinates() {
-  const [key, flavor] = useChart()
-  const [data] = useMemo(
-    () => [generateParallelCoordinatesData({ size: 32 }), key],
-    [key]
+  const [data, flavor] = useChart(() =>
+    generateParallelCoordinatesData({ size: 32 })
   )
 
   if (flavor === 'canvas') {
