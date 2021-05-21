@@ -83,11 +83,11 @@ export default function App() {
       <div className={css({ display: 'flex', height: '100vh' })}>
         <Navigation />
         <div
-          style={{
+          className={css({
             display: 'flex',
             flex: 1,
             flexDirection: 'column',
-          }}>
+          })}>
           <ChartContainer title={<Title />}>
             <Routes>
               <Route path="" element={<Welcome />} />

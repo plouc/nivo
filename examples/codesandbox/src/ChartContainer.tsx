@@ -95,7 +95,7 @@ export default function ChartContainer({
           <Route
             path="*"
             element={
-              <Button onClick={() => setKey((k) => k + 1)}>
+              <Button onClick={() => setKey((state) => state + 1)}>
                 Generate Data
               </Button>
             }
