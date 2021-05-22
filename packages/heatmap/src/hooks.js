@@ -224,6 +224,7 @@ export const useHeatMap = ({
         yScale: scales.y,
         ...layoutConfig,
         sizeScale,
+        currentCellId,
         setCurrentCellId,
         colorScale,
         getCellBorderColor,
