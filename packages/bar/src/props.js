@@ -94,6 +94,7 @@ export const BarPropTypes = {
         })
     ).isRequired,
 
+    renderWrapper: PropTypes.bool,
     pixelRatio: PropTypes.number.isRequired,
 }
 

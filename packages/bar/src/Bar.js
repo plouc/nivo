@@ -112,6 +112,7 @@ const Bar = props => {
         motionStiffness,
         motionDamping,
 
+        renderWrapper,
         role,
     } = props
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
@@ -163,11 +164,7 @@ const Bar = props => {
 
     return (
         <LegacyContainer
-            isInteractive={isInteractive}
-            theme={theme}
-            animate={animate}
-            motionStiffness={motionStiffness}
-            motionDamping={motionDamping}
+            {...{ animate, isInteractive, motionStiffness, motionDamping, renderWrapper, theme }}
         >
             {({ showTooltip, hideTooltip }) => {
                 const commonProps = {

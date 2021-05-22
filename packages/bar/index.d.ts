@@ -134,6 +134,8 @@ declare module '@nivo/bar' {
         legends: ({ dataFrom: 'indexes' | 'keys' } & LegendProps)[]
 
         markers: CartesianMarkerProps[]
+
+        renderWrapper: boolean
     }>
 
     export type BarLayerType = 'grid' | 'axes' | 'bars' | 'markers' | 'legends'
