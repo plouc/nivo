@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
 import { AxisTickProps, AxisValue } from '../types'
 
-export const AxisTick = <Value extends AxisValue>({
+const AxisTick = <Value extends AxisValue>({
     value: _value,
     format,
     lineX,
@@ -44,3 +44,7 @@ export const AxisTick = <Value extends AxisValue>({
         </animated.g>
     )
 }
+
+const memoizedAxisTick = memo(AxisTick) as typeof AxisTick
+
+export { memoizedAxisTick as AxisTick }

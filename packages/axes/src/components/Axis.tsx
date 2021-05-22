@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import { useSpring, useTransition, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'
 import { AnyScale, AxisProps, AxisValue } from '../types'
 
-export const Axis = <Value extends AxisValue>({
+const Axis = <Value extends AxisValue>({
     axis,
     scale,
     x = 0,
@@ -158,3 +158,7 @@ export const Axis = <Value extends AxisValue>({
         </animated.g>
     )
 }
+
+const memoizedAxis = memo(Axis) as typeof Axis
+
+export { memoizedAxis as Axis }

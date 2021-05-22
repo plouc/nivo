@@ -93,7 +93,7 @@ it('should have left and bottom axis by default', () => {
     ]
     const wrapper = mount(<Line width={500} height={300} data={data} animate={false} />)
 
-    const axes = wrapper.find('Axis')
+    const axes = wrapper.find('Memo(Axis)')
     expect(axes).toHaveLength(2)
     expect(axes.at(0).prop('axis')).toBe('x')
     expect(axes.at(1).prop('axis')).toBe('y')
