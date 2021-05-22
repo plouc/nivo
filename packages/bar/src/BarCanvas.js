@@ -262,10 +262,18 @@ class BarCanvas extends Component {
     }
 
     render() {
-        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme, canvasRef } = this.props
+        const {
+            outerWidth,
+            outerHeight,
+            pixelRatio,
+            isInteractive,
+            renderWrapper,
+            theme,
+            canvasRef,
+        } = this.props
 
         return (
-            <LegacyContainer isInteractive={isInteractive} theme={theme} animate={false}>
+            <LegacyContainer {...{ isInteractive, renderWrapper, theme }} animate={false}>
                 {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {
