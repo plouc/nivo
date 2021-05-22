@@ -232,13 +232,17 @@ export const Pie = <RawDatum,>({
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
     theme,
+    renderWrapper,
     ...otherProps
 }: PieSvgProps<RawDatum>) => (
     <Container
-        isInteractive={isInteractive}
-        animate={animate}
-        motionConfig={motionConfig}
-        theme={theme}
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
     >
         <InnerPie<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>

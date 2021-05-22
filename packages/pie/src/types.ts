@@ -112,6 +112,7 @@ export type CommonPieProps<RawDatum> = {
     legends: LegendProps[]
 
     role: string
+    renderWrapper: boolean
 } & Partial<ArcLabelsProps<ComputedDatum<RawDatum>>> &
     Partial<ArcLinkLabelsProps<ComputedDatum<RawDatum>>>
 

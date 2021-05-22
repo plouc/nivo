@@ -1,6 +1,5 @@
 import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import { getRelativeCursor, useDimensions, useTheme, Container } from '@nivo/core'
-// @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
@@ -293,9 +292,10 @@ const InnerPieCanvas = <RawDatum,>({
 export const PieCanvas = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
     theme,
+    renderWrapper,
     ...otherProps
 }: PieCanvasProps<RawDatum>) => (
-    <Container isInteractive={isInteractive} theme={theme}>
+    <Container {...{ isInteractive, renderWrapper, theme }}>
         <InnerPieCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
