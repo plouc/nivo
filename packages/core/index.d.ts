@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Interpolation, SpringConfig } from 'react-spring'
+import { Interpolation, SpringConfig } from '@react-spring/web'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date

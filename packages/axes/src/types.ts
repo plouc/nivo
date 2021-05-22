@@ -1,4 +1,4 @@
-import { SpringValues } from 'react-spring'
+import { SpringValues } from '@react-spring/web'
 import {
     ScaleBand,
     ScaleLinear,

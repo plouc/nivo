@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { Axis } from '@nivo/axes'
 // @ts-ignore
 import { getColorScale, useMotionConfig, useTheme } from '@nivo/core'

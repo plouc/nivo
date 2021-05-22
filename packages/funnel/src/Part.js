@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 
 export const Part = ({ part, areaGenerator, borderGenerator }) => {

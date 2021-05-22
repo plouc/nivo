@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
 const RectAnnotationOutline = memo(({ x, y, width, height }) => {
