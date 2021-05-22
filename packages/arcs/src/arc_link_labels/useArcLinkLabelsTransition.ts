@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { SpringValue, useTransition, to } from 'react-spring'
+import { SpringValue, useTransition, to } from '@react-spring/web'
 import { line } from 'd3-shape'
 import { useMotionConfig, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'

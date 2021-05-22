@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTransition, animated } from 'react-spring'
+import { useTransition, animated } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 
 const ParallelCoordinatesAxisDensityCircles = ({ axis, variable, variablesScale }) => {

@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSprings, animated } from 'react-spring'
+import { useSprings, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
 const SankeyLabels = ({

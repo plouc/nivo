@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useTransition } from 'react-spring'
+import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { CirclePackingCommonProps, ComputedDatum, LabelComponent, ComputedLabel } from './types'
 import { useCirclePackingLabels } from './hooks'

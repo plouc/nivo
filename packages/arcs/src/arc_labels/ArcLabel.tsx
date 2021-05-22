@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { SpringValue, Interpolation, animated } from 'react-spring'
+import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
 import { DatumWithArcAndColor } from '../types'
 

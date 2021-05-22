@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
 const AnnotationNote = memo(({ datum, x, y, note }) => {

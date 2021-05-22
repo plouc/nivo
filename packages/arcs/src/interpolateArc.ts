@@ -1,4 +1,4 @@
-import { to, SpringValue } from 'react-spring'
+import { to, SpringValue } from '@react-spring/web'
 import { ArcGenerator } from './types'
 
 /**

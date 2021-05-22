@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useTransition, to, SpringValue } from 'react-spring'
+import { useTransition, to, SpringValue } from '@react-spring/web'
 import {
     // @ts-ignore
     midAngle,

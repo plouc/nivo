@@ -9,7 +9,7 @@
 import React, { createContext, useMemo } from 'react'
 import { isString } from 'lodash'
 import PropTypes from 'prop-types'
-import { config as presets } from 'react-spring'
+import { config as presets } from '@react-spring/web'
 
 export const motionConfigContext = createContext()
 

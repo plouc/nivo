@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { memo, useCallback, useState } from 'react'
-import { config as springConfig } from 'react-spring'
+import { config as springConfig } from '@react-spring/web'
 import { isString } from 'lodash'
 import styled from 'styled-components'
 import Control from './Control'

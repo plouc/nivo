@@ -1,5 +1,5 @@
 import React, { useMemo, memo } from 'react'
-import { useSpring, useTransition, animated } from 'react-spring'
+import { useSpring, useTransition, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Interpolation, SpringValue } from 'react-spring'
+import { Interpolation, SpringValue } from '@react-spring/web'
 import {
     Box,
     ModernMotionProps,

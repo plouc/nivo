@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import { Pie } from '../src'
 

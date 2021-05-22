@@ -1,6 +1,6 @@
 import React from 'react'
 import { BulletRectsItemProps } from './types'
-import { animated, to } from 'react-spring'
+import { animated, to } from '@react-spring/web'
 
 export const BulletRectsItem = ({
     animatedProps: { x, y, width, height, color },

@@ -8,7 +8,7 @@
  */
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import ParallelCoordinatesLineTooltip from './ParallelCoordinatesLineTooltip'

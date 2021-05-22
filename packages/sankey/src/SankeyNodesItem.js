@@ -8,7 +8,7 @@
  */
 import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated, to } from 'react-spring'
+import { useSpring, animated, to } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 

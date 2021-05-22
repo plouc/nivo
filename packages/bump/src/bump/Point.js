@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated, to } from 'react-spring'
+import { useSpring, animated, to } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 
 const pointStyle = { pointerEvents: 'none' }

@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { animated, to } from 'react-spring'
+import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
 
 const TreeMapNode = ({
