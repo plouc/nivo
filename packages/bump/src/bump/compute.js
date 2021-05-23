@@ -10,21 +10,23 @@ import { scalePoint } from 'd3-scale'
 
 export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yOuterPadding }) => {
     let xValues = new Set()
+    let yValues = new Set()
     data.forEach(serie => {
         serie.data.forEach(datum => {
             if (!xValues.has(datum.x)) {
                 xValues.add(datum.x)
             }
+            if (!yValues.has(datum.y) && datum.y !== null) {
+                yValues.add(datum.y)
+            }
         })
     })
     xValues = Array.from(xValues)
+    yValues = Array.from(yValues).sort((a, b) => a - b)
 
     const xScale = scalePoint().domain(xValues).range([0, width]).padding(xOuterPadding)
 
-    const yScale = scalePoint()
-        .domain(data.map((serie, i) => i + 1))
-        .range([0, height])
-        .padding(yOuterPadding)
+    const yScale = scalePoint().domain(yValues).range([0, height]).padding(yOuterPadding)
 
     const linePointPadding = xScale.step() * Math.min(xPadding * 0.5, 0.5)
 

@@ -133,6 +133,19 @@ stories.add('Missing data', () => (
     />
 ))
 
+stories.add('More series than ranks', () => (
+    <Bump
+        {...commonProps}
+        data={generateData().map(series => ({
+            ...series,
+            data: series.data.map(datum => ({
+                x: datum.x,
+                y: datum.y >= 5 ? null : datum.y,
+            })),
+        }))}
+    />
+))
+
 stories.add('Area with fill pattern', () => (
     <AreaBump
         {...commonProps}
