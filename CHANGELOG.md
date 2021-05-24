@@ -1,3 +1,38 @@
+<a name="v0.70.0"></a>
+## v0.70.0 (2021-05-24)
+
+
+#### Features
+
+* **bar:**  use custom label for legends (#1371) ([ae637f17](https://github.com/plouc/nivo/commit/ae637f1740a30ca9645346394c9168b25da71c9c))
+* **bump:**  support more series than ranks (#1540) ([d07097d3](https://github.com/plouc/nivo/commit/d07097d3462dcb9940d1e80931c473b7a22bfad0))
+* **examples:**  improve codesandbox example (#1523) ([bdbb48f9](https://github.com/plouc/nivo/commit/bdbb48f9fe4610b153ee42546ae141ad5942afae))
+* **heatmap:**  allow label formatting (#1428) ([92d11b14](https://github.com/plouc/nivo/commit/92d11b14d186680047ada574faf5880c373863e8))
+* **legends:**  migrate package to typescript (#1512) ([d9ec5fdc](https://github.com/plouc/nivo/commit/d9ec5fdc78429c8204658d8abc081e60c728b86a))
+* **sunburst:**  pass child node to childColor function (#1520) ([5580e968](https://github.com/plouc/nivo/commit/5580e9689e0baede9c296af29bb3c2139927f4e3))
+
+#### Bug Fixes
+
+* **axes:**  restore memoization (#1521) ([729cd555](https://github.com/plouc/nivo/commit/729cd55562db4e2c1e436d2d732512f0c2ed423d))
+* **bar:**  pass renderWrapper prop to container ([a258e0b0](https://github.com/plouc/nivo/commit/a258e0b0cdb57d152d59004fe7dc63f0a78026e2))
+* **build:**  mark @react-spring packages as external (#1537) ([7bc4fc72](https://github.com/plouc/nivo/commit/7bc4fc72c74cd92802e42595e57f942eb70cb51e))
+* **colors:**  update react peer dep to be < 18.0.0 ([091dad31](https://github.com/plouc/nivo/commit/091dad31897cbf8101f6568885549d04dae7cce8))
+* **core:**  avoid occasional "ResizeObserver loop" error (#1466) ([7f88e10d](https://github.com/plouc/nivo/commit/7f88e10da2b1eae178474c9f98e6d652d4a13f6e))
+* **heatmap:**  return currentCellId from useHeatmap hook (#1536) ([c572f803](https://github.com/plouc/nivo/commit/c572f8035bf7e3c699685882b552b63cdd05d467))
+* **marimekko:**  update react peer dep to be < 18.0.0 ([cb983901](https://github.com/plouc/nivo/commit/cb98390177a2f5310ee532ef78b7b47179c72121))
+* **pie:**  pass renderWrapper prop to container ([cec89ff2](https://github.com/plouc/nivo/commit/cec89ff21408e6684301da148689fcc99485be1f))
+* **swarmplot:**  fix swarmplot node onMouseMove event (#1529) ([7f998811](https://github.com/plouc/nivo/commit/7f9988114f493566727a356995705bd570143952))
+* **treemap:**  adjust label type to accept a function (#1541) ([3dca0ae3](https://github.com/plouc/nivo/commit/3dca0ae36e9ef1d1ec4527a7b1e6725636968f8f))
+* **website:**
+  *  update link to bar race chart example (#1524) ([b323e986](https://github.com/plouc/nivo/commit/b323e9862a3796254d583f9ad6fac63f26a1268a))
+  *  update circle-packing page code ([dbc0aed2](https://github.com/plouc/nivo/commit/dbc0aed25e690094b3e3008a8b163aff8cde3b79))
+
+#### Chore
+
+* **deps:**  Use @react-spring/web (#1517) ([3cf486f5](https://github.com/plouc/nivo/commit/3cf486f56ca2918db784447148184301edf98358))
+
+
+
 <a name="v0.69.1"></a>
 ## v0.69.1 (2021-05-03)
 
