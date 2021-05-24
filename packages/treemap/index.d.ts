@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme } from '@nivo/core'
+import { Dimensions, Box, Theme, PropertyAccessor } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 declare module '@nivo/treemap' {
@@ -65,7 +65,7 @@ declare module '@nivo/treemap' {
             Omit<TreeMapNodeDatum, 'borderColor' | 'labelTextColor' | 'parentLabelTextColor'>
         >
         enableLabel?: boolean
-        label?: string
+        label?: PropertyAccessor<TreeMapNodeDatum, string>
         labelSkipSize?: number
         orientLabel?: boolean
         labelTextColor?: InheritedColorConfig<
