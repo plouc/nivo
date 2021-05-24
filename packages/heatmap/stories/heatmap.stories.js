@@ -4,7 +4,8 @@ import { generateCountriesData } from '@nivo/generators'
 import { HeatMap } from '../src'
 
 const CustomCell = ({
-    value,
+    label,
+    data,
     x,
     y,
     width,
@@ -14,31 +15,34 @@ const CustomCell = ({
     borderWidth,
     borderColor,
     textColor,
-}) => (
-    <g transform={`translate(${x}, ${y})`}>
-        <path
-            transform={`rotate(${value < 50 ? 180 : 0})`}
-            fill={color}
-            fillOpacity={opacity}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            d={`
+}) => {
+    const { value } = typeof data.value === 'number' ? data : data.value
+    return (
+        <g transform={`translate(${x}, ${y})`}>
+            <path
+                transform={`rotate(${value < 50 ? 180 : 0})`}
+                fill={color}
+                fillOpacity={opacity}
+                strokeWidth={borderWidth}
+                stroke={borderColor}
+                d={`
                 M0 -${Math.round(height / 2)}
                 L${Math.round(width / 2)} ${Math.round(height / 2)}
                 L-${Math.round(width / 2)} ${Math.round(height / 2)}
                 L0 -${Math.round(height / 2)}
             `}
-        />
-        <text
-            dominantBaseline="central"
-            textAnchor="middle"
-            style={{ fill: textColor }}
-            dy={value < 50 ? -6 : 6}
-        >
-            {value}
-        </text>
-    </g>
-)
+            />
+            <text
+                dominantBaseline="central"
+                textAnchor="middle"
+                style={{ fill: textColor }}
+                dy={value < 50 ? -6 : 6}
+            >
+                {label}
+            </text>
+        </g>
+    )
+}
 
 const keys = [
     'hot dogs',

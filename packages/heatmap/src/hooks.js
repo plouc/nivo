@@ -40,10 +40,10 @@ const computeCells = ({
     const cells = []
     data.forEach(datum => {
         keys.forEach(key => {
-            const value = datum[key]
+            const nvalue = typeof datum[key] === 'number' ? datum[key] : datum[key].value
             const label = getLabel(datum, key)
             const index = getIndex(datum)
-            const sizeMultiplier = sizeScale ? sizeScale(value) : 1
+            const sizeMultiplier = sizeScale ? sizeScale(nvalue) : 1
             const width = sizeMultiplier * cellWidth
             const height = sizeMultiplier * cellHeight
 
@@ -55,9 +55,9 @@ const computeCells = ({
                 y: yScale(index),
                 width,
                 height,
-                value,
+                value: datum[key],
                 label,
-                color: isNaN(value) ? nanColor : colorScale(value),
+                color: isNaN(nvalue) ? nanColor : colorScale(nvalue),
                 opacity: cellOpacity,
             }
             cell.labelTextColor = getLabelTextColor(cell)
@@ -137,7 +137,13 @@ export const useHeatMap = ({
         let minValue = _minValue
         let maxValue = _maxValue
         if (minValue === 'auto' || maxValue === 'auto') {
-            const allValues = data.reduce((acc, row) => acc.concat(keys.map(key => row[key])), [])
+            const allValues = data.reduce(
+                (acc, row) =>
+                    acc.concat(
+                        keys.map(key => (typeof row[key] === 'number' ? row[key] : row[key].value))
+                    ),
+                []
+            )
 
             if (minValue === 'auto') minValue = Math.min(...allValues)
             if (maxValue === 'auto') maxValue = Math.max(...allValues)

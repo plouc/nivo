@@ -84,7 +84,7 @@ export const HeatMapDefaultProps = {
 
     // labels
     enableLabels: true,
-    label: (datum, key) => datum[key],
+    label: (datum, key) => (typeof datum[key] === 'number' ? datum[key] : datum[key].value),
     labelTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
 
     // theming
