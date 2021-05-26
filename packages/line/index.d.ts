@@ -14,7 +14,7 @@ import {
     MotionProps,
     CartesianMarkerProps,
     SvgDefsAndFill,
-    DataFormatter,
+    ValueFormat,
     DatumValue as CoreDatumValue,
 } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
@@ -133,9 +133,9 @@ declare module '@nivo/line' {
         data: Serie[]
 
         xScale?: Scale
-        xFormat?: string | DataFormatter
+        xFormat?: ValueFormat<DatumValue>
         yScale?: Scale
-        yFormat?: string | DataFormatter
+        yFormat?: ValueFormat<DatumValue>
 
         layers?: Layer[]
 
@@ -193,7 +193,7 @@ declare module '@nivo/line' {
         debugSlices?: boolean
         sliceTooltip?: SliceTooltip
 
-        tooltipFormat?: DataFormatter | string
+        tooltipFormat?: ValueFormat<DatumValue>
         tooltip?: PointTooltip
 
         enableCrosshair?: boolean
@@ -221,7 +221,7 @@ declare module '@nivo/line' {
     export type CustomCanvasLayer = (props: CustomCanvasLayerProps) => void
     export type CanvasLayer = LineLayerType | CustomCanvasLayer
 
-    export interface LineCanvasProps extends LineProps {
+    export interface LineCanvasProps extends Omit<LineProps, 'layers'> {
         pixelRatio?: number
         layers?: CanvasLayer[]
     }
