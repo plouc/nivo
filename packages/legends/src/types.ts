@@ -61,8 +61,9 @@ export type Datum = {
 }
 
 type CommonLegendProps = {
+    data?: Datum[]
     direction: LegendDirection
-    padding: number | Record<'top' | 'right' | 'bottom' | 'left', number>
+    padding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
     justify?: boolean
 
     itemWidth: number
@@ -77,8 +78,6 @@ type CommonLegendProps = {
 }
 
 export type LegendProps = {
-    data: Datum[]
-
     translateX?: number
     translateY?: number
     anchor: LegendAnchor
@@ -89,14 +88,14 @@ export type LegendProps = {
 export type BoxLegendSvgProps = {
     containerWidth: number
     containerHeight: number
-} & LegendProps
+} & LegendProps &
+    Required<Pick<LegendProps, 'data'>>
 
 export type LegendSvgProps = {
-    data: Datum[]
-
     x: number
     y: number
 } & CommonLegendProps &
+    Required<Pick<CommonLegendProps, 'data'>> &
     BoxLegendSymbolProps &
     InteractivityProps
 
@@ -118,8 +117,6 @@ export type LegendSvgItemProps = {
     InteractivityProps
 
 export type LegendCanvasProps = {
-    data: Datum[]
-
     containerWidth: number
     containerHeight: number
     translateX?: number
@@ -130,14 +127,15 @@ export type LegendCanvasProps = {
     symbolSpacing?: number
 
     theme: CompleteTheme
-} & Pick<
-    CommonLegendProps,
-    | 'direction'
-    | 'padding'
-    | 'justify'
-    | 'itemsSpacing'
-    | 'itemWidth'
-    | 'itemHeight'
-    | 'itemDirection'
-    | 'itemTextColor'
->
+} & Required<Pick<CommonLegendProps, 'data'>> &
+    Pick<
+        CommonLegendProps,
+        | 'direction'
+        | 'padding'
+        | 'justify'
+        | 'itemsSpacing'
+        | 'itemWidth'
+        | 'itemHeight'
+        | 'itemDirection'
+        | 'itemTextColor'
+    >
