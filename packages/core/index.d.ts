@@ -324,6 +324,13 @@ declare module '@nivo/core' {
     }) => JSX.Element
     export const ResponsiveWrapper: ResponsiveWrapperType
 
+    interface ThemeProviderProps {
+        theme?: Theme
+    }
+
+    type ThemeProviderType = (props: React.PropsWithChildren<ThemeProviderProps>) => JSX.Element
+    export const ThemeProvider: ThemeProviderType
+
     export function getDistance(x1: number, y1: number, x2: number, y2: number): number
     export function getAngle(x1: number, y1: number, x2: number, y2: number): number
 
