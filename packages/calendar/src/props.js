@@ -117,6 +117,5 @@ export const CalendarDefaultProps = {
 
 export const CalendarCanvasDefaultProps = {
     ...commonDefaultProps,
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

@@ -151,8 +151,7 @@ export const ScatterPlotDefaultProps = {
 export const ScatterPlotCanvasDefaultProps = {
     ...commonDefaultProps,
     layers: ['grid', 'axes', 'nodes', 'mesh', 'legends', 'annotations'],
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }
 
 export const NodePropType = PropTypes.shape({
