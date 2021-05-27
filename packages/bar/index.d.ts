@@ -81,6 +81,7 @@ declare module '@nivo/bar' {
         tooltip: TooltipProp
         showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<GraphicsContainer>) => void
         hideTooltip: () => void
+        getTooltipLabel: (data: BarExtendedDatum) => React.ReactNode
         theme: Theme
     }
 
