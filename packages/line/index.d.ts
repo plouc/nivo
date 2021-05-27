@@ -69,7 +69,7 @@ declare module '@nivo/line' {
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         innerHeight: number
         innerWidth: number
-        lineGenerator: D3Line<[number, number]>
+        lineGenerator: D3Line<Array<ComputedDatum['position']>>
         points: Point[]
         series: ComputedSerie[]
         xScale: ScaleFunc
