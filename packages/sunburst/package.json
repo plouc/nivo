@@ -1,6 +1,6 @@
 {
   "name": "@nivo/sunburst",
-  "version": "0.70.0",
+  "version": "0.70.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,18 +29,18 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/arcs": "0.70.0",
-    "@nivo/colors": "0.70.0",
-    "@nivo/tooltip": "0.70.0",
+    "@nivo/arcs": "0.70.1",
+    "@nivo/colors": "0.70.1",
+    "@nivo/tooltip": "0.70.1",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "@nivo/core": "0.70.0",
+    "@nivo/core": "0.70.1",
     "@types/d3-hierarchy": "^1.1.7"
   },
   "peerDependencies": {
-    "@nivo/core": "0.70.0",
+    "@nivo/core": "0.70.1",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {

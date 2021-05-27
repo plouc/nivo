@@ -1,3 +1,20 @@
+<a name="v0.70.1"></a>
+## v0.70.1 (2021-05-27)
+
+
+#### Bug Fixes
+
+* **bar:**  add getTooltipLabel to BarItemProps typings (#1550) ([a0911832](https://github.com/plouc/nivo/commit/a0911832570f01c2c9d9719d64f4606eb6bf50f4))
+* **core:**  export ThemeProvider in typings (#1547) ([b820166b](https://github.com/plouc/nivo/commit/b820166b025431be95cbb45a467be92d96bcbdb5))
+* **geo:**  add legends prop to typings for Choropleth (#1548) ([25270001](https://github.com/plouc/nivo/commit/2527000182aaaf9570deb31eb1526e78685d0cca))
+* **legends:**  mark data and padding props as optional (#1545) ([31995708](https://github.com/plouc/nivo/commit/319957083acbd764d8fc306844687cf2f08f97a1))
+* **line:**
+  *  correct typing for lineGenerator prop (#1549) ([b66ac11a](https://github.com/plouc/nivo/commit/b66ac11ac80553dc4075de90b882d85dc5c0d0b6))
+  *  update types from DataFormatter to ValueFormat (#1546) ([37c89e02](https://github.com/plouc/nivo/commit/37c89e0207c912ad5e21d27ee22a72b84f439ac2))
+* **packages:**  remove `global` from default props (#1544) ([4eb54cad](https://github.com/plouc/nivo/commit/4eb54cad40f8772ee45bab1664d5767d2b765136))
+
+
+
 <a name="v0.70.0"></a>
 ## v0.70.0 (2021-05-24)
 
