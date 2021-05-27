@@ -103,6 +103,5 @@ export const WaffleHtmlDefaultProps = {
 export const WaffleCanvasDefaultProps = {
     ...commonDefaultProps,
     legends: [],
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }
