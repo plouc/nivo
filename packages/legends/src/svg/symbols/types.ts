@@ -4,6 +4,7 @@ export type SymbolProps = {
     y: number
     size: number
     fill: string
+    opacity?: number
     borderWidth?: number
     borderColor?: string
 }

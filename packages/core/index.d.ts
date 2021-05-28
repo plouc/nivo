@@ -66,6 +66,13 @@ declare module '@nivo/core' {
             line: Partial<React.CSSProperties>
         }
         legends: {
+            hidden: {
+                symbol: Partial<{
+                    fill: string
+                    opacity: number
+                }>
+                text: Partial<React.CSSProperties>
+            }
             text: Partial<React.CSSProperties>
         }
         labels: {
@@ -118,6 +125,10 @@ declare module '@nivo/core' {
                 line: Partial<CompleteTheme['grid']['line']>
             }>
             legends: Partial<{
+                hidden: Partial<{
+                    symbol: CompleteTheme['legends']['hidden']['symbol']
+                    text: CompleteTheme['legends']['hidden']['text']
+                }>
                 text: Partial<CompleteTheme['legends']['text']>
             }>
             labels: Partial<{

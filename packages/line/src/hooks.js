@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { area, line } from 'd3-shape'
 import { curveFromProp, useTheme, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -160,20 +160,44 @@ export const useLine = ({
     const theme = useTheme()
     const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
+    const [hiddenIds, setHiddenIds] = useState([])
 
     const { xScale, yScale, series: rawSeries } = useMemo(
-        () => computeXYScalesForSeries(data, xScaleSpec, yScaleSpec, width, height),
-        [data, xScaleSpec, yScaleSpec, width, height]
+        () =>
+            computeXYScalesForSeries(
+                data.filter(item => hiddenIds.indexOf(item.id) === -1),
+                xScaleSpec,
+                yScaleSpec,
+                width,
+                height
+            ),
+        [data, hiddenIds, xScaleSpec, yScaleSpec, width, height]
     )
 
-    const series = useMemo(
-        () =>
-            rawSeries.map(serie => ({
-                ...serie,
-                color: getColor(serie),
-            })),
-        [rawSeries, getColor]
-    )
+    const { legendData, series } = useMemo(() => {
+        const dataWithColor = data.map(line => ({
+            id: line.id,
+            label: line.id,
+            color: getColor(line),
+        }))
+        const series = dataWithColor
+            .map(datum => ({
+                ...rawSeries.find(serie => serie.id === datum.id),
+                color: datum.color,
+            }))
+            .filter(item => Boolean(item.id))
+        const legendData = dataWithColor
+            .map(item => ({ ...item, hidden: !series.find(serie => serie.id === item.id) }))
+            .reverse()
+
+        return { legendData, series }
+    }, [data, rawSeries, getColor])
+
+    const toggleSerie = useCallback(id => {
+        setHiddenIds(state =>
+            state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
+        )
+    }, [])
 
     const points = usePoints({
         series,
@@ -198,6 +222,8 @@ export const useLine = ({
     })
 
     return {
+        legendData,
+        toggleSerie,
         lineGenerator,
         areaGenerator,
         getColor,

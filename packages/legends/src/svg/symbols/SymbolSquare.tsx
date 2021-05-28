@@ -6,6 +6,7 @@ export const SymbolSquare = ({
     y,
     size,
     fill,
+    opacity = 1,
     borderWidth = 0,
     borderColor = 'transparent',
 }: SymbolProps) => {
@@ -14,6 +15,7 @@ export const SymbolSquare = ({
             x={x}
             y={y}
             fill={fill}
+            opacity={opacity}
             strokeWidth={borderWidth}
             stroke={borderColor}
             width={size}

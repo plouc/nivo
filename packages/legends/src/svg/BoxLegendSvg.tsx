@@ -32,6 +32,7 @@ export const BoxLegendSvg = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
+    toggleSerie,
 
     effects,
 }: BoxLegendSvgProps) => {
@@ -78,6 +79,7 @@ export const BoxLegendSvg = ({
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            toggleSerie={toggleSerie}
         />
     )
 }

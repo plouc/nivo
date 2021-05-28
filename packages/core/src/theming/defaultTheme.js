@@ -38,6 +38,16 @@ export const defaultTheme = {
         },
     },
     legends: {
+        hidden: {
+            symbol: {
+                fill: '#333333',
+                opacity: 0.6,
+            },
+            text: {
+                fill: '#333333',
+                opacity: 0.6,
+            },
+        },
         text: {},
     },
     labels: {

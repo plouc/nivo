@@ -6,6 +6,7 @@ export const SymbolDiamond = ({
     y,
     size,
     fill,
+    opacity = 1,
     borderWidth = 0,
     borderColor = 'transparent',
 }: SymbolProps) => {
@@ -20,6 +21,7 @@ export const SymbolDiamond = ({
                     L${size / 2} 0
                 `}
                 fill={fill}
+                opacity={opacity}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
                 style={{
