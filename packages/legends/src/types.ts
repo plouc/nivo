@@ -94,7 +94,10 @@ export type BoxLegendSvgProps = {
     containerHeight: number
 } & Omit<LegendProps, 'toggleSerie'> &
     Required<Pick<LegendProps, 'data'>> &
-    InteractivityProps
+    Omit<InteractivityProps, 'toggleSerie'> &
+    Partial<{
+        toggleSerie: boolean | InteractivityProps['toggleSerie']
+    }>
 
 export type LegendSvgProps = {
     x: number

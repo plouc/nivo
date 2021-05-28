@@ -79,7 +79,7 @@ export const BoxLegendSvg = ({
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            toggleSerie={toggleSerie}
+            toggleSerie={typeof toggleSerie === 'boolean' ? undefined : toggleSerie}
         />
     )
 }
