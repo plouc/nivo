@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React, { Fragment, useCallback, useState } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs, LegacyContainer, SvgWrapper, CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
@@ -115,6 +115,14 @@ const Bar = props => {
         renderWrapper,
         role,
     } = props
+
+    const [hiddenIds, setHiddenIds] = useState([])
+    const toggleSerie = useCallback(id => {
+        setHiddenIds(state =>
+            state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
+        )
+    }, [])
+
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
     const result = generateBars({
         layout,
@@ -131,6 +139,7 @@ const Bar = props => {
         innerPadding,
         valueScale,
         indexScale,
+        hiddenIds,
     })
 
     const motionProps = {
@@ -283,7 +292,7 @@ const Bar = props => {
                     legends: legends.map((legend, i) => {
                         const legendData = getLegendData({
                             from: legend.dataFrom,
-                            bars: result.bars,
+                            bars: result.legendData,
                             layout,
                             direction: legend.direction,
                             groupMode,
@@ -300,6 +309,7 @@ const Bar = props => {
                                 containerHeight={height}
                                 data={legendData}
                                 theme={theme}
+                                toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
                             />
                         )
                     }),
