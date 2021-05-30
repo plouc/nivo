@@ -1,7 +1,7 @@
 import React, { ReactNode, Fragment, createElement } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { Axes, Grid } from '@nivo/axes'
+import { AnyScale, Axes, Grid } from '@nivo/axes'
 import { Mesh } from '@nivo/voronoi'
 import { ComputedDatum, SwarmPlotLayerId, SwarmPlotSvgProps } from './types'
 import { defaultProps } from './props'
@@ -102,11 +102,9 @@ const InnerSwarmPlot = <RawDatum,>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                // @ts-ignore should be fixed when axes package is migrated to TS
-                xScale={enableGridX ? xScale : null}
+                xScale={enableGridX ? (xScale as AnyScale) : null}
                 xValues={gridXValues}
-                // @ts-ignore should be fixed when axes package is migrated to TS
-                yScale={enableGridY ? yScale : null}
+                yScale={enableGridY ? (yScale as AnyScale) : null}
                 yValues={gridYValues}
             />
         )
@@ -116,10 +114,8 @@ const InnerSwarmPlot = <RawDatum,>({
         layerById.axes = (
             <Axes
                 key="axes"
-                // @ts-ignore should be fixed when axes package is migrated to TS
-                xScale={xScale}
-                // @ts-ignore should be fixed when axes package is migrated to TS
-                yScale={yScale}
+                xScale={xScale as AnyScale}
+                yScale={yScale as AnyScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop ?? undefined}
