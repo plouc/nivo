@@ -180,10 +180,10 @@ export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
         yScale: AnyScale
         width: number
         height: number
-        top?: CanvasAxisProp<X>
-        right?: CanvasAxisProp<Y>
-        bottom?: CanvasAxisProp<X>
-        left?: CanvasAxisProp<Y>
+        top?: CanvasAxisProp<X> | null
+        right?: CanvasAxisProp<Y> | null
+        bottom?: CanvasAxisProp<X> | null
+        left?: CanvasAxisProp<Y> | null
         theme: CompleteTheme
     }
 ) => {
