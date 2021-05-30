@@ -21,7 +21,7 @@ const commonProps = {
     to: to.toISOString(),
     direction: 'horizontal',
     data,
-}
+} as const
 
 const stories = storiesOf('CalendarCanvas', module)
 
@@ -49,7 +49,7 @@ const createColorScale = (data, minValue, maxValue) => {
     }
     const colors = ['#a1cfff', '#468df3', '#a053f0', '#9629f0', '#8428d8']
     const domain = computeDomain(data, minValue, maxValue)
-    const defaultColorScale = scaleQuantize().domain(domain).range(colors)
+    const defaultColorScale = scaleQuantize<string>().domain(domain).range(colors)
     const colorScale = value => {
         return defaultColorScale(value) + '33' //adding alpha channel
     }
@@ -65,14 +65,12 @@ stories.add('custom color space function', () => (
     <CalendarCanvas {...commonProps} colorScale={customColorScale} />
 ))
 
-const formater = value => value.toFixed(1) + ' hours'
-
 stories.add('custom value and legend formaters', () => (
     <CalendarCanvas
         {...commonProps}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         valueFormat="2f"
-        legendFormat={formater}
+        legendFormat={value => value.toFixed(1) + ' hours'}
         legends={[
             {
                 anchor: 'top-right',

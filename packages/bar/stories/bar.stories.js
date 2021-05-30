@@ -12,7 +12,8 @@ const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
     width: 900,
     height: 500,
-    margin: { top: 60, right: 80, bottom: 60, left: 80 },
+    // margin: { top: 60, right: 80, bottom: 60, left: 80 },
+    margin: { top: 50, right: 130, bottom: 50, left: 60 },
     data: generateCountriesData(keys, { size: 7 }),
     indexBy: 'country',
     keys,
@@ -20,13 +21,68 @@ const commonProps = {
     labelTextColor: 'inherit:darker(1.4)',
     labelSkipWidth: 16,
     labelSkipHeight: 16,
+    legends: [
+        {
+            dataFrom: 'keys',
+            anchor: 'bottom-right',
+            direction: 'column',
+            justify: false,
+            toggleSerie: true,
+            translateX: 120,
+            translateY: 0,
+            itemsSpacing: 2,
+            itemWidth: 100,
+            itemHeight: 20,
+            itemDirection: 'left-to-right',
+            itemOpacity: 0.85,
+            symbolSize: 20,
+            effects: [
+                {
+                    on: 'hover',
+                    style: {
+                        itemOpacity: 1,
+                    },
+                },
+            ],
+        },
+    ]
 }
 
 const stories = storiesOf('Bar', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('stacked', () => <Bar {...commonProps} />)
+stories.add('stacked', () => (
+    <Bar
+        {...commonProps}
+        // margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        // legends={[
+        //     {
+        //         dataFrom: 'keys',
+        //         anchor: 'bottom-right',
+        //         direction: 'column',
+        //         justify: false,
+        //         toggleSerie: true,
+        //         translateX: 120,
+        //         translateY: 0,
+        //         itemsSpacing: 2,
+        //         itemWidth: 100,
+        //         itemHeight: 20,
+        //         itemDirection: 'left-to-right',
+        //         itemOpacity: 0.85,
+        //         symbolSize: 20,
+        //         effects: [
+        //             {
+        //                 on: 'hover',
+        //                 style: {
+        //                     itemOpacity: 1,
+        //                 },
+        //             },
+        //         ],
+        //     },
+        // ]}
+    />
+))
 
 stories.add('stacked horizontal', () => (
     <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />

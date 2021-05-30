@@ -1,52 +1,48 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { CalendarDayProps } from './types'
 import { useTooltip } from '@nivo/tooltip'
-import CalendarTooltip from './CalendarTooltip'
+import React, { memo, useCallback } from 'react'
 
-const TimeRangeDay = memo(
+export const CalendarDay = memo(
     ({
         data,
         x,
-        ry = 5,
-        rx = 5,
         y,
-        width,
-        height,
+        size,
         color,
         borderWidth,
         borderColor,
         isInteractive,
-        tooltip = CalendarTooltip,
+        tooltip,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
         formatValue,
-    }) => {
+    }: CalendarDayProps) => {
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useCallback(
-            event => {
+            (event: React.MouseEvent<SVGRectElement>) => {
+                if (!('value' in data)) {
+                    return
+                }
+
                 const formatedData = {
                     ...data,
                     value: formatValue(data.value),
                     data: { ...data.data },
                 }
                 showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                onMouseEnter && onMouseEnter(data, event)
+                onMouseEnter?.(data, event)
             },
             [showTooltipFromEvent, tooltip, data, onMouseEnter, formatValue]
         )
         const handleMouseMove = useCallback(
-            event => {
+            (event: React.MouseEvent<SVGRectElement>) => {
+                if (!('value' in data)) {
+                    return
+                }
+
                 const formatedData = {
                     ...data,
                     value: formatValue(data.value),
@@ -58,25 +54,27 @@ const TimeRangeDay = memo(
             [showTooltipFromEvent, tooltip, data, onMouseMove, formatValue]
         )
         const handleMouseLeave = useCallback(
-            event => {
+            (event: React.MouseEvent<SVGRectElement>) => {
+                if (!('value' in data)) {
+                    return
+                }
+
                 hideTooltip()
-                onMouseLeave && onMouseLeave(data, event)
+                onMouseLeave?.(data, event)
             },
-            [isInteractive, hideTooltip, data, onMouseLeave]
+            [hideTooltip, data, onMouseLeave]
         )
-        const handleClick = useCallback(event => onClick && onClick(data, event), [
-            isInteractive,
-            data,
-            onClick,
-        ])
+        const handleClick = useCallback(
+            (event: React.MouseEvent<SVGRectElement>) => onClick?.(data, event),
+            [data, onClick]
+        )
+
         return (
             <rect
                 x={x}
                 y={y}
-                rx={rx}
-                ry={ry}
-                width={width}
-                height={height}
+                width={size}
+                height={size}
                 style={{
                     fill: color,
                     strokeWidth: borderWidth,
@@ -90,30 +88,3 @@ const TimeRangeDay = memo(
         )
     }
 )
-
-TimeRangeDay.displayName = 'TimeRangeDay'
-TimeRangeDay.propTypes = {
-    onClick: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    data: PropTypes.object.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    spacing: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    formatValue: PropTypes.func,
-
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-
-    theme: PropTypes.shape({
-        tooltip: PropTypes.shape({}).isRequired,
-    }).isRequired,
-}
-
-export default TimeRangeDay

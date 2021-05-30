@@ -1,21 +1,16 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
+import { TimeRangeDayProps } from './types'
 
-const CalendarDay = memo(
+export const TimeRangeDay = memo(
     ({
         data,
         x,
+        ry = 5,
+        rx = 5,
         y,
-        size,
+        width,
+        height,
         color,
         borderWidth,
         borderColor,
@@ -26,7 +21,7 @@ const CalendarDay = memo(
         onMouseLeave,
         onClick,
         formatValue,
-    }) => {
+    }: TimeRangeDayProps) => {
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useCallback(
@@ -34,10 +29,9 @@ const CalendarDay = memo(
                 const formatedData = {
                     ...data,
                     value: formatValue(data.value),
-                    data: { ...data.data },
                 }
                 showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                onMouseEnter && onMouseEnter(data, event)
+                onMouseEnter?.(data, event)
             },
             [showTooltipFromEvent, tooltip, data, onMouseEnter, formatValue]
         )
@@ -46,32 +40,29 @@ const CalendarDay = memo(
                 const formatedData = {
                     ...data,
                     value: formatValue(data.value),
-                    data: { ...data.data },
                 }
                 showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                onMouseMove && onMouseMove(data, event)
+                onMouseMove?.(data, event)
             },
             [showTooltipFromEvent, tooltip, data, onMouseMove, formatValue]
         )
         const handleMouseLeave = useCallback(
             event => {
                 hideTooltip()
-                onMouseLeave && onMouseLeave(data, event)
+                onMouseLeave?.(data, event)
             },
-            [isInteractive, hideTooltip, data, onMouseLeave]
+            [hideTooltip, data, onMouseLeave]
         )
-        const handleClick = useCallback(event => onClick && onClick(data, event), [
-            isInteractive,
-            data,
-            onClick,
-        ])
+        const handleClick = useCallback(event => onClick?.(data, event), [data, onClick])
 
         return (
             <rect
                 x={x}
                 y={y}
-                width={size}
-                height={size}
+                rx={rx}
+                ry={ry}
+                width={width}
+                height={height}
                 style={{
                     fill: color,
                     strokeWidth: borderWidth,
@@ -85,29 +76,3 @@ const CalendarDay = memo(
         )
     }
 )
-
-CalendarDay.displayName = 'CalendarDay'
-CalendarDay.propTypes = {
-    onClick: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    data: PropTypes.object.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    spacing: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    formatValue: PropTypes.func,
-
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-
-    theme: PropTypes.shape({
-        tooltip: PropTypes.shape({}).isRequired,
-    }).isRequired,
-}
-
-export default CalendarDay

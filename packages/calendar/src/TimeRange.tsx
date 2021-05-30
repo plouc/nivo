@@ -1,56 +1,58 @@
 import React from 'react'
-import { timeFormat } from 'd3-time-format'
 
-import { SvgWrapper, withContainer, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
+import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 
 import {
-    Direction,
     computeWeekdays,
     computeCellSize,
     computeCellPositions,
     computeMonthLegends,
-} from './compute-timeRange'
+} from './compute/timeRange'
 
 import { useMonthLegends, useColorScale } from './hooks'
-import TimeRangeDay from './TimeRangeDay'
-import CalendarTooltip from './CalendarTooltip'
-import CalendarMonthLegends from './CalendarMonthLegends'
+import { TimeRangeDay } from './TimeRangeDay'
+import { CalendarMonthLegends } from './CalendarMonthLegends'
+import { TimeRangeSvgProps } from './types'
+import { timeRangeDefaultProps } from './props'
 
-const monthLabelFormat = timeFormat('%b')
-
-const TimeRange = ({
+const InnerTimeRange = ({
     margin: partialMargin,
     width,
     height,
 
-    square,
-    colors = ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
+    square = timeRangeDefaultProps.square,
+    colors = timeRangeDefaultProps.colors,
     colorScale,
     data,
-    direction = Direction.HORIZONTAL,
-    minValue = 0,
-    maxValue = 'auto',
+    direction = timeRangeDefaultProps.direction,
+    minValue = timeRangeDefaultProps.minValue,
+    maxValue = timeRangeDefaultProps.maxValue,
     valueFormat,
     legendFormat,
-    role,
-    tooltip = CalendarTooltip,
+
+    monthLegend = timeRangeDefaultProps.monthLegend,
+    monthLegendOffset = timeRangeDefaultProps.monthLegendOffset,
+    monthLegendPosition = timeRangeDefaultProps.monthLegendPosition,
+
+    weekdayLegendsOffset = timeRangeDefaultProps.weekdayLegendsOffset,
+
+    dayBorderColor = timeRangeDefaultProps.dayBorderColor,
+    dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
+    daySpacing = timeRangeDefaultProps.daySpacing,
+    dayRadius = timeRangeDefaultProps.dayRadius,
+    daysInRange = timeRangeDefaultProps.daysInRange,
+
+    isInteractive = timeRangeDefaultProps.isInteractive,
+    tooltip = timeRangeDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
-    isInteractive = true,
-    legends = [],
-    dayBorderColor = '#fff',
-    dayBorderWidth = 0,
-    dayRadius = 0,
-    daySpacing,
-    daysInRange,
-    weekdayLegendsOffset,
-    monthLegend = (_year, _month, date) => monthLabelFormat(date),
-    monthLegendOffset = 0,
-    monthLegendPosition = 'before',
-}) => {
+
+    legends = timeRangeDefaultProps.legends,
+    role = timeRangeDefaultProps.role,
+}: TimeRangeSvgProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -111,13 +113,7 @@ const TimeRange = ({
     const formatLegend = useValueFormatter(legendFormat)
 
     return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            role={role}
-            theme={theme}
-        >
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {weekdayLegends.map(legend => (
                 <text
                     key={legend.value}
@@ -137,7 +133,6 @@ const TimeRange = ({
                         rx={dayRadius}
                         y={d.coordinates.y}
                         ry={dayRadius}
-                        spacing={daySpacing}
                         width={cellWidth}
                         height={cellHeight}
                         color={d.color}
@@ -148,7 +143,6 @@ const TimeRange = ({
                         onMouseMove={onMouseMove}
                         isInteractive={isInteractive}
                         tooltip={tooltip}
-                        theme={theme}
                         onClick={onClick}
                         formatValue={formatValue}
                     />
@@ -156,7 +150,7 @@ const TimeRange = ({
             })}
             <CalendarMonthLegends months={monthLegends} legend={monthLegend} theme={theme} />
 
-            {legends?.map((legend, i) => {
+            {legends.map((legend, i) => {
                 const legendData = colorScaleFn.ticks(legend.itemCount).map(value => ({
                     id: value,
                     label: formatLegend(value),
@@ -170,7 +164,6 @@ const TimeRange = ({
                         containerWidth={width}
                         containerHeight={height}
                         data={legendData}
-                        theme={theme}
                     />
                 )
             })}
@@ -178,4 +171,13 @@ const TimeRange = ({
     )
 }
 
-export default withContainer(TimeRange)
+export const TimeRange = ({
+    isInteractive = timeRangeDefaultProps.isInteractive,
+    renderWrapper,
+    theme,
+    ...props
+}: TimeRangeSvgProps) => (
+    <Container {...{ isInteractive, renderWrapper, theme }}>
+        <InnerTimeRange isInteractive={isInteractive} {...props} />
+    </Container>
+)

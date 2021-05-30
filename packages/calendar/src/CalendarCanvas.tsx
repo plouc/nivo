@@ -1,31 +1,32 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useRef, useState, useEffect, useCallback } from 'react'
 import {
+    Box,
+    Container,
     isCursorInRect,
     getRelativeCursor,
     degreesToRadians,
     useDimensions,
     useTheme,
-    withContainer,
     useValueFormatter,
 } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { CalendarCanvasPropTypes, CalendarCanvasDefaultProps } from './props'
+import { calendarCanvasDefaultProps } from './props'
 import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
 import { useTooltip } from '@nivo/tooltip'
+import { CalendarCanvasProps } from './types'
 
-const findDayUnderCursor = (event, canvasEl, days, size, dayBorderWidth, margin) => {
+const findDayUnderCursor = (
+    event: React.MouseEvent,
+    canvasEl: HTMLCanvasElement,
+    days: ReturnType<typeof useDays>,
+    size: number,
+    dayBorderWidth: number,
+    margin: Required<Box>
+) => {
     const [x, y] = getRelativeCursor(canvasEl, event)
     return days.find(day => {
         return (
-            day.value !== undefined &&
+            'value' in day &&
             isCursorInRect(
                 day.x + margin.left - dayBorderWidth / 2,
                 day.y + margin.top - dayBorderWidth / 2,
@@ -38,50 +39,50 @@ const findDayUnderCursor = (event, canvasEl, days, size, dayBorderWidth, margin)
     })
 }
 
-const CalendarCanvas = memo(
+const InnerCalendarCanvas = memo(
     ({
         margin: partialMargin,
         width,
         height,
-        pixelRatio,
+        pixelRatio = calendarCanvasDefaultProps.pixelRatio,
 
-        align,
-        colors,
+        align = calendarCanvasDefaultProps.align,
+        colors = calendarCanvasDefaultProps.colors,
         colorScale,
         data,
-        direction,
-        emptyColor,
+        direction = calendarCanvasDefaultProps.direction,
+        emptyColor = calendarCanvasDefaultProps.emptyColor,
         from,
         to,
-        minValue,
-        maxValue,
+        minValue = calendarCanvasDefaultProps.minValue,
+        maxValue = calendarCanvasDefaultProps.maxValue,
         valueFormat,
         legendFormat,
 
-        yearLegend,
-        yearLegendOffset,
-        yearLegendPosition,
-        yearSpacing,
+        yearLegend = calendarCanvasDefaultProps.yearLegend,
+        yearLegendOffset = calendarCanvasDefaultProps.yearLegendOffset,
+        yearLegendPosition = calendarCanvasDefaultProps.yearLegendPosition,
+        yearSpacing = calendarCanvasDefaultProps.yearSpacing,
 
-        monthLegend,
-        monthLegendOffset,
-        monthLegendPosition,
-        monthSpacing,
+        monthLegend = calendarCanvasDefaultProps.monthLegend,
+        monthLegendOffset = calendarCanvasDefaultProps.monthLegendOffset,
+        monthLegendPosition = calendarCanvasDefaultProps.monthLegendPosition,
+        monthSpacing = calendarCanvasDefaultProps.monthSpacing,
 
-        dayBorderColor,
-        dayBorderWidth,
-        daySpacing,
+        dayBorderColor = calendarCanvasDefaultProps.dayBorderColor,
+        dayBorderWidth = calendarCanvasDefaultProps.dayBorderWidth,
+        daySpacing = calendarCanvasDefaultProps.daySpacing,
 
-        isInteractive,
-        tooltip,
+        isInteractive = calendarCanvasDefaultProps.isInteractive,
+        tooltip = calendarCanvasDefaultProps.tooltip,
         onClick,
         onMouseEnter,
         onMouseLeave,
         onMouseMove,
 
-        legends,
-    }) => {
-        const canvasEl = useRef(null)
+        legends = calendarCanvasDefaultProps.legends,
+    }: CalendarCanvasProps) => {
+        const canvasEl = useRef<HTMLCanvasElement | null>(null)
         const { innerWidth, innerHeight, outerWidth, outerHeight, margin } = useDimensions(
             width,
             height,
@@ -112,7 +113,9 @@ const CalendarCanvas = memo(
             yearLegendOffset,
         })
         const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
-        const [currentDay, setCurrentDay] = useState(null)
+        const [currentDay, setCurrentDay] = useState<ReturnType<typeof useDays>[number] | null>(
+            null
+        )
         const theme = useTheme()
         const formatValue = useValueFormatter(valueFormat)
         const formatLegend = useValueFormatter(legendFormat)
@@ -120,10 +123,14 @@ const CalendarCanvas = memo(
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         useEffect(() => {
+            if (!canvasEl.current) return
+
             canvasEl.current.width = outerWidth * pixelRatio
             canvasEl.current.height = outerHeight * pixelRatio
 
             const ctx = canvasEl.current.getContext('2d')
+
+            if (!ctx) return
 
             ctx.scale(pixelRatio, pixelRatio)
 
@@ -149,14 +156,14 @@ const CalendarCanvas = memo(
 
             ctx.textAlign = 'center'
             ctx.textBaseline = 'middle'
-            ctx.fillStyle = theme.labels.text.fill
+            ctx.fillStyle = theme.labels.text.fill ?? ''
             ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
             monthLegends.forEach(month => {
                 ctx.save()
                 ctx.translate(month.x, month.y)
                 ctx.rotate(degreesToRadians(month.rotation))
-                ctx.fillText(monthLegend(month.year, month.month, month.date), 0, 0)
+                ctx.fillText(String(monthLegend(month.year, month.month, month.date)), 0, 0)
                 ctx.restore()
             })
 
@@ -164,7 +171,7 @@ const CalendarCanvas = memo(
                 ctx.save()
                 ctx.translate(year.x, year.y)
                 ctx.rotate(degreesToRadians(year.rotation))
-                ctx.fillText(yearLegend(year.year), 0, 0)
+                ctx.fillText(String(yearLegend(year.year)), 0, 0)
                 ctx.restore()
             })
 
@@ -202,10 +209,13 @@ const CalendarCanvas = memo(
             legends,
             theme,
             formatLegend,
+            colorScaleFn,
         ])
 
         const handleMouseHover = useCallback(
             event => {
+                if (!canvasEl.current) return
+
                 const data = findDayUnderCursor(
                     event,
                     canvasEl.current,
@@ -217,35 +227,39 @@ const CalendarCanvas = memo(
 
                 if (data) {
                     setCurrentDay(data)
+
+                    if (!('value' in data)) {
+                        return
+                    }
+
                     const formatedData = {
                         ...data,
                         value: formatValue(data.value),
                         data: { ...data.data },
                     }
                     showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                    !currentDay && onMouseEnter && onMouseEnter(data, event)
-                    onMouseMove && onMouseMove(data, event)
-                    currentDay &&
-                        currentDay.id !== data.id &&
-                        onMouseLeave &&
-                        onMouseLeave(data, event)
+                    !currentDay && onMouseEnter?.(data, event)
+                    onMouseMove?.(data, event)
+                    currentDay && onMouseLeave?.(data, event)
                 } else {
                     hideTooltip()
-                    onMouseLeave && onMouseLeave(data, event)
+                    data && onMouseLeave?.(data, event)
                 }
             },
             [
                 canvasEl,
+                currentDay,
                 margin,
                 days,
                 setCurrentDay,
                 formatValue,
-                daySpacing,
+                dayBorderWidth,
                 showTooltipFromEvent,
                 hideTooltip,
                 onMouseEnter,
                 onMouseMove,
                 onMouseLeave,
+                tooltip,
             ]
         )
 
@@ -256,7 +270,7 @@ const CalendarCanvas = memo(
 
         const handleClick = useCallback(
             event => {
-                if (!onClick) return
+                if (!onClick || !canvasEl.current) return
 
                 const data = findDayUnderCursor(
                     event,
@@ -269,7 +283,7 @@ const CalendarCanvas = memo(
 
                 data && onClick(data, event)
             },
-            [canvasEl, daySpacing, margin, setCurrentDay, days, onClick]
+            [canvasEl, daySpacing, margin, days, onClick]
         )
 
         return (
@@ -290,8 +304,13 @@ const CalendarCanvas = memo(
     }
 )
 
-CalendarCanvas.displayName = 'CalendarCanvas'
-CalendarCanvas.defaultProps = CalendarCanvasDefaultProps
-CalendarCanvas.propTypes = CalendarCanvasPropTypes
-
-export default withContainer(CalendarCanvas)
+export const CalendarCanvas = ({
+    isInteractive = calendarCanvasDefaultProps.isInteractive,
+    renderWrapper,
+    theme,
+    ...props
+}: CalendarCanvasProps) => (
+    <Container {...{ isInteractive, renderWrapper, theme }}>
+        <InnerCalendarCanvas isInteractive={isInteractive} {...props} />
+    </Container>
+)
