@@ -7,10 +7,5 @@ export const SwarmPlotTooltip = <RawDatum,>({
     formattedValue,
     color,
 }: ComputedDatum<RawDatum>) => (
-    <BasicTooltip
-        id={id} //node.label
-        value={formattedValue}
-        enableChip={true}
-        color={color}
-    />
+    <BasicTooltip id={id} value={formattedValue} enableChip={true} color={color} />
 )

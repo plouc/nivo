@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Interpolation, SpringValue } from 'react-spring'
+import { Interpolation, SpringValue } from '@react-spring/web'
 import { ForceX, ForceY, ForceCollide } from 'd3-force'
 import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { GridValues, AxisProps } from '@nivo/axes'
+import { AxisProps, CanvasAxisProp, TicksSpec } from '@nivo/axes'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { ScaleOrdinal } from 'd3-scale'
@@ -97,13 +97,9 @@ export type SwarmPlotCommonProps<RawDatum> = {
     borderWidth: number | ((node: ComputedDatum<RawDatum>) => number)
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     enableGridX: boolean
-    gridXValues?: GridValues<string | number>
+    gridXValues?: TicksSpec<string | number>
     enableGridY: boolean
-    gridYValues?: GridValues<string | number>
-    axisTop?: AxisProps | null
-    axisRight?: AxisProps | null
-    axisBottom?: AxisProps | null
-    axisLeft?: AxisProps | null
+    gridYValues?: TicksSpec<string | number>
     isInteractive: boolean
     useMesh: boolean
     debugMesh: boolean
@@ -117,11 +113,20 @@ export type SwarmPlotCommonProps<RawDatum> = {
 
 export type SwarmPlotSvgProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
     MouseHandlers<RawDatum> & {
+        axisTop?: AxisProps | null
+        axisRight?: AxisProps | null
+        axisBottom?: AxisProps | null
+        axisLeft?: AxisProps | null
         circleComponent: CircleComponent<RawDatum>
     }
 
 export type SwarmPlotCanvasProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
     Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'> & {
+        axisTop?: CanvasAxisProp<string> | null
+        axisRight?: CanvasAxisProp<string> | null
+        axisBottom?: CanvasAxisProp<string> | null
+        axisLeft?: CanvasAxisProp<string> | null
+        pixelRatio: number
         renderCircle: (
             ctx: CanvasRenderingContext2D,
             props: {
@@ -130,7 +135,6 @@ export type SwarmPlotCanvasProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
                 getBorderColor: (node: ComputedDatum<RawDatum>) => string
             }
         ) => void
-        pixelRatio: number
     }
 
 export type CircleProps<RawDatum> = {

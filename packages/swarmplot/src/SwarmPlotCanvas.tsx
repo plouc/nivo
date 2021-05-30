@@ -2,8 +2,7 @@ import React, { createElement, useCallback, useEffect, useRef, useState } from '
 import isNumber from 'lodash/isNumber'
 import { Container, getRelativeCursor, isCursorInRect, useDimensions, useTheme } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'
-// @ts-ignore
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
+import { AnyScale, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { ComputedDatum, SwarmPlotCanvasProps } from './types'
@@ -93,7 +92,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
         partialMargin
     )
 
-    const { nodes, xScale, yScale } = useSwarmPlot<RawDatum>({
+    const { nodes, ...scales } = useSwarmPlot<RawDatum>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -113,6 +112,8 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
         simulationIterations,
     })
 
+    const { xScale, yScale } = scales as Record<'xScale' | 'yScale', AnyScale>
+
     const { delaunay, voronoi } = useVoronoiMesh<ComputedDatum<RawDatum>>({
         points: nodes,
         width: innerWidth,
@@ -129,7 +130,9 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')!
+        const ctx = canvasEl.current.getContext('2d')
+
+        if (!ctx) return
 
         ctx.scale(pixelRatio, pixelRatio)
 
