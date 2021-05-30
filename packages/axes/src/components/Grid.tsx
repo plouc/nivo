@@ -14,9 +14,9 @@ export const Grid = memo(
     }: {
         width: number
         height: number
-        xScale?: AnyScale
+        xScale?: AnyScale | null
         xValues?: TicksSpec<X>
-        yScale?: AnyScale
+        yScale?: AnyScale | null
         yValues?: TicksSpec<Y>
     }) => {
         const xLines = useMemo(() => {
