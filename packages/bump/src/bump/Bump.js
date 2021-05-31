@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useState, Fragment } from 'react'
+import React, { createElement, memo, useMemo, useState, Fragment } from 'react'
 import { withContainer, useDimensions, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { useBump } from './hooks'
@@ -181,20 +181,26 @@ const Bump = props => {
         )
     }
 
+    const bumpLayerContext = useMemo(
+        () => ({
+            currentSerie,
+            innerHeight,
+            innerWidth,
+            lineGenerator,
+            points,
+            series,
+            setCurrentSerie,
+            xScale,
+            yScale,
+        }),
+        [currentSerie, innerHeight, innerWidth, lineGenerator, points, series, xScale, yScale]
+    )
+
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return (
-                        <Fragment key={i}>
-                            {layer({
-                                innerWidth,
-                                innerHeight,
-                                xScale,
-                                yScale,
-                            })}
-                        </Fragment>
-                    )
+                    return <Fragment key={i}>{createElement(layer, bumpLayerContext)}</Fragment>
                 }
 
                 return layerById[layer]
