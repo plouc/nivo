@@ -51,10 +51,10 @@ const InnerSwarmPlot = <RawDatum,>({
     axisBottom = defaultProps.axisBottom,
     axisLeft = defaultProps.axisLeft,
     isInteractive,
-    // onMouseEnter,
-    // onMouseMove,
-    // onMouseLeave,
-    // onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
     tooltip = defaultProps.tooltip,
     annotations = defaultProps.annotations,
     role = defaultProps.role,
@@ -136,6 +136,10 @@ const InnerSwarmPlot = <RawDatum,>({
                 isInteractive={isInteractive}
                 tooltip={tooltip}
                 component={circleComponent}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
             />
         )
     }
