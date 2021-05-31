@@ -1,9 +1,5 @@
 import React from 'react'
 import { mount } from 'enzyme'
-// @ts-ignore
-import { linearGradientDef, patternDotsDef } from '@nivo/core'
-import { generateSwarmPlotData } from '@nivo/generators'
-// @ts-ignore
 import { SwarmPlot } from '../src'
 
 const sampleData = [
@@ -111,7 +107,7 @@ describe('SwarmPlot', () => {
             expect(datum.id).toEqual('A')
         })
 
-        it.skip('should allow to completely disable interactivity', () => {
+        it('should allow to completely disable interactivity', () => {
             const onClick = jest.fn()
             const onMouseEnter = jest.fn()
             const onMouseMove = jest.fn()
@@ -141,14 +137,6 @@ describe('SwarmPlot', () => {
             expect(onMouseEnter).not.toHaveBeenCalled()
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
-
-            wrapper.find('circle').forEach(node => {
-                const circle = node.find('circle')
-                expect(circle.prop('onClick')).toBeUndefined()
-                expect(circle.prop('onMouseEnter')).toBeUndefined()
-                expect(circle.prop('onMouseMove')).toBeUndefined()
-                expect(circle.prop('onMouseLeave')).toBeUndefined()
-            })
         })
     })
 })

@@ -6,19 +6,11 @@ import { CircleProps } from './types'
 export const CircleSvg = <RawDatum,>({
     node,
     style,
-}: // onMouseEnter,
-// onMouseMove,
-// onMouseLeave,
-// onClick,
-CircleProps<RawDatum>) => {
-    // const handlers = {}
-    /*useNodeMouseHandlers<RawDatum>(node, {
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-    })*/
-
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+}: CircleProps<RawDatum>) => {
     return (
         <animated.circle
             key={node.id}
@@ -29,10 +21,10 @@ CircleProps<RawDatum>) => {
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             opacity={style.opacity}
-            // onMouseEnter={handlers.onMouseEnter}
-            // onMouseMove={handlers.onMouseMove}
-            // onMouseLeave={handlers.onMouseLeave}
-            // onClick={handlers.onClick}
+            onMouseEnter={event => onMouseEnter?.(node, event)}
+            onMouseMove={event => onMouseMove?.(node, event)}
+            onMouseLeave={event => onMouseLeave?.(node, event)}
+            onClick={event => onClick?.(node, event)}
         />
     )
 }
