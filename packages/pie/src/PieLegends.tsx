@@ -23,7 +23,7 @@ const PieLegends = <RawDatum,>({
                     {...legend}
                     containerWidth={width}
                     containerHeight={height}
-                    data={dataWithArc}
+                    data={legend.data ?? dataWithArc}
                 />
             ))}
         </>
