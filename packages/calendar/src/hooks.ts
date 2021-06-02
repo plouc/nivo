@@ -1,20 +1,13 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useMemo } from 'react'
-import { scaleQuantize } from 'd3-scale'
+import { ScaleQuantize, scaleQuantize } from 'd3-scale'
 import {
     computeDomain,
     computeYearLegendPositions,
     computeMonthLegendPositions,
     bindDaysData,
     computeLayout,
-} from './compute'
+} from './compute/calendar'
+import { BBox, CalendarSvgProps, ColorScale, Year } from './types'
 
 export const useCalendarLayout = ({
     width,
@@ -26,7 +19,18 @@ export const useCalendarLayout = ({
     monthSpacing,
     daySpacing,
     align,
-}) =>
+}: Pick<
+    Required<CalendarSvgProps>,
+    | 'width'
+    | 'height'
+    | 'from'
+    | 'to'
+    | 'direction'
+    | 'yearSpacing'
+    | 'monthSpacing'
+    | 'daySpacing'
+    | 'align'
+>) =>
     useMemo(
         () =>
             computeLayout({
@@ -43,15 +47,32 @@ export const useCalendarLayout = ({
         [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align]
     )
 
-export const useColorScale = ({ data, minValue, maxValue, colors, colorScale }) =>
+export const useColorScale = ({
+    data,
+    minValue,
+    maxValue,
+    colors,
+    colorScale,
+}: Pick<Required<CalendarSvgProps>, 'data' | 'minValue' | 'maxValue' | 'colors'> &
+    Pick<CalendarSvgProps, 'colorScale'>) =>
     useMemo(() => {
         if (colorScale) return colorScale
         const domain = computeDomain(data, minValue, maxValue)
-        const defaultColorScale = scaleQuantize().domain(domain).range(colors)
+        const defaultColorScale = scaleQuantize<string>().domain(domain).range(colors)
         return defaultColorScale
     }, [data, minValue, maxValue, colors, colorScale])
 
-export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegendOffset }) =>
+export const useYearLegends = ({
+    years,
+    direction,
+    yearLegendPosition,
+    yearLegendOffset,
+}: {
+    years: Year[]
+    direction: 'horizontal' | 'vertical'
+    yearLegendPosition: 'before' | 'after'
+    yearLegendOffset: number
+}) =>
     useMemo(
         () =>
             computeYearLegendPositions({
@@ -63,7 +84,17 @@ export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegen
         [years, direction, yearLegendPosition, yearLegendOffset]
     )
 
-export const useMonthLegends = ({ months, direction, monthLegendPosition, monthLegendOffset }) =>
+export const useMonthLegends = <Month extends { bbox: BBox }>({
+    months,
+    direction,
+    monthLegendPosition,
+    monthLegendOffset,
+}: {
+    months: Month[]
+    direction: 'horizontal' | 'vertical'
+    monthLegendPosition: 'before' | 'after'
+    monthLegendOffset: number
+}) =>
     useMemo(
         () =>
             computeMonthLegendPositions({
@@ -75,7 +106,15 @@ export const useMonthLegends = ({ months, direction, monthLegendPosition, monthL
         [months, direction, monthLegendPosition, monthLegendOffset]
     )
 
-export const useDays = ({ days, data, colorScale, emptyColor }) =>
+export const useDays = ({
+    days,
+    data,
+    colorScale,
+    emptyColor,
+}: Pick<Required<CalendarSvgProps>, 'data' | 'emptyColor'> &
+    Pick<Parameters<typeof bindDaysData>[0], 'days'> & {
+        colorScale: ScaleQuantize<string> | ColorScale
+    }) =>
     useMemo(
         () =>
             bindDaysData({

@@ -1,65 +1,58 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { SvgWrapper, useTheme, useDimensions, withContainer, useValueFormatter } from '@nivo/core'
+import { CalendarSvgProps } from './types'
+import { Container, SvgWrapper, useTheme, useDimensions, useValueFormatter } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-import { CalendarPropTypes, CalendarDefaultProps } from './props'
-import CalendarYearLegends from './CalendarYearLegends'
-import CalendarMonthPath from './CalendarMonthPath'
-import CalendarMonthLegends from './CalendarMonthLegends'
+import { CalendarYearLegends } from './CalendarYearLegends'
+import { CalendarMonthPath } from './CalendarMonthPath'
+import { CalendarMonthLegends } from './CalendarMonthLegends'
+import { CalendarDay } from './CalendarDay'
+import { calendarDefaultProps } from './props'
 import { useMonthLegends, useYearLegends, useCalendarLayout, useDays, useColorScale } from './hooks'
-import CalendarDay from './CalendarDay'
 
-const Calendar = ({
+const InnerCalendar = ({
     margin: partialMargin,
     width,
     height,
 
-    align,
-    colors,
+    align = calendarDefaultProps.align,
+    colors = calendarDefaultProps.colors,
     colorScale,
     data,
-    direction,
-    emptyColor,
+    direction = calendarDefaultProps.direction,
+    emptyColor = calendarDefaultProps.emptyColor,
     from,
     to,
-    minValue,
-    maxValue,
+    minValue = calendarDefaultProps.minValue,
+    maxValue = calendarDefaultProps.maxValue,
     valueFormat,
     legendFormat,
 
-    yearLegend,
-    yearLegendOffset,
-    yearLegendPosition,
-    yearSpacing,
+    yearLegend = calendarDefaultProps.yearLegend,
+    yearLegendOffset = calendarDefaultProps.yearLegendOffset,
+    yearLegendPosition = calendarDefaultProps.yearLegendPosition,
+    yearSpacing = calendarDefaultProps.yearSpacing,
 
-    monthBorderColor,
-    monthBorderWidth,
-    monthLegend,
-    monthLegendOffset,
-    monthLegendPosition,
-    monthSpacing,
+    monthBorderColor = calendarDefaultProps.monthBorderColor,
+    monthBorderWidth = calendarDefaultProps.monthBorderWidth,
+    monthLegend = calendarDefaultProps.monthLegend,
+    monthLegendOffset = calendarDefaultProps.monthLegendOffset,
+    monthLegendPosition = calendarDefaultProps.monthLegendPosition,
+    monthSpacing = calendarDefaultProps.monthSpacing,
 
-    dayBorderColor,
-    dayBorderWidth,
-    daySpacing,
+    dayBorderColor = calendarDefaultProps.dayBorderColor,
+    dayBorderWidth = calendarDefaultProps.dayBorderWidth,
+    daySpacing = calendarDefaultProps.daySpacing,
 
-    isInteractive,
-    tooltip,
+    isInteractive = calendarDefaultProps.isInteractive,
+    tooltip = calendarDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
 
-    legends,
-    role,
-}) => {
+    legends = calendarDefaultProps.legends,
+    role = calendarDefaultProps.role,
+}: CalendarSvgProps) => {
     const theme = useTheme()
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -90,13 +83,7 @@ const Calendar = ({
     const formatValue = useValueFormatter(valueFormat)
 
     return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            theme={theme}
-            role={role}
-        >
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {days.map(d => (
                 <CalendarDay
                     key={d.date.toString()}
@@ -104,7 +91,6 @@ const Calendar = ({
                     x={d.x}
                     y={d.y}
                     size={d.size}
-                    spacing={daySpacing}
                     color={d.color}
                     borderWidth={dayBorderWidth}
                     borderColor={dayBorderColor}
@@ -113,7 +99,6 @@ const Calendar = ({
                     onMouseMove={onMouseMove}
                     isInteractive={isInteractive}
                     tooltip={tooltip}
-                    theme={theme}
                     onClick={onClick}
                     formatValue={formatValue}
                 />
@@ -142,7 +127,6 @@ const Calendar = ({
                         containerWidth={width}
                         containerHeight={height}
                         data={legendData}
-                        theme={theme}
                     />
                 )
             })}
@@ -150,8 +134,13 @@ const Calendar = ({
     )
 }
 
-Calendar.displayName = 'Calendar'
-Calendar.defaultProps = CalendarDefaultProps
-Calendar.propTypes = CalendarPropTypes
-
-export default withContainer(Calendar)
+export const Calendar = ({
+    isInteractive = calendarDefaultProps.isInteractive,
+    renderWrapper,
+    theme,
+    ...props
+}: CalendarSvgProps) => (
+    <Container {...{ isInteractive, renderWrapper, theme }}>
+        <InnerCalendar isInteractive={isInteractive} {...props} />
+    </Container>
+)
