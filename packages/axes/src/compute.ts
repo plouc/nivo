@@ -8,8 +8,6 @@ import {
     utcMinute,
     timeHour,
     utcHour,
-    timeDay,
-    utcDay,
     timeWeek,
     utcWeek,
     timeSunday,
@@ -30,6 +28,7 @@ import {
     utcMonth,
     timeYear,
     utcYear,
+    timeInterval,
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
@@ -57,6 +56,20 @@ export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
 
     return <T extends Value>(d: T) => (scale(d) ?? 0) + offset
 }
+
+const timeDay = timeInterval(
+    date => date.setHours(0, 0, 0, 0),
+    (date, step) => date.setDate(date.getDate() + step),
+    (start, end) => (end.getTime() - start.getTime()) / 864e5,
+    date => Math.floor(date.getTime() / 864e5)
+)
+
+const utcDay = timeInterval(
+    date => date.setUTCHours(0, 0, 0, 0),
+    (date, step) => date.setUTCDate(date.getUTCDate() + step),
+    (start, end) => (end.getTime() - start.getTime()) / 864e5,
+    date => Math.floor(date.getTime() / 864e5)
+)
 
 const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
     millisecond: [timeMillisecond, utcMillisecond],
@@ -93,6 +106,41 @@ export const getScaleTicks = <Value extends AxisValue>(
         return spec
     }
 
+    if (typeof spec === 'string' && 'useUTC' in scale) {
+        // time interval
+        const matches = spec.match(timeIntervalRegexp)
+
+        if (matches) {
+            const [, amount, type] = matches
+            // UTC is used as it's more predictible
+            // however local time could be used too
+            // let's see how it fits users' requirements
+            const timeType = timeByType[type][scale.useUTC ? 1 : 0]
+
+            if (type === 'day') {
+                const [start, originalStop] = scale.domain()
+                const stop = new Date(originalStop)
+
+                // Set range to include last day in the domain since `interval.range` function is exclusive stop
+                stop.setDate(stop.getDate() + 1)
+
+                return timeType.every(Number(amount ?? 1))?.range(start, stop) ?? []
+            }
+
+            if (amount === undefined) {
+                return scale.ticks(timeType)
+            }
+
+            const interval = timeType.every(Number(amount))
+
+            if (interval) {
+                return scale.ticks(interval)
+            }
+        }
+
+        throw new Error(`Invalid tickValues: ${spec}`)
+    }
+
     // continuous scales
     if ('ticks' in scale) {
         // default behaviour
@@ -103,29 +151,6 @@ export const getScaleTicks = <Value extends AxisValue>(
         // specific tick count
         if (isInteger(spec)) {
             return scale.ticks(spec)
-        }
-
-        if (typeof spec === 'string' && 'useUTC' in scale) {
-            // time interval
-            const matches = spec.match(timeIntervalRegexp)
-            if (matches) {
-                // UTC is used as it's more predictible
-                // however local time could be used too
-                // let's see how it fits users' requirements
-                const timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0]
-
-                if (matches[1] === undefined) {
-                    return scale.ticks(timeType)
-                }
-
-                const interval = timeType.every(Number(matches[1]))
-
-                if (interval) {
-                    return scale.ticks(interval)
-                }
-            }
-
-            throw new Error(`Invalid tickValues: ${spec}`)
         }
     }
 
@@ -249,10 +274,7 @@ export const computeGridLines = <Value extends AxisValue>({
     values?: TicksSpec<Value>
 }) => {
     const lineValues = isArray<number>(_values) ? _values : undefined
-    const lineCount = isInteger(_values) ? _values : undefined
-
-    const values = lineValues || getScaleTicks(scale, lineCount)
-
+    const values = lineValues || getScaleTicks(scale, _values)
     const position = 'bandwidth' in scale ? centerScale(scale) : scale
 
     const lines: Line[] =

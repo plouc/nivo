@@ -1,7 +1,7 @@
 import React, { useMemo, memo } from 'react'
 import { GridLines } from './GridLines'
 import { computeGridLines } from '../compute'
-import { AnyScale, AxisValue } from '../types'
+import { AnyScale, AxisValue, TicksSpec } from '../types'
 
 export const Grid = memo(
     <X extends AxisValue, Y extends AxisValue>({
@@ -15,9 +15,9 @@ export const Grid = memo(
         width: number
         height: number
         xScale?: AnyScale
-        xValues?: number | X[]
+        xValues?: TicksSpec<X>
         yScale?: AnyScale
-        yValues?: number | Y[]
+        yValues?: TicksSpec<Y>
     }) => {
         const xLines = useMemo(() => {
             if (!xScale) return false

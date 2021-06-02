@@ -34,7 +34,7 @@ export type ScaleWithBandwidth =
 export type AnyScale =
     | (ScaleLinear<any, number> & { type: 'linear' })
     | (ScaleOrdinal<any, number> & { type: 'ordinal' })
-    | (ScaleTime<any, number> & { useUTC: boolean; type: 'time' })
+    | (ScaleTime<any, number> & { format: string; useUTC: boolean; type: 'time' })
     | (ScaleSymLog<any, number> & { type: 'symlog' })
     | (ScaleLogarithmic<any, number> & { type: 'log' })
     | ScaleWithBandwidth
