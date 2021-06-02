@@ -139,7 +139,6 @@ const generateHorizontalGroupedBars = (
  */
 export const generateGroupedBars = ({
     layout,
-    keys,
     minValue,
     maxValue,
     reverse,
@@ -149,8 +148,10 @@ export const generateGroupedBars = ({
     innerPadding = 0,
     valueScale,
     indexScale: indexScaleConfig,
+    hiddenIds,
     ...props
 }) => {
+    const keys = props.keys.filter(key => !hiddenIds.includes(key))
     const data = normalizeData(props.data, keys)
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
     const indexScale = getIndexScale(data, props.getIndex, range, padding, indexScaleConfig)
@@ -189,5 +190,11 @@ export const generateGroupedBars = ({
                 : generateHorizontalGroupedBars(...params)
             : []
 
-    return { xScale, yScale, bars }
+    const legendData = props.keys.map(key => {
+        const bar = bars.find(bar => bar.data.id === key) || { data: {} }
+
+        return { ...bar, data: { id: key, ...bar.data, hidden: hiddenIds.includes(key) } }
+    })
+
+    return { xScale, yScale, bars, legendData }
 }

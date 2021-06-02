@@ -13,6 +13,7 @@ export const getLegendDataForKeys = (bars, layout, direction, groupMode, reverse
         bars.map(bar => ({
             id: bar.data.id,
             label: bar.data.label || bar.data.id,
+            hidden: bar.data.hidden,
             color: bar.color,
             fill: bar.data.fill,
         })),
@@ -37,6 +38,7 @@ export const getLegendDataForIndexes = bars => {
         bars.map(bar => ({
             id: bar.data.indexValue,
             label: bar.data.label || bar.data.indexValue,
+            hidden: bar.data.hidden,
             color: bar.color,
             fill: bar.data.fill,
         })),

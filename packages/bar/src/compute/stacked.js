@@ -140,7 +140,6 @@ const generateHorizontalStackedBars = (
  */
 export const generateStackedBars = ({
     data,
-    keys,
     layout,
     minValue,
     maxValue,
@@ -150,8 +149,10 @@ export const generateStackedBars = ({
     padding = 0,
     valueScale,
     indexScale: indexScaleConfig,
+    hiddenIds,
     ...props
 }) => {
+    const keys = props.keys.filter(key => !hiddenIds.includes(key))
     const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(normalizeData(data, keys))
 
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
@@ -188,5 +189,16 @@ export const generateStackedBars = ({
                 : generateHorizontalStackedBars(...params)
             : []
 
-    return { xScale, yScale, bars }
+    const legendData = props.keys.map(key => {
+        const bar = bars.find(bar => bar.data.id === key) || {
+            data: {},
+        }
+
+        return {
+            ...bar,
+            data: { id: key, ...bar.data, hidden: hiddenIds.includes(key) },
+        }
+    })
+
+    return { xScale, yScale, bars, legendData }
 }
