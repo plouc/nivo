@@ -20,7 +20,7 @@ import {
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
-import { AxisProps, GridValues } from '@nivo/axes'
+import { AxisProps, TicksSpec } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 import { Line as D3Line } from 'd3-shape'
 
@@ -164,9 +164,9 @@ declare module '@nivo/line' {
         axisLeft?: AxisProps | null
 
         enableGridX?: boolean
-        gridXValues?: GridValues<DatumValue>
+        gridXValues?: TicksSpec<DatumValue>
         enableGridY?: boolean
-        gridYValues?: GridValues<DatumValue>
+        gridYValues?: TicksSpec<DatumValue>
 
         enablePoints?: boolean
         pointSymbol?: (props: Readonly<PointSymbolProps>) => React.ReactNode
