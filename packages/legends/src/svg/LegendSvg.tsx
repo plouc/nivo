@@ -30,6 +30,7 @@ export const LegendSvg = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
+    toggleSerie,
 }: LegendSvgProps) => {
     const { padding } = computeDimensions({
         itemCount: data.length,
@@ -67,6 +68,7 @@ export const LegendSvg = ({
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
+                    toggleSerie={toggleSerie}
                 />
             ))}
         </g>

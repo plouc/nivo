@@ -25,6 +25,7 @@ exports[`should support bottom-to-top direction 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -81,6 +82,7 @@ exports[`should support bottom-to-top direction justified 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -137,6 +139,7 @@ exports[`should support left-to-right direction 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -193,6 +196,7 @@ exports[`should support left-to-right direction justified 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -249,6 +253,7 @@ exports[`should support right-to-left direction 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -305,6 +310,7 @@ exports[`should support right-to-left direction justified 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -361,6 +367,7 @@ exports[`should support top-to-bottom direction 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={
@@ -417,6 +424,7 @@ exports[`should support top-to-bottom direction justified 1`] = `
   <rect
     fill="red"
     height={16}
+    opacity={1}
     stroke="transparent"
     strokeWidth={0}
     style={

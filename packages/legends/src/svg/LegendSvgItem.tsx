@@ -41,6 +41,7 @@ export const LegendSvgItem = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
+    toggleSerie,
 
     effects,
 }: LegendSvgItemProps) => {
@@ -93,7 +94,7 @@ export const LegendSvgItem = ({
         height,
     })
 
-    const isInteractive = [onClick, onMouseEnter, onMouseLeave].some(
+    const isInteractive = [onClick, onMouseEnter, onMouseLeave, toggleSerie].some(
         handler => handler !== undefined
     )
 
@@ -115,6 +116,7 @@ export const LegendSvgItem = ({
                 }}
                 onClick={event => {
                     onClick?.(data, event)
+                    toggleSerie?.(data.id)
                 }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -127,6 +129,7 @@ export const LegendSvgItem = ({
                 fill: data.fill ?? data.color ?? 'black',
                 borderWidth: style.symbolBorderWidth ?? symbolBorderWidth,
                 borderColor: style.symbolBorderColor ?? symbolBorderColor,
+                ...(data.hidden ? theme.legends.hidden.symbol : undefined),
             })}
             <text
                 textAnchor={labelAnchor}
@@ -136,6 +139,7 @@ export const LegendSvgItem = ({
                     dominantBaseline: labelAlignment,
                     pointerEvents: 'none',
                     userSelect: 'none',
+                    ...(data.hidden ? theme.legends.hidden.text : undefined),
                 }}
                 x={labelX}
                 y={labelY}

@@ -6,6 +6,7 @@ export const SymbolCircle = ({
     y,
     size,
     fill,
+    opacity = 1,
     borderWidth = 0,
     borderColor = 'transparent',
 }: SymbolProps) => {
@@ -15,6 +16,7 @@ export const SymbolCircle = ({
             cx={x + size / 2}
             cy={y + size / 2}
             fill={fill}
+            opacity={opacity}
             strokeWidth={borderWidth}
             stroke={borderColor}
             style={{

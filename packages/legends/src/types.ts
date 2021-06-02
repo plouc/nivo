@@ -31,7 +31,9 @@ type InteractivityProps = Partial<
     Record<
         'onClick' | 'onMouseEnter' | 'onMouseLeave',
         (datum: Datum, event: React.MouseEvent<SVGRectElement>) => void
-    >
+    > & {
+        toggleSerie: (id: Datum['id']) => void
+    }
 >
 
 export type LegendAnchor =
@@ -56,6 +58,7 @@ export type LegendItemDirection =
 export type Datum = {
     id: string | number
     label: string | number
+    hidden?: boolean
     color?: string
     fill?: string
 }
@@ -81,15 +84,20 @@ export type LegendProps = {
     translateX?: number
     translateY?: number
     anchor: LegendAnchor
+    toggleSerie?: boolean
 } & CommonLegendProps &
     BoxLegendSymbolProps &
-    InteractivityProps
+    Omit<InteractivityProps, 'toggleSerie'>
 
 export type BoxLegendSvgProps = {
     containerWidth: number
     containerHeight: number
-} & LegendProps &
-    Required<Pick<LegendProps, 'data'>>
+} & Omit<LegendProps, 'toggleSerie'> &
+    Required<Pick<LegendProps, 'data'>> &
+    Omit<InteractivityProps, 'toggleSerie'> &
+    Partial<{
+        toggleSerie: boolean | InteractivityProps['toggleSerie']
+    }>
 
 export type LegendSvgProps = {
     x: number
