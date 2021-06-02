@@ -1,11 +1,10 @@
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
-import TimeRange from './TimeRange'
+import { TimeRange } from './TimeRange'
+import { TimeRangeSvgProps } from './types'
 
-const ResponsiveTimeRange = props => (
+export const ResponsiveTimeRange = (props: Omit<TimeRangeSvgProps, 'height' | 'width'>) => (
     <ResponsiveWrapper>
         {({ width, height }) => <TimeRange width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveTimeRange

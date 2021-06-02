@@ -1,46 +1,27 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import memoize from 'lodash.memoize'
-import isDate from 'lodash.isdate'
-import range from 'lodash.range'
+import { isDate, memoize, range } from 'lodash'
 import { alignBox } from '@nivo/core'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
+import { ScaleQuantize } from 'd3-scale'
+import { BBox, CalendarSvgProps, ColorScale, Datum, Year } from '../types'
 
 /**
  * Compute min/max values.
- *
- * @param {Array<>}       data
- * @param {number|'auto'} minSpec - Define the strategy to use to compute min value, if number, it will be used, if 'auto', will use the lower value from the dataset
- * @param {number|'auto'} maxSpec - Define the strategy to use to compute max value, if number, it will be used, if 'auto', will use the higher value from the dataset
- * @return {[number, string]}
  */
-export const computeDomain = (data, minSpec, maxSpec) => {
+export const computeDomain = (
+    data: CalendarSvgProps['data'],
+    minSpec: NonNullable<CalendarSvgProps['minValue']>,
+    maxSpec: NonNullable<CalendarSvgProps['maxValue']>
+) => {
     const allValues = data.map(d => d.value)
     const minValue = minSpec === 'auto' ? Math.min(...allValues) : minSpec
     const maxValue = maxSpec === 'auto' ? Math.max(...allValues) : maxSpec
 
-    return [minValue, maxValue]
+    return [minValue, maxValue] as const
 }
 
 /**
  * Compute day cell size according to current context.
- *
- * @param {number} width
- * @param {number} height
- * @param {number} direction
- * @param {array}  yearRange
- * @param {number} yearSpacing
- * @param {number} monthSpacing
- * @param {number} daySpacing
- * @param {number} maxWeeks
- * @returns {number}
  */
 const computeCellSize = ({
     width,
@@ -51,6 +32,12 @@ const computeCellSize = ({
     monthSpacing,
     daySpacing,
     maxWeeks,
+}: Pick<
+    Required<CalendarSvgProps>,
+    'direction' | 'width' | 'height' | 'yearSpacing' | 'monthSpacing' | 'daySpacing'
+> & {
+    maxWeeks: number
+    yearRange: number[]
 }) => {
     let hCellSize
     let vCellSize
@@ -72,17 +59,6 @@ const computeCellSize = ({
 
 /**
  * Computes month path and bounding box.
- *
- * @param {Date}   date
- * @param {number} cellSize
- * @param {number} yearIndex
- * @param {number} yearSpacing
- * @param {number} monthSpacing
- * @param {number} daySpacing
- * @param {string} direction
- * @param {number} originX
- * @param {number} originY
- * @returns { { path: string, bbox: { x: number, y: number, width: number, height: number } } }
  */
 const monthPathAndBBox = ({
     date,
@@ -94,7 +70,13 @@ const monthPathAndBBox = ({
     direction,
     originX,
     originY,
-}) => {
+}: Record<'cellSize' | 'originX' | 'originY' | 'yearIndex', number> &
+    Pick<
+        Required<CalendarSvgProps>,
+        'direction' | 'yearSpacing' | 'monthSpacing' | 'daySpacing'
+    > & {
+        date: Date
+    }) => {
     // first day of next month
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 
@@ -118,7 +100,7 @@ const monthPathAndBBox = ({
     }
 
     let path
-    let bbox = { x: xO, y: yO, width: 0, height: 0 }
+    const bbox = { x: xO, y: yO, width: 0, height: 0 }
     if (direction === 'horizontal') {
         path = [
             `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${
@@ -178,15 +160,14 @@ const memoMonthPathAndBBox = memoize(
 
 /**
  * Returns a function to Compute day cell position for horizontal layout.
- *
- * @param {number} cellSize
- * @param {number} yearSpacing
- * @param {number} monthSpacing
- * @param {number} daySpacing
- * @returns { function(): { x: number, y: number } }
  */
-const cellPositionHorizontal = (cellSize, yearSpacing, monthSpacing, daySpacing) => {
-    return (originX, originY, d, yearIndex) => {
+const cellPositionHorizontal = (
+    cellSize: number,
+    yearSpacing: number,
+    monthSpacing: number,
+    daySpacing: number
+) => {
+    return (originX: number, originY: number, d: Date, yearIndex: number) => {
         const weekOfYear = timeWeek.count(timeYear(d), d)
 
         return {
@@ -206,15 +187,14 @@ const cellPositionHorizontal = (cellSize, yearSpacing, monthSpacing, daySpacing)
 
 /**
  * Returns a function to Compute day cell position for vertical layout.
- *
- * @param {number} cellSize
- * @param {number} yearSpacing
- * @param {number} monthSpacing
- * @param {number} daySpacing
- * @returns { function(): { x: number, y: number } }
  */
-const cellPositionVertical = (cellSize, yearSpacing, monthSpacing, daySpacing) => {
-    return (originX, originY, d, yearIndex) => {
+const cellPositionVertical = (
+    cellSize: number,
+    yearSpacing: number,
+    monthSpacing: number,
+    daySpacing: number
+) => {
+    return (originX: number, originY: number, d: Date, yearIndex: number) => {
         const weekOfYear = timeWeek.count(timeYear(d), d)
 
         return {
@@ -237,17 +217,6 @@ const dayFormat = timeFormat('%Y-%m-%d')
 
 /**
  * Compute base layout, without caring about the current data.
- *
- * @param {number}      width
- * @param {number}      height
- * @param {string|Date} from
- * @param {string|Date} to
- * @param {string}      direction
- * @param {number}      yearSpacing
- * @param {number}      monthSpacing
- * @param {number}      daySpacing
- * @param {string}      align
- * @returns {object}
  */
 export const computeLayout = ({
     width,
@@ -259,11 +228,22 @@ export const computeLayout = ({
     monthSpacing,
     daySpacing,
     align,
-}) => {
+}: Pick<
+    Required<CalendarSvgProps>,
+    | 'align'
+    | 'direction'
+    | 'from'
+    | 'to'
+    | 'width'
+    | 'height'
+    | 'yearSpacing'
+    | 'monthSpacing'
+    | 'daySpacing'
+>) => {
     const fromDate = isDate(from) ? from : new Date(from)
     const toDate = isDate(to) ? to : new Date(to)
 
-    let yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
+    const yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
     const maxWeeks =
         Math.max(
             ...yearRange.map(
@@ -304,16 +284,32 @@ export const computeLayout = ({
         align
     )
 
-    let cellPosition
+    let cellPosition: ReturnType<typeof cellPositionHorizontal>
     if (direction === 'horizontal') {
         cellPosition = cellPositionHorizontal(cellSize, yearSpacing, monthSpacing, daySpacing)
     } else {
         cellPosition = cellPositionVertical(cellSize, yearSpacing, monthSpacing, daySpacing)
     }
 
-    let years = []
-    let months = []
-    let days = []
+    const years: Array<{
+        year: number
+        bbox: BBox
+    }> = []
+
+    let months: Array<{
+        path: string
+        bbox: {
+            x: number
+            y: number
+            width: number
+            height: number
+        }
+        date: Date
+        year: number
+        month: number
+    }> = []
+
+    let days: Array<Omit<Datum, 'color' | 'data' | 'value'>> = []
 
     yearRange.forEach((year, i) => {
         const yearStart = new Date(year, 0, 1)
@@ -365,14 +361,16 @@ export const computeLayout = ({
 
 /**
  * Bind current data to computed day cells.
- *
- * @param {array}  days
- * @param {array}  data
- * @param {object} colorScale
- * @param {string} emptyColor
- * @returns {Array}
  */
-export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
+export const bindDaysData = ({
+    days,
+    data,
+    colorScale,
+    emptyColor,
+}: Pick<Required<CalendarSvgProps>, 'data' | 'emptyColor'> & {
+    colorScale: ScaleQuantize<string> | ColorScale
+    days: Array<Omit<Datum, 'color' | 'data' | 'value'>>
+}) => {
     return days.map(day => {
         const dayData = data.find(item => item.day === day.day)
 
@@ -389,7 +387,16 @@ export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
     })
 }
 
-export const computeYearLegendPositions = ({ years, direction, position, offset }) => {
+export const computeYearLegendPositions = ({
+    years,
+    direction,
+    position,
+    offset,
+}: Pick<Required<CalendarSvgProps>, 'direction'> & {
+    offset: number
+    position: 'before' | 'after'
+    years: Year[]
+}) => {
     return years.map(year => {
         let x = 0
         let y = 0
@@ -419,7 +426,16 @@ export const computeYearLegendPositions = ({ years, direction, position, offset 
     })
 }
 
-export const computeMonthLegendPositions = ({ months, direction, position, offset }) => {
+export const computeMonthLegendPositions = <Month extends { bbox: BBox }>({
+    months,
+    direction,
+    position,
+    offset,
+}: Pick<Required<CalendarSvgProps>, 'direction'> & {
+    offset: number
+    position: 'before' | 'after'
+    months: Month[]
+}) => {
     return months.map(month => {
         let x = 0
         let y = 0

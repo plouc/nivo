@@ -9,6 +9,13 @@ declare module '@nivo/core' {
         width: number
     }
 
+    export interface Point {
+        x: number
+        y: number
+    }
+
+    export interface AlignBox extends Dimensions, Point {}
+
     export type Margin = {
         bottom: number
         left: number
@@ -28,7 +35,11 @@ declare module '@nivo/core' {
         | 'bottom-left'
         | 'left'
     export const boxAlignments: BoxAlign[]
-    export function alignBox(box: Box, container: Box, alignment: BoxAlign): [number, number]
+    export function alignBox(
+        box: AlignBox,
+        container: AlignBox,
+        alignment: BoxAlign
+    ): [number, number]
 
     export type GetColor<T> = (datum: T) => string
     export type Colors = string[] | string

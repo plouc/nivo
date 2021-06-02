@@ -19,6 +19,7 @@
         // Charts now
         { "path": "./packages/voronoi" },
         { "path": "./packages/bullet" },
+        { "path": "./packages/calendar" },
         { "path": "./packages/circle-packing" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },

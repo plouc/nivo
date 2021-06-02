@@ -64,14 +64,12 @@ stories.add('custom tooltip', () => <Calendar tooltip={CustomTooltip} {...common
 
 stories.add('month spacing', () => <Calendar {...commonProps} monthSpacing={25} />)
 
-const formater = value => value / 10 + 'M'
-
 stories.add('custom legend formater', () => (
     <Calendar
         {...commonProps}
         margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
         valueFormat=".2f"
-        legendFormat={formater}
+        legendFormat={value => value / 10 + 'M'}
         height={460}
         legends={[
             {
