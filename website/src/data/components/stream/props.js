@@ -234,6 +234,18 @@ const props = [
         group: 'Dots',
     },
     {
+        key: 'legendLabel',
+        help: 'Legend label accessor',
+        description: `
+            Define how to access the legend label of each datum,
+            by default, nivo will look for the \`id\` property.
+        `,
+        type: 'string | (datum: RawDatum): string',
+        required: false,
+        defaultValue: defaults.legendLabel,
+        group: 'Customization',
+    },
+    {
         key: 'isInteractive',
         flavors: ['svg'],
         help: 'Enable/disable interactivity.',

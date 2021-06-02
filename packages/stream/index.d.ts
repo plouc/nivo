@@ -16,6 +16,7 @@ import {
     StackOffset,
     AreaCurve,
     SvgDefsAndFill,
+    PropertyAccessor,
 } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -55,6 +56,8 @@ declare module '@nivo/stream' {
         offsetType: StackOffset
         curve: AreaCurve
 
+        legendLabel: PropertyAccessor<T, string>
+
         margin: Box
 
         axisTop: AxisProps | null
@@ -68,15 +71,15 @@ declare module '@nivo/stream' {
         fillOpacity: number
 
         borderWidth: number
-        borderColor: InheritedColorConfig
+        borderColor: InheritedColorConfig<T>
 
         enableDots: boolean
         renderDot: StreamDotsItem
         dotPosition: 'start' | 'center' | 'end'
         dotSize: DatumToNumber | number
-        dotColor: InheritedColorConfig
+        dotColor: InheritedColorConfig<T>
         dotBorderWidth: DatumToNumber | number
-        dotBorderColor: InheritedColorConfig
+        dotBorderColor: InheritedColorConfig<T>
 
         isInteractive: boolean
         tooltipLabel: TooltipLabel<T>

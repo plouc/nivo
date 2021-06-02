@@ -28,6 +28,48 @@ stories.addDecorator(withKnobs)
 
 stories.add('default', () => <Stream {...commonProperties} />)
 
+const labelLookup = {
+    al: 'Alabama',
+    az: 'Arizona',
+    nv: 'Nevada',
+}
+
+stories.add('custom legend label', () => (
+    <Stream
+        {...commonProperties}
+        data={range(16).map(() =>
+            Object.keys(labelLookup).reduce((layer, key) => {
+                layer[key] = random(10, 200)
+                return layer
+            }, {})
+        )}
+        keys={Object.keys(labelLookup)}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        legendLabel={d => labelLookup[d.id]}
+        tooltipLabel={d => labelLookup[d.id]}
+        legends={[
+            {
+                anchor: 'bottom-right',
+                direction: 'column',
+                translateX: 100,
+                itemWidth: 80,
+                itemHeight: 20,
+                itemTextColor: '#999999',
+                symbolSize: 12,
+                symbolShape: 'circle',
+                effects: [
+                    {
+                        on: 'hover',
+                        style: {
+                            itemTextColor: '#000000',
+                        },
+                    },
+                ],
+            },
+        ]}
+    />
+))
+
 stories.add('full height (expand offset)', () => (
     <Stream
         {...commonProperties}
