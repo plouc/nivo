@@ -23,6 +23,8 @@ const Stream = ({
     order,
     curve,
 
+    legendLabel,
+
     width,
     height,
     margin: partialMargin,
@@ -91,6 +93,7 @@ const Stream = ({
         dotBorderColor,
         tooltipLabel,
         tooltipFormat,
+        legendLabel,
     })
 
     const boundDefs = bindDefs(defs, layers, fill)
@@ -154,7 +157,7 @@ const Stream = ({
                 const legendData = layers
                     .map(l => ({
                         id: l.id,
-                        label: l.id,
+                        label: l.label,
                         color: l.color,
                         fill: l.fill,
                     }))

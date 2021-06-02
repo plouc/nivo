@@ -6,6 +6,7 @@ import {
     useTheme,
     stackOrderFromProp,
     stackOffsetFromProp,
+    usePropertyAccessor,
     useValueFormatter,
 } from '@nivo/core'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -31,6 +32,7 @@ export const useStream = ({
     dotBorderColor,
     tooltipLabel,
     tooltipFormat,
+    legendLabel,
 }) => {
     const areaGenerator = useMemo(
         () =>
@@ -84,6 +86,7 @@ export const useStream = ({
         [dotBorderWidth]
     )
     const getDotBorderColor = useInheritedColor(dotBorderColor, theme)
+    const getLegendLabel = usePropertyAccessor(legendLabel)
 
     const enhancedLayers = useMemo(
         () =>
@@ -96,14 +99,17 @@ export const useStream = ({
                     y2: yScale(point[1]),
                 }))
 
+                const id = keys[layerIndex]
+
                 return {
-                    id: keys[layerIndex],
+                    id,
                     layer,
+                    label: getLegendLabel({ id }),
                     path: areaGenerator(layer),
                     color: getColor({ index: layerIndex }),
                 }
             }),
-        [layers, keys, areaGenerator, getColor]
+        [layers, keys, getLegendLabel, areaGenerator, getColor, xScale, yScale]
     )
 
     const slices = useMemo(

@@ -8,7 +8,9 @@ Stream:
     - stacked
     - svg
     - isomorphic
-  stories: []
+  stories:
+    - label: Use custom legend label
+      link: stream--custom-legend-label
   description: |
     Stream chart.
 

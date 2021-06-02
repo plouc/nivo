@@ -65,6 +65,8 @@ export const StreamDefaultProps = {
     offsetType: 'wiggle',
     curve: 'catmullRom',
 
+    legendLabel: 'id',
+
     axisBottom: {},
     enableGridX: true,
     enableGridY: false,
