@@ -68,6 +68,14 @@ const NetworkCanvas = () => {
                         links={data.links}
                         {...properties}
                         theme={theme}
+                        onClick={node => {
+                            logAction({
+                                type: 'click',
+                                label: `[node] id: ${node.id}, index: ${node.index}`,
+                                color: node.color,
+                                data: node,
+                            })
+                        }}
                     />
                 )
             }}

@@ -26,14 +26,7 @@ const willLeave = springConfig => ({ style }) => ({
     scale: spring(0, springConfig),
 })
 
-const AnimatedNodes = ({
-    nodes,
-    color,
-    borderWidth,
-    borderColor,
-    handleNodeHover,
-    handleNodeLeave,
-}) => {
+const AnimatedNodes = ({ nodes, color, borderColor, ...props }) => {
     const { springConfig } = useMotionConfig()
 
     return (
@@ -62,11 +55,9 @@ const AnimatedNodes = ({
                                 y={style.y}
                                 radius={Math.max(style.radius, 0)}
                                 color={color(node)}
-                                borderWidth={borderWidth}
                                 borderColor={borderColor(node)}
                                 scale={Math.max(style.scale, 0)}
-                                handleNodeHover={handleNodeHover}
-                                handleNodeLeave={handleNodeLeave}
+                                {...props}
                             />
                         )
                     })}

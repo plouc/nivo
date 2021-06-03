@@ -75,6 +75,7 @@ declare module '@nivo/network' {
         theme?: Theme
 
         isInteractive?: boolean
+        onClick?: (node: ComputedNode, event: React.MouseEvent<SVGCircleElement>) => void
     }
 
     export interface NetworkSvgProps extends NetworkProps, MotionProps {
