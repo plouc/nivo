@@ -240,7 +240,7 @@ const props = [
             Define how to access the legend label of each datum,
             by default, nivo will look for the \`id\` property.
         `,
-        type: 'string | (datum: RawDatum): string',
+        type: 'string | (datum: { id: string }): string',
         required: false,
         defaultValue: defaults.legendLabel,
         group: 'Customization',
