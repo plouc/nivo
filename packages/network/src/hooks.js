@@ -106,6 +106,12 @@ export const useNodeColor = color =>
         return () => color
     }, [color])
 
+export const useNodeComponent = nodeComponent =>
+    useMemo(() => {
+        if (typeof nodeComponent === 'function') return nodeComponent
+        return () => nodeComponent
+    }, [nodeComponent])
+
 export const useLinkThickness = thickness =>
     useMemo(() => {
         if (typeof thickness === 'function') return thickness

@@ -8,7 +8,6 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import Node from './Node'
 
 const StaticNodes = ({
     nodes,
@@ -17,22 +16,21 @@ const StaticNodes = ({
     borderColor,
     handleNodeHover,
     handleNodeLeave,
+    nodeComponent,
 }) => {
     return nodes.map(node => {
-        return (
-            <Node
-                key={node.id}
-                node={node}
-                x={node.x}
-                y={node.y}
-                radius={node.radius}
-                color={color(node)}
-                borderWidth={borderWidth}
-                borderColor={borderColor(node)}
-                handleNodeHover={handleNodeHover}
-                handleNodeLeave={handleNodeLeave}
-            />
-        )
+        return React.createElement(nodeComponent, {
+            key: node.id,
+            node: node,
+            x: node.x,
+            y: node.y,
+            radius: node.radius,
+            color: color(node),
+            borderWidth: borderWidth,
+            borderColor: borderColor(node),
+            handleNodeHover: handleNodeHover,
+            handleNodeLeave: handleNodeLeave,
+        })
     })
 }
 
@@ -43,6 +41,7 @@ StaticNodes.propTypes = {
     borderColor: PropTypes.func.isRequired,
     handleNodeHover: PropTypes.func.isRequired,
     handleNodeLeave: PropTypes.func.isRequired,
+    nodeComponent: PropTypes.func.isRequired,
 }
 
 export default memo(StaticNodes)

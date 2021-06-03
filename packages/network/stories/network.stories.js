@@ -41,3 +41,18 @@ stories.add('custom tooltip', () => (
         }}
     />
 ))
+
+stories.add('custom node', () => (
+    <Network
+        {...commonProperties}
+        nodeComponent={function (e) {
+            debugger
+            return (
+                <g transform={`translate(${e.x - 6},${e.y - 8}) scale(${0.5})`}>
+                    <circle cx="12" cy="8" r="5" />
+                    <path d="M3,21 h18 C 21,12 3,12 3,21" />
+                </g>
+            )
+        }}
+    />
+))

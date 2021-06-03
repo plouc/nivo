@@ -10,7 +10,6 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig } from '@nivo/core'
-import Node from './Node'
 
 const willEnter = ({ style }) => ({
     x: style.x.val,
@@ -33,6 +32,7 @@ const AnimatedNodes = ({
     borderColor,
     handleNodeHover,
     handleNodeLeave,
+    nodeComponent,
 }) => {
     const { springConfig } = useMotionConfig()
 
@@ -54,21 +54,18 @@ const AnimatedNodes = ({
             {interpolatedStyles => (
                 <>
                     {interpolatedStyles.map(({ key, style, data: node }) => {
-                        return (
-                            <Node
-                                key={key}
-                                node={node}
-                                x={style.x}
-                                y={style.y}
-                                radius={Math.max(style.radius, 0)}
-                                color={color(node)}
-                                borderWidth={borderWidth}
-                                borderColor={borderColor(node)}
-                                scale={Math.max(style.scale, 0)}
-                                handleNodeHover={handleNodeHover}
-                                handleNodeLeave={handleNodeLeave}
-                            />
-                        )
+                        return React.createElement(nodeComponent, {
+                            key: key,
+                            node: node,
+                            x: style.x,
+                            y: style.y,
+                            radius: Math.max(style.radius, 0),
+                            color: color(node),
+                            borderWidth: borderWidth,
+                            borderColor: borderColor(node),
+                            handleNodeHover: handleNodeHover,
+                            handleNodeLeave: handleNodeLeave,
+                        })
                     })}
                 </>
             )}
@@ -83,6 +80,7 @@ AnimatedNodes.propTypes = {
     borderColor: PropTypes.func.isRequired,
     handleNodeHover: PropTypes.func.isRequired,
     handleNodeLeave: PropTypes.func.isRequired,
+    nodeComponent: PropTypes.func.isRequired,
 }
 
 export default memo(AnimatedNodes)

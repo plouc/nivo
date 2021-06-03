@@ -10,7 +10,7 @@ import React, { useRef, useEffect } from 'react'
 import { withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { NetworkCanvasPropTypes, NetworkCanvasDefaultProps } from './props'
-import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
+import { useNetwork, useNodeColor, useLinkThickness, useNodeComponent } from './hooks'
 
 const NetworkCanvas = props => {
     const {
@@ -33,6 +33,7 @@ const NetworkCanvas = props => {
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
+        nodeComponent,
 
         linkThickness,
         linkColor,
@@ -60,6 +61,7 @@ const NetworkCanvas = props => {
 
     const theme = useTheme()
     const getNodeColor = useNodeColor(nodeColor)
+    const getNodeComponent = useNodeComponent(nodeComponent)
     const getBorderColor = useInheritedColor(nodeBorderColor, theme)
     const getLinkThickness = useLinkThickness(linkThickness)
     const getLinkColor = useInheritedColor(linkColor, theme)
@@ -116,6 +118,7 @@ const NetworkCanvas = props => {
         nodes,
         links,
         getNodeColor,
+        getNodeComponent,
         nodeBorderWidth,
         getBorderColor,
         getLinkThickness,

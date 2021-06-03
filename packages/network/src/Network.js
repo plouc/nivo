@@ -11,7 +11,7 @@ import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } f
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { NetworkPropTypes, NetworkDefaultProps } from './props'
-import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
+import { useNetwork, useNodeColor, useLinkThickness, useNodeComponent } from './hooks'
 import AnimatedNodes from './AnimatedNodes'
 import StaticNodes from './StaticNodes'
 import AnimatedLinks from './AnimatedLinks'
@@ -38,6 +38,7 @@ const Network = props => {
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
+        nodeComponent,
 
         linkThickness,
         linkColor,
@@ -55,6 +56,7 @@ const Network = props => {
     const { animate } = useMotionConfig()
     const theme = useTheme()
     const getColor = useNodeColor(nodeColor)
+    const getNodeComponent = useNodeComponent(nodeComponent)
     const getBorderColor = useInheritedColor(nodeBorderColor, theme)
     const getLinkThickness = useLinkThickness(linkThickness)
     const getLinkColor = useInheritedColor(linkColor, theme)
@@ -96,6 +98,7 @@ const Network = props => {
             color: getColor,
             borderWidth: nodeBorderWidth,
             borderColor: getBorderColor,
+            nodeComponent: getNodeComponent,
             handleNodeHover: isInteractive ? handleNodeHover : undefined,
             handleNodeLeave: isInteractive ? handleNodeLeave : undefined,
         }),
