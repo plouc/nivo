@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { NetworkDefaultProps } from '../src/props'
 import { generateNetworkData } from '@nivo/generators'
-import { Network } from '../src'
+import { NetworkCanvas } from '../src'
 
 const data = generateNetworkData()
 
@@ -20,12 +20,12 @@ const commonProperties = {
     iterations: 60,
 }
 
-const stories = storiesOf('Network', module)
+const stories = storiesOf('NetworkCanvas', module)
 
-stories.add('default', () => <Network {...commonProperties} />)
+stories.add('default', () => <NetworkCanvas {...commonProperties} />)
 
 stories.add('custom tooltip', () => (
-    <Network
+    <NetworkCanvas
         {...commonProperties}
         tooltip={node => {
             return (
@@ -44,5 +44,5 @@ stories.add('custom tooltip', () => (
 ))
 
 stories.add('supports onClick for the node', () => (
-    <Network {...commonProperties} onClick={action('onClick')} />
+    <NetworkCanvas {...commonProperties} onClick={action('onClick')} />
 ))

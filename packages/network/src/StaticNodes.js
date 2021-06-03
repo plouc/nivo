@@ -10,14 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import Node from './Node'
 
-const StaticNodes = ({
-    nodes,
-    color,
-    borderWidth,
-    borderColor,
-    handleNodeHover,
-    handleNodeLeave,
-}) => {
+const StaticNodes = ({ nodes, color, borderColor, ...props }) => {
     return nodes.map(node => {
         return (
             <Node
@@ -27,10 +20,8 @@ const StaticNodes = ({
                 y={node.y}
                 radius={node.radius}
                 color={color(node)}
-                borderWidth={borderWidth}
                 borderColor={borderColor(node)}
-                handleNodeHover={handleNodeHover}
-                handleNodeLeave={handleNodeLeave}
+                {...props}
             />
         )
     })

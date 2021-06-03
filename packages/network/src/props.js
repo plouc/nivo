@@ -42,6 +42,7 @@ const commonPropTypes = {
     linkColor: inheritedColorPropType.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
+    onClick: PropTypes.func,
 }
 
 export const NetworkPropTypes = {

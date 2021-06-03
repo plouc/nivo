@@ -183,6 +183,13 @@ const props = [
         `,
     },
     {
+        key: 'onClick',
+        group: 'Interactivity',
+        help: 'onClick handler.',
+        type: '(node, event) => void',
+        required: false,
+    },
+    {
         key: 'layers',
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',

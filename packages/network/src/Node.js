@@ -18,6 +18,7 @@ const Node = ({
     borderWidth,
     borderColor,
     scale = 1,
+    handleNodeClick,
     handleNodeHover,
     handleNodeLeave,
 }) => {
@@ -28,6 +29,7 @@ const Node = ({
             fill={color}
             strokeWidth={borderWidth}
             stroke={borderColor}
+            onClick={event => handleNodeClick(node, event)}
             onMouseEnter={event => handleNodeHover(node, event)}
             onMouseMove={event => handleNodeHover(node, event)}
             onMouseLeave={handleNodeLeave}
