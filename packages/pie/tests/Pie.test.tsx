@@ -546,6 +546,41 @@ describe('Pie', () => {
                 )
             })
         })
+
+        it('should use legend.data if provided', () => {
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    colors={{ datum: 'data.color' }}
+                    legends={[
+                        {
+                            anchor: 'bottom',
+                            data: sampleData.map((data, index) => ({
+                                ...data,
+                                label: `${data.id}.${index}`,
+                            })),
+                            direction: 'row',
+                            itemWidth: 100,
+                            itemHeight: 20,
+                        },
+                    ]}
+                    animate={false}
+                />
+            )
+
+            const legendItems = wrapper.find('LegendSvgItem')
+            expect(legendItems).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                const legendItem = legendItems.at(index)
+                expect(legendItem.text()).toEqual(`${datum.id}.${index}`)
+                expect(legendItem.find('SymbolSquare').find('rect').prop('fill')).toEqual(
+                    datum.color
+                )
+            })
+        })
     })
 
     describe('interactivity', () => {
