@@ -45,6 +45,30 @@ declare module '@nivo/stream' {
         y2: number
     }
 
+    interface DotDatum extends StreamLayerDatum {
+        id: string
+        color: string
+    }
+
+    export interface DatumId {
+        id: string
+    }
+
+    export interface StreamLayerDatum {
+        index: number
+        x: number
+        value: number
+        y1: number
+        y2: number
+    }
+
+    export interface ComputedDatum {
+        id: number
+        layer: StreamLayerDatum[]
+        path: string
+        color: string
+    }
+
     export type DatumToNumber = (datum: Datum) => number
 
     interface OptionalStreamProps<T> extends SvgDefsAndFill<T>, MotionProps {
@@ -56,7 +80,7 @@ declare module '@nivo/stream' {
         offsetType: StackOffset
         curve: AreaCurve
 
-        legendLabel: PropertyAccessor<T, string>
+        legendLabel: PropertyAccessor<DatumId, string>
 
         margin: Box
 
@@ -71,15 +95,15 @@ declare module '@nivo/stream' {
         fillOpacity: number
 
         borderWidth: number
-        borderColor: InheritedColorConfig<T>
+        borderColor: InheritedColorConfig<ComputedDatum>
 
         enableDots: boolean
         renderDot: StreamDotsItem
         dotPosition: 'start' | 'center' | 'end'
         dotSize: DatumToNumber | number
-        dotColor: InheritedColorConfig<T>
+        dotColor: InheritedColorConfig<DotDatum>
         dotBorderWidth: DatumToNumber | number
-        dotBorderColor: InheritedColorConfig<T>
+        dotBorderColor: InheritedColorConfig<DotDatum>
 
         isInteractive: boolean
         tooltipLabel: TooltipLabel<T>
