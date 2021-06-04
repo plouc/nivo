@@ -15,14 +15,7 @@ import PropTypes from 'prop-types'
  * ```
  */
 export const LegendPropShape = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            color: PropTypes.string,
-            fill: PropTypes.string,
-        })
-    ),
+    data: PropTypes.arrayOf(PropTypes.object),
 
     // position & layout
     anchor: PropTypes.oneOf([
