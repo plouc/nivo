@@ -17,6 +17,7 @@ import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import { scalePropType, bandScalePropTypes } from '@nivo/scales'
 import BarItem from './BarItem'
+import BarTooltip from './BarTooltip'
 
 export const BarPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -144,6 +145,7 @@ export const BarDefaultProps = {
     borderColor: { from: 'color' },
 
     isInteractive: true,
+    tooltip: BarTooltip,
     onClick: noop,
     onMouseEnter: noop,
     onMouseLeave: noop,
