@@ -7,9 +7,8 @@
  * file that was distributed with this source code.
  */
 import { compose, pure, withPropsOnChange } from '@nivo/recompose'
-import React from 'react'
+import React, { createElement } from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip } from '@nivo/tooltip'
 
 const BarItem = ({
     data,
@@ -32,14 +31,18 @@ const BarItem = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
+
+    getTooltipLabel,
     tooltip,
+    tooltipFormat,
 
     theme,
 }) => {
-    const handleTooltip = e => showTooltip(tooltip, e)
+    const handleTooltip = e =>
+        showTooltip(createElement(tooltip, { ...data, color, getTooltipLabel, tooltipFormat }), e)
     const handleMouseEnter = e => {
         onMouseEnter(data, e)
-        showTooltip(tooltip, e)
+        showTooltip(createElement(tooltip, { ...data, color, getTooltipLabel, tooltipFormat }), e)
     }
     const handleMouseLeave = e => {
         onMouseLeave(data, e)
@@ -122,26 +125,6 @@ const enhance = compose(
     withPropsOnChange(['data', 'color', 'onClick'], ({ data, color, onClick }) => ({
         onClick: event => onClick({ color, ...data }, event),
     })),
-    withPropsOnChange(
-        ['data', 'color', 'theme', 'tooltip', 'getTooltipLabel', 'tooltipFormat'],
-        ({ data, color, theme, tooltip, getTooltipLabel, tooltipFormat }) => ({
-            tooltip: (
-                <BasicTooltip
-                    id={getTooltipLabel(data)}
-                    value={data.value}
-                    enableChip={true}
-                    color={color}
-                    theme={theme}
-                    format={tooltipFormat}
-                    renderContent={
-                        typeof tooltip === 'function'
-                            ? tooltip.bind(null, { color, theme, ...data })
-                            : null
-                    }
-                />
-            ),
-        })
-    ),
     pure
 )
 
