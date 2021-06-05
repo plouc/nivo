@@ -120,6 +120,7 @@ const commonDefaultProps = {
     axisBottom: {},
     axisLeft: {},
 
+    nodeId: ({ serieId, index }) => `${serieId}.${index}`,
     nodeSize: 9,
     renderNode: Node,
 

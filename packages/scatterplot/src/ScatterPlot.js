@@ -41,6 +41,7 @@ const ScatterPlot = props => {
         colors,
         blendMode,
 
+        nodeId,
         nodeSize,
         renderNode,
 
@@ -87,6 +88,7 @@ const ScatterPlot = props => {
         yFormat,
         width: innerWidth,
         height: innerHeight,
+        nodeId,
         nodeSize,
         colors,
     })
