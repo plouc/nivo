@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { useMemo } from 'react'
-import { useValueFormatter } from '@nivo/core'
+import { useValueFormatter, usePropertyAccessor } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
 import { useAnnotations } from '@nivo/annotations'
@@ -23,6 +23,7 @@ export const useScatterPlot = ({
     yFormat,
     width,
     height,
+    nodeId,
     nodeSize,
     colors,
 }) => {
@@ -33,10 +34,12 @@ export const useScatterPlot = ({
 
     const formatX = useValueFormatter(xFormat)
     const formatY = useValueFormatter(yFormat)
-    const rawNodes = useMemo(() => computePoints({ series, formatX, formatY }), [
+    const getNodeId = usePropertyAccessor(nodeId)
+    const rawNodes = useMemo(() => computePoints({ series, formatX, formatY, getNodeId }), [
         series,
         formatX,
         formatY,
+        getNodeId,
     ])
 
     const getNodeSize = useNodeSize(nodeSize)

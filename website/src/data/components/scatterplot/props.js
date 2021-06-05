@@ -99,7 +99,7 @@ const props = [
 
             If you use a time scale, you must provide a time format
             as values are converted to Date objects.
-            
+
             Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
@@ -165,10 +165,22 @@ const props = [
 
             If you use a time scale, you must provide a time format
             as values are converted to Date objects.
-            
+
             Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
+        `,
+    },
+    {
+        key: 'nodeId',
+        group: 'Base',
+        defaultValue: defaults.nodeId,
+        type: 'string | (datum: NodeIdDatum): string',
+        help: `ID accessor for the node.`,
+        description: `
+            Define how to determine the id of each node on the plot.
+
+            By default nivo will join together the serie.id and datum index.
         `,
     },
     {
@@ -306,7 +318,7 @@ const props = [
 
             You can also use this to insert extra layers
             to the chart.
-            
+
             For \`ScatterPlot\`, the extra layer should be a component
             and will receive current chart context as props.
 
@@ -395,7 +407,7 @@ const props = [
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will
             receive the node as a property.
-            
+
             You can also customize the tooltip style
             using the \`theme.tooltip\` object.
         `,
@@ -428,7 +440,6 @@ const props = [
         type: '(node, event) => void',
         required: false,
     },
-    ,
     {
         key: 'legends',
         group: 'Legends',
