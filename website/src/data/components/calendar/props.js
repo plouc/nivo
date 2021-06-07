@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { boxAlignments } from '@nivo/core'
-import { CalendarDefaultProps as defaults } from '@nivo/calendar'
+import { calendarDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
@@ -19,7 +19,7 @@ const props = [
             Chart data, which must conform to this structure:
             \`\`\`
             Array<{
-                day:   string // format must be YYYY-MM-DD,
+                day:   string, // format must be YYYY-MM-DD
                 value: number
             }>
             \`\`\`
