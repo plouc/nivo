@@ -389,3 +389,49 @@ it(`should not apply scale rounding when passed indexScale.round: false`, () => 
     const firstBarWidth = bars.at(0).prop('width')
     expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
 })
+
+describe('tooltip', () => {
+    it('should render a tooltip when hovering a slice', () => {
+        const wrapper = mount(
+            <Bar
+                width={500}
+                height={300}
+                data={[
+                    { id: 'one', A: 10, B: 13 },
+                    { id: 'two', A: 12, B: 9 },
+                ]}
+                keys={['A', 'B']}
+                animate={false}
+            />
+        )
+
+        expect(wrapper.find('BarTooltip').exists()).toBeFalsy()
+
+        wrapper.find('BarItem').at(1).find('rect').simulate('mouseenter')
+
+        const tooltip = wrapper.find('BarTooltip')
+        expect(tooltip.exists()).toBeTruthy()
+        expect(tooltip.text()).toEqual('A - two: 12')
+    })
+
+    it('should allow to override the default tooltip', () => {
+        const CustomTooltip = ({ id }) => <span>{id}</span>
+        const wrapper = mount(
+            <Bar
+                width={500}
+                height={300}
+                data={[
+                    { id: 'one', A: 10, B: 13 },
+                    { id: 'two', A: 12, B: 9 },
+                ]}
+                keys={['A', 'B']}
+                tooltip={CustomTooltip}
+                animate={false}
+            />
+        )
+
+        wrapper.find('BarItem').at(1).find('rect').simulate('mouseenter')
+
+        expect(wrapper.find(CustomTooltip).exists()).toBeTruthy()
+    })
+})
