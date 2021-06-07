@@ -141,3 +141,24 @@ it('should allow to disable interactivity', () => {
         expect(node.prop('onClick')).toBeUndefined()
     })
 })
+
+it('should allow to specify a nodeid property', () => {
+    const ids = ['a', 'b', 'c', 'd', 'e']
+    const wrapper = mount(
+        <ScatterPlot
+            width={500}
+            height={300}
+            data={[
+                { id: 'default', data: sampleData.map(data => ({ ...data, id: ids[data.id] })) },
+            ]}
+            nodeId="id"
+            animate={false}
+        />
+    )
+
+    const nodes = wrapper.find('Memo(NodeWrapper)')
+    expect(nodes).toHaveLength(5)
+    nodes.forEach((node, index) => {
+        expect(node.prop('node').id).toBe(ids[index])
+    })
+})
