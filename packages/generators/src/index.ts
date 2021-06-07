@@ -104,23 +104,26 @@ export const generateCountriesPopulation = (size: number) => {
     }))
 }
 
-export const generateDayCounts = (from: Date, to: Date, maxSize = 0.9) => {
+export const generateOrderedDayCounts = (from: Date, to: Date) => {
     const days = timeDays(from, to)
+    const dayFormat = timeFormat('%Y-%m-%d')
+
+    return days.map(day => {
+        return {
+            value: Math.round(Math.random() * 400),
+            day: dayFormat(day),
+        }
+    })
+}
+
+export const generateDayCounts = (from: Date, to: Date, maxSize = 0.9) => {
+    const days = generateOrderedDayCounts(from, to)
 
     const size =
         Math.round(days.length * (maxSize * 0.4)) +
         Math.round(Math.random() * (days.length * (maxSize * 0.6)))
 
-    const dayFormat = timeFormat('%Y-%m-%d')
-
-    return shuffle(days)
-        .slice(0, size)
-        .map(day => {
-            return {
-                day: dayFormat(day),
-                value: Math.round(Math.random() * 400),
-            }
-        })
+    return shuffle(days).slice(0, size)
 }
 
 export const generateCountriesData = (
