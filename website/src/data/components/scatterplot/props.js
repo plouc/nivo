@@ -178,7 +178,11 @@ const props = [
         type: 'string | (datum: NodeIdDatum): string',
         help: `ID accessor for the node.`,
         description: `
-            Define how to determine the id of each node on the plot.
+            Define how to determine the id of each node on the plot. This value
+            will impact animation. Nodes will transition from a previous state
+            at the same index, thus, it can be  useful to specify this property
+            if we want to establish some continuity between nodes at different
+            index.
 
             By default nivo will join together the serie.id and datum index.
         `,
