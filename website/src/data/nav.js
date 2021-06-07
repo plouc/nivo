@@ -21,6 +21,7 @@ import scatterplot from './components/scatterplot/meta.yml'
 import stream from './components/stream/meta.yml'
 import sunburst from './components/sunburst/meta.yml'
 import swarmplot from './components/swarmplot/meta.yml'
+import timeRange from './components/time-range/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
@@ -157,6 +158,12 @@ export const components = [
         path: '/swarmplot/',
         icon: 'swarmplot',
         tags: swarmplot.SwarmPlot.tags,
+    },
+    {
+        label: 'TimeRange',
+        path: '/time-range/',
+        icon: 'calendar',
+        tags: timeRange.TimeRange.tags,
     },
     {
         label: 'TreeMap',
