@@ -1,9 +1,7 @@
 import { timeWeek } from 'd3-time'
-import { timeRangeDefaultProps } from '../props'
 
 // Interfaces
 interface ComputeBaseProps {
-    daysInRange: number
     direction: 'horizontal' | 'vertical'
 }
 
@@ -90,8 +88,8 @@ export const computeCellSize = ({
     totalDays,
     width,
     height,
-}: Omit<ComputeCellSize, 'daysInRange'>) => {
-    const { daysInRange } = timeRangeDefaultProps
+}: ComputeCellSize) => {
+    const daysInRange = 7
     let rows
     let columns
     let widthRest = width
@@ -184,6 +182,8 @@ export const computeCellPositions = ({
             year,
             date,
             color: colorScale(dateValue.value),
+            width: cellWidth,
+            height: cellHeight,
         }
     })
 
@@ -213,15 +213,14 @@ export const computeWeekdays = ({
     return ticks.map(day => ({
         value: arrayOfWeekdays[day],
         rotation: direction === 'horizontal' ? 0 : -90,
-        y: direction === 'horizontal' ? sizes.height * (day + 1) - daySpacing / 2 : 0,
-        x: direction === 'horizontal' ? 0 : sizes.width * (day + 1) - daySpacing / 2,
+        y: direction === 'horizontal' ? sizes.height * (day + 1) - sizes.height / 3 : 0,
+        x: direction === 'horizontal' ? 0 : sizes.width * (day + 1) - sizes.width / 3,
     }))
 }
 
 export const computeMonthLegends = ({
     direction,
     daySpacing,
-    daysInRange,
     days,
     cellHeight,
     cellWidth,
@@ -245,12 +244,12 @@ export const computeMonthLegends = ({
 
                 if (direction === 'horizontal') {
                     bbox.x = day.coordinates.x - daySpacing
-                    bbox.height = daysInRange * cellHeight + daySpacing
+                    bbox.height = cellHeight + daySpacing
                     bbox.width = cellWidth + daySpacing * 2
                 } else {
                     bbox.y = day.coordinates.y - daySpacing
                     bbox.height = cellHeight + daySpacing * 2
-                    bbox.width = daysInRange * cellWidth + daySpacing * 2
+                    bbox.width = cellWidth + daySpacing * 2
                 }
 
                 acc.months[key] = {

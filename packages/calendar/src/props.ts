@@ -48,12 +48,8 @@ export const calendarCanvasDefaultProps = {
 
 export const timeRangeDefaultProps = {
     ...calendarDefaultProps,
-    dayBorderWidth: 0,
     dayBorderColor: '#fff',
     dayRadius: 0,
-    daySpacing: 10,
-    daysInRange: 7,
-    monthLegendOffset: 0,
     square: true,
-    weekdayLegendsOffset: 65,
+    weekdayLegendOffset: 75,
 } as const
