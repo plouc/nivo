@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveCalendar, CalendarDefaultProps } from '@nivo/calendar'
+import { ResponsiveCalendar, calendarDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
@@ -56,6 +56,7 @@ const initialProperties = {
 
     isInteractive: true,
     'custom tooltip example': false,
+    tooltip: null,
 
     legends: [
         {
@@ -81,7 +82,7 @@ const Calendar = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={CalendarDefaultProps}
+            defaultProperties={calendarDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
                 ...properties,

@@ -12,7 +12,10 @@ import { settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    background: #333;
+    padding: 10px;
+    border-radius: 4px;
+    grid-template-columns: 40px 1fr;
     grid-column-gap: 12px;
 `
 const TooltipKey = styled.span`
@@ -38,21 +41,8 @@ const CustomTooltip = day => {
 
 export default settingsMapper(
     {
-        theme: (value, values) => {
-            if (!values['custom tooltip example']) return value
-
-            return {
-                ...values.theme,
-                tooltip: {
-                    container: {
-                        ...values.theme.tooltip.container,
-                        background: '#333',
-                    },
-                },
-            }
-        },
         tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return null
+            if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
