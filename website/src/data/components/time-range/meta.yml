@@ -1,0 +1,13 @@
+flavors:
+  - flavor: svg
+    path: /time-range/
+
+TimeRange:
+  package: '@nivo/calendar'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    The TimeRange chart is similar to the [Calendar](self:/calendar) chart, but
+    it allows you to specify dates less than a year.
