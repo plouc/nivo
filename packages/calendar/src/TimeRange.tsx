@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -24,7 +24,7 @@ const InnerTimeRange = ({
     square = timeRangeDefaultProps.square,
     colors = timeRangeDefaultProps.colors,
     colorScale,
-    data,
+    data: _data,
     direction = timeRangeDefaultProps.direction,
     minValue = timeRangeDefaultProps.minValue,
     maxValue = timeRangeDefaultProps.maxValue,
@@ -35,13 +35,12 @@ const InnerTimeRange = ({
     monthLegendOffset = timeRangeDefaultProps.monthLegendOffset,
     monthLegendPosition = timeRangeDefaultProps.monthLegendPosition,
 
-    weekdayLegendsOffset = timeRangeDefaultProps.weekdayLegendsOffset,
+    weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
 
     dayBorderColor = timeRangeDefaultProps.dayBorderColor,
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
     daySpacing = timeRangeDefaultProps.daySpacing,
     dayRadius = timeRangeDefaultProps.dayRadius,
-    daysInRange = timeRangeDefaultProps.daysInRange,
 
     isInteractive = timeRangeDefaultProps.isInteractive,
     tooltip = timeRangeDefaultProps.tooltip,
@@ -59,12 +58,20 @@ const InnerTimeRange = ({
         partialMargin
     )
 
+    const data = useMemo(
+        () =>
+            _data
+                .map(data => ({ ...data, date: new Date(`${data.day}T00:00:00`) }))
+                .sort((left, right) => left.day.localeCompare(right.day)),
+        [_data]
+    )
+
     const theme = useTheme()
     const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
 
     const { cellHeight, cellWidth } = computeCellSize({
         square,
-        offset: weekdayLegendsOffset,
+        offset: weekdayLegendOffset,
         totalDays: data.length + data[0].date.getDay(),
         width: innerWidth,
         height: innerHeight,
@@ -73,8 +80,7 @@ const InnerTimeRange = ({
     })
 
     const days = computeCellPositions({
-        offset: weekdayLegendsOffset,
-        daysInRange,
+        offset: weekdayLegendOffset,
         colorScale: colorScaleFn,
         cellHeight,
         cellWidth,
@@ -91,7 +97,6 @@ const InnerTimeRange = ({
             cellHeight,
             cellWidth,
             days,
-            daysInRange,
         }).months
     )
 

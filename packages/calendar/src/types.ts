@@ -170,39 +170,45 @@ export type CalendarCanvasProps = Dimensions &
     Partial<
         CommonCalendarProps &
             InteractivityProps<Omit<Datum, 'data' | 'value'> | Datum, HTMLCanvasElement> & {
-                pixelRatio?: number
+                pixelRatio: number
             }
     >
 
-export type TimeRangeDatum = {
-    day: string
-    date: Date
-    value: number
-}
-
-export type TimeRangeDayData = TimeRangeDatum & {
+export type TimeRangeDayData = CalendarDatum & {
     coordinates: {
         x: number
         y: number
     }
+    date: Date
     firstWeek: number
     month: number
     year: number
     color: string
+    width: number
+    height: number
 }
 
 export type TimeRangeTooltipProps = Omit<TimeRangeDayData, 'date' | 'value'> & {
     value: string
 }
 
-export type TimeRangeSvgProps = Dimensions & { data: TimeRangeDatum[] } & Partial<
-        CommonCalendarProps &
-            InteractivityProps<TimeRangeDatum, SVGRectElement> & {
+export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial<
+        Omit<
+            CommonCalendarProps,
+            | 'emptyColor'
+            | 'yearLegend'
+            | 'yearSpacing'
+            | 'yearLegendOffset'
+            | 'yearLegendPosition'
+            | 'monthSpacing'
+            | 'monthBorderWidth'
+            | 'monthBorderColor'
+        > &
+            InteractivityProps<TimeRangeDayData, SVGRectElement> & {
                 dayRadius: number
-                daysInRange: number
                 square: boolean
                 role: string
-                weekdayLegendsOffset: number
+                weekdayLegendOffset: number
             }
     >
 

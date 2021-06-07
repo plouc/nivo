@@ -1,23 +1,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, date, boolean } from '@storybook/addon-knobs'
-import { timeDays } from 'd3-time'
-import { timeFormat } from 'd3-time-format'
+import { generateOrderedDayCounts } from '@nivo/generators'
 
 import { TimeRange, ResponsiveTimeRange } from '../src'
-
-const generateOrderedDayCounts = ({ from, to }: { from: Date; to: Date }) => {
-    const days = timeDays(from, to)
-    const dayFormat = timeFormat('%Y-%m-%d')
-
-    return days.map(day => {
-        return {
-            value: Math.round(Math.random() * 400),
-            date: day,
-            day: dayFormat(day),
-        }
-    })
-}
 
 const stories = storiesOf('TimeRange', module)
 
@@ -38,12 +24,11 @@ stories.add('TimeRange horizontal', () => {
                     bottom: number('margin-bottom', 40),
                     left: number('margin-left', 40),
                 },
-                data: generateOrderedDayCounts({
-                    from,
-                    to,
-                }),
-                daySpacing: number('daySpacing', 10),
+                data: generateOrderedDayCounts(from, to),
+                daySpacing: number('daySpacing', 0),
             }}
+            monthLegendOffset={10}
+            dayBorderWidth={1}
             height={number('height', 250)}
             width={number('width', 655)}
             legendFormat={value => value / 10 + 'M'}
@@ -95,10 +80,7 @@ stories.add('responsive', () => {
                         bottom: number('margin-bottom', 40),
                         left: number('margin-left', 40),
                     },
-                    data: generateOrderedDayCounts({
-                        from,
-                        to,
-                    }),
+                    data: generateOrderedDayCounts(from, to),
                     daySpacing: number('daySpacing', 10),
                 }}
             />
@@ -120,13 +102,10 @@ stories.add('TimeRange vertical', () => {
                     bottom: number('margin-bottom', 40),
                     left: number('margin-left', 40),
                 },
-                data: generateOrderedDayCounts({
-                    from,
-                    to,
-                }),
+                data: generateOrderedDayCounts(from, to),
                 daySpacing: number('daySpacing', 10),
             }}
-            weekdayLegendsOffset={0}
+            weekdayLegendOffset={0}
             height={number('height', 900)}
             width={number('width', 250)}
             direction="vertical"
