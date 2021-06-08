@@ -155,9 +155,9 @@ capture:
       #   selector: '#chart'
       #   output: ./packages/funnel/doc/funnel.png
 
-      - path: /marimekko
-        selector: '#chart'
-        output: ./packages/marimekko/doc/marimekko.png
+      # - path: /marimekko
+      #   selector: '#chart'
+      #   output: ./packages/marimekko/doc/marimekko.png
 
       #########################################################################
       #
@@ -204,7 +204,7 @@ capture:
       # - path: /internal/icons/
       #   selector: '#bar-darkColored'
       #   output: ./website/src/assets/icons/bar-dark-colored.png
-    
+
       # - path: /internal/icons/
       #   selector: '#bullet-lightNeutral'
       #   output: ./website/src/assets/icons/bullet-light-neutral.png
@@ -256,7 +256,7 @@ capture:
       # - path: /internal/icons/
       #   selector: '#choropleth-darkColored'
       #   output: ./website/src/assets/icons/choropleth-dark-colored.png
-      
+
       # - path: /internal/icons/
       #   selector: '#heatmap-lightNeutral'
       #   output: ./website/src/assets/icons/heatmap-light-neutral.png
@@ -516,3 +516,16 @@ capture:
       # - path: /internal/icons/
       #   selector: '#marimekko-darkColored'
       #   output: ./website/src/assets/icons/marimekko-dark-colored.png
+
+      - path: /internal/icons/
+        selector: '#time-range-lightNeutral'
+        output: ./website/src/assets/icons/time-range-light-neutral.png
+      - path: /internal/icons/
+        selector: '#time-range-lightColored'
+        output: ./website/src/assets/icons/time-range-light-colored.png
+      - path: /internal/icons/
+        selector: '#time-range-darkNeutral'
+        output: ./website/src/assets/icons/time-range-dark-neutral.png
+      - path: /internal/icons/
+        selector: '#time-range-darkColored'
+        output: ./website/src/assets/icons/time-range-dark-colored.png
