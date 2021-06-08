@@ -73,12 +73,11 @@ const initialProperties = {
 }
 
 const TimeRange = () => {
-    console.log('m', mapper)
     return (
         <ComponentTemplate
             name="TimeRange"
             meta={meta.TimeRange}
-            icon="calendar"
+            icon="time-range"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}

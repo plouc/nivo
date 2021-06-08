@@ -162,7 +162,7 @@ export const components = [
     {
         label: 'TimeRange',
         path: '/time-range/',
-        icon: 'calendar',
+        icon: 'time-range',
         tags: timeRange.TimeRange.tags,
     },
     {
