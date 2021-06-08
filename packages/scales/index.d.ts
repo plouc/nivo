@@ -54,6 +54,7 @@ declare module '@nivo/scales' {
         constant?: number
         min?: 'auto' | number
         max?: 'auto' | number
+        reverse?: boolean
     }
 
     export interface BandScale {
