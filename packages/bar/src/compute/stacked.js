@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-// import flattenDepth from 'lodash/flattenDepth'
 import { computeScale } from '@nivo/scales'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexScale, filterNullValues, normalizeData } from './common'

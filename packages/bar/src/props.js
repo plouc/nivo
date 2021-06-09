@@ -35,7 +35,7 @@ export const BarPropTypes = {
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     reverse: PropTypes.bool.isRequired,
     valueScale: scalePropType.isRequired,
-    indexScale: bandScalePropTypes.isRequired,
+    indexScale: PropTypes.shape(bandScalePropTypes).isRequired,
 
     minValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,

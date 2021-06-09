@@ -111,7 +111,7 @@ BarItem.propTypes = {
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-    tooltip: PropTypes.element.isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({}).isRequired,
