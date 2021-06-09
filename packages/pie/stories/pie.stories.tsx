@@ -19,17 +19,18 @@ const commonProperties = {
 
 const legends = [
     {
-        anchor: 'bottom',
-        direction: 'row',
+        anchor: 'bottom' as const,
+        direction: 'row' as const,
+        toggleSerie: true,
         translateY: 56,
         itemWidth: 100,
         itemHeight: 18,
         itemTextColor: '#999',
         symbolSize: 18,
-        symbolShape: 'circle',
+        symbolShape: 'circle' as const,
         effects: [
             {
-                on: 'hover',
+                on: 'hover' as const,
                 style: {
                     itemTextColor: '#000',
                 },
@@ -75,11 +76,6 @@ stories.add('custom arc link label', () => (
         arcLinkLabelsColor={{
             from: 'color',
         }}
-        radialLabelsLinkStrokeWidth={3}
-        radialLabelsTextColor={{
-            from: 'color',
-            modifiers: [['darker', 1.2]],
-        }}
         enableArcLabels={false}
     />
 ))
@@ -92,15 +88,15 @@ stories.add(
             text: `
             It is possible to use colors coming from the provided dataset instead of using
             a color scheme, to do so, you should pass:
-            
+
             \`\`\`
             colors={{ datum: 'data.color' }}
             \`\`\`
-            
+
             given that each data point you pass has a \`color\` property.
-            
+
             It's also possible to pass a function if you want to handle more advanced computation:
-            
+
             \`\`\`
             colors={(datum) => datum.color }}
             \`\`\`
@@ -123,7 +119,7 @@ const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
             dominantBaseline="central"
             style={{
                 fontSize: '52px',
-                fontWeight: '600',
+                fontWeight: 600,
             }}
         >
             {total}
@@ -135,8 +131,8 @@ stories.add('adding a metric in the center using a custom layer', () => (
     <Pie
         {...commonProperties}
         innerRadius={0.8}
-        enableSliceLabels={false}
-        radialLabel={d => `${d.id} (${d.formattedValue})`}
+        enableArcLabels={false}
+        arcLinkLabel={d => `${d.id} (${d.formattedValue})`}
         activeInnerRadiusOffset={commonProperties.activeOuterRadiusOffset}
         layers={['arcs', 'arcLabels', 'arcLinkLabels', 'legends', CenteredMetric]}
     />
@@ -145,7 +141,7 @@ stories.add('adding a metric in the center using a custom layer', () => (
 stories.add('formatted values', () => (
     <Pie
         {...commonProperties}
-        sliceLabelsRadiusOffset={0.7}
+        arcLabelsRadiusOffset={0.7}
         valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,

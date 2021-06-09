@@ -50,6 +50,7 @@ export interface ComputedDatum<RawDatum> {
     // contains the raw datum as passed to the chart
     data: RawDatum
     arc: PieArc
+    hidden: boolean
 }
 
 export interface DataProps<RawDatum> {

@@ -96,12 +96,14 @@ const InnerPie = <RawDatum,>({
 
     const {
         dataWithArc,
+        legendData,
         arcGenerator,
         centerX,
         centerY,
         radius,
         innerRadius,
         setActiveId,
+        toggleSerie,
     } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
@@ -189,8 +191,9 @@ const InnerPie = <RawDatum,>({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                dataWithArc={dataWithArc}
+                data={legendData}
                 legends={legends}
+                toggleSerie={toggleSerie}
             />
         )
     }
