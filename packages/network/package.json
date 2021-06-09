@@ -33,7 +33,7 @@
     "@nivo/colors": "0.70.1",
     "@nivo/tooltip": "0.70.1",
     "d3-force": "^2.0.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "react-motion": "^0.5.2"
   },
   "devDependencies": {

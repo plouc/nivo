@@ -32,8 +32,7 @@
     "@nivo/legends": "0.70.1",
     "@nivo/recompose": "0.70.0",
     "@nivo/tooltip": "0.70.1",
-    "lodash.partial": "^4.2.1",
-    "lodash.range": "^3.2.0",
+    "lodash": "^4.17.21",
     "react-motion": "^0.5.2"
   },
   "devDependencies": {

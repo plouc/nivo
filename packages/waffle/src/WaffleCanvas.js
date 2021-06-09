@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import range from 'lodash.range'
+import range from 'lodash/range'
 import { setDisplayName } from '@nivo/recompose'
 import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
