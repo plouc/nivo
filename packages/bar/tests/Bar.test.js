@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { useState } from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
@@ -388,6 +388,38 @@ it(`should not apply scale rounding when passed indexScale.round: false`, () => 
     const bars = wrapper.find('BarItem')
     const firstBarWidth = bars.at(0).prop('width')
     expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
+})
+
+it('should render bars in grouped mode after updating starting values from 0', () => {
+    const MyBar = () => {
+        const [data, setData] = useState([{ id: 'test', A: 0, B: 0 }])
+
+        return (
+            <>
+                <button onClick={() => setData([{ id: 'test', A: 10, B: 10 }])}>update</button>
+                <Bar
+                    width={500}
+                    height={300}
+                    data={data}
+                    groupMode="grouped"
+                    keys={['A', 'B']}
+                    animate={false}
+                />
+            </>
+        )
+    }
+
+    const wrapper = mount(<MyBar />)
+
+    wrapper.find('BarItem').forEach(bar => {
+        expect(bar.prop('height')).toBe(0)
+    })
+
+    wrapper.find('button').simulate('click')
+
+    wrapper.find('BarItem').forEach(bar => {
+        expect(bar.prop('height')).toBe(300)
+    })
 })
 
 describe('tooltip', () => {

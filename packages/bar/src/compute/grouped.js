@@ -16,6 +16,7 @@ const flatten = array => [].concat(...array)
 const range = (start, end) => Array.from(' '.repeat(end - start), (_, index) => start + index)
 
 const clampToZero = value => (gt(value, 0) ? 0 : value)
+const zeroIfNotFinite = value => (isFinite(value) ? value : 0)
 
 /**
  * Generates x/y scales & bars for vertical grouped bar chart.
@@ -169,7 +170,7 @@ export const generateGroupedBars = ({
         .reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], [])
         .filter(Boolean)
     const min = clampMin(Math.min(...values))
-    const max = Math.max(...values)
+    const max = zeroIfNotFinite(Math.max(...values))
 
     const scale = computeScale(scaleSpec, { [axis]: { min, max } }, width, height)
 
