@@ -29,7 +29,7 @@
   "dependencies": {
     "@nivo/colors": "0.70.1",
     "@react-spring/web": "9.2.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@nivo/core": "0.70.1"

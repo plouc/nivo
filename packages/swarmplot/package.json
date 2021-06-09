@@ -38,7 +38,7 @@
     "@nivo/voronoi": "0.70.1",
     "d3-force": "^2.0.1",
     "d3-scale": "^3.2.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "react-motion": "^0.5.2"
   },
   "devDependencies": {

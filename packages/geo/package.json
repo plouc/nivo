@@ -34,7 +34,7 @@
     "@nivo/tooltip": "0.70.1",
     "d3-format": "^1.4.4",
     "d3-geo": "^1.11.3",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@nivo/core": "0.70.1"
