@@ -1,19 +1,21 @@
 import React from 'react'
 import { BoxLegendSvg } from '@nivo/legends'
-import { CompletePieSvgProps, ComputedDatum } from './types'
+import { CompletePieSvgProps, ComputedDatum, DatumId } from './types'
 
 interface PieLegendsProps<RawDatum> {
     width: number
     height: number
     legends: CompletePieSvgProps<RawDatum>['legends']
-    dataWithArc: ComputedDatum<RawDatum>[]
+    data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
+    toggleSerie: (id: DatumId) => void
 }
 
 const PieLegends = <RawDatum,>({
     width,
     height,
     legends,
-    dataWithArc,
+    data,
+    toggleSerie,
 }: PieLegendsProps<RawDatum>) => {
     return (
         <>
@@ -23,7 +25,8 @@ const PieLegends = <RawDatum,>({
                     {...legend}
                     containerWidth={width}
                     containerHeight={height}
-                    data={legend.data ?? dataWithArc}
+                    data={legend.data ?? data}
+                    toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
                 />
             ))}
         </>
