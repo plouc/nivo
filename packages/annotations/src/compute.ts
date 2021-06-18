@@ -1,6 +1,4 @@
-import isNumber from 'lodash/isNumber'
-import filter from 'lodash/filter'
-import omit from 'lodash/omit'
+import { filter, isNumber, omit } from 'lodash'
 import {
     radiansToDegrees,
     absoluteAngleDegrees,
@@ -10,14 +8,13 @@ import {
 import { defaultProps } from './props'
 import {
     AnnotationSpec,
-    isCircleAnnotation,
-    isRectAnnotation,
     AnnotationPositionGetter,
     AnnotationDimensionsGetter,
     BoundAnnotation,
     AnnotationMatcher,
     AnnotationInstructions,
 } from './types'
+import { isCircleAnnotation, isRectAnnotation } from './utils'
 
 export const bindAnnotations = <
     Datum = {
@@ -38,26 +35,46 @@ export const bindAnnotations = <
     annotations.reduce((acc: BoundAnnotation<Datum>[], annotation) => {
         const offset = annotation.offset || 0
 
-        filter<Datum>(data, annotation.match).forEach(datum => {
-            const position = getPosition(datum)
-            const dimensions = getDimensions(datum)
+        return [
+            ...acc,
+            ...filter<Datum>(data, annotation.match).map(datum => {
+                const position = getPosition(datum)
+                const dimensions = getDimensions(datum)
 
-            if (isCircleAnnotation(annotation) || isRectAnnotation(annotation)) {
-                dimensions.size = dimensions.size + offset * 2
-                dimensions.width = dimensions.width + offset * 2
-                dimensions.height = dimensions.height + offset * 2
-            }
+                if (isCircleAnnotation(annotation) || isRectAnnotation(annotation)) {
+                    dimensions.size = dimensions.size + offset * 2
+                    dimensions.width = dimensions.width + offset * 2
+                    dimensions.height = dimensions.height + offset * 2
+                }
 
-            acc.push({
-                ...omit(annotation, ['match', 'offset']),
-                ...position,
-                ...dimensions,
-                size: annotation.size || dimensions.size,
-                datum,
-            })
-        })
+                // acc.push({
+                //     ...omit(annotation, ['match', 'offset']),
+                //     ...position,
+                //     ...dimensions,
+                //     size: annotation.size || dimensions.size,
+                //     datum,
+                // } as any)
+                // return [
+                //     ...acc,
+                //     {
+                //         ...omit(annotation, ['match', 'offset']),
+                //         ...position,
+                //         ...dimensions,
+                //         size: annotation.size || dimensions.size,
+                //         datum,
+                //     },
+                // ]
+                return {
+                    ...omit(annotation, ['match', 'offset']),
+                    ...position,
+                    ...dimensions,
+                    size: annotation.size || dimensions.size,
+                    datum,
+                } as Required<BoundAnnotation<Datum>>
+            }),
+        ]
 
-        return acc
+        // return acc
     }, [])
 
 export const getLinkAngle = (
@@ -72,7 +89,7 @@ export const getLinkAngle = (
 }
 
 export const computeAnnotation = <Datum>(
-    annotation: AnnotationSpec<Datum>
+    annotation: Required<AnnotationSpec<Datum>>
 ): AnnotationInstructions => {
     const {
         x,

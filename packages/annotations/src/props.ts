@@ -1,10 +1,3 @@
-/*
-export const annotationSpecPropType = PropTypes.shape({
-    match: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    offset: PropTypes.number,
-})
-*/
-
 export const defaultProps = {
     dotSize: 4,
     noteWidth: 120,

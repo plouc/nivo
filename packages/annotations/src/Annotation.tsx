@@ -5,21 +5,16 @@ import { AnnotationLink } from './AnnotationLink'
 import { CircleAnnotationOutline } from './CircleAnnotationOutline'
 import { DotAnnotationOutline } from './DotAnnotationOutline'
 import { RectAnnotationOutline } from './RectAnnotationOutline'
-import {
-    BoundAnnotation,
-    isCircleAnnotation,
-    isDotAnnotation,
-    isRectAnnotation,
-    isSvgNote,
-} from './types'
+import { BoundAnnotation } from './types'
+import { isCircleAnnotation, isDotAnnotation, isRectAnnotation, isSvgNote } from './utils'
 
 export const Annotation = <Datum,>(annotation: BoundAnnotation<Datum>) => {
     const { datum, x, y, note } = annotation
+    const computed = useComputedAnnotation(annotation)
+
     if (!isSvgNote(note)) {
         throw new Error('note should be a valid react element')
     }
-
-    const computed = useComputedAnnotation(annotation)
 
     return (
         <>
