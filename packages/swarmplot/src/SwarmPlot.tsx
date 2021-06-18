@@ -5,7 +5,7 @@ import { AnyScale, Axes, Grid } from '@nivo/axes'
 import { Mesh } from '@nivo/voronoi'
 import { ComputedDatum, SwarmPlotLayerId, SwarmPlotSvgProps } from './types'
 import { defaultProps } from './props'
-import { useSwarmPlot, useSwarmPlotLayerContext } from './hooks'
+import { useSwarmPlot, useSwarmPlotLayerContext, useNodeMouseHandlers } from './hooks'
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
 import { SwarmPlotAnnotations } from './SwarmPlotAnnotations'
@@ -88,6 +88,15 @@ const InnerSwarmPlot = <RawDatum,>({
     const xScale = props.xScale as Exclude<typeof props.xScale, ComputedDatum<RawDatum>[]>
     const yScale = props.yScale as Exclude<typeof props.yScale, ComputedDatum<RawDatum>[]>
 
+    const handlers = useNodeMouseHandlers({
+        isInteractive,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+        onMouseMove,
+        tooltip,
+    })
+
     const layerById: Record<SwarmPlotLayerId, ReactNode> = {
         grid: null,
         axes: null,
@@ -161,10 +170,10 @@ const InnerSwarmPlot = <RawDatum,>({
                 nodes={nodes}
                 width={innerWidth}
                 height={innerHeight}
-                // onMouseEnter={handlers.onMouseEnter}
-                // onMouseMove={handlers.onMouseMove}
-                // onMouseLeave={handlers.onMouseLeave}
-                // onClick={handlers.onClick}
+                onMouseEnter={handlers.onMouseEnter}
+                onMouseMove={handlers.onMouseMove}
+                onMouseLeave={handlers.onMouseLeave}
+                onClick={handlers.onClick}
                 debug={debugMesh}
             />
         )
@@ -182,13 +191,7 @@ const InnerSwarmPlot = <RawDatum,>({
     })
 
     return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            //defs={boundDefs}
-            role={role}
-        >
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (layerById[layer as SwarmPlotLayerId] !== undefined) {
                     return layerById[layer as SwarmPlotLayerId]
@@ -221,49 +224,3 @@ export const SwarmPlot = <RawDatum,>({
         <InnerSwarmPlot<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
-
-/*
-const enableNodeInteractivity = isInteractive && !useMesh
-const handlers = useNodeMouseHandlers({
-    isEnabled: isInteractive,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-    tooltip,
-})
-
-if (animate) {
-    layerById.nodes = (
-        <AnimatedSwarmPlotNodes
-            key="nodes"
-            nodes={nodes}
-            renderNode={renderNode}
-            getBorderWidth={getBorderWidth}
-            getBorderColor={getBorderColor}
-            motionStiffness={motionStiffness}
-            motionDamping={motionDamping}
-            isInteractive={enableNodeInteractivity}
-            onMouseEnter={!useMesh ? handlers.onMouseEnter : undefined}
-            onMouseMove={!useMesh ? handlers.onMouseMove : undefined}
-            onMouseLeave={!useMesh ? handlers.onMouseLeave : undefined}
-            onClick={!useMesh ? handlers.onClick : undefined}
-        />
-    )
-} else {
-    layerById.nodes = (
-        <StaticSwarmPlotNodes
-            key="nodes"
-            nodes={nodes}
-            renderNode={renderNode}
-            getBorderWidth={getBorderWidth}
-            getBorderColor={getBorderColor}
-            isInteractive={enableNodeInteractivity}
-            onMouseEnter={!useMesh ? handlers.onMouseEnter : undefined}
-            onMouseMove={!useMesh ? handlers.onMouseMove : undefined}
-            onMouseLeave={!useMesh ? handlers.onMouseLeave : undefined}
-            onClick={!useMesh ? handlers.onClick : undefined}
-        />
-    )
-}
-*/

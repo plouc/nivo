@@ -35,10 +35,16 @@ export type SimulationForces<RawDatum> = {
 
 export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'mesh'
 
-export interface SwarmPlotCustomLayerProps<RawDatum> {
+export interface SwarmPlotCustomLayerProps<
+    RawDatum,
+    Scale extends
+        | ScaleLinear<number>
+        | ScaleTime<string | Date>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>
+> {
     nodes: ComputedDatum<RawDatum>[]
-    xScale: ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
-    yScale: ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
+    xScale: Scale
+    yScale: Scale
     innerWidth: number
     innerHeight: number
     outerWidth: number
@@ -46,9 +52,21 @@ export interface SwarmPlotCustomLayerProps<RawDatum> {
     margin: Margin
 }
 
-export type SwarmPlotCustomLayer<RawDatum> = React.FC<SwarmPlotCustomLayerProps<RawDatum>>
+export type SwarmPlotCustomLayer<
+    RawDatum,
+    Scale extends
+        | ScaleLinear<number>
+        | ScaleTime<string | Date>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>
+> = React.FC<SwarmPlotCustomLayerProps<RawDatum, Scale>>
 
-export type SwarmPlotLayer<RawDatum> = SwarmPlotLayerId | SwarmPlotCustomLayer<RawDatum>
+export type SwarmPlotLayer<
+    RawDatum,
+    Scale extends
+        | ScaleLinear<number>
+        | ScaleTime<string | Date>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>
+> = SwarmPlotLayerId | SwarmPlotCustomLayer<RawDatum, Scale>
 
 export type SizeSpec<RawDatum> =
     // static size
@@ -80,7 +98,6 @@ export type SwarmPlotCommonProps<RawDatum> = {
     margin?: Box
     groups: string[]
     id: PropertyAccessor<RawDatum, string>
-    label: PropertyAccessor<ComputedDatum<RawDatum>, string>
     value: PropertyAccessor<RawDatum, number | Date>
     valueScale: ScaleLinearSpec | ScaleTimeSpec
     valueFormat: ValueFormat<number | Date>
@@ -105,7 +122,10 @@ export type SwarmPlotCommonProps<RawDatum> = {
     debugMesh: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
     annotations: AnnotationMatcher<ComputedDatum<RawDatum>>[]
-    layers: SwarmPlotLayer<RawDatum>[]
+    layers: SwarmPlotLayer<
+        RawDatum,
+        ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
+    >[]
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string
