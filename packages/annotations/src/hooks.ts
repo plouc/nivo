@@ -35,7 +35,7 @@ export const useAnnotations = <Datum>({
 export const useComputedAnnotations = <Datum>({
     annotations,
 }: {
-    annotations: AnnotationSpec<Datum>[]
+    annotations: Required<AnnotationSpec<Datum>>[]
 }) =>
     useMemo(
         () =>
@@ -48,5 +48,5 @@ export const useComputedAnnotations = <Datum>({
         [annotations]
     )
 
-export const useComputedAnnotation = <Datum>(annotation: AnnotationSpec<Datum>) =>
+export const useComputedAnnotation = <Datum>(annotation: Required<AnnotationSpec<Datum>>) =>
     useMemo(() => computeAnnotation<Datum>(annotation), [annotation])

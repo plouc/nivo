@@ -1,5 +1,15 @@
 import { CompleteTheme } from '@nivo/core'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
+
+// The types below are from lodash but the babel plugin won't let us import it
+type PartialShallow<T> = {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    [P in keyof T]?: T[P] extends object ? object : T[P]
+}
+type PropertyName = string | number | symbol
+type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>
+type ListIterator<T, TResult> = (value: T, index: number, collection: ArrayLike<T>) => TResult
+type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | IterateeShorthand<T>
 
 // When passing a simple number, the position
 // is considered to be a relative position,
@@ -40,31 +50,14 @@ export type NoteCanvas<Datum> = string | NoteCanvasRenderer<Datum>
 
 export type Note<Datum> = NoteSvg<Datum> | NoteCanvas<Datum>
 
-export const isSvgNote = <Datum>(note: Note<Datum>): note is NoteSvg<Datum> => {
-    const noteType = typeof note
-
-    return (
-        React.isValidElement(note) ||
-        noteType === 'string' ||
-        noteType === 'function' ||
-        noteType === 'object'
-    )
-}
-
-export const isCanvasNote = <Datum>(note: Note<Datum>): note is NoteCanvas<Datum> => {
-    const noteType = typeof note
-
-    return noteType === 'string' || noteType === 'function'
-}
-
 // Define the kind of annotation you wish to render
 export interface BaseAnnotationSpec<Datum> {
     // x coordinate of the annotated element,
     // referring to the center.
-    x: number
+    x?: number
     // y coordinate of the annotated element,
     // referring to the center.
-    y: number
+    y?: number
     note: Note<Datum>
     // x coordinate of the note, can be either
     // relative to the annotated element or absolute.
@@ -72,14 +65,14 @@ export interface BaseAnnotationSpec<Datum> {
     // y coordinate of the note, can be either
     // relative to the annotated element or absolute.
     noteY: RelativeOrAbsolutePosition
-    noteWidth: number
-    noteTextOffset: number
+    noteWidth?: number
+    noteTextOffset?: number
     // circle/dot
-    size?: number
-    // rect
-    width?: number
-    // rect
-    height?: number
+    // size?: number
+    // // rect
+    // width?: number
+    // // rect
+    // height?: number
 }
 
 // This annotation can be used to draw a circle
@@ -87,14 +80,13 @@ export interface BaseAnnotationSpec<Datum> {
 export type CircleAnnotationSpec<Datum> = BaseAnnotationSpec<Datum> & {
     type: 'circle'
     // diameter of the circle
-    size: number
+    size?: number
     // add an extra offset around the annotated element
     offset?: number
-}
 
-export const isCircleAnnotation = <Datum>(
-    annotationSpec: AnnotationSpec<Datum>
-): annotationSpec is CircleAnnotationSpec<Datum> => annotationSpec.type === 'circle'
+    height?: never
+    width?: never
+}
 
 // This annotation can be used to put a dot
 // on the annotated element.
@@ -102,25 +94,24 @@ export type DotAnnotationSpec<Datum> = BaseAnnotationSpec<Datum> & {
     type: 'dot'
     // diameter of the dot
     size: number
-}
+    // add an extra offset around the annotated element
+    offset?: number
 
-export const isDotAnnotation = <Datum>(
-    annotationSpec: AnnotationSpec<Datum>
-): annotationSpec is DotAnnotationSpec<Datum> => annotationSpec.type === 'dot'
+    height?: never
+    width?: never
+}
 
 // This annotation can be used to draw a rectangle
 // around the annotated element.
 export type RectAnnotationSpec<Datum> = BaseAnnotationSpec<Datum> & {
     type: 'rect'
-    width: number
-    height: number
+    width?: number
+    height?: number
     // add an extra offset around the annotated element
     offset?: number
-}
 
-export const isRectAnnotation = <Datum>(
-    annotationSpec: AnnotationSpec<Datum>
-): annotationSpec is RectAnnotationSpec<Datum> => annotationSpec.type === 'rect'
+    size?: never
+}
 
 export type AnnotationSpec<Datum> =
     | CircleAnnotationSpec<Datum>
@@ -130,13 +121,19 @@ export type AnnotationSpec<Datum> =
 export type AnnotationType = AnnotationSpec<unknown>['type']
 
 export type AnnotationMatcher<Datum> = AnnotationSpec<Datum> & {
-    match: (datum: Datum) => boolean
+    match: ListIterateeCustom<Datum, boolean>
     offset?: number
 }
 
 // annotation once it has been bound to a specific datum
 // according to `match`.
-export type BoundAnnotation<Datum> = AnnotationSpec<Datum> & {
+export type BoundAnnotation<Datum> = Required<AnnotationSpec<Datum>> & {
+    // x coordinate of the annotated element,
+    // referring to the center.
+    x: number
+    // y coordinate of the annotated element,
+    // referring to the center.
+    y: number
     datum: Datum
 }
 

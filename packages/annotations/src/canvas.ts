@@ -1,11 +1,6 @@
 import { CompleteTheme } from '@nivo/core'
-import {
-    ComputedAnnotation,
-    isCanvasNote,
-    isCircleAnnotation,
-    isDotAnnotation,
-    isRectAnnotation,
-} from './types'
+import { ComputedAnnotation } from './types'
+import { isCanvasNote, isCircleAnnotation, isDotAnnotation, isRectAnnotation } from './utils'
 
 const drawPoints = (ctx: CanvasRenderingContext2D, points: [number, number][]) => {
     points.forEach(([x, y], index) => {
