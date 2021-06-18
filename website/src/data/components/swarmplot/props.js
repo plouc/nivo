@@ -27,7 +27,7 @@ const props = [
         help: `Property used to retrieve the node's unique identifier.`,
         description: `
             This property will determine the identifier of a datum
-            amongst the whole data set, thus, it's really important 
+            amongst the whole data set, thus, it's really important
             that it's unique.
 
             It is especially important to have proper identifier
@@ -75,14 +75,6 @@ const props = [
         help:
             'Propety used to group nodes, must return a group which is available in the groups property.',
         defaultValue: defaultProps.groupBy,
-    },
-    {
-        key: 'label',
-        group: 'Base',
-        type: 'string | Function',
-        required: false,
-        help: `Control node label.`,
-        defaultValue: defaultProps.label,
     },
     {
         key: 'size',
@@ -341,7 +333,7 @@ const props = [
 
             You can also use this to insert extra layers
             to the chart, the extra layer must be a function.
-            
+
             The layer function which will receive the chart's
             context & computed data and must return a valid SVG element
             for the \`SwarmPlot\` component.
@@ -370,11 +362,11 @@ const props = [
         description: `
             This property can be used to completely
             customize the way nodes are rendered.
-            
+
             You should return a valid SVG node.
-            
-            You can see a live example of custom node rendering
-            [here](storybook:/swarmplot--custom-node-rendering).
+
+            You can see a live example of custom circle component
+            [here](storybook:/swarmplot--custom-circle-component).
         `,
         required: false,
         type: 'Component',
@@ -387,7 +379,7 @@ const props = [
         description: `
             This property can be used to completely
             customize the way nodes are rendered.
-            
+
             The rendering function will receive the canvas 2d
             context as first argument.
 
