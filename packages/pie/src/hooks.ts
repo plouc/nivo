@@ -178,7 +178,7 @@ export const usePie = <RawDatum>({
     activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
 }: Pick<
-    CompletePieSvgProps<RawDatum>,
+    Partial<CompletePieSvgProps<RawDatum>>,
     | 'startAngle'
     | 'endAngle'
     | 'padAngle'
