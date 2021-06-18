@@ -16,7 +16,7 @@ const commonProps = {
     identity: 'id',
     value: 'price',
     valueScale: {
-        type: 'linear',
+        type: 'linear' as const,
         min: 0,
         max: 500,
     },

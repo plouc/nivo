@@ -4,6 +4,7 @@ describe(`getSizeGenerator`, () => {
     it(`should accept a fixed value`, () => {
         const generator = getSizeGenerator(10)
 
+        // @ts-ignore
         expect(generator()).toBe(10)
     })
 
@@ -12,12 +13,14 @@ describe(`getSizeGenerator`, () => {
         const generator = getSizeGenerator(sizeFunction)
 
         expect(generator).toBe(sizeFunction)
+        // @ts-ignore
         expect(generator()).toBe(20)
     })
 
     describe('varying size using object spec', () => {
         it(`should throw if key is undefined`, () => {
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({})
             }).toThrow(
                 'Size is invalid, key should be a string pointing to the property to use to determine node size'
@@ -25,6 +28,7 @@ describe(`getSizeGenerator`, () => {
         })
         it(`should throw if key is not a string`, () => {
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({ key: 0 })
             }).toThrow(
                 'Size is invalid, key should be a string pointing to the property to use to determine node size'
@@ -32,16 +36,19 @@ describe(`getSizeGenerator`, () => {
         })
         it(`should throw if values is not an array with two values`, () => {
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({ key: 'size' })
             }).toThrow(
                 'Size is invalid, values spec should be an array containing two values, min and max'
             )
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({ key: 'size', values: 'string' })
             }).toThrow(
                 'Size is invalid, values spec should be an array containing two values, min and max'
             )
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({ key: 'size', values: [0] })
             }).toThrow(
                 'Size is invalid, values spec should be an array containing two values, min and max'
@@ -49,11 +56,13 @@ describe(`getSizeGenerator`, () => {
         })
         it(`should throw if sizes is not an array with two values`, () => {
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({ key: 'size', values: [0, 1] })
             }).toThrow(
                 'Size is invalid, sizes spec should be an array containing two values, min and max'
             )
             expect(() => {
+                // @ts-ignore
                 getSizeGenerator({ key: 'size', values: [0, 1], sizes: 'string' })
             }).toThrow(
                 'Size is invalid, sizes spec should be an array containing two values, min and max'
@@ -76,6 +85,7 @@ describe(`getSizeGenerator`, () => {
 
     it(`should throw if size config is invalid`, () => {
         expect(() => {
+            // @ts-ignore
             getSizeGenerator('whatever')
         }).toThrow('Size is invalid, it should be either a function, a number or an object')
     })
@@ -115,12 +125,14 @@ describe(`computeOrdinalScale`, () => {
         expect(() => {
             computeOrdinalScale({
                 ...ordinalScaleArgs,
+                // @ts-ignore
                 groups: 'string',
             })
         }).toThrow(`'groups' should be an array containing at least one item`)
     })
     it(`should throw if groups doesn't contain at least one item`, () => {
         expect(() => {
+            // @ts-ignore
             computeOrdinalScale({
                 ...ordinalScaleArgs,
                 groups: [],
@@ -128,6 +140,7 @@ describe(`computeOrdinalScale`, () => {
         }).toThrow(`'groups' should be an array containing at least one item`)
     })
     it(`should compute a valid scale`, () => {
+        // @ts-ignore
         const scale = computeOrdinalScale(ordinalScaleArgs)
 
         expect(scale.domain()).toEqual(ordinalScaleArgs.groups)

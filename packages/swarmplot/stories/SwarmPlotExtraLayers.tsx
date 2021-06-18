@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from 'react'
 import { generateSwarmPlotData } from '@nivo/generators'
-// @ts-ignore
-import { PatternLines } from '../../core/src'
+import { PatternLines } from '@nivo/core'
 import { SwarmPlot, SwarmPlotCustomLayerProps } from '../src'
 
 const BackgroundLayer = ({ xScale, innerHeight }: SwarmPlotCustomLayerProps<unknown>) => (
     <>
         <defs>
             <PatternLines
+                // @ts-ignore
                 id="linesPattern"
                 spacing={10}
                 rotation={-45}
@@ -53,7 +53,7 @@ const BackgroundLayer = ({ xScale, innerHeight }: SwarmPlotCustomLayerProps<unkn
 
 export const SwarmPlotExtraLayers = () => {
     const data = useMemo(() => generateSwarmPlotData(['group'], { min: 60, max: 60 }), [])
-    const [currentIndex, setCurrentIndex] = useState(13)
+    const [, setCurrentIndex] = useState(13)
 
     return (
         <SwarmPlot
@@ -81,14 +81,7 @@ export const SwarmPlotExtraLayers = () => {
                 sizes: [18, 32],
             }}
             spacing={2}
-            layers={[
-                'grid',
-                'axes',
-                BackgroundLayer,
-                'circles',
-                'annotations',
-                //props => <Annotations {...props} currentIndex={currentIndex} />,
-            ]}
+            layers={['grid', 'axes', BackgroundLayer, 'circles', 'annotations']}
             theme={{ background: 'rgb(199, 234, 229)' }}
             colors={{ scheme: 'brown_blueGreen' }}
             colorBy="id"

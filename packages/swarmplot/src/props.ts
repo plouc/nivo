@@ -6,7 +6,6 @@ export const defaultProps = {
     id: 'id',
     value: 'value',
     valueScale: { type: 'linear', min: 0, max: 'auto' } as ScaleLinearSpec,
-    // label: 'id',
     groupBy: 'group',
     size: 6,
     spacing: 2,

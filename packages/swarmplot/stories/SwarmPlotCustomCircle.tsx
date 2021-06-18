@@ -5,20 +5,30 @@ import { useOrdinalColorScale } from '@nivo/colors'
 import { usePie } from '@nivo/pie'
 import { SwarmPlot, CircleProps, SwarmPlotCustomLayerProps } from '../src'
 
-const CustomCircle = (d: CircleProps<unknown>) => {
+type SwarmPlotDatum = ReturnType<typeof generateSwarmPlotData>['data'][number]
+
+const CustomCircle = (props: CircleProps<SwarmPlotDatum>) => {
     const getArcColor = useOrdinalColorScale({ scheme: 'purple_orange' }, v => v)
     const { dataWithArc, arcGenerator } = usePie({
-        data: d.node.data.categories.map((value, id) => ({ id, value })),
-        radius: d.node.size / 2,
-        innerRadius: (d.node.size / 2) * 0.7,
+        data: props.node.data.categories.map((value, id) => ({
+            id,
+            value,
+            hidden: false,
+            data: value,
+            color: '',
+            formattedValue: `${value}`,
+            label: `${value}`,
+        })),
+        radius: props.node.size / 2,
+        innerRadius: (props.node.size / 2) * 0.7,
         sortByValue: true,
     })
 
     return (
-        <g transform={`translate(${d.node.x},${d.node.y})`}>
-            <circle r={d.node.size / 2} stroke="rgb(216, 218, 235)" strokeWidth={12} />
+        <g transform={`translate(${props.node.x},${props.node.y})`}>
+            <circle r={props.node.size / 2} stroke="rgb(216, 218, 235)" strokeWidth={12} />
             <circle
-                r={d.node.size / 2}
+                r={props.node.size / 2}
                 fill="rgb(45, 0, 75)"
                 stroke="rgb(45, 0, 75)"
                 strokeWidth={6}
@@ -26,7 +36,7 @@ const CustomCircle = (d: CircleProps<unknown>) => {
             {dataWithArc.map((datum, i) => {
                 return <path key={i} d={arcGenerator(datum.arc)} fill={getArcColor(i)} />
             })}
-            {d.node.size > 52 && (
+            {props.node.size > 52 && (
                 <text
                     fill="white"
                     textAnchor="middle"
@@ -36,7 +46,7 @@ const CustomCircle = (d: CircleProps<unknown>) => {
                         fontWeight: 800,
                     }}
                 >
-                    {d.node.value}
+                    {props.node.value}
                 </text>
             )}
         </g>

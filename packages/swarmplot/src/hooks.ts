@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { ScaleOrdinal } from 'd3-scale'
 import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
+import { useTooltip } from '@nivo/tooltip'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import {
     computeValueScale,
@@ -11,7 +12,13 @@ import {
     computeForces,
     computeNodes,
 } from './compute'
-import { SwarmPlotCommonProps, ComputedDatum, SizeSpec, SwarmPlotCustomLayerProps } from './types'
+import {
+    SwarmPlotCommonProps,
+    ComputedDatum,
+    SizeSpec,
+    SwarmPlotCustomLayerProps,
+    MouseHandlers,
+} from './types'
 
 export const useValueScale = <RawDatum>({
     width,
@@ -191,22 +198,16 @@ export const useSwarmPlot = <RawDatum>({
             getSize,
             forces,
             simulationIterations,
+            valueScaleConfig,
         ]
     )
 
-    const augmentedNodes = useMemo(
+    const augmentedNodes: ComputedDatum<RawDatum>[] = useMemo(
         () =>
             nodes.map(node => ({
-                id: node.id,
-                index: node.index,
-                group: node.group,
-                value: node.value,
+                ...node,
                 formattedValue: formatValue(node.value),
-                x: node.x,
-                y: node.y,
-                size: node.size,
                 color: getColor(node),
-                data: node.data,
             })),
         [nodes, formatValue, getColor]
     )
@@ -226,6 +227,63 @@ export const useBorderWidth = <RawDatum>(
         if (typeof borderWidth === 'function') return borderWidth
         return () => borderWidth
     }, [borderWidth])
+
+export const useNodeMouseHandlers = <RawDatum>({
+    isInteractive,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+    onMouseMove,
+    tooltip,
+}: Pick<SwarmPlotCommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & MouseHandlers<RawDatum>) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const mouseEnterHandler = useCallback(
+        (node, event) => {
+            if (!isInteractive) return
+
+            showTooltipFromEvent(tooltip(node), event)
+            onMouseEnter?.(node, event)
+        },
+        [isInteractive, onMouseEnter, showTooltipFromEvent, tooltip]
+    )
+
+    const mouseMoveHandler = useCallback(
+        (node, event) => {
+            if (!isInteractive) return
+
+            showTooltipFromEvent(tooltip(node), event)
+            onMouseMove?.(node, event)
+        },
+        [isInteractive, onMouseMove, showTooltipFromEvent, tooltip]
+    )
+
+    const mouseLeaveHandler = useCallback(
+        (node, event) => {
+            if (!isInteractive) return
+
+            hideTooltip()
+            onMouseLeave?.(node, event)
+        },
+        [isInteractive, hideTooltip, onMouseLeave]
+    )
+
+    const clickHandler = useCallback(
+        (node, event) => {
+            if (!isInteractive) return
+
+            onClick?.(node, event)
+        },
+        [isInteractive, onClick]
+    )
+
+    return {
+        onMouseEnter: mouseEnterHandler,
+        onMouseMove: mouseMoveHandler,
+        onMouseLeave: mouseLeaveHandler,
+        onClick: clickHandler,
+    }
+}
 
 const getNodeAnnotationPosition = (node: ComputedDatum<unknown>) => ({
     x: node.x,
@@ -249,7 +307,13 @@ export const useSwarmPlotAnnotations = <RawDatum>(
         getDimensions: getNodeAnnotationDimensions,
     })
 
-export const useSwarmPlotLayerContext = <RawDatum>({
+export const useSwarmPlotLayerContext = <
+    RawDatum,
+    Scale extends
+        | ScaleLinear<number>
+        | ScaleTime<string | Date>
+        | ScaleOrdinal<string, number, never>
+>({
     nodes,
     xScale,
     yScale,
@@ -258,7 +322,7 @@ export const useSwarmPlotLayerContext = <RawDatum>({
     outerWidth,
     outerHeight,
     margin,
-}: SwarmPlotCustomLayerProps<RawDatum>): SwarmPlotCustomLayerProps<RawDatum> =>
+}: SwarmPlotCustomLayerProps<RawDatum, Scale>): SwarmPlotCustomLayerProps<RawDatum, Scale> =>
     useMemo(
         () => ({
             nodes,

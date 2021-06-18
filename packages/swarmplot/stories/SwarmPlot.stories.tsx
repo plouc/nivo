@@ -18,7 +18,7 @@ const commonProps = {
     id: 'id',
     value: 'price',
     valueScale: {
-        type: 'linear',
+        type: 'linear' as const,
         min: 0,
         max: 500,
     },
@@ -67,7 +67,7 @@ stories.add('using annotations', () => (
     />
 ))
 
-const localeTimeFormat = (value: string) => new Date(value).toLocaleString()
+const localeTimeFormat = (value: number | Date) => value.toLocaleString()
 
 stories.add('using time scale', () => (
     <SwarmPlot
@@ -107,15 +107,14 @@ stories.add('using time scale', () => (
         value="timestamp"
         valueFormat={localeTimeFormat}
         valueScale={{
-            type: 'time',
             format: '%Y-%m-%dT%H:%M:%S.%LZ',
+            type: 'time',
         }}
         size={{ key: 'volume', values: [4, 20], sizes: [6, 20] }}
         axisTop={null}
         axisRight={null}
         axisBottom={{
             format: localeTimeFormat,
-            orient: 'bottom',
             tickSize: 10,
             tickPadding: 5,
             tickRotation: 0,
@@ -125,7 +124,6 @@ stories.add('using time scale', () => (
             tickValues: 'every 4 hours',
         }}
         axisLeft={{
-            orient: 'left',
             tickSize: 10,
             tickPadding: 5,
             tickRotation: 0,
