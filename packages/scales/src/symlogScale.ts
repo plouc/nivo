@@ -1,8 +1,8 @@
 import { scaleSymlog } from 'd3-scale'
-import { ComputedSerieAxis, ScaleAxis, ScaleSymLog, ScaleSymLogSpec } from './types'
+import { ComputedSerieAxis, ScaleAxis, ScaleSymlog, ScaleSymlogSpec } from './types'
 
-export const createSymLogScale = (
-    { constant = 1, min = 'auto', max = 'auto', reverse = false }: ScaleSymLogSpec,
+export const createSymlogScale = (
+    { constant = 1, min = 'auto', max = 'auto', reverse = false }: ScaleSymlogSpec,
     data: ComputedSerieAxis<number>,
     size: number,
     axis: ScaleAxis
@@ -29,7 +29,7 @@ export const createSymLogScale = (
     if (reverse === true) scale.domain([maxValue, minValue])
     else scale.domain([minValue, maxValue])
 
-    const typedScale = scale as ScaleSymLog
+    const typedScale = scale as ScaleSymlog
     typedScale.type = 'symlog'
 
     return typedScale

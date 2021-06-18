@@ -10,7 +10,7 @@ import { createPointScale } from './pointScale'
 import { createBandScale } from './bandScale'
 import { createTimeScale } from './timeScale'
 import { createLogScale } from './logScale'
-import { createSymLogScale } from './symLogScale'
+import { createSymlogScale } from './symlogScale'
 
 type XY = ReturnType<typeof generateSeriesXY>
 
@@ -72,7 +72,7 @@ export function computeScale<Input extends ScaleValue>(
         case 'log':
             return createLogScale(spec, data, size, axis)
         case 'symlog':
-            return createSymLogScale(spec, data, size, axis)
+            return createSymlogScale(spec, data, size, axis)
         default:
             throw new Error('invalid scale spec')
     }
