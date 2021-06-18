@@ -57,8 +57,6 @@ export interface ScaleLinear<Output> extends D3ScaleLinear<number, Output, never
     // default to `false`
     stacked: boolean
 }
-export const isScaleLinearSpec = (spec: ScaleSpec): spec is ScaleLinearSpec =>
-    spec.type === 'linear'
 
 export interface ScaleLogSpec {
     type: 'log'
@@ -72,7 +70,6 @@ export interface ScaleLogSpec {
 export interface ScaleLog extends D3ScaleLogarithmic<number, number> {
     type: 'log'
 }
-export const isScaleLogSpec = (spec: ScaleSpec): spec is ScaleLogSpec => spec.type === 'log'
 
 export interface ScaleSymLogSpec {
     type: 'symlog'
@@ -87,8 +84,6 @@ export interface ScaleSymLogSpec {
 export interface ScaleSymLog extends D3ScaleSymLog<number, number> {
     type: 'symlog'
 }
-export const isScaleSymLogSpec = (spec: ScaleSpec): spec is ScaleSymLogSpec =>
-    spec.type === 'symlog'
 
 export type ScalePointSpec = {
     type: 'point'
@@ -96,7 +91,6 @@ export type ScalePointSpec = {
 export interface ScalePoint<Input extends StringValue> extends D3ScalePoint<Input> {
     type: 'point'
 }
-export const isScalePointSpec = (spec: ScaleSpec): spec is ScalePointSpec => spec.type === 'point'
 
 export type ScaleBandSpec = {
     type: 'band'
@@ -105,7 +99,6 @@ export type ScaleBandSpec = {
 export interface ScaleBand<Input extends StringValue> extends D3ScaleBand<Input> {
     type: 'band'
 }
-export const isScaleBandSpec = (spec: ScaleSpec): spec is ScaleBandSpec => spec.type === 'band'
 
 export type ScaleTimeSpec = {
     type: 'time'
