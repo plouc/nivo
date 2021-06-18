@@ -18,7 +18,7 @@ export type ScaleValue = NumericValue | StringValue | Date
 export interface ScaleTypeToSpec {
     linear: ScaleLinearSpec
     log: ScaleLogSpec
-    symlog: ScaleSymLogSpec
+    symlog: ScaleSymlogSpec
     point: ScalePointSpec
     band: ScaleBandSpec
     time: ScaleTimeSpec
@@ -30,7 +30,7 @@ export type ScaleSpec = ScaleTypeToSpec[keyof ScaleTypeToSpec]
 export interface ScaleTypeToScale<Input, Output> {
     linear: ScaleLinear<Output>
     log: ScaleLog
-    symlog: ScaleSymLog
+    symlog: ScaleSymlog
     point: ScalePoint<Input>
     band: ScaleBand<Input>
     time: ScaleTime<Input>
@@ -71,7 +71,7 @@ export interface ScaleLog extends D3ScaleLogarithmic<number, number> {
     type: 'log'
 }
 
-export interface ScaleSymLogSpec {
+export interface ScaleSymlogSpec {
     type: 'symlog'
     // default to `1`
     constant?: number
@@ -81,7 +81,7 @@ export interface ScaleSymLogSpec {
     max?: 'auto' | number
     reverse?: boolean
 }
-export interface ScaleSymLog extends D3ScaleSymLog<number, number> {
+export interface ScaleSymlog extends D3ScaleSymLog<number, number> {
     type: 'symlog'
 }
 
