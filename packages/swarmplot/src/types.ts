@@ -129,6 +129,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string
+    renderWrapper?: boolean
 }
 
 export type SwarmPlotSvgProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &

@@ -212,15 +212,11 @@ export const SwarmPlot = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
+    renderWrapper,
     ...otherProps
 }: Partial<Omit<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
     Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>) => (
-    <Container
-        isInteractive={isInteractive}
-        animate={animate}
-        motionConfig={motionConfig}
-        theme={theme}
-    >
+    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
         <InnerSwarmPlot<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
