@@ -1,4 +1,3 @@
-import React from 'react'
 import { useComputedAnnotation } from './hooks'
 import { AnnotationNote } from './AnnotationNote'
 import { AnnotationLink } from './AnnotationLink'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { SymbolProps } from './types'
 
 export const SymbolCircle = ({

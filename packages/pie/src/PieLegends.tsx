@@ -1,4 +1,3 @@
-import React from 'react'
 import { BoxLegendSvg } from '@nivo/legends'
 import { CompletePieSvgProps, ComputedDatum, DatumId } from './types'
 

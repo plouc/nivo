@@ -1,4 +1,4 @@
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import { useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { DatumWithArcAndColor, ArcGenerator } from './types'

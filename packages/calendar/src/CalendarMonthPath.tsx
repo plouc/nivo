@@ -1,5 +1,5 @@
 import { CalendarMonthPathProps } from './types'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 export const CalendarMonthPath = memo(
     ({ path, borderWidth, borderColor }: CalendarMonthPathProps) => {

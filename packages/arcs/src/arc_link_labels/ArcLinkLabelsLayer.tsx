@@ -1,4 +1,4 @@
-import React from 'react'
+import { createElement } from 'react'
 import { usePropertyAccessor } from '@nivo/core'
 import { DatumWithArcAndColor } from '../types'
 import { useArcLinkLabelsTransition } from './useArcLinkLabelsTransition'
@@ -61,7 +61,7 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
             {transition((transitionProps, datum) => {
-                return React.createElement(Label, {
+                return createElement(Label, {
                     key: datum.id,
                     datum,
                     label: getLabel(datum),

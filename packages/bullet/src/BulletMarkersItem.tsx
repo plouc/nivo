@@ -1,4 +1,3 @@
-import React from 'react'
 import { BulletMarkersItemProps } from './types'
 import { animated } from '@react-spring/web'
 

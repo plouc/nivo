@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount } from 'enzyme'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef } from '@nivo/core'

@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, createElement } from 'react'
+import { ReactNode, Fragment, createElement } from 'react'
 import {
     // @ts-ignore
     bindDefs,

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
+import { createElement, memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { blendModePropType } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -31,7 +31,7 @@ const NodeWrapper = ({
 
     const handleMouseEnter = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+            showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseEnter && onMouseEnter(node, event)
         },
         [node, tooltip, showTooltipFromEvent, onMouseEnter]
@@ -39,7 +39,7 @@ const NodeWrapper = ({
 
     const handleMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+            showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseMove && onMouseMove(node, event)
         },
         [node, tooltip, showTooltipFromEvent, onMouseMove]
@@ -60,7 +60,7 @@ const NodeWrapper = ({
         [node, onClick]
     )
 
-    return React.createElement(NodeComponent, {
+    return createElement(NodeComponent, {
         node,
         x,
         y,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { Waffle } from '../src'

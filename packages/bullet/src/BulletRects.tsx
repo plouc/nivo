@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import { useTransition, animated, to } from '@react-spring/web'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
@@ -59,7 +59,7 @@ export const BulletRects = ({
     return (
         <animated.g transform={transform}>
             {transition((props, rect) =>
-                React.createElement(component, {
+                createElement(component, {
                     key: rect.data.index,
                     index: rect.data.index,
                     animatedProps: props,

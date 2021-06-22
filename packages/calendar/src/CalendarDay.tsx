@@ -1,6 +1,7 @@
 import { CalendarDayProps } from './types'
 import { useTooltip } from '@nivo/tooltip'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
+import * as React from 'react'
 
 export const CalendarDay = memo(
     ({

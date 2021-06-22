@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { createElement, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSprings, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig, positionFromAngle, radiansToDegrees } from '@nivo/core'
@@ -31,7 +31,7 @@ const renderLabel = (label, theme, labelComponent) => {
         )
     }
 
-    return React.createElement(labelComponent, label)
+    return createElement(labelComponent, label)
 }
 
 const RadarGridLabels = memo(({ radius, angles, indices, label: labelComponent, labelOffset }) => {

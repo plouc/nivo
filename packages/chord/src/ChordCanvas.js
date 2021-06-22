@@ -1,4 +1,4 @@
-import React, { memo, useRef, useEffect, useCallback } from 'react'
+import { createElement, memo, useRef, useEffect, useCallback } from 'react'
 import {
     withContainer,
     useDimensions,
@@ -280,7 +280,7 @@ const ChordCanvas = memo(
 
                 if (arc) {
                     setCurrentArc(arc)
-                    showTooltipFromEvent(React.createElement(arcTooltip, { arc }), event)
+                    showTooltipFromEvent(createElement(arcTooltip, { arc }), event)
                     !currentArc && onArcMouseEnter && onArcMouseEnter(arc, event)
                     onArcMouseMove && onArcMouseMove(arc, event)
                     currentArc &&

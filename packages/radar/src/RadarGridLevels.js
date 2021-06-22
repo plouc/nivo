@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { animated, useSpring, to } from '@react-spring/web'

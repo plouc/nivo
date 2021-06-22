@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { createElement, memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { blendModePropType } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -30,14 +30,14 @@ const ChordRibbon = memo(
             if (!isInteractive) return undefined
             return event => {
                 setCurrent(ribbon)
-                showTooltipFromEvent(React.createElement(tooltip, { ribbon }), event)
+                showTooltipFromEvent(createElement(tooltip, { ribbon }), event)
                 onMouseEnter && onMouseEnter(ribbon, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseEnter])
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
-                showTooltipFromEvent(React.createElement(tooltip, { ribbon }), event)
+                showTooltipFromEvent(createElement(tooltip, { ribbon }), event)
                 onMouseMove && onMouseMove(ribbon, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseMove])

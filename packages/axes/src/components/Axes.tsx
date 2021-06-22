@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { Axis } from './Axis'
 import { positions } from '../props'
 import { AnyScale, AxisProps, AxisValue } from '../types'

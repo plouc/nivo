@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { compose, pure, withPropsOnChange } from '@nivo/recompose'
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import PropTypes from 'prop-types'
 
 const BarItem = ({

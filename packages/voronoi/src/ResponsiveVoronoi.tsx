@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { VoronoiSvgProps } from './types'
 import { Voronoi } from './Voronoi'

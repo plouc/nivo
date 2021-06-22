@@ -1,4 +1,3 @@
-import React from 'react'
 import { LegendSvg } from './LegendSvg'
 import { BoxLegendSvgProps } from '../types'
 import { computeDimensions, computePositionFromAnchor } from '../compute'

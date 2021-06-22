@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef, useEffect, useState, useCallback, forwardRef } from 'react'
+import { createElement, useRef, useEffect, useState, useCallback, forwardRef } from 'react'
 import {
     withContainer,
     useDimensions,
@@ -284,7 +284,7 @@ const LineCanvas = ({
             setCurrentPoint(point)
 
             if (point) {
-                showTooltipFromEvent(React.createElement(tooltip, { point }), event)
+                showTooltipFromEvent(createElement(tooltip, { point }), event)
             } else {
                 hideTooltip()
             }

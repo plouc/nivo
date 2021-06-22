@@ -1,14 +1,14 @@
-import * as React from 'react'
+import { Component } from 'react'
 import { getDisplayName } from '../src'
 
 test('getDisplayName gets the display name of a React component', () => {
-    class SomeComponent extends React.Component {
+    class SomeComponent extends Component {
         render() {
             return <div />
         }
     }
 
-    class SomeOtherComponent extends React.Component {
+    class SomeOtherComponent extends Component {
         static displayName = 'CustomDisplayName'
         render() {
             return <div />

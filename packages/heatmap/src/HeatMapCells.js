@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import { createElement } from 'react'
 
 const HeatMapCells = ({
     cells,
@@ -20,7 +20,7 @@ const HeatMapCells = ({
     onClick,
 }) => {
     return cells.map(cell =>
-        React.createElement(cellComponent, {
+        createElement(cellComponent, {
             key: cell.id,
             data: cell,
             label: cell.label,

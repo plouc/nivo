@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
@@ -47,10 +47,13 @@ stories.add('with custom colors', () => (
 ))
 
 stories.add('with custom child colors', () => (
-    <Sunburst<RawDatum> {...commonProperties} childColor={(parent, child) => {
-        // @ts-expect-error
-        return child.data.color;
-    }} />
+    <Sunburst<RawDatum>
+        {...commonProperties}
+        childColor={(parent, child) => {
+            // @ts-expect-error
+            return child.data.color
+        }}
+    />
 ))
 
 stories.add('with formatted tooltip value', () => (

@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo, useMemo } from 'react'
+import { CSSProperties, memo, useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 

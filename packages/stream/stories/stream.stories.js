@@ -1,4 +1,3 @@
-import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
 import { storiesOf } from '@storybook/react'

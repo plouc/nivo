@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { createElement, useMemo, useState } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -176,7 +176,7 @@ export const computePartsHandlers = ({
     return parts.map(part => {
         const boundOnMouseEnter = event => {
             setCurrentPartId(part.data.id)
-            showTooltipFromEvent(React.createElement(PartTooltip, { part }), event)
+            showTooltipFromEvent(createElement(PartTooltip, { part }), event)
             onMouseEnter !== undefined && onMouseEnter(part, event)
         }
 
@@ -187,7 +187,7 @@ export const computePartsHandlers = ({
         }
 
         const boundOnMouseMove = event => {
-            showTooltipFromEvent(React.createElement(PartTooltip, { part }), event)
+            showTooltipFromEvent(createElement(PartTooltip, { part }), event)
             onMouseMove !== undefined && onMouseMove(part, event)
         }
 

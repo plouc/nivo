@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@nivo/generators'
 import { BarCanvas } from '../src'

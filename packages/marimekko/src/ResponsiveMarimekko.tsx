@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { Marimekko } from './Marimekko'
 import { SvgProps } from './types'

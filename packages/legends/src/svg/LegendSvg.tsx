@@ -1,4 +1,3 @@
-import React from 'react'
 import { LegendSvgItem } from './LegendSvgItem'
 import { LegendSvgProps } from '../types'
 import { computeDimensions } from '../compute'

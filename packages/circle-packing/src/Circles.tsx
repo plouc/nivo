@@ -1,4 +1,5 @@
-import React, { createElement, useMemo, MouseEvent } from 'react'
+import { createElement, useMemo, MouseEvent } from 'react'
+import * as React from 'react'
 import { useTransition, to, SpringValue } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'

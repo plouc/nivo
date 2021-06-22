@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import { PropertyAccessor, usePropertyAccessor, radiansToDegrees, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useArcCentersTransition } from '../centers'
@@ -58,7 +58,7 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
             {transition((transitionProps, datum) => {
-                return React.createElement(Label, {
+                return createElement(Label, {
                     key: datum.id,
                     datum,
                     label: getLabel(datum),

@@ -1,4 +1,5 @@
-import React, { memo, useRef, useState, useEffect, useCallback } from 'react'
+import { memo, useRef, useState, useEffect, useCallback } from 'react'
+import * as React from 'react'
 import {
     Box,
     Container,

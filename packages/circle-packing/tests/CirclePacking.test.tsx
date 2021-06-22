@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount } from 'enzyme'
 import { sampleData, SampleDatum } from './fixtures'
 import { CirclePacking, CirclePackingHtml } from '../src'

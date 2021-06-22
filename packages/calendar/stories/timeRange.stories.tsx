@@ -1,4 +1,3 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, date, boolean } from '@storybook/addon-knobs'
 import { generateOrderedDayCounts } from '@nivo/generators'

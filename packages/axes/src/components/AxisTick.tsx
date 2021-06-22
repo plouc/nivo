@@ -1,4 +1,5 @@
-import React, { useMemo, memo } from 'react'
+import { useMemo, memo } from 'react'
+import * as React from 'react'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
 import { AxisTickProps, AxisValue } from '../types'

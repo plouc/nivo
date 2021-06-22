@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, createElement } from 'react'
+import { ReactNode, Fragment, createElement } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AnyScale, Axes, Grid } from '@nivo/axes'

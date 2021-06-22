@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import { forwardRef, Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
 import { getRelativeCursor, isCursorInRect, LegacyContainer } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
@@ -301,4 +301,4 @@ BarCanvas.propTypes = BarPropTypes
 BarCanvas.defaultProps = BarDefaultProps
 
 const EnhancedBarCanvas = setDisplayName('BarCanvas')(enhance(BarCanvas))
-export default React.forwardRef((props, ref) => <EnhancedBarCanvas {...props} canvasRef={ref} />)
+export default forwardRef((props, ref) => <EnhancedBarCanvas {...props} canvasRef={ref} />)

@@ -8,7 +8,7 @@ import {
     ScaleSymLog,
     ScaleLogarithmic,
 } from 'd3-scale'
-import React from 'react'
+import * as React from 'react'
 
 export type AxisValue = string | number | Date
 

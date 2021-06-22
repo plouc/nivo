@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
 import { storiesOf } from '@storybook/react'
 import { ScatterPlotCanvas, ResponsiveScatterPlotCanvas } from '../src'

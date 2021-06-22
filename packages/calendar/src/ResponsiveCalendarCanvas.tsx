@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { CalendarCanvas } from './CalendarCanvas'
 import { CalendarCanvasProps } from './types'

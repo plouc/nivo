@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { SymbolProps } from './svg/symbols/types'
 import { CompleteTheme } from '@nivo/core'
 

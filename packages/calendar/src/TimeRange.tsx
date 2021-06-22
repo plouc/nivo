@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'

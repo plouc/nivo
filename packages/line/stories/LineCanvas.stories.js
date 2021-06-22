@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, button } from '@storybook/addon-knobs'
 import { generateDrinkStats } from '@nivo/generators'

@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
 import { shallow } from 'enzyme'
 import { curveLinear, curveBasis, curveMonotoneY } from 'd3-shape'
 import withCurve from '../../src/hocs/withCurve'

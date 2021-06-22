@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { Axis } from '@nivo/axes'
 // @ts-ignore

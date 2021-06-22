@@ -1,4 +1,3 @@
-import React from 'react'
 import { BulletRectsItemProps } from './types'
 import { animated, to } from '@react-spring/web'
 

@@ -1,6 +1,6 @@
 import { BasicTooltip } from '@nivo/tooltip'
 import { CalendarTooltipProps } from './types'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 export const CalendarTooltip = memo(({ value, day, color }: CalendarTooltipProps) => {
     if (value === undefined || isNaN(Number(value))) return null

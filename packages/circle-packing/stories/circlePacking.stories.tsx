@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { CirclePacking, CirclePackingHtml } from '../src'

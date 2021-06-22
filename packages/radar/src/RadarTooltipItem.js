@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo, useState, useCallback } from 'react'
+import { memo, useMemo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { positionFromAngle, useTheme, useValueFormatter } from '@nivo/core'
 import { TableTooltip, Chip, useTooltip } from '@nivo/tooltip'

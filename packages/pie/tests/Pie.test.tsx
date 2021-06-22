@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount } from 'enzyme'
 import { radiansToDegrees } from '@nivo/core'
 import { Pie } from '../src/index'

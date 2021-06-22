@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, Fragment, useCallback } from 'react'
+import { memo, Fragment, useCallback } from 'react'
 import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'

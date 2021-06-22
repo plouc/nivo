@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { startCase, sum, random } from 'lodash'
 import { randomNormal } from 'd3-random'
