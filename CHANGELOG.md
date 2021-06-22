@@ -1,3 +1,89 @@
+<a name="v0.71.0"></a>
+## v0.71.0 (2021-06-22)
+
+
+#### Features
+
+* **annotations:**
+  *  move offset to annotation spec ([d2565c86](https://github.com/plouc/nivo/commit/d2565c864977bf2b3d562662266c5af6c0bc34b6))
+  *  improve svg & canvas note type handling ([bf0ba03c](https://github.com/plouc/nivo/commit/bf0ba03c310a204be64ca098376a6bf9a204f718))
+  *  refine typings and fix integrations ([e808e256](https://github.com/plouc/nivo/commit/e808e2563359db74fc7314c26a61c8614d7c70c2))
+  *  fix theme for annotations ([f3649330](https://github.com/plouc/nivo/commit/f364933072b3bfcd345155f5d2c4787cf58b06ef))
+  *  migrate to TypeScript ([fe53f274](https://github.com/plouc/nivo/commit/fe53f27413456cfd372fb4a9fdcda92e7a3d4e64))
+  *  remove license headers ([62f07196](https://github.com/plouc/nivo/commit/62f07196183c0cd31181de712392b91ed2666f36))
+  *  init TypeScript setup ([c0b36352](https://github.com/plouc/nivo/commit/c0b363521934ae6e12aa75f12f89068b88c8c73c))
+* **bar:**  add ability to toggle serie via legend item (#1556) ([0def428c](https://github.com/plouc/nivo/commit/0def428c5d3ecf70fd4b6c92c5e7f80dda5c02d2))
+* **bump:**  add additional props to custom layers (#1560) ([8bd5a77a](https://github.com/plouc/nivo/commit/8bd5a77a08426896934cc8805640eb1cab1a53ca))
+* **calendar:**
+  *  migrate package to typescript (#1558) ([4e8280da](https://github.com/plouc/nivo/commit/4e8280da3fd9188341795402ce7b932c045662a0))
+  *  add TimeRange component and storybook (#1503) ([8245fbd4](https://github.com/plouc/nivo/commit/8245fbd448367eec4ff253e0d20b429008aea79b))
+* **deps:**  upgrade d3-time-format ([ed792656](https://github.com/plouc/nivo/commit/ed7926568c5e1f1abc0a56146685280f6f96d545))
+* **generators:**  add generateOrderedDayCounts function ([fbcadd70](https://github.com/plouc/nivo/commit/fbcadd70447cef99198683bdd115359bc14b38ae))
+* **line:**  add ability to toggle serie via legend item (#1555) ([463d380e](https://github.com/plouc/nivo/commit/463d380ece4b0df6785b73ea822bbe5f6d206e39))
+* **network:**  add onClick support for node (#1568) ([c9156aac](https://github.com/plouc/nivo/commit/c9156aac1bed6b580aca33fb8ebad4c203f5ea4d))
+* **pie:**  add ability to toggle serie via legend item (#1582) ([23059e02](https://github.com/plouc/nivo/commit/23059e02a430ae2cdd9814c5b99caa1d41ce7913))
+* **scales:**
+  *  migrate code to TypeScript ([4c309fa1](https://github.com/plouc/nivo/commit/4c309fa1c5e3119e7f1f0629d83e92228356adc6))
+  *  remove license headers ([f558a7db](https://github.com/plouc/nivo/commit/f558a7db149aa122fec20373e2417738eeea4837))
+  *  init TypeScript setup ([598a9c7d](https://github.com/plouc/nivo/commit/598a9c7d90242b3b50d11da96b0e259e585c4640))
+  *  add reverse option to symlog scale ([5c0cc65f](https://github.com/plouc/nivo/commit/5c0cc65f95c59200345ce524f8095b26118be57d))
+* **scatterplot:**  add ability to specify nodeId accessor ([343ef6f1](https://github.com/plouc/nivo/commit/343ef6f137fa494381a62501f5b36a7184d1c1c4))
+* **stream:**  add ability to customize legend label ([780954af](https://github.com/plouc/nivo/commit/780954afe4f2c13e7499db24484c04ab19433f39))
+* **swarmplot:**
+  *  fix stories ([49beadf9](https://github.com/plouc/nivo/commit/49beadf926cf2edc395e54c34ce485282d93a8f1))
+  *  migrate to TypeScript ([a7f56ed7](https://github.com/plouc/nivo/commit/a7f56ed7d43fc7a2f023323e7b4a66f054741ecf))
+  *  remove license headers ([8228f8b9](https://github.com/plouc/nivo/commit/8228f8b9f6a0c7e7fe3410dfce641bb2940c7e35))
+  *  init TypeScript setup ([39c1c721](https://github.com/plouc/nivo/commit/39c1c721550df01682fde663fefab30bd91b51ea))
+* **website:**
+  *  add TimeRange icon ([9c69a5fc](https://github.com/plouc/nivo/commit/9c69a5fc036d766226264a56e3d10da41afa5172))
+  *  add TimeRange component ([fec51a18](https://github.com/plouc/nivo/commit/fec51a18d7a78e4e64eec9b8a222b2441904dcb3))
+
+#### Bug Fixes
+
+* **axes:**  fix time scale bug with days crossing a new month (#1565) ([cc27a856](https://github.com/plouc/nivo/commit/cc27a856d983685ac363fd93ea0b5a9f9c68b82e))
+* **bar:**
+  *  get working with scales updates ([48880b43](https://github.com/plouc/nivo/commit/48880b4394d10b7a80c277a3006d001829bf486f))
+  *  fix when values are updated from 0 in grouped mode (#1585) ([8ff82034](https://github.com/plouc/nivo/commit/8ff8203487dbd4e4da6c577db0d9e87608373146))
+  *  fix inconsistency with custom tooltip ([2479df38](https://github.com/plouc/nivo/commit/2479df384b60094994d812a54324e96dc04914c6))
+* **calendar:**  update TimeRange component for consistency ([23d569c6](https://github.com/plouc/nivo/commit/23d569c6d77d9ba047b64c3de06edd637f49f495))
+* **legends:**  update proptypes to avoid generated type error ([f0acb818](https://github.com/plouc/nivo/commit/f0acb818bc1f0bb6357c88354ef763ae2af0a500))
+* **line:**  get working with scales updates ([c2e9631b](https://github.com/plouc/nivo/commit/c2e9631b98914def4f5c0612c369d4f3f4fb4819))
+* **pie:**
+  *  correct argument type to usePie hook ([191e3e0b](https://github.com/plouc/nivo/commit/191e3e0b5666f876805c20c1ff10ce18352dd50a))
+  *  use legend.data property if supplied ([acdfa902](https://github.com/plouc/nivo/commit/acdfa9021950bb5ddb9ff64dc6363f83af51138e))
+* **scales:**
+  *  fix casing of symlog ([c2a656e2](https://github.com/plouc/nivo/commit/c2a656e234e41646c16e2e8ba63dead811f804f7))
+  *  fix time scale when value is date ([4a125b8f](https://github.com/plouc/nivo/commit/4a125b8f13ec8088ac267d458efd2ff2e820f026))
+  *  linear scale when stacked types ([7393acf5](https://github.com/plouc/nivo/commit/7393acf559f22b59c5638f310d8382e90ef3231f))
+  *  get all tests passing ([dc8ac365](https://github.com/plouc/nivo/commit/dc8ac3659c73a1e72cd66048973bd3302d1878d6))
+  *  get code to compile ([2d5ebe71](https://github.com/plouc/nivo/commit/2d5ebe71c9eeb8a4bbd12071815d71a60f7302c8))
+  *  type errors in scale helper functions ([27d717a7](https://github.com/plouc/nivo/commit/27d717a7fbc0da391b9128926c764c7b9d1e83bc))
+* **scatterplot:**  get working with scales updates ([d9e3a5bc](https://github.com/plouc/nivo/commit/d9e3a5bc4a920eb37382bb7ad2c35c10b63c7c07))
+* **stream:**  get working with scales updates ([73a0812c](https://github.com/plouc/nivo/commit/73a0812c670fbd5ffb04f386aa6a14c63fdc49cd))
+* **swarmplot:**
+  *  pass renderWrapper prop to container ([9977858e](https://github.com/plouc/nivo/commit/9977858e28c603cc7bedfe6a597e59272a5ab4da))
+  *  get tests passing ([b7aa6c73](https://github.com/plouc/nivo/commit/b7aa6c73ab452fd9b2140f53ba6961ce4c575b73))
+  *  fix some type issues ([9b1f12c2](https://github.com/plouc/nivo/commit/9b1f12c2a6d9e00a7cbbee2bce55ce18779c1f2d))
+  *  fix issues from rebase ([8bd6671d](https://github.com/plouc/nivo/commit/8bd6671db7d82114daa1da01a7671322e782b9d8))
+  *  make it compile after TS conversion ([46ddb27c](https://github.com/plouc/nivo/commit/46ddb27c6b8ce05df7a17e35a8cb21fb1b98062d))
+* **website:**  update imports from @nivo/calendar ([c7f9876e](https://github.com/plouc/nivo/commit/c7f9876eb742c06aedc276b787470f1b48c5929f))
+
+#### Chore
+
+* **annotations:**  refactor package ([f91e8f2a](https://github.com/plouc/nivo/commit/f91e8f2a07038ffd00d4a028cb1111810545c7e2))
+* **bar:**  add tests for tooltip ([12d84504](https://github.com/plouc/nivo/commit/12d845040dcdf23fdd0469816f5f4b023a0fd5dc))
+* **core:**  revert "fix(core): avoid occasional "ResizeObserver loop" error (#1466)" ([8a999326](https://github.com/plouc/nivo/commit/8a999326fea199db6b861236bc508287781697c5))
+* **deps:**
+  *  upgrade lodash to v4.17.21 ([3435784d](https://github.com/plouc/nivo/commit/3435784db6f23a53652ba13d2eee635f9bb86723))
+  *  upgrade react-spring to v9.2.0 (#1554) ([fadeb0e2](https://github.com/plouc/nivo/commit/fadeb0e22c76bd90f01e1ac7fd2a9d298b1670b4))
+* **pie:**  add test ([5e9efe20](https://github.com/plouc/nivo/commit/5e9efe208b972d18bb6162d2cac03a734adba178))
+* **scatterplot:**  respond to pr feedback ([0f6f3425](https://github.com/plouc/nivo/commit/0f6f34251048ffd7ce18ff2a0963a2ccbd57fcd3))
+* **stream:**  respond to pr feedback ([54dc1c29](https://github.com/plouc/nivo/commit/54dc1c29395c96757b253fe294c5b167e3c2ebc9))
+* **swarmplot:**  refactor package ([6c906c0a](https://github.com/plouc/nivo/commit/6c906c0ab37ac3bbb222772b1552f6adda270124))
+* **website:**  update swarmplot information ([d87f5dcb](https://github.com/plouc/nivo/commit/d87f5dcb889264ace714b3ee0e4d0971b42b6437))
+
+
+
 <a name="v0.70.1"></a>
 ## v0.70.1 (2021-05-27)
 

@@ -1,6 +1,6 @@
 {
   "name": "@nivo/treemap",
-  "version": "0.70.1",
+  "version": "0.71.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -28,17 +28,17 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.70.1",
-    "@nivo/tooltip": "0.70.1",
+    "@nivo/colors": "0.71.0",
+    "@nivo/tooltip": "0.71.0",
     "@react-spring/web": "9.2.0",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "0.70.1"
+    "@nivo/core": "0.71.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.70.1",
+    "@nivo/core": "0.71.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },

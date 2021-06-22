@@ -1,6 +1,6 @@
 {
   "name": "@nivo/arcs",
-  "version": "0.70.1",
+  "version": "0.71.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -28,16 +28,16 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/colors": "0.70.1",
+    "@nivo/colors": "0.71.0",
     "@react-spring/web": "9.2.0",
     "d3-shape": "^1.3.5"
   },
   "devDependencies": {
-    "@nivo/core": "0.70.1",
+    "@nivo/core": "0.71.0",
     "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.70.1",
+    "@nivo/core": "0.71.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
