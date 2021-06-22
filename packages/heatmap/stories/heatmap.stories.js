@@ -1,4 +1,3 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@nivo/generators'
 import { HeatMap } from '../src'

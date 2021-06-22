@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { createElement, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
 import { dotsThemePropType } from '../../theming'
@@ -37,7 +37,7 @@ const DotsItem = ({
 
     return (
         <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
-            {React.createElement(symbol, {
+            {createElement(symbol, {
                 size,
                 color,
                 datum,

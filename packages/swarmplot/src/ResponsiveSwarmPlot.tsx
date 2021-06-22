@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { SwarmPlotSvgProps } from './types'
 import { SwarmPlot } from './SwarmPlot'

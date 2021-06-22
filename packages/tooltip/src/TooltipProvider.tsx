@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, MutableRefObject } from 'react'
+import { PropsWithChildren, MutableRefObject } from 'react'
 import { TooltipActionsContext, TooltipStateContext } from './context'
 import { useTooltipHandlers } from './hooks'
 

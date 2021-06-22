@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
 import { area, curveMonotoneX } from 'd3-shape'
 import { storiesOf } from '@storybook/react'

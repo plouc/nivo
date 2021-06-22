@@ -1,4 +1,4 @@
-import React, { createElement, MouseEvent, useCallback } from 'react'
+import { createElement, MouseEvent, useCallback } from 'react'
 import { animated, SpringValues, to } from '@react-spring/web'
 import { useTooltip } from '@nivo/tooltip'
 import { BarDatum, CommonProps, MouseEventHandlers } from './types'

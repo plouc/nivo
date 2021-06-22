@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from 'react'
+import { useMemo, memo } from 'react'
 import { GridLines } from './GridLines'
 import { computeGridLines } from '../compute'
 import { AnyScale, AxisValue, TicksSpec } from '../types'

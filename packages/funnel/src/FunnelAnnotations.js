@@ -1,4 +1,3 @@
-import React from 'react'
 import { Annotation } from '@nivo/annotations'
 import { useFunnelAnnotations } from './hooks'
 

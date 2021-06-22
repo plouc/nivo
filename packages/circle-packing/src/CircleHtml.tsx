@@ -1,4 +1,3 @@
-import React from 'react'
 import { animated, to, SpringValue, Interpolation } from '@react-spring/web'
 import { CircleProps } from './types'
 import { useNodeMouseHandlers } from './hooks'

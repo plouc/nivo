@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import range from 'lodash/range'
 import { setDisplayName } from '@nivo/recompose'
 import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@nivo/core'

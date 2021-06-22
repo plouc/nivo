@@ -1,4 +1,5 @@
-import React, { createElement, useCallback, useEffect, useRef, useState } from 'react'
+import { createElement, useCallback, useEffect, useRef, useState } from 'react'
+import * as React from 'react'
 import isNumber from 'lodash/isNumber'
 import { Container, getRelativeCursor, isCursorInRect, useDimensions, useTheme } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'

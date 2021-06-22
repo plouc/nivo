@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
+import { createElement, memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
 
@@ -15,7 +15,7 @@ const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
 
     const handleMouseEnter = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { slice, axis }), event, 'right')
+            showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
         },
         [showTooltipFromEvent, tooltip, slice]
@@ -23,7 +23,7 @@ const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
 
     const handleMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { slice, axis }), event, 'right')
+            showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
         },
         [showTooltipFromEvent, tooltip, slice]
     )

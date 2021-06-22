@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { PieCanvas } from './PieCanvas'
 import { PieCanvasProps } from './types'

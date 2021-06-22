@@ -1,4 +1,4 @@
-import React, { memo, ReactNode } from 'react'
+import { memo, ReactNode } from 'react'
 import { useTheme, ValueFormat, useValueFormatter } from '@nivo/core'
 import { Chip } from './Chip'
 

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { uniq } from 'lodash'
 import { SvgWrapper, useDimensions, withContainer } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'

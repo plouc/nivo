@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
+import { createElement, memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
@@ -27,7 +27,7 @@ const Mesh = ({
 
     const handleMouseEnter = useCallback(
         (node, event) => {
-            showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+            showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseEnter && onMouseEnter(node, event)
         },
         [showTooltipFromEvent, tooltip, onMouseEnter]
@@ -35,7 +35,7 @@ const Mesh = ({
 
     const handleMouseMove = useCallback(
         (node, event) => {
-            showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+            showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseMove && onMouseMove(node, event)
         },
         [showTooltipFromEvent, tooltip, onMouseMove]

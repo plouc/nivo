@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import { createElement, memo, useCallback } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { TimeRangeDayProps } from './types'
 
@@ -30,7 +30,7 @@ export const TimeRangeDay = memo(
                     ...data,
                     value: formatValue(data.value),
                 }
-                showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
+                showTooltipFromEvent(createElement(tooltip, { ...formatedData }), event)
                 onMouseEnter?.(data, event)
             },
             [showTooltipFromEvent, tooltip, data, onMouseEnter, formatValue]
@@ -41,7 +41,7 @@ export const TimeRangeDay = memo(
                     ...data,
                     value: formatValue(data.value),
                 }
-                showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
+                showTooltipFromEvent(createElement(tooltip, { ...formatedData }), event)
                 onMouseMove?.(data, event)
             },
             [showTooltipFromEvent, tooltip, data, onMouseMove, formatValue]

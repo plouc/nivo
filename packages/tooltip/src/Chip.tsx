@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo } from 'react'
+import { CSSProperties, memo } from 'react'
 
 interface ChipProps {
     size?: number

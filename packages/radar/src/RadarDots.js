@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useTheme, positionFromAngle, getLabelGenerator, DotsItem } from '@nivo/core'
 import { getInheritedColorGenerator, inheritedColorPropType } from '@nivo/colors'

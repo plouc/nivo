@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { TimeRange } from './TimeRange'
 import { TimeRangeSvgProps } from './types'

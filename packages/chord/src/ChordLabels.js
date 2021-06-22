@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps, useTheme } from '@nivo/core'

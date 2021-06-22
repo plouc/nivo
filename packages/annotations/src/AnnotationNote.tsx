@@ -1,4 +1,4 @@
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import omit from 'lodash/omit'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'

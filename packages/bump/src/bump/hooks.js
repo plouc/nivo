@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useMemo, useCallback } from 'react'
+import { createElement, useMemo, useCallback } from 'react'
 import { line as d3Line, curveBasis, curveLinear } from 'd3-shape'
 import { useTheme } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -252,7 +252,7 @@ export const useSerieHandlers = ({
 
     const handleMouseEnter = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { serie }), event)
+            showTooltipFromEvent(createElement(tooltip, { serie }), event)
             setCurrent(serie.id)
             onMouseEnter && onMouseEnter(serie, event)
         },
@@ -261,7 +261,7 @@ export const useSerieHandlers = ({
 
     const handleMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { serie }), event)
+            showTooltipFromEvent(createElement(tooltip, { serie }), event)
             onMouseMove && onMouseMove(serie, event)
         },
         [serie, onMouseMove, showTooltipFromEvent]

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTooltipState } from './hooks'
 import { TooltipWrapper } from './TooltipWrapper'
 import { TooltipStateContextData, TooltipStateContextDataVisible } from './context'

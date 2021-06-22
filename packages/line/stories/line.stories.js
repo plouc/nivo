@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, useState, useEffect } from 'react'
+import { Component, useState, useEffect } from 'react'
 import range from 'lodash/range'
 import last from 'lodash/last'
 import { storiesOf } from '@storybook/react'

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { withContainer, SvgWrapper, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'

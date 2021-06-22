@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Theme } from '@nivo/core'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { useOrdinalColorScale } from '@nivo/colors'

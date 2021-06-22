@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { PatternLines } from '@nivo/core'
 import { SwarmPlot, SwarmPlotCustomLayerProps } from '../src'

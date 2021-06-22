@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'

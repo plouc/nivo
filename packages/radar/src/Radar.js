@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
 import {
     withContainer,

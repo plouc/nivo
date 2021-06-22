@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, useCallback, memo } from 'react'
+import { Fragment, useCallback, memo } from 'react'
 import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { GeoMapPropTypes, GeoMapDefaultProps } from './props'

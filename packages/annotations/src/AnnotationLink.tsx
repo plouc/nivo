@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { animated } from '@react-spring/web'
 import { useAnimatedPath, useTheme } from '@nivo/core'
 

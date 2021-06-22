@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTheme } from '@nivo/core'
 import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { DatumWithArcAndColor } from '../types'

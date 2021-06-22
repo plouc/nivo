@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useCallback, useRef, useEffect } from 'react'
+import { useCallback, useRef, useEffect } from 'react'
+
+import * as React from 'react'
 import { getDistance, getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'

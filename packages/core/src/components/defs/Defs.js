@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { createElement, memo } from 'react'
 import PropTypes from 'prop-types'
 import { gradientTypes } from './gradients'
 import { patternTypes } from './patterns'
@@ -23,7 +23,7 @@ const Defs = ({ defs: definitions }) => {
         <defs>
             {definitions.map(({ type, ...def }) => {
                 if (defsMapping[type])
-                    return React.createElement(defsMapping[type], { key: def.id, ...def })
+                    return createElement(defsMapping[type], { key: def.id, ...def })
 
                 return null
             })}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Calendar } from './Calendar'
 import { CalendarSvgProps } from './types'
 import { ResponsiveWrapper } from '@nivo/core'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateChordData } from '@nivo/generators'
 import { TableTooltip, BasicTooltip, Chip } from '@nivo/tooltip'

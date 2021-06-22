@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { Sunburst } from './Sunburst'
 import { SunburstSvgProps } from './types'

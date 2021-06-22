@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
 import { line, curveLinearClosed } from 'd3-shape'
 import { Voronoi, VoronoiCustomLayerProps } from '../src'

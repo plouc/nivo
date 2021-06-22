@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useRef, useState, useEffect, useCallback, useMemo } from 'react'
+import { createElement, memo, useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import {
     withContainer,
     useDimensions,
@@ -233,7 +233,7 @@ const ScatterPlotCanvas = props => {
             setCurrentNode(node)
 
             if (node) {
-                showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+                showTooltipFromEvent(createElement(tooltip, { node }), event)
                 if (currentNode && currentNode.id !== node.id) {
                     onMouseLeave && onMouseLeave(currentNode, event)
                     onMouseEnter && onMouseEnter(node, event)

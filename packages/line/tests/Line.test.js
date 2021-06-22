@@ -1,4 +1,3 @@
-import React from 'react'
 import { mount } from 'enzyme'
 import Line from '../src/Line'
 import SlicesItem from '../src/SlicesItem'

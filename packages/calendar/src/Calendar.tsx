@@ -1,4 +1,3 @@
-import React from 'react'
 import { CalendarSvgProps } from './types'
 import { Container, SvgWrapper, useTheme, useDimensions, useValueFormatter } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, useCallback, useState } from 'react'
+import { createElement, Fragment, useCallback, useState } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs, LegacyContainer, SvgWrapper, CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
@@ -218,7 +218,7 @@ const Bar = props => {
                                     {interpolatedStyles.map(({ key, style, data: bar }) => {
                                         const baseProps = { ...bar, ...style }
 
-                                        return React.createElement(barComponent, {
+                                        return createElement(barComponent, {
                                             key,
                                             ...baseProps,
                                             ...commonProps,
@@ -239,7 +239,7 @@ const Bar = props => {
                     bars = result.bars
                         .filter(bar => bar.data.value !== null)
                         .map(d =>
-                            React.createElement(barComponent, {
+                            createElement(barComponent, {
                                 key: d.key,
                                 ...d,
                                 ...commonProps,
