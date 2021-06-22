@@ -19,7 +19,6 @@ export const computeNodeAndLinks = ({
     width,
     height,
     getColor,
-    getLinkColor,
     getLabel,
 }) => {
     const sankey = d3Sankey()
@@ -61,7 +60,7 @@ export const computeNodeAndLinks = ({
     })
 
     data.links.forEach(link => {
-        link.color = getLinkColor(link)
+        link.color = link.source.color
         link.pos0 = link.y0
         link.pos1 = link.y1
         link.thickness = link.width
@@ -111,7 +110,6 @@ export const useSankey = ({
 
     const getColor = useOrdinalColorScale(colors, 'id')
     const getNodeBorderColor = useInheritedColor(nodeBorderColor, theme)
-    const getLinkColor = useOrdinalColorScale(colors, 'source.id')
 
     const getLabel = useMemo(() => getLabelGenerator(label, labelFormat), [label, labelFormat])
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
@@ -130,7 +128,6 @@ export const useSankey = ({
                 width,
                 height,
                 getColor,
-                getLinkColor,
                 getLabel,
             }),
         [
@@ -145,7 +142,6 @@ export const useSankey = ({
             width,
             height,
             getColor,
-            getLinkColor,
             getLabel,
         ]
     )
