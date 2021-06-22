@@ -1,0 +1,42 @@
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+
+  margin: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  text-align: center;
+}
+
+.Button {
+  background: #ffffff;
+  border: 2px solid #f47560;
+  border-radius: 5px;
+  color: #f47560;
+  cursor: pointer;
+  padding: 10px;
+  transition: all 0.2s linear;
+  transition-property: background border-color color opacity;
+  width: 150px;
+}
+
+.Button:hover {
+  background: #f47560;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.Button + .Button {
+  margin-left: 10px;
+}
+
+.Chart {
+  height: 400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  width: 500px;
+}
