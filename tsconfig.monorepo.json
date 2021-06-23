@@ -12,6 +12,7 @@
         { "path": "./packages/scales" },
         { "path": "./packages/tooltip" },
         { "path": "./packages/arcs" },
+        { "path": "./packages/voronoi" },
 
         // Utility package
         { "path": "./packages/generators" },
@@ -25,7 +26,6 @@
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
         { "path": "./packages/sunburst" },
-        { "path": "./packages/swarmplot" },
-        { "path": "./packages/voronoi" }
+        { "path": "./packages/swarmplot" }
     ]
 }
