@@ -83,9 +83,11 @@ export const Bar = <RawDatum extends BarDatum>({
     renderWrapper,
     role = svgDefaultProps.role,
 
+    initialHiddenIds,
+
     ...props
 }: BarSvgProps<RawDatum>) => {
-    const [hiddenIds, setHiddenIds] = useState<string[]>([])
+    const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
     const toggleSerie = useCallback(id => {
         setHiddenIds(state =>
             state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]

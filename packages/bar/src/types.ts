@@ -211,6 +211,7 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
     Dimensions &
     ModernMotionProps &
     Partial<{
+        initialHiddenIds: string[]
         layers: BarLayer<RawDatum>[]
         role: string
     }>
