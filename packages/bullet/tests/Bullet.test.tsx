@@ -62,7 +62,7 @@ describe('Bullet', () => {
             expect(
                 ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
             ).toMatchInlineSnapshot(
-                `"translate(0,0); translate(37.5,0); translate(75,0); translate(112.5,0); translate(150,0); translate(187.5,0); translate(225,0); translate(262.5,0); translate(300,0)"`
+                `"translate(0,0); translate(38,0); translate(75,0); translate(113,0); translate(150,0); translate(188,0); translate(225,0); translate(263,0); translate(300,0)"`
             )
             expect(items.at(1).prop('x')).toEqual(0)
             expect(items.at(1).prop('y')).toEqual(110)
@@ -86,7 +86,7 @@ describe('Bullet', () => {
             expect(
                 ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
             ).toMatchInlineSnapshot(
-                `"translate(300,0); translate(262.5,0); translate(225,0); translate(187.5,0); translate(150,0); translate(112.5,0); translate(75,0); translate(37.5,0); translate(0,0)"`
+                `"translate(300,0); translate(263,0); translate(225,0); translate(188,0); translate(150,0); translate(113,0); translate(75,0); translate(38,0); translate(0,0)"`
             )
             expect(items.at(1).prop('x')).toEqual(0)
             expect(items.at(1).prop('y')).toEqual(110)
