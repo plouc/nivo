@@ -5,7 +5,7 @@ import {
     Box,
     CartesianMarkerProps,
     Dimensions,
-    MotionProps,
+    ModernMotionProps,
     PropertyAccessor,
     SvgDefsAndFill,
     Theme,
@@ -14,6 +14,7 @@ import {
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
+import { SpringValues } from '@react-spring/web'
 
 export interface BarDatum {
     [key: string]: string | number
@@ -114,6 +115,15 @@ export interface BarItemProps<RawDatum>
         BarHandlers<RawDatum, SVGRectElement> {
     borderColor: string
 
+    style: SpringValues<{
+        color: string
+        height: number
+        transform: string
+        width: number
+        x: number
+        y: number
+    }>
+
     label: string
     labelColor: string
     shouldRenderLabel: boolean
@@ -199,7 +209,7 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
     BarHandlers<RawDatum, SVGRectElement> &
     SvgDefsAndFill<ComputedBarDatum<RawDatum>> &
     Dimensions &
-    MotionProps &
+    ModernMotionProps &
     Partial<{
         layers: BarLayer<RawDatum>[]
         role: string

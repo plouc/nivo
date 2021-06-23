@@ -1,8 +1,8 @@
+import { BarItem } from './BarItem'
 import { BarTooltip } from './BarTooltip'
 import { ComputedDatum } from './types'
-import { ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { BarItem } from './BarItem'
+import { ScaleBandSpec, ScaleSpec } from '@nivo/scales'
 
 export const defaultProps = {
     indexBy: 'id',
@@ -48,10 +48,6 @@ export const defaultProps = {
     tooltip: BarTooltip,
     tooltipLabel: (datum: ComputedDatum<any>) => `${datum.id} - ${datum.indexValue}`,
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
-
     legends: [],
 
     annotations: [],
@@ -59,6 +55,8 @@ export const defaultProps = {
 
 export const svgDefaultProps = {
     ...defaultProps,
+    animate: true,
+    motionConfig: 'gentle',
     role: 'img',
 }
 

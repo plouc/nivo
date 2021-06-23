@@ -1,58 +1,23 @@
-import { createElement, Fragment, useCallback, useState } from 'react'
-import { TransitionMotion, spring } from 'react-motion'
-import {
-    // @ts-ignore
-    bindDefs,
-    // @ts-ignore
-    LegacyContainer,
-    SvgWrapper,
-    // @ts-ignore
-    CartesianMarkers,
-    defaultMargin,
-    usePropertyAccessor,
-} from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BarAnnotations } from './BarAnnotations'
 import { BarDatum, BarLayer, BarSvgProps, ComputedBarDatum, TooltipHandlers } from './types'
 import { BoxLegendSvg } from '@nivo/legends'
+import {
+    // @ts-ignore
+    CartesianMarkers,
+    // @ts-ignore
+    LegacyContainer,
+    SvgWrapper,
+    // @ts-ignore
+    bindDefs,
+    defaultMargin,
+    usePropertyAccessor,
+} from '@nivo/core'
+import { Fragment, createElement, useCallback, useMemo, useState } from 'react'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import { svgDefaultProps } from './props'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
-
-type SpringConfig = Required<{
-    damping: BarSvgProps<BarDatum>['motionDamping']
-    stiffness: BarSvgProps<BarDatum>['motionStiffness']
-}>
-
-const barWillEnterHorizontal = ({ style }: Record<string, any>) => ({
-    x: style.x.val,
-    y: style.y.val,
-    width: 0,
-    height: style.height.val,
-})
-
-const barWillEnterVertical = ({ style }: Record<string, any>) => ({
-    x: style.x.val,
-    y: style.y.val + style.height.val,
-    width: style.width.val,
-    height: 0,
-})
-
-const barWillLeaveHorizontal = (springConfig: SpringConfig) => ({
-    style,
-}: Record<string, any>) => ({
-    x: style.x,
-    y: style.y,
-    width: spring(0, springConfig),
-    height: style.height,
-})
-
-const barWillLeaveVertical = (springConfig: SpringConfig) => ({ style }: Record<string, any>) => ({
-    x: style.x,
-    y: spring(style.y.val + style.height.val, springConfig),
-    width: style.width,
-    height: spring(0, springConfig),
-})
+import { useTransition } from '@react-spring/web'
 
 export const Bar = <RawDatum extends BarDatum>({
     data,
@@ -113,8 +78,7 @@ export const Bar = <RawDatum extends BarDatum>({
     legends = svgDefaultProps.legends,
 
     animate = svgDefaultProps.animate,
-    motionStiffness = svgDefaultProps.motionStiffness,
-    motionDamping = svgDefaultProps.motionDamping,
+    motionConfig = svgDefaultProps.motionConfig,
 
     renderWrapper,
     role = svgDefaultProps.role,
@@ -160,16 +124,31 @@ export const Bar = <RawDatum extends BarDatum>({
         hiddenIds,
     })
 
-    const springConfig = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
-    }
+    const barsWithValue = useMemo(() => result.bars.filter(bar => bar.data.value !== null), [
+        result.bars,
+    ])
 
-    const willEnter = layout === 'vertical' ? barWillEnterVertical : barWillEnterHorizontal
-    const willLeave =
-        layout === 'vertical'
-            ? barWillLeaveVertical(springConfig)
-            : barWillLeaveHorizontal(springConfig)
+    const transition = useTransition(barsWithValue, {
+        keys: bar => bar.key,
+        enter: bar => ({
+            x: bar.width / 2,
+            y: bar.height / 2,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+            transform: `translate(${bar.x}, ${bar.y})`,
+        }),
+        update: bar => ({
+            x: bar.width / 2,
+            y: bar.height / 2,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+            transform: `translate(${bar.x}, ${bar.y})`,
+        }),
+        config: motionConfig as any,
+        immediate: !animate,
+    })
 
     const shouldRenderLabel = useCallback(
         ({ width, height }: { height: number; width: number }) => {
@@ -187,9 +166,7 @@ export const Bar = <RawDatum extends BarDatum>({
     })
 
     return (
-        <LegacyContainer
-            {...{ animate, isInteractive, motionStiffness, motionDamping, renderWrapper, theme }}
-        >
+        <LegacyContainer {...{ animate, isInteractive, motionConfig, renderWrapper, theme }}>
             {({ showTooltip, hideTooltip }: TooltipHandlers) => {
                 const commonProps = {
                     borderRadius,
@@ -205,64 +182,6 @@ export const Bar = <RawDatum extends BarDatum>({
                     getTooltipLabel,
                     tooltipFormat,
                     tooltip,
-                }
-
-                let bars
-                if (animate === true) {
-                    bars = (
-                        <TransitionMotion
-                            key="bars"
-                            willEnter={willEnter}
-                            willLeave={willLeave}
-                            styles={result.bars
-                                .filter(bar => bar.data.value !== null)
-                                .map(bar => ({
-                                    key: bar.key,
-                                    data: bar,
-                                    style: {
-                                        x: spring(bar.x, springConfig),
-                                        y: spring(bar.y, springConfig),
-                                        width: spring(bar.width, springConfig),
-                                        height: spring(bar.height, springConfig),
-                                    },
-                                }))}
-                        >
-                            {interpolatedStyles => (
-                                <g>
-                                    {interpolatedStyles.map(({ key, style, data: bar }) => {
-                                        const baseProps = { ...bar, ...style }
-
-                                        return createElement(barComponent, {
-                                            key,
-                                            ...baseProps,
-                                            ...commonProps,
-                                            shouldRenderLabel: shouldRenderLabel(baseProps),
-                                            width: Math.max(style.width, 0),
-                                            height: Math.max(style.height, 0),
-                                            label: getLabel(bar.data),
-                                            // @ts-ignore fix theme
-                                            labelColor: getLabelColor(baseProps, theme),
-                                            borderColor: getBorderColor(baseProps),
-                                        })
-                                    })}
-                                </g>
-                            )}
-                        </TransitionMotion>
-                    )
-                } else {
-                    bars = result.bars
-                        .filter(bar => bar.data.value !== null)
-                        .map(d =>
-                            createElement(barComponent, {
-                                ...d,
-                                ...commonProps,
-                                label: getLabel(d.data),
-                                shouldRenderLabel: shouldRenderLabel(d),
-                                // @ts-ignore fix theme
-                                labelColor: getLabelColor(d, theme),
-                                borderColor: getBorderColor(d),
-                            })
-                        )
                 }
 
                 const layerById = {
@@ -290,7 +209,22 @@ export const Bar = <RawDatum extends BarDatum>({
                             left={axisLeft}
                         />
                     ),
-                    bars,
+                    bars: (
+                        <>
+                            {transition((style, bar) =>
+                                createElement(barComponent, {
+                                    ...bar,
+                                    ...commonProps,
+                                    style,
+                                    shouldRenderLabel: shouldRenderLabel(bar),
+                                    label: getLabel(bar.data),
+                                    // @ts-ignore fix theme
+                                    labelColor: getLabelColor(bar, theme),
+                                    borderColor: getBorderColor(bar),
+                                })
+                            )}
+                        </>
+                    ),
                     markers: (
                         <CartesianMarkers
                             key="markers"

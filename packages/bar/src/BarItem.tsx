@@ -1,16 +1,15 @@
 import { BarDatum, BarItemProps } from './types'
+import { animated } from '@react-spring/web'
 import { createElement, useCallback } from 'react'
 import { useTheme } from '@nivo/core'
 
 export const BarItem = <RawDatum extends BarDatum>({
     data,
-
-    x,
-    y,
-    width,
-    height,
-    borderRadius,
     color,
+
+    style: { height, transform, width, x, y, ...style },
+
+    borderRadius,
     borderWidth,
     borderColor,
 
@@ -64,13 +63,13 @@ export const BarItem = <RawDatum extends BarDatum>({
     )
 
     return (
-        <g transform={`translate(${x}, ${y})`}>
-            <rect
+        <animated.g transform={transform}>
+            <animated.rect
                 width={width}
                 height={height}
                 rx={borderRadius}
                 ry={borderRadius}
-                fill={data.fill ?? color}
+                fill={data.fill ?? style.color}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
                 onMouseEnter={handleMouseEnter}
@@ -79,9 +78,9 @@ export const BarItem = <RawDatum extends BarDatum>({
                 onClick={handleClick}
             />
             {shouldRenderLabel && (
-                <text
-                    x={width / 2}
-                    y={height / 2}
+                <animated.text
+                    x={x}
+                    y={y}
                     textAnchor="middle"
                     dominantBaseline="central"
                     style={{
@@ -91,8 +90,8 @@ export const BarItem = <RawDatum extends BarDatum>({
                     }}
                 >
                     {label}
-                </text>
+                </animated.text>
             )}
-        </g>
+        </animated.g>
     )
 }
