@@ -19,10 +19,10 @@ export const useEnhancedData = (
                 const min = Math.min(...all, 0)
 
                 const scale = createLinearScale(
-                    { reverse, type: 'linear' },
+                    { type: 'linear' },
                     { all, max, min },
                     layout === 'horizontal' ? width : height,
-                    layout === 'horizontal' ? 'x' : 'y'
+                    layout === 'horizontal' ? (reverse ? 'y' : 'x') : reverse ? 'x' : 'y'
                 )
 
                 return {
