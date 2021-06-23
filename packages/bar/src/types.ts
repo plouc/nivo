@@ -135,6 +135,7 @@ export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
     tooltipFormat: BarCommonProps<RawDatum>['tooltipFormat']
+    value: number
 }
 
 export type BarHandlers<RawDatum, Element> = {
