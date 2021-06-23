@@ -1,4 +1,4 @@
-import { BarDatum, BarSvgProps, ComputedDatum } from '../types'
+import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand } from '@nivo/scales'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
@@ -212,7 +212,7 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
         scale(0) ?? 0,
     ] as const
 
-    const bars =
+    const bars: ComputedBarDatum<RawDatum>[] =
         bandwidth > 0
             ? layout === 'vertical'
                 ? generateVerticalGroupedBars(...params)
