@@ -37,6 +37,12 @@ export type ComputedDatum<RawDatum> = {
     fill?: string
 }
 
+export type ComputedBarDatumWithValue<RawDatum> = ComputedBarDatum<RawDatum> & {
+    data: ComputedDatum<RawDatum> & {
+        value: number
+    }
+}
+
 export type ComputedBarDatum<RawDatum> = {
     key: string
     data: ComputedDatum<RawDatum>
@@ -129,6 +135,8 @@ export interface BarItemProps<RawDatum>
     shouldRenderLabel: boolean
 
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
+
+    data: ComputedBarDatum<RawDatum>['data'] & { value: number }
 }
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {

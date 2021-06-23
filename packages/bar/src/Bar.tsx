@@ -1,6 +1,13 @@
 import { Axes, Grid } from '@nivo/axes'
 import { BarAnnotations } from './BarAnnotations'
-import { BarDatum, BarLayer, BarSvgProps, ComputedBarDatum, TooltipHandlers } from './types'
+import {
+    BarDatum,
+    BarLayer,
+    BarSvgProps,
+    ComputedBarDatum,
+    ComputedBarDatumWithValue,
+    TooltipHandlers,
+} from './types'
 import { BoxLegendSvg } from '@nivo/legends'
 import {
     // @ts-ignore
@@ -126,9 +133,13 @@ export const Bar = <RawDatum extends BarDatum>({
         hiddenIds,
     })
 
-    const barsWithValue = useMemo(() => result.bars.filter(bar => bar.data.value !== null), [
-        result.bars,
-    ])
+    const barsWithValue = useMemo(
+        () =>
+            result.bars.filter(
+                (bar): bar is ComputedBarDatumWithValue<RawDatum> => bar.data.value !== null
+            ),
+        [result.bars]
+    )
 
     const transition = useTransition(barsWithValue, {
         keys: bar => bar.key,

@@ -1,4 +1,4 @@
-import { BarDatum, BarSvgProps, ComputedDatum } from '../types'
+import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand, computeScale } from '@nivo/scales'
 import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
@@ -199,7 +199,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
         scaleSpec.reverse,
     ] as const
 
-    const bars =
+    const bars: ComputedBarDatum<RawDatum>[] =
         bandwidth > 0
             ? layout === 'vertical'
                 ? generateVerticalStackedBars(...params)
