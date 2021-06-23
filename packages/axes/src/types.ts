@@ -1,14 +1,6 @@
-import { SpringValues } from '@react-spring/web'
-import {
-    ScaleBand,
-    ScaleLinear,
-    ScaleOrdinal,
-    ScalePoint,
-    ScaleTime,
-    ScaleSymLog,
-    ScaleLogarithmic,
-} from 'd3-scale'
 import * as React from 'react'
+import { Scale, ScaleBand, ScalePoint } from '@nivo/scales'
+import { SpringValues } from '@react-spring/web'
 
 export type AxisValue = string | number | Date
 
@@ -27,17 +19,9 @@ export type Point = {
     y: number
 }
 
-export type ScaleWithBandwidth =
-    | (ScaleBand<any> & { type: 'band' })
-    | (ScalePoint<any> & { type: 'point' })
+export type ScaleWithBandwidth = ScaleBand<any> | ScalePoint<any>
 
-export type AnyScale =
-    | (ScaleLinear<any, number> & { type: 'linear' })
-    | (ScaleOrdinal<any, number> & { type: 'ordinal' })
-    | (ScaleTime<any, number> & { format: string; useUTC: boolean; type: 'time' })
-    | (ScaleSymLog<any, number> & { type: 'symlog' })
-    | (ScaleLogarithmic<any, number> & { type: 'log' })
-    | ScaleWithBandwidth
+export type AnyScale = Scale<any, any>
 
 export type TicksSpec<Value extends AxisValue> =
     // exact number of ticks, please note that
