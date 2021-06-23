@@ -1,8 +1,8 @@
 import { BarDatum, BarSvgProps, ComputedDatum } from '../types'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand } from '@nivo/scales'
+import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 import { computeScale } from '@nivo/scales'
-import { getIndexScale, filterNullValues, normalizeData } from './common'
 
 type Params<RawDatum, XScaleInput, YScaleInput> = {
     data: RawDatum[]
@@ -49,14 +49,14 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
     const bars = flatten(
         keys.map((key, i) =>
             range(0, xScale.domain().length).map(index => {
-                const value = Number(data[index][key])
+                const [rawValue, value] = coerceValue(data[index][key])
                 const indexValue = getIndex(data[index])
                 const x = (xScale(indexValue) ?? 0) + barWidth * i + innerPadding * i
                 const y = getY(value)
                 const barHeight = getHeight(value, y)
                 const barData = {
                     id: key,
-                    value,
+                    value: rawValue === null ? rawValue : value,
                     index,
                     indexValue,
                     data: cleanedData[index],
@@ -103,14 +103,14 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
     const bars = flatten(
         keys.map((key, i) =>
             range(0, yScale.domain().length).map(index => {
-                const value = Number(data[index][key])
+                const [rawValue, value] = coerceValue(data[index][key])
                 const indexValue = getIndex(data[index])
                 const x = getX(value)
                 const y = (yScale(indexValue) ?? 0) + barHeight * i + innerPadding * i
                 const barWidth = getWidth(value, x)
                 const barData = {
                     id: key,
-                    value,
+                    value: rawValue === null ? rawValue : value,
                     index,
                     indexValue,
                     data: cleanedData[index],

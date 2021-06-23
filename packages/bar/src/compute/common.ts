@@ -41,3 +41,5 @@ export const filterNullValues = <RawDatum extends Record<string, unknown>>(data:
         }
         return acc
     }, {}) as Exclude<RawDatum, null | undefined | false | '' | 0>
+
+export const coerceValue = <T>(value: T) => [value, Number(value)] as const

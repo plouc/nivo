@@ -10,7 +10,7 @@ import { useState } from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import Bar from '../src/Bar'
+import { Bar } from '../src'
 
 it('should render a basic bar chart', () => {
     const component = renderer.create(

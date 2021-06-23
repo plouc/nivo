@@ -30,7 +30,7 @@ export type BarDatumWithColor = BarDatum & {
 
 export type ComputedDatum<RawDatum> = {
     id: string | number
-    value: number
+    value: number | null
     index: number
     indexValue: string | number
     data: Exclude<RawDatum, null | undefined | false | '' | 0>

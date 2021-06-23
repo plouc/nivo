@@ -2,7 +2,7 @@ import { BarDatum, BarSvgProps, ComputedDatum } from '../types'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand, computeScale } from '@nivo/scales'
 import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
-import { getIndexScale, filterNullValues, normalizeData } from './common'
+import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
 type StackDatum<RawDatum> = SeriesPoint<RawDatum>
 
@@ -43,10 +43,11 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
                 const x = xScale(getIndex(d.data)) ?? 0
                 const y = (getY(d) ?? 0) + innerPadding * 0.5
                 const barHeight = getHeight(d, y) - innerPadding
+                const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
 
                 const barData = {
                     id: stackedDataItem.key,
-                    value: Number(d.data[stackedDataItem.key]),
+                    value: rawValue === null ? rawValue : value,
                     index: i,
                     indexValue: index,
                     data: filterNullValues(d.data),
@@ -93,10 +94,11 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
                 const y = yScale(getIndex(d.data)) ?? 0
                 const x = (getX(d) ?? 0) + innerPadding * 0.5
                 const barWidth = getWidth(d, x) - innerPadding
+                const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
 
                 const barData = {
                     id: stackedDataItem.key,
-                    value: Number(d.data[stackedDataItem.key]),
+                    value: rawValue === null ? rawValue : value,
                     index: i,
                     indexValue: index,
                     data: filterNullValues(d.data),
