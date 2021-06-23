@@ -402,3 +402,21 @@ const RaceChart = () => {
 }
 
 stories.add('race chart', () => <RaceChart />)
+
+stories.add('initial hidden ids', () => (
+    <Bar
+        {...commonProps}
+        initialHiddenIds={keys.slice(2, 4)}
+        legends={[
+            {
+                anchor: 'bottom',
+                dataFrom: 'keys',
+                direction: 'row',
+                itemHeight: 20,
+                itemWidth: 80,
+                toggleSerie: true,
+                translateY: 50,
+            },
+        ]}
+    />
+))
