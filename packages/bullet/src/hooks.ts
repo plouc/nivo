@@ -1,4 +1,4 @@
-import { ScaleLinear, scaleLinear } from 'd3-scale'
+import { createLinearScale } from '@nivo/scales'
 import { useMemo } from 'react'
 import { Datum, CommonBulletProps } from './types'
 
@@ -15,25 +15,15 @@ export const useEnhancedData = (
         () =>
             data.map(d => {
                 const all = [...d.ranges, ...d.measures, ...(d.markers ?? [])]
-
                 const max = Math.max(...all)
-
                 const min = Math.min(...all, 0)
 
-                const scale = scaleLinear().domain([min, max]) as ScaleLinear<
-                    number,
-                    number,
-                    never
-                > & { type: 'linear' }
-
-                if (layout === 'horizontal') {
-                    scale.range(reverse === true ? [width, 0] : [0, width])
-                } else {
-                    scale.range(reverse === true ? [0, height] : [height, 0])
-                }
-
-                // Add our type property
-                ;(scale as any).type = 'linear'
+                const scale = createLinearScale(
+                    { reverse, type: 'linear' },
+                    { all, max, min },
+                    layout === 'horizontal' ? width : height,
+                    layout === 'horizontal' ? 'x' : 'y'
+                )
 
                 return {
                     ...d,

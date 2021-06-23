@@ -33,12 +33,10 @@
     "@nivo/colors": "0.71.0",
     "@nivo/legends": "0.71.0",
     "@nivo/tooltip": "0.71.0",
-    "@react-spring/web": "9.2.0",
-    "d3-scale": "^3.2.3"
+    "@react-spring/web": "9.2.0"
   },
   "devDependencies": {
-    "@nivo/core": "0.71.0",
-    "@types/d3-scale": "^3.2.2"
+    "@nivo/core": "0.71.0"
   },
   "peerDependencies": {
     "@nivo/core": "0.71.0",
