@@ -1,59 +1,52 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { computeScale } from '@nivo/scales'
-import { stack, stackOffsetDiverging } from 'd3-shape'
+import { BarDatum, BarSvgProps, ComputedDatum } from '../types'
+import { OrdinalColorScale } from '@nivo/colors'
+import { Scale, ScaleBand, computeScale } from '@nivo/scales'
+import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexScale, filterNullValues, normalizeData } from './common'
 
-const flattenDeep = (array, depth = 1) =>
-    depth > 0
-        ? array.reduce(
-              (acc, value) =>
-                  acc.concat(Array.isArray(value) ? flattenDeep(value, depth - 1) : value),
-              []
-          )
-        : array.slice()
+type StackDatum<RawDatum> = SeriesPoint<RawDatum>
+
+type Params<RawDatum, XScaleInput, YScaleInput> = {
+    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
+    getIndex: (datum: RawDatum) => string
+    innerPadding: number
+    stackedData: Series<RawDatum, string>[]
+    xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
+    yScale: YScaleInput extends string ? ScaleBand<YScaleInput> : Scale<YScaleInput, number>
+}
+
+const flattenDeep = <T>(arr: T[]): T =>
+    arr.some(Array.isArray) ? flattenDeep(([] as T[]).concat(...arr)) : ((arr as unknown) as T)
 
 /**
  * Generates x/y scales & bars for vertical stacked bar chart.
- *
- * @param {Array.<Object>} data
- * @param {Function}       getIndex
- * @param {Array.<string>} keys
- * @param {number}         minValue
- * @param {number}         maxValue
- * @param {boolean}        reverse
- * @param {number}         width
- * @param {number}         height
- * @param {Function}       getColor
- * @param {number}         [padding=0]
- * @param {number}         [innerPadding=0]
- * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-const generateVerticalStackedBars = (
-    { getIndex, getColor, innerPadding, stackedData, xScale, yScale },
-    barWidth,
-    reverse
+const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
+    {
+        getIndex,
+        getColor,
+        innerPadding,
+        stackedData,
+        xScale,
+        yScale,
+    }: Params<RawDatum, string, number>,
+    barWidth: number,
+    reverse: boolean
 ) => {
-    const getY = d => yScale(d[reverse ? 0 : 1])
-    const getHeight = (d, y) => yScale(d[reverse ? 1 : 0]) - y
+    const getY = (d: StackDatum<RawDatum>) => yScale(d[reverse ? 0 : 1])
+    const getHeight = (d: StackDatum<RawDatum>, y: number) => (yScale(d[reverse ? 1 : 0]) ?? 0) - y
 
     const bars = flattenDeep(
         stackedData.map(stackedDataItem =>
             xScale.domain().map((index, i) => {
                 const d = stackedDataItem[i]
-                const x = xScale(getIndex(d.data))
-                const y = getY(d) + innerPadding * 0.5
+                const x = xScale(getIndex(d.data)) ?? 0
+                const y = (getY(d) ?? 0) + innerPadding * 0.5
                 const barHeight = getHeight(d, y) - innerPadding
 
                 const barData = {
                     id: stackedDataItem.key,
-                    value: d.data[stackedDataItem.key],
+                    value: Number(d.data[stackedDataItem.key]),
                     index: i,
                     indexValue: index,
                     data: filterNullValues(d.data),
@@ -77,39 +70,33 @@ const generateVerticalStackedBars = (
 
 /**
  * Generates x/y scales & bars for horizontal stacked bar chart.
- *
- * @param {Array.<Object>} data
- * @param {Function}       getIndex
- * @param {Array.<string>} keys
- * @param {number}         minValue
- * @param {number}         maxValue
- * @param {boolean}        reverse
- * @param {number}         width
- * @param {number}         height
- * @param {Function}       getColor
- * @param {number}         [padding=0]
- * @param {number}         [innerPadding=0]
- * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-const generateHorizontalStackedBars = (
-    { getIndex, getColor, innerPadding, stackedData, xScale, yScale },
-    barHeight,
-    reverse
+const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>(
+    {
+        getIndex,
+        getColor,
+        innerPadding,
+        stackedData,
+        xScale,
+        yScale,
+    }: Params<RawDatum, number, string>,
+    barHeight: number,
+    reverse: boolean
 ) => {
-    const getX = d => xScale(d[reverse ? 1 : 0])
-    const getWidth = (d, x) => xScale(d[reverse ? 0 : 1]) - x
+    const getX = (d: StackDatum<RawDatum>) => xScale(d[reverse ? 1 : 0])
+    const getWidth = (d: StackDatum<RawDatum>, x: number) => (xScale(d[reverse ? 0 : 1]) ?? 0) - x
 
     const bars = flattenDeep(
         stackedData.map(stackedDataItem =>
             yScale.domain().map((index, i) => {
                 const d = stackedDataItem[i]
-                const y = yScale(getIndex(d.data))
-                const x = getX(d) + innerPadding * 0.5
+                const y = yScale(getIndex(d.data)) ?? 0
+                const x = (getX(d) ?? 0) + innerPadding * 0.5
                 const barWidth = getWidth(d, x) - innerPadding
 
                 const barData = {
                     id: stackedDataItem.key,
-                    value: d.data[stackedDataItem.key],
+                    value: Number(d.data[stackedDataItem.key]),
                     index: i,
                     indexValue: index,
                     data: filterNullValues(d.data),
@@ -133,11 +120,8 @@ const generateHorizontalStackedBars = (
 
 /**
  * Generates x/y scales & bars for stacked bar chart.
- *
- * @param {Object} options
- * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateStackedBars = ({
+export const generateStackedBars = <RawDatum extends BarDatum>({
     data,
     layout,
     minValue,
@@ -150,11 +134,32 @@ export const generateStackedBars = ({
     indexScale: indexScaleConfig,
     hiddenIds,
     ...props
+}: Pick<
+    Required<BarSvgProps<RawDatum>>,
+    | 'data'
+    | 'height'
+    | 'indexScale'
+    | 'innerPadding'
+    | 'keys'
+    | 'layout'
+    | 'maxValue'
+    | 'minValue'
+    | 'padding'
+    | 'reverse'
+    | 'valueScale'
+    | 'width'
+> & {
+    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
+    getIndex: (datum: RawDatum) => string
+    hiddenIds: string[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
-    const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(normalizeData(data, keys))
+    const stackedData = stack<RawDatum, string>().keys(keys).offset(stackOffsetDiverging)(
+        normalizeData(data, keys)
+    )
 
-    const [axis, otherAxis, size] = layout === 'vertical' ? ['y', 'x', width] : ['x', 'y', height]
+    const [axis, otherAxis, size] =
+        layout === 'vertical' ? (['y', 'x', width] as const) : (['x', 'y', height] as const)
     const indexScale = getIndexScale(
         data,
         props.getIndex,
@@ -171,12 +176,12 @@ export const generateStackedBars = ({
         ...valueScale,
     }
 
-    const values = flattenDeep(stackedData, 2)
+    const values = flattenDeep((stackedData as unknown) as number[][])
     const min = Math.min(...values)
     const max = Math.max(...values)
 
     const scale = computeScale(
-        scaleSpec,
+        scaleSpec as any,
         { all: values, min, max },
         axis === 'x' ? width : height,
         axis
@@ -187,10 +192,10 @@ export const generateStackedBars = ({
     const innerPadding = props.innerPadding > 0 ? props.innerPadding : 0
     const bandwidth = indexScale.bandwidth()
     const params = [
-        { ...props, innerPadding, stackedData, xScale, yScale },
+        { ...props, innerPadding, stackedData, xScale, yScale } as Params<RawDatum, any, any>,
         bandwidth,
         scaleSpec.reverse,
-    ]
+    ] as const
 
     const bars =
         bandwidth > 0
@@ -200,14 +205,9 @@ export const generateStackedBars = ({
             : []
 
     const legendData = props.keys.map(key => {
-        const bar = bars.find(bar => bar.data.id === key) || {
-            data: {},
-        }
+        const bar = bars.find(bar => bar.data.id === key) || { data: {} }
 
-        return {
-            ...bar,
-            data: { id: key, ...bar.data, hidden: hiddenIds.includes(key) },
-        }
+        return { ...bar, data: { id: key, ...bar.data, hidden: hiddenIds.includes(key) } }
     })
 
     return { xScale, yScale, bars, legendData }

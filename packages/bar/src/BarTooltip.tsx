@@ -1,6 +1,12 @@
+import { BarTooltipProps } from './types'
 import { BasicTooltip } from '@nivo/tooltip'
 
-const BarTooltip = ({ color, getTooltipLabel, tooltipFormat, ...data }) => {
+export const BarTooltip = <RawDatum,>({
+    color,
+    getTooltipLabel,
+    tooltipFormat,
+    ...data
+}: BarTooltipProps<RawDatum>) => {
     return (
         <BasicTooltip
             id={getTooltipLabel(data)}
@@ -11,5 +17,3 @@ const BarTooltip = ({ color, getTooltipLabel, tooltipFormat, ...data }) => {
         />
     )
 }
-
-export default BarTooltip

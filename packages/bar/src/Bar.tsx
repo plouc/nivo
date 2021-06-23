@@ -1,127 +1,145 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { createElement, Fragment, useCallback, useState } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { bindDefs, LegacyContainer, SvgWrapper, CartesianMarkers } from '@nivo/core'
+import {
+    // @ts-ignore
+    bindDefs,
+    // @ts-ignore
+    LegacyContainer,
+    SvgWrapper,
+    // @ts-ignore
+    CartesianMarkers,
+    defaultMargin,
+    usePropertyAccessor,
+} from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
+import { BarAnnotations } from './BarAnnotations'
+import { BarDatum, BarLayer, BarSvgProps, ComputedBarDatum, TooltipHandlers } from './types'
 import { BoxLegendSvg } from '@nivo/legends'
-import { setDisplayName } from '@nivo/recompose'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
-import enhance from './enhance'
-import { BarSvgDefaultProps, BarSvgPropTypes } from './props'
-import BarAnnotations from './BarAnnotations'
+import { svgDefaultProps } from './props'
+import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 
-const barWillEnterHorizontal = ({ style }) => ({
+type SpringConfig = Required<{
+    damping: BarSvgProps<BarDatum>['motionDamping']
+    stiffness: BarSvgProps<BarDatum>['motionStiffness']
+}>
+
+const barWillEnterHorizontal = ({ style }: Record<string, any>) => ({
     x: style.x.val,
     y: style.y.val,
     width: 0,
     height: style.height.val,
 })
 
-const barWillEnterVertical = ({ style }) => ({
+const barWillEnterVertical = ({ style }: Record<string, any>) => ({
     x: style.x.val,
     y: style.y.val + style.height.val,
     width: style.width.val,
     height: 0,
 })
 
-const barWillLeaveHorizontal = springConfig => ({ style }) => ({
+const barWillLeaveHorizontal = (springConfig: SpringConfig) => ({
+    style,
+}: Record<string, any>) => ({
     x: style.x,
     y: style.y,
     width: spring(0, springConfig),
     height: style.height,
 })
 
-const barWillLeaveVertical = springConfig => ({ style }) => ({
+const barWillLeaveVertical = (springConfig: SpringConfig) => ({ style }: Record<string, any>) => ({
     x: style.x,
     y: spring(style.y.val + style.height.val, springConfig),
     width: style.width,
     height: spring(0, springConfig),
 })
 
-const Bar = props => {
-    const {
-        data,
-        getIndex,
-        keys,
+export const Bar = <RawDatum extends BarDatum>({
+    data,
+    indexBy = svgDefaultProps.indexBy,
+    keys = svgDefaultProps.keys,
 
-        groupMode,
-        layout,
-        reverse,
-        minValue,
-        maxValue,
+    groupMode = svgDefaultProps.groupMode,
+    layout = svgDefaultProps.layout,
+    reverse = svgDefaultProps.reverse,
+    minValue = svgDefaultProps.minValue,
+    maxValue = svgDefaultProps.maxValue,
 
-        valueScale,
-        indexScale,
+    valueScale = svgDefaultProps.valueScale,
+    indexScale = svgDefaultProps.indexScale,
 
-        margin,
-        width,
-        height,
-        outerWidth,
-        outerHeight,
-        padding,
-        innerPadding,
+    padding = svgDefaultProps.padding,
+    innerPadding = svgDefaultProps.innerPadding,
 
-        axisTop,
-        axisRight,
-        axisBottom,
-        axisLeft,
-        enableGridX,
-        enableGridY,
-        gridXValues,
-        gridYValues,
+    axisTop,
+    axisRight,
+    axisBottom = svgDefaultProps.axisBottom,
+    axisLeft = svgDefaultProps.axisLeft,
+    enableGridX = svgDefaultProps.enableGridX,
+    enableGridY = svgDefaultProps.enableGridY,
+    gridXValues,
+    gridYValues,
 
-        layers,
-        barComponent,
+    layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
+    barComponent = svgDefaultProps.barComponent,
 
-        enableLabel,
-        getLabel,
-        labelSkipWidth,
-        labelSkipHeight,
-        getLabelTextColor,
+    enableLabel = svgDefaultProps.enableLabel,
+    label = svgDefaultProps.label,
+    labelSkipWidth = svgDefaultProps.labelSkipWidth,
+    labelSkipHeight = svgDefaultProps.labelSkipHeight,
+    labelTextColor = svgDefaultProps.labelTextColor,
 
-        markers,
+    markers,
 
-        theme,
-        getColor,
-        defs,
-        fill,
-        borderRadius,
-        borderWidth,
-        getBorderColor,
+    theme,
+    colorBy = svgDefaultProps.colorBy,
+    colors = svgDefaultProps.colors,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
+    borderRadius = svgDefaultProps.borderRadius,
+    borderWidth = svgDefaultProps.borderWidth,
+    borderColor = svgDefaultProps.borderColor,
 
-        annotations,
+    annotations = svgDefaultProps.annotations,
 
-        isInteractive,
-        getTooltipLabel,
-        tooltipFormat,
-        tooltip,
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
+    isInteractive = svgDefaultProps.isInteractive,
+    tooltipLabel = svgDefaultProps.tooltipLabel,
+    tooltipFormat,
+    tooltip = svgDefaultProps.tooltip,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
 
-        legends,
+    legends = svgDefaultProps.legends,
 
-        animate,
-        motionStiffness,
-        motionDamping,
+    animate = svgDefaultProps.animate,
+    motionStiffness = svgDefaultProps.motionStiffness,
+    motionDamping = svgDefaultProps.motionDamping,
 
-        renderWrapper,
-        role,
-    } = props
+    renderWrapper,
+    role = svgDefaultProps.role,
 
-    const [hiddenIds, setHiddenIds] = useState([])
+    ...props
+}: BarSvgProps<RawDatum>) => {
+    const [hiddenIds, setHiddenIds] = useState<string[]>([])
     const toggleSerie = useCallback(id => {
         setHiddenIds(state =>
             state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
         )
     }, [])
+
+    const margin = { ...defaultMargin, ...props.margin }
+    const outerHeight = props.height
+    const outerWidth = props.width
+    const height = props.height - margin.top - margin.bottom
+    const width = props.width - margin.left - margin.right
+
+    const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
+    const getColor = useOrdinalColorScale(colors, colorBy)
+    const getIndex = usePropertyAccessor(indexBy)
+    const getLabel = usePropertyAccessor(label)
+    const getLabelColor = useInheritedColor<ComputedBarDatum<RawDatum>>(labelTextColor, theme)
+    const getTooltipLabel = usePropertyAccessor(tooltipLabel)
 
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
     const result = generateBars({
@@ -142,12 +160,6 @@ const Bar = props => {
         hiddenIds,
     })
 
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
-
     const springConfig = {
         damping: motionDamping,
         stiffness: motionStiffness,
@@ -159,12 +171,15 @@ const Bar = props => {
             ? barWillLeaveVertical(springConfig)
             : barWillLeaveHorizontal(springConfig)
 
-    const shouldRenderLabel = ({ width, height }) => {
-        if (!enableLabel) return false
-        if (labelSkipWidth > 0 && width < labelSkipWidth) return false
-        if (labelSkipHeight > 0 && height < labelSkipHeight) return false
-        return true
-    }
+    const shouldRenderLabel = useCallback(
+        ({ width, height }: { height: number; width: number }) => {
+            if (!enableLabel) return false
+            if (labelSkipWidth > 0 && width < labelSkipWidth) return false
+            if (labelSkipHeight > 0 && height < labelSkipHeight) return false
+            return true
+        },
+        [enableLabel, labelSkipHeight, labelSkipWidth]
+    )
 
     const boundDefs = bindDefs(defs, result.bars, fill, {
         dataKey: 'data',
@@ -175,7 +190,7 @@ const Bar = props => {
         <LegacyContainer
             {...{ animate, isInteractive, motionStiffness, motionDamping, renderWrapper, theme }}
         >
-            {({ showTooltip, hideTooltip }) => {
+            {({ showTooltip, hideTooltip }: TooltipHandlers) => {
                 const commonProps = {
                     borderRadius,
                     borderWidth,
@@ -187,7 +202,6 @@ const Bar = props => {
                     onClick,
                     onMouseEnter,
                     onMouseLeave,
-                    theme,
                     getTooltipLabel,
                     tooltipFormat,
                     tooltip,
@@ -226,9 +240,9 @@ const Bar = props => {
                                             width: Math.max(style.width, 0),
                                             height: Math.max(style.height, 0),
                                             label: getLabel(bar.data),
-                                            labelColor: getLabelTextColor(baseProps, theme),
+                                            // @ts-ignore fix theme
+                                            labelColor: getLabelColor(baseProps, theme),
                                             borderColor: getBorderColor(baseProps),
-                                            theme,
                                         })
                                     })}
                                 </g>
@@ -240,14 +254,13 @@ const Bar = props => {
                         .filter(bar => bar.data.value !== null)
                         .map(d =>
                             createElement(barComponent, {
-                                key: d.key,
                                 ...d,
                                 ...commonProps,
                                 label: getLabel(d.data),
                                 shouldRenderLabel: shouldRenderLabel(d),
-                                labelColor: getLabelTextColor(d, theme),
+                                // @ts-ignore fix theme
+                                labelColor: getLabelColor(d, theme),
                                 borderColor: getBorderColor(d),
-                                theme,
                             })
                         )
                 }
@@ -258,8 +271,8 @@ const Bar = props => {
                             key="grid"
                             width={width}
                             height={height}
-                            xScale={enableGridX ? result.xScale : null}
-                            yScale={enableGridY ? result.yScale : null}
+                            xScale={enableGridX ? (result.xScale as any) : null}
+                            yScale={enableGridY ? (result.yScale as any) : null}
                             xValues={gridXValues}
                             yValues={gridYValues}
                         />
@@ -267,8 +280,8 @@ const Bar = props => {
                     axes: (
                         <Axes
                             key="axes"
-                            xScale={result.xScale}
-                            yScale={result.yScale}
+                            xScale={result.xScale as any}
+                            yScale={result.yScale as any}
                             width={width}
                             height={height}
                             top={axisTop}
@@ -308,7 +321,6 @@ const Bar = props => {
                                 containerWidth={width}
                                 containerHeight={height}
                                 data={legendData}
-                                theme={theme}
                                 toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
                             />
                         )
@@ -316,11 +328,8 @@ const Bar = props => {
                     annotations: (
                         <BarAnnotations
                             key="annotations"
-                            innerWidth={width}
-                            innerHeight={height}
                             bars={result.bars}
                             annotations={annotations}
-                            {...motionProps}
                         />
                     ),
                 }
@@ -331,14 +340,13 @@ const Bar = props => {
                         height={outerHeight}
                         margin={margin}
                         defs={boundDefs}
-                        theme={theme}
                         role={role}
                     >
                         {layers.map((layer, i) => {
                             if (typeof layer === 'function') {
                                 return (
                                     <Fragment key={i}>
-                                        {layer({ ...props, ...result, showTooltip, hideTooltip })}
+                                        {layer({ ...commonProps, ...result } as any)}
                                     </Fragment>
                                 )
                             }
@@ -350,8 +358,3 @@ const Bar = props => {
         </LegacyContainer>
     )
 }
-
-Bar.propTypes = BarSvgPropTypes
-Bar.defaultProps = BarSvgDefaultProps
-
-export default setDisplayName('Bar')(enhance(Bar))

@@ -21,11 +21,12 @@
   ],
   "main": "./dist/nivo-bar.cjs.js",
   "module": "./dist/nivo-bar.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/annotations": "0.71.0",
@@ -45,7 +46,6 @@
   },
   "peerDependencies": {
     "@nivo/core": "0.71.0",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
