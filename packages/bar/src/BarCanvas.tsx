@@ -1,28 +1,32 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { forwardRef, Component } from 'react'
+// @ts-nocheck
+import { BarCanvasProps, BarDatum, TooltipHandlers } from './types'
+import { forwardRef, Component, ForwardedRef } from 'react'
 import uniqBy from 'lodash/uniqBy'
+// @ts-ignore LegacyContainer
 import { getRelativeCursor, isCursorInRect, LegacyContainer } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { setDisplayName } from '@nivo/recompose'
 import { BasicTooltip } from '@nivo/tooltip'
 import { generateGroupedBars, generateStackedBars } from './compute'
-import { BarDefaultProps, BarPropTypes } from './props'
-import enhance from './enhance'
+// import { canvasDefaultProps } from './props'
+
+declare module 'react' {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    function forwardRef<T, P = {}>(
+        render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+    ): (props: P & React.RefAttributes<T>) => React.ReactElement | null
+}
+
+type InnerBarCanvasProps<RawDatum extends BarDatum> = BarCanvasProps<RawDatum> & {
+    canvasRef: ForwardedRef<HTMLCanvasElement>
+}
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
-class BarCanvas extends Component {
+class InnerBarCanvas<RawDatum extends BarDatum> extends Component<InnerBarCanvasProps<RawDatum>> {
     componentDidMount() {
         this.ctx = this.surface.getContext('2d')
         this.draw(this.props)
@@ -109,6 +113,7 @@ class BarCanvas extends Component {
             innerPadding,
             valueScale,
             indexScale,
+            hiddenIds: [],
         }
 
         const result =
@@ -251,7 +256,7 @@ class BarCanvas extends Component {
         hideTooltip()
     }
 
-    handleClick = event => {
+    handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
         if (!this.bars) return
 
         const { margin, onClick } = this.props
@@ -263,8 +268,8 @@ class BarCanvas extends Component {
 
     render() {
         const {
-            outerWidth,
-            outerHeight,
+            width: outerWidth,
+            height: outerHeight,
             pixelRatio,
             isInteractive,
             renderWrapper,
@@ -274,7 +279,7 @@ class BarCanvas extends Component {
 
         return (
             <LegacyContainer {...{ isInteractive, renderWrapper, theme }} animate={false}>
-                {({ showTooltip, hideTooltip }) => (
+                {({ showTooltip, hideTooltip }: TooltipHandlers) => (
                     <canvas
                         ref={surface => {
                             this.surface = surface
@@ -297,8 +302,9 @@ class BarCanvas extends Component {
     }
 }
 
-BarCanvas.propTypes = BarPropTypes
-BarCanvas.defaultProps = BarDefaultProps
-
-const EnhancedBarCanvas = setDisplayName('BarCanvas')(enhance(BarCanvas))
-export default forwardRef((props, ref) => <EnhancedBarCanvas {...props} canvasRef={ref} />)
+export const BarCanvas = forwardRef(
+    <RawDatum extends BarDatum>(
+        props: BarCanvasProps<RawDatum>,
+        ref: ForwardedRef<HTMLCanvasElement>
+    ) => <InnerBarCanvas {...props} canvasRef={ref} />
+)
