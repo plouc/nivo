@@ -752,7 +752,7 @@ exports[`should allow grouped horizontal layout 1`] = `
         transform="translate(0, 203)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={86}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -769,7 +769,7 @@ exports[`should allow grouped horizontal layout 1`] = `
         transform="translate(0, 107)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={86}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -786,7 +786,7 @@ exports[`should allow grouped horizontal layout 1`] = `
         transform="translate(0, 11)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={86}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -1673,7 +1673,7 @@ exports[`should allow grouped mode 1`] = `
         transform="translate(17, 200)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={100}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -1690,7 +1690,7 @@ exports[`should allow grouped mode 1`] = `
         transform="translate(178, 100)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={200}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -1707,7 +1707,7 @@ exports[`should allow grouped mode 1`] = `
         transform="translate(339, 0)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={300}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -2477,7 +2477,7 @@ exports[`should allow horizontal layout 1`] = `
         transform="translate(0, 203)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={86}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -2494,7 +2494,7 @@ exports[`should allow horizontal layout 1`] = `
         transform="translate(0, 107)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={86}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -2511,7 +2511,7 @@ exports[`should allow horizontal layout 1`] = `
         transform="translate(0, 11)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={86}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -3398,7 +3398,7 @@ exports[`should allow to disable labels 1`] = `
         transform="translate(17, 200)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={100}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -3415,7 +3415,7 @@ exports[`should allow to disable labels 1`] = `
         transform="translate(178, 100)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={200}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -3432,7 +3432,7 @@ exports[`should allow to disable labels 1`] = `
         transform="translate(339, 0)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={300}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -4319,7 +4319,7 @@ exports[`should render a basic bar chart 1`] = `
         transform="translate(17, 200)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={100}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -4352,7 +4352,7 @@ exports[`should render a basic bar chart 1`] = `
         transform="translate(178, 100)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={200}
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -4385,7 +4385,7 @@ exports[`should render a basic bar chart 1`] = `
         transform="translate(339, 0)"
       >
         <rect
-          fill="#e8c1a0"
+          fill="rgba(232, 193, 160, 1)"
           height={300}
           onClick={[Function]}
           onMouseEnter={[Function]}
