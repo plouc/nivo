@@ -15,7 +15,7 @@ export const getLegendDataForKeys = <RawDatum>(
             // label: bar.data.label || bar.data.id,
             label: bar.data.id,
             hidden: bar.data.hidden,
-            color: bar.color,
+            color: bar.color ?? '#000',
         })),
         ({ id }) => id
     )
@@ -41,7 +41,7 @@ export const getLegendDataForIndexes = <RawDatum>(bars: BarsWithHidden<RawDatum>
             // label: bar.data.label || bar.data.indexValue,
             label: bar.data.indexValue ?? '',
             hidden: bar.data.hidden,
-            color: bar.color,
+            color: bar.color ?? '#000',
         })),
         ({ id }) => id
     )

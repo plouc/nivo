@@ -3,11 +3,13 @@ import { BarAnnotations } from './BarAnnotations'
 import {
     BarDatum,
     BarLayer,
+    BarLayerId,
     BarSvgProps,
     ComputedBarDatum,
     ComputedBarDatumWithValue,
+    LegendData,
 } from './types'
-import { BoxLegendSvg } from '@nivo/legends'
+import { BarLegends } from './BarLegends'
 import {
     // @ts-ignore
     CartesianMarkers,
@@ -15,13 +17,12 @@ import {
     SvgWrapper,
     // @ts-ignore
     bindDefs,
-    // defaultMargin,
     useDimensions,
     useMotionConfig,
     usePropertyAccessor,
     useTheme,
 } from '@nivo/core'
-import { Fragment, createElement, useCallback, useMemo, useState } from 'react'
+import { Fragment, ReactNode, createElement, useCallback, useMemo, useState } from 'react'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import { svgDefaultProps } from './props'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -173,11 +174,6 @@ const InnerBar = <RawDatum extends BarDatum>({
         [enableLabel, labelSkipHeight, labelSkipWidth]
     )
 
-    const boundDefs = bindDefs(defs, result.bars, fill, {
-        dataKey: 'data',
-        targetKey: 'data.fill',
-    })
-
     const commonProps = {
         borderRadius,
         borderWidth,
@@ -193,19 +189,28 @@ const InnerBar = <RawDatum extends BarDatum>({
         tooltip,
     }
 
-    const layerById = {
-        grid: (
-            <Grid
-                key="grid"
-                width={innerWidth}
-                height={innerHeight}
-                xScale={enableGridX ? (result.xScale as any) : null}
-                yScale={enableGridY ? (result.yScale as any) : null}
-                xValues={gridXValues}
-                yValues={gridYValues}
-            />
-        ),
-        axes: (
+    const boundDefs = bindDefs(defs, result.bars, fill, {
+        dataKey: 'data',
+        targetKey: 'data.fill',
+    })
+
+    const layerById: Record<BarLayerId, ReactNode> = {
+        annotations: null,
+        axes: null,
+        bars: null,
+        grid: null,
+        legends: null,
+        markers: null,
+    }
+
+    if (layers.includes('annotations')) {
+        layerById.annotations = (
+            <BarAnnotations key="annotations" bars={result.bars} annotations={annotations} />
+        )
+    }
+
+    if (layers.includes('axes')) {
+        layerById.axes = (
             <Axes
                 key="axes"
                 xScale={result.xScale as any}
@@ -217,8 +222,11 @@ const InnerBar = <RawDatum extends BarDatum>({
                 bottom={axisBottom}
                 left={axisLeft}
             />
-        ),
-        bars: (
+        )
+    }
+
+    if (layers.includes('bars')) {
+        layerById.bars = (
             <>
                 {transition((style, bar) =>
                     createElement(barComponent, {
@@ -232,8 +240,51 @@ const InnerBar = <RawDatum extends BarDatum>({
                     })
                 )}
             </>
-        ),
-        markers: (
+        )
+    }
+
+    if (layers.includes('grid')) {
+        layerById.grid = (
+            <Grid
+                key="grid"
+                width={innerWidth}
+                height={innerHeight}
+                xScale={enableGridX ? (result.xScale as any) : null}
+                yScale={enableGridY ? (result.yScale as any) : null}
+                xValues={gridXValues}
+                yValues={gridYValues}
+            />
+        )
+    }
+
+    if (layers.includes('legends')) {
+        const legendData = ([] as LegendData[]).concat(
+            ...legends.map(legend =>
+                getLegendData({
+                    from: legend.dataFrom,
+                    bars: result.legendData,
+                    layout,
+                    direction: legend.direction,
+                    groupMode,
+                    reverse,
+                })
+            )
+        )
+
+        layerById.legends = (
+            <BarLegends
+                key="legends"
+                width={innerWidth}
+                height={innerHeight}
+                data={legendData}
+                legends={legends}
+                toggleSerie={toggleSerie}
+            />
+        )
+    }
+
+    if (layers.includes('markers')) {
+        layerById.markers = (
             <CartesianMarkers
                 key="markers"
                 markers={markers}
@@ -243,34 +294,42 @@ const InnerBar = <RawDatum extends BarDatum>({
                 yScale={result.yScale}
                 theme={theme}
             />
-        ),
-        legends: legends.map((legend, i) => {
-            const legendData = getLegendData({
-                from: legend.dataFrom,
-                bars: result.legendData,
-                layout,
-                direction: legend.direction,
-                groupMode,
-                reverse,
-            })
-
-            if (legendData === undefined) return null
-
-            return (
-                <BoxLegendSvg
-                    key={i}
-                    {...legend}
-                    containerWidth={innerWidth}
-                    containerHeight={innerHeight}
-                    data={legendData}
-                    toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
-                />
-            )
-        }),
-        annotations: (
-            <BarAnnotations key="annotations" bars={result.bars} annotations={annotations} />
-        ),
+        )
     }
+
+    // We use `any` here until we can figure out the best way to type xScale/yScale
+    const layerContext: any = useMemo(
+        () => ({
+            borderRadius,
+            borderWidth,
+            enableLabel,
+            isInteractive,
+            labelSkipWidth,
+            labelSkipHeight,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            getTooltipLabel,
+            tooltipFormat,
+            tooltip,
+            ...result,
+        }),
+        [
+            borderRadius,
+            borderWidth,
+            enableLabel,
+            getTooltipLabel,
+            isInteractive,
+            labelSkipHeight,
+            labelSkipWidth,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            result,
+            tooltip,
+            tooltipFormat,
+        ]
+    )
 
     return (
         <SvgWrapper
@@ -282,11 +341,10 @@ const InnerBar = <RawDatum extends BarDatum>({
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return (
-                        <Fragment key={i}>{layer({ ...commonProps, ...result } as any)}</Fragment>
-                    )
+                    return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
                 }
-                return layerById[layer]
+
+                return layerById?.[layer] ?? null
             })}
         </SvgWrapper>
     )
