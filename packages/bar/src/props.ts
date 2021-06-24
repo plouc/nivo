@@ -30,7 +30,7 @@ export const defaultProps = {
     barComponent: BarItem,
 
     enableLabel: true,
-    label: 'value',
+    label: 'formattedValue',
     labelSkipWidth: 0,
     labelSkipHeight: 0,
     labelLinkColor: 'theme',

@@ -25,7 +25,6 @@ export const BarItem = <RawDatum extends BarDatum>({
 
     getTooltipLabel,
     tooltip,
-    tooltipFormat,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -40,20 +39,17 @@ export const BarItem = <RawDatum extends BarDatum>({
     const handleTooltip = useCallback(
         (event: React.MouseEvent<SVGRectElement>) =>
             showTooltipFromEvent(
-                createElement(tooltip, { ...data, color, getTooltipLabel, tooltipFormat }),
+                createElement(tooltip, { ...data, color, getTooltipLabel }),
                 event
             ),
-        [color, data, getTooltipLabel, showTooltipFromEvent, tooltip, tooltipFormat]
+        [color, data, getTooltipLabel, showTooltipFromEvent, tooltip]
     )
     const handleMouseEnter = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
             onMouseEnter?.(data, event)
-            showTooltipFromEvent(
-                createElement(tooltip, { ...data, color, getTooltipLabel, tooltipFormat }),
-                event
-            )
+            showTooltipFromEvent(createElement(tooltip, { ...data, color, getTooltipLabel }), event)
         },
-        [color, data, getTooltipLabel, onMouseEnter, showTooltipFromEvent, tooltip, tooltipFormat]
+        [color, data, getTooltipLabel, onMouseEnter, showTooltipFromEvent, tooltip]
     )
     const handleMouseLeave = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {

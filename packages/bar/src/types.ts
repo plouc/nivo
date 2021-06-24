@@ -31,6 +31,7 @@ export type BarDatumWithColor = BarDatum & {
 export type ComputedDatum<RawDatum> = {
     id: string | number
     value: number | null
+    formattedValue: string
     index: number
     indexValue: string | number
     data: Exclude<RawDatum, null | undefined | false | '' | 0>
@@ -100,7 +101,6 @@ export interface BarCustomLayerProps<RawDatum>
             | 'labelSkipHeight'
             | 'labelSkipWidth'
             | 'tooltip'
-            | 'tooltipFormat'
         >,
         BarHandlers<RawDatum, SVGRectElement> {
     bars: ComputedBarDatum<RawDatum>[]
@@ -119,7 +119,7 @@ export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 export interface BarItemProps<RawDatum>
     extends Pick<
             BarCommonProps<RawDatum>,
-            'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip' | 'tooltipFormat'
+            'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
         >,
         ComputedBarDatum<RawDatum>,
         BarHandlers<RawDatum, SVGRectElement> {
@@ -146,7 +146,6 @@ export interface BarItemProps<RawDatum>
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
-    tooltipFormat: BarCommonProps<RawDatum>['tooltipFormat']
     value: number
 }
 
@@ -199,7 +198,8 @@ export type BarCommonProps<RawDatum> = {
     isInteractive: boolean
 
     tooltip: React.FC<BarTooltipProps<RawDatum>>
-    tooltipFormat?: ValueFormat<string | number | Date>
+
+    valueFormat?: ValueFormat<number>
 
     legendLabel?: PropertyAccessor<LegendLabelDatum<RawDatum>, string>
     tooltipLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>

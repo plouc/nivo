@@ -4,16 +4,14 @@ import { BasicTooltip } from '@nivo/tooltip'
 export const BarTooltip = <RawDatum,>({
     color,
     getTooltipLabel,
-    tooltipFormat,
     ...data
 }: BarTooltipProps<RawDatum>) => {
     return (
         <BasicTooltip
             id={getTooltipLabel(data)}
-            value={data.value}
+            value={data.formattedValue}
             enableChip={true}
             color={color}
-            format={tooltipFormat}
         />
     )
 }
