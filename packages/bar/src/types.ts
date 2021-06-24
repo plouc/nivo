@@ -91,12 +91,12 @@ export interface BarCustomLayerProps<RawDatum>
             | 'borderRadius'
             | 'borderWidth'
             | 'enableLabel'
+            | 'isInteractive'
             | 'labelSkipHeight'
             | 'labelSkipWidth'
             | 'tooltip'
             | 'tooltipFormat'
         >,
-        TooltipHandlers,
         BarHandlers<RawDatum, SVGRectElement> {
     bars: ComputedBarDatum<RawDatum>[]
     legendData: BarsWithHidden<RawDatum>
@@ -114,10 +114,9 @@ export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 export interface BarItemProps<RawDatum>
     extends Pick<
             BarCommonProps<RawDatum>,
-            'borderRadius' | 'borderWidth' | 'tooltip' | 'tooltipFormat'
+            'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip' | 'tooltipFormat'
         >,
         ComputedBarDatum<RawDatum>,
-        TooltipHandlers,
         BarHandlers<RawDatum, SVGRectElement> {
     borderColor: string
 

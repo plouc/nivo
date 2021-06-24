@@ -6,19 +6,20 @@ import {
     BarSvgProps,
     ComputedBarDatum,
     ComputedBarDatumWithValue,
-    TooltipHandlers,
 } from './types'
 import { BoxLegendSvg } from '@nivo/legends'
 import {
     // @ts-ignore
     CartesianMarkers,
-    // @ts-ignore
-    LegacyContainer,
+    Container,
     SvgWrapper,
     // @ts-ignore
     bindDefs,
-    defaultMargin,
+    // defaultMargin,
+    useDimensions,
+    useMotionConfig,
     usePropertyAccessor,
+    useTheme,
 } from '@nivo/core'
 import { Fragment, createElement, useCallback, useMemo, useState } from 'react'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
@@ -26,10 +27,14 @@ import { svgDefaultProps } from './props'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTransition } from '@react-spring/web'
 
-export const Bar = <RawDatum extends BarDatum>({
+const InnerBar = <RawDatum extends BarDatum>({
     data,
     indexBy = svgDefaultProps.indexBy,
     keys = svgDefaultProps.keys,
+
+    margin: partialMargin,
+    width,
+    height,
 
     groupMode = svgDefaultProps.groupMode,
     layout = svgDefaultProps.layout,
@@ -63,7 +68,6 @@ export const Bar = <RawDatum extends BarDatum>({
 
     markers,
 
-    theme,
     colorBy = svgDefaultProps.colorBy,
     colors = svgDefaultProps.colors,
     defs = svgDefaultProps.defs,
@@ -84,15 +88,9 @@ export const Bar = <RawDatum extends BarDatum>({
 
     legends = svgDefaultProps.legends,
 
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-
-    renderWrapper,
     role = svgDefaultProps.role,
 
     initialHiddenIds,
-
-    ...props
 }: BarSvgProps<RawDatum>) => {
     const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
     const toggleSerie = useCallback(id => {
@@ -101,11 +99,13 @@ export const Bar = <RawDatum extends BarDatum>({
         )
     }, [])
 
-    const margin = { ...defaultMargin, ...props.margin }
-    const outerHeight = props.height
-    const outerWidth = props.width
-    const height = props.height - margin.top - margin.bottom
-    const width = props.width - margin.left - margin.right
+    const theme = useTheme()
+    const { animate, config: springConfig } = useMotionConfig()
+    const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
     const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
     const getColor = useOrdinalColorScale(colors, colorBy)
@@ -123,8 +123,8 @@ export const Bar = <RawDatum extends BarDatum>({
         keys,
         minValue,
         maxValue,
-        width,
-        height,
+        width: innerWidth,
+        height: innerHeight,
         getColor,
         padding,
         innerPadding,
@@ -159,7 +159,7 @@ export const Bar = <RawDatum extends BarDatum>({
             color: bar.color,
             transform: `translate(${bar.x}, ${bar.y})`,
         }),
-        config: motionConfig as any,
+        config: springConfig,
         immediate: !animate,
     })
 
@@ -178,130 +178,137 @@ export const Bar = <RawDatum extends BarDatum>({
         targetKey: 'data.fill',
     })
 
+    const commonProps = {
+        borderRadius,
+        borderWidth,
+        enableLabel,
+        isInteractive,
+        labelSkipWidth,
+        labelSkipHeight,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+        getTooltipLabel,
+        tooltipFormat,
+        tooltip,
+    }
+
+    const layerById = {
+        grid: (
+            <Grid
+                key="grid"
+                width={innerWidth}
+                height={innerHeight}
+                xScale={enableGridX ? (result.xScale as any) : null}
+                yScale={enableGridY ? (result.yScale as any) : null}
+                xValues={gridXValues}
+                yValues={gridYValues}
+            />
+        ),
+        axes: (
+            <Axes
+                key="axes"
+                xScale={result.xScale as any}
+                yScale={result.yScale as any}
+                width={innerWidth}
+                height={innerHeight}
+                top={axisTop}
+                right={axisRight}
+                bottom={axisBottom}
+                left={axisLeft}
+            />
+        ),
+        bars: (
+            <>
+                {transition((style, bar) =>
+                    createElement(barComponent, {
+                        ...bar,
+                        ...commonProps,
+                        style,
+                        shouldRenderLabel: shouldRenderLabel(bar),
+                        label: getLabel(bar.data),
+                        labelColor: getLabelColor(bar),
+                        borderColor: getBorderColor(bar),
+                    })
+                )}
+            </>
+        ),
+        markers: (
+            <CartesianMarkers
+                key="markers"
+                markers={markers}
+                width={innerWidth}
+                height={innerHeight}
+                xScale={result.xScale}
+                yScale={result.yScale}
+                theme={theme}
+            />
+        ),
+        legends: legends.map((legend, i) => {
+            const legendData = getLegendData({
+                from: legend.dataFrom,
+                bars: result.legendData,
+                layout,
+                direction: legend.direction,
+                groupMode,
+                reverse,
+            })
+
+            if (legendData === undefined) return null
+
+            return (
+                <BoxLegendSvg
+                    key={i}
+                    {...legend}
+                    containerWidth={innerWidth}
+                    containerHeight={innerHeight}
+                    data={legendData}
+                    toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
+                />
+            )
+        }),
+        annotations: (
+            <BarAnnotations key="annotations" bars={result.bars} annotations={annotations} />
+        ),
+    }
+
     return (
-        <LegacyContainer {...{ animate, isInteractive, motionConfig, renderWrapper, theme }}>
-            {({ showTooltip, hideTooltip }: TooltipHandlers) => {
-                const commonProps = {
-                    borderRadius,
-                    borderWidth,
-                    enableLabel,
-                    labelSkipWidth,
-                    labelSkipHeight,
-                    showTooltip,
-                    hideTooltip,
-                    onClick,
-                    onMouseEnter,
-                    onMouseLeave,
-                    getTooltipLabel,
-                    tooltipFormat,
-                    tooltip,
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            defs={boundDefs}
+            role={role}
+        >
+            {layers.map((layer, i) => {
+                if (typeof layer === 'function') {
+                    return (
+                        <Fragment key={i}>{layer({ ...commonProps, ...result } as any)}</Fragment>
+                    )
                 }
-
-                const layerById = {
-                    grid: (
-                        <Grid
-                            key="grid"
-                            width={width}
-                            height={height}
-                            xScale={enableGridX ? (result.xScale as any) : null}
-                            yScale={enableGridY ? (result.yScale as any) : null}
-                            xValues={gridXValues}
-                            yValues={gridYValues}
-                        />
-                    ),
-                    axes: (
-                        <Axes
-                            key="axes"
-                            xScale={result.xScale as any}
-                            yScale={result.yScale as any}
-                            width={width}
-                            height={height}
-                            top={axisTop}
-                            right={axisRight}
-                            bottom={axisBottom}
-                            left={axisLeft}
-                        />
-                    ),
-                    bars: (
-                        <>
-                            {transition((style, bar) =>
-                                createElement(barComponent, {
-                                    ...bar,
-                                    ...commonProps,
-                                    style,
-                                    shouldRenderLabel: shouldRenderLabel(bar),
-                                    label: getLabel(bar.data),
-                                    // @ts-ignore fix theme
-                                    labelColor: getLabelColor(bar, theme),
-                                    borderColor: getBorderColor(bar),
-                                })
-                            )}
-                        </>
-                    ),
-                    markers: (
-                        <CartesianMarkers
-                            key="markers"
-                            markers={markers}
-                            width={width}
-                            height={height}
-                            xScale={result.xScale}
-                            yScale={result.yScale}
-                            theme={theme}
-                        />
-                    ),
-                    legends: legends.map((legend, i) => {
-                        const legendData = getLegendData({
-                            from: legend.dataFrom,
-                            bars: result.legendData,
-                            layout,
-                            direction: legend.direction,
-                            groupMode,
-                            reverse,
-                        })
-
-                        if (legendData === undefined) return null
-
-                        return (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
-                            />
-                        )
-                    }),
-                    annotations: (
-                        <BarAnnotations
-                            key="annotations"
-                            bars={result.bars}
-                            annotations={annotations}
-                        />
-                    ),
-                }
-
-                return (
-                    <SvgWrapper
-                        width={outerWidth}
-                        height={outerHeight}
-                        margin={margin}
-                        defs={boundDefs}
-                        role={role}
-                    >
-                        {layers.map((layer, i) => {
-                            if (typeof layer === 'function') {
-                                return (
-                                    <Fragment key={i}>
-                                        {layer({ ...commonProps, ...result } as any)}
-                                    </Fragment>
-                                )
-                            }
-                            return layerById[layer]
-                        })}
-                    </SvgWrapper>
-                )
-            }}
-        </LegacyContainer>
+                return layerById[layer]
+            })}
+        </SvgWrapper>
     )
 }
+
+export const Bar = <RawDatum extends BarDatum>({
+    isInteractive = svgDefaultProps.isInteractive,
+    animate = svgDefaultProps.animate,
+    motionConfig = svgDefaultProps.motionConfig,
+    theme,
+    renderWrapper,
+    ...otherProps
+}: BarSvgProps<RawDatum>) => (
+    <Container
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
+    >
+        <InnerBar<RawDatum> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)

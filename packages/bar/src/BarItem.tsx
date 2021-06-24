@@ -2,6 +2,7 @@ import { BarDatum, BarItemProps } from './types'
 import { animated } from '@react-spring/web'
 import { createElement, useCallback } from 'react'
 import { useTheme } from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
 
 export const BarItem = <RawDatum extends BarDatum>({
     data,
@@ -17,8 +18,7 @@ export const BarItem = <RawDatum extends BarDatum>({
     shouldRenderLabel,
     labelColor,
 
-    showTooltip,
-    hideTooltip,
+    isInteractive,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -28,6 +28,7 @@ export const BarItem = <RawDatum extends BarDatum>({
     tooltipFormat,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleClick = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
@@ -38,21 +39,21 @@ export const BarItem = <RawDatum extends BarDatum>({
 
     const handleTooltip = useCallback(
         (event: React.MouseEvent<SVGRectElement>) =>
-            showTooltip(
+            showTooltipFromEvent(
                 createElement(tooltip, { ...data, color, getTooltipLabel, tooltipFormat }),
                 event
             ),
-        [color, data, getTooltipLabel, showTooltip, tooltip, tooltipFormat]
+        [color, data, getTooltipLabel, showTooltipFromEvent, tooltip, tooltipFormat]
     )
     const handleMouseEnter = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
             onMouseEnter?.(data, event)
-            showTooltip(
+            showTooltipFromEvent(
                 createElement(tooltip, { ...data, color, getTooltipLabel, tooltipFormat }),
                 event
             )
         },
-        [color, data, getTooltipLabel, onMouseEnter, showTooltip, tooltip, tooltipFormat]
+        [color, data, getTooltipLabel, onMouseEnter, showTooltipFromEvent, tooltip, tooltipFormat]
     )
     const handleMouseLeave = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
@@ -72,10 +73,10 @@ export const BarItem = <RawDatum extends BarDatum>({
                 fill={data.fill ?? style.color}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
-                onMouseEnter={handleMouseEnter}
-                onMouseMove={handleTooltip}
-                onMouseLeave={handleMouseLeave}
-                onClick={handleClick}
+                onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+                onMouseMove={isInteractive ? handleTooltip : undefined}
+                onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+                onClick={isInteractive ? handleClick : undefined}
             />
             {shouldRenderLabel && (
                 <animated.text
