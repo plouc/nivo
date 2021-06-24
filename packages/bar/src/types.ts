@@ -69,6 +69,11 @@ export type BarsWithHidden<RawDatum> = Array<
     }
 >
 
+export type LegendLabelDatum<RawDatum> = Partial<ComputedDatum<RawDatum>> & {
+    id: string | number
+    hidden: boolean
+}
+
 export type LegendData = {
     id: string | number
     label: string | number
@@ -194,8 +199,10 @@ export type BarCommonProps<RawDatum> = {
     isInteractive: boolean
 
     tooltip: React.FC<BarTooltipProps<RawDatum>>
-    tooltipLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>
     tooltipFormat?: ValueFormat<string | number | Date>
+
+    legendLabel?: PropertyAccessor<LegendLabelDatum<RawDatum>, string>
+    tooltipLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>
 
     groupMode: 'grouped' | 'stacked'
     layout: 'horizontal' | 'vertical'

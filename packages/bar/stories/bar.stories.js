@@ -420,3 +420,21 @@ stories.add('initial hidden ids', () => (
         ]}
     />
 ))
+
+stories.add('custom legend labels', () => (
+    <Bar
+        {...commonProps}
+        legendLabel={datum => `${datum.id} (${datum.value})`}
+        legends={[
+            {
+                anchor: 'bottom',
+                dataFrom: 'keys',
+                direction: 'row',
+                itemHeight: 20,
+                itemWidth: 110,
+                toggleSerie: true,
+                translateY: 50,
+            },
+        ]}
+    />
+))
