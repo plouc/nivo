@@ -1,4 +1,5 @@
-import { BarDatum, BarLegendProps, BarSvgProps, BarsWithHidden } from '../types'
+import { BarDatum, BarLegendProps, BarSvgProps, BarsWithHidden, LegendLabelDatum } from '../types'
+import { getPropertyAccessor } from '@nivo/core'
 import { uniqBy } from 'lodash'
 
 export const getLegendDataForKeys = <RawDatum>(
@@ -6,14 +7,13 @@ export const getLegendDataForKeys = <RawDatum>(
     layout: 'horizontal' | 'vertical',
     direction: 'column' | 'row',
     groupMode: 'grouped' | 'stacked',
-    reverse: boolean
+    reverse: boolean,
+    getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
 ) => {
     const data = uniqBy(
         bars.map(bar => ({
             id: bar.data.id,
-            // TODO: Add label accessor to make the following work:
-            // label: bar.data.label || bar.data.id,
-            label: bar.data.id,
+            label: getLegendLabel(bar.data),
             hidden: bar.data.hidden,
             color: bar.color ?? '#000',
         })),
@@ -33,13 +33,14 @@ export const getLegendDataForKeys = <RawDatum>(
     return data
 }
 
-export const getLegendDataForIndexes = <RawDatum>(bars: BarsWithHidden<RawDatum>) => {
+export const getLegendDataForIndexes = <RawDatum>(
+    bars: BarsWithHidden<RawDatum>,
+    getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
+) => {
     return uniqBy(
         bars.map(bar => ({
             id: bar.data.indexValue ?? '',
-            // TODO: Add label accessor to make the following work:
-            // label: bar.data.label || bar.data.indexValue,
-            label: bar.data.indexValue ?? '',
+            label: getLegendLabel(bar.data),
             hidden: bar.data.hidden,
             color: bar.color ?? '#000',
         })),
@@ -48,20 +49,26 @@ export const getLegendDataForIndexes = <RawDatum>(bars: BarsWithHidden<RawDatum>
 }
 
 export const getLegendData = <RawDatum extends BarDatum>({
-    from,
     bars,
-    layout,
     direction,
+    from,
     groupMode,
+    layout,
+    legendLabel,
     reverse,
 }: Pick<Required<BarSvgProps<RawDatum>>, 'layout' | 'groupMode' | 'reverse'> & {
     bars: BarsWithHidden<RawDatum>
     direction: BarLegendProps['direction']
     from: BarLegendProps['dataFrom']
+    legendLabel: BarSvgProps<RawDatum>['legendLabel']
 }) => {
+    const getLegendLabel = getPropertyAccessor(
+        legendLabel ?? (from === 'indexes' ? 'indexValue' : 'id')
+    )
+
     if (from === 'indexes') {
-        return getLegendDataForIndexes(bars)
+        return getLegendDataForIndexes(bars, getLegendLabel)
     }
 
-    return getLegendDataForKeys(bars, layout, direction, groupMode, reverse)
+    return getLegendDataForKeys(bars, layout, direction, groupMode, reverse, getLegendLabel)
 }

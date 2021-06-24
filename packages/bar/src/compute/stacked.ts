@@ -212,11 +212,5 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
                 : generateHorizontalStackedBars(...params)
             : []
 
-    const legendData = props.keys.map(key => {
-        const bar = bars.find(bar => bar.data.id === key) || { data: {} }
-
-        return { ...bar, data: { id: key, ...bar.data, hidden: hiddenIds.includes(key) } }
-    })
-
-    return { xScale, yScale, bars, legendData }
+    return { xScale, yScale, bars }
 }

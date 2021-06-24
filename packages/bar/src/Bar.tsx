@@ -79,8 +79,10 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     annotations = svgDefaultProps.annotations,
 
-    isInteractive = svgDefaultProps.isInteractive,
+    legendLabel,
     tooltipLabel = svgDefaultProps.tooltipLabel,
+
+    isInteractive = svgDefaultProps.isInteractive,
     tooltipFormat,
     tooltip = svgDefaultProps.tooltip,
     onClick,
@@ -133,6 +135,16 @@ const InnerBar = <RawDatum extends BarDatum>({
         indexScale,
         hiddenIds,
     })
+
+    const legendData = useMemo(
+        () =>
+            keys.map(key => {
+                const bar = result.bars.find(bar => bar.data.id === key)
+
+                return { ...bar, data: { id: key, ...bar?.data, hidden: hiddenIds.includes(key) } }
+            }),
+        [hiddenIds, keys, result.bars]
+    )
 
     const barsWithValue = useMemo(
         () =>
@@ -258,14 +270,15 @@ const InnerBar = <RawDatum extends BarDatum>({
     }
 
     if (layers.includes('legends')) {
-        const legendData = ([] as LegendData[]).concat(
+        const data = ([] as LegendData[]).concat(
             ...legends.map(legend =>
                 getLegendData({
-                    from: legend.dataFrom,
-                    bars: result.legendData,
-                    layout,
+                    bars: legendData,
                     direction: legend.direction,
+                    from: legend.dataFrom,
                     groupMode,
+                    layout,
+                    legendLabel,
                     reverse,
                 })
             )
@@ -276,7 +289,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                data={legendData}
+                data={data}
                 legends={legends}
                 toggleSerie={toggleSerie}
             />
