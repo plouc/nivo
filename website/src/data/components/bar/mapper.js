@@ -14,6 +14,10 @@ const TooltipWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 12px;
+    background: #333;
+    padding: 12px 16px;
+    font-size: 12px;
+    border-radius: 2px;
 `
 const TooltipKey = styled.span`
     font-weight: 600;
@@ -44,7 +48,7 @@ export default settingsMapper(
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
         tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return null
+            if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
