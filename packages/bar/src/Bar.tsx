@@ -21,6 +21,7 @@ import {
     useMotionConfig,
     usePropertyAccessor,
     useTheme,
+    useValueFormatter,
 } from '@nivo/core'
 import { Fragment, ReactNode, createElement, useCallback, useMemo, useState } from 'react'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
@@ -82,8 +83,9 @@ const InnerBar = <RawDatum extends BarDatum>({
     legendLabel,
     tooltipLabel = svgDefaultProps.tooltipLabel,
 
+    valueFormat,
+
     isInteractive = svgDefaultProps.isInteractive,
-    tooltipFormat,
     tooltip = svgDefaultProps.tooltip,
     onClick,
     onMouseEnter,
@@ -110,6 +112,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         partialMargin
     )
 
+    const formatValue = useValueFormatter(valueFormat)
     const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
     const getColor = useOrdinalColorScale(colors, colorBy)
     const getIndex = usePropertyAccessor(indexBy)
@@ -134,6 +137,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         valueScale,
         indexScale,
         hiddenIds,
+        formatValue,
     })
 
     const legendData = useMemo(
@@ -198,7 +202,6 @@ const InnerBar = <RawDatum extends BarDatum>({
             onMouseEnter,
             onMouseLeave,
             getTooltipLabel,
-            tooltipFormat,
             tooltip,
         }),
         [
@@ -213,7 +216,6 @@ const InnerBar = <RawDatum extends BarDatum>({
             onMouseEnter,
             onMouseLeave,
             tooltip,
-            tooltipFormat,
         ]
     )
 

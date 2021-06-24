@@ -7,6 +7,7 @@ import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './c
 type StackDatum<RawDatum> = SeriesPoint<RawDatum>
 
 type Params<RawDatum, XScaleInput, YScaleInput> = {
+    formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
     innerPadding: number
@@ -26,6 +27,7 @@ const filterZerosIfLog = (array: number[], type: string) =>
  */
 const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
     {
+        formatValue,
         getIndex,
         getColor,
         innerPadding,
@@ -51,6 +53,7 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
                 const barData = {
                     id: stackedDataItem.key,
                     value: rawValue === null ? rawValue : value,
+                    formattedValue: formatValue(value),
                     index: i,
                     indexValue: index,
                     data: filterNullValues(d.data),
@@ -77,6 +80,7 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
  */
 const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>(
     {
+        formatValue,
         getIndex,
         getColor,
         innerPadding,
@@ -102,6 +106,7 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
                 const barData = {
                     id: stackedDataItem.key,
                     value: rawValue === null ? rawValue : value,
+                    formattedValue: formatValue(value),
                     index: i,
                     indexValue: index,
                     data: filterNullValues(d.data),
@@ -154,6 +159,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     | 'valueScale'
     | 'width'
 > & {
+    formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
     hiddenIds: string[]

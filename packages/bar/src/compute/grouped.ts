@@ -6,6 +6,7 @@ import { computeScale } from '@nivo/scales'
 
 type Params<RawDatum, XScaleInput, YScaleInput> = {
     data: RawDatum[]
+    formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
     innerPadding: number
@@ -30,6 +31,7 @@ const zeroIfNotFinite = (value: number) => (isFinite(value) ? value : 0)
 const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
     {
         data,
+        formatValue,
         getIndex,
         keys,
         getColor,
@@ -57,6 +59,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
                 const barData = {
                     id: key,
                     value: rawValue === null ? rawValue : value,
+                    formattedValue: formatValue(value),
                     index,
                     indexValue,
                     data: cleanedData[index],
@@ -84,6 +87,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
 const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>(
     {
         data,
+        formatValue,
         getIndex,
         keys,
         getColor,
@@ -111,6 +115,7 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
                 const barData = {
                     id: key,
                     value: rawValue === null ? rawValue : value,
+                    formattedValue: formatValue(value),
                     index,
                     indexValue,
                     data: cleanedData[index],
@@ -163,6 +168,7 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     | 'valueScale'
     | 'width'
 > & {
+    formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
     hiddenIds: string[]

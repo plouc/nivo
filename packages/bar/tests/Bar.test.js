@@ -265,6 +265,7 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         index: 0,
         indexValue: 'one',
         value: 10,
+        formattedValue: '10',
     })
     expect(bars.at(0).prop('x')).toEqual(24)
     expect(bars.at(0).prop('y')).toEqual(0)
@@ -277,6 +278,7 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         index: 1,
         indexValue: 'two',
         value: 9,
+        formattedValue: '9',
     })
     expect(bars.at(1).prop('x')).toEqual(333.3333333333333)
     expect(bars.at(1).prop('y')).toEqual(30)
@@ -289,6 +291,7 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         index: 0,
         indexValue: 'one',
         value: 3,
+        formattedValue: '3',
     })
     expect(bars.at(2).prop('x')).toEqual(166.66666666666666)
     expect(bars.at(2).prop('y')).toEqual(210)
@@ -320,6 +323,7 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         index: 0,
         indexValue: 'one',
         value: 10,
+        formattedValue: '10',
     })
     expect(bars.at(0).prop('x')).toEqual(24)
     expect(bars.at(0).prop('y')).toEqual(69)
@@ -332,6 +336,7 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         index: 1,
         indexValue: 'two',
         value: 9,
+        formattedValue: '9',
     })
     expect(bars.at(1).prop('x')).toEqual(262)
     expect(bars.at(1).prop('y')).toEqual(92)
@@ -344,6 +349,7 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         index: 0,
         indexValue: 'one',
         value: 3,
+        formattedValue: '3',
     })
     expect(bars.at(2).prop('x')).toEqual(24)
     expect(bars.at(2).prop('y')).toEqual(0)

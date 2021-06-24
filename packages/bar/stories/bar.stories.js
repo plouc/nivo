@@ -89,7 +89,7 @@ const divergingCommonProps = {
     maxValue: 100,
     enableGridX: true,
     enableGridY: false,
-    label: d => Math.abs(d.value),
+    valueFormat: value => Math.abs(value),
     labelTextColor: 'inherit:darker(1.2)',
     axisTop: {
         tickSize: 0,
@@ -136,7 +136,7 @@ stories.add('diverging stacked', () => (
         keys={['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$']}
         padding={0.4}
         colors={['#97e3d5', '#61cdbb', '#f47560', '#e25c3b']}
-        labelFormat={v => `${v}%`}
+        valueFormat={v => `${v}%`}
     />
 ))
 
@@ -437,4 +437,8 @@ stories.add('custom legend labels', () => (
             },
         ]}
     />
+))
+
+stories.add('with formatted value', () => (
+    <Bar {...commonProps} valueFormat={value => `${value}`.split('').join('.')} />
 ))
