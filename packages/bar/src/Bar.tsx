@@ -186,20 +186,36 @@ const InnerBar = <RawDatum extends BarDatum>({
         [enableLabel, labelSkipHeight, labelSkipWidth]
     )
 
-    const commonProps = {
-        borderRadius,
-        borderWidth,
-        enableLabel,
-        isInteractive,
-        labelSkipWidth,
-        labelSkipHeight,
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
-        getTooltipLabel,
-        tooltipFormat,
-        tooltip,
-    }
+    const commonProps = useMemo(
+        () => ({
+            borderRadius,
+            borderWidth,
+            enableLabel,
+            isInteractive,
+            labelSkipWidth,
+            labelSkipHeight,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            getTooltipLabel,
+            tooltipFormat,
+            tooltip,
+        }),
+        [
+            borderRadius,
+            borderWidth,
+            enableLabel,
+            getTooltipLabel,
+            isInteractive,
+            labelSkipHeight,
+            labelSkipWidth,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            tooltip,
+            tooltipFormat,
+        ]
+    )
 
     const boundDefs = bindDefs(defs, result.bars, fill, {
         dataKey: 'data',
@@ -313,35 +329,10 @@ const InnerBar = <RawDatum extends BarDatum>({
     // We use `any` here until we can figure out the best way to type xScale/yScale
     const layerContext: any = useMemo(
         () => ({
-            borderRadius,
-            borderWidth,
-            enableLabel,
-            isInteractive,
-            labelSkipWidth,
-            labelSkipHeight,
-            onClick,
-            onMouseEnter,
-            onMouseLeave,
-            getTooltipLabel,
-            tooltipFormat,
-            tooltip,
+            ...commonProps,
             ...result,
         }),
-        [
-            borderRadius,
-            borderWidth,
-            enableLabel,
-            getTooltipLabel,
-            isInteractive,
-            labelSkipHeight,
-            labelSkipWidth,
-            onClick,
-            onMouseEnter,
-            onMouseLeave,
-            result,
-            tooltip,
-            tooltipFormat,
-        ]
+        [commonProps, result]
     )
 
     return (
