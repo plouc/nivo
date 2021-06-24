@@ -3,17 +3,17 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
-import range from 'lodash/range'
-import random from 'lodash/random'
+import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
-import { Bar } from '../src'
+import { Bar, BarDatum } from '../src'
+import { AxisTickProps } from '@nivo/axes'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
     width: 900,
     height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
-    data: generateCountriesData(keys, { size: 7 }),
+    data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
     indexBy: 'country',
     keys,
     padding: 0.2,
@@ -61,7 +61,7 @@ stories.add('with marker', () => (
 ))
 
 stories.add('using custom color', () => (
-    <Bar {...commonProps} colors={({ id, data }) => data[`${id}Color`]} />
+    <Bar {...commonProps} colors={({ id, data }) => String(data[`${id}Color`])} />
 ))
 
 const divergingData = range(9).map(i => {
@@ -89,7 +89,7 @@ const divergingCommonProps = {
     maxValue: 100,
     enableGridX: true,
     enableGridY: false,
-    valueFormat: value => Math.abs(value),
+    valueFormat: (value: number) => `${Math.abs(value)}`,
     labelTextColor: 'inherit:darker(1.2)',
     axisTop: {
         tickSize: 0,
@@ -97,14 +97,14 @@ const divergingCommonProps = {
     },
     axisBottom: {
         legend: 'USERS',
-        legendPosition: 'middle',
+        legendPosition: 'middle' as const,
         legendOffset: 50,
         tickSize: 0,
         tickPadding: 12,
     },
     axisLeft: null,
     axisRight: {
-        format: v => `${Math.abs(v)}%`,
+        format: (v: number) => `${Math.abs(v)}%`,
     },
     markers: [
         {
@@ -116,7 +116,7 @@ const divergingCommonProps = {
             legendPosition: 'top-left',
             legendOrientation: 'vertical',
             legendOffsetY: 120,
-        },
+        } as const,
         {
             axis: 'y',
             value: 0,
@@ -126,7 +126,7 @@ const divergingCommonProps = {
             legendPosition: 'bottom-left',
             legendOrientation: 'vertical',
             legendOffsetY: 120,
-        },
+        } as const,
     ],
 }
 
@@ -173,7 +173,7 @@ stories.add('with formatted values', () => (
                     minimumFractionDigits: 2,
                 })} ₽`,
         }}
-        tooltipFormat={value =>
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`
@@ -208,7 +208,7 @@ stories.add('custom tooltip', () => (
     />
 ))
 
-const CustomTick = tick => {
+const CustomTick = (tick: AxisTickProps<string>) => {
     const theme = useTheme()
 
     return (
@@ -394,8 +394,6 @@ const RaceChart = () => {
                 labelTextColor={{ from: 'color', modifiers: [['darker', 1.4]] }}
                 isInteractive={false}
                 barComponent={BarComponent}
-                motionStiffness={170}
-                motionDamping={26}
             />
         </>
     )

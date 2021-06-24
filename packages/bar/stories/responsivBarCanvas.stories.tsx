@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@nivo/generators'
-import { BarCanvas } from '../src'
+import { BarDatum, ResponsiveBarCanvas } from '../src'
 import { button } from '@storybook/addon-knobs'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
@@ -9,7 +9,7 @@ const commonProps = {
     width: 900,
     height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
-    data: generateCountriesData(keys, { size: 7 }),
+    data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
     indexBy: 'country',
     keys,
     padding: 0.2,
@@ -18,24 +18,28 @@ const commonProps = {
     labelSkipHeight: 16,
 }
 
-const stories = storiesOf('BarCanvas', module)
+const stories = storiesOf('ResponsiveBarCanvas', module)
+
+const Wrapper = props => <div {...props} style={{ height: '300px', width: '600px' }} />
 
 stories.add('custom tooltip', () => (
-    <BarCanvas
-        {...commonProps}
-        tooltip={({ id, value, color }) => (
-            <strong style={{ color }}>
-                {id}: {value}
-            </strong>
-        )}
-        theme={{
-            tooltip: {
-                container: {
-                    background: '#333',
+    <Wrapper>
+        <ResponsiveBarCanvas
+            {...commonProps}
+            tooltip={({ id, value, color }) => (
+                <strong style={{ color }}>
+                    {id}: {value}
+                </strong>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: '#333',
+                    },
                 },
-            },
-        }}
-    />
+            }}
+        />
+    </Wrapper>
 ))
 
 stories.add('Get canvas - download the chart', () => {
@@ -49,5 +53,9 @@ stories.add('Get canvas - download the chart', () => {
         link.click()
     })
 
-    return <BarCanvas {...commonProps} ref={ref} />
+    return (
+        <Wrapper>
+            <ResponsiveBarCanvas {...commonProps} ref={ref} />
+        </Wrapper>
+    )
 })
