@@ -1,15 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useState } from 'react'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import { Bar } from '../src'
+import { Bar, ComputedDatum } from '../src'
+
+type IdValue = {
+    id: string
+    value: number
+}
 
 it('should render a basic bar chart', () => {
     const wrapper = mount(
@@ -253,12 +249,12 @@ it(`should reverse legend items if chart layout is vertical`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('B')
-    expect(legendItems.at(1).prop('data').id).toEqual('A')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
 })
 
 it(`should not reverse legend items if chart layout is vertical reversed`, () => {
@@ -286,12 +282,12 @@ it(`should not reverse legend items if chart layout is vertical reversed`, () =>
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('A')
-    expect(legendItems.at(1).prop('data').id).toEqual('B')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
 })
 
 it(`should not reverse legend items if chart layout is horizontal`, () => {
@@ -318,12 +314,12 @@ it(`should not reverse legend items if chart layout is horizontal`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('A')
-    expect(legendItems.at(1).prop('data').id).toEqual('B')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
 })
 
 it(`should reverse legend items if chart layout is horizontal reversed`, () => {
@@ -351,12 +347,12 @@ it(`should reverse legend items if chart layout is horizontal reversed`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('B')
-    expect(legendItems.at(1).prop('data').id).toEqual('A')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
 })
 
 it(`should generate grouped bars correctly when keys are mismatched`, () => {
@@ -491,7 +487,7 @@ it(`should apply scale rounding by default`, () => {
     )
 
     const bars = wrapper.find('BarItem')
-    const firstBarWidth = bars.at(0).prop('width')
+    const firstBarWidth = Number(bars.at(0).prop('width'))
     expect(firstBarWidth).toEqual(Math.floor(firstBarWidth))
 })
 
@@ -511,7 +507,7 @@ it(`should not apply scale rounding when passed indexScale.round: false`, () => 
     )
 
     const bars = wrapper.find('BarItem')
-    const firstBarWidth = bars.at(0).prop('width')
+    const firstBarWidth = Number(bars.at(0).prop('width'))
     expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
 })
 
