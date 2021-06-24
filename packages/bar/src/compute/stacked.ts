@@ -18,6 +18,9 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
 const flattenDeep = <T>(arr: T[]): T =>
     arr.some(Array.isArray) ? flattenDeep(([] as T[]).concat(...arr)) : ((arr as unknown) as T)
 
+const filterZerosIfLog = (array: number[], type: string) =>
+    type === 'log' ? array.filter(num => num !== 0) : array
+
 /**
  * Generates x/y scales & bars for vertical stacked bar chart.
  */
@@ -178,7 +181,10 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
         ...valueScale,
     }
 
-    const values = flattenDeep((stackedData as unknown) as number[][])
+    const values = filterZerosIfLog(
+        flattenDeep((stackedData as unknown) as number[][]),
+        valueScale.type
+    )
     const min = Math.min(...values)
     const max = Math.max(...values)
 
