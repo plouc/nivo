@@ -257,7 +257,7 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     if (layers.includes('bars')) {
         layerById.bars = (
-            <>
+            <Fragment key="bars">
                 {transition((style, bar) =>
                     createElement(barComponent, {
                         ...bar,
@@ -269,7 +269,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                         borderColor: getBorderColor(bar),
                     })
                 )}
-            </>
+            </Fragment>
         )
     }
 
