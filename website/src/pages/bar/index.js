@@ -146,7 +146,6 @@ const initialProperties = {
 
     isInteractive: true,
     'custom tooltip example': false,
-    tooltip: null,
 
     animate: true,
     motionStiffness: 90,
