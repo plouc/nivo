@@ -7,13 +7,12 @@
  * file that was distributed with this source code.
  */
 import { useState } from 'react'
-import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
 import { Bar } from '../src'
 
 it('should render a basic bar chart', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
@@ -26,12 +25,15 @@ it('should render a basic bar chart', () => {
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    expect(wrapper.find('BarItem')).toHaveLength(3)
+
+    wrapper.find('BarItem').forEach((bar, index) => {
+        expect(bar.text()).toBe(`${index + 1}0`)
+    })
 })
 
 it('should allow to disable labels', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
@@ -45,32 +47,78 @@ it('should allow to disable labels', () => {
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    wrapper.find('BarItem').forEach(bar => {
+        expect(bar.text()).toBe('')
+    })
 })
 
 it('should allow grouped mode', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
             enableLabel={false}
             groupMode="grouped"
+            keys={['value1', 'value2']}
             data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
+                { id: 'one', value1: 10, value2: 100 },
+                { id: 'two', value1: 20, value2: 200 },
+                { id: 'three', value1: 30, value2: 300 },
             ]}
             animate={false}
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const props = wrapper.find('BarItem').map(bar => {
+        const { height, width, x, y } = bar.props()
+
+        return { height, width, x, y }
+    })
+
+    expect(props).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "height": 10,
+            "width": 72.5,
+            "x": 17,
+            "y": 290,
+          },
+          Object {
+            "height": 20,
+            "width": 72.5,
+            "x": 178,
+            "y": 280,
+          },
+          Object {
+            "height": 30,
+            "width": 72.5,
+            "x": 339,
+            "y": 270,
+          },
+          Object {
+            "height": 100,
+            "width": 72.5,
+            "x": 89.5,
+            "y": 200,
+          },
+          Object {
+            "height": 200,
+            "width": 72.5,
+            "x": 250.5,
+            "y": 100,
+          },
+          Object {
+            "height": 300,
+            "width": 72.5,
+            "x": 411.5,
+            "y": 0,
+          },
+        ]
+    `)
 })
 
 it('should allow horizontal layout', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
@@ -85,29 +133,100 @@ it('should allow horizontal layout', () => {
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const props = wrapper.find('BarItem').map(bar => {
+        const { height, width, x, y } = bar.props()
+
+        return { height, width, x, y }
+    })
+
+    expect(props).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "height": 86,
+            "width": 167,
+            "x": 0,
+            "y": 203,
+          },
+          Object {
+            "height": 86,
+            "width": 333,
+            "x": 0,
+            "y": 107,
+          },
+          Object {
+            "height": 86,
+            "width": 500,
+            "x": 0,
+            "y": 11,
+          },
+        ]
+    `)
 })
 
 it('should allow grouped horizontal layout', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
             enableLabel={false}
             groupMode="grouped"
             layout="horizontal"
+            keys={['value1', 'value2']}
             data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
+                { id: 'one', value1: 10, value2: 100 },
+                { id: 'two', value1: 20, value2: 200 },
+                { id: 'three', value1: 30, value2: 300 },
             ]}
             animate={false}
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const props = wrapper.find('BarItem').map(bar => {
+        const { height, width, x, y } = bar.props()
+
+        return { height, width, x, y }
+    })
+
+    expect(props).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "height": 43,
+            "width": 17,
+            "x": 0,
+            "y": 203,
+          },
+          Object {
+            "height": 43,
+            "width": 33,
+            "x": 0,
+            "y": 107,
+          },
+          Object {
+            "height": 43,
+            "width": 50,
+            "x": 0,
+            "y": 11,
+          },
+          Object {
+            "height": 43,
+            "width": 167,
+            "x": 0,
+            "y": 246,
+          },
+          Object {
+            "height": 43,
+            "width": 333,
+            "x": 0,
+            "y": 150,
+          },
+          Object {
+            "height": 43,
+            "width": 500,
+            "x": 0,
+            "y": 54,
+          },
+        ]
+    `)
 })
 
 it(`should reverse legend items if chart layout is vertical`, () => {
