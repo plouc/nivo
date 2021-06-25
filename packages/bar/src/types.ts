@@ -33,6 +33,7 @@ export type ComputedDatum<RawDatum> = {
     id: string | number
     value: number | null
     formattedValue: string
+    hidden: boolean
     index: number
     indexValue: string | number
     data: Exclude<RawDatum, null | undefined | false | '' | 0>

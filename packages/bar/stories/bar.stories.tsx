@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
@@ -12,7 +12,7 @@ const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
     width: 900,
     height: 500,
-    margin: { top: 60, right: 80, bottom: 60, left: 80 },
+    margin: { top: 60, right: 110, bottom: 60, left: 80 },
     data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
     indexBy: 'country',
     keys,
@@ -397,7 +397,7 @@ stories.add('initial hidden ids', () => (
         legends={[
             {
                 anchor: 'bottom',
-                dataFrom: 'keys',
+                dataFrom: select('legend.dataFrom', ['indexes', 'keys'], 'keys'),
                 direction: 'row',
                 itemHeight: 20,
                 itemWidth: 80,
@@ -408,19 +408,63 @@ stories.add('initial hidden ids', () => (
     />
 ))
 
+stories.add('legends correct with different layout modes', () => {
+    const dataFrom = select('legend.dataFrom', ['keys', 'indexes'], 'indexes')
+    const direction = select('legend.direction', ['column', 'row'], 'column')
+    const layout = select('layout', ['horizontal', 'vertical'], 'horizontal')
+
+    return (
+        <Bar
+            {...commonProps}
+            data={[
+                { quarter: 1, earnings: 13000, losses: 10000 },
+                { quarter: 2, earnings: 16500, losses: 13000 },
+                { quarter: 3, earnings: 14250, losses: 11000 },
+                { quarter: 4, earnings: 19000, losses: 16000 },
+            ]}
+            colorBy={select('colorBy', ['indexValue', 'id'], 'indexValue')}
+            keys={['earnings', 'losses']}
+            indexBy="quarter"
+            layout={layout}
+            groupMode={select('groupMode', ['grouped', 'stacked'], 'stacked')}
+            reverse={boolean('reverse', false)}
+            legends={[
+                {
+                    ...(layout === 'horizontal' || direction === 'column'
+                        ? {
+                              anchor: 'bottom-right',
+                              itemWidth: 110,
+                              itemsSpacing: 2,
+                              translateX: 120,
+                          }
+                        : {
+                              anchor: 'bottom',
+                              itemWidth: dataFrom === 'keys' ? 80 : 40,
+                              translateY: 50,
+                          }),
+                    dataFrom,
+                    direction,
+                    itemHeight: 20,
+                    symbolSize: 20,
+                },
+            ]}
+        />
+    )
+})
+
 stories.add('custom legend labels', () => (
     <Bar
         {...commonProps}
         legendLabel={datum => `${datum.id} (${datum.value})`}
         legends={[
             {
-                anchor: 'bottom',
+                anchor: 'bottom-right',
                 dataFrom: 'keys',
-                direction: 'row',
+                direction: 'column',
                 itemHeight: 20,
                 itemWidth: 110,
                 toggleSerie: true,
-                translateY: 50,
+                translateX: 120,
             },
         ]}
     />

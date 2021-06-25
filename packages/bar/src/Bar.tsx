@@ -297,7 +297,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         const data = ([] as LegendData[]).concat(
             ...legends.map(legend =>
                 getLegendData({
-                    bars: legendData,
+                    bars: legend.dataFrom === 'keys' ? legendData : result.bars,
                     direction: legend.direction,
                     from: legend.dataFrom,
                     groupMode,
