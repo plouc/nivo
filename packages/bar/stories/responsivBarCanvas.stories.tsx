@@ -27,17 +27,20 @@ stories.add('custom tooltip', () => (
         <ResponsiveBarCanvas
             {...commonProps}
             tooltip={({ id, value, color }) => (
-                <strong style={{ color }}>
-                    {id}: {value}
-                </strong>
+                <div
+                    style={{
+                        padding: 12,
+                        color,
+                        background: '#222222',
+                    }}
+                >
+                    <span>Look, I'm custom :)</span>
+                    <br />
+                    <strong>
+                        {id}: {value}
+                    </strong>
+                </div>
             )}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
-                },
-            }}
         />
     </Wrapper>
 ))
