@@ -82,11 +82,11 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 
     // barComponent = canvasDefaultProps.barComponent,
 
-    // enableLabel = canvasDefaultProps.enableLabel,
-    // label = canvasDefaultProps.label,
-    // labelSkipWidth = canvasDefaultProps.labelSkipWidth,
-    // labelSkipHeight = canvasDefaultProps.labelSkipHeight,
-    // labelTextColor = canvasDefaultProps.labelTextColor,
+    enableLabel = canvasDefaultProps.enableLabel,
+    label = canvasDefaultProps.label,
+    labelSkipWidth = canvasDefaultProps.labelSkipWidth,
+    labelSkipHeight = canvasDefaultProps.labelSkipHeight,
+    labelTextColor = canvasDefaultProps.labelTextColor,
 
     // markers,
 
@@ -137,8 +137,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
     const getColor = useOrdinalColorScale(colors, colorBy)
     const getIndex = usePropertyAccessor(indexBy)
-    // const getLabel = usePropertyAccessor(label)
-    // const getLabelColor = useInheritedColor<ComputedBarDatum<RawDatum>>(labelTextColor, theme)
+    const getLabel = usePropertyAccessor(label)
+    const getLabelColor = useInheritedColor<ComputedBarDatum<RawDatum>>(labelTextColor, theme)
     const getTooltipLabel = usePropertyAccessor(tooltipLabel)
 
     const options = {
@@ -171,6 +171,16 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 return { ...bar, data: { id: key, ...bar?.data, hidden: hiddenIds.includes(key) } }
             }),
         [hiddenIds, keys, result.bars]
+    )
+
+    const shouldRenderLabel = useCallback(
+        ({ width, height }: { height: number; width: number }) => {
+            if (!enableLabel) return false
+            if (labelSkipWidth > 0 && width < labelSkipWidth) return false
+            if (labelSkipHeight > 0 && height < labelSkipHeight) return false
+            return true
+        },
+        [enableLabel, labelSkipHeight, labelSkipWidth]
     )
 
     useEffect(() => {
@@ -266,6 +276,13 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             if (borderWidth > 0) {
                 ctx.stroke()
             }
+
+            if (shouldRenderLabel({ height, width })) {
+                ctx.textBaseline = 'middle'
+                ctx.textAlign = 'center'
+                ctx.fillStyle = getLabelColor(bar)
+                ctx.fillText(getLabel(bar.data), x + width / 2, y + height / 2)
+            }
         })
 
         ctx.save()
@@ -278,6 +295,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         enableGridX,
         enableGridY,
         getBorderColor,
+        getLabel,
+        getLabelColor,
         gridXValues,
         gridYValues,
         groupMode,
@@ -297,6 +316,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         result.xScale,
         result.yScale,
         reverse,
+        shouldRenderLabel,
         theme,
         width,
     ])
