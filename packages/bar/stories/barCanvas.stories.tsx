@@ -52,6 +52,26 @@ stories.add('custom tooltip', () => (
     />
 ))
 
+stories.add('with annotations', () => (
+    <BarCanvas
+        {...commonProps}
+        borderRadius={10}
+        annotations={[
+            {
+                type: 'circle',
+                match: { key: 'fries.AE' },
+                noteX: 25,
+                noteY: 25,
+                offset: 3,
+                noteTextOffset: -3,
+                noteWidth: 5,
+                note: 'an annotation',
+                size: 40,
+            },
+        ]}
+    />
+))
+
 stories.add('Get canvas - download the chart', () => {
     const ref = useRef(undefined)
 

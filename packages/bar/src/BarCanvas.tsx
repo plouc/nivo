@@ -21,6 +21,11 @@ import {
 } from 'react'
 import { canvasDefaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
+import {
+    renderAnnotationsToCanvas,
+    useAnnotations,
+    useComputedAnnotations,
+} from '@nivo/annotations'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -80,23 +85,19 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     gridXValues,
     gridYValues,
 
-    // barComponent = canvasDefaultProps.barComponent,
-
     enableLabel = canvasDefaultProps.enableLabel,
     label = canvasDefaultProps.label,
     labelSkipWidth = canvasDefaultProps.labelSkipWidth,
     labelSkipHeight = canvasDefaultProps.labelSkipHeight,
     labelTextColor = canvasDefaultProps.labelTextColor,
 
-    // markers,
-
     colorBy = canvasDefaultProps.colorBy,
     colors = canvasDefaultProps.colors,
-    // borderRadius = canvasDefaultProps.borderRadius,
+    borderRadius = canvasDefaultProps.borderRadius,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor = canvasDefaultProps.borderColor,
 
-    // annotations = canvasDefaultProps.annotations,
+    annotations = canvasDefaultProps.annotations,
 
     legendLabel,
     tooltipLabel = canvasDefaultProps.tooltipLabel,
@@ -182,6 +183,23 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         },
         [enableLabel, labelSkipHeight, labelSkipWidth]
     )
+
+    // Using any because return type isn't correct
+    const boundAnnotations: any = useComputedAnnotations({
+        annotations: useAnnotations({
+            data: result.bars,
+            annotations,
+            getPosition: node => ({
+                x: node.x,
+                y: node.y,
+            }),
+            getDimensions: ({ width, height }) => ({
+                width,
+                height,
+                size: Math.max(width, height),
+            }),
+        }),
+    })
 
     useEffect(() => {
         const ctx = canvasEl.current?.getContext('2d')
@@ -270,7 +288,24 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             }
 
             ctx.beginPath()
-            ctx.rect(x, y, width, height)
+
+            if (borderRadius > 0) {
+                const radius = Math.min(borderRadius, height)
+
+                ctx.moveTo(x + radius, y)
+                ctx.lineTo(x + width - radius, y)
+                ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
+                ctx.lineTo(x + width, y + height - radius)
+                ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+                ctx.lineTo(x + radius, y + height)
+                ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
+                ctx.lineTo(x, y + radius)
+                ctx.quadraticCurveTo(x, y, x + radius, y)
+                ctx.closePath()
+            } else {
+                ctx.rect(x, y, width, height)
+            }
+
             ctx.fill()
 
             if (borderWidth > 0) {
@@ -285,13 +320,17 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             }
         })
 
+        renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
+
         ctx.save()
     }, [
         axisBottom,
         axisLeft,
         axisRight,
         axisTop,
+        borderRadius,
         borderWidth,
+        boundAnnotations,
         enableGridX,
         enableGridY,
         getBorderColor,
