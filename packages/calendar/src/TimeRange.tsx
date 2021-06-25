@@ -36,6 +36,7 @@ const InnerTimeRange = ({
     monthLegendPosition = timeRangeDefaultProps.monthLegendPosition,
 
     weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
+    weekdayTicks,
 
     dayBorderColor = timeRangeDefaultProps.dayBorderColor,
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
@@ -105,6 +106,7 @@ const InnerTimeRange = ({
         cellHeight,
         cellWidth,
         daySpacing,
+        ticks: weekdayTicks,
     })
 
     const monthLegends = useMonthLegends({

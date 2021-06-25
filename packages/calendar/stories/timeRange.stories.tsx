@@ -105,6 +105,7 @@ stories.add('TimeRange vertical', () => {
                 daySpacing: number('daySpacing', 10),
             }}
             weekdayLegendOffset={0}
+            weekdayTicks={[0, 2, 4, 6]}
             height={number('height', 900)}
             width={number('width', 250)}
             direction="vertical"
