@@ -1,4 +1,10 @@
-import { BarCanvasLayer, BarCanvasProps, BarDatum, ComputedBarDatum } from './types'
+import {
+    BarCanvasLayer,
+    BarCanvasProps,
+    BarDatum,
+    ComputedBarDatum,
+    ComputedBarDatumWithValue,
+} from './types'
 import {
     Container,
     Margin,
@@ -87,7 +93,61 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     gridYValues,
 
     layers = canvasDefaultProps.layers as BarCanvasLayer<RawDatum>[],
-    // barComponent = svgDefaultProps.barComponent,
+    renderBar = (
+        ctx,
+        {
+            borderColor,
+            borderRadius,
+            borderWidth,
+            color,
+            height,
+            label,
+            labelColor,
+            shouldRenderLabel,
+            width,
+            x,
+            y,
+        }
+    ) => {
+        ctx.fillStyle = color
+
+        if (borderWidth > 0) {
+            ctx.strokeStyle = borderColor
+            ctx.lineWidth = borderWidth
+        }
+
+        ctx.beginPath()
+
+        if (borderRadius > 0) {
+            const radius = Math.min(borderRadius, height)
+
+            ctx.moveTo(x + radius, y)
+            ctx.lineTo(x + width - radius, y)
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
+            ctx.lineTo(x + width, y + height - radius)
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+            ctx.lineTo(x + radius, y + height)
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
+            ctx.lineTo(x, y + radius)
+            ctx.quadraticCurveTo(x, y, x + radius, y)
+            ctx.closePath()
+        } else {
+            ctx.rect(x, y, width, height)
+        }
+
+        ctx.fill()
+
+        if (borderWidth > 0) {
+            ctx.stroke()
+        }
+
+        if (shouldRenderLabel) {
+            ctx.textBaseline = 'middle'
+            ctx.textAlign = 'center'
+            ctx.fillStyle = labelColor
+            ctx.fillText(label, x + width / 2, y + height / 2)
+        }
+    },
 
     enableLabel = canvasDefaultProps.enableLabel,
     label = canvasDefaultProps.label,
@@ -169,6 +229,14 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 return { ...bar, data: { id: key, ...bar?.data, hidden: false } }
             }),
         [keys, result.bars]
+    )
+
+    const barsWithValue = useMemo(
+        () =>
+            result.bars.filter(
+                (bar): bar is ComputedBarDatumWithValue<RawDatum> => bar.data.value !== null
+            ),
+        [result.bars]
     )
 
     const shouldRenderLabel = useCallback(
@@ -294,47 +362,16 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                     theme,
                 })
             } else if (layer === 'bars') {
-                result.bars.forEach(bar => {
-                    const { x, y, color, width, height } = bar
-
-                    ctx.fillStyle = color
-
-                    if (borderWidth > 0) {
-                        ctx.strokeStyle = getBorderColor(bar)
-                        ctx.lineWidth = borderWidth
-                    }
-
-                    ctx.beginPath()
-
-                    if (borderRadius > 0) {
-                        const radius = Math.min(borderRadius, height)
-
-                        ctx.moveTo(x + radius, y)
-                        ctx.lineTo(x + width - radius, y)
-                        ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
-                        ctx.lineTo(x + width, y + height - radius)
-                        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
-                        ctx.lineTo(x + radius, y + height)
-                        ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
-                        ctx.lineTo(x, y + radius)
-                        ctx.quadraticCurveTo(x, y, x + radius, y)
-                        ctx.closePath()
-                    } else {
-                        ctx.rect(x, y, width, height)
-                    }
-
-                    ctx.fill()
-
-                    if (borderWidth > 0) {
-                        ctx.stroke()
-                    }
-
-                    if (shouldRenderLabel({ height, width })) {
-                        ctx.textBaseline = 'middle'
-                        ctx.textAlign = 'center'
-                        ctx.fillStyle = getLabelColor(bar)
-                        ctx.fillText(getLabel(bar.data), x + width / 2, y + height / 2)
-                    }
+                barsWithValue.forEach(bar => {
+                    renderBar(ctx, {
+                        ...bar,
+                        borderColor: getBorderColor(bar),
+                        borderRadius,
+                        borderWidth,
+                        label: getLabel(bar.data),
+                        labelColor: getLabelColor(bar),
+                        shouldRenderLabel: shouldRenderLabel(bar),
+                    })
                 })
             } else if (layer === 'legends') {
                 legends.forEach(legend => {
@@ -369,6 +406,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         axisLeft,
         axisRight,
         axisTop,
+        barsWithValue,
         borderRadius,
         borderWidth,
         boundAnnotations,
@@ -394,7 +432,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         outerHeight,
         outerWidth,
         pixelRatio,
-        result.bars,
+        renderBar,
         result.xScale,
         result.yScale,
         reverse,
