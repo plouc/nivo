@@ -13,7 +13,6 @@ const commonProps = {
     indexBy: 'country',
     keys,
     padding: 0.2,
-    labelTextColor: 'inherit:darker(1.4)',
     labelSkipWidth: 16,
     labelSkipHeight: 16,
 }

@@ -34,7 +34,7 @@ export const defaultProps = {
     labelSkipWidth: 0,
     labelSkipHeight: 0,
     labelLinkColor: 'theme',
-    labelTextColor: 'theme',
+    labelTextColor: { from: 'theme', theme: 'labels.text.fill' },
 
     colorBy: 'id' as const,
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
