@@ -2,11 +2,11 @@ import { BarDatum, BarLegendProps, BarSvgProps, BarsWithHidden, LegendLabelDatum
 import { getPropertyAccessor } from '@nivo/core'
 import { uniqBy } from 'lodash'
 
-export const getLegendDataForKeys = <RawDatum>(
+export const getLegendDataForKeys = <RawDatum extends BarDatum>(
     bars: BarsWithHidden<RawDatum>,
-    layout: 'horizontal' | 'vertical',
-    direction: 'column' | 'row',
-    groupMode: 'grouped' | 'stacked',
+    layout: NonNullable<BarSvgProps<RawDatum>['layout']>,
+    direction: BarLegendProps['direction'],
+    groupMode: NonNullable<BarSvgProps<RawDatum>['groupMode']>,
     reverse: boolean,
     getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
 ) => {
@@ -33,9 +33,9 @@ export const getLegendDataForKeys = <RawDatum>(
     return data
 }
 
-export const getLegendDataForIndexes = <RawDatum>(
+export const getLegendDataForIndexes = <RawDatum extends BarDatum>(
     bars: BarsWithHidden<RawDatum>,
-    layout: 'horizontal' | 'vertical',
+    layout: NonNullable<BarSvgProps<RawDatum>['layout']>,
     getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
 ) => {
     const data = uniqBy(
