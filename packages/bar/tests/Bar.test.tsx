@@ -385,6 +385,7 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         data: {
             data: { A: 10, C: 3, id: 'one' },
             formattedValue: '10',
+            hidden: false,
             id: 'A',
             index: 0,
             indexValue: 'one',
@@ -403,6 +404,7 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         data: {
             data: { B: 9, id: 'two' },
             formattedValue: '9',
+            hidden: false,
             id: 'B',
             index: 1,
             indexValue: 'two',
@@ -421,6 +423,7 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         data: {
             data: { A: 10, C: 3, id: 'one' },
             formattedValue: '3',
+            hidden: false,
             id: 'C',
             index: 0,
             indexValue: 'one',
@@ -458,6 +461,7 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         data: {
             data: { A: 10, C: 3, id: 'one' },
             formattedValue: '10',
+            hidden: false,
             id: 'A',
             index: 0,
             indexValue: 'one',
@@ -476,6 +480,7 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         data: {
             data: { B: 9, id: 'two' },
             formattedValue: '9',
+            hidden: false,
             id: 'B',
             index: 1,
             indexValue: 'two',
@@ -494,6 +499,7 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         data: {
             data: { A: 10, C: 3, id: 'one' },
             formattedValue: '3',
+            hidden: false,
             id: 'C',
             index: 0,
             indexValue: 'one',

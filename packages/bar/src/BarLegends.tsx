@@ -25,7 +25,9 @@ export const BarLegends = <RawDatum,>({
                     containerWidth={width}
                     containerHeight={height}
                     data={legend.data ?? data}
-                    toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
+                    toggleSerie={
+                        legend.toggleSerie && legend.dataFrom === 'keys' ? toggleSerie : undefined
+                    }
                 />
             ))}
         </>

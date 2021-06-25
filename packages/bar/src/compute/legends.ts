@@ -35,9 +35,10 @@ export const getLegendDataForKeys = <RawDatum>(
 
 export const getLegendDataForIndexes = <RawDatum>(
     bars: BarsWithHidden<RawDatum>,
+    layout: 'horizontal' | 'vertical',
     getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
 ) => {
-    return uniqBy(
+    const data = uniqBy(
         bars.map(bar => ({
             id: bar.data.indexValue ?? '',
             label: getLegendLabel(bar.data),
@@ -46,6 +47,12 @@ export const getLegendDataForIndexes = <RawDatum>(
         })),
         ({ id }) => id
     )
+
+    if (layout === 'horizontal') {
+        data.reverse()
+    }
+
+    return data
 }
 
 export const getLegendData = <RawDatum extends BarDatum>({
@@ -67,7 +74,7 @@ export const getLegendData = <RawDatum extends BarDatum>({
     )
 
     if (from === 'indexes') {
-        return getLegendDataForIndexes(bars, getLegendLabel)
+        return getLegendDataForIndexes(bars, layout, getLegendLabel)
     }
 
     return getLegendDataForKeys(bars, layout, direction, groupMode, reverse, getLegendLabel)
