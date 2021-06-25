@@ -70,6 +70,7 @@ stories.add('responsive', () => {
                         translateY: -30,
                     },
                 ]}
+                weekdayTicks={[]} // hide weekday tickmarks
                 {...{
                     dayRadius: number('dayRadius', 5),
                     formatValue: value => value,
@@ -96,7 +97,7 @@ stories.add('TimeRange vertical', () => {
             {...{
                 dayRadius: 5,
                 margin: {
-                    top: number('margin-top', 40),
+                    top: number('margin-top', 48),
                     right: number('margin-right', 40),
                     bottom: number('margin-bottom', 40),
                     left: number('margin-left', 40),
@@ -105,7 +106,7 @@ stories.add('TimeRange vertical', () => {
                 daySpacing: number('daySpacing', 10),
             }}
             weekdayLegendOffset={0}
-            weekdayTicks={[0, 2, 4, 6]}
+            weekdayTicks={[0, 2, 4, 6]} // custom weekday tickmarks
             height={number('height', 900)}
             width={number('width', 250)}
             direction="vertical"
