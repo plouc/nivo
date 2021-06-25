@@ -332,9 +332,14 @@ const InnerBar = <RawDatum extends BarDatum>({
     const layerContext: any = useMemo(
         () => ({
             ...commonProps,
+            margin,
+            innerWidth,
+            innerHeight,
+            width,
+            height,
             ...result,
         }),
-        [commonProps, result]
+        [commonProps, height, innerHeight, innerWidth, margin, result, width]
     )
 
     return (

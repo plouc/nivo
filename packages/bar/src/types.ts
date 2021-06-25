@@ -5,6 +5,7 @@ import {
     Box,
     CartesianMarkerProps,
     Dimensions,
+    Margin,
     ModernMotionProps,
     PropertyAccessor,
     SvgDefsAndFill,
@@ -102,9 +103,14 @@ export interface BarCustomLayerProps<RawDatum>
             | 'labelSkipWidth'
             | 'tooltip'
         >,
+        Dimensions,
         BarHandlers<RawDatum, SVGRectElement> {
     bars: ComputedBarDatum<RawDatum>[]
     legendData: BarsWithHidden<RawDatum>
+
+    margin: Margin
+    innerWidth: number
+    innerHeight: number
 
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
 
@@ -112,8 +118,15 @@ export interface BarCustomLayerProps<RawDatum>
     yScale: Scale<any, any>
 }
 
+export type BarCanvasCustomLayer<RawDatum> = (
+    context: CanvasRenderingContext2D,
+    props: BarCustomLayerProps<RawDatum>
+) => void
 export type BarCustomLayer<RawDatum> = React.FC<BarCustomLayerProps<RawDatum>>
 
+export type BarCanvasLayer<RawDatum> =
+    | Exclude<BarLayerId, 'markers'>
+    | BarCanvasCustomLayer<RawDatum>
 export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 
 export interface BarItemProps<RawDatum>
@@ -242,6 +255,7 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
         axisRight: CanvasAxisProp<any>
         axisTop: CanvasAxisProp<any>
 
+        layers: BarCanvasLayer<RawDatum>[]
         pixelRatio: number
     }>
 
