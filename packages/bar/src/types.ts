@@ -53,6 +53,7 @@ export type ComputedBarDatum<RawDatum> = {
     width: number
     height: number
     color: string
+    label: string
 }
 
 export type BarsWithHidden<RawDatum> = Array<
@@ -134,8 +135,13 @@ export interface BarItemProps<RawDatum>
             BarCommonProps<RawDatum>,
             'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
         >,
-        ComputedBarDatum<RawDatum>,
         BarHandlers<RawDatum, SVGRectElement> {
+    bar: ComputedBarDatum<RawDatum> & {
+        data: {
+            value: number
+        }
+    }
+
     borderColor: string
 
     style: SpringValues<{
@@ -150,20 +156,16 @@ export interface BarItemProps<RawDatum>
     label: string
     labelColor: string
     shouldRenderLabel: boolean
-
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
-
-    data: ComputedBarDatum<RawDatum>['data'] & { value: number }
 }
 
 export type RenderBarProps<RawDatum> = Omit<
     BarItemProps<RawDatum>,
-    'style' | 'getTooltipLabel' | 'isInteractive' | 'tooltip'
+    'isInteractive' | 'style' | 'tooltip'
 >
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
+    label: string
     value: number
 }
 

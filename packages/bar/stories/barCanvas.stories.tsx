@@ -68,7 +68,7 @@ stories.add('custom bar renderer', () => (
     <BarCanvas
         {...commonProps}
         innerPadding={4}
-        renderBar={(ctx, { x, y, width, height, color }) => {
+        renderBar={(ctx, { bar: { x, y, width, height, color } }) => {
             ctx.beginPath()
 
             ctx.fillStyle = color

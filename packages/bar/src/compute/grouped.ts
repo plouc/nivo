@@ -9,6 +9,7 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
     formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
+    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
     innerPadding: number
     keys: string[]
     xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
@@ -32,10 +33,11 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
     {
         data,
         formatValue,
-        getIndex,
-        keys,
         getColor,
+        getIndex,
+        getTooltipLabel,
         innerPadding = 0,
+        keys,
         xScale,
         yScale,
     }: Params<RawDatum, string, number>,
@@ -73,6 +75,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
                     width: barWidth,
                     height: barHeight,
                     color: getColor(barData),
+                    label: getTooltipLabel(barData),
                 }
             })
         )
@@ -89,8 +92,9 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
         data,
         formatValue,
         getIndex,
-        keys,
         getColor,
+        getTooltipLabel,
+        keys,
         innerPadding = 0,
         xScale,
         yScale,
@@ -129,6 +133,7 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
                     width: barWidth,
                     height: barHeight,
                     color: getColor(barData),
+                    label: getTooltipLabel(barData),
                 }
             })
         )
@@ -151,7 +156,7 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     innerPadding = 0,
     valueScale,
     indexScale: indexScaleConfig,
-    hiddenIds,
+    hiddenIds = [],
     ...props
 }: Pick<
     Required<BarSvgProps<RawDatum>>,
@@ -171,7 +176,8 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
-    hiddenIds: string[]
+    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    hiddenIds?: string[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
     const data = normalizeData(props.data, keys)

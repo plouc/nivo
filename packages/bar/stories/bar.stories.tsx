@@ -151,17 +151,12 @@ stories.add('diverging grouped', () => (
     />
 ))
 
-const CustomBarComponent = ({ x, y, width, height, color }) => (
+const CustomBarComponent = ({ bar: { x, y, width, height, color } }) => (
     <circle cx={x + width / 2} cy={y + height / 2} r={Math.min(width, height) / 2} fill={color} />
 )
 
 stories.add('custom bar item', () => (
-    <Bar
-        {...commonProps}
-        innerPadding={4}
-        barComponent={CustomBarComponent}
-        labelTextColor="inherit:darker(1)"
-    />
+    <Bar {...commonProps} innerPadding={4} barComponent={CustomBarComponent} />
 ))
 
 stories.add('with formatted values', () => (
@@ -294,27 +289,21 @@ const DataGenerator = (initialIndex, initialState) => {
     }
 }
 
-const BarComponent = props => {
+const BarComponent = ({ bar, borderColor }) => {
     return (
-        <g transform={`translate(${props.x},${props.y})`}>
+        <g transform={`translate(${bar.x},${bar.y})`}>
+            <rect x={-3} y={7} width={bar.width} height={bar.height} fill="rgba(0, 0, 0, .07)" />
+            <rect width={bar.width} height={bar.height} fill={bar.color} />
             <rect
-                x={-3}
-                y={7}
-                width={props.width}
-                height={props.height}
-                fill="rgba(0, 0, 0, .07)"
-            />
-            <rect width={props.width} height={props.height} fill={props.color} />
-            <rect
-                x={props.width - 5}
+                x={bar.width - 5}
                 width={5}
-                height={props.height}
-                fill={props.borderColor}
+                height={bar.height}
+                fill={borderColor}
                 fillOpacity={0.2}
             />
             <text
-                x={props.width - 16}
-                y={props.height / 2 - 8}
+                x={bar.width - 16}
+                y={bar.height / 2 - 8}
                 textAnchor="end"
                 dominantBaseline="central"
                 fill="black"
@@ -323,20 +312,20 @@ const BarComponent = props => {
                     fontSize: 15,
                 }}
             >
-                {props.data.indexValue}
+                {bar.data.indexValue}
             </text>
             <text
-                x={props.width - 16}
-                y={props.height / 2 + 10}
+                x={bar.width - 16}
+                y={bar.height / 2 + 10}
                 textAnchor="end"
                 dominantBaseline="central"
-                fill={props.borderColor}
+                fill={borderColor}
                 style={{
                     fontWeight: 400,
                     fontSize: 13,
                 }}
             >
-                {props.data.value}
+                {bar.data.value}
             </text>
         </g>
     )

@@ -5,8 +5,7 @@ import { useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 
 export const BarItem = <RawDatum extends BarDatum>({
-    data,
-    color,
+    bar: { data, ...bar },
 
     style: { height, transform, width, x, y, ...style },
 
@@ -23,7 +22,6 @@ export const BarItem = <RawDatum extends BarDatum>({
     onMouseEnter,
     onMouseLeave,
 
-    getTooltipLabel,
     tooltip,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
@@ -31,25 +29,21 @@ export const BarItem = <RawDatum extends BarDatum>({
 
     const handleClick = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
-            onClick?.({ color, ...data }, event)
+            onClick?.({ color: bar.color, ...data }, event)
         },
-        [color, data, onClick]
+        [bar, data, onClick]
     )
-
     const handleTooltip = useCallback(
         (event: React.MouseEvent<SVGRectElement>) =>
-            showTooltipFromEvent(
-                createElement(tooltip, { ...data, color, getTooltipLabel }),
-                event
-            ),
-        [color, data, getTooltipLabel, showTooltipFromEvent, tooltip]
+            showTooltipFromEvent(createElement(tooltip, { ...bar, ...data }), event),
+        [bar, data, showTooltipFromEvent, tooltip]
     )
     const handleMouseEnter = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
             onMouseEnter?.(data, event)
-            showTooltipFromEvent(createElement(tooltip, { ...data, color, getTooltipLabel }), event)
+            showTooltipFromEvent(createElement(tooltip, { ...bar, ...data }), event)
         },
-        [color, data, getTooltipLabel, onMouseEnter, showTooltipFromEvent, tooltip]
+        [bar, data, onMouseEnter, showTooltipFromEvent, tooltip]
     )
     const handleMouseLeave = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {

@@ -29,6 +29,11 @@ import { svgDefaultProps } from './props'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTransition } from '@react-spring/web'
 
+type InnerBarProps<RawDatum extends BarDatum> = Omit<
+    BarSvgProps<RawDatum>,
+    'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
+>
+
 const InnerBar = <RawDatum extends BarDatum>({
     data,
     indexBy = svgDefaultProps.indexBy,
@@ -96,7 +101,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     role = svgDefaultProps.role,
 
     initialHiddenIds,
-}: BarSvgProps<RawDatum>) => {
+}: InnerBarProps<RawDatum>) => {
     const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
     const toggleSerie = useCallback(id => {
         setHiddenIds(state =>
@@ -138,6 +143,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         indexScale,
         hiddenIds,
         formatValue,
+        getTooltipLabel,
     })
 
     const legendData = useMemo(
@@ -260,8 +266,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             <Fragment key="bars">
                 {transition((style, bar) =>
                     createElement(barComponent, {
-                        ...bar,
                         ...commonProps,
+                        bar,
                         style,
                         shouldRenderLabel: shouldRenderLabel(bar),
                         label: getLabel(bar.data),

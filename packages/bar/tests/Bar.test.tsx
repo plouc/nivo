@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { mount } from 'enzyme'
-import { Bar, ComputedDatum } from '../src'
+import { Bar, BarDatum, BarItemProps, ComputedDatum } from '../src'
 
 type IdValue = {
     id: string
@@ -66,7 +66,9 @@ it('should allow grouped mode', () => {
     )
 
     const props = wrapper.find('BarItem').map(bar => {
-        const { height, width, x, y } = bar.props()
+        const {
+            bar: { height, width, x, y },
+        } = (bar.props() as unknown) as BarItemProps<BarDatum>
 
         return { height, width, x, y }
     })
@@ -130,7 +132,9 @@ it('should allow horizontal layout', () => {
     )
 
     const props = wrapper.find('BarItem').map(bar => {
-        const { height, width, x, y } = bar.props()
+        const {
+            bar: { height, width, x, y },
+        } = (bar.props() as unknown) as BarItemProps<BarDatum>
 
         return { height, width, x, y }
     })
@@ -178,7 +182,9 @@ it('should allow grouped horizontal layout', () => {
     )
 
     const props = wrapper.find('BarItem').map(bar => {
-        const { height, width, x, y } = bar.props()
+        const {
+            bar: { height, width, x, y },
+        } = (bar.props() as unknown) as BarItemProps<BarDatum>
 
         return { height, width, x, y }
     })
@@ -374,44 +380,59 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
 
     expect(bars).toHaveLength(3)
 
-    expect(bars.at(0).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'A',
-        index: 0,
-        indexValue: 'one',
-        value: 10,
-        formattedValue: '10',
+    expect(bars.at(0).prop('bar')).toEqual({
+        color: '#e8c1a0',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '10',
+            id: 'A',
+            index: 0,
+            indexValue: 'one',
+            value: 10,
+        },
+        height: 300,
+        key: 'A.one',
+        label: 'A - one',
+        width: 71.33333333333333,
+        x: 24,
+        y: 0,
     })
-    expect(bars.at(0).prop('x')).toEqual(24)
-    expect(bars.at(0).prop('y')).toEqual(0)
-    expect(bars.at(0).prop('height')).toEqual(300)
-    expect(bars.at(0).prop('width')).toEqual(71.33333333333333)
 
-    expect(bars.at(1).prop('data')).toEqual({
-        data: { B: 9, id: 'two' },
-        id: 'B',
-        index: 1,
-        indexValue: 'two',
-        value: 9,
-        formattedValue: '9',
+    expect(bars.at(1).prop('bar')).toEqual({
+        color: '#f47560',
+        data: {
+            data: { B: 9, id: 'two' },
+            formattedValue: '9',
+            id: 'B',
+            index: 1,
+            indexValue: 'two',
+            value: 9,
+        },
+        height: 270,
+        key: 'B.two',
+        label: 'B - two',
+        width: 71.33333333333333,
+        x: 333.3333333333333,
+        y: 30,
     })
-    expect(bars.at(1).prop('x')).toEqual(333.3333333333333)
-    expect(bars.at(1).prop('y')).toEqual(30)
-    expect(bars.at(1).prop('height')).toEqual(270)
-    expect(bars.at(1).prop('width')).toEqual(71.33333333333333)
 
-    expect(bars.at(2).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'C',
-        index: 0,
-        indexValue: 'one',
-        value: 3,
-        formattedValue: '3',
+    expect(bars.at(2).prop('bar')).toEqual({
+        color: '#f1e15b',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '3',
+            id: 'C',
+            index: 0,
+            indexValue: 'one',
+            value: 3,
+        },
+        height: 90,
+        key: 'C.one',
+        label: 'C - one',
+        width: 71.33333333333333,
+        x: 166.66666666666666,
+        y: 210,
     })
-    expect(bars.at(2).prop('x')).toEqual(166.66666666666666)
-    expect(bars.at(2).prop('y')).toEqual(210)
-    expect(bars.at(2).prop('height')).toEqual(90)
-    expect(bars.at(2).prop('width')).toEqual(71.33333333333333)
 })
 
 it(`should generate stacked bars correctly when keys are mismatched`, () => {
@@ -432,44 +453,59 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
 
     expect(bars).toHaveLength(3)
 
-    expect(bars.at(0).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'A',
-        index: 0,
-        indexValue: 'one',
-        value: 10,
-        formattedValue: '10',
+    expect(bars.at(0).prop('bar')).toEqual({
+        color: '#e8c1a0',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '10',
+            id: 'A',
+            index: 0,
+            indexValue: 'one',
+            value: 10,
+        },
+        height: 231,
+        key: 'A.one',
+        label: 'A - one',
+        width: 214,
+        x: 24,
+        y: 69,
     })
-    expect(bars.at(0).prop('x')).toEqual(24)
-    expect(bars.at(0).prop('y')).toEqual(69)
-    expect(bars.at(0).prop('height')).toEqual(231)
-    expect(bars.at(0).prop('width')).toEqual(214)
 
-    expect(bars.at(1).prop('data')).toEqual({
-        data: { B: 9, id: 'two' },
-        id: 'B',
-        index: 1,
-        indexValue: 'two',
-        value: 9,
-        formattedValue: '9',
+    expect(bars.at(1).prop('bar')).toEqual({
+        color: '#f47560',
+        data: {
+            data: { B: 9, id: 'two' },
+            formattedValue: '9',
+            id: 'B',
+            index: 1,
+            indexValue: 'two',
+            value: 9,
+        },
+        height: 208,
+        key: 'B.two',
+        label: 'B - two',
+        width: 214,
+        x: 262,
+        y: 92,
     })
-    expect(bars.at(1).prop('x')).toEqual(262)
-    expect(bars.at(1).prop('y')).toEqual(92)
-    expect(bars.at(1).prop('height')).toEqual(208)
-    expect(bars.at(1).prop('width')).toEqual(214)
 
-    expect(bars.at(2).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'C',
-        index: 0,
-        indexValue: 'one',
-        value: 3,
-        formattedValue: '3',
+    expect(bars.at(2).prop('bar')).toEqual({
+        color: '#f1e15b',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '3',
+            id: 'C',
+            index: 0,
+            indexValue: 'one',
+            value: 3,
+        },
+        height: 69,
+        key: 'C.one',
+        label: 'C - one',
+        width: 214,
+        x: 24,
+        y: 0,
     })
-    expect(bars.at(2).prop('x')).toEqual(24)
-    expect(bars.at(2).prop('y')).toEqual(0)
-    expect(bars.at(2).prop('height')).toEqual(69)
-    expect(bars.at(2).prop('width')).toEqual(214)
 })
 
 it(`should apply scale rounding by default`, () => {
@@ -487,7 +523,7 @@ it(`should apply scale rounding by default`, () => {
     )
 
     const bars = wrapper.find('BarItem')
-    const firstBarWidth = Number(bars.at(0).prop('width'))
+    const firstBarWidth = Number(bars.at(0).prop<BarItemProps<BarDatum>['bar']>('bar').width)
     expect(firstBarWidth).toEqual(Math.floor(firstBarWidth))
 })
 
@@ -507,7 +543,7 @@ it(`should not apply scale rounding when passed indexScale.round: false`, () => 
     )
 
     const bars = wrapper.find('BarItem')
-    const firstBarWidth = Number(bars.at(0).prop('width'))
+    const firstBarWidth = Number(bars.at(0).prop<BarItemProps<BarDatum>['bar']>('bar').width)
     expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
 })
 
@@ -533,13 +569,13 @@ it('should render bars in grouped mode after updating starting values from 0', (
     const wrapper = mount(<MyBar />)
 
     wrapper.find('BarItem').forEach(bar => {
-        expect(bar.prop('height')).toBe(0)
+        expect(bar.prop<BarItemProps<BarDatum>['bar']>('bar').height).toBe(0)
     })
 
     wrapper.find('button').simulate('click')
 
     wrapper.find('BarItem').forEach(bar => {
-        expect(bar.prop('height')).toBe(300)
+        expect(bar.prop<BarItemProps<BarDatum>['bar']>('bar').height).toBe(300)
     })
 })
 

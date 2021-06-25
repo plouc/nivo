@@ -96,17 +96,14 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     renderBar = (
         ctx,
         {
+            bar: { color, height, width, x, y },
+
             borderColor,
             borderRadius,
             borderWidth,
-            color,
-            height,
             label,
             labelColor,
             shouldRenderLabel,
-            width,
-            x,
-            y,
         }
     ) => {
         ctx.fillStyle = color
@@ -214,8 +211,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         innerPadding,
         valueScale,
         indexScale,
-        hiddenIds: [],
         formatValue,
+        getTooltipLabel,
     }
 
     const result =
@@ -364,7 +361,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             } else if (layer === 'bars') {
                 barsWithValue.forEach(bar => {
                     renderBar(ctx, {
-                        ...bar,
+                        bar,
                         borderColor: getBorderColor(bar),
                         borderRadius,
                         borderWidth,
@@ -453,9 +450,9 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 showTooltipFromEvent(
                     createElement(tooltip, {
                         ...bar.data,
-                        value: Number(bar.data.value),
                         color: bar.color,
-                        getTooltipLabel,
+                        label: bar.label,
+                        value: Number(bar.data.value),
                     }),
                     event
                 )
@@ -467,15 +464,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 hideTooltip()
             }
         },
-        [
-            getTooltipLabel,
-            hideTooltip,
-            margin,
-            onMouseEnter,
-            result.bars,
-            showTooltipFromEvent,
-            tooltip,
-        ]
+        [hideTooltip, margin, onMouseEnter, result.bars, showTooltipFromEvent, tooltip]
     )
 
     const handleMouseLeave = useCallback(
