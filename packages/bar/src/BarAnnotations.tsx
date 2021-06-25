@@ -9,16 +9,11 @@ export const BarAnnotations = <RawDatum,>({ bars, annotations }: BarAnnotationsP
             x: bar.x + bar.width / 2,
             y: bar.y + bar.height / 2,
         }),
-        getDimensions: bar => {
-            const width = bar.width
-            const height = bar.height
-
-            return {
-                width,
-                height,
-                size: Math.max(width, height),
-            }
-        },
+        getDimensions: ({ height, width }) => ({
+            width,
+            height,
+            size: Math.max(width, height),
+        }),
     })
 
     return (

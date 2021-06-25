@@ -169,15 +169,8 @@ export type BarCommonProps<RawDatum> = {
     innerPadding: number
     padding: number
 
-    barComponent: React.FC<BarItemProps<RawDatum>>
-
     valueScale: ScaleSpec
     indexScale: ScaleBandSpec
-
-    // axisBottom?: AxisProps
-    // axisLeft?: AxisProps
-    // axisRight?: AxisProps
-    // axisTop?: AxisProps
 
     enableGridX: boolean
     gridXValues?: GridValues<string | number>
@@ -214,7 +207,6 @@ export type BarCommonProps<RawDatum> = {
 
     annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
     legends: BarLegendProps[]
-    markers?: CartesianMarkerProps[]
 
     renderWrapper?: boolean
 }
@@ -231,6 +223,10 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
         axisRight: AxisProps
         axisTop: AxisProps
 
+        barComponent: React.FC<BarItemProps<RawDatum>>
+
+        markers: CartesianMarkerProps[]
+
         initialHiddenIds: string[]
         layers: BarLayer<RawDatum>[]
         role: string
@@ -239,21 +235,17 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
 export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
     DataProps<RawDatum> &
     BarHandlers<RawDatum, HTMLCanvasElement> &
-    Dimensions & {
-        axisBottom?: CanvasAxisProp<any>
-        axisLeft?: CanvasAxisProp<any>
-        axisRight?: CanvasAxisProp<any>
-        axisTop?: CanvasAxisProp<any>
+    Dimensions &
+    Partial<{
+        axisBottom: CanvasAxisProp<any>
+        axisLeft: CanvasAxisProp<any>
+        axisRight: CanvasAxisProp<any>
+        axisTop: CanvasAxisProp<any>
 
-        pixelRatio?: number
-    }
+        pixelRatio: number
+    }>
 
 export type BarAnnotationsProps<RawDatum> = {
     annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
     bars: ComputedBarDatum<RawDatum>[]
-}
-
-export type TooltipHandlers = {
-    hideTooltip: () => void
-    showTooltip: (content: JSX.Element, event: React.MouseEvent<SVGRectElement>) => void
 }

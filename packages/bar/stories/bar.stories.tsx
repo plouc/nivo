@@ -440,3 +440,22 @@ stories.add('custom legend labels', () => (
 stories.add('with formatted value', () => (
     <Bar {...commonProps} valueFormat={value => `${value}`.split('').join('.')} />
 ))
+
+stories.add('with annotations', () => (
+    <Bar
+        {...commonProps}
+        annotations={[
+            {
+                type: 'circle',
+                match: { key: 'fries.AE' },
+                noteX: 25,
+                noteY: 25,
+                offset: 3,
+                noteTextOffset: -3,
+                noteWidth: 5,
+                note: 'an annotation',
+                size: 40,
+            },
+        ]}
+    />
+))
