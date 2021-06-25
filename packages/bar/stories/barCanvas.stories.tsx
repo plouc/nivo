@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { generateCountriesData } from '@nivo/generators'
-import { BarCanvas, BarDatum } from '../src'
+import { BarCanvas, BarCanvasLayer, BarDatum, canvasDefaultProps } from '../src'
 import { button } from '@storybook/addon-knobs'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
@@ -18,6 +19,50 @@ const commonProps = {
 }
 
 const stories = storiesOf('BarCanvas', module)
+
+stories.addDecorator(withKnobs)
+
+stories.add('default', () => <BarCanvas {...commonProps} />)
+
+stories.add('custom layer', () => {
+    const layers = canvasDefaultProps.layers.filter(layer =>
+        boolean(`layer.${layer}`, true)
+    ) as BarCanvasLayer<BarDatum>[]
+
+    return (
+        <BarCanvas
+            {...commonProps}
+            layers={[
+                ...layers,
+                (ctx, props) => {
+                    const total = props.bars
+                        .reduce((acc, bar) => acc + bar.data.value, 0)
+                        .toLocaleString()
+
+                    ctx.save()
+
+                    ctx.textAlign = 'right'
+                    ctx.font = 'bold 20px san-serif'
+                    ctx.fillStyle = '#2a2a2a'
+
+                    ctx.fillText(`Grand Total: ${total}`, props.width - 100, -10)
+
+                    ctx.restore()
+                },
+            ]}
+            legends={[
+                {
+                    anchor: 'bottom',
+                    dataFrom: 'keys',
+                    direction: 'row',
+                    itemHeight: 20,
+                    itemWidth: 110,
+                    translateY: 50,
+                },
+            ]}
+        />
+    )
+})
 
 stories.add('custom tooltip', () => (
     <BarCanvas

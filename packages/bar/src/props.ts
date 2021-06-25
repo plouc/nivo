@@ -7,7 +7,6 @@ import { ScaleBandSpec, ScaleSpec } from '@nivo/scales'
 export const defaultProps = {
     indexBy: 'id',
     keys: ['value'],
-    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations'],
 
     groupMode: 'stacked' as const,
     layout: 'vertical' as const,
@@ -27,8 +26,6 @@ export const defaultProps = {
     enableGridX: false,
     enableGridY: true,
 
-    barComponent: BarItem,
-
     enableLabel: true,
     label: 'formattedValue',
     labelSkipWidth: 0,
@@ -38,15 +35,14 @@ export const defaultProps = {
 
     colorBy: 'id' as const,
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
-    defs: [],
-    fill: [],
+
     borderRadius: 0,
     borderWidth: 0,
     borderColor: { from: 'color' } as InheritedColorConfig<any>,
 
     isInteractive: true,
     tooltip: BarTooltip,
-    tooltipLabel: (datum: ComputedDatum<any>) => `${datum.id} - ${datum.indexValue}`,
+    tooltipLabel: <RawDatum>(datum: ComputedDatum<RawDatum>) => `${datum.id} - ${datum.indexValue}`,
 
     legends: [],
 
@@ -55,12 +51,21 @@ export const defaultProps = {
 
 export const svgDefaultProps = {
     ...defaultProps,
+    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations'],
+    barComponent: BarItem,
+
+    defs: [],
+    fill: [],
+
     animate: true,
     motionConfig: 'gentle',
+
     role: 'img',
 }
 
 export const canvasDefaultProps = {
     ...defaultProps,
+    layers: ['grid', 'axes', 'bars', 'legends', 'annotations'],
+
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

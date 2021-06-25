@@ -1,4 +1,4 @@
-import { BarCanvasProps, BarDatum, ComputedBarDatum } from './types'
+import { BarCanvasLayer, BarCanvasProps, BarDatum, ComputedBarDatum } from './types'
 import {
     Container,
     Margin,
@@ -17,7 +17,6 @@ import {
     useEffect,
     useMemo,
     useRef,
-    useState,
 } from 'react'
 import { canvasDefaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
@@ -55,6 +54,8 @@ const findBarUnderCursor = <RawDatum,>(
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
+const isNumber = (value: unknown): value is number => typeof value === 'number'
+
 const InnerBarCanvas = <RawDatum extends BarDatum>({
     data,
     indexBy = canvasDefaultProps.indexBy,
@@ -84,6 +85,9 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     enableGridY = canvasDefaultProps.enableGridY,
     gridXValues,
     gridYValues,
+
+    layers = canvasDefaultProps.layers as BarCanvasLayer<RawDatum>[],
+    // barComponent = svgDefaultProps.barComponent,
 
     enableLabel = canvasDefaultProps.enableLabel,
     label = canvasDefaultProps.label,
@@ -118,13 +122,6 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 }: InnerBarCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
-    const [hiddenIds] = useState<string[]>([])
-    // const toggleSerie = useCallback(id => {
-    //     setHiddenIds(state =>
-    //         state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
-    //     )
-    // }, [])
-
     const theme = useTheme()
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -157,7 +154,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         innerPadding,
         valueScale,
         indexScale,
-        hiddenIds,
+        hiddenIds: [],
         formatValue,
     }
 
@@ -169,9 +166,9 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             keys.map(key => {
                 const bar = result.bars.find(bar => bar.data.id === key)
 
-                return { ...bar, data: { id: key, ...bar?.data, hidden: hiddenIds.includes(key) } }
+                return { ...bar, data: { id: key, ...bar?.data, hidden: false } }
             }),
-        [hiddenIds, keys, result.bars]
+        [keys, result.bars]
     )
 
     const shouldRenderLabel = useCallback(
@@ -201,6 +198,48 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         }),
     })
 
+    // We use `any` here until we can figure out the best way to type xScale/yScale
+    const layerContext: any = useMemo(
+        () => ({
+            borderRadius,
+            borderWidth,
+            enableLabel,
+            isInteractive,
+            labelSkipWidth,
+            labelSkipHeight,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            getTooltipLabel,
+            tooltip,
+            margin,
+            innerWidth,
+            innerHeight,
+            width,
+            height,
+            ...result,
+        }),
+        [
+            borderRadius,
+            borderWidth,
+            enableLabel,
+            getTooltipLabel,
+            height,
+            innerHeight,
+            innerWidth,
+            isInteractive,
+            labelSkipHeight,
+            labelSkipWidth,
+            margin,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            result,
+            tooltip,
+            width,
+        ]
+    )
+
     useEffect(() => {
         const ctx = canvasEl.current?.getContext('2d')
 
@@ -216,111 +255,113 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
         ctx.translate(margin.left, margin.top)
 
-        if (theme.grid.line?.strokeWidth !== undefined) {
-            ctx.lineWidth = theme.grid.line.strokeWidth as any
-            ctx.strokeStyle = theme.grid.line.stroke as any
+        layers.forEach(layer => {
+            if (layer === 'grid') {
+                if (isNumber(theme.grid.line.strokeWidth) && theme.grid.line.strokeWidth > 0) {
+                    ctx.lineWidth = theme.grid.line.strokeWidth
+                    ctx.strokeStyle = theme.grid.line.stroke as string
 
-            if (enableGridX) {
-                renderGridLinesToCanvas<string | number>(ctx, {
-                    width,
-                    height,
-                    scale: result.xScale as any,
-                    axis: 'x',
-                    values: gridXValues,
+                    if (enableGridX) {
+                        renderGridLinesToCanvas<string | number>(ctx, {
+                            width,
+                            height,
+                            scale: result.xScale as any,
+                            axis: 'x',
+                            values: gridXValues,
+                        })
+                    }
+
+                    if (enableGridY) {
+                        renderGridLinesToCanvas<string | number>(ctx, {
+                            width,
+                            height,
+                            scale: result.yScale as any,
+                            axis: 'y',
+                            values: gridYValues,
+                        })
+                    }
+                }
+            } else if (layer === 'axes') {
+                renderAxesToCanvas(ctx, {
+                    xScale: result.xScale as any,
+                    yScale: result.yScale as any,
+                    width: innerWidth,
+                    height: innerHeight,
+                    top: axisTop,
+                    right: axisRight,
+                    bottom: axisBottom,
+                    left: axisLeft,
+                    theme,
                 })
-            }
+            } else if (layer === 'bars') {
+                result.bars.forEach(bar => {
+                    const { x, y, color, width, height } = bar
 
-            if (enableGridY) {
-                renderGridLinesToCanvas<string | number>(ctx, {
-                    width,
-                    height,
-                    scale: result.yScale as any,
-                    axis: 'y',
-                    values: gridYValues,
+                    ctx.fillStyle = color
+
+                    if (borderWidth > 0) {
+                        ctx.strokeStyle = getBorderColor(bar)
+                        ctx.lineWidth = borderWidth
+                    }
+
+                    ctx.beginPath()
+
+                    if (borderRadius > 0) {
+                        const radius = Math.min(borderRadius, height)
+
+                        ctx.moveTo(x + radius, y)
+                        ctx.lineTo(x + width - radius, y)
+                        ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
+                        ctx.lineTo(x + width, y + height - radius)
+                        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+                        ctx.lineTo(x + radius, y + height)
+                        ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
+                        ctx.lineTo(x, y + radius)
+                        ctx.quadraticCurveTo(x, y, x + radius, y)
+                        ctx.closePath()
+                    } else {
+                        ctx.rect(x, y, width, height)
+                    }
+
+                    ctx.fill()
+
+                    if (borderWidth > 0) {
+                        ctx.stroke()
+                    }
+
+                    if (shouldRenderLabel({ height, width })) {
+                        ctx.textBaseline = 'middle'
+                        ctx.textAlign = 'center'
+                        ctx.fillStyle = getLabelColor(bar)
+                        ctx.fillText(getLabel(bar.data), x + width / 2, y + height / 2)
+                    }
                 })
-            }
-        }
+            } else if (layer === 'legends') {
+                legends.forEach(legend => {
+                    const data = getLegendData({
+                        bars: legendData,
+                        direction: legend.direction,
+                        from: legend.dataFrom,
+                        groupMode,
+                        layout,
+                        legendLabel,
+                        reverse,
+                    })
 
-        ctx.save()
-
-        ctx.strokeStyle = '#dddddd'
-
-        legends.forEach(legend => {
-            const data = getLegendData({
-                bars: legendData,
-                direction: legend.direction,
-                from: legend.dataFrom,
-                groupMode,
-                layout,
-                legendLabel,
-                reverse,
-            })
-
-            renderLegendToCanvas(ctx, {
-                ...legend,
-                data,
-                containerWidth: innerWidth,
-                containerHeight: innerHeight,
-                theme,
-            })
-        })
-
-        renderAxesToCanvas(ctx, {
-            xScale: result.xScale as any,
-            yScale: result.yScale as any,
-            width: innerWidth,
-            height: innerHeight,
-            top: axisTop,
-            right: axisRight,
-            bottom: axisBottom,
-            left: axisLeft,
-            theme,
-        })
-
-        result.bars.forEach(bar => {
-            const { x, y, color, width, height } = bar
-
-            ctx.fillStyle = color
-
-            if (borderWidth > 0) {
-                ctx.strokeStyle = getBorderColor(bar)
-                ctx.lineWidth = borderWidth
-            }
-
-            ctx.beginPath()
-
-            if (borderRadius > 0) {
-                const radius = Math.min(borderRadius, height)
-
-                ctx.moveTo(x + radius, y)
-                ctx.lineTo(x + width - radius, y)
-                ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
-                ctx.lineTo(x + width, y + height - radius)
-                ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
-                ctx.lineTo(x + radius, y + height)
-                ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
-                ctx.lineTo(x, y + radius)
-                ctx.quadraticCurveTo(x, y, x + radius, y)
-                ctx.closePath()
-            } else {
-                ctx.rect(x, y, width, height)
-            }
-
-            ctx.fill()
-
-            if (borderWidth > 0) {
-                ctx.stroke()
-            }
-
-            if (shouldRenderLabel({ height, width })) {
-                ctx.textBaseline = 'middle'
-                ctx.textAlign = 'center'
-                ctx.fillStyle = getLabelColor(bar)
-                ctx.fillText(getLabel(bar.data), x + width / 2, y + height / 2)
+                    renderLegendToCanvas(ctx, {
+                        ...legend,
+                        data,
+                        containerWidth: innerWidth,
+                        containerHeight: innerHeight,
+                        theme,
+                    })
+                })
+            } else if (layer === 'annotations') {
+                renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
+            } else if (typeof layer === 'function') {
+                layer(ctx, layerContext)
             }
         })
-
-        renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
 
         ctx.save()
     }, [
@@ -342,6 +383,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         height,
         innerHeight,
         innerWidth,
+        layerContext,
+        layers,
         layout,
         legendData,
         legendLabel,
