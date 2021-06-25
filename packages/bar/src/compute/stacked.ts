@@ -10,6 +10,7 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
     formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
+    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
     innerPadding: number
     stackedData: Series<RawDatum, string>[]
     xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
@@ -28,8 +29,9 @@ const filterZerosIfLog = (array: number[], type: string) =>
 const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
     {
         formatValue,
-        getIndex,
         getColor,
+        getIndex,
+        getTooltipLabel,
         innerPadding,
         stackedData,
         xScale,
@@ -67,6 +69,7 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
                     width: barWidth,
                     height: barHeight,
                     color: getColor(barData),
+                    label: getTooltipLabel(barData),
                 }
             })
         )
@@ -81,8 +84,9 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
 const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>(
     {
         formatValue,
-        getIndex,
         getColor,
+        getIndex,
+        getTooltipLabel,
         innerPadding,
         stackedData,
         xScale,
@@ -120,6 +124,7 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
                     width: barWidth,
                     height: barHeight,
                     color: getColor(barData),
+                    label: getTooltipLabel(barData),
                 }
             })
         )
@@ -142,7 +147,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     padding = 0,
     valueScale,
     indexScale: indexScaleConfig,
-    hiddenIds,
+    hiddenIds = [],
     ...props
 }: Pick<
     Required<BarSvgProps<RawDatum>>,
@@ -162,7 +167,8 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
-    hiddenIds: string[]
+    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    hiddenIds?: string[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
     const stackedData = stack<RawDatum, string>().keys(keys).offset(stackOffsetDiverging)(
