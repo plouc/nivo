@@ -156,6 +156,11 @@ export interface BarItemProps<RawDatum>
     data: ComputedBarDatum<RawDatum>['data'] & { value: number }
 }
 
+export type RenderBarProps<RawDatum> = Omit<
+    BarItemProps<RawDatum>,
+    'style' | 'getTooltipLabel' | 'isInteractive' | 'tooltip'
+>
+
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
@@ -254,6 +259,8 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
         axisLeft: CanvasAxisProp<any>
         axisRight: CanvasAxisProp<any>
         axisTop: CanvasAxisProp<any>
+
+        renderBar: (context: CanvasRenderingContext2D, props: RenderBarProps<RawDatum>) => void
 
         layers: BarCanvasLayer<RawDatum>[]
         pixelRatio: number

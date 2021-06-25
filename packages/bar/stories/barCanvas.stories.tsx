@@ -64,6 +64,28 @@ stories.add('custom layer', () => {
     )
 })
 
+stories.add('custom bar renderer', () => (
+    <BarCanvas
+        {...commonProps}
+        innerPadding={4}
+        renderBar={(ctx, { x, y, width, height, color }) => {
+            ctx.beginPath()
+
+            ctx.fillStyle = color
+
+            ctx.arc(
+                x + width / 2,
+                y + height / 2,
+                Math.abs(Math.min(width, height) / 2),
+                0,
+                2 * Math.PI
+            )
+
+            ctx.fill()
+        }}
+    />
+))
+
 stories.add('custom tooltip', () => (
     <BarCanvas
         {...commonProps}
