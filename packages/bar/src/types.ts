@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AnnotationMatcher } from '@nivo/annotations'
-import { AxisProps, GridValues } from '@nivo/axes'
+import { AxisProps, CanvasAxisProp, GridValues } from '@nivo/axes'
 import {
     Box,
     CartesianMarkerProps,
@@ -174,10 +174,10 @@ export type BarCommonProps<RawDatum> = {
     valueScale: ScaleSpec
     indexScale: ScaleBandSpec
 
-    axisBottom?: AxisProps
-    axisLeft?: AxisProps
-    axisRight?: AxisProps
-    axisTop?: AxisProps
+    // axisBottom?: AxisProps
+    // axisLeft?: AxisProps
+    // axisRight?: AxisProps
+    // axisTop?: AxisProps
 
     enableGridX: boolean
     gridXValues?: GridValues<string | number>
@@ -226,6 +226,11 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
     Dimensions &
     ModernMotionProps &
     Partial<{
+        axisBottom: AxisProps
+        axisLeft: AxisProps
+        axisRight: AxisProps
+        axisTop: AxisProps
+
         initialHiddenIds: string[]
         layers: BarLayer<RawDatum>[]
         role: string
@@ -235,6 +240,11 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
     DataProps<RawDatum> &
     BarHandlers<RawDatum, HTMLCanvasElement> &
     Dimensions & {
+        axisBottom?: CanvasAxisProp<any>
+        axisLeft?: CanvasAxisProp<any>
+        axisRight?: CanvasAxisProp<any>
+        axisTop?: CanvasAxisProp<any>
+
         pixelRatio?: number
     }
 

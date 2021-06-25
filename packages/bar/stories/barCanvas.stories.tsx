@@ -24,17 +24,32 @@ stories.add('custom tooltip', () => (
     <BarCanvas
         {...commonProps}
         tooltip={({ id, value, color }) => (
-            <strong style={{ color }}>
-                {id}: {value}
-            </strong>
+            <div
+                style={{
+                    padding: 12,
+                    color,
+                    background: '#222222',
+                }}
+            >
+                <span>Look, I'm custom :)</span>
+                <br />
+                <strong>
+                    {id}: {value}
+                </strong>
+            </div>
         )}
-        theme={{
-            tooltip: {
-                container: {
-                    background: '#333',
-                },
+        legendLabel={datum => `${datum.id} (${datum.value})`}
+        legends={[
+            {
+                anchor: 'bottom',
+                dataFrom: 'keys',
+                direction: 'row',
+                itemHeight: 20,
+                itemWidth: 110,
+                toggleSerie: true,
+                translateY: 50,
             },
-        }}
+        ]}
     />
 ))
 

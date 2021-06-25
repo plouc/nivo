@@ -1,14 +1,30 @@
-// @ts-nocheck
-import { BarCanvasProps, BarDatum, TooltipHandlers } from './types'
-import { forwardRef, Component, ForwardedRef } from 'react'
-import uniqBy from 'lodash/uniqBy'
-// @ts-ignore LegacyContainer
-import { getRelativeCursor, isCursorInRect, LegacyContainer } from '@nivo/core'
+import { BarCanvasProps, BarDatum, ComputedBarDatum } from './types'
+import {
+    Container,
+    Margin,
+    getRelativeCursor,
+    isCursorInRect,
+    useDimensions,
+    usePropertyAccessor,
+    useTheme,
+    useValueFormatter,
+} from '@nivo/core'
+import {
+    ForwardedRef,
+    createElement,
+    forwardRef,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
+import { canvasDefaultProps } from './props'
+import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { BasicTooltip } from '@nivo/tooltip'
-import { generateGroupedBars, generateStackedBars } from './compute'
-// import { canvasDefaultProps } from './props'
+import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
 
 declare module 'react' {
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -17,185 +33,215 @@ declare module 'react' {
     ): (props: P & React.RefAttributes<T>) => React.ReactElement | null
 }
 
-type InnerBarCanvasProps<RawDatum extends BarDatum> = BarCanvasProps<RawDatum> & {
+type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
+    BarCanvasProps<RawDatum>,
+    'renderWrapper' | 'theme'
+> & {
     canvasRef: ForwardedRef<HTMLCanvasElement>
 }
 
-const findNodeUnderCursor = (nodes, margin, x, y) =>
+const findBarUnderCursor = <RawDatum,>(
+    nodes: ComputedBarDatum<RawDatum>[],
+    margin: Margin,
+    x: number,
+    y: number
+) =>
     nodes.find(node =>
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
-class InnerBarCanvas<RawDatum extends BarDatum> extends Component<InnerBarCanvasProps<RawDatum>> {
-    componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
+const InnerBarCanvas = <RawDatum extends BarDatum>({
+    data,
+    indexBy = canvasDefaultProps.indexBy,
+    keys = canvasDefaultProps.keys,
+
+    margin: partialMargin,
+    width,
+    height,
+
+    groupMode = canvasDefaultProps.groupMode,
+    layout = canvasDefaultProps.layout,
+    reverse = canvasDefaultProps.reverse,
+    minValue = canvasDefaultProps.minValue,
+    maxValue = canvasDefaultProps.maxValue,
+
+    valueScale = canvasDefaultProps.valueScale,
+    indexScale = canvasDefaultProps.indexScale,
+
+    padding = canvasDefaultProps.padding,
+    innerPadding = canvasDefaultProps.innerPadding,
+
+    axisTop,
+    axisRight,
+    axisBottom = canvasDefaultProps.axisBottom,
+    axisLeft = canvasDefaultProps.axisLeft,
+    enableGridX = canvasDefaultProps.enableGridX,
+    enableGridY = canvasDefaultProps.enableGridY,
+    gridXValues,
+    gridYValues,
+
+    // barComponent = canvasDefaultProps.barComponent,
+
+    // enableLabel = canvasDefaultProps.enableLabel,
+    // label = canvasDefaultProps.label,
+    // labelSkipWidth = canvasDefaultProps.labelSkipWidth,
+    // labelSkipHeight = canvasDefaultProps.labelSkipHeight,
+    // labelTextColor = canvasDefaultProps.labelTextColor,
+
+    // markers,
+
+    colorBy = canvasDefaultProps.colorBy,
+    colors = canvasDefaultProps.colors,
+    // borderRadius = canvasDefaultProps.borderRadius,
+    borderWidth = canvasDefaultProps.borderWidth,
+    borderColor = canvasDefaultProps.borderColor,
+
+    // annotations = canvasDefaultProps.annotations,
+
+    legendLabel,
+    tooltipLabel = canvasDefaultProps.tooltipLabel,
+
+    valueFormat,
+
+    isInteractive = canvasDefaultProps.isInteractive,
+    tooltip = canvasDefaultProps.tooltip,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+
+    legends = canvasDefaultProps.legends,
+
+    pixelRatio = canvasDefaultProps.pixelRatio,
+
+    canvasRef,
+}: InnerBarCanvasProps<RawDatum>) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
+
+    const [hiddenIds] = useState<string[]>([])
+    // const toggleSerie = useCallback(id => {
+    //     setHiddenIds(state =>
+    //         state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
+    //     )
+    // }, [])
+
+    const theme = useTheme()
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const formatValue = useValueFormatter(valueFormat)
+    const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
+    const getColor = useOrdinalColorScale(colors, colorBy)
+    const getIndex = usePropertyAccessor(indexBy)
+    // const getLabel = usePropertyAccessor(label)
+    // const getLabelColor = useInheritedColor<ComputedBarDatum<RawDatum>>(labelTextColor, theme)
+    const getTooltipLabel = usePropertyAccessor(tooltipLabel)
+
+    const options = {
+        layout,
+        reverse,
+        data,
+        getIndex,
+        keys,
+        minValue,
+        maxValue,
+        width: innerWidth,
+        height: innerHeight,
+        getColor,
+        padding,
+        innerPadding,
+        valueScale,
+        indexScale,
+        hiddenIds,
+        formatValue,
     }
 
-    shouldComponentUpdate(props) {
-        if (
-            this.props.outerWidth !== props.outerWidth ||
-            this.props.outerHeight !== props.outerHeight ||
-            this.props.isInteractive !== props.isInteractive ||
-            this.props.theme !== props.theme
-        ) {
-            return true
-        } else {
-            this.draw(props)
-            return false
-        }
-    }
+    const result =
+        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
 
-    componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+    const legendData = useMemo(
+        () =>
+            keys.map(key => {
+                const bar = result.bars.find(bar => bar.data.id === key)
 
-    draw(props) {
-        const {
-            data,
-            keys,
-            getIndex,
-            minValue,
-            maxValue,
+                return { ...bar, data: { id: key, ...bar?.data, hidden: hiddenIds.includes(key) } }
+            }),
+        [hiddenIds, keys, result.bars]
+    )
 
-            valueScale,
-            indexScale,
+    useEffect(() => {
+        const ctx = canvasEl.current?.getContext('2d')
 
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-            pixelRatio,
-            margin,
+        if (!canvasEl.current) return
+        if (!ctx) return
 
-            layout,
-            reverse,
-            groupMode,
-            padding,
-            innerPadding,
+        canvasEl.current.width = outerWidth * pixelRatio
+        canvasEl.current.height = outerHeight * pixelRatio
 
-            axisTop,
-            axisRight,
-            axisBottom,
-            axisLeft,
+        ctx.scale(pixelRatio, pixelRatio)
 
-            theme,
-            getColor,
-            borderWidth,
-            getBorderColor,
+        ctx.fillStyle = theme.background
+        ctx.fillRect(0, 0, outerWidth, outerHeight)
+        ctx.translate(margin.left, margin.top)
 
-            legends,
+        if (theme.grid.line?.strokeWidth !== undefined) {
+            ctx.lineWidth = theme.grid.line.strokeWidth as any
+            ctx.strokeStyle = theme.grid.line.stroke as any
 
-            enableGridX,
-            gridXValues,
-            enableGridY,
-            gridYValues,
-        } = props
-
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
-
-        this.ctx.scale(pixelRatio, pixelRatio)
-
-        const options = {
-            layout,
-            reverse,
-            data,
-            getIndex,
-            keys,
-            minValue,
-            maxValue,
-            width,
-            height,
-            getColor,
-            padding,
-            innerPadding,
-            valueScale,
-            indexScale,
-            hiddenIds: [],
-        }
-
-        const result =
-            groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
-
-        this.bars = result.bars
-
-        this.ctx.fillStyle = theme.background
-        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
-        this.ctx.translate(margin.left, margin.top)
-
-        if (theme.grid.line.strokeWidth > 0) {
-            this.ctx.lineWidth = theme.grid.line.strokeWidth
-            this.ctx.strokeStyle = theme.grid.line.stroke
-
-            enableGridX &&
-                renderGridLinesToCanvas(this.ctx, {
+            if (enableGridX) {
+                renderGridLinesToCanvas<string | number>(ctx, {
                     width,
                     height,
-                    scale: result.xScale,
+                    scale: result.xScale as any,
                     axis: 'x',
                     values: gridXValues,
                 })
+            }
 
-            enableGridY &&
-                renderGridLinesToCanvas(this.ctx, {
+            if (enableGridY) {
+                renderGridLinesToCanvas<string | number>(ctx, {
                     width,
                     height,
-                    scale: result.yScale,
+                    scale: result.yScale as any,
                     axis: 'y',
                     values: gridYValues,
                 })
+            }
         }
 
-        this.ctx.strokeStyle = '#dddddd'
+        ctx.save()
 
-        const legendDataForKeys = uniqBy(
-            result.bars
-                .map(bar => ({
-                    id: bar.data.id,
-                    label: bar.data.id,
-                    color: bar.color,
-                    fill: bar.data.fill,
-                }))
-                .reverse(),
-            ({ id }) => id
-        )
-        const legendDataForIndexes = uniqBy(
-            result.bars.map(bar => ({
-                id: bar.data.indexValue,
-                label: bar.data.indexValue,
-                color: bar.color,
-                fill: bar.data.fill,
-            })),
-            ({ id }) => id
-        )
+        ctx.strokeStyle = '#dddddd'
 
         legends.forEach(legend => {
-            let legendData
-            if (legend.dataFrom === 'keys') {
-                legendData = legendDataForKeys
-            } else if (legend.dataFrom === 'indexes') {
-                legendData = legendDataForIndexes
-            }
+            const data = getLegendData({
+                bars: legendData,
+                direction: legend.direction,
+                from: legend.dataFrom,
+                groupMode,
+                layout,
+                legendLabel,
+                reverse,
+            })
 
-            if (legendData === undefined) return null
-            renderLegendToCanvas(this.ctx, {
+            renderLegendToCanvas(ctx, {
                 ...legend,
-                data: legendData,
-                containerWidth: width,
-                containerHeight: height,
-                itemTextColor: '#999',
-                symbolSize: 16,
+                data,
+                containerWidth: innerWidth,
+                containerHeight: innerHeight,
                 theme,
             })
         })
 
-        renderAxesToCanvas(this.ctx, {
-            xScale: result.xScale,
-            yScale: result.yScale,
-            width,
-            height,
+        renderAxesToCanvas(ctx, {
+            xScale: result.xScale as any,
+            yScale: result.yScale as any,
+            width: innerWidth,
+            height: innerHeight,
             top: axisTop,
             right: axisRight,
             bottom: axisBottom,
@@ -206,105 +252,152 @@ class InnerBarCanvas<RawDatum extends BarDatum> extends Component<InnerBarCanvas
         result.bars.forEach(bar => {
             const { x, y, color, width, height } = bar
 
-            this.ctx.fillStyle = color
+            ctx.fillStyle = color
+
             if (borderWidth > 0) {
-                this.ctx.strokeStyle = getBorderColor(bar)
-                this.ctx.lineWidth = borderWidth
+                ctx.strokeStyle = getBorderColor(bar)
+                ctx.lineWidth = borderWidth
             }
 
-            this.ctx.beginPath()
-            this.ctx.rect(x, y, width, height)
-            this.ctx.fill()
+            ctx.beginPath()
+            ctx.rect(x, y, width, height)
+            ctx.fill()
 
             if (borderWidth > 0) {
-                this.ctx.stroke()
+                ctx.stroke()
             }
         })
-    }
 
-    handleMouseHover = (showTooltip, hideTooltip) => event => {
-        if (!this.bars) return
+        ctx.save()
+    }, [
+        axisBottom,
+        axisLeft,
+        axisRight,
+        axisTop,
+        borderWidth,
+        enableGridX,
+        enableGridY,
+        getBorderColor,
+        gridXValues,
+        gridYValues,
+        groupMode,
+        height,
+        innerHeight,
+        innerWidth,
+        layout,
+        legendData,
+        legendLabel,
+        legends,
+        margin.left,
+        margin.top,
+        outerHeight,
+        outerWidth,
+        pixelRatio,
+        result.bars,
+        result.xScale,
+        result.yScale,
+        reverse,
+        theme,
+        width,
+    ])
 
-        const { margin, theme, tooltip, getTooltipLabel, tooltipFormat } = this.props
-        const [x, y] = getRelativeCursor(this.surface, event)
+    const handleMouseHover = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            if (!result.bars) return
+            if (!canvasEl.current) return
 
-        const bar = findNodeUnderCursor(this.bars, margin, x, y)
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            const bar = findBarUnderCursor(result.bars, margin, x, y)
 
-        if (bar !== undefined) {
-            showTooltip(
-                <BasicTooltip
-                    id={getTooltipLabel(bar.data)}
-                    value={bar.data.value}
-                    enableChip={true}
-                    color={bar.color}
-                    theme={theme}
-                    format={tooltipFormat}
-                    renderContent={
-                        typeof tooltip === 'function'
-                            ? tooltip.bind(null, { color: bar.color, ...bar.data })
-                            : null
-                    }
-                />,
-                event
-            )
-        } else {
+            if (bar !== undefined) {
+                showTooltipFromEvent(
+                    createElement(tooltip, {
+                        ...bar.data,
+                        value: Number(bar.data.value),
+                        color: bar.color,
+                        getTooltipLabel,
+                    }),
+                    event
+                )
+
+                if (event.type === 'mouseenter') {
+                    onMouseEnter?.(bar.data, event)
+                }
+            } else {
+                hideTooltip()
+            }
+        },
+        [
+            getTooltipLabel,
+            hideTooltip,
+            margin,
+            onMouseEnter,
+            result.bars,
+            showTooltipFromEvent,
+            tooltip,
+        ]
+    )
+
+    const handleMouseLeave = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            if (!result.bars) return
+            if (!canvasEl.current) return
+
             hideTooltip()
-        }
-    }
 
-    handleMouseLeave = hideTooltip => () => {
-        hideTooltip()
-    }
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            const bar = findBarUnderCursor(result.bars, margin, x, y)
 
-    handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
-        if (!this.bars) return
+            if (bar) {
+                onMouseLeave?.(bar.data, event)
+            }
+        },
+        [hideTooltip, margin, onMouseLeave, result.bars]
+    )
 
-        const { margin, onClick } = this.props
-        const [x, y] = getRelativeCursor(this.surface, event)
+    const handleClick = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            if (!result.bars) return
+            if (!canvasEl.current) return
 
-        const node = findNodeUnderCursor(this.bars, margin, x, y)
-        if (node !== undefined) onClick(node.data, event)
-    }
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            const bar = findBarUnderCursor(result.bars, margin, x, y)
 
-    render() {
-        const {
-            width: outerWidth,
-            height: outerHeight,
-            pixelRatio,
-            isInteractive,
-            renderWrapper,
-            theme,
-            canvasRef,
-        } = this.props
+            if (bar !== undefined) {
+                onClick?.({ ...bar.data, color: bar.color }, event)
+            }
+        },
+        [margin, onClick, result.bars]
+    )
 
-        return (
-            <LegacyContainer {...{ isInteractive, renderWrapper, theme }} animate={false}>
-                {({ showTooltip, hideTooltip }: TooltipHandlers) => (
-                    <canvas
-                        ref={surface => {
-                            this.surface = surface
-                            if (canvasRef) canvasRef.current = surface
-                        }}
-                        width={outerWidth * pixelRatio}
-                        height={outerHeight * pixelRatio}
-                        style={{
-                            width: outerWidth,
-                            height: outerHeight,
-                        }}
-                        onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseLeave={this.handleMouseLeave(hideTooltip)}
-                        onClick={this.handleClick}
-                    />
-                )}
-            </LegacyContainer>
-        )
-    }
+    return (
+        <canvas
+            ref={canvas => {
+                canvasEl.current = canvas
+                if (canvasRef && 'current' in canvasRef) canvasRef.current = canvas
+            }}
+            width={outerWidth * pixelRatio}
+            height={outerHeight * pixelRatio}
+            style={{
+                width: outerWidth,
+                height: outerHeight,
+                cursor: isInteractive ? 'auto' : 'normal',
+            }}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
+        />
+    )
 }
 
 export const BarCanvas = forwardRef(
     <RawDatum extends BarDatum>(
-        props: BarCanvasProps<RawDatum>,
+        { isInteractive, renderWrapper, theme, ...props }: BarCanvasProps<RawDatum>,
         ref: ForwardedRef<HTMLCanvasElement>
-    ) => <InnerBarCanvas {...props} canvasRef={ref} />
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
+            <InnerBarCanvas {...props} canvasRef={ref} />
+        </Container>
+    )
 )
