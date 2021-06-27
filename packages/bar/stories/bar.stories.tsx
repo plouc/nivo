@@ -470,10 +470,6 @@ stories.add('custom legend labels', () => (
     />
 ))
 
-stories.add('with formatted value', () => (
-    <Bar {...commonProps} valueFormat={value => `${value}`.split('').join('.')} />
-))
-
 stories.add('with annotations', () => (
     <Bar
         {...commonProps}

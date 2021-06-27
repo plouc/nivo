@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { ResponsiveBar, BarDefaultProps } from '@nivo/bar'
+import { ResponsiveBar, svgDefaultProps } from '@nivo/bar'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateLightDataSet } from '../../data/components/bar/generator'
@@ -40,6 +40,7 @@ const initialProperties = {
 
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
+    valueFormat: { format: '', enabled: false },
 
     colors: { scheme: 'nivo' },
     colorBy: 'id',
@@ -149,8 +150,7 @@ const initialProperties = {
     tooltip: null,
 
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'default',
 }
 
 const Bar = () => {
@@ -163,7 +163,7 @@ const Bar = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BarDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,

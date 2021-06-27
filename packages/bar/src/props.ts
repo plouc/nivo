@@ -30,7 +30,6 @@ export const defaultProps = {
     label: 'formattedValue',
     labelSkipWidth: 0,
     labelSkipHeight: 0,
-    labelLinkColor: 'theme',
     labelTextColor: { from: 'theme', theme: 'labels.text.fill' },
 
     colorBy: 'id' as const,
@@ -58,7 +57,7 @@ export const svgDefaultProps = {
     fill: [],
 
     animate: true,
-    motionConfig: 'gentle',
+    motionConfig: 'default',
 
     role: 'img',
 }
