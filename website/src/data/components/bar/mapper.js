@@ -14,25 +14,31 @@ const TooltipWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 12px;
+    background: #333;
+    padding: 12px 16px;
+    font-size: 12px;
+    border-radius: 2px;
 `
 const TooltipKey = styled.span`
     font-weight: 600;
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = node => {
+const CustomTooltip = ({ color, ...bar }) => {
     return (
-        <TooltipWrapper style={{ color: node.color }}>
+        <TooltipWrapper style={{ color: color }}>
             <TooltipKey>id</TooltipKey>
-            <TooltipValue>{node.id}</TooltipValue>
+            <TooltipValue>{bar.id}</TooltipValue>
             <TooltipKey>value</TooltipKey>
-            <TooltipValue>{node.value}</TooltipValue>
+            <TooltipValue>{bar.value}</TooltipValue>
+            <TooltipKey>formattedValue</TooltipKey>
+            <TooltipValue>{bar.formattedValue}</TooltipValue>
             <TooltipKey>index</TooltipKey>
-            <TooltipValue>{node.index}</TooltipValue>
+            <TooltipValue>{bar.index}</TooltipValue>
             <TooltipKey>indexValue</TooltipKey>
-            <TooltipValue>{node.indexValue}</TooltipValue>
+            <TooltipValue>{bar.indexValue}</TooltipValue>
             <TooltipKey>color</TooltipKey>
-            <TooltipValue>{node.color}</TooltipValue>
+            <TooltipValue>{color}</TooltipValue>
         </TooltipWrapper>
     )
 }
@@ -44,7 +50,7 @@ export default settingsMapper(
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
         tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return null
+            if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
