@@ -30,20 +30,6 @@ const props = [
         required: true,
     },
     {
-        key: 'from',
-        group: 'Base',
-        help: 'start date',
-        type: 'string | Date',
-        required: true,
-    },
-    {
-        key: 'to',
-        group: 'Base',
-        help: 'end date',
-        type: 'string | Date',
-        required: true,
-    },
-    {
         key: 'width',
         enableControlForFlavors: ['api'],
         help: 'Chart width.',
@@ -227,6 +213,24 @@ const props = [
             min: 0,
             max: 100,
         },
+    },
+    {
+        key: 'weekdayTicks',
+        help: 'define weekday tickmarks to show',
+        type: 'Array<0 | 1 | 2 | 3 | 4 | 5 | 6>',
+        required: false,
+        defaultValue: [1, 3, 5],
+        group: 'Weekday',
+        description: `
+            Array of weekday tickmarks to display:\n
+            0 = Sunday\n
+            1 = Monday\n
+            2 = Tuesday\n
+            3 = Wednesday\n
+            4 = Thursday\n
+            5 = Friday\n
+            6 = Saturday\n
+        `,
     },
     // Days
     {
