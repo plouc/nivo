@@ -217,7 +217,7 @@ const props = [
     {
         key: 'weekdayTicks',
         help: 'define weekday tickmarks to show',
-        type: 'number[]',
+        type: 'Array<0 | 1 | 2 | 3 | 4 | 5 | 6>',
         required: false,
         defaultValue: [1, 3, 5],
         group: 'Weekday',
