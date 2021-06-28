@@ -6,6 +6,8 @@ export const defaultProps = {
     layout: 'horizontal',
     reverse: false,
     spacing: 30,
+    minValue: 0,
+    maxValue: 'auto',
     axisPosition: 'after',
     titlePosition: 'before',
     titleAlign: 'middle',

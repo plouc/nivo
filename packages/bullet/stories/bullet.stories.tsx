@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import { generateBulletData } from '@nivo/generators'
-/* tslint:enable no-implicit-dependencies */
+import { withKnobs, boolean, number } from '@storybook/addon-knobs'
 import { Bullet } from '../src'
 
 const data = [
@@ -20,6 +20,8 @@ const commonProps = {
 }
 
 const stories = storiesOf('Bullet', module)
+
+stories.addDecorator(withKnobs)
 
 stories.add('default', () => <Bullet {...commonProps} />)
 
@@ -152,5 +154,30 @@ stories.add('custom title', () => (
                 </text>
             ),
         }))}
+    />
+))
+
+stories.add('support min/max value property', () => (
+    <Bullet
+        {...commonProps}
+        height={120}
+        data={[
+            {
+                id: 'temperature',
+                ranges: [30, 45],
+                measures: [34, 36, 40, 42],
+                markers: [37],
+            },
+        ]}
+        maxValue={
+            boolean('maxValue.auto', false)
+                ? 'auto'
+                : number('maxValue.value', 100, { min: 40, max: 100 })
+        }
+        minValue={
+            boolean('minValue.auto', true)
+                ? 'auto'
+                : number('minValue.value', 0, { min: 0, max: 40 })
+        }
     />
 ))

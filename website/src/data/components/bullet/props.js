@@ -36,6 +36,46 @@ const props = [
         required: true,
     },
     {
+        key: 'minValue',
+        help: 'Minimum value.',
+        description: `
+            Minimum value, if 'auto',
+            will use min value from
+            the provided data.
+        `,
+        required: false,
+        defaultValue: defaultProps.minValue,
+        type: `number | 'auto'`,
+        controlType: 'switchableRange',
+        group: 'Base',
+        controlOptions: {
+            disabledValue: 'auto',
+            defaultValue: 0,
+            min: 0,
+            max: 10,
+        },
+    },
+    {
+        key: 'maxValue',
+        help: 'Maximum value.',
+        description: `
+            Maximum value, if 'auto',
+            will use max value from
+            the provided data.
+        `,
+        required: false,
+        defaultValue: defaultProps.maxValue,
+        type: `number | 'auto'`,
+        controlType: 'switchableRange',
+        group: 'Base',
+        controlOptions: {
+            disabledValue: 'auto',
+            defaultValue: 100,
+            min: 50,
+            max: 100,
+        },
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         group: 'Base',

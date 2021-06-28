@@ -6,20 +6,23 @@ export const useEnhancedData = (
     data: Datum[],
     {
         layout,
+        maxValue,
+        minValue,
         reverse,
         height,
         width,
-    }: Pick<CommonBulletProps, 'layout' | 'reverse' | 'height' | 'width'>
+    }: Pick<CommonBulletProps, 'layout' | 'reverse' | 'height' | 'width'> &
+        Record<'maxValue' | 'minValue', number | undefined>
 ) => {
     return useMemo(
         () =>
             data.map(d => {
                 const all = [...d.ranges, ...d.measures, ...(d.markers ?? [])]
-                const max = Math.max(...all)
-                const min = Math.min(...all, 0)
+                const max = maxValue ?? Math.max(...all)
+                const min = minValue ?? Math.min(...all)
 
                 const scale = createLinearScale(
-                    { type: 'linear' },
+                    { clamp: true, min, max, type: 'linear' },
                     { all, max, min },
                     layout === 'horizontal' ? width : height,
                     layout === 'horizontal' ? (reverse ? 'y' : 'x') : reverse ? 'x' : 'y'
@@ -30,6 +33,6 @@ export const useEnhancedData = (
                     scale,
                 }
             }),
-        [data, height, layout, reverse, width]
+        [data, height, layout, maxValue, minValue, reverse, width]
     )
 }

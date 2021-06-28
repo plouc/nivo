@@ -23,6 +23,8 @@ const generateData = () => [
 ]
 
 const initialProperties = {
+    minValue: defaultProps.minValue,
+    maxValue: defaultProps.maxValue,
     margin: {
         top: 50,
         right: 90,

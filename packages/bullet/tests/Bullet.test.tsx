@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
-import { Bullet } from '../src'
+import { AxisTickProps } from '@nivo/axes'
+import { Bullet, BulletItemProps, BulletRectsItemProps } from '../src'
 
 const sampleData = [
     {
@@ -37,19 +38,119 @@ describe('Bullet', () => {
             expect(items.at(0).prop('ranges')).toEqual([10, 20, 40])
             expect(items.at(0).prop('measures')).toEqual([30])
             expect(items.at(0).prop('markers')).toEqual([20])
-            expect(items.at(0).prop('scale')).toEqual(expect.any(Function))
+            expect(items.at(0).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 40])
+            expect(
+                wrapper
+                    .find('Memo(Axis)')
+                    .at(0)
+                    .find('Memo(AxisTick)')
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                Array [
+                  "0",
+                  "5",
+                  "10",
+                  "15",
+                  "20",
+                  "25",
+                  "30",
+                  "35",
+                  "40",
+                ]
+            `)
 
             expect(items.at(1).prop('id')).toEqual('B')
             expect(items.at(1).prop('ranges')).toEqual([100])
             expect(items.at(1).prop('measures')).toEqual([20, 50])
             expect(items.at(1).prop('markers')).toEqual([80])
-            expect(items.at(1).prop('scale')).toEqual(expect.any(Function))
+            expect(items.at(1).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 100])
+            expect(
+                wrapper
+                    .find('Memo(Axis)')
+                    .at(1)
+                    .find('Memo(AxisTick)')
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                Array [
+                  "0",
+                  "10",
+                  "20",
+                  "30",
+                  "40",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100",
+                ]
+            `)
 
             expect(items.at(2).prop('id')).toEqual('C')
             expect(items.at(2).prop('ranges')).toEqual([50])
             expect(items.at(2).prop('measures')).toEqual([10])
             expect(items.at(2).prop('markers')).toBeUndefined()
-            expect(items.at(2).prop('scale')).toEqual(expect.any(Function))
+            expect(items.at(2).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 50])
+            expect(
+                wrapper
+                    .find('Memo(Axis)')
+                    .at(2)
+                    .find('Memo(AxisTick)')
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                Array [
+                  "0",
+                  "5",
+                  "10",
+                  "15",
+                  "20",
+                  "25",
+                  "30",
+                  "35",
+                  "40",
+                  "45",
+                  "50",
+                ]
+            `)
+        })
+
+        it('should support minValue/maxValue properties', () => {
+            const wrapper = mount(
+                <Bullet
+                    width={300}
+                    height={300}
+                    data={sampleData.slice(0, 1)}
+                    minValue="auto"
+                    maxValue={120}
+                />
+            )
+
+            expect(
+                wrapper.find('BulletItem').at(0).prop<BulletItemProps['scale']>('scale').domain()
+            ).toEqual([10, 120])
+
+            expect(
+                wrapper
+                    .find('Memo(Axis)')
+                    .first()
+                    .find('Memo(AxisTick)')
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                Array [
+                  "10",
+                  "20",
+                  "30",
+                  "40",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100",
+                  "110",
+                  "120",
+                ]
+            `)
         })
     })
 
@@ -60,7 +161,13 @@ describe('Bullet', () => {
             const ticks = wrapper.find('Memo(Axis)').first().find('Memo(AxisTick)')
 
             expect(
-                ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
+                ticks
+                    .map(el =>
+                        el
+                            .prop<AxisTickProps<number>['animatedProps']>('animatedProps')
+                            .transform.get()
+                    )
+                    .join('; ')
             ).toMatchInlineSnapshot(
                 `"translate(0,0); translate(38,0); translate(75,0); translate(113,0); translate(150,0); translate(188,0); translate(225,0); translate(263,0); translate(300,0)"`
             )
@@ -84,7 +191,13 @@ describe('Bullet', () => {
             const items = wrapper.find('BulletItem')
             const ticks = wrapper.find('Memo(Axis)').first().find('Memo(AxisTick)')
             expect(
-                ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
+                ticks
+                    .map(el =>
+                        el
+                            .prop<AxisTickProps<number>['animatedProps']>('animatedProps')
+                            .transform.get()
+                    )
+                    .join('; ')
             ).toMatchInlineSnapshot(
                 `"translate(300,0); translate(263,0); translate(225,0); translate(188,0); translate(150,0); translate(113,0); translate(75,0); translate(38,0); translate(0,0)"`
             )
@@ -107,14 +220,14 @@ describe('Bullet', () => {
             )
             const rects = wrapper.find('BulletRectsItem')
 
-            expect(rects.at(0).prop('data').color).toEqual('#aaa')
-            expect(rects.at(1).prop('data').color).toEqual('#bbb')
-            expect(rects.at(2).prop('data').color).toEqual('#ccc')
-            expect(rects.at(3).prop('data').color).toEqual('#ddd')
+            expect(rects.at(0).prop<BulletRectsItemProps['data']>('data').color).toEqual('#aaa')
+            expect(rects.at(1).prop<BulletRectsItemProps['data']>('data').color).toEqual('#bbb')
+            expect(rects.at(2).prop<BulletRectsItemProps['data']>('data').color).toEqual('#ccc')
+            expect(rects.at(3).prop<BulletRectsItemProps['data']>('data').color).toEqual('#ddd')
 
             const markers = wrapper.find('BulletMarkersItem')
 
-            expect(markers.at(0).prop('data').color).toEqual('#eee')
+            expect(markers.at(0).prop<BulletRectsItemProps['data']>('data').color).toEqual('#eee')
         })
     })
 

@@ -16,6 +16,8 @@ Bullet:
       link: bullet--custom-marker
     - label: custom title
       link: bullet--custom-title
+    - label: support min/max value property
+      link: bullet--support-min-max-value-property
   description: |
     Bullet chart supporting multiple ranges/measures/markers.
 

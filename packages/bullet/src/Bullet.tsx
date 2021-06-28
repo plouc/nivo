@@ -15,6 +15,9 @@ export const Bullet = (props: BulletSvgProps) => {
         reverse,
         axisPosition,
 
+        minValue,
+        maxValue,
+
         margin: partialMargin,
         width,
         height,
@@ -58,10 +61,12 @@ export const Bullet = (props: BulletSvgProps) => {
     const markerHeight = itemHeight * markerSize
 
     const enhancedData = useEnhancedData(data, {
+        height: innerHeight,
         layout,
+        maxValue: maxValue === 'auto' ? undefined : maxValue,
+        minValue: minValue === 'auto' ? undefined : minValue,
         reverse,
         width: innerWidth,
-        height: innerHeight,
     })
 
     return (

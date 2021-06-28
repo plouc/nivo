@@ -52,13 +52,13 @@ export const BulletItem = ({
     const computedRanges = useMemo(() => {
         const rangeColorScale = getColorScale(rangeColors, scale, true)
 
-        return stackValues(ranges, rangeColorScale)
+        return stackValues(ranges, scale, rangeColorScale, 'range')
     }, [rangeColors, ranges, scale])
 
     const computedMeasures = useMemo(() => {
         const measureColorScale = getColorScale(measureColors, scale)
 
-        return stackValues(measures, measureColorScale)
+        return stackValues(measures, scale, measureColorScale, 'measures')
     }, [measureColors, measures, scale])
 
     const computedMarkers = useMemo(() => {
