@@ -21,11 +21,12 @@
   ],
   "main": "./dist/nivo-bar.cjs.js",
   "module": "./dist/nivo-bar.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/annotations": "0.71.0",
@@ -35,17 +36,16 @@
     "@nivo/recompose": "0.71.0",
     "@nivo/scales": "0.71.0",
     "@nivo/tooltip": "0.71.0",
+    "@react-spring/web": "9.2.0",
     "d3-scale": "^3.2.3",
     "d3-shape": "^1.2.2",
-    "lodash": "^4.17.21",
-    "react-motion": "^0.5.2"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@nivo/core": "0.71.0"
   },
   "peerDependencies": {
     "@nivo/core": "0.71.0",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {

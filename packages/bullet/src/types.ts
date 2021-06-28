@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
-import { ScaleLinear } from 'd3-scale'
+import { ScaleLinear } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
 export type DatumId = string | number
@@ -22,7 +22,7 @@ export interface Datum {
 }
 
 export type EnhancedDatum = Datum & {
-    scale: ScaleLinear<number, number, never> & { type: 'linear' }
+    scale: ScaleLinear<number>
 }
 
 export interface ComputedRangeDatum {
@@ -133,7 +133,7 @@ export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
             measuresY: number
             transform: string
         }>
-        scale: ScaleLinear<number, number, never>
+        scale: ScaleLinear<number>
         data: ComputedRangeDatum[]
         component: CommonBulletProps['rangeComponent']
         onMouseEnter: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
@@ -160,7 +160,7 @@ export type PositionWithColor = {
 
 export type BulletMarkersProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
     Pick<Dimensions, 'height'> & {
-        scale: ScaleLinear<number, number, never>
+        scale: ScaleLinear<number>
         markerSize: number
         markers: ComputedMarkersDatum[]
         component: CommonBulletProps['markerComponent']

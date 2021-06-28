@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
-import range from 'lodash/range'
-import random from 'lodash/random'
+import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
-import { Bar } from '../src'
+import { Bar, BarDatum } from '../src'
+import { AxisTickProps } from '@nivo/axes'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
     width: 900,
     height: 500,
-    margin: { top: 60, right: 80, bottom: 60, left: 80 },
-    data: generateCountriesData(keys, { size: 7 }),
+    margin: { top: 60, right: 110, bottom: 60, left: 80 },
+    data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
     indexBy: 'country',
     keys,
     padding: 0.2,
@@ -61,7 +61,7 @@ stories.add('with marker', () => (
 ))
 
 stories.add('using custom color', () => (
-    <Bar {...commonProps} colors={({ id, data }) => data[`${id}Color`]} />
+    <Bar {...commonProps} colors={({ id, data }) => String(data[`${id}Color`])} />
 ))
 
 const divergingData = range(9).map(i => {
@@ -89,7 +89,7 @@ const divergingCommonProps = {
     maxValue: 100,
     enableGridX: true,
     enableGridY: false,
-    label: d => Math.abs(d.value),
+    valueFormat: (value: number) => `${Math.abs(value)}`,
     labelTextColor: 'inherit:darker(1.2)',
     axisTop: {
         tickSize: 0,
@@ -97,14 +97,14 @@ const divergingCommonProps = {
     },
     axisBottom: {
         legend: 'USERS',
-        legendPosition: 'middle',
+        legendPosition: 'middle' as const,
         legendOffset: 50,
         tickSize: 0,
         tickPadding: 12,
     },
     axisLeft: null,
     axisRight: {
-        format: v => `${Math.abs(v)}%`,
+        format: (v: number) => `${Math.abs(v)}%`,
     },
     markers: [
         {
@@ -116,7 +116,7 @@ const divergingCommonProps = {
             legendPosition: 'top-left',
             legendOrientation: 'vertical',
             legendOffsetY: 120,
-        },
+        } as const,
         {
             axis: 'y',
             value: 0,
@@ -126,7 +126,7 @@ const divergingCommonProps = {
             legendPosition: 'bottom-left',
             legendOrientation: 'vertical',
             legendOffsetY: 120,
-        },
+        } as const,
     ],
 }
 
@@ -136,7 +136,7 @@ stories.add('diverging stacked', () => (
         keys={['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$']}
         padding={0.4}
         colors={['#97e3d5', '#61cdbb', '#f47560', '#e25c3b']}
-        labelFormat={v => `${v}%`}
+        valueFormat={v => `${v}%`}
     />
 ))
 
@@ -151,17 +151,12 @@ stories.add('diverging grouped', () => (
     />
 ))
 
-const CustomBarComponent = ({ x, y, width, height, color }) => (
+const CustomBarComponent = ({ bar: { x, y, width, height, color } }) => (
     <circle cx={x + width / 2} cy={y + height / 2} r={Math.min(width, height) / 2} fill={color} />
 )
 
 stories.add('custom bar item', () => (
-    <Bar
-        {...commonProps}
-        innerPadding={4}
-        barComponent={CustomBarComponent}
-        labelTextColor="inherit:darker(1)"
-    />
+    <Bar {...commonProps} innerPadding={4} barComponent={CustomBarComponent} />
 ))
 
 stories.add('with formatted values', () => (
@@ -173,7 +168,7 @@ stories.add('with formatted values', () => (
                     minimumFractionDigits: 2,
                 })} ₽`,
         }}
-        tooltipFormat={value =>
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`
@@ -208,7 +203,7 @@ stories.add('custom tooltip', () => (
     />
 ))
 
-const CustomTick = tick => {
+const CustomTick = (tick: AxisTickProps<string>) => {
     const theme = useTheme()
 
     return (
@@ -294,27 +289,21 @@ const DataGenerator = (initialIndex, initialState) => {
     }
 }
 
-const BarComponent = props => {
+const BarComponent = ({ bar, borderColor }) => {
     return (
-        <g transform={`translate(${props.x},${props.y})`}>
+        <g transform={`translate(${bar.x},${bar.y})`}>
+            <rect x={-3} y={7} width={bar.width} height={bar.height} fill="rgba(0, 0, 0, .07)" />
+            <rect width={bar.width} height={bar.height} fill={bar.color} />
             <rect
-                x={-3}
-                y={7}
-                width={props.width}
-                height={props.height}
-                fill="rgba(0, 0, 0, .07)"
-            />
-            <rect width={props.width} height={props.height} fill={props.color} />
-            <rect
-                x={props.width - 5}
+                x={bar.width - 5}
                 width={5}
-                height={props.height}
-                fill={props.borderColor}
+                height={bar.height}
+                fill={borderColor}
                 fillOpacity={0.2}
             />
             <text
-                x={props.width - 16}
-                y={props.height / 2 - 8}
+                x={bar.width - 16}
+                y={bar.height / 2 - 8}
                 textAnchor="end"
                 dominantBaseline="central"
                 fill="black"
@@ -323,20 +312,20 @@ const BarComponent = props => {
                     fontSize: 15,
                 }}
             >
-                {props.data.indexValue}
+                {bar.data.indexValue}
             </text>
             <text
-                x={props.width - 16}
-                y={props.height / 2 + 10}
+                x={bar.width - 16}
+                y={bar.height / 2 + 10}
                 textAnchor="end"
                 dominantBaseline="central"
-                fill={props.borderColor}
+                fill={borderColor}
                 style={{
                     fontWeight: 400,
                     fontSize: 13,
                 }}
             >
-                {props.data.value}
+                {bar.data.value}
             </text>
         </g>
     )
@@ -394,11 +383,108 @@ const RaceChart = () => {
                 labelTextColor={{ from: 'color', modifiers: [['darker', 1.4]] }}
                 isInteractive={false}
                 barComponent={BarComponent}
-                motionStiffness={170}
-                motionDamping={26}
             />
         </>
     )
 }
 
 stories.add('race chart', () => <RaceChart />)
+
+stories.add('initial hidden ids', () => (
+    <Bar
+        {...commonProps}
+        initialHiddenIds={keys.slice(2, 4)}
+        legends={[
+            {
+                anchor: 'bottom',
+                dataFrom: select('legend.dataFrom', ['indexes', 'keys'], 'keys'),
+                direction: 'row',
+                itemHeight: 20,
+                itemWidth: 80,
+                toggleSerie: true,
+                translateY: 50,
+            },
+        ]}
+    />
+))
+
+stories.add('legends correct with different layout modes', () => {
+    const dataFrom = select('legend.dataFrom', ['keys', 'indexes'], 'indexes')
+    const direction = select('legend.direction', ['column', 'row'], 'column')
+    const layout = select('layout', ['horizontal', 'vertical'], 'horizontal')
+
+    return (
+        <Bar
+            {...commonProps}
+            data={[
+                { quarter: 1, earnings: 13000, losses: 10000 },
+                { quarter: 2, earnings: 16500, losses: 13000 },
+                { quarter: 3, earnings: 14250, losses: 11000 },
+                { quarter: 4, earnings: 19000, losses: 16000 },
+            ]}
+            colorBy={select('colorBy', ['indexValue', 'id'], 'indexValue')}
+            keys={['earnings', 'losses']}
+            indexBy="quarter"
+            layout={layout}
+            groupMode={select('groupMode', ['grouped', 'stacked'], 'stacked')}
+            reverse={boolean('reverse', false)}
+            legends={[
+                {
+                    ...(layout === 'horizontal' || direction === 'column'
+                        ? {
+                              anchor: 'bottom-right',
+                              itemWidth: 110,
+                              itemsSpacing: 2,
+                              translateX: 120,
+                          }
+                        : {
+                              anchor: 'bottom',
+                              itemWidth: dataFrom === 'keys' ? 80 : 40,
+                              translateY: 50,
+                          }),
+                    dataFrom,
+                    direction,
+                    itemHeight: 20,
+                    symbolSize: 20,
+                },
+            ]}
+        />
+    )
+})
+
+stories.add('custom legend labels', () => (
+    <Bar
+        {...commonProps}
+        legendLabel={datum => `${datum.id} (${datum.value})`}
+        legends={[
+            {
+                anchor: 'bottom-right',
+                dataFrom: 'keys',
+                direction: 'column',
+                itemHeight: 20,
+                itemWidth: 110,
+                toggleSerie: true,
+                translateX: 120,
+            },
+        ]}
+    />
+))
+
+stories.add('with annotations', () => (
+    <Bar
+        {...commonProps}
+        annotations={[
+            {
+                type: 'circle',
+                match: { key: 'fries.AE' },
+                noteX: 25,
+                noteY: 25,
+                offset: 3,
+                noteTextOffset: -3,
+                noteWidth: 5,
+                note: 'an annotation',
+                size: 40,
+            },
+        ]}
+    />
+))

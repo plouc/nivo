@@ -1,4 +1,4 @@
 {
-  "plugins": ["@babel/proposal-class-properties"],
-  "presets": [["react-app", { "runtime": "automatic", "typescript": true }]]
+    "plugins": ["@babel/proposal-class-properties"],
+    "presets": [["react-app", { "runtime": "automatic", "typescript": true }]]
 }

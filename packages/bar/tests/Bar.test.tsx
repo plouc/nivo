@@ -1,19 +1,14 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useState } from 'react'
-import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import Bar from '../src/Bar'
+import { Bar, BarDatum, BarItemProps, ComputedDatum } from '../src'
+
+type IdValue = {
+    id: string
+    value: number
+}
 
 it('should render a basic bar chart', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
@@ -26,12 +21,15 @@ it('should render a basic bar chart', () => {
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    expect(wrapper.find('BarItem')).toHaveLength(3)
+
+    wrapper.find('BarItem').forEach((bar, index) => {
+        expect(bar.text()).toBe(`${index + 1}0`)
+    })
 })
 
 it('should allow to disable labels', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
@@ -45,32 +43,80 @@ it('should allow to disable labels', () => {
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    wrapper.find('BarItem').forEach(bar => {
+        expect(bar.text()).toBe('')
+    })
 })
 
 it('should allow grouped mode', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
             enableLabel={false}
             groupMode="grouped"
+            keys={['value1', 'value2']}
             data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
+                { id: 'one', value1: 10, value2: 100 },
+                { id: 'two', value1: 20, value2: 200 },
+                { id: 'three', value1: 30, value2: 300 },
             ]}
             animate={false}
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const props = wrapper.find('BarItem').map(bar => {
+        const {
+            bar: { height, width, x, y },
+        } = (bar.props() as unknown) as BarItemProps<BarDatum>
+
+        return { height, width, x, y }
+    })
+
+    expect(props).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "height": 10,
+            "width": 72.5,
+            "x": 17,
+            "y": 290,
+          },
+          Object {
+            "height": 20,
+            "width": 72.5,
+            "x": 178,
+            "y": 280,
+          },
+          Object {
+            "height": 30,
+            "width": 72.5,
+            "x": 339,
+            "y": 270,
+          },
+          Object {
+            "height": 100,
+            "width": 72.5,
+            "x": 89.5,
+            "y": 200,
+          },
+          Object {
+            "height": 200,
+            "width": 72.5,
+            "x": 250.5,
+            "y": 100,
+          },
+          Object {
+            "height": 300,
+            "width": 72.5,
+            "x": 411.5,
+            "y": 0,
+          },
+        ]
+    `)
 })
 
 it('should allow horizontal layout', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
@@ -85,29 +131,104 @@ it('should allow horizontal layout', () => {
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const props = wrapper.find('BarItem').map(bar => {
+        const {
+            bar: { height, width, x, y },
+        } = (bar.props() as unknown) as BarItemProps<BarDatum>
+
+        return { height, width, x, y }
+    })
+
+    expect(props).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "height": 86,
+            "width": 167,
+            "x": 0,
+            "y": 203,
+          },
+          Object {
+            "height": 86,
+            "width": 333,
+            "x": 0,
+            "y": 107,
+          },
+          Object {
+            "height": 86,
+            "width": 500,
+            "x": 0,
+            "y": 11,
+          },
+        ]
+    `)
 })
 
 it('should allow grouped horizontal layout', () => {
-    const component = renderer.create(
+    const wrapper = mount(
         <Bar
             width={500}
             height={300}
             enableLabel={false}
             groupMode="grouped"
             layout="horizontal"
+            keys={['value1', 'value2']}
             data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
+                { id: 'one', value1: 10, value2: 100 },
+                { id: 'two', value1: 20, value2: 200 },
+                { id: 'three', value1: 30, value2: 300 },
             ]}
             animate={false}
         />
     )
 
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const props = wrapper.find('BarItem').map(bar => {
+        const {
+            bar: { height, width, x, y },
+        } = (bar.props() as unknown) as BarItemProps<BarDatum>
+
+        return { height, width, x, y }
+    })
+
+    expect(props).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "height": 43,
+            "width": 17,
+            "x": 0,
+            "y": 203,
+          },
+          Object {
+            "height": 43,
+            "width": 33,
+            "x": 0,
+            "y": 107,
+          },
+          Object {
+            "height": 43,
+            "width": 50,
+            "x": 0,
+            "y": 11,
+          },
+          Object {
+            "height": 43,
+            "width": 167,
+            "x": 0,
+            "y": 246,
+          },
+          Object {
+            "height": 43,
+            "width": 333,
+            "x": 0,
+            "y": 150,
+          },
+          Object {
+            "height": 43,
+            "width": 500,
+            "x": 0,
+            "y": 54,
+          },
+        ]
+    `)
 })
 
 it(`should reverse legend items if chart layout is vertical`, () => {
@@ -134,12 +255,12 @@ it(`should reverse legend items if chart layout is vertical`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('B')
-    expect(legendItems.at(1).prop('data').id).toEqual('A')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
 })
 
 it(`should not reverse legend items if chart layout is vertical reversed`, () => {
@@ -167,12 +288,12 @@ it(`should not reverse legend items if chart layout is vertical reversed`, () =>
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('A')
-    expect(legendItems.at(1).prop('data').id).toEqual('B')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
 })
 
 it(`should not reverse legend items if chart layout is horizontal`, () => {
@@ -199,12 +320,12 @@ it(`should not reverse legend items if chart layout is horizontal`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('A')
-    expect(legendItems.at(1).prop('data').id).toEqual('B')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
 })
 
 it(`should reverse legend items if chart layout is horizontal reversed`, () => {
@@ -232,12 +353,12 @@ it(`should reverse legend items if chart layout is horizontal reversed`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find('LegendSvg')).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find('LegendSvgItem')
     expect(legendItems).toHaveLength(2)
-    expect(legendItems.at(0).prop('data').id).toEqual('B')
-    expect(legendItems.at(1).prop('data').id).toEqual('A')
+    expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
+    expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
 })
 
 it(`should generate grouped bars correctly when keys are mismatched`, () => {
@@ -259,41 +380,62 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
 
     expect(bars).toHaveLength(3)
 
-    expect(bars.at(0).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'A',
-        index: 0,
-        indexValue: 'one',
-        value: 10,
+    expect(bars.at(0).prop('bar')).toEqual({
+        color: '#e8c1a0',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '10',
+            hidden: false,
+            id: 'A',
+            index: 0,
+            indexValue: 'one',
+            value: 10,
+        },
+        height: 300,
+        key: 'A.one',
+        label: 'A - one',
+        width: 71.33333333333333,
+        x: 24,
+        y: 0,
     })
-    expect(bars.at(0).prop('x')).toEqual(24)
-    expect(bars.at(0).prop('y')).toEqual(0)
-    expect(bars.at(0).prop('height')).toEqual(300)
-    expect(bars.at(0).prop('width')).toEqual(71.33333333333333)
 
-    expect(bars.at(1).prop('data')).toEqual({
-        data: { B: 9, id: 'two' },
-        id: 'B',
-        index: 1,
-        indexValue: 'two',
-        value: 9,
+    expect(bars.at(1).prop('bar')).toEqual({
+        color: '#f47560',
+        data: {
+            data: { B: 9, id: 'two' },
+            formattedValue: '9',
+            hidden: false,
+            id: 'B',
+            index: 1,
+            indexValue: 'two',
+            value: 9,
+        },
+        height: 270,
+        key: 'B.two',
+        label: 'B - two',
+        width: 71.33333333333333,
+        x: 333.3333333333333,
+        y: 30,
     })
-    expect(bars.at(1).prop('x')).toEqual(333.3333333333333)
-    expect(bars.at(1).prop('y')).toEqual(30)
-    expect(bars.at(1).prop('height')).toEqual(270)
-    expect(bars.at(1).prop('width')).toEqual(71.33333333333333)
 
-    expect(bars.at(2).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'C',
-        index: 0,
-        indexValue: 'one',
-        value: 3,
+    expect(bars.at(2).prop('bar')).toEqual({
+        color: '#f1e15b',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '3',
+            hidden: false,
+            id: 'C',
+            index: 0,
+            indexValue: 'one',
+            value: 3,
+        },
+        height: 90,
+        key: 'C.one',
+        label: 'C - one',
+        width: 71.33333333333333,
+        x: 166.66666666666666,
+        y: 210,
     })
-    expect(bars.at(2).prop('x')).toEqual(166.66666666666666)
-    expect(bars.at(2).prop('y')).toEqual(210)
-    expect(bars.at(2).prop('height')).toEqual(90)
-    expect(bars.at(2).prop('width')).toEqual(71.33333333333333)
 })
 
 it(`should generate stacked bars correctly when keys are mismatched`, () => {
@@ -314,41 +456,62 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
 
     expect(bars).toHaveLength(3)
 
-    expect(bars.at(0).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'A',
-        index: 0,
-        indexValue: 'one',
-        value: 10,
+    expect(bars.at(0).prop('bar')).toEqual({
+        color: '#e8c1a0',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '10',
+            hidden: false,
+            id: 'A',
+            index: 0,
+            indexValue: 'one',
+            value: 10,
+        },
+        height: 231,
+        key: 'A.one',
+        label: 'A - one',
+        width: 214,
+        x: 24,
+        y: 69,
     })
-    expect(bars.at(0).prop('x')).toEqual(24)
-    expect(bars.at(0).prop('y')).toEqual(69)
-    expect(bars.at(0).prop('height')).toEqual(231)
-    expect(bars.at(0).prop('width')).toEqual(214)
 
-    expect(bars.at(1).prop('data')).toEqual({
-        data: { B: 9, id: 'two' },
-        id: 'B',
-        index: 1,
-        indexValue: 'two',
-        value: 9,
+    expect(bars.at(1).prop('bar')).toEqual({
+        color: '#f47560',
+        data: {
+            data: { B: 9, id: 'two' },
+            formattedValue: '9',
+            hidden: false,
+            id: 'B',
+            index: 1,
+            indexValue: 'two',
+            value: 9,
+        },
+        height: 208,
+        key: 'B.two',
+        label: 'B - two',
+        width: 214,
+        x: 262,
+        y: 92,
     })
-    expect(bars.at(1).prop('x')).toEqual(262)
-    expect(bars.at(1).prop('y')).toEqual(92)
-    expect(bars.at(1).prop('height')).toEqual(208)
-    expect(bars.at(1).prop('width')).toEqual(214)
 
-    expect(bars.at(2).prop('data')).toEqual({
-        data: { A: 10, C: 3, id: 'one' },
-        id: 'C',
-        index: 0,
-        indexValue: 'one',
-        value: 3,
+    expect(bars.at(2).prop('bar')).toEqual({
+        color: '#f1e15b',
+        data: {
+            data: { A: 10, C: 3, id: 'one' },
+            formattedValue: '3',
+            hidden: false,
+            id: 'C',
+            index: 0,
+            indexValue: 'one',
+            value: 3,
+        },
+        height: 69,
+        key: 'C.one',
+        label: 'C - one',
+        width: 214,
+        x: 24,
+        y: 0,
     })
-    expect(bars.at(2).prop('x')).toEqual(24)
-    expect(bars.at(2).prop('y')).toEqual(0)
-    expect(bars.at(2).prop('height')).toEqual(69)
-    expect(bars.at(2).prop('width')).toEqual(214)
 })
 
 it(`should apply scale rounding by default`, () => {
@@ -366,7 +529,7 @@ it(`should apply scale rounding by default`, () => {
     )
 
     const bars = wrapper.find('BarItem')
-    const firstBarWidth = bars.at(0).prop('width')
+    const firstBarWidth = Number(bars.at(0).prop<BarItemProps<BarDatum>['bar']>('bar').width)
     expect(firstBarWidth).toEqual(Math.floor(firstBarWidth))
 })
 
@@ -386,7 +549,7 @@ it(`should not apply scale rounding when passed indexScale.round: false`, () => 
     )
 
     const bars = wrapper.find('BarItem')
-    const firstBarWidth = bars.at(0).prop('width')
+    const firstBarWidth = Number(bars.at(0).prop<BarItemProps<BarDatum>['bar']>('bar').width)
     expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
 })
 
@@ -412,13 +575,13 @@ it('should render bars in grouped mode after updating starting values from 0', (
     const wrapper = mount(<MyBar />)
 
     wrapper.find('BarItem').forEach(bar => {
-        expect(bar.prop('height')).toBe(0)
+        expect(bar.prop<BarItemProps<BarDatum>['bar']>('bar').height).toBe(0)
     })
 
     wrapper.find('button').simulate('click')
 
     wrapper.find('BarItem').forEach(bar => {
-        expect(bar.prop('height')).toBe(300)
+        expect(bar.prop<BarItemProps<BarDatum>['bar']>('bar').height).toBe(300)
     })
 })
 

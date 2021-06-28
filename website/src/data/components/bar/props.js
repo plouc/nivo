@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { BarDefaultProps as defaults } from '@nivo/bar'
+import { svgDefaultProps } from '@nivo/bar'
 import {
     themeProperty,
     axesProperties,
@@ -34,9 +34,9 @@ const props = [
             You can also provide a function which will
             receive the data item and must return the desired index.
         `,
-        type: 'string | Function',
+        type: 'string | (datum: RawDatum): string | number',
         required: false,
-        defaultValue: defaults.indexBy,
+        defaultValue: svgDefaultProps.indexBy,
         group: 'Base',
     },
     {
@@ -44,15 +44,15 @@ const props = [
         help: 'Keys to use to determine each serie.',
         type: 'string[]',
         required: false,
-        defaultValue: defaults.keys,
+        defaultValue: svgDefaultProps.keys,
         group: 'Base',
     },
     {
         key: 'groupMode',
         help: `How to group bars.`,
-        type: 'string',
+        type: 'grouped | stacked',
         required: false,
-        defaultValue: defaults.groupMode,
+        defaultValue: svgDefaultProps.groupMode,
         controlType: 'radio',
         group: 'Base',
         controlOptions: {
@@ -65,9 +65,9 @@ const props = [
     {
         key: 'layout',
         help: `How to display bars.`,
-        type: 'string',
+        type: 'horizontal | vertical',
         required: false,
-        defaultValue: defaults.layout,
+        defaultValue: svgDefaultProps.layout,
         controlType: 'radio',
         group: 'Base',
         controlOptions: {
@@ -82,7 +82,7 @@ const props = [
         type: 'object',
         group: 'Base',
         help: `value scale configuration.`,
-        defaultValue: defaults.valueScale,
+        defaultValue: svgDefaultProps.valueScale,
         controlType: 'object',
         controlOptions: {
             props: [
@@ -107,7 +107,7 @@ const props = [
         type: 'object',
         group: 'Base',
         help: `index scale configuration.`,
-        defaultValue: defaults.indexScale,
+        defaultValue: svgDefaultProps.indexScale,
         controlType: 'object',
         controlOptions: {
             props: [
@@ -139,7 +139,7 @@ const props = [
             'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.reverse,
+        defaultValue: svgDefaultProps.reverse,
         controlType: 'switch',
         group: 'Base',
     },
@@ -151,8 +151,8 @@ const props = [
             will use min value from the provided data.
         `,
         required: false,
-        defaultValue: defaults.minValue,
-        type: 'number | string',
+        defaultValue: svgDefaultProps.minValue,
+        type: `number | 'auto'`,
         controlType: 'switchableRange',
         group: 'Base',
         controlOptions: {
@@ -170,8 +170,8 @@ const props = [
             will use max value from the provided data.
         `,
         required: false,
-        defaultValue: defaults.maxValue,
-        type: 'number | string',
+        defaultValue: svgDefaultProps.maxValue,
+        type: `number | 'auto'`,
         controlType: 'switchableRange',
         group: 'Base',
         controlOptions: {
@@ -182,11 +182,26 @@ const props = [
         },
     },
     {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
+    },
+    {
         key: 'padding',
         help: 'Padding between each bar (ratio).',
         type: 'number',
         required: false,
-        defaultValue: defaults.padding,
+        defaultValue: svgDefaultProps.padding,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -200,7 +215,7 @@ const props = [
         help: 'Padding between grouped/stacked bars.',
         type: 'number',
         required: false,
-        defaultValue: defaults.innerPadding,
+        defaultValue: svgDefaultProps.innerPadding,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -277,23 +292,19 @@ const props = [
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: svgDefaultProps.colors,
         controlType: 'ordinalColors',
         group: 'Style',
     },
     {
         key: 'colorBy',
-        type: 'string | Function',
+        type: `'id' | 'indexValue'`,
         help: 'Property used to determine node color.',
         description: `
             Property to use to determine node color.
-            If a function is provided, it will receive
-            the current node data and must return
-            a string or number which will be passed
-            to the color generator.
         `,
         required: false,
-        defaultValue: defaults.colorBy,
+        defaultValue: svgDefaultProps.colorBy,
         controlType: 'choices',
         group: 'Style',
         controlOptions: {
@@ -303,19 +314,18 @@ const props = [
                     value: 'id',
                 },
                 {
-                    label: 'index',
-                    value: 'index',
+                    label: 'indexValue',
+                    value: 'indexValue',
                 },
             ],
         },
     },
     {
         key: 'borderRadius',
-        flavors: ['svg', 'api'],
         help: 'Rectangle border radius.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderRadius,
+        defaultValue: svgDefaultProps.borderRadius,
         controlType: 'range',
         group: 'Style',
         controlOptions: {
@@ -329,7 +339,7 @@ const props = [
         help: 'Width of bar border.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: svgDefaultProps.borderWidth,
         controlType: 'lineWidth',
         group: 'Style',
     },
@@ -342,18 +352,20 @@ const props = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: svgDefaultProps.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
     },
     ...defsProperties('Style', ['svg']),
     {
         key: 'layers',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         help: 'Defines the order of layers.',
         description: `
             Defines the order of layers, available layers are:
-            \`grid\`, \`axes\`, \`bars\`, \`markers\`, \`legends\`.
+            \`grid\`, \`axes\`, \`bars\`, \`markers\`, \`legends\`,
+            \`annotations\`. The \`markers\` layer is not available
+            in the canvas flavor.
 
             You can also use this to insert extra layers to the chart,
             this extra layer must be a function which will receive
@@ -362,7 +374,7 @@ const props = [
         `,
         type: 'Array<string | Function>',
         required: false,
-        defaultValue: defaults.layers,
+        defaultValue: svgDefaultProps.layers,
         group: 'Customization',
     },
     {
@@ -370,7 +382,7 @@ const props = [
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableLabel,
+        defaultValue: svgDefaultProps.enableLabel,
         controlType: 'switch',
         group: 'Labels',
     },
@@ -400,24 +412,14 @@ const props = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaults.label,
-    },
-    {
-        key: 'labelFormat',
-        group: 'Labels',
-        help: 'How to format labels.',
-        description: `
-            How to format labels,
-            [see d3.format() documentation](https://github.com/d3/d3-format/blob/master/README.md#format).
-        `,
-        type: 'string | Function',
+        defaultValue: svgDefaultProps.label,
     },
     {
         key: 'labelSkipWidth',
         help: 'Skip label if bar width is lower than provided value, ignored if 0.',
         type: 'number',
         required: false,
-        defaultValue: defaults.labelSkipWidth,
+        defaultValue: svgDefaultProps.labelSkipWidth,
         controlType: 'range',
         group: 'Labels',
         controlOptions: {
@@ -431,7 +433,7 @@ const props = [
         help: 'Skip label if bar height is lower than provided value, ignored if 0.',
         type: 'number',
         required: false,
-        defaultValue: defaults.labelSkipHeight,
+        defaultValue: svgDefaultProps.labelSkipHeight,
         controlType: 'range',
         group: 'Labels',
         controlOptions: {
@@ -445,7 +447,7 @@ const props = [
         help: 'Defines how to compute label text color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.labelTextColor,
+        defaultValue: svgDefaultProps.labelTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
     },
@@ -455,7 +457,7 @@ const props = [
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridX,
+        defaultValue: svgDefaultProps.enableGridX,
         controlType: 'switch',
     },
     {
@@ -471,7 +473,7 @@ const props = [
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridY,
+        defaultValue: svgDefaultProps.enableGridY,
         controlType: 'switch',
     },
     {
@@ -488,7 +490,7 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: svgDefaultProps.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -505,13 +507,17 @@ const props = [
             the following data:
             \`\`\`
             {
-                id:         string | number,
-                value:      number,
-                index:      number,
-                indexValue: string | number,
-                color:      string,
-                // datum associated to the current index (raw data)
-                data:       object
+                bar: {
+                    id:             string | number,
+                    value:          number,
+                    formattedValue: string,
+                    index:          number,
+                    indexValue:     string | number,
+                    // datum associated to the current index (raw data)
+                    data:           object
+                },
+                color: string,
+                label: string
             }
             \`\`\`
             You can also customize the style of the tooltip
@@ -539,20 +545,21 @@ const props = [
 
             \`\`\`
             {
-                id:         string | number,
-                value:      number,
-                index:      number,
-                indexValue: string | number,
-                color:      string,
+                id:             string | number,
+                value:          number,
+                formattedValue: string,
+                index:          number,
+                indexValue:     string | number,
+                color:          string,
                 // datum associated to the current index (raw data)
-                data:       object
+                data:           object
             }
             \`\`\`
         `,
     },
     {
         key: 'legends',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
@@ -564,7 +571,7 @@ const props = [
             shouldRemove: true,
             getItemTitle: (index, legend) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
-            defaults: {
+            svgDefaultProps: {
                 dataFrom: 'keys',
                 anchor: 'top-left',
                 direction: 'column',
@@ -582,7 +589,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
