@@ -42,10 +42,12 @@ const initialProperties = {
 
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
+    valueFormat: { format: '', enabled: false },
 
     colors: { scheme: 'red_blue' },
     colorBy: 'id',
     borderWidth: 0,
+    borderRadius: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 1.6]],
@@ -100,6 +102,8 @@ const initialProperties = {
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
+
+    legends: [],
 }
 
 const BarCanvas = () => {

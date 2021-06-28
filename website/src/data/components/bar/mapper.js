@@ -24,19 +24,21 @@ const TooltipKey = styled.span`
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = node => {
+const CustomTooltip = ({ color, ...bar }) => {
     return (
-        <TooltipWrapper style={{ color: node.color }}>
+        <TooltipWrapper style={{ color: color }}>
             <TooltipKey>id</TooltipKey>
-            <TooltipValue>{node.id}</TooltipValue>
+            <TooltipValue>{bar.id}</TooltipValue>
             <TooltipKey>value</TooltipKey>
-            <TooltipValue>{node.value}</TooltipValue>
+            <TooltipValue>{bar.value}</TooltipValue>
+            <TooltipKey>formattedValue</TooltipKey>
+            <TooltipValue>{bar.formattedValue}</TooltipValue>
             <TooltipKey>index</TooltipKey>
-            <TooltipValue>{node.index}</TooltipValue>
+            <TooltipValue>{bar.index}</TooltipValue>
             <TooltipKey>indexValue</TooltipKey>
-            <TooltipValue>{node.indexValue}</TooltipValue>
+            <TooltipValue>{bar.indexValue}</TooltipValue>
             <TooltipKey>color</TooltipKey>
-            <TooltipValue>{node.color}</TooltipValue>
+            <TooltipValue>{color}</TooltipValue>
         </TooltipWrapper>
     )
 }

@@ -6,19 +6,20 @@
 
         // Shared next because charts need them
         { "path": "./packages/annotations" },
+        { "path": "./packages/scales" },
         { "path": "./packages/axes" },
         { "path": "./packages/colors" },
         { "path": "./packages/legends" },
-        { "path": "./packages/scales" },
         { "path": "./packages/tooltip" },
         { "path": "./packages/arcs" },
+        { "path": "./packages/voronoi" },
 
         // Utility package
         { "path": "./packages/generators" },
         { "path": "./packages/recompose" },
 
         // Charts now
-        { "path": "./packages/voronoi" },
+        { "path": "./packages/bar" },
         { "path": "./packages/bullet" },
         { "path": "./packages/calendar" },
         { "path": "./packages/circle-packing" },

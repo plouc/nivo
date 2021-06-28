@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@nivo/generators'
-import { ResponsiveBarCanvas } from '../src'
+import { BarDatum, ResponsiveBarCanvas } from '../src'
 import { button } from '@storybook/addon-knobs'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
@@ -9,7 +9,7 @@ const commonProps = {
     width: 900,
     height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
-    data: generateCountriesData(keys, { size: 7 }),
+    data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
     indexBy: 'country',
     keys,
     padding: 0.2,
@@ -27,17 +27,20 @@ stories.add('custom tooltip', () => (
         <ResponsiveBarCanvas
             {...commonProps}
             tooltip={({ id, value, color }) => (
-                <strong style={{ color }}>
-                    {id}: {value}
-                </strong>
+                <div
+                    style={{
+                        padding: 12,
+                        color,
+                        background: '#222222',
+                    }}
+                >
+                    <span>Look, I'm custom :)</span>
+                    <br />
+                    <strong>
+                        {id}: {value}
+                    </strong>
+                </div>
             )}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
-                },
-            }}
         />
     </Wrapper>
 ))
