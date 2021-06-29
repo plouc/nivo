@@ -47,6 +47,9 @@ export type CommonBulletProps = Dimensions & {
     reverse: boolean
     spacing: number
 
+    minValue: 'auto' | number
+    maxValue: 'auto' | number
+
     titlePosition: 'before' | 'after'
     titleAlign: 'start' | 'middle' | 'end'
     titleOffsetX: number
@@ -176,6 +179,8 @@ export type BulletItemProps = Omit<
     | 'margin'
     | 'spacing'
     | 'role'
+    | 'minValue'
+    | 'maxValue'
     | 'measureSize'
     | 'markerSize'
     | 'theme'
