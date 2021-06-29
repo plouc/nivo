@@ -61,6 +61,7 @@ const BarApi = () => {
 
                     valueScale: { type: 'linear' },
                     indexScale: { type: 'band', round: true },
+                    valueFormat: { format: '', enabled: false },
 
                     axisTop: {
                         enable: false,
