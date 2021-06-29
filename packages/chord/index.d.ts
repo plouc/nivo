@@ -63,7 +63,7 @@ declare module '@nivo/chord' {
         arcHoverOpacity?: number
         arcHoverOthersOpacity?: number
         arcBorderWidth?: number
-        arcBorderColor?: InheritedColorConfig
+        arcBorderColor?: InheritedColorConfig<ArcData>
         onArcMouseEnter?: ChordArcMouseHandler
         onArcMouseMove?: ChordArcMouseHandler
         onArcMouseLeave?: ChordArcMouseHandler
@@ -74,12 +74,12 @@ declare module '@nivo/chord' {
         ribbonHoverOpacity?: number
         ribbonHoverOthersOpacity?: number
         ribbonBorderWidth?: number
-        ribbonBorderColor?: InheritedColorConfig
+        ribbonBorderColor?: InheritedColorConfig<RibbonData>
 
         enableLabel?: boolean
         labelOffset?: number
         labelRotation?: number
-        labelTextColor?: InheritedColorConfig
+        labelTextColor?: InheritedColorConfig<ArcData>
 
         isInteractive?: boolean
 
