@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { AxisProps } from '@nivo/axes'
 import { Component, MouseEvent } from 'react'
 import { Dimensions, Box, Theme, MotionProps, SvgDefsAndFill, CssMixBlendMode } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
@@ -25,10 +26,33 @@ declare module '@nivo/bump' {
         [key: string]: any
     }
 
+    export interface BumpPoint {
+        id: string
+        serie: BumpInputSerie
+        data: BumpInputDatum
+        x: number | null
+        y: number | null
+    }
+
+    export interface BumpComputedSerie extends BumpInputSerie {
+        points: BumpPoint[]
+        linePoints: [number, number][]
+    }
+
+    export interface BumpComputedPoint extends BumpPoint {
+        serie: BumpComputedSerie
+        serieId: string
+        isActive: boolean
+        isInactive: boolean
+    }
+
     export type BumpLabelFunction = (serie: BumpInputSerie) => string
     export type BumpLabel = false | string | BumpLabelFunction
 
-    export type BumpMouseHandler = (serie: BumpInputSerie, event: MouseEvent<any>) => void
+    export type BumpMouseHandler = (
+        serie: BumpInputSerie,
+        event: MouseEvent<SVGPathElement>
+    ) => void
 
     export interface BumpProps {
         data: BumpInputSerie[]
@@ -46,33 +70,33 @@ declare module '@nivo/bump' {
 
         startLabel?: BumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColorConfig
+        startLabelTextColor?: InheritedColorConfig<BumpComputedSerie>
         endLabel?: BumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColorConfig
+        endLabelTextColor?: InheritedColorConfig<BumpComputedSerie>
 
         pointSize?: number
         activePointSize?: number
         inactivePointSize?: number
-        pointColor?: InheritedColorConfig
+        pointColor?: InheritedColorConfig<BumpComputedPoint>
         pointBorderWidth?: number
         activePointBorderWidth?: number
         inactivePointBorderWidth?: number
-        pointBorderColor?: InheritedColorConfig
+        pointBorderColor?: InheritedColorConfig<BumpComputedPoint>
 
         enableGridX?: boolean
         enableGridY?: boolean
-        axisTop?: any
-        axisRight?: any
-        axisBottom?: any
-        axisLeft?: any
+        axisTop?: AxisProps
+        axisRight?: AxisProps
+        axisBottom?: AxisProps
+        axisLeft?: AxisProps
 
         isInteractive?: boolean
         onMouseEnter?: BumpMouseHandler
         onMouseMove?: BumpMouseHandler
         onMouseLeave?: BumpMouseHandler
         onClick?: BumpMouseHandler
-        tooltip?: any
+        tooltip?: React.FC<{ serie: BumpComputedSerie }>
         role?: string
     }
 
@@ -127,7 +151,7 @@ declare module '@nivo/bump' {
 
     export type AreaBumpMouseHandler = (
         serie: AreaBumpComputedSerie,
-        event: MouseEvent<any>
+        event: MouseEvent<SVGPathElement>
     ) => void
 
     export interface AreaBumpProps {
@@ -149,28 +173,28 @@ declare module '@nivo/bump' {
         borderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
-        borderColor?: InheritedColorConfig
+        borderColor?: InheritedColorConfig<AreaBumpInputSerie>
         borderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
 
         startLabel?: AreaBumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColorConfig
+        startLabelTextColor?: InheritedColorConfig<AreaBumpInputSerie>
         endLabel?: AreaBumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColorConfig
+        endLabelTextColor?: InheritedColorConfig<AreaBumpInputSerie>
 
         enableGridX?: boolean
-        axisTop?: any
-        axisBottom?: any
+        axisTop?: AxisProps
+        axisBottom?: AxisProps
 
         isInteractive?: boolean
         onMouseEnter?: AreaBumpMouseHandler
         onMouseMove?: AreaBumpMouseHandler
         onMouseLeave?: AreaBumpMouseHandler
         onClick?: AreaBumpMouseHandler
-        tooltip?: any
+        tooltip?: React.FC<{ serie: AreaBumpComputedSerie }>
         role?: string
     }
 
