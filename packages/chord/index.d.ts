@@ -9,6 +9,7 @@
 import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
+import { LegendProps } from '@nivo/legends'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -73,7 +74,7 @@ declare module '@nivo/chord' {
         ribbonHoverOpacity?: number
         ribbonHoverOthersOpacity?: number
         ribbonBorderWidth?: number
-        BorderColor?: InheritedColorConfig
+        ribbonBorderColor?: InheritedColorConfig
 
         enableLabel?: boolean
         labelOffset?: number
@@ -81,6 +82,8 @@ declare module '@nivo/chord' {
         labelTextColor?: InheritedColorConfig
 
         isInteractive?: boolean
+
+        legends?: LegendProps[]
     }
 
     export type ChordProps = CommonChordProps &
