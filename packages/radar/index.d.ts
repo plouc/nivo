@@ -17,11 +17,17 @@ declare module '@nivo/radar' {
         anchor: 'start' | 'middle' | 'end'
         angle: number
     }
+    export type PointData = {
+        index: number
+        key: string
+        value: number
+        color: string
+    }
     export type DotSymbolProps = {
         size: number
-        color: InheritedColorConfig
+        color: InheritedColorConfig<PointData>
         borderWidth: number
-        borderColor: InheritedColorConfig
+        borderColor: InheritedColorConfig<PointData>
     }
 
     type IndexByCustomFunction<D = any> = (datum: D) => string | number
@@ -31,7 +37,7 @@ declare module '@nivo/radar' {
     export type CustomFormatter = (...args: any[]) => React.ReactNode
 
     interface CommonRadarProps<Datum = any> {
-        data: object[]
+        data: Datum[]
         keys: (string | number)[]
         indexBy: number | string | IndexByCustomFunction<Datum>
         maxValue?: 'auto' | number
@@ -41,7 +47,7 @@ declare module '@nivo/radar' {
         curve?: string
 
         borderWidth?: number
-        borderColor?: InheritedColorConfig
+        borderColor?: InheritedColorConfig<Record<'color' | 'key', string>>
 
         gridLevels?: number
         gridShape?: 'circular' | 'linear'
@@ -51,9 +57,9 @@ declare module '@nivo/radar' {
         enableDots?: boolean
         dotSymbol?: CustomDotSymbol
         dotSize?: number
-        dotColor?: InheritedColorConfig
+        dotColor?: InheritedColorConfig<PointData>
         dotBorderWidth?: number
-        dotBorderColor?: InheritedColorConfig
+        dotBorderColor?: InheritedColorConfig<PointData>
         enableDotLabel?: boolean
         dotLabel?: string | CustomDotLabel
         dotLabelFormat?: string | CustomFormatter
