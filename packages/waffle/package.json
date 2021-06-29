@@ -1,6 +1,6 @@
 {
   "name": "@nivo/waffle",
-  "version": "0.71.0",
+  "version": "0.72.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -28,18 +28,18 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.71.0",
-    "@nivo/legends": "0.71.0",
-    "@nivo/recompose": "0.71.0",
-    "@nivo/tooltip": "0.71.0",
+    "@nivo/colors": "0.72.0",
+    "@nivo/legends": "0.72.0",
+    "@nivo/recompose": "0.72.0",
+    "@nivo/tooltip": "0.72.0",
     "lodash": "^4.17.21",
     "react-motion": "^0.5.2"
   },
   "devDependencies": {
-    "@nivo/core": "0.71.0"
+    "@nivo/core": "0.72.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.71.0",
+    "@nivo/core": "0.72.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
