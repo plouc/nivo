@@ -1,8 +1,6 @@
-import { create } from '@storybook/theming'
+import { addons } from '@storybook/addons'
+import theme from './theme'
 
-export default create({
-    base: 'light',
-    brandTitle: 'nivo',
-    brandUrl: 'https://nivo.rocks',
-    brandImage: null,
+addons.setConfig({
+    theme,
 })
