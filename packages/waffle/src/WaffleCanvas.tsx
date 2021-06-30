@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, createElement } from 'react'
+import { useEffect, useRef, useCallback, createElement } from 'react'
 import {
     // @ts-ignore
     withContainer,

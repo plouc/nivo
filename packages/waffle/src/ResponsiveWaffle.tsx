@@ -1,4 +1,3 @@
-import React from 'react'
 // @ts-ignore
 import { ResponsiveWrapper } from '@nivo/core'
 import { SvgProps, Datum, DefaultRawDatum } from './types'

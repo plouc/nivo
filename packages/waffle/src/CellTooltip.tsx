@@ -1,4 +1,3 @@
-import React from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
 import { DataCell, Datum } from './types'
 
