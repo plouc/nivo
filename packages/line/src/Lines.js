@@ -12,6 +12,7 @@ import LinesItem from './LinesItem'
 
 const Lines = ({ lines, lineGenerator, lineWidth }) => {
     return lines
+        .slice(0)
         .reverse()
         .map(({ id, data, color }) => (
             <LinesItem
