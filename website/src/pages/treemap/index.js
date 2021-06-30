@@ -14,6 +14,8 @@ import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 
+const generateData = () => generateLightDataSet().root
+
 const initialProperties = {
     identity: 'name',
     value: 'loc',
@@ -75,12 +77,12 @@ const TreeMap = () => {
             initialProperties={initialProperties}
             defaultProperties={TreeMapDefaultProps}
             propertiesMapper={mapper}
-            generateData={generateLightDataSet}
+            generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveTreeMap
-                        data={data.root}
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={node => {
