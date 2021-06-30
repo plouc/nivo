@@ -28,9 +28,13 @@ export const Bullet = (props: BulletSvgProps) => {
         titleOffsetY,
         titleRotation,
 
+        rangeBorderColor,
+        rangeBorderWidth,
         rangeComponent,
         rangeColors,
 
+        measureBorderColor,
+        measureBorderWidth,
         measureComponent,
         measureColors,
 
@@ -94,8 +98,12 @@ export const Bullet = (props: BulletSvgProps) => {
                         titleRotation={titleRotation}
                         measureHeight={measureHeight}
                         markerHeight={markerHeight}
+                        rangeBorderColor={rangeBorderColor}
+                        rangeBorderWidth={rangeBorderWidth}
                         rangeComponent={rangeComponent}
                         rangeColors={rangeColors}
+                        measureBorderColor={measureBorderColor}
+                        measureBorderWidth={measureBorderWidth}
                         measureComponent={measureComponent}
                         measureColors={measureColors}
                         markerComponent={markerComponent}

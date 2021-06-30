@@ -28,10 +28,14 @@ export const BulletItem = ({
     titleOffsetY,
     titleRotation,
 
+    rangeBorderColor,
+    rangeBorderWidth,
     rangeComponent,
     rangeColors,
     ranges,
 
+    measureBorderColor,
+    measureBorderWidth,
     measureComponent,
     measureHeight,
     measureColors,
@@ -84,6 +88,8 @@ export const BulletItem = ({
             width={width}
             height={height}
             component={rangeComponent}
+            borderColor={rangeBorderColor}
+            borderWidth={rangeBorderWidth}
             onMouseEnter={(range, event) => {
                 showTooltipFromEvent(
                     <BasicTooltip
@@ -198,6 +204,8 @@ export const BulletItem = ({
                 width={width}
                 height={measureHeight}
                 component={measureComponent}
+                borderColor={measureBorderColor}
+                borderWidth={measureBorderWidth}
                 onMouseEnter={(measure, event) => {
                     showTooltipFromEvent(
                         <BasicTooltip
