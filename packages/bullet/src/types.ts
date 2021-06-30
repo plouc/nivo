@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
+import { InheritedColorConfig } from '@nivo/colors'
 import { ScaleLinear } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
@@ -56,9 +57,13 @@ export type CommonBulletProps = Dimensions & {
     titleOffsetY: number
     titleRotation: number
 
+    rangeBorderColor: InheritedColorConfig<ComputedRangeDatum>
+    rangeBorderWidth: number
     rangeComponent: React.ComponentType<BulletRectsItemProps>
     rangeColors: Colors
 
+    measureBorderColor: InheritedColorConfig<ComputedRangeDatum>
+    measureBorderWidth: number
     measureComponent: React.ComponentType<BulletRectsItemProps>
     measureColors: Colors
     measureSize: number
@@ -106,9 +111,11 @@ export type BulletRectsItemProps = Pick<
     Point &
     Dimensions & {
         animatedProps: SpringValues<BulletRectAnimatedProps>
-        index: number
+        borderColor: string
+        borderWidth: number
         color: string
         data: ComputedRangeDatum
+        index: number
         onMouseMove: BulletRectsProps['onMouseEnter']
     }
 
@@ -136,6 +143,8 @@ export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
             measuresY: number
             transform: string
         }>
+        borderColor: InheritedColorConfig<ComputedRangeDatum>
+        borderWidth: number
         scale: ScaleLinear<number>
         data: ComputedRangeDatum[]
         component: CommonBulletProps['rangeComponent']

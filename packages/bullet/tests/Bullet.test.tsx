@@ -360,6 +360,8 @@ describe('Bullet', () => {
 
             expect(props).toMatchInlineSnapshot(`
                 Object {
+                  "borderColor": "rgb(65, 125, 224)",
+                  "borderWidth": 0,
                   "color": "rgba(65, 125, 224, 1)",
                   "data": Object {
                     "color": "rgb(65, 125, 224)",
@@ -397,6 +399,8 @@ describe('Bullet', () => {
 
             expect(props).toMatchInlineSnapshot(`
                 Object {
+                  "borderColor": "rgb(173, 10, 129)",
+                  "borderWidth": 0,
                   "color": "rgba(173, 10, 129, 1)",
                   "data": Object {
                     "color": "rgb(173, 10, 129)",

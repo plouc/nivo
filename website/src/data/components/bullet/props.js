@@ -188,6 +188,30 @@ const props = [
     },
     themeProperty,
     {
+        key: 'rangeBorderColor',
+        flavors: ['svg'],
+        group: 'Style',
+        help: 'Method to compute range border color.',
+        description: `
+            how to compute range border color,
+            [see dedicated documentation](self:/guides/colors).
+        `,
+        type: 'string | object | Function',
+        controlType: 'inheritedColor',
+        required: false,
+        defaultValue: defaultProps.rangeBorderColor,
+    },
+    {
+        key: 'rangeBorderWidth',
+        flavors: ['svg'],
+        group: 'Style',
+        help: 'Width of range border.',
+        type: 'number',
+        controlType: 'lineWidth',
+        required: false,
+        defaultValue: defaultProps.rangeBorderWidth,
+    },
+    {
         key: 'rangeComponent',
         flavors: ['svg'],
         group: 'Style',
@@ -211,6 +235,30 @@ const props = [
         controlOptions: {
             includeSequential: true,
         },
+    },
+    {
+        key: 'measureBorderColor',
+        flavors: ['svg'],
+        group: 'Style',
+        help: 'Method to compute measure border color.',
+        description: `
+            how to compute measure border color,
+            [see dedicated documentation](self:/guides/colors).
+        `,
+        type: 'string | object | Function',
+        controlType: 'inheritedColor',
+        required: false,
+        defaultValue: defaultProps.measureBorderColor,
+    },
+    {
+        key: 'measureBorderWidth',
+        flavors: ['svg'],
+        group: 'Style',
+        help: 'Width of measure border.',
+        type: 'number',
+        controlType: 'lineWidth',
+        required: false,
+        defaultValue: defaultProps.measureBorderWidth,
     },
     {
         key: 'measureComponent',
