@@ -7,7 +7,9 @@ AreaBump:
   tags:
     - svg
     - isomorphic
-  stories: []
+  stories:
+    - label: With fill pattern
+      link: areabump--with-fill-pattern
   description: |
     The AreaBump chart is similar to the [Bump](self:/bump/) chart,
     but instead of only showing the ranking over time, it also shows
