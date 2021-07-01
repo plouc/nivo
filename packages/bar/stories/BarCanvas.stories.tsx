@@ -4,22 +4,20 @@ import { generateCountriesData } from '@nivo/generators'
 import { useRef } from 'react'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
-const commonProps = {
-    width: 900,
-    height: 500,
-    margin: { top: 60, right: 80, bottom: 60, left: 80 },
-    data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
-    indexBy: 'country',
-    keys,
-    padding: 0.2,
-    labelSkipWidth: 16,
-    labelSkipHeight: 16,
-}
 
 export default {
-    title: 'BarCanvas',
+    args: {
+        data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
+        height: 500,
+        indexBy: 'country',
+        keys,
+        labelSkipWidth: 16,
+        labelSkipHeight: 16,
+        margin: { top: 60, right: 80, bottom: 60, left: 80 },
+        padding: 0.2,
+        width: 900,
+    },
     component: BarCanvas,
-    args: commonProps,
     parameters: {
         controls: {
             hideNoControlsWarning: true,
@@ -27,15 +25,15 @@ export default {
             sort: 'alpha',
         },
     },
+    title: 'BarCanvas',
 } as Meta
 
-const Template: Story<BarCanvasProps<BarDatum>> = args => <BarCanvas {...commonProps} {...args} />
+const Template: Story<BarCanvasProps<BarDatum>> = args => <BarCanvas {...args} />
 
 export const Default: Story<BarCanvasProps<BarDatum>> = Template.bind({})
 
 export const CustomLayer: Story<BarCanvasProps<BarDatum>> = args => (
     <BarCanvas
-        {...commonProps}
         {...args}
         layers={[
             ...(canvasDefaultProps.layers as BarCanvasLayer<BarDatum>[]).filter(layer =>
@@ -109,6 +107,18 @@ CustomBarRenderer.args = {
 export const CustomTooltip: Story<BarCanvasProps<BarDatum>> = Template.bind({})
 
 CustomTooltip.args = {
+    legendLabel: datum => `${datum.id} (${datum.value})`,
+    legends: [
+        {
+            anchor: 'bottom',
+            dataFrom: 'keys',
+            direction: 'row',
+            itemHeight: 20,
+            itemWidth: 110,
+            toggleSerie: true,
+            translateY: 50,
+        },
+    ],
     tooltip: ({ id, value, color }) => (
         <div
             style={{
@@ -124,18 +134,6 @@ CustomTooltip.args = {
             </strong>
         </div>
     ),
-    legendLabel: datum => `${datum.id} (${datum.value})`,
-    legends: [
-        {
-            anchor: 'bottom',
-            dataFrom: 'keys',
-            direction: 'row',
-            itemHeight: 20,
-            itemWidth: 110,
-            toggleSerie: true,
-            translateY: 50,
-        },
-    ],
 }
 
 export const WithAnnotations: Story<BarCanvasProps<BarDatum>> = Template.bind({})
@@ -173,7 +171,7 @@ export const DownloadChart: Story<BarCanvasProps<BarDatum>> = args => {
             >
                 Download Image
             </button>
-            <BarCanvas {...commonProps} ref={ref} />
+            <BarCanvas {...args} ref={ref} />
         </>
     )
 }

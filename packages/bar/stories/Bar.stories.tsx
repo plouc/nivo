@@ -8,35 +8,34 @@ import { useState, useEffect } from 'react'
 import { useTheme } from '@nivo/core'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
-const commonProps = {
-    width: 900,
-    height: 500,
-    margin: { top: 60, right: 110, bottom: 60, left: 80 },
-    data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
-    indexBy: 'country',
-    keys,
-    padding: 0.2,
-    labelTextColor: { from: 'color', modifiers: [['darker', 1.4] as ['darker', number]] },
-    labelSkipWidth: 16,
-    labelSkipHeight: 16,
-    animate: true,
-    layout: 'vertical' as const,
-    groupMode: 'stacked' as const,
-    onClick: action('click'),
-    onMouseEnter: action('mouseenter'),
-    onMouseLeave: action('mouseleave'),
-}
 
 export default {
-    title: 'Bar',
-    component: Bar,
-    args: commonProps,
-    parameters: {
-        controls: { include: ['animate', 'groupMode', 'layout'], sort: 'alpha' },
+    args: {
+        animate: true,
+        data: generateCountriesData(keys, { size: 7 }) as BarDatum[],
+        groupMode: 'stacked' as const,
+        height: 500,
+        indexBy: 'country',
+        keys,
+        labelTextColor: { from: 'color', modifiers: [['darker', 1.4] as ['darker', number]] },
+        labelSkipWidth: 16,
+        labelSkipHeight: 16,
+        layout: 'vertical' as const,
+        margin: { top: 60, right: 110, bottom: 60, left: 80 },
+        onClick: action('click'),
+        onMouseEnter: action('mouseenter'),
+        onMouseLeave: action('mouseleave'),
+        padding: 0.2,
+        width: 900,
     },
+    component: Bar,
+    parameters: {
+        controls: { include: ['animate', 'groupMode', 'layout'] },
+    },
+    title: 'Bar',
 } as Meta
 
-const Template: Story<BarSvgProps<BarDatum>> = args => <Bar {...commonProps} {...args} />
+const Template: Story<BarSvgProps<BarDatum>> = args => <Bar {...args} />
 
 export const Default: Story<BarSvgProps<BarDatum>> = Template.bind({})
 
@@ -102,19 +101,7 @@ const divergingData = range(9).map(i => {
 })
 
 const divergingCommonProps = {
-    ...commonProps,
-    data: divergingData,
-    indexBy: 'user',
-    minValue: -100,
-    maxValue: 100,
-    enableGridX: true,
-    enableGridY: false,
-    valueFormat: (value: number) => `${Math.abs(value)}`,
-    labelTextColor: 'inherit:darker(1.2)',
-    axisTop: {
-        tickSize: 0,
-        tickPadding: 12,
-    },
+    ...Default.args,
     axisBottom: {
         legend: 'USERS',
         legendPosition: 'middle' as const,
@@ -126,37 +113,49 @@ const divergingCommonProps = {
     axisRight: {
         format: (v: number) => `${Math.abs(v)}%`,
     },
+    axisTop: {
+        tickSize: 0,
+        tickPadding: 12,
+    },
+    data: divergingData,
+    enableGridX: true,
+    enableGridY: false,
+    indexBy: 'user',
+    labelTextColor: { from: 'color', modifiers: [['darker', 1.2] as ['darker', number]] },
+    maxValue: 100,
     markers: [
         {
             axis: 'y',
-            value: 0,
+            legend: 'gain',
+            legendOffsetY: 120,
+            legendOrientation: 'vertical',
+            legendPosition: 'top-left',
             lineStyle: { strokeOpacity: 0 },
             textStyle: { fill: '#2ebca6' },
-            legend: 'gain',
-            legendPosition: 'top-left',
-            legendOrientation: 'vertical',
-            legendOffsetY: 120,
+            value: 0,
         } as const,
         {
             axis: 'y',
-            value: 0,
+            legend: 'loss',
+            legendOffsetY: 120,
+            legendOrientation: 'vertical',
+            legendPosition: 'bottom-left',
             lineStyle: { stroke: '#f47560', strokeWidth: 1 },
             textStyle: { fill: '#e25c3b' },
-            legend: 'loss',
-            legendPosition: 'bottom-left',
-            legendOrientation: 'vertical',
-            legendOffsetY: 120,
+            value: 0,
         } as const,
     ],
+    minValue: -100,
+    valueFormat: (value: number) => `${Math.abs(value)}`,
 }
 
 export const DivergingStacked: Story<BarSvgProps<BarDatum>> = Template.bind({})
 
 DivergingStacked.args = {
     ...divergingCommonProps,
+    colors: ['#97e3d5', '#61cdbb', '#f47560', '#e25c3b'],
     keys: ['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$'],
     padding: 0.4,
-    colors: ['#97e3d5', '#61cdbb', '#f47560', '#e25c3b'],
     valueFormat: v => `${v}%`,
 }
 
@@ -164,11 +163,11 @@ export const DivergingGrouped: Story<BarSvgProps<BarDatum>> = Template.bind({})
 
 DivergingGrouped.args = {
     ...divergingCommonProps,
-    keys: ['gained > 100$', 'gained <= 100$', 'lost <= 100$', 'lost > 100$'],
-    groupMode: 'grouped',
-    padding: 0.1,
     colors: ['#61cdbb', '#97e3d5', '#f47560', '#e25c3b'],
+    groupMode: 'grouped',
     innerPadding: 1,
+    keys: ['gained > 100$', 'gained <= 100$', 'lost <= 100$', 'lost > 100$'],
+    padding: 0.1,
 }
 
 const CustomBarComponent = ({ bar: { x, y, width, height, color } }) => (
@@ -250,10 +249,10 @@ export const CustomAxisTicks: Story<BarSvgProps<BarDatum>> = Template.bind({})
 
 CustomAxisTicks.args = {
     animate: false,
-    axisLeft: null,
     axisBottom: {
         renderTick: CustomTick,
     },
+    axisLeft: null,
 }
 
 CustomAxisTicks.parameters = {
@@ -447,12 +446,6 @@ RaceChart.argTypes = {
     ].reduce((acc, key) => ({ ...acc, [key]: { table: { disable: true } } }), {}),
 }
 
-RaceChart.parameters = {
-    controls: {
-        hideNoControlsWarning: true,
-    },
-}
-
 export const InitialHiddenIds: Story<
     Omit<BarSvgProps<BarDatum>, 'legends'> & { legends: 'indexes' | 'keys' }
 > = Template.bind({})
@@ -495,7 +488,6 @@ export const CorrectLegends: Story<
     BarSvgProps<BarDatum> & { dataFrom: 'indexes' | 'keys'; direction: 'column' | 'row' }
 > = ({ dataFrom, direction, ...args }) => (
     <Bar
-        {...commonProps}
         {...args}
         legends={[
             {
@@ -591,15 +583,15 @@ export const WithAnnotations: Story<BarSvgProps<BarDatum>> = Template.bind({})
 WithAnnotations.args = {
     annotations: [
         {
-            type: 'circle',
             match: { key: 'fries.AE' },
+            note: 'an annotation',
+            noteTextOffset: -3,
+            noteWidth: 5,
             noteX: 25,
             noteY: 25,
             offset: 3,
-            noteTextOffset: -3,
-            noteWidth: 5,
-            note: 'an annotation',
             size: 40,
+            type: 'circle',
         },
     ],
 }
