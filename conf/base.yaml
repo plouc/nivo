@@ -151,9 +151,13 @@ capture:
       #   selector: '#chart'
       #   output: ./packages/waffle/doc/waffle-canvas.png
 
-      - path: /funnel
+      # - path: /funnel
+      #   selector: '#chart'
+      #   output: ./packages/funnel/doc/funnel.png
+
+      - path: /marimekko
         selector: '#chart'
-        output: ./packages/funnel/doc/funnel.png
+        output: ./packages/marimekko/doc/marimekko.png
 
       #########################################################################
       #
@@ -499,3 +503,16 @@ capture:
       # - path: /internal/icons/
       #   selector: '#swarmplot-darkColored'
       #   output: ./website/src/assets/icons/swarmplot-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#marimekko-lightNeutral'
+      #   output: ./website/src/assets/icons/marimekko-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-lightColored'
+      #   output: ./website/src/assets/icons/marimekko-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-darkNeutral'
+      #   output: ./website/src/assets/icons/marimekko-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-darkColored'
+      #   output: ./website/src/assets/icons/marimekko-dark-colored.png

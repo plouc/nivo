@@ -8,20 +8,32 @@
  */
 import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme, CssMixBlendMode } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
 
 declare module '@bitbloom/nivo-radar' {
-    type IndexByCustomFunctiono<D = any> = (datum: D) => string | number
-    type GridLabelCustomFunction = (...args: any[]) => string | JSX.Element
-    type CustomDotSymbol = (...args: any[]) => React.ReactNode
-    type CustomDotLabel = (...args: any[]) => React.ReactNode
-    type CustomFormatter = (...args: any[]) => React.ReactNode
+    export type GridLabelProps = {
+        id: string
+        anchor: 'start' | 'middle' | 'end'
+        angle: number
+    }
+    export type DotSymbolProps = {
+        size: number
+        color: InheritedColorConfig
+        borderWidth: number
+        borderColor: InheritedColorConfig
+    }
+
+    type IndexByCustomFunction<D = any> = (datum: D) => string | number
+    export type CustomGridLabel = React.FC<GridLabelProps>
+    export type CustomDotSymbol = React.FC<DotSymbolProps>
+    export type CustomDotLabel = (...args: any[]) => React.ReactNode
+    export type CustomFormatter = (...args: any[]) => React.ReactNode
 
     interface CommonRadarProps<Datum = any> {
         data: object[]
         keys: (string | number)[]
-        indexBy: number | string | IndexByCustomFunctiono<Datum>
+        indexBy: number | string | IndexByCustomFunction<Datum>
         maxValue?: 'auto' | number
 
         margin?: Box
@@ -29,33 +41,33 @@ declare module '@bitbloom/nivo-radar' {
         curve?: string
 
         borderWidth?: number
-        borderColor?: InheritedColorProp
+        borderColor?: InheritedColorConfig
 
         gridLevels?: number
         gridShape?: 'circular' | 'linear'
-        gridLabel?: GridLabelCustomFunction
+        gridLabel?: CustomGridLabel
         gridLabelOffset?: number
 
         enableDots?: boolean
         dotSymbol?: CustomDotSymbol
         dotSize?: number
-        dotColor?: InheritedColorProp
+        dotColor?: InheritedColorConfig
         dotBorderWidth?: number
-        dotBorderColor?: InheritedColorProp
+        dotBorderColor?: InheritedColorConfig
         enableDotLabel?: boolean
         dotLabel?: string | CustomDotLabel
         dotLabelFormat?: string | CustomFormatter
         dotLabelYOffset?: number
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         fillOpacity?: number
         blendMode?: CssMixBlendMode
 
         isInteractive?: boolean
         tooltipFormat?: string | CustomFormatter
 
-        legends: LegendProps[]
+        legends?: LegendProps[]
         role?: string
     }
 

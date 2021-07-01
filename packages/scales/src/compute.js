@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import uniq from 'lodash/uniq'
+import { min as _min, max as _max } from 'lodash'
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 import last from 'lodash/last'
@@ -125,8 +126,8 @@ export const generateSeriesAxis = (
     if (scaleSpec.type === 'linear') {
         all = uniq(all)
         all = sortBy(all, v => v)
-        min = Math.min(...all)
-        max = Math.max(...all)
+        min = _min(all)
+        max = _max(all)
     } else if (scaleSpec.type === 'time') {
         all = uniqBy(all, v => v.getTime())
         all = all

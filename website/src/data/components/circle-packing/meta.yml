@@ -1,0 +1,84 @@
+flavors:
+  - flavor: svg
+    path: /circle-packing/
+  - flavor: html
+    path: /circle-packing/html/
+  - flavor: canvas
+    path: /circle-packing/canvas/
+  # Disabled until the API is fixed
+  # - flavor: api
+  #   path: /circle-packing/api/
+
+CirclePacking:
+  package: '@bitbloom/nivo-circle-packing'
+  tags:
+    - hierarchy
+    - svg
+    - isomorphic
+  stories:
+    - label: Using formatted values
+      link: circlepacking--with-formatted-values
+    - label: Zooming on click
+      link: circlepacking--zoom-on-click
+    - label: Using custom tooltip
+      link: circlepacking--custom-tooltip
+  description: |
+    Hierarchical CirclePacking chart with zooming ability.
+
+    You can fully customize it using the `circleComponent` property
+    to define your own, if you wish to do so you should have a look at
+    [the default SVG component](https://github.com/plouc/nivo/blob/master/packages/circle-packing/src/CircleSvg.tsx)
+    to get started.
+
+    The responsive alternative of this component is `ResponsiveCirclePacking`.
+    It also offers other implementations, see [CirclePackingHtml](self:/circle-packing/html)
+    and [CirclePackingCanvas](self:/circle-packing/canvas).
+
+    You can also see more example usages in [storybook](storybook:circlepacking--default).
+
+  # Disabled until the API is fixed
+  #   This component is available in the `@bitbloom/nivo-api`,
+  #   see [sample](api:/samples/circle-packing.svg)
+  #   or [try it using the API client](self:/circle-packing/api).
+
+CirclePackingHtml:
+  package: '@bitbloom/nivo-circle-packing'
+  tags:
+    - hierarchy
+    - html
+    - isomorphic
+  stories:
+    - label: Using formatted values
+      link: circlepackinghtml--with-formatted-values
+    - label: Zooming on click
+      link: circlepackinghtml--zoom-on-click
+    - label: Using custom tooltip
+      link: circlepackinghtml--custom-tooltip
+  description: |
+    Hierarchical CirclePacking chart with zooming ability.
+
+    You can fully customize it using the `circleComponent` property
+    to define your own, if you wish to do so you should have a look at
+    [the default HTML component](https://github.com/plouc/nivo/blob/master/packages/circle-packing/src/CircleHtml.tsx)
+    to get started.
+
+    The responsive alternative of this component is `ResponsiveCirclePackingHtml`.
+    It also offers other implementations, see [CirclePacking](self:/circle-packing)
+    and [CirclePackingCanvas](self:/circle-packing/canvas).
+
+    You can also see more example usages in [storybook](storybook:circlepackinghtml--default).
+
+CirclePackingCanvas:
+  package: '@bitbloom/nivo-circle-packing'
+  tags:
+    - hierarchy
+    - canvas
+  description: |
+    A variation around the [CirclePacking](self:/circle-packing) component.
+
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is `ResponsiveCirclePackingCanvas`.
+    It also offers other implementations, see [CirclePacking](self:/circle-packing)
+    and [CirclePackingHtml](self:/circle-packing/html).

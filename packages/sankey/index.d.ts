@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Theme, CssMixBlendMode, Box, Dimensions, MotionProps } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
 
 declare module '@bitbloom/nivo-sankey' {
@@ -92,7 +92,7 @@ declare module '@bitbloom/nivo-sankey' {
         nodeSpacing: number
         nodeInnerPadding: number
         nodeBorderWidth: number
-        nodeBorderColor: InheritedColorProp<SankeyNodeDatum>
+        nodeBorderColor: InheritedColorConfig<SankeyNodeDatum>
 
         linkOpacity: number
         linkHoverOpacity: number
@@ -106,7 +106,7 @@ declare module '@bitbloom/nivo-sankey' {
         labelPosition: 'inside' | 'outside'
         labelPadding: number
         labelOrientation: 'horizontal' | 'vertical'
-        labelTextColor: InheritedColorProp<SankeyNodeDatum>
+        labelTextColor: InheritedColorConfig<SankeyNodeDatum>
         labelFormat: string | LabelFormatter
 
         isInteractive: boolean
@@ -115,7 +115,7 @@ declare module '@bitbloom/nivo-sankey' {
         nodeTooltip: TooltipRenderer<SankeyNodeDatum>
         linkTooltip: TooltipRenderer<SankeyLinkDatum>
 
-        colors: OrdinalColorsInstruction
+        colors: OrdinalColorScaleConfig
         theme: Theme
 
         legends: LegendProps[]

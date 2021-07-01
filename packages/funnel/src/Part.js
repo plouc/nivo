@@ -9,15 +9,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@bitbloom/nivo-core'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 
 export const Part = ({ part, areaGenerator, borderGenerator }) => {
     const { animate, config: motionConfig } = useMotionConfig()
 
+    const animatedAreaPath = useAnimatedPath(areaGenerator(part.areaPoints))
+    const animatedBorderPath = useAnimatedPath(borderGenerator(part.borderPoints))
     const animatedProps = useSpring({
-        areaPath: areaGenerator(part.areaPoints),
         areaColor: part.color,
-        borderPath: borderGenerator(part.borderPoints),
         borderWidth: part.borderWidth,
         borderColor: part.borderColor,
         config: motionConfig,
@@ -28,7 +28,7 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
         <>
             {part.borderWidth > 0 && (
                 <animated.path
-                    d={animatedProps.borderPath}
+                    d={animatedBorderPath}
                     stroke={animatedProps.borderColor}
                     strokeWidth={animatedProps.borderWidth}
                     strokeOpacity={part.borderOpacity}
@@ -36,7 +36,7 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
                 />
             )}
             <animated.path
-                d={animatedProps.areaPath}
+                d={animatedAreaPath}
                 fill={animatedProps.areaColor}
                 fillOpacity={part.fillOpacity}
                 onMouseEnter={part.onMouseEnter}

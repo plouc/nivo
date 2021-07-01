@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-annotations",
-  "version": "0.62.5",
+  "version": "0.69.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -27,16 +27,20 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.62.5",
+    "@bitbloom/nivo-colors": "^0.69.2",
     "lodash": "^4.17.11",
-    "react-spring": "^8.0.27"
+    "react-spring": "9.1.2"
+  },
+  "devDependencies": {
+    "@bitbloom/nivo-core": "^0.69.2"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "^0.62.0",
+    "@bitbloom/nivo-core": "^0.69.2",
     "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 17.0.0"
+    "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  }
+  },
+  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
 }

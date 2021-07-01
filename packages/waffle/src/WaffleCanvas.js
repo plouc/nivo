@@ -8,8 +8,8 @@
  */
 import React, { Component } from 'react'
 import range from 'lodash.range'
-import setDisplayName from 'recompose/setDisplayName'
-import { isCursorInRect, getRelativeCursor, Container } from '@bitbloom/nivo-core'
+import { setDisplayName } from '@bitbloom/nivo-recompose'
+import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@bitbloom/nivo-core'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
@@ -173,7 +173,7 @@ class WaffleCanvas extends Component {
         const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
 
         return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
+            <LegacyContainer isInteractive={isInteractive} theme={theme} animate={false}>
                 {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {
@@ -191,7 +191,7 @@ class WaffleCanvas extends Component {
                         onClick={this.handleClick}
                     />
                 )}
-            </Container>
+            </LegacyContainer>
         )
     }
 }

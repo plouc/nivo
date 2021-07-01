@@ -6,15 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { compose } from 'recompose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import { compose, defaultProps, pure, withPropsOnChange } from '@bitbloom/nivo-recompose'
 import {
     withTheme,
     withDimensions,
     withMotion,
-    getAccessorFor,
+    getPropertyAccessor,
     getLabelGenerator,
 } from '@bitbloom/nivo-core'
 import { getOrdinalColorScale, getInheritedColorGenerator } from '@bitbloom/nivo-colors'
@@ -30,7 +27,7 @@ export default Component =>
             getColor: getOrdinalColorScale(colors, colorBy),
         })),
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
-            getIndex: getAccessorFor(indexBy),
+            getIndex: getPropertyAccessor(indexBy),
         })),
         withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
             getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),

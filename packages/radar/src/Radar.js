@@ -13,7 +13,7 @@ import {
     useTheme,
     useCurveInterpolation,
     useDimensions,
-    getAccessorFor,
+    usePropertyAccessor,
     SvgWrapper,
 } from '@bitbloom/nivo-core'
 import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
@@ -58,7 +58,7 @@ const Radar = memo(
         legends,
         role,
     }) => {
-        const getIndex = useMemo(() => getAccessorFor(indexBy), [indexBy])
+        const getIndex = usePropertyAccessor(indexBy)
         const indices = useMemo(() => data.map(getIndex), [data, getIndex])
 
         const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -122,18 +122,23 @@ const Radar = memo(
                         label={gridLabel}
                         labelOffset={gridLabelOffset}
                     />
-                    <RadarShapes
-                        data={data}
-                        keys={keys}
-                        colorByKey={colorByKey}
-                        radiusScale={radiusScale}
-                        angleStep={angleStep}
-                        curveInterpolator={curveInterpolator}
-                        borderWidth={borderWidth}
-                        borderColor={borderColor}
-                        fillOpacity={fillOpacity}
-                        blendMode={blendMode}
-                    />
+                    {keys.map(key => (
+                        <RadarShapes
+                            key={key}
+                            {...{
+                                data,
+                                item: key,
+                                colorByKey,
+                                radiusScale,
+                                angleStep,
+                                curveInterpolator,
+                                borderWidth,
+                                borderColor,
+                                fillOpacity,
+                                blendMode,
+                            }}
+                        />
+                    ))}
                     {isInteractive && (
                         <RadarTooltip
                             data={data}

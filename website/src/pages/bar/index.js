@@ -38,6 +38,9 @@ const initialProperties = {
     layout: 'vertical',
     reverse: false,
 
+    valueScale: { type: 'linear' },
+    indexScale: { type: 'band', round: true },
+
     colors: { scheme: 'nivo' },
     colorBy: 'id',
     defs: [

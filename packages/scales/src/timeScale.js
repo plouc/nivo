@@ -18,6 +18,7 @@ export const timeScale = (
         min = 'auto',
         max = 'auto',
         useUTC = true,
+        nice = false,
     },
     xy,
     width,
@@ -44,6 +45,8 @@ export const timeScale = (
 
     const scale = useUTC ? scaleUtc() : scaleTime()
     scale.domain([minValue, maxValue]).range([0, size])
+    if (nice === true) scale.nice()
+    else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice)
 
     scale.type = 'time'
     scale.useUTC = useUTC
@@ -55,4 +58,5 @@ export const timeScalePropTypes = {
     type: PropTypes.oneOf(['time']).isRequired,
     format: PropTypes.string,
     precision: PropTypes.oneOf(timePrecisions),
+    nice: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
 }

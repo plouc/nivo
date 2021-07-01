@@ -9,7 +9,7 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@bitbloom/nivo-core'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 import { BasicTooltip, useTooltip } from '@bitbloom/nivo-tooltip'
 
 const StreamLayer = ({
@@ -33,8 +33,8 @@ const StreamLayer = ({
     )
 
     const { animate, config: springConfig } = useMotionConfig()
+    const animatedPath = useAnimatedPath(layer.path)
     const animatedProps = useSpring({
-        path: layer.path,
         color: layer.color,
         config: springConfig,
         immediate: !animate,
@@ -42,7 +42,7 @@ const StreamLayer = ({
 
     return (
         <animated.path
-            d={animatedProps.path}
+            d={animatedPath}
             fill={layer.fill ? layer.fill : animatedProps.color}
             fillOpacity={fillOpacity}
             stroke={getBorderColor(layer)}

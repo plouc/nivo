@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import shuffle from 'lodash/shuffle'
-import { ResponsiveBullet, BulletDefaultProps } from '@bitbloom/nivo-bullet'
+import { ResponsiveBullet, defaultProps } from '@bitbloom/nivo-bullet'
 import { generateBulletData } from '@bitbloom/nivo-generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
@@ -29,23 +29,22 @@ const initialProperties = {
         bottom: 50,
         left: 90,
     },
-    layout: BulletDefaultProps.layout,
-    reverse: BulletDefaultProps.reverse,
+    layout: defaultProps.layout,
+    reverse: defaultProps.reverse,
     spacing: 46,
-    titlePosition: BulletDefaultProps.titlePosition,
+    titlePosition: defaultProps.titlePosition,
     titleAlign: 'start',
     titleOffsetX: -70,
-    titleOffsetY: BulletDefaultProps.titleOffsetY,
-    titleRotation: BulletDefaultProps.titleRotation,
+    titleOffsetY: defaultProps.titleOffsetY,
+    titleRotation: defaultProps.titleRotation,
     measureSize: 0.2,
     markerSize: 0.6,
-    axisPosition: BulletDefaultProps.axisPosition,
-    rangeColors: BulletDefaultProps.rangeColors,
-    measureColors: BulletDefaultProps.measureColors,
-    markerColors: BulletDefaultProps.markerColors,
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 12,
+    axisPosition: defaultProps.axisPosition,
+    rangeColors: defaultProps.rangeColors,
+    measureColors: defaultProps.measureColors,
+    markerColors: defaultProps.markerColors,
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
 }
 
 const Bullet = () => {
@@ -58,7 +57,7 @@ const Bullet = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BulletDefaultProps}
+            defaultProperties={defaultProps}
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {

@@ -56,7 +56,6 @@ const initialProperties = {
 
     isInteractive: true,
     'custom tooltip example': false,
-    tooltip: null,
 
     legends: [
         {

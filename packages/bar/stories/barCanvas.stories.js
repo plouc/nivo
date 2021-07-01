@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@bitbloom/nivo-generators'
 import { BarCanvas } from '../src'
+import { button } from '@storybook/addon-knobs'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
@@ -36,3 +37,17 @@ stories.add('custom tooltip', () => (
         }}
     />
 ))
+
+stories.add('Get canvas - download the chart', () => {
+    const ref = useRef(undefined)
+
+    button('Download image', () => {
+        const canvas = ref.current
+        const link = document.createElement('a')
+        link.download = 'chart.png'
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+    })
+
+    return <BarCanvas {...commonProps} ref={ref} />
+})

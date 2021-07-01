@@ -12,7 +12,6 @@ import { ordinalColorsPropType } from '@bitbloom/nivo-colors'
 import { axisPropType } from '@bitbloom/nivo-axes'
 import { scalePropType } from '@bitbloom/nivo-scales'
 import { LegendPropShape } from '@bitbloom/nivo-legends'
-import { crosshairPropTypes } from '@bitbloom/nivo-tooltip'
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
 
@@ -128,7 +127,7 @@ const commonPropTypes = {
     sliceTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     enableCrosshair: PropTypes.bool.isRequired,
-    crosshairType: crosshairPropTypes.type.isRequired,
+    crosshairType: PropTypes.string.isRequired,
 }
 
 export const LinePropTypes = {

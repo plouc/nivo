@@ -6,119 +6,61 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { tooltipContext } from '@bitbloom/nivo-tooltip'
-import noop from '../lib/noop'
-import { themeContext } from '../theming'
+import { TooltipProvider, Tooltip } from '@bitbloom/nivo-tooltip'
+import { ThemeProvider } from '../theming'
 import { MotionConfigProvider } from '../motion'
+import { ConditionalWrapper } from './ConditionalWrapper'
 
 const containerStyle = {
     position: 'relative',
 }
 
-const tooltipStyle = {
-    pointerEvents: 'none',
-    position: 'absolute',
-    zIndex: 10,
-}
-
-const Container = ({
+export const Container = ({
     children,
     theme,
+    renderWrapper = true,
     isInteractive = true,
     animate,
     motionStiffness,
     motionDamping,
+    motionConfig,
 }) => {
-    const containerEl = useRef(null)
-    const [state, setState] = useState({
-        isTooltipVisible: false,
-        tooltipContent: null,
-        position: {},
-    })
-    const showTooltip = useCallback(
-        (content, event) => {
-            if (!containerEl) return
-
-            const bounds = containerEl.current.getBoundingClientRect()
-
-            const { clientX, clientY } = event
-
-            const x = clientX - bounds.left
-            const y = clientY - bounds.top
-
-            const position = {}
-
-            if (x < bounds.width / 2) position.left = x + 20
-            else position.right = bounds.width - x + 20
-
-            if (y < bounds.height / 2) position.top = y - 12
-            else position.bottom = bounds.height - y - 12
-
-            setState({
-                isTooltipVisible: true,
-                tooltipContent: content,
-                position,
-            })
-        },
-        [containerEl]
-    )
-    const hideTooltip = useCallback(() => {
-        setState({ isTooltipVisible: false, tooltipContent: null })
-    })
-    const { isTooltipVisible, tooltipContent, position } = state
-
-    let content
-    if (isInteractive === true) {
-        content = (
-            <div style={containerStyle} ref={containerEl}>
-                {children({
-                    showTooltip: isInteractive ? showTooltip : noop,
-                    hideTooltip: isInteractive ? hideTooltip : noop,
-                })}
-                {isTooltipVisible && (
-                    <div
-                        style={{
-                            ...tooltipStyle,
-                            ...position,
-                            ...theme.tooltip,
-                        }}
-                    >
-                        {tooltipContent}
-                    </div>
-                )}
-            </div>
-        )
-    } else {
-        content = children({
-            showTooltip: isInteractive ? showTooltip : noop,
-            hideTooltip: isInteractive ? hideTooltip : noop,
-        })
-    }
+    const container = useRef(null)
 
     return (
-        <themeContext.Provider value={theme}>
+        <ThemeProvider theme={theme}>
             <MotionConfigProvider
                 animate={animate}
                 stiffness={motionStiffness}
                 damping={motionDamping}
+                config={motionConfig}
             >
-                <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
-                    {content}
-                </tooltipContext.Provider>
+                <TooltipProvider container={container}>
+                    {/* we should not render the div element if using the HTTP API */}
+                    <ConditionalWrapper
+                        condition={renderWrapper}
+                        wrapper={<div style={containerStyle} ref={container} />}
+                    >
+                        {children}
+                        {isInteractive && <Tooltip />}
+                    </ConditionalWrapper>
+                </TooltipProvider>
             </MotionConfigProvider>
-        </themeContext.Provider>
+        </ThemeProvider>
     )
 }
 
 Container.propTypes = {
-    children: PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired,
     isInteractive: PropTypes.bool,
-    theme: PropTypes.object.isRequired,
-    animate: PropTypes.bool.isRequired,
+    renderWrapper: PropTypes.bool,
+    theme: PropTypes.object,
+    animate: PropTypes.bool,
     motionStiffness: PropTypes.number,
     motionDamping: PropTypes.number,
+    motionConfig: PropTypes.string,
 }
 
 export default Container

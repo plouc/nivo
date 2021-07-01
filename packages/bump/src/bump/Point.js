@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated, to } from 'react-spring'
 import { useMotionConfig } from '@bitbloom/nivo-core'
 
 const pointStyle = { pointerEvents: 'none' }
@@ -30,7 +30,7 @@ const Point = ({ x, y, size, color, borderColor, borderWidth }) => {
         <animated.circle
             cx={animatedProps.x}
             cy={animatedProps.y}
-            r={animatedProps.radius.interpolate(v => Math.max(v, 0))}
+            r={to(animatedProps.radius, v => Math.max(v, 0))}
             fill={animatedProps.color}
             strokeWidth={animatedProps.borderWidth}
             stroke={borderColor}

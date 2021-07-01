@@ -8,23 +8,15 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
+import { animated } from 'react-spring'
+import { useAnimatedPath, useTheme } from '@bitbloom/nivo-core'
 
-const AnnotationLink = memo(({ points, isOutline }) => {
+const AnnotationLink = memo(({ isOutline, ...props }) => {
     const theme = useTheme()
+    const [point, ...points] = props.points
 
-    let path = `M${points[0][0]},${points[0][1]}`
-    points.slice(1).forEach(point => {
-        path = `${path} L${point[0]},${point[1]}`
-    })
-
-    const { animate, config: springConfig } = useMotionConfig()
-    const animatedProps = useSpring({
-        path,
-        config: springConfig,
-        immediate: !animate,
-    })
+    const path = points.reduce((acc, [x, y]) => `${acc} L${x},${y}`, `M${point[0]},${point[1]}`)
+    const animatedPath = useAnimatedPath(path)
 
     if (isOutline && theme.annotations.link.outlineWidth <= 0) {
         return null
@@ -38,7 +30,7 @@ const AnnotationLink = memo(({ points, isOutline }) => {
         style.stroke = theme.annotations.link.outlineColor
     }
 
-    return <animated.path fill="none" d={animatedProps.path} style={style} />
+    return <animated.path fill="none" d={animatedPath} style={style} />
 })
 
 AnnotationLink.displayName = 'AnnotationLink'

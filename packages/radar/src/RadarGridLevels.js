@@ -9,60 +9,70 @@
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
-import { useTransition, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
+import { animated, useSpring, to } from 'react-spring'
+import { useTheme, useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 
-const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
+const RadarGridLevelCircular = memo(({ radius }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
-    let transitions
+
+    const animatedProps = useSpring({
+        radius,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    return (
+        <animated.circle
+            fill="none"
+            r={to(animatedProps.radius, value => Math.max(value, 0))}
+            {...theme.grid.line}
+        />
+    )
+})
+
+RadarGridLevelCircular.displayName = 'RadarGridLevelCircular'
+RadarGridLevelCircular.propTypes = {
+    radius: PropTypes.number.isRequired,
+}
+
+const RadarGridLevelLinear = memo(({ radius, angleStep, dataLength }) => {
+    const theme = useTheme()
 
     const radarLineGenerator = useMemo(
         () =>
             lineRadial()
                 .angle(i => i * angleStep)
+                .radius(radius)
                 .curve(curveLinearClosed),
-        [angleStep]
+        [angleStep, radius]
     )
 
-    if (shape === 'circular') {
-        transitions = useTransition(radii, (_, i) => `level.${i}`, {
-            enter: radius => ({ radius }),
-            update: radius => ({ radius }),
-            leave: { radius: 0 },
-            config: springConfig,
-            immediate: !animate,
-        })
-
-        return transitions.map(({ props: animatedProps, key }) => (
-            <animated.circle
-                key={key}
-                fill="none"
-                r={animatedProps.radius.interpolate(v => Math.max(v, 0))}
-                {...theme.grid.line}
-            />
-        ))
-    }
-
     const points = Array.from({ length: dataLength }, (_, i) => i)
+    const animatedPath = useAnimatedPath(radarLineGenerator(points))
 
-    transitions = useTransition(radii, (_, i) => `level.${i}`, {
-        enter: radius => ({ path: radarLineGenerator.radius(radius)(points) }),
-        update: radius => ({ path: radarLineGenerator.radius(radius)(points) }),
-        leave: { path: radarLineGenerator.radius(0)(points) },
-        config: springConfig,
-        immediate: !animate,
-    })
+    return <animated.path fill="none" d={animatedPath} {...theme.grid.line} />
+})
 
-    return transitions.map(({ props: animatedProps, key }) => (
-        <animated.path key={key} fill="none" d={animatedProps.path} {...theme.grid.line} />
-    ))
+RadarGridLevelLinear.displayName = 'RadarGridLevelLinear'
+RadarGridLevelLinear.propTypes = {
+    radius: PropTypes.number.isRequired,
+    angleStep: PropTypes.number.isRequired,
+    dataLength: PropTypes.number.isRequired,
+}
+
+const RadarGridLevels = memo(({ shape, ...props }) => {
+    return shape === 'circular' ? (
+        <RadarGridLevelCircular radius={props.radius} />
+    ) : (
+        <RadarGridLevelLinear {...props} />
+    )
 })
 
 RadarGridLevels.displayName = 'RadarGridLevels'
 RadarGridLevels.propTypes = {
     shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
-    radii: PropTypes.arrayOf(PropTypes.number).isRequired,
+    radius: PropTypes.number.isRequired,
     angleStep: PropTypes.number.isRequired,
     dataLength: PropTypes.number.isRequired,
 }

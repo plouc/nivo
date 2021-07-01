@@ -9,7 +9,7 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { blendModePropType, useMotionConfig } from '@bitbloom/nivo-core'
+import { blendModePropType, useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 import { BasicTooltip, Chip, useTooltip } from '@bitbloom/nivo-tooltip'
 import SankeyLinkGradient from './SankeyLinkGradient'
 
@@ -73,8 +73,8 @@ const SankeyLinksItem = ({
     const linkId = `${link.source.id}.${link.target.id}`
 
     const { animate, config: springConfig } = useMotionConfig()
+    const animatedPath = useAnimatedPath(path)
     const animatedProps = useSpring({
-        path,
         color,
         opacity,
         config: springConfig,
@@ -129,8 +129,8 @@ const SankeyLinksItem = ({
                 />
             )}
             <animated.path
-                fill={enableGradient ? `url(#${encodeURI(linkId)})` : animatedProps.color}
-                d={animatedProps.path}
+                fill={enableGradient ? `url("#${encodeURI(linkId)}")` : animatedProps.color}
+                d={animatedPath}
                 fillOpacity={animatedProps.opacity}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
                 onMouseMove={isInteractive ? handleMouseMove : undefined}

@@ -51,11 +51,10 @@ init: ##@0 global cleanup/install/bootstrap
 	@yarn install
 	@$(MAKE) bootstrap
 	@$(MAKE) packages-build
-	#@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
-		"packages/*/{src,stories,tests}/**/*.{js,ts}" \
+		"packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
@@ -66,7 +65,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@./node_modules/.bin/prettier --color --list-different \
-        "packages/*/{src,stories,tests}/**/*.{js,ts}" \
+        "packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
@@ -118,36 +117,11 @@ package-lint-%: ##@1 packages run eslint on package
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
-package-tslint-%: ##@1 packages run tslint on package
-	@echo "${YELLOW}Running tslint on package ${WHITE}@bitbloom/nivo-${*}${RESET}"
-	@./node_modules/.bin/tslint ./packages/${*}/index.d.ts
-
-packages-tslint: ##@1 packages run tslint on all packages
-	@echo "${YELLOW}Running tslint on all packages${RESET}"
-	@./node_modules/.bin/tslint \
-        ./packages/annotations/index.d.ts \
-        ./packages/axes/index.d.ts \
-        ./packages/bar/index.d.ts \
-        ./packages/calendar/index.d.ts \
-        ./packages/chord/index.d.ts \
-        ./packages/colors/index.d.ts \
-        ./packages/core/index.d.ts \
-        ./packages/geo/index.d.ts \
-        ./packages/heatmap/index.d.ts \
-        ./packages/legends/index.d.ts \
-        ./packages/line/index.d.ts \
-        ./packages/network/index.d.ts \
-        ./packages/pie/index.d.ts \
-        ./packages/radar/index.d.ts \
-        ./packages/sankey/index.d.ts \
-        ./packages/scales/index.d.ts \
-        ./packages/scatterplot/index.d.ts \
-        ./packages/stream/index.d.ts \
-        ./packages/swarmplot/index.d.ts \
-        ./packages/waffle/index.d.ts \
-        ./packages/voronoi/index.d.ts
+packages-lint-fix: ##@1 packages run eslint on all packages with a fix option
+	@echo "${YELLOW}Running eslint on all packages${RESET}"
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
@@ -155,36 +129,65 @@ package-test-cover-%: ##@1 packages run tests for a package with code coverage
 package-test-%: ##@1 packages run tests for a package
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
 
+package-watch-test-%: ##@1 packages run tests for a package and watch for changes
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
+
+package-watch-test-%: ##@1 packages run tests for a package and watch for changes
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
 
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
+packages-watch-test: ##@1 packages run tests for all packages and watch for changes
+	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
+
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
-	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
-packages-build: ##@1 packages build all packages
+packages-types: ##@1 packages build all package types
+	@echo "${YELLOW}Building TypeScript types for all packages${RESET}"
+	@yarn tsc -b ./tsconfig.monorepo.json
+
+packages-build: packages-types ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
-	@find ./packages -type d -maxdepth 1 ! -path ./packages ! -path ./packages/babel-preset \
+	@find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
         | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
-package-build-%: ##@1 packages build a package
+package-types-%: ##@1 packages build a package types
+	@if [ -f "./packages/${*}/tsconfig.json" ]; \
+    then \
+        echo "${YELLOW}Building TypeScript types for package ${WHITE}@bitbloom/nivo-${*}${RESET}"; \
+        rm -rf ./packages/${*}/dist/types; \
+        rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
+        yarn tsc -b ./packages/${*}; \
+    else \
+        echo "${YELLOW}Package ${WHITE}@bitbloom/nivo-${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
+    fi;
+
+package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
-	@rm -rf ./packages/${*}/dist
+	@-rm -rf ./packages/${*}/dist/nivo-${*}*
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
 
-packages-publish: ##@1 packages publish all packages
-	#@$(MAKE) packages-build
-
+packages-publish-ci: ##@1 packages publish all packages
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish from-git --yes
+
+packages-publish: ##@1 packages publish all packages
+	@$(MAKE) packages-build
+
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish --exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build

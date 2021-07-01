@@ -15,7 +15,7 @@ import {
     CartesianMarkerProps,
     CssMixBlendMode,
 } from '@bitbloom/nivo-core'
-import { OrdinalColorsInstruction } from '@bitbloom/nivo-colors'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
 import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
 import { Scale } from '@bitbloom/nivo-scales'
@@ -34,7 +34,7 @@ declare module '@bitbloom/nivo-scatterplot' {
     export type DerivedDatumProp<T> = (node: Datum) => T
 
     export interface Serie {
-        id: string
+        id: string | number
         data: Datum[]
     }
 
@@ -48,6 +48,7 @@ declare module '@bitbloom/nivo-scatterplot' {
             color: string
         }
         data: {
+            id: string | number
             serieId: string
             x: Value
             formattedX: string | number
@@ -125,7 +126,7 @@ declare module '@bitbloom/nivo-scatterplot' {
         margin?: Box
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         blendMode?: CssMixBlendMode
 
         enableGridX?: boolean
@@ -137,7 +138,7 @@ declare module '@bitbloom/nivo-scatterplot' {
         axisBottom?: AxisProps | null
         axisLeft?: AxisProps | null
 
-        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec
+        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec | DerivedNodeProp<number>
 
         isInteractive?: boolean
         useMesh?: boolean

@@ -9,7 +9,7 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@bitbloom/nivo-core'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
 import ParallelCoordinatesLineTooltip from './ParallelCoordinatesLineTooltip'
 
@@ -34,8 +34,8 @@ const ParallelCoordinatesLine = ({
     )
 
     const { animate, config: springConfig } = useMotionConfig()
+    const animatedPath = useAnimatedPath(lineGenerator(points))
     const animatedProps = useSpring({
-        path: lineGenerator(points),
         color,
         opacity,
         config: springConfig,
@@ -44,7 +44,7 @@ const ParallelCoordinatesLine = ({
 
     return (
         <animated.path
-            d={animatedProps.path}
+            d={animatedPath}
             stroke={animatedProps.color}
             strokeWidth={strokeWidth}
             strokeLinecap="round"

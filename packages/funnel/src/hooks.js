@@ -554,8 +554,6 @@ export const useFunnel = ({
 }
 
 export const useFunnelAnnotations = (parts, annotations) => {
-    if (annotations.length === 0) return []
-
     return useAnnotations({
         items: parts,
         annotations,

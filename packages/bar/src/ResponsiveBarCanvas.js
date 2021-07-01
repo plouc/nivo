@@ -10,10 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import BarCanvas from './BarCanvas'
 
-const ResponsiveBarCanvas = props => (
+const ResponsiveBarCanvas = (props, ref) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <BarCanvas width={width} height={height} {...props} />}
+        {({ width, height }) => <BarCanvas width={width} height={height} {...props} ref={ref} />}
     </ResponsiveWrapper>
 )
 
-export default ResponsiveBarCanvas
+export default React.forwardRef(ResponsiveBarCanvas)
