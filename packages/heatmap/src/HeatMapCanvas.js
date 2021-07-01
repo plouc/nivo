@@ -42,6 +42,7 @@ const HeatMapCanvas = ({
     axisLeft,
     enableLabels,
     labelTextColor,
+    legends,
     colors,
     nanColor,
     isInteractive,
@@ -61,7 +62,7 @@ const HeatMapCanvas = ({
         partialMargin
     )
 
-    const { cells, xScale, yScale, offsetX, offsetY, currentCellId, setCurrentCellId } = useHeatMap(
+    const { cells, colorScale, xScale, yScale, offsetX, offsetY, currentCellId, setCurrentCellId } = useHeatMap(
         {
             data,
             keys,
@@ -122,13 +123,26 @@ const HeatMapCanvas = ({
         cells.forEach(cell => {
             renderCell(ctx, { enableLabels, theme }, cell)
         })
+
+        if (legends) {
+            renderLegendToCanvas(ctx, {
+                data: colors.map(c => ({ color: c, label: Number(colorScale.invertExtent(c)[0]).toFixed(2) })),
+                ...legends,
+                containerWidth: width,
+                containerHeight: height,
+                containerHeight: innerHeight,
+                theme,
+            })
+        }
     }, [
         canvasEl,
         cells,
+        colorScale,
         outerWidth,
         outerHeight,
         innerWidth,
         innerHeight,
+        legends,
         margin,
         offsetX,
         offsetY,
