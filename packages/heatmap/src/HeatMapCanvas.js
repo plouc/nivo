@@ -137,6 +137,7 @@ const HeatMapCanvas = ({
     }, [
         canvasEl,
         cells,
+        colors,
         colorScale,
         outerWidth,
         outerHeight,
