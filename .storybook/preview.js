@@ -4,6 +4,10 @@
 import theme from './theme'
 
 export const parameters = {
+    controls: {
+        hideNoControlsWarning: true,
+        sort: 'alpha',
+    },
     layout: 'centered',
     options: { theme },
     // options: {
