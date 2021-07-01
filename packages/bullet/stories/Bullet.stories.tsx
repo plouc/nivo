@@ -16,64 +16,22 @@ const data = [
     generateBulletData('revenue', 2, { float: true }),
 ]
 
-const commonProps = {
-    width: 900,
-    height: 360,
-    margin: { top: 10, right: 30, bottom: 50, left: 110 },
-    titleOffsetX: -80,
-    data,
-    spacing: 80,
-    animate: true,
-    layout: 'horizontal',
-} as const
-
 export default {
-    title: 'Bullet',
     component: Bullet,
-    args: commonProps,
-    argTypes: {
-        maxValueAuto: {
-            name: 'maxValue.auto',
-            defaultValue: false,
-            description: `Passes 'auto' to maxValue.`,
-            control: {
-                type: 'boolean',
-            },
-        },
-        maxValueValue: {
-            name: 'maxValue.value',
-            defaultValue: 100,
-            description: `Passes value to maxValue if 'maxValue.auto' is false.`,
-            control: {
-                type: 'range',
-                min: 40,
-                max: 100,
-                step: 1,
-            },
-        },
-        minValueAuto: {
-            name: 'minValue.auto',
-            defaultValue: true,
-            description: `Passes 'auto' to minValue.`,
-            control: {
-                type: 'boolean',
-            },
-        },
-        minValueValue: {
-            name: 'minValue.value',
-            defaultValue: 0,
-            description: `Passes value to minValue if 'minValue.auto' is false.`,
-            control: {
-                type: 'range',
-                min: 0,
-                max: 10,
-                step: 1,
-            },
-        },
+    args: {
+        animate: true,
+        data,
+        height: 360,
+        layout: 'horizontal',
+        margin: { top: 10, right: 30, bottom: 50, left: 110 },
+        titleOffsetX: -80,
+        spacing: 80,
+        width: 900,
     },
     parameters: {
         controls: { include: ['animate', 'layout'] },
     },
+    title: 'Bullet',
 } as Meta
 
 const Template: Story<BulletStoryProps> = ({
@@ -84,7 +42,6 @@ const Template: Story<BulletStoryProps> = ({
     ...args
 }) => (
     <Bullet
-        {...commonProps}
         {...args}
         maxValue={maxValueAuto ? 'auto' : maxValueValue}
         minValue={minValueAuto ? 'auto' : minValueValue}
@@ -99,7 +56,7 @@ Layout.args = {
     layout: 'vertical',
     height: 500,
     spacing: 240,
-    margin: { ...commonProps.margin, top: 70 },
+    margin: { top: 70, right: 30, bottom: 50, left: 110 },
     titleAlign: 'start',
     titleOffsetX: 0,
     titleOffsetY: -15,
@@ -258,13 +215,54 @@ CustomTitle.args = {
             </text>
         ),
     })),
-    margin: { ...commonProps.margin, left: 140 },
+    margin: { top: 10, right: 30, bottom: 50, left: 140 },
     titleOffsetX: -110,
 }
 
 export const MinMaxValue: Story<BulletStoryProps> = Template.bind({})
 
 MinMaxValue.storyName = 'Support minValue/maxValue Property'
+
+MinMaxValue.argTypes = {
+    maxValueAuto: {
+        name: 'maxValue.auto',
+        defaultValue: false,
+        description: `Passes 'auto' to maxValue.`,
+        control: {
+            type: 'boolean',
+        },
+    },
+    maxValueValue: {
+        name: 'maxValue.value',
+        defaultValue: 100,
+        description: `Passes value to maxValue if 'maxValue.auto' is false.`,
+        control: {
+            type: 'range',
+            min: 40,
+            max: 100,
+            step: 1,
+        },
+    },
+    minValueAuto: {
+        name: 'minValue.auto',
+        defaultValue: true,
+        description: `Passes 'auto' to minValue.`,
+        control: {
+            type: 'boolean',
+        },
+    },
+    minValueValue: {
+        name: 'minValue.value',
+        defaultValue: 0,
+        description: `Passes value to minValue if 'minValue.auto' is false.`,
+        control: {
+            type: 'range',
+            min: 0,
+            max: 10,
+            step: 1,
+        },
+    },
+}
 
 MinMaxValue.args = {
     data: [
@@ -276,10 +274,10 @@ MinMaxValue.args = {
         },
     ],
     height: 120,
-    minValueAuto: true,
-    minValueValue: 0,
     maxValueAuto: false,
     maxValueValue: 100,
+    minValueAuto: true,
+    minValueValue: 0,
 }
 
 MinMaxValue.parameters = {
@@ -287,10 +285,10 @@ MinMaxValue.parameters = {
         include: [
             'animate',
             'layout',
-            'minValueAuto',
-            'minValueValue',
-            'maxValueAuto',
-            'maxValueValue',
+            'maxValue.auto',
+            'maxValue.value',
+            'minValue.auto',
+            'minValue.value',
         ],
     },
 }
