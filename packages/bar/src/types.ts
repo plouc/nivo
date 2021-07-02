@@ -163,7 +163,10 @@ export interface BarItemProps<RawDatum>
 export type RenderBarProps<RawDatum> = Omit<
     BarItemProps<RawDatum>,
     'isInteractive' | 'style' | 'tooltip'
->
+> & {
+    borderColor: string
+    labelColor: string
+}
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
