@@ -1,5 +1,5 @@
 import { BarDatum, BarItemProps } from './types'
-import { animated } from '@react-spring/web'
+import { animated, to } from '@react-spring/web'
 import { createElement, useCallback } from 'react'
 import { useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -7,15 +7,23 @@ import { useTooltip } from '@nivo/tooltip'
 export const BarItem = <RawDatum extends BarDatum>({
     bar: { data, ...bar },
 
-    style: { height, transform, width, x, y, ...style },
+    style: {
+        borderColor,
+        color,
+        height,
+        labelColor,
+        labelOpacity,
+        labelX,
+        labelY,
+        transform,
+        width,
+    },
 
     borderRadius,
     borderWidth,
-    borderColor,
 
     label,
     shouldRenderLabel,
-    labelColor,
 
     isInteractive,
     onClick,
@@ -56,11 +64,11 @@ export const BarItem = <RawDatum extends BarDatum>({
     return (
         <animated.g transform={transform}>
             <animated.rect
-                width={width}
-                height={height}
+                width={to(width, value => Math.max(value, 0))}
+                height={to(height, value => Math.max(value, 0))}
                 rx={borderRadius}
                 ry={borderRadius}
-                fill={data.fill ?? style.color}
+                fill={data.fill ?? color}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
@@ -70,10 +78,11 @@ export const BarItem = <RawDatum extends BarDatum>({
             />
             {shouldRenderLabel && (
                 <animated.text
-                    x={x}
-                    y={y}
+                    x={labelX}
+                    y={labelY}
                     textAnchor="middle"
                     dominantBaseline="central"
+                    fillOpacity={labelOpacity}
                     style={{
                         ...theme.labels.text,
                         pointerEvents: 'none',
