@@ -143,26 +143,30 @@ export interface BarItemProps<RawDatum>
         }
     }
 
-    borderColor: string
-
     style: SpringValues<{
+        borderColor: string
         color: string
         height: number
+        labelColor: string
+        labelOpacity: number
+        labelX: number
+        labelY: number
+        opacity: number
         transform: string
         width: number
-        x: number
-        y: number
     }>
 
     label: string
-    labelColor: string
     shouldRenderLabel: boolean
 }
 
 export type RenderBarProps<RawDatum> = Omit<
     BarItemProps<RawDatum>,
     'isInteractive' | 'style' | 'tooltip'
->
+> & {
+    borderColor: string
+    labelColor: string
+}
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
@@ -198,7 +202,7 @@ export type BarCommonProps<RawDatum> = {
     enableGridY: boolean
     gridYValues?: GridValues<string | number>
 
-    borderColor: InheritedColorConfig<ComputedBarDatum<RawDatum>>
+    borderColor: InheritedColorConfig<ComputedBarDatumWithValue<RawDatum>>
     borderRadius: number
     borderWidth: number
 
@@ -207,7 +211,7 @@ export type BarCommonProps<RawDatum> = {
     labelFormat: string | LabelFormatter
     labelSkipWidth: number
     labelSkipHeight: number
-    labelTextColor: InheritedColorConfig<ComputedBarDatum<RawDatum>>
+    labelTextColor: InheritedColorConfig<ComputedBarDatumWithValue<RawDatum>>
 
     isInteractive: boolean
 

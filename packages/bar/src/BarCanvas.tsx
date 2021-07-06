@@ -189,11 +189,17 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const formatValue = useValueFormatter(valueFormat)
-    const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
+    const getBorderColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
+        borderColor,
+        theme
+    )
     const getColor = useOrdinalColorScale(colors, colorBy)
     const getIndex = usePropertyAccessor(indexBy)
     const getLabel = usePropertyAccessor(label)
-    const getLabelColor = useInheritedColor<ComputedBarDatum<RawDatum>>(labelTextColor, theme)
+    const getLabelColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
+        labelTextColor,
+        theme
+    )
     const getTooltipLabel = usePropertyAccessor(tooltipLabel)
 
     const options = {
@@ -362,11 +368,11 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 barsWithValue.forEach(bar => {
                     renderBar(ctx, {
                         bar,
-                        borderColor: getBorderColor(bar),
+                        borderColor: getBorderColor(bar) as string,
                         borderRadius,
                         borderWidth,
                         label: getLabel(bar.data),
-                        labelColor: getLabelColor(bar),
+                        labelColor: getLabelColor(bar) as string,
                         shouldRenderLabel: shouldRenderLabel(bar),
                     })
                 })

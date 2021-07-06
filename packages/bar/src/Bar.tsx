@@ -5,7 +5,6 @@ import {
     BarLayer,
     BarLayerId,
     BarSvgProps,
-    ComputedBarDatum,
     ComputedBarDatumWithValue,
     LegendData,
 } from './types'
@@ -118,11 +117,17 @@ const InnerBar = <RawDatum extends BarDatum>({
     )
 
     const formatValue = useValueFormatter(valueFormat)
-    const getBorderColor = useInheritedColor<ComputedBarDatum<RawDatum>>(borderColor, theme)
+    const getBorderColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
+        borderColor,
+        theme
+    )
     const getColor = useOrdinalColorScale(colors, colorBy)
     const getIndex = usePropertyAccessor(indexBy)
     const getLabel = usePropertyAccessor(label)
-    const getLabelColor = useInheritedColor<ComputedBarDatum<RawDatum>>(labelTextColor, theme)
+    const getLabelColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
+        labelTextColor,
+        theme
+    )
     const getTooltipLabel = usePropertyAccessor(tooltipLabel)
 
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
@@ -164,23 +169,70 @@ const InnerBar = <RawDatum extends BarDatum>({
         [result.bars]
     )
 
-    const transition = useTransition(barsWithValue, {
-        keys: bar => bar.key,
-        enter: bar => ({
-            x: bar.width / 2,
-            y: bar.height / 2,
-            width: bar.width,
-            height: bar.height,
+    const transition = useTransition<
+        ComputedBarDatumWithValue<RawDatum>,
+        {
+            borderColor: string
+            color: string
+            height: number
+            labelColor: string
+            labelOpacity: number
+            labelX: number
+            labelY: number
+            opacity: number
+            transform: string
+            width: number
+        }
+    >(barsWithValue, {
+        keys: bar => `${bar.key}.${layout}.${reverse}.${groupMode}`,
+        from: bar => ({
+            borderColor: getBorderColor(bar) as string,
             color: bar.color,
-            transform: `translate(${bar.x}, ${bar.y})`,
+            height: 0,
+            labelColor: getLabelColor(bar) as string,
+            labelOpacity: 0,
+            labelX: bar.width / 2,
+            labelY: bar.height / 2,
+            transform: `translate(${bar.x}, ${bar.y + bar.height})`,
+            width: bar.width,
+            ...(layout === 'vertical'
+                ? {}
+                : {
+                      height: bar.height,
+                      transform: `translate(${bar.x}, ${bar.y})`,
+                      width: 0,
+                  }),
         }),
-        update: bar => ({
-            x: bar.width / 2,
-            y: bar.height / 2,
-            width: bar.width,
-            height: bar.height,
+        enter: bar => ({
+            borderColor: getBorderColor(bar) as string,
             color: bar.color,
+            height: bar.height,
+            labelColor: getLabelColor(bar) as string,
+            labelOpacity: 1,
+            labelX: bar.width / 2,
+            labelY: bar.height / 2,
             transform: `translate(${bar.x}, ${bar.y})`,
+            width: bar.width,
+        }),
+        leave: bar => ({
+            borderColor: getBorderColor(bar) as string,
+            color: bar.color,
+            height: 0,
+            labelColor: getLabelColor(bar) as string,
+            labelOpacity: 0,
+            labelX: bar.width / 2,
+            labelY: 0,
+            transform: `translate(${bar.x}, ${bar.y + bar.height})`,
+            width: bar.width,
+            ...(layout === 'vertical'
+                ? {}
+                : {
+                      labelX: 0,
+                      labelY: bar.height / 2,
+                      height: bar.height,
+                      transform: `translate(${bar.x}, ${bar.y})`,
+                      width: 0,
+                  }),
         }),
         config: springConfig,
         immediate: !animate,
@@ -271,8 +323,6 @@ const InnerBar = <RawDatum extends BarDatum>({
                         style,
                         shouldRenderLabel: shouldRenderLabel(bar),
                         label: getLabel(bar.data),
-                        labelColor: getLabelColor(bar),
-                        borderColor: getBorderColor(bar),
                     })
                 )}
             </Fragment>
