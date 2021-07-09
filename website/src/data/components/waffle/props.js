@@ -1,12 +1,4 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { WaffleDefaultProps } from '@nivo/waffle'
+import { defaultProps as defaults } from '@nivo/waffle'
 import {
     themeProperty,
     motionProperties,
@@ -14,8 +6,6 @@ import {
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-
-const defaults = WaffleDefaultProps
 
 const props = [
     {
@@ -42,6 +32,21 @@ const props = [
         `,
         type: 'object[]',
         required: true,
+    },
+    {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+            
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
     },
     // {
     //     key: 'hiddenIds',
@@ -103,7 +108,8 @@ const props = [
         key: 'padding',
         type: 'number',
         help: 'Padding between each cell.',
-        required: true,
+        required: false,
+        defaultValue: defaults.padding,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -162,21 +168,6 @@ const props = [
     },
     themeProperty,
     {
-        key: 'cellComponent',
-        flavors: ['svg', 'html'],
-        help: 'Override default cell component.',
-        type: 'Function',
-        required: false,
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: ['default', 'Custom(props) => (…)'].map(key => ({
-                label: key,
-                value: key,
-            })),
-        },
-    },
-    {
         key: 'colors',
         help: 'Defines how to compute node color.',
         type: 'string | Function | string[]',
@@ -223,6 +214,72 @@ const props = [
     },
     ...defsProperties('Style', ['svg']),
     {
+        key: 'cellComponent',
+        group: 'Customization',
+        flavors: ['svg', 'html'],
+        help: 'Override default cell component.',
+        type: 'Function',
+        required: false,
+        controlType: 'choices',
+        controlOptions: {
+            choices: ['default', 'Custom(props) => (…)'].map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
+    {
+        key: 'renderCell',
+        group: 'Customization',
+        flavors: ['canvas'],
+        help: 'Override default cell rendering for canvas implementation.',
+        type: 'Function',
+        required: false,
+    },
+    {
+        key: 'layers',
+        group: 'Customization',
+        help: `
+            Defines the order of layers and add custom layers,
+            the legends layer is not available for WaffleHtml.
+        `,
+        description: `
+            You can also use this to insert extra layers
+            to the chart, the extra layer must be a function.
+            
+            The layer component which will receive the chart's
+            context & computed data and must return a valid SVG element
+            for the \`Waffle\` component or an HTML one for \`WaffleHtml\`.
+
+            When using the canvas implementation, the function
+            will receive the canvas 2d context as first argument
+            and the chart's context and computed data as second.
+
+            Please make sure to use \`context.save()\` and
+            \`context.restore()\` if you make some global
+            modifications to the 2d context inside this function
+            to avoid side effects.
+            
+            The context passed to layers has the following structure:
+            
+            \`\`\`
+            {
+                cells:          Cell[],
+                cellSize:       number
+                borderWidth:    number
+                getBorderColor: number
+                origin: {
+                    x: number
+                    y: number
+                }
+            }
+            \`\`\`
+        `,
+        required: false,
+        type: 'Array<string | Function>',
+        defaultValue: ['cells', 'legends'],
+    },
+    {
         key: 'isInteractive',
         help: 'Enable/disable interactivity.',
         type: 'boolean',
@@ -232,38 +289,73 @@ const props = [
         group: 'Interactivity',
     },
     {
+        key: 'onMouseEnter',
+        flavors: ['svg', 'html'],
+        group: 'Interactivity',
+        help: 'onMouseEnter handler, it receives target cell data and mouse event.',
+        type: '(cell: Cell, event: MouseEvent) => void',
+        required: false,
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        help: 'onMouseMove handler, it receives target cell data and mouse event.',
+        type: '(cell: Cell, event: MouseEvent) => void',
+        required: false,
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        flavors: ['svg', 'html'],
+        help: 'onMouseLeave handler, it receives target cell data and mouse event.',
+        type: '(cell: Cell, event: MouseEvent) => void',
+        required: false,
+    },
+    {
         key: 'onClick',
         group: 'Interactivity',
-        help: 'onClick handler, it receives clicked node data and style plus mouse event.',
-        type: 'Function',
+        help: 'onClick handler, it receives target cell data and mouse event.',
+        type: '(cell: Cell, event: MouseEvent) => void',
         required: false,
     },
     {
         key: 'tooltip',
         group: 'Interactivity',
-        type: 'Function',
+        type: '({ cell: DataCell }) => JSX.Element',
         required: false,
-        help: 'Custom tooltip component',
+        help: 'Overrides default tooltip component.',
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will
-            receive the following data:
+            receive the following properties:
             \`\`\`
             {
-                id:         {string|number},
-                value:      number,
-                label:      {string|number},
-                color:      string,
-                position:   number,
-                row:        number,
-                column:     number,
-                groupIndex: number,
-                startAt:    number,
-                endAt:      number,
+                // cell with data, only cell having data
+                // trigger the tooltip
+                cell: {
+                    position: number
+                    column:   number
+                    row:      number
+                    x:        number
+                    y:        number
+                    color:    string
+                    // normalized data
+                    data: {
+                        id:             string | number
+                        label:          string | number
+                        value:          number
+                        formattedValue: string | number
+                        groupIndex:     number
+                        startAt:        number
+                        endAt:          number
+                        // raw data as passed to the chart
+                        data: { /* ... */ }
+                    }
+                }
             }
             \`\`\`
-            You can customize the tooltip style
-            using the \`theme.tooltip\` object.
+            Please note that you can also customize the default
+            tooltip style using the \`theme.tooltip\` object.
         `,
     },
     {
@@ -312,7 +404,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    ...motionProperties(['svg', 'html'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

@@ -21,26 +21,25 @@
   ],
   "main": "./dist/nivo-waffle.cjs.js",
   "module": "./dist/nivo-waffle.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
     "@nivo/colors": "0.72.0",
     "@nivo/legends": "0.72.0",
-    "@nivo/recompose": "0.72.0",
     "@nivo/tooltip": "0.72.0",
     "lodash": "^4.17.21",
-    "react-motion": "^0.5.2"
+    "@react-spring/web": "9.2.0"
   },
   "devDependencies": {
-    "@nivo/core": "0.72.0"
+    "@nivo/core": "0.72.0",
+    "@types/lodash": "^4.14.170"
   },
   "peerDependencies": {
     "@nivo/core": "0.72.0",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {

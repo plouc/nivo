@@ -1,42 +1,40 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import styled from 'styled-components'
 
 const TooltipWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 12px;
+    grid-template-columns: auto auto;
+    grid-column-gap: 16px;
+    background: #111;
+    font-size: 12px;
+    padding: 12px 16px;
+    border-radius: 2px;
 `
 const TooltipKey = styled.span`
+    text-decoration: underline;
+`
+const TooltipValue = styled.span`
     font-weight: 600;
 `
-const TooltipValue = styled.span``
 
-const CustomTooltip = node => (
-    <TooltipWrapper style={{ color: node.color }}>
+const CustomTooltip = ({ cell }) => (
+    <TooltipWrapper style={{ color: cell.color }}>
         <TooltipKey>label</TooltipKey>
-        <TooltipValue>{node.label}</TooltipValue>
+        <TooltipValue>{cell.data.label}</TooltipValue>
         <TooltipKey>id</TooltipKey>
-        <TooltipValue>{node.id}</TooltipValue>
+        <TooltipValue>{cell.data.id}</TooltipValue>
         <TooltipKey>value</TooltipKey>
-        <TooltipValue>{node.value}</TooltipValue>
+        <TooltipValue>{cell.data.value}</TooltipValue>
         <TooltipKey>position</TooltipKey>
-        <TooltipValue>{node.position}</TooltipValue>
+        <TooltipValue>{cell.position}</TooltipValue>
         <TooltipKey>groupIndex</TooltipKey>
-        <TooltipValue>{node.groupIndex}</TooltipValue>
+        <TooltipValue>{cell.groupIndex}</TooltipValue>
         <TooltipKey>row</TooltipKey>
-        <TooltipValue>{node.row}</TooltipValue>
+        <TooltipValue>{cell.row}</TooltipValue>
         <TooltipKey>column</TooltipKey>
-        <TooltipValue>{node.column}</TooltipValue>
+        <TooltipValue>{cell.column}</TooltipValue>
         <TooltipKey>color</TooltipKey>
-        <TooltipValue>{node.color}</TooltipValue>
+        <TooltipValue>{cell.color}</TooltipValue>
     </TooltipWrapper>
 )
 

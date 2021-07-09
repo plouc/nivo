@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveWaffleCanvas, WaffleDefaultProps } from '@nivo/waffle'
+import { ResponsiveWaffleCanvas, defaultProps } from '@nivo/waffle'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
@@ -59,8 +51,9 @@ const generateData = () => [
 ]
 
 const initialProperties = {
-    pixelRatio:
-        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio: defaultProps.pixelRatio,
+
+    valueFormat: { format: ' >-,.3f', enabled: true },
 
     total: 140,
 
@@ -130,7 +123,7 @@ const WaffleCanvas = () => {
             properties={groups}
             propertiesMapper={mapper}
             initialProperties={initialProperties}
-            defaultProperties={WaffleDefaultProps}
+            defaultProperties={defaultProps}
             codePropertiesMapper={properties => ({
                 ...properties,
                 cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
@@ -146,8 +139,8 @@ const WaffleCanvas = () => {
                         theme={theme}
                         onClick={node => {
                             let label
-                            if (node.data.value !== undefined) {
-                                label = `${node.data.label}: ${node.data.value} (position: ${node.position})`
+                            if (node.data !== undefined) {
+                                label = `${node.data.label}: ${node.data.formattedValue} (position: ${node.position})`
                             } else {
                                 label = `empty at position: ${node.position}`
                             }

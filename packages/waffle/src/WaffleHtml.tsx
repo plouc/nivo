@@ -1,14 +1,123 @@
+import { createElement, Fragment, ReactNode } from 'react'
+// @ts-ignore
+import { withContainer, useDimensions } from '@nivo/core'
+import { Datum, DefaultRawDatum, HtmlProps, HtmlLayerId } from './types'
+import { defaultProps } from './props'
+import { useWaffle, useMergeCellsData } from './hooks'
+
+const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
+    width,
+    height,
+    margin: partialMargin,
+    data,
+    valueFormat,
+    total,
+    rows,
+    columns,
+    fillDirection = defaultProps.fillDirection,
+    padding = defaultProps.padding,
+    layers = ['cells'],
+    colors = defaultProps.colors,
+    emptyColor = defaultProps.emptyColor,
+    // emptyOpacity = defaultProps.emptyOpacity,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor,
+    // isInteractive = defaultProps.isInteractive,
+    role = defaultProps.role,
+}: HtmlProps<RawDatum>) => {
+    const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
+
+    const { grid, computedData, getBorderColor } = useWaffle<RawDatum>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        valueFormat,
+        total,
+        rows,
+        columns,
+        fillDirection,
+        padding,
+        colors,
+        emptyColor,
+        borderColor,
+    })
+
+    const mergedCells = useMergeCellsData<RawDatum>(grid.cells, computedData)
+
+    const layerById: Record<HtmlLayerId, ReactNode> = {
+        cells: null,
+    }
+
+    if (layers.includes('cells')) {
+        layerById.cells = (
+            <div
+                key="cells"
+                style={{
+                    position: 'absolute',
+                    top: margin.top + grid.origin.y,
+                    left: margin.left + grid.origin.x,
+                }}
+            >
+                {mergedCells.map(cell => {
+                    return (
+                        <div
+                            key={cell.position}
+                            style={{
+                                position: 'absolute',
+                                top: cell.y,
+                                left: cell.x,
+                                width: grid.cellSize,
+                                height: grid.cellSize,
+                                background: cell.color,
+                                // opacity: ,
+                                boxSizing: 'content-box',
+                                borderStyle: 'solid',
+                                borderWidth: `${borderWidth}px`,
+                                borderColor: getBorderColor(cell),
+                            }}
+                        />
+                    )
+                })}
+            </div>
+        )
+    }
+
+    return (
+        <div
+            style={{
+                position: 'relative',
+                width: outerWidth,
+                height: outerHeight,
+            }}
+            role={role}
+        >
+            {layers.map((layer, i) => {
+                if (layerById[layer as HtmlLayerId] !== undefined) {
+                    return layerById[layer as HtmlLayerId]
+                }
+
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer)}</Fragment>
+                }
+
+                return null
+            })}
+        </div>
+    )
+}
+
+export default withContainer(WaffleHtml) as <RawDatum extends Datum = DefaultRawDatum>(
+    props: HtmlProps<RawDatum>
+) => JSX.Element
+
 /*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { createElement, Component, Fragment } from 'react'
-import partial from 'lodash/partial'
-import { setDisplayName } from '@nivo/recompose'
+import React, { Component, Fragment } from 'react'
+import partial from 'lodash.partial'
+import setDisplayName from 'recompose/setDisplayName'
 import { TransitionMotion, spring } from 'react-motion'
 import { LegacyContainer } from '@nivo/core'
 import enhance from './enhance'
@@ -201,3 +310,4 @@ class WaffleHtml extends Component {
 WaffleHtml.displayName = 'WaffleHtml'
 
 export default setDisplayName(WaffleHtml.displayName)(enhance(WaffleHtml))
+ */
