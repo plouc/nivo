@@ -49,7 +49,7 @@
   },
   "peerDependencies": {
     "@nivo/core": "0.72.0",
-    "react": ">= 16.8.4 < 18.0.0"
+    "react": ">= 16.14.0 < 18.0.0"
   },
   "publishConfig": {
     "access": "public"
