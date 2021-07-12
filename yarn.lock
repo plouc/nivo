@@ -6266,10 +6266,10 @@
     object.fromentries "^2.0.0"
     prop-types "^15.7.0"
 
-"@wyze/clog-cli@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@wyze/clog-cli/-/clog-cli-1.0.0.tgz#af5413b0162e1ef77f0aaa70bff19f524bbc2400"
-  integrity sha512-bC+TWw8ZTsVFJtYc0X1PqCRNRzA8yhI1eNAY79jvKG+fC4eDQpjfTl5SpsuIBJZIR3gnT91CcRo5tWnGGFDbOg==
+"@wyze/clog-cli@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@wyze/clog-cli/-/clog-cli-1.0.1.tgz#fa8e7cab3bf7a22a0b27b0c22dc16db5d4a7de26"
+  integrity sha512-HDlI9sCn6GY//cy8MzNsMlclSfm7C/RHW3eUmMCYMl1mxDjbBxgJ7L84FFFt5RL2ASQ7G5wYO8qFTwhRDkBMUQ==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"

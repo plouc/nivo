@@ -1,5 +1,2 @@
 [clog]
 repository = "https://github.com/plouc/nivo"
-
-[sections]
-Chore = ["chore"]
