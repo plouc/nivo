@@ -38,7 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.2",
-    "@wyze/clog-cli": "^1.0.0",
+    "@wyze/clog-cli": "^1.0.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
