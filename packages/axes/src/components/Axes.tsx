@@ -18,10 +18,10 @@ export const Axes = memo(
         yScale: AnyScale
         width: number
         height: number
-        top?: AxisProps<X>
-        right?: AxisProps<Y>
-        bottom?: AxisProps<X>
-        left?: AxisProps<Y>
+        top?: AxisProps<X> | null
+        right?: AxisProps<Y> | null
+        bottom?: AxisProps<X> | null
+        left?: AxisProps<Y> | null
     }) => {
         const axes = { top, right, bottom, left }
 
