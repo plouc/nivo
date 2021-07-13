@@ -243,10 +243,10 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
     Dimensions &
     ModernMotionProps &
     Partial<{
-        axisBottom: AxisProps
-        axisLeft: AxisProps
-        axisRight: AxisProps
-        axisTop: AxisProps
+        axisBottom: AxisProps | null
+        axisLeft: AxisProps | null
+        axisRight: AxisProps | null
+        axisTop: AxisProps | null
 
         barComponent: React.FC<BarItemProps<RawDatum>>
 

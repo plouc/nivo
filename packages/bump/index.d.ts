@@ -86,10 +86,10 @@ declare module '@nivo/bump' {
 
         enableGridX?: boolean
         enableGridY?: boolean
-        axisTop?: AxisProps
-        axisRight?: AxisProps
-        axisBottom?: AxisProps
-        axisLeft?: AxisProps
+        axisTop?: AxisProps | null
+        axisRight?: AxisProps | null
+        axisBottom?: AxisProps | null
+        axisLeft?: AxisProps | null
 
         isInteractive?: boolean
         onMouseEnter?: BumpMouseHandler
