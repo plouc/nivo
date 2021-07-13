@@ -15,18 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-<<<<<<< HEAD
     "@bitbloom/nivo-generators": "^0.62.0",
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-info": "^5.3.19",
-    "@storybook/addon-knobs": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addon-storysource": "^5.3.19",
-    "@storybook/addons": "^5.3.19",
-    "@storybook/react": "^5.3.19",
-    "@storybook/theming": "^5.3.19",
-=======
-    "@nivo/generators": "*",
     "@rollup/plugin-babel": "^5.0.3",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@storybook/addon-actions": "^6.0.26",
@@ -40,7 +29,6 @@
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.15",
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.16",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
