@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useTransition, animated, to } from 'react-spring'
 // @ts-ignore
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { computeRects } from './compute'
 import { BulletRectsProps, BulletRectComputedRect, BulletRectAnimatedProps } from './types'
 

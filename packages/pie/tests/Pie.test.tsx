@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { animated } from 'react-spring'
-import { radiansToDegrees } from '@nivo/core'
+import { radiansToDegrees } from '@bitbloom/nivo-core'
 import { Pie } from '../src/index'
 
 const sampleData = [

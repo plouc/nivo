@@ -15,15 +15,11 @@ but just a few provide server side rendering ability and fully declarative chart
 
 ## Installation
 
-In order to use nivo, you have to install the `@nivo/core` package and then choose
+In order to use nivo, you have to install the `@bitbloom/nivo-core` package and then choose
 some of the scoped `@nivo` packages according to the charts you wish to use:
 
 ```
-<<<<<<< HEAD
-yarn add @bitbloom/nivo-bar @bitbloom/nivo-sankey ...
-=======
-yarn add @nivo/core @nivo/bar
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+yarn add @bitbloom/nivo-core @bitbloom/nivo-bar
 ```
 
 ## Features

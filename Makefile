@@ -135,12 +135,19 @@ package-watch-test-%: ##@1 packages run tests for a package and watch for change
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
 
+package-watch-test-%: ##@1 packages run tests for a package and watch for changes
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
+packages-watch-test: ##@1 packages run tests for all packages and watch for changes
+	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
+
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
-	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
 packages-types: ##@1 packages build all package types
@@ -156,27 +163,31 @@ packages-build: packages-types ##@1 packages build all packages
 package-types-%: ##@1 packages build a package types
 	@if [ -f "./packages/${*}/tsconfig.json" ]; \
     then \
-        echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
+        echo "${YELLOW}Building TypeScript types for package ${WHITE}@bitbloom/nivo-${*}${RESET}"; \
         rm -rf ./packages/${*}/dist/types; \
         rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
         yarn tsc -b ./packages/${*}; \
     else \
-        echo "${YELLOW}Package ${WHITE}@nivo/${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
+        echo "${YELLOW}Package ${WHITE}@bitbloom/nivo-${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
     fi;
 
 package-build-%: package-types-% ##@1 packages build a package
-	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
-	@-rm -rf ./packages/${*}/dist/
+	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
+	@-rm -rf ./packages/${*}/dist/nivo-${*}*
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
 
-packages-publish: ##@1 packages publish all packages
-	#@$(MAKE) packages-build
-
+packages-publish-ci: ##@1 packages publish all packages
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish from-git --yes
+
+packages-publish: ##@1 packages publish all packages
+	@$(MAKE) packages-build
+
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish --exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 // import flattenDepth from 'lodash/flattenDepth'
-import { computeScale } from '@nivo/scales'
+import { computeScale } from '@bitbloom/nivo-scales'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexScale, filterNullValues, normalizeData } from './common'
 

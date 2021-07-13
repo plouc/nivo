@@ -5,8 +5,8 @@ import {
     useDimensions,
     Container,
     SvgWrapper,
-} from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './types'
 import { useCirclePacking, useCirclePackingZoom, useCirclePackingLayerContext } from './hooks'
 import { defaultProps } from './props'

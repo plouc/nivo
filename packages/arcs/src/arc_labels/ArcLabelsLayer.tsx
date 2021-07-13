@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { PropertyAccessor, usePropertyAccessor, radiansToDegrees, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
+import { PropertyAccessor, usePropertyAccessor, radiansToDegrees, useTheme } from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
 import { useArcCentersTransition } from '../centers'
 import { ArcTransitionMode } from '../arcTransitionMode'
 import { DatumWithArcAndColor } from '../types'

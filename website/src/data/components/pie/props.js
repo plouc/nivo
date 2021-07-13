@@ -1,17 +1,5 @@
-<<<<<<< HEAD
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { PieDefaultProps as defaults } from '@bitbloom/nivo-pie'
-import { themeProperty, defsProperties, groupProperties } from '../../../lib/componentProperties'
-=======
-import { defaultProps } from '@nivo/pie'
-import { arcTransitionModes } from '@nivo/arcs'
+import { defaultProps } from '@bitbloom/nivo-pie'
+import { arcTransitionModes } from '@bitbloom/nivo-arcs'
 import {
     themeProperty,
     defsProperties,
@@ -19,7 +7,6 @@ import {
     getLegendsProps,
     motionProperties,
 } from '../../../lib/componentProperties'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const props = [
     {

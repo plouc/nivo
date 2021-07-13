@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
-import { Bubble } from '@bitbloom/nivo-circle-packing'
-=======
-import { CirclePacking } from '@nivo/circle-packing'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { CirclePacking } from '@bitbloom/nivo-circle-packing'
 import circlePackingLightNeutralImg from '../../assets/icons/circle-packing-light-neutral.png'
 import circlePackingLightColoredImg from '../../assets/icons/circle-packing-light-colored.png'
 import circlePackingDarkNeutralImg from '../../assets/icons/circle-packing-dark-neutral.png'

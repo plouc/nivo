@@ -1,5 +1,5 @@
 import React, { createElement, Fragment, ReactNode } from 'react'
-import { Container, SvgWrapper, useDimensions } from '@nivo/core'
+import { Container, SvgWrapper, useDimensions } from '@bitbloom/nivo-core'
 import { VoronoiSvgProps, VoronoiLayerId } from './types'
 import { defaultVoronoiProps } from './props'
 import { useVoronoi, useVoronoiLayerContext } from './hooks'

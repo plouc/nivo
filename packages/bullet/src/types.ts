@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
+import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@bitbloom/nivo-core'
 import { ScaleLinear } from 'd3-scale'
 import { SpringValues } from 'react-spring'
 
@@ -22,7 +22,7 @@ export interface Datum {
 }
 
 export type EnhancedDatum = Datum & {
-    scale: ScaleLinear<number, number, never>
+    scale: ScaleLinear<number, number, never> & { type: 'linear' }
 }
 
 export interface ComputedRangeDatum {

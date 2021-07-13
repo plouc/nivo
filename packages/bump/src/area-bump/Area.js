@@ -9,11 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-<<<<<<< HEAD
-import { useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
-=======
-import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 import { useSerieHandlers } from './hooks'
 
 const Area = ({

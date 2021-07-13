@@ -1,11 +1,6 @@
 import React from 'react'
-<<<<<<< HEAD
-import { ResponsivePie, PieDefaultProps } from '@bitbloom/nivo-pie'
+import { ResponsivePie, defaultProps } from '@bitbloom/nivo-pie'
 import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
-=======
-import { ResponsivePie, defaultProps } from '@nivo/pie'
-import { generateProgrammingLanguageStats } from '@nivo/generators'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'

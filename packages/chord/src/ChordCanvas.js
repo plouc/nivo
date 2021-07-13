@@ -7,19 +7,11 @@ import {
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,
-<<<<<<< HEAD
-    getHoveredArc,
 } from '@bitbloom/nivo-core'
+import { findArcUnderCursor } from '@bitbloom/nivo-arcs'
 import { useInheritedColor } from '@bitbloom/nivo-colors'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
-=======
-} from '@nivo/core'
-import { findArcUnderCursor } from '@nivo/arcs'
-import { useInheritedColor } from '@nivo/colors'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import { useChord, useChordSelection, useChordLayerContext } from './hooks'
 import { ChordCanvasPropTypes, ChordCanvasDefaultProps } from './props'
 

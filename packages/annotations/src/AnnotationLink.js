@@ -8,13 +8,8 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-import { useSpring, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
-=======
 import { animated } from 'react-spring'
-import { useAnimatedPath, useTheme } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useAnimatedPath, useTheme } from '@bitbloom/nivo-core'
 
 const AnnotationLink = memo(({ isOutline, ...props }) => {
     const theme = useTheme()

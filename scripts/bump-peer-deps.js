@@ -12,7 +12,7 @@ fs.readdirSync('./packages', { withFileTypes: true })
     .forEach(([file, package]) => {
         for (const [dependency, version] of Object.entries(package.devDependencies || {})) {
             if (
-                !dependency.startsWith('@nivo/') ||
+                !dependency.startsWith('@bitbloom/nivo-') ||
                 !(
                     dependency in (package.peerDependencies || {}) &&
                     version !== package.peerDependencies[dependency]

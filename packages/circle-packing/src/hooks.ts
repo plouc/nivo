@@ -8,8 +8,8 @@ import {
     useTheme,
     getRelativeCursor,
     getDistance,
-} from '@nivo/core'
-import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import {
     CirclePackingCommonProps,
     CirclePackingCustomLayerProps,

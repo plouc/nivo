@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { computeScale } from '@nivo/scales'
+import { computeScale } from '@bitbloom/nivo-scales'
 import { getIndexScale, filterNullValues, normalizeData } from './common'
 
 const gt = (value, other) => value > other

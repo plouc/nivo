@@ -15,7 +15,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-    "@bitbloom/nivo-generators": "^0.62.0",
+    "@bitbloom/nivo-generators": "^0.69.0",
     "@rollup/plugin-babel": "^5.0.3",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@storybook/addon-actions": "^6.0.26",
@@ -91,6 +91,7 @@
     "website"
   ],
   "dependencies": {
+    "@types/d3-delaunay": "^5.3.0",
     "npm-normalize-package-bin": "^1.0.1"
   },
   "repository": {

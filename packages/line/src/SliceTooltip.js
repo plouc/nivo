@@ -8,20 +8,8 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-import { TableTooltip } from '@bitbloom/nivo-tooltip'
-
-const Chip = ({ color }) => (
-    <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
-)
-
-Chip.propTypes = {
-    color: PropTypes.string.isRequired,
-}
-=======
-import { useTheme } from '@nivo/core'
-import { Chip, TableTooltip } from '@nivo/tooltip'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useTheme } from '@bitbloom/nivo-core'
+import { Chip, TableTooltip } from '@bitbloom/nivo-tooltip'
 
 const SliceTooltip = ({ slice, axis }) => {
     const theme = useTheme()

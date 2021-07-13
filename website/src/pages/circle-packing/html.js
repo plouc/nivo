@@ -1,11 +1,6 @@
 import React from 'react'
-<<<<<<< HEAD:website/src/pages/bubble/html.js
-import { ResponsiveBubbleHtml, BubbleHtmlDefaultProps } from '@bitbloom/nivo-circle-packing'
+import { ResponsiveCirclePackingHtml, defaultProps } from '@bitbloom/nivo-circle-packing'
 import { generateLibTree } from '@bitbloom/nivo-generators'
-=======
-import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
-import { generateLibTree } from '@nivo/generators'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881:website/src/pages/circle-packing/html.js
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'

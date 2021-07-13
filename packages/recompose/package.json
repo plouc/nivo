@@ -1,6 +1,6 @@
 {
-  "name": "@nivo/recompose",
-  "version": "0.68.0",
+  "name": "@bitbloom/nivo-recompose",
+  "version": "0.69.2",
   "keywords": [
     "nivo",
     "react",
@@ -36,5 +36,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
 }

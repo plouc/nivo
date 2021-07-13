@@ -9,13 +9,8 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-<<<<<<< HEAD
-import { defaultTheme, themeContext } from '@bitbloom/nivo-core'
-import { default as BaseLegendSvgItem } from '../../src/svg/LegendSvgItem'
-=======
-import { ThemeProvider } from '@nivo/core'
+import { ThemeProvider } from '@bitbloom/nivo-core'
 import BaseLegendSvgItem from '../../src/svg/LegendSvgItem'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import * as shapes from '../../src/svg/symbols'
 import {
     DIRECTION_LEFT_TO_RIGHT,

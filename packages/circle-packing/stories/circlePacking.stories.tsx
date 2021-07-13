@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateLibTree } from '@nivo/generators'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import { CirclePacking, CirclePackingHtml } from '../src'
 
 const commonProperties = {

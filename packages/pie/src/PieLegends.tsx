@@ -1,5 +1,5 @@
 import React from 'react'
-import { BoxLegendSvg } from '@nivo/legends'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { CompletePieSvgProps, ComputedDatum } from './types'
 
 interface PieLegendsProps<RawDatum> {

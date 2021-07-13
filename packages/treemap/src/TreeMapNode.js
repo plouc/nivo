@@ -8,13 +8,8 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
-import { animated } from 'react-spring'
-import { useTheme } from '@bitbloom/nivo-core'
-=======
 import { animated, to } from 'react-spring'
-import { useTheme } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useTheme } from '@bitbloom/nivo-core'
 
 const TreeMapNode = ({
     node,

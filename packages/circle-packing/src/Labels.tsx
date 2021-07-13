@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useTransition } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { CirclePackingCommonProps, ComputedDatum, LabelComponent, ComputedLabel } from './types'
 import { useCirclePackingLabels } from './hooks'
 import { interpolateRadius } from './Circles'

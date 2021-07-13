@@ -3,10 +3,10 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 // @ts-ignore
-import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
+import { linearGradientDef, patternDotsDef, useTheme } from '@bitbloom/nivo-core'
 // @ts-ignore
-import { generateLibTree } from '@nivo/generators'
-import { colorSchemes } from '@nivo/colors'
+import { generateLibTree } from '@bitbloom/nivo-generators'
+import { colorSchemes } from '@bitbloom/nivo-colors'
 // @ts-ignore
 import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '../src'
 

@@ -1,47 +1,48 @@
 {
-    "name": "@bitbloom/nivo-swarmplot",
-    "version": "0.62.5",
-    "license": "MIT",
-    "author": {
-        "name": "Raphaël Benitte",
-        "url": "https://github.com/plouc"
-    },
-    "keywords": [
-        "nivo",
-        "dataviz",
-        "react",
-        "d3",
-        "charts",
-        "force",
-        "swarmplot"
-    ],
-    "main": "./dist/nivo-swarmplot.cjs.js",
-    "module": "./dist/nivo-swarmplot.es.js",
-    "files": [
-        "README.md",
-        "LICENSE.md",
-        "index.d.ts",
-        "dist/"
-    ],
-    "dependencies": {
-        "@bitbloom/nivo-annotations": "^0.62.5",
-        "@bitbloom/nivo-axes": "^0.62.5",
-        "@bitbloom/nivo-colors": "^0.62.5",
-        "@bitbloom/nivo-core": "^0.62.5",
-        "@bitbloom/nivo-legends": "^0.62.5",
-        "@bitbloom/nivo-scales": "^0.62.5",
-        "@bitbloom/nivo-tooltip": "^0.62.5",
-        "@bitbloom/nivo-voronoi": "^0.62.5",
-        "d3-force": "^2.0.1",
-        "d3-scale": "^3.0.0",
-        "lodash": "^4.17.11",
-        "react-motion": "^0.5.2"
-    },
-    "peerDependencies": {
-        "prop-types": ">= 15.5.10 < 16.0.0",
-        "react": ">= 16.8.4 < 17.0.0"
-    },
-    "publishConfig": {
-        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-    }
+  "name": "@bitbloom/nivo-swarmplot",
+  "version": "0.69.2",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "force",
+    "swarmplot"
+  ],
+  "main": "./dist/nivo-swarmplot.cjs.js",
+  "module": "./dist/nivo-swarmplot.es.js",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "index.d.ts",
+    "dist/"
+  ],
+  "dependencies": {
+    "@bitbloom/nivo-annotations": "^0.69.2",
+    "@bitbloom/nivo-axes": "^0.69.2",
+    "@bitbloom/nivo-colors": "^0.69.2",
+    "@bitbloom/nivo-core": "^0.69.2",
+    "@bitbloom/nivo-legends": "^0.69.2",
+    "@bitbloom/nivo-scales": "^0.69.2",
+    "@bitbloom/nivo-tooltip": "^0.69.2",
+    "@bitbloom/nivo-voronoi": "^0.69.2",
+    "d3-force": "^2.0.1",
+    "d3-scale": "^3.0.0",
+    "lodash": "^4.17.11",
+    "react-motion": "^0.5.2"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.5.10 < 16.0.0",
+    "react": ">= 16.8.4 < 17.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
+  },
+  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
 }

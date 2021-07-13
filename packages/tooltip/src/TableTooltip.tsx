@@ -1,19 +1,5 @@
-<<<<<<< HEAD:packages/tooltip/src/components/TableTooltip.js
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
-import { useTheme } from '@bitbloom/nivo-core'
-=======
 import React, { CSSProperties, memo, ReactNode } from 'react'
-import { useTheme } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881:packages/tooltip/src/TableTooltip.tsx
+import { useTheme } from '@bitbloom/nivo-core'
 
 const tableStyle = {
     width: '100%',

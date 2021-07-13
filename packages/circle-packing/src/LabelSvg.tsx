@@ -1,6 +1,6 @@
 import React from 'react'
 import { animated } from 'react-spring'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { LabelProps } from './types'
 
 export const LabelSvg = <RawDatum,>({ node, label, style }: LabelProps<RawDatum>) => {

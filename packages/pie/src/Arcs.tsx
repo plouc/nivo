@@ -1,6 +1,6 @@
 import React, { createElement, useMemo } from 'react'
-import { ArcGenerator, ArcsLayer } from '@nivo/arcs'
-import { useTooltip } from '@nivo/tooltip'
+import { ArcGenerator, ArcsLayer } from '@bitbloom/nivo-arcs'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface ArcsProps<RawDatum> {

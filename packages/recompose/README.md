@@ -1,6 +1,6 @@
-# `@nivo/recompose`
+# `@bitbloom/nivo-recompose`
 
-[![version](https://img.shields.io/npm/v/@nivo/recompose.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/recompose)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-recompose.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-recompose)
 
 ## Recompose
 

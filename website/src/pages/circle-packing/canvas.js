@@ -1,11 +1,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
-<<<<<<< HEAD:website/src/pages/bubble/canvas.js
-import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@bitbloom/nivo-circle-packing'
-=======
-import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881:website/src/pages/circle-packing/canvas.js
+import { ResponsiveCirclePackingCanvas, defaultProps } from '@bitbloom/nivo-circle-packing'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'

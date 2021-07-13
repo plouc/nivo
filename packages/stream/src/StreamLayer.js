@@ -9,13 +9,8 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-<<<<<<< HEAD
-import { useMotionConfig } from '@bitbloom/nivo-core'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 import { BasicTooltip, useTooltip } from '@bitbloom/nivo-tooltip'
-=======
-import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { BasicTooltip, useTooltip } from '@nivo/tooltip'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const StreamLayer = ({
     layer,

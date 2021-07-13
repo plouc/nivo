@@ -7,13 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-<<<<<<< HEAD
-import { PieDefaultProps, ResponsivePieCanvas } from '@bitbloom/nivo-pie'
+import { defaultProps, ResponsivePieCanvas } from '@bitbloom/nivo-pie'
 import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
-=======
-import { defaultProps, ResponsivePieCanvas } from '@nivo/pie'
-import { generateProgrammingLanguageStats } from '@nivo/generators'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'

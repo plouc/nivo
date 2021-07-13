@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { PropertyAccessor, usePropertyAccessor, useTheme } from '@nivo/core'
-import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
+import { PropertyAccessor, usePropertyAccessor, useTheme } from '@bitbloom/nivo-core'
+import { InheritedColorConfig, useInheritedColor } from '@bitbloom/nivo-colors'
 import { DatumWithArcAndColor } from '../types'
 import { useArcCenters, ArcCenter } from '../centers'
 

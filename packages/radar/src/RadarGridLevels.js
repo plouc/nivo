@@ -9,13 +9,8 @@
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
-<<<<<<< HEAD
-import { useTransition, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
-=======
 import { animated, useSpring, to } from 'react-spring'
-import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
+import { useTheme, useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 
 const RadarGridLevelCircular = memo(({ radius }) => {
     const theme = useTheme()

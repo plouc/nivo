@@ -1,12 +1,7 @@
 import { useState, useMemo } from 'react'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
-<<<<<<< HEAD
-import { useTheme, getAccessorFor, guessQuantizeColorScale } from '@bitbloom/nivo-core'
+import { useTheme, usePropertyAccessor, guessQuantizeColorScale } from '@bitbloom/nivo-core'
 import { useInheritedColor } from '@bitbloom/nivo-colors'
-=======
-import { useTheme, usePropertyAccessor, guessQuantizeColorScale } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
->>>>>>> 53b9c1cc7b439d550e8c2084bbd420c334082881
 
 const computeX = (column, cellWidth, padding) => {
     return column * cellWidth + cellWidth * 0.5 + padding * column + padding
