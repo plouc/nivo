@@ -50,7 +50,11 @@ export const createDateNormalizer = ({
 }) => {
     const precisionFn = createPrecisionMethod(precision)
 
-    return (value: Date | string) => {
+    return (value: Date | string | undefined) => {
+        if (value === undefined) {
+            return value
+        }
+
         if (format === 'native' || value instanceof Date) {
             return precisionFn(value as Date)
         }

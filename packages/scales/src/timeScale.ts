@@ -16,7 +16,7 @@ export const createTimeScale = <Input extends Date | NumberValue>(
 ) => {
     const normalize = createDateNormalizer({ format, precision, useUTC })
 
-    let minValue: Date
+    let minValue: Date | undefined
     if (min === 'auto') {
         minValue = normalize(data.min)
     } else if (format !== 'native') {
@@ -25,7 +25,7 @@ export const createTimeScale = <Input extends Date | NumberValue>(
         minValue = min as Date
     }
 
-    let maxValue: Date
+    let maxValue: Date | undefined
     if (max === 'auto') {
         maxValue = normalize(data.max)
     } else if (format !== 'native') {
@@ -36,7 +36,9 @@ export const createTimeScale = <Input extends Date | NumberValue>(
 
     const scale = useUTC ? scaleUtc() : scaleTime()
 
-    scale.domain([minValue, maxValue]).range([0, size])
+    scale.range([0, size])
+
+    if (minValue && maxValue) scale.domain([minValue, maxValue])
 
     if (nice === true) scale.nice()
     else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice)
