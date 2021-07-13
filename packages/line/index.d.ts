@@ -11,7 +11,7 @@ import {
     Dimensions,
     Box,
     Theme,
-    MotionProps,
+    ModernMotionProps,
     CartesianMarkerProps,
     SvgDefsAndFill,
     ValueFormat,
@@ -202,7 +202,7 @@ declare module '@nivo/line' {
         legends?: LegendProps[]
     }
 
-    export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
+    export interface LineSvgProps extends LineProps, ModernMotionProps, SvgDefsAndFill<Datum> {
         enablePointLabel?: boolean
         pointLabel?: string | AccessorFunc
         pointLabelYOffset?: number
