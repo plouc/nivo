@@ -4578,10 +4578,10 @@
   resolved "https://registry.yarnpkg.com/@react-spring/types/-/types-9.2.0.tgz#0fdbfd9e7ae3ead68e0bac2bb71f51a07844c6e3"
   integrity sha512-cVAPmFkXciBlWP2v5D+4kIJYiVMTROiKbg/FGzjNrGT0jyk+ii/qtuO+RGdzXqGwoK/eUV34lDE1UU4djPV3Rg==
 
-"@react-spring/web@9.2.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@react-spring/web/-/web-9.2.0.tgz#667f5e4e2226d1515e01b100c143093efab5943b"
-  integrity sha512-YWNPRCmC1MiCH+3MZQUTfhf4OzKR1w+0BVxpw7HkHgCz8lJNlvlDeiBdQzYhh+YmmbaF4y1swhCYmI0y4VCZXQ==
+"@react-spring/web@9.2.4":
+  version "9.2.4"
+  resolved "https://registry.yarnpkg.com/@react-spring/web/-/web-9.2.4.tgz#c6d5464a954bfd0d7bc90117050f796a95ebfa08"
+  integrity sha512-vtPvOalLFvuju/MDBtoSnCyt0xXSL6Amyv82fljOuWPl1yGd4M1WteijnYL9Zlriljl0a3oXcPunAVYTD9dbDQ==
   dependencies:
     "@react-spring/animated" "~9.2.0"
     "@react-spring/core" "~9.2.0"
