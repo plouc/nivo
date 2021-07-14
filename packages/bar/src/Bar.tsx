@@ -184,7 +184,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             width: number
         }
     >(barsWithValue, {
-        keys: bar => `${bar.key}.${layout}.${reverse}.${groupMode}`,
+        keys: bar => bar.key,
         from: bar => ({
             borderColor: getBorderColor(bar) as string,
             color: bar.color,
@@ -204,6 +204,17 @@ const InnerBar = <RawDatum extends BarDatum>({
                   }),
         }),
         enter: bar => ({
+            borderColor: getBorderColor(bar) as string,
+            color: bar.color,
+            height: bar.height,
+            labelColor: getLabelColor(bar) as string,
+            labelOpacity: 1,
+            labelX: bar.width / 2,
+            labelY: bar.height / 2,
+            transform: `translate(${bar.x}, ${bar.y})`,
+            width: bar.width,
+        }),
+        update: bar => ({
             borderColor: getBorderColor(bar) as string,
             color: bar.color,
             height: bar.height,
