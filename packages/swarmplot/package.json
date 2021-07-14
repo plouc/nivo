@@ -1,6 +1,6 @@
 {
   "name": "@nivo/swarmplot",
-  "version": "0.72.0",
+  "version": "0.73.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -30,25 +30,25 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/annotations": "0.72.0",
-    "@nivo/axes": "0.72.0",
-    "@nivo/colors": "0.72.0",
-    "@nivo/legends": "0.72.0",
-    "@nivo/scales": "0.72.0",
-    "@nivo/tooltip": "0.72.0",
-    "@nivo/voronoi": "0.72.0",
+    "@nivo/annotations": "0.73.0",
+    "@nivo/axes": "0.73.0",
+    "@nivo/colors": "0.73.0",
+    "@nivo/legends": "0.73.0",
+    "@nivo/scales": "0.73.0",
+    "@nivo/tooltip": "0.73.0",
+    "@nivo/voronoi": "0.73.0",
     "@react-spring/web": "9.2.4",
     "d3-force": "^2.0.1",
     "d3-scale": "^3.2.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "0.72.0",
+    "@nivo/core": "0.73.0",
     "@types/d3-force": "^2.1.0",
     "@types/d3-scale": "^3.2.2"
   },
   "peerDependencies": {
-    "@nivo/core": "0.72.0",
+    "@nivo/core": "0.73.0",
     "react": ">= 16.14.0 < 18.0.0"
   },
   "publishConfig": {

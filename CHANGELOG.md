@@ -1,3 +1,33 @@
+<a name="v0.73.0"></a>
+## v0.73.0 (2021-07-14)
+
+
+#### Bug Fixes
+
+* **axes:**  support null props to Axes component ([0ed6676e](https://github.com/plouc/nivo/commit/0ed6676e83041dfff8ac51045e2469014ce9810d))
+* **bar:**
+  *  support null axis* props ([156b88ad](https://github.com/plouc/nivo/commit/156b88ad39a7afd0a663753ddf3e007fc4fdc338))
+  *  fix animations when swapping keys (#1656) ([f665bc3a](https://github.com/plouc/nivo/commit/f665bc3afb6224accbd0486bf01abdf3c4672482))
+* **bullet:**  add missing range/measure border color/width props (#1645) ([2e5df09f](https://github.com/plouc/nivo/commit/2e5df09fdb8bda38f7a68a68f4a17f0bc0c1619d))
+* **bump:**  support null axis* props ([1c42e119](https://github.com/plouc/nivo/commit/1c42e1199a97e01d5e23a86af41e11ff2fc6e856))
+* **line:**
+  *  use correct motion types (#1685) ([3e0f074c](https://github.com/plouc/nivo/commit/3e0f074c24ee2495c0af7b74b221336b53aa132b))
+  *  make copy of lines data before reversing (#1644) ([47e963ac](https://github.com/plouc/nivo/commit/47e963ac5500671963c9b6e994d684d48e0fc92f))
+* **marimekko:**  support null axis* props ([d8dbea2f](https://github.com/plouc/nivo/commit/d8dbea2fe7f435b5b258933f58593815c9bd065e))
+* **scales:**  handle empty series with timescale (#1683) ([81880cc5](https://github.com/plouc/nivo/commit/81880cc5b207c1c2ac64e0d340b00d68356c8e87))
+* **website:**
+  *  show treemap data correctly (#1643) ([de05d726](https://github.com/plouc/nivo/commit/de05d7265cae7d98bfdd6fae4629bb4c51a41922))
+  *  update bar api page ([9c00efaa](https://github.com/plouc/nivo/commit/9c00efaafa7d6f669f501d7665baf58b8ea4b25a))
+
+#### Chore
+
+* **deps:**
+  *  upgrade react-spring to v9.2.4 (#1686) ([85be2089](https://github.com/plouc/nivo/commit/85be20892c7ff9cb79cb271a4f6a4d186bb67ae4))
+  *  update clog to v1.0.1 (#1678) ([6cf688f1](https://github.com/plouc/nivo/commit/6cf688f1c87eaf12b95b2c386eb03a0088804504))
+  *  upgrade react minimum peer deps range to v16.14.0 (#1677) ([11bc6fcd](https://github.com/plouc/nivo/commit/11bc6fcd204513721a3198fbbcbe738e2cf682c1))
+
+
+
 <a name="v0.72.0"></a>
 ## v0.72.0 (2021-06-29)
 
