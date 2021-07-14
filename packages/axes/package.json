@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "@nivo/scales": "0.72.0",
-    "@react-spring/web": "9.2.0",
+    "@react-spring/web": "9.2.4",
     "d3-format": "^1.4.4",
     "d3-time": "^1.0.11",
     "d3-time-format": "^3.0.0"

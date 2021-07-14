@@ -31,7 +31,7 @@
   "dependencies": {
     "@nivo/colors": "0.72.0",
     "@nivo/tooltip": "0.72.0",
-    "@react-spring/web": "9.2.0",
+    "@react-spring/web": "9.2.4",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.21"
   },
