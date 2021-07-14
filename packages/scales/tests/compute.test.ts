@@ -1,4 +1,9 @@
-import { generateSeriesAxis, stackAxis, computeAxisSlices } from '../src/compute'
+import {
+    generateSeriesAxis,
+    stackAxis,
+    computeAxisSlices,
+    computeXYScalesForSeries,
+} from '../src/compute'
 
 const axes = ['x', 'y']
 
@@ -594,6 +599,44 @@ describe('stackAxis', () => {
                 ])
             })
         })
+    })
+})
+
+describe('computeXYScalesForSeries', () => {
+    it('works with timescale an and empty series', () => {
+        const series = computeXYScalesForSeries(
+            [],
+            {
+                type: 'time',
+                format: '%Y-%m-%d',
+                useUTC: false,
+                precision: 'day',
+            },
+            {
+                type: 'linear',
+                stacked: false,
+            },
+            100,
+            100
+        )
+
+        expect(series).toMatchInlineSnapshot(`
+            Object {
+              "series": Array [],
+              "x": Object {
+                "all": Array [],
+                "max": undefined,
+                "min": undefined,
+              },
+              "xScale": [Function],
+              "y": Object {
+                "all": Array [],
+                "max": -Infinity,
+                "min": Infinity,
+              },
+              "yScale": [Function],
+            }
+        `)
     })
 })
 
