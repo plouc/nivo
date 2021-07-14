@@ -1,11 +1,11 @@
 {
   "name": "nivo-website",
-  "version": "0.73.0",
+  "version": "0.73.1",
   "private": true,
   "description": "nivo website",
   "dependencies": {
     "@nivo/arcs": "0.73.0",
-    "@nivo/bar": "0.73.0",
+    "@nivo/bar": "0.73.1",
     "@nivo/bullet": "0.73.0",
     "@nivo/bump": "0.73.0",
     "@nivo/calendar": "0.73.0",

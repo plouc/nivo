@@ -1,3 +1,13 @@
+<a name="v0.73.1"></a>
+## v0.73.1 (2021-07-14)
+
+
+#### Bug Fixes
+
+* **bar:**  fix animation regression (#1687) ([13135238](https://github.com/plouc/nivo/commit/13135238ab73ccaa6bd23fefd7e5078a6ed38a62))
+
+
+
 <a name="v0.73.0"></a>
 ## v0.73.0 (2021-07-14)
 
