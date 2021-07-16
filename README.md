@@ -1,4 +1,4 @@
-<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/>
+<a href="https://nivo.rocks"><img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/></a>
 
 [![Backers on Open Collective](https://opencollective.com/nivo/backers/badge.svg?style=flat-square)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/nivo/sponsors/badge.svg?style=flat-square)](#sponsors)
