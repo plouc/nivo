@@ -339,6 +339,31 @@ describe('Bullet', () => {
             expect(tooltip.exists()).toBeTruthy()
             expect(tooltip.text()).toEqual('20')
         })
+
+        it('should allow to override the default tooltip', () => {
+            const CustomTooltip = ({
+                color,
+                v0,
+                v1,
+            }: {
+                color: string
+                v0: number
+                v1?: number
+            }) => (
+                <span style={{ backgroundColor: color }}>
+                    {v1 ? `${v0} to ${v1}` : `Custom${v0}`}
+                </span>
+            )
+            const wrapper = mount(
+                <Bullet width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
+            )
+
+            wrapper.find('BulletMarkersItem').at(0).simulate('mouseenter')
+
+            const tooltip = wrapper.find(CustomTooltip)
+            expect(tooltip.exists()).toBeTruthy()
+            expect(tooltip.text()).toEqual('Custom20')
+        })
     })
 
     describe('custom components', () => {
