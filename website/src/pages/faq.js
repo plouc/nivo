@@ -28,7 +28,7 @@ const Faq = () => (
                     easily tweaked by adjusting a few <i>knobs</i>, and offers various flavors for
                     each chart types.
                 </p>
-                <h4>Are nivo components SSR compliants?</h4>
+                <h4>Are nivo components SSR compliant?</h4>
                 <p>
                     Yes, sure! nivo was built with this requirement in mind from the very beginning,
                     you even have an HTTP rendering API for most components :)
@@ -38,14 +38,14 @@ const Faq = () => (
                 </p>
                 <h4>Can I use nivo with very large data set?</h4>
                 <p>
-                    Yes you can! SVG/HTML are not performing very well when dealing with thousands
+                    Yes you can! SVG/HTML do not perform well when dealing with thousands
                     of nodes, that's why you have some{' '}
                     <Link to="/components?filter=canvas">canvas based implementations</Link> which
-                    are able to handle pretty large ones.
+                    are able to handle larger quantities of data.
                 </p>
                 <h4>My component isn't rendering</h4>
                 <p>
-                    Check if the parent have a define height, otherwise the responsive component
+                    Check if the parent has a defined height, otherwise the responsive component
                     won't be able to render.
                 </p>
             </DescriptionBlock>
