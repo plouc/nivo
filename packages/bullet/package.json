@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-bullet",
-  "version": "0.69.3",
+  "version": "0.69.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,19 +29,19 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@bitbloom/nivo-axes": "^0.69.3",
-    "@bitbloom/nivo-colors": "^0.69.3",
-    "@bitbloom/nivo-legends": "^0.69.3",
-    "@bitbloom/nivo-tooltip": "^0.69.3",
+    "@bitbloom/nivo-axes": "^0.69.2",
+    "@bitbloom/nivo-colors": "^0.69.2",
+    "@bitbloom/nivo-legends": "^0.69.2",
+    "@bitbloom/nivo-tooltip": "^0.69.2",
     "d3-scale": "^3.2.3",
     "react-spring": "9.1.2"
   },
   "devDependencies": {
-    "@bitbloom/nivo-core": "^0.69.3",
+    "@bitbloom/nivo-core": "^0.69.2",
     "@types/d3-scale": "^3.2.2"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "^0.69.3",
+    "@bitbloom/nivo-core": "^0.69.2",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {
