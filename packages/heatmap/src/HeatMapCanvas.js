@@ -20,6 +20,7 @@ import { useHeatMap } from './hooks'
 import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 
 const HeatMapCanvas = ({
     data,
@@ -128,8 +129,7 @@ const HeatMapCanvas = ({
             renderLegendToCanvas(ctx, {
                 data: colors.map(c => ({ color: c, label: Number(colorScale.invertExtent(c)[0]).toFixed(2) })),
                 ...legends,
-                containerWidth: width,
-                containerHeight: height,
+                containerWidth: innerWidth,
                 containerHeight: innerHeight,
                 theme,
             })

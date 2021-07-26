@@ -48,7 +48,7 @@ declare module '@bitbloom/nivo-heatmap' {
 
             enableLabels: boolean
             labelTextColor: InheritedColorConfig<HeatMapDatumWithColor>
-            legends?: LegendProps[]
+            legends?: LegendProps
 
             isInteractive: boolean
             hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
