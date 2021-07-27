@@ -42,6 +42,7 @@ export const Bullet = (props: BulletSvgProps) => {
         markerColors,
 
         theme,
+        tooltip = defaultProps.tooltip,
 
         animate,
         motionConfig,
@@ -112,6 +113,7 @@ export const Bullet = (props: BulletSvgProps) => {
                         onRangeClick={onRangeClick}
                         onMeasureClick={onMeasureClick}
                         onMarkerClick={onMarkerClick}
+                        tooltip={tooltip}
                     />
                 ))}
             </SvgWrapper>

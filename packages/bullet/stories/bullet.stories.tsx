@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import { generateBulletData } from '@nivo/generators'
+import { BasicTooltip } from '@nivo/tooltip'
 import { withKnobs, boolean, number } from '@storybook/addon-knobs'
 import { Bullet } from '../src'
 
@@ -179,5 +180,37 @@ stories.add('support min/max value property', () => (
                 ? 'auto'
                 : number('minValue.value', 0, { min: 0, max: 40 })
         }
+    />
+))
+
+const CustomTooltip = ({ v0, v1, color }: { color: string; v0: number; v1?: number }) => {
+    return (
+        <BasicTooltip
+            id={
+                v1 ? (
+                    <span style={{ color: 'peachpuff' }}>
+                        <strong>{v0}</strong> to <strong>{v1}</strong>
+                    </span>
+                ) : (
+                    <strong style={{ color: 'rosybrown' }}>{v0}</strong>
+                )
+            }
+            enableChip={true}
+            color={color}
+        />
+    )
+}
+
+stories.add('custom tooltip', () => (
+    <Bullet
+        {...commonProps}
+        tooltip={CustomTooltip}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
+                },
+            },
+        }}
     />
 ))

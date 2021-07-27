@@ -56,6 +56,7 @@ export type CommonBulletProps = Dimensions & {
     titleOffsetX: number
     titleOffsetY: number
     titleRotation: number
+    tooltip: React.ComponentType<BulletTooltipProps>
 
     rangeBorderColor: InheritedColorConfig<ComputedRangeDatum>
     rangeBorderWidth: number
@@ -201,3 +202,9 @@ export type BulletItemProps = Omit<
         measureHeight: number
         markerHeight: number
     }
+
+export interface BulletTooltipProps {
+    v0: number
+    v1?: number
+    color: string
+}
