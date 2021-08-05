@@ -65,7 +65,9 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
 
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
-    ctx.font = `${theme.axis.ticks.text.fontSize}px ${theme.axis.ticks.text.fontFamily}`
+    ctx.font = `${theme.axis.ticks.text.fontWeight ? `${theme.axis.ticks.text.fontWeight} ` : ''}${
+        theme.axis.ticks.text.fontSize
+    }px ${theme.axis.ticks.text.fontFamily}`
 
     if ((theme.axis.domain.line.strokeWidth ?? 0) > 0) {
         ctx.lineWidth = Number(theme.axis.domain.line.strokeWidth)
