@@ -54,7 +54,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
-    valueScale,
+    valueScale = defaultProps.valueScale,
     groups,
     groupBy = defaultProps.groupBy,
     size = defaultProps.size,
