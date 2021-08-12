@@ -20,7 +20,7 @@ const Defs = ({ defs: definitions }) => {
     if (!definitions || definitions.length < 1) return null
 
     return (
-        <defs>
+        <defs aria-hidden={true}>
             {definitions.map(({ type, ...def }) => {
                 if (defsMapping[type])
                     return createElement(defsMapping[type], { key: def.id, ...def })
