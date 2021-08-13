@@ -131,7 +131,7 @@ export type BarCanvasLayer<RawDatum> =
     | BarCanvasCustomLayer<RawDatum>
 export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 
-export interface BarItemProps<RawDatum>
+export interface BarItemProps<RawDatum extends BarDatum>
     extends Pick<
             BarCommonProps<RawDatum>,
             'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
@@ -158,9 +158,12 @@ export interface BarItemProps<RawDatum>
 
     label: string
     shouldRenderLabel: boolean
+
+    isFocusable: boolean
+    ariaLabel?: BarSvgProps<RawDatum>['barAriaLabel']
 }
 
-export type RenderBarProps<RawDatum> = Omit<
+export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     BarItemProps<RawDatum>,
     'isInteractive' | 'style' | 'tooltip'
 > & {
@@ -254,7 +257,13 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
 
         initialHiddenIds: string[]
         layers: BarLayer<RawDatum>[]
+
         role: string
+        ariaLabel?: React.AriaAttributes['aria-label']
+        ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
+        ariaDescribedBy?: React.AriaAttributes['aria-describedby']
+        isFocusable?: boolean
+        barAriaLabel?: (...data: any) => string
     }>
 
 export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &

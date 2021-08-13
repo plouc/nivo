@@ -590,6 +590,42 @@ const props = [
         },
     },
     ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    {
+        key: 'isFocusable',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Make the root SVG element and each bar item focusable, for keyboard navigation.',
+        type: 'boolean',
+        controlType: 'switch',
+    },
+    {
+        key: 'ariaLabel',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Main element aria-label.',
+        type: 'string',
+    },
+    {
+        key: 'ariaLabelledBy',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Main element aria-labelledby.',
+        type: 'string',
+    },
+    {
+        key: 'ariaDescribedBy',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Main element aria-describedby.',
+        type: 'string',
+    },
+    {
+        key: 'barAriaLabel',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Aria label for bar items.',
+        type: 'string | (bar) => string',
+    },
 ]
 
 export const groups = groupProperties(props)

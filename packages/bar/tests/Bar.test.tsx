@@ -630,3 +630,52 @@ describe('tooltip', () => {
         expect(wrapper.find(CustomTooltip).exists()).toBeTruthy()
     })
 })
+
+describe('accessibility', () => {
+    it('should forward root aria properties to the SVG element', () => {
+        const wrapper = mount(
+            <Bar
+                width={500}
+                height={300}
+                data={[
+                    { id: 'one', A: 10, B: 13 },
+                    { id: 'two', A: 12, B: 9 },
+                ]}
+                keys={['A', 'B']}
+                animate={false}
+                ariaLabel="Aria label"
+                ariaLabelledBy="AriaLabelledBy"
+                ariaDescribedBy="AriaDescribedBy"
+            />
+        )
+
+        const svg = wrapper.find('svg')
+
+        expect(svg.prop('aria-label')).toBe('Aria label')
+        expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
+        expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
+    })
+
+    it('should add an aria-label attribute to bars', () => {
+        const wrapper = mount(
+            <Bar
+                width={500}
+                height={300}
+                data={[
+                    { id: 'one', A: 10, B: 13 },
+                    { id: 'two', A: 12, B: 9 },
+                ]}
+                keys={['A', 'B']}
+                animate={false}
+                barAriaLabel={() => `Bar aria label`}
+            />
+        )
+
+        wrapper
+            .find('BarItem')
+            .find('rect')
+            .forEach(bar => {
+                expect(bar.prop('aria-label')).toBe('Bar aria label')
+            })
+    })
+})

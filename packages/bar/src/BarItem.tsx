@@ -31,6 +31,9 @@ export const BarItem = <RawDatum extends BarDatum>({
     onMouseLeave,
 
     tooltip,
+
+    isFocusable,
+    ariaLabel,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -75,6 +78,9 @@ export const BarItem = <RawDatum extends BarDatum>({
                 onMouseMove={isInteractive ? handleTooltip : undefined}
                 onMouseLeave={isInteractive ? handleMouseLeave : undefined}
                 onClick={isInteractive ? handleClick : undefined}
+                focusable={isFocusable}
+                tabIndex={isFocusable ? 0 : undefined}
+                aria-label={ariaLabel ? ariaLabel() : undefined}
             />
             {shouldRenderLabel && (
                 <animated.text
