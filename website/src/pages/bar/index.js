@@ -151,6 +151,14 @@ const initialProperties = {
 
     animate: true,
     motionConfig: 'default',
+
+    role: 'application',
+    isFocusable: true,
+    ariaLabel: 'Nivo bar chart demo',
+    barAriaLabel: d => {
+        console.log({ d })
+        return `aria label`
+    },
 }
 
 const Bar = () => {

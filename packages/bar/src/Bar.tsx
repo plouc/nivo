@@ -98,6 +98,11 @@ const InnerBar = <RawDatum extends BarDatum>({
     legends = svgDefaultProps.legends,
 
     role = svgDefaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    isFocusable = svgDefaultProps.isFocusable,
+    barAriaLabel,
 
     initialHiddenIds,
 }: InnerBarProps<RawDatum>) => {
@@ -272,6 +277,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             onMouseLeave,
             getTooltipLabel,
             tooltip,
+            isFocusable,
+            ariaLabel: barAriaLabel,
         }),
         [
             borderRadius,
@@ -285,6 +292,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             onMouseEnter,
             onMouseLeave,
             tooltip,
+            isFocusable,
+            barAriaLabel,
         ]
     )
 
@@ -416,6 +425,10 @@ const InnerBar = <RawDatum extends BarDatum>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
+            isFocusable={isFocusable}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {

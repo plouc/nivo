@@ -60,6 +60,7 @@ export const svgDefaultProps = {
     motionConfig: 'default',
 
     role: 'img',
+    isFocusable: false,
 }
 
 export const canvasDefaultProps = {

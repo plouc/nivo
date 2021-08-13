@@ -348,6 +348,10 @@ declare module '@nivo/core' {
             margin: Margin
             defs?: any
             role?: string
+            ariaLabel?: React.AriaAttributes['aria-label']
+            ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
+            ariaDescribedBy?: React.AriaAttributes['aria-describedby']
+            isFocusable?: boolean
         }>
     ) => JSX.Element
     export const SvgWrapper: SvgWrapperType
