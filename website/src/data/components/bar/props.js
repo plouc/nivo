@@ -595,6 +595,10 @@ const props = [
         flavors: ['svg'],
         group: 'Accessibility',
         help: 'Make the root SVG element and each bar item focusable, for keyboard navigation.',
+        description: `
+            If enabled, focusing will also reveal the tooltip if \`isInteractive\` is \`true\`,
+            when a bar gains focus and hide it on blur.
+        `,
         type: 'boolean',
         controlType: 'switch',
     },
