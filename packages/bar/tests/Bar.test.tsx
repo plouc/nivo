@@ -643,7 +643,7 @@ describe('accessibility', () => {
                 ]}
                 keys={['A', 'B']}
                 animate={false}
-                ariaLabel="Aria label"
+                ariaLabel="AriaLabel"
                 ariaLabelledBy="AriaLabelledBy"
                 ariaDescribedBy="AriaDescribedBy"
             />
@@ -651,12 +651,12 @@ describe('accessibility', () => {
 
         const svg = wrapper.find('svg')
 
-        expect(svg.prop('aria-label')).toBe('Aria label')
+        expect(svg.prop('aria-label')).toBe('AriaLabel')
         expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
         expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
     })
 
-    it('should add an aria-label attribute to bars', () => {
+    it('should add an aria attributes to bars', () => {
         const wrapper = mount(
             <Bar
                 width={500}
@@ -667,7 +667,9 @@ describe('accessibility', () => {
                 ]}
                 keys={['A', 'B']}
                 animate={false}
-                barAriaLabel={() => `Bar aria label`}
+                barAriaLabel={() => 'BarAriaLabel'}
+                barAriaLabelledBy={() => 'BarAriaLabelledBy'}
+                barAriaDescribedBy={() => 'BarAriaDescribedBy'}
             />
         )
 
@@ -675,7 +677,9 @@ describe('accessibility', () => {
             .find('BarItem')
             .find('rect')
             .forEach(bar => {
-                expect(bar.prop('aria-label')).toBe('Bar aria label')
+                expect(bar.prop('aria-label')).toBe('BarAriaLabel')
+                expect(bar.prop('aria-labelledby')).toBe('BarAriaLabelledBy')
+                expect(bar.prop('aria-describedby')).toBe('BarAriaDescribedBy')
             })
     })
 })

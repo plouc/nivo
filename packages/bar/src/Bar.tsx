@@ -103,6 +103,8 @@ const InnerBar = <RawDatum extends BarDatum>({
     ariaDescribedBy,
     isFocusable = svgDefaultProps.isFocusable,
     barAriaLabel,
+    barAriaLabelledBy,
+    barAriaDescribedBy,
 
     initialHiddenIds,
 }: InnerBarProps<RawDatum>) => {
@@ -279,6 +281,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             tooltip,
             isFocusable,
             ariaLabel: barAriaLabel,
+            ariaLabelledBy: barAriaLabelledBy,
+            ariaDescribedBy: barAriaDescribedBy,
         }),
         [
             borderRadius,
@@ -294,6 +298,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             tooltip,
             isFocusable,
             barAriaLabel,
+            barAriaLabelledBy,
+            barAriaDescribedBy,
         ]
     )
 
