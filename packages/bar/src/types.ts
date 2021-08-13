@@ -161,6 +161,8 @@ export interface BarItemProps<RawDatum extends BarDatum>
 
     isFocusable: boolean
     ariaLabel?: BarSvgProps<RawDatum>['barAriaLabel']
+    ariaLabelledBy?: BarSvgProps<RawDatum>['barAriaLabelledBy']
+    ariaDescribedBy?: BarSvgProps<RawDatum>['barAriaDescribedBy']
 }
 
 export type RenderBarProps<RawDatum extends BarDatum> = Omit<
@@ -263,7 +265,9 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
         ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
         ariaDescribedBy?: React.AriaAttributes['aria-describedby']
         isFocusable?: boolean
-        barAriaLabel?: (...data: any) => string
+        barAriaLabel?: (...data: any) => React.AriaAttributes['aria-label']
+        barAriaLabelledBy?: (...data: any) => React.AriaAttributes['aria-labelledby']
+        barAriaDescribedBy?: (...data: any) => React.AriaAttributes['aria-describedby']
     }>
 
 export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &

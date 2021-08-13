@@ -34,6 +34,8 @@ export const BarItem = <RawDatum extends BarDatum>({
 
     isFocusable,
     ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -81,6 +83,8 @@ export const BarItem = <RawDatum extends BarDatum>({
                 focusable={isFocusable}
                 tabIndex={isFocusable ? 0 : undefined}
                 aria-label={ariaLabel ? ariaLabel() : undefined}
+                aria-labelledby={ariaLabelledBy ? ariaLabelledBy() : undefined}
+                aria-describedby={ariaDescribedBy ? ariaDescribedBy() : undefined}
             />
             {shouldRenderLabel && (
                 <animated.text
