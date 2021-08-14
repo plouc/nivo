@@ -1,7 +1,8 @@
-import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
+import { Margin } from '@nivo/core'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand, computeScale } from '@nivo/scales'
 import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
+import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
 type StackDatum<RawDatum> = SeriesPoint<RawDatum>
@@ -15,6 +16,7 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
     stackedData: Series<RawDatum, string>[]
     xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
     yScale: YScaleInput extends string ? ScaleBand<YScaleInput> : Scale<YScaleInput, number>
+    margin: Margin
 }
 
 const flattenDeep = <T>(arr: T[]): T =>
@@ -36,6 +38,7 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
         stackedData,
         xScale,
         yScale,
+        margin,
     }: Params<RawDatum, string, number>,
     barWidth: number,
     reverse: boolean
@@ -68,6 +71,8 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
                 data: barData,
                 x,
                 y,
+                absX: margin.left + x,
+                absY: margin.top + y,
                 width: barWidth,
                 height: barHeight,
                 color: getColor(barData),
@@ -92,6 +97,7 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
         stackedData,
         xScale,
         yScale,
+        margin,
     }: Params<RawDatum, number, string>,
     barHeight: number,
     reverse: boolean
@@ -124,6 +130,8 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
                 data: barData,
                 x,
                 y,
+                absX: margin.left + x,
+                absY: margin.top + y,
                 width: barWidth,
                 height: barHeight,
                 color: getColor(barData),
@@ -170,6 +178,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    margin: Margin
     hiddenIds?: string[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))

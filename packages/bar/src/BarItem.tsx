@@ -73,8 +73,7 @@ export const BarItem = <RawDatum extends BarDatum>({
 
     // extra handlers to allow keyboard navigation
     const handleFocus = useCallback(() => {
-        console.log(bar)
-        showTooltipAt(renderTooltip(), [bar.x, bar.y])
+        showTooltipAt(renderTooltip(), [bar.absX + bar.width / 2, bar.absY])
     }, [showTooltipAt, renderTooltip, bar])
     const handleBlur = useCallback(() => {
         hideTooltip()
