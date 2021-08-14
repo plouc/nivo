@@ -623,21 +623,21 @@ const props = [
         flavors: ['svg'],
         group: 'Accessibility',
         help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for bar items.',
-        type: '(bar) => string',
+        type: '(data) => string',
     },
     {
         key: 'barAriaLabelledBy',
         flavors: ['svg'],
         group: 'Accessibility',
         help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for bar items.',
-        type: '(bar) => string',
+        type: '(data) => string',
     },
     {
         key: 'barAriaDescribedBy',
         flavors: ['svg'],
         group: 'Accessibility',
         help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for bar items.',
-        type: '(bar) => string',
+        type: '(data) => string',
     },
 ]
 
