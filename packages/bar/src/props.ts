@@ -44,7 +44,7 @@ export const defaultProps = {
     tooltipLabel: <RawDatum>(datum: ComputedDatum<RawDatum>) => `${datum.id} - ${datum.indexValue}`,
 
     legends: [],
-
+    initialHiddenIds: [],
     annotations: [],
 }
 

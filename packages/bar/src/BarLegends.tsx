@@ -1,35 +1,31 @@
 import { BoxLegendSvg } from '@nivo/legends'
-import { BarCommonProps, LegendData } from './types'
+import { BarLegendProps, LegendData } from './types'
 
-interface BarLegendsProps<RawDatum> {
+interface BarLegendsProps {
     width: number
     height: number
-    legends: BarCommonProps<RawDatum>['legends']
-    data: LegendData[]
+    legends: [BarLegendProps, LegendData[]][]
     toggleSerie: (id: string | number) => void
 }
 
-export const BarLegends = <RawDatum,>({
+export const BarLegends = ({
     width,
     height,
     legends,
-    data,
     toggleSerie,
-}: BarLegendsProps<RawDatum>) => {
-    return (
-        <>
-            {legends.map((legend, i) => (
-                <BoxLegendSvg
-                    key={i}
-                    {...legend}
-                    containerWidth={width}
-                    containerHeight={height}
-                    data={legend.data ?? data}
-                    toggleSerie={
-                        legend.toggleSerie && legend.dataFrom === 'keys' ? toggleSerie : undefined
-                    }
-                />
-            ))}
-        </>
-    )
-}
+}: BarLegendsProps) => (
+    <>
+        {legends.map(([legend, data], i) => (
+            <BoxLegendSvg
+                key={i}
+                {...legend}
+                containerWidth={width}
+                containerHeight={height}
+                data={legend.data ?? data}
+                toggleSerie={
+                    legend.toggleSerie && legend.dataFrom === 'keys' ? toggleSerie : undefined
+                }
+            />
+        ))}
+    </>
+)
