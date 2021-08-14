@@ -12,7 +12,7 @@ const SvgWrapper = ({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-    isFocusable = false,
+    isFocusable,
 }) => {
     const theme = useTheme()
 
