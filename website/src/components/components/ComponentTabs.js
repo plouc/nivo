@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -38,10 +30,14 @@ const ComponentTabs = ({
 
     let content
     if (currentTab === 'chart') {
-        content = <Content id="chart">{children}</Content>
+        content = (
+            <Content id="chart" role="tabpanel">
+                {children}
+            </Content>
+        )
     } else if (currentTab === 'code') {
         content = (
-            <Code>
+            <Code role="tabpanel">
                 <Highlight code={code} language="jsx" />
             </Code>
         )
@@ -55,8 +51,8 @@ const ComponentTabs = ({
 
     return (
         <Wrapper className={`chart-tabs--${currentTab}`}>
-            <Nav>
-                {availableTabs.map(tab => {
+            <Nav role="tablist">
+                {availableTabs.map((tab, index) => {
                     const isCurrent = tab === currentTab
                     const icon = tab === 'chart' ? chartClass : tab
                     const iconColors = isCurrent || hoverTab === tab ? 'colored' : 'neutral'
@@ -64,6 +60,11 @@ const ComponentTabs = ({
                     return (
                         <NavItem
                             key={tab}
+                            role="tab"
+                            tabIndex={0}
+                            aria-setsize={availableTabs.length}
+                            aria-posinset={index + 1}
+                            aria-selected={isCurrent}
                             className="no-select"
                             isCurrent={isCurrent}
                             onClick={() => setCurrentTab(tab)}
@@ -76,7 +77,12 @@ const ComponentTabs = ({
                     )
                 })}
                 {diceRoll && (
-                    <DiceRollButton className="no-select" onClick={diceRoll}>
+                    <DiceRollButton
+                        className="no-select"
+                        onClick={diceRoll}
+                        role="button"
+                        tabIndex={0}
+                    >
                         roll the dice
                     </DiceRollButton>
                 )}

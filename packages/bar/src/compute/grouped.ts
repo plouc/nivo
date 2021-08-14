@@ -19,7 +19,6 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
 const gt = (value: number, other: number) => value > other
 const lt = (value: number, other: number) => value < other
 
-const flatten = <T>(array: T[][]) => ([] as T[]).concat(...array)
 const range = (start: number, end: number) =>
     Array.from(' '.repeat(end - start), (_, index) => start + index)
 
@@ -44,42 +43,42 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
     barWidth: number,
     reverse: boolean,
     yRef: number
-) => {
+): ComputedBarDatum<RawDatum>[] => {
     const compare = reverse ? lt : gt
     const getY = (d: number) => (compare(d, 0) ? yScale(d) ?? 0 : yRef)
     const getHeight = (d: number, y: number) => (compare(d, 0) ? yRef - y : (yScale(d) ?? 0) - yRef)
     const cleanedData = data.map(filterNullValues)
 
-    const bars = flatten(
-        keys.map((key, i) =>
-            range(0, xScale.domain().length).map(index => {
-                const [rawValue, value] = coerceValue(data[index][key])
-                const indexValue = getIndex(data[index])
-                const x = (xScale(indexValue) ?? 0) + barWidth * i + innerPadding * i
-                const y = getY(value)
-                const barHeight = getHeight(value, y)
-                const barData = {
-                    id: key,
-                    value: rawValue === null ? rawValue : value,
-                    formattedValue: formatValue(value),
-                    hidden: false,
-                    index,
-                    indexValue,
-                    data: cleanedData[index],
-                }
+    const bars: ComputedBarDatum<RawDatum>[] = []
+    keys.forEach((key, i) =>
+        range(0, xScale.domain().length).forEach(index => {
+            const [rawValue, value] = coerceValue(data[index][key])
+            const indexValue = getIndex(data[index])
+            const x = (xScale(indexValue) ?? 0) + barWidth * i + innerPadding * i
+            const y = getY(value)
+            const barHeight = getHeight(value, y)
+            const barData: ComputedDatum<RawDatum> = {
+                id: key,
+                value: rawValue === null ? rawValue : value,
+                formattedValue: formatValue(value),
+                hidden: false,
+                index,
+                indexValue,
+                data: cleanedData[index],
+            }
 
-                return {
-                    key: `${key}.${barData.indexValue}`,
-                    data: barData,
-                    x,
-                    y,
-                    width: barWidth,
-                    height: barHeight,
-                    color: getColor(barData),
-                    label: getTooltipLabel(barData),
-                }
+            bars.push({
+                key: `${key}.${barData.indexValue}`,
+                index: bars.length,
+                data: barData,
+                x,
+                y,
+                width: barWidth,
+                height: barHeight,
+                color: getColor(barData),
+                label: getTooltipLabel(barData),
             })
-        )
+        })
     )
 
     return bars
@@ -103,42 +102,42 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
     barHeight: number,
     reverse: boolean,
     xRef: number
-) => {
+): ComputedBarDatum<RawDatum>[] => {
     const compare = reverse ? lt : gt
     const getX = (d: number) => (compare(d, 0) ? xRef : xScale(d) ?? 0)
     const getWidth = (d: number, x: number) => (compare(d, 0) ? (xScale(d) ?? 0) - xRef : xRef - x)
     const cleanedData = data.map(filterNullValues)
 
-    const bars = flatten(
-        keys.map((key, i) =>
-            range(0, yScale.domain().length).map(index => {
-                const [rawValue, value] = coerceValue(data[index][key])
-                const indexValue = getIndex(data[index])
-                const x = getX(value)
-                const y = (yScale(indexValue) ?? 0) + barHeight * i + innerPadding * i
-                const barWidth = getWidth(value, x)
-                const barData = {
-                    id: key,
-                    value: rawValue === null ? rawValue : value,
-                    formattedValue: formatValue(value),
-                    hidden: false,
-                    index,
-                    indexValue,
-                    data: cleanedData[index],
-                }
+    const bars: ComputedBarDatum<RawDatum>[] = []
+    keys.forEach((key, i) =>
+        range(0, yScale.domain().length).forEach(index => {
+            const [rawValue, value] = coerceValue(data[index][key])
+            const indexValue = getIndex(data[index])
+            const x = getX(value)
+            const y = (yScale(indexValue) ?? 0) + barHeight * i + innerPadding * i
+            const barWidth = getWidth(value, x)
+            const barData: ComputedDatum<RawDatum> = {
+                id: key,
+                value: rawValue === null ? rawValue : value,
+                formattedValue: formatValue(value),
+                hidden: false,
+                index,
+                indexValue,
+                data: cleanedData[index],
+            }
 
-                return {
-                    key: `${key}.${barData.indexValue}`,
-                    data: barData,
-                    x,
-                    y,
-                    width: barWidth,
-                    height: barHeight,
-                    color: getColor(barData),
-                    label: getTooltipLabel(barData),
-                }
+            bars.push({
+                key: `${key}.${barData.indexValue}`,
+                index: bars.length,
+                data: barData,
+                x,
+                y,
+                width: barWidth,
+                height: barHeight,
+                color: getColor(barData),
+                label: getTooltipLabel(barData),
             })
-        )
+        })
     )
 
     return bars
