@@ -393,10 +393,13 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         },
         height: 300,
         key: 'A.one',
+        index: 0,
         label: 'A - one',
         width: 71.33333333333333,
         x: 24,
         y: 0,
+        absX: 24,
+        absY: 0,
     })
 
     expect(bars.at(1).prop('bar')).toEqual({
@@ -412,10 +415,13 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         },
         height: 270,
         key: 'B.two',
+        index: 1,
         label: 'B - two',
         width: 71.33333333333333,
         x: 333.3333333333333,
         y: 30,
+        absX: 333.3333333333333,
+        absY: 30,
     })
 
     expect(bars.at(2).prop('bar')).toEqual({
@@ -431,10 +437,13 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         },
         height: 90,
         key: 'C.one',
+        index: 2,
         label: 'C - one',
         width: 71.33333333333333,
         x: 166.66666666666666,
         y: 210,
+        absX: 166.66666666666666,
+        absY: 210,
     })
 })
 
@@ -469,10 +478,13 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         },
         height: 231,
         key: 'A.one',
+        index: 0,
         label: 'A - one',
         width: 214,
         x: 24,
         y: 69,
+        absX: 24,
+        absY: 69,
     })
 
     expect(bars.at(1).prop('bar')).toEqual({
@@ -488,10 +500,13 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         },
         height: 208,
         key: 'B.two',
+        index: 1,
         label: 'B - two',
         width: 214,
         x: 262,
         y: 92,
+        absX: 262,
+        absY: 92,
     })
 
     expect(bars.at(2).prop('bar')).toEqual({
@@ -507,10 +522,13 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         },
         height: 69,
         key: 'C.one',
+        index: 2,
         label: 'C - one',
         width: 214,
         x: 24,
         y: 0,
+        absX: 24,
+        absY: 0,
     })
 })
 

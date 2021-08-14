@@ -153,7 +153,7 @@ const initialProperties = {
     motionConfig: 'default',
 
     role: 'application',
-    isFocusable: true,
+    isFocusable: false,
     ariaLabel: 'Nivo bar chart demo',
     barAriaLabel: data => `${data.id}: ${data.formattedValue} in country: ${data.indexValue}`,
 }
