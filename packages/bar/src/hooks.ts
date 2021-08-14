@@ -28,7 +28,6 @@ export const useBar = <RawDatum extends BarDatum>({
     data,
     minValue = defaultProps.minValue,
     maxValue = defaultProps.maxValue,
-    margin,
     width,
     height,
     padding = defaultProps.padding,

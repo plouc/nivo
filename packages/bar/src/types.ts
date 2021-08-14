@@ -167,7 +167,13 @@ export interface BarItemProps<RawDatum extends BarDatum>
 
 export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     BarItemProps<RawDatum>,
-    'isInteractive' | 'style' | 'tooltip'
+    | 'isInteractive'
+    | 'style'
+    | 'tooltip'
+    | 'isFocusable'
+    | 'ariaLabel'
+    | 'ariaLabelledBy'
+    | 'ariaDescribedBy'
 > & {
     borderColor: string
     labelColor: string
