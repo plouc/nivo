@@ -1,16 +1,8 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
-import { Help } from './styled'
+import { Help } from './Help'
 import Radio from './Radio'
 
 const RadioControl = memo(({ id, property, flavors, currentFlavor, options, value, onChange }) => {

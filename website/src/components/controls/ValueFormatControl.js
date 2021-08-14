@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { formatSpecifier as parseFormat, FormatSpecifier } from 'd3-format'
@@ -15,7 +7,7 @@ import PropertyHeader from './PropertyHeader'
 import TextInput from './TextInput'
 import Switch from './Switch'
 import Select from './Select'
-import { Help } from './styled'
+import { Help } from './Help'
 import CollapseIcon from 'react-icons/lib/fa/chevron-up'
 import ExpandIcon from 'react-icons/lib/fa/chevron-down'
 

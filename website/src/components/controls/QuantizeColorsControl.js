@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { quantizeColorScales } from '@nivo/core'
@@ -13,7 +5,7 @@ import Select from './Select'
 import ColorsControlItem from './ColorsControlItem'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
-import { Help } from './styled'
+import { Help } from './Help'
 
 const options = Object.keys(quantizeColorScales).map(id => ({
     id,
