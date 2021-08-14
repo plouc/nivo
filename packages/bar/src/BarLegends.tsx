@@ -8,12 +8,7 @@ interface BarLegendsProps {
     toggleSerie: (id: string | number) => void
 }
 
-export const BarLegends = ({
-    width,
-    height,
-    legends,
-    toggleSerie,
-}: BarLegendsProps) => (
+export const BarLegends = ({ width, height, legends, toggleSerie }: BarLegendsProps) => (
     <>
         {legends.map(([legend, data], i) => (
             <BoxLegendSvg

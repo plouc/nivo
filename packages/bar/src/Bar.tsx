@@ -1,12 +1,6 @@
 import { Axes, Grid } from '@nivo/axes'
 import { BarAnnotations } from './BarAnnotations'
-import {
-    BarDatum,
-    BarLayer,
-    BarLayerId,
-    BarSvgProps,
-    ComputedBarDatumWithValue,
-} from './types'
+import { BarDatum, BarLayer, BarLayerId, BarSvgProps, ComputedBarDatumWithValue } from './types'
 import { BarLegends } from './BarLegends'
 import {
     // @ts-ignore
