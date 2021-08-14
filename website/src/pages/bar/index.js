@@ -155,10 +155,7 @@ const initialProperties = {
     role: 'application',
     isFocusable: true,
     ariaLabel: 'Nivo bar chart demo',
-    barAriaLabel: d => {
-        // console.log({ d })
-        return `aria label`
-    },
+    barAriaLabel: data => `${data.id}: ${data.formattedValue} in country: ${data.indexValue}`,
 }
 
 const Bar = () => {

@@ -1,8 +1,8 @@
-import { BarDatum, BarItemProps } from './types'
-import { animated, to } from '@react-spring/web'
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
+import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
+import { BarDatum, BarItemProps } from './types'
 
 export const BarItem = <RawDatum extends BarDatum>({
     bar: { data, ...bar },
@@ -91,9 +91,9 @@ export const BarItem = <RawDatum extends BarDatum>({
                 stroke={borderColor}
                 focusable={isFocusable}
                 tabIndex={isFocusable ? 0 : undefined}
-                aria-label={ariaLabel ? ariaLabel() : undefined}
-                aria-labelledby={ariaLabelledBy ? ariaLabelledBy() : undefined}
-                aria-describedby={ariaDescribedBy ? ariaDescribedBy() : undefined}
+                aria-label={ariaLabel ? ariaLabel(data) : undefined}
+                aria-labelledby={ariaLabelledBy ? ariaLabelledBy(data) : undefined}
+                aria-describedby={ariaDescribedBy ? ariaDescribedBy(data) : undefined}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
                 onMouseMove={isInteractive ? handleTooltip : undefined}
                 onMouseLeave={isInteractive ? handleMouseLeave : undefined}
