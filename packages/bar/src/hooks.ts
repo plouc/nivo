@@ -8,6 +8,7 @@ import {
     ComputedBarDatumWithValue,
     LegendData,
     BarLegendProps,
+    ComputedBarDatum,
 } from './types'
 import { defaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
@@ -116,9 +117,14 @@ export const useBar = <RawDatum extends BarDatum>({
 
     const barsWithValue = useMemo(
         () =>
-            bars.filter(
-                (bar): bar is ComputedBarDatumWithValue<RawDatum> => bar.data.value !== null
-            ),
+            bars
+                .filter(
+                    (bar): bar is ComputedBarDatumWithValue<RawDatum> => bar.data.value !== null
+                )
+                .map((bar, index) => ({
+                    ...bar,
+                    index,
+                })),
         [bars]
     )
 

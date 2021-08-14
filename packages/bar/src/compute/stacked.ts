@@ -39,41 +39,41 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
     }: Params<RawDatum, string, number>,
     barWidth: number,
     reverse: boolean
-) => {
+): ComputedBarDatum<RawDatum>[] => {
     const getY = (d: StackDatum<RawDatum>) => yScale(d[reverse ? 0 : 1])
     const getHeight = (d: StackDatum<RawDatum>, y: number) => (yScale(d[reverse ? 1 : 0]) ?? 0) - y
 
-    const bars = flattenDeep(
-        stackedData.map(stackedDataItem =>
-            xScale.domain().map((index, i) => {
-                const d = stackedDataItem[i]
-                const x = xScale(getIndex(d.data)) ?? 0
-                const y = (getY(d) ?? 0) + innerPadding * 0.5
-                const barHeight = getHeight(d, y) - innerPadding
-                const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
+    const bars: ComputedBarDatum<RawDatum>[] = []
+    stackedData.forEach(stackedDataItem =>
+        xScale.domain().forEach((index, i) => {
+            const d = stackedDataItem[i]
+            const x = xScale(getIndex(d.data)) ?? 0
+            const y = (getY(d) ?? 0) + innerPadding * 0.5
+            const barHeight = getHeight(d, y) - innerPadding
+            const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
 
-                const barData = {
-                    id: stackedDataItem.key,
-                    value: rawValue === null ? rawValue : value,
-                    formattedValue: formatValue(value),
-                    hidden: false,
-                    index: i,
-                    indexValue: index,
-                    data: filterNullValues(d.data),
-                }
+            const barData: ComputedDatum<RawDatum> = {
+                id: stackedDataItem.key,
+                value: rawValue === null ? rawValue : value,
+                formattedValue: formatValue(value),
+                hidden: false,
+                index: i,
+                indexValue: index,
+                data: filterNullValues(d.data),
+            }
 
-                return {
-                    key: `${stackedDataItem.key}.${index}`,
-                    data: barData,
-                    x,
-                    y,
-                    width: barWidth,
-                    height: barHeight,
-                    color: getColor(barData),
-                    label: getTooltipLabel(barData),
-                }
+            bars.push({
+                key: `${stackedDataItem.key}.${index}`,
+                index: bars.length,
+                data: barData,
+                x,
+                y,
+                width: barWidth,
+                height: barHeight,
+                color: getColor(barData),
+                label: getTooltipLabel(barData),
             })
-        )
+        })
     )
 
     return bars
@@ -95,41 +95,41 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
     }: Params<RawDatum, number, string>,
     barHeight: number,
     reverse: boolean
-) => {
+): ComputedBarDatum<RawDatum>[] => {
     const getX = (d: StackDatum<RawDatum>) => xScale(d[reverse ? 1 : 0])
     const getWidth = (d: StackDatum<RawDatum>, x: number) => (xScale(d[reverse ? 0 : 1]) ?? 0) - x
 
-    const bars = flattenDeep(
-        stackedData.map(stackedDataItem =>
-            yScale.domain().map((index, i) => {
-                const d = stackedDataItem[i]
-                const y = yScale(getIndex(d.data)) ?? 0
-                const x = (getX(d) ?? 0) + innerPadding * 0.5
-                const barWidth = getWidth(d, x) - innerPadding
-                const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
+    const bars: ComputedBarDatum<RawDatum>[] = []
+    stackedData.forEach(stackedDataItem =>
+        yScale.domain().forEach((index, i) => {
+            const d = stackedDataItem[i]
+            const y = yScale(getIndex(d.data)) ?? 0
+            const x = (getX(d) ?? 0) + innerPadding * 0.5
+            const barWidth = getWidth(d, x) - innerPadding
+            const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
 
-                const barData = {
-                    id: stackedDataItem.key,
-                    value: rawValue === null ? rawValue : value,
-                    formattedValue: formatValue(value),
-                    hidden: false,
-                    index: i,
-                    indexValue: index,
-                    data: filterNullValues(d.data),
-                }
+            const barData: ComputedDatum<RawDatum> = {
+                id: stackedDataItem.key,
+                value: rawValue === null ? rawValue : value,
+                formattedValue: formatValue(value),
+                hidden: false,
+                index: i,
+                indexValue: index,
+                data: filterNullValues(d.data),
+            }
 
-                return {
-                    key: `${stackedDataItem.key}.${index}`,
-                    data: barData,
-                    x,
-                    y,
-                    width: barWidth,
-                    height: barHeight,
-                    color: getColor(barData),
-                    label: getTooltipLabel(barData),
-                }
+            bars.push({
+                key: `${stackedDataItem.key}.${index}`,
+                index: bars.length,
+                data: barData,
+                x,
+                y,
+                width: barWidth,
+                height: barHeight,
+                color: getColor(barData),
+                label: getTooltipLabel(barData),
             })
-        )
+        })
     )
 
     return bars

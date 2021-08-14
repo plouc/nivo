@@ -48,6 +48,7 @@ export type ComputedBarDatumWithValue<RawDatum> = ComputedBarDatum<RawDatum> & {
 
 export type ComputedBarDatum<RawDatum> = {
     key: string
+    index: number
     data: ComputedDatum<RawDatum>
     x: number
     y: number

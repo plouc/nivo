@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { svgDefaultProps } from '@nivo/bar'
 import {
     themeProperty,
@@ -598,6 +590,9 @@ const props = [
         description: `
             If enabled, focusing will also reveal the tooltip if \`isInteractive\` is \`true\`,
             when a bar gains focus and hide it on blur.
+            
+            Also note that if this option is enabled, focusing a bar will reposition the tooltip
+            at a fixed location.
         `,
         type: 'boolean',
         controlType: 'switch',
