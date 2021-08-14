@@ -1,17 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import TextInput from './TextInput'
-import { Help } from './styled'
+import { Help } from './Help'
 
 const TextControl = memo(({ id, property, flavors, currentFlavor, value, onChange, options }) => {
     const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])

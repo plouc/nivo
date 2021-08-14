@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Control from './Control'
 import Select from './Select'
 import PropertyHeader from './PropertyHeader'
-import { Help } from './styled'
+import { Help } from './Help'
 
 const ChoicesControl = memo(
     ({ id, property, flavors, currentFlavor, value: _value, options, onChange }) => {

@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { useState, useCallback } from 'react'
 import isString from 'lodash/isString'
 import isPlainObject from 'lodash/isPlainObject'
@@ -14,7 +6,7 @@ import styled from 'styled-components'
 import { inheritedColorPropType } from '@nivo/colors'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
-import { Help } from './styled'
+import { Help } from './Help'
 import Select from './Select'
 import InheritedColorModifierControl from './InheritedColorModifierControl'
 

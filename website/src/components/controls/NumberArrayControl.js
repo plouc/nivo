@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -13,7 +5,7 @@ import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import Label from './Label'
 import TextInput from './TextInput'
-import { Help } from './styled'
+import { Help } from './Help'
 
 const Range = styled.input`
     max-width: 160px;

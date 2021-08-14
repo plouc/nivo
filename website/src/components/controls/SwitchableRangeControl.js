@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import pick from 'lodash/pick'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
-import { Help } from './styled'
+import { Help } from './Help'
 import TextInput from './TextInput'
 import Switch from './Switch'
 
