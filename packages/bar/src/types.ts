@@ -52,6 +52,8 @@ export type ComputedBarDatum<RawDatum> = {
     data: ComputedDatum<RawDatum>
     x: number
     y: number
+    absX: number
+    absY: number
     width: number
     height: number
     color: string

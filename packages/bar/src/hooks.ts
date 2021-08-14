@@ -8,7 +8,6 @@ import {
     ComputedBarDatumWithValue,
     LegendData,
     BarLegendProps,
-    ComputedBarDatum,
 } from './types'
 import { defaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
@@ -29,6 +28,7 @@ export const useBar = <RawDatum extends BarDatum>({
     data,
     minValue = defaultProps.minValue,
     maxValue = defaultProps.maxValue,
+    margin,
     width,
     height,
     padding = defaultProps.padding,
@@ -113,6 +113,7 @@ export const useBar = <RawDatum extends BarDatum>({
         hiddenIds,
         formatValue,
         getTooltipLabel,
+        margin,
     })
 
     const barsWithValue = useMemo(

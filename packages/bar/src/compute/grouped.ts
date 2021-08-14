@@ -1,8 +1,8 @@
-import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
+import { Margin } from '@nivo/core'
 import { OrdinalColorScale } from '@nivo/colors'
-import { Scale, ScaleBand } from '@nivo/scales'
+import { Scale, ScaleBand, computeScale } from '@nivo/scales'
+import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
-import { computeScale } from '@nivo/scales'
 
 type Params<RawDatum, XScaleInput, YScaleInput> = {
     data: RawDatum[]
@@ -14,6 +14,7 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
     keys: string[]
     xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
     yScale: YScaleInput extends string ? ScaleBand<YScaleInput> : Scale<YScaleInput, number>
+    margin: Margin
 }
 
 const gt = (value: number, other: number) => value > other
@@ -39,6 +40,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
         keys,
         xScale,
         yScale,
+        margin,
     }: Params<RawDatum, string, number>,
     barWidth: number,
     reverse: boolean,
@@ -73,6 +75,8 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
                 data: barData,
                 x,
                 y,
+                absX: margin.left + x,
+                absY: margin.top + y,
                 width: barWidth,
                 height: barHeight,
                 color: getColor(barData),
@@ -98,6 +102,7 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
         innerPadding = 0,
         xScale,
         yScale,
+        margin,
     }: Params<RawDatum, number, string>,
     barHeight: number,
     reverse: boolean,
@@ -132,6 +137,8 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
                 data: barData,
                 x,
                 y,
+                absX: margin.left + x,
+                absY: margin.top + y,
                 width: barWidth,
                 height: barHeight,
                 color: getColor(barData),
@@ -178,6 +185,7 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    margin: Margin
     hiddenIds?: string[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
