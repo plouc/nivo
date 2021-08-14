@@ -1,4 +1,11 @@
-import { BarDatum, BarLegendProps, BarSvgProps, BarsWithHidden, LegendLabelDatum } from '../types'
+import {
+    BarDatum,
+    BarLegendProps,
+    BarSvgProps,
+    BarsWithHidden,
+    LegendData,
+    LegendLabelDatum,
+} from '../types'
 import { getPropertyAccessor } from '@nivo/core'
 import { uniqBy } from 'lodash'
 
@@ -9,7 +16,7 @@ export const getLegendDataForKeys = <RawDatum extends BarDatum>(
     groupMode: NonNullable<BarSvgProps<RawDatum>['groupMode']>,
     reverse: boolean,
     getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
-) => {
+): LegendData[] => {
     const data = uniqBy(
         bars.map(bar => ({
             id: bar.data.id,
@@ -37,7 +44,7 @@ export const getLegendDataForIndexes = <RawDatum extends BarDatum>(
     bars: BarsWithHidden<RawDatum>,
     layout: NonNullable<BarSvgProps<RawDatum>['layout']>,
     getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
-) => {
+): LegendData[] => {
     const data = uniqBy(
         bars.map(bar => ({
             id: bar.data.indexValue ?? '',

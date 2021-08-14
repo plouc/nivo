@@ -239,6 +239,8 @@ export type BarCommonProps<RawDatum> = {
     legends: BarLegendProps[]
 
     renderWrapper?: boolean
+
+    initialHiddenIds: string[]
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
@@ -257,7 +259,6 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
 
         markers: CartesianMarkerProps[]
 
-        initialHiddenIds: string[]
         layers: BarLayer<RawDatum>[]
 
         role: string

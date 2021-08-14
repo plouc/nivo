@@ -156,7 +156,7 @@ const initialProperties = {
     isFocusable: true,
     ariaLabel: 'Nivo bar chart demo',
     barAriaLabel: d => {
-        console.log({ d })
+        // console.log({ d })
         return `aria label`
     },
 }

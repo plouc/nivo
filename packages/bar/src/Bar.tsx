@@ -6,7 +6,6 @@ import {
     BarLayerId,
     BarSvgProps,
     ComputedBarDatumWithValue,
-    LegendData,
 } from './types'
 import { BarLegends } from './BarLegends'
 import {
@@ -18,15 +17,12 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
-    usePropertyAccessor,
     useTheme,
-    useValueFormatter,
 } from '@nivo/core'
-import { Fragment, ReactNode, createElement, useCallback, useMemo, useState } from 'react'
-import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { svgDefaultProps } from './props'
-import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTransition } from '@react-spring/web'
+import { useBar } from './hooks'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -35,24 +31,24 @@ type InnerBarProps<RawDatum extends BarDatum> = Omit<
 
 const InnerBar = <RawDatum extends BarDatum>({
     data,
-    indexBy = svgDefaultProps.indexBy,
-    keys = svgDefaultProps.keys,
+    indexBy,
+    keys,
 
     margin: partialMargin,
     width,
     height,
 
-    groupMode = svgDefaultProps.groupMode,
-    layout = svgDefaultProps.layout,
-    reverse = svgDefaultProps.reverse,
-    minValue = svgDefaultProps.minValue,
-    maxValue = svgDefaultProps.maxValue,
+    groupMode,
+    layout,
+    reverse,
+    minValue,
+    maxValue,
 
-    valueScale = svgDefaultProps.valueScale,
-    indexScale = svgDefaultProps.indexScale,
+    valueScale,
+    indexScale,
 
-    padding = svgDefaultProps.padding,
-    innerPadding = svgDefaultProps.innerPadding,
+    padding,
+    innerPadding,
 
     axisTop,
     axisRight,
@@ -66,26 +62,26 @@ const InnerBar = <RawDatum extends BarDatum>({
     layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
 
-    enableLabel = svgDefaultProps.enableLabel,
-    label = svgDefaultProps.label,
-    labelSkipWidth = svgDefaultProps.labelSkipWidth,
-    labelSkipHeight = svgDefaultProps.labelSkipHeight,
-    labelTextColor = svgDefaultProps.labelTextColor,
+    enableLabel,
+    label,
+    labelSkipWidth,
+    labelSkipHeight,
+    labelTextColor,
 
     markers,
 
-    colorBy = svgDefaultProps.colorBy,
-    colors = svgDefaultProps.colors,
+    colorBy,
+    colors,
     defs = svgDefaultProps.defs,
     fill = svgDefaultProps.fill,
     borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
-    borderColor = svgDefaultProps.borderColor,
+    borderColor,
 
     annotations = svgDefaultProps.annotations,
 
     legendLabel,
-    tooltipLabel = svgDefaultProps.tooltipLabel,
+    tooltipLabel,
 
     valueFormat,
 
@@ -95,7 +91,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     onMouseEnter,
     onMouseLeave,
 
-    legends = svgDefaultProps.legends,
+    legends,
 
     role = svgDefaultProps.role,
     ariaLabel,
@@ -108,13 +104,6 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     initialHiddenIds,
 }: InnerBarProps<RawDatum>) => {
-    const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
-    const toggleSerie = useCallback(id => {
-        setHiddenIds(state =>
-            state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
-        )
-    }, [])
-
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -123,58 +112,48 @@ const InnerBar = <RawDatum extends BarDatum>({
         partialMargin
     )
 
-    const formatValue = useValueFormatter(valueFormat)
-    const getBorderColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
+    const {
+        bars,
+        barsWithValue,
+        xScale,
+        yScale,
+        getLabel,
+        getTooltipLabel,
+        getBorderColor,
+        getLabelColor,
+        shouldRenderBarLabel,
+        toggleSerie,
+        legendsWithData,
+    } = useBar<RawDatum>({
+        indexBy,
+        label,
+        tooltipLabel,
+        valueFormat,
+        colors,
+        colorBy,
         borderColor,
-        theme
-    )
-    const getColor = useOrdinalColorScale(colors, colorBy)
-    const getIndex = usePropertyAccessor(indexBy)
-    const getLabel = usePropertyAccessor(label)
-    const getLabelColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
         labelTextColor,
-        theme
-    )
-    const getTooltipLabel = usePropertyAccessor(tooltipLabel)
-
-    const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
-    const result = generateBars({
+        groupMode,
         layout,
         reverse,
         data,
-        getIndex,
         keys,
         minValue,
         maxValue,
+        margin,
         width: innerWidth,
         height: innerHeight,
-        getColor,
         padding,
         innerPadding,
         valueScale,
         indexScale,
-        hiddenIds,
-        formatValue,
-        getTooltipLabel,
+        enableLabel,
+        labelSkipWidth,
+        labelSkipHeight,
+        legends,
+        legendLabel,
+        initialHiddenIds,
     })
-
-    const legendData = useMemo(
-        () =>
-            keys.map(key => {
-                const bar = result.bars.find(bar => bar.data.id === key)
-
-                return { ...bar, data: { id: key, ...bar?.data, hidden: hiddenIds.includes(key) } }
-            }),
-        [hiddenIds, keys, result.bars]
-    )
-
-    const barsWithValue = useMemo(
-        () =>
-            result.bars.filter(
-                (bar): bar is ComputedBarDatumWithValue<RawDatum> => bar.data.value !== null
-            ),
-        [result.bars]
-    )
 
     const transition = useTransition<
         ComputedBarDatumWithValue<RawDatum>,
@@ -256,16 +235,6 @@ const InnerBar = <RawDatum extends BarDatum>({
         immediate: !animate,
     })
 
-    const shouldRenderLabel = useCallback(
-        ({ width, height }: { height: number; width: number }) => {
-            if (!enableLabel) return false
-            if (labelSkipWidth > 0 && width < labelSkipWidth) return false
-            if (labelSkipHeight > 0 && height < labelSkipHeight) return false
-            return true
-        },
-        [enableLabel, labelSkipHeight, labelSkipWidth]
-    )
-
     const commonProps = useMemo(
         () => ({
             borderRadius,
@@ -303,7 +272,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         ]
     )
 
-    const boundDefs = bindDefs(defs, result.bars, fill, {
+    const boundDefs = bindDefs(defs, bars, fill, {
         dataKey: 'data',
         targetKey: 'data.fill',
     })
@@ -319,7 +288,7 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     if (layers.includes('annotations')) {
         layerById.annotations = (
-            <BarAnnotations key="annotations" bars={result.bars} annotations={annotations} />
+            <BarAnnotations key="annotations" bars={bars} annotations={annotations} />
         )
     }
 
@@ -327,8 +296,8 @@ const InnerBar = <RawDatum extends BarDatum>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={result.xScale as any}
-                yScale={result.yScale as any}
+                xScale={xScale as any}
+                yScale={yScale as any}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop}
@@ -347,7 +316,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                         ...commonProps,
                         bar,
                         style,
-                        shouldRenderLabel: shouldRenderLabel(bar),
+                        shouldRenderLabel: shouldRenderBarLabel(bar),
                         label: getLabel(bar.data),
                     })
                 )}
@@ -361,8 +330,8 @@ const InnerBar = <RawDatum extends BarDatum>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? (result.xScale as any) : null}
-                yScale={enableGridY ? (result.yScale as any) : null}
+                xScale={enableGridX ? (xScale as any) : null}
+                yScale={enableGridY ? (yScale as any) : null}
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
@@ -370,27 +339,12 @@ const InnerBar = <RawDatum extends BarDatum>({
     }
 
     if (layers.includes('legends')) {
-        const data = ([] as LegendData[]).concat(
-            ...legends.map(legend =>
-                getLegendData({
-                    bars: legend.dataFrom === 'keys' ? legendData : result.bars,
-                    direction: legend.direction,
-                    from: legend.dataFrom,
-                    groupMode,
-                    layout,
-                    legendLabel,
-                    reverse,
-                })
-            )
-        )
-
         layerById.legends = (
             <BarLegends
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                data={data}
-                legends={legends}
+                legends={legendsWithData}
                 toggleSerie={toggleSerie}
             />
         )
@@ -403,8 +357,8 @@ const InnerBar = <RawDatum extends BarDatum>({
                 markers={markers}
                 width={innerWidth}
                 height={innerHeight}
-                xScale={result.xScale}
-                yScale={result.yScale}
+                xScale={xScale}
+                yScale={yScale}
                 theme={theme}
             />
         )
@@ -419,9 +373,11 @@ const InnerBar = <RawDatum extends BarDatum>({
             innerHeight,
             width,
             height,
-            ...result,
+            bars,
+            xScale,
+            yScale,
         }),
-        [commonProps, height, innerHeight, innerWidth, margin, result, width]
+        [commonProps, margin, innerWidth, innerHeight, width, height, bars, xScale, yScale]
     )
 
     return (
