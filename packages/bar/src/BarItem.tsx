@@ -1,6 +1,6 @@
 import { BarDatum, BarItemProps } from './types'
 import { animated, to } from '@react-spring/web'
-import { createElement, FocusEvent, MouseEvent, useCallback, useMemo } from 'react'
+import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 
@@ -72,13 +72,10 @@ export const BarItem = <RawDatum extends BarDatum>({
     )
 
     // extra handlers to allow keyboard navigation
-    const handleFocus = useCallback(
-        (event: FocusEvent<SVGRectElement>) => {
-            console.log(bar)
-            showTooltipAt(renderTooltip(), [bar.x, bar.y])
-        },
-        [showTooltipAt, renderTooltip, bar]
-    )
+    const handleFocus = useCallback(() => {
+        console.log(bar)
+        showTooltipAt(renderTooltip(), [bar.x, bar.y])
+    }, [showTooltipAt, renderTooltip, bar])
     const handleBlur = useCallback(() => {
         hideTooltip()
     }, [hideTooltip])
