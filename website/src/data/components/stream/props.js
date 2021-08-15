@@ -326,6 +326,27 @@ const props = [
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    {
+        key: 'ariaLabel',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
+        type: 'string',
+    },
+    {
+        key: 'ariaLabelledBy',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
+        type: 'string',
+    },
+    {
+        key: 'ariaDescribedBy',
+        flavors: ['svg'],
+        group: 'Accessibility',
+        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
+        type: 'string',
+    },
 ]
 
 export const groups = groupProperties(props)
