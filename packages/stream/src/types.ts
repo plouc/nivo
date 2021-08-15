@@ -1,4 +1,4 @@
-import { AriaAttributes } from 'react'
+import { FunctionComponent, AriaAttributes } from 'react'
 import {
     Box,
     Dimensions,
@@ -23,14 +23,12 @@ export interface StreamCustomLayerProps {
     layers: StreamLayerData[]
     slices: StreamSliceData[]
 }
+export type StreamCustomLayer = FunctionComponent<StreamCustomLayerProps>
+export type StreamLayer = StreamLayerId | StreamCustomLayer
 
 export interface StreamDatum {
     [key: string]: string | number
 }
-
-export type TooltipFormatter<T> = (value: T) => React.ReactNode
-
-export type TooltipLabel<T> = (value: T) => string
 
 export type StackFunc<RawDatum extends StreamDatum> = (
     data: RawDatum[]
@@ -92,7 +90,7 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     offsetType: StackOffset
     curve: AreaCurve
 
-    layers: StreamLayerId[]
+    layers: StreamLayer[]
 
     margin: Box
 
