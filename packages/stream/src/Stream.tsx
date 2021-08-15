@@ -62,7 +62,11 @@ const InnerStream = <RawDatum extends StreamDatum>({
     enableStackTooltip = svgDefaultProps.enableStackTooltip,
 
     legends = svgDefaultProps.legends,
+
     role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: InnerStreamProps<RawDatum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -209,6 +213,9 @@ const InnerStream = <RawDatum extends StreamDatum>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
         >
             {chartLayers.map((layer, i) => {
                 if (typeof layer === 'function') {

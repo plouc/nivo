@@ -1,3 +1,4 @@
+import { AriaAttributes } from 'react'
 import {
     Box,
     Dimensions,
@@ -120,6 +121,9 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     renderWrapper: boolean
 
     role: string
+    ariaLabel: AriaAttributes['aria-label']
+    ariaLabelledBy: AriaAttributes['aria-labelledby']
+    ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
 export type StreamSvgProps<RawDatum extends StreamDatum> = Partial<StreamCommonProps<RawDatum>> &
