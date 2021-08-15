@@ -17,6 +17,13 @@ import { LegendProps } from '@nivo/legends'
 
 export type StreamLayerId = 'grid' | 'axes' | 'layers' | 'dots' | 'slices' | 'legends'
 
+export interface StreamCustomLayerProps {
+    xScale: any
+    yScale: any
+    layers: StreamLayerData[]
+    slices: StreamSliceData[]
+}
+
 export interface StreamDatum {
     [key: string]: string | number
 }
