@@ -1,11 +1,8 @@
-import { settingsMapper, mapAxis } from '../../../lib/settings'
+import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
 
 export default settingsMapper(
     {
-        markersLabel: value => {
-            if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.x}: ${d.y}`
-            return value
-        },
+        valueFormat: mapFormat,
         axisTop: mapAxis('top'),
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),

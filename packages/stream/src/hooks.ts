@@ -162,7 +162,7 @@ export const useStream = <RawDatum extends StreamDatum>({
                     }),
                 }
             }),
-        [layers, keys, getLabel, areaGenerator, getColor, xScale, yScale]
+        [layers, keys, getLabel, areaGenerator, getColor, xScale, yScale, formatValue]
     )
 
     const slices: StreamSliceData[] = useMemo(
