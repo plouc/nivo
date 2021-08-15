@@ -33,7 +33,7 @@ const labelLookup = {
     nv: 'Nevada',
 }
 
-stories.add('custom legend label', () => (
+stories.add('custom label', () => (
     <Stream
         {...commonProperties}
         data={range(16).map(() =>
@@ -44,8 +44,7 @@ stories.add('custom legend label', () => (
         )}
         keys={Object.keys(labelLookup)}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        legendLabel={d => labelLookup[d.id]}
-        tooltipLabel={d => labelLookup[d.id]}
+        label={d => labelLookup[d.id]}
         legends={[
             {
                 anchor: 'bottom-right',
@@ -88,10 +87,10 @@ stories.add('regular stacked chart', () => (
 
 stories.add('custom curve', () => <Stream {...commonProperties} curve="step" />)
 
-stories.add('formatting tooltip values', () => (
+stories.add('formatting values', () => (
     <Stream
         {...commonProperties}
-        tooltipFormat={value =>
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`

@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { patternDotsDef, patternSquaresDef } from '@nivo/core'
-import { StreamDefaultProps } from '@nivo/stream'
+import { defaultProps, svgDefaultProps } from '@nivo/stream'
 
 export default {
     margin: {
@@ -88,15 +80,15 @@ export default {
         { match: { id: 'Marcel' }, id: 'squares' },
     ],
 
-    enableDots: StreamDefaultProps.enableDots,
+    enableDots: defaultProps.enableDots,
     dotSize: 8,
     dotColor: { from: 'color' },
     dotBorderWidth: 2,
     dotBorderColor: { from: 'color', modifiers: [['darker', 0.7]] },
 
-    animate: StreamDefaultProps.animate,
-    motionConfig: StreamDefaultProps.motionConfig,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 
-    isInteractive: StreamDefaultProps.isInteractive,
+    isInteractive: defaultProps.isInteractive,
     enableStackTooltip: true,
 }

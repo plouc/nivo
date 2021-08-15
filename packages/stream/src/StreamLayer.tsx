@@ -1,35 +1,35 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { useCallback } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { InheritedColorConfigCustomFunction } from '@nivo/colors'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
+import { StreamLayerData } from './types'
 
-const StreamLayer = ({
+interface StreamLayerProps {
+    layer: StreamLayerData
+    fillOpacity: number
+    borderWidth: number
+    getBorderColor: InheritedColorConfigCustomFunction<StreamLayerData>
+    isInteractive: boolean
+}
+
+export const StreamLayer = ({
     layer,
     fillOpacity,
     borderWidth,
     getBorderColor,
-    getTooltipLabel,
     isInteractive,
-}) => {
+}: StreamLayerProps) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseHover = useCallback(
         event => {
             showTooltipFromEvent(
-                <BasicTooltip id={getTooltipLabel(layer)} enableChip={true} color={layer.color} />,
+                <BasicTooltip id={layer.label} enableChip={true} color={layer.color} />,
                 event,
                 'left'
             )
         },
-        [showTooltipFromEvent, getTooltipLabel, layer]
+        [showTooltipFromEvent, layer]
     )
 
     const { animate, config: springConfig } = useMotionConfig()
@@ -53,14 +53,3 @@ const StreamLayer = ({
         />
     )
 }
-
-StreamLayer.propTypes = {
-    layer: PropTypes.object.isRequired,
-    fillOpacity: PropTypes.number.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    getBorderColor: PropTypes.func.isRequired,
-    getTooltipLabel: PropTypes.func.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-}
-
-export default memo(StreamLayer)

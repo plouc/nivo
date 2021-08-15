@@ -1,28 +1,25 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { memo, useCallback, useMemo, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useCallback, useMemo, useState } from 'react'
 import { TableTooltip, Chip } from '@nivo/tooltip'
 import { useTooltip } from '@nivo/tooltip'
+import { StreamSliceData } from './types'
 
-const StreamSlicesItem = ({ slice, height, getTooltipLabel, getTooltipValue }) => {
+interface StreamSlicesItemProps {
+    slice: StreamSliceData
+    height: number
+}
+
+export const StreamSlicesItem = ({ slice, height }: StreamSlicesItemProps) => {
     const [isHover, setIsHover] = useState(false)
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const rows = useMemo(
         () =>
             slice.stack.map(p => [
-                <Chip key={p.id} color={p.color} />,
-                getTooltipLabel(p),
-                getTooltipValue(p.value),
+                <Chip key={p.layerId} color={p.color} />,
+                p.layerLabel,
+                p.formattedValue,
             ]),
-        [slice, getTooltipLabel, getTooltipValue]
+        [slice]
     )
 
     const handleMouseHover = useCallback(
@@ -64,12 +61,3 @@ const StreamSlicesItem = ({ slice, height, getTooltipLabel, getTooltipValue }) =
         </g>
     )
 }
-
-StreamSlicesItem.propTypes = {
-    slice: PropTypes.object.isRequired,
-    height: PropTypes.number.isRequired,
-    getTooltipLabel: PropTypes.func.isRequired,
-    getTooltipValue: PropTypes.func.isRequired,
-}
-
-export default memo(StreamSlicesItem)
