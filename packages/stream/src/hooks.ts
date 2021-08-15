@@ -15,6 +15,7 @@ import {
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     StreamCommonProps,
+    StreamCustomLayerProps,
     StreamDataProps,
     StreamDatum,
     StreamLayerData,
@@ -181,6 +182,16 @@ export const useStream = <RawDatum extends StreamDatum>({
         [data.length, enhancedLayers]
     )
 
+    const layerContext: StreamCustomLayerProps = useMemo(
+        () => ({
+            xScale,
+            yScale,
+            layers: enhancedLayers,
+            slices,
+        }),
+        [xScale, yScale, enhancedLayers, slices]
+    )
+
     return {
         xScale,
         yScale,
@@ -191,5 +202,6 @@ export const useStream = <RawDatum extends StreamDatum>({
         getDotColor,
         getDotBorderWidth,
         getDotBorderColor,
+        layerContext,
     }
 }

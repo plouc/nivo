@@ -84,6 +84,7 @@ const InnerStream = <RawDatum extends StreamDatum>({
         getDotColor,
         getDotBorderWidth,
         getDotBorderColor,
+        layerContext,
     } = useStream<RawDatum>({
         width: innerWidth,
         height: innerHeight,
@@ -219,7 +220,7 @@ const InnerStream = <RawDatum extends StreamDatum>({
         >
             {chartLayers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, {})}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null
