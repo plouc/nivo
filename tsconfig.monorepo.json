@@ -26,6 +26,7 @@
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
         { "path": "./packages/sunburst" },
+        { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" }
     ]
 }
