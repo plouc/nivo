@@ -2,6 +2,9 @@ import { patternDotsDef, patternSquaresDef } from '@nivo/core'
 import { defaultProps, svgDefaultProps } from '@nivo/stream'
 
 export default {
+    label: defaultProps.label,
+    valueFormat: { format: '', enabled: false },
+
     margin: {
         top: 50,
         right: 110,

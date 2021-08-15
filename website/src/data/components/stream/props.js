@@ -1,5 +1,5 @@
 import { areaCurvePropKeys, stackOrderPropKeys, stackOffsetPropKeys } from '@nivo/core'
-import { defaultProps as defaults } from '@nivo/stream'
+import { defaultProps, svgDefaultProps } from '@nivo/stream'
 import {
     themeProperty,
     axesProperties,
@@ -9,6 +9,69 @@ import {
 } from '../../../lib/componentProperties'
 
 const props = [
+    {
+        key: 'data',
+        help: 'Chart data.',
+        type: 'object[]',
+        required: true,
+        group: 'Base',
+    },
+    {
+        key: 'keys',
+        help: 'Keys to use to build each layer.',
+        description: `
+            Keys to use to index the data,
+            those keys must exist in each data item.
+            
+            For example let's say you have this data:
+            
+            \`\`\`
+            [{ A: 10, B: 20},
+             { A: 20, B: 10},
+             { A: 15, B: 15}]
+            \`\`\`
+              
+            Then the keys should be: \`['A', 'B']\`.
+            
+            Also note that those keys are used by default to generate
+            the label of each layer, displayed in the legends and
+            the stack tooltip, this behaviour can be customized
+            via the \`label\` property, in case you want to display
+            something else.
+        `,
+        type: 'string | number',
+        required: true,
+        group: 'Base',
+    },
+    {
+        key: 'label',
+        help: 'Label accessor, used for legends.',
+        description: `
+            Define how to access the label of each layer,
+            by default, nivo will use the corresponding key defined
+            in \`keys\`, it is available under the \`id\` property
+            of the layer.
+        `,
+        type: 'string | (layer) => string | number',
+        required: false,
+        defaultValue: defaultProps.label,
+        group: 'Base',
+    },
+    {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
+    },
     {
         key: 'offsetType',
         help: 'Offset type.',
@@ -46,7 +109,7 @@ const props = [
         help: 'Curve interpolation.',
         type: 'string',
         required: false,
-        defaultValue: defaults.curve,
+        defaultValue: defaultProps.curve,
         controlType: 'choices',
         group: 'Base',
         controlOptions: {
@@ -108,7 +171,7 @@ const props = [
         help: 'Defines how to compute line color.',
         type: 'string | Function',
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: defaultProps.colors,
         controlType: 'ordinalColors',
         group: 'Style',
     },
@@ -117,7 +180,7 @@ const props = [
         help: 'Layers fill opacity.',
         type: 'number',
         required: false,
-        defaultValue: defaults.fillOpacity,
+        defaultValue: defaultProps.fillOpacity,
         controlType: 'opacity',
         group: 'Style',
     },
@@ -126,7 +189,7 @@ const props = [
         help: 'Width of layer border.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: defaultProps.borderWidth,
         controlType: 'lineWidth',
         group: 'Style',
     },
@@ -139,17 +202,34 @@ const props = [
         help: 'Method to compute layer border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: defaultProps.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
     },
     ...defsProperties('Style'),
     {
+        key: 'layers',
+        flavors: ['svg', 'canvas'],
+        help: 'Defines the order of layers.',
+        description: `
+            Defines the order of layers, available layers are:
+            \`grid\`, \`axes\`, \`layers\`, \`dots\`, \`slices\`, \`legends\`.
+
+            You can also use this to insert extra layers to the chart,
+            this extra layer must be a function which will receive
+            the chart computed data and must return a valid SVG element.
+        `,
+        type: 'Array<string | Function>',
+        required: false,
+        defaultValue: svgDefaultProps.layers,
+        group: 'Customization',
+    },
+    {
         key: 'enableGridX',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridX,
+        defaultValue: defaultProps.enableGridX,
         controlType: 'switch',
         group: 'Grid & Axes',
     },
@@ -158,7 +238,7 @@ const props = [
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridY,
+        defaultValue: defaultProps.enableGridY,
         controlType: 'switch',
         group: 'Grid & Axes',
     },
@@ -168,7 +248,7 @@ const props = [
         help: 'Enable/disable dots.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableDots,
+        defaultValue: defaultProps.enableDots,
         controlType: 'switch',
         group: 'Dots',
     },
@@ -187,7 +267,7 @@ const props = [
             'Size of the dots, it also accepts a function which can be used to make it vary according to the associated datum.',
         type: 'number | Function',
         required: false,
-        defaultValue: defaults.dotSize,
+        defaultValue: defaultProps.dotSize,
         controlType: 'range',
         group: 'Dots',
         controlOptions: {
@@ -201,7 +281,7 @@ const props = [
         help: 'Method to compute dots color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.dotColor,
+        defaultValue: defaultProps.dotColor,
         controlType: 'inheritedColor',
         group: 'Dots',
     },
@@ -212,7 +292,7 @@ const props = [
             'Width of the dots border, it also accepts a function which can be used to make it vary according to the associated datum.',
         type: 'number | Function',
         required: false,
-        defaultValue: defaults.dotBorderWidth,
+        defaultValue: defaultProps.dotBorderWidth,
         controlType: 'lineWidth',
         group: 'Dots',
     },
@@ -221,21 +301,9 @@ const props = [
         help: 'Method to compute dots border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.dotBorderColor,
+        defaultValue: defaultProps.dotBorderColor,
         controlType: 'inheritedColor',
         group: 'Dots',
-    },
-    {
-        key: 'legendLabel',
-        help: 'Legend label accessor',
-        description: `
-            Define how to access the legend label of each datum,
-            by default, nivo will look for the \`id\` property.
-        `,
-        type: 'string | (datum: { id: string }): string',
-        required: false,
-        defaultValue: defaults.legendLabel,
-        group: 'Customization',
     },
     {
         key: 'isInteractive',
@@ -243,7 +311,7 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: defaultProps.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -253,11 +321,11 @@ const props = [
         help: `Enable/disable stack tooltip ('isInteractive' must also be 'true').`,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableStackTooltip,
+        defaultValue: defaultProps.enableStackTooltip,
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults, 'react-spring'),
+    ...motionProperties(['svg'], defaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
