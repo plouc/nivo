@@ -1,6 +1,8 @@
 import { StackOrder, StackOffset, AreaCurve } from '@nivo/core'
 import { StreamCommonProps, StreamLayerId } from './types'
 import { StreamDotsItem } from './StreamDotsItem'
+import { LayerTooltip } from './LayerTooltip'
+import { StackTooltip } from './StackTooltip'
 
 export const defaultProps = {
     label: 'id',
@@ -30,8 +32,9 @@ export const defaultProps = {
     dotBorderColor: { from: 'color' },
 
     isInteractive: true,
-    tooltipLabel: 'id',
+    tooltip: LayerTooltip,
     enableStackTooltip: true,
+    stackTooltip: StackTooltip,
 
     legends: [],
     legendLabel: 'id',

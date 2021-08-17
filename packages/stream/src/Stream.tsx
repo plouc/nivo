@@ -59,7 +59,9 @@ const InnerStream = <RawDatum extends StreamDatum>({
     dotBorderColor,
 
     isInteractive = svgDefaultProps.isInteractive,
+    tooltip = svgDefaultProps.tooltip,
     enableStackTooltip = svgDefaultProps.enableStackTooltip,
+    stackTooltip = svgDefaultProps.stackTooltip,
 
     legends = svgDefaultProps.legends,
 
@@ -144,13 +146,14 @@ const InnerStream = <RawDatum extends StreamDatum>({
 
     if (chartLayers.includes('layers')) {
         layerById.layers = (
-            <StreamLayers
+            <StreamLayers<RawDatum>
                 key="layers"
                 layers={layers}
                 fillOpacity={fillOpacity}
                 borderWidth={borderWidth}
                 getBorderColor={getBorderColor}
                 isInteractive={isInteractive}
+                tooltip={tooltip}
             />
         )
     }
@@ -177,7 +180,14 @@ const InnerStream = <RawDatum extends StreamDatum>({
     }
 
     if (chartLayers.includes('slices') && isInteractive && enableStackTooltip) {
-        layerById.slices = <StreamSlices key="slices" slices={slices} height={innerHeight} />
+        layerById.slices = (
+            <StreamSlices<RawDatum>
+                key="slices"
+                slices={slices}
+                height={innerHeight}
+                tooltip={stackTooltip}
+            />
+        )
     }
 
     if (chartLayers.includes('legends')) {
