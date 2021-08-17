@@ -316,6 +316,37 @@ const props = [
         group: 'Interactivity',
     },
     {
+        key: 'tooltip',
+        flavors: ['svg'],
+        help: `Tooltip custom component.`,
+        type: 'FunctionComponent',
+        required: false,
+        group: 'Interactivity',
+        description: `
+            Allows complete tooltip customisation, it must return
+            a valid HTML element and will receive the following data:
+            
+            \`\`\`
+            {
+                layer: {
+                    id: string | number
+                    label: string | number
+                    color: string
+                    // populated when using patterns/gradients
+                    fill?: string
+                    path: string
+                    // computed data for each data point for this
+                    // specific layer
+                    data: StreamLayerDatum[]
+                }
+            }
+            \`\`\`
+            
+            You can also customize the style of the tooltip
+            using the \`theme.tooltip\` object.
+        `,
+    },
+    {
         key: 'enableStackTooltip',
         flavors: ['svg'],
         help: `Enable/disable stack tooltip ('isInteractive' must also be 'true').`,
@@ -323,6 +354,14 @@ const props = [
         required: false,
         defaultValue: defaultProps.enableStackTooltip,
         controlType: 'switch',
+        group: 'Interactivity',
+    },
+    {
+        key: 'stackTooltip',
+        flavors: ['svg'],
+        help: `Stack tooltip custom component.`,
+        type: 'FunctionComponent',
+        required: false,
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaultProps, 'react-spring'),

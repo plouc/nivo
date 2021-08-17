@@ -1,15 +1,25 @@
-import { StreamSliceData } from './types'
+import { StreamSliceData, StreamDatum, StreamCommonProps } from './types'
 import { StreamSlicesItem } from './StreamSlicesItem'
 
-interface StreamSlicesProps {
+interface StreamSlicesProps<RawDatum extends StreamDatum> {
     slices: StreamSliceData[]
     height: number
+    tooltip: StreamCommonProps<RawDatum>['stackTooltip']
 }
 
-export const StreamSlices = ({ slices, height }: StreamSlicesProps) => (
+export const StreamSlices = <RawDatum extends StreamDatum>({
+    slices,
+    height,
+    tooltip,
+}: StreamSlicesProps<RawDatum>) => (
     <g>
         {slices.map(slice => (
-            <StreamSlicesItem key={slice.index} slice={slice} height={height} />
+            <StreamSlicesItem<RawDatum>
+                key={slice.index}
+                slice={slice}
+                height={height}
+                tooltip={tooltip}
+            />
         ))}
     </g>
 )

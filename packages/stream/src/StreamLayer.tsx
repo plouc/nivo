@@ -1,33 +1,31 @@
-import { useCallback } from 'react'
+import { useCallback, createElement } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { InheritedColorConfigCustomFunction } from '@nivo/colors'
-import { BasicTooltip, useTooltip } from '@nivo/tooltip'
-import { StreamLayerData } from './types'
+import { useTooltip } from '@nivo/tooltip'
+import { StreamCommonProps, StreamDatum, StreamLayerData } from './types'
 
-interface StreamLayerProps {
+interface StreamLayerProps<RawDatum extends StreamDatum> {
     layer: StreamLayerData
     fillOpacity: number
     borderWidth: number
     getBorderColor: InheritedColorConfigCustomFunction<StreamLayerData>
     isInteractive: boolean
+    tooltip: StreamCommonProps<RawDatum>['tooltip']
 }
 
-export const StreamLayer = ({
+export const StreamLayer = <RawDatum extends StreamDatum>({
     layer,
     fillOpacity,
     borderWidth,
     getBorderColor,
     isInteractive,
-}: StreamLayerProps) => {
+    tooltip,
+}: StreamLayerProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseHover = useCallback(
         event => {
-            showTooltipFromEvent(
-                <BasicTooltip id={layer.label} enableChip={true} color={layer.color} />,
-                event,
-                'left'
-            )
+            showTooltipFromEvent(createElement(tooltip, { layer }), event, 'left')
         },
         [showTooltipFromEvent, layer]
     )

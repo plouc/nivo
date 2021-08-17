@@ -60,7 +60,17 @@ export interface StreamLayerDatum {
     y2: number
 }
 
-export type DotComponent = React.FC<{
+export interface TooltipProps {
+    layer: StreamLayerData
+}
+export type Tooltip = FunctionComponent<TooltipProps>
+
+export interface StackTooltipProps {
+    slice: StreamSliceData
+}
+export type StackTooltip = FunctionComponent<StackTooltipProps>
+
+export type DotComponent = FunctionComponent<{
     datum: StreamLayerDatum
     x: number
     y: number
@@ -103,10 +113,6 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     enableGridY: boolean
     gridYValues: GridValues<number>
 
-    isInteractive: boolean
-    tooltipLabel: PropertyAccessor<StreamLayerData, string>
-    enableStackTooltip: boolean
-
     theme: Theme
     colors: OrdinalColorScaleConfig<Omit<StreamLayerData, 'label' | 'color' | 'data'>>
     fillOpacity: number
@@ -120,6 +126,11 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     dotColor: InheritedColorConfig<StreamLayerDatum>
     dotBorderWidth: ((datum: StreamLayerDatum) => number) | number
     dotBorderColor: InheritedColorConfig<StreamLayerDatum>
+
+    isInteractive: boolean
+    tooltip: Tooltip
+    enableStackTooltip: boolean
+    stackTooltip: StackTooltip
 
     legends: LegendProps[]
 

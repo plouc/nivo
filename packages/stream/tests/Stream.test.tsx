@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { Stream, StreamLayerDatum, StreamSvgProps } from '../src'
+import { Stream, StreamLayerData, StreamLayerDatum, StreamSliceData, StreamSvgProps } from '../src'
 
 type TestDatum = {
     A: number
@@ -31,10 +31,7 @@ describe('layers', () => {
 
     it('should support custom layers', () => {
         const wrapper = mount(
-            <Stream<TestDatum>
-                {...commonProps}
-                layers={['grid', 'axes', 'layers', CustomLayer]}
-            />
+            <Stream<TestDatum> {...commonProps} layers={['grid', 'axes', 'layers', CustomLayer]} />
         )
 
         const customLayer = wrapper.find(CustomLayer)
@@ -89,6 +86,64 @@ describe('dots', () => {
         dots.forEach(dot => {
             expect(dot.prop('size')).toBe(dot.prop<StreamLayerDatum>('datum').value)
         })
+    })
+})
+
+describe('tooltip', () => {
+    it('should show a tooltip when hovering a layer', () => {
+        const wrapper = mount(<Stream<TestDatum> {...commonProps} />)
+
+        expect(wrapper.find('LayerTooltip').exists()).toBe(false)
+
+        wrapper.find('StreamLayer').at(0).find('path').simulate('mouseEnter')
+        const tooltip = wrapper.find('LayerTooltip')
+        expect(tooltip.exists()).toBe(true)
+
+        const layerData = tooltip.prop<StreamLayerData>('layer')
+        expect(layerData.id).toBe(commonProps.keys[0])
+    })
+
+    it('should have stack tooltip enabled by default', () => {
+        const wrapper = mount(<Stream<TestDatum> {...commonProps} />)
+
+        const slices = wrapper.find('StreamSlices')
+        expect(slices.exists()).toBe(true)
+
+        const sliceRect = slices.find('StreamSlicesItem').at(0).find('rect')
+        expect(sliceRect.exists()).toBe(true)
+
+        sliceRect.simulate('mouseEnter')
+        const tooltip = wrapper.find('StackTooltip')
+        expect(tooltip.exists()).toBe(true)
+
+        const sliceData = tooltip.prop<StreamSliceData>('slice')
+        expect(sliceData.index).toBe(0)
+        expect(sliceData.x).toBe(0)
+
+        const expectedData = [
+            { layerId: 'C', value: 30 },
+            { layerId: 'B', value: 20 },
+            { layerId: 'A', value: 10 },
+        ]
+        expectedData.forEach((expectedDatum, index) => {
+            expect(sliceData.stack[index].layerId).toBe(expectedDatum.layerId)
+            expect(sliceData.stack[index].value).toBe(expectedDatum.value)
+        })
+    })
+
+    it('should allow to disable stack tooltip', () => {
+        const wrapper = mount(<Stream<TestDatum> {...commonProps} enableStackTooltip={false} />)
+
+        expect(wrapper.find('StreamSlices').exists()).toBe(false)
+    })
+
+    it('should disable tooltip and stack tooltip when `isInteractive` is false', () => {
+        const wrapper = mount(<Stream<TestDatum> {...commonProps} isInteractive={false} />)
+
+        wrapper.find('StreamLayer').at(0).find('path').simulate('mouseEnter')
+        expect(wrapper.find('LayerTooltip').exists()).toBe(false)
+
+        expect(wrapper.find('StreamSlices').exists()).toBe(false)
     })
 })
 

@@ -1,33 +1,27 @@
-import { useCallback, useMemo, useState } from 'react'
-import { TableTooltip, Chip } from '@nivo/tooltip'
+import { createElement, useCallback, useState } from 'react'
 import { useTooltip } from '@nivo/tooltip'
-import { StreamSliceData } from './types'
+import { StreamCommonProps, StreamDatum, StreamSliceData } from './types'
 
-interface StreamSlicesItemProps {
+interface StreamSlicesItemProps<RawDatum extends StreamDatum> {
     slice: StreamSliceData
     height: number
+    tooltip: StreamCommonProps<RawDatum>['stackTooltip']
 }
 
-export const StreamSlicesItem = ({ slice, height }: StreamSlicesItemProps) => {
+export const StreamSlicesItem = <RawDatum extends StreamDatum>({
+    slice,
+    height,
+    tooltip,
+}: StreamSlicesItemProps<RawDatum>) => {
     const [isHover, setIsHover] = useState(false)
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const rows = useMemo(
-        () =>
-            slice.stack.map(p => [
-                <Chip key={p.layerId} color={p.color} />,
-                p.layerLabel,
-                p.formattedValue,
-            ]),
-        [slice]
-    )
 
     const handleMouseHover = useCallback(
         event => {
             setIsHover(true)
-            showTooltipFromEvent(<TableTooltip rows={rows} />, event, 'left')
+            showTooltipFromEvent(createElement(tooltip, { slice }), event, 'left')
         },
-        [setIsHover, showTooltipFromEvent, rows]
+        [setIsHover, showTooltipFromEvent, tooltip, slice]
     )
 
     const handleMouseLeave = useCallback(() => {
