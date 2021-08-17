@@ -27,9 +27,9 @@ it('should render a basic stream chart', () => {
 })
 
 describe('layers', () => {
-    const CustomLayer = () => <g />
-
     it('should support custom layers', () => {
+        const CustomLayer = () => <g />
+
         const wrapper = mount(
             <Stream<TestDatum> {...commonProps} layers={['grid', 'axes', 'layers', CustomLayer]} />
         )
@@ -103,6 +103,15 @@ describe('tooltip', () => {
         expect(layerData.id).toBe(commonProps.keys[0])
     })
 
+    it('should allow to use a custom tooltip', () => {
+        const CustomTooltip = () => <div />
+
+        const wrapper = mount(<Stream<TestDatum> {...commonProps} tooltip={CustomTooltip} />)
+
+        wrapper.find('StreamLayer').at(0).find('path').simulate('mouseEnter')
+        expect(wrapper.find(CustomTooltip).exists()).toBe(true)
+    })
+
     it('should have stack tooltip enabled by default', () => {
         const wrapper = mount(<Stream<TestDatum> {...commonProps} />)
 
@@ -129,6 +138,22 @@ describe('tooltip', () => {
             expect(sliceData.stack[index].layerId).toBe(expectedDatum.layerId)
             expect(sliceData.stack[index].value).toBe(expectedDatum.value)
         })
+    })
+
+    it('should allow to use a custom stack tooltip', () => {
+        const CustomStackTooltip = () => <div />
+
+        const wrapper = mount(
+            <Stream<TestDatum> {...commonProps} stackTooltip={CustomStackTooltip} />
+        )
+
+        wrapper
+            .find('StreamSlices')
+            .find('StreamSlicesItem')
+            .at(0)
+            .find('rect')
+            .simulate('mouseEnter')
+        expect(wrapper.find(CustomStackTooltip).exists()).toBe(true)
     })
 
     it('should allow to disable stack tooltip', () => {
