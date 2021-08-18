@@ -1,15 +1,13 @@
 import { useMemo } from 'react'
-
 import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-
 import {
     computeWeekdays,
     computeCellSize,
     computeCellPositions,
     computeMonthLegends,
+    computeTotalDays,
 } from './compute/timeRange'
-
 import { useMonthLegends, useColorScale } from './hooks'
 import { TimeRangeDay } from './TimeRangeDay'
 import { CalendarMonthLegends } from './CalendarMonthLegends'
@@ -24,6 +22,9 @@ const InnerTimeRange = ({
     square = timeRangeDefaultProps.square,
     colors = timeRangeDefaultProps.colors,
     colorScale,
+    emptyColor = timeRangeDefaultProps.emptyColor,
+    from,
+    to,
     data: _data,
     direction = timeRangeDefaultProps.direction,
     minValue = timeRangeDefaultProps.minValue,
@@ -70,10 +71,16 @@ const InnerTimeRange = ({
     const theme = useTheme()
     const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
 
+    const totalDays = computeTotalDays({
+        from,
+        to,
+        data,
+    })
+
     const { cellHeight, cellWidth } = computeCellSize({
         square,
         offset: weekdayLegendOffset,
-        totalDays: data.length + data[0].date.getDay(),
+        totalDays: totalDays,
         width: innerWidth,
         height: innerHeight,
         daySpacing,
@@ -83,8 +90,11 @@ const InnerTimeRange = ({
     const days = computeCellPositions({
         offset: weekdayLegendOffset,
         colorScale: colorScaleFn,
+        emptyColor,
         cellHeight,
         cellWidth,
+        from,
+        to,
         data,
         direction,
         daySpacing,
@@ -134,7 +144,7 @@ const InnerTimeRange = ({
             {days.map(d => {
                 return (
                     <TimeRangeDay
-                        key={d.day.toString()}
+                        key={d.date.toString()}
                         data={d}
                         x={d.coordinates.x}
                         rx={dayRadius}

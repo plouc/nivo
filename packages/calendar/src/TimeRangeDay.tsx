@@ -26,6 +26,10 @@ export const TimeRangeDay = memo(
 
         const handleMouseEnter = useCallback(
             event => {
+                if (!('value' in data)) {
+                    return
+                }
+
                 const formatedData = {
                     ...data,
                     value: formatValue(data.value),
@@ -37,6 +41,10 @@ export const TimeRangeDay = memo(
         )
         const handleMouseMove = useCallback(
             event => {
+                if (!('value' in data)) {
+                    return
+                }
+
                 const formatedData = {
                     ...data,
                     value: formatValue(data.value),
@@ -48,6 +56,10 @@ export const TimeRangeDay = memo(
         )
         const handleMouseLeave = useCallback(
             event => {
+                if (!('value' in data)) {
+                    return
+                }
+
                 hideTooltip()
                 onMouseLeave?.(data, event)
             },

@@ -1,4 +1,7 @@
-import { timeWeek } from 'd3-time'
+import { timeWeek, timeDays, timeDay } from 'd3-time'
+import { timeFormat } from 'd3-time-format'
+import { DateOrString } from '../types'
+import { isDate } from 'lodash'
 
 // Interfaces
 interface ComputeBaseProps {
@@ -26,12 +29,15 @@ interface ComputeCellPositions
     extends ComputeBaseProps,
         ComputeBaseSpaceProps,
         ComputeBaseDimensionProps {
+    from?: DateOrString
+    to?: DateOrString
     data: {
         date: Date
         day: string
         value: number
     }[]
     colorScale: (value: number) => string
+    emptyColor: string
 }
 
 interface ComputeWeekdays
@@ -53,7 +59,7 @@ interface Day {
     date: Date
     color: string
     day: string
-    value: number
+    value?: number
 }
 
 interface Month {
@@ -75,6 +81,19 @@ interface ComputeMonths
         ComputeBaseDimensionProps {
     days: Day[]
 }
+
+interface ComputeTotalDays {
+    from?: DateOrString
+    to?: DateOrString
+    data: {
+        date: Date
+        day: string
+        value: number
+    }[]
+}
+
+// used for days range and data matching
+const dayFormat = timeFormat('%Y-%m-%d')
 
 /**
  * Compute day cell size according to
@@ -145,6 +164,9 @@ function computeGrid({
 export const computeCellPositions = ({
     direction,
     colorScale,
+    emptyColor,
+    from,
+    to,
     data,
     cellWidth,
     cellHeight,
@@ -161,11 +183,23 @@ export const computeCellPositions = ({
     }
 
     // we need to determine whether we need to add days to move to correct position
-    const startDate = data[0].date
-    const dataWithCellPosition = data.map(dateValue => {
+    const start = from ? from : data[0].date
+    const end = to ? to : data[data.length - 1].date
+    const startDate = isDate(start) ? start : new Date(start)
+    const endDate = isDate(end) ? end : new Date(end)
+    const dateRange = timeDays(startDate, endDate).map(dayDate => {
+        return {
+            date: dayDate,
+            day: dayFormat(dayDate),
+        }
+    })
+
+    const dataWithCellPosition = dateRange.map(day => {
+        const dayData = data.find(item => item.day === day.day)
+
         const { currentColumn, currentRow, firstWeek, year, month, date } = computeGrid({
             startDate,
-            date: dateValue.date,
+            date: day.date,
             direction,
         })
 
@@ -174,14 +208,28 @@ export const computeCellPositions = ({
             y: y + daySpacing * currentRow + cellHeight * currentRow,
         }
 
+        if (!dayData) {
+            return {
+                ...day,
+                coordinates,
+                firstWeek,
+                month,
+                year,
+                date,
+                color: emptyColor,
+                width: cellWidth,
+                height: cellHeight,
+            }
+        }
+
         return {
-            ...dateValue,
+            ...dayData,
             coordinates,
             firstWeek,
             month,
             year,
             date,
-            color: colorScale(dateValue.value),
+            color: colorScale(dayData.value),
             width: cellWidth,
             height: cellHeight,
         }
@@ -272,4 +320,22 @@ export const computeMonthLegends = ({
         }
         return acc
     }, accumulator)
+}
+
+export const computeTotalDays = ({ from, to, data }: ComputeTotalDays) => {
+    let startDate
+    let endDate
+    if (from) {
+        startDate = isDate(from) ? from : new Date(from)
+    } else {
+        startDate = data[0].date
+    }
+
+    if (from && to) {
+        endDate = isDate(to) ? to : new Date(to)
+    } else {
+        endDate = data[data.length - 1].date
+    }
+
+    return startDate.getDay() + timeDay.count(startDate, endDate)
 }
