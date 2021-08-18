@@ -174,7 +174,7 @@ export type CalendarCanvasProps = Dimensions &
             }
     >
 
-export type TimeRangeDayData = CalendarDatum & {
+export type TimeRangeDayData = (Omit<CalendarDatum, 'value'> | CalendarDatum) & {
     coordinates: {
         x: number
         y: number
