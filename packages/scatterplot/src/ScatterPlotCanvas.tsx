@@ -1,72 +1,55 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { createElement, memo, useRef, useState, useEffect, useCallback, useMemo } from 'react'
-import {
-    withContainer,
-    useDimensions,
-    useTheme,
-    getRelativeCursor,
-    isCursorInRect,
-} from '@nivo/core'
+import { createElement, useRef, useState, useEffect, useCallback, useMemo } from 'react'
+import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
+import { CanvasAxisProp, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
-import { ScatterPlotCanvasPropTypes, ScatterPlotCanvasDefaultProps } from './props'
+import { canvasDefaultProps, svgDefaultProps } from './props'
 import { useScatterPlot, useScatterPlotAnnotations } from './hooks'
+import { ScatterPlotCanvasProps, ScatterPlotDatum, ScatterPlotNodeData } from './types'
 
-const ScatterPlotCanvas = props => {
-    const {
-        data,
-        xScale: xScaleSpec,
-        xFormat,
-        yScale: yScaleSpec,
-        yFormat,
+type InnerScatterPlotCanvasProps<RawDatum extends ScatterPlotDatum> = Omit<
+    ScatterPlotCanvasProps<RawDatum>,
+    'renderWrapper' | 'theme'
+>
 
-        width,
-        height,
-        margin: partialMargin,
-        pixelRatio,
-
-        layers,
-
-        colors,
-
-        nodeSize,
-        renderNode,
-
-        enableGridX,
-        gridXValues,
-        enableGridY,
-        gridYValues,
-        axisTop,
-        axisRight,
-        axisBottom,
-        axisLeft,
-
-        annotations,
-
-        isInteractive,
-        debugMesh,
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-        tooltip,
-
-        legends,
-    } = props
-
-    const canvasEl = useRef(null)
+const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
+    data,
+    xScale: xScaleSpec = canvasDefaultProps.xScale,
+    xFormat,
+    yScale: yScaleSpec = canvasDefaultProps.yScale,
+    yFormat,
+    width,
+    height,
+    margin: partialMargin,
+    pixelRatio = canvasDefaultProps.pixelRatio,
+    layers = canvasDefaultProps.layers,
+    colors = canvasDefaultProps.colors,
+    nodeId = svgDefaultProps.nodeId,
+    nodeSize = canvasDefaultProps.nodeSize,
+    renderNode = canvasDefaultProps.renderNode,
+    enableGridX = canvasDefaultProps.enableGridX,
+    gridXValues,
+    enableGridY = canvasDefaultProps.enableGridY,
+    gridYValues,
+    axisTop,
+    axisRight,
+    axisBottom = canvasDefaultProps.axisBottom,
+    axisLeft = canvasDefaultProps.axisLeft,
+    annotations = canvasDefaultProps.annotations,
+    isInteractive = canvasDefaultProps.isInteractive,
+    debugMesh = canvasDefaultProps.debugMesh,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip = canvasDefaultProps.tooltip,
+    legends = canvasDefaultProps.legends,
+}: InnerScatterPlotCanvasProps<RawDatum>) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
-    const [currentNode, setCurrentNode] = useState(null)
+    const [currentNode, setCurrentNode] = useState<ScatterPlotNodeData<RawDatum> | null>(null)
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -74,7 +57,7 @@ const ScatterPlotCanvas = props => {
         partialMargin
     )
 
-    const { xScale, yScale, nodes, legendData } = useScatterPlot({
+    const { xScale, yScale, nodes, legendData } = useScatterPlot<RawDatum>({
         data,
         xScaleSpec,
         xFormat,
@@ -82,11 +65,12 @@ const ScatterPlotCanvas = props => {
         yFormat,
         width: innerWidth,
         height: innerHeight,
+        nodeId,
         nodeSize,
         colors,
     })
 
-    const boundAnnotations = useScatterPlotAnnotations(nodes, annotations)
+    const boundAnnotations = useScatterPlotAnnotations<RawDatum>(nodes, annotations)
 
     const { delaunay, voronoi } = useVoronoiMesh({
         points: nodes,
@@ -97,7 +81,7 @@ const ScatterPlotCanvas = props => {
 
     const customLayerProps = useMemo(
         () => ({
-            ...props,
+            //...props,
             xScale,
             yScale,
             nodes,
@@ -111,10 +95,12 @@ const ScatterPlotCanvas = props => {
     )
 
     useEffect(() => {
+        if (!canvasEl.current) return
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')
+        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -124,38 +110,41 @@ const ScatterPlotCanvas = props => {
 
         layers.forEach(layer => {
             if (layer === 'grid') {
-                ctx.lineWidth = theme.grid.line.strokeWidth
-                ctx.strokeStyle = theme.grid.line.stroke
+                ctx.lineWidth = theme.grid.line.strokeWidth as number
+                ctx.strokeStyle = theme.grid.line.stroke as string
 
                 enableGridX &&
-                    renderGridLinesToCanvas(ctx, {
+                    renderGridLinesToCanvas<RawDatum['x']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: xScale,
+                        scale: xScale as any,
                         axis: 'x',
                         values: gridXValues,
                     })
 
                 enableGridY &&
-                    renderGridLinesToCanvas(ctx, {
+                    renderGridLinesToCanvas<RawDatum['y']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: yScale,
+                        scale: yScale as any,
                         axis: 'y',
                         values: gridYValues,
                     })
             } else if (layer === 'annotations') {
-                renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
+                renderAnnotationsToCanvas<ScatterPlotNodeData<RawDatum>>(ctx, {
+                    annotations: boundAnnotations as any,
+                    theme,
+                })
             } else if (layer === 'axes') {
-                renderAxesToCanvas(ctx, {
-                    xScale,
-                    yScale,
+                renderAxesToCanvas<RawDatum['x'], RawDatum['y']>(ctx, {
+                    xScale: xScale as any,
+                    yScale: yScale as any,
                     width: innerWidth,
                     height: innerHeight,
-                    top: axisTop,
-                    right: axisRight,
-                    bottom: axisBottom,
-                    left: axisLeft,
+                    top: axisTop as CanvasAxisProp<RawDatum['x']>,
+                    right: axisRight as CanvasAxisProp<RawDatum['y']>,
+                    bottom: axisBottom as CanvasAxisProp<RawDatum['x']>,
+                    left: axisLeft as CanvasAxisProp<RawDatum['y']>,
                     theme,
                 })
             } else if (layer === 'nodes') {
@@ -164,9 +153,9 @@ const ScatterPlotCanvas = props => {
                 })
             } else if (layer === 'mesh') {
                 if (debugMesh === true) {
-                    renderVoronoiToCanvas(ctx, voronoi)
+                    renderVoronoiToCanvas(ctx, voronoi!)
                     if (currentNode) {
-                        renderVoronoiCellToCanvas(ctx, voronoi, currentNode.index)
+                        renderVoronoiCellToCanvas(ctx, voronoi!, currentNode.index)
                     }
                 }
             } else if (layer === 'legends') {
@@ -218,7 +207,7 @@ const ScatterPlotCanvas = props => {
 
     const getNodeFromMouseEvent = useCallback(
         event => {
-            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            const [x, y] = getRelativeCursor(canvasEl.current!, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
             const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
@@ -297,15 +286,13 @@ const ScatterPlotCanvas = props => {
     )
 }
 
-ScatterPlotCanvas.propTypes = ScatterPlotCanvasPropTypes
-ScatterPlotCanvas.defaultProps = {
-    ...ScatterPlotCanvasDefaultProps,
-    renderNode: (ctx, node) => {
-        ctx.beginPath()
-        ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
-        ctx.fillStyle = node.style.color
-        ctx.fill()
-    },
-}
-
-export default memo(withContainer(ScatterPlotCanvas))
+export const ScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
+    isInteractive,
+    renderWrapper,
+    theme,
+    ...props
+}: ScatterPlotCanvasProps<RawDatum>) => (
+    <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
+        <InnerScatterPlotCanvas<RawDatum> {...props} />
+    </Container>
+)

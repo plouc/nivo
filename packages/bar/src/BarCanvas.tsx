@@ -492,7 +492,7 @@ export const BarCanvas = forwardRef(
         ref: ForwardedRef<HTMLCanvasElement>
     ) => (
         <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
-            <InnerBarCanvas {...props} canvasRef={ref} />
+            <InnerBarCanvas<RawDatum> {...props} canvasRef={ref} />
         </Container>
     )
 )

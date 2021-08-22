@@ -1,4 +1,4 @@
-import { createSymlogScale } from '../src/symlogScale'
+import { createSymlogScale } from '../src'
 
 it(`should be able to build a symlog scale for x axis`, () => {
     const scale = createSymlogScale({ type: 'symlog' }, { all: [], min: 0, max: 1 }, 100, 'x')

@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveScatterPlotCanvas, ScatterPlotCanvasDefaultProps } from '@nivo/scatterplot'
+import { ResponsiveScatterPlotCanvas, canvasDefaultProps } from '@nivo/scatterplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
@@ -38,7 +30,7 @@ const initialProperties = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
-    colors: ScatterPlotCanvasDefaultProps.colors,
+    colors: canvasDefaultProps.colors,
 
     nodeSize: 5,
 
@@ -83,12 +75,12 @@ const initialProperties = {
         format: d => `${d} cm`,
     },
 
-    enableGridX: ScatterPlotCanvasDefaultProps.enableGridX,
-    enableGridY: ScatterPlotCanvasDefaultProps.enableGridY,
+    enableGridX: canvasDefaultProps.enableGridX,
+    enableGridY: canvasDefaultProps.enableGridY,
 
-    isInteractive: ScatterPlotCanvasDefaultProps.isInteractive,
-    useMesh: ScatterPlotCanvasDefaultProps.useMesh,
-    debugMesh: ScatterPlotCanvasDefaultProps.debugMesh,
+    isInteractive: canvasDefaultProps.isInteractive,
+    useMesh: canvasDefaultProps.useMesh,
+    debugMesh: canvasDefaultProps.debugMesh,
 
     legends: [
         {
@@ -128,7 +120,7 @@ const ScatterPlotCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={ScatterPlotCanvasDefaultProps}
+            defaultProperties={canvasDefaultProps}
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
         >
@@ -140,7 +132,7 @@ const ScatterPlotCanvas = () => {
                     onClick={node => {
                         logAction({
                             type: 'click',
-                            label: `[node] serie: ${node.data.serieId}, x: ${node.x}, y: ${node.y}`,
+                            label: `[node] id: ${node.id}, x: ${node.x}, y: ${node.y}`,
                             color: node.style.color,
                             data: node,
                         })

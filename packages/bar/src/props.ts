@@ -46,6 +46,7 @@ export const defaultProps = {
     legends: [],
     initialHiddenIds: [],
     annotations: [],
+    markers: [],
 }
 
 export const svgDefaultProps = {

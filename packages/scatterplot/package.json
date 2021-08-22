@@ -21,11 +21,12 @@
   ],
   "main": "./dist/nivo-scatterplot.cjs.js",
   "module": "./dist/nivo-scatterplot.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/annotations": "0.73.0",
@@ -35,17 +36,18 @@
     "@nivo/scales": "0.73.0",
     "@nivo/tooltip": "0.73.0",
     "@nivo/voronoi": "0.73.0",
+    "@react-spring/web": "9.2.4",
     "d3-scale": "^3.2.3",
     "d3-shape": "^1.3.5",
-    "lodash": "^4.17.21",
-    "react-motion": "^0.5.2"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@types/d3-scale": "^3.2.2",
+    "@types/d3-shape": "^2.0.0",
     "@nivo/core": "0.73.0"
   },
   "peerDependencies": {
     "@nivo/core": "0.73.0",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 18.0.0"
   },
   "publishConfig": {

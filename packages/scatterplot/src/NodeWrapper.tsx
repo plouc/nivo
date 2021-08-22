@@ -1,18 +1,30 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { createElement, memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { blendModePropType } from '@nivo/core'
+import { createElement, useCallback } from 'react'
+import { CssMixBlendMode } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import { NodePropType } from './props'
+import {
+    ScatterPlotNodeData,
+    ScatterPlotNode,
+    ScatterPlotCommonProps,
+    ScatterPlotDatum,
+} from './types'
 
-const NodeWrapper = ({
+interface NodeWrapperProps<RawDatum extends ScatterPlotDatum> {
+    node: ScatterPlotNodeData<RawDatum>
+    renderNode: ScatterPlotNode<RawDatum>
+    x: number
+    y: number
+    size: number
+    color: string
+    isInteractive: boolean
+    onMouseEnter?: ScatterPlotCommonProps<RawDatum>['onMouseEnter']
+    onMouseMove?: ScatterPlotCommonProps<RawDatum>['onMouseMove']
+    onMouseLeave?: ScatterPlotCommonProps<RawDatum>['onMouseLeave']
+    onClick?: ScatterPlotCommonProps<RawDatum>['onClick']
+    tooltip: ScatterPlotCommonProps<RawDatum>['tooltip']
+    blendMode: CssMixBlendMode
+}
+
+export const NodeWrapper = <RawDatum extends ScatterPlotDatum>({
     node,
     renderNode: NodeComponent,
     x,
@@ -26,7 +38,7 @@ const NodeWrapper = ({
     onClick,
     tooltip,
     blendMode,
-}) => {
+}: NodeWrapperProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
@@ -73,25 +85,3 @@ const NodeWrapper = ({
         onClick: isInteractive && onClick ? handleClick : undefined,
     })
 }
-
-NodeWrapper.propTypes = {
-    node: NodePropType.isRequired,
-    renderNode: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-
-    isInteractive: PropTypes.bool.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-
-    blendMode: blendModePropType.isRequired,
-}
-
-export default memo(NodeWrapper)

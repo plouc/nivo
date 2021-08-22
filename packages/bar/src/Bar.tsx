@@ -3,7 +3,6 @@ import { BarAnnotations } from './BarAnnotations'
 import { BarDatum, BarLayer, BarLayerId, BarSvgProps, ComputedBarDatumWithValue } from './types'
 import { BarLegends } from './BarLegends'
 import {
-    // @ts-ignore
     CartesianMarkers,
     Container,
     SvgWrapper,
@@ -11,7 +10,6 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
-    useTheme,
 } from '@nivo/core'
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { svgDefaultProps } from './props'
@@ -62,7 +60,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     labelSkipHeight,
     labelTextColor,
 
-    markers,
+    markers = svgDefaultProps.markers,
 
     colorBy,
     colors,
@@ -98,7 +96,6 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     initialHiddenIds,
 }: InnerBarProps<RawDatum>) => {
-    const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -346,14 +343,13 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     if (layers.includes('markers')) {
         layerById.markers = (
-            <CartesianMarkers
+            <CartesianMarkers<number | string, number>
                 key="markers"
-                markers={markers}
+                markers={markers as any[]}
                 width={innerWidth}
                 height={innerHeight}
-                xScale={xScale}
-                yScale={yScale}
-                theme={theme}
+                xScale={xScale as (v: number | string) => number}
+                yScale={yScale as (v: number) => number}
             />
         )
     }

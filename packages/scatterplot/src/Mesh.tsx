@@ -1,18 +1,21 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { createElement, memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { createElement, useCallback } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
-import { NodePropType } from './props'
+import { ScatterPlotCommonProps, ScatterPlotDatum, ScatterPlotNodeData } from './types'
 
-const Mesh = ({
+interface MeshProps<RawDatum extends ScatterPlotDatum> {
+    nodes: ScatterPlotNodeData<RawDatum>[]
+    width: number
+    height: number
+    onMouseEnter?: ScatterPlotCommonProps<RawDatum>['onMouseEnter']
+    onMouseMove?: ScatterPlotCommonProps<RawDatum>['onMouseMove']
+    onMouseLeave?: ScatterPlotCommonProps<RawDatum>['onMouseLeave']
+    onClick?: ScatterPlotCommonProps<RawDatum>['onClick']
+    tooltip: ScatterPlotCommonProps<RawDatum>['tooltip']
+    debug: boolean
+}
+
+export const Mesh = <RawDatum extends ScatterPlotDatum>({
     nodes,
     width,
     height,
@@ -22,11 +25,11 @@ const Mesh = ({
     onClick,
     tooltip,
     debug,
-}) => {
+}: MeshProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseEnter && onMouseEnter(node, event)
         },
@@ -34,7 +37,7 @@ const Mesh = ({
     )
 
     const handleMouseMove = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseMove && onMouseMove(node, event)
         },
@@ -42,7 +45,7 @@ const Mesh = ({
     )
 
     const handleMouseLeave = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event) => {
             hideTooltip()
             onMouseLeave && onMouseLeave(node, event)
         },
@@ -50,7 +53,7 @@ const Mesh = ({
     )
 
     const handleClick = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event) => {
             onClick && onClick(node, event)
         },
         [onClick]
@@ -69,17 +72,3 @@ const Mesh = ({
         />
     )
 }
-
-Mesh.propTypes = {
-    nodes: PropTypes.arrayOf(NodePropType).isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    debug: PropTypes.bool.isRequired,
-}
-
-export default memo(Mesh)

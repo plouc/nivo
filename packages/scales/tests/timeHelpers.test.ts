@@ -1,4 +1,4 @@
-import { createPrecisionMethod } from '../src/timeHelpers'
+import { createPrecisionMethod } from '../src'
 
 describe('createPrecisionMethod', () => {
     const input = new Date(2018, 9, 30, 15, 33, 47, 29)

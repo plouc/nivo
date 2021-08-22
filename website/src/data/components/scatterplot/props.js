@@ -1,12 +1,4 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { ScatterPlotDefaultProps as defaults } from '@nivo/scatterplot'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/scatterplot'
 import {
     themeProperty,
     axesProperties,
@@ -174,8 +166,8 @@ const props = [
     {
         key: 'nodeId',
         group: 'Base',
-        defaultValue: defaults.nodeId,
-        type: 'string | (datum: NodeIdDatum): string',
+        defaultValue: '(d) => `${d.serieId}.${d.index}`',
+        type: 'string | (datum: NodeIdDatum) => string',
         help: `ID accessor for the node.`,
         description: `
             Define how to determine the id of each node on the plot. This value
@@ -190,7 +182,7 @@ const props = [
     {
         key: 'nodeSize',
         group: 'Base',
-        defaultValue: defaults.nodeSize,
+        defaultValue: commonDefaultProps.nodeSize,
         type: 'number | object | Function',
         help: `How to compute node size, static or dynamic.`,
         description: `
@@ -292,7 +284,7 @@ const props = [
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: commonDefaultProps.colors,
         controlType: 'ordinalColors',
     },
     {
@@ -307,7 +299,7 @@ const props = [
         `,
         type: 'string',
         required: false,
-        defaultValue: defaults.blendMode,
+        defaultValue: commonDefaultProps.blendMode,
         controlType: 'blendMode',
     },
     {
@@ -331,7 +323,7 @@ const props = [
             and current chart context object as second.
         `,
         required: false,
-        defaultValue: defaults.layers,
+        defaultValue: svgDefaultProps.layers,
     },
     {
         key: 'renderNode',
@@ -344,7 +336,7 @@ const props = [
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridX,
+        defaultValue: commonDefaultProps.enableGridX,
         controlType: 'switch',
         group: 'Grid & Axes',
     },
@@ -361,7 +353,7 @@ const props = [
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridY,
+        defaultValue: commonDefaultProps.enableGridY,
         controlType: 'switch',
     },
     {
@@ -377,7 +369,7 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -388,7 +380,7 @@ const props = [
         help: 'Use a mesh to detect mouse interactions.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.useMesh,
+        defaultValue: commonDefaultProps.useMesh,
         controlType: 'switch',
     },
     {
@@ -396,7 +388,7 @@ const props = [
         help: 'Display mesh used to detect mouse interactions (voronoi cells).',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.debugMesh,
+        defaultValue: commonDefaultProps.debugMesh,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -475,7 +467,22 @@ const props = [
             },
         },
     },
-    ...motionProperties(['svg'], defaults),
+    {
+        key: 'annotations',
+        group: 'Annotations',
+        help: 'Extra annotations.',
+        type: 'object[]',
+        required: false,
+    },
+    {
+        key: 'markers',
+        group: 'Annotations',
+        help: 'Extra markers.',
+        type: 'object[]',
+        flavors: ['svg'],
+        required: false,
+    },
+    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

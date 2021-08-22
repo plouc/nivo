@@ -4,7 +4,7 @@ import sortBy from 'lodash/sortBy'
 import last from 'lodash/last'
 import isDate from 'lodash/isDate'
 import { createDateNormalizer } from './timeHelpers'
-import { ScaleAxis, ScaleSpec, Series, ScaleValue, SerieAxis, ComputedSerieAxis } from './types'
+import { ScaleAxis, ScaleSpec, ScaleValue, SerieAxis, ComputedSerieAxis } from './types'
 import { createLinearScale } from './linearScale'
 import { createPointScale } from './pointScale'
 import { createBandScale } from './bandScale'
@@ -21,30 +21,33 @@ type StackedXY = {
     }
 }
 
-type InputXYSeries = Record<'x' | 'y', number | string | Date | null>
-
-interface Data {
-    x: number
-    xStacked: number | null
-    y: number
-    yStacked: number | null
-
-    // Allow template literal `xStacked/yStacked` to be set on line 213
-    [key: string]: number | null
+interface SerieDatum {
+    x: number | string | Date
+    // only numbers can be stacked
+    xStacked?: number | null
+    y: number | string | Date
+    // only numbers can be stacked
+    yStacked?: number | null
 }
 
-type XYSeries = InputXYSeries & {
-    data: Data[]
+type Serie<S = never, D extends SerieDatum = SerieDatum> = S & {
+    data: D[]
 }
 
-interface ComputedXYSeries extends InputXYSeries {
-    data: Array<{
-        data: Data
+type NestedSerie<S = never, D extends SerieDatum = SerieDatum> = S & {
+    data: {
+        data: D
+    }[]
+}
+
+export type ComputedSerie<S = never, D extends SerieDatum = SerieDatum> = S & {
+    data: {
+        data: D
         position: {
-            x: ScaleValue | null
-            y: ScaleValue | null
+            x: number | null
+            y: number | null
         }
-    }>
+    }[]
 }
 
 type Compare = <T>(a: T, b: T) => boolean
@@ -78,67 +81,98 @@ export function computeScale<Input extends ScaleValue>(
     }
 }
 
-export const computeXYScalesForSeries = (
-    _series: XYSeries[],
+/**
+ * Convert serie data to have the original data stored in a nested prop.
+ *
+ * We do this in order to avoid conflicts between raw & computed properties.
+ * <- { data: { x: 1, y: 3 }[] }
+ * -> { data: { data: { x: 1, y: 3 } }[] }
+ */
+const nestSerieData = <S = never, D extends SerieDatum = SerieDatum>(
+    serie: Serie<S, D>
+): NestedSerie<S, D> => ({
+    ...serie,
+    data: serie.data.map(d => ({ data: { ...d } })),
+})
+
+const getDatumAxisPosition = <D extends SerieDatum = SerieDatum>(
+    datum: { data: D },
+    axis: ScaleAxis,
+    scale: any
+): number | null => {
+    if ('stacked' in scale && scale.stacked) {
+        const stackedValue = datum.data[axis === 'x' ? 'xStacked' : 'yStacked']
+        if (stackedValue === null || stackedValue === undefined) {
+            return null
+        }
+
+        return scale(stackedValue)
+    }
+
+    return scale(datum.data[axis]) ?? null
+}
+
+/**
+ * Compute x/y d3 scales from an array of data series, and scale specifications.
+ *
+ * We use generics as it's not uncommon to have extra properties such as an id
+ * added to the series, or extra props on data, in such case, you should override
+ * the default types.
+ */
+export const computeXYScalesForSeries = <S = never, D extends SerieDatum = SerieDatum>(
+    series: Serie<S, D>[],
     xScaleSpec: ScaleSpec,
     yScaleSpec: ScaleSpec,
     width: number,
     height: number
 ) => {
-    const series = _series.map(serie => ({
-        ...serie,
-        data: serie.data.map(d => ({ data: { ...d } })),
-    })) as ComputedXYSeries[]
+    // first nest series to avoid property conflicts
+    const nestedSeries = series.map(serie => nestSerieData<S, D>(serie))
 
-    const xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
+    // then compute data for each axis: all, min, max values
+    const xy = generateSeriesXY<S, D>(nestedSeries, xScaleSpec, yScaleSpec)
+
+    // stack x values depending on xScale
     if ('stacked' in xScaleSpec && xScaleSpec.stacked === true) {
-        stackX(xy as StackedXY, series)
+        stackX<S, D>(xy as StackedXY, nestedSeries)
     }
+
+    // stack y values depending on yScale
     if ('stacked' in yScaleSpec && yScaleSpec.stacked === true) {
-        stackY(xy as StackedXY, series)
+        stackY<S, D>(xy as StackedXY, nestedSeries)
     }
 
-    const xScale = computeScale(xScaleSpec, xy.x, width, 'x')
-    const yScale = computeScale(yScaleSpec, xy.y, height, 'y')
+    // computes scales
+    const xScale = computeScale<D['x']>(xScaleSpec, xy.x, width, 'x')
+    const yScale = computeScale<D['y']>(yScaleSpec, xy.y, height, 'y')
 
-    series.forEach(serie => {
-        serie.data.forEach(d => {
-            d.position = {
-                x:
-                    'stacked' in xScale && xScale.stacked === true
-                        ? d.data.xStacked === null
-                            ? null
-                            : xScale(d.data.xStacked)
-                        : d.data.x === null
-                        ? null
-                        : xScale(d.data.x) ?? null,
-                y:
-                    'stacked' in yScale && yScale.stacked === true
-                        ? d.data.yStacked === null
-                            ? null
-                            : yScale(d.data.yStacked)
-                        : d.data.y === null
-                        ? null
-                        : yScale(d.data.y) ?? null,
-            }
-        })
-    })
+    // assign position to each datum in every scale
+    const computedSeries: ComputedSerie<S, D>[] = nestedSeries.map(serie => ({
+        ...serie,
+        data: serie.data.map(datum => ({
+            ...datum,
+            position: {
+                x: getDatumAxisPosition(datum, 'x', xScale),
+                y: getDatumAxisPosition(datum, 'y', yScale),
+            },
+        })),
+    }))
 
     return {
         ...xy,
-        series,
+        series: computedSeries,
         xScale,
         yScale,
     }
 }
 
-export const generateSeriesXY = <XValue extends ScaleValue, YValue extends ScaleValue>(
-    series: Series<XValue, YValue>,
+export const generateSeriesXY = <S = never, D extends SerieDatum = SerieDatum>(
+    series: NestedSerie<S, D>[],
     xScaleSpec: ScaleSpec,
     yScaleSpec: ScaleSpec
 ) => ({
-    x: generateSeriesAxis<'x', XValue>(series, 'x', xScaleSpec),
-    y: generateSeriesAxis<'y', YValue>(series, 'y', yScaleSpec),
+    x: generateSeriesAxis<'x', D['x']>(series, 'x', xScaleSpec),
+    y: generateSeriesAxis<'y', D['y']>(series, 'y', yScaleSpec),
 })
 
 /**
@@ -215,7 +249,11 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
     }
 }
 
-export const stackAxis = (axis: ScaleAxis, xy: StackedXY, series: ComputedXYSeries[]) => {
+export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
+    axis: ScaleAxis,
+    xy: StackedXY,
+    series: NestedSerie<S, D>[]
+) => {
     const otherAxis = getOtherAxis(axis)
     const all: number[] = []
 
@@ -229,7 +267,8 @@ export const stackAxis = (axis: ScaleAxis, xy: StackedXY, series: ComputedXYSeri
             let stackValue = null
 
             if (datum !== undefined) {
-                value = datum.data[axis]
+                // stacked values only support numbers
+                value = datum.data[axis] as number
                 if (value !== null) {
                     const head = last(stack)
                     if (head === undefined) {
@@ -239,7 +278,7 @@ export const stackAxis = (axis: ScaleAxis, xy: StackedXY, series: ComputedXYSeri
                     }
                 }
 
-                datum.data[`${axis}Stacked`] = stackValue
+                datum.data[axis === 'x' ? 'xStacked' : 'yStacked'] = stackValue
             }
 
             stack.push(stackValue)
@@ -254,5 +293,12 @@ export const stackAxis = (axis: ScaleAxis, xy: StackedXY, series: ComputedXYSeri
     xy[axis].maxStacked = Math.max(...all)
 }
 
-const stackX = (xy: StackedXY, series: ComputedXYSeries[]) => stackAxis('x', xy, series)
-const stackY = (xy: StackedXY, series: ComputedXYSeries[]) => stackAxis('y', xy, series)
+const stackX = <S = never, D extends SerieDatum = SerieDatum>(
+    xy: StackedXY,
+    series: NestedSerie<S, D>[]
+) => stackAxis('x', xy, series)
+
+const stackY = <S = never, D extends SerieDatum = SerieDatum>(
+    xy: StackedXY,
+    series: NestedSerie<S, D>[]
+) => stackAxis('y', xy, series)

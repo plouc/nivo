@@ -2,7 +2,21 @@ import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
 import { area, curveMonotoneX } from 'd3-shape'
 import { storiesOf } from '@storybook/react'
-import { ScatterPlot, ResponsiveScatterPlot } from '../src'
+import {
+    ScatterPlot,
+    ResponsiveScatterPlot,
+    ScatterPlotNodeProps,
+    ScatterPlotCustomSvgLayer,
+    ScatterPlotLayerProps,
+    ScatterPlotNodeData,
+} from '../src'
+
+type SampleDatum = {
+    id: number
+    x: number
+    y: number
+    z: number
+}
 
 const sampleData = [
     {
@@ -126,41 +140,41 @@ const commonProps = {
     height: 500,
     margin: { top: 24, right: 24, bottom: 80, left: 80 },
     nodeSize: 10,
-    blendMode: 'multiply',
-    xFormat: d => `week ${d}`,
-    yFormat: d => `${d} kg`,
+    blendMode: 'multiply' as const,
+    xFormat: (x: number) => `week ${x}`,
+    yFormat: (y: number) => `${y} kg`,
     axisBottom: {
-        format: d => `week ${d}`,
+        format: (x: number) => `week ${x}`,
     },
     axisLeft: {
-        format: d => `${d} kg`,
+        format: (y: number) => `${y} kg`,
     },
     data: sampleData,
     legends: [
         {
-            anchor: 'bottom-left',
-            direction: 'row',
+            anchor: 'bottom-left' as const,
+            direction: 'row' as const,
             translateY: 60,
             itemWidth: 130,
             itemHeight: 12,
             symbolSize: 12,
-            symbolShape: 'circle',
+            symbolShape: 'circle' as const,
         },
     ],
 }
 
 const stories = storiesOf('ScatterPlot', module)
 
-stories.add('default', () => <ScatterPlot {...commonProps} data={[sampleData[1]]} />)
+stories.add('default', () => <ScatterPlot<SampleDatum> {...commonProps} data={[sampleData[1]]} />)
 
-stories.add('multiple series', () => <ScatterPlot {...commonProps} />)
+stories.add('multiple series', () => <ScatterPlot<SampleDatum> {...commonProps} />)
 
 stories.add('alternative colors', () => (
-    <ScatterPlot {...commonProps} colors={{ scheme: 'category10' }} />
+    <ScatterPlot<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
 ))
 
 stories.add('using time scales', () => (
-    <ScatterPlot
+    <ScatterPlot<{ x: string; y: number }>
         {...commonProps}
         data={[
             {
@@ -204,7 +218,7 @@ stories.add('using time scales', () => (
 ))
 
 stories.add('using logarithmic scales', () => (
-    <ScatterPlot
+    <ScatterPlot<{ x: number; y: number }>
         {...commonProps}
         data={[
             {
@@ -239,7 +253,7 @@ stories.add('using logarithmic scales', () => (
 ))
 
 stories.add('using symmetric logarithmic scales', () => (
-    <ScatterPlot
+    <ScatterPlot<{ x: number; y: number }>
         {...commonProps}
         data={[
             {
@@ -268,14 +282,17 @@ stories.add('using symmetric logarithmic scales', () => (
     />
 ))
 
-stories.add('node size', () => <ScatterPlot {...commonProps} nodeSize={24} />)
+stories.add('node size', () => <ScatterPlot<SampleDatum> {...commonProps} nodeSize={24} />)
 
 stories.add('varying node size', () => (
-    <ScatterPlot {...commonProps} nodeSize={{ key: 'z', values: [0, 4], sizes: [9, 32] }} />
+    <ScatterPlot<SampleDatum>
+        {...commonProps}
+        nodeSize={{ key: 'z', values: [0, 4], sizes: [9, 32] }}
+    />
 ))
 
 stories.add('custom tooltip', () => (
-    <ScatterPlot
+    <ScatterPlot<SampleDatum>
         {...commonProps}
         tooltip={({ node }) => (
             <div
@@ -317,7 +334,7 @@ const SyncCharts = () => {
             }}
         >
             <div style={{ height: 400 }}>
-                <ResponsiveScatterPlot
+                <ResponsiveScatterPlot<SampleDatum>
                     {...omit(commonProps, ['width', 'height', 'legends'])}
                     useMesh={true}
                     debugMesh={true}
@@ -332,7 +349,7 @@ const SyncCharts = () => {
                 />
             </div>
             <div style={{ height: 400 }}>
-                <ResponsiveScatterPlot
+                <ResponsiveScatterPlot<SampleDatum>
                     {...omit(commonProps, ['width', 'height', 'legends'])}
                     useMesh={true}
                     debugMesh={true}
@@ -417,7 +434,7 @@ const CustomNode = ({
     onMouseMove,
     onMouseLeave,
     onClick,
-}) => {
+}: ScatterPlotNodeProps<{ x: number; y: number }>) => {
     if (node.data.serieId === 'A') {
         return (
             <g transform={`translate(${x},${y})`}>
@@ -472,7 +489,7 @@ const CustomNode = ({
 }
 
 stories.add('custom node', () => (
-    <ScatterPlot
+    <ScatterPlot<{ x: number; y: number }>
         {...commonProps}
         colors={{ scheme: 'set2' }}
         nodeSize={32}
@@ -518,8 +535,14 @@ stories.add('custom node', () => (
     />
 ))
 
-const AreaLayer = ({ nodes, xScale, yScale }) => {
-    const areaGenerator = area()
+const AreaLayer = ({
+    nodes,
+    xScale,
+    yScale,
+}: ScatterPlotLayerProps<{ x: number; y: number; low: number; high: number }>) => {
+    const areaGenerator = area<
+        ScatterPlotNodeData<{ x: number; y: number; low: number; high: number }>
+    >()
         .x(d => xScale(d.data.x))
         .y0(d => yScale(d.data.low))
         .y1(d => yScale(d.data.high))
@@ -531,7 +554,7 @@ const AreaLayer = ({ nodes, xScale, yScale }) => {
 stories.add(
     'adding extra layers',
     () => (
-        <ScatterPlot
+        <ScatterPlot<{ x: number; y: number; low: number; high: number }>
             {...commonProps}
             data={[
                 {
