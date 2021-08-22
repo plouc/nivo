@@ -1,9 +1,9 @@
 import {
     generateSeriesAxis,
     stackAxis,
-    computeAxisSlices,
+    // computeAxisSlices,
     computeXYScalesForSeries,
-} from '../src/compute'
+} from '../src'
 
 const axes = ['x', 'y']
 

@@ -1,7 +1,13 @@
 import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
 import { storiesOf } from '@storybook/react'
-import { ScatterPlotCanvas, ResponsiveScatterPlotCanvas } from '../src'
+import { ScatterPlotCanvas, ResponsiveScatterPlotCanvas, ScatterPlotNodeData } from '../src'
+
+type SampleDatum = {
+    id: number
+    x: number
+    y: number
+}
 
 const sampleData = [
     {
@@ -126,38 +132,40 @@ const commonProps = {
     margin: { top: 20, right: 20, bottom: 80, left: 80 },
     nodeSize: 10,
     axisBottom: {
-        format: d => `week ${d}`,
+        format: (x: number) => `week ${x}`,
     },
     axisLeft: {
-        format: d => `${d} kg`,
+        format: (y: number) => `${y} kg`,
     },
     data: sampleData,
     useMesh: true,
     legends: [
         {
-            anchor: 'bottom-left',
-            direction: 'row',
+            anchor: 'bottom-left' as const,
+            direction: 'row' as const,
             translateY: 60,
             itemWidth: 130,
             itemHeight: 12,
             nodeSize: 12,
-            symbolShape: 'circle',
+            symbolShape: 'circle' as const,
         },
     ],
 }
 
 const stories = storiesOf('ScatterPlotCanvas', module)
 
-stories.add('default', () => <ScatterPlotCanvas {...commonProps} data={[sampleData[1]]} />)
+stories.add('default', () => (
+    <ScatterPlotCanvas<SampleDatum> {...commonProps} data={[sampleData[1]]} />
+))
 
-stories.add('multiple series', () => <ScatterPlotCanvas {...commonProps} />)
+stories.add('multiple series', () => <ScatterPlotCanvas<SampleDatum> {...commonProps} />)
 
 stories.add('alternative colors', () => (
-    <ScatterPlotCanvas {...commonProps} colors={{ scheme: 'category10' }} />
+    <ScatterPlotCanvas<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
 ))
 
 stories.add('using time scales', () => (
-    <ScatterPlotCanvas
+    <ScatterPlotCanvas<{ x: string; y: number }>
         {...commonProps}
         data={[
             {
@@ -261,10 +269,10 @@ stories.add('using symmetric logarithmic scales', () => (
     />
 ))
 
-stories.add('symbol size', () => <ScatterPlotCanvas {...commonProps} nodeSize={24} />)
+stories.add('symbol size', () => <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={24} />)
 
 stories.add('varying symbol size', () => (
-    <ScatterPlotCanvas {...commonProps} nodeSize={d => d.x + d.y * 2} />
+    <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={d => d.x + d.y * 2} />
 ))
 
 const SyncCharts = () => {
@@ -272,7 +280,7 @@ const SyncCharts = () => {
     const handleMouseMove = useCallback(node => setNodeId(node.id), [setNodeId])
     const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
     const getNodeSize = useMemo(
-        () => node => {
+        () => (node: Omit<ScatterPlotNodeData<SampleDatum>, 'size' | 'style'>) => {
             if (nodeId !== null && nodeId === node.id) return 46
             return 8
         },
@@ -287,7 +295,7 @@ const SyncCharts = () => {
             }}
         >
             <div style={{ height: 400 }}>
-                <ResponsiveScatterPlotCanvas
+                <ResponsiveScatterPlotCanvas<SampleDatum>
                     {...omit(commonProps, ['width', 'height', 'legends'])}
                     useMesh={true}
                     debugMesh={true}
@@ -302,7 +310,7 @@ const SyncCharts = () => {
                 />
             </div>
             <div style={{ height: 400 }}>
-                <ResponsiveScatterPlotCanvas
+                <ResponsiveScatterPlotCanvas<SampleDatum>
                     {...omit(commonProps, ['width', 'height', 'legends'])}
                     useMesh={true}
                     debugMesh={true}
@@ -365,7 +373,7 @@ stories.add('synchronizing charts', () => <SyncCharts />, {
 })
 
 stories.add('custom tooltip', () => (
-    <ScatterPlotCanvas
+    <ScatterPlotCanvas<SampleDatum>
         {...commonProps}
         tooltip={({ node }) => (
             <div

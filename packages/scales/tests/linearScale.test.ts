@@ -1,4 +1,4 @@
-import { createLinearScale } from '../src/linearScale'
+import { createLinearScale } from '../src'
 
 it(`should be able to build a linear scale for x axis`, () => {
     const scale = createLinearScale<number>(

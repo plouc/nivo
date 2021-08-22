@@ -25,6 +25,7 @@
         { "path": "./packages/circle-packing" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
+        { "path": "./packages/scatterplot" },
         { "path": "./packages/sunburst" },
         { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" }

@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@nivo/scatterplot'
+import { ResponsiveScatterPlot, svgDefaultProps } from '@nivo/scatterplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
@@ -35,13 +27,13 @@ const initialProperties = {
     },
     yFormat: d => `${d} cm`,
 
-    colors: ScatterPlotDefaultProps.colors,
+    colors: svgDefaultProps.colors,
     blendMode: 'multiply',
 
-    nodeSize: ScatterPlotDefaultProps.nodeSize,
+    nodeSize: svgDefaultProps.nodeSize,
 
-    enableGridX: ScatterPlotDefaultProps.enableGridX,
-    enableGridY: ScatterPlotDefaultProps.enableGridY,
+    enableGridX: svgDefaultProps.enableGridX,
+    enableGridY: svgDefaultProps.enableGridY,
     axisTop: {
         enable: false,
         orient: 'top',
@@ -83,13 +75,12 @@ const initialProperties = {
         format: d => `${d} cm`,
     },
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 
-    isInteractive: true,
-    useMesh: true,
-    debugMesh: false,
+    isInteractive: svgDefaultProps.isInteractive,
+    useMesh: svgDefaultProps.useMesh,
+    debugMesh: svgDefaultProps.debugMesh,
 
     legends: [
         {
@@ -129,7 +120,7 @@ const ScatterPlot = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={ScatterPlotDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
         >
@@ -141,7 +132,7 @@ const ScatterPlot = () => {
                     onClick={node => {
                         logAction({
                             type: 'click',
-                            label: `[node] serie: ${node.data.serieId}, x: ${node.x}, y: ${node.y}`,
+                            label: `[node] id: ${node.id}, x: ${node.x}, y: ${node.y}`,
                             color: node.style.color,
                             data: node,
                         })

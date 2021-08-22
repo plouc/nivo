@@ -130,6 +130,7 @@ export type Series<XValue extends ScaleValue, YValue extends ScaleValue> = {
     }[]
 }[]
 
+// A serie containing data for a specific axis
 export type SerieAxis<Axis extends ScaleAxis, Value extends ScaleValue> = {
     data: {
         data: Record<Axis, Value | null>

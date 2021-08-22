@@ -209,16 +209,6 @@ declare module '@nivo/core' {
         fill?: { id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }[]
     }
 
-    export interface CartesianMarkerProps {
-        axis: 'x' | 'y'
-        value: DatumValue
-        legend?: string
-        legendOrientation?: 'horizontal' | 'vertical'
-        legendPosition?: BoxAlign
-        lineStyle?: Partial<React.CSSProperties>
-        textStyle?: Partial<React.CSSProperties>
-    }
-
     export type CssMixBlendMode =
         | 'normal'
         | 'multiply'
@@ -365,7 +355,6 @@ declare module '@nivo/core' {
         motionDamping?: number
         motionConfig?: string | SpringConfig
     }
-
     type ContainerType = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
     export const Container: ContainerType
 
@@ -421,4 +410,31 @@ declare module '@nivo/core' {
         cursorX: number,
         cursorY: number
     ): boolean
+
+    export interface CartesianMarkerProps<V extends DatumValue = DatumValue> {
+        axis: 'x' | 'y'
+        value: V
+        legend?: string
+        legendOrientation?: 'horizontal' | 'vertical'
+        legendPosition?: BoxAlign
+        lineStyle?: Partial<React.CSSProperties>
+        textStyle?: Partial<React.CSSProperties>
+    }
+    interface CartesianMarkersProps<
+        X extends DatumValue = DatumValue,
+        Y extends DatumValue = DatumValue
+    > {
+        width: number
+        height: number
+        xScale: (value: X) => number
+        yScale: (value: Y) => number
+        markers: CartesianMarkerProps<X | Y>[]
+    }
+    type CartesianMarkersType = <
+        X extends DatumValue = DatumValue,
+        Y extends DatumValue = DatumValue
+    >(
+        props: CartesianMarkersProps<X, Y>
+    ) => JSX.Element
+    export const CartesianMarkers: CartesianMarkersType
 }
