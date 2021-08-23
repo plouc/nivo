@@ -133,7 +133,7 @@ const ScatterPlotCanvas = () => {
                         logAction({
                             type: 'click',
                             label: `[node] id: ${node.id}, x: ${node.x}, y: ${node.y}`,
-                            color: node.style.color,
+                            color: node.color,
                             data: node,
                         })
                     }}

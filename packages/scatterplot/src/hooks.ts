@@ -67,9 +67,7 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
             rawNodes.map(rawNode => ({
                 ...rawNode,
                 size: getNodeSize(rawNode.data),
-                style: {
-                    color: getColor(rawNode.data),
-                },
+                color: getColor(rawNode.data),
             })),
         [rawNodes, getNodeSize, getColor]
     )

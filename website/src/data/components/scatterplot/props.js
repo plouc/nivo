@@ -371,7 +371,7 @@ const props = [
             const renderNode = (ctx, node) => {
                 ctx.beginPath()
                 ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
-                ctx.fillStyle = node.style.color
+                ctx.fillStyle = node.color
                 ctx.fill()
             }
             \`\`\`

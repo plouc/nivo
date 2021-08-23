@@ -279,8 +279,10 @@ const SyncCharts = () => {
     const [nodeId, setNodeId] = useState(null)
     const handleMouseMove = useCallback(node => setNodeId(node.id), [setNodeId])
     const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
+
+    // dynamic size function, the size of the node is bigger if the node is active
     const getNodeSize = useMemo(
-        () => (node: Omit<ScatterPlotNodeData<SampleDatum>, 'size' | 'style'>) => {
+        () => (node: ScatterPlotNodeData<SampleDatum>['data']) => {
             if (nodeId !== null && nodeId === node.id) return 46
             return 8
         },
@@ -378,13 +380,13 @@ stories.add('custom tooltip', () => (
         tooltip={({ node }) => (
             <div
                 style={{
-                    color: node.style.color,
+                    color: node.color,
                     background: '#333',
                     padding: '12px 16px',
                 }}
             >
                 <strong>
-                    {node.id} ({node.serieId})
+                    {node.id} ({node.data.serieId})
                 </strong>
                 <br />
                 {`x: ${node.data.formattedX}`}
