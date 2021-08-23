@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { ResponsiveTimeRange, timeRangeDefaultProps } from '@nivo/calendar'
-import { generateOrderedDayCounts } from '@nivo/generators'
+import { generateDayCounts } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/time-range/meta.yml'
 import mapper from '../../data/components/time-range/mapper'
@@ -20,7 +20,7 @@ const Tooltip = data => {
 
 const from = new Date(2018, 3, 1)
 const to = new Date(2018, 7, 12)
-const generateData = () => generateOrderedDayCounts(from, to)
+const generateData = () => generateDayCounts(from, to)
 
 const initialProperties = {
     from: '2018-04-01',

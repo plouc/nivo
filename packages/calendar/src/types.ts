@@ -174,7 +174,7 @@ export type CalendarCanvasProps = Dimensions &
             }
     >
 
-export type TimeRangeDayData = CalendarDatum & {
+export type TimeRangeDayData = (Omit<CalendarDatum, 'value'> | CalendarDatum) & {
     coordinates: {
         x: number
         y: number
@@ -193,9 +193,11 @@ export type TimeRangeTooltipProps = Omit<TimeRangeDayData, 'date' | 'value'> & {
 }
 
 export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial<
+        Omit<CalendarData, 'data'>
+    > &
+    Partial<
         Omit<
             CommonCalendarProps,
-            | 'emptyColor'
             | 'yearLegend'
             | 'yearSpacing'
             | 'yearLegendOffset'

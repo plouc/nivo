@@ -30,6 +30,20 @@ const props = [
         required: true,
     },
     {
+        key: 'from',
+        group: 'Base',
+        help: 'start date',
+        type: 'string | Date',
+        required: false,
+    },
+    {
+        key: 'to',
+        group: 'Base',
+        help: 'end date',
+        type: 'string | Date',
+        required: false,
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         help: 'Chart width.',
@@ -161,6 +175,15 @@ const props = [
         type: 'string[]',
         required: false,
         defaultValue: defaults.colors,
+    },
+    {
+        key: 'emptyColor',
+        help: 'color to use to fill days without available value.',
+        type: 'string',
+        required: false,
+        defaultValue: defaults.emptyColor,
+        controlType: 'colorPicker',
+        group: 'Style',
     },
     // Months
     {
