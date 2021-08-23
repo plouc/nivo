@@ -29,7 +29,7 @@ export const commonDefaultProps = {
         ScatterPlotDatum
     >['nodeId'],
     nodeSize: 9,
-    renderNode: Node,
+    nodeComponent: Node,
 
     colors: { scheme: 'nivo' } as ScatterPlotCommonProps<ScatterPlotDatum>['colors'],
 

@@ -1,4 +1,5 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
+import { SpringValues } from '@react-spring/web'
 import {
     Dimensions,
     Box,
@@ -49,15 +50,18 @@ export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
 
 export interface ScatterPlotNodeProps<RawDatum extends ScatterPlotDatum> {
     node: ScatterPlotNodeData<RawDatum>
-    x: number
-    y: number
-    size: number
-    color: string
+    style: SpringValues<{
+        x: number
+        y: number
+        size: number
+        color: string
+    }>
     blendMode: CssMixBlendMode
-    onMouseEnter?: (event: MouseEvent<any>) => void
-    onMouseMove?: (event: MouseEvent<any>) => void
-    onMouseLeave?: (event: MouseEvent<any>) => void
-    onClick?: (event: MouseEvent<any>) => void
+    isInteractive: boolean
+    onMouseEnter?: ScatterPlotMouseHandler<RawDatum>
+    onMouseMove?: ScatterPlotMouseHandler<RawDatum>
+    onMouseLeave?: ScatterPlotMouseHandler<RawDatum>
+    onClick?: ScatterPlotMouseHandler<RawDatum>
 }
 export type ScatterPlotNode<RawDatum extends ScatterPlotDatum> = FunctionComponent<
     ScatterPlotNodeProps<RawDatum>
@@ -162,7 +166,7 @@ export type ScatterPlotSvgProps<RawDatum extends ScatterPlotDatum> = Partial<
     ModernMotionProps & {
         blendMode?: CssMixBlendMode
         layers?: ScatterPlotLayerId[]
-        renderNode?: ScatterPlotNode<RawDatum>
+        nodeComponent?: ScatterPlotNode<RawDatum>
         markers?: CartesianMarkerProps<RawDatum['x'] | RawDatum['y']>[]
     }
 

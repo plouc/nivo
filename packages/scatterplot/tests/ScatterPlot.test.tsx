@@ -199,7 +199,7 @@ describe('nodes', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(5)
         nodes.forEach(node => {
-            expect(node.prop('size')).toBe(12)
+            expect(node.prop('node').size).toBe(12)
         })
     })
 
@@ -228,24 +228,25 @@ describe('nodes', () => {
 
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(3)
-        expect(nodes.at(0).prop('size')).toBe(6)
-        expect(nodes.at(1).prop('size')).toBe(10)
-        expect(nodes.at(2).prop('size')).toBe(16)
+        expect(nodes.at(0).prop('node').size).toBe(6)
+        expect(nodes.at(1).prop('node').size).toBe(10)
+        expect(nodes.at(2).prop('node').size).toBe(16)
     })
 
     it('should allow to use a custom node', () => {
         const CustomNode = () => <g />
 
-        const wrapper = mount(<ScatterPlot<TestDatum> {...baseProps} renderNode={CustomNode} />)
+        const wrapper = mount(<ScatterPlot<TestDatum> {...baseProps} nodeComponent={CustomNode} />)
 
         const nodes = wrapper.find(CustomNode)
         expect(nodes).toHaveLength(5)
         nodes.forEach(node => {
-            expect(node.prop('node')).toBeDefined()
-            expect(node.prop('x')).toBeDefined()
-            expect(node.prop('y')).toBeDefined()
-            expect(node.prop('size')).toBe(9)
-            expect(node.prop('color')).toBeDefined()
+            const nodeProp = node.prop('node')
+            expect(nodeProp).toBeDefined()
+            expect(nodeProp.x).toBeDefined()
+            expect(nodeProp.y).toBeDefined()
+            expect(nodeProp.size).toBe(9)
+            expect(nodeProp.style.color).toBeDefined()
             expect(node.prop('blendMode')).toBe('normal')
             expect(node.prop('onMouseEnter')).toBeDefined()
             expect(node.prop('onMouseMove')).toBeDefined()
@@ -268,7 +269,7 @@ describe('nodes', () => {
             />
         )
 
-        const nodes = wrapper.find('NodeWrapper')
+        const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(5)
         nodes.forEach((node, index) => {
             expect(node.prop('node').id).toBe(ids[index])
@@ -283,7 +284,7 @@ describe('tooltip', () => {
         let tooltip = wrapper.find('Tooltip').at(1)
         expect(tooltip.exists()).toBe(false)
 
-        const node = wrapper.find('NodeWrapper').at(2)
+        const node = wrapper.find('Node').at(2)
         node.find('circle').simulate('mouseenter')
 
         tooltip = wrapper.find('Tooltip').at(1)
@@ -294,7 +295,7 @@ describe('tooltip', () => {
     it('should allow to disable tooltip by disabling interactivity', () => {
         const wrapper = mount(<ScatterPlot<TestDatum> {...baseProps} isInteractive={false} />)
 
-        wrapper.find('NodeWrapper').at(2).find('circle').simulate('mouseenter')
+        wrapper.find('Node').at(2).find('circle').simulate('mouseenter')
         expect(wrapper.find('Tooltip').exists()).toBe(false)
     })
 
@@ -305,7 +306,7 @@ describe('tooltip', () => {
         let tooltip = wrapper.find(CustomTooltip)
         expect(tooltip.exists()).toBe(false)
 
-        const node = wrapper.find('NodeWrapper').at(2)
+        const node = wrapper.find('Node').at(2)
         node.find('circle').simulate('mouseenter')
 
         tooltip = wrapper.find(CustomTooltip)
@@ -334,7 +335,7 @@ describe('event handlers', () => {
                 />
             )
 
-            const node = wrapper.find('NodeWrapper').at(1)
+            const node = wrapper.find('Node').at(1)
             node.find('circle').simulate(eventHandler.simulated)
 
             expect(mock).toHaveBeenCalledTimes(1)
@@ -362,7 +363,7 @@ describe('event handlers', () => {
                 />
             )
 
-            wrapper.find('NodeWrapper').at(1).find('circle').simulate(eventHandler.simulated)
+            wrapper.find('Node').at(1).find('circle').simulate(eventHandler.simulated)
             expect(mock).not.toHaveBeenCalled()
         })
     })

@@ -326,10 +326,57 @@ const props = [
         defaultValue: svgDefaultProps.layers,
     },
     {
-        key: 'renderNode',
-        flavors: ['svg', 'canvas'],
+        key: 'nodeComponent',
+        flavors: ['svg'],
         group: 'Customization',
-        help: 'Override default node rendering.',
+        help: 'Override default node rendering for SVG implementation.',
+        type: 'FunctionComponent<ScatterPlotNodeProps<RawDatum>>',
+        description: `
+            When you override the default node component, you should use
+            an \`animated\` element if you wish to preserve transitions,
+            for example:
+            
+            \`\`\`
+            import { animated } from '@react-spring/web'
+            
+            export const MyCustomNode = (props) => (
+                <animated.circle
+                    cx={props.style.x}
+                    cy={props.style.y}
+                    r={props.style.size.to(size => size / 2)}
+                    fill={style.color}
+                    style={{ mixBlendMode: props.blendMode }}
+                />
+            )
+            \`\`\`
+            
+            The \`style\` property contains \`react-spring\` values, suitable
+            for \`animated.*\` elements.
+            
+            You can have a look at the [default node implementation](https://github.com/plouc/nivo/blob/master/packages/scatterplot/src/Node.tsx)
+            to see how props are used by default.
+        `,
+        required: false,
+    },
+    {
+        key: 'renderNode',
+        flavors: ['canvas'],
+        group: 'Customization',
+        help: 'Override default node rendering for canvas implementation.',
+        type: '(ctx: CanvasRenderingContext2D, props: ScatterPlotLayerProps<RawDatum>) => void',
+        description: `
+            This is how the default rendering is done:
+            
+            \`\`\`
+            const renderNode = (ctx, node) => {
+                ctx.beginPath()
+                ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
+                ctx.fillStyle = node.style.color
+                ctx.fill()
+            }
+            \`\`\`
+        `,
+        required: false,
     },
     {
         key: 'enableGridX',

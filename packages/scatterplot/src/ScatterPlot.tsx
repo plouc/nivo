@@ -5,7 +5,7 @@ import { BoxLegendSvg } from '@nivo/legends'
 import { useScatterPlot } from './hooks'
 import { svgDefaultProps } from './props'
 import { ScatterPlotAnnotations } from './ScatterPlotAnnotations'
-import { StaticNodes } from './StaticNodes'
+import { Nodes } from './Nodes'
 import { Mesh } from './Mesh'
 import { ScatterPlotDatum, ScatterPlotLayerId, ScatterPlotSvgProps } from './types'
 
@@ -28,7 +28,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     blendMode = svgDefaultProps.blendMode,
     nodeId = svgDefaultProps.nodeId,
     nodeSize = svgDefaultProps.nodeSize,
-    renderNode = svgDefaultProps.renderNode,
+    nodeComponent = svgDefaultProps.nodeComponent,
     enableGridX = svgDefaultProps.enableGridX,
     enableGridY = svgDefaultProps.enableGridY,
     gridXValues,
@@ -126,10 +126,10 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
 
     if (layers.includes('nodes')) {
         layerById.nodes = (
-            <StaticNodes<RawDatum>
+            <Nodes<RawDatum>
                 key="nodes"
                 nodes={nodes}
-                renderNode={renderNode}
+                nodeComponent={nodeComponent}
                 isInteractive={isInteractive}
                 tooltip={tooltip}
                 blendMode={blendMode}
