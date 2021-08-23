@@ -6,7 +6,6 @@ import {
     ScatterPlot,
     ResponsiveScatterPlot,
     ScatterPlotNodeProps,
-    ScatterPlotCustomSvgLayer,
     ScatterPlotLayerProps,
     ScatterPlotNodeData,
 } from '../src'
@@ -425,10 +424,6 @@ stories.add('using mouse enter/leave', () => (
 
 const CustomNode = ({
     node,
-    x,
-    y,
-    size,
-    color,
     blendMode,
     onMouseEnter,
     onMouseMove,
@@ -437,15 +432,15 @@ const CustomNode = ({
 }: ScatterPlotNodeProps<{ x: number; y: number }>) => {
     if (node.data.serieId === 'A') {
         return (
-            <g transform={`translate(${x},${y})`}>
+            <g transform={`translate(${node.x},${node.y})`}>
                 <circle
-                    r={size / 2}
-                    fill={color}
+                    r={node.size / 2}
+                    fill={node.style.color}
                     style={{ mixBlendMode: blendMode }}
-                    onMouseEnter={onMouseEnter}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseLeave}
-                    onClick={onClick}
+                    onMouseEnter={event => onMouseEnter?.(node, event)}
+                    onMouseMove={event => onMouseMove?.(node, event)}
+                    onMouseLeave={event => onMouseLeave?.(node, event)}
+                    onClick={event => onClick?.(node, event)}
                 />
             </g>
         )
@@ -453,36 +448,36 @@ const CustomNode = ({
 
     if (node.data.serieId === 'B') {
         return (
-            <g transform={`translate(${x},${y}) rotate(45)`}>
+            <g transform={`translate(${node.x},${node.y}) rotate(45)`}>
                 <rect
-                    x={size * -0.5}
-                    y={size * -0.5}
-                    width={size}
-                    height={size}
-                    fill={color}
+                    x={node.size * -0.5}
+                    y={node.size * -0.5}
+                    width={node.size}
+                    height={node.size}
+                    fill={node.style.color}
                     style={{ mixBlendMode: blendMode }}
-                    onMouseEnter={onMouseEnter}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseLeave}
-                    onClick={onClick}
+                    onMouseEnter={event => onMouseEnter?.(node, event)}
+                    onMouseMove={event => onMouseMove?.(node, event)}
+                    onMouseLeave={event => onMouseLeave?.(node, event)}
+                    onClick={event => onClick?.(node, event)}
                 />
             </g>
         )
     }
 
     return (
-        <g transform={`translate(${x},${y})`}>
+        <g transform={`translate(${node.x},${node.y})`}>
             <rect
-                x={size * -0.5}
-                y={size * -0.5}
-                width={size}
-                height={size}
-                fill={color}
+                x={node.size * -0.5}
+                y={node.size * -0.5}
+                width={node.size}
+                height={node.size}
+                fill={node.style.color}
                 style={{ mixBlendMode: blendMode }}
-                onMouseEnter={onMouseEnter}
-                onMouseMove={onMouseMove}
-                onMouseLeave={onMouseLeave}
-                onClick={onClick}
+                onMouseEnter={event => onMouseEnter?.(node, event)}
+                onMouseMove={event => onMouseMove?.(node, event)}
+                onMouseLeave={event => onMouseLeave?.(node, event)}
+                onClick={event => onClick?.(node, event)}
             />
         </g>
     )
@@ -531,7 +526,7 @@ stories.add('custom node', () => (
                 ],
             },
         ]}
-        renderNode={CustomNode}
+        nodeComponent={CustomNode}
     />
 ))
 
