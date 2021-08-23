@@ -61,7 +61,7 @@ export const computePoints = <RawDatum extends ScatterPlotDatum>({
             index: number
         }
     ) => string
-}): Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'style'>[] =>
+}): Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[] =>
     series.reduce(
         (agg, serie) => [
             ...agg,
@@ -87,5 +87,5 @@ export const computePoints = <RawDatum extends ScatterPlotDatum>({
                 }
             }),
         ],
-        [] as Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'style'>[]
+        [] as Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[]
     )

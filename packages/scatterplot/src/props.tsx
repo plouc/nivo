@@ -70,7 +70,7 @@ export const canvasDefaultProps = {
     renderNode: (ctx: CanvasRenderingContext2D, node: ScatterPlotNodeData<ScatterPlotDatum>) => {
         ctx.beginPath()
         ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
-        ctx.fillStyle = node.style.color
+        ctx.fillStyle = node.color
         ctx.fill()
     },
 }

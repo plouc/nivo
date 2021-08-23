@@ -29,7 +29,7 @@ const regularTransition = <RawDatum extends ScatterPlotDatum>(
     x: node.x,
     y: node.y,
     size: node.size,
-    color: node.style.color,
+    color: node.color,
 })
 const leaveTransition = <RawDatum extends ScatterPlotDatum>(
     node: ScatterPlotNodeData<RawDatum>
@@ -37,7 +37,7 @@ const leaveTransition = <RawDatum extends ScatterPlotDatum>(
     x: node.x,
     y: node.y,
     size: 0,
-    color: node.style.color,
+    color: node.color,
 })
 
 export const Nodes = <RawDatum extends ScatterPlotDatum>({

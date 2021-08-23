@@ -8,6 +8,6 @@ export const Tooltip = <RawDatum extends ScatterPlotDatum>({
         id={node.data.serieId}
         value={`x: ${node.data.formattedX}, y: ${node.data.formattedY}`}
         enableChip={true}
-        color={node.style.color}
+        color={node.color}
     />
 )

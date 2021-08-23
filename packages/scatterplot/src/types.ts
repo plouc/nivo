@@ -35,15 +35,11 @@ export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
     x: number
     y: number
     size: number
-    style: {
-        color: string
-    }
-    data: {
+    color: string
+    data: RawDatum & {
         id: string | number
         serieId: ScatterPlotRawSerie<RawDatum>['id']
-        x: RawDatum['x']
         formattedX: string | number
-        y: RawDatum['y']
         formattedY: string | number
     }
 }

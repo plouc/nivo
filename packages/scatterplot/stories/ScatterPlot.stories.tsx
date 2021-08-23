@@ -296,13 +296,13 @@ stories.add('custom tooltip', () => (
         tooltip={({ node }) => (
             <div
                 style={{
-                    color: node.style.color,
+                    color: node.color,
                     background: '#333',
                     padding: '12px 16px',
                 }}
             >
                 <strong>
-                    {node.id} ({node.serieId})
+                    {node.id} ({node.data.serieId})
                 </strong>
                 <br />
                 {`x: ${node.data.formattedX}`}
@@ -317,8 +317,10 @@ const SyncCharts = () => {
     const [nodeId, setNodeId] = useState(null)
     const handleMouseMove = useCallback(node => setNodeId(node.id), [setNodeId])
     const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
+
+    // dynamic size function, the size of the node is bigger if the node is active
     const getNodeSize = useMemo(
-        () => node => {
+        () => (node: ScatterPlotNodeData<SampleDatum>['data']) => {
             if (nodeId !== null && nodeId === node.id) return 46
             return 8
         },
@@ -435,7 +437,7 @@ const CustomNode = ({
             <g transform={`translate(${node.x},${node.y})`}>
                 <circle
                     r={node.size / 2}
-                    fill={node.style.color}
+                    fill={node.color}
                     style={{ mixBlendMode: blendMode }}
                     onMouseEnter={event => onMouseEnter?.(node, event)}
                     onMouseMove={event => onMouseMove?.(node, event)}
@@ -454,7 +456,7 @@ const CustomNode = ({
                     y={node.size * -0.5}
                     width={node.size}
                     height={node.size}
-                    fill={node.style.color}
+                    fill={node.color}
                     style={{ mixBlendMode: blendMode }}
                     onMouseEnter={event => onMouseEnter?.(node, event)}
                     onMouseMove={event => onMouseMove?.(node, event)}
@@ -472,7 +474,7 @@ const CustomNode = ({
                 y={node.size * -0.5}
                 width={node.size}
                 height={node.size}
-                fill={node.style.color}
+                fill={node.color}
                 style={{ mixBlendMode: blendMode }}
                 onMouseEnter={event => onMouseEnter?.(node, event)}
                 onMouseMove={event => onMouseMove?.(node, event)}
@@ -543,7 +545,7 @@ const AreaLayer = ({
         .y1(d => yScale(d.data.high))
         .curve(curveMonotoneX)
 
-    return <path d={areaGenerator(nodes)} fill="rgba(232, 193, 160, .65)" />
+    return <path d={areaGenerator(nodes) as string} fill="rgba(232, 193, 160, .65)" />
 }
 
 stories.add(

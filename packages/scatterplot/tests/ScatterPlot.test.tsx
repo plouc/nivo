@@ -199,7 +199,7 @@ describe('nodes', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(5)
         nodes.forEach(node => {
-            expect(node.prop('node').size).toBe(12)
+            expect(node.prop<ScatterPlotNodeData<TestDatum>>('node').size).toBe(12)
         })
     })
 
@@ -228,9 +228,15 @@ describe('nodes', () => {
 
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(3)
-        expect(nodes.at(0).prop('node').size).toBe(6)
-        expect(nodes.at(1).prop('node').size).toBe(10)
-        expect(nodes.at(2).prop('node').size).toBe(16)
+        expect(
+            nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: number; z: number }>>('node').size
+        ).toBe(6)
+        expect(
+            nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: number; z: number }>>('node').size
+        ).toBe(10)
+        expect(
+            nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: number; z: number }>>('node').size
+        ).toBe(16)
     })
 
     it('should allow to use a custom node', () => {
@@ -241,12 +247,12 @@ describe('nodes', () => {
         const nodes = wrapper.find(CustomNode)
         expect(nodes).toHaveLength(5)
         nodes.forEach(node => {
-            const nodeProp = node.prop('node')
+            const nodeProp = node.prop<ScatterPlotNodeData<TestDatum>>('node')
             expect(nodeProp).toBeDefined()
             expect(nodeProp.x).toBeDefined()
             expect(nodeProp.y).toBeDefined()
             expect(nodeProp.size).toBe(9)
-            expect(nodeProp.style.color).toBeDefined()
+            expect(nodeProp.color).toBeDefined()
             expect(node.prop('blendMode')).toBe('normal')
             expect(node.prop('onMouseEnter')).toBeDefined()
             expect(node.prop('onMouseMove')).toBeDefined()
@@ -272,7 +278,7 @@ describe('nodes', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(5)
         nodes.forEach((node, index) => {
-            expect(node.prop('node').id).toBe(ids[index])
+            expect(node.prop<ScatterPlotNodeData<TestDatum>>('node').id).toBe(ids[index])
         })
     })
 })
