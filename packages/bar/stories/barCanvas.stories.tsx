@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { generateCountriesData } from '@nivo/generators'
+// @ts-ignore
 import { BarCanvas, BarCanvasLayer, BarDatum, canvasDefaultProps } from '../src'
 import { button } from '@storybook/addon-knobs'
 

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@nivo/generators'
+// @ts-ignore
 import { BarDatum, ResponsiveBarCanvas } from '../src'
 import { button } from '@storybook/addon-knobs'
 

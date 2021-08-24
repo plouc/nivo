@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { mount } from 'enzyme'
+// @ts-ignore
 import { Bar, BarDatum, BarItemProps, ComputedDatum } from '../src'
 
 type IdValue = {
