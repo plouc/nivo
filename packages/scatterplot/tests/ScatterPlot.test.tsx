@@ -381,3 +381,5 @@ describe('annotations', () => {
 
     it('should support markers', () => {})
 })
+
+describe('accessibility', () => {})

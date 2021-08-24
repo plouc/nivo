@@ -161,7 +161,7 @@ export type ScatterPlotSvgProps<RawDatum extends ScatterPlotDatum> = Partial<
     Dimensions &
     ModernMotionProps & {
         blendMode?: CssMixBlendMode
-        layers?: ScatterPlotLayerId[]
+        layers?: (ScatterPlotLayerId | ScatterPlotCustomSvgLayer<RawDatum>)[]
         nodeComponent?: ScatterPlotNode<RawDatum>
         markers?: CartesianMarkerProps<RawDatum['x'] | RawDatum['y']>[]
     }
