@@ -1,4 +1,5 @@
 import { mount } from 'enzyme'
+// @ts-ignore
 import { ScatterPlot, ScatterPlotNodeData } from '../src'
 
 type TestDatum = {
