@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
 import { storiesOf } from '@storybook/react'
+// @ts-ignore
 import { ScatterPlotCanvas, ResponsiveScatterPlotCanvas, ScatterPlotNodeData } from '../src'
 
 type SampleDatum = {

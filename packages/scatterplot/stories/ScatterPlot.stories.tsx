@@ -8,6 +8,7 @@ import {
     ScatterPlotNodeProps,
     ScatterPlotLayerProps,
     ScatterPlotNodeData,
+    // @ts-ignore
 } from '../src'
 
 type SampleDatum = {
