@@ -5,6 +5,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
+// @ts-ignore
 import { Bar, BarDatum } from '../src'
 import { AxisTickProps } from '@nivo/axes'
 
