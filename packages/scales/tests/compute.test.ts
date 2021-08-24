@@ -22,6 +22,12 @@ describe('generateSeriesAxis', () => {
         max: 4,
     }
 
+    const linearScaleExpectation2 = {
+        all: [2, 3, 4],
+        min: 2,
+        max: 4,
+    }
+
     const timeScaleExpectation = {
         all: [
             new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
@@ -116,6 +122,33 @@ describe('generateSeriesAxis', () => {
                         { type: 'linear' }
                     )
                 ).toEqual(linearScaleExpectation)
+            })
+
+            it('should filter null values (holes) for linear scale', () => {
+                expect(
+                    generateSeriesAxis(
+                        [
+                            {
+                                id: 'A',
+                                data: [
+                                    { data: { [axis]: '2' } },
+                                    { data: { [axis]: '04' } },
+                                    { data: { [axis]: null } },
+                                ],
+                            },
+                            {
+                                id: 'B',
+                                data: [
+                                    { data: { [axis]: '04' } },
+                                    { data: { [axis]: 2 } },
+                                    { data: { [axis]: '3' } },
+                                ],
+                            },
+                        ],
+                        axis,
+                        { type: 'linear' }
+                    )
+                ).toEqual(linearScaleExpectation2)
             })
 
             it('should compute values for time scale with native dates', () => {
