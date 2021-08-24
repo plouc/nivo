@@ -196,7 +196,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
-                if (layerById[layer] !== undefined) {
+                if (typeof layer === 'string' && layerById[layer] !== undefined) {
                     return layerById[layer]
                 }
 
