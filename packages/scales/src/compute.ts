@@ -296,9 +296,9 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
 const stackX = <S = never, D extends SerieDatum = SerieDatum>(
     xy: StackedXY,
     series: NestedSerie<S, D>[]
-) => stackAxis('x', xy, series)
+) => stackAxis<S, D>('x', xy, series)
 
 const stackY = <S = never, D extends SerieDatum = SerieDatum>(
     xy: StackedXY,
     series: NestedSerie<S, D>[]
-) => stackAxis('y', xy, series)
+) => stackAxis<S, D>('y', xy, series)
