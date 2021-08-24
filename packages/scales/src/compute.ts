@@ -195,7 +195,11 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
 
     switch (scaleSpec.type) {
         case 'linear': {
-            const all = sortBy(uniq(values as number[]).filter(v => v !== null), v => v)
+            const all = sortBy(
+                // filer null values to deal with holes in linechart
+                uniq(values as number[]).filter(v => v !== null),
+                v => v
+            )
 
             return { all, min: Math.min(...all), max: Math.max(...all) }
         }
