@@ -1,4 +1,5 @@
 import { mount } from 'enzyme'
+// @ts-ignore
 import { Stream, StreamLayerData, StreamLayerDatum, StreamSliceData, StreamSvgProps } from '../src'
 
 type TestDatum = {
