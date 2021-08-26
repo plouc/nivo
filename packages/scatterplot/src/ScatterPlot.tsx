@@ -49,6 +49,9 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     markers = svgDefaultProps.markers,
     legends = svgDefaultProps.legends,
     role = svgDefaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: InnerScatterPlotProps<RawDatum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -194,7 +197,15 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
+        >
             {layers.map((layer, i) => {
                 if (typeof layer === 'string' && layerById[layer] !== undefined) {
                     return layerById[layer]

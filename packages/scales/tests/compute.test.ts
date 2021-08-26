@@ -1,11 +1,13 @@
 import {
+    ScaleAxis,
     generateSeriesAxis,
     stackAxis,
     // computeAxisSlices,
     computeXYScalesForSeries,
+    // @ts-ignore
 } from '../src'
 
-const axes = ['x', 'y']
+const axes: ScaleAxis[] = ['x', 'y']
 
 describe('generateSeriesAxis', () => {
     const pointScaleExpectation = {
