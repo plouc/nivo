@@ -41,7 +41,8 @@ export const getNodeSizeGenerator = <RawDatum extends ScatterPlotDatum>(
             .domain([size.values[0], size.values[1]])
             .range([size.sizes[0], size.sizes[1]])
 
-        return (datum: ScatterPlotNodeData<RawDatum>['data']) => sizeScale(get(datum, size.key))
+        return (datum: Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>) =>
+            sizeScale(get(datum, size.key))
     }
 
     throw new Error('nodeSize is invalid, it should be either a function, a number or an object')
@@ -56,36 +57,31 @@ export const computePoints = <RawDatum extends ScatterPlotDatum>({
     series: ComputedSerie<{ id: string | number }, RawDatum>[]
     formatX: (value: RawDatum['x']) => string | number
     formatY: (value: RawDatum['x']) => string | number
-    getNodeId: (
-        d: Omit<ScatterPlotNodeData<RawDatum>['data'], 'id'> & {
-            index: number
-        }
-    ) => string
-}): Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[] =>
-    series.reduce(
-        (agg, serie) => [
-            ...agg,
-            ...serie.data.map((d, index) => {
-                const nodeData: Omit<ScatterPlotNodeData<RawDatum>['data'], 'id'> = {
-                    ...d.data,
-                    serieId: serie.id,
-                    formattedX: formatX(d.data.x),
-                    formattedY: formatY(d.data.y),
-                }
+    getNodeId: (d: Omit<ScatterPlotNodeData<RawDatum>, 'id' | 'size' | 'color'>) => string
+}): Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[] => {
+    const points: Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[] = []
 
-                const id = getNodeId({ index, ...nodeData })
+    series.forEach(serie => {
+        serie.data.forEach((d, serieIndex) => {
+            const point: Omit<ScatterPlotNodeData<RawDatum>, 'id' | 'size' | 'color'> = {
+                index: points.length,
+                serieIndex,
+                serieId: serie.id,
+                x: d.position.x as number,
+                xValue: d.data.x,
+                formattedX: formatX(d.data.x),
+                y: d.position.y as number,
+                yValue: d.data.y,
+                formattedY: formatY(d.data.y),
+                data: d.data,
+            }
 
-                return {
-                    index: agg.length + index,
-                    id,
-                    x: d.position.x as number,
-                    y: d.position.y as number,
-                    data: {
-                        ...nodeData,
-                        id,
-                    },
-                }
-            }),
-        ],
-        [] as Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[]
-    )
+            points.push({
+                ...point,
+                id: getNodeId(point),
+            })
+        })
+    })
+
+    return points
+}

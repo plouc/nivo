@@ -30,18 +30,23 @@ export type ScatterPlotRawSerie<RawDatum extends ScatterPlotDatum> = {
 }
 
 export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
+    // absolute index, relative to all points in all series
     index: number
+    // relative index, in a specific serie
+    serieIndex: number
     id: string
+    serieId: ScatterPlotRawSerie<RawDatum>['id']
+    // x position
     x: number
+    xValue: RawDatum['x']
+    formattedX: string | number
+    // y position
     y: number
+    yValue: RawDatum['y']
+    formattedY: string | number
     size: number
     color: string
-    data: RawDatum & {
-        id: string | number
-        serieId: ScatterPlotRawSerie<RawDatum>['id']
-        formattedX: string | number
-        formattedY: string | number
-    }
+    data: RawDatum
 }
 
 export interface ScatterPlotNodeProps<RawDatum extends ScatterPlotDatum> {
@@ -111,13 +116,7 @@ export interface ScatterPlotDataProps<RawDatum extends ScatterPlotDatum> {
 }
 
 export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
-    nodeId: PropertyAccessor<
-        Omit<ScatterPlotNodeData<RawDatum>['data'], 'id'> & {
-            serieId: ScatterPlotRawSerie<RawDatum>['id']
-            index: number
-        },
-        string
-    >
+    nodeId: PropertyAccessor<Omit<ScatterPlotNodeData<RawDatum>, 'id' | 'size' | 'color'>, string>
     xScale: ScaleSpec
     xFormat: ValueFormat<RawDatum['x']>
     yScale: ScaleSpec
@@ -132,11 +131,11 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     axisBottom: AxisProps | null
     axisLeft: AxisProps | null
     theme: Theme
-    colors: OrdinalColorScaleConfig
+    colors: OrdinalColorScaleConfig<{ serieId: ScatterPlotRawSerie<RawDatum>['id'] }>
     nodeSize:
         | number
         | ScatterPlotNodeDynamicSizeSpec
-        | PropertyAccessor<ScatterPlotNodeData<RawDatum>['data'], number>
+        | PropertyAccessor<Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>, number>
     renderWrapper?: boolean
     isInteractive: boolean
     useMesh: boolean
