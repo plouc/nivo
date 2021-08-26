@@ -19,13 +19,13 @@ const initialProperties = {
         min: 0,
         max: 'auto',
     },
-    xFormat: d => `${d} kg`,
+    xFormat: { format: '>-.2f', enabled: true },
     yScale: {
         type: 'linear',
         min: 0,
         max: 'auto',
     },
-    yFormat: d => `${d} cm`,
+    yFormat: { format: '>-.2f', enabled: true },
 
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,

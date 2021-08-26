@@ -96,6 +96,7 @@ const props = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
+        controlType: 'valueFormat',
     },
     {
         key: 'yScale',
@@ -162,12 +163,13 @@ const props = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
+        controlType: 'valueFormat',
     },
     {
         key: 'nodeId',
         group: 'Base',
         defaultValue: '(d) => `${d.serieId}.${d.index}`',
-        type: 'string | (datum: NodeIdDatum) => string',
+        type: 'string | (datum) => string',
         help: `ID accessor for the node.`,
         description: `
             Define how to determine the id of each node on the plot. This value
