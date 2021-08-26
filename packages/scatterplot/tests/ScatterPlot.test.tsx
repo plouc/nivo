@@ -391,7 +391,40 @@ describe('event handlers', () => {
 describe('annotations', () => {
     it('should support annotations', () => {})
 
-    it('should support markers', () => {})
+    it('should support markers', () => {
+        const wrapper = mount(
+            <ScatterPlot<TestDatum>
+                {...baseProps}
+                markers={[
+                    { axis: 'x', value: 22.5, legend: 'x marker' },
+                    { axis: 'y', value: 15.5, legend: 'y marker' },
+                ]}
+            />
+        )
+
+        const markers = wrapper.find('CartesianMarkersItem')
+        expect(markers.length).toBe(2)
+
+        const xMarker = markers.at(0)
+        expect(xMarker.prop('axis')).toBe('x')
+        expect(xMarker.prop('value')).toBe(22.5)
+        expect(xMarker.prop('width')).toBe(500)
+        expect(xMarker.prop('height')).toBe(300)
+        expect(xMarker.find('g').prop('transform')).toBe('translate(250, 0)')
+        expect(xMarker.find('line').prop('y1')).toBe(0)
+        expect(xMarker.find('line').prop('y2')).toBe(300)
+        expect(xMarker.find('text').text()).toBe('x marker')
+
+        const yMarker = markers.at(1)
+        expect(yMarker.prop('axis')).toBe('y')
+        expect(yMarker.prop('value')).toBe(15.5)
+        expect(yMarker.prop('width')).toBe(500)
+        expect(yMarker.prop('height')).toBe(300)
+        expect(yMarker.find('g').prop('transform')).toBe('translate(0, 150)')
+        expect(yMarker.find('line').prop('x1')).toBe(0)
+        expect(yMarker.find('line').prop('x2')).toBe(500)
+        expect(yMarker.find('text').text()).toBe('y marker')
+    })
 })
 
 describe('accessibility', () => {
