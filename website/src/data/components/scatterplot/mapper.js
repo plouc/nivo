@@ -1,17 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import styled from 'styled-components'
-import { settingsMapper, mapAxis } from '../../../lib/settings'
+import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
 
 export default settingsMapper(
     {
+        xFormat: mapFormat,
+        yFormat: mapFormat,
         axisTop: mapAxis('top'),
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
