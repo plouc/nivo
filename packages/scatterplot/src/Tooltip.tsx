@@ -5,8 +5,8 @@ export const Tooltip = <RawDatum extends ScatterPlotDatum>({
     node,
 }: ScatterPlotTooltipProps<RawDatum>) => (
     <BasicTooltip
-        id={node.data.serieId}
-        value={`x: ${node.data.formattedX}, y: ${node.data.formattedY}`}
+        id={node.serieId}
+        value={`x: ${node.formattedX}, y: ${node.formattedY}`}
         enableChip={true}
         color={node.color}
     />

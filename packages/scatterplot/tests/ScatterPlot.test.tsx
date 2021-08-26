@@ -67,16 +67,19 @@ describe('data', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(3)
 
-        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node').data
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node')
         expect(nodeA.x).toBe(0)
+        expect(nodeA.xValue).toBe(0)
         expect(nodeA.formattedX).toBe('x: 0')
 
-        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node').data
-        expect(nodeB.x).toBe(1)
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node')
+        expect(nodeB.x).toBe(250)
+        expect(nodeB.xValue).toBe(1)
         expect(nodeB.formattedX).toBe('x: 1')
 
-        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node').data
-        expect(nodeC.x).toBe(2)
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node')
+        expect(nodeC.x).toBe(500)
+        expect(nodeC.xValue).toBe(2)
         expect(nodeC.formattedX).toBe('x: 2')
     })
 
@@ -104,16 +107,19 @@ describe('data', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(3)
 
-        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node').data
-        expect(nodeA.x).toBe('A')
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node')
+        expect(nodeA.x).toBe(0)
+        expect(nodeA.xValue).toBe('A')
         expect(nodeA.formattedX).toBe('value: A')
 
-        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node').data
-        expect(nodeB.x).toBe('B')
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node')
+        expect(nodeB.x).toBe(250)
+        expect(nodeB.xValue).toBe('B')
         expect(nodeB.formattedX).toBe('value: B')
 
-        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node').data
-        expect(nodeC.x).toBe('C')
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node')
+        expect(nodeC.x).toBe(500)
+        expect(nodeC.xValue).toBe('C')
         expect(nodeC.formattedX).toBe('value: C')
     })
 
@@ -140,16 +146,19 @@ describe('data', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(3)
 
-        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node').data
-        expect(nodeA.y).toBe(0)
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node')
+        expect(nodeA.y).toBe(300)
+        expect(nodeA.yValue).toBe(0)
         expect(nodeA.formattedY).toBe('y: 0')
 
-        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node').data
-        expect(nodeB.y).toBe(1)
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node')
+        expect(nodeB.y).toBe(150)
+        expect(nodeB.yValue).toBe(1)
         expect(nodeB.formattedY).toBe('y: 1')
 
-        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node').data
-        expect(nodeC.y).toBe(2)
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: number }>>('node')
+        expect(nodeC.y).toBe(0)
+        expect(nodeC.yValue).toBe(2)
         expect(nodeC.formattedY).toBe('y: 2')
     })
 
@@ -177,16 +186,19 @@ describe('data', () => {
         const nodes = wrapper.find('Node')
         expect(nodes).toHaveLength(3)
 
-        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node').data
-        expect(nodeA.y).toBe('A')
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node')
+        expect(nodeA.y).toBe(0)
+        expect(nodeA.yValue).toBe('A')
         expect(nodeA.formattedY).toBe('value: A')
 
-        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node').data
-        expect(nodeB.y).toBe('B')
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node')
+        expect(nodeB.y).toBe(150)
+        expect(nodeB.yValue).toBe('B')
         expect(nodeB.formattedY).toBe('value: B')
 
-        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node').data
-        expect(nodeC.y).toBe('C')
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node')
+        expect(nodeC.y).toBe(300)
+        expect(nodeC.yValue).toBe('C')
         expect(nodeC.formattedY).toBe('value: C')
     })
 
@@ -220,7 +232,7 @@ describe('nodes', () => {
                     },
                 ]}
                 nodeSize={{
-                    key: 'z',
+                    key: 'data.z',
                     values: [0, 10],
                     sizes: [0, 20],
                 }}
@@ -272,7 +284,7 @@ describe('nodes', () => {
                         data: sampleData.map(data => ({ ...data, id: ids[data.id] })),
                     },
                 ]}
-                nodeId="id"
+                nodeId="data.id"
             />
         )
 

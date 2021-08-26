@@ -303,12 +303,12 @@ stories.add('custom tooltip', () => (
                 }}
             >
                 <strong>
-                    {node.id} ({node.data.serieId})
+                    {node.id} ({node.serieId})
                 </strong>
                 <br />
-                {`x: ${node.data.formattedX}`}
+                {`x: ${node.formattedX}`}
                 <br />
-                {`y: ${node.data.formattedY}`}
+                {`y: ${node.formattedY}`}
             </div>
         )}
     />
@@ -321,7 +321,7 @@ const SyncCharts = () => {
 
     // dynamic size function, the size of the node is bigger if the node is active
     const getNodeSize = useMemo(
-        () => (node: ScatterPlotNodeData<SampleDatum>['data']) => {
+        () => (node: Omit<ScatterPlotNodeData<SampleDatum>, 'size' | 'color'>) => {
             if (nodeId !== null && nodeId === node.id) return 46
             return 8
         },
@@ -433,7 +433,7 @@ const CustomNode = ({
     onMouseLeave,
     onClick,
 }: ScatterPlotNodeProps<{ x: number; y: number }>) => {
-    if (node.data.serieId === 'A') {
+    if (node.serieId === 'A') {
         return (
             <g transform={`translate(${node.x},${node.y})`}>
                 <circle
@@ -449,7 +449,7 @@ const CustomNode = ({
         )
     }
 
-    if (node.data.serieId === 'B') {
+    if (node.serieId === 'B') {
         return (
             <g transform={`translate(${node.x},${node.y}) rotate(45)`}>
                 <rect
