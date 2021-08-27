@@ -389,7 +389,40 @@ describe('event handlers', () => {
 })
 
 describe('annotations', () => {
-    it('should support annotations', () => {})
+    it('should support annotations', () => {
+        const wrapper = mount(
+            <ScatterPlot<TestDatum>
+                {...baseProps}
+                layers={['nodes', 'annotations']}
+                isInteractive={false}
+                annotations={[
+                    {
+                        match: d => d.index === 2,
+                        type: 'circle',
+                        note: 'annotation',
+                        noteX: 350,
+                        noteY: 50,
+                    },
+                ]}
+            />
+        )
+
+        const annotation = wrapper.find('Annotation')
+        expect(annotation.exists()).toBe(true)
+
+        const node = wrapper.find('Node').at(2)
+
+        expect(annotation.prop('datum')).toBe(node.prop('node'))
+        expect(annotation.prop('x')).toBe(node.prop<ScatterPlotNodeData<TestDatum>>('node').x)
+        expect(annotation.prop('y')).toBe(node.prop<ScatterPlotNodeData<TestDatum>>('node').y)
+        expect(annotation.prop('size')).toBe(node.prop<ScatterPlotNodeData<TestDatum>>('node').size)
+        expect(annotation.prop('width')).toBe(
+            node.prop<ScatterPlotNodeData<TestDatum>>('node').size
+        )
+        expect(annotation.prop('height')).toBe(
+            node.prop<ScatterPlotNodeData<TestDatum>>('node').size
+        )
+    })
 
     it('should support markers', () => {
         const wrapper = mount(
