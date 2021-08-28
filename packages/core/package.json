@@ -22,7 +22,7 @@
   "dependencies": {
     "@nivo/recompose": "0.73.0",
     "@react-spring/web": "9.2.4",
-    "d3-color": "^2.0.0",
+    "d3-color": "^3.0.1",
     "d3-format": "^1.4.4",
     "d3-hierarchy": "^1.1.8",
     "d3-interpolate": "^2.0.1",
