@@ -123,7 +123,106 @@ describe('data', () => {
         expect(nodeC.formattedX).toBe('value: C')
     })
 
-    it('should support date values for x', () => {})
+    it('should support string date values for x', () => {
+        const wrapper = mount(
+            <ScatterPlot<{ x: string; y: number }>
+                {...baseProps}
+                data={[
+                    {
+                        id: baseProps.data[0].id,
+                        data: [
+                            { x: '2020-10-1', y: 10 },
+                            { x: '2020-10-2', y: 20 },
+                            { x: '2020-10-3', y: 30 },
+                        ],
+                    },
+                ]}
+                xScale={{
+                    type: 'time',
+                    format: '%Y-%m-%d',
+                }}
+                xFormat={'time:%Y-%m-%d'}
+                axisLeft={null}
+                axisBottom={{
+                    tickValues: 'every 1 day',
+                    format: '%Y-%m-%d',
+                }}
+            />
+        )
+
+        const nodes = wrapper.find('Node')
+        expect(nodes).toHaveLength(3)
+
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node')
+        expect(nodeA.x).toBe(0)
+        expect(nodeA.xValue).toStrictEqual(new Date('2020-10-01T00:00:00.000Z'))
+        expect(nodeA.formattedX).toBe('2020-10-01')
+
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node')
+        expect(nodeB.x).toBe(250)
+        expect(nodeB.xValue).toStrictEqual(new Date('2020-10-02T00:00:00.000Z'))
+        expect(nodeB.formattedX).toBe('2020-10-02')
+
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: string; y: number }>>('node')
+        expect(nodeC.x).toBe(500)
+        expect(nodeC.xValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
+        expect(nodeC.formattedX).toBe('2020-10-03')
+
+        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        expect(ticks).toHaveLength(3)
+        expect(ticks.at(0).text()).toBe('2020-10-01')
+        expect(ticks.at(1).text()).toBe('2020-10-02')
+        expect(ticks.at(2).text()).toBe('2020-10-03')
+    })
+
+    it('should support date values for x', () => {
+        const wrapper = mount(
+            <ScatterPlot<{ x: Date; y: number }>
+                {...baseProps}
+                data={[
+                    {
+                        id: baseProps.data[0].id,
+                        data: [
+                            { x: new Date('2020-10-01T00:00:00.000Z'), y: 10 },
+                            { x: new Date('2020-10-02T00:00:00.000Z'), y: 20 },
+                            { x: new Date('2020-10-03T00:00:00.000Z'), y: 30 },
+                        ],
+                    },
+                ]}
+                xScale={{ type: 'time' }}
+                xFormat={'time:%Y-%m-%d'}
+                axisLeft={null}
+                axisBottom={{
+                    tickValues: 'every 1 day',
+                    format: '%Y-%m-%d',
+                }}
+            />
+        )
+
+        const nodes = wrapper.find('Node')
+        expect(nodes).toHaveLength(3)
+
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: Date; y: number }>>('node')
+        expect(nodeA.x).toBe(0)
+        expect(nodeA.xValue).toStrictEqual(new Date('2020-10-01T00:00:00.000Z'))
+        expect(nodeA.formattedX).toBe('2020-10-01')
+
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: Date; y: number }>>('node')
+        expect(nodeB.x).toBe(250)
+        expect(nodeB.xValue).toStrictEqual(new Date('2020-10-02T00:00:00.000Z'))
+        expect(nodeB.formattedX).toBe('2020-10-02')
+
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: Date; y: number }>>('node')
+        expect(nodeC.x).toBe(500)
+        expect(nodeC.xValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
+        expect(nodeC.formattedX).toBe('2020-10-03')
+
+        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        expect(ticks).toHaveLength(3)
+        expect(ticks.at(0).text()).toBe('2020-10-01')
+        expect(ticks.at(1).text()).toBe('2020-10-02')
+        expect(ticks.at(2).text()).toBe('2020-10-03')
+    })
 
     it('should support numeric values for y', () => {
         const wrapper = mount(
@@ -202,7 +301,106 @@ describe('data', () => {
         expect(nodeC.formattedY).toBe('value: C')
     })
 
-    it('should support date values for y', () => {})
+    it('should support string date values for y', () => {
+        const wrapper = mount(
+            <ScatterPlot<{ x: number; y: string }>
+                {...baseProps}
+                data={[
+                    {
+                        id: baseProps.data[0].id,
+                        data: [
+                            { x: 10, y: '2020-10-1' },
+                            { x: 20, y: '2020-10-2' },
+                            { x: 30, y: '2020-10-3' },
+                        ],
+                    },
+                ]}
+                yScale={{
+                    type: 'time',
+                    format: '%Y-%m-%d',
+                }}
+                yFormat={'time:%Y-%m-%d'}
+                axisBottom={null}
+                axisLeft={{
+                    tickValues: 'every 1 day',
+                    format: '%Y-%m-%d',
+                }}
+            />
+        )
+
+        const nodes = wrapper.find('Node')
+        expect(nodes).toHaveLength(3)
+
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node')
+        expect(nodeA.y).toBe(0)
+        expect(nodeA.yValue).toStrictEqual(new Date('2020-10-01T00:00:00.000Z'))
+        expect(nodeA.formattedY).toBe('2020-10-01')
+
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node')
+        expect(nodeB.y).toBe(150)
+        expect(nodeB.yValue).toStrictEqual(new Date('2020-10-02T00:00:00.000Z'))
+        expect(nodeB.formattedY).toBe('2020-10-02')
+
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: string }>>('node')
+        expect(nodeC.y).toBe(300)
+        expect(nodeC.yValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
+        expect(nodeC.formattedY).toBe('2020-10-03')
+
+        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        expect(ticks).toHaveLength(3)
+        expect(ticks.at(0).text()).toBe('2020-10-01')
+        expect(ticks.at(1).text()).toBe('2020-10-02')
+        expect(ticks.at(2).text()).toBe('2020-10-03')
+    })
+
+    it('should support date values for y', () => {
+        const wrapper = mount(
+            <ScatterPlot<{ x: number; y: Date }>
+                {...baseProps}
+                data={[
+                    {
+                        id: baseProps.data[0].id,
+                        data: [
+                            { x: 10, y: new Date('2020-10-01T00:00:00.000Z') },
+                            { x: 20, y: new Date('2020-10-02T00:00:00.000Z') },
+                            { x: 30, y: new Date('2020-10-03T00:00:00.000Z') },
+                        ],
+                    },
+                ]}
+                yScale={{ type: 'time' }}
+                yFormat={'time:%Y-%m-%d'}
+                axisBottom={null}
+                axisLeft={{
+                    tickValues: 'every 1 day',
+                    format: '%Y-%m-%d',
+                }}
+            />
+        )
+
+        const nodes = wrapper.find('Node')
+        expect(nodes).toHaveLength(3)
+
+        const nodeA = nodes.at(0).prop<ScatterPlotNodeData<{ x: number; y: Date }>>('node')
+        expect(nodeA.y).toBe(0)
+        expect(nodeA.yValue).toStrictEqual(new Date('2020-10-01T00:00:00.000Z'))
+        expect(nodeA.formattedY).toBe('2020-10-01')
+
+        const nodeB = nodes.at(1).prop<ScatterPlotNodeData<{ x: number; y: Date }>>('node')
+        expect(nodeB.y).toBe(150)
+        expect(nodeB.yValue).toStrictEqual(new Date('2020-10-02T00:00:00.000Z'))
+        expect(nodeB.formattedY).toBe('2020-10-02')
+
+        const nodeC = nodes.at(2).prop<ScatterPlotNodeData<{ x: number; y: Date }>>('node')
+        expect(nodeC.y).toBe(300)
+        expect(nodeC.yValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
+        expect(nodeC.formattedY).toBe('2020-10-03')
+
+        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        expect(ticks).toHaveLength(3)
+        expect(ticks.at(0).text()).toBe('2020-10-01')
+        expect(ticks.at(1).text()).toBe('2020-10-02')
+        expect(ticks.at(2).text()).toBe('2020-10-03')
+    })
 })
 
 describe('nodes', () => {

@@ -74,7 +74,6 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
 
     const customLayerProps = useMemo(
         () => ({
-            // ...props,
             xScale,
             yScale,
             nodes,
