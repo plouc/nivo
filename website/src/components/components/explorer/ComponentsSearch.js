@@ -1,16 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import SearchIcon from 'react-icons/lib/md/search'
-import ClearIcon from 'react-icons/lib/md/close'
+import { MdSearch, MdClose } from 'react-icons/md'
 
 const ComponentsSearch = memo(({ term, onChange, style }) => {
     const handleSearch = useCallback(event => onChange(event.target.value), [onChange])
@@ -22,7 +13,7 @@ const ComponentsSearch = memo(({ term, onChange, style }) => {
             <StyledSearchIcon />
             {term.length > 0 && (
                 <Clear onClick={handleClear}>
-                    <ClearIcon />
+                    <MdClose />
                 </Clear>
             )}
         </Container>
@@ -69,7 +60,7 @@ const Input = styled.input`
     }
 `
 
-const StyledSearchIcon = styled(SearchIcon)`
+const StyledSearchIcon = styled(MdSearch)`
     color: ${({ theme }) => theme.colors.accent};
     font-size: 26px;
     position: absolute;

@@ -1,15 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import PointerIcon from 'react-icons/lib/fa/hand-pointer-o'
+import { FaRegHandPointer } from 'react-icons/fa'
 import ActionsLoggerLog from './ActionsLoggerLog'
 import media from '../../theming/mediaQueries'
 
@@ -111,7 +103,7 @@ const EmptyMessage = styled.div`
     margin-top: 16px;
 `
 
-const EmptyIcon = styled(PointerIcon)``
+const EmptyIcon = styled(FaRegHandPointer)``
 
 const ActionsLogger = ({ actions, isFullWidth }) => {
     return (

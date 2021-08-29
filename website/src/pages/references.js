@@ -3,8 +3,8 @@ import Layout from '../components/Layout'
 import SEO from '../components/seo'
 import PageContent from '../components/PageContent'
 import { DescriptionBlock } from '../components/styled'
-import GitHubIcon from 'react-icons/lib/fa/github'
-import styled, { css } from 'styled-components'
+import { FaGithub } from 'react-icons/fa'
+import styled from 'styled-components'
 
 const references = [
     {
@@ -78,7 +78,7 @@ const References = () => {
                                         rel="noopener noreferrer"
                                         title="GitHub"
                                     >
-                                        <GitHubIcon />
+                                        <FaGithub />
                                     </GitHubLink>
                                 )}
                             </li>

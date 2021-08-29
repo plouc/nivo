@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import RightIcon from 'react-icons/lib/md/keyboard-arrow-right'
-import DownIcon from 'react-icons/lib/md/keyboard-arrow-down'
+import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
 import media from '../../theming/mediaQueries'
 
 export const ToggleWrapper = styled.div`
@@ -70,7 +69,7 @@ export const Cell = styled.div`
 
 export const Toggle = ({ isOpened }) => (
     <ToggleWrapper>
-        {isOpened && <DownIcon size={18} />}
-        {!isOpened && <RightIcon size={18} />}
+        {isOpened && <MdKeyboardArrowDown size={18} />}
+        {!isOpened && <MdKeyboardArrowRight size={18} />}
     </ToggleWrapper>
 )
