@@ -1,6 +1,6 @@
-import { createGlobalStyle as create } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
-export default isCapturing => create`
+export const GlobalStyle = createGlobalStyle<{ isCapturing: boolean }>`
     html,
     body {
         font-size: 100%;
@@ -10,7 +10,7 @@ export default isCapturing => create`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
-        background: ${({ theme }) => (isCapturing ? 'transparent' : theme.colors.background)};
+        background: ${({ theme, isCapturing }) => (isCapturing ? 'transparent' : theme.colors.background)};
         color: ${({ theme }) => theme.colors.text};
         margin: 0;
     }
