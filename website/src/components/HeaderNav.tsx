@@ -6,7 +6,7 @@ import media from '../theming/mediaQueries'
 import * as nav from '../data/nav'
 import ThemeSelector from './ThemeSelector'
 
-const HeaderNav = () => {
+export const HeaderNav = () => {
     return (
         <Container>
             <HeaderInternalLink to="/about">About</HeaderInternalLink>
@@ -57,8 +57,6 @@ const HeaderNav = () => {
         </Container>
     )
 }
-
-export default HeaderNav
 
 const Container = styled.nav`
     position: absolute;

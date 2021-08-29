@@ -6,7 +6,7 @@ import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import Radio from './Radio'
 import Select from './Select'
-import Switch from './Switch'
+import { Switch } from './Switch'
 import { Help } from './Help'
 
 const Row = styled.div`

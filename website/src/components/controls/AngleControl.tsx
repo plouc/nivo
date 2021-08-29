@@ -1,5 +1,4 @@
 import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
@@ -10,30 +9,23 @@ const size = 36
 const center = size / 2
 const markerSize = 6
 
-const Row = styled.div`
-    display: grid;
-    grid-template-columns: 60px ${size}px auto;
-    grid-column-gap: 9px;
-    align-items: center;
-    max-width: 240px;
-    margin-bottom: 5px;
-`
+interface AngleControlProps {
+    id: string
+    property: {
+        description?: string
+    }
+    flavors: ('svg' | 'html' | 'canvas' | 'api')[]
+    currentFlavor: 'svg' | 'html' | 'canvas' | 'api'
+    value: number
+    options: {
+        start?: number
+        min?: number
+        max?: number
+    }
+    onChange: (v: number) => void
+}
 
-const Circle = styled.circle`
-    fill: ${({ theme }) => theme.colors.background};
-    strokewidth: 1px;
-    stroke: ${({ theme }) => theme.colors.border};
-`
-
-const Line = styled.line`
-    stroke: ${({ theme }) => theme.colors.accent};
-`
-
-const Marker = styled.circle`
-    fill: ${({ theme }) => theme.colors.accent};
-`
-
-const AngleControl = memo(({ id, property, flavors, currentFlavor, value, options, onChange }) => {
+export const AngleControl = memo(({ id, property, flavors, currentFlavor, value, options, onChange }: AngleControlProps) => {
     const start = options.start || 0
     const min = options.min || 0
     const max = options.max || 360
@@ -73,18 +65,25 @@ const AngleControl = memo(({ id, property, flavors, currentFlavor, value, option
     )
 })
 
-AngleControl.propTypes = {
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.number.isRequired,
-    options: PropTypes.shape({
-        start: PropTypes.number,
-        min: PropTypes.number,
-        max: PropTypes.number,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-}
+const Row = styled.div`
+    display: grid;
+    grid-template-columns: 60px ${size}px auto;
+    grid-column-gap: 9px;
+    align-items: center;
+    max-width: 240px;
+    margin-bottom: 5px;
+`
 
-export default AngleControl
+const Circle = styled.circle`
+    fill: ${({ theme }) => theme.colors.background};
+    stroke-width: 1px;
+    stroke: ${({ theme }) => theme.colors.border};
+`
+
+const Line = styled.line`
+    stroke: ${({ theme }) => theme.colors.accent};
+`
+
+const Marker = styled.circle`
+    fill: ${({ theme }) => theme.colors.accent};
+`

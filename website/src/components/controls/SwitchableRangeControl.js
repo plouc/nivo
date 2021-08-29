@@ -6,7 +6,7 @@ import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import { Help } from './Help'
 import TextInput from './TextInput'
-import Switch from './Switch'
+import { Switch } from './Switch'
 
 const SwitchRow = styled.div`
     display: flex;

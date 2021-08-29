@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 import { useTheme } from '../theming/context'
 import { useGlobalDispatch, useGlobalState } from './state'
-import Switch from './controls/Switch'
+import { Switch } from './controls/Switch'
 // import useLocalStorage from '../lib/useLocalStorage'
 
 const ThemeSelector = () => {
