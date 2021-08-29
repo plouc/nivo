@@ -2,7 +2,7 @@ MAKEFLAGS += --no-print-directory
 
 SOURCES = packages
 
-.PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all examples-install
+.PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
 
 ########################################################################################################################
 #
@@ -58,7 +58,6 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
-		"examples/*/src/**/*.{js,ts,tsx,css}" \
 		"api/**/*.{js,ts,tsx}" \
 		"README.md"
 
@@ -69,11 +68,10 @@ fmt-check: ##@0 global check if files were all formatted using prettier
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
-        "examples/*/src/**/*.{js,ts,tsx,css}" \
 		"api/**/*.{js,ts,tsx}" \
         "README.md"
 
-test: ##@0 global run all checks/tests (packages, website & examples)
+test: ##@0 global run all checks/tests (packages, website)
 	@$(MAKE) fmt-check
 	@$(MAKE) lint
 	@$(MAKE) packages-test
@@ -200,7 +198,6 @@ package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/${*} && yarn link
-	@cd examples/typescript && yarn link @nivo/${*}
 	@$(MAKE) package-watch-${*}
 
 ########################################################################################################################
@@ -254,35 +251,6 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
-
-########################################################################################################################
-#
-# EXAMPLES
-#
-########################################################################################################################
-
-examples-install: ##@4 examples install all examples dependencies
-	@$(MAKE) example-install-retro
-	@$(MAKE) example-install-typescript
-
-example-install-%: ##@4 examples install example dependencies, eg. example-install-retro
-	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
-	@cd examples/${*} && yarn install
-
-example-deps-up-%: ##@4 examples interactive upgrade of example's dependencies
-	@cd examples/${*} && yarn upgrade-interactive --latest
-
-example-start-%: ##@4 examples start example in dev mode, eg. example-start-retro
-	@echo "${YELLOW}Starting ${WHITE}${*}${YELLOW} example dev server${RESET}"
-	@cd examples/${*} && yarn start
-
-examples-build: ##@4 examples build all examples
-	@$(MAKE) example-build-retro
-	@$(MAKE) example-build-typescript
-
-example-build-%: ##@4 examples build an example, eg. example-build-retro
-	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
-	@cd examples/${*} && yarn build
 
 ########################################################################################################################
 #
