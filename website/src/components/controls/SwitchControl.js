@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import { Switch } from './Switch'
 

@@ -1,12 +1,32 @@
 import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import Control from './Control'
+import { Control } from './Control'
 import Select from './Select'
-import PropertyHeader from './PropertyHeader'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
+import { Flavor } from '../../types'
 
-const ChoicesControl = memo(
-    ({ id, property, flavors, currentFlavor, value: _value, options, onChange }) => {
+interface ChoicesControlProps {
+    id: string
+    property: any
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: string | number | boolean
+    onChange: (value: string | number | boolean) => void
+    options: {
+        choices: any
+    }
+}
+
+export const ChoicesControl = memo(
+    ({
+        id,
+        property,
+        flavors,
+        currentFlavor,
+        value: _value,
+        options,
+        onChange,
+    }: ChoicesControlProps) => {
         const handleUpdate = useCallback(value => onChange(value.value), [onChange])
         const value = options.choices.find(({ value: v }) => v === _value)
 
@@ -25,15 +45,3 @@ const ChoicesControl = memo(
         )
     }
 )
-
-ChoicesControl.displayName = 'ChoicesControl'
-ChoicesControl.propTypes = {
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
-    onChange: PropTypes.func.isRequired,
-}
-
-export default ChoicesControl

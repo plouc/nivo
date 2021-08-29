@@ -1,38 +1,31 @@
-import React, { Fragment, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import React, { ChangeEvent, Fragment, ReactNode, useCallback } from 'react'
 import styled from 'styled-components'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
-import Label from './Label'
-import TextInput from './TextInput'
+import { Flavor } from '../../types'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
+import { Label } from './Label'
+import { TextInput } from './TextInput'
 import { Help } from './Help'
 
-const Range = styled.input`
-    max-width: 160px;
-`
-
-const Value = styled.div`
-    margin-bottom: 5px;
-    padding-left: 89px;
-    display: grid;
-    grid-column-gap: 9px;
-    grid-template-columns: 60px auto;
-
-    & > *:first-child {
-        text-align: right;
-        font-weight: 500;
+interface NumberArrayControlProps {
+    id: string
+    property: any
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    options: {
+        unit: 'px' | '°'
+        items: {
+            label: ReactNode
+            min: number
+            max: number
+            step?: number
+        }[]
     }
-`
+    value: number[]
+    onChange: (value: number[]) => void
+}
 
-const Row = styled.div`
-    display: grid;
-    grid-template-columns: 80px 60px auto;
-    grid-column-gap: 9px;
-    max-width: 240px;
-    margin-bottom: 5px;
-`
-
-const NumberArrayControl = ({
+export const NumberArrayControl = ({
     id,
     property,
     flavors,
@@ -40,9 +33,9 @@ const NumberArrayControl = ({
     options: { unit, items },
     value,
     onChange,
-}) => {
+}: NumberArrayControlProps) => {
     const handleChange = useCallback(
-        index => event => {
+        (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
             const updatedArray = [...value]
             updatedArray[index] = Number(event.target.value)
             onChange(updatedArray)
@@ -103,24 +96,27 @@ const NumberArrayControl = ({
     )
 }
 
-NumberArrayControl.propTypes = {
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    options: PropTypes.shape({
-        unit: PropTypes.string,
-        items: PropTypes.arrayOf(
-            PropTypes.shape({
-                label: PropTypes.node.isRequired,
-                min: PropTypes.number.isRequired,
-                max: PropTypes.number.isRequired,
-                step: PropTypes.number,
-            })
-        ).isRequired,
-    }).isRequired,
-    value: PropTypes.arrayOf(PropTypes.number).isRequired,
-    onChange: PropTypes.func.isRequired,
-}
+const Range = styled.input`
+    max-width: 160px;
+`
 
-export default NumberArrayControl
+const Value = styled.div`
+    margin-bottom: 5px;
+    padding-left: 89px;
+    display: grid;
+    grid-column-gap: 9px;
+    grid-template-columns: 60px auto;
+
+    & > *:first-child {
+        text-align: right;
+        font-weight: 500;
+    }
+`
+
+const Row = styled.div`
+    display: grid;
+    grid-template-columns: 80px 60px auto;
+    grid-column-gap: 9px;
+    max-width: 240px;
+    margin-bottom: 5px;
+`

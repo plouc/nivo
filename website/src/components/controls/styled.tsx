@@ -67,7 +67,7 @@ export const Cell = styled.div`
     }
 `
 
-export const Toggle = ({ isOpened }) => (
+export const Toggle = ({ isOpened }: { isOpened: boolean }) => (
     <ToggleWrapper>
         {isOpened && <MdKeyboardArrowDown size={18} />}
         {!isOpened && <MdKeyboardArrowRight size={18} />}

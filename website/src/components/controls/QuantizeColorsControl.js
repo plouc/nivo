@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { quantizeColorScales } from '@nivo/core'
 import Select from './Select'
-import ColorsControlItem from './ColorsControlItem'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
+import { ColorsControlItem } from './ColorsControlItem'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 
 const options = Object.keys(quantizeColorScales).map(id => ({

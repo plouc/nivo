@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
-import CollapsibleCard from '../CollapsibleCard'
+import { CollapsibleCard } from '../CollapsibleCard'
 import ControlsGroup from '../controls/ControlsGroup'
 import Highlight from '../Highlight'
 

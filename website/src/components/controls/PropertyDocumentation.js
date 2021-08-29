@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 
 const PropertyDocumentation = ({ id, property, flavors, currentFlavor }) => {

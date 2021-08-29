@@ -1,13 +1,28 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, ReactNode, PropsWithChildren } from 'react'
 import intersection from 'lodash/intersection'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
+import { Flavor } from '../../types'
 import PropertyDescription from './PropertyDescription'
-import PropertyFlavors from './PropertyFlavors'
+import { PropertyFlavors } from './PropertyFlavors'
 import { Cell } from './styled'
 
-const Control = ({ id, description, flavors, currentFlavor, supportedFlavors, children }) => {
+interface ControlProps {
+    id: string
+    description?: ReactNode
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    supportedFlavors: Flavor[]
+}
+
+export const Control = ({
+    id,
+    description,
+    flavors,
+    currentFlavor,
+    supportedFlavors,
+    children,
+}: PropsWithChildren<ControlProps>) => {
     const [showDescription, setShowDescription] = useState(false)
     const toggle = useCallback(() => setShowDescription(flag => !flag), [setShowDescription])
 
@@ -39,17 +54,7 @@ const Control = ({ id, description, flavors, currentFlavor, supportedFlavors, ch
     )
 }
 
-Control.propTypes = {
-    id: PropTypes.string.isRequired,
-    description: PropTypes.node,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    supportedFlavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])),
-}
-
-export default Control
-
-const Container = styled(Cell)`
+const Container = styled(Cell)<{ isPropertySupported: boolean }>`
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
 
     &:last-child {

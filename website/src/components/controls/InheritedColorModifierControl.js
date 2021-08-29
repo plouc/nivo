@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Select from './Select'
-import TextInput from './TextInput'
+import { TextInput } from './TextInput'
 
 const modifierTypes = ['brighter', 'darker', 'opacity'].map(prop => ({
     label: prop,

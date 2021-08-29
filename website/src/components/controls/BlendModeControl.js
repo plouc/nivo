@@ -1,6 +1,6 @@
 import React from 'react'
 import { blendModes } from '@nivo/core'
-import ChoicesControl from './ChoicesControl'
+import { ChoicesControl } from './ChoicesControl'
 
 const choices = blendModes.map(mode => ({
     label: mode,

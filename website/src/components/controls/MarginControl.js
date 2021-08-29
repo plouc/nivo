@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
-import TextInput from './TextInput'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
+import { TextInput } from './TextInput'
 import { Help } from './Help'
 
 const Grid = styled.div`
