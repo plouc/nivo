@@ -2,8 +2,7 @@ import React, { useState, useCallback } from 'react'
 import intersection from 'lodash/intersection'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import RightIcon from 'react-icons/lib/md/keyboard-arrow-right'
-import DownIcon from 'react-icons/lib/md/keyboard-arrow-down'
+import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
 import PropertyDescription from './PropertyDescription'
 import PropertyFlavors from './PropertyFlavors'
 import { Cell } from './styled'
@@ -27,8 +26,8 @@ const Control = ({ id, description, flavors, currentFlavor, supportedFlavors, ch
         <Container id={id} isPropertySupported={isPropertySupported}>
             {description !== undefined && (
                 <Toggle onClick={toggle}>
-                    {showDescription && <DownIcon size={18} />}
-                    {!showDescription && <RightIcon size={18} />}
+                    {showDescription && <MdKeyboardArrowDown size={18} />}
+                    {!showDescription && <MdKeyboardArrowRight size={18} />}
                 </Toggle>
             )}
             {children}

@@ -8,8 +8,7 @@ import TextInput from './TextInput'
 import Switch from './Switch'
 import Select from './Select'
 import { Help } from './Help'
-import CollapseIcon from 'react-icons/lib/fa/chevron-up'
-import ExpandIcon from 'react-icons/lib/fa/chevron-down'
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 
 const MainControls = styled.div`
     display: grid;
@@ -280,7 +279,7 @@ const ValueFormatControl = memo(({ id, property, flavors, currentFlavor, value, 
                 <TextInput value={value.format} readOnly />
                 <ToggleButton onClick={() => setIsEditing(flag => !flag)}>
                     <span>{isEditing ? 'close' : 'open'} editor</span>
-                    {isEditing ? <CollapseIcon /> : <ExpandIcon />}
+                    {isEditing ? <FaChevronUp /> : <FaChevronDown />}
                 </ToggleButton>
             </MainControls>
             {isEditing && (

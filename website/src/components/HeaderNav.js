@@ -1,16 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
-import GitHubIcon from 'react-icons/lib/fa/github'
-import TwitterIcon from 'react-icons/lib/fa/twitter'
+import { FaGithub, FaTwitter } from 'react-icons/fa'
 import media from '../theming/mediaQueries'
 import * as nav from '../data/nav'
 import ThemeSelector from './ThemeSelector'
@@ -53,7 +44,7 @@ const HeaderNav = () => {
                 rel="noopener noreferrer"
                 title="GitHub"
             >
-                <GitHubIcon />
+                <FaGithub />
             </HeaderExternalLink>
             <HeaderExternalLink
                 href="https://twitter.com/benitteraphael"
@@ -61,7 +52,7 @@ const HeaderNav = () => {
                 rel="noopener noreferrer"
                 title="Twitter"
             >
-                <TwitterIcon />
+                <FaTwitter />
             </HeaderExternalLink>
         </Container>
     )

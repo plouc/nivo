@@ -1,16 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import UpIcon from 'react-icons/lib/md/keyboard-arrow-up'
-import DownIcon from 'react-icons/lib/md/keyboard-arrow-down'
+import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import { Card } from './styled'
 
 const Wrapper = styled(Card)`
@@ -70,7 +61,7 @@ export default class CollapsibleCard extends Component {
             <Wrapper isExpanded={expanded}>
                 <Header className="no-select" onClick={this.handleToggleClick}>
                     <Title>{title}</Title>
-                    {expanded ? <UpIcon /> : <DownIcon />}
+                    {expanded ? <MdArrowDropUp /> : <MdArrowDropDown />}
                 </Header>
                 {expanded && <div className="card_body">{children}</div>}
             </Wrapper>

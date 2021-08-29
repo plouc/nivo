@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/Layout'
@@ -38,8 +30,8 @@ const Faq = () => (
                 </p>
                 <h4>Can I use nivo with very large data set?</h4>
                 <p>
-                    Yes you can! SVG/HTML do not perform well when dealing with thousands
-                    of nodes, that's why you have some{' '}
+                    Yes you can! SVG/HTML do not perform well when dealing with thousands of nodes,
+                    that's why you have some{' '}
                     <Link to="/components?filter=canvas">canvas based implementations</Link> which
                     are able to handle larger quantities of data.
                 </p>

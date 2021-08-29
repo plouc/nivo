@@ -1,16 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import snakeCase from 'lodash/kebabCase'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import VisitIcon from 'react-icons/lib/md/keyboard-arrow-right'
+import { MdKeyboardArrowRight } from 'react-icons/md'
 import media from '../../theming/mediaQueries'
 import config from '../../data/config'
 
@@ -120,7 +111,7 @@ const Stories = ({ isFullWidth = false, stories }) => {
                     rel="noopener noreferrer"
                 >
                     {story.label}
-                    <VisitIcon size={20} color="#bbbbbb" />
+                    <MdKeyboardArrowRight size={20} color="#bbbbbb" />
                 </StoriesItem>
             ))}
         </Wrapper>
