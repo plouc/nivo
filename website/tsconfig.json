@@ -1,0 +1,21 @@
+{
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": ["node_modules/@types/", "./src/@types/"],
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "core/*": ["./src/core/*"]
+    }
+  }
+}
