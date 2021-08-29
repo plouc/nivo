@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import { Help } from './Help'
-import Switch from './Switch'
+import { Switch } from './Switch'
 
 const SwitchControl = memo(({ id, property, flavors, currentFlavor, value, onChange }) => {
     return (

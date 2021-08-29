@@ -1,8 +1,18 @@
 import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Switch = memo(({ id, value, onChange, colors = {} }) => {
+interface SwitchProps {
+    id: string
+    value: boolean
+    onChange: (v: boolean) => void
+    colors?: {
+        on?: string
+        off?: string
+        dot?: string
+    }
+}
+
+export const Switch = memo(({ id, value, onChange, colors = {} }: SwitchProps) => {
     const handleChange = useCallback(event => onChange(event.target.checked), [onChange])
 
     return (
@@ -19,27 +29,15 @@ const Switch = memo(({ id, value, onChange, colors = {} }) => {
     )
 })
 
-Switch.displayName = 'Switch'
-Switch.propTypes = {
-    id: PropTypes.string.isRequired,
-    value: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
-    colors: PropTypes.shape({
-        on: PropTypes.string,
-        off: PropTypes.string,
-        dot: PropTypes.string,
-    }),
-}
-
-export default Switch
-
 const Wrapper = styled.span`
     display: inline-block;
     vertical-align: text-bottom;
     margin: 0;
 `
 
-const Input = styled.input`
+const Input = styled.input<{
+    colors: SwitchProps['colors']
+}>`
     position: absolute;
     margin-left: -9999px;
     visibility: hidden;

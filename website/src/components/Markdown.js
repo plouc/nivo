@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import ReactMarkdown from 'react-markdown'
 import config from '../data/config'
 
-const linkRenderer = ({ href, children }) => {
+const link = ({ href, children }) => {
     if (href.indexOf('self:') === 0) {
         return <Link to={href.replace('self:', '')}>{children}</Link>
     }
@@ -24,15 +24,13 @@ const linkRenderer = ({ href, children }) => {
     )
 }
 
+const customComponents = { a: link }
+
 const Markdown = memo(({ source }) => {
     return (
-        <ReactMarkdown
-            source={source}
-            transformLinkUri={u => u}
-            renderers={{
-                link: linkRenderer,
-            }}
-        />
+        <ReactMarkdown transformLinkUri={u => u} components={customComponents}>
+            {source}
+        </ReactMarkdown>
     )
 })
 

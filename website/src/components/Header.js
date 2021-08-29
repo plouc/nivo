@@ -1,14 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import HeaderNav from './HeaderNav'
+import { HeaderNav } from './HeaderNav'
 
-const Header = () => {
-    return (
-        <Container>
-            <HeaderNav />
-        </Container>
-    )
-}
+const Header = () => (
+    <Container>
+        <HeaderNav />
+    </Container>
+)
 
 export default Header
 
