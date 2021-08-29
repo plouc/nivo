@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
-import Radio from './Radio'
+import { Radio } from './Radio'
 
 const RadioControl = memo(({ id, property, flavors, currentFlavor, options, value, onChange }) => {
     const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])

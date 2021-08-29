@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
-import TextInput from './TextInput'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
+import { TextInput } from './TextInput'
 import { Help } from './Help'
 
 const TextControl = memo(({ id, property, flavors, currentFlavor, value, onChange, options }) => {

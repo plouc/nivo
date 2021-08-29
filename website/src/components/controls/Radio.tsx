@@ -1,6 +1,32 @@
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+interface RadioProps {
+    value: string
+    options: {
+        value: string
+        label: string
+    }[]
+    onChange: (e: any) => void
+}
+
+export const Radio = memo(({ options, value, onChange }: RadioProps) => {
+    return (
+        <Container>
+            {options.map(option => (
+                <Item isSelected={option.value === value} key={option.value}>
+                    <input
+                        type="radio"
+                        value={option.value}
+                        checked={value === option.value}
+                        onChange={onChange}
+                    />
+                    {option.label}
+                </Item>
+            ))}
+        </Container>
+    )
+})
 
 const Container = styled.div`
     display: grid;
@@ -13,7 +39,7 @@ const Container = styled.div`
     max-width: 240px;
 `
 
-const Item = styled.label`
+const Item = styled.label<{ isSelected: boolean }>`
     cursor: pointer;
     padding: 5px 10px;
     white-space: nowrap;
@@ -36,35 +62,3 @@ const Item = styled.label`
         display: none;
     }
 `
-
-const Radio = memo(({ options, value, onChange }) => {
-    return (
-        <Container>
-            {options.map(option => (
-                <Item isSelected={option.value === value} key={option.value}>
-                    <input
-                        type="radio"
-                        value={option.value}
-                        checked={value === option.value}
-                        onChange={onChange}
-                    />
-                    {option.label}
-                </Item>
-            ))}
-        </Container>
-    )
-})
-
-Radio.displayName = 'Radio'
-Radio.propTypes = {
-    value: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(
-        PropTypes.shape({
-            value: PropTypes.string.isRequired,
-            label: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    onChange: PropTypes.func.isRequired,
-}
-
-export default Radio

@@ -8,9 +8,9 @@ import {
     colorInterpolators,
 } from '@nivo/colors'
 import { components } from 'react-select'
-import ColorsControlItem from './ColorsControlItem'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
+import { ColorsControlItem } from './ColorsControlItem'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import Select from './Select'
 

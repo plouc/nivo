@@ -68,7 +68,9 @@ const ToggleContainer = styled.div`
     margin-left: 20px;
 `
 
-const ToggleItem = styled.label`
+const ToggleItem = styled.label<{
+    isActive: boolean
+}>`
     font-size: 0.9rem;
     text-align: center;
     font-weight: 500;

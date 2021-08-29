@@ -1,8 +1,9 @@
 import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
-import TextInput from './TextInput'
+import { Flavor } from '../../types'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
+import { TextInput } from './TextInput'
 import { Help } from './Help'
 
 const size = 36
@@ -12,10 +13,14 @@ const markerSize = 6
 interface AngleControlProps {
     id: string
     property: {
+        name: string
+        required?: boolean
+        help?: string
         description?: string
+        flavors: Flavor[]
     }
-    flavors: ('svg' | 'html' | 'canvas' | 'api')[]
-    currentFlavor: 'svg' | 'html' | 'canvas' | 'api'
+    flavors: Flavor[]
+    currentFlavor: Flavor
     value: number
     options: {
         start?: number
@@ -25,45 +30,53 @@ interface AngleControlProps {
     onChange: (v: number) => void
 }
 
-export const AngleControl = memo(({ id, property, flavors, currentFlavor, value, options, onChange }: AngleControlProps) => {
-    const start = options.start || 0
-    const min = options.min || 0
-    const max = options.max || 360
+export const AngleControl = memo(
+    ({ id, property, flavors, currentFlavor, value, options, onChange }: AngleControlProps) => {
+        const start = options.start || 0
+        const min = options.min || 0
+        const max = options.max || 360
 
-    const handleChange = useCallback(
-        event => {
-            onChange(Number(event.target.value))
-        },
-        [onChange]
-    )
+        const handleChange = useCallback(
+            event => {
+                onChange(Number(event.target.value))
+            },
+            [onChange]
+        )
 
-    return (
-        <Control
-            id={id}
-            description={property.description}
-            flavors={flavors}
-            currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
-        >
-            <PropertyHeader id={id} {...property} />
-            <Row>
-                <TextInput id={id} value={value} onChange={handleChange} unit="°" isNumber={true} />
-                <svg width={size} height={size}>
-                    <Circle cx={center} cy={center} r={center - markerSize / 2} />
-                    <g transform={`translate(${center},${center})`}>
-                        <g transform={`rotate(${start + value})`}>
-                            <Line y2={-size / 2 + markerSize / 2} />
-                            <Marker r={markerSize / 4} />
-                            <Marker cy={-size / 2 + markerSize / 2} r={markerSize / 2} />
+        return (
+            <Control
+                id={id}
+                description={property.description}
+                flavors={flavors}
+                currentFlavor={currentFlavor}
+                supportedFlavors={property.flavors}
+            >
+                <PropertyHeader id={id} {...property} />
+                <Row>
+                    <TextInput
+                        id={id}
+                        value={value}
+                        onChange={handleChange}
+                        unit="°"
+                        isNumber={true}
+                    />
+                    <svg width={size} height={size}>
+                        <Circle cx={center} cy={center} r={center - markerSize / 2} />
+                        <g transform={`translate(${center},${center})`}>
+                            <g transform={`rotate(${start + value})`}>
+                                <Line y2={-size / 2 + markerSize / 2} />
+                                <Marker r={markerSize / 4} />
+                                <Marker cy={-size / 2 + markerSize / 2} r={markerSize / 2} />
+                            </g>
                         </g>
-                    </g>
-                </svg>
-                <input type="range" value={value} onChange={handleChange} min={min} max={max} />
-            </Row>
-            <Help>{property.help}</Help>
-        </Control>
-    )
-})
+                    </svg>
+                    <input type="range" value={value} onChange={handleChange} min={min} max={max} />
+                </Row>
+                <Help>{property.help}</Help>
+            </Control>
+        )
+    }
+)
 
 const Row = styled.div`
     display: grid;

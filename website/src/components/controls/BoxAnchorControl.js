@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 
 const boxWidth = 80

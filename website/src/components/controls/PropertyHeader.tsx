@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import isPlainObject from 'lodash/isPlainObject'
 import isArray from 'lodash/isArray'
 import isString from 'lodash/isString'
@@ -7,7 +7,7 @@ import isBoolean from 'lodash/isBoolean'
 import isFunction from 'lodash/isFunction'
 import styled from 'styled-components'
 
-const getDefaultValue = value => {
+const getDefaultValue = (value: any) => {
     if (isPlainObject(value)) {
         return `${JSON.stringify(value)}`
     } else if (isArray(value)) {
@@ -31,6 +31,51 @@ const getDefaultValue = value => {
     }
 
     return value
+}
+
+interface PropertyHeaderProps {
+    id: string
+    name: string
+    type?: string
+    required?: boolean
+    defaultValue?: any
+    context?: {
+        path: string[]
+    }
+}
+
+export const PropertyHeader = ({
+    id,
+    name,
+    type,
+    required,
+    defaultValue,
+    context,
+}: PropertyHeaderProps) => {
+    let label: ReactNode = name
+    if (context) {
+        label = (
+            <>
+                <LabelParentPath>{context.path.join('.')}.</LabelParentPath>
+                {name}
+            </>
+        )
+    }
+
+    return (
+        <Container>
+            <Label htmlFor={id}>{label}</Label>
+            {type !== undefined && <Type>{type}</Type>}
+            {required && <Required>required</Required>}
+            {!required && <Optional>optional</Optional>}
+            {defaultValue !== undefined && (
+                <>
+                    <Default>default:</Default>
+                    {getDefaultValue(defaultValue)}
+                </>
+            )}
+        </Container>
+    )
 }
 
 const Container = styled.div`
@@ -77,32 +122,3 @@ const Default = styled.span`
     margin: 0 5px 0 9px;
     color: ${({ theme }) => theme.colors.textLight};
 `
-
-const PropertyHeader = ({ id, name, type, required, defaultValue, context }) => {
-    let label = name
-    if (context) {
-        label = (
-            <>
-                <LabelParentPath>{context.path.join('.')}.</LabelParentPath>
-                {name}
-            </>
-        )
-    }
-
-    return (
-        <Container>
-            <Label htmlFor={id}>{label}</Label>
-            {type !== undefined && <Type>{type}</Type>}
-            {required && <Required>required</Required>}
-            {!required && <Optional>optional</Optional>}
-            {defaultValue !== undefined && (
-                <>
-                    <Default>default:</Default>
-                    {getDefaultValue(defaultValue)}
-                </>
-            )}
-        </Container>
-    )
-}
-
-export default PropertyHeader

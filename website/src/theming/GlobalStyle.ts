@@ -10,7 +10,8 @@ export const GlobalStyle = createGlobalStyle<{ isCapturing: boolean }>`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
-        background: ${({ theme, isCapturing }) => (isCapturing ? 'transparent' : theme.colors.background)};
+        background: ${({ theme, isCapturing }) =>
+            isCapturing ? 'transparent' : theme.colors.background};
         color: ${({ theme }) => theme.colors.text};
         margin: 0;
     }

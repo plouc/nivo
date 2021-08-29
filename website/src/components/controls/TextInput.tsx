@@ -1,6 +1,21 @@
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React, { memo, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
+
+type TextInputProps = {
+    isNumber?: boolean
+    unit?: 'px' | '°'
+} & InputHTMLAttributes<HTMLInputElement>
+
+export const TextInput = memo(({ unit, isNumber = false, ...props }: TextInputProps) => {
+    const hasUnit = !!unit
+
+    return (
+        <Container>
+            <InputElement type="text" hasUnit={hasUnit} isNumber={isNumber} {...props} />
+            {hasUnit && <Unit>{unit}</Unit>}
+        </Container>
+    )
+})
 
 const Container = styled.div`
     position: relative;
@@ -21,7 +36,10 @@ const Unit = styled.span`
     color: ${({ theme }) => theme.colors.textLight};
 `
 
-const InputElement = styled.input`
+const InputElement = styled.input<{
+    hasUnit: boolean
+    isNumber: boolean
+}>`
     height: 100%;
     width: 100%;
     font-size: 12px;
@@ -47,22 +65,3 @@ const InputElement = styled.input`
         color: ${({ theme }) => theme.colors.textLight};
     }
 `
-
-const TextInput = memo(({ unit, isNumber = false, ...props }) => {
-    const hasUnit = !!unit
-
-    return (
-        <Container>
-            <InputElement type="text" hasUnit={hasUnit} isNumber={isNumber} {...props} />
-            {hasUnit && <Unit>{unit}</Unit>}
-        </Container>
-    )
-})
-
-TextInput.displayName = 'TextInput'
-TextInput.propTypes = {
-    isNumber: PropTypes.bool,
-    unit: PropTypes.oneOf(['px', '°']),
-}
-
-export default TextInput

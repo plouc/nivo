@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
-import Control from './Control'
-import PropertyHeader from './PropertyHeader'
-import TextInput from './TextInput'
+import { Control } from './Control'
+import { PropertyHeader } from './PropertyHeader'
+import { TextInput } from './TextInput'
 import { Help } from './Help'
 
 const size = 24
@@ -18,7 +18,7 @@ const Row = styled.div`
 
 const Line = styled.line`
     stroke: ${({ theme }) => theme.colors.border};
-    strokewidth: 1px;
+    stroke-width: 1px;
     fill: none;
 `
 
