@@ -17,8 +17,12 @@ export const Container = styled.div`
     }
 `
 
-export const Help = ({ children }) => (
-    <Container>
-        <Markdown source={dedent(children)} />
-    </Container>
-)
+export const Help = ({ children }) => {
+    if (!children) return null
+
+    return (
+        <Container>
+            <Markdown source={dedent(children)} />
+        </Container>
+    )
+}
