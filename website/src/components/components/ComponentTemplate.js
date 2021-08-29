@@ -61,7 +61,7 @@ const ComponentTemplate = ({
 
     const hasStories = meta.stories !== undefined && meta.stories.length > 0
 
-    const tags = useMemo(() => [meta.package, ...meta.tags], meta)
+    const tags = useMemo(() => [meta.package, ...meta.tags], [meta])
 
     const flavorKeys = useMemo(() => flavors.map(flavor => flavor.flavor), [flavors])
 
