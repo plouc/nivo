@@ -2,7 +2,7 @@ import React from 'react'
 import shuffle from 'lodash/shuffle'
 import { ResponsiveBullet, defaultProps } from '@nivo/bullet'
 import { generateBulletData } from '@nivo/generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
 import { groups } from '../../data/components/bullet/props'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveCalendar, calendarDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'

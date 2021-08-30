@@ -1,14 +1,42 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import media from '../../theming/mediaQueries'
 import config from '../../data/config'
 
-const buildStoryLink = link =>
+const buildStoryLink = (link: string) =>
     `${config.storybookUrl}?path=/story/${encodeURIComponent(link.toLowerCase())}`
 
-const Wrapper = styled.div`
+interface StoriesProps {
+    isFullWidth?: boolean
+    stories: {
+        label: string
+        link: string
+    }[]
+}
+
+export const Stories = ({ isFullWidth = false, stories }: StoriesProps) => {
+    return (
+        <Wrapper isFullWidth={isFullWidth}>
+            <Header>Recipes</Header>
+            {stories.map((story, i) => (
+                <StoriesItem
+                    key={i}
+                    href={buildStoryLink(story.link)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {story.label}
+                    <MdKeyboardArrowRight size={20} color="#bbbbbb" />
+                </StoriesItem>
+            ))}
+        </Wrapper>
+    )
+}
+
+const Wrapper = styled.div<{
+    isFullWidth: boolean
+}>`
     position: fixed;
     bottom: 0;
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
@@ -98,34 +126,3 @@ const StoriesItem = styled.a`
         background: ${({ theme }) => theme.colors.cardAltBackground};
     }
 `
-
-const Stories = ({ isFullWidth = false, stories }) => {
-    return (
-        <Wrapper isFullWidth={isFullWidth}>
-            <Header>Recipes</Header>
-            {stories.map((story, i) => (
-                <StoriesItem
-                    key={i}
-                    href={buildStoryLink(story.link)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {story.label}
-                    <MdKeyboardArrowRight size={20} color="#bbbbbb" />
-                </StoriesItem>
-            ))}
-        </Wrapper>
-    )
-}
-
-Stories.propTypes = {
-    isFullWidth: PropTypes.bool,
-    stories: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.string.isRequired,
-            link: PropTypes.string.isRequired,
-        })
-    ),
-}
-
-export default Stories

@@ -1,8 +1,13 @@
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Markdown from '../Markdown'
+import { Markdown } from '../Markdown'
 import media from '../../theming/mediaQueries'
+
+export const ComponentDescription = memo(({ description }: { description: string }) => (
+    <Description>
+        <Markdown source={description} />
+    </Description>
+))
 
 const Description = styled.div`
     padding: 30px 0;
@@ -41,18 +46,3 @@ const Description = styled.div`
         line-height: 1em;
     }
 `
-
-const ComponentDescription = memo(({ description }) => {
-    return (
-        <Description>
-            <Markdown source={description} />
-        </Description>
-    )
-})
-
-ComponentDescription.displayName = 'ComponentDescription'
-ComponentDescription.propTypes = {
-    description: PropTypes.string.isRequired,
-}
-
-export default ComponentDescription

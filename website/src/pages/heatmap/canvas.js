@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveHeatMapCanvas } from '@nivo/heatmap'
 import isFunction from 'lodash/isFunction'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
 import { groups } from '../../data/components/heatmap/props'

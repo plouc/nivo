@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveTreeMap, TreeMapDefaultProps } from '@nivo/treemap'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'

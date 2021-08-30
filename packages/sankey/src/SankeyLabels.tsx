@@ -1,17 +1,19 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSprings, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { SankeyCommonProps, SankeyId, SankeyNodeDatum } from './types'
 
-const SankeyLabels = ({
+interface SankeyLabelsProps<Id extends SankeyId> {
+    nodes: SankeyNodeDatum<Id>[]
+    layout: SankeyCommonProps<Id>['layout']
+    width: number
+    height: number
+    labelPosition: SankeyCommonProps<Id>['labelPosition']
+    labelPadding: SankeyCommonProps<Id>['labelPadding']
+    labelOrientation: SankeyCommonProps<Id>['labelOrientation']
+    getLabelTextColor: (node: SankeyNodeDatum<Id>) => string
+}
+
+export const SankeyLabels = <Id extends SankeyId>({
     nodes,
     layout,
     width,
@@ -20,7 +22,7 @@ const SankeyLabels = ({
     labelPadding,
     labelOrientation,
     getLabelTextColor,
-}) => {
+}: SankeyLabelsProps<Id>) => {
     const theme = useTheme()
 
     const labelRotation = labelOrientation === 'vertical' ? -90 : 0
@@ -89,46 +91,27 @@ const SankeyLabels = ({
         }))
     )
 
-    return springs.map((animatedProps, index) => {
-        const label = labels[index]
+    return (
+        <>
+            {springs.map((animatedProps, index) => {
+                const label = labels[index]
 
-        return (
-            <animated.text
-                key={label.id}
-                dominantBaseline="central"
-                textAnchor={label.textAnchor}
-                transform={animatedProps.transform}
-                style={{
-                    ...theme.labels.text,
-                    fill: animatedProps.color,
-                    pointerEvents: 'none',
-                }}
-            >
-                {label.label}
-            </animated.text>
-        )
-    })
+                return (
+                    <animated.text
+                        key={label.id}
+                        dominantBaseline="central"
+                        textAnchor={label.textAnchor}
+                        transform={animatedProps.transform}
+                        style={{
+                            ...theme.labels.text,
+                            fill: animatedProps.color,
+                            pointerEvents: 'none',
+                        }}
+                    >
+                        {label.label}
+                    </animated.text>
+                )
+            })}
+        </>
+    )
 }
-
-SankeyLabels.propTypes = {
-    nodes: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            x1: PropTypes.number.isRequired,
-            x: PropTypes.number.isRequired,
-            y: PropTypes.number.isRequired,
-            width: PropTypes.number.isRequired,
-            height: PropTypes.number.isRequired,
-        })
-    ).isRequired,
-    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    labelPosition: PropTypes.oneOf(['inside', 'outside']).isRequired,
-    labelPadding: PropTypes.number.isRequired,
-    labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-    getLabelTextColor: PropTypes.func.isRequired,
-}
-
-export default memo(SankeyLabels)

@@ -24,6 +24,7 @@ const SankeyApi = () => {
                     width: 1200,
                     height: 800,
                     data: JSON.stringify(data, null, '  '),
+                    valueFormat: { format: '', enabled: false },
                     margin: {
                         top: 20,
                         right: 20,
@@ -38,6 +39,7 @@ const SankeyApi = () => {
 
                     nodeOpacity: 1,
                     nodeHoverOpacity: 1,
+                    nodeHoverOthersOpacity: 0.35,
                     nodeThickness: 18,
                     nodeInnerPadding: 3,
                     nodeSpacing: 24,
@@ -46,6 +48,7 @@ const SankeyApi = () => {
                         from: 'color',
                         modifiers: [['darker', 0.8]],
                     },
+                    nodeBorderRadius: 0,
 
                     linkOpacity: 0.5,
                     linkHoverOpacity: 0.6,

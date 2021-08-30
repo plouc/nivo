@@ -1,7 +1,24 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import media from '../../theming/mediaQueries'
+
+interface ComponentHeaderProps {
+    chartClass: string
+    tags?: string[]
+}
+
+export const ComponentHeader = memo(({ chartClass, tags = [] }: ComponentHeaderProps) => {
+    return (
+        <Container>
+            <Title>{chartClass}</Title>
+            <Tags>
+                {tags.map(tag => (
+                    <Tag key={tag}>{tag}</Tag>
+                ))}
+            </Tags>
+        </Container>
+    )
+})
 
 const Container = styled.div`
     flex-direction: column;
@@ -57,27 +74,3 @@ const Tag = styled.span`
     margin-right: 7px;
     margin-bottom: 7px;
 `
-
-const ComponentHeader = memo(({ chartClass, tags }) => {
-    return (
-        <Container>
-            <Title>{chartClass}</Title>
-            <Tags>
-                {tags.map(tag => (
-                    <Tag key={tag}>{tag}</Tag>
-                ))}
-            </Tags>
-        </Container>
-    )
-})
-
-ComponentHeader.propTypes = {
-    chartClass: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
-}
-
-ComponentHeader.defaultProps = {
-    tags: [],
-}
-
-export default ComponentHeader

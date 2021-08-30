@@ -1,5 +1,5 @@
 import React from 'react'
-import Highlight from '../../Highlight'
+import { Highlight } from '../../Highlight'
 
 const code = `
 import { linearGradientDef } from '@nivo/core'

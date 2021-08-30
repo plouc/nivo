@@ -1,7 +1,7 @@
 import React from 'react'
 import omit from 'lodash/omit'
 import { ResponsiveGeoMap, GeoMapDefaultProps } from '@nivo/geo'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/geomap/props'

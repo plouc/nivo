@@ -1,12 +1,17 @@
 import React from 'react'
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import HighlightBase, { defaultProps, Language } from 'prism-react-renderer'
 import { useTheme } from '../theming/context'
 
-export default ({ code, language }) => {
+interface HighlightProps {
+    code: string
+    language: Language
+}
+
+export const Highlight = ({ code, language }: HighlightProps) => {
     const theme = useTheme()
 
     return (
-        <Highlight {...defaultProps} theme={theme.highlight} code={code} language={language}>
+        <HighlightBase {...defaultProps} theme={theme.highlight} code={code} language={language}>
             {({ style, tokens, getLineProps, getTokenProps }) => (
                 <pre
                     style={{
@@ -26,6 +31,6 @@ export default ({ code, language }) => {
                     ))}
                 </pre>
             )}
-        </Highlight>
+        </HighlightBase>
     )
 }

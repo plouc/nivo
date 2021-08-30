@@ -1,10 +1,9 @@
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React, { memo, ReactNode } from 'react'
 import { Link } from 'gatsby'
 import ReactMarkdown from 'react-markdown'
 import config from '../data/config'
 
-const link = ({ href, children }) => {
+const link = ({ href, children }: { href: string; children: ReactNode }) => {
     if (href.indexOf('self:') === 0) {
         return <Link to={href.replace('self:', '')}>{children}</Link>
     }
@@ -26,17 +25,8 @@ const link = ({ href, children }) => {
 
 const customComponents = { a: link }
 
-const Markdown = memo(({ source }) => {
-    return (
-        <ReactMarkdown transformLinkUri={u => u} components={customComponents}>
-            {source}
-        </ReactMarkdown>
-    )
-})
-
-Markdown.displayName = 'Markdown'
-Markdown.propTypes = {
-    source: PropTypes.string.isRequired,
-}
-
-export default Markdown
+export const Markdown = memo(({ source }: { source: string }) => (
+    <ReactMarkdown transformLinkUri={u => u} components={customComponents as any}>
+        {source}
+    </ReactMarkdown>
+))

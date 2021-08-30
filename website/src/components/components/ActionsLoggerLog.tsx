@@ -1,6 +1,27 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 
+export const ActionsLoggerLog = ({ action }: { action: any }) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const toggle = useCallback(() => setIsOpen(flag => !flag), [setIsOpen])
+
+    return (
+        <ActionContainer>
+            <ActionHeader onClick={toggle}>
+                <ActionType>{action.type}</ActionType>
+                <Color>
+                    {action.color && (
+                        <ColorChip style={{ background: action.color || 'transparent' }} />
+                    )}
+                </Color>
+                <ActionLabel>{action.label}</ActionLabel>
+                <Toggle>{isOpen ? '-' : '{ … }'}</Toggle>
+            </ActionHeader>
+            {isOpen && <ActionData>{JSON.stringify(action.data, null, '  ')}</ActionData>}
+        </ActionContainer>
+    )
+}
+
 const ActionContainer = styled.div`
     font-size: 13px;
 `
@@ -14,7 +35,7 @@ const ActionHeader = styled.div`
     cursor: pointer;
 
     &:hover {
-        bakcground: ${({ theme }) => theme.colors.cardAltBackground};
+        background: ${({ theme }) => theme.colors.cardAltBackground};
     }
 `
 
@@ -55,26 +76,3 @@ const Toggle = styled.span`
     padding: 7px 12px;
     text-align: right;
 `
-
-const ActionsLoggerLog = ({ action }) => {
-    const [isOpen, setIsOpen] = useState(false)
-    const toggle = useCallback(() => setIsOpen(flag => !flag), [setIsOpen])
-
-    return (
-        <ActionContainer>
-            <ActionHeader onClick={toggle}>
-                <ActionType>{action.type}</ActionType>
-                <Color>
-                    {action.color && (
-                        <ColorChip style={{ background: action.color || 'transparent' }} />
-                    )}
-                </Color>
-                <ActionLabel>{action.label}</ActionLabel>
-                <Toggle>{isOpen ? '-' : '{ … }'}</Toggle>
-            </ActionHeader>
-            {isOpen && <ActionData>{JSON.stringify(action.data, null, '  ')}</ActionData>}
-        </ActionContainer>
-    )
-}
-
-export default ActionsLoggerLog

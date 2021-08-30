@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
 import { CollapsibleCard } from '../CollapsibleCard'
 import ControlsGroup from '../controls/ControlsGroup'
-import Highlight from '../Highlight'
+import { Highlight } from '../Highlight'
 
 const Container = styled.div`
     display: grid;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsivePie, defaultProps } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'
 import { groups } from '../../data/components/pie/props'

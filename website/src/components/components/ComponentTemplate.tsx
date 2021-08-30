@@ -1,19 +1,47 @@
 import React, { useState, useCallback, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import { Theme as NivoTheme } from '@nivo/core'
 import SEO from '../seo'
 import Layout from '../Layout'
 import { useTheme } from '../../theming/context'
 import generateCode from '../../lib/generateChartCode'
-import ComponentPage from './ComponentPage'
-import ComponentHeader from './ComponentHeader'
+import { ComponentPage } from './ComponentPage'
+import { ComponentHeader } from './ComponentHeader'
 import ComponentFlavorSelector from './ComponentFlavorSelector'
-import ComponentDescription from './ComponentDescription'
-import ComponentTabs from './ComponentTabs'
-import ActionsLogger, { useActionsLogger } from './ActionsLogger'
+import { ComponentDescription } from './ComponentDescription'
+import { ComponentTabs } from './ComponentTabs'
+import { ActionsLogger, useActionsLogger } from './ActionsLogger'
 import ComponentSettings from './ComponentSettings'
-import Stories from './Stories'
+import { Stories } from './Stories'
+import { ChartMeta, Flavor } from '../../types'
 
-const ComponentTemplate = ({
+interface ComponentTemplateProps<P extends object, D> {
+    name: string
+    meta: ChartMeta
+    icon: string
+    flavors: {
+        flavor: Flavor
+        path: string
+    }[]
+    currentFlavor: Flavor
+    properties: {
+        name: string
+        properties: any[]
+    }[]
+    // initial props of the demo
+    initialProperties: Partial<P>
+    // default props as defined in the package component
+    defaultProperties?: Partial<P>
+    propertiesMapper?: Function
+    codePropertiesMapper?: Function
+    hasData?: boolean
+    generateData?: (previousData?: D | null) => D | undefined
+    dataKey?: string
+    getDataSize?: (data: D) => number
+    getTabData?: (data: D) => D
+    children: (properties: any, data: any, theme: NivoTheme, logAction: any) => JSX.Element
+}
+
+export const ComponentTemplate = <P extends object = any, D = any>({
     name,
     meta,
     icon,
@@ -30,7 +58,7 @@ const ComponentTemplate = ({
     getDataSize,
     getTabData = data => data,
     children,
-}) => {
+}: ComponentTemplateProps<P, D>) => {
     const theme = useTheme()
 
     const [settings, setSettings] = useState(initialProperties)
@@ -72,12 +100,14 @@ const ComponentTemplate = ({
                 <ComponentHeader chartClass={name} tags={tags} />
                 <ComponentFlavorSelector flavors={flavors} current={currentFlavor} />
                 <ComponentDescription description={meta.description} />
-                <ComponentTabs
+                <ComponentTabs<D>
                     chartClass={icon}
                     code={code}
-                    data={hasData ? getTabData(data) : undefined}
+                    data={hasData ? getTabData(data!) : undefined}
                     dataKey={dataKey}
-                    nodeCount={getDataSize !== undefined ? getDataSize(data) : undefined}
+                    nodeCount={
+                        hasData && getDataSize !== undefined ? getDataSize(data!) : undefined
+                    }
                     diceRoll={hasData ? diceRoll : undefined}
                 >
                     {children(mappedProperties, data, theme.nivo, logAction)}
@@ -96,44 +126,3 @@ const ComponentTemplate = ({
         </Layout>
     )
 }
-
-ComponentTemplate.propTypes = {
-    name: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-        package: PropTypes.string.isRequired,
-        tags: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-        description: PropTypes.string.isRequired,
-        stories: PropTypes.arrayOf(
-            PropTypes.shape({
-                label: PropTypes.string.isRequired,
-                link: PropTypes.string.isRequired,
-            })
-        ),
-    }).isRequired,
-    icon: PropTypes.string.isRequired,
-    flavors: PropTypes.arrayOf(
-        PropTypes.shape({
-            flavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-            path: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    properties: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            properties: PropTypes.array.isRequired,
-        })
-    ).isRequired,
-    initialProperties: PropTypes.object.isRequired,
-    defaultProperties: PropTypes.object,
-    propertiesMapper: PropTypes.func,
-    codePropertiesMapper: PropTypes.func,
-    hasData: PropTypes.bool,
-    generateData: PropTypes.func,
-    dataKey: PropTypes.string,
-    getDataSize: PropTypes.func,
-    getTabData: PropTypes.func,
-    children: PropTypes.func.isRequired,
-}
-
-export default ComponentTemplate

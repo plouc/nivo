@@ -1,28 +1,45 @@
 import { SankeyDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { svgDefaultProps } from '@nivo/bar'
 
 const props = [
     {
         key: 'data',
         group: 'Base',
-        help: 'Chart data.',
+        help: 'Chart data defining nodes and links.',
         description: `
             Chart data, which must conform to this structure:
+
             \`\`\`
             {
-                nodes: Array<{
+                nodes: {
                     id: string | number
-                }>,
-                links: Array<{
+                }[],
+                links: {
                     source: string | number, // ref to node id
                     target: string | number, // ref to node id
                     value:  number
-                }}>
+                }[]
             }
             \`\`\`
         `,
         type: '{ nodes: object[], links: object[] }',
         required: true,
+    },
+    {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
     },
     {
         key: 'layout',
@@ -179,6 +196,16 @@ const props = [
         group: 'Nodes',
     },
     {
+        key: 'nodeHoverOthersOpacity',
+        flavors: ['svg'],
+        help: 'Other nodes opacity on hover (0~1).',
+        required: false,
+        defaultValue: defaults.nodeHoverOthersOpacity,
+        type: 'number',
+        controlType: 'opacity',
+        group: 'Nodes',
+    },
+    {
         key: 'nodeSpacing',
         help: 'Spacing between nodes at an identical level.',
         required: false,
@@ -229,6 +256,20 @@ const props = [
         group: 'Nodes',
     },
     {
+        key: 'nodeBorderRadius',
+        help: 'Node border radius.',
+        type: 'number',
+        required: false,
+        defaultValue: defaults.nodeBorderRadius,
+        controlType: 'range',
+        group: 'Nodes',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 12,
+        },
+    },
+    {
         key: 'linkOpacity',
         help: 'Link opacity (0~1).',
         required: false,
@@ -243,6 +284,16 @@ const props = [
         help: 'Link opacity on hover(0~1).',
         required: false,
         defaultValue: defaults.linkHoverOpacity,
+        type: 'number',
+        controlType: 'opacity',
+        group: 'Links',
+    },
+    {
+        key: 'linkHoverOthersOpacity',
+        flavors: ['svg'],
+        help: 'Other links opacity on hover (0~1).',
+        required: false,
+        defaultValue: defaults.linkHoverOthersOpacity,
         type: 'number',
         controlType: 'opacity',
         group: 'Links',
@@ -359,6 +410,44 @@ const props = [
         defaultValue: defaults.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
+    },
+    {
+        key: 'nodeTooltip',
+        flavors: ['svg'],
+        help: `Tooltip custom component for nodes.`,
+        type: 'FunctionComponent<{ node: SankeyNodeDatum }>',
+        required: false,
+        group: 'Interactivity',
+        description: `
+            Allows complete node tooltip customisation, it must return
+            a valid HTML element and will receive the node as a property.
+                        
+            You can also customize the style of the tooltip
+            using the \`theme.tooltip\` object.
+        `,
+    },
+    {
+        key: 'linkTooltip',
+        flavors: ['svg'],
+        help: `Tooltip custom component for links.`,
+        type: 'FunctionComponent<{ link: SankeyLinkDatum }>',
+        required: false,
+        group: 'Interactivity',
+        description: `
+            Allows complete link tooltip customisation, it must return
+            a valid HTML element and will receive the link as a property.
+                        
+            You can also customize the style of the tooltip
+            using the \`theme.tooltip\` object.
+        `,
+    },
+    {
+        key: 'onClick',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: 'onClick handler, it receives target node or link data and mouse event.',
+        type: '(target: SankeyNodeDatum | SankeyLinkDatum, event) => void',
+        required: false,
     },
     ...motionProperties(['svg'], defaults, 'react-spring'),
 ]

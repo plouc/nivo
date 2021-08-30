@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsiveTimeRange, timeRangeDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/time-range/meta.yml'
 import mapper from '../../data/components/time-range/mapper'
 import { groups } from '../../data/components/time-range/props'

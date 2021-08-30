@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveChoroplethCanvas, ChoroplethCanvasDefaultProps } from '@nivo/geo'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
 import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/choropleth/props'

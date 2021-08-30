@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveBarCanvas } from '@nivo/bar'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateHeavyDataSet } from '../../data/components/bar/generator'
 import mapper from '../../data/components/bar/mapper'

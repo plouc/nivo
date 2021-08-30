@@ -1,13 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
 
-const CodeBlock = ({ children }) => {
-    return <Code>{children}</Code>
-}
-
-export default CodeBlock
-
-const Code = styled.pre`
+export const CodeBlock = styled.pre`
     margin: 0;
     background-color: ${({ theme }) => theme.highlight.plain.backgroundColor};
     color: ${({ theme }) => theme.highlight.plain.color};

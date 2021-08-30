@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 import { FaGithub, FaTwitter } from 'react-icons/fa'
 import media from '../theming/mediaQueries'
-import * as nav from '../data/nav'
 import ThemeSelector from './ThemeSelector'
+import * as nav from '../data/nav'
 
 export const HeaderNav = () => {
     return (
