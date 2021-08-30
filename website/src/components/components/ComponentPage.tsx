@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
 
-const ComponentPage = styled.div`
+export const ComponentPage = styled.div`
     margin-right: 55%;
 
     &:after {
@@ -34,5 +34,3 @@ const ComponentPage = styled.div`
         }
     `}
 `
-
-export default ComponentPage

@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveStream, svgDefaultProps } from '@nivo/stream'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/stream/meta.yml'
 import mapper from '../../data/components/stream/mapper'
 import { groups } from '../../data/components/stream/props'

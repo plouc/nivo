@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { PropsWithChildren, useState } from 'react'
 import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
 import { useTheme } from '../../theming/context'
-import Highlight from '../Highlight'
-import CodeBlock from '../CodeBlock'
+import { Highlight } from '../Highlight'
+import { CodeBlock } from '../CodeBlock'
 
-const tabs = ['chart', 'code', 'data']
+type TabType = 'chart' | 'code' | 'data'
+const tabs: TabType[] = ['chart', 'code', 'data']
 
-const ComponentTabs = ({
+interface ComponentTabsProps<D = any> {
+    chartClass: string
+    data?: D
+    dataKey?: string
+    code: string
+    nodeCount?: number
+    nodeCountWording?: string
+    diceRoll?: () => void
+}
+
+export const ComponentTabs = <D extends any = any>({
     chartClass,
     data,
     dataKey = 'data',
@@ -17,11 +27,11 @@ const ComponentTabs = ({
     diceRoll,
     nodeCount,
     nodeCountWording = 'nodes',
-}) => {
+}: PropsWithChildren<ComponentTabsProps<D>>) => {
     const theme = useTheme()
 
-    const [currentTab, setCurrentTab] = useState('chart')
-    const [hoverTab, setHoverTab] = useState(null)
+    const [currentTab, setCurrentTab] = useState<TabType>('chart')
+    const [hoverTab, setHoverTab] = useState<TabType | null>(null)
 
     let availableTabs = tabs
     if (data === undefined) {
@@ -99,23 +109,10 @@ const ComponentTabs = ({
     )
 }
 
-ComponentTabs.propTypes = {
-    chartClass: PropTypes.string.isRequired,
-    data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    dataKey: PropTypes.string,
-    code: PropTypes.string.isRequired,
-    nodeCount: PropTypes.number,
-    nodeCountWording: PropTypes.string,
-    diceRoll: PropTypes.func,
-}
-
-export default ComponentTabs
-
 const Wrapper = styled.div`
     position: fixed;
     top: ${({ theme }) => theme.dimensions.headerHeight}px;
     right: 0;
-    width: 60%;
     --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
     width: calc(var(--innerWidth) * 0.55);
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);

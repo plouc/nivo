@@ -1,17 +1,14 @@
 import React, { useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { FaRegHandPointer } from 'react-icons/fa'
-import ActionsLoggerLog from './ActionsLoggerLog'
+import { ActionsLoggerLog } from './ActionsLoggerLog'
 import media from '../../theming/mediaQueries'
 
-export const useActionsLogger = () => {
-    const [actions, setActions] = useState([])
+export const useActionsLogger = (): [any[], (action: any) => void] => {
+    const [actions, setActions] = useState<any[]>([])
     const logAction = useCallback(
         action => {
-            setActions(actions => {
-                return [action, ...actions]
-            })
+            setActions(actions => [action, ...actions])
         },
         [setActions]
     )
@@ -19,7 +16,33 @@ export const useActionsLogger = () => {
     return [actions, logAction]
 }
 
-const Wrapper = styled.div`
+interface ActionsLoggerProps {
+    actions: any[]
+    isFullWidth?: boolean
+}
+
+export const ActionsLogger = ({ actions, isFullWidth = false }: ActionsLoggerProps) => {
+    return (
+        <Wrapper isFullWidth={isFullWidth}>
+            <Header>Actions Logs</Header>
+            {actions.length === 0 && (
+                <EmptyContainer>
+                    <EmptyIcon size={28} />
+                    <EmptyMessage>Start interacting with the chart to log actions</EmptyMessage>
+                </EmptyContainer>
+            )}
+            {actions.map((action, i) => {
+                return (
+                    <ActionsLoggerLog key={`${i}.${action.type}.${action.label}`} action={action} />
+                )
+            })}
+        </Wrapper>
+    )
+}
+
+const Wrapper = styled.div<{
+    isFullWidth: boolean
+}>`
     position: fixed;
     right: 0;
     bottom: 0;
@@ -104,28 +127,3 @@ const EmptyMessage = styled.div`
 `
 
 const EmptyIcon = styled(FaRegHandPointer)``
-
-const ActionsLogger = ({ actions, isFullWidth }) => {
-    return (
-        <Wrapper isFullWidth={isFullWidth}>
-            <Header>Actions Logs</Header>
-            {actions.length === 0 && (
-                <EmptyContainer>
-                    <EmptyIcon size={28} />
-                    <EmptyMessage>Start interacting with the chart to log actions</EmptyMessage>
-                </EmptyContainer>
-            )}
-            {actions.map((action, i) => {
-                return (
-                    <ActionsLoggerLog key={`${i}.${action.type}.${action.label}`} action={action} />
-                )
-            })}
-        </Wrapper>
-    )
-}
-
-ActionsLogger.propTypes = {
-    isFullWidth: PropTypes.bool,
-}
-
-export default ActionsLogger

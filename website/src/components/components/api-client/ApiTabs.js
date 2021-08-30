@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components'
 import ApiPreview from './ApiPreview'
 import media from '../../../theming/mediaQueries'
 import { useTheme } from '../../../theming/context'
-import CodeBlock from '../../CodeBlock'
+import { CodeBlock } from '../../CodeBlock'
 
 const tabs = ['preview', 'body', 'data']
 

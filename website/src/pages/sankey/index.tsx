@@ -2,7 +2,7 @@ import React from 'react'
 import omit from 'lodash/omit'
 import { generateSankeyData } from '@nivo/generators'
 import { ResponsiveSankey, SankeyDefaultProps } from '@nivo/sankey'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sankey/meta.yml'
 import mapper from '../../data/components/sankey/mapper'
 import { groups } from '../../data/components/sankey/props'
@@ -15,32 +15,36 @@ const initialProperties = {
         left: 50,
     },
 
-    layout: 'horizontal',
-    align: 'justify',
-    sort: 'auto',
-    colors: { scheme: 'category10' },
+    valueFormat: { format: '', enabled: false },
+
+    layout: 'horizontal' as const,
+    align: 'justify' as const,
+    sort: 'auto' as const,
+    colors: { scheme: 'category10' as const },
 
     nodeOpacity: 1,
     nodeHoverOpacity: 1,
+    nodeHoverOthersOpacity: 0.35,
     nodeThickness: 18,
-    nodeInnerPadding: 3,
+    nodeInnerPadding: 0,
     nodeSpacing: 24,
     nodeBorderWidth: 0,
     nodeBorderColor: {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
+    nodeBorderRadius: 3,
 
     linkOpacity: 0.5,
     linkHoverOpacity: 0.6,
     linkHoverOthersOpacity: 0.1,
-    linkContract: 0,
-    linkBlendMode: 'multiply',
+    linkContract: 3,
+    linkBlendMode: 'multiply' as const,
     enableLinkGradient: true,
 
     enableLabels: true,
-    labelPosition: 'outside',
-    labelOrientation: 'vertical',
+    labelPosition: 'outside' as const,
+    labelOrientation: 'vertical' as const,
     labelPadding: 16,
     labelTextColor: {
         from: 'color',
@@ -63,7 +67,7 @@ const initialProperties = {
             itemsSpacing: 2,
             itemTextColor: '#999',
             symbolSize: 14,
-            onClick: d => {
+            onClick: (d: any) => {
                 alert(JSON.stringify(d, null, '    '))
             },
             effects: [
@@ -103,7 +107,7 @@ const Sankey = () => {
                         onClick={node => {
                             let label
                             if (node.id) {
-                                label = `[node] ${node.id}: ${node.value}`
+                                label = `[node] ${node.id}: ${node.value}`
                             } else {
                                 label = `[link] ${node.source.id} > ${node.target.id}: ${node.value}`
                             }

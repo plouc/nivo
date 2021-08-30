@@ -1,8 +1,8 @@
 import React from 'react'
 import dedent from 'dedent-js'
-import { Card, DescriptionBlock } from '../../styled'
-import Markdown from '../../Markdown'
-import Highlight from '../../Highlight'
+import { DescriptionBlock } from '../../styled'
+import { Markdown } from '../../Markdown'
+import { Highlight } from '../../Highlight'
 
 const ColorsColor = () => (
     <DescriptionBlock>

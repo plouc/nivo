@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveNetwork, NetworkDefaultProps } from '@nivo/network'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
 import { generateNetworkData } from '@nivo/generators'

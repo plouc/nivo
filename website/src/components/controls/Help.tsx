@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import dedent from 'dedent-js'
-import Markdown from '../Markdown'
+import { Markdown } from '../Markdown'
 
 interface HelpProps {
     children?: string | undefined

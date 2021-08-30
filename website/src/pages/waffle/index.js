@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveWaffle, WaffleDefaultProps } from '@nivo/waffle'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'

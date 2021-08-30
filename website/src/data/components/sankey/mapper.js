@@ -1,3 +1,5 @@
-import { settingsMapper } from '../../../lib/settings'
+import { settingsMapper, mapFormat } from '../../../lib/settings'
 
-export default settingsMapper({})
+export default settingsMapper({
+    valueFormat: mapFormat,
+})

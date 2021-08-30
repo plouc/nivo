@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import { generateSankeyData, randColor } from '@nivo/generators'
+// @ts-ignore
 import { Sankey } from '../src'
 
 const sankeyData = generateSankeyData({ nodeCount: 11, maxIterations: 2 })
@@ -8,7 +9,7 @@ const commonProperties = {
     height: 400,
     margin: { top: 0, right: 80, bottom: 0, left: 80 },
     data: sankeyData,
-    colors: { scheme: 'category10' },
+    colors: { scheme: 'category10' as const },
 }
 
 const stories = storiesOf('Sankey', module)
@@ -21,10 +22,6 @@ stories.add('outside labels', () => <Sankey {...commonProperties} labelPosition=
 
 stories.add('vertical labels', () => (
     <Sankey {...commonProperties} labelOrientation="vertical" labelPadding={20} />
-))
-
-stories.add('nodes x padding', () => (
-    <Sankey {...commonProperties} nodePaddingX={6} nodeWidth={24} nodeBorderWidth={0} />
 ))
 
 stories.add('contracting links', () => <Sankey {...commonProperties} linkContract={10} />)

@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveSwarmPlot, defaultProps } from '@nivo/swarmplot'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'
 import { groups } from '../../data/components/swarmplot/props'
