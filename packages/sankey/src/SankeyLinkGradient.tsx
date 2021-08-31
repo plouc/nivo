@@ -2,7 +2,7 @@ import { SankeyCommonProps } from './types'
 
 interface SankeyLinkGradientProps {
     id: string
-    layout: SankeyCommonProps<any>['layout']
+    layout: SankeyCommonProps<any, any>['layout']
     startColor: string
     endColor: string
 }

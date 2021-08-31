@@ -2,26 +2,26 @@ import { createElement, useCallback } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import { SankeyCommonProps, SankeyId, SankeyNodeDatum } from './types'
+import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyNodeDatum } from './types'
 
-interface SankeyNodesItemProps<Id extends SankeyId> {
-    node: SankeyNodeDatum<Id>
+interface SankeyNodesItemProps<N extends DefaultNode, L extends DefaultLink> {
+    node: SankeyNodeDatum<N, L>
     x: number
     y: number
     width: number
     height: number
     color: string
     opacity: number
-    borderWidth: SankeyCommonProps<Id>['nodeBorderWidth']
+    borderWidth: SankeyCommonProps<N, L>['nodeBorderWidth']
     borderColor: string
-    borderRadius: SankeyCommonProps<Id>['nodeBorderRadius']
-    setCurrent: (node: SankeyNodeDatum<Id> | null) => void
-    isInteractive: SankeyCommonProps<Id>['isInteractive']
-    onClick?: SankeyCommonProps<Id>['onClick']
-    tooltip: SankeyCommonProps<Id>['nodeTooltip']
+    borderRadius: SankeyCommonProps<N, L>['nodeBorderRadius']
+    setCurrent: (node: SankeyNodeDatum<N, L> | null) => void
+    isInteractive: SankeyCommonProps<N, L>['isInteractive']
+    onClick?: SankeyCommonProps<N, L>['onClick']
+    tooltip: SankeyCommonProps<N, L>['nodeTooltip']
 }
 
-export const SankeyNodesItem = <Id extends SankeyId>({
+export const SankeyNodesItem = <N extends DefaultNode, L extends DefaultLink>({
     node,
     x,
     y,
@@ -36,7 +36,7 @@ export const SankeyNodesItem = <Id extends SankeyId>({
     isInteractive,
     onClick,
     tooltip,
-}: SankeyNodesItemProps<Id>) => {
+}: SankeyNodesItemProps<N, L>) => {
     const { animate, config: springConfig } = useMotionConfig()
     const animatedProps = useSpring({
         x,

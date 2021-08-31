@@ -1,5 +1,5 @@
 import { BasicTooltip, Chip } from '@nivo/tooltip'
-import { SankeyId, SankeyLinkDatum } from './types'
+import { DefaultLink, DefaultNode, SankeyLinkDatum } from './types'
 
 const tooltipStyles = {
     container: {
@@ -15,11 +15,13 @@ const tooltipStyles = {
     },
 }
 
-export interface SankeyLinkTooltipProps<Id extends SankeyId> {
-    link: SankeyLinkDatum<Id>
+export interface SankeyLinkTooltipProps<N extends DefaultNode, L extends DefaultLink> {
+    link: SankeyLinkDatum<N, L>
 }
 
-export const SankeyLinkTooltip = <Id extends SankeyId>({ link }: SankeyLinkTooltipProps<Id>) => (
+export const SankeyLinkTooltip = <N extends DefaultNode, L extends DefaultLink>({
+    link,
+}: SankeyLinkTooltipProps<N, L>) => (
     <BasicTooltip
         id={
             <span style={tooltipStyles.container}>

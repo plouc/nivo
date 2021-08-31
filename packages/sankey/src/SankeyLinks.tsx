@@ -1,27 +1,33 @@
 import { sankeyLinkHorizontal, sankeyLinkVertical } from './links'
-import { SankeyCommonProps, SankeyId, SankeyLinkDatum, SankeyNodeDatum } from './types'
+import {
+    DefaultLink,
+    DefaultNode,
+    SankeyCommonProps,
+    SankeyLinkDatum,
+    SankeyNodeDatum,
+} from './types'
 import { SankeyLinksItem } from './SankeyLinksItem'
 import { useMemo } from 'react'
 
-interface SankeyLinksProps<Id extends SankeyId> {
-    layout: SankeyCommonProps<Id>['layout']
-    links: SankeyLinkDatum<Id>[]
-    linkOpacity: SankeyCommonProps<Id>['linkOpacity']
-    linkHoverOpacity: SankeyCommonProps<Id>['linkHoverOpacity']
-    linkHoverOthersOpacity: SankeyCommonProps<Id>['linkHoverOthersOpacity']
-    linkContract: SankeyCommonProps<Id>['linkContract']
-    linkBlendMode: SankeyCommonProps<Id>['linkBlendMode']
-    enableLinkGradient: SankeyCommonProps<Id>['enableLinkGradient']
-    tooltip: SankeyCommonProps<Id>['linkTooltip']
-    setCurrentLink: (link: SankeyLinkDatum<Id> | null) => void
-    currentLink: SankeyLinkDatum<Id> | null
-    currentNode: SankeyNodeDatum<Id> | null
-    isCurrentLink: (link: SankeyLinkDatum<Id>) => boolean
-    isInteractive: SankeyCommonProps<Id>['isInteractive']
-    onClick?: SankeyCommonProps<Id>['onClick']
+interface SankeyLinksProps<N extends DefaultNode, L extends DefaultLink> {
+    layout: SankeyCommonProps<N, L>['layout']
+    links: SankeyLinkDatum<N, L>[]
+    linkOpacity: SankeyCommonProps<N, L>['linkOpacity']
+    linkHoverOpacity: SankeyCommonProps<N, L>['linkHoverOpacity']
+    linkHoverOthersOpacity: SankeyCommonProps<N, L>['linkHoverOthersOpacity']
+    linkContract: SankeyCommonProps<N, L>['linkContract']
+    linkBlendMode: SankeyCommonProps<N, L>['linkBlendMode']
+    enableLinkGradient: SankeyCommonProps<N, L>['enableLinkGradient']
+    tooltip: SankeyCommonProps<N, L>['linkTooltip']
+    setCurrentLink: (link: SankeyLinkDatum<N, L> | null) => void
+    currentLink: SankeyLinkDatum<N, L> | null
+    currentNode: SankeyNodeDatum<N, L> | null
+    isCurrentLink: (link: SankeyLinkDatum<N, L>) => boolean
+    isInteractive: SankeyCommonProps<N, L>['isInteractive']
+    onClick?: SankeyCommonProps<N, L>['onClick']
 }
 
-export const SankeyLinks = <Id extends SankeyId>({
+export const SankeyLinks = <N extends DefaultNode, L extends DefaultLink>({
     links,
     layout,
     linkOpacity,
@@ -37,8 +43,8 @@ export const SankeyLinks = <Id extends SankeyId>({
     isInteractive,
     onClick,
     tooltip,
-}: SankeyLinksProps<Id>) => {
-    const getOpacity = (link: SankeyLinkDatum<Id>) => {
+}: SankeyLinksProps<N, L>) => {
+    const getOpacity = (link: SankeyLinkDatum<N, L>) => {
         if (!currentNode && !currentLink) return linkOpacity
         if (isCurrentLink(link)) return linkHoverOpacity
         return linkHoverOthersOpacity
@@ -52,7 +58,7 @@ export const SankeyLinks = <Id extends SankeyId>({
     return (
         <>
             {links.map(link => (
-                <SankeyLinksItem<Id>
+                <SankeyLinksItem<N, L>
                     key={`${link.source.id}.${link.target.id}`}
                     link={link}
                     layout={layout}

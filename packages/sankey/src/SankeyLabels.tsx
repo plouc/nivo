@@ -1,19 +1,19 @@
 import { useSprings, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
-import { SankeyCommonProps, SankeyId, SankeyNodeDatum } from './types'
+import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyNodeDatum } from './types'
 
-interface SankeyLabelsProps<Id extends SankeyId> {
-    nodes: SankeyNodeDatum<Id>[]
-    layout: SankeyCommonProps<Id>['layout']
+interface SankeyLabelsProps<N extends DefaultNode, L extends DefaultLink> {
+    nodes: SankeyNodeDatum<N, L>[]
+    layout: SankeyCommonProps<N, L>['layout']
     width: number
     height: number
-    labelPosition: SankeyCommonProps<Id>['labelPosition']
-    labelPadding: SankeyCommonProps<Id>['labelPadding']
-    labelOrientation: SankeyCommonProps<Id>['labelOrientation']
-    getLabelTextColor: (node: SankeyNodeDatum<Id>) => string
+    labelPosition: SankeyCommonProps<N, L>['labelPosition']
+    labelPadding: SankeyCommonProps<N, L>['labelPadding']
+    labelOrientation: SankeyCommonProps<N, L>['labelOrientation']
+    getLabelTextColor: (node: SankeyNodeDatum<N, L>) => string
 }
 
-export const SankeyLabels = <Id extends SankeyId>({
+export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
     nodes,
     layout,
     width,
@@ -22,7 +22,7 @@ export const SankeyLabels = <Id extends SankeyId>({
     labelPadding,
     labelOrientation,
     getLabelTextColor,
-}: SankeyLabelsProps<Id>) => {
+}: SankeyLabelsProps<N, L>) => {
     const theme = useTheme()
 
     const labelRotation = labelOrientation === 'vertical' ? -90 : 0

@@ -1,10 +1,10 @@
 import { line, curveMonotoneX, curveMonotoneY } from 'd3-shape'
-import { SankeyId, SankeyLinkDatum } from './types'
+import { DefaultLink, DefaultNode, SankeyLinkDatum } from './types'
 
-export const sankeyLinkHorizontal = <Id extends SankeyId>() => {
+export const sankeyLinkHorizontal = <N extends DefaultNode, L extends DefaultLink>() => {
     const lineGenerator = line().curve(curveMonotoneX)
 
-    return (link: SankeyLinkDatum<Id>, contract: number) => {
+    return (link: SankeyLinkDatum<N, L>, contract: number) => {
         const thickness = Math.max(1, link.thickness - contract * 2)
         const halfThickness = thickness / 2
         const linkLength = link.target.x0 - link.source.x1
@@ -26,10 +26,10 @@ export const sankeyLinkHorizontal = <Id extends SankeyId>() => {
     }
 }
 
-export const sankeyLinkVertical = <Id extends SankeyId>() => {
+export const sankeyLinkVertical = <N extends DefaultNode, L extends DefaultLink>() => {
     const lineGenerator = line().curve(curveMonotoneY)
 
-    return (link: SankeyLinkDatum<Id>, contract: number) => {
+    return (link: SankeyLinkDatum<N, L>, contract: number) => {
         const thickness = Math.max(1, link.thickness - contract * 2)
         const halfThickness = thickness / 2
         const linkLength = link.target.y0 - link.source.y1

@@ -3,23 +3,23 @@ import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { SankeyLinkGradient } from './SankeyLinkGradient'
-import { SankeyCommonProps, SankeyId, SankeyLinkDatum } from './types'
+import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyLinkDatum } from './types'
 
-interface SankeyLinksItemProps<Id extends SankeyId> {
-    link: SankeyLinkDatum<Id>
-    layout: SankeyCommonProps<Id>['layout']
+interface SankeyLinksItemProps<N extends DefaultNode, L extends DefaultLink> {
+    link: SankeyLinkDatum<N, L>
+    layout: SankeyCommonProps<N, L>['layout']
     path: string
     color: string
     opacity: number
-    blendMode: SankeyCommonProps<Id>['linkBlendMode']
-    enableGradient: SankeyCommonProps<Id>['enableLinkGradient']
-    setCurrent: (link: SankeyLinkDatum<Id> | null) => void
-    isInteractive: SankeyCommonProps<Id>['isInteractive']
-    onClick?: SankeyCommonProps<Id>['onClick']
-    tooltip: SankeyCommonProps<Id>['linkTooltip']
+    blendMode: SankeyCommonProps<N, L>['linkBlendMode']
+    enableGradient: SankeyCommonProps<N, L>['enableLinkGradient']
+    setCurrent: (link: SankeyLinkDatum<N, L> | null) => void
+    isInteractive: SankeyCommonProps<N, L>['isInteractive']
+    onClick?: SankeyCommonProps<N, L>['onClick']
+    tooltip: SankeyCommonProps<N, L>['linkTooltip']
 }
 
-export const SankeyLinksItem = <Id extends SankeyId>({
+export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
     link,
     layout,
     path,
@@ -31,7 +31,7 @@ export const SankeyLinksItem = <Id extends SankeyId>({
     tooltip,
     isInteractive,
     onClick,
-}: SankeyLinksItemProps<Id>) => {
+}: SankeyLinksItemProps<N, L>) => {
     const linkId = `${link.source.id}.${link.target.id}`
 
     const { animate, config: springConfig } = useMotionConfig()

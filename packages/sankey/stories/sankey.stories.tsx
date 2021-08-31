@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import { generateSankeyData, randColor } from '@nivo/generators'
+import { SankeyNodeMinimal } from 'd3-sankey'
 // @ts-ignore
 import { Sankey } from '../src'
 
@@ -37,10 +38,10 @@ stories.add('label formatter', () => (
 stories.add('custom tooltip', () => (
     <Sankey
         {...commonProperties}
-        nodeTooltip={node => <span>Custom tooltip for node: {node.label}</span>}
-        linkTooltip={node => (
+        nodeTooltip={({ node }) => <span>Custom tooltip for node: {node.label}</span>}
+        linkTooltip={({ link }) => (
             <span>
-                Custom tooltip for link: {node.source.label} to {node.target.label}
+                Custom tooltip for link: {link.source.label} to {link.target.label}
             </span>
         )}
     />
@@ -49,7 +50,7 @@ stories.add('custom tooltip', () => (
 stories.add('with formatted values', () => (
     <Sankey
         {...commonProperties}
-        tooltipFormat={value =>
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`
@@ -57,35 +58,33 @@ stories.add('with formatted values', () => (
     />
 ))
 
-const dataWithRandLinkColors = data => {
-    return {
-        nodes: data.nodes.map(node => ({
-            ...node,
-            nodeColor: 'blue',
-        })),
-        links: data.links.map(link => ({
-            ...link,
-            startColor: randColor(),
-            endColor: randColor(),
-        })),
-    }
-}
-
-const randColorProperties = {
-    width: commonProperties.width,
-    height: commonProperties.height,
-    margin: commonProperties.margin,
-    data: dataWithRandLinkColors(sankeyData),
-    colors: commonProperties.colors,
-}
+const dataWithRandLinkColors = (data: typeof sankeyData) => ({
+    nodes: data.nodes.map(node => ({
+        ...node,
+        nodeColor: 'blue',
+    })),
+    links: data.links.map(link => ({
+        ...link,
+        startColor: randColor(),
+        endColor: randColor(),
+    })),
+})
 
 stories.add('with custom node & link coloring', () => (
-    <Sankey {...randColorProperties} enableLinkGradient={true} colorBy={node => node.nodeColor} />
+    <Sankey
+        {...commonProperties}
+        data={dataWithRandLinkColors(sankeyData)}
+        enableLinkGradient={true}
+        colors={node => node.nodeColor}
+    />
 ))
 
-const minNodeValueOnTop = (nodeA, nodeB) => {
-    if (nodeA.value < nodeB.value) return -1
-    if (nodeA.value > nodeB.value) return 1
+const minNodeValueOnTop = (
+    nodeA: SankeyNodeMinimal<any, any>,
+    nodeB: SankeyNodeMinimal<any, any>
+) => {
+    if (nodeA.value! < nodeB.value!) return -1
+    if (nodeA.value! > nodeB.value!) return 1
     return 0
 }
 
@@ -98,12 +97,12 @@ stories.add('sort links by input', () => (
         {...commonProperties}
         data={{
             nodes: [
-                { id: 'foo_left', color: '#ff0000' },
-                { id: 'bar_left', color: '#0000ff' },
-                { id: 'baz_left', color: '#00ff00' },
-                { id: 'foo_right', color: '#ff0000' },
-                { id: 'bar_right', color: '#0000ff' },
-                { id: 'baz_right', color: '#00ff00' },
+                { id: 'foo_left', nodeColor: '#ff0000' },
+                { id: 'bar_left', nodeColor: '#0000ff' },
+                { id: 'baz_left', nodeColor: '#00ff00' },
+                { id: 'foo_right', nodeColor: '#ff0000' },
+                { id: 'bar_right', nodeColor: '#0000ff' },
+                { id: 'baz_right', nodeColor: '#00ff00' },
             ],
             links: [
                 { source: 'foo_left', target: 'bar_right', value: 5 },
@@ -114,7 +113,7 @@ stories.add('sort links by input', () => (
                 { source: 'baz_left', target: 'bar_right', value: 5 },
             ],
         }}
-        colors={d => d.color ?? ''}
+        colors={node => node.nodeColor}
         sort="input"
         enableLinkGradient
     />

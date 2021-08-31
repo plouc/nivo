@@ -5,18 +5,19 @@ import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { sankeyAlignmentFromProp } from './props'
 import {
+    DefaultLink,
+    DefaultNode,
     SankeyAlignFunction,
     SankeyCommonProps,
     SankeyDataProps,
-    SankeyId,
     SankeyLinkDatum,
     SankeyNodeDatum,
     SankeySortFunction,
 } from './types'
 
-const getId = (d: { id: string | number }) => d.id
+const getId = (d: { id: string }) => d.id
 
-export const computeNodeAndLinks = <Id extends SankeyId>({
+export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink>({
     data: _data,
     formatValue,
     layout,
@@ -31,19 +32,19 @@ export const computeNodeAndLinks = <Id extends SankeyId>({
     getColor,
     getLabel,
 }: {
-    data: SankeyDataProps<Id>['data']
-    formatValue: (value: number) => string | number
-    layout: SankeyCommonProps<Id>['layout']
+    data: SankeyDataProps<N, L>['data']
+    formatValue: (value: number) => string
+    layout: SankeyCommonProps<N, L>['layout']
     alignFunction: SankeyAlignFunction
     sortFunction: SankeySortFunction
     linkSortMode: any
-    nodeThickness: SankeyCommonProps<Id>['nodeThickness']
-    nodeSpacing: SankeyCommonProps<Id>['nodeSpacing']
-    nodeInnerPadding: SankeyCommonProps<Id>['nodeInnerPadding']
+    nodeThickness: SankeyCommonProps<N, L>['nodeThickness']
+    nodeSpacing: SankeyCommonProps<N, L>['nodeSpacing']
+    nodeInnerPadding: SankeyCommonProps<N, L>['nodeInnerPadding']
     width: number
     height: number
-    getColor: (node: Omit<SankeyNodeDatum<Id>, 'color' | 'label'>) => string
-    getLabel: (node: Omit<SankeyNodeDatum<Id>, 'color' | 'label'>) => string | number
+    getColor: (node: Omit<SankeyNodeDatum<N, L>, 'color' | 'label'>) => string
+    getLabel: (node: Omit<SankeyNodeDatum<N, L>, 'color' | 'label'>) => string
 }) => {
     const sankey = d3Sankey()
         .nodeAlign(alignFunction)
@@ -58,8 +59,8 @@ export const computeNodeAndLinks = <Id extends SankeyId>({
     // deep clone is required as the sankey diagram mutates data
     // we need a different identity for correct updates
     const data = (cloneDeep(_data) as unknown) as {
-        nodes: SankeyNodeDatum<Id>[]
-        links: SankeyLinkDatum<Id>[]
+        nodes: SankeyNodeDatum<N, L>[]
+        links: SankeyLinkDatum<N, L>[]
     }
     sankey(data)
 
@@ -109,7 +110,7 @@ export const computeNodeAndLinks = <Id extends SankeyId>({
     return data
 }
 
-export const useSankey = <Id extends SankeyId>({
+export const useSankey = <N extends DefaultNode, L extends DefaultLink>({
     data,
     valueFormat,
     layout,
@@ -125,23 +126,23 @@ export const useSankey = <Id extends SankeyId>({
     label,
     labelTextColor,
 }: {
-    data: SankeyDataProps<Id>['data']
-    valueFormat?: SankeyCommonProps<Id>['valueFormat']
-    layout: SankeyCommonProps<Id>['layout']
+    data: SankeyDataProps<N, L>['data']
+    valueFormat?: SankeyCommonProps<N, L>['valueFormat']
+    layout: SankeyCommonProps<N, L>['layout']
     width: number
     height: number
-    sort: SankeyCommonProps<Id>['sort']
-    align: SankeyCommonProps<Id>['align']
-    colors: SankeyCommonProps<Id>['colors']
-    nodeThickness: SankeyCommonProps<Id>['nodeThickness']
-    nodeSpacing: SankeyCommonProps<Id>['nodeSpacing']
-    nodeInnerPadding: SankeyCommonProps<Id>['nodeInnerPadding']
-    nodeBorderColor: SankeyCommonProps<Id>['nodeBorderColor']
-    label: SankeyCommonProps<Id>['label']
-    labelTextColor: SankeyCommonProps<Id>['labelTextColor']
+    sort: SankeyCommonProps<N, L>['sort']
+    align: SankeyCommonProps<N, L>['align']
+    colors: SankeyCommonProps<N, L>['colors']
+    nodeThickness: SankeyCommonProps<N, L>['nodeThickness']
+    nodeSpacing: SankeyCommonProps<N, L>['nodeSpacing']
+    nodeInnerPadding: SankeyCommonProps<N, L>['nodeInnerPadding']
+    nodeBorderColor: SankeyCommonProps<N, L>['nodeBorderColor']
+    label: SankeyCommonProps<N, L>['label']
+    labelTextColor: SankeyCommonProps<N, L>['labelTextColor']
 }) => {
-    const [currentNode, setCurrentNode] = useState<SankeyNodeDatum<Id> | null>(null)
-    const [currentLink, setCurrentLink] = useState<SankeyLinkDatum<Id> | null>(null)
+    const [currentNode, setCurrentNode] = useState<SankeyNodeDatum<N, L> | null>(null)
+    const [currentLink, setCurrentLink] = useState<SankeyLinkDatum<N, L> | null>(null)
 
     const sortFunction = useMemo(() => {
         if (sort === 'auto') return undefined
@@ -163,16 +164,15 @@ export const useSankey = <Id extends SankeyId>({
     const getColor = useOrdinalColorScale(colors, 'id')
     const getNodeBorderColor = useInheritedColor(nodeBorderColor, theme)
 
-    const getLabel = usePropertyAccessor<
-        Omit<SankeyNodeDatum<Id>, 'color' | 'label'>,
-        string | number
-    >(label)
+    const getLabel = usePropertyAccessor<Omit<SankeyNodeDatum<N, L>, 'color' | 'label'>, string>(
+        label
+    )
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
     const formatValue = useValueFormatter<number>(valueFormat)
 
     const { nodes, links } = useMemo(
         () =>
-            computeNodeAndLinks<Id>({
+            computeNodeAndLinks<N, L>({
                 data,
                 formatValue,
                 layout,

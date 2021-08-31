@@ -1,5 +1,5 @@
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
-import { SankeyLayerId, SankeyNodeDatum } from './types'
+import { SankeyLayerId, SankeyNodeDatum, SankeyAlignType } from './types'
 import { InheritedColorConfig } from '@nivo/colors'
 import { SankeyNodeTooltip } from './SankeyNodeTooltip'
 import { SankeyLinkTooltip } from './SankeyLinkTooltip'
@@ -11,11 +11,11 @@ export const sankeyAlignmentPropMapping = {
     end: sankeyRight,
 }
 
-export const sankeyAlignmentPropKeys = Object.keys(sankeyAlignmentPropMapping)
+export const sankeyAlignmentPropKeys = Object.keys(sankeyAlignmentPropMapping) as SankeyAlignType[]
 
-export const sankeyAlignmentFromProp = prop => sankeyAlignmentPropMapping[prop]
+export const sankeyAlignmentFromProp = (prop: SankeyAlignType) => sankeyAlignmentPropMapping[prop]
 
-export const SankeyDefaultProps = {
+export const svgDefaultProps = {
     layout: 'horizontal' as const,
     align: 'center' as const,
     sort: 'auto' as const,
@@ -30,7 +30,7 @@ export const SankeyDefaultProps = {
     nodeInnerPadding: 0,
     nodeBorderWidth: 1,
     nodeBorderColor: { from: 'color', modifiers: [['darker', 0.5]] } as InheritedColorConfig<
-        SankeyNodeDatum<any>
+        SankeyNodeDatum<any, any>
     >,
     nodeBorderRadius: 0,
 
@@ -47,7 +47,7 @@ export const SankeyDefaultProps = {
     labelPadding: 9,
     labelOrientation: 'horizontal' as const,
     labelTextColor: { from: 'color', modifiers: [['darker', 0.8]] } as InheritedColorConfig<
-        SankeyNodeDatum<any>
+        SankeyNodeDatum<any, any>
     >,
 
     isInteractive: true,
@@ -63,5 +63,3 @@ export const SankeyDefaultProps = {
     animate: true,
     motionConfig: 'gentle',
 }
-
-export const svgDefaultProps = SankeyDefaultProps
