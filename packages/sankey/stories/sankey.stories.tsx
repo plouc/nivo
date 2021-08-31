@@ -1,8 +1,14 @@
-import { storiesOf } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import { generateSankeyData, randColor } from '@nivo/generators'
 import { SankeyNodeMinimal } from 'd3-sankey'
 // @ts-ignore
 import { Sankey } from '../src'
+import { PropsWithChildren } from 'react'
+
+export default {
+    component: Sankey,
+    title: 'Sankey',
+} as Meta
 
 const sankeyData = generateSankeyData({ nodeCount: 11, maxIterations: 2 })
 const commonProperties = {
@@ -13,41 +19,25 @@ const commonProperties = {
     colors: { scheme: 'category10' as const },
 }
 
-const stories = storiesOf('Sankey', module)
+export const Defaut = () => <Sankey {...commonProperties} />
 
-stories.add('default', () => <Sankey {...commonProperties} />)
+export const CustomAlign = () => <Sankey {...commonProperties} align="end" />
 
-stories.add('custom align (end)', () => <Sankey {...commonProperties} align="end" />)
+export const OutsideLabels = () => <Sankey {...commonProperties} labelPosition="outside" />
 
-stories.add('outside labels', () => <Sankey {...commonProperties} labelPosition="outside" />)
-
-stories.add('vertical labels', () => (
+export const VerticalLabels = () => (
     <Sankey {...commonProperties} labelOrientation="vertical" labelPadding={20} />
-))
+)
 
-stories.add('contracting links', () => <Sankey {...commonProperties} linkContract={10} />)
+export const ContractingLinks = () => <Sankey {...commonProperties} linkContract={10} />
 
-stories.add('click listener (console)', () => (
+export const ClickHandler = () => (
     <Sankey {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
-))
+)
 
-stories.add('label formatter', () => (
-    <Sankey {...commonProperties} label={node => `${node.id} 😁`} />
-))
+export const CustomLabel = () => <Sankey {...commonProperties} label={node => `${node.id} 😁`} />
 
-stories.add('custom tooltip', () => (
-    <Sankey
-        {...commonProperties}
-        nodeTooltip={({ node }) => <span>Custom tooltip for node: {node.label}</span>}
-        linkTooltip={({ link }) => (
-            <span>
-                Custom tooltip for link: {link.source.label} to {link.target.label}
-            </span>
-        )}
-    />
-))
-
-stories.add('with formatted values', () => (
+export const FormattedValues = () => (
     <Sankey
         {...commonProperties}
         valueFormat={value =>
@@ -56,7 +46,40 @@ stories.add('with formatted values', () => (
             })} ₽`
         }
     />
-))
+)
+
+const CustomTooltipContainer = ({ children }: PropsWithChildren<any>) => (
+    <div
+        style={{
+            padding: 9,
+            background: '#eeeeee',
+            borderRadius: '2px',
+            border: '1px solid #aaaaaa',
+        }}
+    >
+        {children}
+    </div>
+)
+
+export const CustomTooltips = () => (
+    <Sankey
+        {...commonProperties}
+        nodeTooltip={({ node }) => (
+            <CustomTooltipContainer>
+                Custom tooltip for node:
+                <br />
+                <strong>{node.label}</strong>
+            </CustomTooltipContainer>
+        )}
+        linkTooltip={({ link }) => (
+            <CustomTooltipContainer>
+                Custom tooltip for link:
+                <br />
+                <strong>{link.source.label}</strong> to <strong>{link.target.label}</strong>
+            </CustomTooltipContainer>
+        )}
+    />
+)
 
 const dataWithRandLinkColors = (data: typeof sankeyData) => ({
     nodes: data.nodes.map(node => ({
@@ -70,14 +93,14 @@ const dataWithRandLinkColors = (data: typeof sankeyData) => ({
     })),
 })
 
-stories.add('with custom node & link coloring', () => (
+export const CustomNodeAndLinkColors = () => (
     <Sankey
         {...commonProperties}
         data={dataWithRandLinkColors(sankeyData)}
         enableLinkGradient={true}
         colors={node => node.nodeColor}
     />
-))
+)
 
 const minNodeValueOnTop = (
     nodeA: SankeyNodeMinimal<any, any>,
@@ -88,11 +111,12 @@ const minNodeValueOnTop = (
     return 0
 }
 
-stories.add('with reverse sort ordering (min node value on top)', () => (
+// min node value on top
+export const WithReverseSortOrdering = () => (
     <Sankey {...commonProperties} sort={minNodeValueOnTop} />
-))
+)
 
-stories.add('sort links by input', () => (
+export const SortLinksByInput = () => (
     <Sankey
         {...commonProperties}
         data={{
@@ -117,4 +141,4 @@ stories.add('sort links by input', () => (
         sort="input"
         enableLinkGradient
     />
-))
+)
