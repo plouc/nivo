@@ -1,6 +1,5 @@
-import { SankeyDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
+import { svgDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { svgDefaultProps } from '@nivo/bar'
 
 const props = [
     {

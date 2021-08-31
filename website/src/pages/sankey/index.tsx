@@ -1,7 +1,7 @@
 import React from 'react'
 import omit from 'lodash/omit'
 import { generateSankeyData } from '@nivo/generators'
-import { ResponsiveSankey, SankeyDefaultProps } from '@nivo/sankey'
+import { ResponsiveSankey, svgDefaultProps } from '@nivo/sankey'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sankey/meta.yml'
 import mapper from '../../data/components/sankey/mapper'
@@ -51,10 +51,10 @@ const initialProperties = {
         modifiers: [['darker', 1]],
     },
 
-    animate: SankeyDefaultProps.animate,
-    motionConfig: SankeyDefaultProps.motionConfig,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 
-    isInteractive: SankeyDefaultProps.isInteractive,
+    isInteractive: svgDefaultProps.isInteractive,
 
     legends: [
         {
@@ -94,7 +94,7 @@ const Sankey = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={SankeyDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
         >
