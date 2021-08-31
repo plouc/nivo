@@ -7,14 +7,21 @@ import { useSankey } from './hooks'
 import { SankeyNodes } from './SankeyNodes'
 import { SankeyLinks } from './SankeyLinks'
 import { SankeyLabels } from './SankeyLabels'
-import { SankeyId, SankeyLayerId, SankeyLinkDatum, SankeyNodeDatum, SankeySvgProps } from './types'
+import {
+    DefaultLink,
+    DefaultNode,
+    SankeyLayerId,
+    SankeyLinkDatum,
+    SankeyNodeDatum,
+    SankeySvgProps,
+} from './types'
 
-type InnerSankeyProps<Id extends SankeyId> = Omit<
-    SankeySvgProps<Id>,
+type InnerSankeyProps<N extends DefaultNode, L extends DefaultLink> = Omit<
+    SankeySvgProps<N, L>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerSankey = <Id extends SankeyId>({
+const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
     data,
     valueFormat,
     layout = svgDefaultProps.layout,
@@ -55,7 +62,7 @@ const InnerSankey = <Id extends SankeyId>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: InnerSankeyProps<Id>) => {
+}: InnerSankeyProps<N, L>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -72,7 +79,7 @@ const InnerSankey = <Id extends SankeyId>({
         currentLink,
         setCurrentLink,
         getLabelTextColor,
-    } = useSankey<Id>({
+    } = useSankey<N, L>({
         data,
         valueFormat,
         layout,
@@ -89,13 +96,13 @@ const InnerSankey = <Id extends SankeyId>({
         labelTextColor,
     })
 
-    let isCurrentNode: (node: SankeyNodeDatum<Id>) => boolean = () => false
-    let isCurrentLink: (link: SankeyLinkDatum<Id>) => boolean = () => false
+    let isCurrentNode: (node: SankeyNodeDatum<N, L>) => boolean = () => false
+    let isCurrentLink: (link: SankeyLinkDatum<N, L>) => boolean = () => false
 
     if (currentLink) {
-        isCurrentNode = ({ id }: SankeyNodeDatum<Id>) =>
+        isCurrentNode = ({ id }: SankeyNodeDatum<N, L>) =>
             id === currentLink.source.id || id === currentLink.target.id
-        isCurrentLink = ({ source, target }: SankeyLinkDatum<Id>) =>
+        isCurrentLink = ({ source, target }: SankeyLinkDatum<N, L>) =>
             source.id === currentLink.source.id && target.id === currentLink.target.id
     }
 
@@ -135,7 +142,7 @@ const InnerSankey = <Id extends SankeyId>({
 
     if (layers.includes('links')) {
         layerById.links = (
-            <SankeyLinks<Id>
+            <SankeyLinks<N, L>
                 key="links"
                 links={links}
                 layout={layout}
@@ -158,7 +165,7 @@ const InnerSankey = <Id extends SankeyId>({
 
     if (layers.includes('nodes')) {
         layerById.nodes = (
-            <SankeyNodes<Id>
+            <SankeyNodes<N, L>
                 key="nodes"
                 nodes={nodes}
                 nodeOpacity={nodeOpacity}
@@ -180,7 +187,7 @@ const InnerSankey = <Id extends SankeyId>({
 
     if (layers.includes('labels') && enableLabels) {
         layerById.labels = (
-            <SankeyLabels<Id>
+            <SankeyLabels<N, L>
                 key="labels"
                 nodes={nodes}
                 layout={layout}
@@ -231,14 +238,14 @@ const InnerSankey = <Id extends SankeyId>({
     )
 }
 
-export const Sankey = <Id extends SankeyId = string>({
+export const Sankey = <N extends DefaultNode = DefaultNode, L extends DefaultLink = DefaultLink>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: SankeySvgProps<Id>) => (
+}: SankeySvgProps<N, L>) => (
     <Container
         {...{
             animate,
@@ -248,6 +255,6 @@ export const Sankey = <Id extends SankeyId = string>({
             theme,
         }}
     >
-        <InnerSankey<Id> isInteractive={isInteractive} {...otherProps} />
+        <InnerSankey<N, L> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

@@ -62,7 +62,7 @@ export const generateSankeyData = ({
 } = {}) => {
     const nodes = availableNodes.slice(0, nodeCount).map(node =>
         Object.assign({}, node, {
-            color: randColor(),
+            nodeColor: randColor(),
         })
     )
 
