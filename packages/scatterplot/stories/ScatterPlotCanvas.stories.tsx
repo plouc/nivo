@@ -1,8 +1,13 @@
 import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
-import { storiesOf } from '@storybook/react'
+import { Meta } from '@storybook/react'
 // @ts-ignore
 import { ScatterPlotCanvas, ResponsiveScatterPlotCanvas, ScatterPlotNodeData } from '../src'
+
+export default {
+    component: ScatterPlotCanvas,
+    title: 'ScatterPlotCanvas',
+} as Meta
 
 type SampleDatum = {
     id: number
@@ -153,19 +158,17 @@ const commonProps = {
     ],
 }
 
-const stories = storiesOf('ScatterPlotCanvas', module)
-
-stories.add('default', () => (
+export const Default = () => (
     <ScatterPlotCanvas<SampleDatum> {...commonProps} data={[sampleData[1]]} />
-))
+)
 
-stories.add('multiple series', () => <ScatterPlotCanvas<SampleDatum> {...commonProps} />)
+export const MultipleSeries = () => <ScatterPlotCanvas<SampleDatum> {...commonProps} />
 
-stories.add('alternative colors', () => (
+export const AlternativeColors = () => (
     <ScatterPlotCanvas<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
-))
+)
 
-stories.add('using time scales', () => (
+export const UsingTimeScales = () => (
     <ScatterPlotCanvas<{ x: string; y: number }>
         {...commonProps}
         data={[
@@ -205,9 +208,9 @@ stories.add('using time scales', () => (
             format: '%b %d',
         }}
     />
-))
+)
 
-stories.add('using logarithmic scales', () => (
+export const UsingLogarithmicScales = () => (
     <ScatterPlotCanvas
         {...commonProps}
         data={[
@@ -238,9 +241,9 @@ stories.add('using logarithmic scales', () => (
             tickValues: [2, 4, 8, 16, 32, 64],
         }}
     />
-))
+)
 
-stories.add('using symmetric logarithmic scales', () => (
+export const UsingSymmetricLogarithmicScales = () => (
     <ScatterPlotCanvas
         {...commonProps}
         data={[
@@ -268,13 +271,13 @@ stories.add('using symmetric logarithmic scales', () => (
             tickValues: [0, 1, 2, 3, 4, 5],
         }}
     />
-))
+)
 
-stories.add('symbol size', () => <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={24} />)
+export const SymbolSize = () => <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={24} />
 
-stories.add('varying symbol size', () => (
-    <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={d => d.x + d.y * 2} />
-))
+export const VaryingSymbolSize = () => (
+    <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={d => d.xValue + d.yValue * 2} />
+)
 
 const SyncCharts = () => {
     const [nodeId, setNodeId] = useState(null)
@@ -332,50 +335,53 @@ const SyncCharts = () => {
     )
 }
 
-stories.add('synchronizing charts', () => <SyncCharts />, {
-    info: {
-        text: `
-            You can synchronize several charts using mouse handlers.
-            This example wraps 2 scatterplots in a parent component and
-            store current symbol id in a state which is then used to
-            determine symbol size, using \`onMouseMove\`, \`onMouseLeave\`
-            and a custom function for \`nodeSize\`.
-            
-            Note that \`debugMesh\` is enabled on this example
-            hence the extra red lines displayed on the chart.
-            
-            The parent component hooks should look like this:
-            
-            \`\`\`
-            const [nodeId, setNodeId] = useState(null)
-            const handleMouseMove = useCallback((node) => setNodeId(node.id), [setNodeId])
-            const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
-            const getNodeSize = useMemo(
-                () => node => {
-                    if (nodeId !== null && nodeId === node.id) return 46
-                    return 8
-                },
-                [nodeId]
-            )        
-            \`\`\`
-            
-            and the two scatterplots share those properties:
-            
-            \`\`\`
-            <ResponsiveScatterPlotCanvas
-                {/* other required props */}
-                nodeSize={getNodeSize}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-            />
-            \`\`\`
-            
-            This approach can also be used to synchronize another chart type.
-        `,
+export const SynchronizingCharts = () => <SyncCharts />
+SynchronizingCharts.story = {
+    parameters: {
+        info: {
+            text: `
+                You can synchronize several charts using mouse handlers.
+                This example wraps 2 scatterplots in a parent component and
+                store current symbol id in a state which is then used to
+                determine symbol size, using \`onMouseMove\`, \`onMouseLeave\`
+                and a custom function for \`nodeSize\`.
+                
+                Note that \`debugMesh\` is enabled on this example
+                hence the extra red lines displayed on the chart.
+                
+                The parent component hooks should look like this:
+                
+                \`\`\`
+                const [nodeId, setNodeId] = useState(null)
+                const handleMouseMove = useCallback((node) => setNodeId(node.id), [setNodeId])
+                const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
+                const getNodeSize = useMemo(
+                    () => node => {
+                        if (nodeId !== null && nodeId === node.id) return 46
+                        return 8
+                    },
+                    [nodeId]
+                )        
+                \`\`\`
+                
+                and the two scatterplots share those properties:
+                
+                \`\`\`
+                <ResponsiveScatterPlotCanvas
+                    {/* other required props */}
+                    nodeSize={getNodeSize}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                />
+                \`\`\`
+                
+                This approach can also be used to synchronize another chart type.
+            `,
+        },
     },
-})
+}
 
-stories.add('custom tooltip', () => (
+export const CustomTooltip = () => (
     <ScatterPlotCanvas<SampleDatum>
         {...commonProps}
         tooltip={({ node }) => (
@@ -396,4 +402,4 @@ stories.add('custom tooltip', () => (
             </div>
         )}
     />
-))
+)
