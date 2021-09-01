@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit'
 import { area, curveMonotoneX } from 'd3-shape'
-import { storiesOf } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import {
     ScatterPlot,
     ResponsiveScatterPlot,
@@ -10,6 +10,11 @@ import {
     ScatterPlotNodeData,
     // @ts-ignore
 } from '../src'
+
+export default {
+    component: ScatterPlot,
+    title: 'ScatterPlot',
+} as Meta
 
 type SampleDatum = {
     id: number
@@ -163,17 +168,15 @@ const commonProps = {
     ],
 }
 
-const stories = storiesOf('ScatterPlot', module)
+export const Default = () => <ScatterPlot<SampleDatum> {...commonProps} data={[sampleData[1]]} />
 
-stories.add('default', () => <ScatterPlot<SampleDatum> {...commonProps} data={[sampleData[1]]} />)
+export const mutlipleSeries = () => <ScatterPlot<SampleDatum> {...commonProps} />
 
-stories.add('multiple series', () => <ScatterPlot<SampleDatum> {...commonProps} />)
-
-stories.add('alternative colors', () => (
+export const alternativeColors = () => (
     <ScatterPlot<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
-))
+)
 
-stories.add('using time scales', () => (
+export const usingTimeScales = () => (
     <ScatterPlot<{ x: string; y: number }>
         {...commonProps}
         data={[
@@ -215,9 +218,9 @@ stories.add('using time scales', () => (
             tickValues: 'every 2 days',
         }}
     />
-))
+)
 
-stories.add('using logarithmic scales', () => (
+export const usingLogarithmicScales = () => (
     <ScatterPlot<{ x: number; y: number }>
         {...commonProps}
         data={[
@@ -250,9 +253,9 @@ stories.add('using logarithmic scales', () => (
             tickValues: [2, 4, 8, 16, 32, 64],
         }}
     />
-))
+)
 
-stories.add('using symmetric logarithmic scales', () => (
+export const usingSymmetricLogarithmicScales = () => (
     <ScatterPlot<{ x: number; y: number }>
         {...commonProps}
         data={[
@@ -280,18 +283,18 @@ stories.add('using symmetric logarithmic scales', () => (
             tickValues: [0, 1, 2, 3, 4, 5],
         }}
     />
-))
+)
 
-stories.add('node size', () => <ScatterPlot<SampleDatum> {...commonProps} nodeSize={24} />)
+export const nodeSize = () => <ScatterPlot<SampleDatum> {...commonProps} nodeSize={24} />
 
-stories.add('varying node size', () => (
+export const varyingNodeSize = () => (
     <ScatterPlot<SampleDatum>
         {...commonProps}
-        nodeSize={{ key: 'z', values: [0, 4], sizes: [9, 32] }}
+        nodeSize={{ key: 'data.z', values: [0, 4], sizes: [9, 32] }}
     />
-))
+)
 
-stories.add('custom tooltip', () => (
+export const customTooltip = () => (
     <ScatterPlot<SampleDatum>
         {...commonProps}
         tooltip={({ node }) => (
@@ -312,7 +315,7 @@ stories.add('custom tooltip', () => (
             </div>
         )}
     />
-))
+)
 
 const SyncCharts = () => {
     const [nodeId, setNodeId] = useState(null)
@@ -370,50 +373,52 @@ const SyncCharts = () => {
     )
 }
 
-stories.add('synchronizing charts', () => <SyncCharts />, {
-    info: {
-        text: `
-            You can synchronize several charts using mouse handlers.
-            This example wraps 2 scatterplots in a parent component and
-            store current symbol id in a state which is then used to
-            determine symbol size, using \`onMouseMove\`, \`onMouseLeave\`
-            and a custom function for \`nodeSize\`.
-            
-            Note that \`useMesh\` \`debugMesh\` are enabled on this example
-            hence the extra red lines displayed on the chart.
-            
-            The parent component hooks should look like this:
-            
-            \`\`\`
-            const [nodeId, setNodeId] = useState(null)
-            const handleMouseMove = useCallback((node) => setNodeId(node.id), [setNodeId])
-            const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
-            const getNodeSize = useMemo(
-                () => node => {
-                    if (nodeId !== null && nodeId === node.id) return 46
-                    return 8
-                },
-                [nodeId]
-            )        
-            \`\`\`
-            
-            and the two scatterplots share those properties:
-            
-            \`\`\`
-            <ResponsiveScatterPlot
-                {/* other required props */}
-                nodeSize={getNodeSize}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-            />
-            \`\`\`
-            
-            This approach can also be used to synchronize another chart type.
-        `,
+export const synchronizingCharts = () => <SyncCharts />
+synchronizingCharts.story = {
+    parameters: {
+        info: {
+            text: `
+                You can synchronize several charts using mouse handlers.
+                This example wraps 2 scatterplots in a parent component and
+                store current symbol id in a state which is then used to
+                determine symbol size, using \`onMouseMove\`, \`onMouseLeave\`
+                and a custom function for \`nodeSize\`.
+                
+                Note that \`useMesh\` \`debugMesh\` are enabled on this example
+                hence the extra red lines displayed on the chart.
+                
+                The parent component hooks should look like this:
+                
+                \`\`\`
+                const [nodeId, setNodeId] = useState(null)
+                const handleMouseMove = useCallback((node) => setNodeId(node.id), [setNodeId])
+                const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
+                const getNodeSize = useMemo(
+                    () => node => {
+                        if (nodeId !== null && nodeId === node.id) return 46
+                        return 8
+                    },
+                    [nodeId]
+                )        
+                \`\`\`
+                
+                and the two scatterplots share those properties:
+                
+                \`\`\`
+                <ResponsiveScatterPlot
+                    nodeSize={getNodeSize}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                />
+                \`\`\`
+                
+                This approach can also be used to synchronize another chart type.
+            `,
+        },
     },
-})
+}
 
-stories.add('using mouse enter/leave', () => (
+export const usingMouseEnterLeave = () => (
     <ScatterPlot
         {...commonProps}
         onMouseEnter={(data, e) => {
@@ -423,7 +428,7 @@ stories.add('using mouse enter/leave', () => (
             console.log({ is: 'mouseleave', data, event: e }) // eslint-disable-line
         }}
     />
-))
+)
 
 const CustomNode = ({
     node,
@@ -486,7 +491,7 @@ const CustomNode = ({
     )
 }
 
-stories.add('custom node', () => (
+export const customNode = () => (
     <ScatterPlot<{ x: number; y: number }>
         {...commonProps}
         colors={{ scheme: 'set2' }}
@@ -531,7 +536,7 @@ stories.add('custom node', () => (
         ]}
         nodeComponent={CustomNode}
     />
-))
+)
 
 const AreaLayer = ({
     nodes,
@@ -549,67 +554,47 @@ const AreaLayer = ({
     return <path d={areaGenerator(nodes) as string} fill="rgba(232, 193, 160, .65)" />
 }
 
-stories.add(
-    'adding extra layers',
-    () => (
-        <ScatterPlot<{ x: number; y: number; low: number; high: number }>
-            {...commonProps}
-            data={[
-                {
-                    id: 'things',
-                    data: [
-                        { x: 0, y: 3.3, low: 2.3, high: 4.2 },
-                        { x: 1, y: 3.5, low: 2.7, high: 4.1 },
-                        { x: 2, y: 3.8, low: 3.1, high: 4.6 },
-                        { x: 3, y: 4.1, low: 2.9, high: 4.5 },
-                        { x: 4, y: 4.4, low: 3.2, high: 5.1 },
-                        { x: 5, y: 4.7, low: 3.7, high: 5.4 },
-                        { x: 6, y: 4.9, low: 3.2, high: 5.8 },
-                        { x: 7, y: 5.2, low: 4.2, high: 6.1 },
-                        { x: 8, y: 5.4, low: 3.8, high: 6.7 },
-                        { x: 9, y: 5.6, low: 3.5, high: 7.1 },
-                        { x: 10, y: 5.8, low: 3.2, high: 6.8 },
-                        { x: 11, y: 6.0, low: 4, high: 7.2 },
-                        { x: 12, y: 6.2, low: 4.2, high: 9.1 },
-                        { x: 13, y: 6.4, low: 3.9, high: 9 },
-                    ],
-                },
-            ]}
-            yScale={{
-                type: 'linear',
-                max: 10,
-            }}
-            legends={[]}
-            layers={[
-                'grid',
-                'axes',
-                AreaLayer,
-                'nodes',
-                'markers',
-                'mesh',
-                'legends',
-                'annotations',
-            ]}
-            annotations={[
-                {
-                    type: 'circle',
-                    match: { index: 10 },
-                    noteX: 50,
-                    noteY: 50,
-                    offset: 3,
-                    noteTextOffset: -3,
-                    noteWidth: 10,
-                    note: 'an annotation',
-                },
-            ]}
-        />
-    ),
-    {
-        info: {
-            text: `
-                You can use the layers property to add extra layers
-                to the scatterplot chart.
-            `,
-        },
-    }
+export const addingExtraLayers = () => (
+    <ScatterPlot<{ x: number; y: number; low: number; high: number }>
+        {...commonProps}
+        data={[
+            {
+                id: 'things',
+                data: [
+                    { x: 0, y: 3.3, low: 2.3, high: 4.2 },
+                    { x: 1, y: 3.5, low: 2.7, high: 4.1 },
+                    { x: 2, y: 3.8, low: 3.1, high: 4.6 },
+                    { x: 3, y: 4.1, low: 2.9, high: 4.5 },
+                    { x: 4, y: 4.4, low: 3.2, high: 5.1 },
+                    { x: 5, y: 4.7, low: 3.7, high: 5.4 },
+                    { x: 6, y: 4.9, low: 3.2, high: 5.8 },
+                    { x: 7, y: 5.2, low: 4.2, high: 6.1 },
+                    { x: 8, y: 5.4, low: 3.8, high: 6.7 },
+                    { x: 9, y: 5.6, low: 3.5, high: 7.1 },
+                    { x: 10, y: 5.8, low: 3.2, high: 6.8 },
+                    { x: 11, y: 6.0, low: 4, high: 7.2 },
+                    { x: 12, y: 6.2, low: 4.2, high: 9.1 },
+                    { x: 13, y: 6.4, low: 3.9, high: 9 },
+                ],
+            },
+        ]}
+        yScale={{
+            type: 'linear',
+            max: 10,
+        }}
+        legends={[]}
+        layers={['grid', 'axes', AreaLayer, 'nodes', 'markers', 'mesh', 'legends', 'annotations']}
+        annotations={[
+            {
+                type: 'circle',
+                match: { index: 10 },
+                noteX: 50,
+                noteY: 50,
+                offset: 3,
+                noteTextOffset: -3,
+                noteWidth: 10,
+                note: 'an annotation',
+            },
+        ]}
+    />
 )
