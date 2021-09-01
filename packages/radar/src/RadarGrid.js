@@ -34,7 +34,7 @@ const RadarGrid = memo(({ indices, levels, shape, radius, angleStep, label, labe
                         y1={0}
                         x2={position.x}
                         y2={position.y}
-                        {...theme.grid}
+                        {...theme.grid.line}
                     />
                 )
             })}
