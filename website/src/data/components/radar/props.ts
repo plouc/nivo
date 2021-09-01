@@ -1,10 +1,11 @@
 import { closedCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
 import { RadarDefaultProps as defaults, RadarDots } from '@nivo/radar'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
 const dotsDefaults = RadarDots.defaultProps
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -89,7 +90,7 @@ const props = [
         controlType: 'choices',
         group: 'Base',
         controlOptions: {
-            choices: closedCurvePropKeys.map(key => ({
+            choices: closedCurvePropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -141,7 +142,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'api']),
     {
         key: 'colors',
         help: 'Defines how to compute slice color.',

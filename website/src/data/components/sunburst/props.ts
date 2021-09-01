@@ -6,8 +6,9 @@ import {
     motionProperties,
     themeProperty,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -148,7 +149,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'api']),
     {
         key: 'colors',
         help: 'Defines how to compute node color.',

@@ -1,8 +1,9 @@
 import { GeoMapDefaultProps, ChoroplethDefaultProps } from '@nivo/geo'
-import { themeProperty, getLegendsProps, groupProperties } from '../../../lib/componentProperties'
+import { getLegendsProps, groupProperties } from '../../../lib/componentProperties'
 import { props as geoProps } from '../geo/props'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     ...geoProps,
     {
         key: 'label',

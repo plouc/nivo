@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
-import { Flavor } from '../../types'
+import { AngleControlAttrs, Flavor } from '../../types'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
@@ -22,11 +22,7 @@ interface AngleControlProps {
     flavors: Flavor[]
     currentFlavor: Flavor
     value: number
-    options: {
-        start?: number
-        min?: number
-        max?: number
-    }
+    options: AngleControlAttrs['controlOptions']
     onChange: (v: number) => void
 }
 

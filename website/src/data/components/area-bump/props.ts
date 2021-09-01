@@ -6,8 +6,9 @@ import {
     groupProperties,
     motionProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -28,6 +29,7 @@ const props = [
         `,
         required: true,
         type: 'object[]',
+        flavors: ['svg'],
     },
     {
         key: 'width',
@@ -41,6 +43,7 @@ const props = [
         `,
         type: 'number',
         required: true,
+        flavors: ['svg'],
         controlType: 'range',
         controlOptions: {
             unit: 'px',
@@ -61,6 +64,7 @@ const props = [
         `,
         type: 'number',
         required: true,
+        flavors: ['svg'],
         controlType: 'range',
         controlOptions: {
             unit: 'px',
@@ -73,7 +77,9 @@ const props = [
         key: 'margin',
         group: 'Base',
         type: 'object',
+        required: false,
         help: 'Chart margin.',
+        flavors: ['svg'],
         controlType: 'margin',
     },
     {
@@ -83,6 +89,7 @@ const props = [
         type: 'string',
         required: false,
         defaultValue: defaults.align,
+        flavors: ['svg'],
         controlType: 'choices',
         controlOptions: {
             choices: [
@@ -99,6 +106,7 @@ const props = [
         help: `Area interpolation.`,
         required: false,
         defaultValue: defaults.interpolation,
+        flavors: ['svg'],
         controlType: 'radio',
         controlOptions: {
             choices: [
@@ -111,6 +119,8 @@ const props = [
         key: 'spacing',
         group: 'Base',
         type: 'number',
+        required: false,
+        flavors: ['svg'],
         defaultValue: defaults.spacing,
         controlType: 'range',
         controlOptions: {
@@ -123,6 +133,7 @@ const props = [
         group: 'Base',
         type: 'number',
         defaultValue: defaults.xPadding,
+        flavors: ['svg'],
         controlType: 'range',
         controlOptions: {
             min: 0,
@@ -130,7 +141,7 @@ const props = [
             step: 0.05,
         },
     },
-    themeProperty,
+    themeProperty(['svg']),
     {
         key: 'colors',
         group: 'Style',
@@ -138,6 +149,7 @@ const props = [
         help: 'Defines color range.',
         required: false,
         defaultValue: defaults.colors,
+        flavors: ['svg'],
         controlType: 'ordinalColors',
     },
     {
@@ -151,70 +163,86 @@ const props = [
         `,
         required: false,
         defaultValue: defaults.blendMode,
+        flavors: ['svg'],
         controlType: 'blendMode',
     },
     {
         key: 'fillOpacity',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area fill opacity.',
         defaultValue: defaults.fillOpacity,
+        flavors: ['svg'],
         controlType: 'opacity',
     },
     {
         key: 'activeFillOpacity',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area fill opacity for active series.',
         defaultValue: defaults.activeFillOpacity,
+        flavors: ['svg'],
         controlType: 'opacity',
     },
     {
         key: 'inactiveFillOpacity',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area fill opacity for inactive series.',
         defaultValue: defaults.inactiveFillOpacity,
+        flavors: ['svg'],
         controlType: 'opacity',
     },
     {
         key: 'borderWidth',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area border width.',
         defaultValue: defaults.borderWidth,
+        flavors: ['svg'],
         controlType: 'lineWidth',
     },
     {
         key: 'activeBorderWidth',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area border width for active series.',
         defaultValue: defaults.activeBorderWidth,
+        flavors: ['svg'],
         controlType: 'lineWidth',
     },
     {
         key: 'inactiveBorderWidth',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area border width for inactive series.',
         defaultValue: defaults.inactiveBorderWidth,
+        flavors: ['svg'],
         controlType: 'lineWidth',
     },
     {
         key: 'borderColor',
-        help: 'Method to compute area border color.',
+        group: 'Style',
         type: 'string | object | Function',
         required: false,
+        help: 'Method to compute area border color.',
         defaultValue: defaults.borderColor,
+        flavors: ['svg'],
         controlType: 'inheritedColor',
-        group: 'Style',
     },
     {
         key: 'borderOpacity',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area border opacity.',
+        flavors: ['svg'],
         defaultValue: defaults.borderOpacity,
         controlType: 'opacity',
     },
@@ -222,16 +250,20 @@ const props = [
         key: 'activeBorderOpacity',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area border opacity for active series.',
         defaultValue: defaults.activeBorderOpacity,
+        flavors: ['svg'],
         controlType: 'opacity',
     },
     {
         key: 'inactiveBorderOpacity',
         group: 'Style',
         type: 'number | (serie: Serie) => number',
+        required: false,
         help: 'Area border opacity for inactive series.',
         defaultValue: defaults.inactiveBorderOpacity,
+        flavors: ['svg'],
         controlType: 'opacity',
     },
     ...defsProperties('Style', ['svg']),
@@ -239,13 +271,19 @@ const props = [
         key: 'startLabel',
         group: 'Labels',
         type: 'false | string | (serie: Serie) => string',
+        required: false,
+        help: 'Define area start label',
         defaultValue: defaults.startLabel,
+        flavors: ['svg'],
     },
     {
         key: 'startLabelPadding',
         group: 'Labels',
         type: 'number',
+        required: false,
+        help: 'Define area start label padding',
         defaultValue: defaults.startLabelPadding,
+        flavors: ['svg'],
         controlType: 'range',
         controlOptions: {
             min: 0,
@@ -254,24 +292,31 @@ const props = [
     },
     {
         key: 'startLabelTextColor',
-        help: 'Method to compute start label text color.',
+        group: 'Labels',
         type: 'string | object | Function',
         required: false,
+        help: 'Method to compute start label text color.',
+        flavors: ['svg'],
         defaultValue: defaults.startLabelTextColor,
         controlType: 'inheritedColor',
-        group: 'Labels',
     },
     {
         key: 'endLabel',
         group: 'Labels',
         type: 'false | string | (serie: Serie) => string',
+        required: false,
+        help: 'Define area end label',
         defaultValue: defaults.endLabel,
+        flavors: ['svg'],
     },
     {
         key: 'endLabelPadding',
         group: 'Labels',
         type: 'number',
+        required: false,
+        help: 'Define area end label padding',
         defaultValue: defaults.endLabelPadding,
+        flavors: ['svg'],
         controlType: 'range',
         controlOptions: {
             min: 0,
@@ -286,6 +331,7 @@ const props = [
         defaultValue: defaults.endLabelTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
+        flavors: ['svg'],
     },
     {
         key: 'enableGridX',
@@ -295,6 +341,7 @@ const props = [
         required: false,
         defaultValue: defaults.enableGridX,
         controlType: 'switch',
+        flavors: ['svg'],
     },
     ...axesProperties({ exclude: ['right', 'left'] }),
     {
@@ -305,6 +352,7 @@ const props = [
         required: false,
         defaultValue: defaults.isInteractive,
         controlType: 'switch',
+        flavors: ['svg'],
     },
     {
         key: 'onMouseEnter',
@@ -312,6 +360,7 @@ const props = [
         type: '(serie, event) => void',
         help: 'onMouseEnter handler.',
         required: false,
+        flavors: ['svg'],
     },
     {
         key: 'onMouseMove',
@@ -319,6 +368,7 @@ const props = [
         type: '(serie, event) => void',
         help: 'onMouseMove handler.',
         required: false,
+        flavors: ['svg'],
     },
     {
         key: 'onMouseLeave',
@@ -326,6 +376,7 @@ const props = [
         type: '(serie, event) => void',
         help: 'onMouseLeave handler.',
         required: false,
+        flavors: ['svg'],
     },
     {
         key: 'onClick',
@@ -333,6 +384,7 @@ const props = [
         type: '(serie, event) => void',
         help: 'onClick handler.',
         required: false,
+        flavors: ['svg'],
     },
     {
         key: 'tooltip',
@@ -340,6 +392,7 @@ const props = [
         type: 'Function',
         required: false,
         help: 'Custom tooltip component.',
+        flavors: ['svg'],
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML

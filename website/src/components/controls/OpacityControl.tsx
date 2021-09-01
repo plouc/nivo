@@ -1,24 +1,31 @@
 import React, { useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
 import { useTheme } from '../../theming/context'
+import { Flavor, OpacityChartProperty } from '../../types'
 
 const size = 24
 
-const Row = styled.div`
-    display: grid;
-    grid-template-columns: 60px ${size}px auto;
-    grid-column-gap: 9px;
-    align-items: center;
-    max-width: 240px;
-    margin-bottom: 5px;
-`
+interface OpacityControlProps {
+    id: string
+    property: OpacityChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: number
+    onChange: (value: number) => void
+}
 
-const OpacityControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
+export const OpacityControl = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+    value,
+    onChange,
+}: OpacityControlProps) => {
     const theme = useTheme()
     const handleChange = useCallback(
         event => {
@@ -72,13 +79,11 @@ const OpacityControl = ({ id, property, flavors, currentFlavor, value, onChange 
     )
 }
 
-OpacityControl.propTypes = {
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-}
-
-export default OpacityControl
+const Row = styled.div`
+    display: grid;
+    grid-template-columns: 60px ${size}px auto;
+    grid-column-gap: 9px;
+    align-items: center;
+    max-width: 240px;
+    margin-bottom: 5px;
+`

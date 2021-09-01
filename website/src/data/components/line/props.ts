@@ -8,8 +8,9 @@ import {
     groupProperties,
     defsProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -196,13 +197,13 @@ const props = [
         controlType: 'choices',
         group: 'Style',
         controlOptions: {
-            choices: lineCurvePropKeys.map(key => ({
+            choices: lineCurvePropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
         },
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'colors',
         help: 'Defines color range.',
@@ -312,8 +313,8 @@ const props = [
         type: 'number',
         required: false,
         defaultValue: defaults.pointSize,
-        controlType: 'range',
         group: 'Points',
+        controlType: 'range',
         controlOptions: {
             unit: 'px',
             min: 2,
@@ -326,8 +327,8 @@ const props = [
         type: 'string | object | Function',
         required: false,
         defaultValue: defaults.pointColor,
-        controlType: 'inheritedColor',
         group: 'Points',
+        controlType: 'inheritedColor',
     },
     {
         key: 'pointBorderWidth',
@@ -335,8 +336,8 @@ const props = [
         type: 'number',
         required: false,
         defaultValue: defaults.pointBorderWidth,
-        controlType: 'lineWidth',
         group: 'Points',
+        controlType: 'lineWidth',
     },
     {
         key: 'pointBorderColor',
@@ -344,8 +345,8 @@ const props = [
         type: 'string | object | Function',
         required: false,
         defaultValue: defaults.pointBorderColor,
-        controlType: 'inheritedColor',
         group: 'Points',
+        controlType: 'inheritedColor',
     },
     {
         key: 'enablePointLabel',

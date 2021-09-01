@@ -5,8 +5,9 @@ import {
     motionProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -178,7 +179,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'cellShape',
         help: `Cell shape/component.`,

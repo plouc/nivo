@@ -6,17 +6,19 @@ import {
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
 const defaults = WaffleDefaultProps
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'total',
         group: 'Base',
         type: 'number',
+        required: true,
         help: 'Max value.',
         description: 'Max value, ratio will be computed against this value for each datum.',
-        required: true,
+        flavors: ['svg', 'html', 'canvas'],
     },
     {
         key: 'data',
@@ -34,6 +36,7 @@ const props = [
         `,
         type: 'object[]',
         required: true,
+        flavors: ['svg', 'html', 'canvas'],
     },
     // {
     //     key: 'hiddenIds',
@@ -52,11 +55,12 @@ const props = [
     // },
     {
         key: 'rows',
+        group: 'Base',
         type: 'number',
         help: 'Number of rows.',
         required: true,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             min: 1,
             max: 100,
@@ -64,11 +68,12 @@ const props = [
     },
     {
         key: 'columns',
+        group: 'Base',
         type: 'number',
         help: 'Number of columns.',
         required: true,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             min: 1,
             max: 100,
@@ -76,12 +81,13 @@ const props = [
     },
     {
         key: 'fillDirection',
-        help: `How to fill the waffle.`,
+        group: 'Base',
         type: 'string',
         required: false,
+        help: `How to fill the waffle.`,
+        flavors: ['svg', 'html', 'canvas'],
         defaultValue: defaults.fillDirection,
         controlType: 'choices',
-        group: 'Base',
         controlOptions: {
             choices: [
                 { label: 'top', value: 'top' },
@@ -93,11 +99,12 @@ const props = [
     },
     {
         key: 'padding',
+        group: 'Base',
         type: 'number',
         help: 'Padding between each cell.',
         required: true,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -108,6 +115,7 @@ const props = [
         key: 'width',
         group: 'Base',
         enableControlForFlavors: ['api'],
+        flavors: ['svg', 'html', 'canvas'],
         help: 'Chart width.',
         description: `
             not required if using responsive alternative
@@ -121,6 +129,7 @@ const props = [
         key: 'height',
         group: 'Base',
         enableControlForFlavors: ['api'],
+        flavors: ['svg', 'html', 'canvas'],
         help: 'Chart height.',
         description: `
             not required if using responsive alternative
@@ -146,13 +155,14 @@ const props = [
     },
     {
         key: 'margin',
-        help: 'Chart margin.',
+        group: 'Base',
         type: 'object',
         required: false,
+        help: 'Chart margin.',
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'margin',
-        group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'html', 'canvas']),
     {
         key: 'cellComponent',
         flavors: ['svg', 'html'],
@@ -170,65 +180,72 @@ const props = [
     },
     {
         key: 'colors',
-        help: 'Defines how to compute node color.',
+        group: 'Style',
         type: 'string | Function | string[]',
         required: false,
+        help: 'Defines how to compute node color.',
         defaultValue: defaults.colors,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'ordinalColors',
-        group: 'Style',
     },
     {
         key: 'emptyColor',
+        group: 'Style',
         help: 'Defines empty cells color.',
         type: 'string',
         required: false,
         defaultValue: defaults.emptyColor,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'colorPicker',
-        group: 'Style',
     },
     {
         key: 'emptyOpacity',
+        group: 'Style',
         help: 'Empty cells opacity.',
         required: false,
         defaultValue: defaults.emptyOpacity,
         type: 'number',
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'opacity',
-        group: 'Style',
     },
     {
         key: 'borderWidth',
-        help: 'Control cell border width.',
+        group: 'Style',
         type: 'number',
         required: false,
+        help: 'Control cell border width.',
         defaultValue: defaults.borderWidth,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'lineWidth',
-        group: 'Style',
     },
     {
         key: 'borderColor',
-        help: 'Method to compute cell border color.',
+        group: 'Style',
         type: 'string | object | Function',
         required: false,
+        help: 'Method to compute cell border color.',
         defaultValue: defaults.borderColor,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'inheritedColor',
-        group: 'Style',
     },
     ...defsProperties('Style', ['svg']),
     {
         key: 'isInteractive',
-        help: 'Enable/disable interactivity.',
+        group: 'Interactivity',
         type: 'boolean',
         required: false,
+        help: 'Enable/disable interactivity.',
         defaultValue: defaults.isInteractive,
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'switch',
-        group: 'Interactivity',
     },
     {
         key: 'onClick',
         group: 'Interactivity',
-        help: 'onClick handler, it receives clicked node data and style plus mouse event.',
         type: 'Function',
         required: false,
+        help: 'onClick handler, it receives clicked node data and style plus mouse event.',
+        flavors: ['svg', 'html', 'canvas'],
     },
     {
         key: 'tooltip',
@@ -236,6 +253,7 @@ const props = [
         type: 'Function',
         required: false,
         help: 'Custom tooltip component',
+        flavors: ['svg', 'html', 'canvas'],
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will
@@ -260,17 +278,20 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        help: 'Showcase custom tooltip.',
-        type: 'boolean',
-        controlType: 'switch',
         group: 'Interactivity',
+        type: 'boolean',
+        required: false,
+        controlType: 'switch',
+        help: 'Showcase custom tooltip.',
+        flavors: ['svg', 'html', 'canvas'],
     },
     {
         key: 'legends',
-        flavors: ['svg', 'canvas'],
-        type: 'object[]',
-        help: `Optional chart's legends.`,
         group: 'Legends',
+        type: 'object[]',
+        required: false,
+        help: `Optional chart's legends.`,
+        flavors: ['svg', 'canvas'],
         controlType: 'array',
         controlOptions: {
             props: getLegendsProps(['svg', 'canvas']),

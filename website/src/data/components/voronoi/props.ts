@@ -1,7 +1,8 @@
 import { defaultVoronoiProps } from '@nivo/voronoi'
 import { groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',

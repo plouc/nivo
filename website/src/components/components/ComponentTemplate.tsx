@@ -12,7 +12,7 @@ import { ComponentTabs } from './ComponentTabs'
 import { ActionsLogger, useActionsLogger } from './ActionsLogger'
 import ComponentSettings from './ComponentSettings'
 import { Stories } from './Stories'
-import { ChartMeta, Flavor } from '../../types'
+import { ChartMeta, ChartProperty, Flavor } from '../../types'
 
 interface ComponentTemplateProps<P extends object, D> {
     name: string
@@ -25,7 +25,7 @@ interface ComponentTemplateProps<P extends object, D> {
     currentFlavor: Flavor
     properties: {
         name: string
-        properties: any[]
+        properties: ChartProperty[]
     }[]
     // initial props of the demo
     initialProperties: Partial<P>

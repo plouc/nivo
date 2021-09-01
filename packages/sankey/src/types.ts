@@ -97,9 +97,9 @@ export type SankeyAlignType = 'center' | 'justify' | 'start' | 'end'
 export type SankeyAlignFunction = (node: SankeyNodeMinimal<any, any>, n: number) => number
 
 export type SankeySortType = 'auto' | 'input' | 'ascending' | 'descending'
-export type SankeySortFunction = (
-    a: SankeyNodeMinimal<any, any>,
-    b: SankeyNodeMinimal<any, any>
+export type SankeySortFunction<N extends DefaultNode, L extends DefaultLink> = (
+    a: SankeyNodeDatum<N, L>,
+    b: SankeyNodeDatum<N, L>
 ) => number
 
 export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink> {
@@ -108,7 +108,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
 
     layout: 'horizontal' | 'vertical'
     align: SankeyAlignType | SankeyAlignFunction
-    sort: SankeySortType | SankeySortFunction
+    sort: SankeySortType | SankeySortFunction<N, L>
 
     layers: SankeyLayerId[]
 

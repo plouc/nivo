@@ -7,8 +7,9 @@ import {
     getLegendsProps,
     motionProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -133,8 +134,8 @@ const props = [
         type: 'number',
         required: false,
         defaultValue: defaultProps.startAngle,
-        controlType: 'angle',
         group: 'Base',
+        controlType: 'angle',
         controlOptions: {
             unit: '°',
             min: -180,
@@ -148,8 +149,8 @@ const props = [
         type: 'number',
         required: false,
         defaultValue: defaultProps.endAngle,
-        controlType: 'angle',
         group: 'Base',
+        controlType: 'angle',
         controlOptions: {
             unit: '°',
             min: -360,
@@ -227,7 +228,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'colors',
         help: 'Defines color range.',

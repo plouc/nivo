@@ -1,7 +1,8 @@
 import { FunnelDefaultProps as defaults } from '@nivo/funnel'
 import { themeProperty, groupProperties, motionProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         type: 'Array<Datum>',
@@ -95,7 +96,7 @@ const props = [
         controlType: 'valueFormat',
         group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg']),
     {
         key: 'colors',
         help: 'Defines how to compute parts color.',

@@ -15,7 +15,7 @@ import {
     SankeySortFunction,
 } from './types'
 
-const getId = (d: { id: string }) => d.id
+const getId = <N extends DefaultNode>(node: N) => node.id
 
 export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink>({
     data: _data,
@@ -36,8 +36,8 @@ export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink
     formatValue: (value: number) => string
     layout: SankeyCommonProps<N, L>['layout']
     alignFunction: SankeyAlignFunction
-    sortFunction: SankeySortFunction
-    linkSortMode: any
+    sortFunction: null | undefined | SankeySortFunction<N, L>
+    linkSortMode: null | undefined
     nodeThickness: SankeyCommonProps<N, L>['nodeThickness']
     nodeSpacing: SankeyCommonProps<N, L>['nodeSpacing']
     nodeInnerPadding: SankeyCommonProps<N, L>['nodeInnerPadding']
@@ -48,8 +48,9 @@ export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink
 }) => {
     const sankey = d3Sankey()
         .nodeAlign(alignFunction)
+        // @ts-ignore: this method signature is incorrect in current @types/d3-sankey
         .nodeSort(sortFunction)
-        // @ts-ignore: this method is not available in @types/d3-sankey
+        // @ts-ignore: this method is not available in current @types/d3-sankey
         .linkSort(linkSortMode)
         .nodeWidth(nodeThickness)
         .nodePadding(nodeSpacing)
@@ -147,8 +148,12 @@ export const useSankey = <N extends DefaultNode, L extends DefaultLink>({
     const sortFunction = useMemo(() => {
         if (sort === 'auto') return undefined
         if (sort === 'input') return null
-        if (sort === 'ascending') return (a, b) => a.value - b.value
-        if (sort === 'descending') return (a, b) => b.value - a.value
+        if (sort === 'ascending') {
+            return (a: SankeyNodeDatum<N, L>, b: SankeyNodeDatum<N, L>) => a.value - b.value
+        }
+        if (sort === 'descending') {
+            return (a: SankeyNodeDatum<N, L>, b: SankeyNodeDatum<N, L>) => b.value - a.value
+        }
 
         return sort
     }, [sort])
@@ -157,7 +162,10 @@ export const useSankey = <N extends DefaultNode, L extends DefaultLink>({
     // (In d3, `null` means input sorting and `undefined` is the default)
     const linkSortMode = sort === 'input' ? null : undefined
 
-    const alignFunction = useMemo(() => sankeyAlignmentFromProp(align), [align])
+    const alignFunction = useMemo(() => {
+        if (typeof align === 'function') return align
+        return sankeyAlignmentFromProp(align)
+    }, [align])
 
     const theme = useTheme()
 
