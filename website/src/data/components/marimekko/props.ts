@@ -7,8 +7,9 @@ import {
     motionProperties,
     axesProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -164,21 +165,23 @@ const props = [
     },
     {
         key: 'margin',
-        help: 'Chart margin.',
+        group: 'Base',
         type: 'object',
         required: false,
+        help: 'Chart margin.',
+        flavors: ['svg', 'api'],
         controlType: 'margin',
-        group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'api']),
     {
         key: 'colors',
-        help: 'Defines color range.',
+        group: 'Style',
         type: 'string | Function | string[]',
         required: false,
+        help: 'Defines color range.',
         defaultValue: defaults.colors,
+        flavors: ['svg', 'api'],
         controlType: 'ordinalColors',
-        group: 'Style',
     },
     ...defsProperties('Style', ['svg', 'api']),
     {

@@ -5,8 +5,9 @@ import {
     groupProperties,
     getLegendsProps,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'keys',
         group: 'Base',
@@ -159,13 +160,14 @@ const props = [
             step: 0.01,
         },
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'colors',
         help: 'Defines how to compute arc/ribbon color.',
         type: 'string | Function | string[]',
         required: false,
         defaultValue: defaults.colors,
+        flavors: ['svg', 'canvas', 'api'],
         controlType: 'ordinalColors',
         group: 'Style',
     },

@@ -5,8 +5,9 @@ import {
     axesProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         help: 'Chart data.',
@@ -240,7 +241,7 @@ const props = [
             max: 100,
         },
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas']),
     {
         key: 'colors',
         help: 'Defines how to compute node color.',

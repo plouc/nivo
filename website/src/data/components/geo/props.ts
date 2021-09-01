@@ -1,7 +1,8 @@
 import { GeoMapDefaultProps } from '@nivo/geo'
 import { themeProperty, defsProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-export const props = [
+export const props: ChartProperty[] = [
     {
         key: 'width',
         group: 'Base',
@@ -115,8 +116,8 @@ export const props = [
         help: 'Projection rotation.',
         required: false,
         defaultValue: GeoMapDefaultProps.projectionRotation,
-        controlType: 'numberArray',
         group: 'Projection',
+        controlType: 'numberArray',
         controlOptions: {
             items: [
                 {
@@ -137,15 +138,15 @@ export const props = [
             ],
         },
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas']),
     {
         key: 'borderWidth',
         help: 'Control border width.',
         type: 'number',
         required: false,
         defaultValue: GeoMapDefaultProps.borderWidth,
-        controlType: 'lineWidth',
         group: 'Style',
+        controlType: 'lineWidth',
         controlOptions: {
             step: 0.5,
         },

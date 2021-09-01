@@ -1,7 +1,8 @@
 import { defaultProps } from '@nivo/bullet'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -178,7 +179,7 @@ const props = [
             step: 0.05,
         },
     },
-    themeProperty,
+    themeProperty(['svg']),
     {
         key: 'rangeBorderColor',
         flavors: ['svg'],

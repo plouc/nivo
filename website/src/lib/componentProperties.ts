@@ -1,19 +1,22 @@
 import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
+import { Flavor, ChartProperty } from '../types'
 
-export const themeProperty = {
+export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
     key: 'theme',
     group: 'Style',
+    type: 'Theme',
+    required: false,
     help: 'Define style for common elements such as labels, axes…',
+    flavors,
     description: `
         Please have a look at [the dedicated guide](self:/guides/theming)
         on how to define a theme for your charts. 
     `,
-    required: false,
-}
+})
 
-export const defsProperties = (group, flavors) => [
+export const defsProperties = (group: string, flavors: Flavor[]): ChartProperty[] => [
     {
         key: 'defs',
         group,
@@ -42,8 +45,12 @@ export const defsProperties = (group, flavors) => [
     },
 ]
 
-export const motionProperties = (flavors, defaults, type = 'react-motion') => {
-    const props = [
+export const motionProperties = (
+    flavors: Flavor[],
+    defaults: any,
+    type: 'react-spring' | 'react-motion' = 'react-motion'
+): ChartProperty[] => {
+    const props: ChartProperty[] = [
         {
             key: 'animate',
             flavors,
@@ -67,8 +74,8 @@ export const motionProperties = (flavors, defaults, type = 'react-motion') => {
                 defaults.motionStiffness !== undefined
                     ? defaults.motionStiffness
                     : defaultMotionStiffness,
-            controlType: 'range',
             group: 'Motion',
+            controlType: 'range',
             controlOptions: {
                 min: 0,
                 max: 300,
@@ -108,7 +115,13 @@ export const motionProperties = (flavors, defaults, type = 'react-motion') => {
     return props
 }
 
-export const axesProperties = ({ flavors, exclude = [] } = {}) =>
+export const axesProperties = ({
+    flavors,
+    exclude = [],
+}: {
+    flavors?: Flavor[]
+    exclude?: string[]
+} = {}): ChartProperty[] =>
     [
         {
             position: 'top',
@@ -128,7 +141,7 @@ export const axesProperties = ({ flavors, exclude = [] } = {}) =>
         },
     ]
         .filter(axis => !exclude.includes(axis.position))
-        .reduce((properties, { position }) => {
+        .reduce((properties: any[], { position }) => {
             const axisKey = upperFirst(position)
 
             return [
@@ -211,20 +224,21 @@ export const axesProperties = ({ flavors, exclude = [] } = {}) =>
             ]
         }, [])
 
-export const getLegendsProps = flavors => [
+export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>[] => [
     {
         key: 'anchor',
         flavors,
         help: `Defines legend anchor relative to chart's viewport.`,
         type: 'string',
+        required: false,
         controlType: 'boxAnchor',
-        controlOptions: {},
     },
     {
         key: 'direction',
         flavors,
         help: `Legend direction, must be one of 'column', 'row'.`,
         type: `'column' | 'row'`,
+        required: false,
         controlType: 'radio',
         controlOptions: {
             choices: [
@@ -245,12 +259,14 @@ export const getLegendsProps = flavors => [
         help: `Justify symbol and label.`,
         controlType: 'switch',
         type: 'boolean',
+        required: false,
     },
     {
         key: 'translateX',
         flavors,
         help: `Legend block x translation.`,
         type: `number`,
+        required: false,
         controlType: 'range',
         controlOptions: {
             min: -200,
@@ -263,6 +279,7 @@ export const getLegendsProps = flavors => [
         flavors,
         help: `Legend block y translation.`,
         type: `number`,
+        required: false,
         controlType: 'range',
         controlOptions: {
             min: -200,
@@ -301,6 +318,7 @@ export const getLegendsProps = flavors => [
         flavors,
         help: `Spacing between each item.`,
         type: `number`,
+        required: false,
         controlType: 'range',
         controlOptions: {
             min: 0,
@@ -313,6 +331,7 @@ export const getLegendsProps = flavors => [
         flavors,
         help: `Item symbol size.`,
         type: `number`,
+        required: false,
         controlType: 'range',
         controlOptions: {
             min: 2,
@@ -325,6 +344,7 @@ export const getLegendsProps = flavors => [
         flavors,
         help: `Item layout direction.`,
         type: `string`,
+        required: false,
         controlType: 'choices',
         controlOptions: {
             choices: ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'].map(
@@ -337,22 +357,36 @@ export const getLegendsProps = flavors => [
     },
 ]
 
-export const groupProperties = properties => {
-    const groups = uniq(properties.map(property => property.group))
-    const grouped = groups.reduce((acc, group) => {
-        return [
-            ...acc,
-            {
-                name: group,
-                properties: properties
-                    .filter(property => property.group === group)
-                    .map(property => ({
-                        ...property,
-                        name: property.key,
-                    })),
-            },
-        ]
-    }, [])
+export const groupProperties = (
+    properties: ChartProperty[]
+): {
+    name: string
+    properties: ChartProperty[]
+}[] => {
+    const groups: string[] = uniq(properties.map(property => property.group))
+    const grouped: {
+        name: string
+        properties: ChartProperty[]
+    }[] = groups.reduce(
+        (acc, group) => {
+            return [
+                ...acc,
+                {
+                    name: group,
+                    properties: properties
+                        .filter(property => property.group === group)
+                        .map(property => ({
+                            ...property,
+                            name: property.key,
+                        })),
+                },
+            ]
+        },
+        [] as {
+            name: string
+            properties: ChartProperty[]
+        }[]
+    )
 
     return grouped
 }

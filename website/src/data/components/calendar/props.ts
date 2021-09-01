@@ -1,8 +1,9 @@
 import { boxAlignments } from '@nivo/core'
 import { calendarDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -153,7 +154,7 @@ const props = [
             max: 600,
         },
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'colors',
         group: 'Style',

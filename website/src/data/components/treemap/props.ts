@@ -1,9 +1,10 @@
 import { TreeMapDefaultProps } from '@nivo/treemap'
 import { motionProperties, defsProperties, groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
 const defaults = TreeMapDefaultProps
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',

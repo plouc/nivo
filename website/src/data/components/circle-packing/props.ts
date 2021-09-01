@@ -5,8 +5,9 @@ import {
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -174,7 +175,7 @@ const props = [
             max: 2,
         },
     },
-    themeProperty,
+    themeProperty(['svg', 'html', 'canvas']),
     {
         key: 'colors',
         help: 'Define how to compute node color.',
@@ -185,6 +186,7 @@ const props = [
         type: 'string | Function | string[]',
         required: false,
         defaultValue: { scheme: 'nivo' },
+        flavors: ['svg', 'html', 'canvas'],
         controlType: 'ordinalColors',
         group: 'Style',
     },

@@ -6,6 +6,7 @@ import isNumber from 'lodash/isNumber'
 import isBoolean from 'lodash/isBoolean'
 import isFunction from 'lodash/isFunction'
 import styled from 'styled-components'
+import { ChartProperty } from '../../types'
 
 const getDefaultValue = (value: any) => {
     if (isPlainObject(value)) {
@@ -33,15 +34,9 @@ const getDefaultValue = (value: any) => {
     return value
 }
 
-interface PropertyHeaderProps {
+type PropertyHeaderProps = ChartProperty & {
     id: string
-    name: string
-    type?: string
-    required?: boolean
-    defaultValue?: any
-    context?: {
-        path: string[]
-    }
+    context?: any
 }
 
 export const PropertyHeader = ({

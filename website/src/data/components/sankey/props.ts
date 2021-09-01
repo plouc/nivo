@@ -1,33 +1,37 @@
-import { svgDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
+import { svgDefaultProps, sankeyAlignmentPropKeys } from '@nivo/sankey'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        type: '{ nodes: object[], links: object[] }',
+        required: true,
         help: 'Chart data defining nodes and links.',
+        flavors: ['svg', 'api'],
         description: `
             Chart data, which must conform to this structure:
 
             \`\`\`
             {
                 nodes: {
-                    id: string | number
+                    id: string
                 }[],
                 links: {
-                    source: string | number, // ref to node id
-                    target: string | number, // ref to node id
+                    source: string, // ref to node id
+                    target: string, // ref to node id
                     value:  number
                 }[]
             }
             \`\`\`
         `,
-        type: '{ nodes: object[], links: object[] }',
-        required: true,
     },
     {
         key: 'valueFormat',
         group: 'Base',
+        type: 'string | (value: number) => string',
+        required: false,
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
@@ -36,18 +40,18 @@ const props = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        required: false,
-        type: 'string | (value: number) => string | number',
+        flavors: ['svg', 'api'],
         controlType: 'valueFormat',
     },
     {
         key: 'layout',
-        help: `Control sankey layout direction.`,
+        group: 'Base',
         type: 'string',
         required: false,
-        defaultValue: defaults.layout,
+        help: `Control sankey layout direction.`,
+        defaultValue: svgDefaultProps.layout,
+        flavors: ['svg', 'api'],
         controlType: 'radio',
-        group: 'Base',
         controlOptions: {
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
@@ -58,6 +62,8 @@ const props = [
     {
         key: 'align',
         group: 'Base',
+        type: 'string',
+        required: false,
         help: 'Node alignment method.',
         description: `
             Defines node alignment method.
@@ -65,12 +71,11 @@ const props = [
             [official d3 documentation](https://github.com/d3/d3-sankey#sankey_nodeAlign)
             for further information.
         `,
-        type: 'string',
-        required: false,
-        defaultValue: defaults.align,
+        defaultValue: svgDefaultProps.align,
+        flavors: ['svg', 'api'],
         controlType: 'choices',
         controlOptions: {
-            choices: sankeyAlignmentPropKeys.map(key => ({
+            choices: sankeyAlignmentPropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -78,6 +83,10 @@ const props = [
     },
     {
         key: 'sort',
+        group: 'Base',
+        type: 'string | Function',
+        required: false,
+        help: 'Node sorting method.',
         description: `
             Defines node sorting method. Must be one of:
 
@@ -92,12 +101,9 @@ const props = [
             [official d3 documentation](https://github.com/d3/d3-sankey#sankey_nodeSort)
             for further information.
         `,
-        help: 'Node sorting method.',
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaults.sort,
+        defaultValue: svgDefaultProps.sort,
+        flavors: ['svg', 'api'],
         controlType: 'choices',
-        group: 'Base',
         controlOptions: {
             choices: ['auto', 'input', 'ascending', 'descending'].map(key => ({
                 label: key,
@@ -107,16 +113,17 @@ const props = [
     },
     {
         key: 'width',
-        enableControlForFlavors: ['api'],
+        group: 'Base',
+        type: 'number',
+        required: true,
+        help: 'Chart width.',
         description: `
             not required if using
             \`<ResponsiveSankey/>\`.
         `,
-        help: 'Chart width.',
-        type: 'number',
-        required: true,
+        flavors: ['svg', 'api'],
+        enableControlForFlavors: ['api'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             unit: 'px',
             min: 100,
@@ -126,16 +133,17 @@ const props = [
     },
     {
         key: 'height',
-        enableControlForFlavors: ['api'],
+        group: 'Base',
+        type: 'number',
+        required: true,
+        help: 'Chart height.',
         description: `
             not required if using
             \`<ResponsiveSankey/>\`.
         `,
-        help: 'Chart height.',
-        type: 'number',
-        required: true,
+        flavors: ['svg', 'api'],
+        enableControlForFlavors: ['api'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             unit: 'px',
             min: 100,
@@ -148,27 +156,30 @@ const props = [
         help: 'Chart margin.',
         type: 'object',
         required: false,
-        controlType: 'margin',
         group: 'Base',
+        flavors: ['svg', 'api'],
+        controlType: 'margin',
     },
-    themeProperty,
+    themeProperty(['svg', 'api']),
     {
         key: 'colors',
-        help: 'Defines how to compute nodes color.',
+        group: 'Style',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.colors,
+        help: 'Defines how to compute nodes color.',
+        defaultValue: svgDefaultProps.colors,
+        flavors: ['svg', 'api'],
         controlType: 'ordinalColors',
-        group: 'Style',
     },
     {
         key: 'nodeThickness',
-        help: 'Node thickness.',
-        required: false,
-        defaultValue: defaults.nodeThickness,
-        type: 'number',
-        controlType: 'range',
         group: 'Nodes',
+        type: 'number',
+        required: false,
+        help: 'Node thickness.',
+        defaultValue: svgDefaultProps.nodeThickness,
+        flavors: ['svg', 'api'],
+        controlType: 'range',
         controlOptions: {
             unit: 'px',
             min: 2,
@@ -177,41 +188,43 @@ const props = [
     },
     {
         key: 'nodeOpacity',
+        group: 'Nodes',
         help: 'Node opacity (0~1).',
         required: false,
-        defaultValue: defaults.nodeOpacity,
+        defaultValue: svgDefaultProps.nodeOpacity,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'opacity',
-        group: 'Nodes',
     },
     {
         key: 'nodeHoverOpacity',
+        group: 'Nodes',
         flavors: ['svg'],
         help: 'Node opacity on hover (0~1).',
         required: false,
-        defaultValue: defaults.nodeHoverOpacity,
+        defaultValue: svgDefaultProps.nodeHoverOpacity,
         type: 'number',
         controlType: 'opacity',
-        group: 'Nodes',
     },
     {
         key: 'nodeHoverOthersOpacity',
         flavors: ['svg'],
         help: 'Other nodes opacity on hover (0~1).',
         required: false,
-        defaultValue: defaults.nodeHoverOthersOpacity,
+        defaultValue: svgDefaultProps.nodeHoverOthersOpacity,
         type: 'number',
         controlType: 'opacity',
         group: 'Nodes',
     },
     {
         key: 'nodeSpacing',
+        group: 'Nodes',
         help: 'Spacing between nodes at an identical level.',
         required: false,
-        defaultValue: defaults.nodeSpacing,
+        defaultValue: svgDefaultProps.nodeSpacing,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'range',
-        group: 'Nodes',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -220,12 +233,13 @@ const props = [
     },
     {
         key: 'nodeInnerPadding',
+        group: 'Nodes',
         help: 'Node inner padding, distance from link, substracted from nodeThickness.',
         required: false,
-        defaultValue: defaults.nodePaddingX,
+        defaultValue: svgDefaultProps.nodeInnerPadding,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'range',
-        group: 'Nodes',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -234,15 +248,17 @@ const props = [
     },
     {
         key: 'nodeBorderWidth',
+        group: 'Nodes',
         help: 'Node border width.',
         required: false,
-        defaultValue: defaults.nodeBorderWidth,
+        defaultValue: svgDefaultProps.nodeBorderWidth,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'lineWidth',
-        group: 'Nodes',
     },
     {
         key: 'nodeBorderColor',
+        group: 'Nodes',
         description: `
             how to compute node border color,
             [see dedicated documentation](self:/guides/colors).
@@ -250,18 +266,19 @@ const props = [
         help: 'Method to compute node border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.nodeBorderColor,
+        defaultValue: svgDefaultProps.nodeBorderColor,
+        flavors: ['svg', 'api'],
         controlType: 'inheritedColor',
-        group: 'Nodes',
     },
     {
         key: 'nodeBorderRadius',
+        group: 'Nodes',
         help: 'Node border radius.',
         type: 'number',
         required: false,
-        defaultValue: defaults.nodeBorderRadius,
+        defaultValue: svgDefaultProps.nodeBorderRadius,
+        flavors: ['svg', 'api'],
         controlType: 'range',
-        group: 'Nodes',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -270,41 +287,43 @@ const props = [
     },
     {
         key: 'linkOpacity',
+        group: 'Links',
         help: 'Link opacity (0~1).',
         required: false,
-        defaultValue: defaults.linkOpacity,
+        defaultValue: svgDefaultProps.linkOpacity,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'opacity',
-        group: 'Links',
     },
     {
         key: 'linkHoverOpacity',
+        group: 'Links',
         flavors: ['svg'],
         help: 'Link opacity on hover(0~1).',
         required: false,
-        defaultValue: defaults.linkHoverOpacity,
+        defaultValue: svgDefaultProps.linkHoverOpacity,
         type: 'number',
         controlType: 'opacity',
-        group: 'Links',
     },
     {
         key: 'linkHoverOthersOpacity',
+        group: 'Links',
         flavors: ['svg'],
         help: 'Other links opacity on hover (0~1).',
         required: false,
-        defaultValue: defaults.linkHoverOthersOpacity,
+        defaultValue: svgDefaultProps.linkHoverOthersOpacity,
         type: 'number',
         controlType: 'opacity',
-        group: 'Links',
     },
     {
         key: 'linkContract',
+        group: 'Links',
         help: 'Contract link width.',
         required: false,
-        defaultValue: defaults.linkContract,
+        defaultValue: svgDefaultProps.linkContract,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'range',
-        group: 'Links',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -314,43 +333,43 @@ const props = [
     {
         key: 'linkBlendMode',
         flavors: ['svg'],
-        help: 'Defines CSS mix-blend-mode property for links.',
-        description: `
-            Defines CSS \`mix-blend-mode\` property for links, see
-            [MDN documentation](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode).
-        `,
+        help:
+            'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) property for links.',
         type: 'string',
         required: false,
-        defaultValue: defaults.linkBlendMode,
+        defaultValue: svgDefaultProps.linkBlendMode,
         controlType: 'blendMode',
         group: 'Links',
     },
     {
         key: 'enableLinkGradient',
+        group: 'Links',
         help: 'Enable/disable gradient from source/target nodes instead of plain color.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableLinkGradient,
+        defaultValue: svgDefaultProps.enableLinkGradient,
+        flavors: ['svg', 'api'],
         controlType: 'switch',
-        group: 'Links',
     },
     {
         key: 'enableLabels',
+        group: 'Labels',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableLabels,
+        defaultValue: svgDefaultProps.enableLabels,
+        flavors: ['svg', 'api'],
         controlType: 'switch',
-        group: 'Labels',
     },
     {
         key: 'labelPosition',
+        group: 'Labels',
         help: 'Label position.',
         type: 'string',
         required: false,
-        defaultValue: defaults.labelPosition,
+        defaultValue: svgDefaultProps.labelPosition,
+        flavors: ['svg', 'api'],
         controlType: 'radio',
-        group: 'Labels',
         controlOptions: {
             choices: ['inside', 'outside'].map(key => ({
                 label: key,
@@ -360,12 +379,13 @@ const props = [
     },
     {
         key: 'labelPadding',
+        group: 'Labels',
         help: 'Label padding from node.',
         required: false,
-        defaultValue: defaults.labelPadding,
+        defaultValue: svgDefaultProps.labelPadding,
         type: 'number',
+        flavors: ['svg', 'api'],
         controlType: 'range',
-        group: 'Labels',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -374,6 +394,7 @@ const props = [
     },
     {
         key: 'labelTextColor',
+        group: 'Labels',
         help: 'Method to compute label text color.',
         description: `
             how to compute label text color,
@@ -381,20 +402,21 @@ const props = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.labelTextColor,
+        defaultValue: svgDefaultProps.labelTextColor,
+        flavors: ['svg', 'api'],
         controlType: 'inheritedColor',
-        group: 'Labels',
     },
     {
         key: 'labelOrientation',
+        group: 'Labels',
         help: 'Label orientation.',
         type: 'string',
         required: false,
-        defaultValue: defaults.labelOrientation,
+        defaultValue: svgDefaultProps.labelOrientation,
+        flavors: ['svg', 'api'],
         controlType: 'radio',
-        group: 'Labels',
         controlOptions: {
-            choices: ['horizontal', 'vertical'].map(key => ({
+            choices: ['horizontal', 'vertical'].map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -403,12 +425,12 @@ const props = [
     {
         key: 'isInteractive',
         flavors: ['svg'],
+        group: 'Interactivity',
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: svgDefaultProps.isInteractive,
         controlType: 'switch',
-        group: 'Interactivity',
     },
     {
         key: 'nodeTooltip',
@@ -448,7 +470,7 @@ const props = [
         type: '(target: SankeyNodeDatum | SankeyLinkDatum, event) => void',
         required: false,
     },
-    ...motionProperties(['svg'], defaults, 'react-spring'),
+    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

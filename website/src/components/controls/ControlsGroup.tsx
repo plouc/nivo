@@ -1,12 +1,11 @@
 import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import snakeCase from 'lodash/snakeCase'
 import ArrayControl from './ArrayControl'
 import ObjectControl from './ObjectControl'
-import SwitchControl from './SwitchControl'
+import { SwitchControl } from './SwitchControl'
 import SwitchableRangeControl from './SwitchableRangeControl'
-import ColorsControl from './ColorsControl'
+import { ColorsControl } from './ColorsControl'
 import QuantizeColorsControl from './QuantizeColorsControl'
 import { ColorPickerControl } from './ColorPickerControl'
 import TextControl from './TextControl'
@@ -15,7 +14,7 @@ import { RangeControl } from './RangeControl'
 import { ChoicesControl } from './ChoicesControl'
 import BoxAnchorControl from './BoxAnchorControl'
 import MarginControl from './MarginControl'
-import OpacityControl from './OpacityControl'
+import { OpacityControl } from './OpacityControl'
 import LineWidthControl from './LineWidthControl'
 import MotionConfigControl from './MotionConfigControl'
 import { NumberArrayControl } from './NumberArrayControl'
@@ -25,18 +24,37 @@ import InheritedColorControl from './InheritedColorControl'
 import BlendModeControl from './BlendModeControl'
 import PropertyDocumentation from './PropertyDocumentation'
 import ValueFormatControl from './ValueFormatControl'
+import { ChartProperty, Flavor } from '../../types'
 
 export const shouldRenderProperty = (property, currentSettings) => {
     if (typeof property.when !== 'function') return true
     return property.when(currentSettings)
 }
 
+interface ControlSwitcherProps {
+    groupName: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    settings: any
+    onChange: any
+    context: any
+}
+
 const ControlSwitcher = memo(
-    ({ groupName, flavors, currentFlavor, property, settings, onChange, context }) => {
+    ({
+        groupName,
+        flavors = ['svg'],
+        currentFlavor = 'svg',
+        property,
+        settings,
+        onChange,
+        context,
+    }: ControlSwitcherProps) => {
         // generate a unique identifier for the property
         const id = `${snakeCase(groupName)}-${property.name}`
         const value = get(settings, property.name)
-        const options = property.controlOptions || {}
+        const options = 'controlOptions' in property ? property.controlOptions : {}
         const handleChange = useCallback(
             value => {
                 onChange({
@@ -159,7 +177,6 @@ const ControlSwitcher = memo(
                         flavors={flavors}
                         currentFlavor={currentFlavor}
                         value={value}
-                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -396,51 +413,39 @@ const ControlSwitcher = memo(
     }
 )
 
-ControlSwitcher.propTypes = {
-    groupName: PropTypes.string.isRequired,
-    property: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-    }).isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    settings: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
-    context: PropTypes.object,
+interface ControlsGroupProps {
+    name: string
+    flavors?: Flavor[]
+    currentFlavor?: Flavor
+    controls: ChartProperty[]
+    settings: any
+    onChange: any
+    context?: any
 }
 
-const ControlsGroup = ({ name, flavors, currentFlavor, controls, settings, onChange, context }) => {
-    return controls.map(control => (
-        <ControlSwitcher
-            key={control.name}
-            groupName={name}
-            flavors={flavors}
-            currentFlavor={currentFlavor}
-            property={control}
-            settings={settings}
-            onChange={onChange}
-            context={context}
-        />
-    ))
-}
-
-ControlsGroup.propTypes = {
-    name: PropTypes.string.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    controls: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            group: PropTypes.string.isRequired,
-            flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])),
-            controlOptions: PropTypes.object,
-        })
-    ).isRequired,
-    settings: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
-}
-ControlsGroup.defaultProps = {
-    flavors: ['svg'],
-    currentFlavor: 'svg',
-}
+const ControlsGroup = ({
+    name,
+    flavors = ['svg'],
+    currentFlavor = 'svg',
+    controls,
+    settings,
+    onChange,
+    context,
+}: ControlsGroupProps) => (
+    <>
+        {controls.map(control => (
+            <ControlSwitcher
+                key={control.name}
+                groupName={name}
+                flavors={flavors}
+                currentFlavor={currentFlavor}
+                property={control}
+                settings={settings}
+                onChange={onChange}
+                context={context}
+            />
+        ))}
+    </>
+)
 
 export default ControlsGroup

@@ -1,8 +1,9 @@
 import { boxAlignments } from '@nivo/core'
 import { timeRangeDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, getLegendsProps, groupProperties } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
@@ -102,10 +103,10 @@ const props = [
         type: 'string',
         required: false,
         defaultValue: defaults.align,
-        controlType: 'boxAnchor',
         group: 'Base',
+        controlType: 'boxAnchor',
         controlOptions: {
-            choices: boxAlignments.map(align => ({
+            choices: boxAlignments.map((align: string) => ({
                 label: align,
                 value: align,
             })),
@@ -153,7 +154,7 @@ const props = [
             max: 600,
         },
     },
-    themeProperty,
+    themeProperty(['svg']),
     {
         key: 'colors',
         group: 'Style',

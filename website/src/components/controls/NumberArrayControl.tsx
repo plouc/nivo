@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Fragment, ReactNode, useCallback } from 'react'
 import styled from 'styled-components'
-import { Flavor } from '../../types'
+import { ChartProperty, Flavor } from '../../types'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Label } from './Label'
@@ -9,7 +9,7 @@ import { Help } from './Help'
 
 interface NumberArrayControlProps {
     id: string
-    property: any
+    property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
     options: {

@@ -1,3 +1,4 @@
+// @ts-ignore: the core package should be migrated to TS
 import { areaCurvePropKeys, stackOrderPropKeys, stackOffsetPropKeys } from '@nivo/core'
 import { defaultProps, svgDefaultProps } from '@nivo/stream'
 import {
@@ -7,17 +8,22 @@ import {
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
+import { ChartProperty } from '../../../types'
 
-const props = [
+const props: ChartProperty[] = [
     {
         key: 'data',
-        help: 'Chart data.',
+        group: 'Base',
         type: 'object[]',
         required: true,
-        group: 'Base',
+        help: 'Chart data.',
+        flavors: ['svg'],
     },
     {
         key: 'keys',
+        group: 'Base',
+        type: 'string | number',
+        required: true,
         help: 'Keys to use to build each layer.',
         description: `
             Keys to use to index the data,
@@ -39,12 +45,13 @@ const props = [
             via the \`label\` property, in case you want to display
             something else.
         `,
-        type: 'string | number',
-        required: true,
-        group: 'Base',
+        flavors: ['svg'],
     },
     {
         key: 'label',
+        group: 'Base',
+        type: 'string | (layer) => string | number',
+        required: false,
         help: 'Label accessor, used for legends.',
         description: `
             Define how to access the label of each layer,
@@ -52,14 +59,14 @@ const props = [
             in \`keys\`, it is available under the \`id\` property
             of the layer.
         `,
-        type: 'string | (layer) => string | number',
-        required: false,
         defaultValue: defaultProps.label,
-        group: 'Base',
+        flavors: ['svg'],
     },
     {
         key: 'valueFormat',
         group: 'Base',
+        type: 'string | (value: number) => string | number',
+        required: false,
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
@@ -68,19 +75,19 @@ const props = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        required: false,
-        type: 'string | (value: number) => string | number',
+        flavors: ['svg'],
         controlType: 'valueFormat',
     },
     {
         key: 'offsetType',
-        help: 'Offset type.',
+        group: 'Base',
         type: 'string',
         required: false,
+        help: 'Offset type.',
+        flavors: ['svg'],
         controlType: 'choices',
-        group: 'Base',
         controlOptions: {
-            choices: stackOffsetPropKeys.map(key => ({
+            choices: stackOffsetPropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -88,13 +95,14 @@ const props = [
     },
     {
         key: 'order',
-        help: 'Layers order.',
+        group: 'Base',
         type: 'string',
         required: false,
+        help: 'Layers order.',
+        flavors: ['svg'],
         controlType: 'choices',
-        group: 'Base',
         controlOptions: {
-            choices: stackOrderPropKeys.map(key => ({
+            choices: stackOrderPropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -102,18 +110,19 @@ const props = [
     },
     {
         key: 'curve',
+        group: 'Base',
+        type: 'string',
+        required: false,
+        help: 'Curve interpolation.',
         description: `
             Defines the curve factory to use
             for the area generator.
         `,
-        help: 'Curve interpolation.',
-        type: 'string',
-        required: false,
         defaultValue: defaultProps.curve,
+        flavors: ['svg'],
         controlType: 'choices',
-        group: 'Base',
         controlOptions: {
-            choices: areaCurvePropKeys.map(key => ({
+            choices: areaCurvePropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -121,16 +130,17 @@ const props = [
     },
     {
         key: 'width',
-        enableControlForFlavors: ['api'],
+        group: 'Base',
+        type: '{number}',
+        required: true,
+        help: 'Chart width.',
         description: `
             not required if using
             \`<ResponsiveStream/>\`.
         `,
-        help: 'Chart width.',
-        type: '{number}',
-        required: true,
+        flavors: ['svg'],
+        enableControlForFlavors: ['api'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             unit: 'px',
             min: 100,
@@ -140,16 +150,17 @@ const props = [
     },
     {
         key: 'height',
-        enableControlForFlavors: ['api'],
+        group: 'Base',
+        type: '{number}',
+        required: true,
+        help: 'Chart height.',
         description: `
             not required if using
             \`<ResponsiveStream/>\`.
         `,
-        help: 'Chart height.',
-        type: '{number}',
-        required: true,
+        flavors: ['svg'],
+        enableControlForFlavors: ['api'],
         controlType: 'range',
-        group: 'Base',
         controlOptions: {
             unit: 'px',
             min: 100,
@@ -159,57 +170,64 @@ const props = [
     },
     {
         key: 'margin',
-        help: 'Chart margin.',
+        group: 'Base',
         type: 'object',
         required: false,
+        help: 'Chart margin.',
+        flavors: ['svg'],
         controlType: 'margin',
-        group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg']),
     {
         key: 'colors',
-        help: 'Defines how to compute line color.',
+        group: 'Style',
         type: 'string | Function',
         required: false,
+        help: 'Defines how to compute line color.',
+        flavors: ['svg'],
         defaultValue: defaultProps.colors,
         controlType: 'ordinalColors',
-        group: 'Style',
     },
     {
         key: 'fillOpacity',
-        help: 'Layers fill opacity.',
+        group: 'Style',
         type: 'number',
         required: false,
+        help: 'Layers fill opacity.',
+        flavors: ['svg'],
         defaultValue: defaultProps.fillOpacity,
         controlType: 'opacity',
-        group: 'Style',
     },
     {
         key: 'borderWidth',
+        group: 'Style',
         help: 'Width of layer border.',
         type: 'number',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.borderWidth,
         controlType: 'lineWidth',
-        group: 'Style',
     },
     {
         key: 'borderColor',
+        group: 'Style',
+        type: 'string | object | Function',
+        required: false,
+        help: 'Method to compute layer border color.',
         description: `
             How to compute border color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        help: 'Method to compute layer border color.',
-        type: 'string | object | Function',
-        required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.borderColor,
         controlType: 'inheritedColor',
-        group: 'Style',
     },
-    ...defsProperties('Style'),
+    ...defsProperties('Style', ['svg']),
     {
         key: 'layers',
-        flavors: ['svg', 'canvas'],
+        group: 'Customization',
+        type: 'Array<string | Function>',
+        required: false,
         help: 'Defines the order of layers.',
         description: `
             Defines the order of layers, available layers are:
@@ -219,38 +237,39 @@ const props = [
             this extra layer must be a function which will receive
             the chart computed data and must return a valid SVG element.
         `,
-        type: 'Array<string | Function>',
-        required: false,
+        flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
-        group: 'Customization',
     },
     {
         key: 'enableGridX',
+        group: 'Grid & Axes',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.enableGridX,
         controlType: 'switch',
-        group: 'Grid & Axes',
     },
     {
         key: 'enableGridY',
+        group: 'Grid & Axes',
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.enableGridY,
         controlType: 'switch',
-        group: 'Grid & Axes',
     },
     ...axesProperties(),
     {
         key: 'enableDots',
+        group: 'Dots',
         help: 'Enable/disable dots.',
         type: 'boolean',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.enableDots,
         controlType: 'switch',
-        group: 'Dots',
     },
     {
         key: 'renderDot',
@@ -262,14 +281,15 @@ const props = [
     },
     {
         key: 'dotSize',
+        group: 'Dots',
         help: 'Size of the dots',
         description:
             'Size of the dots, it also accepts a function which can be used to make it vary according to the associated datum.',
         type: 'number | Function',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.dotSize,
         controlType: 'range',
-        group: 'Dots',
         controlOptions: {
             unit: 'px',
             min: 2,
@@ -278,32 +298,35 @@ const props = [
     },
     {
         key: 'dotColor',
+        group: 'Dots',
         help: 'Method to compute dots color.',
         type: 'string | object | Function',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.dotColor,
         controlType: 'inheritedColor',
-        group: 'Dots',
     },
     {
         key: 'dotBorderWidth',
+        group: 'Dots',
         help: 'Width of the dots border.',
         description:
             'Width of the dots border, it also accepts a function which can be used to make it vary according to the associated datum.',
         type: 'number | Function',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.dotBorderWidth,
         controlType: 'lineWidth',
-        group: 'Dots',
     },
     {
         key: 'dotBorderColor',
+        group: 'Dots',
         help: 'Method to compute dots border color.',
         type: 'string | object | Function',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.dotBorderColor,
         controlType: 'inheritedColor',
-        group: 'Dots',
     },
     {
         key: 'isInteractive',
@@ -371,6 +394,7 @@ const props = [
         group: 'Accessibility',
         help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
         type: 'string',
+        required: false,
     },
     {
         key: 'ariaLabelledBy',
@@ -378,6 +402,7 @@ const props = [
         group: 'Accessibility',
         help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
         type: 'string',
+        required: false,
     },
     {
         key: 'ariaDescribedBy',
@@ -385,6 +410,7 @@ const props = [
         group: 'Accessibility',
         help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
         type: 'string',
+        required: false,
     },
 ]
 

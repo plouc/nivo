@@ -210,7 +210,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
-    themeProperty,
+    themeProperty(['svg', 'canvas']),
     {
         key: 'colors',
         help: 'Defines color range.',
