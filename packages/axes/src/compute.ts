@@ -230,8 +230,8 @@ export const computeCartesianTicks = <Value extends AxisValue>({
         }
     }
 
-    const ticks = values.map(value => ({
-        key: typeof value === 'number' || typeof value === 'string' ? value : `${value}`,
+    const ticks = values.map((value: Value) => ({
+        key: typeof value === 'number' || typeof value === 'string' ? value : `${value.valueOf()}`,
         value,
         ...translate(value),
         ...line,
@@ -279,15 +279,15 @@ export const computeGridLines = <Value extends AxisValue>({
 
     const lines: Line[] =
         axis === 'x'
-            ? values.map(value => ({
-                  key: `${value}`,
+            ? values.map((value: Value) => ({
+                  key: typeof value === 'number' || typeof value === 'string' ? value : `${value.valueOf()}`,
                   x1: position(value) ?? 0,
                   x2: position(value) ?? 0,
                   y1: 0,
                   y2: height,
               }))
-            : values.map(value => ({
-                  key: `${value}`,
+            : values.map((value: Value) => ({
+                  key: typeof value === 'number' || typeof value === 'string' ? value : `${value.valueOf()}`,
                   x1: 0,
                   x2: width,
                   y1: position(value) ?? 0,
