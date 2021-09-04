@@ -6,8 +6,17 @@ import meta from '../../data/components/funnel/meta.yml'
 import mapper from '../../data/components/funnel/mapper'
 import { groups } from '../../data/components/funnel/props'
 import { generateLightDataSet } from '../../data/components/funnel/generator'
+import { FunnelDatum, FunnelSvgProps } from '@nivo/funnel/dist/types/types'
 
-const initialProperties = {
+type MappedFunnelProps = Omit<FunnelSvgProps<FunnelDatum>, 'data' | 'width' | 'height'>
+type UnmappedFunnelProps = Omit<MappedFunnelProps, 'valueFormat'> & {
+    valueFormat: {
+        format: string
+        enabled: boolean
+    }
+}
+
+const initialProperties: UnmappedFunnelProps = {
     margin: {
         top: 20,
         right: 20,
@@ -21,7 +30,7 @@ const initialProperties = {
     spacing: svgDefaultProps.spacing,
     valueFormat: { format: '>-.4s', enabled: true },
 
-    colors: { scheme: 'spectral' },
+    colors: { scheme: 'spectral' as const },
     fillOpacity: svgDefaultProps.fillOpacity,
 
     borderWidth: 20,
@@ -43,46 +52,44 @@ const initialProperties = {
     currentBorderWidth: 40,
 
     animate: true,
-    motionConfig: 'wobbly',
+    motionConfig: 'wobbly' as const,
 }
 
-const Funnel = () => {
-    return (
-        <ComponentTemplate
-            name="Funnel"
-            meta={meta.Funnel}
-            icon="funnel"
-            flavors={meta.flavors}
-            currentFlavor="svg"
-            properties={groups}
-            initialProperties={initialProperties}
-            defaultProperties={svgDefaultProps}
-            propertiesMapper={mapper}
-            generateData={generateLightDataSet}
-        >
-            {(properties, data, theme, logAction) => (
-                <ResponsiveFunnel
-                    data={data}
-                    {...properties}
-                    theme={merge({}, theme, {
-                        labels: {
-                            text: {
-                                fontSize: 14,
-                            },
+const Funnel = () => (
+    <ComponentTemplate<UnmappedFunnelProps, MappedFunnelProps, FunnelDatum[]>
+        name="Funnel"
+        meta={meta.Funnel}
+        icon="funnel"
+        flavors={meta.flavors}
+        currentFlavor="svg"
+        properties={groups}
+        initialProperties={initialProperties}
+        defaultProperties={svgDefaultProps}
+        propertiesMapper={mapper}
+        generateData={generateLightDataSet}
+    >
+        {(properties, data, theme, logAction) => (
+            <ResponsiveFunnel
+                data={data}
+                {...properties}
+                theme={merge({}, theme, {
+                    labels: {
+                        text: {
+                            fontSize: 14,
                         },
-                    })}
-                    onClick={part => {
-                        logAction({
-                            type: 'click',
-                            label: `[part] id: ${part.data.id}, value: ${part.data.value}`,
-                            color: part.color,
-                            data: part.data,
-                        })
-                    }}
-                />
-            )}
-        </ComponentTemplate>
-    )
-}
+                    },
+                })}
+                onClick={part => {
+                    logAction({
+                        type: 'click',
+                        label: `[part] id: ${part.data.id}, value: ${part.formattedValue}`,
+                        color: part.color,
+                        data: part.data,
+                    })
+                }}
+            />
+        )}
+    </ComponentTemplate>
+)
 
 export default Funnel
