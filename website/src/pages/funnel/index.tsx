@@ -1,4 +1,5 @@
 import React from 'react'
+import omit from 'lodash/omit'
 import merge from 'lodash/merge'
 import { ResponsiveFunnel, svgDefaultProps } from '@nivo/funnel'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -84,7 +85,7 @@ const Funnel = () => (
                         type: 'click',
                         label: `[part] id: ${part.data.id}, value: ${part.formattedValue}`,
                         color: part.color,
-                        data: part.data,
+                        data: omit(part, ['points', 'areaPoints', 'borderPoints']),
                     })
                 }}
             />
