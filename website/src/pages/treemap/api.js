@@ -1,6 +1,6 @@
 import React from 'react'
 import { TreeMapDefaultProps } from '@nivo/treemap'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/treemap/props'
 import mapper from '../../data/components/treemap/mapper'
@@ -12,7 +12,7 @@ const data = generateLightDataSet()
 const TreeMapApi = () => {
     return (
         <>
-            <SEO title="TreeMap HTTP API" keywords={[...meta.TreeMap.tags, 'HTTP API']} />
+            <Seo title="TreeMap HTTP API" keywords={[...meta.TreeMap.tags, 'HTTP API']} />
             <ApiClient
                 componentName="TreeMap"
                 chartClass="treemap"

@@ -1,21 +1,17 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useEffect, useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { startCase, sum, random } from 'lodash'
 import { randomNormal } from 'd3-random'
-import { storiesOf } from '@storybook/react'
-import { ResponsiveWaffle } from '../../waffle/src'
-import { ResponsiveBar } from '../../bar/src'
-import { ResponsiveFunnel } from '../src'
+import { Meta } from '@storybook/react'
+import { ResponsiveWaffle } from '@nivo/waffle'
+import { ResponsiveBar } from '@nivo/bar'
+// @ts-ignore
+import { ResponsiveFunnel, Funnel } from '../src'
 
-const stories = storiesOf('Funnel', module)
+export default {
+    component: Funnel,
+    title: 'Funnel',
+} as Meta
 
 const steps = ['sent', 'viewed', 'clicked', 'add_to_card', 'purchased']
 const baseValue = 100000
@@ -23,7 +19,7 @@ const stepColors = ['#1ca5b2', '#5eb8cb', '#8ec1d7', '#79a3cd', '#5981da']
 const ages = ['18-', '18-20', '20-30', '30-40', '40-50', '50-65', '65-80', '80+']
 const genderColors = ['#5981da', '#8ec1d7']
 
-const randomClusters = (total, numberOfClusters) => {
+const randomClusters = (total: number, numberOfClusters: number) => {
     const randomNumbers = Array.from({ length: numberOfClusters }, Math.random)
     const randomTotal = sum(randomNumbers)
     const randomRatios = randomNumbers.map(n => n / randomTotal)
@@ -41,8 +37,8 @@ const randomClusters = (total, numberOfClusters) => {
 }
 
 const randomNormalClusters = (
-    total,
-    numberOfClusters,
+    total: number,
+    numberOfClusters: number,
     { mean = 0.5, deviation = 0.2, _samples = 100 } = {}
 ) => {
     const samples = Math.max(numberOfClusters, _samples)
@@ -50,7 +46,7 @@ const randomNormalClusters = (
 
     const step = 1 / numberOfClusters
     const steps = Array.from({ length: numberOfClusters }, (_, index) => step * (index + 1))
-    const weights = Array.from({ length: numberOfClusters }).fill(0)
+    const weights = Array.from({ length: numberOfClusters }).fill(0) as number[]
     Array.from({ length: samples }).forEach(() => {
         const n = randNormal()
         const stepIndex = steps.indexOf(steps.filter(s => n <= s)[0])
@@ -106,20 +102,20 @@ const Years = styled.div`
     padding: 0 0 12px;
 `
 
-const YearButton = styled.div`
+const YearButton = styled.div<{ isCurrent: boolean }>`
     cursor: pointer;
-    background-color: ${props => (props.isCurrent ? '#1ca5b2' : '#000000')};
+    background-color: ${({ isCurrent }) => (isCurrent ? '#1ca5b2' : '#000000')};
     height: 36px;
     display: flex;
     align-items: center;
     padding: 0 32px;
     border-radius: 18px;
     font-weight: 600;
-    color: ${props => (props.isCurrent ? 'white' : '#555555')};
+    color: ${({ isCurrent }) => (isCurrent ? 'white' : '#555555')};
 
     &:hover {
         box-shadow: 0 0 0 2px #1ca5b2 inset;
-        color: ${props => (props.isCurrent ? 'white' : '#1ca5b2')};
+        color: ${({ isCurrent }) => (isCurrent ? 'white' : '#1ca5b2')};
     }
 `
 
@@ -259,7 +255,7 @@ const Sample = () => {
                     <Header style={{ gridArea: 'age' }}>age</Header>
                     <div style={{ gridArea: 'funnel' }}>
                         <ResponsiveFunnel
-                            margin={{ top: 40, bottom: 40 }}
+                            margin={{ top: 40, bottom: 40, left: 20 }}
                             data={currentYear.data}
                             spacing={1}
                             enableBeforeSeparators={false}
@@ -271,6 +267,7 @@ const Sample = () => {
                             borderWidth={20}
                             valueFormat=">-.4s"
                             labelColor="#000000"
+                            motionConfig="wobbly"
                         />
                     </div>
                     {currentYear.data.map((datum, index) => {
@@ -329,8 +326,7 @@ const Sample = () => {
                                         axisBottom={barAxisBottom}
                                         axisLeft={null}
                                         isInteractive={false}
-                                        motionStiffness={110}
-                                        motionDamping={8}
+                                        motionConfig="wobbly"
                                     />
                                 </div>
                             </Fragment>
@@ -342,4 +338,4 @@ const Sample = () => {
     )
 }
 
-stories.add('sub-clustering', () => <Sample />)
+export const SubClustering = () => <Sample />

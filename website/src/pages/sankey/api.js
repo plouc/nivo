@@ -1,6 +1,6 @@
 import React from 'react'
 import { generateSankeyData } from '@nivo/generators'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/sankey/props'
 import mapper from '../../data/components/sankey/mapper'
@@ -11,7 +11,7 @@ const data = generateSankeyData({ nodeCount: 6, maxIterations: 8 })
 const SankeyApi = () => {
     return (
         <>
-            <SEO title="Sankey HTTP API" keywords={[...meta.Sankey.tags, 'HTTP API']} />
+            <Seo title="Sankey HTTP API" keywords={[...meta.Sankey.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Sankey"
                 chartClass="sankey"

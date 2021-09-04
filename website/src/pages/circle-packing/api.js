@@ -1,6 +1,6 @@
 import React from 'react'
 import { generateLibTree } from '@nivo/generators'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/circle-packing/props'
 import mapper from '../../data/components/circle-packing/mapper'
@@ -11,7 +11,7 @@ const root = generateLibTree()
 const CirclePackingApi = () => {
     return (
         <>
-            <SEO
+            <Seo
                 title="CirclePacking HTTP API"
                 keywords={[...meta.CirclePacking.tags, 'HTTP API']}
             />

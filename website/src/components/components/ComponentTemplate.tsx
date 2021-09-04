@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { Theme as NivoTheme } from '@nivo/core'
-import SEO from '../seo'
+import { Seo } from '../Seo'
 import Layout from '../Layout'
 import { useTheme } from '../../theming/context'
 import generateCode from '../../lib/generateChartCode'
@@ -96,7 +96,7 @@ export const ComponentTemplate = <P extends object = any, D = any>({
     return (
         <Layout>
             <ComponentPage>
-                <SEO title={name} keywords={tags} />
+                <Seo title={name} keywords={tags} />
                 <ComponentHeader chartClass={name} tags={tags} />
                 <ComponentFlavorSelector flavors={flavors} current={currentFlavor} />
                 <ComponentDescription description={meta.description} />

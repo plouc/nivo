@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/Layout'
-import SEO from '../components/seo'
+import { Seo } from '../components/Seo'
 import PageContent from '../components/PageContent'
 import { DescriptionBlock } from '../components/styled'
 
@@ -9,7 +9,7 @@ const About = () => {
     return (
         <Layout>
             <PageContent>
-                <SEO title="About" />
+                <Seo title="About" />
                 <div className="guide__header">
                     <h1>About</h1>
                 </div>

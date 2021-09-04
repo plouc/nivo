@@ -4,7 +4,7 @@ import { defaultTheme } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
 import Layout from '../../components/Layout'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import { ComponentPage } from '../../components/components/ComponentPage'
 import { ComponentHeader } from '../../components/components/ComponentHeader'
 import { Markdown } from '../../components/Markdown'
@@ -179,7 +179,7 @@ const Theming = () => {
     return (
         <Layout>
             <ComponentPage>
-                <SEO title="Theming Guide" />
+                <Seo title="Theming Guide" />
                 <ComponentHeader chartClass="Theming" />
                 <Description>
                     <Markdown source={description} />

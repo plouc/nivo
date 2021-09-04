@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from '../components/Layout'
-import SEO from '../components/seo'
+import { Seo } from '../components/Seo'
 import ComponentsExplorer from '../components/components/explorer/ComponentsExplorer'
 
 const Components = props => {
     return (
         <Layout>
-            <SEO title="Components" />
+            <Seo title="Components" />
             <ComponentsExplorer location={props.location} navigate={props.navigate} />
         </Layout>
     )

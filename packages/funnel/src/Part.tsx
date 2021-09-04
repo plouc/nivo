@@ -1,20 +1,27 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
+import {
+    FunnelDatum,
+    FunnelPartWithHandlers,
+    FunnelAreaGenerator,
+    FunnelBorderGenerator,
+} from './types'
 
-export const Part = ({ part, areaGenerator, borderGenerator }) => {
+export interface PartProps<D extends FunnelDatum> {
+    part: FunnelPartWithHandlers<D>
+    areaGenerator: FunnelAreaGenerator
+    borderGenerator: FunnelBorderGenerator
+}
+
+export const Part = <D extends FunnelDatum>({
+    part,
+    areaGenerator,
+    borderGenerator,
+}: PartProps<D>) => {
     const { animate, config: motionConfig } = useMotionConfig()
 
-    const animatedAreaPath = useAnimatedPath(areaGenerator(part.areaPoints))
-    const animatedBorderPath = useAnimatedPath(borderGenerator(part.borderPoints))
+    const animatedAreaPath = useAnimatedPath(areaGenerator(part.areaPoints) as string)
+    const animatedBorderPath = useAnimatedPath(borderGenerator(part.borderPoints) as string)
     const animatedProps = useSpring({
         areaColor: part.color,
         borderWidth: part.borderWidth,
@@ -45,22 +52,4 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
             />
         </>
     )
-}
-
-Part.propTypes = {
-    part: PropTypes.shape({
-        areaPoints: PropTypes.array.isRequired,
-        borderPoints: PropTypes.array.isRequired,
-        color: PropTypes.string.isRequired,
-        fillOpacity: PropTypes.number.isRequired,
-        borderWidth: PropTypes.number.isRequired,
-        borderColor: PropTypes.string.isRequired,
-        borderOpacity: PropTypes.number.isRequired,
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-        onMouseMove: PropTypes.func,
-        onClick: PropTypes.func,
-    }).isRequired,
-    areaGenerator: PropTypes.func.isRequired,
-    borderGenerator: PropTypes.func.isRequired,
 }

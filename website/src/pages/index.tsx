@@ -1,10 +1,10 @@
 import React from 'react'
 import Home from '../components/home/Home'
-import SEO from '../components/seo'
+import { Seo } from '../components/Seo'
 
 const IndexPage = () => (
     <>
-        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+        <Seo title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Home />
     </>
 )

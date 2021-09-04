@@ -1,5 +1,5 @@
 import React from 'react'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/heatmap/props'
 import mapper from '../../data/components/heatmap/mapper'
@@ -11,7 +11,7 @@ const data = generateLightDataSet()
 const HeatMapApi = () => {
     return (
         <>
-            <SEO title="HeatMap HTTP API" keywords={[...meta.HeatMap.tags, 'HTTP API']} />
+            <Seo title="HeatMap HTTP API" keywords={[...meta.HeatMap.tags, 'HTTP API']} />
             <ApiClient
                 componentName="HeatMap"
                 chartClass="heatmap"

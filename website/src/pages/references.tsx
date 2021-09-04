@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../components/Layout'
-import SEO from '../components/seo'
+import { Seo } from '../components/Seo'
 import PageContent from '../components/PageContent'
 import { DescriptionBlock } from '../components/styled'
 import { FaGithub } from 'react-icons/fa'
@@ -48,7 +48,7 @@ const References = () => {
     return (
         <Layout>
             <PageContent>
-                <SEO title="References" />
+                <Seo title="References" />
                 <div className="guide__header">
                     <h1>References</h1>
                 </div>
@@ -66,7 +66,7 @@ const References = () => {
                     </p>
                     <h2>References</h2>
                     <ul>
-                        {references.map((reference, index) => (
+                        {references.map(reference => (
                             <li>
                                 <a href={reference.url} target="_blank" rel="noopener noreferrer">
                                     {reference.name}

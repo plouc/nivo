@@ -1,6 +1,6 @@
 import React from 'react'
 import { generateChordData } from '@nivo/generators'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/chord/props'
 import mapper from '../../data/components/chord/mapper'
@@ -13,7 +13,7 @@ const data = generateChordData({ size: MATRIX_SIZE })
 const ChordApi = () => {
     return (
         <>
-            <SEO title="Chord HTTP API" keywords={[...meta.Chord.tags, 'HTTP API']} />
+            <Seo title="Chord HTTP API" keywords={[...meta.Chord.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Chord"
                 chartClass="chord"

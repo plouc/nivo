@@ -1,6 +1,6 @@
 import React from 'react'
 import merge from 'lodash/merge'
-import { ResponsiveFunnel, FunnelDefaultProps } from '@nivo/funnel'
+import { ResponsiveFunnel, svgDefaultProps } from '@nivo/funnel'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'
 import mapper from '../../data/components/funnel/mapper'
@@ -15,26 +15,26 @@ const initialProperties = {
         left: 20,
     },
 
-    direction: FunnelDefaultProps.direction,
-    interpolation: FunnelDefaultProps.interpolation,
-    shapeBlending: FunnelDefaultProps.shapeBlending,
-    spacing: FunnelDefaultProps.spacing,
+    direction: svgDefaultProps.direction,
+    interpolation: svgDefaultProps.interpolation,
+    shapeBlending: svgDefaultProps.shapeBlending,
+    spacing: svgDefaultProps.spacing,
     valueFormat: { format: '>-.4s', enabled: true },
 
     colors: { scheme: 'spectral' },
-    fillOpacity: FunnelDefaultProps.fillOpacity,
+    fillOpacity: svgDefaultProps.fillOpacity,
 
     borderWidth: 20,
-    borderColor: FunnelDefaultProps.borderColor,
-    borderOpacity: FunnelDefaultProps.borderOpacity,
+    borderColor: svgDefaultProps.borderColor,
+    borderOpacity: svgDefaultProps.borderOpacity,
 
-    enableLabel: FunnelDefaultProps.enableLabel,
+    enableLabel: svgDefaultProps.enableLabel,
     labelColor: { from: 'color', modifiers: [['darker', 3]] },
 
-    enableBeforeSeparators: FunnelDefaultProps.enableBeforeSeparators,
+    enableBeforeSeparators: svgDefaultProps.enableBeforeSeparators,
     beforeSeparatorLength: 100,
     beforeSeparatorOffset: 20,
-    enableAfterSeparators: FunnelDefaultProps.enableAfterSeparators,
+    enableAfterSeparators: svgDefaultProps.enableAfterSeparators,
     afterSeparatorLength: 100,
     afterSeparatorOffset: 20,
 
@@ -56,7 +56,7 @@ const Funnel = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={FunnelDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
         >
