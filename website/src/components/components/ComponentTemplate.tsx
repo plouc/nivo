@@ -14,7 +14,7 @@ import ComponentSettings from './ComponentSettings'
 import { Stories } from './Stories'
 import { ChartMeta, ChartProperty, Flavor } from '../../types'
 
-interface ComponentTemplateProps<P extends object, D> {
+interface ComponentTemplateProps<UnmappedProps extends object, Props extends object, Data> {
     name: string
     meta: ChartMeta
     icon: string
@@ -27,21 +27,25 @@ interface ComponentTemplateProps<P extends object, D> {
         name: string
         properties: ChartProperty[]
     }[]
-    // initial props of the demo
-    initialProperties: Partial<P>
+    // initial props of the demo, unmapped
+    initialProperties: UnmappedProps
     // default props as defined in the package component
-    defaultProperties?: Partial<P>
-    propertiesMapper?: Function
+    defaultProperties?: Partial<Props>
+    propertiesMapper?: (unmappedProps: UnmappedProps) => Props
     codePropertiesMapper?: Function
     hasData?: boolean
-    generateData?: (previousData?: D | null) => D | undefined
+    generateData?: (previousData?: Data | null) => Data | undefined
     dataKey?: string
-    getDataSize?: (data: D) => number
-    getTabData?: (data: D) => D
-    children: (properties: any, data: any, theme: NivoTheme, logAction: any) => JSX.Element
+    getDataSize?: (data: Data) => number
+    getTabData?: (data: Data) => Data
+    children: (properties: Props, data: Data, theme: NivoTheme, logAction: any) => JSX.Element
 }
 
-export const ComponentTemplate = <P extends object = any, D = any>({
+export const ComponentTemplate = <
+    UnmappedProps extends object = any,
+    Props extends object = any,
+    Data = any
+>({
     name,
     meta,
     icon,
@@ -58,7 +62,7 @@ export const ComponentTemplate = <P extends object = any, D = any>({
     getDataSize,
     getTabData = data => data,
     children,
-}: ComponentTemplateProps<P, D>) => {
+}: ComponentTemplateProps<UnmappedProps, Props, Data>) => {
     const theme = useTheme()
 
     const [settings, setSettings] = useState(initialProperties)
@@ -100,7 +104,7 @@ export const ComponentTemplate = <P extends object = any, D = any>({
                 <ComponentHeader chartClass={name} tags={tags} />
                 <ComponentFlavorSelector flavors={flavors} current={currentFlavor} />
                 <ComponentDescription description={meta.description} />
-                <ComponentTabs<D>
+                <ComponentTabs<Data>
                     chartClass={icon}
                     code={code}
                     data={hasData ? getTabData(data!) : undefined}
