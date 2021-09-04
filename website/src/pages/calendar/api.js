@@ -1,6 +1,6 @@
 import React from 'react'
 import { generateDayCounts } from '@nivo/generators'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
@@ -14,7 +14,7 @@ const data = generateData()
 const CalendarApi = () => {
     return (
         <>
-            <SEO title="Calendar HTTP API" keywords={[...meta.Calendar.tags, 'HTTP API']} />
+            <Seo title="Calendar HTTP API" keywords={[...meta.Calendar.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Calendar"
                 chartClass="calendar"

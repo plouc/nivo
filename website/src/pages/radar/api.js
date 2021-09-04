@@ -1,6 +1,6 @@
 import React from 'react'
 import { generateWinesTastes } from '@nivo/generators'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/radar/props'
 import mapper from '../../data/components/radar/mapper'
@@ -11,7 +11,7 @@ const { data, keys } = generateWinesTastes()
 const RadarApi = () => {
     return (
         <>
-            <SEO title="Radar HTTP API" keywords={[...meta.Radar.tags, 'HTTP API']} />
+            <Seo title="Radar HTTP API" keywords={[...meta.Radar.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Radar"
                 chartClass="radar"

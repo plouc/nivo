@@ -1,24 +1,40 @@
-import { createElement, useMemo, useState } from 'react'
+import { createElement, useMemo, useState, MouseEvent } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
-import { scaleLinear } from 'd3-scale'
+import { ScaleLinear, scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTheme, useValueFormatter } from '@nivo/core'
 import { useAnnotations } from '@nivo/annotations'
-import { useTooltip } from '@nivo/tooltip'
-import { FunnelDefaultProps as defaults } from './props'
-import PartTooltip from './PartTooltip'
+import { useTooltip, TooltipActionsContextData } from '@nivo/tooltip'
+import { svgDefaultProps as defaults } from './props'
+import { PartTooltip } from './PartTooltip'
+import {
+    FunnelDatum,
+    FunnelCommonProps,
+    FunnelDataProps,
+    FunnelPart,
+    SeparatorProps,
+    FunnelCustomLayerProps,
+    FunnelAreaGenerator,
+    FunnelAreaPoint,
+    FunnelBorderGenerator,
+    Position,
+} from './types'
 
-export const computeShapeGenerators = (interpolation, direction) => {
-    // area generator which is used to draw funnel chart parts.
-    const areaGenerator = area().curve(interpolation === 'smooth' ? curveBasis : curveLinear)
-
+export const computeShapeGenerators = <D extends FunnelDatum>(
+    interpolation: FunnelCommonProps<D>['interpolation'],
+    direction: FunnelCommonProps<D>['direction']
+): [FunnelAreaGenerator, FunnelBorderGenerator] => {
+    // area generator which is used to draw funnel chart parts
+    const areaGenerator: FunnelAreaGenerator = area<FunnelAreaPoint>()
     if (direction === 'vertical') {
         areaGenerator
+            .curve(interpolation === 'smooth' ? curveBasis : curveLinear)
             .x0(d => d.x0)
             .x1(d => d.x1)
             .y(d => d.y)
-    } else if (direction === 'horizontal') {
+    } else {
         areaGenerator
+            .curve(interpolation === 'smooth' ? curveBasis : curveLinear)
             .y0(d => d.y0)
             .y1(d => d.y1)
             .x(d => d.x)
@@ -30,21 +46,38 @@ export const computeShapeGenerators = (interpolation, direction) => {
         // we we don't have borders joining each side of the parts.
         // it's important to have an empty point when defining the points
         // to be used along with this, otherwise we'll get a line between both sides.
-        line()
+        line<Position | null>()
             .defined(d => d !== null)
-            .x(d => d.x)
-            .y(d => d.y)
+            .x(d => d!.x)
+            .y(d => d!.y)
             .curve(interpolation === 'smooth' ? curveBasis : curveLinear),
     ]
 }
 
-export const computeScales = ({ data, direction, width, height, spacing }) => {
+interface CustomBandScale {
+    (index: number): number
+    bandwidth: number
+}
+
+export const computeScales = <D extends FunnelDatum>({
+    data,
+    direction,
+    width,
+    height,
+    spacing,
+}: {
+    data: FunnelDataProps<D>['data']
+    direction: FunnelCommonProps<D>['direction']
+    width: number
+    height: number
+    spacing: number
+}): [CustomBandScale, ScaleLinear<number, number>] => {
     let bandScaleSize
     let linearScaleSize
     if (direction === 'vertical') {
         bandScaleSize = height
         linearScaleSize = width
-    } else if (direction === 'horizontal') {
+    } else {
         bandScaleSize = width
         linearScaleSize = height
     }
@@ -54,7 +87,7 @@ export const computeScales = ({ data, direction, width, height, spacing }) => {
     // we're not using d3 band scale here to be able to get
     // the actual paddingInner value in pixels, required to
     // create centered separator lines between parts
-    const bandScale = index => spacing * index + bandwidth * index
+    const bandScale = (index: number) => spacing * index + bandwidth * index
     bandScale.bandwidth = bandwidth
 
     const allValues = data.map(d => d.value)
@@ -66,7 +99,7 @@ export const computeScales = ({ data, direction, width, height, spacing }) => {
     return [bandScale, linearScale]
 }
 
-export const computeSeparators = ({
+export const computeSeparators = <D extends FunnelDatum>({
     parts,
     direction,
     width,
@@ -76,16 +109,26 @@ export const computeSeparators = ({
     beforeSeparatorOffset,
     enableAfterSeparators,
     afterSeparatorOffset,
+}: {
+    parts: FunnelPart<D>[]
+    direction: FunnelCommonProps<D>['direction']
+    width: number
+    height: number
+    spacing: number
+    enableBeforeSeparators: boolean
+    beforeSeparatorOffset: number
+    enableAfterSeparators: boolean
+    afterSeparatorOffset: number
 }) => {
-    const beforeSeparators = []
-    const afterSeparators = []
+    const beforeSeparators: SeparatorProps[] = []
+    const afterSeparators: SeparatorProps[] = []
     const lastPart = parts[parts.length - 1]
 
     if (direction === 'vertical') {
         parts.forEach(part => {
             const y = part.y0 - spacing / 2
 
-            if (enableBeforeSeparators === true) {
+            if (enableBeforeSeparators) {
                 beforeSeparators.push({
                     partId: part.data.id,
                     x0: 0,
@@ -94,7 +137,7 @@ export const computeSeparators = ({
                     y1: y,
                 })
             }
-            if (enableAfterSeparators === true) {
+            if (enableAfterSeparators) {
                 afterSeparators.push({
                     partId: part.data.id,
                     x0: part.x1 + afterSeparatorOffset,
@@ -106,7 +149,7 @@ export const computeSeparators = ({
         })
 
         const y = lastPart.y1
-        if (enableBeforeSeparators === true) {
+        if (enableBeforeSeparators) {
             beforeSeparators.push({
                 ...beforeSeparators[beforeSeparators.length - 1],
                 partId: 'none',
@@ -114,7 +157,7 @@ export const computeSeparators = ({
                 y1: y,
             })
         }
-        if (enableAfterSeparators === true) {
+        if (enableAfterSeparators) {
             afterSeparators.push({
                 ...afterSeparators[afterSeparators.length - 1],
                 partId: 'none',
@@ -160,7 +203,7 @@ export const computeSeparators = ({
     return [beforeSeparators, afterSeparators]
 }
 
-export const computePartsHandlers = ({
+export const computePartsHandlers = <D extends FunnelDatum>({
     parts,
     setCurrentPartId,
     isInteractive,
@@ -170,30 +213,40 @@ export const computePartsHandlers = ({
     onClick,
     showTooltipFromEvent,
     hideTooltip,
+}: {
+    parts: FunnelPart<D>[]
+    setCurrentPartId: (id: string | number | null) => void
+    isInteractive: FunnelCommonProps<D>['isInteractive']
+    onMouseEnter?: FunnelCommonProps<D>['onMouseEnter']
+    onMouseLeave?: FunnelCommonProps<D>['onMouseLeave']
+    onMouseMove?: FunnelCommonProps<D>['onMouseMove']
+    onClick?: FunnelCommonProps<D>['onClick']
+    showTooltipFromEvent: TooltipActionsContextData['showTooltipFromEvent']
+    hideTooltip: () => void
 }) => {
     if (!isInteractive) return parts
 
     return parts.map(part => {
-        const boundOnMouseEnter = event => {
+        const boundOnMouseEnter = (event: MouseEvent) => {
             setCurrentPartId(part.data.id)
             showTooltipFromEvent(createElement(PartTooltip, { part }), event)
             onMouseEnter !== undefined && onMouseEnter(part, event)
         }
 
-        const boundOnMouseLeave = event => {
+        const boundOnMouseLeave = (event: MouseEvent) => {
             setCurrentPartId(null)
             hideTooltip()
             onMouseLeave !== undefined && onMouseLeave(part, event)
         }
 
-        const boundOnMouseMove = event => {
+        const boundOnMouseMove = (event: MouseEvent) => {
             showTooltipFromEvent(createElement(PartTooltip, { part }), event)
             onMouseMove !== undefined && onMouseMove(part, event)
         }
 
         const boundOnClick =
             onClick !== undefined
-                ? event => {
+                ? (event: MouseEvent) => {
                       onClick(part, event)
                   }
                 : undefined
@@ -215,11 +268,11 @@ export const computePartsHandlers = ({
  * For purpose/constrains on the parameters, please have a look
  * at the component's props.
  */
-export const useFunnel = ({
+export const useFunnel = <D extends FunnelDatum>({
     data,
     width,
     height,
-    direction,
+    direction = defaults.direction,
     interpolation = defaults.interpolation,
     spacing = defaults.spacing,
     shapeBlending: rawShapeBlending = defaults.shapeBlending,
@@ -243,34 +296,62 @@ export const useFunnel = ({
     onMouseMove,
     onMouseLeave,
     onClick,
+}: {
+    data: FunnelDataProps<D>['data']
+    width: number
+    height: number
+    direction?: FunnelCommonProps<D>['direction']
+    interpolation?: FunnelCommonProps<D>['interpolation']
+    spacing?: FunnelCommonProps<D>['spacing']
+    shapeBlending?: FunnelCommonProps<D>['shapeBlending']
+    valueFormat?: FunnelCommonProps<D>['valueFormat']
+    colors?: FunnelCommonProps<D>['colors']
+    fillOpacity?: FunnelCommonProps<D>['fillOpacity']
+    borderWidth?: FunnelCommonProps<D>['borderWidth']
+    borderColor?: FunnelCommonProps<D>['borderColor']
+    borderOpacity?: FunnelCommonProps<D>['borderOpacity']
+    labelColor?: FunnelCommonProps<D>['labelColor']
+    enableBeforeSeparators?: FunnelCommonProps<D>['enableBeforeSeparators']
+    beforeSeparatorLength?: FunnelCommonProps<D>['beforeSeparatorLength']
+    beforeSeparatorOffset?: FunnelCommonProps<D>['beforeSeparatorOffset']
+    enableAfterSeparators?: FunnelCommonProps<D>['enableAfterSeparators']
+    afterSeparatorLength?: FunnelCommonProps<D>['afterSeparatorLength']
+    afterSeparatorOffset?: FunnelCommonProps<D>['afterSeparatorOffset']
+    isInteractive?: FunnelCommonProps<D>['isInteractive']
+    currentPartSizeExtension?: FunnelCommonProps<D>['currentPartSizeExtension']
+    currentBorderWidth?: FunnelCommonProps<D>['currentBorderWidth']
+    onMouseEnter?: FunnelCommonProps<D>['onMouseEnter']
+    onMouseMove?: FunnelCommonProps<D>['onMouseMove']
+    onMouseLeave?: FunnelCommonProps<D>['onMouseLeave']
+    onClick?: FunnelCommonProps<D>['onClick']
 }) => {
     const theme = useTheme()
-    const getColor = useOrdinalColorScale(colors, 'id')
+    const getColor = useOrdinalColorScale<D>(colors, 'id')
     const getBorderColor = useInheritedColor(borderColor, theme)
     const getLabelColor = useInheritedColor(labelColor, theme)
 
-    const formatValue = useValueFormatter(valueFormat)
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     const [areaGenerator, borderGenerator] = useMemo(
-        () => computeShapeGenerators(interpolation, direction),
+        () => computeShapeGenerators<D>(interpolation, direction),
         [interpolation, direction]
     )
 
-    let innerWidth
-    let innerHeight
+    let innerWidth: number
+    let innerHeight: number
     const paddingBefore = enableBeforeSeparators ? beforeSeparatorLength + beforeSeparatorOffset : 0
     const paddingAfter = enableAfterSeparators ? afterSeparatorLength + afterSeparatorOffset : 0
     if (direction === 'vertical') {
         innerWidth = width - paddingBefore - paddingAfter
         innerHeight = height
-    } else if (direction === 'horizontal') {
+    } else {
         innerWidth = width
         innerHeight = height - paddingBefore - paddingAfter
     }
 
     const [bandScale, linearScale] = useMemo(
         () =>
-            computeScales({
+            computeScales<D>({
                 data,
                 direction,
                 width: innerWidth,
@@ -280,9 +361,9 @@ export const useFunnel = ({
         [data, direction, innerWidth, innerHeight, spacing]
     )
 
-    const [currentPartId, setCurrentPartId] = useState(null)
+    const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
 
-    const parts = useMemo(() => {
+    const parts: FunnelPart<D>[] = useMemo(() => {
         const enhancedParts = data.map((datum, index) => {
             const isCurrent = datum.id === currentPartId
 
@@ -295,7 +376,7 @@ export const useFunnel = ({
                 partHeight = bandScale.bandwidth
                 x0 = paddingBefore + (innerWidth - partWidth) * 0.5
                 y0 = bandScale(index)
-            } else if (direction === 'horizontal') {
+            } else {
                 partWidth = bandScale.bandwidth
                 partHeight = linearScale(datum.value)
                 x0 = bandScale(index)
@@ -307,7 +388,7 @@ export const useFunnel = ({
             const y1 = y0 + partHeight
             const y = y0 + partHeight * 0.5
 
-            const part = {
+            const part: FunnelPart<D> = {
                 data: datum,
                 width: partWidth,
                 height: partHeight,
@@ -326,6 +407,11 @@ export const useFunnel = ({
                 y,
                 y0,
                 y1,
+                borderColor: '',
+                labelColor: '',
+                points: [],
+                areaPoints: [],
+                borderPoints: [],
             }
 
             part.borderColor = getBorderColor(part)
@@ -337,9 +423,6 @@ export const useFunnel = ({
         const shapeBlending = rawShapeBlending / 2
 
         enhancedParts.forEach((part, index) => {
-            part.points = []
-            part.borderPoints = []
-
             const nextPart = enhancedParts[index + 1]
 
             if (direction === 'vertical') {
@@ -352,7 +435,7 @@ export const useFunnel = ({
                     part.points.push({ x: part.points[1].x, y: part.y1 })
                     part.points.push({ x: part.points[0].x, y: part.y1 })
                 }
-                if (part.isCurrent === true) {
+                if (part.isCurrent) {
                     part.points[0].x -= currentPartSizeExtension
                     part.points[1].x += currentPartSizeExtension
                     part.points[2].x += currentPartSizeExtension
@@ -361,9 +444,12 @@ export const useFunnel = ({
 
                 part.areaPoints = [
                     {
+                        x: 0,
                         x0: part.points[0].x,
                         x1: part.points[1].x,
                         y: part.y0,
+                        y0: 0,
+                        y1: 0,
                     },
                 ]
                 part.areaPoints.push({
@@ -371,9 +457,12 @@ export const useFunnel = ({
                     y: part.y0 + part.height * shapeBlending,
                 })
                 const lastAreaPoint = {
+                    x: 0,
                     x0: part.points[3].x,
                     x1: part.points[2].x,
                     y: part.y1,
+                    y0: 0,
+                    y1: 0,
                 }
                 part.areaPoints.push({
                     ...lastAreaPoint,
@@ -393,7 +482,7 @@ export const useFunnel = ({
                         y: part.areaPoints[index].y,
                     })
                 })
-            } else if (direction === 'horizontal') {
+            } else {
                 part.points.push({ x: part.x0, y: part.y0 })
                 if (nextPart) {
                     part.points.push({ x: part.x1, y: nextPart.y0 })
@@ -403,7 +492,7 @@ export const useFunnel = ({
                     part.points.push({ x: part.x1, y: part.y1 })
                 }
                 part.points.push({ x: part.x0, y: part.y1 })
-                if (part.isCurrent === true) {
+                if (part.isCurrent) {
                     part.points[0].y -= currentPartSizeExtension
                     part.points[1].y -= currentPartSizeExtension
                     part.points[2].y += currentPartSizeExtension
@@ -412,9 +501,12 @@ export const useFunnel = ({
 
                 part.areaPoints = [
                     {
+                        x: part.x0,
+                        x0: 0,
+                        x1: 0,
+                        y: 0,
                         y0: part.points[0].y,
                         y1: part.points[3].y,
-                        x: part.x0,
                     },
                 ]
                 part.areaPoints.push({
@@ -422,9 +514,12 @@ export const useFunnel = ({
                     x: part.x0 + part.width * shapeBlending,
                 })
                 const lastAreaPoint = {
+                    x: part.x1,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
                     y0: part.points[1].y,
                     y1: part.points[2].y,
-                    x: part.x1,
                 }
                 part.areaPoints.push({
                     ...lastAreaPoint,
@@ -468,7 +563,7 @@ export const useFunnel = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const partsWithHandlers = useMemo(
         () =>
-            computePartsHandlers({
+            computePartsHandlers<D>({
                 parts,
                 setCurrentPartId,
                 isInteractive,
@@ -518,7 +613,7 @@ export const useFunnel = ({
         ]
     )
 
-    const customLayerProps = useMemo(
+    const customLayerProps: FunnelCustomLayerProps<D> = useMemo(
         () => ({
             width,
             height,
@@ -553,19 +648,21 @@ export const useFunnel = ({
     }
 }
 
-export const useFunnelAnnotations = (parts, annotations) => {
-    return useAnnotations({
+export const useFunnelAnnotations = <D extends FunnelDatum>(
+    parts: FunnelPart<D>[],
+    annotations: FunnelCommonProps<D>['annotations']
+) =>
+    useAnnotations<FunnelPart<D>>({
         data: parts,
         annotations,
         getPosition: part => ({
             x: part.x,
             y: part.y,
         }),
-        getDimensions: (part, offset) => {
-            const width = part.width + offset * 2
-            const height = part.height + offset * 2
+        getDimensions: (part: FunnelPart<D>) => {
+            const width = part.width
+            const height = part.height
 
             return { size: Math.max(width, height), width, height }
         },
     })
-}

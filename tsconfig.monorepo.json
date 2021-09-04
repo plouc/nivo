@@ -23,6 +23,7 @@
         { "path": "./packages/bullet" },
         { "path": "./packages/calendar" },
         { "path": "./packages/circle-packing" },
+        { "path": "./packages/funnel" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
         { "path": "./packages/sankey" },

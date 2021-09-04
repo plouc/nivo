@@ -32,6 +32,7 @@
     "@nivo/treemap": "0.73.0",
     "@nivo/voronoi": "0.73.0",
     "@nivo/waffle": "0.73.0",
+    "@types/react-helmet": "^6.1.2",
     "@types/styled-components": "^5.1.13",
     "babel-plugin-styled-components": "^1.13.2",
     "dedent-js": "^1.0.1",

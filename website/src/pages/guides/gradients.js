@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'gatsby'
 import Layout from '../../components/Layout'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
 import GradientsIllustrations from '../../components/guides/gradients/GradientsIllustrations'
 import GradientsExample from '../../components/guides/gradients/GradientsExample'
@@ -11,7 +11,7 @@ export default class Gradients extends Component {
     render() {
         return (
             <Layout>
-                <SEO title="Gradients Guide" />
+                <Seo title="Gradients Guide" />
                 <PageContent>
                     <div className="guide__header">
                         <h1>Gradients</h1>

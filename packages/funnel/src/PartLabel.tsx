@@ -1,16 +1,12 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { FunnelDatum, FunnelPart } from './types'
 
-export const PartLabel = ({ part }) => {
+interface PartLabelProps<D extends FunnelDatum> {
+    part: FunnelPart<D>
+}
+
+export const PartLabel = <D extends FunnelDatum>({ part }: PartLabelProps<D>) => {
     const theme = useTheme()
     const { animate, config: motionConfig } = useMotionConfig()
 
@@ -36,13 +32,4 @@ export const PartLabel = ({ part }) => {
             </animated.text>
         </animated.g>
     )
-}
-
-PartLabel.propTypes = {
-    part: PropTypes.shape({
-        labelColor: PropTypes.string.isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-        formattedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    }).isRequired,
 }

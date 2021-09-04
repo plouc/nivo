@@ -1,5 +1,5 @@
 import React from 'react'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/bar/props'
 import meta from '../../data/components/bar/meta.yml'
@@ -11,7 +11,7 @@ const { data, keys } = generateLightDataSet()
 const BarApi = () => {
     return (
         <>
-            <SEO title="Bar HTTP API" keywords={[...meta.Bar.tags, 'HTTP API']} />
+            <Seo title="Bar HTTP API" keywords={[...meta.Bar.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Bar"
                 chartClass="bar"

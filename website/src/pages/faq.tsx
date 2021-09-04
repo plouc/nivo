@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../components/Layout'
-import SEO from '../components/seo'
+import { Seo } from '../components/Seo'
 import PageContent from '../components/PageContent'
 import { DescriptionBlock } from '../components/styled'
 
 const Faq = () => (
     <Layout>
         <PageContent>
-            <SEO title="Frequently Asked Questions" />
+            <Seo title="Frequently Asked Questions" />
             <div className="guide__header">
                 <h1>Frequently Asked Questions and Answers</h1>
             </div>

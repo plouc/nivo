@@ -2,7 +2,7 @@ import React from 'react'
 import { themeContext } from '@nivo/core'
 import { useTheme } from '../../theming/context'
 import Layout from '../../components/Layout'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
 import LegendPosition from '../../components/guides/legends/LegendPosition'
 import LegendDirection from '../../components/guides/legends/LegendDirection'
@@ -16,7 +16,7 @@ const Legends = () => {
     return (
         <Layout>
             <themeContext.Provider value={theme.nivo}>
-                <SEO title="Legends Guide" />
+                <Seo title="Legends Guide" />
                 <PageContent>
                     <div className="guide__header">
                         <h1>Legends</h1>

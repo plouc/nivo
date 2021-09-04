@@ -1,16 +1,12 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { SeparatorProps as SeparatorType } from './types'
 
-export const Separator = ({ separator }) => {
+interface SeparatorProps {
+    separator: SeparatorType
+}
+
+export const Separator = ({ separator }: SeparatorProps) => {
     const theme = useTheme()
     const { animate, config: motionConfig } = useMotionConfig()
 
@@ -30,16 +26,7 @@ export const Separator = ({ separator }) => {
             y1={animatedProps.y1}
             y2={animatedProps.y2}
             fill="none"
-            {...theme.grid.line}
+            {...(theme.grid.line as any)}
         />
     )
-}
-
-Separator.propTypes = {
-    separator: PropTypes.shape({
-        x0: PropTypes.number.isRequired,
-        x1: PropTypes.number.isRequired,
-        y0: PropTypes.number.isRequired,
-        y1: PropTypes.number.isRequired,
-    }).isRequired,
 }

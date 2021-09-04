@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
 import ColorsIllustrations from '../../components/guides/colors/ColorsIllustrations'
 import ColorsRanges from '../../components/guides/colors/ColorsRanges'
@@ -9,7 +9,7 @@ import { DescriptionBlock } from '../../components/styled'
 
 const Colors = () => (
     <Layout>
-        <SEO
+        <Seo
             title="Colors Guide"
             description="Using colors in nivo, color schemes, color scales…"
         />

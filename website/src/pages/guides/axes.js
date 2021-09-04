@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'gatsby'
 import Layout from '../../components/Layout'
-import SEO from '../../components/seo'
+import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
 import AxesPosition from '../../components/guides/axes/AxesPosition'
 import AxesTicks from '../../components/guides/axes/AxesTicks'
@@ -12,7 +12,7 @@ export default class Axes extends Component {
     render() {
         return (
             <Layout>
-                <SEO title="Axes Guide" />
+                <Seo title="Axes Guide" />
                 <PageContent>
                     <div className="guide__header">
                         <h1>Axes</h1>
