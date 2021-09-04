@@ -220,6 +220,28 @@ describe('separators', () => {
 
         const separators = wrapper.find('Separator')
         expect(separators.length).toBe(8)
+
+        const expectedLines = [
+            // before
+            { x1: 0, x2: 80, y1: 0, y2: 0 },
+            { x1: 0, x2: 100, y1: 200, y2: 200 },
+            { x1: 0, x2: 120, y1: 400, y2: 400 },
+            { x1: 0, x2: 120, y1: 600, y2: 600 },
+            // after
+            { x1: 220, x2: 300, y1: 0, y2: 0 },
+            { x1: 200, x2: 300, y1: 200, y2: 200 },
+            { x1: 180, x2: 300, y1: 400, y2: 400 },
+            { x1: 180, x2: 300, y1: 600, y2: 600 },
+        ]
+
+        expectedLines.forEach((line, index) => {
+            const separatorLine = separators.at(index).find('line')
+
+            expect(separatorLine.prop('x1')).toBe(line.x1)
+            expect(separatorLine.prop('x2')).toBe(line.x2)
+            expect(separatorLine.prop('y1')).toBe(line.y1)
+            expect(separatorLine.prop('y2')).toBe(line.y2)
+        })
     })
 })
 
