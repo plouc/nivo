@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
+import { CurveFactory } from 'd3-shape'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -437,4 +438,61 @@ declare module '@nivo/core' {
         props: CartesianMarkersProps<X, Y>
     ) => JSX.Element
     export const CartesianMarkers: CartesianMarkersType
+
+    export type CurveFactoryId =
+        | 'basis'
+        | 'basisClosed'
+        | 'basisOpen'
+        | 'bundle'
+        | 'cardinal'
+        | 'cardinalClosed'
+        | 'cardinalOpen'
+        | 'catmullRom'
+        | 'catmullRomClosed'
+        | 'catmullRomOpen'
+        | 'linear'
+        | 'linearClosed'
+        | 'monotoneX'
+        | 'monotoneY'
+        | 'natural'
+        | 'step'
+        | 'stepAfter'
+        | 'stepBefore'
+
+    // Curve factories compatible d3 line shape generator
+    export type LineCurveFactoryId =
+        | 'basis'
+        | 'cardinal'
+        | 'catmullRom'
+        | 'linear'
+        | 'monotoneX'
+        | 'monotoneY'
+        | 'natural'
+        | 'step'
+        | 'stepAfter'
+        | 'stepBefore'
+
+    // Curve factories compatible d3 area shape generator
+    export type AreaCurveFactoryId =
+        | 'basis'
+        | 'cardinal'
+        | 'catmullRom'
+        | 'linear'
+        | 'monotoneX'
+        | 'monotoneY'
+        | 'natural'
+        | 'step'
+        | 'stepAfter'
+        | 'stepBefore'
+
+    export type ClosedCurveFactoryId =
+        | 'basisClosed'
+        | 'cardinalClosed'
+        | 'catmullRomClosed'
+        | 'linearClosed'
+    export const closedCurvePropKeys: ClosedCurveFactoryId[]
+
+    export const curveFromProp: (interpolation: CurveFactoryId) => CurveFactory
+
+    export const useCurveInterpolation: (interpolation: CurveFactoryId) => CurveFactory
 }

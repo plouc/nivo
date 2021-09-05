@@ -8,6 +8,7 @@ import {
     ModernMotionProps,
     PropertyAccessor,
     ValueFormat,
+    ClosedCurveFactoryId,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -54,7 +55,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
 
     margin: Box
 
-    curve: string // closedCurvePropType.isRequired,
+    curve: ClosedCurveFactoryId
 
     gridLevels: number
     gridShape: 'circular' | 'linear'

@@ -34,7 +34,8 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@nivo/tooltip": "0.73.0"
+    "@nivo/tooltip": "0.73.0",
+    "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {
     "@nivo/tooltip": "0.73.0",

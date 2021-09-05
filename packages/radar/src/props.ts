@@ -6,7 +6,7 @@ export const svgDefaultProps = {
 
     maxValue: 'auto' as const,
 
-    curve: 'linearClosed',
+    curve: 'linearClosed' as const,
 
     borderWidth: 2,
     borderColor: { from: 'color' },

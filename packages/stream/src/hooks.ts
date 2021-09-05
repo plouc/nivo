@@ -5,8 +5,7 @@ import {
     useTheme,
     usePropertyAccessor,
     useValueFormatter,
-    // @ts-ignore
-    curveFromProp,
+    useCurveInterpolation,
     // @ts-ignore
     stackOrderFromProp,
     // @ts-ignore
@@ -57,14 +56,15 @@ export const useStream = <RawDatum extends StreamDatum>({
     dotBorderColor?: StreamCommonProps<RawDatum>['dotBorderColor']
     borderColor?: StreamCommonProps<RawDatum>['borderColor']
 }) => {
+    const areaCurveFactory = useCurveInterpolation(curve)
     const areaGenerator = useMemo(
         () =>
             area<StreamLayerDatum>()
                 .x(({ x }) => x)
                 .y0(({ y1 }) => y1)
                 .y1(({ y2 }) => y2)
-                .curve(curveFromProp(curve)),
-        [curve]
+                .curve(areaCurveFactory),
+        [areaCurveFactory]
     )
 
     const stack = useMemo(

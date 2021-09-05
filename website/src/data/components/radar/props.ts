@@ -1,4 +1,3 @@
-// @ts-ignore
 import { closedCurvePropKeys } from '@nivo/core'
 import { svgDefaultProps as defaults, RadarDots } from '@nivo/radar'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
