@@ -42,7 +42,7 @@ export const RadarShapes = <D extends Record<string, unknown>>({
     }, [radiusScale, angleStep, curveFactory])
 
     const { animate, config: springConfig } = useMotionConfig()
-    const animatedPath = useAnimatedPath(lineGenerator(data.map(d => d[key])))
+    const animatedPath = useAnimatedPath(lineGenerator(data.map(d => d[key] as number)) as string)
     const animatedProps = useSpring<{ fill: string; stroke: string }>({
         fill: colorByKey[key],
         stroke: getBorderColor({ key, color: colorByKey[key] }),

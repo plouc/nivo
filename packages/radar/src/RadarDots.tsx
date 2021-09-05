@@ -8,7 +8,7 @@ import {
     DotsItem,
 } from '@nivo/core'
 import { InheritedColorConfig, getInheritedColorGenerator } from '@nivo/colors'
-import { RadarDataProps } from './types'
+import { RadarCommonProps, RadarDataProps } from './types'
 import { ScaleLinear } from 'd3-scale'
 
 interface RadarDotsProps<D extends Record<string, unknown>> {
@@ -18,7 +18,7 @@ interface RadarDotsProps<D extends Record<string, unknown>> {
     getIndex: (d: D) => string | number
     colorByKey: Record<string | number, string>
     angleStep: number
-    // symbol: PropTypes.func,
+    symbol?: RadarCommonProps<D>['dotSymbol']
     size?: number
     color?: InheritedColorConfig<any>
     borderWidth?: number

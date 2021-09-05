@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateWinesTastes } from '@nivo/generators'
+import { ClosedCurveFactoryId } from '@nivo/core'
 // @ts-ignore
 import { Radar, GridLabelProps } from '../src'
 
@@ -19,7 +20,12 @@ const commonProperties = {
     animate: true,
 }
 
-const curveOptions = ['linearClosed', 'basisClosed', 'catmullRomClosed', 'cardinalClosed']
+const curveOptions: ClosedCurveFactoryId[] = [
+    'linearClosed',
+    'basisClosed',
+    'catmullRomClosed',
+    'cardinalClosed',
+]
 
 export const Default = () => <Radar {...commonProperties} />
 
@@ -31,14 +37,14 @@ export const LinearGridShape = () => (
     <Radar
         {...commonProperties}
         gridShape="linear"
-        curve={select('curve', curveOptions, 'linearClosed')}
+        curve={select<ClosedCurveFactoryId>('curve', curveOptions, 'linearClosed')}
     />
 )
 
 export const WithDotLabel = () => (
     <Radar
         {...commonProperties}
-        curve={select('curve', curveOptions, 'linearClosed')}
+        curve={select<ClosedCurveFactoryId>('curve', curveOptions, 'linearClosed')}
         gridShape="linear"
         dotSize={10}
         dotBorderColor="#fff"

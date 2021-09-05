@@ -10,7 +10,6 @@ interface RadarTooltipProps<D extends Record<string, unknown>> {
     radius: number
     angleStep: number
     tooltipFormat: any
-    // tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export const RadarTooltip = <D extends Record<string, unknown>>({
