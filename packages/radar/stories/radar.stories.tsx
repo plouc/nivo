@@ -1,7 +1,14 @@
-import { storiesOf } from '@storybook/react'
+import { Meta } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateWinesTastes } from '@nivo/generators'
-import { Radar } from '../src'
+// @ts-ignore
+import { Radar, GridLabelProps } from '../src'
+
+export default {
+    component: Radar,
+    title: 'Radar',
+    decorators: [withKnobs],
+} as Meta
 
 const commonProperties = {
     width: 900,
@@ -14,25 +21,21 @@ const commonProperties = {
 
 const curveOptions = ['linearClosed', 'basisClosed', 'catmullRomClosed', 'cardinalClosed']
 
-const stories = storiesOf('Radar', module)
+export const Default = () => <Radar {...commonProperties} />
 
-stories.addDecorator(withKnobs)
-
-stories.add('default', () => <Radar {...commonProperties} />)
-
-stories.add('with custom curve', () => (
+export const WithCustomCurve = () => (
     <Radar {...commonProperties} gridShape="linear" curve="catmullRomClosed" />
-))
+)
 
-stories.add('linear grid shape', () => (
+export const LinearGridShape = () => (
     <Radar
         {...commonProperties}
         gridShape="linear"
         curve={select('curve', curveOptions, 'linearClosed')}
     />
-))
+)
 
-stories.add('with dot label', () => (
+export const WithDotLabel = () => (
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'linearClosed')}
@@ -43,9 +46,9 @@ stories.add('with dot label', () => (
         enableDotLabel={true}
         gridLabelOffset={36}
     />
-))
+)
 
-stories.add('abusing dots', () => (
+export const AbusingDots = () => (
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'catmullRomClosed')}
@@ -54,9 +57,19 @@ stories.add('abusing dots', () => (
         dotLabelYOffset={3}
         gridLabelOffset={36}
     />
-))
+)
 
-const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
+const CustomSymbol = ({
+    size,
+    color,
+    borderWidth,
+    borderColor,
+}: {
+    size: number
+    color: string
+    borderWidth: number
+    borderColor: string
+}) => (
     <rect
         transform={`rotate(45) translate(${size * -0.5}, ${size * -0.5})`}
         width={size}
@@ -68,7 +81,7 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     />
 )
 
-stories.add('custom dot symbol', () => (
+export const CustomDotSymbol = () => (
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'catmullRomClosed')}
@@ -78,9 +91,9 @@ stories.add('custom dot symbol', () => (
         dotBorderColor="inherit:darker(0.3)"
         gridLabelOffset={36}
     />
-))
+)
 
-stories.add('with formatted values', () => (
+export const WithFormattedValues = () => (
     <Radar
         {...commonProperties}
         tooltipFormat={value =>
@@ -89,9 +102,9 @@ stories.add('with formatted values', () => (
             })} ₽`
         }
     />
-))
+)
 
-stories.add('with formatted values per key', () => (
+export const WithFormattedValuesPerKey = () => (
     <Radar
         {...commonProperties}
         tooltipFormat={(value, key) => {
@@ -104,24 +117,24 @@ stories.add('with formatted values per key', () => (
             }
         }}
     />
-))
+)
 
-const LabelComponent = ({ id, anchor }) => (
-    <g transform={`translate(${anchor === 'end' ? -60 : anchor === 'middle' ? -30 : 0}, -20)`}>
-        <text>{id}</text>
-        <text
-            y={24}
-            style={{
-                fontSize: 24,
-                fontWeight: 'bold',
-                fill: '#3a9896',
-            }}
-        >
-            +{Math.round(Math.random() * 100)}%
-        </text>
+const LabelComponent = ({ id, x, y, anchor }: GridLabelProps) => (
+    <g transform={`translate(${x}, ${y})`}>
+        <g transform={`translate(${anchor === 'end' ? -60 : anchor === 'middle' ? -30 : 0}, -20)`}>
+            <text>{id}</text>
+            <text
+                y={24}
+                style={{
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                    fill: '#3a9896',
+                }}
+            >
+                +{Math.round(Math.random() * 100)}%
+            </text>
+        </g>
     </g>
 )
 
-stories.add('custom label component', () => (
-    <Radar {...commonProperties} gridLabel={LabelComponent} />
-))
+export const CustomLabelComponent = () => <Radar {...commonProperties} gridLabel={LabelComponent} />
