@@ -13,7 +13,7 @@ interface RadarTooltipItemProps<D extends Record<string, unknown>> {
     endAngle: number
     radius: number
     arcGenerator: Arc<any, { startAngle: number; endAngle: number }>
-    // tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    tooltipFormat: any
 }
 
 export const RadarTooltipItem = <D extends Record<string, unknown>>({
