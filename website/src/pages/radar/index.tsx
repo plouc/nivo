@@ -1,6 +1,6 @@
 import React from 'react'
 import { generateWinesTastes } from '@nivo/generators'
-import { ResponsiveRadar } from '@nivo/radar'
+import { ResponsiveRadar, svgDefaultProps } from '@nivo/radar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radar/meta.yml'
 import mapper from '../../data/components/radar/mapper'
@@ -79,6 +79,7 @@ const Radar = () => (
         currentFlavor="svg"
         properties={groups}
         initialProperties={initialProperties}
+        defaultProperties={svgDefaultProps}
         propertiesMapper={mapper}
         codePropertiesMapper={(properties, data) => ({
             keys: data.keys,

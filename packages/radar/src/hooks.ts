@@ -1,10 +1,6 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
-import {
-    // @ts-ignore
-    useCurveInterpolation,
-    usePropertyAccessor,
-} from '@nivo/core'
+import { useCurveInterpolation, usePropertyAccessor } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
 import { RadarCommonProps, RadarDataProps } from './types'
@@ -64,7 +60,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         }
     }, [keys, indexBy, data, maxValue, width, height])
 
-    const curveInterpolator = useCurveInterpolation(curve)
+    const curveFactory = useCurveInterpolation(curve)
 
     const legendData = keys.map(key => ({
         id: key,
@@ -81,7 +77,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         centerX,
         centerY,
         angleStep,
-        curveInterpolator,
+        curveFactory,
         legendData,
     }
 }

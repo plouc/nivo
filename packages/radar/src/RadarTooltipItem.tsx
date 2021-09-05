@@ -38,10 +38,11 @@ export const RadarTooltipItem = <D extends Record<string, unknown>>({
             key,
             tooltipFormatter(datum[key], key),
         ])
+        // sorting won't work if values are formatted to string
         rows.sort((a, b) => a[2] - b[2])
         rows.reverse()
 
-        return <TableTooltip title={<strong>{index}</strong>} rows={rows} theme={theme} />
+        return <TableTooltip title={<strong>{index}</strong>} rows={rows} />
     }, [datum, keys, index, colorByKey, theme, tooltipFormatter])
     const showItemTooltip = useCallback(
         event => {

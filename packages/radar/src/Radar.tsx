@@ -66,7 +66,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         centerX,
         centerY,
         angleStep,
-        curveInterpolator,
+        curveFactory,
         legendData,
     } = useRadar<D>({
         data,
@@ -113,7 +113,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         colorByKey={colorByKey}
                         radiusScale={radiusScale}
                         angleStep={angleStep}
-                        curveInterpolator={curveInterpolator}
+                        curveFactory={curveFactory}
                         borderWidth={borderWidth}
                         borderColor={borderColor}
                         fillOpacity={fillOpacity}
