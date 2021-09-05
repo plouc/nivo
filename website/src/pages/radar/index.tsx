@@ -70,36 +70,29 @@ const initialProperties = {
     ],
 }
 
-const Radar = () => {
-    return (
-        <ComponentTemplate
-            name="Radar"
-            meta={meta.Radar}
-            icon="radar"
-            flavors={meta.flavors}
-            currentFlavor="svg"
-            properties={groups}
-            initialProperties={initialProperties}
-            propertiesMapper={mapper}
-            codePropertiesMapper={(properties, data) => ({
-                keys: data.keys,
-                ...properties,
-            })}
-            generateData={generateWinesTastes}
-            getTabData={data => data.data}
-        >
-            {(properties, data, theme) => {
-                return (
-                    <ResponsiveRadar
-                        data={data.data}
-                        keys={data.keys}
-                        {...properties}
-                        theme={theme}
-                    />
-                )
-            }}
-        </ComponentTemplate>
-    )
-}
+const Radar = () => (
+    <ComponentTemplate
+        name="Radar"
+        meta={meta.Radar}
+        icon="radar"
+        flavors={meta.flavors}
+        currentFlavor="svg"
+        properties={groups}
+        initialProperties={initialProperties}
+        propertiesMapper={mapper}
+        codePropertiesMapper={(properties, data) => ({
+            keys: data.keys,
+            ...properties,
+        })}
+        generateData={generateWinesTastes}
+        getTabData={data => data.data}
+    >
+        {(properties, data, theme) => {
+            return (
+                <ResponsiveRadar data={data.data} keys={data.keys} {...properties} theme={theme} />
+            )
+        }}
+    </ComponentTemplate>
+)
 
 export default Radar

@@ -14,6 +14,15 @@ declare module '*funnel/meta.yml' {
     export default meta
 }
 
+declare module '*radar/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        Radar: ChartMeta
+    }
+
+    export default meta
+}
+
 declare module '*sankey/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
