@@ -177,7 +177,8 @@ const props: ChartProperty[] = [
         group: 'Style',
         type: 'string',
         required: false,
-        help: 'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) for shapes.',
+        help:
+            'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) for shapes.',
         flavors: ['svg'],
         defaultValue: defaults.blendMode,
         controlType: 'blendMode',

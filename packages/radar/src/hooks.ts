@@ -34,10 +34,13 @@ export const useRadar = <D extends Record<string, unknown>>({
     const getColor = useOrdinalColorScale<{ key: string | number; index: number }>(colors, 'key')
     const colorByKey: Record<string | number, string> = useMemo(
         () =>
-            keys.reduce((mapping: Record<string | number, string>, key: string | number, index: number) => {
-                mapping[key] = getColor({ key, index })
-                return mapping
-            }, {} as Record<string | number, string>),
+            keys.reduce(
+                (mapping: Record<string | number, string>, key: string | number, index: number) => {
+                    mapping[key] = getColor({ key, index })
+                    return mapping
+                },
+                {} as Record<string | number, string>
+            ),
         [keys, getColor]
     )
 
