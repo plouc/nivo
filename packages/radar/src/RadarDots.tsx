@@ -11,13 +11,13 @@ interface RadarDotsProps<D extends Record<string, unknown>> {
     getIndex: (d: D) => string
     colorByKey: RadarColorMapping
     angleStep: number
-    symbol?: RadarCommonProps['dotSymbol']
+    symbol?: RadarCommonProps<D>['dotSymbol']
     size: number
-    color: RadarCommonProps['dotColor']
+    color: RadarCommonProps<D>['dotColor']
     borderWidth: number
-    borderColor: RadarCommonProps['dotBorderColor']
+    borderColor: RadarCommonProps<D>['dotBorderColor']
     enableLabel: boolean
-    label: RadarCommonProps['dotLabel']
+    label: RadarCommonProps<D>['dotLabel']
     formatValue: (value: number, context: string) => string
     labelYOffset: number
 }

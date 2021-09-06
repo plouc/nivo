@@ -1,4 +1,4 @@
-import { ReactNode, Fragment } from 'react'
+import { ReactNode, Fragment, createElement } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { RadarLayer } from './RadarLayer'
@@ -69,6 +69,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         angleStep,
         curveFactory,
         legendData,
+        customLayerProps,
     } = useRadar<D>({
         data,
         keys,
@@ -92,7 +93,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     if (layers.includes('grid')) {
         layerById.grid = (
             <g key="grid" transform={`translate(${centerX}, ${centerY})`}>
-                <RadarGrid
+                <RadarGrid<D>
                     levels={gridLevels}
                     shape={gridShape}
                     radius={radius}
@@ -194,11 +195,13 @@ const InnerRadar = <D extends Record<string, unknown>>({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
         >
-            {layerById.grid}
-            {layerById.layers}
-            {layerById.slices}
-            {layerById.dots}
-            {layerById.legends}
+            {layers.map((layer, i) => {
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
+                }
+
+                return layerById?.[layer] ?? null
+            })}
         </SvgWrapper>
     )
 }

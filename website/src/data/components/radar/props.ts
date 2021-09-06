@@ -406,6 +406,22 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this to insert extra layers
+            to the chart, the extra layer should be a component.
+            
+            The layer function which will receive the chart's
+            context & computed data and must return a valid SVG element.
+        `,
+        required: false,
+        type: '(RadarLayerId | FunctionComponent<RadarCustomLayerProps>)[]',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.layers,
+    },
+    {
         key: 'isInteractive',
         group: 'Interactivity',
         type: 'boolean',

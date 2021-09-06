@@ -57,14 +57,17 @@ const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelL
     )
 }
 
-interface RadarGridLevelsProps {
-    shape: RadarCommonProps['gridShape']
+interface RadarGridLevelsProps<D extends Record<string, unknown>> {
+    shape: RadarCommonProps<D>['gridShape']
     radius: number
     angleStep: number
     dataLength: number
 }
 
-export const RadarGridLevels = ({ shape, ...props }: RadarGridLevelsProps) => {
+export const RadarGridLevels = <D extends Record<string, unknown>>({
+    shape,
+    ...props
+}: RadarGridLevelsProps<D>) => {
     return shape === 'circular' ? (
         <RadarGridLevelCircular radius={props.radius} />
     ) : (

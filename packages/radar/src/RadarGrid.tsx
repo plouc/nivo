@@ -1,12 +1,12 @@
-import { useMemo } from 'react'
+import { SVGProps, useMemo } from 'react'
 import { positionFromAngle, useTheme } from '@nivo/core'
 import { RadarGridLabels } from './RadarGridLabels'
 import { RadarGridLevels } from './RadarGridLevels'
 import { GridLabelComponent, RadarCommonProps } from './types'
 
-interface RadarGridProps {
+interface RadarGridProps<D extends Record<string, unknown>> {
     indices: string[]
-    shape: RadarCommonProps['gridShape']
+    shape: RadarCommonProps<D>['gridShape']
     radius: number
     levels: number
     angleStep: number
@@ -14,7 +14,7 @@ interface RadarGridProps {
     labelOffset: number
 }
 
-export const RadarGrid = ({
+export const RadarGrid = <D extends Record<string, unknown>>({
     indices,
     levels,
     shape,
@@ -22,7 +22,7 @@ export const RadarGrid = ({
     angleStep,
     label,
     labelOffset,
-}: RadarGridProps) => {
+}: RadarGridProps<D>) => {
     const theme = useTheme()
     const { radii, angles } = useMemo(() => {
         return {
@@ -44,12 +44,12 @@ export const RadarGrid = ({
                         y1={0}
                         x2={position.x}
                         y2={position.y}
-                        {...(theme.grid.line as any)}
+                        {...(theme.grid.line as SVGProps<SVGLineElement>)}
                     />
                 )
             })}
             {radii.map((radius, i) => (
-                <RadarGridLevels
+                <RadarGridLevels<D>
                     key={`level.${i}`}
                     shape={shape}
                     radius={radius}

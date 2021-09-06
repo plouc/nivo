@@ -3,7 +3,7 @@ import { scaleLinear } from 'd3-scale'
 import { useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
-import { RadarColorMapping, RadarCommonProps, RadarDataProps } from './types'
+import { RadarColorMapping, RadarCommonProps, RadarDataProps, RadarCustomLayerProps } from './types'
 
 export const useRadar = <D extends Record<string, unknown>>({
     data,
@@ -19,12 +19,12 @@ export const useRadar = <D extends Record<string, unknown>>({
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     indexBy: RadarDataProps<D>['indexBy']
-    maxValue: RadarCommonProps['maxValue']
-    valueFormat?: RadarCommonProps['valueFormat']
-    curve: RadarCommonProps['curve']
+    maxValue: RadarCommonProps<D>['maxValue']
+    valueFormat?: RadarCommonProps<D>['valueFormat']
+    curve: RadarCommonProps<D>['curve']
     width: number
     height: number
-    colors: RadarCommonProps['colors']
+    colors: RadarCommonProps<D>['colors']
 }) => {
     const getIndex = usePropertyAccessor<D, string>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -63,6 +63,20 @@ export const useRadar = <D extends Record<string, unknown>>({
 
     const curveFactory = useCurveInterpolation(curve)
 
+    const customLayerProps: RadarCustomLayerProps<D> = useMemo(
+        () => ({
+            data,
+            keys,
+            indices,
+            colorByKey,
+            centerX,
+            centerY,
+            radiusScale,
+            angleStep,
+        }),
+        [data, keys, indices, colorByKey, centerX, centerY, radiusScale, angleStep]
+    )
+
     const legendData = keys.map(key => ({
         id: key,
         label: key,
@@ -81,5 +95,6 @@ export const useRadar = <D extends Record<string, unknown>>({
         angleStep,
         curveFactory,
         legendData,
+        customLayerProps,
     }
 }
