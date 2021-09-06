@@ -14,7 +14,7 @@ interface RadarDotsProps<D extends Record<string, unknown>> {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     radiusScale: ScaleLinear<number, number>
-    getIndex: (d: D) => string | number
+    getIndex: (d: D) => string
     colorByKey: RadarColorMapping
     angleStep: number
     symbol?: RadarCommonProps['dotSymbol']
@@ -24,7 +24,7 @@ interface RadarDotsProps<D extends Record<string, unknown>> {
     borderColor: RadarCommonProps['dotBorderColor']
     enableLabel: boolean
     label: RadarCommonProps['dotLabel']
-    formatValue: (value: number) => string
+    formatValue: (value: number, context: string) => string
     labelYOffset: number
 }
 
@@ -61,7 +61,7 @@ export const RadarDots = <D extends Record<string, unknown>>({
                         index,
                         key,
                         value,
-                        formattedValue: formatValue(value),
+                        formattedValue: formatValue(value, key),
                         color: colorByKey[key],
                     }
 

@@ -1,13 +1,13 @@
 import { arc as d3Arc } from 'd3-shape'
 import { RadarTooltipItem } from './RadarTooltipItem'
-import { RadarDataProps } from './types'
+import { RadarColorMapping, RadarDataProps } from './types'
 
 interface RadarTooltipProps<D extends Record<string, unknown>> {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     getIndex: (d: D) => string | number
-    formatValue: (value: number) => string
-    colorByKey: Record<string | number, string>
+    formatValue: (value: number, context: string) => string
+    colorByKey: RadarColorMapping
     radius: number
     angleStep: number
 }

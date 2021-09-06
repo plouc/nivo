@@ -14,7 +14,7 @@ const textAnchorFromAngle = (_angle: number) => {
 interface RadarGridLabelsProps {
     radius: number
     angles: number[]
-    indices: string[] | number[]
+    indices: string[]
     label: GridLabelComponent
     labelOffset: number
 }

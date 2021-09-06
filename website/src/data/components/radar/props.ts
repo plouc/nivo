@@ -7,14 +7,10 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
-        type: 'Array<object | Array>',
+        type: 'Datum[]',
         required: true,
         help: 'Chart data.',
         description: `
-            Chart data. If using objects indexBy & keys
-            should be strings, if using array they
-            should be numbers.
-            
             For example, given this config:
             \`\`\`
             [
@@ -35,7 +31,7 @@ const props: ChartProperty[] = [
     {
         key: 'indexBy',
         group: 'Base',
-        type: 'string | number',
+        type: 'string',
         required: true,
         help: 'Key to use to index the data.',
         description: `
@@ -47,7 +43,7 @@ const props: ChartProperty[] = [
     {
         key: 'keys',
         group: 'Base',
-        type: 'string[] | number[]',
+        type: 'string[]',
         required: true,
         help: 'Keys to use to determine each serie.',
         description: `

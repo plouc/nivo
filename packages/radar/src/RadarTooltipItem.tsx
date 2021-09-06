@@ -8,15 +8,15 @@ interface RadarTooltipItemProps<D extends Record<string, unknown>> {
     datum: D
     keys: RadarDataProps<D>['keys']
     index: string | number
-    formatValue: (value: number) => string
-    colorByKey: Record<string | number, string>
+    formatValue: (value: number, context: string) => string
+    colorByKey: Record<string, string>
     startAngle: number
     endAngle: number
     radius: number
     arcGenerator: Arc<any, { startAngle: number; endAngle: number }>
 }
 
-type TooltipRow = [ReactNode, string | number, number | string]
+type TooltipRow = [ReactNode, string, number | string]
 
 export const RadarTooltipItem = <D extends Record<string, unknown>>({
     datum,
@@ -45,7 +45,7 @@ export const RadarTooltipItem = <D extends Record<string, unknown>>({
 
         // then replace with formatted values
         rows.forEach(row => {
-            row[2] = formatValue(row[2] as number)
+            row[2] = formatValue(row[2] as number, row[1])
         })
 
         return <TableTooltip title={<strong>{index}</strong>} rows={rows} />

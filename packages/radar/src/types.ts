@@ -15,12 +15,12 @@ import { LegendProps } from '@nivo/legends'
 
 export interface RadarDataProps<D extends Record<string, unknown>> {
     data: D[]
-    keys: string[] | number[]
-    indexBy: PropertyAccessor<D, string | number>
+    keys: string[]
+    indexBy: PropertyAccessor<D, string>
 }
 
 export interface GridLabelProps {
-    id: string | number
+    id: string
     anchor: 'start' | 'middle' | 'end'
     angle: number
     x: number
@@ -32,8 +32,8 @@ export interface GridLabelProps {
 export type GridLabelComponent = FunctionComponent<GridLabelProps>
 
 export type PointData = {
-    index: string | number
-    key: string | number
+    index: string
+    key: string
     value: number
     formattedValue: string
     color: string
@@ -61,11 +61,11 @@ export type DotSymbolComponent = FunctionComponent<DotSymbolProps>
 
 export type RadarLayerId = 'grid' | 'shapes' | 'dots' | 'legends'
 
-export type RadarColorMapping = Record<string | number, string>
+export type RadarColorMapping = Record<string, string>
 
 export interface RadarCommonProps {
     maxValue: number | 'auto'
-    valueFormat: ValueFormat<number>
+    valueFormat: ValueFormat<number, string>
 
     layers: RadarLayerId[]
 
@@ -90,11 +90,11 @@ export interface RadarCommonProps {
     dotLabelYOffset: number
 
     theme: Theme
-    colors: OrdinalColorScaleConfig<{ key: string | number; index: number }>
+    colors: OrdinalColorScaleConfig<{ key: string; index: number }>
     fillOpacity: number
     blendMode: CssMixBlendMode
     borderWidth: number
-    borderColor: InheritedColorConfig<{ key: string | number; color: string }>
+    borderColor: InheritedColorConfig<{ key: string; color: string }>
 
     isInteractive: boolean
     tooltipFormat: ValueFormat<number>

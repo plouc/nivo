@@ -8,7 +8,7 @@ import { RadarCommonProps } from './types'
 
 interface RadarShapesProps<D extends Record<string, unknown>> {
     data: D[]
-    item: string | number
+    item: string
     colorByKey: Record<string | number, string>
     radiusScale: ScaleLinear<number, number>
     angleStep: number
