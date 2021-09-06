@@ -102,7 +102,7 @@ export const CustomDotSymbol = () => (
 export const WithFormattedValues = () => (
     <Radar
         {...commonProperties}
-        tooltipFormat={value =>
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`

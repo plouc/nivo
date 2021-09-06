@@ -17,6 +17,13 @@ export const svgDefaultProps = {
     gridLabel: RadarGridLabel,
 
     enableDots: true,
+    dotSize: 6,
+    dotColor: { from: 'color' },
+    dotBorderWidth: 0,
+    dotBorderColor: { from: 'color' },
+    enableDotLabel: false,
+    dotLabel: 'formattedValue',
+    dotLabelYOffset: -12,
 
     colors: { scheme: 'nivo' as const },
     fillOpacity: 0.25,

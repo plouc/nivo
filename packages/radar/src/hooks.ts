@@ -1,15 +1,16 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
-import { useCurveInterpolation, usePropertyAccessor } from '@nivo/core'
+import { useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
-import { RadarCommonProps, RadarDataProps } from './types'
+import { RadarColorMapping, RadarCommonProps, RadarDataProps } from './types'
 
 export const useRadar = <D extends Record<string, unknown>>({
     data,
     keys,
     indexBy,
     maxValue,
+    valueFormat,
     curve,
     width,
     height,
@@ -18,25 +19,24 @@ export const useRadar = <D extends Record<string, unknown>>({
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     indexBy: RadarDataProps<D>['indexBy']
-    maxValue: RadarCommonProps<D>['maxValue']
-    curve: RadarCommonProps<D>['curve']
+    maxValue: RadarCommonProps['maxValue']
+    valueFormat?: RadarCommonProps['valueFormat']
+    curve: RadarCommonProps['curve']
     width: number
     height: number
-    colors: RadarCommonProps<D>['colors']
+    colors: RadarCommonProps['colors']
 }) => {
     const getIndex = usePropertyAccessor<D, string | number>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex]) as string[] | number[]
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     const getColor = useOrdinalColorScale<{ key: string | number; index: number }>(colors, 'key')
-    const colorByKey: Record<string | number, string> = useMemo(
+    const colorByKey: RadarColorMapping = useMemo(
         () =>
-            keys.reduce(
-                (mapping: Record<string | number, string>, key: string | number, index: number) => {
-                    mapping[key] = getColor({ key, index })
-                    return mapping
-                },
-                {} as Record<string | number, string>
-            ),
+            (keys as (string | number)[]).reduce<RadarColorMapping>((mapping, key, index) => {
+                mapping[key] = getColor({ key, index })
+                return mapping
+            }, {}),
         [keys, getColor]
     )
 
@@ -72,6 +72,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     return {
         getIndex,
         indices,
+        formatValue,
         colorByKey,
         radius,
         radiusScale,

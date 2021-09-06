@@ -26,6 +26,7 @@
         { "path": "./packages/funnel" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
+        { "path": "./packages/radar" },
         { "path": "./packages/sankey" },
         { "path": "./packages/scatterplot" },
         { "path": "./packages/sunburst" },

@@ -65,7 +65,7 @@ const props: ChartProperty[] = [
     {
         key: 'valueFormat',
         group: 'Base',
-        type: 'string | (value: number) => string | number',
+        type: 'string | (value: number) => string',
         required: false,
         help: 'Optional formatter for values.',
         description: `
