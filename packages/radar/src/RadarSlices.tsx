@@ -1,8 +1,8 @@
 import { arc as d3Arc } from 'd3-shape'
-import { RadarTooltipItem } from './RadarTooltipItem'
-import { RadarColorMapping, RadarDataProps } from './types'
+import { RadarSlice } from './RadarSlice'
+import { RadarColorMapping, RadarCommonProps, RadarDataProps } from './types'
 
-interface RadarTooltipProps<D extends Record<string, unknown>> {
+interface RadarSlicesProps<D extends Record<string, unknown>> {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     getIndex: (d: D) => string | number
@@ -10,9 +10,10 @@ interface RadarTooltipProps<D extends Record<string, unknown>> {
     colorByKey: RadarColorMapping
     radius: number
     angleStep: number
+    tooltip: RadarCommonProps['sliceTooltip']
 }
 
-export const RadarTooltip = <D extends Record<string, unknown>>({
+export const RadarSlices = <D extends Record<string, unknown>>({
     data,
     keys,
     getIndex,
@@ -20,14 +21,15 @@ export const RadarTooltip = <D extends Record<string, unknown>>({
     colorByKey,
     radius,
     angleStep,
-}: RadarTooltipProps<D>) => {
+    tooltip,
+}: RadarSlicesProps<D>) => {
     const arc = d3Arc<{ startAngle: number; endAngle: number }>().outerRadius(radius).innerRadius(0)
 
     const halfAngleStep = angleStep * 0.5
     let rootStartAngle = -halfAngleStep
 
     return (
-        <g>
+        <>
             {data.map(d => {
                 const index = getIndex(d)
                 const startAngle = rootStartAngle
@@ -36,7 +38,7 @@ export const RadarTooltip = <D extends Record<string, unknown>>({
                 rootStartAngle += angleStep
 
                 return (
-                    <RadarTooltipItem
+                    <RadarSlice
                         key={index}
                         datum={d}
                         keys={keys}
@@ -47,9 +49,10 @@ export const RadarTooltip = <D extends Record<string, unknown>>({
                         endAngle={endAngle}
                         radius={radius}
                         arcGenerator={arc}
+                        tooltip={tooltip}
                     />
                 )
             })}
-        </g>
+        </>
     )
 }

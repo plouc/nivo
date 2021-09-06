@@ -3,7 +3,7 @@ import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { RadarShapes } from './RadarShapes'
 import { RadarGrid } from './RadarGrid'
-import { RadarTooltip } from './RadarTooltip'
+import { RadarSlices } from './RadarSlices'
 import { RadarDots } from './RadarDots'
 import { svgDefaultProps } from './props'
 import { RadarLayerId, RadarSvgProps } from './types'
@@ -44,6 +44,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     fillOpacity = svgDefaultProps.fillOpacity,
     blendMode = svgDefaultProps.blendMode,
     isInteractive = svgDefaultProps.isInteractive,
+    sliceTooltip = svgDefaultProps.sliceTooltip,
     legends = svgDefaultProps.legends,
     role,
     ariaLabel,
@@ -83,6 +84,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     const layerById: Record<RadarLayerId, ReactNode> = {
         grid: null,
         shapes: null,
+        slices: null,
         dots: null,
         legends: null,
     }
@@ -121,6 +123,23 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         blendMode={blendMode}
                     />
                 ))}
+            </g>
+        )
+    }
+
+    if (layers.includes('slices') && isInteractive) {
+        layerById.slices = (
+            <g key="slices" transform={`translate(${centerX}, ${centerY})`}>
+                <RadarSlices<D>
+                    data={data}
+                    keys={keys}
+                    getIndex={getIndex}
+                    formatValue={formatValue}
+                    colorByKey={colorByKey}
+                    radius={radius}
+                    angleStep={angleStep}
+                    tooltip={sliceTooltip}
+                />
             </g>
         )
     }
@@ -177,19 +196,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         >
             {layerById.grid}
             {layerById.shapes}
-            {isInteractive && (
-                <g transform={`translate(${centerX}, ${centerY})`}>
-                    <RadarTooltip<D>
-                        data={data}
-                        keys={keys}
-                        getIndex={getIndex}
-                        formatValue={formatValue}
-                        colorByKey={colorByKey}
-                        radius={radius}
-                        angleStep={angleStep}
-                    />
-                </g>
-            )}
+            {layerById.slices}
             {layerById.dots}
             {layerById.legends}
         </SvgWrapper>

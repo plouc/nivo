@@ -385,9 +385,9 @@ declare module '@nivo/core' {
     export type ValueFormat<Value, Context = void> =
         | string // d3 formatter
         // explicit formatting function
-        | Context extends void
-        ? (value: Value) => string
-        : (value: Value, context: Context) => string
+        | (Context extends void
+              ? (value: Value) => string
+              : (value: Value, context: Context) => string)
     export function getValueFormatter<Value, Context = void>(
         format?: ValueFormat<Value, Context>
     ): Context extends void ? (value: Value) => string : (value: Value, context: Context) => string

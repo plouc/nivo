@@ -1,10 +1,10 @@
-import { useMemo, useState, useCallback, ReactNode } from 'react'
+import { useMemo, useState, useCallback, createElement } from 'react'
 import { Arc } from 'd3-shape'
 import { positionFromAngle, useTheme } from '@nivo/core'
-import { TableTooltip, Chip, useTooltip } from '@nivo/tooltip'
-import { RadarDataProps } from './types'
+import { useTooltip } from '@nivo/tooltip'
+import { RadarCommonProps, RadarDataProps, RadarSliceTooltipDatum } from './types'
 
-interface RadarTooltipItemProps<D extends Record<string, unknown>> {
+interface RadarSliceProps<D extends Record<string, unknown>> {
     datum: D
     keys: RadarDataProps<D>['keys']
     index: string | number
@@ -14,11 +14,10 @@ interface RadarTooltipItemProps<D extends Record<string, unknown>> {
     endAngle: number
     radius: number
     arcGenerator: Arc<void, { startAngle: number; endAngle: number }>
+    tooltip: RadarCommonProps['sliceTooltip']
 }
 
-type TooltipRow = [ReactNode, string, number | string]
-
-export const RadarTooltipItem = <D extends Record<string, unknown>>({
+export const RadarSlice = <D extends Record<string, unknown>>({
     datum,
     keys,
     index,
@@ -28,35 +27,39 @@ export const RadarTooltipItem = <D extends Record<string, unknown>>({
     startAngle,
     endAngle,
     arcGenerator,
-}: RadarTooltipItemProps<D>) => {
+    tooltip,
+}: RadarSliceProps<D>) => {
     const [isHover, setIsHover] = useState(false)
     const theme = useTheme()
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const tooltip = useMemo(() => {
-        // first use number values to be able to sort
-        const rows: TooltipRow[] = keys.map(key => [
-            <Chip key={key} color={colorByKey[key]} />,
-            key,
-            datum[key] as number,
-        ])
-        rows.sort((a, b) => (a[2] as number) - (b[2] as number))
-        rows.reverse()
+    const tooltipData = useMemo(() => {
+        const data: RadarSliceTooltipDatum[] = keys.map(key => ({
+            color: colorByKey[key],
+            id: key,
+            value: datum[key] as number,
+            formattedValue: formatValue(datum[key] as number, key),
+        }))
+        data.sort((a, b) => a.value - b.value)
+        data.reverse()
 
-        // then replace with formatted values
-        rows.forEach(row => {
-            row[2] = formatValue(row[2] as number, row[1])
-        })
+        return data
+    }, [datum, keys, formatValue, colorByKey])
 
-        return <TableTooltip title={<strong>{index}</strong>} rows={rows} />
-    }, [datum, keys, index, formatValue, colorByKey])
     const showItemTooltip = useCallback(
         event => {
             setIsHover(true)
-            showTooltipFromEvent(tooltip, event)
+            showTooltipFromEvent(
+                createElement(tooltip, {
+                    index,
+                    data: tooltipData,
+                }),
+                event
+            )
         },
-        [showTooltipFromEvent, tooltip]
+        [showTooltipFromEvent, tooltip, index, tooltipData]
     )
+
     const hideItemTooltip = useCallback(() => {
         setIsHover(false)
         hideTooltip()

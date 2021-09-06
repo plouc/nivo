@@ -34,7 +34,7 @@ export const RadarGrid = ({
     }, [indices, levels, radius, angleStep])
 
     return (
-        <g>
+        <>
             {angles.map((angle, i) => {
                 const position = positionFromAngle(angle, radius)
                 return (
@@ -64,6 +64,6 @@ export const RadarGrid = ({
                 labelOffset={labelOffset}
                 label={label}
             />
-        </g>
+        </>
     )
 }

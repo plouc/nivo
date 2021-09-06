@@ -52,12 +52,26 @@ export interface PointProps {
     }
 }
 
-export type RadarLayerId = 'grid' | 'shapes' | 'dots' | 'legends'
+export interface RadarSliceTooltipDatum {
+    color: string
+    id: string
+    value: number
+    formattedValue: string
+}
+
+export interface RadarSliceTooltipProps {
+    index: string | number
+    data: RadarSliceTooltipDatum[]
+}
+export type RadarSliceTooltipComponent = FunctionComponent<RadarSliceTooltipProps>
+
+export type RadarLayerId = 'grid' | 'shapes' | 'slices' | 'dots' | 'legends'
 
 export type RadarColorMapping = Record<string, string>
 
 export interface RadarCommonProps {
     maxValue: number | 'auto'
+    // second argument passed to the formatter is the key
     valueFormat: ValueFormat<number, string>
 
     layers: RadarLayerId[]
@@ -90,7 +104,7 @@ export interface RadarCommonProps {
     borderColor: InheritedColorConfig<{ key: string; color: string }>
 
     isInteractive: boolean
-    tooltipFormat: ValueFormat<number>
+    sliceTooltip: RadarSliceTooltipComponent
 
     renderWrapper: boolean
 

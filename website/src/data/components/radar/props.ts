@@ -415,6 +415,14 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.isInteractive,
         controlType: 'switch',
     },
+    {
+        key: 'sliceTooltip',
+        group: 'Interactivity',
+        type: 'FunctionComponent<RadarSliceTooltipProps>',
+        required: false,
+        help: 'Override default slice tooltip.',
+        flavors: ['svg'],
+    },
     ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
 ]
 
