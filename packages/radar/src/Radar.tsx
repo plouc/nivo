@@ -20,6 +20,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     indexBy,
     layers = svgDefaultProps.layers,
     maxValue = svgDefaultProps.maxValue,
+    valueFormat,
     curve = svgDefaultProps.curve,
     margin: partialMargin,
     width,
@@ -32,19 +33,17 @@ const InnerRadar = <D extends Record<string, unknown>>({
     gridLabelOffset = svgDefaultProps.gridLabelOffset,
     enableDots = svgDefaultProps.enableDots,
     dotSymbol,
-    dotSize,
-    dotColor,
-    dotBorderWidth,
-    dotBorderColor,
-    enableDotLabel,
-    dotLabel,
-    dotLabelFormat,
-    dotLabelYOffset,
+    dotSize = svgDefaultProps.dotSize,
+    dotColor = svgDefaultProps.dotColor,
+    dotBorderWidth = svgDefaultProps.dotBorderWidth,
+    dotBorderColor = svgDefaultProps.dotBorderColor,
+    enableDotLabel = svgDefaultProps.enableDotLabel,
+    dotLabel = svgDefaultProps.dotLabel,
+    dotLabelYOffset = svgDefaultProps.dotLabelYOffset,
     colors = svgDefaultProps.colors,
     fillOpacity = svgDefaultProps.fillOpacity,
     blendMode = svgDefaultProps.blendMode,
     isInteractive = svgDefaultProps.isInteractive,
-    tooltipFormat,
     legends = svgDefaultProps.legends,
     role,
     ariaLabel,
@@ -60,6 +59,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     const {
         getIndex,
         indices,
+        formatValue,
         colorByKey,
         radius,
         radiusScale,
@@ -73,6 +73,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         keys,
         indexBy,
         maxValue,
+        valueFormat,
         curve,
         width: innerWidth,
         height: innerHeight,
@@ -89,7 +90,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     if (layers.includes('grid')) {
         layerById.grid = (
             <g key="grid" transform={`translate(${centerX}, ${centerY})`}>
-                <RadarGrid<D>
+                <RadarGrid
                     levels={gridLevels}
                     shape={gridShape}
                     radius={radius}
@@ -141,7 +142,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     borderColor={dotBorderColor}
                     enableLabel={enableDotLabel}
                     label={dotLabel}
-                    labelFormat={dotLabelFormat}
+                    formatValue={formatValue}
                     labelYOffset={dotLabelYOffset}
                 />
             </g>
@@ -182,10 +183,10 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         data={data}
                         keys={keys}
                         getIndex={getIndex}
+                        formatValue={formatValue}
                         colorByKey={colorByKey}
                         radius={radius}
                         angleStep={angleStep}
-                        tooltipFormat={tooltipFormat}
                     />
                 </g>
             )}

@@ -13,10 +13,10 @@ interface RadarShapesProps<D extends Record<string, unknown>> {
     radiusScale: ScaleLinear<number, number>
     angleStep: number
     curveFactory: CurveFactory
-    borderWidth: RadarCommonProps<D>['borderWidth']
-    borderColor: RadarCommonProps<D>['borderColor']
-    fillOpacity: RadarCommonProps<D>['fillOpacity']
-    blendMode: RadarCommonProps<D>['blendMode']
+    borderWidth: RadarCommonProps['borderWidth']
+    borderColor: RadarCommonProps['borderColor']
+    fillOpacity: RadarCommonProps['fillOpacity']
+    blendMode: RadarCommonProps['blendMode']
 }
 
 export const RadarShapes = <D extends Record<string, unknown>>({

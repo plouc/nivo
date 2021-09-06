@@ -9,6 +9,7 @@ import { groups } from '../../data/components/radar/props'
 const initialProperties = {
     indexBy: 'taste',
     maxValue: 'auto',
+    valueFormat: { format: '>-.2f', enabled: true },
 
     margin: {
         top: 70,
@@ -26,14 +27,14 @@ const initialProperties = {
     gridShape: 'circular',
     gridLabelOffset: 36,
 
-    enableDots: true,
+    enableDots: svgDefaultProps.enableDots,
     dotSize: 10,
     dotColor: { theme: 'background' },
     dotBorderWidth: 2,
-    dotBorderColor: { from: 'color' },
-    enableDotLabel: true,
-    dotLabel: 'value',
-    dotLabelYOffset: -12,
+    dotBorderColor: svgDefaultProps.dotBorderColor,
+    enableDotLabel: svgDefaultProps.enableDotLabel,
+    dotLabel: svgDefaultProps.dotLabel,
+    dotLabelYOffset: svgDefaultProps.dotLabelYOffset,
 
     colors: { scheme: 'nivo' },
     fillOpacity: 0.25,

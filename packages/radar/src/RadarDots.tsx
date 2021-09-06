@@ -1,49 +1,31 @@
-import { useMemo, ReactNode } from 'react'
+import { useMemo } from 'react'
+import { ScaleLinear } from 'd3-scale'
 import {
     useTheme,
     positionFromAngle,
     // @ts-ignore: core package should be converted to TypeScript
-    getLabelGenerator,
-    // @ts-ignore: core package should be converted to TypeScript
     DotsItem,
+    usePropertyAccessor,
 } from '@nivo/core'
-import { InheritedColorConfig, getInheritedColorGenerator } from '@nivo/colors'
-import { RadarCommonProps, RadarDataProps } from './types'
-import { ScaleLinear } from 'd3-scale'
+import { getInheritedColorGenerator } from '@nivo/colors'
+import { RadarCommonProps, RadarDataProps, PointProps, PointData, RadarColorMapping } from './types'
 
 interface RadarDotsProps<D extends Record<string, unknown>> {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     radiusScale: ScaleLinear<number, number>
     getIndex: (d: D) => string | number
-    colorByKey: Record<string | number, string>
+    colorByKey: RadarColorMapping
     angleStep: number
-    symbol?: RadarCommonProps<D>['dotSymbol']
-    size?: number
-    color?: InheritedColorConfig<any>
-    borderWidth?: number
-    borderColor?: InheritedColorConfig<any>
-    enableLabel?: boolean
-    // label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    // labelFormat: PropTypes.string,
-    labelYOffset?: number
-}
-
-interface Point {
-    key: string
-    label: ReactNode | null
-    data: {
-        index: string | number
-        key: string | number
-        value: number
-        color: string
-    }
-    style: {
-        fill: string
-        stroke: string
-        x: number
-        y: number
-    }
+    symbol?: RadarCommonProps['dotSymbol']
+    size: number
+    color: RadarCommonProps['dotColor']
+    borderWidth: number
+    borderColor: RadarCommonProps['dotBorderColor']
+    enableLabel: boolean
+    label: RadarCommonProps['dotLabel']
+    formatValue: (value: number) => string
+    labelYOffset: number
 }
 
 export const RadarDots = <D extends Record<string, unknown>>({
@@ -60,25 +42,29 @@ export const RadarDots = <D extends Record<string, unknown>>({
     borderColor = { from: 'color' },
     enableLabel = false,
     label = 'value',
-    labelFormat,
+    formatValue,
     labelYOffset,
 }: RadarDotsProps<D>) => {
     const theme = useTheme()
     const fillColor = getInheritedColorGenerator(color, theme)
     const strokeColor = getInheritedColorGenerator(borderColor, theme)
-    const getLabel = getLabelGenerator(label, labelFormat)
+    const getLabel = usePropertyAccessor<PointData, string | number>(label)
 
-    const points: Point[] = useMemo(
+    const points: PointProps[] = useMemo(
         () =>
             data.reduce((acc, datum, i) => {
                 const index = getIndex(datum)
                 keys.forEach(key => {
-                    const pointData: Point['data'] = {
+                    const value = datum[key] as number
+
+                    const pointData: PointData = {
                         index,
                         key,
-                        value: datum[key] as number,
+                        value,
+                        formattedValue: formatValue(value),
                         color: colorByKey[key],
                     }
+
                     acc.push({
                         key: `${key}.${index}`,
                         label: enableLabel ? getLabel(pointData) : null,
@@ -95,7 +81,7 @@ export const RadarDots = <D extends Record<string, unknown>>({
                 })
 
                 return acc
-            }, [] as Point[]),
+            }, [] as PointProps[]),
         [
             data,
             getIndex,

@@ -52,7 +52,7 @@ const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelL
 }
 
 interface RadarGridLevelsProps {
-    shape: RadarCommonProps<any>['gridShape']
+    shape: RadarCommonProps['gridShape']
     radius: number
     angleStep: number
     dataLength: number

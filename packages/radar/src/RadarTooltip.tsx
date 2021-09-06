@@ -6,20 +6,20 @@ interface RadarTooltipProps<D extends Record<string, unknown>> {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     getIndex: (d: D) => string | number
+    formatValue: (value: number) => string
     colorByKey: Record<string | number, string>
     radius: number
     angleStep: number
-    tooltipFormat: any
 }
 
 export const RadarTooltip = <D extends Record<string, unknown>>({
     data,
     keys,
     getIndex,
+    formatValue,
     colorByKey,
     radius,
     angleStep,
-    tooltipFormat,
 }: RadarTooltipProps<D>) => {
     const arc = d3Arc<{ startAngle: number; endAngle: number }>().outerRadius(radius).innerRadius(0)
 
@@ -41,12 +41,12 @@ export const RadarTooltip = <D extends Record<string, unknown>>({
                         datum={d}
                         keys={keys}
                         index={index}
+                        formatValue={formatValue}
                         colorByKey={colorByKey}
                         startAngle={startAngle}
                         endAngle={endAngle}
                         radius={radius}
                         arcGenerator={arc}
-                        tooltipFormat={tooltipFormat}
                     />
                 )
             })}

@@ -32,10 +32,23 @@ export interface GridLabelProps {
 export type GridLabelComponent = FunctionComponent<GridLabelProps>
 
 export type PointData = {
-    index: number
-    key: string
+    index: string | number
+    key: string | number
     value: number
+    formattedValue: string
     color: string
+}
+
+export interface PointProps {
+    key: string
+    label: ReactNode | null
+    data: PointData
+    style: {
+        fill: string
+        stroke: string
+        x: number
+        y: number
+    }
 }
 
 export interface DotSymbolProps {
@@ -48,8 +61,11 @@ export type DotSymbolComponent = FunctionComponent<DotSymbolProps>
 
 export type RadarLayerId = 'grid' | 'shapes' | 'dots' | 'legends'
 
-export interface RadarCommonProps<D extends Record<string, unknown>> {
+export type RadarColorMapping = Record<string | number, string>
+
+export interface RadarCommonProps {
     maxValue: number | 'auto'
+    valueFormat: ValueFormat<number>
 
     layers: RadarLayerId[]
 
@@ -69,7 +85,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     dotBorderWidth: number
     dotBorderColor: InheritedColorConfig<PointData>
     enableDotLabel: boolean
-    dotLabel: PropertyAccessor<D, ReactNode>
+    dotLabel: PropertyAccessor<PointData, string | number>
     dotLabelFormat: ValueFormat<number>
     dotLabelYOffset: number
 
@@ -93,7 +109,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps<D>> &
+export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps> &
     RadarDataProps<D> &
     Dimensions &
     ModernMotionProps
