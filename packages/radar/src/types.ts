@@ -65,7 +65,7 @@ export interface RadarSliceTooltipProps {
 }
 export type RadarSliceTooltipComponent = FunctionComponent<RadarSliceTooltipProps>
 
-export type RadarLayerId = 'grid' | 'shapes' | 'slices' | 'dots' | 'legends'
+export type RadarLayerId = 'grid' | 'layers' | 'slices' | 'dots' | 'legends'
 
 export type RadarColorMapping = Record<string, string>
 

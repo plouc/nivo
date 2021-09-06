@@ -6,7 +6,7 @@ import { useMotionConfig, useTheme, useAnimatedPath } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { RadarCommonProps } from './types'
 
-interface RadarShapesProps<D extends Record<string, unknown>> {
+interface RadarLayerProps<D extends Record<string, unknown>> {
     data: D[]
     item: string
     colorByKey: Record<string | number, string>
@@ -19,7 +19,7 @@ interface RadarShapesProps<D extends Record<string, unknown>> {
     blendMode: RadarCommonProps['blendMode']
 }
 
-export const RadarShapes = <D extends Record<string, unknown>>({
+export const RadarLayer = <D extends Record<string, unknown>>({
     data,
     item: key,
     colorByKey,
@@ -30,7 +30,7 @@ export const RadarShapes = <D extends Record<string, unknown>>({
     borderColor,
     fillOpacity,
     blendMode,
-}: RadarShapesProps<D>) => {
+}: RadarLayerProps<D>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor(borderColor, theme)
 
