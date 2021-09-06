@@ -17,7 +17,7 @@ export const getValueFormatter = format => {
     }
 
     // no formatting
-    return v => `${v}`
+    return value => `${value}`
 }
 
 export const useValueFormatter = format => useMemo(() => getValueFormatter(format), [format])

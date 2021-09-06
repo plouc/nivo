@@ -113,7 +113,7 @@ export const WithFormattedValues = () => (
 export const WithFormattedValuesPerKey = () => (
     <Radar
         {...commonProperties}
-        tooltipFormat={(value, key) => {
+        valueFormat={(value, key) => {
             if (key === 'syrah') {
                 return value + ' BitCoins'
             } else {

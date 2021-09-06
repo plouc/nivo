@@ -5,7 +5,7 @@ import { RadarGridLevels } from './RadarGridLevels'
 import { GridLabelComponent, RadarCommonProps } from './types'
 
 interface RadarGridProps {
-    indices: string[] | number[]
+    indices: string[]
     shape: RadarCommonProps['gridShape']
     radius: number
     levels: number

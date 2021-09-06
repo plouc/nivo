@@ -382,13 +382,18 @@ declare module '@nivo/core' {
         y: number
     }
 
-    export type ValueFormat<Value> =
-        // d3 formatter
-        | string
+    export type ValueFormat<Value, Context = never> =
+        | string // d3 formatter
         // explicit formatting function
-        | ((value: Value) => string)
-    export function getValueFormatter<Value>(format?: ValueFormat<Value>): (value: Value) => string
-    export function useValueFormatter<Value>(format?: ValueFormat<Value>): (value: Value) => string
+        | Context extends never
+        ? (value: Value) => string
+        : (value: Value, context: Context) => string
+    export function getValueFormatter<Value, Context = never>(
+        format?: ValueFormat<Value>
+    ): Context extends never ? (value: Value) => string : (value: Value, context: Context) => string
+    export function useValueFormatter<Value, Context = never>(
+        format?: ValueFormat<Value>
+    ): Context extends never ? (value: Value) => string : (value: Value, context: Context) => string
 
     export type PropertyAccessor<Datum, Value> =
         // path to use with `lodash.get()`

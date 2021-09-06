@@ -26,14 +26,14 @@ export const useRadar = <D extends Record<string, unknown>>({
     height: number
     colors: RadarCommonProps['colors']
 }) => {
-    const getIndex = usePropertyAccessor<D, string | number>(indexBy)
-    const indices = useMemo(() => data.map(getIndex), [data, getIndex]) as string[] | number[]
-    const formatValue = useValueFormatter<number>(valueFormat)
+    const getIndex = usePropertyAccessor<D, string>(indexBy)
+    const indices = useMemo(() => data.map(getIndex), [data, getIndex])
+    const formatValue = useValueFormatter<number, string>(valueFormat)
 
-    const getColor = useOrdinalColorScale<{ key: string | number; index: number }>(colors, 'key')
+    const getColor = useOrdinalColorScale<{ key: string; index: number }>(colors, 'key')
     const colorByKey: RadarColorMapping = useMemo(
         () =>
-            (keys as (string | number)[]).reduce<RadarColorMapping>((mapping, key, index) => {
+            keys.reduce<RadarColorMapping>((mapping, key, index) => {
                 mapping[key] = getColor({ key, index })
                 return mapping
             }, {}),
