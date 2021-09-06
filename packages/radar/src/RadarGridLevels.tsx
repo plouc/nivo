@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react'
+import { memo, SVGProps, useMemo } from 'react'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { animated, useSpring, to } from '@react-spring/web'
 import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
@@ -22,7 +22,7 @@ const RadarGridLevelCircular = memo(({ radius }: RadarGridLevelCircularProps) =>
         <animated.circle
             fill="none"
             r={to(animatedProps.radius, value => Math.max(value, 0))}
-            {...(theme.grid.line as any)}
+            {...(theme.grid.line as Omit<SVGProps<SVGCircleElement>, 'ref'>)}
         />
     )
 })
@@ -48,7 +48,13 @@ const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelL
     const points = Array.from({ length: dataLength }, (_, i) => i)
     const animatedPath = useAnimatedPath(radarLineGenerator(points) as string)
 
-    return <animated.path fill="none" d={animatedPath} {...(theme.grid.line as any)} />
+    return (
+        <animated.path
+            fill="none"
+            d={animatedPath}
+            {...(theme.grid.line as Omit<SVGProps<SVGPathElement>, 'ref'>)}
+        />
+    )
 }
 
 interface RadarGridLevelsProps {

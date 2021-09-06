@@ -500,4 +500,27 @@ declare module '@nivo/core' {
     export const curveFromProp: (interpolation: CurveFactoryId) => CurveFactory
 
     export const useCurveInterpolation: (interpolation: CurveFactoryId) => CurveFactory
+
+    export interface DotsItemSymbolProps {
+        size: number
+        color: string
+        borderWidth: number
+        borderColor: string
+    }
+    export type DotsItemSymbolComponent = React.FunctionComponent<DotsItemSymbolProps>
+
+    export interface DotsItemProps<D = any> {
+        datum: D
+        x: number
+        y: number
+        size: number
+        color: string
+        borderWidth: number
+        borderColor: string
+        label?: string | number
+        labelTextAnchor?: 'start' | 'middle' | 'end'
+        labelYOffset?: number
+        symbol?: DotsItemSymbolComponent
+    }
+    export const DotsItem: React.FunctionComponent<DotsItemProps>
 }

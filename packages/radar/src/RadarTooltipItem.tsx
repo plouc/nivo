@@ -13,7 +13,7 @@ interface RadarTooltipItemProps<D extends Record<string, unknown>> {
     startAngle: number
     endAngle: number
     radius: number
-    arcGenerator: Arc<any, { startAngle: number; endAngle: number }>
+    arcGenerator: Arc<void, { startAngle: number; endAngle: number }>
 }
 
 type TooltipRow = [ReactNode, string, number | string]
@@ -49,7 +49,7 @@ export const RadarTooltipItem = <D extends Record<string, unknown>>({
         })
 
         return <TableTooltip title={<strong>{index}</strong>} rows={rows} />
-    }, [datum, keys, index, formatValue, colorByKey, theme])
+    }, [datum, keys, index, formatValue, colorByKey])
     const showItemTooltip = useCallback(
         event => {
             setIsHover(true)

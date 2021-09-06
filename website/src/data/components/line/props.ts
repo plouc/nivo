@@ -1,4 +1,4 @@
-import { lineCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
+import { lineCurvePropKeys } from '@nivo/core'
 import { LineDefaultProps as defaults } from '@nivo/line'
 import {
     themeProperty,
@@ -383,7 +383,7 @@ const props: ChartProperty[] = [
         help: 'Label Y offset from point shape.',
         type: 'number',
         required: false,
-        defaultValue: dotDefaults.labelYOffset,
+        defaultValue: -12,
         controlType: 'range',
         controlOptions: {
             unit: 'px',
