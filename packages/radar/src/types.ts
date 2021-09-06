@@ -1,4 +1,4 @@
-import { FunctionComponent, AriaAttributes, ReactNode } from 'react'
+import { FunctionComponent, AriaAttributes } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import {
     Box,
@@ -9,6 +9,7 @@ import {
     PropertyAccessor,
     ValueFormat,
     ClosedCurveFactoryId,
+    DotsItemSymbolComponent,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -41,7 +42,7 @@ export type PointData = {
 
 export interface PointProps {
     key: string
-    label: ReactNode | null
+    label: string | number | undefined
     data: PointData
     style: {
         fill: string
@@ -50,14 +51,6 @@ export interface PointProps {
         y: number
     }
 }
-
-export interface DotSymbolProps {
-    size: number
-    color: InheritedColorConfig<PointData>
-    borderWidth: number
-    borderColor: InheritedColorConfig<PointData>
-}
-export type DotSymbolComponent = FunctionComponent<DotSymbolProps>
 
 export type RadarLayerId = 'grid' | 'shapes' | 'dots' | 'legends'
 
@@ -79,7 +72,7 @@ export interface RadarCommonProps {
     gridLabelOffset: number
 
     enableDots: boolean
-    dotSymbol: DotSymbolComponent
+    dotSymbol: DotsItemSymbolComponent
     dotSize: number
     dotColor: InheritedColorConfig<PointData>
     dotBorderWidth: number

@@ -59,7 +59,7 @@ export const useRadar = <D extends Record<string, unknown>>({
             centerY: height / 2,
             angleStep: (Math.PI * 2) / data.length,
         }
-    }, [keys, indexBy, data, maxValue, width, height])
+    }, [keys, data, maxValue, width, height])
 
     const curveFactory = useCurveInterpolation(curve)
 

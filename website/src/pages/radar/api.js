@@ -27,6 +27,7 @@ const RadarApi = () => {
                     keys,
                     indexBy: 'taste',
                     maxValue: 'auto',
+                    valueFormat: { format: '>-.2f', enabled: true },
 
                     margin: {
                         top: 70,

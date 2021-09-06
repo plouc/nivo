@@ -1,12 +1,6 @@
 import { useMemo } from 'react'
 import { ScaleLinear } from 'd3-scale'
-import {
-    useTheme,
-    positionFromAngle,
-    // @ts-ignore: core package should be converted to TypeScript
-    DotsItem,
-    usePropertyAccessor,
-} from '@nivo/core'
+import { useTheme, positionFromAngle, DotsItem, usePropertyAccessor } from '@nivo/core'
 import { getInheritedColorGenerator } from '@nivo/colors'
 import { RadarCommonProps, RadarDataProps, PointProps, PointData, RadarColorMapping } from './types'
 
@@ -67,7 +61,7 @@ export const RadarDots = <D extends Record<string, unknown>>({
 
                     acc.push({
                         key: `${key}.${index}`,
-                        label: enableLabel ? getLabel(pointData) : null,
+                        label: enableLabel ? getLabel(pointData) : undefined,
                         style: {
                             fill: fillColor(pointData),
                             stroke: strokeColor(pointData),
@@ -84,10 +78,12 @@ export const RadarDots = <D extends Record<string, unknown>>({
             }, [] as PointProps[]),
         [
             data,
+            keys,
             getIndex,
             colorByKey,
             enableLabel,
             getLabel,
+            formatValue,
             fillColor,
             strokeColor,
             angleStep,
@@ -109,7 +105,6 @@ export const RadarDots = <D extends Record<string, unknown>>({
                     borderColor={point.style.stroke}
                     label={point.label}
                     labelYOffset={labelYOffset}
-                    theme={theme}
                     datum={point.data}
                 />
             ))}

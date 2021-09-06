@@ -1,12 +1,20 @@
 import React from 'react'
 import { generateWinesTastes } from '@nivo/generators'
-import { ResponsiveRadar, svgDefaultProps } from '@nivo/radar'
+import { ResponsiveRadar, RadarSvgProps, svgDefaultProps } from '@nivo/radar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radar/meta.yml'
 import mapper from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radar/props'
 
-const initialProperties = {
+type MappedRadarProps = Omit<RadarSvgProps<any>, 'data' | 'keys' | 'width' | 'height'>
+type UnmappedRadarProps = Omit<MappedRadarProps, 'valueFormat'> & {
+    valueFormat: {
+        format: string
+        enabled: boolean
+    }
+}
+
+const initialProperties: UnmappedRadarProps = {
     indexBy: 'taste',
     maxValue: 'auto',
     valueFormat: { format: '>-.2f', enabled: true },
@@ -72,7 +80,7 @@ const initialProperties = {
 }
 
 const Radar = () => (
-    <ComponentTemplate
+    <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
         name="Radar"
         meta={meta.Radar}
         icon="radar"
@@ -82,7 +90,7 @@ const Radar = () => (
         initialProperties={initialProperties}
         defaultProperties={svgDefaultProps}
         propertiesMapper={mapper}
-        codePropertiesMapper={(properties, data) => ({
+        codePropertiesMapper={(properties: any, data: any) => ({
             keys: data.keys,
             ...properties,
         })}
