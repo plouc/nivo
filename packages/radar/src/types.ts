@@ -13,6 +13,7 @@ import {
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { ScaleLinear } from 'd3-scale'
 
 export interface RadarDataProps<D extends Record<string, unknown>> {
     data: D[]
@@ -65,16 +66,30 @@ export interface RadarSliceTooltipProps {
 }
 export type RadarSliceTooltipComponent = FunctionComponent<RadarSliceTooltipProps>
 
+export interface RadarCustomLayerProps<D extends Record<string, unknown>> {
+    data: D[]
+    keys: string[]
+    indices: string[] | number[]
+    colorByKey: RadarColorMapping
+    centerX: number
+    centerY: number
+    radiusScale: ScaleLinear<number, number>
+    angleStep: number
+}
+export type RadarCustomLayer<D extends Record<string, unknown>> = FunctionComponent<
+    RadarCustomLayerProps<D>
+>
+
 export type RadarLayerId = 'grid' | 'layers' | 'slices' | 'dots' | 'legends'
 
 export type RadarColorMapping = Record<string, string>
 
-export interface RadarCommonProps {
+export interface RadarCommonProps<D extends Record<string, unknown>> {
     maxValue: number | 'auto'
     // second argument passed to the formatter is the key
     valueFormat: ValueFormat<number, string>
 
-    layers: RadarLayerId[]
+    layers: (RadarLayerId | RadarCustomLayer<D>)[]
 
     margin: Box
 
@@ -116,7 +131,7 @@ export interface RadarCommonProps {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps> &
+export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps<D>> &
     RadarDataProps<D> &
     Dimensions &
     ModernMotionProps

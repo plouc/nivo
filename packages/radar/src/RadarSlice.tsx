@@ -14,7 +14,7 @@ interface RadarSliceProps<D extends Record<string, unknown>> {
     endAngle: number
     radius: number
     arcGenerator: Arc<void, { startAngle: number; endAngle: number }>
-    tooltip: RadarCommonProps['sliceTooltip']
+    tooltip: RadarCommonProps<D>['sliceTooltip']
 }
 
 export const RadarSlice = <D extends Record<string, unknown>>({

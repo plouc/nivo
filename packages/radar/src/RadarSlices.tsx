@@ -10,7 +10,7 @@ interface RadarSlicesProps<D extends Record<string, unknown>> {
     colorByKey: RadarColorMapping
     radius: number
     angleStep: number
-    tooltip: RadarCommonProps['sliceTooltip']
+    tooltip: RadarCommonProps<D>['sliceTooltip']
 }
 
 export const RadarSlices = <D extends Record<string, unknown>>({
