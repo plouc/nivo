@@ -4,7 +4,7 @@ import { TooltipStateContextData, TooltipStateContextDataVisible } from './conte
 
 export const isVisibleTooltipState = (
     state: TooltipStateContextData
-): state is TooltipStateContextDataVisible => state.isVisible === true
+): state is TooltipStateContextDataVisible => state.isVisible
 
 export const Tooltip = () => {
     const state = useTooltipState()
