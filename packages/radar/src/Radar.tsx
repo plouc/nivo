@@ -1,7 +1,7 @@
 import { ReactNode, Fragment } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-import { RadarShapes } from './RadarShapes'
+import { RadarLayer } from './RadarLayer'
 import { RadarGrid } from './RadarGrid'
 import { RadarSlices } from './RadarSlices'
 import { RadarDots } from './RadarDots'
@@ -83,7 +83,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
 
     const layerById: Record<RadarLayerId, ReactNode> = {
         grid: null,
-        shapes: null,
+        layers: null,
         slices: null,
         dots: null,
         legends: null,
@@ -105,11 +105,11 @@ const InnerRadar = <D extends Record<string, unknown>>({
         )
     }
 
-    if (layers.includes('shapes')) {
-        layerById.shapes = (
-            <g key="shapes" transform={`translate(${centerX}, ${centerY})`}>
+    if (layers.includes('layers')) {
+        layerById.layers = (
+            <g key="layers" transform={`translate(${centerX}, ${centerY})`}>
                 {keys.map(key => (
-                    <RadarShapes<D>
+                    <RadarLayer<D>
                         key={key}
                         data={data}
                         item={key}
@@ -195,7 +195,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
             ariaDescribedBy={ariaDescribedBy}
         >
             {layerById.grid}
-            {layerById.shapes}
+            {layerById.layers}
             {layerById.slices}
             {layerById.dots}
             {layerById.legends}

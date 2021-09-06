@@ -25,18 +25,46 @@ const baseProps: RadarSvgProps<TestDatum> = {
 it('should render a basic radar chart', () => {
     const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
 
-    const shapes = wrapper.find('RadarShapes')
-    expect(shapes).toHaveLength(2)
+    const layers = wrapper.find('RadarLayer')
+    expect(layers).toHaveLength(2)
 
-    const shape0 = shapes.at(0)
-    expect(shape0.prop('item')).toBe('A')
-    const shape0path = shape0.find('path')
-    expect(shape0path.prop('fill')).toBe('rgba(232, 193, 160, 1)')
+    const layer0 = layers.at(0)
+    expect(layer0.prop('item')).toBe('A')
+    const layer0path = layer0.find('path')
+    expect(layer0path.prop('fill')).toBe('rgba(232, 193, 160, 1)')
 
-    const shape1 = shapes.at(1)
-    expect(shape1.prop('item')).toBe('B')
-    const shape1path = shape1.find('path')
-    expect(shape1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
+    const layer1 = layers.at(1)
+    expect(layer1.prop('item')).toBe('B')
+    const layer1path = layer1.find('path')
+    expect(layer1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
+})
+
+describe('data', () => {
+    it('should support value formatting', () => {
+        const wrapper = mount(
+            <Radar<TestDatum> {...baseProps} valueFormat={value => `${value}%`} />
+        )
+
+        wrapper.find('RadarSlice').at(0).find('path').simulate('mouseenter')
+
+        const tooltip = wrapper.find('RadarSliceTooltip')
+        const data = tooltip.prop<RadarSliceTooltipProps['data']>('data')
+        expect(data[0].formattedValue).toEqual('20%')
+        expect(data[1].formattedValue).toEqual('10%')
+    })
+
+    it('should support value formatting depending on the key', () => {
+        const wrapper = mount(
+            <Radar<TestDatum> {...baseProps} valueFormat={(value, key) => `${value} ${key}s`} />
+        )
+
+        wrapper.find('RadarSlice').at(2).find('path').simulate('mouseenter')
+
+        const tooltip = wrapper.find('RadarSliceTooltip')
+        const data = tooltip.prop<RadarSliceTooltipProps['data']>('data')
+        expect(data[0].formattedValue).toEqual('30 As')
+        expect(data[1].formattedValue).toEqual('10 Bs')
+    })
 })
 
 describe('tooltip', () => {
@@ -90,8 +118,8 @@ describe('style', () => {
         const colors = ['rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 1)']
         const wrapper = mount(<Radar {...baseProps} colors={colors} />)
 
-        expect(wrapper.find('RadarShapes').at(0).find('path').prop('fill')).toBe(colors[0])
-        expect(wrapper.find('RadarShapes').at(1).find('path').prop('fill')).toBe(colors[1])
+        expect(wrapper.find('RadarLayer').at(0).find('path').prop('fill')).toBe(colors[0])
+        expect(wrapper.find('RadarLayer').at(1).find('path').prop('fill')).toBe(colors[1])
     })
 
     it('custom colors function', () => {
@@ -106,8 +134,8 @@ describe('style', () => {
             />
         )
 
-        expect(wrapper.find('RadarShapes').at(0).find('path').prop('fill')).toBe(colorMapping.A)
-        expect(wrapper.find('RadarShapes').at(1).find('path').prop('fill')).toBe(colorMapping.B)
+        expect(wrapper.find('RadarLayer').at(0).find('path').prop('fill')).toBe(colorMapping.A)
+        expect(wrapper.find('RadarLayer').at(1).find('path').prop('fill')).toBe(colorMapping.B)
     })
 })
 

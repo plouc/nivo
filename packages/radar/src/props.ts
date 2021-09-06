@@ -3,7 +3,7 @@ import { RadarSliceTooltip } from './RadarSliceTooltip'
 import { RadarLayerId } from './types'
 
 export const svgDefaultProps = {
-    layers: ['grid', 'shapes', 'slices', 'dots', 'legends'] as RadarLayerId[],
+    layers: ['grid', 'layers', 'slices', 'dots', 'legends'] as RadarLayerId[],
 
     maxValue: 'auto' as const,
 
