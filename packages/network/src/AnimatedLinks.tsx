@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig } from '@nivo/core'
 import Link from './Link'
@@ -16,7 +15,13 @@ const willEnter = ({ style, data }) => {
     }
 }
 
-const AnimatedLinks = ({ links, linkThickness, linkColor }) => {
+interface AnimatedLinksProps {
+    // links: PropTypes.array.isRequired,
+    // linkThickness: PropTypes.func.isRequired,
+    // linkColor: PropTypes.func.isRequired,
+}
+
+const AnimatedLinks = ({ links, linkThickness, linkColor }: AnimatedLinksProps) => {
     const { springConfig } = useMotionConfig()
 
     return (
@@ -53,12 +58,6 @@ const AnimatedLinks = ({ links, linkThickness, linkColor }) => {
             )}
         </TransitionMotion>
     )
-}
-
-AnimatedLinks.propTypes = {
-    links: PropTypes.array.isRequired,
-    linkThickness: PropTypes.func.isRequired,
-    linkColor: PropTypes.func.isRequired,
 }
 
 export default memo(AnimatedLinks)

@@ -1,8 +1,16 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import Node from './Node'
 
-const StaticNodes = ({ nodes, color, borderColor, ...props }) => {
+interface StaticNodesProps {
+    nodes: any[]
+    color: Function
+    borderWidth: number
+    borderColor: Function
+    handleNodeHover: Function
+    handleNodeLeave: Function
+}
+
+const StaticNodes = ({ nodes, color, borderColor, ...props }: StaticNodesProps) => {
     return nodes.map(node => {
         return (
             <Node
@@ -17,15 +25,6 @@ const StaticNodes = ({ nodes, color, borderColor, ...props }) => {
             />
         )
     })
-}
-
-StaticNodes.propTypes = {
-    nodes: PropTypes.array.isRequired,
-    color: PropTypes.func.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.func.isRequired,
-    handleNodeHover: PropTypes.func.isRequired,
-    handleNodeLeave: PropTypes.func.isRequired,
 }
 
 export default memo(StaticNodes)

@@ -1,10 +1,9 @@
 import { useCallback, useRef, useEffect } from 'react'
-
 import * as React from 'react'
 import { getDistance, getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { NetworkCanvasPropTypes, NetworkCanvasDefaultProps } from './props'
+import { NetworkCanvasDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import NetworkNodeTooltip from './NetworkNodeTooltip'
 
@@ -187,7 +186,6 @@ const NetworkCanvas = props => {
     )
 }
 
-NetworkCanvas.propTypes = NetworkCanvasPropTypes
 NetworkCanvas.defaultProps = NetworkCanvasDefaultProps
 
 export default withContainer(NetworkCanvas)

@@ -2,7 +2,7 @@ import { createElement, Fragment, useCallback } from 'react'
 import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { NetworkPropTypes, NetworkDefaultProps } from './props'
+import { NetworkDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import AnimatedNodes from './AnimatedNodes'
 import StaticNodes from './StaticNodes'
@@ -120,7 +120,6 @@ const Network = props => {
     )
 }
 
-Network.propTypes = NetworkPropTypes
 Network.defaultProps = NetworkDefaultProps
 
 export default withContainer(Network)

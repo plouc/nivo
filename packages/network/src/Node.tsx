@@ -1,5 +1,18 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
+
+interface NodeProps {
+    node: any
+    x: number
+    y: number
+    radius: number
+    color: string
+    borderWidth: number
+    borderColor: string
+    scale?: number
+    handleNodeClick: Function
+    handleNodeHover: Function
+    handleNodeLeave: Function
+}
 
 const Node = ({
     node,
@@ -13,7 +26,7 @@ const Node = ({
     handleNodeClick,
     handleNodeHover,
     handleNodeLeave,
-}) => {
+}: NodeProps) => {
     return (
         <circle
             transform={`translate(${x},${y}) scale(${scale})`}
@@ -27,19 +40,6 @@ const Node = ({
             onMouseLeave={handleNodeLeave}
         />
     )
-}
-
-Node.propTypes = {
-    node: PropTypes.object.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    radius: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    scale: PropTypes.number,
-    handleNodeHover: PropTypes.func.isRequired,
-    handleNodeLeave: PropTypes.func.isRequired,
 }
 
 export default memo(Node)
