@@ -1,8 +1,16 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
 
-const NetworkNodeTooltip = ({ node, format, tooltip }) => (
+interface NetworkNodeTooltipProps {
+    // node: PropTypes.shape({
+    //     id: PropTypes.string.isRequired,
+    //     color: PropTypes.string.isRequired,
+    // }).isRequired,
+    // format: PropTypes.func,
+    // tooltip: PropTypes.func,
+}
+
+const NetworkNodeTooltip = ({ node, format, tooltip }: NetworkNodeTooltipProps) => (
     <BasicTooltip
         id={node.id}
         enableChip={true}
@@ -11,14 +19,5 @@ const NetworkNodeTooltip = ({ node, format, tooltip }) => (
         renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
     />
 )
-
-NetworkNodeTooltip.propTypes = {
-    node: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
-    }).isRequired,
-    format: PropTypes.func,
-    tooltip: PropTypes.func,
-}
 
 export default memo(NetworkNodeTooltip)

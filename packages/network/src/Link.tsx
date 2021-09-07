@@ -1,7 +1,16 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 
-const Link = ({ sourceX, sourceY, targetX, targetY, thickness, color }) => {
+interface LinkProps {
+    link: any
+    sourceX: number
+    sourceY: number
+    targetX: number
+    targetY: number
+    thickness: number
+    color: string
+}
+
+const Link = ({ sourceX, sourceY, targetX, targetY, thickness, color }: LinkProps) => {
     return (
         <line
             stroke={color}
@@ -13,16 +22,6 @@ const Link = ({ sourceX, sourceY, targetX, targetY, thickness, color }) => {
             y2={targetY}
         />
     )
-}
-
-Link.propTypes = {
-    link: PropTypes.object.isRequired,
-    sourceX: PropTypes.number.isRequired,
-    sourceY: PropTypes.number.isRequired,
-    targetX: PropTypes.number.isRequired,
-    targetY: PropTypes.number.isRequired,
-    thickness: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
 }
 
 export default memo(Link)

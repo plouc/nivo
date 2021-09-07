@@ -1,8 +1,13 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import Link from './Link'
 
-const StaticLinks = ({ links, linkThickness, linkColor }) => {
+interface StaticLinksProps {
+    // links: PropTypes.array.isRequired,
+    // linkThickness: PropTypes.func.isRequired,
+    // linkColor: PropTypes.func.isRequired,
+}
+
+const StaticLinks = ({ links, linkThickness, linkColor }: StaticLinksProps) => {
     return links.map(link => {
         return (
             <Link
@@ -17,12 +22,6 @@ const StaticLinks = ({ links, linkThickness, linkColor }) => {
             />
         )
     })
-}
-
-StaticLinks.propTypes = {
-    links: PropTypes.array.isRequired,
-    linkThickness: PropTypes.func.isRequired,
-    linkColor: PropTypes.func.isRequired,
 }
 
 export default memo(StaticLinks)

@@ -43,6 +43,41 @@ export interface NetworkCustomLayerProps {
 }
 export type NetworkCustomLayer = FunctionComponent<NetworkCustomLayerProps>
 
+/*
+nodes: PropTypes.arrayOf(
+    PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    })
+).isRequired,
+links: PropTypes.arrayOf(
+    PropTypes.shape({
+        source: PropTypes.string.isRequired,
+        target: PropTypes.string.isRequired,
+    })
+).isRequired,
+
+layers: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.oneOf(['links', 'nodes']), PropTypes.func])
+).isRequired,
+
+linkDistance: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.number])
+    .isRequired,
+repulsivity: PropTypes.number.isRequired,
+distanceMin: PropTypes.number.isRequired,
+distanceMax: PropTypes.number.isRequired,
+iterations: PropTypes.number.isRequired,
+
+nodeColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+nodeBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+nodeBorderColor: inheritedColorPropType.isRequired,
+
+linkThickness: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+linkColor: inheritedColorPropType.isRequired,
+
+isInteractive: PropTypes.bool.isRequired,
+onClick: PropTypes.func,
+*/
+
 export interface NetworkCommonProps {
     margin: Box
 
