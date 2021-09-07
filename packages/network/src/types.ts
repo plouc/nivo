@@ -4,29 +4,50 @@ import { InheritedColorConfig } from '@nivo/colors'
 
 export interface InputNode {
     id: string
-    [key: string]: any
+    [key: string]: unknown
 }
 
 export interface ComputedNode {
     id: string
-    x: string
-    y: string
-    radius: string
+    x: number
+    y: number
+    radius: number
     color: string
-    [key: string]: any
+    data: InputNode
+    [key: string]: unknown
+}
+
+export interface NodeAnimatedProps {
+    x: number
+    y: number
+    radius: number
+    color: string
+    borderWidth: number
+    borderColor: string
+    opacity: number
+    scale: number
 }
 
 export interface InputLink {
     source: string
     target: string
-    [key: string]: any
+    [key: string]: unknown
 }
 
 export interface ComputedLink {
     id: string
     source: ComputedNode
     target: ComputedNode
-    [key: string]: any
+    [key: string]: unknown
+}
+
+export interface LinkAnimatedProps {
+    x1: number
+    y1: number
+    x2: number
+    y2: number
+    color: string
+    opacity: number
 }
 
 export interface NetworkDataProps {
@@ -43,40 +64,10 @@ export interface NetworkCustomLayerProps {
 }
 export type NetworkCustomLayer = FunctionComponent<NetworkCustomLayerProps>
 
-/*
-nodes: PropTypes.arrayOf(
-    PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    })
-).isRequired,
-links: PropTypes.arrayOf(
-    PropTypes.shape({
-        source: PropTypes.string.isRequired,
-        target: PropTypes.string.isRequired,
-    })
-).isRequired,
-
-layers: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.oneOf(['links', 'nodes']), PropTypes.func])
-).isRequired,
-
-linkDistance: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.number])
-    .isRequired,
-repulsivity: PropTypes.number.isRequired,
-distanceMin: PropTypes.number.isRequired,
-distanceMax: PropTypes.number.isRequired,
-iterations: PropTypes.number.isRequired,
-
-nodeColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-nodeBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-nodeBorderColor: inheritedColorPropType.isRequired,
-
-linkThickness: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-linkColor: inheritedColorPropType.isRequired,
-
-isInteractive: PropTypes.bool.isRequired,
-onClick: PropTypes.func,
-*/
+export interface NetworkNodeTooltipProps {
+    node: ComputedNode
+}
+export type NetworkNodeTooltipComponent = FunctionComponent<NetworkNodeTooltipProps>
 
 export interface NetworkCommonProps {
     margin: Box
@@ -99,6 +90,7 @@ export interface NetworkCommonProps {
     linkColor: InheritedColorConfig<ComputedLink>
 
     isInteractive: boolean
+    tooltip: NetworkNodeTooltipComponent
     onClick: (node: ComputedNode, event: MouseEvent<SVGCircleElement>) => void
 
     renderWrapper: boolean
@@ -116,6 +108,8 @@ export type NetworkSvgProps = Partial<NetworkCommonProps> &
 
 export type NetworkCanvasProps = Partial<NetworkCommonProps> &
     NetworkDataProps &
-    Dimensions & {
+    Dimensions &
+    // only used by tooltips
+    ModernMotionProps & {
         pixelRatio?: number
     }

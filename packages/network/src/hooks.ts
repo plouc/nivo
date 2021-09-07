@@ -3,8 +3,21 @@ import get from 'lodash/get'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import { forceSimulation, forceManyBody, forceCenter, forceLink } from 'd3-force'
+import { InputLink, InputNode, NetworkCommonProps } from './types'
 
-const computeForces = ({ linkDistance, repulsivity, distanceMin, distanceMax, center }) => {
+const computeForces = ({
+    linkDistance,
+    repulsivity,
+    distanceMin,
+    distanceMax,
+    center,
+}: {
+    linkDistance: NetworkCommonProps['linkDistance']
+    repulsivity: NetworkCommonProps['repulsivity']
+    distanceMin: NetworkCommonProps['distanceMin']
+    distanceMax: NetworkCommonProps['distanceMax']
+    center: [number, number]
+}) => {
     let computedLinkDistance
     if (typeof linkDistance === 'function') {
         computedLinkDistance = linkDistance
@@ -37,6 +50,15 @@ export const useNetwork = ({
     distanceMax,
     center,
     iterations,
+}: {
+    nodes: InputNode[]
+    links: InputLink[]
+    linkDistance: NetworkCommonProps['linkDistance']
+    repulsivity: NetworkCommonProps['repulsivity']
+    distanceMin: NetworkCommonProps['distanceMin']
+    distanceMax: NetworkCommonProps['distanceMax']
+    center: [number, number]
+    iterations: NetworkCommonProps['iterations']
 }) => {
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentLinks, setCurrentLinks] = useState([])
@@ -50,8 +72,8 @@ export const useNetwork = ({
             center,
         })
 
-        const nodesCopy = nodes.map(node => ({ ...node }))
-        const linksCopy = links.map(link => ({
+        const nodesCopy: InputNode[] = nodes.map(node => ({ ...node }))
+        const linksCopy: InputLink[] = links.map(link => ({
             id: `${link.source}.${link.target}`,
             ...link,
         }))

@@ -1,44 +1,47 @@
-import { createElement, Fragment, useCallback } from 'react'
-import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } from '@nivo/core'
+import { Fragment, ReactNode, useCallback } from 'react'
+import { Container, useDimensions, SvgWrapper, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { NetworkDefaultProps } from './props'
+import { svgDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
-import AnimatedNodes from './AnimatedNodes'
-import StaticNodes from './StaticNodes'
-import AnimatedLinks from './AnimatedLinks'
-import StaticLinks from './StaticLinks'
+import { NetworkNodes } from './NetworkNodes'
+import { NetworkLinks } from './NetworkLinks'
 import NetworkNodeTooltip from './NetworkNodeTooltip'
+import { NetworkLayerId, NetworkSvgProps } from './types'
 
-const Network = props => {
+type InnerNetworkProps = Omit<
+    NetworkSvgProps,
+    'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
+>
+
+const InnerNetwork = (props: InnerNetworkProps) => {
     const {
         width,
         height,
         margin: partialMargin,
 
-        nodes: rawNodes,
-        links: rawLinks,
+        data: { nodes: rawNodes, links: rawLinks },
 
-        linkDistance,
-        repulsivity,
-        distanceMin,
-        distanceMax,
-        iterations,
+        linkDistance = svgDefaultProps.linkDistance,
+        repulsivity = svgDefaultProps.repulsivity,
+        distanceMin = svgDefaultProps.distanceMin,
+        distanceMax = svgDefaultProps.distanceMax,
+        iterations = svgDefaultProps.iterations,
 
-        layers,
+        layers = svgDefaultProps.layers,
 
-        nodeColor,
-        nodeBorderWidth,
-        nodeBorderColor,
+        nodeColor = svgDefaultProps.nodeColor,
+        nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
+        nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
-        linkThickness,
-        linkColor,
+        linkThickness = svgDefaultProps.linkThickness,
+        linkColor = svgDefaultProps.linkColor,
 
-        tooltip,
-        isInteractive,
+        tooltip = svgDefaultProps.tooltip,
+        isInteractive = svgDefaultProps.isInteractive,
         onClick,
 
-        role,
+        role = svgDefaultProps.role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -47,7 +50,6 @@ const Network = props => {
         partialMargin
     )
 
-    const { animate } = useMotionConfig()
     const theme = useTheme()
     const getColor = useNodeColor(nodeColor)
     const getBorderColor = useInheritedColor(nodeBorderColor, theme)
@@ -78,23 +80,36 @@ const Network = props => {
         hideTooltip()
     }, [hideTooltip])
 
-    const layerById = {
-        links: createElement(animate === true ? AnimatedLinks : StaticLinks, {
-            key: 'links',
-            links,
-            linkThickness: getLinkThickness,
-            linkColor: getLinkColor,
-        }),
-        nodes: createElement(animate === true ? AnimatedNodes : StaticNodes, {
-            key: 'nodes',
-            nodes,
-            color: getColor,
-            borderWidth: nodeBorderWidth,
-            borderColor: getBorderColor,
-            handleNodeClick: isInteractive ? onClick : undefined,
-            handleNodeHover: isInteractive ? handleNodeHover : undefined,
-            handleNodeLeave: isInteractive ? handleNodeLeave : undefined,
-        }),
+    const layerById: Record<NetworkLayerId, ReactNode> = {
+        links: null,
+        nodes: null,
+    }
+
+    if (layers.includes('links')) {
+        layerById.links = (
+            <NetworkLinks
+                key="links"
+                links={links}
+                linkThickness={getLinkThickness}
+                linkColor={getLinkColor}
+            />
+        )
+    }
+
+    if (layers.includes('crap')) {
+        layerById.nodes = (
+            <NetworkNodes
+                key="nodes"
+                nodes={nodes}
+                color={getColor}
+                borderWidth={nodeBorderWidth}
+                borderColor={getBorderColor}
+                onClick={isInteractive ? onClick : undefined}
+                onMouseEnter={isInteractive ? handleNodeHover : undefined}
+                onMouseMove={isInteractive ? handleNodeHover : undefined}
+                onMouseLeave={isInteractive ? handleNodeLeave : undefined}
+            />
+        )
     }
 
     return (
@@ -120,6 +135,23 @@ const Network = props => {
     )
 }
 
-Network.defaultProps = NetworkDefaultProps
-
-export default withContainer(Network)
+export const Network = ({
+    isInteractive = svgDefaultProps.isInteractive,
+    animate = svgDefaultProps.animate,
+    motionConfig = svgDefaultProps.motionConfig,
+    theme,
+    renderWrapper,
+    ...otherProps
+}: NetworkSvgProps) => (
+    <Container
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
+    >
+        <InnerNetwork isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)
