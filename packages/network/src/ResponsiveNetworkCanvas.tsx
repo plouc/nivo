@@ -1,10 +1,9 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import NetworkCanvas from './NetworkCanvas'
+import { NetworkCanvasProps } from './types'
+import { NetworkCanvas } from './NetworkCanvas'
 
-const ResponsiveNetworkCanvas = props => (
+export const ResponsiveNetworkCanvas = (props: Omit<NetworkCanvasProps, 'height' | 'width'>) => (
     <ResponsiveWrapper>
         {({ width, height }) => <NetworkCanvas width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveNetworkCanvas

@@ -1,10 +1,9 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import Network from './Network'
+import { NetworkSvgProps } from './types'
+import { Network } from './Network'
 
-const ResponsiveNetwork = props => (
+export const ResponsiveNetwork = (props: Omit<NetworkSvgProps, 'height' | 'width'>) => (
     <ResponsiveWrapper>
         {({ width, height }) => <Network width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveNetwork

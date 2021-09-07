@@ -1,39 +1,41 @@
-import { useCallback, useRef, useEffect } from 'react'
+import { useCallback, useRef, useEffect, ForwardedRef } from 'react'
 import * as React from 'react'
-import { getDistance, getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { NetworkCanvasDefaultProps } from './props'
+import { canvasDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import NetworkNodeTooltip from './NetworkNodeTooltip'
+import { NetworkCanvasProps } from './types'
 
-const NetworkCanvas = props => {
+type InnerNetworkCanvasProps = Omit<NetworkCanvasProps, 'renderWrapper' | 'theme'>
+
+const InnerNetworkCanvas = (props: InnerNetworkCanvasProps) => {
     const {
         width,
         height,
         margin: partialMargin,
-        pixelRatio,
+        pixelRatio = canvasDefaultProps.pixelRatio,
 
-        nodes: rawNodes,
-        links: rawLinks,
+        data: { nodes: rawNodes, links: rawLinks },
 
-        linkDistance,
-        repulsivity,
-        distanceMin,
-        distanceMax,
-        iterations,
+        linkDistance = canvasDefaultProps.linkDistance,
+        repulsivity = canvasDefaultProps.repulsivity,
+        distanceMin = canvasDefaultProps.distanceMin,
+        distanceMax = canvasDefaultProps.distanceMax,
+        iterations = canvasDefaultProps.iterations,
 
-        layers,
+        layers = canvasDefaultProps.layers,
 
-        nodeColor,
-        nodeBorderWidth,
-        nodeBorderColor,
+        nodeColor = canvasDefaultProps.nodeColor,
+        nodeBorderWidth = canvasDefaultProps.nodeBorderWidth,
+        nodeBorderColor = canvasDefaultProps.nodeBorderColor,
 
-        linkThickness,
-        linkColor,
+        linkThickness = canvasDefaultProps.linkThickness,
+        linkColor = canvasDefaultProps.linkColor,
 
-        isInteractive,
-        tooltip,
+        isInteractive = canvasDefaultProps.isInteractive,
+        tooltip = canvasDefaultProps.tooltip,
         onClick,
     } = props
 
@@ -186,6 +188,15 @@ const NetworkCanvas = props => {
     )
 }
 
-NetworkCanvas.defaultProps = NetworkCanvasDefaultProps
-
-export default withContainer(NetworkCanvas)
+export const NetworkCanvas = ({
+    theme,
+    isInteractive = canvasDefaultProps.isInteractive,
+    animate = canvasDefaultProps.animate,
+    motionConfig = canvasDefaultProps.motionConfig,
+    renderWrapper,
+    ...otherProps
+}: NetworkCanvasProps) => (
+    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+        <InnerNetworkCanvas isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)

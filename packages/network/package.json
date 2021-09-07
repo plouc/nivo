@@ -33,9 +33,9 @@
   "dependencies": {
     "@nivo/colors": "0.76.0",
     "@nivo/tooltip": "0.76.0",
+    "@react-spring/web": "9.3.1",
     "d3-force": "^2.0.1",
-    "lodash": "^4.17.21",
-    "react-motion": "^0.5.2"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@nivo/core": "0.76.0"

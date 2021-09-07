@@ -14,17 +14,22 @@ const commonDefaultProps = {
     linkColor: { from: 'source.color' },
 
     isInteractive: true,
+
+    animate: true,
+    motionConfig: 'gentle' as const,
+
+    role: 'img',
 }
 
 export const NetworkDefaultProps = {
     ...commonDefaultProps,
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
-    role: 'img',
 }
+
+export const svgDefaultProps = NetworkDefaultProps
 
 export const NetworkCanvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }
+
+export const canvasDefaultProps = NetworkCanvasDefaultProps

@@ -1,20 +1,45 @@
 // @ts-ignore
 import { NetworkDefaultProps } from '@nivo/network'
 import { motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions } from '../../../lib/chart-properties'
+import { chartDimensions, pixelRatio } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas']
 
 const props: ChartProperty[] = [
+    {
+        key: 'data',
+        group: 'Base',
+        type: '{ nodes: object[], links: object[] }',
+        required: true,
+        help: 'Chart data defining nodes and links.',
+        flavors: allFlavors,
+        description: `
+            Chart data, which must conform to this structure:
+
+            \`\`\`
+            {
+                nodes: {
+                    id: string
+                }[],
+                links: {
+                    source: string, // ref to node id
+                    target: string, // ref to node id
+                    value:  number
+                }[]
+            }
+            \`\`\`
+        `,
+    },
     ...chartDimensions(allFlavors),
+    pixelRatio(),
     {
         key: 'linkDistance',
         group: 'Simulation',
         type: 'number | string | (link: Link) => number',
         required: false,
         help: `Control links' distance.`,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         description: `
             If you set a **number**, this value will be used for all links.
 
@@ -36,7 +61,7 @@ const props: ChartProperty[] = [
             This value will also affect the strength
             of \`distanceMin\` and \`distanceMax\`.
         `,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         control: {
             type: 'range',
             min: 1,
@@ -50,7 +75,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Sets the minimum distance between nodes for the many-body force.',
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         defaultValue: NetworkDefaultProps.distanceMin,
     },
     {
@@ -59,7 +84,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Sets the maximum disteance between nodes for the many-body force.',
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         defaultValue: NetworkDefaultProps.distanceMax,
     },
     {
@@ -73,7 +98,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: NetworkDefaultProps.iterations,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         control: {
             type: 'range',
             min: 60,
@@ -86,7 +111,7 @@ const props: ChartProperty[] = [
         type: 'string | (node: Node) => string',
         required: false,
         help: `Control nodes' color.`,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'nodeBorderWidth',
@@ -95,7 +120,7 @@ const props: ChartProperty[] = [
         required: false,
         help: `Control nodes' border width.`,
         defaultValue: NetworkDefaultProps.nodeBorderWidth,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         control: { type: 'lineWidth' },
     },
     {
@@ -105,7 +130,7 @@ const props: ChartProperty[] = [
         required: false,
         help: `Control nodes' border color.`,
         defaultValue: NetworkDefaultProps.nodeBorderColor,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         control: { type: 'inheritedColor' },
     },
     {
@@ -115,7 +140,7 @@ const props: ChartProperty[] = [
         type: 'number | (link: Link) => number',
         required: false,
         help: `Control links' thickness.`,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         defaultValue: NetworkDefaultProps.linkThickness,
         control: { type: 'lineWidth' },
     },
@@ -126,7 +151,7 @@ const props: ChartProperty[] = [
         required: false,
         help: `Control links' color.`,
         defaultValue: NetworkDefaultProps.linkColor,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         control: {
             type: 'inheritedColor',
             inheritableProperties: ['source.color', 'target.color'],
@@ -138,7 +163,7 @@ const props: ChartProperty[] = [
         type: 'Function',
         required: false,
         help: 'Custom tooltip component.',
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML
@@ -151,7 +176,7 @@ const props: ChartProperty[] = [
         help: 'onClick handler.',
         type: '(node, event) => void',
         required: false,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'layers',
@@ -162,7 +187,7 @@ const props: ChartProperty[] = [
         defaultValue: NetworkDefaultProps.layers,
         flavors: ['svg', 'canvas'],
     },
-    ...motionProperties(['svg'], NetworkDefaultProps),
+    ...motionProperties(['svg'], NetworkDefaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
