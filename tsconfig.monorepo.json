@@ -27,6 +27,7 @@
         { "path": "./packages/circle-packing" },
         { "path": "./packages/funnel" },
         { "path": "./packages/marimekko" },
+        { "path": "./packages/network" },
         { "path": "./packages/pie" },
         { "path": "./packages/radar" },
         { "path": "./packages/radial-bar" },
