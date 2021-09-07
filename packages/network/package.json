@@ -23,11 +23,12 @@
   ],
   "main": "./dist/nivo-network.cjs.js",
   "module": "./dist/nivo-network.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/colors": "0.76.0",
