@@ -24,6 +24,7 @@
     "@nivo/parallel-coordinates": "0.73.0",
     "@nivo/pie": "0.73.0",
     "@nivo/radar": "0.73.0",
+    "@nivo/radial-bar": "file:./../packages/radial-bar",
     "@nivo/sankey": "0.73.0",
     "@nivo/scatterplot": "0.73.0",
     "@nivo/stream": "0.73.0",

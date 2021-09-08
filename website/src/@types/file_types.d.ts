@@ -23,6 +23,15 @@ declare module '*radar/meta.yml' {
     export default meta
 }
 
+declare module '*radial-bar/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        RadialBar: ChartMeta
+    }
+
+    export default meta
+}
+
 declare module '*sankey/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors

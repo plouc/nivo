@@ -27,6 +27,7 @@
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
         { "path": "./packages/radar" },
+        { "path": "./packages/radial-bar" },
         { "path": "./packages/sankey" },
         { "path": "./packages/scatterplot" },
         { "path": "./packages/sunburst" },
