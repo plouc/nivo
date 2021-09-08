@@ -4,7 +4,13 @@ import { arc as d3Arc } from 'd3-shape'
 import { degreesToRadians } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
-import { ComputedDatum, RadialBarCommonProps, RadialBarDataProps, RadialBarSerie } from './types'
+import {
+    ComputedBar,
+    RadialBarCommonProps,
+    RadialBarDataProps,
+    RadialBarSerie,
+    RadialBarArcData,
+} from './types'
 
 interface RadialBarGroup {
     id: string
@@ -32,9 +38,9 @@ export const useRadialBar = ({
     const center: [number, number] = [width / 2, height / 2]
     const outerRadius = Math.min(...center)
 
-    const getColor = useOrdinalColorScale<ComputedDatum>(colors, 'category')
+    const getColor = useOrdinalColorScale<ComputedBar>(colors, 'category')
 
-    const { serieIds, categories, groups, maxValue } = useMemo(() => {
+    const { serieIds, groups, maxValue } = useMemo(() => {
         const result: {
             serieIds: string[]
             categories: string[]
@@ -86,7 +92,7 @@ export const useRadialBar = ({
 
     const arcGenerator = useMemo(
         () =>
-            d3Arc<ComputedDatum>()
+            d3Arc<RadialBarArcData>()
                 .startAngle(d => degreesToRadians(d.startAngle))
                 .endAngle(d => degreesToRadians(d.endAngle))
                 .innerRadius(d => d.innerRadius)
@@ -96,7 +102,7 @@ export const useRadialBar = ({
     )
 
     const bars = useMemo(() => {
-        const innerBars: any[] = []
+        const innerBars: ComputedBar[] = []
 
         groups.forEach(group => {
             let currentValue = 0
@@ -106,9 +112,10 @@ export const useRadialBar = ({
             group.data.forEach(datum => {
                 const stackedValue = currentValue + datum.y
 
-                const computedDatum: ComputedDatum = {
+                const computedDatum: ComputedBar = {
                     id: `${group.id}.${datum.x}`,
                     data: datum,
+                    groupId: group.id,
                     category: datum.x,
                     value: datum.y,
                     color: '',

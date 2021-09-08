@@ -1,7 +1,8 @@
 import { RadialBarLayerId } from './types'
+import { RadialBarTooltip } from './RadialBarTooltip'
 
 export const svgDefaultProps = {
-    layers: ['bars'] as RadialBarLayerId[],
+    layers: ['grid', 'bars', 'legends'] as RadialBarLayerId[],
 
     startAngle: 0,
     endAngle: 270,
@@ -10,6 +11,7 @@ export const svgDefaultProps = {
     cornerRadius: 0,
 
     isInteractive: true,
+    tooltip: RadialBarTooltip,
 
     animate: true,
     motionConfig: 'gentle' as const,

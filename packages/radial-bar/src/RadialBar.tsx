@@ -1,6 +1,6 @@
-import { createElement, Fragment } from 'react'
+import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { RadialBarSvgProps } from './types'
+import { RadialBarLayerId, RadialBarSvgProps } from './types'
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
@@ -21,7 +21,12 @@ const InnerRadialBar = ({
     layers = svgDefaultProps.layers,
     colors = svgDefaultProps.colors,
     cornerRadius = svgDefaultProps.cornerRadius,
-    isInteractive,
+    isInteractive = svgDefaultProps.isInteractive,
+    tooltip = svgDefaultProps.tooltip,
+    onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -43,6 +48,40 @@ const InnerRadialBar = ({
         cornerRadius,
     })
 
+    const layerById: Record<RadialBarLayerId, ReactNode> = {
+        grid: null,
+        bars: null,
+        legends: null,
+    }
+
+    if (layers.includes('grid')) {
+        layerById.grid = (
+            <PolarGrid
+                key="grid"
+                center={center}
+                angleScale={valueScale}
+                radiusScale={radiusScale}
+            />
+        )
+    }
+
+    if (layers.includes('bars')) {
+        layerById.bars = (
+            <g key="bars" transform={`translate(${center[0]}, ${center[1]})`}>
+                <RadialBarArcs
+                    bars={bars}
+                    arcGenerator={arcGenerator}
+                    isInteractive={isInteractive}
+                    tooltip={tooltip}
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                />
+            </g>
+        )
+    }
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -53,18 +92,13 @@ const InnerRadialBar = ({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
         >
-            <PolarGrid center={center} angleScale={valueScale} radiusScale={radiusScale} />
-            <g transform={`translate(${center[0]}, ${center[1]})`}>
-                <circle r={1} />
-                <RadialBarArcs bars={bars} arcGenerator={arcGenerator} />
-            </g>
-            {/*layers.map((layer, i) => {
+            {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, {})}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null
-            })*/}
+            })}
         </SvgWrapper>
     )
 }
