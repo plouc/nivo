@@ -11,7 +11,8 @@ RadialBar:
     - isomorphic
   stories: []
   description: |
-    Generates a radial bar chart from an array of data.
+    A radial bar chart.
+
     Note that margin object does not take grid labels into account,
     so you should adjust it to leave enough room for it.
 

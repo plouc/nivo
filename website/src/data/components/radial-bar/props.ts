@@ -1,5 +1,4 @@
 import { svgDefaultProps } from '@nivo/radial-bar'
-import { defaultProps } from '@nivo/pie'
 import { arcTransitionModes } from '@nivo/arcs'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
@@ -189,8 +188,81 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'enableLabels',
+        group: 'Labels',
+        type: 'boolean',
+        required: false,
+        help: 'Enable/disable labels.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.enableLabels,
+        controlType: 'switch',
+    },
+    {
+        key: 'label',
+        group: 'Labels',
+        type: 'string | (bar: ComputedBar) => string',
+        required: false,
+        help:
+            'Defines how to get label text, can be a string (used to access current bar property) or a function which will receive the actual bar data.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.label,
+        controlType: 'choices',
+        controlOptions: {
+            choices: ['category', 'groupId', 'value', 'formattedValue'].map(choice => ({
+                label: choice,
+                value: choice,
+            })),
+        },
+    },
+    {
+        key: 'labelsSkipAngle',
+        group: 'Labels',
+        type: 'number',
+        required: false,
+        help: `Skip label if corresponding arc's angle is lower than provided value.`,
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.labelsSkipAngle,
+        controlType: 'range',
+        controlOptions: {
+            unit: '°',
+            min: 0,
+            max: 45,
+            step: 1,
+        },
+    },
+    {
+        key: 'labelsRadiusOffset',
+        group: 'Labels',
+        type: 'number',
+        required: false,
+        help: `
+            Define the radius to use to determine the label position, starting from inner radius,
+            this is expressed as a ratio. Centered at 0.5 by default.
+        `,
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.labelsRadiusOffset,
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 2,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'labelsTextColor',
+        group: 'Labels',
+        help: 'Defines how to compute label text color.',
+        type: 'string | object | Function',
+        required: false,
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.labelsTextColor,
+        controlType: 'inheritedColor',
+    },
+    {
         key: 'layers',
         group: 'Customization',
+        type: '(RadialBarLayerId | RadialBarCustomLayer)[]',
+        required: false,
         help: 'Defines the order of layers and add custom layers.',
         description: `
             You can also use this to insert extra layers
@@ -199,8 +271,6 @@ const props: ChartProperty[] = [
             The layer function which will receive the chart's
             context & computed data and must return a valid SVG element.
         `,
-        required: false,
-        type: '(RadarLayerId | FunctionComponent<RadarCustomLayerProps>)[]',
         flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
     },
@@ -293,7 +363,7 @@ const props: ChartProperty[] = [
         help: 'Define how transitions behave.',
         type: 'string',
         required: false,
-        defaultValue: defaultProps.transitionMode,
+        defaultValue: svgDefaultProps.transitionMode,
         controlType: 'choices',
         group: 'Motion',
         controlOptions: {

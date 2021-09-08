@@ -29,6 +29,12 @@ const initialProperties: UnmappedRadarProps = {
     colors: svgDefaultProps.colors,
     cornerRadius: 2,
 
+    enableLabels: svgDefaultProps.enableLabels,
+    label: svgDefaultProps.label,
+    labelsSkipAngle: svgDefaultProps.labelsSkipAngle,
+    labelsRadiusOffset: svgDefaultProps.labelsRadiusOffset,
+    labelsTextColor: svgDefaultProps.labelsTextColor,
+
     animate: true,
     motionConfig: 'gentle' as const,
     transitionMode: 'pushOut' as const,

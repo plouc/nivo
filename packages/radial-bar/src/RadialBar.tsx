@@ -1,6 +1,7 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { RadialBarLayerId, RadialBarSvgProps } from './types'
+import { ArcLabelsLayer } from '@nivo/arcs'
+import { RadialBarLayerId, RadialBarSvgProps, ComputedBar } from './types'
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
@@ -21,6 +22,11 @@ const InnerRadialBar = ({
     layers = svgDefaultProps.layers,
     colors = svgDefaultProps.colors,
     cornerRadius = svgDefaultProps.cornerRadius,
+    enableLabels = svgDefaultProps.enableLabels,
+    label = svgDefaultProps.label,
+    labelsSkipAngle = svgDefaultProps.labelsSkipAngle,
+    labelsRadiusOffset = svgDefaultProps.labelsRadiusOffset,
+    labelsTextColor = svgDefaultProps.labelsTextColor,
     isInteractive = svgDefaultProps.isInteractive,
     tooltip = svgDefaultProps.tooltip,
     onClick,
@@ -52,6 +58,7 @@ const InnerRadialBar = ({
     const layerById: Record<RadialBarLayerId, ReactNode> = {
         grid: null,
         bars: null,
+        labels: null,
         legends: null,
     }
 
@@ -79,6 +86,21 @@ const InnerRadialBar = ({
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                transitionMode={transitionMode}
+            />
+        )
+    }
+
+    if (layers.includes('labels') && enableLabels) {
+        layerById.labels = (
+            <ArcLabelsLayer<ComputedBar>
+                key="labels"
+                center={center}
+                data={bars}
+                label={label}
+                radiusOffset={labelsRadiusOffset}
+                skipAngle={labelsSkipAngle}
+                textColor={labelsTextColor}
                 transitionMode={transitionMode}
             />
         )
