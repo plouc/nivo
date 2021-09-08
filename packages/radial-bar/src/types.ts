@@ -1,7 +1,7 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { Theme, Box, Dimensions, ModernMotionProps } from '@nivo/core'
+import { Arc, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
-import { Arc } from 'd3-shape'
 
 export interface RadialBarDatum {
     x: string
@@ -21,10 +21,7 @@ export interface ComputedBar {
     value: number
     color: string
     stackedValue: number
-    startAngle: number
-    endAngle: number
-    innerRadius: number
-    outerRadius: number
+    arc: Arc
 }
 
 export interface RadialBarDataProps {
@@ -37,14 +34,6 @@ export interface RadialBarTooltipProps {
     bar: ComputedBar
 }
 export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
-
-export interface RadialBarArcData {
-    startAngle: number
-    endAngle: number
-    innerRadius: number
-    outerRadius: number
-}
-export type RadialBarArcGenerator = Arc<unknown, RadialBarArcData>
 
 export interface RadialBarCommonProps {
     margin: Box
@@ -66,6 +55,8 @@ export interface RadialBarCommonProps {
     onMouseLeave: (bar: ComputedBar, event: MouseEvent) => void
 
     renderWrapper: boolean
+
+    transitionMode: ArcTransitionMode
 
     role: string
     ariaLabel: AriaAttributes['aria-label']

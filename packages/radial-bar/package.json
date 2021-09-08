@@ -29,6 +29,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
+    "@nivo/arcs": "0.73.0",
     "@nivo/colors": "0.73.0",
     "@nivo/legends": "0.73.0",
     "@nivo/tooltip": "0.73.0",

@@ -27,6 +27,7 @@ const InnerRadialBar = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    transitionMode = svgDefaultProps.transitionMode,
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -67,18 +68,19 @@ const InnerRadialBar = ({
 
     if (layers.includes('bars')) {
         layerById.bars = (
-            <g key="bars" transform={`translate(${center[0]}, ${center[1]})`}>
-                <RadialBarArcs
-                    bars={bars}
-                    arcGenerator={arcGenerator}
-                    isInteractive={isInteractive}
-                    tooltip={tooltip}
-                    onClick={onClick}
-                    onMouseEnter={onMouseEnter}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseLeave}
-                />
-            </g>
+            <RadialBarArcs
+                key="bars"
+                center={center}
+                bars={bars}
+                arcGenerator={arcGenerator}
+                isInteractive={isInteractive}
+                tooltip={tooltip}
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                transitionMode={transitionMode}
+            />
         )
     }
 

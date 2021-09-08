@@ -1,20 +1,23 @@
-import { useTransition } from '@react-spring/web'
-import { useMotionConfig } from '@nivo/core'
-import { ComputedBar, RadialBarArcGenerator, RadialBarCommonProps } from './types'
-import { RadialBarArc } from './RadialBarArc'
+import { createElement, MouseEvent, useCallback } from 'react'
+import { ArcsLayer, ArcGenerator } from '@nivo/arcs'
+import { useTooltip } from '@nivo/tooltip'
+import { ComputedBar, RadialBarCommonProps } from './types'
 
 interface RadialBarArcsProps {
+    center: [number, number]
     bars: ComputedBar[]
-    arcGenerator: RadialBarArcGenerator
+    arcGenerator: ArcGenerator
     isInteractive: RadialBarCommonProps['isInteractive']
     tooltip: RadialBarCommonProps['tooltip']
     onClick?: RadialBarCommonProps['onClick']
     onMouseEnter?: RadialBarCommonProps['onMouseEnter']
     onMouseMove?: RadialBarCommonProps['onMouseMove']
     onMouseLeave?: RadialBarCommonProps['onMouseLeave']
+    transitionMode: RadialBarCommonProps['transitionMode']
 }
 
 export const RadialBarArcs = ({
+    center,
     bars,
     arcGenerator,
     isInteractive,
@@ -23,71 +26,53 @@ export const RadialBarArcs = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    transitionMode,
 }: RadialBarArcsProps) => {
-    const { animate, config: springConfig } = useMotionConfig()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const transition = useTransition<
-        ComputedBar,
-        {
-            startAngle: number
-            endAngle: number
-            innerRadius: number
-            outerRadius: number
-            color: string
-        }
-    >(bars, {
-        keys: bar => bar.id,
-        initial: bar => ({
-            startAngle: bar.startAngle,
-            endAngle: bar.endAngle,
-            innerRadius: bar.innerRadius,
-            outerRadius: bar.outerRadius,
-            color: bar.color,
-        }),
-        from: bar => ({
-            startAngle: bar.startAngle,
-            endAngle: bar.endAngle,
-            innerRadius: bar.innerRadius,
-            outerRadius: bar.outerRadius,
-            color: bar.color,
-        }),
-        update: bar => ({
-            startAngle: bar.startAngle,
-            endAngle: bar.endAngle,
-            innerRadius: bar.innerRadius,
-            outerRadius: bar.outerRadius,
-            color: bar.color,
-        }),
-        leave: bar => ({
-            startAngle: bar.startAngle + (bar.endAngle - bar.startAngle) / 2,
-            endAngle: bar.startAngle + (bar.endAngle - bar.startAngle) / 2,
-            innerRadius: bar.innerRadius,
-            outerRadius: bar.outerRadius,
-            color: bar.color,
-        }),
-        expires: true,
-        config: springConfig,
-        immediate: !animate,
-    })
+    const handleClick = useCallback(
+        (bar: ComputedBar, event: MouseEvent) => {
+            onClick?.(bar, event)
+        },
+        [onClick]
+    )
+
+    const handleMouseEnter = useCallback(
+        (bar: ComputedBar, event: MouseEvent) => {
+            showTooltipFromEvent(createElement(tooltip, { bar }), event)
+            onMouseEnter?.(bar, event)
+        },
+        [showTooltipFromEvent, tooltip, onMouseEnter]
+    )
+
+    const handleMouseMove = useCallback(
+        (bar: ComputedBar, event: MouseEvent) => {
+            showTooltipFromEvent(createElement(tooltip, { bar }), event)
+            onMouseMove?.(bar, event)
+        },
+        [showTooltipFromEvent, tooltip, onMouseMove]
+    )
+
+    const handleMouseLeave = useCallback(
+        (bar: ComputedBar, event: MouseEvent) => {
+            hideTooltip()
+            onMouseLeave?.(bar, event)
+        },
+        [hideTooltip, onMouseLeave]
+    )
 
     return (
-        <>
-            {transition((style, bar) => {
-                return (
-                    <RadialBarArc
-                        key={bar.id}
-                        bar={bar}
-                        animated={style}
-                        arcGenerator={arcGenerator}
-                        isInteractive={isInteractive}
-                        tooltip={tooltip}
-                        onClick={onClick}
-                        onMouseEnter={onMouseEnter}
-                        onMouseMove={onMouseMove}
-                        onMouseLeave={onMouseLeave}
-                    />
-                )
-            })}
-        </>
+        <ArcsLayer<ComputedBar>
+            center={center}
+            data={bars}
+            arcGenerator={arcGenerator}
+            borderWidth={0}
+            borderColor={'#000000'}
+            transitionMode={transitionMode}
+            onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+            onMouseMove={isInteractive ? handleMouseMove : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+        />
     )
 }
