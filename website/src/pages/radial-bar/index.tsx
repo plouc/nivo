@@ -5,7 +5,7 @@ import meta from '../../data/components/radial-bar/meta.yml'
 import mapper from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radial-bar/props'
 
-type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'keys' | 'width' | 'height'>
+type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'width' | 'height'>
 type UnmappedRadarProps = Omit<RadialBarSvgProps, 'valueFormat'> & {
     valueFormat: {
         format: string
@@ -62,12 +62,12 @@ const initialProperties: UnmappedRadarProps = {
 
 const generateData = () => {
     const ids = ['A', 'B', 'C']
-    if (Math.random() > .5) {
+    if (Math.random() > 0.5) {
         ids.push('D')
     }
 
     const categories = ['first', 'second', 'third']
-    if (Math.random() < .5) {
+    if (Math.random() < 0.5) {
         categories.push('fourth')
     }
 
@@ -97,9 +97,21 @@ const RadialBar = () => (
         })}
         generateData={generateData}
     >
-        {(properties, data, theme) => {
-            return <ResponsiveRadialBar data={data} {...properties} theme={theme} />
-        }}
+        {(properties, data, theme, logAction) => (
+            <ResponsiveRadialBar
+                data={data}
+                {...properties}
+                theme={theme}
+                onClick={bar => {
+                    logAction({
+                        type: 'click',
+                        label: `${bar.category} - ${bar.groupId}: ${bar.value}`,
+                        color: bar.color,
+                        data: bar,
+                    })
+                }}
+            />
+        )}
     </ComponentTemplate>
 )
 

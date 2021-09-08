@@ -1,6 +1,7 @@
-import { AriaAttributes, MouseEvent } from 'react'
+import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { Theme, Box, Dimensions, ModernMotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { Arc } from 'd3-shape'
 
 export interface RadialBarDatum {
     x: string
@@ -12,9 +13,10 @@ export interface RadialBarSerie {
     data: RadialBarDatum[]
 }
 
-export interface ComputedDatum {
+export interface ComputedBar {
     id: string
     data: RadialBarDatum
+    groupId: string
     category: string
     value: number
     color: string
@@ -31,11 +33,24 @@ export interface RadialBarDataProps {
 
 export type RadialBarLayerId = 'grid' | 'bars' | 'legends'
 
+export interface RadialBarTooltipProps {
+    bar: ComputedBar
+}
+export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
+
+export interface RadialBarArcData {
+    startAngle: number
+    endAngle: number
+    innerRadius: number
+    outerRadius: number
+}
+export type RadialBarArcGenerator = Arc<unknown, RadialBarArcData>
+
 export interface RadialBarCommonProps {
     margin: Box
 
     theme: Theme
-    colors: OrdinalColorScaleConfig<Omit<ComputedDatum, 'color'>>
+    colors: OrdinalColorScaleConfig<Omit<ComputedBar, 'color'>>
     cornerRadius: number
 
     layers: RadialBarLayerId[]
@@ -44,10 +59,11 @@ export interface RadialBarCommonProps {
     endAngle: number
 
     isInteractive: boolean
-    onClick: (bar: ComputedDatum, event: MouseEvent) => void
-    onMouseEnter: (bar: ComputedDatum, event: MouseEvent) => void
-    onMouseMove: (bar: ComputedDatum, event: MouseEvent) => void
-    onMouseLeave: (bar: ComputedDatum, event: MouseEvent) => void
+    tooltip: RadialBarTooltipComponent
+    onClick: (bar: ComputedBar, event: MouseEvent) => void
+    onMouseEnter: (bar: ComputedBar, event: MouseEvent) => void
+    onMouseMove: (bar: ComputedBar, event: MouseEvent) => void
+    onMouseLeave: (bar: ComputedBar, event: MouseEvent) => void
 
     renderWrapper: boolean
 

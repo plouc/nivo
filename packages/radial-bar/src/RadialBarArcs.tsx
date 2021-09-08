@@ -1,19 +1,33 @@
-import { useTransition, to } from '@react-spring/web'
-import { Arc } from 'd3-shape'
+import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedDatum } from './types'
+import { ComputedBar, RadialBarArcGenerator, RadialBarCommonProps } from './types'
 import { RadialBarArc } from './RadialBarArc'
 
 interface RadialBarArcsProps {
-    bars: ComputedDatum[]
-    arcGenerator: Arc<unknown, ComputedDatum>
+    bars: ComputedBar[]
+    arcGenerator: RadialBarArcGenerator
+    isInteractive: RadialBarCommonProps['isInteractive']
+    tooltip: RadialBarCommonProps['tooltip']
+    onClick?: RadialBarCommonProps['onClick']
+    onMouseEnter?: RadialBarCommonProps['onMouseEnter']
+    onMouseMove?: RadialBarCommonProps['onMouseMove']
+    onMouseLeave?: RadialBarCommonProps['onMouseLeave']
 }
 
-export const RadialBarArcs = ({ bars, arcGenerator }: RadialBarArcsProps) => {
+export const RadialBarArcs = ({
+    bars,
+    arcGenerator,
+    isInteractive,
+    tooltip,
+    onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+}: RadialBarArcsProps) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const transition = useTransition<
-        ComputedDatum,
+        ComputedBar,
         {
             startAngle: number
             endAngle: number
@@ -32,7 +46,7 @@ export const RadialBarArcs = ({ bars, arcGenerator }: RadialBarArcsProps) => {
         }),
         from: bar => ({
             startAngle: bar.startAngle,
-            endAngle: bar.startAngle,
+            endAngle: bar.endAngle,
             innerRadius: bar.innerRadius,
             outerRadius: bar.outerRadius,
             color: bar.color,
@@ -65,6 +79,12 @@ export const RadialBarArcs = ({ bars, arcGenerator }: RadialBarArcsProps) => {
                         bar={bar}
                         animated={style}
                         arcGenerator={arcGenerator}
+                        isInteractive={isInteractive}
+                        tooltip={tooltip}
+                        onClick={onClick}
+                        onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
+                        onMouseLeave={onMouseLeave}
                     />
                 )
             })}

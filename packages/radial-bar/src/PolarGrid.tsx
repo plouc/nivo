@@ -1,7 +1,7 @@
+import { SVGProps } from 'react'
 import { ScaleBand, ScaleLinear } from 'd3-scale'
 import { useTransition, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
-import { createElement, SVGProps } from 'react'
 
 interface PolarGridProps {
     center: [number, number]
