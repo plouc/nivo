@@ -30,7 +30,8 @@ const initialProperties: UnmappedRadarProps = {
     cornerRadius: 2,
 
     animate: true,
-    motionConfig: 'molasses',
+    motionConfig: 'gentle' as const,
+    transitionMode: 'pushOut' as const,
 
     isInteractive: svgDefaultProps.isInteractive,
 

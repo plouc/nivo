@@ -1,4 +1,6 @@
 import { svgDefaultProps } from '@nivo/radial-bar'
+import { defaultProps } from '@nivo/pie'
+import { arcTransitionModes } from '@nivo/arcs'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
 
@@ -285,6 +287,22 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
     },
     ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    {
+        key: 'transitionMode',
+        flavors: ['svg'],
+        help: 'Define how transitions behave.',
+        type: 'string',
+        required: false,
+        defaultValue: defaultProps.transitionMode,
+        controlType: 'choices',
+        group: 'Motion',
+        controlOptions: {
+            choices: arcTransitionModes.map(choice => ({
+                label: choice,
+                value: choice,
+            })),
+        },
+    },
 ]
 
 export const groups = groupProperties(props)

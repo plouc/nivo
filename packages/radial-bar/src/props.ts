@@ -15,6 +15,7 @@ export const svgDefaultProps = {
 
     animate: true,
     motionConfig: 'gentle' as const,
+    transitionMode: 'startAngle' as const,
 
     renderWrapper: true,
 }

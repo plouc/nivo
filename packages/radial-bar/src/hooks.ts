@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import { arc as d3Arc } from 'd3-shape'
 import { degreesToRadians } from '@nivo/core'
+import { Arc } from '@nivo/arcs'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
 import {
@@ -9,7 +10,6 @@ import {
     RadialBarCommonProps,
     RadialBarDataProps,
     RadialBarSerie,
-    RadialBarArcData,
 } from './types'
 
 interface RadialBarGroup {
@@ -92,7 +92,7 @@ export const useRadialBar = ({
 
     const arcGenerator = useMemo(
         () =>
-            d3Arc<RadialBarArcData>()
+            d3Arc<Arc>()
                 .startAngle(d => degreesToRadians(d.startAngle))
                 .endAngle(d => degreesToRadians(d.endAngle))
                 .innerRadius(d => d.innerRadius)
@@ -120,10 +120,12 @@ export const useRadialBar = ({
                     value: datum.y,
                     color: '',
                     stackedValue,
-                    startAngle: valueScale(currentValue),
-                    endAngle: valueScale(stackedValue),
-                    innerRadius,
-                    outerRadius,
+                    arc: {
+                        startAngle: valueScale(currentValue),
+                        endAngle: valueScale(stackedValue),
+                        innerRadius,
+                        outerRadius,
+                    },
                 }
 
                 computedDatum.color = getColor(computedDatum)
