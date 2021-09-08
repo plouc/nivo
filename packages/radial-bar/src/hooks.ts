@@ -5,12 +5,7 @@ import { degreesToRadians } from '@nivo/core'
 import { Arc } from '@nivo/arcs'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
-import {
-    ComputedBar,
-    RadialBarCommonProps,
-    RadialBarDataProps,
-    RadialBarSerie,
-} from './types'
+import { ComputedBar, RadialBarCommonProps, RadialBarDataProps, RadialBarSerie } from './types'
 
 interface RadialBarGroup {
     id: string
@@ -86,15 +81,15 @@ export const useRadialBar = ({
             scaleBand()
                 .domain(serieIds)
                 .range([outerRadius - 100, outerRadius])
-                .padding(0.4),
+                .padding(0.2),
         [serieIds, outerRadius]
     )
 
     const arcGenerator = useMemo(
         () =>
             d3Arc<Arc>()
-                .startAngle(d => degreesToRadians(d.startAngle))
-                .endAngle(d => degreesToRadians(d.endAngle))
+                .startAngle(d => d.startAngle)
+                .endAngle(d => d.endAngle)
                 .innerRadius(d => d.innerRadius)
                 .outerRadius(d => d.outerRadius)
                 .cornerRadius(cornerRadius),
@@ -121,8 +116,8 @@ export const useRadialBar = ({
                     color: '',
                     stackedValue,
                     arc: {
-                        startAngle: valueScale(currentValue),
-                        endAngle: valueScale(stackedValue),
+                        startAngle: degreesToRadians(valueScale(currentValue)),
+                        endAngle: degreesToRadians(valueScale(stackedValue)),
                         innerRadius,
                         outerRadius,
                     },

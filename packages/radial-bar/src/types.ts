@@ -1,6 +1,6 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
-import { Theme, Box, Dimensions, ModernMotionProps } from '@nivo/core'
-import { Arc, ArcTransitionMode } from '@nivo/arcs'
+import { Theme, Box, Dimensions, ModernMotionProps, PropertyAccessor } from '@nivo/core'
+import { Arc, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 
 export interface RadialBarDatum {
@@ -28,14 +28,14 @@ export interface RadialBarDataProps {
     data: RadialBarSerie[]
 }
 
-export type RadialBarLayerId = 'grid' | 'bars' | 'legends'
+export type RadialBarLayerId = 'grid' | 'bars' | 'labels' | 'legends'
 
 export interface RadialBarTooltipProps {
     bar: ComputedBar
 }
 export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
 
-export interface RadialBarCommonProps {
+export type RadialBarCommonProps = {
     margin: Box
 
     theme: Theme
@@ -46,6 +46,12 @@ export interface RadialBarCommonProps {
 
     startAngle: number
     endAngle: number
+
+    enableLabels: boolean
+    label: PropertyAccessor<ComputedBar, string>
+    labelsSkipAngle: ArcLabelsProps<ComputedBar>['arcLabelsSkipAngle']
+    labelsRadiusOffset: ArcLabelsProps<ComputedBar>['arcLabelsRadiusOffset']
+    labelsTextColor: ArcLabelsProps<ComputedBar>['arcLabelsTextColor']
 
     isInteractive: boolean
     tooltip: RadialBarTooltipComponent

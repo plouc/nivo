@@ -521,7 +521,7 @@ const props: ChartProperty[] = [
     {
         key: 'activeInnerRadiusOffset',
         flavors: ['svg', 'canvas'],
-        help: `Skip label if corresponding slice's angle is lower than provided value.`,
+        help: `Extends active slice inner radius.`,
         type: 'number',
         required: false,
         defaultValue: defaultProps.activeInnerRadiusOffset,
@@ -536,7 +536,7 @@ const props: ChartProperty[] = [
     {
         key: 'activeOuterRadiusOffset',
         flavors: ['svg', 'canvas'],
-        help: `Skip label if corresponding slice's angle is lower than provided value.`,
+        help: `Extends active slice outer radius.`,
         type: 'number',
         required: false,
         defaultValue: defaultProps.activeOuterRadiusOffset,
