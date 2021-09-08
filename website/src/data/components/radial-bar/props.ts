@@ -6,24 +6,61 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
-        type: 'RadialBarSerie[]',
+        type: 'object[]',
         required: true,
         help: 'Chart data.',
         description: `
-            For example, given this config:
+            Here is what the data for a single chart with 2 bars would look like:
+            
             \`\`\`
             [
-                { language: 'javascript', john: 12, sarah: 32, bob: 27 },
-                { language: 'golang', john: 25, sarah: 15, bob: 3 },
-                { language: 'python', john: 5, sarah: 22, bob: 31 },
-                { language: 'java', john: 19, sarah: 17, bob: 9 }
+                {
+                    id: 'Fruits',
+                    data: [{ x: 'Apples', y: 32 }]
+                },
+                {
+                    id: 'Vegetables',
+                    data: [{ x: 'Eggplants', y: 27 }]
+                }
             ]
-            keys: ['john', 'sarah', 'bob']
-            indexBy: 'language'
             \`\`\`
-            We'll have a radar chart representing programing
-            skills for each user by language
-            (3 layers and 4 dimensions).
+            
+            You can add several metrics per group:
+            
+            \`\`\`
+            [
+                {
+                    id: 'Fruits',
+                    data: [
+                        { x: 'Apples', y: 32 },
+                        { x: 'Mangoes', y: 15 }
+                    ]
+                },
+                {
+                    id: 'Vegetables',
+                    data: [
+                        { x: 'Eggplants', y: 27 },
+                        { x: 'Avocados', y: 34 }
+                    ]
+                }
+            ]
+            \`\`\`
+            
+            When a bar is computed, the \`id\` is going to be added
+            as the \`groupId\`, \`x\` as the \`category\` and \`y\`
+            as the value, for example the first bar for the number of Apples
+            in the Fruits group would be:
+            
+            \`\`\`
+            {
+                groupId: 'Fruits',
+                category: 'Apples',
+                value: 32
+            }
+            \`\`\`
+            
+            You might read those values when adding an \`onClick\` handler
+            for example, or when customizing the tooltip.
         `,
         flavors: ['svg'],
     },
@@ -32,7 +69,7 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string | (value: number) => string',
         required: false,
-        help: 'Optional formatter for values.',
+        help: 'Optional formatter for values (`y`).',
         description: `
             The formatted value can then be used for labels & tooltips.
 
@@ -102,7 +139,6 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.startAngle,
         controlType: 'angle',
         controlOptions: {
-            unit: '°',
             min: -180,
             max: 360,
             step: 5,
@@ -118,7 +154,6 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.endAngle,
         controlType: 'angle',
         controlOptions: {
-            unit: '°',
             min: -360,
             max: 360,
             step: 5,
@@ -178,11 +213,75 @@ const props: ChartProperty[] = [
         controlType: 'switch',
     },
     {
-        key: 'sliceTooltip',
+        key: 'tooltip',
         group: 'Interactivity',
-        type: 'FunctionComponent<RadarSliceTooltipProps>',
+        type: 'RadialBarTooltipComponent',
         required: false,
-        help: 'Override default slice tooltip.',
+        help: 'Override default tooltip.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'onClick',
+        group: 'Interactivity',
+        type: '(bar: ComputedBar, event: MouseEvent) => void',
+        required: false,
+        help: 'onClick handler.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'onMouseEnter',
+        group: 'Interactivity',
+        type: '(bar: ComputedBar, event: MouseEvent) => void',
+        required: false,
+        help: 'onMouseEnter handler.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        type: '(bar: ComputedBar, event: MouseEvent) => void',
+        required: false,
+        help: 'onMouseMove handler.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        type: '(bar: ComputedBar, event: MouseEvent) => void',
+        required: false,
+        help: 'onMouseLeave handler.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'role',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element role attribute.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'ariaLabel',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
+        flavors: ['svg'],
+    },
+    {
+        key: 'ariaLabelledBy',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
+        flavors: ['svg'],
+    },
+    {
+        key: 'ariaDescribedBy',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
         flavors: ['svg'],
     },
     ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
