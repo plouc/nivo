@@ -18,16 +18,22 @@ const initialProperties: UnmappedRadarProps = {
 
     startAngle: svgDefaultProps.startAngle,
     endAngle: svgDefaultProps.endAngle,
+    padding: svgDefaultProps.padding,
 
     margin: {
         top: 20,
-        right: 20,
+        right: 100,
         bottom: 20,
         left: 20,
     },
 
     colors: svgDefaultProps.colors,
+    borderWidth: svgDefaultProps.borderWidth,
+    borderColor: svgDefaultProps.borderColor,
     cornerRadius: 2,
+
+    enableGridAngles: svgDefaultProps.enableGridAngles,
+    enableGridRadii: svgDefaultProps.enableGridRadii,
 
     enableLabels: svgDefaultProps.enableLabels,
     label: svgDefaultProps.label,
@@ -37,21 +43,24 @@ const initialProperties: UnmappedRadarProps = {
 
     animate: true,
     motionConfig: 'gentle' as const,
-    transitionMode: 'pushOut' as const,
+    transitionMode: svgDefaultProps.transitionMode,
 
     isInteractive: svgDefaultProps.isInteractive,
 
     legends: [
         {
-            anchor: 'top-left',
+            anchor: 'right',
             direction: 'column',
-            translateX: -50,
-            translateY: -40,
+            justify: false,
+            translateX: 80,
+            translateY: 0,
+            itemsSpacing: 6,
+            itemDirection: 'left-to-right',
             itemWidth: 80,
-            itemHeight: 20,
+            itemHeight: 18,
             itemTextColor: '#999',
-            symbolSize: 12,
-            symbolShape: 'circle',
+            symbolSize: 18,
+            symbolShape: 'square',
             onClick: d => {
                 alert(JSON.stringify(d, null, '    '))
             },
@@ -98,10 +107,6 @@ const RadialBar = () => (
         initialProperties={initialProperties}
         defaultProperties={svgDefaultProps}
         propertiesMapper={mapper}
-        codePropertiesMapper={(properties: any, data: any) => ({
-            keys: data.keys,
-            ...properties,
-        })}
         generateData={generateData}
     >
         {(properties, data, theme, logAction) => (

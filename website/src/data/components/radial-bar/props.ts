@@ -1,6 +1,11 @@
 import { svgDefaultProps } from '@nivo/radial-bar'
 import { arcTransitionModes } from '@nivo/arcs'
-import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    motionProperties,
+    groupProperties,
+    getLegendsProps,
+} from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
 
 const props: ChartProperty[] = [
@@ -160,6 +165,21 @@ const props: ChartProperty[] = [
             step: 5,
         },
     },
+    {
+        key: 'padding',
+        group: 'Base',
+        type: 'number',
+        required: false,
+        help: 'Padding between each ring (ratio).',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.padding,
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 0.9,
+            step: 0.05,
+        },
+    },
     themeProperty(['svg']),
     {
         key: 'colors',
@@ -170,6 +190,30 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: svgDefaultProps.colors,
         controlType: 'ordinalColors',
+    },
+    {
+        key: 'borderWidth',
+        group: 'Style',
+        type: 'number',
+        required: false,
+        help: 'Bars border width.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.borderWidth,
+        controlType: 'lineWidth',
+    },
+    {
+        key: 'borderColor',
+        group: 'Style',
+        type: 'InheritedColorConfig<ComputedBar>',
+        required: false,
+        help: 'Method to compute border color.',
+        description: `
+            how to compute border color,
+            [see dedicated documentation](self:/guides/colors).
+        `,
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.borderColor,
+        controlType: 'inheritedColor',
     },
     {
         key: 'cornerRadius',
@@ -186,6 +230,26 @@ const props: ChartProperty[] = [
             max: 45,
             step: 1,
         },
+    },
+    {
+        key: 'enableGridAngles',
+        group: 'Grid & Axes',
+        type: 'boolean',
+        required: false,
+        help: 'Enable grid angles',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.enableGridAngles,
+        controlType: 'switch',
+    },
+    {
+        key: 'enableGridRadii',
+        group: 'Grid & Axes',
+        type: 'boolean',
+        required: false,
+        help: 'Enable grid radii',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.enableGridRadii,
+        controlType: 'switch',
     },
     {
         key: 'enableLabels',
@@ -268,8 +332,9 @@ const props: ChartProperty[] = [
             You can also use this to insert extra layers
             to the chart, the extra layer should be a component.
             
-            The layer function which will receive the chart's
-            context & computed data and must return a valid SVG element.
+            The component will receive properties as defined in
+            the \`RadialBarCustomLayerProps\` interface
+            and must return a valid SVG element.
         `,
         flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
@@ -323,6 +388,39 @@ const props: ChartProperty[] = [
         required: false,
         help: 'onMouseLeave handler.',
         flavors: ['svg'],
+    },
+    {
+        key: 'legends',
+        group: 'Legends',
+        type: 'LegendProps[]',
+        required: false,
+        help: `Optional chart's legends.`,
+        flavors: ['svg'],
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(['svg']),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            getItemTitle: (index, legend) =>
+                `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
+            svgDefaultProps: {
+                dataFrom: 'keys',
+                anchor: 'top-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 0,
+                symbolSize: 20,
+                itemDirection: 'left-to-right',
+                onClick: data => {
+                    alert(JSON.stringify(data, null, '    '))
+                },
+            },
+        },
     },
     {
         key: 'role',

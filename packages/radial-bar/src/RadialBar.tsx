@@ -5,7 +5,8 @@ import { RadialBarLayerId, RadialBarSvgProps, ComputedBar } from './types'
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
-import { PolarGrid } from './PolarGrid'
+import { PolarGrid } from './polar_grid'
+import { BoxLegendSvg } from '@nivo/legends'
 
 type InnerRadialBarProps = Omit<
     RadialBarSvgProps,
@@ -14,13 +15,19 @@ type InnerRadialBarProps = Omit<
 
 const InnerRadialBar = ({
     data,
+    valueFormat,
     startAngle = svgDefaultProps.startAngle,
     endAngle = svgDefaultProps.endAngle,
+    padding = svgDefaultProps.padding,
     width,
     height,
     margin: partialMargin,
     layers = svgDefaultProps.layers,
+    enableGridAngles = svgDefaultProps.enableGridAngles,
+    enableGridRadii = svgDefaultProps.enableGridRadii,
     colors = svgDefaultProps.colors,
+    borderWidth = svgDefaultProps.borderWidth,
+    borderColor = svgDefaultProps.borderColor,
     cornerRadius = svgDefaultProps.cornerRadius,
     enableLabels = svgDefaultProps.enableLabels,
     label = svgDefaultProps.label,
@@ -34,6 +41,7 @@ const InnerRadialBar = ({
     onMouseMove,
     onMouseLeave,
     transitionMode = svgDefaultProps.transitionMode,
+    legends = svgDefaultProps.legends,
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -45,10 +53,20 @@ const InnerRadialBar = ({
         partialMargin
     )
 
-    const { center, bars, arcGenerator, radiusScale, valueScale } = useRadialBar({
+    const {
+        center,
+        bars,
+        arcGenerator,
+        radiusScale,
+        valueScale,
+        legendData,
+        customLayerProps,
+    } = useRadialBar({
         data,
+        valueFormat,
         startAngle,
         endAngle,
+        padding,
         width: innerWidth,
         height: innerHeight,
         colors,
@@ -67,6 +85,8 @@ const InnerRadialBar = ({
             <PolarGrid
                 key="grid"
                 center={center}
+                enableAngles={enableGridAngles}
+                enableRadii={enableGridRadii}
                 angleScale={valueScale}
                 radiusScale={radiusScale}
             />
@@ -79,6 +99,8 @@ const InnerRadialBar = ({
                 key="bars"
                 center={center}
                 bars={bars}
+                borderWidth={borderWidth}
+                borderColor={borderColor}
                 arcGenerator={arcGenerator}
                 isInteractive={isInteractive}
                 tooltip={tooltip}
@@ -106,6 +128,22 @@ const InnerRadialBar = ({
         )
     }
 
+    if (layers.includes('legends') && legends.length > 0) {
+        layerById.legends = (
+            <Fragment key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legendData}
+                    />
+                ))}
+            </Fragment>
+        )
+    }
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -118,7 +156,7 @@ const InnerRadialBar = ({
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, {})}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null
