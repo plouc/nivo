@@ -7,6 +7,7 @@ import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
 import { PolarGrid } from './polar_grid'
 import { BoxLegendSvg } from '@nivo/legends'
+import { RadialBarTracks } from './RadialBarTracks'
 
 type InnerRadialBarProps = Omit<
     RadialBarSvgProps,
@@ -23,6 +24,8 @@ const InnerRadialBar = ({
     height,
     margin: partialMargin,
     layers = svgDefaultProps.layers,
+    enableTracks = svgDefaultProps.enableTracks,
+    tracksColor = svgDefaultProps.tracksColor,
     enableGridAngles = svgDefaultProps.enableGridAngles,
     enableGridRadii = svgDefaultProps.enableGridRadii,
     colors = svgDefaultProps.colors,
@@ -59,6 +62,7 @@ const InnerRadialBar = ({
         arcGenerator,
         radiusScale,
         valueScale,
+        tracks,
         legendData,
         customLayerProps,
     } = useRadialBar({
@@ -71,10 +75,12 @@ const InnerRadialBar = ({
         height: innerHeight,
         colors,
         cornerRadius,
+        tracksColor,
     })
 
     const layerById: Record<RadialBarLayerId, ReactNode> = {
         grid: null,
+        tracks: null,
         bars: null,
         labels: null,
         legends: null,
@@ -89,6 +95,18 @@ const InnerRadialBar = ({
                 enableRadii={enableGridRadii}
                 angleScale={valueScale}
                 radiusScale={radiusScale}
+            />
+        )
+    }
+
+    if (layers.includes('tracks') && enableTracks) {
+        layerById.tracks = (
+            <RadialBarTracks
+                key="tracks"
+                center={center}
+                tracks={tracks}
+                arcGenerator={arcGenerator}
+                transitionMode={transitionMode}
             />
         )
     }

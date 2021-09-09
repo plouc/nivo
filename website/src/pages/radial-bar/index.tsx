@@ -32,6 +32,9 @@ const initialProperties: UnmappedRadarProps = {
     borderColor: svgDefaultProps.borderColor,
     cornerRadius: 2,
 
+    enableTracks: svgDefaultProps.enableTracks,
+    tracksColor: svgDefaultProps.tracksColor,
+
     enableGridAngles: svgDefaultProps.enableGridAngles,
     enableGridRadii: svgDefaultProps.enableGridRadii,
 

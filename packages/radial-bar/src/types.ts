@@ -38,7 +38,7 @@ export interface RadialBarDataProps {
     data: RadialBarSerie[]
 }
 
-export type RadialBarLayerId = 'grid' | 'bars' | 'labels' | 'legends'
+export type RadialBarLayerId = 'grid' | 'tracks' | 'bars' | 'labels' | 'legends'
 
 export interface RadialBarCustomLayerProps {
     center: [number, number]
@@ -54,6 +54,12 @@ export interface RadialBarTooltipProps {
     bar: ComputedBar
 }
 export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
+
+export interface RadialBarTrackDatum {
+    id: string
+    color: string
+    arc: Arc
+}
 
 export type RadialBarCommonProps = {
     valueFormat: ValueFormat<number>
@@ -71,6 +77,9 @@ export type RadialBarCommonProps = {
     startAngle: number
     endAngle: number
     padding: number
+
+    enableTracks: boolean
+    tracksColor: string
 
     enableGridAngles: boolean
     enableGridRadii: boolean
