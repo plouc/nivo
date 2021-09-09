@@ -3,11 +3,14 @@ import { ComputedBar, RadialBarLayerId } from './types'
 import { RadialBarTooltip } from './RadialBarTooltip'
 
 export const commonDefaultProps = {
-    layers: ['grid', 'bars', 'labels', 'legends'] as RadialBarLayerId[],
+    layers: ['grid', 'tracks', 'bars', 'labels', 'legends'] as RadialBarLayerId[],
 
     startAngle: 0,
     endAngle: 270,
     padding: 0.2,
+
+    enableTracks: true,
+    tracksColor: 'rgba(0, 0, 0, .15)',
 
     enableGridAngles: true,
     enableGridRadii: true,

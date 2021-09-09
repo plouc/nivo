@@ -11,6 +11,7 @@ import {
     RadialBarDataProps,
     RadialBarSerie,
     RadialBarCustomLayerProps,
+    RadialBarTrackDatum,
 } from './types'
 
 interface RadialBarGroup {
@@ -29,6 +30,7 @@ export const useRadialBar = ({
     height,
     colors = commonDefaultProps.colors,
     cornerRadius = commonDefaultProps.cornerRadius,
+    tracksColor = commonDefaultProps.tracksColor,
 }: {
     data: RadialBarDataProps['data']
     valueFormat?: RadialBarCommonProps['valueFormat']
@@ -39,6 +41,7 @@ export const useRadialBar = ({
     height: number
     colors: RadialBarCommonProps['colors']
     cornerRadius: RadialBarCommonProps['cornerRadius']
+    tracksColor: RadialBarCommonProps['tracksColor']
 }) => {
     // using a hook, not because it's costly to compute, but because this is used as
     // a dependency for other hooks, and otherwise a new array would be created all
@@ -154,6 +157,28 @@ export const useRadialBar = ({
         return innerBars
     }, [groups, radiusScale, valueScale, getColor, formatValue])
 
+    const startAngleRadians = degreesToRadians(startAngle)
+    const endAngleRadians = degreesToRadians(endAngle)
+
+    const tracks: RadialBarTrackDatum[] = useMemo(
+        () =>
+            radiusScale.domain().map(value => {
+                const trackRadius = radiusScale(value) as number
+
+                return {
+                    id: value,
+                    color: tracksColor,
+                    arc: {
+                        startAngle: startAngleRadians,
+                        endAngle: endAngleRadians,
+                        innerRadius: trackRadius,
+                        outerRadius: trackRadius + radiusScale.bandwidth(),
+                    },
+                }
+            }),
+        [radiusScale, startAngleRadians, endAngleRadians, tracksColor]
+    )
+
     // Given the way categories are extracted, (please see the corresponding hook above),
     // legends order might be incorrect, also colors are extracted from bars, to avoid
     // duplicating the colors function, but if the color logic is custom for each bar,
@@ -193,6 +218,7 @@ export const useRadialBar = ({
         arcGenerator,
         radiusScale,
         valueScale,
+        tracks,
         legendData,
         customLayerProps,
     }
