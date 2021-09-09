@@ -1,7 +1,16 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
-import { Theme, Box, Dimensions, ModernMotionProps, PropertyAccessor } from '@nivo/core'
-import { Arc, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { ScaleLinear, ScaleBand } from 'd3-scale'
+import {
+    Theme,
+    Box,
+    Dimensions,
+    ModernMotionProps,
+    PropertyAccessor,
+    ValueFormat,
+} from '@nivo/core'
+import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { LegendProps } from '@nivo/legends'
 
 export interface RadialBarDatum {
     x: string
@@ -19,6 +28,7 @@ export interface ComputedBar {
     groupId: string
     category: string
     value: number
+    formattedValue: string
     color: string
     stackedValue: number
     arc: Arc
@@ -30,22 +40,40 @@ export interface RadialBarDataProps {
 
 export type RadialBarLayerId = 'grid' | 'bars' | 'labels' | 'legends'
 
+export interface RadialBarCustomLayerProps {
+    center: [number, number]
+    outerRadius: number
+    bars: ComputedBar[]
+    arcGenerator: ArcGenerator
+    radiusScale: ScaleBand<string>
+    valueScale: ScaleLinear<number, number>
+}
+export type RadialBarCustomLayer = FunctionComponent<RadialBarCustomLayerProps>
+
 export interface RadialBarTooltipProps {
     bar: ComputedBar
 }
 export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
 
 export type RadialBarCommonProps = {
+    valueFormat: ValueFormat<number>
+
     margin: Box
 
     theme: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedBar, 'color'>>
+    borderWidth: number
+    borderColor: InheritedColorConfig<ComputedBar>
     cornerRadius: number
 
-    layers: RadialBarLayerId[]
+    layers: (RadialBarLayerId | RadialBarCustomLayer)[]
 
     startAngle: number
     endAngle: number
+    padding: number
+
+    enableGridAngles: boolean
+    enableGridRadii: boolean
 
     enableLabels: boolean
     label: PropertyAccessor<ComputedBar, string>
@@ -59,6 +87,8 @@ export type RadialBarCommonProps = {
     onMouseEnter: (bar: ComputedBar, event: MouseEvent) => void
     onMouseMove: (bar: ComputedBar, event: MouseEvent) => void
     onMouseLeave: (bar: ComputedBar, event: MouseEvent) => void
+
+    legends: LegendProps[]
 
     renderWrapper: boolean
 

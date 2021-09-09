@@ -1,11 +1,17 @@
 import { useMemo } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import { arc as d3Arc } from 'd3-shape'
-import { degreesToRadians } from '@nivo/core'
+import { degreesToRadians, useValueFormatter } from '@nivo/core'
 import { Arc } from '@nivo/arcs'
 import { useOrdinalColorScale } from '@nivo/colors'
-import { svgDefaultProps } from './props'
-import { ComputedBar, RadialBarCommonProps, RadialBarDataProps, RadialBarSerie } from './types'
+import { commonDefaultProps } from './props'
+import {
+    ComputedBar,
+    RadialBarCommonProps,
+    RadialBarDataProps,
+    RadialBarSerie,
+    RadialBarCustomLayerProps,
+} from './types'
 
 interface RadialBarGroup {
     id: string
@@ -15,27 +21,38 @@ interface RadialBarGroup {
 
 export const useRadialBar = ({
     data,
-    startAngle = svgDefaultProps.startAngle,
-    endAngle = svgDefaultProps.endAngle,
+    valueFormat,
+    startAngle = commonDefaultProps.startAngle,
+    endAngle = commonDefaultProps.endAngle,
+    padding = commonDefaultProps.padding,
     width,
     height,
-    colors = svgDefaultProps.colors,
-    cornerRadius = svgDefaultProps.cornerRadius,
+    colors = commonDefaultProps.colors,
+    cornerRadius = commonDefaultProps.cornerRadius,
 }: {
     data: RadialBarDataProps['data']
+    valueFormat?: RadialBarCommonProps['valueFormat']
     startAngle: RadialBarCommonProps['startAngle']
+    padding: RadialBarCommonProps['padding']
     endAngle: RadialBarCommonProps['endAngle']
     width: number
     height: number
     colors: RadialBarCommonProps['colors']
     cornerRadius: RadialBarCommonProps['cornerRadius']
 }) => {
-    const center: [number, number] = [width / 2, height / 2]
+    // using a hook, not because it's costly to compute, but because this is used as
+    // a dependency for other hooks, and otherwise a new array would be created all
+    // the time, forcing recomputing everything.
+    const center: [number, number] = useMemo(() => [width / 2, height / 2], [width, height])
     const outerRadius = Math.min(...center)
 
     const getColor = useOrdinalColorScale<ComputedBar>(colors, 'category')
 
-    const { serieIds, groups, maxValue } = useMemo(() => {
+    // the way categories are being extracted is a bit fragile, because it's extracted from the data,
+    // so if the first group doesn't contain the first expected category for example, then the order
+    // of categories is going to be incorrect.
+    // Maybe we could add an extra sort property, although this might be confusing.
+    const { serieIds, categories, groups, maxValue } = useMemo(() => {
         const result: {
             serieIds: string[]
             categories: string[]
@@ -81,8 +98,8 @@ export const useRadialBar = ({
             scaleBand()
                 .domain(serieIds)
                 .range([outerRadius - 100, outerRadius])
-                .padding(0.2),
-        [serieIds, outerRadius]
+                .padding(padding),
+        [serieIds, outerRadius, padding]
     )
 
     const arcGenerator = useMemo(
@@ -95,6 +112,8 @@ export const useRadialBar = ({
                 .cornerRadius(cornerRadius),
         [cornerRadius]
     )
+
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     const bars = useMemo(() => {
         const innerBars: ComputedBar[] = []
@@ -113,6 +132,7 @@ export const useRadialBar = ({
                     groupId: group.id,
                     category: datum.x,
                     value: datum.y,
+                    formattedValue: formatValue(datum.y),
                     color: '',
                     stackedValue,
                     arc: {
@@ -132,7 +152,39 @@ export const useRadialBar = ({
         })
 
         return innerBars
-    }, [groups, radiusScale, valueScale, getColor])
+    }, [groups, radiusScale, valueScale, getColor, formatValue])
+
+    // Given the way categories are extracted, (please see the corresponding hook above),
+    // legends order might be incorrect, also colors are extracted from bars, to avoid
+    // duplicating the colors function, but if the color logic is custom for each bar,
+    // this might lead to weird values for legends.
+    // Maybe we could allow passing custom legend data to fix that.
+    const legendData = useMemo(
+        () =>
+            categories.map(category => {
+                const barWithCategory = bars.find(bar => bar.category === category)
+                const color = barWithCategory ? barWithCategory.color : undefined
+
+                return {
+                    id: category,
+                    label: category,
+                    color,
+                }
+            }),
+        [categories, bars]
+    )
+
+    const customLayerProps: RadialBarCustomLayerProps = useMemo(
+        () => ({
+            center,
+            outerRadius,
+            bars,
+            arcGenerator,
+            radiusScale,
+            valueScale,
+        }),
+        [center, outerRadius, bars, arcGenerator, radiusScale, valueScale]
+    )
 
     return {
         center,
@@ -141,5 +193,7 @@ export const useRadialBar = ({
         arcGenerator,
         radiusScale,
         valueScale,
+        legendData,
+        customLayerProps,
     }
 }

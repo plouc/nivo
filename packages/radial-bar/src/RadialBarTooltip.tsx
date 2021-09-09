@@ -10,7 +10,7 @@ export const RadialBarTooltip = ({ bar }: RadialBarTooltipProps) => {
                     {bar.category} - {bar.groupId}
                 </span>
             }
-            value={bar.value}
+            value={bar.formattedValue}
             color={bar.color}
         />
     )

@@ -6,6 +6,8 @@ import { ComputedBar, RadialBarCommonProps } from './types'
 interface RadialBarArcsProps {
     center: [number, number]
     bars: ComputedBar[]
+    borderWidth: RadialBarCommonProps['borderWidth']
+    borderColor: RadialBarCommonProps['borderColor']
     arcGenerator: ArcGenerator
     isInteractive: RadialBarCommonProps['isInteractive']
     tooltip: RadialBarCommonProps['tooltip']
@@ -19,6 +21,8 @@ interface RadialBarArcsProps {
 export const RadialBarArcs = ({
     center,
     bars,
+    borderWidth,
+    borderColor,
     arcGenerator,
     isInteractive,
     tooltip,
@@ -66,8 +70,8 @@ export const RadialBarArcs = ({
             center={center}
             data={bars}
             arcGenerator={arcGenerator}
-            borderWidth={0}
-            borderColor={'#000000'}
+            borderWidth={borderWidth}
+            borderColor={borderColor}
             transitionMode={transitionMode}
             onClick={isInteractive ? handleClick : undefined}
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}

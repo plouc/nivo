@@ -5,11 +5,13 @@ import { useMotionConfig, useTheme } from '@nivo/core'
 
 interface PolarGridProps {
     center: [number, number]
+    enableAngles: boolean
+    enableRadii: boolean
     angleScale: ScaleLinear<number, number>
     radiusScale: ScaleBand<string>
 }
 
-export const PolarGrid = ({ center, angleScale, radiusScale }: PolarGridProps) => {
+export const PolarGrid = ({ center, angleScale, radiusScale, enableAngles }: PolarGridProps) => {
     // const radiuses = radiusScale.ticks()
     const innerRadius = Math.min(...radiusScale.range())
     const outerRadius = Math.max(...radiusScale.range())
@@ -43,18 +45,24 @@ export const PolarGrid = ({ center, angleScale, radiusScale }: PolarGridProps) =
 
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
-            {anglesTransition((style, angle) => {
-                console.log()
-                return (
-                    <animated.g key={angle.id} transform={style.angle.to(v => `rotate(${v})`)}>
-                        <line
-                            x1={innerRadius}
-                            x2={outerRadius}
-                            {...(theme.grid.line as SVGProps<SVGLineElement>)}
-                        />
-                    </animated.g>
-                )
-            })}
+            {enableAngles && (
+                <>
+                    {anglesTransition((style, angle) => {
+                        return (
+                            <animated.g
+                                key={angle.id}
+                                transform={style.angle.to(v => `rotate(${v})`)}
+                            >
+                                <line
+                                    x1={innerRadius}
+                                    x2={outerRadius}
+                                    {...(theme.grid.line as SVGProps<SVGLineElement>)}
+                                />
+                            </animated.g>
+                        )
+                    })}
+                </>
+            )}
         </g>
     )
 }
