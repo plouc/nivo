@@ -19,6 +19,8 @@ const initialProperties: UnmappedRadarProps = {
     startAngle: svgDefaultProps.startAngle,
     endAngle: svgDefaultProps.endAngle,
     padding: svgDefaultProps.padding,
+    padAngle: svgDefaultProps.padAngle,
+    cornerRadius: 2,
 
     margin: {
         top: 20,
@@ -30,7 +32,6 @@ const initialProperties: UnmappedRadarProps = {
     colors: svgDefaultProps.colors,
     borderWidth: svgDefaultProps.borderWidth,
     borderColor: svgDefaultProps.borderColor,
-    cornerRadius: 2,
 
     enableTracks: svgDefaultProps.enableTracks,
     tracksColor: svgDefaultProps.tracksColor,

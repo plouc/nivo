@@ -8,6 +8,8 @@ export const commonDefaultProps = {
     startAngle: 0,
     endAngle: 270,
     padding: 0.2,
+    padAngle: 0,
+    cornerRadius: 0,
 
     enableTracks: true,
     tracksColor: 'rgba(0, 0, 0, .15)',
@@ -16,7 +18,6 @@ export const commonDefaultProps = {
     enableGridRadii: true,
 
     colors: { scheme: 'nivo' as const },
-    cornerRadius: 0,
     borderWidth: 0,
     borderColor: { from: 'color', modifiers: [['darker', 1]] } as InheritedColorConfig<ComputedBar>,
 
