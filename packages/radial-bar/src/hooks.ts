@@ -26,21 +26,23 @@ export const useRadialBar = ({
     startAngle = commonDefaultProps.startAngle,
     endAngle = commonDefaultProps.endAngle,
     padding = commonDefaultProps.padding,
+    padAngle = commonDefaultProps.padAngle,
+    cornerRadius = commonDefaultProps.cornerRadius,
     width,
     height,
     colors = commonDefaultProps.colors,
-    cornerRadius = commonDefaultProps.cornerRadius,
     tracksColor = commonDefaultProps.tracksColor,
 }: {
     data: RadialBarDataProps['data']
     valueFormat?: RadialBarCommonProps['valueFormat']
     startAngle: RadialBarCommonProps['startAngle']
     padding: RadialBarCommonProps['padding']
+    padAngle: RadialBarCommonProps['padAngle']
+    cornerRadius: RadialBarCommonProps['cornerRadius']
     endAngle: RadialBarCommonProps['endAngle']
     width: number
     height: number
     colors: RadialBarCommonProps['colors']
-    cornerRadius: RadialBarCommonProps['cornerRadius']
     tracksColor: RadialBarCommonProps['tracksColor']
 }) => {
     // using a hook, not because it's costly to compute, but because this is used as
@@ -112,8 +114,9 @@ export const useRadialBar = ({
                 .endAngle(d => d.endAngle)
                 .innerRadius(d => d.innerRadius)
                 .outerRadius(d => d.outerRadius)
-                .cornerRadius(cornerRadius),
-        [cornerRadius]
+                .cornerRadius(cornerRadius)
+                .padAngle(degreesToRadians(padAngle)),
+        [cornerRadius, padAngle]
     )
 
     const formatValue = useValueFormatter<number>(valueFormat)

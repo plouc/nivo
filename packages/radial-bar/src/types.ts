@@ -70,6 +70,7 @@ export type RadialBarCommonProps = {
     colors: OrdinalColorScaleConfig<Omit<ComputedBar, 'color'>>
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedBar>
+    padAngle: number
     cornerRadius: number
 
     layers: (RadialBarLayerId | RadialBarCustomLayer)[]
