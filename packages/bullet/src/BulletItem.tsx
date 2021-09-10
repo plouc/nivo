@@ -11,6 +11,7 @@ import { BulletItemProps } from './types'
 
 export const BulletItem = ({
     id,
+    axisFormat,
 
     scale,
     layout,
@@ -138,6 +139,7 @@ export const BulletItem = ({
                 length={layout === 'horizontal' ? width : height}
                 scale={scale}
                 ticksPosition={axisPosition}
+                format={axisFormat}
             />
         </g>
     )
