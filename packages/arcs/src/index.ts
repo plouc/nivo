@@ -1,5 +1,6 @@
 export * from './arc_labels'
 export * from './arc_link_labels'
+export * from './ArcLine'
 export * from './ArcShape'
 export * from './ArcsLayer'
 export * from './arcTransitionMode'

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
 import { CurveFactory } from 'd3-shape'
+import { ComponentType } from 'react'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -315,6 +316,12 @@ declare module '@nivo/core' {
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
     export function absoluteAngleDegrees(degrees: number): number
+    export function normalizeAngle(degrees: number): number
+    export function clampArc(
+        startAngle: number,
+        endAngle: number,
+        length?: number
+    ): [number, number]
 
     type Accessor<T extends keyof U, U> = T extends string ? U[T] : never
 
@@ -523,4 +530,8 @@ declare module '@nivo/core' {
         symbol?: DotsItemSymbolComponent
     }
     export const DotsItem: React.FunctionComponent<DotsItemProps>
+
+    export type ExtractProps<TComponent> = TComponent extends ComponentType<infer TProps>
+        ? TProps
+        : never
 }

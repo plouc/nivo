@@ -1,13 +1,14 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { Container, useDimensions, SvgWrapper, clampArc } from '@nivo/core'
 import { ArcLabelsLayer } from '@nivo/arcs'
+import { BoxLegendSvg } from '@nivo/legends'
 import { RadialBarLayerId, RadialBarSvgProps, ComputedBar } from './types'
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
 import { PolarGrid } from './polar_grid'
-import { BoxLegendSvg } from '@nivo/legends'
 import { RadialBarTracks } from './RadialBarTracks'
+import { RadialAxis } from './radial_axis'
 
 type InnerRadialBarProps = Omit<
     RadialBarSvgProps,
@@ -17,8 +18,8 @@ type InnerRadialBarProps = Omit<
 const InnerRadialBar = ({
     data,
     valueFormat,
-    startAngle = svgDefaultProps.startAngle,
-    endAngle = svgDefaultProps.endAngle,
+    startAngle: originalStartAngle = svgDefaultProps.startAngle,
+    endAngle: originalEndAngle = svgDefaultProps.endAngle,
     padding = svgDefaultProps.padding,
     padAngle = svgDefaultProps.padAngle,
     cornerRadius = svgDefaultProps.cornerRadius,
@@ -28,8 +29,10 @@ const InnerRadialBar = ({
     layers = svgDefaultProps.layers,
     enableTracks = svgDefaultProps.enableTracks,
     tracksColor = svgDefaultProps.tracksColor,
-    enableGridAngles = svgDefaultProps.enableGridAngles,
-    enableGridRadii = svgDefaultProps.enableGridRadii,
+    enableRadialGrid = svgDefaultProps.enableRadialGrid,
+    enableCircularGrid = svgDefaultProps.enableCircularGrid,
+    radialAxisStart = svgDefaultProps.radialAxisStart,
+    radialAxisEnd = svgDefaultProps.radialAxisEnd,
     colors = svgDefaultProps.colors,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
@@ -56,6 +59,8 @@ const InnerRadialBar = ({
         height,
         partialMargin
     )
+
+    const [startAngle, endAngle] = clampArc(originalStartAngle, originalEndAngle)
 
     const {
         center,
@@ -90,14 +95,35 @@ const InnerRadialBar = ({
 
     if (layers.includes('grid')) {
         layerById.grid = (
-            <PolarGrid
-                key="grid"
-                center={center}
-                enableAngles={enableGridAngles}
-                enableRadii={enableGridRadii}
-                angleScale={valueScale}
-                radiusScale={radiusScale}
-            />
+            <Fragment key="grid">
+                <PolarGrid
+                    center={center}
+                    enableRadialGrid={enableRadialGrid}
+                    enableCircularGrid={enableCircularGrid}
+                    angleScale={valueScale}
+                    radiusScale={radiusScale}
+                    startAngle={startAngle}
+                    endAngle={endAngle}
+                />
+                {radialAxisStart && (
+                    <RadialAxis
+                        type="start"
+                        center={center}
+                        angle={Math.min(startAngle, endAngle)}
+                        scale={radiusScale}
+                        {...radialAxisStart}
+                    />
+                )}
+                {radialAxisEnd && (
+                    <RadialAxis
+                        type="end"
+                        center={center}
+                        angle={Math.max(startAngle, endAngle)}
+                        scale={radiusScale}
+                        {...radialAxisEnd}
+                    />
+                )}
+            </Fragment>
         )
     }
 

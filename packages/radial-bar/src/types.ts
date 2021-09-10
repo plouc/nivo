@@ -11,6 +11,7 @@ import {
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { RadialAxisConfig } from './radial_axis'
 
 export interface RadialBarDatum {
     x: string
@@ -82,8 +83,11 @@ export type RadialBarCommonProps = {
     enableTracks: boolean
     tracksColor: string
 
-    enableGridAngles: boolean
-    enableGridRadii: boolean
+    enableRadialGrid: boolean
+    enableCircularGrid: boolean
+
+    radialAxisStart: RadialAxisConfig | null
+    radialAxisEnd: RadialAxisConfig | null
 
     enableLabels: boolean
     label: PropertyAccessor<ComputedBar, string>
