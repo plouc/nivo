@@ -63,7 +63,7 @@ export const CircularGrid = ({
             radius: item.radius,
             startAngle,
             endAngle,
-            opacity: 1,
+            opacity: 0,
         }),
         config: springConfig,
         immediate: !animate,
