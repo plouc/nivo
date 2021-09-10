@@ -14,8 +14,11 @@ export const commonDefaultProps = {
     enableTracks: true,
     tracksColor: 'rgba(0, 0, 0, .15)',
 
-    enableGridAngles: true,
-    enableGridRadii: true,
+    enableRadialGrid: true,
+    enableCircularGrid: true,
+
+    radialAxisStart: {},
+    radialAxisEnd: null,
 
     colors: { scheme: 'nivo' as const },
     borderWidth: 0,

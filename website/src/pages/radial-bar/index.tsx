@@ -24,7 +24,7 @@ const initialProperties: UnmappedRadarProps = {
 
     margin: {
         top: 20,
-        right: 100,
+        right: 120,
         bottom: 20,
         left: 20,
     },
@@ -36,8 +36,11 @@ const initialProperties: UnmappedRadarProps = {
     enableTracks: svgDefaultProps.enableTracks,
     tracksColor: svgDefaultProps.tracksColor,
 
-    enableGridAngles: svgDefaultProps.enableGridAngles,
-    enableGridRadii: svgDefaultProps.enableGridRadii,
+    enableRadialGrid: svgDefaultProps.enableRadialGrid,
+    enableCircularGrid: svgDefaultProps.enableCircularGrid,
+
+    radialAxisStart: svgDefaultProps.radialAxisStart,
+    radialAxisEnd: svgDefaultProps.radialAxisEnd,
 
     enableLabels: svgDefaultProps.enableLabels,
     label: svgDefaultProps.label,
@@ -60,7 +63,7 @@ const initialProperties: UnmappedRadarProps = {
             translateY: 0,
             itemsSpacing: 6,
             itemDirection: 'left-to-right',
-            itemWidth: 80,
+            itemWidth: 100,
             itemHeight: 18,
             itemTextColor: '#999',
             symbolSize: 18,
@@ -81,14 +84,14 @@ const initialProperties: UnmappedRadarProps = {
 }
 
 const generateData = () => {
-    const ids = ['A', 'B', 'C']
+    const ids = ['Supermarket', 'Combini', 'Online']
     if (Math.random() > 0.5) {
-        ids.push('D')
+        ids.push('Marché')
     }
 
-    const categories = ['first', 'second', 'third']
+    const categories = ['Vegetables', 'Fruits', 'Meat']
     if (Math.random() < 0.5) {
-        categories.push('fourth')
+        categories.push('Fish')
     }
 
     return ids.map(id => ({
