@@ -7,7 +7,6 @@ import {
     getLegendsProps,
 } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
-import { defaultProps } from '@nivo/pie'
 
 const props: ChartProperty[] = [
     {
@@ -95,7 +94,7 @@ const props: ChartProperty[] = [
         help: 'Chart width.',
         description: `
             not required if using
-            \`<ResponsiveRadar/>\`.
+            \`<ResponsiveRadialBar/>\`.
         `,
         flavors: ['svg', 'api'],
         enableControlForFlavors: ['api'],
@@ -115,7 +114,7 @@ const props: ChartProperty[] = [
         help: 'Chart height.',
         description: `
             not required if using
-            \`<ResponsiveRadar/>\`.
+            \`<ResponsiveRadialBar/>\`.
         `,
         flavors: ['svg', 'api'],
         enableControlForFlavors: ['api'],
