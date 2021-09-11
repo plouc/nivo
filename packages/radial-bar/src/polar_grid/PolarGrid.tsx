@@ -21,7 +21,6 @@ export const PolarGrid = ({
     startAngle,
     endAngle,
 }: PolarGridProps) => {
-    // const radiuses = radiusScale.ticks()
     const innerRadius = Math.min(...radiusScale.range())
     const outerRadius = Math.max(...radiusScale.range())
 

@@ -1,9 +1,9 @@
-# `@nivo/radar`
+# `@nivo/radial-bar`
 
-[![version](https://img.shields.io/npm/v/@nivo/radar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/radar)
+[![version](https://img.shields.io/npm/v/@nivo/radial-bar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/radial-bar)
 
-## Radar
+## RadialBar
 
-[documentation](http://nivo.rocks/radar)
+[documentation](http://nivo.rocks/radial-bar)
 
-![Radar](https://raw.githubusercontent.com/plouc/nivo/master/packages/radar/doc/radar.png)
+![RadialBar](https://raw.githubusercontent.com/plouc/nivo/master/packages/radial-bar/doc/radial-bar.png)
