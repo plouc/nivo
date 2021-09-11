@@ -6,9 +6,8 @@ import { RadialBarLayerId, RadialBarSvgProps, ComputedBar, RadialBarDatum } from
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
-import { PolarGrid } from './polar_grid'
+import { PolarGrid, RadialAxis } from './polar-axes'
 import { RadialBarTracks } from './RadialBarTracks'
-import { RadialAxis } from './radial_axis'
 import { defaultProps } from '@nivo/pie'
 
 type InnerRadialBarProps<D extends RadialBarDatum = RadialBarDatum> = Omit<
