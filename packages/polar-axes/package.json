@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/radial-bar",
+  "name": "@nivo/polar-axes",
   "version": "0.73.0",
   "license": "MIT",
   "author": {
@@ -9,18 +9,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/radial-bar"
+    "directory": "packages/polar-axes"
   },
   "keywords": [
     "nivo",
     "dataviz",
     "react",
-    "d3",
-    "charts",
-    "radial-bar-chart"
+    "axes",
+    "polar"
   ],
-  "main": "./dist/nivo-radial-bar.cjs.js",
-  "module": "./dist/nivo-radial-bar.es.js",
+  "main": "./dist/nivo-polar-axes.cjs.js",
+  "module": "./dist/nivo-polar-axes.es.js",
   "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
@@ -30,13 +29,8 @@
   ],
   "dependencies": {
     "@nivo/arcs": "0.73.0",
-    "@nivo/colors": "0.73.0",
-    "@nivo/legends": "0.73.0",
-    "@nivo/polar-axes": "0.73.0",
-    "@nivo/tooltip": "0.73.0",
     "@react-spring/web": "9.2.4",
-    "d3-scale": "^3.2.3",
-    "d3-shape": "^1.3.5"
+    "d3-scale": "^3.2.3"
   },
   "devDependencies": {
     "@nivo/core": "0.73.0"
