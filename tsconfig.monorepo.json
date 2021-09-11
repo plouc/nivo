@@ -8,6 +8,7 @@
         { "path": "./packages/annotations" },
         { "path": "./packages/scales" },
         { "path": "./packages/axes" },
+        { "path": "./packages/polar-axes" },
         { "path": "./packages/colors" },
         { "path": "./packages/legends" },
         { "path": "./packages/tooltip" },

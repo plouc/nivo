@@ -2,13 +2,12 @@ import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper, clampArc } from '@nivo/core'
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { BoxLegendSvg } from '@nivo/legends'
+import { PolarGrid, RadialAxis, CircularAxis } from '@nivo/polar-axes'
 import { RadialBarLayerId, RadialBarSvgProps, ComputedBar, RadialBarDatum } from './types'
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
-import { PolarGrid, RadialAxis, CircularAxis } from './polar-axes'
 import { RadialBarTracks } from './RadialBarTracks'
-import { defaultProps } from '@nivo/pie'
 
 type InnerRadialBarProps<D extends RadialBarDatum = RadialBarDatum> = Omit<
     RadialBarSvgProps<D>,
@@ -21,7 +20,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     valueFormat,
     startAngle: originalStartAngle = svgDefaultProps.startAngle,
     endAngle: originalEndAngle = svgDefaultProps.endAngle,
-    innerRadius: innerRadiusRatio = defaultProps.innerRadius,
+    innerRadius: innerRadiusRatio = svgDefaultProps.innerRadius,
     padding = svgDefaultProps.padding,
     padAngle = svgDefaultProps.padAngle,
     cornerRadius = svgDefaultProps.cornerRadius,

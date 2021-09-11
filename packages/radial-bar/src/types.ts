@@ -11,7 +11,7 @@ import {
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { RadialAxisConfig, CircularAxisConfig } from './polar-axes'
+import { RadialAxisConfig, CircularAxisConfig } from '@nivo/polar-axes'
 
 export interface RadialBarDatum {
     x: string
