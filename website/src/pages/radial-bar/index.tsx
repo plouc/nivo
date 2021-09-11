@@ -2,15 +2,22 @@ import React from 'react'
 import { ResponsiveRadialBar, RadialBarSvgProps, svgDefaultProps } from '@nivo/radial-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radial-bar/meta.yml'
-import mapper from '../../data/components/radar/mapper'
+import mapper from '../../data/components/radial-bar/mapper'
 import { groups } from '../../data/components/radial-bar/props'
 
 type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'width' | 'height'>
-type UnmappedRadarProps = Omit<MappedRadarProps, 'valueFormat'> & {
+type UnmappedRadarProps = Omit<
+    MappedRadarProps,
+    'valueFormat' | 'radialAxisStart' | 'radialAxisEnd' | 'circularAxisInner' | 'circularAxisOuter'
+> & {
     valueFormat: {
         format: string
         enabled: boolean
     }
+    radialAxisStart: { enable: boolean } & RadialBarSvgProps['radialAxisStart']
+    radialAxisEnd: { enable: boolean } & RadialBarSvgProps['radialAxisEnd']
+    circularAxisInner: { enable: boolean } & RadialBarSvgProps['circularAxisInner']
+    circularAxisOuter: { enable: boolean } & RadialBarSvgProps['circularAxisOuter']
 }
 
 const initialProperties: UnmappedRadarProps = {
@@ -39,10 +46,30 @@ const initialProperties: UnmappedRadarProps = {
 
     enableRadialGrid: svgDefaultProps.enableRadialGrid,
     enableCircularGrid: svgDefaultProps.enableCircularGrid,
-    radialAxisStart: svgDefaultProps.radialAxisStart,
-    radialAxisEnd: svgDefaultProps.radialAxisEnd,
-    circularAxisInner: {}, // svgDefaultProps.circularAxisInner,
-    circularAxisOuter: svgDefaultProps.circularAxisOuter,
+    radialAxisStart: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+    },
+    radialAxisEnd: {
+        enable: false,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+    },
+    circularAxisInner: {
+        enable: false,
+        tickSize: 5,
+        tickPadding: 12,
+        tickRotation: 0,
+    },
+    circularAxisOuter: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 12,
+        tickRotation: 0,
+    },
 
     enableLabels: svgDefaultProps.enableLabels,
     label: svgDefaultProps.label,

@@ -5,6 +5,7 @@ import {
     motionProperties,
     groupProperties,
     getLegendsProps,
+    polarAxisProperty,
 } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
 
@@ -302,6 +303,26 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.enableCircularGrid,
         controlType: 'switch',
     },
+    polarAxisProperty({
+        key: 'radialAxisStart',
+        flavors: ['svg'],
+        tickComponent: 'RadialAxisTickComponent',
+    }),
+    polarAxisProperty({
+        key: 'radialAxisEnd',
+        flavors: ['svg'],
+        tickComponent: 'RadialAxisTickComponent',
+    }),
+    polarAxisProperty({
+        key: 'circularAxisInner',
+        flavors: ['svg'],
+        tickComponent: 'CircularAxisTickComponent',
+    }),
+    polarAxisProperty({
+        key: 'circularAxisOuter',
+        flavors: ['svg'],
+        tickComponent: 'CircularAxisTickComponent',
+    }),
     {
         key: 'enableLabels',
         group: 'Labels',
