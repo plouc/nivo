@@ -18,6 +18,7 @@ import MarimekkoIcon from './MarimekkoIcon'
 import NetworkIcon from './NetworkIcon'
 import PieIcon from './PieIcon'
 import RadarIcon from './RadarIcon'
+import { RadialBarIcon } from './RadialBarIcon'
 import SankeyIcon from './SankeyIcon'
 import ScatterPlotIcon from './ScatterPlotIcon'
 import StreamIcon from './StreamIcon'
@@ -61,6 +62,7 @@ const Icons = () => (
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <RadialBarIcon />
         <MarimekkoIcon />
         <AreaBumpIcon />
         <BumpIcon />

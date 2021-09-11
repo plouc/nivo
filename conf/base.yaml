@@ -108,6 +108,10 @@ capture:
       #   selector: '#chart'
       #   output: ./packages/radar/doc/radar.png
 
+      # - path: /radial-bar
+      #   selector: '#chart'
+      #   output: ./packages/radial-bar/doc/radial-bar.png
+
       # - path: /sankey
       #   selector: '#chart'
       #   output: ./packages/sankey/doc/sankey.png
@@ -517,15 +521,28 @@ capture:
       #   selector: '#marimekko-darkColored'
       #   output: ./website/src/assets/icons/marimekko-dark-colored.png
 
+      # - path: /internal/icons/
+      #   selector: '#time-range-lightNeutral'
+      #   output: ./website/src/assets/icons/time-range-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#time-range-lightColored'
+      #   output: ./website/src/assets/icons/time-range-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#time-range-darkNeutral'
+      #   output: ./website/src/assets/icons/time-range-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#time-range-darkColored'
+      #   output: ./website/src/assets/icons/time-range-dark-colored.png
+
       - path: /internal/icons/
-        selector: '#time-range-lightNeutral'
-        output: ./website/src/assets/icons/time-range-light-neutral.png
+        selector: '#radial-bar-lightNeutral'
+        output: ./website/src/assets/icons/radial-bar-light-neutral.png
       - path: /internal/icons/
-        selector: '#time-range-lightColored'
-        output: ./website/src/assets/icons/time-range-light-colored.png
+        selector: '#radial-bar-lightColored'
+        output: ./website/src/assets/icons/radial-bar-light-colored.png
       - path: /internal/icons/
-        selector: '#time-range-darkNeutral'
-        output: ./website/src/assets/icons/time-range-dark-neutral.png
+        selector: '#radial-bar-darkNeutral'
+        output: ./website/src/assets/icons/radial-bar-dark-neutral.png
       - path: /internal/icons/
-        selector: '#time-range-darkColored'
-        output: ./website/src/assets/icons/time-range-dark-colored.png
+        selector: '#radial-bar-darkColored'
+        output: ./website/src/assets/icons/radial-bar-dark-colored.png
