@@ -18,14 +18,14 @@ export interface RadialBarDatum {
     y: number
 }
 
-export interface RadialBarSerie {
+export interface RadialBarSerie<D extends RadialBarDatum = RadialBarDatum> {
     id: string
-    data: RadialBarDatum[]
+    data: D[]
 }
 
-export interface ComputedBar {
+export interface ComputedBar<D extends RadialBarDatum = RadialBarDatum> {
     id: string
-    data: RadialBarDatum
+    data: D
     groupId: string
     category: string
     value: number
@@ -35,24 +35,24 @@ export interface ComputedBar {
     arc: Arc
 }
 
-export interface RadialBarDataProps {
-    data: RadialBarSerie[]
+export interface RadialBarDataProps<D extends RadialBarDatum = RadialBarDatum> {
+    data: RadialBarSerie<D>[]
 }
 
 export type RadialBarLayerId = 'grid' | 'tracks' | 'bars' | 'labels' | 'legends'
 
-export interface RadialBarCustomLayerProps {
+export interface RadialBarCustomLayerProps<D extends RadialBarDatum = RadialBarDatum> {
     center: [number, number]
     outerRadius: number
-    bars: ComputedBar[]
+    bars: ComputedBar<D>[]
     arcGenerator: ArcGenerator
     radiusScale: ScaleBand<string>
     valueScale: ScaleLinear<number, number>
 }
 export type RadialBarCustomLayer = FunctionComponent<RadialBarCustomLayerProps>
 
-export interface RadialBarTooltipProps {
-    bar: ComputedBar
+export interface RadialBarTooltipProps<D extends RadialBarDatum = RadialBarDatum> {
+    bar: ComputedBar<D>
 }
 export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
 
@@ -62,15 +62,15 @@ export interface RadialBarTrackDatum {
     arc: Arc
 }
 
-export type RadialBarCommonProps = {
+export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
     valueFormat: ValueFormat<number>
 
     margin: Box
 
     theme: Theme
-    colors: OrdinalColorScaleConfig<Omit<ComputedBar, 'color'>>
+    colors: OrdinalColorScaleConfig<Omit<ComputedBar<D>, 'color'>>
     borderWidth: number
-    borderColor: InheritedColorConfig<ComputedBar>
+    borderColor: InheritedColorConfig<ComputedBar<D>>
     padAngle: number
     cornerRadius: number
 
@@ -90,17 +90,17 @@ export type RadialBarCommonProps = {
     radialAxisEnd: RadialAxisConfig | null
 
     enableLabels: boolean
-    label: PropertyAccessor<ComputedBar, string>
-    labelsSkipAngle: ArcLabelsProps<ComputedBar>['arcLabelsSkipAngle']
-    labelsRadiusOffset: ArcLabelsProps<ComputedBar>['arcLabelsRadiusOffset']
-    labelsTextColor: ArcLabelsProps<ComputedBar>['arcLabelsTextColor']
+    label: PropertyAccessor<ComputedBar<D>, string>
+    labelsSkipAngle: ArcLabelsProps<ComputedBar<D>>['arcLabelsSkipAngle']
+    labelsRadiusOffset: ArcLabelsProps<ComputedBar<D>>['arcLabelsRadiusOffset']
+    labelsTextColor: ArcLabelsProps<ComputedBar<D>>['arcLabelsTextColor']
 
     isInteractive: boolean
     tooltip: RadialBarTooltipComponent
-    onClick: (bar: ComputedBar, event: MouseEvent) => void
-    onMouseEnter: (bar: ComputedBar, event: MouseEvent) => void
-    onMouseMove: (bar: ComputedBar, event: MouseEvent) => void
-    onMouseLeave: (bar: ComputedBar, event: MouseEvent) => void
+    onClick: (bar: ComputedBar<D>, event: MouseEvent) => void
+    onMouseEnter: (bar: ComputedBar<D>, event: MouseEvent) => void
+    onMouseMove: (bar: ComputedBar<D>, event: MouseEvent) => void
+    onMouseLeave: (bar: ComputedBar<D>, event: MouseEvent) => void
 
     legends: LegendProps[]
 
@@ -114,7 +114,9 @@ export type RadialBarCommonProps = {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type RadialBarSvgProps = Partial<RadialBarCommonProps> &
-    RadialBarDataProps &
+export type RadialBarSvgProps<D extends RadialBarDatum = RadialBarDatum> = Partial<
+    RadialBarCommonProps<D>
+> &
+    RadialBarDataProps<D> &
     Dimensions &
     ModernMotionProps

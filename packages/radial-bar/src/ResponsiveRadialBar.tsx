@@ -1,9 +1,11 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { RadialBarSvgProps } from './types'
+import { RadialBarDatum, RadialBarSvgProps } from './types'
 import { RadialBar } from './RadialBar'
 
-export const ResponsiveRadialBar = (props: Omit<RadialBarSvgProps, 'height' | 'width'>) => (
+export const ResponsiveRadialBar = <D extends RadialBarDatum = RadialBarDatum>(
+    props: Omit<RadialBarSvgProps<D>, 'height' | 'width'>
+) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <RadialBar width={width} height={height} {...props} />}
+        {({ width, height }) => <RadialBar<D> width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )

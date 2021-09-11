@@ -6,7 +6,7 @@ import mapper from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radial-bar/props'
 
 type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'width' | 'height'>
-type UnmappedRadarProps = Omit<RadialBarSvgProps, 'valueFormat'> & {
+type UnmappedRadarProps = Omit<MappedRadarProps, 'valueFormat'> & {
     valueFormat: {
         format: string
         enabled: boolean
@@ -18,7 +18,7 @@ const initialProperties: UnmappedRadarProps = {
 
     startAngle: svgDefaultProps.startAngle,
     endAngle: svgDefaultProps.endAngle,
-    padding: svgDefaultProps.padding,
+    padding: 0.4,
     padAngle: svgDefaultProps.padAngle,
     cornerRadius: 2,
 
