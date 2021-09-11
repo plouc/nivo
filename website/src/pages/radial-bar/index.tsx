@@ -18,6 +18,7 @@ const initialProperties: UnmappedRadarProps = {
 
     startAngle: svgDefaultProps.startAngle,
     endAngle: svgDefaultProps.endAngle,
+    innerRadius: svgDefaultProps.innerRadius,
     padding: 0.4,
     padAngle: svgDefaultProps.padAngle,
     cornerRadius: 2,

@@ -25,6 +25,7 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     valueFormat,
     startAngle = commonDefaultProps.startAngle,
     endAngle = commonDefaultProps.endAngle,
+    innerRadiusRatio = commonDefaultProps.innerRadius,
     padding = commonDefaultProps.padding,
     padAngle = commonDefaultProps.padAngle,
     cornerRadius = commonDefaultProps.cornerRadius,
@@ -36,6 +37,7 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     data: RadialBarDataProps<D>['data']
     valueFormat?: RadialBarCommonProps<D>['valueFormat']
     startAngle: RadialBarCommonProps<D>['startAngle']
+    innerRadiusRatio: RadialBarCommonProps<D>['innerRadius']
     padding: RadialBarCommonProps<D>['padding']
     padAngle: RadialBarCommonProps<D>['padAngle']
     cornerRadius: RadialBarCommonProps<D>['cornerRadius']
@@ -50,6 +52,7 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     // the time, forcing recomputing everything.
     const center: [number, number] = useMemo(() => [width / 2, height / 2], [width, height])
     const outerRadius = Math.min(...center)
+    const innerRadius = outerRadius * Math.min(innerRadiusRatio, 1)
 
     const getColor = useOrdinalColorScale<ComputedBar<D>>(colors, 'category')
 
@@ -99,12 +102,8 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     )
 
     const radiusScale = useMemo(
-        () =>
-            scaleBand()
-                .domain(serieIds)
-                .range([outerRadius - 100, outerRadius])
-                .padding(padding),
-        [serieIds, outerRadius, padding]
+        () => scaleBand().domain(serieIds).range([innerRadius, outerRadius]).padding(padding),
+        [serieIds, outerRadius, innerRadius, padding]
     )
 
     const arcGenerator = useMemo(
@@ -126,8 +125,8 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
 
         groups.forEach(group => {
             let currentValue = 0
-            const innerRadius = radiusScale(group.id) as number
-            const outerRadius = innerRadius + radiusScale.bandwidth()
+            const arcInnerRadius = radiusScale(group.id) as number
+            const arcOuterRadius = arcInnerRadius + radiusScale.bandwidth()
 
             group.data.forEach(datum => {
                 const stackedValue = currentValue + datum.y
@@ -144,8 +143,8 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
                     arc: {
                         startAngle: degreesToRadians(valueScale(currentValue)),
                         endAngle: degreesToRadians(valueScale(stackedValue)),
-                        innerRadius,
-                        outerRadius,
+                        innerRadius: arcInnerRadius,
+                        outerRadius: arcOuterRadius,
                     },
                 }
 
@@ -202,21 +201,23 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
         [categories, bars]
     )
 
-    const customLayerProps: RadialBarCustomLayerProps = useMemo(
+    const customLayerProps: RadialBarCustomLayerProps<D> = useMemo(
         () => ({
             center,
             outerRadius,
+            innerRadius,
             bars,
             arcGenerator,
             radiusScale,
             valueScale,
         }),
-        [center, outerRadius, bars, arcGenerator, radiusScale, valueScale]
+        [center, outerRadius, innerRadius, bars, arcGenerator, radiusScale, valueScale]
     )
 
     return {
         center,
         outerRadius,
+        innerRadius,
         bars,
         arcGenerator,
         radiusScale,

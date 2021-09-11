@@ -7,6 +7,7 @@ import {
     getLegendsProps,
 } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
+import { defaultProps } from '@nivo/pie'
 
 const props: ChartProperty[] = [
     {
@@ -163,6 +164,21 @@ const props: ChartProperty[] = [
             min: -360,
             max: 360,
             step: 5,
+        },
+    },
+    {
+        key: 'innerRadius',
+        group: 'Base',
+        help: `Donut if greater than 0. Value should be between 0~1 as it's a ratio from outer radius.`,
+        type: 'number',
+        required: false,
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.innerRadius,
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 0.95,
+            step: 0.05,
         },
     },
     {
