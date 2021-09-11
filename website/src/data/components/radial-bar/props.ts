@@ -72,6 +72,15 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
     },
     {
+        key: 'maxValue',
+        group: 'Base',
+        type: `'auto' | number`,
+        required: false,
+        help: `If 'auto', the max value is derived from the data, otherwise use a static value.`,
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.maxValue,
+    },
+    {
         key: 'valueFormat',
         group: 'Base',
         type: 'string | (value: number) => string',

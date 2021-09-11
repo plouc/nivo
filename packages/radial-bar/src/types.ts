@@ -64,6 +64,7 @@ export interface RadialBarTrackDatum {
 }
 
 export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
+    maxValue: 'auto' | number
     valueFormat: ValueFormat<number>
 
     margin: Box

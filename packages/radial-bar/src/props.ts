@@ -3,6 +3,8 @@ import { ComputedBar, RadialBarLayerId } from './types'
 import { RadialBarTooltip } from './RadialBarTooltip'
 
 export const commonDefaultProps = {
+    maxValue: 'auto' as const,
+
     layers: ['grid', 'tracks', 'bars', 'labels', 'legends'] as RadialBarLayerId[],
 
     startAngle: 0,

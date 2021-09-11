@@ -4,7 +4,7 @@ import { arc as d3Arc } from 'd3-shape'
 import { degreesToRadians, useValueFormatter } from '@nivo/core'
 import { Arc } from '@nivo/arcs'
 import { useOrdinalColorScale } from '@nivo/colors'
-import { commonDefaultProps } from './props'
+import { commonDefaultProps, svgDefaultProps } from './props'
 import {
     ComputedBar,
     RadialBarCommonProps,
@@ -22,6 +22,7 @@ interface RadialBarGroup<D extends RadialBarDatum> {
 
 export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     data,
+    maxValue: maxValueDirective = svgDefaultProps.maxValue,
     valueFormat,
     startAngle = commonDefaultProps.startAngle,
     endAngle = commonDefaultProps.endAngle,
@@ -35,6 +36,7 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     tracksColor = commonDefaultProps.tracksColor,
 }: {
     data: RadialBarDataProps<D>['data']
+    maxValue: RadialBarCommonProps<D>['maxValue']
     valueFormat?: RadialBarCommonProps<D>['valueFormat']
     startAngle: RadialBarCommonProps<D>['startAngle']
     innerRadiusRatio: RadialBarCommonProps<D>['innerRadius']
@@ -91,10 +93,14 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
             })
         })
 
-        result.maxValue = Math.max(...result.groups.map(group => group.total))
+        if (maxValueDirective === 'auto') {
+            result.maxValue = Math.max(...result.groups.map(group => group.total))
+        } else {
+            result.maxValue = maxValueDirective
+        }
 
         return result
-    }, [data])
+    }, [data, maxValueDirective])
 
     const valueScale = useMemo(
         () => scaleLinear<number, number>().domain([0, maxValue]).range([startAngle, endAngle]),
