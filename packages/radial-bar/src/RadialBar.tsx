@@ -17,6 +17,7 @@ type InnerRadialBarProps<D extends RadialBarDatum = RadialBarDatum> = Omit<
 
 const InnerRadialBar = <D extends RadialBarDatum>({
     data,
+    maxValue = svgDefaultProps.maxValue,
     valueFormat,
     startAngle: originalStartAngle = svgDefaultProps.startAngle,
     endAngle: originalEndAngle = svgDefaultProps.endAngle,
@@ -79,6 +80,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
         customLayerProps,
     } = useRadialBar<D>({
         data,
+        maxValue,
         valueFormat,
         startAngle,
         endAngle,
