@@ -44,6 +44,7 @@ export type RadialBarLayerId = 'grid' | 'tracks' | 'bars' | 'labels' | 'legends'
 export interface RadialBarCustomLayerProps<D extends RadialBarDatum = RadialBarDatum> {
     center: [number, number]
     outerRadius: number
+    innerRadius: number
     bars: ComputedBar<D>[]
     arcGenerator: ArcGenerator
     radiusScale: ScaleBand<string>
@@ -78,6 +79,7 @@ export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
 
     startAngle: number
     endAngle: number
+    innerRadius: number
     padding: number
 
     enableTracks: boolean

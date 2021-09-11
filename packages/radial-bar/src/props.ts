@@ -7,6 +7,7 @@ export const commonDefaultProps = {
 
     startAngle: 0,
     endAngle: 270,
+    innerRadius: 0.3,
     padding: 0.2,
     padAngle: 0,
     cornerRadius: 0,

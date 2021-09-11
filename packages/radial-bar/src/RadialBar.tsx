@@ -9,6 +9,7 @@ import { RadialBarArcs } from './RadialBarArcs'
 import { PolarGrid } from './polar_grid'
 import { RadialBarTracks } from './RadialBarTracks'
 import { RadialAxis } from './radial_axis'
+import { defaultProps } from '@nivo/pie'
 
 type InnerRadialBarProps<D extends RadialBarDatum = RadialBarDatum> = Omit<
     RadialBarSvgProps<D>,
@@ -20,6 +21,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     valueFormat,
     startAngle: originalStartAngle = svgDefaultProps.startAngle,
     endAngle: originalEndAngle = svgDefaultProps.endAngle,
+    innerRadius: innerRadiusRatio = defaultProps.innerRadius,
     padding = svgDefaultProps.padding,
     padAngle = svgDefaultProps.padAngle,
     cornerRadius = svgDefaultProps.cornerRadius,
@@ -76,6 +78,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
         valueFormat,
         startAngle,
         endAngle,
+        innerRadiusRatio,
         padding,
         padAngle,
         cornerRadius,
