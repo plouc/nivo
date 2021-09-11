@@ -125,8 +125,8 @@ export const RadialAxis = ({
     return (
         <g transform={`translate(${center[0]}, ${center[1]})`}>
             <animated.g transform={spring.rotation.to(value => `rotate(${value})`)}>
-                {transition((animatedProps, tick) => {
-                    return createElement(tickComponent, {
+                {transition((animatedProps, tick) =>
+                    createElement(tickComponent, {
                         key: tick.key,
                         label: tick.label,
                         y: tick.position,
@@ -136,7 +136,7 @@ export const RadialAxis = ({
                         textAnchor,
                         animated: animatedProps,
                     })
-                })}
+                )}
             </animated.g>
         </g>
     )
