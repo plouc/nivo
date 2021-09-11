@@ -235,6 +235,16 @@ const demoPhases: {
             circularAxisInner: {},
         },
     },
+    {
+        description: 'Labels',
+        props: {
+            ...commonProperties,
+            startAngle: 90,
+            endAngle: 360,
+            innerRadius: 0.3,
+            enableLabels: true,
+        },
+    },
 ]
 
 const demoTheme: Theme = {
@@ -256,6 +266,12 @@ const demoTheme: Theme = {
             },
         },
     },
+    labels: {
+        text: {
+            fontWeight: 800,
+            fill: '#000000',
+        },
+    },
     grid: {
         line: {
             stroke: '#666666',
@@ -273,7 +289,7 @@ const RadialBarDemo = () => {
                 if (currentPhaseIndex < demoPhases.length - 1) return currentPhaseIndex + 1
                 return 0
             })
-        }, 1000)
+        }, 1400)
         return () => clearTimeout(timer)
     }, [phaseIndex, setPhaseIndex])
 
@@ -284,12 +300,18 @@ const RadialBarDemo = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 background: '#222',
+                width: '400px',
             }}
         >
             <div style={{ padding: '24px 0', color: '#eeeeee', fontSize: '16px' }}>
                 {phase.description}
             </div>
-            <RadialBar {...phase.props} theme={demoTheme} motionConfig="slow" />
+            <RadialBar
+                {...phase.props}
+                tracksColor="rgba(0, 0, 0, .5)"
+                theme={demoTheme}
+                motionConfig="slow"
+            />
         </div>
     )
 }

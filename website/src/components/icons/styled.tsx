@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import theme from '../../theming/theme'
+import { IconType } from './types'
 
 export const ICON_SIZE = 104
 
@@ -39,7 +40,9 @@ export const colors = {
     },
 }
 
-export const Icon = styled.div`
+export const Icon = styled.div<{
+    type?: IconType
+}>`
     width: ${ICON_SIZE + 20}px;
     height: ${ICON_SIZE + 20}px;
     padding: 10px;
@@ -64,7 +67,7 @@ export const Colors = styled.div`
     padding: 10px;
 `
 
-export const IconImg = ({ url }) => (
+export const IconImg = ({ url }: { url: string }) => (
     <Icon
         style={{
             backgroundImage: `url(${url})`,

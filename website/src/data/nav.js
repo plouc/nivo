@@ -133,7 +133,7 @@ export const components = [
     {
         label: 'RadialBar',
         path: '/radial-bar/',
-        icon: 'radar',
+        icon: 'radial-bar',
         tags: radialBar.RadialBar.tags,
     },
     {

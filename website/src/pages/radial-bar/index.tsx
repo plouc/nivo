@@ -136,7 +136,7 @@ const RadialBar = () => (
     <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
         name="RadialBar"
         meta={meta.RadialBar}
-        icon="radar"
+        icon="radial-bar"
         flavors={meta.flavors}
         currentFlavor="svg"
         properties={groups}
