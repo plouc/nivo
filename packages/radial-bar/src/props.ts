@@ -17,9 +17,10 @@ export const commonDefaultProps = {
 
     enableRadialGrid: true,
     enableCircularGrid: true,
-
     radialAxisStart: {},
     radialAxisEnd: null,
+    circularAxisInner: null,
+    circularAxisOuter: {},
 
     colors: { scheme: 'nivo' as const },
     borderWidth: 0,

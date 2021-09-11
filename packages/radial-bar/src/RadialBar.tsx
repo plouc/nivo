@@ -6,7 +6,7 @@ import { RadialBarLayerId, RadialBarSvgProps, ComputedBar, RadialBarDatum } from
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
-import { PolarGrid, RadialAxis } from './polar-axes'
+import { PolarGrid, RadialAxis, CircularAxis } from './polar-axes'
 import { RadialBarTracks } from './RadialBarTracks'
 import { defaultProps } from '@nivo/pie'
 
@@ -34,6 +34,8 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     enableCircularGrid = svgDefaultProps.enableCircularGrid,
     radialAxisStart = svgDefaultProps.radialAxisStart,
     radialAxisEnd = svgDefaultProps.radialAxisEnd,
+    circularAxisInner = svgDefaultProps.circularAxisInner,
+    circularAxisOuter = svgDefaultProps.circularAxisOuter,
     colors = svgDefaultProps.colors,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
@@ -65,6 +67,8 @@ const InnerRadialBar = <D extends RadialBarDatum>({
 
     const {
         center,
+        innerRadius,
+        outerRadius,
         bars,
         arcGenerator,
         radiusScale,
@@ -123,6 +127,28 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                         angle={Math.max(startAngle, endAngle)}
                         scale={radiusScale}
                         {...radialAxisEnd}
+                    />
+                )}
+                {circularAxisInner && (
+                    <CircularAxis
+                        type="inner"
+                        center={center}
+                        radius={innerRadius}
+                        startAngle={startAngle}
+                        endAngle={endAngle}
+                        scale={valueScale}
+                        {...circularAxisInner}
+                    />
+                )}
+                {circularAxisOuter && (
+                    <CircularAxis
+                        type="outer"
+                        center={center}
+                        radius={outerRadius}
+                        startAngle={startAngle}
+                        endAngle={endAngle}
+                        scale={valueScale}
+                        {...circularAxisInner}
                     />
                 )}
             </Fragment>

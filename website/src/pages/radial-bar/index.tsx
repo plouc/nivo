@@ -24,10 +24,10 @@ const initialProperties: UnmappedRadarProps = {
     cornerRadius: 2,
 
     margin: {
-        top: 20,
+        top: 40,
         right: 120,
-        bottom: 20,
-        left: 20,
+        bottom: 40,
+        left: 40,
     },
 
     colors: svgDefaultProps.colors,
@@ -39,9 +39,10 @@ const initialProperties: UnmappedRadarProps = {
 
     enableRadialGrid: svgDefaultProps.enableRadialGrid,
     enableCircularGrid: svgDefaultProps.enableCircularGrid,
-
     radialAxisStart: svgDefaultProps.radialAxisStart,
     radialAxisEnd: svgDefaultProps.radialAxisEnd,
+    circularAxisInner: {}, // svgDefaultProps.circularAxisInner,
+    circularAxisOuter: svgDefaultProps.circularAxisOuter,
 
     enableLabels: svgDefaultProps.enableLabels,
     label: svgDefaultProps.label,
