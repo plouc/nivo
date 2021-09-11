@@ -1,24 +1,24 @@
 import { createElement, MouseEvent, useCallback } from 'react'
 import { ArcsLayer, ArcGenerator } from '@nivo/arcs'
 import { useTooltip } from '@nivo/tooltip'
-import { ComputedBar, RadialBarCommonProps } from './types'
+import { ComputedBar, RadialBarCommonProps, RadialBarDatum } from './types'
 
-interface RadialBarArcsProps {
+interface RadialBarArcsProps<D extends RadialBarDatum> {
     center: [number, number]
-    bars: ComputedBar[]
-    borderWidth: RadialBarCommonProps['borderWidth']
-    borderColor: RadialBarCommonProps['borderColor']
+    bars: ComputedBar<D>[]
+    borderWidth: RadialBarCommonProps<D>['borderWidth']
+    borderColor: RadialBarCommonProps<D>['borderColor']
     arcGenerator: ArcGenerator
-    isInteractive: RadialBarCommonProps['isInteractive']
-    tooltip: RadialBarCommonProps['tooltip']
-    onClick?: RadialBarCommonProps['onClick']
-    onMouseEnter?: RadialBarCommonProps['onMouseEnter']
-    onMouseMove?: RadialBarCommonProps['onMouseMove']
-    onMouseLeave?: RadialBarCommonProps['onMouseLeave']
-    transitionMode: RadialBarCommonProps['transitionMode']
+    isInteractive: RadialBarCommonProps<D>['isInteractive']
+    tooltip: RadialBarCommonProps<D>['tooltip']
+    onClick?: RadialBarCommonProps<D>['onClick']
+    onMouseEnter?: RadialBarCommonProps<D>['onMouseEnter']
+    onMouseMove?: RadialBarCommonProps<D>['onMouseMove']
+    onMouseLeave?: RadialBarCommonProps<D>['onMouseLeave']
+    transitionMode: RadialBarCommonProps<D>['transitionMode']
 }
 
-export const RadialBarArcs = ({
+export const RadialBarArcs = <D extends RadialBarDatum>({
     center,
     bars,
     borderWidth,
@@ -31,18 +31,18 @@ export const RadialBarArcs = ({
     onMouseMove,
     onMouseLeave,
     transitionMode,
-}: RadialBarArcsProps) => {
+}: RadialBarArcsProps<D>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleClick = useCallback(
-        (bar: ComputedBar, event: MouseEvent) => {
+        (bar: ComputedBar<D>, event: MouseEvent) => {
             onClick?.(bar, event)
         },
         [onClick]
     )
 
     const handleMouseEnter = useCallback(
-        (bar: ComputedBar, event: MouseEvent) => {
+        (bar: ComputedBar<D>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { bar }), event)
             onMouseEnter?.(bar, event)
         },
@@ -50,7 +50,7 @@ export const RadialBarArcs = ({
     )
 
     const handleMouseMove = useCallback(
-        (bar: ComputedBar, event: MouseEvent) => {
+        (bar: ComputedBar<D>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { bar }), event)
             onMouseMove?.(bar, event)
         },
@@ -58,7 +58,7 @@ export const RadialBarArcs = ({
     )
 
     const handleMouseLeave = useCallback(
-        (bar: ComputedBar, event: MouseEvent) => {
+        (bar: ComputedBar<D>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave?.(bar, event)
         },
@@ -66,7 +66,7 @@ export const RadialBarArcs = ({
     )
 
     return (
-        <ArcsLayer<ComputedBar>
+        <ArcsLayer<ComputedBar<D>>
             center={center}
             data={bars}
             arcGenerator={arcGenerator}

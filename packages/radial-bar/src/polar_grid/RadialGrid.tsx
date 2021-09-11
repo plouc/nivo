@@ -5,6 +5,7 @@ import { useMotionConfig, useTheme } from '@nivo/core'
 
 interface PolarGridProps {
     scale: ScaleLinear<number, number>
+    ticks?: number | number[]
     innerRadius: number
     outerRadius: number
 }

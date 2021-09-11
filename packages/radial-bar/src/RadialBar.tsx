@@ -2,7 +2,7 @@ import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper, clampArc } from '@nivo/core'
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { BoxLegendSvg } from '@nivo/legends'
-import { RadialBarLayerId, RadialBarSvgProps, ComputedBar } from './types'
+import { RadialBarLayerId, RadialBarSvgProps, ComputedBar, RadialBarDatum } from './types'
 import { svgDefaultProps } from './props'
 import { useRadialBar } from './hooks'
 import { RadialBarArcs } from './RadialBarArcs'
@@ -10,12 +10,12 @@ import { PolarGrid } from './polar_grid'
 import { RadialBarTracks } from './RadialBarTracks'
 import { RadialAxis } from './radial_axis'
 
-type InnerRadialBarProps = Omit<
-    RadialBarSvgProps,
+type InnerRadialBarProps<D extends RadialBarDatum = RadialBarDatum> = Omit<
+    RadialBarSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerRadialBar = ({
+const InnerRadialBar = <D extends RadialBarDatum>({
     data,
     valueFormat,
     startAngle: originalStartAngle = svgDefaultProps.startAngle,
@@ -53,7 +53,7 @@ const InnerRadialBar = ({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: InnerRadialBarProps) => {
+}: InnerRadialBarProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -71,7 +71,7 @@ const InnerRadialBar = ({
         tracks,
         legendData,
         customLayerProps,
-    } = useRadialBar({
+    } = useRadialBar<D>({
         data,
         valueFormat,
         startAngle,
@@ -141,7 +141,7 @@ const InnerRadialBar = ({
 
     if (layers.includes('bars')) {
         layerById.bars = (
-            <RadialBarArcs
+            <RadialBarArcs<D>
                 key="bars"
                 center={center}
                 bars={bars}
@@ -161,7 +161,7 @@ const InnerRadialBar = ({
 
     if (layers.includes('labels') && enableLabels) {
         layerById.labels = (
-            <ArcLabelsLayer<ComputedBar>
+            <ArcLabelsLayer<ComputedBar<D>>
                 key="labels"
                 center={center}
                 data={bars}
@@ -211,14 +211,14 @@ const InnerRadialBar = ({
     )
 }
 
-export const RadialBar = ({
+export const RadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: RadialBarSvgProps) => (
+}: RadialBarSvgProps<D>) => (
     <Container
         {...{
             animate,
@@ -228,6 +228,6 @@ export const RadialBar = ({
             theme,
         }}
     >
-        <InnerRadialBar isInteractive={isInteractive} {...otherProps} />
+        <InnerRadialBar<D> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

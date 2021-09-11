@@ -9,18 +9,18 @@ import {
     ComputedBar,
     RadialBarCommonProps,
     RadialBarDataProps,
-    RadialBarSerie,
     RadialBarCustomLayerProps,
     RadialBarTrackDatum,
+    RadialBarDatum,
 } from './types'
 
-interface RadialBarGroup {
+interface RadialBarGroup<D extends RadialBarDatum> {
     id: string
     total: number
-    data: RadialBarSerie['data']
+    data: D[]
 }
 
-export const useRadialBar = ({
+export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     data,
     valueFormat,
     startAngle = commonDefaultProps.startAngle,
@@ -33,17 +33,17 @@ export const useRadialBar = ({
     colors = commonDefaultProps.colors,
     tracksColor = commonDefaultProps.tracksColor,
 }: {
-    data: RadialBarDataProps['data']
-    valueFormat?: RadialBarCommonProps['valueFormat']
-    startAngle: RadialBarCommonProps['startAngle']
-    padding: RadialBarCommonProps['padding']
-    padAngle: RadialBarCommonProps['padAngle']
-    cornerRadius: RadialBarCommonProps['cornerRadius']
-    endAngle: RadialBarCommonProps['endAngle']
+    data: RadialBarDataProps<D>['data']
+    valueFormat?: RadialBarCommonProps<D>['valueFormat']
+    startAngle: RadialBarCommonProps<D>['startAngle']
+    padding: RadialBarCommonProps<D>['padding']
+    padAngle: RadialBarCommonProps<D>['padAngle']
+    cornerRadius: RadialBarCommonProps<D>['cornerRadius']
+    endAngle: RadialBarCommonProps<D>['endAngle']
     width: number
     height: number
-    colors: RadialBarCommonProps['colors']
-    tracksColor: RadialBarCommonProps['tracksColor']
+    colors: RadialBarCommonProps<D>['colors']
+    tracksColor: RadialBarCommonProps<D>['tracksColor']
 }) => {
     // using a hook, not because it's costly to compute, but because this is used as
     // a dependency for other hooks, and otherwise a new array would be created all
@@ -51,7 +51,7 @@ export const useRadialBar = ({
     const center: [number, number] = useMemo(() => [width / 2, height / 2], [width, height])
     const outerRadius = Math.min(...center)
 
-    const getColor = useOrdinalColorScale<ComputedBar>(colors, 'category')
+    const getColor = useOrdinalColorScale<ComputedBar<D>>(colors, 'category')
 
     // the way categories are being extracted is a bit fragile, because it's extracted from the data,
     // so if the first group doesn't contain the first expected category for example, then the order
@@ -61,7 +61,7 @@ export const useRadialBar = ({
         const result: {
             serieIds: string[]
             categories: string[]
-            groups: RadialBarGroup[]
+            groups: RadialBarGroup<D>[]
             maxValue: number
         } = {
             serieIds: [],
@@ -122,7 +122,7 @@ export const useRadialBar = ({
     const formatValue = useValueFormatter<number>(valueFormat)
 
     const bars = useMemo(() => {
-        const innerBars: ComputedBar[] = []
+        const innerBars: ComputedBar<D>[] = []
 
         groups.forEach(group => {
             let currentValue = 0
@@ -132,7 +132,7 @@ export const useRadialBar = ({
             group.data.forEach(datum => {
                 const stackedValue = currentValue + datum.y
 
-                const computedDatum: ComputedBar = {
+                const computedDatum: ComputedBar<D> = {
                     id: `${group.id}.${datum.x}`,
                     data: datum,
                     groupId: group.id,

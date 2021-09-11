@@ -1,7 +1,7 @@
 import { BasicTooltip } from '@nivo/tooltip'
-import { RadialBarTooltipProps } from './types'
+import { RadialBarDatum, RadialBarTooltipProps } from './types'
 
-export const RadialBarTooltip = ({ bar }: RadialBarTooltipProps) => {
+export const RadialBarTooltip = <D extends RadialBarDatum>({ bar }: RadialBarTooltipProps<D>) => {
     return (
         <BasicTooltip
             enableChip
