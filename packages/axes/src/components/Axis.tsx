@@ -2,11 +2,12 @@ import { useMemo, memo } from 'react'
 import * as React from 'react'
 import { useSpring, useTransition, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { ScaleValue, AnyScale } from '@nivo/scales'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'
-import { AnyScale, AxisProps, AxisValue } from '../types'
+import { AxisProps } from '../types'
 
-const Axis = <Value extends AxisValue>({
+const Axis = <Value extends ScaleValue>({
     axis,
     scale,
     x = 0,
