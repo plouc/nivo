@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
 import { degreesToRadians } from '@nivo/core'
+import { DatumWithArcAndColor } from '@nivo/arcs'
 // @ts-ignore
 import { RadialBar, RadialBarSvgProps, ComputedBar, RadialBarTooltipProps } from '../src'
 
@@ -212,6 +213,47 @@ describe('style', () => {
         expect(bars.at(0).prop<ComputedBar>('datum').color).toBe('#ff0000')
         expect(bars.at(1).prop<ComputedBar>('datum').color).toBe('#00ff00')
         expect(bars.at(2).prop<ComputedBar>('datum').color).toBe('#0000ff')
+    })
+})
+
+describe('tracks', () => {
+    it('should show tracks by default', () => {
+        const wrapper = mount(<RadialBar {...baseProps} />)
+
+        const tracks = wrapper.find('RadialBarTracks').find('ArcShape')
+        expect(tracks).toHaveLength(3)
+
+        const datum0 = tracks.at(0).prop<DatumWithArcAndColor>('datum')
+        expect(datum0.arc.startAngle).toBe(0)
+        expect(datum0.arc.endAngle).toBe(degreesToRadians(270))
+        expect(datum0.color).toBe('rgba(0, 0, 0, .15)')
+
+        const datum1 = tracks.at(1).prop<DatumWithArcAndColor>('datum')
+        expect(datum1.arc.startAngle).toBe(0)
+        expect(datum1.arc.endAngle).toBe(degreesToRadians(270))
+        expect(datum1.color).toBe('rgba(0, 0, 0, .15)')
+
+        const datum2 = tracks.at(2).prop<DatumWithArcAndColor>('datum')
+        expect(datum2.arc.startAngle).toBe(0)
+        expect(datum2.arc.endAngle).toBe(degreesToRadians(270))
+        expect(datum2.color).toBe('rgba(0, 0, 0, .15)')
+    })
+
+    it('should allow disabling tracks', () => {
+        const wrapper = mount(<RadialBar {...baseProps} enableTracks={false} />)
+
+        expect(wrapper.find('RadialBarTracks').exists()).toBe(false)
+    })
+
+    it('should allow to customize tracks color', () => {
+        const wrapper = mount(<RadialBar {...baseProps} tracksColor="#ff0000" />)
+
+        const tracks = wrapper.find('RadialBarTracks').find('ArcShape')
+        expect(tracks).toHaveLength(3)
+
+        expect(tracks.at(0).prop<DatumWithArcAndColor>('datum').color).toBe('#ff0000')
+        expect(tracks.at(1).prop<DatumWithArcAndColor>('datum').color).toBe('#ff0000')
+        expect(tracks.at(2).prop<DatumWithArcAndColor>('datum').color).toBe('#ff0000')
     })
 })
 
