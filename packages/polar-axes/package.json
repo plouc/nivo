@@ -29,8 +29,8 @@
   ],
   "dependencies": {
     "@nivo/arcs": "0.73.0",
-    "@react-spring/web": "9.2.4",
-    "d3-scale": "^3.2.3"
+    "@nivo/scales": "0.73.0",
+    "@react-spring/web": "9.2.4"
   },
   "devDependencies": {
     "@nivo/core": "0.73.0"

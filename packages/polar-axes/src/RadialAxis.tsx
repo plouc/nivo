@@ -1,7 +1,7 @@
 import { createElement, useMemo } from 'react'
-import { ScaleBand } from 'd3-scale'
 import { useSpring, useTransition, animated } from '@react-spring/web'
 import { useMotionConfig, normalizeAngle } from '@nivo/core'
+import { AnyScale, getScaleTicks } from '@nivo/scales'
 import { RadialAxisConfig, RadialAxisTickAnimatedProps } from './types'
 import { RadialAxisTick } from './RadialAxisTick'
 
@@ -9,7 +9,7 @@ type RadialAxisProps = {
     type: 'start' | 'end'
     center: [number, number]
     angle: number
-    scale: ScaleBand<string>
+    scale: AnyScale
 } & RadialAxisConfig
 
 export const RadialAxis = ({
@@ -63,15 +63,22 @@ export const RadialAxis = ({
         }
     }
 
-    const ticks = useMemo(
-        () =>
-            scale.domain().map((value, index) => ({
+    const ticks = useMemo(() => {
+        const values = getScaleTicks(scale)
+
+        return values.map((value, index) => {
+            let position = scale(value) as number
+            if ('bandwidth' in scale) {
+                position += scale.bandwidth() / 2
+            }
+
+            return {
                 key: index,
                 label: value,
-                position: (scale(value) as number) + scale.bandwidth() / 2,
-            })),
-        [scale]
-    )
+                position,
+            }
+        })
+    }, [scale])
 
     const { animate, config: springConfig } = useMotionConfig()
 

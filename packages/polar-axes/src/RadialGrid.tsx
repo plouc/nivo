@@ -1,10 +1,10 @@
 import { SVGProps, useMemo } from 'react'
-import { ScaleLinear } from 'd3-scale'
 import { useTransition, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
+import { AnyScale, getScaleTicks } from '@nivo/scales'
 
 interface PolarGridProps {
-    scale: ScaleLinear<number, number>
+    scale: AnyScale
     ticks?: number | number[]
     innerRadius: number
     outerRadius: number
@@ -13,14 +13,14 @@ interface PolarGridProps {
 export const RadialGrid = ({ scale, innerRadius, outerRadius }: PolarGridProps) => {
     const theme = useTheme()
 
-    const angles = useMemo(
-        () =>
-            scale.ticks().map((angleValue, index) => ({
-                id: index,
-                angle: scale(angleValue) - 90,
-            })),
-        [scale]
-    )
+    const angles = useMemo(() => {
+        const values = getScaleTicks(scale)
+
+        return values.map((angleValue, index) => ({
+            id: index,
+            angle: scale(angleValue) - 90,
+        }))
+    }, [scale])
 
     const { animate, config: springConfig } = useMotionConfig()
     const transition = useTransition<
