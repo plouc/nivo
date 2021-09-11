@@ -390,3 +390,82 @@ export const groupProperties = (
 
     return grouped
 }
+
+export const polarAxisProperty = ({
+    key,
+    flavors,
+    tickComponent,
+}: {
+    key: string
+    flavors: Flavor[]
+    tickComponent: string
+}): ChartProperty => {
+    return {
+        key,
+        group: 'Grid & Axes',
+        help: `${key} axis configuration.`,
+        type: 'object',
+        required: false,
+        flavors,
+        controlType: 'object',
+        controlOptions: {
+            props: [
+                {
+                    key: 'enable',
+                    type: 'boolean',
+                    required: false,
+                    help: `enable ${key} axis, it's not an actual prop (demo only).`,
+                    flavors,
+                    excludeFromDoc: true,
+                    controlType: 'switch',
+                },
+                {
+                    key: 'tickSize',
+                    type: 'number',
+                    required: false,
+                    help: `${key} axis tick size.`,
+                    flavors,
+                    controlType: 'range',
+                    controlOptions: {
+                        unit: 'px',
+                        min: 0,
+                        max: 20,
+                    },
+                },
+                {
+                    key: 'tickPadding',
+                    type: 'number',
+                    required: false,
+                    help: `${key} axis tick padding.`,
+                    flavors,
+                    controlType: 'range',
+                    controlOptions: {
+                        unit: 'px',
+                        min: 0,
+                        max: 20,
+                    },
+                },
+                {
+                    key: 'tickRotation',
+                    type: 'number',
+                    required: false,
+                    help: `${key} axis tick rotation.`,
+                    flavors,
+                    controlType: 'angle',
+                    controlOptions: {
+                        start: 90,
+                        min: -90,
+                        max: 90,
+                    },
+                },
+                {
+                    key: 'tickComponent',
+                    type: tickComponent,
+                    required: false,
+                    help: 'Override default tick component.',
+                    flavors,
+                },
+            ],
+        },
+    }
+}

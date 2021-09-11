@@ -149,7 +149,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                         startAngle={startAngle}
                         endAngle={endAngle}
                         scale={valueScale}
-                        {...circularAxisInner}
+                        {...circularAxisOuter}
                     />
                 )}
             </Fragment>
