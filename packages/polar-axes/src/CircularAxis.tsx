@@ -1,7 +1,7 @@
 import { createElement, SVGProps, useMemo } from 'react'
-import { ScaleLinear } from 'd3-scale'
 import { useSpring, useTransition } from '@react-spring/web'
 import { useMotionConfig, useTheme, positionFromAngle, degreesToRadians } from '@nivo/core'
+import { AnyScale, getScaleTicks } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 import { CircularAxisConfig, CircularAxisTickAnimatedProps } from './types'
 import { CircularAxisTick } from './CircularAxisTick'
@@ -12,7 +12,7 @@ type CircularAxisProps = {
     radius: number
     startAngle: number
     endAngle: number
-    scale: ScaleLinear<number, number>
+    scale: AnyScale
 } & CircularAxisConfig
 
 const getLinePositions = (angle: number, innerRadius: number, outerRadius: number) => {
@@ -67,15 +67,15 @@ export const CircularAxis = ({
         config: springConfig,
     })
 
-    const ticks = useMemo(
-        () =>
-            scale.ticks().map((value, index) => ({
-                key: index,
-                label: value,
-                angle: scale(value) - 90,
-            })),
-        [scale]
-    )
+    const ticks = useMemo(() => {
+        const values = getScaleTicks(scale)
+
+        return values.map((value, index) => ({
+            key: index,
+            label: value,
+            angle: scale(value) - 90,
+        }))
+    }, [scale])
 
     const outerRadius = type === 'inner' ? radius - tickSize : radius + tickSize
     const textRadius = type === 'inner' ? outerRadius - tickPadding : outerRadius + tickPadding

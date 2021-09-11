@@ -1,5 +1,4 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
-import { ScaleLinear, ScaleBand } from 'd3-scale'
 import {
     Theme,
     Box,
@@ -11,6 +10,7 @@ import {
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { ScaleLinear, ScaleBand } from '@nivo/scales'
 import { RadialAxisConfig, CircularAxisConfig } from '@nivo/polar-axes'
 
 export interface RadialBarDatum {
@@ -48,7 +48,7 @@ export interface RadialBarCustomLayerProps<D extends RadialBarDatum = RadialBarD
     bars: ComputedBar<D>[]
     arcGenerator: ArcGenerator
     radiusScale: ScaleBand<string>
-    valueScale: ScaleLinear<number, number>
+    valueScale: ScaleLinear<number>
 }
 export type RadialBarCustomLayer = FunctionComponent<RadialBarCustomLayerProps>
 

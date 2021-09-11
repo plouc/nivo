@@ -1,4 +1,4 @@
-import { ScaleBand, ScaleLinear } from 'd3-scale'
+import { AnyScale } from '@nivo/scales'
 import { RadialGrid } from './RadialGrid'
 import { CircularGrid } from './CircularGrid'
 
@@ -6,8 +6,8 @@ interface PolarGridProps {
     center: [number, number]
     enableRadialGrid: boolean
     enableCircularGrid: boolean
-    angleScale: ScaleLinear<number, number>
-    radiusScale: ScaleBand<string>
+    angleScale: AnyScale
+    radiusScale: AnyScale
     startAngle: number
     endAngle: number
 }

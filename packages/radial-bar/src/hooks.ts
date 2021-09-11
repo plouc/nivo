@@ -4,6 +4,7 @@ import { arc as d3Arc } from 'd3-shape'
 import { degreesToRadians, useValueFormatter } from '@nivo/core'
 import { Arc } from '@nivo/arcs'
 import { useOrdinalColorScale } from '@nivo/colors'
+import { castLinearScale, castBandScale, getScaleTicks } from '@nivo/scales'
 import { commonDefaultProps, svgDefaultProps } from './props'
 import {
     ComputedBar,
@@ -103,12 +104,21 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     }, [data, maxValueDirective])
 
     const valueScale = useMemo(
-        () => scaleLinear<number, number>().domain([0, maxValue]).range([startAngle, endAngle]),
+        () =>
+            castLinearScale<number, number>(
+                scaleLinear<number, number>().domain([0, maxValue]).range([startAngle, endAngle])
+            ),
         [maxValue, startAngle, endAngle]
     )
 
     const radiusScale = useMemo(
-        () => scaleBand().domain(serieIds).range([innerRadius, outerRadius]).padding(padding),
+        () =>
+            castBandScale<string>(
+                scaleBand<string>()
+                    .domain(serieIds)
+                    .range([innerRadius, outerRadius])
+                    .padding(padding)
+            ),
         [serieIds, outerRadius, innerRadius, padding]
     )
 
@@ -168,24 +178,22 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     const startAngleRadians = degreesToRadians(startAngle)
     const endAngleRadians = degreesToRadians(endAngle)
 
-    const tracks: RadialBarTrackDatum[] = useMemo(
-        () =>
-            radiusScale.domain().map(value => {
-                const trackRadius = radiusScale(value) as number
+    const tracks: RadialBarTrackDatum[] = useMemo(() => {
+        return getScaleTicks(radiusScale).map(value => {
+            const trackRadius = radiusScale(value) as number
 
-                return {
-                    id: value,
-                    color: tracksColor,
-                    arc: {
-                        startAngle: startAngleRadians,
-                        endAngle: endAngleRadians,
-                        innerRadius: trackRadius,
-                        outerRadius: trackRadius + radiusScale.bandwidth(),
-                    },
-                }
-            }),
-        [radiusScale, startAngleRadians, endAngleRadians, tracksColor]
-    )
+            return {
+                id: value,
+                color: tracksColor,
+                arc: {
+                    startAngle: startAngleRadians,
+                    endAngle: endAngleRadians,
+                    innerRadius: trackRadius,
+                    outerRadius: trackRadius + radiusScale.bandwidth(),
+                },
+            }
+        })
+    }, [radiusScale, startAngleRadians, endAngleRadians, tracksColor])
 
     // Given the way categories are extracted, (please see the corresponding hook above),
     // legends order might be incorrect, also colors are extracted from bars, to avoid
