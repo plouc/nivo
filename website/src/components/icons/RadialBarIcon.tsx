@@ -37,6 +37,7 @@ const RadialBarIconItem = ({ type }: { type: IconType }) => (
             radialAxisStart={null}
             circularAxisOuter={null}
             animate={false}
+            isInteractive={false}
         />
     </Icon>
 )

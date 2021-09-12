@@ -5,8 +5,9 @@ import networkLightColoredImg from '../../assets/icons/network-light-colored.png
 import networkDarkNeutralImg from '../../assets/icons/network-dark-neutral.png'
 import networkDarkColoredImg from '../../assets/icons/network-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const getData = currentColors => {
+const getData = (currentColors: any) => {
     let nodes = 'ABCDE'.split('').map(id => ({
         id,
         radius: 5,
@@ -18,7 +19,7 @@ const getData = currentColors => {
         distance: 2,
     }))
 
-    const leaves = []
+    const leaves: any[] = []
     nodes.forEach(node => {
         Array.from({ length: 7 }, (v, k) => {
             leaves.push({
@@ -43,21 +44,22 @@ const getData = currentColors => {
 const chartProps = {
     width: ICON_SIZE,
     height: ICON_SIZE,
-    distance: link => link.distance,
+    linkDistance: (link: any) => link.distance,
     repulsivity: 5,
     linkThickness: 2,
+    nodeColor: (node: any) => node.color,
     linkColor: { from: 'source.color' },
     animate: false,
     isInteractive: false,
 }
 
-const NetworkIconItem = ({ type }) => (
+const NetworkIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`network-${type}`} type={type}>
-        <Network {...chartProps} {...getData(colors[type].colors)} />
+        <Network {...chartProps} data={getData(colors[type].colors)} />
     </Icon>
 )
 
-const NetworkIcon = () => (
+export const NetworkIcon = () => (
     <>
         <NetworkIconItem type="lightNeutral" />
         <IconImg url={networkLightNeutralImg} />
@@ -69,5 +71,3 @@ const NetworkIcon = () => (
         <IconImg url={networkDarkColoredImg} />
     </>
 )
-
-export default NetworkIcon
