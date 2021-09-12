@@ -1,6 +1,8 @@
 import { NetworkLayerId } from './types'
 import { NetworkNode } from './NetworkNode'
 import { renderCanvasNode } from './renderCanvasNode'
+import { NetworkLink } from './NetworkLink'
+import { renderCanvasLink } from './renderCanvasLink'
 import { NetworkNodeTooltip } from './NetworkNodeTooltip'
 
 export const commonDefaultProps = {
@@ -31,10 +33,12 @@ export const commonDefaultProps = {
 export const svgDefaultProps = {
     ...commonDefaultProps,
     nodeComponent: NetworkNode,
+    linkComponent: NetworkLink,
 }
 
 export const canvasDefaultProps = {
     ...commonDefaultProps,
     renderNode: renderCanvasNode,
+    renderLink: renderCanvasLink,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

@@ -63,6 +63,8 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     nodeColor,
     nodeBorderWidth,
     nodeBorderColor,
+    linkThickness,
+    linkColor,
 }: {
     nodes: N[]
     links: InputLink[]
@@ -75,6 +77,8 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     nodeColor: NetworkCommonProps<N>['nodeColor']
     nodeBorderWidth: NetworkCommonProps<N>['nodeBorderWidth']
     nodeBorderColor: NetworkCommonProps<N>['nodeBorderColor']
+    linkThickness: NetworkCommonProps<N>['linkThickness']
+    linkColor: NetworkCommonProps<N>['linkColor']
 }): [null | NetworkComputedNode<N>[], null | ComputedLink<N>[]] => {
     const [currentNodes, setCurrentNodes] = useState<null | NetworkComputedNode<N>[]>(null)
     const [currentLinks, setCurrentLinks] = useState<null | ComputedLink<N>[]>(null)
@@ -135,6 +139,8 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     const theme = useTheme()
     const getNodeColor = useNodeColor<N>(nodeColor)
     const getNodeBorderColor = useInheritedColor(nodeBorderColor, theme)
+    const getLinkThickness = useLinkThickness<N>(linkThickness)
+    const getLinkColor = useInheritedColor(linkColor, theme)
 
     const enhancedNodes: NetworkComputedNode<N>[] | null = useMemo(() => {
         if (currentNodes === null) return null
@@ -149,7 +155,19 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
         })
     }, [currentNodes, getNodeColor, nodeBorderWidth, getNodeBorderColor])
 
-    return [enhancedNodes, currentLinks]
+    const enhancedLinks: ComputedLink<N>[] | null = useMemo(() => {
+        if (currentLinks === null) return null
+
+        return currentLinks.map(link => {
+            return {
+                ...link,
+                thickness: getLinkThickness(link),
+                color: getLinkColor(link),
+            }
+        })
+    }, [currentLinks, getLinkThickness, getLinkColor])
+
+    return [enhancedNodes, enhancedLinks]
 }
 
 export const useNodeColor = <N extends NetworkInputNode>(color: NetworkNodeColor<N>) =>

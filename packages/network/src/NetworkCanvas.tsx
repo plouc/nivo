@@ -1,9 +1,8 @@
 import { useCallback, useRef, useEffect, createElement, MouseEvent } from 'react'
 import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { canvasDefaultProps } from './defaults'
-import { useNetwork, useLinkThickness } from './hooks'
+import { useNetwork } from './hooks'
 import { NetworkCanvasProps, NetworkInputNode } from './types'
 
 type InnerNetworkCanvasProps<N extends NetworkInputNode> = Omit<
@@ -32,6 +31,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
     nodeBorderWidth = canvasDefaultProps.nodeBorderWidth,
     nodeBorderColor = canvasDefaultProps.nodeBorderColor,
 
+    renderLink = canvasDefaultProps.renderLink,
     linkThickness = canvasDefaultProps.linkThickness,
     linkColor = canvasDefaultProps.linkColor,
 
@@ -58,11 +58,11 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
+        linkThickness,
+        linkColor,
     })
 
     const theme = useTheme()
-    const getLinkThickness = useLinkThickness(linkThickness)
-    const getLinkColor = useInheritedColor(linkColor, theme)
 
     useEffect(() => {
         if (canvasEl.current === null) return
@@ -80,18 +80,9 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
 
         layers.forEach(layer => {
             if (layer === 'links' && links !== null) {
-                links.forEach(link => {
-                    ctx.strokeStyle = getLinkColor(link)
-                    ctx.lineWidth = getLinkThickness(link)
-                    ctx.beginPath()
-                    ctx.moveTo(link.source.x, link.source.y)
-                    ctx.lineTo(link.target.x, link.target.y)
-                    ctx.stroke()
-                })
+                links.forEach(link => renderLink(ctx, link))
             } else if (layer === 'nodes' && nodes !== null) {
-                nodes.forEach(node => {
-                    renderNode(ctx, node)
-                })
+                nodes.forEach(node => renderNode(ctx, node))
             } else if (typeof layer === 'function' && nodes !== null && links !== null) {
                 layer(ctx, {
                     // ...props,
@@ -112,8 +103,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         nodes,
         links,
         renderNode,
-        getLinkThickness,
-        getLinkColor,
+        renderLink,
     ])
 
     const getNodeFromMouseEvent = useCallback(
