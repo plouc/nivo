@@ -3,19 +3,19 @@ import get from 'lodash/get'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import { forceSimulation, forceManyBody, forceCenter, forceLink } from 'd3-force'
-import { InputLink, InputNode, NetworkCommonProps } from './types'
+import { InputLink, NetworkInputNode, NetworkCommonProps, NetworkNodeColor } from './types'
 
-const computeForces = ({
+const computeForces = <N extends NetworkInputNode>({
     linkDistance,
     repulsivity,
     distanceMin,
     distanceMax,
     center,
 }: {
-    linkDistance: NetworkCommonProps['linkDistance']
-    repulsivity: NetworkCommonProps['repulsivity']
-    distanceMin: NetworkCommonProps['distanceMin']
-    distanceMax: NetworkCommonProps['distanceMax']
+    linkDistance: NetworkCommonProps<N>['linkDistance']
+    repulsivity: NetworkCommonProps<N>['repulsivity']
+    distanceMin: NetworkCommonProps<N>['distanceMin']
+    distanceMax: NetworkCommonProps<N>['distanceMax']
     center: [number, number]
 }) => {
     let computedLinkDistance
@@ -41,7 +41,7 @@ const computeForces = ({
     return { link: linkForce, charge: chargeForce, center: centerForce }
 }
 
-export const useNetwork = ({
+export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     nodes,
     links,
     linkDistance,
@@ -51,20 +51,20 @@ export const useNetwork = ({
     center,
     iterations,
 }: {
-    nodes: InputNode[]
+    nodes: N[]
     links: InputLink[]
-    linkDistance: NetworkCommonProps['linkDistance']
-    repulsivity: NetworkCommonProps['repulsivity']
-    distanceMin: NetworkCommonProps['distanceMin']
-    distanceMax: NetworkCommonProps['distanceMax']
+    linkDistance: NetworkCommonProps<N>['linkDistance']
+    repulsivity: NetworkCommonProps<N>['repulsivity']
+    distanceMin: NetworkCommonProps<N>['distanceMin']
+    distanceMax: NetworkCommonProps<N>['distanceMax']
     center: [number, number]
-    iterations: NetworkCommonProps['iterations']
+    iterations: NetworkCommonProps<N>['iterations']
 }) => {
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentLinks, setCurrentLinks] = useState([])
 
     useEffect(() => {
-        const forces = computeForces({
+        const forces = computeForces<N>({
             linkDistance,
             repulsivity,
             distanceMin,
@@ -72,7 +72,7 @@ export const useNetwork = ({
             center,
         })
 
-        const nodesCopy: InputNode[] = nodes.map(node => ({ ...node }))
+        const nodesCopy: N[] = nodes.map(node => ({ ...node }))
         const linksCopy: InputLink[] = links.map(link => ({
             id: `${link.source}.${link.target}`,
             ...link,
@@ -114,7 +114,7 @@ export const useNetwork = ({
     return [currentNodes, currentLinks]
 }
 
-export const useNodeColor = color =>
+export const useNodeColor = <N extends NetworkInputNode>(color: NetworkNodeColor<N>) =>
     useMemo(() => {
         if (typeof color === 'function') return color
         return () => color

@@ -1,22 +1,71 @@
-import { createElement, MouseEvent } from 'react'
+import { createElement, MouseEvent, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { NetworkNode } from './NetworkNode'
-import { ComputedNode, NodeAnimatedProps } from './types'
+import {
+    NetworkComputedNode,
+    NetworkInputNode,
+    NetworkNodeAnimatedProps,
+    NetworkNodeColor,
+    NetworkNodeComponent,
+} from './types'
 
-interface NetworkNodesProps {
-    nodes: ComputedNode[]
-    color: (node: ComputedNode) => string
+interface NetworkNodesProps<N extends NetworkInputNode> {
+    nodes: NetworkComputedNode<N>[]
+    nodeComponent: NetworkNodeComponent<N>
+    color: Exclude<NetworkNodeColor<N>, string>
     borderWidth: number
-    borderColor: (node: ComputedNode) => string
-    onClick?: (node: ComputedNode, event: MouseEvent) => void
-    onMouseEnter?: (node: ComputedNode, event: MouseEvent) => void
-    onMouseMove?: (node: ComputedNode, event: MouseEvent) => void
-    onMouseLeave?: (node: ComputedNode, event: MouseEvent) => void
+    borderColor: (node: NetworkComputedNode<N>) => string
+    onClick?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    onMouseEnter?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    onMouseMove?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    onMouseLeave?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
 }
 
-export const NetworkNodes = ({
+const getEnterTransition = <N extends NetworkInputNode>(
+    color: NetworkNodesProps<N>['color'],
+    borderWidth: number,
+    borderColor: NetworkNodesProps<N>['borderColor']
+) => (node: NetworkComputedNode<N>) => ({
+    x: node.x,
+    y: node.y,
+    radius: node.radius,
+    color: color(node),
+    borderWidth,
+    borderColor: borderColor(node),
+    scale: 0,
+})
+
+const getRegularTransition = <N extends NetworkInputNode>(
+    color: NetworkNodesProps<N>['color'],
+    borderWidth: number,
+    borderColor: NetworkNodesProps<N>['borderColor']
+) => (node: NetworkComputedNode<N>) => ({
+    x: node.x,
+    y: node.y,
+    radius: node.radius,
+    color: color(node),
+    borderWidth,
+    borderColor: borderColor(node),
+    scale: 1,
+})
+
+const getExitTransition = <N extends NetworkInputNode>(
+    color: NetworkNodesProps<N>['color'],
+    borderWidth: number,
+    borderColor: NetworkNodesProps<N>['borderColor']
+) => (node: NetworkComputedNode<N>) => ({
+    x: node.x,
+    y: node.y,
+    radius: node.radius,
+    color: color(node),
+    borderWidth,
+    borderColor: borderColor(node),
+    scale: 0,
+})
+
+export const NetworkNodes = <N extends NetworkInputNode>({
     nodes,
+    nodeComponent,
     color,
     borderColor,
     borderWidth,
@@ -24,47 +73,25 @@ export const NetworkNodes = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodesProps) => {
+}: NetworkNodesProps<N>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const transition = useTransition<ComputedNode, NodeAnimatedProps>(nodes, {
+    const [enterTransition, regularTransition, exitTransition] = useMemo(
+        () => [
+            getEnterTransition(color, borderWidth, borderColor),
+            getRegularTransition(color, borderWidth, borderColor),
+            getExitTransition(color, borderWidth, borderColor),
+        ],
+        [color, borderWidth, borderColor]
+    )
+
+    const transition = useTransition<NetworkComputedNode<N>, NetworkNodeAnimatedProps>(nodes, {
         keys: node => node.id,
-        initial: node => ({
-            x: node.x,
-            y: node.y,
-            radius: node.radius,
-            color: color(node),
-            borderWidth,
-            borderColor: borderColor(node),
-            scale: 1,
-        }),
-        enter: node => ({
-            x: node.x,
-            y: node.y,
-            radius: node.radius,
-            color: color(node),
-            borderWidth,
-            borderColor: borderColor(node),
-            scale: 1,
-        }),
-        update: node => ({
-            x: node.x,
-            y: node.y,
-            radius: node.radius,
-            color: color(node),
-            borderWidth,
-            borderColor: borderColor(node),
-            scale: 1,
-        }),
-        leave: node => ({
-            x: node.x,
-            y: node.y,
-            radius: node.radius,
-            color: color(node),
-            borderWidth,
-            borderColor: borderColor(node),
-            scale: 0,
-        }),
+        initial: regularTransition,
+        from: enterTransition,
+        enter: regularTransition,
+        update: regularTransition,
+        leave: exitTransition,
         config: springConfig,
         immediate: !animate,
     })
@@ -72,7 +99,7 @@ export const NetworkNodes = ({
     return (
         <>
             {transition((transitionProps, node) =>
-                createElement(NetworkNode, {
+                createElement(nodeComponent, {
                     key: node.id,
                     node,
                     animated: transitionProps,

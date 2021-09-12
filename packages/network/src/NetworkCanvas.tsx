@@ -1,16 +1,19 @@
-import { useCallback, useRef, useEffect, ForwardedRef } from 'react'
+import { useCallback, useRef, useEffect } from 'react'
 import * as React from 'react'
 import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { canvasDefaultProps } from './props'
+import { canvasDefaultProps } from './defaults'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
-import NetworkNodeTooltip from './NetworkNodeTooltip'
-import { NetworkCanvasProps } from './types'
+import { NetworkNodeTooltip } from './NetworkNodeTooltip'
+import { NetworkCanvasProps, NetworkInputNode } from './types'
 
-type InnerNetworkCanvasProps = Omit<NetworkCanvasProps, 'renderWrapper' | 'theme'>
+type InnerNetworkCanvasProps<N extends NetworkInputNode> = Omit<
+    NetworkCanvasProps<N>,
+    'renderWrapper' | 'theme'
+>
 
-const InnerNetworkCanvas = (props: InnerNetworkCanvasProps) => {
+const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanvasProps<N>) => {
     const {
         width,
         height,
@@ -188,15 +191,15 @@ const InnerNetworkCanvas = (props: InnerNetworkCanvasProps) => {
     )
 }
 
-export const NetworkCanvas = ({
+export const NetworkCanvas = <N extends NetworkInputNode = NetworkInputNode>({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,
     animate = canvasDefaultProps.animate,
     motionConfig = canvasDefaultProps.motionConfig,
     renderWrapper,
     ...otherProps
-}: NetworkCanvasProps) => (
+}: NetworkCanvasProps<N>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerNetworkCanvas isInteractive={isInteractive} {...otherProps} />
+        <InnerNetworkCanvas<N> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

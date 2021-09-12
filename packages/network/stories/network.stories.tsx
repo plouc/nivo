@@ -1,47 +1,50 @@
+import { Meta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import { NetworkDefaultProps } from '../src/props'
+import { withKnobs } from '@storybook/addon-knobs'
 import { generateNetworkData } from '@nivo/generators'
-import { Network } from '../src'
+import {
+    Network,
+    NetworkInputNode,
+    NetworkNodeTooltipProps,
+    NetworkSvgProps,
+    svgDefaultProps,
+    // @ts-ignore
+} from '../src'
+
+export default {
+    component: Network,
+    title: 'Network',
+    decorators: [withKnobs],
+} as Meta
 
 const data = generateNetworkData()
 
-const commonProperties = {
-    ...NetworkDefaultProps,
-    nodes: data.nodes,
-    links: data.links,
+const commonProperties: NetworkSvgProps<NetworkInputNode> = {
+    ...svgDefaultProps,
+    data,
     width: 900,
     height: 340,
-    nodeColor: function (t) {
-        return t.color
-    },
+    nodeColor: node => node.color,
     repulsivity: 6,
     iterations: 60,
 }
 
-const stories = storiesOf('Network', module)
+export const Default = () => <Network {...commonProperties} />
 
-stories.add('default', () => <Network {...commonProperties} />)
+const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NetworkInputNode>) => (
+    <div>
+        <div>
+            <strong style={{ color: node.color }}>ID: {node.id}</strong>
+            <br />
+            Depth: {node.depth}
+            <br />
+            Radius: {node.radius}
+        </div>
+    </div>
+)
 
-stories.add('custom tooltip', () => (
-    <Network
-        {...commonProperties}
-        tooltip={node => {
-            return (
-                <div>
-                    <div>
-                        <strong style={{ color: node.color }}>ID: {node.id}</strong>
-                        <br />
-                        Depth: {node.depth}
-                        <br />
-                        Radius: {node.radius}
-                    </div>
-                </div>
-            )
-        }}
-    />
-))
+export const CustomNodeTooltip = () => (
+    <Network {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+)
 
-stories.add('supports onClick for the node', () => (
-    <Network {...commonProperties} onClick={action('onClick')} />
-))
+export const OnClickHandler = () => <Network {...commonProperties} onClick={action('onClick')} />
