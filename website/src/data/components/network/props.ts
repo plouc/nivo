@@ -1,6 +1,6 @@
 // @ts-ignore
 import { NetworkDefaultProps } from '@nivo/network'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
 import { chartDimensions, pixelRatio } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -105,13 +105,15 @@ const props: ChartProperty[] = [
             max: 260,
         },
     },
+    themeProperty(['svg', 'canvas']),
     {
         key: 'nodeColor',
         group: 'Nodes',
-        type: 'string | (node: Node) => string',
+        type: 'string | (node: InputNode) => string',
         required: false,
         help: `Control nodes' color.`,
         flavors: allFlavors,
+        defaultValue: NetworkDefaultProps.nodeColor,
     },
     {
         key: 'nodeBorderWidth',
@@ -158,12 +160,22 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'tooltip',
+        key: 'isInteractive',
         group: 'Interactivity',
-        type: 'Function',
+        type: 'boolean',
         required: false,
-        help: 'Custom tooltip component.',
-        flavors: allFlavors,
+        help: 'Enable/disable interactivity.',
+        flavors: ['svg'],
+        defaultValue: NetworkDefaultProps.isInteractive,
+        controlType: 'switch',
+    },
+    {
+        key: 'nodeTooltip',
+        group: 'Interactivity',
+        type: 'NetworkNodeTooltipComponent',
+        required: false,
+        help: 'Custom tooltip component for nodes.',
+        flavors: ['svg', 'canvas'],
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML
@@ -174,7 +186,31 @@ const props: ChartProperty[] = [
         key: 'onClick',
         group: 'Interactivity',
         help: 'onClick handler.',
-        type: '(node, event) => void',
+        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'canvas'],
+    },
+    {
+        key: 'onMouseEnter',
+        group: 'Interactivity',
+        help: 'onMouseEnter handler.',
+        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'canvas'],
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        help: 'onMouseMove handler.',
+        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'canvas'],
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        help: 'onMouseLeave handler.',
+        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
         required: false,
         flavors: allFlavors,
     },
@@ -186,6 +222,38 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: NetworkDefaultProps.layers,
         flavors: ['svg', 'canvas'],
+    },
+    {
+        key: 'role',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element role attribute.',
+        flavors: ['svg'],
+    },
+    {
+        key: 'ariaLabel',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
+        flavors: ['svg'],
+    },
+    {
+        key: 'ariaLabelledBy',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
+        flavors: ['svg'],
+    },
+    {
+        key: 'ariaDescribedBy',
+        group: 'Accessibility',
+        type: 'string',
+        required: false,
+        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
+        flavors: ['svg'],
     },
     ...motionProperties(['svg'], NetworkDefaultProps, 'react-spring'),
 ]

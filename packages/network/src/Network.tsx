@@ -1,20 +1,19 @@
-import { Fragment, ReactNode, useCallback } from 'react'
+import { Fragment, ReactNode, useCallback, createElement } from 'react'
 import { Container, useDimensions, SvgWrapper, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import { NetworkNodes } from './NetworkNodes'
 import { NetworkLinks } from './NetworkLinks'
-import NetworkNodeTooltip from './NetworkNodeTooltip'
-import { NetworkLayerId, NetworkSvgProps } from './types'
+import { NetworkInputNode, NetworkLayerId, NetworkSvgProps } from './types'
 
-type InnerNetworkProps = Omit<
-    NetworkSvgProps,
+type InnerNetworkProps<N extends NetworkInputNode> = Omit<
+    NetworkSvgProps<N>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerNetwork = (props: InnerNetworkProps) => {
+const InnerNetwork = <N extends NetworkInputNode>(props: InnerNetworkProps<N>) => {
     const {
         width,
         height,
@@ -30,6 +29,7 @@ const InnerNetwork = (props: InnerNetworkProps) => {
 
         layers = svgDefaultProps.layers,
 
+        nodeComponent = svgDefaultProps.nodeComponent,
         nodeColor = svgDefaultProps.nodeColor,
         nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
         nodeBorderColor = svgDefaultProps.nodeBorderColor,
@@ -37,8 +37,8 @@ const InnerNetwork = (props: InnerNetworkProps) => {
         linkThickness = svgDefaultProps.linkThickness,
         linkColor = svgDefaultProps.linkColor,
 
-        tooltip = svgDefaultProps.tooltip,
         isInteractive = svgDefaultProps.isInteractive,
+        nodeTooltip = svgDefaultProps.nodeTooltip,
         onClick,
 
         role = svgDefaultProps.role,
@@ -51,12 +51,12 @@ const InnerNetwork = (props: InnerNetworkProps) => {
     )
 
     const theme = useTheme()
-    const getColor = useNodeColor(nodeColor)
+    const getColor = useNodeColor<N>(nodeColor)
     const getBorderColor = useInheritedColor(nodeBorderColor, theme)
     const getLinkThickness = useLinkThickness(linkThickness)
     const getLinkColor = useInheritedColor(linkColor, theme)
 
-    const [nodes, links] = useNetwork({
+    const [nodes, links] = useNetwork<N>({
         nodes: rawNodes,
         links: rawLinks,
         linkDistance,
@@ -71,9 +71,9 @@ const InnerNetwork = (props: InnerNetworkProps) => {
 
     const handleNodeHover = useCallback(
         (node, event) => {
-            showTooltipFromEvent(<NetworkNodeTooltip node={node} tooltip={tooltip} />, event)
+            showTooltipFromEvent(createElement(nodeTooltip, { node }), event)
         },
-        [showTooltipFromEvent, tooltip]
+        [showTooltipFromEvent, nodeTooltip]
     )
 
     const handleNodeLeave = useCallback(() => {
@@ -85,7 +85,7 @@ const InnerNetwork = (props: InnerNetworkProps) => {
         nodes: null,
     }
 
-    if (layers.includes('links')) {
+    if (layers.includes('links') && false) {
         layerById.links = (
             <NetworkLinks
                 key="links"
@@ -96,11 +96,12 @@ const InnerNetwork = (props: InnerNetworkProps) => {
         )
     }
 
-    if (layers.includes('crap')) {
+    if (layers.includes('nodes')) {
         layerById.nodes = (
-            <NetworkNodes
+            <NetworkNodes<N>
                 key="nodes"
                 nodes={nodes}
+                nodeComponent={nodeComponent}
                 color={getColor}
                 borderWidth={nodeBorderWidth}
                 borderColor={getBorderColor}
@@ -135,14 +136,14 @@ const InnerNetwork = (props: InnerNetworkProps) => {
     )
 }
 
-export const Network = ({
+export const Network = <N extends NetworkInputNode = NetworkInputNode>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: NetworkSvgProps) => (
+}: NetworkSvgProps<N>) => (
     <Container
         {...{
             animate,
@@ -152,6 +153,6 @@ export const Network = ({
             theme,
         }}
     >
-        <InnerNetwork isInteractive={isInteractive} {...otherProps} />
+        <InnerNetwork<N> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

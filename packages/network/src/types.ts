@@ -1,23 +1,23 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
+import { AnimatedProps } from '@react-spring/web'
 import { Box, Theme, Dimensions, ModernMotionProps, PropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 
-export interface InputNode {
+export interface NetworkInputNode {
     id: string
-    [key: string]: unknown
 }
 
-export interface ComputedNode {
+export interface NetworkComputedNode<N extends NetworkInputNode> {
     id: string
     x: number
     y: number
     radius: number
     color: string
-    data: InputNode
+    data: N
     [key: string]: unknown
 }
 
-export interface NodeAnimatedProps {
+export interface NetworkNodeAnimatedProps {
     x: number
     y: number
     radius: number
@@ -28,16 +28,29 @@ export interface NodeAnimatedProps {
     scale: number
 }
 
+export interface NetworkNodeProps<N extends NetworkInputNode> {
+    node: NetworkComputedNode<N>
+    animated: AnimatedProps<NetworkNodeAnimatedProps>
+    scale?: number
+    onClick?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    onMouseEnter?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    onMouseMove?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    onMouseLeave?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+}
+export type NetworkNodeComponent<N extends NetworkInputNode> = FunctionComponent<
+    NetworkNodeProps<N>
+>
+
 export interface InputLink {
     source: string
     target: string
     [key: string]: unknown
 }
 
-export interface ComputedLink {
+export interface ComputedLink<N extends NetworkInputNode> {
     id: string
-    source: ComputedNode
-    target: ComputedNode
+    source: NetworkComputedNode<N>
+    target: NetworkComputedNode<N>
     [key: string]: unknown
 }
 
@@ -50,29 +63,38 @@ export interface LinkAnimatedProps {
     opacity: number
 }
 
-export interface NetworkDataProps {
+export interface NetworkDataProps<N extends NetworkInputNode> {
     data: {
-        nodes: InputNode[]
+        nodes: N[]
         links: InputLink[]
     }
 }
 
 export type NetworkLayerId = 'links' | 'nodes'
-export interface NetworkCustomLayerProps {
-    nodes: ComputedNode[]
-    links: ComputedLink[]
+export interface NetworkCustomLayerProps<N extends NetworkInputNode> {
+    nodes: NetworkComputedNode<N>[]
+    links: ComputedLink<N>[]
 }
-export type NetworkCustomLayer = FunctionComponent<NetworkCustomLayerProps>
+export type NetworkCustomLayer<N extends NetworkInputNode> = FunctionComponent<
+    NetworkCustomLayerProps<N>
+>
 
-export interface NetworkNodeTooltipProps {
-    node: ComputedNode
+export interface NetworkNodeTooltipProps<N extends NetworkInputNode> {
+    node: NetworkComputedNode<N>
 }
-export type NetworkNodeTooltipComponent = FunctionComponent<NetworkNodeTooltipProps>
+export type NetworkNodeTooltipComponent<N extends NetworkInputNode> = FunctionComponent<
+    NetworkNodeTooltipProps<N>
+>
 
-export interface NetworkCommonProps {
+// support static color or a dynamic function receiving the node
+export type NetworkNodeColor<N extends NetworkInputNode> =
+    | string
+    | ((node: NetworkComputedNode<N>) => string)
+
+export interface NetworkCommonProps<N extends NetworkInputNode> {
     margin: Box
 
-    layers: (NetworkLayerId | NetworkCustomLayer)[]
+    layers: (NetworkLayerId | NetworkCustomLayer<N>)[]
 
     linkDistance: number | PropertyAccessor<InputLink, number>
     repulsivity: number
@@ -82,16 +104,16 @@ export interface NetworkCommonProps {
 
     theme: Theme
 
-    nodeColor: string | PropertyAccessor<ComputedNode, string>
+    nodeColor: NetworkNodeColor<N>
     nodeBorderWidth: number
-    nodeBorderColor: InheritedColorConfig<ComputedNode>
+    nodeBorderColor: InheritedColorConfig<NetworkComputedNode<N>>
 
-    linkThickness: number | PropertyAccessor<ComputedLink, number>
-    linkColor: InheritedColorConfig<ComputedLink>
+    linkThickness: number | PropertyAccessor<ComputedLink<N>, number>
+    linkColor: InheritedColorConfig<ComputedLink<N>>
 
     isInteractive: boolean
-    tooltip: NetworkNodeTooltipComponent
-    onClick: (node: ComputedNode, event: MouseEvent<SVGCircleElement>) => void
+    nodeTooltip: NetworkNodeTooltipComponent<N>
+    onClick: (node: NetworkComputedNode<N>, event: MouseEvent) => void
 
     renderWrapper: boolean
 
@@ -101,13 +123,15 @@ export interface NetworkCommonProps {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type NetworkSvgProps = Partial<NetworkCommonProps> &
-    NetworkDataProps &
+export type NetworkSvgProps<N extends NetworkInputNode> = Partial<NetworkCommonProps<N>> &
+    NetworkDataProps<N> &
     Dimensions &
-    ModernMotionProps
+    ModernMotionProps & {
+        nodeComponent?: NetworkNodeComponent<N>
+    }
 
-export type NetworkCanvasProps = Partial<NetworkCommonProps> &
-    NetworkDataProps &
+export type NetworkCanvasProps<N extends NetworkInputNode> = Partial<NetworkCommonProps<N>> &
+    NetworkDataProps<N> &
     Dimensions &
     // only used by tooltips
     ModernMotionProps & {

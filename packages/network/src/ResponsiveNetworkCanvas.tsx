@@ -1,9 +1,11 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { NetworkCanvasProps } from './types'
+import { NetworkCanvasProps, NetworkInputNode } from './types'
 import { NetworkCanvas } from './NetworkCanvas'
 
-export const ResponsiveNetworkCanvas = (props: Omit<NetworkCanvasProps, 'height' | 'width'>) => (
+export const ResponsiveNetworkCanvas = <N extends NetworkInputNode = NetworkInputNode>(
+    props: Omit<NetworkCanvasProps<N>, 'height' | 'width'>
+) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <NetworkCanvas width={width} height={height} {...props} />}
+        {({ width, height }) => <NetworkCanvas<N> width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )

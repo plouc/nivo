@@ -1,25 +1,14 @@
-import { MouseEvent } from 'react'
-import { AnimatedProps, animated, to } from '@react-spring/web'
-import { ComputedNode, NodeAnimatedProps } from './types'
+import { animated, to } from '@react-spring/web'
+import { NetworkInputNode, NetworkNodeProps } from './types'
 
-interface NetworkNodeProps {
-    node: ComputedNode
-    animated: AnimatedProps<NodeAnimatedProps>
-    scale?: number
-    onClick?: (node: ComputedNode, event: MouseEvent) => void
-    onMouseEnter?: (node: ComputedNode, event: MouseEvent) => void
-    onMouseMove?: (node: ComputedNode, event: MouseEvent) => void
-    onMouseLeave?: (node: ComputedNode, event: MouseEvent) => void
-}
-
-export const NetworkNode = ({
+export const NetworkNode = <N extends NetworkInputNode>({
     node,
     animated: animatedProps,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodeProps) => {
+}: NetworkNodeProps<N>) => {
     return (
         <animated.circle
             transform={to(

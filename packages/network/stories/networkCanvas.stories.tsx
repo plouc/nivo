@@ -1,47 +1,52 @@
+import { Meta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import { NetworkDefaultProps } from '../src/props'
+import { withKnobs } from '@storybook/addon-knobs'
 import { generateNetworkData } from '@nivo/generators'
-import { NetworkCanvas } from '../src'
+import {
+    NetworkCanvas,
+    canvasDefaultProps,
+    NetworkCanvasProps,
+    NetworkInputNode,
+    NetworkNodeTooltipProps,
+    // @ts-ignore
+} from '../src'
+
+export default {
+    component: NetworkCanvas,
+    title: 'NetworkCanvas',
+    decorators: [withKnobs],
+} as Meta
 
 const data = generateNetworkData()
 
-const commonProperties = {
-    ...NetworkDefaultProps,
-    nodes: data.nodes,
-    links: data.links,
+const commonProperties: NetworkCanvasProps<NetworkInputNode> = {
+    ...canvasDefaultProps,
+    data,
     width: 900,
     height: 340,
-    nodeColor: function (t) {
-        return t.color
-    },
+    nodeColor: node => node.color,
     repulsivity: 6,
     iterations: 60,
 }
 
-const stories = storiesOf('NetworkCanvas', module)
+export const Default = () => <NetworkCanvas {...commonProperties} />
 
-stories.add('default', () => <NetworkCanvas {...commonProperties} />)
+const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NetworkInputNode>) => (
+    <div>
+        <div>
+            <strong style={{ color: node.color }}>ID: {node.id}</strong>
+            <br />
+            Depth: {node.depth}
+            <br />
+            Radius: {node.radius}
+        </div>
+    </div>
+)
 
-stories.add('custom tooltip', () => (
-    <NetworkCanvas
-        {...commonProperties}
-        tooltip={node => {
-            return (
-                <div>
-                    <div>
-                        <strong style={{ color: node.color }}>ID: {node.id}</strong>
-                        <br />
-                        Depth: {node.depth}
-                        <br />
-                        Radius: {node.radius}
-                    </div>
-                </div>
-            )
-        }}
-    />
-))
+export const CustomNodeTooltip = () => (
+    <NetworkCanvas {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+)
 
-stories.add('supports onClick for the node', () => (
+export const OnClickHandler = () => (
     <NetworkCanvas {...commonProperties} onClick={action('onClick')} />
-))
+)
