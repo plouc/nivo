@@ -49,14 +49,16 @@ export type NetworkNodeCanvasRenderer<N extends NetworkInputNode> = (
 export interface InputLink {
     source: string
     target: string
-    [key: string]: unknown
 }
 
 export interface ComputedLink<N extends NetworkInputNode> {
     id: string
     source: NetworkComputedNode<N>
+    previousSource?: NetworkComputedNode<N>
     target: NetworkComputedNode<N>
-    [key: string]: unknown
+    previousTarget?: NetworkComputedNode<N>
+    thickness: number
+    color: string
 }
 
 export interface LinkAnimatedProps {
@@ -67,6 +69,18 @@ export interface LinkAnimatedProps {
     color: string
     opacity: number
 }
+
+export interface NetworkLinkProps<N extends NetworkInputNode> {
+    link: ComputedLink<N>
+    animated: AnimatedProps<LinkAnimatedProps>
+}
+export type NetworkLinkComponent<N extends NetworkInputNode> = FunctionComponent<
+    NetworkLinkProps<N>
+>
+export type NetworkLinkCanvasRenderer<N extends NetworkInputNode> = (
+    ctx: CanvasRenderingContext2D,
+    node: ComputedLink<N>
+) => void
 
 export interface NetworkDataProps<N extends NetworkInputNode> {
     data: {
@@ -145,6 +159,7 @@ export type NetworkSvgProps<N extends NetworkInputNode> = Partial<NetworkCommonP
     ModernMotionProps & {
         layers?: (NetworkLayerId | NetworkCustomLayer<N>)[]
         nodeComponent?: NetworkNodeComponent<N>
+        linkComponent?: NetworkLinkComponent<N>
     }
 
 export type NetworkCanvasProps<N extends NetworkInputNode> = Partial<NetworkCommonProps<N>> &
@@ -154,5 +169,6 @@ export type NetworkCanvasProps<N extends NetworkInputNode> = Partial<NetworkComm
     ModernMotionProps & {
         layers?: (NetworkLayerId | NetworkCustomCanvasLayer<N>)[]
         renderNode?: NetworkNodeCanvasRenderer<N>
+        renderLink?: NetworkLinkCanvasRenderer<N>
         pixelRatio?: number
     }

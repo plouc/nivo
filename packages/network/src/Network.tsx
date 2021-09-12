@@ -1,9 +1,8 @@
 import { Fragment, ReactNode, useCallback, createElement } from 'react'
-import { Container, useDimensions, SvgWrapper, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
+import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { svgDefaultProps } from './defaults'
-import { useNetwork, useLinkThickness } from './hooks'
+import { useNetwork } from './hooks'
 import { NetworkNodes } from './NetworkNodes'
 import { NetworkLinks } from './NetworkLinks'
 import { NetworkInputNode, NetworkLayerId, NetworkSvgProps } from './types'
@@ -33,6 +32,7 @@ const InnerNetwork = <N extends NetworkInputNode>({
     nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
     nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
+    linkComponent = svgDefaultProps.linkComponent,
     linkThickness = svgDefaultProps.linkThickness,
     linkColor = svgDefaultProps.linkColor,
 
@@ -48,10 +48,6 @@ const InnerNetwork = <N extends NetworkInputNode>({
         partialMargin
     )
 
-    const theme = useTheme()
-    const getLinkThickness = useLinkThickness(linkThickness)
-    const getLinkColor = useInheritedColor(linkColor, theme)
-
     const [nodes, links] = useNetwork<N>({
         nodes: rawNodes,
         links: rawLinks,
@@ -64,6 +60,8 @@ const InnerNetwork = <N extends NetworkInputNode>({
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
+        linkThickness,
+        linkColor,
     })
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -86,12 +84,7 @@ const InnerNetwork = <N extends NetworkInputNode>({
 
     if (layers.includes('links') && links !== null) {
         layerById.links = (
-            <NetworkLinks<N>
-                key="links"
-                links={links}
-                linkThickness={getLinkThickness}
-                linkColor={getLinkColor}
-            />
+            <NetworkLinks<N> key="links" links={links} linkComponent={linkComponent} />
         )
     }
 
