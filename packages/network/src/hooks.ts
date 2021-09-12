@@ -3,7 +3,15 @@ import get from 'lodash/get'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import { forceSimulation, forceManyBody, forceCenter, forceLink } from 'd3-force'
-import { InputLink, NetworkInputNode, NetworkCommonProps, NetworkNodeColor } from './types'
+import {
+    InputLink,
+    NetworkInputNode,
+    NetworkCommonProps,
+    NetworkNodeColor,
+    NetworkLinkThickness,
+    NetworkComputedNode,
+    ComputedLink,
+} from './types'
 
 const computeForces = <N extends NetworkInputNode>({
     linkDistance,
@@ -18,18 +26,18 @@ const computeForces = <N extends NetworkInputNode>({
     distanceMax: NetworkCommonProps<N>['distanceMax']
     center: [number, number]
 }) => {
-    let computedLinkDistance
+    let getLinkDistance
     if (typeof linkDistance === 'function') {
-        computedLinkDistance = linkDistance
+        getLinkDistance = linkDistance
     } else if (isNumber(linkDistance)) {
-        computedLinkDistance = linkDistance
+        getLinkDistance = linkDistance
     } else if (isString(linkDistance)) {
-        computedLinkDistance = link => get(link, linkDistance)
+        getLinkDistance = (link: InputLink) => get(link, linkDistance)
     }
 
     const linkForce = forceLink()
-        .id(d => d.id)
-        .distance(computedLinkDistance)
+        .id((d: any) => d.id)
+        .distance(getLinkDistance as any)
 
     const chargeForce = forceManyBody()
         .strength(-repulsivity)
@@ -59,9 +67,9 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     distanceMax: NetworkCommonProps<N>['distanceMax']
     center: [number, number]
     iterations: NetworkCommonProps<N>['iterations']
-}) => {
-    const [currentNodes, setCurrentNodes] = useState([])
-    const [currentLinks, setCurrentLinks] = useState([])
+}): [null | NetworkComputedNode<N>[], null | ComputedLink<N>[]] => {
+    const [currentNodes, setCurrentNodes] = useState<null | NetworkComputedNode<N>[]>(null)
+    const [currentLinks, setCurrentLinks] = useState<null | ComputedLink<N>[]>(null)
 
     useEffect(() => {
         const forces = computeForces<N>({
@@ -78,7 +86,7 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
             ...link,
         }))
 
-        const simulation = forceSimulation(nodesCopy)
+        const simulation = forceSimulation(nodesCopy as any[])
             .force('link', forces.link.links(linksCopy))
             .force('charge', forces.charge)
             .force('center', forces.center)
@@ -86,11 +94,16 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
 
         simulation.tick(iterations)
 
-        setCurrentNodes(nodesCopy)
+        // d3 mutates data, hence the castings
+        setCurrentNodes((nodesCopy as unknown) as NetworkComputedNode<N>[])
         setCurrentLinks(
-            linksCopy.map(link => {
-                link.previousSource = currentNodes.find(n => n.id === link.source.id)
-                link.previousTarget = currentNodes.find(n => n.id === link.target.id)
+            ((linksCopy as unknown) as ComputedLink<N>[]).map(link => {
+                link.previousSource = currentNodes
+                    ? currentNodes.find(n => n.id === link.source.id)
+                    : undefined
+                link.previousTarget = currentNodes
+                    ? currentNodes.find(n => n.id === link.target.id)
+                    : undefined
 
                 return link
             })
@@ -120,7 +133,7 @@ export const useNodeColor = <N extends NetworkInputNode>(color: NetworkNodeColor
         return () => color
     }, [color])
 
-export const useLinkThickness = thickness =>
+export const useLinkThickness = <N extends NetworkInputNode>(thickness: NetworkLinkThickness<N>) =>
     useMemo(() => {
         if (typeof thickness === 'function') return thickness
         return () => thickness

@@ -1,6 +1,6 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { AnimatedProps } from '@react-spring/web'
-import { Box, Theme, Dimensions, ModernMotionProps, PropertyAccessor } from '@nivo/core'
+import { Box, Theme, Dimensions, ModernMotionProps } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 
 export interface NetworkInputNode {
@@ -78,6 +78,10 @@ export interface NetworkCustomLayerProps<N extends NetworkInputNode> {
 export type NetworkCustomLayer<N extends NetworkInputNode> = FunctionComponent<
     NetworkCustomLayerProps<N>
 >
+export type NetworkCustomCanvasLayer<N extends NetworkInputNode> = (
+    ctx: CanvasRenderingContext2D,
+    props: NetworkCustomLayerProps<N>
+) => void
 
 export interface NetworkNodeTooltipProps<N extends NetworkInputNode> {
     node: NetworkComputedNode<N>
@@ -91,12 +95,19 @@ export type NetworkNodeColor<N extends NetworkInputNode> =
     | string
     | ((node: NetworkComputedNode<N>) => string)
 
+// support static distance, a property access if passing a string
+// or a dynamic function receiving the link.
+export type NetworkLinkDistance = number | string | ((link: InputLink) => number)
+
+// support static thickness or a dynamic function receiving the link
+export type NetworkLinkThickness<N extends NetworkInputNode> =
+    | number
+    | ((link: ComputedLink<N>) => number)
+
 export interface NetworkCommonProps<N extends NetworkInputNode> {
     margin: Box
 
-    layers: (NetworkLayerId | NetworkCustomLayer<N>)[]
-
-    linkDistance: number | PropertyAccessor<InputLink, number>
+    linkDistance: NetworkLinkDistance
     repulsivity: number
     distanceMin: number
     distanceMax: number
@@ -108,7 +119,7 @@ export interface NetworkCommonProps<N extends NetworkInputNode> {
     nodeBorderWidth: number
     nodeBorderColor: InheritedColorConfig<NetworkComputedNode<N>>
 
-    linkThickness: number | PropertyAccessor<ComputedLink<N>, number>
+    linkThickness: NetworkLinkThickness<N>
     linkColor: InheritedColorConfig<ComputedLink<N>>
 
     isInteractive: boolean
@@ -127,6 +138,7 @@ export type NetworkSvgProps<N extends NetworkInputNode> = Partial<NetworkCommonP
     NetworkDataProps<N> &
     Dimensions &
     ModernMotionProps & {
+        layers?: (NetworkLayerId | NetworkCustomLayer<N>)[]
         nodeComponent?: NetworkNodeComponent<N>
     }
 
@@ -135,5 +147,6 @@ export type NetworkCanvasProps<N extends NetworkInputNode> = Partial<NetworkComm
     Dimensions &
     // only used by tooltips
     ModernMotionProps & {
+        layers?: (NetworkLayerId | NetworkCustomCanvasLayer<N>)[]
         pixelRatio?: number
     }

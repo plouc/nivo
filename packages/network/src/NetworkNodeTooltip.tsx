@@ -1,11 +1,6 @@
 import { BasicTooltip } from '@nivo/tooltip'
-import { NetworkNodeTooltipProps } from './types'
+import { NetworkInputNode, NetworkNodeTooltipProps } from './types'
 
-export const NetworkNodeTooltip = ({ node }: NetworkNodeTooltipProps) => (
-    <BasicTooltip
-        id={node.id}
-        enableChip={true}
-        color={node.color}
-        // renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
-    />
-)
+export const NetworkNodeTooltip = <N extends NetworkInputNode>({
+    node,
+}: NetworkNodeTooltipProps<N>) => <BasicTooltip id={node.id} enableChip={true} color={node.color} />

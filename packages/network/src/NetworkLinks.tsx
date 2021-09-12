@@ -1,18 +1,29 @@
-import { createElement, useCallback, useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { NetworkLink } from './NetworkLink'
-import { ComputedLink } from './types'
+import { ComputedLink, NetworkInputNode } from './types'
 
-interface NetworkLinksProps {
-    links: ComputedLink[]
-    linkThickness: (link: ComputedLink) => number
-    linkColor: (link: ComputedLink) => string
+interface NetworkLinksProps<N extends NetworkInputNode> {
+    links: ComputedLink<N>[]
+    linkThickness: (link: ComputedLink<N>) => number
+    linkColor: (link: ComputedLink<N>) => string
 }
 
-const getRegularTransition = (linkColor: NetworkLinksProps['linkColor']) => (
-    link: ComputedLink
-) => ({
+const getEnterTransition = <N extends NetworkInputNode>(
+    linkColor: NetworkLinksProps<N>['linkColor']
+) => (link: ComputedLink<N>) => ({
+    x1: link.source.x,
+    y1: link.source.y,
+    x2: link.source.x,
+    y2: link.source.y,
+    color: linkColor(link),
+    opacity: 0,
+})
+
+const getRegularTransition = <N extends NetworkInputNode>(
+    linkColor: NetworkLinksProps<N>['linkColor']
+) => (link: ComputedLink<N>) => ({
     x1: link.source.x,
     y1: link.source.y,
     x2: link.target.x,
@@ -21,15 +32,35 @@ const getRegularTransition = (linkColor: NetworkLinksProps['linkColor']) => (
     opacity: 1,
 })
 
-export const NetworkLinks = ({ links, linkThickness, linkColor }: NetworkLinksProps) => {
+const getExitTransition = <N extends NetworkInputNode>(
+    linkColor: NetworkLinksProps<N>['linkColor']
+) => (link: ComputedLink<N>) => ({
+    x1: link.source.x,
+    y1: link.source.y,
+    x2: link.source.x,
+    y2: link.source.y,
+    color: linkColor(link),
+    opacity: 0,
+})
+
+export const NetworkLinks = <N extends NetworkInputNode>({
+    links,
+    linkThickness,
+    linkColor,
+}: NetworkLinksProps<N>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    console.log('immediate', !animate)
-
-    const regularTransition = useMemo(() => getRegularTransition(linkColor), [linkColor])
+    const [enterTransition, regularTransition, exitTransition] = useMemo(
+        () => [
+            getEnterTransition<N>(linkColor),
+            getRegularTransition<N>(linkColor),
+            getExitTransition<N>(linkColor),
+        ],
+        [linkColor]
+    )
 
     const transition = useTransition<
-        ComputedLink,
+        ComputedLink<N>,
         {
             x1: number
             y1: number
@@ -41,24 +72,10 @@ export const NetworkLinks = ({ links, linkThickness, linkColor }: NetworkLinksPr
     >(links, {
         keys: link => link.id,
         initial: regularTransition,
-        from: link => ({
-            x1: link.source.x,
-            y1: link.source.y,
-            x2: link.target.x,
-            y2: link.target.y,
-            color: linkColor(link),
-            opacity: 0,
-        }),
+        from: enterTransition,
         enter: regularTransition,
         update: regularTransition,
-        leave: link => ({
-            x1: link.source.x,
-            y1: link.source.y,
-            x2: link.source.x,
-            y2: link.source.y,
-            color: linkColor(link),
-            opacity: 0,
-        }),
+        leave: exitTransition,
         expires: true,
         config: springConfig,
         immediate: !animate,

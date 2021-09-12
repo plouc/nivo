@@ -13,37 +13,35 @@ type InnerNetworkProps<N extends NetworkInputNode> = Omit<
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerNetwork = <N extends NetworkInputNode>(props: InnerNetworkProps<N>) => {
-    const {
-        width,
-        height,
-        margin: partialMargin,
+const InnerNetwork = <N extends NetworkInputNode>({
+    width,
+    height,
+    margin: partialMargin,
 
-        data: { nodes: rawNodes, links: rawLinks },
+    data: { nodes: rawNodes, links: rawLinks },
 
-        linkDistance = svgDefaultProps.linkDistance,
-        repulsivity = svgDefaultProps.repulsivity,
-        distanceMin = svgDefaultProps.distanceMin,
-        distanceMax = svgDefaultProps.distanceMax,
-        iterations = svgDefaultProps.iterations,
+    linkDistance = svgDefaultProps.linkDistance,
+    repulsivity = svgDefaultProps.repulsivity,
+    distanceMin = svgDefaultProps.distanceMin,
+    distanceMax = svgDefaultProps.distanceMax,
+    iterations = svgDefaultProps.iterations,
 
-        layers = svgDefaultProps.layers,
+    layers = svgDefaultProps.layers,
 
-        nodeComponent = svgDefaultProps.nodeComponent,
-        nodeColor = svgDefaultProps.nodeColor,
-        nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
-        nodeBorderColor = svgDefaultProps.nodeBorderColor,
+    nodeComponent = svgDefaultProps.nodeComponent,
+    nodeColor = svgDefaultProps.nodeColor,
+    nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
+    nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
-        linkThickness = svgDefaultProps.linkThickness,
-        linkColor = svgDefaultProps.linkColor,
+    linkThickness = svgDefaultProps.linkThickness,
+    linkColor = svgDefaultProps.linkColor,
 
-        isInteractive = svgDefaultProps.isInteractive,
-        nodeTooltip = svgDefaultProps.nodeTooltip,
-        onClick,
+    isInteractive = svgDefaultProps.isInteractive,
+    nodeTooltip = svgDefaultProps.nodeTooltip,
+    onClick,
 
-        role = svgDefaultProps.role,
-    } = props
-
+    role = svgDefaultProps.role,
+}: InnerNetworkProps<N>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -85,9 +83,9 @@ const InnerNetwork = <N extends NetworkInputNode>(props: InnerNetworkProps<N>) =
         nodes: null,
     }
 
-    if (layers.includes('links') && false) {
+    if (layers.includes('links') && links !== null) {
         layerById.links = (
-            <NetworkLinks
+            <NetworkLinks<N>
                 key="links"
                 links={links}
                 linkThickness={getLinkThickness}
@@ -96,7 +94,7 @@ const InnerNetwork = <N extends NetworkInputNode>(props: InnerNetworkProps<N>) =
         )
     }
 
-    if (layers.includes('nodes')) {
+    if (layers.includes('nodes') && nodes !== null) {
         layerById.nodes = (
             <NetworkNodes<N>
                 key="nodes"
@@ -119,18 +117,18 @@ const InnerNetwork = <N extends NetworkInputNode>(props: InnerNetworkProps<N>) =
                 if (typeof layer === 'function') {
                     return (
                         <Fragment key={i}>
-                            {layer({
-                                ...props,
-                                innerWidth,
-                                innerHeight,
-                                nodes,
-                                links,
+                            {createElement(layer, {
+                                // ...props,
+                                // innerWidth,
+                                // innerHeight,
+                                nodes: nodes || [],
+                                links: links || [],
                             })}
                         </Fragment>
                     )
                 }
 
-                return layerById[layer]
+                return layerById?.[layer] ?? null
             })}
         </SvgWrapper>
     )
