@@ -3,7 +3,7 @@ import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } fr
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { canvasDefaultProps } from './defaults'
-import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
+import { useNetwork, useLinkThickness } from './hooks'
 import { NetworkCanvasProps, NetworkInputNode } from './types'
 
 type InnerNetworkCanvasProps<N extends NetworkInputNode> = Omit<
@@ -27,6 +27,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
 
     layers = canvasDefaultProps.layers,
 
+    renderNode = canvasDefaultProps.renderNode,
     nodeColor = canvasDefaultProps.nodeColor,
     nodeBorderWidth = canvasDefaultProps.nodeBorderWidth,
     nodeBorderColor = canvasDefaultProps.nodeBorderColor,
@@ -54,11 +55,12 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         distanceMax,
         iterations,
         center: [innerWidth / 2, innerHeight / 2],
+        nodeColor,
+        nodeBorderWidth,
+        nodeBorderColor,
     })
 
     const theme = useTheme()
-    const getNodeColor = useNodeColor(nodeColor)
-    const getBorderColor = useInheritedColor(nodeBorderColor, theme)
     const getLinkThickness = useLinkThickness(linkThickness)
     const getLinkColor = useInheritedColor(linkColor, theme)
 
@@ -88,16 +90,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
                 })
             } else if (layer === 'nodes' && nodes !== null) {
                 nodes.forEach(node => {
-                    ctx.fillStyle = getNodeColor(node)
-                    ctx.beginPath()
-                    ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI)
-                    ctx.fill()
-
-                    if (nodeBorderWidth > 0) {
-                        ctx.strokeStyle = getBorderColor(node)
-                        ctx.lineWidth = nodeBorderWidth
-                        ctx.stroke()
-                    }
+                    renderNode(ctx, node)
                 })
             } else if (typeof layer === 'function' && nodes !== null && links !== null) {
                 layer(ctx, {
@@ -118,9 +111,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         theme,
         nodes,
         links,
-        getNodeColor,
-        nodeBorderWidth,
-        getBorderColor,
+        renderNode,
         getLinkThickness,
         getLinkColor,
     ])

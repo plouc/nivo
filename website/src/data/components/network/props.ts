@@ -123,6 +123,23 @@ const props: ChartProperty[] = [
     },
     themeProperty(['svg', 'canvas']),
     {
+        key: 'nodeComponent',
+        group: 'Nodes',
+        type: 'NetworkNodeComponent',
+        required: false,
+        help: `Custom node component for the SVG implementation.`,
+        flavors: ['svg'],
+        defaultValue: 'NetworkNode',
+    },
+    {
+        key: 'renderNode',
+        group: 'Nodes',
+        type: 'NetworkNodeCanvasRenderer',
+        required: false,
+        help: `Custom node rendering for the canvas implementation.`,
+        flavors: ['canvas'],
+    },
+    {
         key: 'nodeColor',
         group: 'Nodes',
         type: 'string | (node: InputNode) => string',
@@ -167,6 +184,23 @@ const props: ChartProperty[] = [
         flavors: ['svg', 'canvas'],
         controlType: 'inheritedColor',
 >>>>>>> feat(network): types are now valid
+    },
+    {
+        key: 'linkComponent',
+        group: 'Links',
+        type: 'NetworkLinkComponent',
+        required: false,
+        help: `Custom link component for the SVG implementation.`,
+        flavors: ['svg'],
+        defaultValue: 'NetworkLink',
+    },
+    {
+        key: 'renderLink',
+        group: 'Links',
+        type: 'NetworkLinkCanvasRenderer',
+        required: false,
+        help: `Custom link rendering for the canvas implementation.`,
+        flavors: ['canvas'],
     },
     {
         key: 'linkThickness',
