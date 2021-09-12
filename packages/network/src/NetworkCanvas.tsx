@@ -47,6 +47,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
     )
 
     const [nodes, links] = useNetwork<N>({
+        center: [innerWidth / 2, innerHeight / 2],
         nodes: rawNodes,
         links: rawLinks,
         linkDistance,
@@ -54,7 +55,6 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         distanceMin,
         distanceMax,
         iterations,
-        center: [innerWidth / 2, innerHeight / 2],
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,

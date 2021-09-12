@@ -4,6 +4,8 @@ import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import { forceSimulation, forceManyBody, forceCenter, forceLink } from 'd3-force'
 import { useTheme } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
+import { commonDefaultProps } from './defaults'
 import {
     InputLink,
     NetworkInputNode,
@@ -13,7 +15,6 @@ import {
     NetworkComputedNode,
     ComputedLink,
 } from './types'
-import { useInheritedColor } from '@nivo/colors'
 
 const computeForces = <N extends NetworkInputNode>({
     linkDistance,
@@ -51,37 +52,54 @@ const computeForces = <N extends NetworkInputNode>({
     return { link: linkForce, charge: chargeForce, center: centerForce }
 }
 
+const useNodeColor = <N extends NetworkInputNode>(color: NetworkNodeColor<N>) =>
+    useMemo(() => {
+        if (typeof color === 'function') return color
+        return () => color
+    }, [color])
+
+const useLinkThickness = <N extends NetworkInputNode>(thickness: NetworkLinkThickness<N>) =>
+    useMemo(() => {
+        if (typeof thickness === 'function') return thickness
+        return () => thickness
+    }, [thickness])
+
 export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
+    center,
     nodes,
     links,
-    linkDistance,
-    repulsivity,
-    distanceMin,
-    distanceMax,
-    center,
-    iterations,
-    nodeColor,
-    nodeBorderWidth,
-    nodeBorderColor,
-    linkThickness,
-    linkColor,
+    linkDistance = commonDefaultProps.linkDistance,
+    repulsivity = commonDefaultProps.repulsivity,
+    distanceMin = commonDefaultProps.distanceMin,
+    distanceMax = commonDefaultProps.distanceMax,
+    iterations = commonDefaultProps.iterations,
+    nodeColor = commonDefaultProps.nodeColor,
+    nodeBorderWidth = commonDefaultProps.nodeBorderWidth,
+    nodeBorderColor = commonDefaultProps.nodeBorderColor,
+    linkThickness = commonDefaultProps.linkThickness,
+    linkColor = commonDefaultProps.linkColor,
 }: {
+    center: [number, number]
     nodes: N[]
     links: InputLink[]
-    linkDistance: NetworkCommonProps<N>['linkDistance']
-    repulsivity: NetworkCommonProps<N>['repulsivity']
-    distanceMin: NetworkCommonProps<N>['distanceMin']
-    distanceMax: NetworkCommonProps<N>['distanceMax']
-    center: [number, number]
-    iterations: NetworkCommonProps<N>['iterations']
-    nodeColor: NetworkCommonProps<N>['nodeColor']
-    nodeBorderWidth: NetworkCommonProps<N>['nodeBorderWidth']
-    nodeBorderColor: NetworkCommonProps<N>['nodeBorderColor']
-    linkThickness: NetworkCommonProps<N>['linkThickness']
-    linkColor: NetworkCommonProps<N>['linkColor']
+    linkDistance?: NetworkCommonProps<N>['linkDistance']
+    repulsivity?: NetworkCommonProps<N>['repulsivity']
+    distanceMin?: NetworkCommonProps<N>['distanceMin']
+    distanceMax?: NetworkCommonProps<N>['distanceMax']
+    iterations?: NetworkCommonProps<N>['iterations']
+    nodeColor?: NetworkCommonProps<N>['nodeColor']
+    nodeBorderWidth?: NetworkCommonProps<N>['nodeBorderWidth']
+    nodeBorderColor?: NetworkCommonProps<N>['nodeBorderColor']
+    linkThickness?: NetworkCommonProps<N>['linkThickness']
+    linkColor?: NetworkCommonProps<N>['linkColor']
 }): [null | NetworkComputedNode<N>[], null | ComputedLink<N>[]] => {
+    // we're using `null` instead of empty array so that we can dissociate
+    // initial rendering from updates when using transitions.
     const [currentNodes, setCurrentNodes] = useState<null | NetworkComputedNode<N>[]>(null)
     const [currentLinks, setCurrentLinks] = useState<null | ComputedLink<N>[]>(null)
+
+    const centerX = center[0]
+    const centerY = center[1]
 
     useEffect(() => {
         const forces = computeForces<N>({
@@ -89,7 +107,7 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
             repulsivity,
             distanceMin,
             distanceMax,
-            center,
+            center: [centerX, centerY],
         })
 
         const nodesCopy: N[] = nodes.map(node => ({ ...node }))
@@ -122,9 +140,13 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
         )
 
         return () => {
+            // prevent the simulation from continuing in case the data is updated,
+            // would be a waste of resource.
             simulation.stop()
         }
     }, [
+        centerX,
+        centerY,
         nodes,
         links,
         linkDistance,
@@ -132,8 +154,6 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
         distanceMin,
         distanceMax,
         iterations,
-        center[0],
-        center[1],
     ])
 
     const theme = useTheme()
@@ -169,15 +189,3 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
 
     return [enhancedNodes, enhancedLinks]
 }
-
-export const useNodeColor = <N extends NetworkInputNode>(color: NetworkNodeColor<N>) =>
-    useMemo(() => {
-        if (typeof color === 'function') return color
-        return () => color
-    }, [color])
-
-export const useLinkThickness = <N extends NetworkInputNode>(thickness: NetworkLinkThickness<N>) =>
-    useMemo(() => {
-        if (typeof thickness === 'function') return thickness
-        return () => thickness
-    }, [thickness])

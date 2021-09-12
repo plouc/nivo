@@ -12,7 +12,13 @@ Network:
     - experimental
   stories: []
   description: |
+    A network component connecting nodes with links.
+
     The responsive alternative of this component is `ResponsiveNetwork`.
+
+    Please note that you can also use the `useNetwork` React hook if you want
+    to handle the rendering by yourself, it accepts an object with almost
+    the same props as the component and returns computed nodes & links.
 
 NetworkCanvas:
   package: '@nivo/network'
@@ -28,3 +34,6 @@ NetworkCanvas:
     The responsive alternative of this component is
     `ResponsiveNetworkCanvas`.
 
+    Please note that you can also use the `useNetwork` React hook if you want
+    to handle the rendering by yourself, it accepts an object with almost
+    the same props as the component and returns computed nodes & links.
