@@ -6,7 +6,7 @@ import {
     NetworkCanvas,
     canvasDefaultProps,
     NetworkCanvasProps,
-    NetworkInputNode,
+    NetworkComputedNode,
     NetworkNodeTooltipProps,
     // @ts-ignore
 } from '../src'
@@ -19,7 +19,9 @@ export default {
 
 const data = generateNetworkData()
 
-const commonProperties: NetworkCanvasProps<NetworkInputNode> = {
+type NodeType = typeof data['nodes'][0]
+
+const commonProperties: NetworkCanvasProps<NodeType> = {
     ...canvasDefaultProps,
     data,
     width: 900,
@@ -29,9 +31,23 @@ const commonProperties: NetworkCanvasProps<NetworkInputNode> = {
     iterations: 60,
 }
 
-export const Default = () => <NetworkCanvas {...commonProperties} />
+export const Default = () => <NetworkCanvas<NodeType> {...commonProperties} />
 
-const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NetworkInputNode>) => (
+const customNodeRenderer = (ctx: CanvasRenderingContext2D, node: NetworkComputedNode<NodeType>) => {
+    ctx.fillStyle = node.color
+
+    ctx.beginPath()
+    ctx.moveTo(node.x, node.y - node.radius)
+    ctx.lineTo(node.x + node.radius, node.y + node.radius)
+    ctx.lineTo(node.x - node.radius, node.y + node.radius)
+    ctx.fill()
+}
+
+export const CustomNodeRenderer = () => (
+    <NetworkCanvas<NodeType> {...commonProperties} renderNode={customNodeRenderer} />
+)
+
+const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>) => (
     <div>
         <div>
             <strong style={{ color: node.color }}>ID: {node.id}</strong>
@@ -44,9 +60,9 @@ const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NetworkInp
 )
 
 export const CustomNodeTooltip = () => (
-    <NetworkCanvas {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+    <NetworkCanvas<NodeType> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
 )
 
 export const OnClickHandler = () => (
-    <NetworkCanvas {...commonProperties} onClick={action('onClick')} />
+    <NetworkCanvas<NodeType> {...commonProperties} onClick={action('onClick')} />
 )

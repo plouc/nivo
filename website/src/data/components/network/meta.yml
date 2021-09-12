@@ -10,7 +10,9 @@ Network:
     - svg
     - isomorphic
     - experimental
-  stories: []
+  stories:
+    - label: Custom node component
+      link: network--custom-node
   description: |
     A network component connecting nodes with links.
 
@@ -25,7 +27,9 @@ NetworkCanvas:
   tags:
     - canvas
     - experimental
-  stories: []
+  stories:
+    - label: Custom node renderer
+      link: network--custom-node-renderer
   description: |
     A variation around the [Network](self:/network/) component.
     Well suited for large data sets as it does not impact DOM tree depth,

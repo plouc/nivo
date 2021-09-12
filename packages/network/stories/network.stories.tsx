@@ -4,7 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { generateNetworkData } from '@nivo/generators'
 import {
     Network,
-    NetworkInputNode,
+    NetworkNodeProps,
     NetworkNodeTooltipProps,
     NetworkSvgProps,
     svgDefaultProps,
@@ -19,7 +19,9 @@ export default {
 
 const data = generateNetworkData()
 
-const commonProperties: NetworkSvgProps<NetworkInputNode> = {
+type NodeType = typeof data['nodes'][0]
+
+const commonProperties: NetworkSvgProps<NodeType> = {
     ...svgDefaultProps,
     data,
     width: 900,
@@ -29,9 +31,20 @@ const commonProperties: NetworkSvgProps<NetworkInputNode> = {
     iterations: 60,
 }
 
-export const Default = () => <Network {...commonProperties} />
+export const Default = () => <Network<NodeType> {...commonProperties} />
 
-const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NetworkInputNode>) => (
+const CustomNodeComponent = ({ node }: NetworkNodeProps<NodeType>) => (
+    <g transform={`translate(${node.x - 6},${node.y - 8}) scale(${0.5})`}>
+        <circle cx="12" cy="8" r="5" />
+        <path d="M3,21 h18 C 21,12 3,12 3,21" />
+    </g>
+)
+
+export const CustomNode = () => (
+    <Network<NodeType> {...commonProperties} nodeComponent={CustomNodeComponent} />
+)
+
+const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>) => (
     <div>
         <div>
             <strong style={{ color: node.color }}>ID: {node.id}</strong>
@@ -44,7 +57,9 @@ const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NetworkInp
 )
 
 export const CustomNodeTooltip = () => (
-    <Network {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+    <Network<NodeType> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
 )
 
-export const OnClickHandler = () => <Network {...commonProperties} onClick={action('onClick')} />
+export const OnClickHandler = () => (
+    <Network<NodeType> {...commonProperties} onClick={action('onClick')} />
+)
