@@ -3,7 +3,7 @@ import { Container, useDimensions, SvgWrapper, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { svgDefaultProps } from './defaults'
-import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
+import { useNetwork, useLinkThickness } from './hooks'
 import { NetworkNodes } from './NetworkNodes'
 import { NetworkLinks } from './NetworkLinks'
 import { NetworkInputNode, NetworkLayerId, NetworkSvgProps } from './types'
@@ -49,8 +49,6 @@ const InnerNetwork = <N extends NetworkInputNode>({
     )
 
     const theme = useTheme()
-    const getColor = useNodeColor<N>(nodeColor)
-    const getBorderColor = useInheritedColor(nodeBorderColor, theme)
     const getLinkThickness = useLinkThickness(linkThickness)
     const getLinkColor = useInheritedColor(linkColor, theme)
 
@@ -63,6 +61,9 @@ const InnerNetwork = <N extends NetworkInputNode>({
         distanceMax,
         iterations,
         center: [innerWidth / 2, innerHeight / 2],
+        nodeColor,
+        nodeBorderWidth,
+        nodeBorderColor,
     })
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -100,9 +101,6 @@ const InnerNetwork = <N extends NetworkInputNode>({
                 key="nodes"
                 nodes={nodes}
                 nodeComponent={nodeComponent}
-                color={getColor}
-                borderWidth={nodeBorderWidth}
-                borderColor={getBorderColor}
                 onClick={isInteractive ? onClick : undefined}
                 onMouseEnter={isInteractive ? handleNodeHover : undefined}
                 onMouseMove={isInteractive ? handleNodeHover : undefined}

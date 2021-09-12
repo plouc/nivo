@@ -3,6 +3,7 @@ import get from 'lodash/get'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import { forceSimulation, forceManyBody, forceCenter, forceLink } from 'd3-force'
+import { useTheme } from '@nivo/core'
 import {
     InputLink,
     NetworkInputNode,
@@ -12,6 +13,7 @@ import {
     NetworkComputedNode,
     ComputedLink,
 } from './types'
+import { useInheritedColor } from '@nivo/colors'
 
 const computeForces = <N extends NetworkInputNode>({
     linkDistance,
@@ -58,6 +60,9 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     distanceMax,
     center,
     iterations,
+    nodeColor,
+    nodeBorderWidth,
+    nodeBorderColor,
 }: {
     nodes: N[]
     links: InputLink[]
@@ -67,6 +72,9 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
     distanceMax: NetworkCommonProps<N>['distanceMax']
     center: [number, number]
     iterations: NetworkCommonProps<N>['iterations']
+    nodeColor: NetworkCommonProps<N>['nodeColor']
+    nodeBorderWidth: NetworkCommonProps<N>['nodeBorderWidth']
+    nodeBorderColor: NetworkCommonProps<N>['nodeBorderColor']
 }): [null | NetworkComputedNode<N>[], null | ComputedLink<N>[]] => {
     const [currentNodes, setCurrentNodes] = useState<null | NetworkComputedNode<N>[]>(null)
     const [currentLinks, setCurrentLinks] = useState<null | ComputedLink<N>[]>(null)
@@ -124,7 +132,24 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
         center[1],
     ])
 
-    return [currentNodes, currentLinks]
+    const theme = useTheme()
+    const getNodeColor = useNodeColor<N>(nodeColor)
+    const getNodeBorderColor = useInheritedColor(nodeBorderColor, theme)
+
+    const enhancedNodes: NetworkComputedNode<N>[] | null = useMemo(() => {
+        if (currentNodes === null) return null
+
+        return currentNodes.map(node => {
+            return {
+                ...node,
+                color: getNodeColor(node),
+                borderWidth: nodeBorderWidth,
+                borderColor: getNodeBorderColor(node),
+            }
+        })
+    }, [currentNodes, getNodeColor, nodeBorderWidth, getNodeBorderColor])
+
+    return [enhancedNodes, currentLinks]
 }
 
 export const useNodeColor = <N extends NetworkInputNode>(color: NetworkNodeColor<N>) =>

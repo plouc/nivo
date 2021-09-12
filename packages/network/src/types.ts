@@ -13,8 +13,9 @@ export interface NetworkComputedNode<N extends NetworkInputNode> {
     y: number
     radius: number
     color: string
+    borderWidth: number
+    borderColor: string
     data: N
-    [key: string]: unknown
 }
 
 export interface NetworkNodeAnimatedProps {
@@ -40,6 +41,10 @@ export interface NetworkNodeProps<N extends NetworkInputNode> {
 export type NetworkNodeComponent<N extends NetworkInputNode> = FunctionComponent<
     NetworkNodeProps<N>
 >
+export type NetworkNodeCanvasRenderer<N extends NetworkInputNode> = (
+    ctx: CanvasRenderingContext2D,
+    node: NetworkComputedNode<N>
+) => void
 
 export interface InputLink {
     source: string
@@ -148,5 +153,6 @@ export type NetworkCanvasProps<N extends NetworkInputNode> = Partial<NetworkComm
     // only used by tooltips
     ModernMotionProps & {
         layers?: (NetworkLayerId | NetworkCustomCanvasLayer<N>)[]
+        renderNode?: NetworkNodeCanvasRenderer<N>
         pixelRatio?: number
     }
