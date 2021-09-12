@@ -25,7 +25,7 @@ const commonProperties: NetworkCanvasProps<NodeType> = {
     ...canvasDefaultProps,
     data,
     width: 900,
-    height: 340,
+    height: 400,
     nodeColor: node => node.color,
     repulsivity: 6,
     iterations: 60,
@@ -48,14 +48,20 @@ export const CustomNodeRenderer = () => (
 )
 
 const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>) => (
-    <div>
-        <div>
-            <strong style={{ color: node.color }}>ID: {node.id}</strong>
-            <br />
-            Depth: {node.depth}
-            <br />
-            Radius: {node.radius}
-        </div>
+    <div
+        style={{
+            background: node.color,
+            color: '#000000',
+            padding: '9px 12px',
+            borderRadius: '2px',
+            boxShadow: '0 3px 9px rgba(0, 0, 0, .35)',
+        }}
+    >
+        <strong>ID: {node.id}</strong>
+        <br />
+        Depth: {node.depth}
+        <br />
+        Radius: {node.radius}
     </div>
 )
 
