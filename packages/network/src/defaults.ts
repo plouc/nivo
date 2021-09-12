@@ -2,7 +2,7 @@ import { NetworkNode } from './NetworkNode'
 import { NetworkNodeTooltip } from './NetworkNodeTooltip'
 import { NetworkLayerId } from './types'
 
-const commonDefaultProps = {
+export const commonDefaultProps = {
     layers: ['links', 'nodes'] as NetworkLayerId[],
 
     linkDistance: 30,
@@ -27,18 +27,12 @@ const commonDefaultProps = {
     role: 'img',
 }
 
-export const NetworkDefaultProps = {
-    ...commonDefaultProps,
-}
-
 export const svgDefaultProps = {
-    ...NetworkDefaultProps,
+    ...commonDefaultProps,
     nodeComponent: NetworkNode,
 }
 
-export const NetworkCanvasDefaultProps = {
+export const canvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }
-
-export const canvasDefaultProps = NetworkCanvasDefaultProps

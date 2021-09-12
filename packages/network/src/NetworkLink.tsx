@@ -1,8 +1,8 @@
 import { AnimatedProps, animated } from '@react-spring/web'
-import { ComputedLink } from './types'
+import { ComputedLink, NetworkInputNode } from './types'
 
-interface NetworkLinkProps {
-    link: ComputedLink
+interface NetworkLinkProps<N extends NetworkInputNode> {
+    link: ComputedLink<N>
     thickness: number
     animated: AnimatedProps<{
         x1: number
@@ -13,7 +13,10 @@ interface NetworkLinkProps {
     }>
 }
 
-export const NetworkLink = ({ thickness, animated: animatedProps }: NetworkLinkProps) => {
+export const NetworkLink = <N extends NetworkInputNode>({
+    thickness,
+    animated: animatedProps,
+}: NetworkLinkProps<N>) => {
     return (
         <animated.line
             stroke={animatedProps.color}

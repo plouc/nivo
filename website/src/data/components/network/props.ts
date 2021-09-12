@@ -1,5 +1,4 @@
-// @ts-ignore
-import { NetworkDefaultProps } from '@nivo/network'
+import { commonDefaultProps } from '@nivo/network'
 import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
 import { chartDimensions, pixelRatio } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
@@ -10,7 +9,7 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
-        type: '{ nodes: object[], links: object[] }',
+        type: '{ nodes: NetworkInputNode[], links: NetworkInputLink[] }',
         required: true,
         help: 'Chart data defining nodes and links.',
         flavors: allFlavors,
@@ -67,7 +66,7 @@ const props: ChartProperty[] = [
             min: 1,
             max: 100,
         },
-        defaultValue: NetworkDefaultProps.repulsivity,
+        defaultValue: commonDefaultProps.repulsivity,
     },
     {
         key: 'distanceMin',
@@ -75,8 +74,13 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Sets the minimum distance between nodes for the many-body force.',
+<<<<<<< HEAD
         flavors: allFlavors,
         defaultValue: NetworkDefaultProps.distanceMin,
+=======
+        flavors: ['svg', 'canvas'],
+        defaultValue: commonDefaultProps.distanceMin,
+>>>>>>> feat(network): types are now valid
     },
     {
         key: 'distanceMax',
@@ -84,8 +88,13 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Sets the maximum disteance between nodes for the many-body force.',
+<<<<<<< HEAD
         flavors: allFlavors,
         defaultValue: NetworkDefaultProps.distanceMax,
+=======
+        flavors: ['svg', 'canvas'],
+        defaultValue: commonDefaultProps.distanceMax,
+>>>>>>> feat(network): types are now valid
     },
     {
         key: 'iterations',
@@ -97,10 +106,17 @@ const props: ChartProperty[] = [
         `,
         type: 'number',
         required: false,
+<<<<<<< HEAD
         defaultValue: NetworkDefaultProps.iterations,
         flavors: allFlavors,
         control: {
             type: 'range',
+=======
+        defaultValue: commonDefaultProps.iterations,
+        flavors: ['svg', 'canvas'],
+        controlType: 'range',
+        controlOptions: {
+>>>>>>> feat(network): types are now valid
             min: 60,
             max: 260,
         },
@@ -112,50 +128,80 @@ const props: ChartProperty[] = [
         type: 'string | (node: InputNode) => string',
         required: false,
         help: `Control nodes' color.`,
+<<<<<<< HEAD
         flavors: allFlavors,
         defaultValue: NetworkDefaultProps.nodeColor,
+=======
+        flavors: ['svg', 'canvas'],
+        defaultValue: commonDefaultProps.nodeColor,
+>>>>>>> feat(network): types are now valid
     },
     {
         key: 'nodeBorderWidth',
         group: 'Nodes',
-        type: 'number | (node: Node) => number',
+        type: 'number | (node: NetworkComputedNode) => number',
         required: false,
         help: `Control nodes' border width.`,
+<<<<<<< HEAD
         defaultValue: NetworkDefaultProps.nodeBorderWidth,
         flavors: allFlavors,
         control: { type: 'lineWidth' },
+=======
+        defaultValue: commonDefaultProps.nodeBorderWidth,
+        flavors: ['svg', 'canvas'],
+        controlType: 'lineWidth',
+>>>>>>> feat(network): types are now valid
     },
     {
         key: 'nodeBorderColor',
         group: 'Nodes',
-        type: 'string | object | (link: Link) => string',
+        type: 'InheritedColorConfig<NetworkComputedNode>',
         required: false,
         help: `Control nodes' border color.`,
+<<<<<<< HEAD
         defaultValue: NetworkDefaultProps.nodeBorderColor,
         flavors: allFlavors,
         control: { type: 'inheritedColor' },
+=======
+        defaultValue: commonDefaultProps.nodeBorderColor,
+        flavors: ['svg', 'canvas'],
+        controlType: 'inheritedColor',
+>>>>>>> feat(network): types are now valid
     },
     {
         key: 'linkThickness',
         enableControlForFlavors: ['canvas'],
         group: 'Links',
-        type: 'number | (link: Link) => number',
+        type: 'number | (link: NetworkComputedLink) => number',
         required: false,
         help: `Control links' thickness.`,
+<<<<<<< HEAD
         flavors: allFlavors,
         defaultValue: NetworkDefaultProps.linkThickness,
         control: { type: 'lineWidth' },
+=======
+        flavors: ['svg', 'canvas'],
+        defaultValue: commonDefaultProps.linkThickness,
+        controlType: 'lineWidth',
+>>>>>>> feat(network): types are now valid
     },
     {
         key: 'linkColor',
         group: 'Links',
-        type: 'string | (link: Link) => string',
+        type: 'InheritedColorConfig<NetworkComputedLink>',
         required: false,
         help: `Control links' color.`,
+<<<<<<< HEAD
         defaultValue: NetworkDefaultProps.linkColor,
         flavors: allFlavors,
         control: {
             type: 'inheritedColor',
+=======
+        defaultValue: commonDefaultProps.linkColor,
+        flavors: ['svg', 'canvas'],
+        controlType: 'inheritedColor',
+        controlOptions: {
+>>>>>>> feat(network): types are now valid
             inheritableProperties: ['source.color', 'target.color'],
         },
     },
@@ -166,7 +212,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Enable/disable interactivity.',
         flavors: ['svg'],
-        defaultValue: NetworkDefaultProps.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
         controlType: 'switch',
     },
     {
@@ -220,7 +266,7 @@ const props: ChartProperty[] = [
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
         required: false,
-        defaultValue: NetworkDefaultProps.layers,
+        defaultValue: commonDefaultProps.layers,
         flavors: ['svg', 'canvas'],
     },
     {
@@ -255,7 +301,7 @@ const props: ChartProperty[] = [
         help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
         flavors: ['svg'],
     },
-    ...motionProperties(['svg'], NetworkDefaultProps, 'react-spring'),
+    ...motionProperties(['svg'], commonDefaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

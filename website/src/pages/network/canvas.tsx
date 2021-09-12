@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveNetworkCanvas, NetworkCanvasDefaultProps } from '@nivo/network'
+import { ResponsiveNetworkCanvas, canvasDefaultProps } from '@nivo/network'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
@@ -25,7 +25,7 @@ const initialProperties = Object.freeze({
     nodeBorderWidth: 1,
     nodeBorderColor: { theme: 'background' },
 
-    linkColor: NetworkCanvasDefaultProps.linkColor,
+    linkColor: canvasDefaultProps.linkColor,
     linkThickness: 1,
 
     isInteractive: true,
@@ -57,7 +57,7 @@ const NetworkCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={NetworkCanvasDefaultProps}
+            defaultProperties={canvasDefaultProps}
             generateData={() =>
                 generateData({
                     rootNodeRadius: 10,

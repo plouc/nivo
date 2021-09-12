@@ -1,11 +1,9 @@
-import { useCallback, useRef, useEffect } from 'react'
-import * as React from 'react'
+import { useCallback, useRef, useEffect, createElement, MouseEvent } from 'react'
 import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { canvasDefaultProps } from './defaults'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
-import { NetworkNodeTooltip } from './NetworkNodeTooltip'
 import { NetworkCanvasProps, NetworkInputNode } from './types'
 
 type InnerNetworkCanvasProps<N extends NetworkInputNode> = Omit<
@@ -13,43 +11,41 @@ type InnerNetworkCanvasProps<N extends NetworkInputNode> = Omit<
     'renderWrapper' | 'theme'
 >
 
-const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanvasProps<N>) => {
-    const {
-        width,
-        height,
-        margin: partialMargin,
-        pixelRatio = canvasDefaultProps.pixelRatio,
+const InnerNetworkCanvas = <N extends NetworkInputNode>({
+    width,
+    height,
+    margin: partialMargin,
+    pixelRatio = canvasDefaultProps.pixelRatio,
 
-        data: { nodes: rawNodes, links: rawLinks },
+    data: { nodes: rawNodes, links: rawLinks },
 
-        linkDistance = canvasDefaultProps.linkDistance,
-        repulsivity = canvasDefaultProps.repulsivity,
-        distanceMin = canvasDefaultProps.distanceMin,
-        distanceMax = canvasDefaultProps.distanceMax,
-        iterations = canvasDefaultProps.iterations,
+    linkDistance = canvasDefaultProps.linkDistance,
+    repulsivity = canvasDefaultProps.repulsivity,
+    distanceMin = canvasDefaultProps.distanceMin,
+    distanceMax = canvasDefaultProps.distanceMax,
+    iterations = canvasDefaultProps.iterations,
 
-        layers = canvasDefaultProps.layers,
+    layers = canvasDefaultProps.layers,
 
-        nodeColor = canvasDefaultProps.nodeColor,
-        nodeBorderWidth = canvasDefaultProps.nodeBorderWidth,
-        nodeBorderColor = canvasDefaultProps.nodeBorderColor,
+    nodeColor = canvasDefaultProps.nodeColor,
+    nodeBorderWidth = canvasDefaultProps.nodeBorderWidth,
+    nodeBorderColor = canvasDefaultProps.nodeBorderColor,
 
-        linkThickness = canvasDefaultProps.linkThickness,
-        linkColor = canvasDefaultProps.linkColor,
+    linkThickness = canvasDefaultProps.linkThickness,
+    linkColor = canvasDefaultProps.linkColor,
 
-        isInteractive = canvasDefaultProps.isInteractive,
-        tooltip = canvasDefaultProps.tooltip,
-        onClick,
-    } = props
-
-    const canvasEl = useRef(null)
+    isInteractive = canvasDefaultProps.isInteractive,
+    nodeTooltip = canvasDefaultProps.nodeTooltip,
+    onClick,
+}: InnerNetworkCanvasProps<N>) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const [nodes, links] = useNetwork({
+    const [nodes, links] = useNetwork<N>({
         nodes: rawNodes,
         links: rawLinks,
         linkDistance,
@@ -67,10 +63,12 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
     const getLinkColor = useInheritedColor(linkColor, theme)
 
     useEffect(() => {
+        if (canvasEl.current === null) return
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')
+        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -79,7 +77,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
         ctx.translate(margin.left, margin.top)
 
         layers.forEach(layer => {
-            if (layer === 'links') {
+            if (layer === 'links' && links !== null) {
                 links.forEach(link => {
                     ctx.strokeStyle = getLinkColor(link)
                     ctx.lineWidth = getLinkThickness(link)
@@ -88,7 +86,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
                     ctx.lineTo(link.target.x, link.target.y)
                     ctx.stroke()
                 })
-            } else if (layer === 'nodes') {
+            } else if (layer === 'nodes' && nodes !== null) {
                 nodes.forEach(node => {
                     ctx.fillStyle = getNodeColor(node)
                     ctx.beginPath()
@@ -101,9 +99,9 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
                         ctx.stroke()
                     }
                 })
-            } else if (typeof layer === 'function') {
+            } else if (typeof layer === 'function' && nodes !== null && links !== null) {
                 layer(ctx, {
-                    ...props,
+                    // ...props,
                     nodes,
                     links,
                 })
@@ -113,6 +111,9 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
         canvasEl,
         outerWidth,
         outerHeight,
+        margin.left,
+        margin.top,
+        pixelRatio,
         layers,
         theme,
         nodes,
@@ -125,8 +126,8 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
     ])
 
     const getNodeFromMouseEvent = useCallback(
-        event => {
-            if (!canvasEl.current) return null
+        (event: MouseEvent) => {
+            if (!canvasEl.current || nodes === null) return undefined
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
 
@@ -146,15 +147,15 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             const node = getNodeFromMouseEvent(event)
             if (node) {
-                showTooltipFromEvent(<NetworkNodeTooltip node={node} tooltip={tooltip} />, event)
+                showTooltipFromEvent(createElement(nodeTooltip, { node }), event)
             } else {
                 hideTooltip()
             }
         },
-        [getNodeFromMouseEvent, showTooltipFromEvent, tooltip, hideTooltip]
+        [getNodeFromMouseEvent, showTooltipFromEvent, nodeTooltip, hideTooltip]
     )
 
     const handleMouseLeave = useCallback(() => {
@@ -162,7 +163,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>(props: InnerNetworkCanva
     }, [hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (!onClick) return
 
             const node = getNodeFromMouseEvent(event)

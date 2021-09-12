@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveNetwork, NetworkDefaultProps } from '@nivo/network'
+import { ResponsiveNetwork, svgDefaultProps } from '@nivo/network'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
@@ -25,7 +25,7 @@ const initialProperties = Object.freeze({
         modifiers: [['darker', 0.8]],
     },
 
-    linkColor: NetworkDefaultProps.linkColor,
+    linkColor: svgDefaultProps.linkColor,
     linkThickness: link => (2 - link.source.depth) * 2,
 
     isInteractive: true,
@@ -60,7 +60,7 @@ const Network = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={NetworkDefaultProps}
+            defaultProperties={svgDefaultProps}
             generateData={generateData}
             getDataSize={data => data.nodes.length}
             image={image}
