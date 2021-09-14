@@ -179,6 +179,8 @@ export type BarCommonProps<RawDatum> = {
     tooltipLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>
     tooltipFormat?: ValueFormat<string | number | Date>
 
+    legendLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>
+
     groupMode: 'grouped' | 'stacked'
     layout: 'horizontal' | 'vertical'
     reverse: boolean

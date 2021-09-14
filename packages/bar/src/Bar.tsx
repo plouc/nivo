@@ -1,4 +1,4 @@
-import { createElement, Fragment, useCallback, useState } from 'react'
+import { createElement, Fragment, useCallback,  useState } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import {
     // @ts-ignore
@@ -102,8 +102,9 @@ export const Bar = <RawDatum extends BarDatum>({
 
     annotations = svgDefaultProps.annotations,
 
-    isInteractive = svgDefaultProps.isInteractive,
+    legendLabel,
     tooltipLabel = svgDefaultProps.tooltipLabel,
+    isInteractive = svgDefaultProps.isInteractive,
     tooltipFormat,
     tooltip = svgDefaultProps.tooltip,
     onClick,
@@ -308,6 +309,8 @@ export const Bar = <RawDatum extends BarDatum>({
                             bars: result.legendData,
                             layout,
                             direction: legend.direction,
+                            // @ts-ignore
+                            legendLabel,
                             groupMode,
                             reverse,
                         })

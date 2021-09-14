@@ -5,6 +5,8 @@ export const getLegendDataForKeys = <RawDatum>(
     bars: BarsWithHidden<RawDatum>,
     layout: 'horizontal' | 'vertical',
     direction: 'column' | 'row',
+    //@ts-ignore
+    legendLabel,
     groupMode: 'grouped' | 'stacked',
     reverse: boolean
 ) => {
@@ -13,7 +15,7 @@ export const getLegendDataForKeys = <RawDatum>(
             id: bar.data.id,
             // TODO: Add label accessor to make the following work:
             // label: bar.data.label || bar.data.id,
-            label: bar.data.id,
+            label: legendLabel(bar.data),
             hidden: bar.data.hidden,
             color: bar.color,
         })),
@@ -52,6 +54,8 @@ export const getLegendData = <RawDatum extends BarDatum>({
     bars,
     layout,
     direction,
+    // @ts-ignore
+    legendLabel,
     groupMode,
     reverse,
 }: Pick<Required<BarSvgProps<RawDatum>>, 'layout' | 'groupMode' | 'reverse'> & {
@@ -63,5 +67,5 @@ export const getLegendData = <RawDatum extends BarDatum>({
         return getLegendDataForIndexes(bars)
     }
 
-    return getLegendDataForKeys(bars, layout, direction, groupMode, reverse)
+    return getLegendDataForKeys(bars, layout, direction, legendLabel, groupMode, reverse)
 }

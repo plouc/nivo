@@ -53,6 +53,7 @@ export const defaultProps = {
     motionDamping: 15,
 
     legends: [],
+    legendLabel: (datum: ComputedDatum<any>) => `${datum.id} - ${datum.indexValue}`,
 
     annotations: [],
 }
