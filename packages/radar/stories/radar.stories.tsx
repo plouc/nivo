@@ -144,3 +144,22 @@ const LabelComponent = ({ id, x, y, anchor }: GridLabelProps) => (
 )
 
 export const CustomLabelComponent = () => <Radar {...commonProperties} gridLabel={LabelComponent} />
+
+export const CustomLegendLabel = () => (
+    <Radar
+        {...commonProperties}
+        legends={[
+            {
+                data: commonProperties.keys.map(key => ({ id: key, label: `${key} base` })),
+                anchor: 'top-left',
+                direction: 'column',
+                itemWidth: 56,
+                itemHeight: 12,
+                itemsSpacing: 12,
+                itemTextColor: '#333',
+                symbolSize: 6,
+                symbolShape: 'circle',
+            },
+        ]}
+    />
+)
