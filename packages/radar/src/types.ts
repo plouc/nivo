@@ -135,3 +135,5 @@ export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarComm
     RadarDataProps<D> &
     Dimensions &
     ModernMotionProps
+
+export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>

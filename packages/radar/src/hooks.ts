@@ -3,7 +3,13 @@ import { scaleLinear } from 'd3-scale'
 import { useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
-import { RadarColorMapping, RadarCommonProps, RadarDataProps, RadarCustomLayerProps } from './types'
+import {
+    RadarColorMapping,
+    RadarCommonProps,
+    RadarDataProps,
+    RadarCustomLayerProps,
+    BoundLegendProps,
+} from './types'
 
 export const useRadar = <D extends Record<string, unknown>>({
     data,
@@ -85,10 +91,10 @@ export const useRadar = <D extends Record<string, unknown>>({
         color: colorByKey[key],
     }))
 
-    const customLegends = legends.map(legend => ({
-        ...legend,
-        data: legend?.data?.map(d => ({ legendData, ...d })) || legendData,
-    }))
+    const boundLegends: BoundLegendProps[] = useMemo(
+        () => legends.map(legend => ({ ...legend, data: legend.data || legendData })),
+        [legends, legendData]
+    )
 
     return {
         getIndex,
@@ -102,7 +108,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         angleStep,
         curveFactory,
         legendData,
-        customLegends,
+        boundLegends,
         customLayerProps,
     }
 }
