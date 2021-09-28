@@ -85,14 +85,20 @@ export const useRadar = <D extends Record<string, unknown>>({
         [data, keys, indices, colorByKey, centerX, centerY, radiusScale, angleStep]
     )
 
-    const legendData = keys.map(key => ({
-        id: key,
-        label: key,
-        color: colorByKey[key],
-    }))
+    const legendData = useMemo(
+        () => keys.map(key => ({ id: key, label: key, color: colorByKey[key] })),
+        [keys, colorByKey]
+    )
 
     const boundLegends: BoundLegendProps[] = useMemo(
-        () => legends.map(legend => ({ ...legend, data: legend.data || legendData })),
+        () =>
+            legends.map(({ data: customData, ...legend }) => {
+                const boundData = customData?.map(cd => {
+                    const findData = legendData.find(ld => ld.id === cd.id) || {}
+                    return { ...findData, ...cd }
+                })
+                return { ...legend, data: boundData || legendData }
+            }),
         [legends, legendData]
     )
 
