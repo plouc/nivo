@@ -15,6 +15,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     width,
     height,
     colors = svgDefaultProps.colors,
+    legends,
 }: {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
@@ -25,6 +26,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     width: number
     height: number
     colors: RadarCommonProps<D>['colors']
+    legends: RadarCommonProps<D>['legends']
 }) => {
     const getIndex = usePropertyAccessor<D, string>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -83,6 +85,11 @@ export const useRadar = <D extends Record<string, unknown>>({
         color: colorByKey[key],
     }))
 
+    const customLegends = legends.map(legend => ({
+        ...legend,
+        data: legend?.data?.map(d => ({ legendData, ...d })) || legendData,
+    }))
+
     return {
         getIndex,
         indices,
@@ -95,6 +102,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         angleStep,
         curveFactory,
         legendData,
+        customLegends,
         customLayerProps,
     }
 }

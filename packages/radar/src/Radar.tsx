@@ -68,7 +68,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         centerY,
         angleStep,
         curveFactory,
-        legendData,
+        customLegends,
         customLayerProps,
     } = useRadar<D>({
         data,
@@ -80,6 +80,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         width: innerWidth,
         height: innerHeight,
         colors,
+        legends,
     })
 
     const layerById: Record<RadarLayerId, ReactNode> = {
@@ -172,13 +173,12 @@ const InnerRadar = <D extends Record<string, unknown>>({
     if (layers.includes('legends')) {
         layerById.legends = (
             <Fragment key="legends">
-                {legends.map((legend, i) => (
+                {customLegends.map((legend, i) => (
                     <BoxLegendSvg
                         key={i}
                         {...legend}
                         containerWidth={width}
                         containerHeight={height}
-                        data={legendData}
                     />
                 ))}
             </Fragment>
