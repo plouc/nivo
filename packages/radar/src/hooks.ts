@@ -3,7 +3,13 @@ import { scaleLinear } from 'd3-scale'
 import { useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
-import { RadarColorMapping, RadarCommonProps, RadarDataProps, RadarCustomLayerProps } from './types'
+import {
+    RadarColorMapping,
+    RadarCommonProps,
+    RadarDataProps,
+    RadarCustomLayerProps,
+    BoundLegendProps,
+} from './types'
 
 export const useRadar = <D extends Record<string, unknown>>({
     data,
@@ -15,6 +21,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     width,
     height,
     colors = svgDefaultProps.colors,
+    legends,
 }: {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
@@ -25,6 +32,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     width: number
     height: number
     colors: RadarCommonProps<D>['colors']
+    legends: RadarCommonProps<D>['legends']
 }) => {
     const getIndex = usePropertyAccessor<D, string>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -77,11 +85,22 @@ export const useRadar = <D extends Record<string, unknown>>({
         [data, keys, indices, colorByKey, centerX, centerY, radiusScale, angleStep]
     )
 
-    const legendData = keys.map(key => ({
-        id: key,
-        label: key,
-        color: colorByKey[key],
-    }))
+    const legendData = useMemo(
+        () => keys.map(key => ({ id: key, label: key, color: colorByKey[key] })),
+        [keys, colorByKey]
+    )
+
+    const boundLegends: BoundLegendProps[] = useMemo(
+        () =>
+            legends.map(({ data: customData, ...legend }) => {
+                const boundData = customData?.map(cd => {
+                    const findData = legendData.find(ld => ld.id === cd.id) || {}
+                    return { ...findData, ...cd }
+                })
+                return { ...legend, data: boundData || legendData }
+            }),
+        [legends, legendData]
+    )
 
     return {
         getIndex,
@@ -95,6 +114,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         angleStep,
         curveFactory,
         legendData,
+        boundLegends,
         customLayerProps,
     }
 }

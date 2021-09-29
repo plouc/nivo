@@ -2,6 +2,7 @@ import { mount } from 'enzyme'
 // @ts-ignore
 import { Radar, RadarSvgProps } from '../src'
 import { RadarSliceTooltipProps } from '../dist/types'
+import { LegendProps } from '@nivo/legends'
 
 type TestDatum = {
     A: number
@@ -20,6 +21,13 @@ const baseProps: RadarSvgProps<TestDatum> = {
     keys: ['A', 'B'],
     indexBy: 'category',
     animate: false,
+}
+
+const baseLegend: LegendProps = {
+    anchor: 'top-left',
+    direction: 'column',
+    itemWidth: 56,
+    itemHeight: 24,
 }
 
 it('should render a basic radar chart', () => {
@@ -155,5 +163,46 @@ describe('accessibility', () => {
         expect(svg.prop('aria-label')).toBe('AriaLabel')
         expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
         expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
+    })
+})
+
+describe('legend', () => {
+    it('should show key when legend data is not set', () => {
+        const { keys } = baseProps
+        const legends = [baseLegend]
+        const wrapper = mount(<Radar {...baseProps} legends={legends} />)
+
+        expect(wrapper.find('BoxLegendSvg').find('text').at(0).text()).toBe(keys[0])
+        expect(wrapper.find('BoxLegendSvg').find('text').at(1).text()).toBe(keys[1])
+    })
+
+    it('show custom legend label when legend data size is 1', () => {
+        const { keys } = baseProps
+        const customLabels = { A: 'A is good', B: 'B is best' }
+        const legends = [
+            { ...baseLegend, data: keys.map(key => ({ id: key, label: customLabels[key] })) },
+        ]
+        const wrapper = mount(<Radar {...baseProps} legends={legends} />)
+
+        expect(wrapper.find('BoxLegendSvg').find('text').at(0).text()).toBe(customLabels.A)
+        expect(wrapper.find('BoxLegendSvg').find('text').at(1).text()).toBe(customLabels.B)
+    })
+
+    it('show custom legend label when legend data size is 2 over', () => {
+        const { keys } = baseProps
+        const customLabels = [
+            { A: 'A - 0', B: 'B - 0' },
+            { A: 'A - 1', B: 'B - 0' },
+        ]
+        const legends = [
+            { ...baseLegend, data: keys.map(key => ({ id: key, label: customLabels[0][key] })) },
+            { ...baseLegend, data: keys.map(key => ({ id: key, label: customLabels[1][key] })) },
+        ]
+        const wrapper = mount(<Radar {...baseProps} legends={legends} />)
+
+        expect(wrapper.find('BoxLegendSvg').find('text').at(0).text()).toBe(customLabels[0].A)
+        expect(wrapper.find('BoxLegendSvg').find('text').at(1).text()).toBe(customLabels[0].B)
+        expect(wrapper.find('BoxLegendSvg').find('text').at(2).text()).toBe(customLabels[1].A)
+        expect(wrapper.find('BoxLegendSvg').find('text').at(3).text()).toBe(customLabels[1].B)
     })
 })
