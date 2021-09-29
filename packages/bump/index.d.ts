@@ -83,6 +83,11 @@ declare module '@nivo/bump' {
         activePointBorderWidth?: number
         inactivePointBorderWidth?: number
         pointBorderColor?: InheritedColorConfig<BumpComputedPoint>
+        
+        lineWidth?: number
+        activeLineWidth?: number
+        inactiveLineWidth?: number
+        inactiveOpacity?: number
 
         enableGridX?: boolean
         enableGridY?: boolean
