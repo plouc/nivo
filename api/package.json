@@ -54,6 +54,9 @@
     "uuid": "^3.1.0",
     "winston": "^2.3.1"
   },
+  "peerDependencies": {
+    "prop-types": ">= 15.5.10 < 16.0.0"
+  },
   "scripts": {
     "readme": "node misc/readmeData.js | mustache - misc/README.mustache > README.md",
     "start": "node src/app.js",
