@@ -33,11 +33,13 @@
     "@nivo/colors": "0.73.0",
     "@nivo/tooltip": "0.73.0",
     "d3-hierarchy": "^1.1.8",
+    "d3-scale": "^3.2.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@nivo/core": "0.73.0",
-    "@types/d3-hierarchy": "^1.1.7"
+    "@types/d3-hierarchy": "^1.1.7",
+    "@types/d3-scale": "^3.2.3"
   },
   "peerDependencies": {
     "@nivo/core": "0.73.0",
