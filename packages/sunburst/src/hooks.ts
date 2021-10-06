@@ -75,9 +75,7 @@ export const useSunburst = <RawDatum>({
 
         const maxDepth = Math.max(...sortedNodes.map(n => n.depth))
 
-        const scale = d3ScaleRadial()
-            .domain([0, maxDepth])
-            .range([innerRadiusOffset, radius])
+        const scale = d3ScaleRadial().domain([0, maxDepth]).range([innerRadiusOffset, radius])
 
         return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
             const id = getId(descendant.data)
@@ -136,7 +134,7 @@ export const useSunburst = <RawDatum>({
         getColor,
         inheritColorFromParent,
         getChildColor,
-        innerRadiusRatio
+        innerRadiusRatio,
     ])
 
     const arcGenerator = useArcGenerator({ cornerRadius })
