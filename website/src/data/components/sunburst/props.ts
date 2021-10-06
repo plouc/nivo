@@ -104,6 +104,20 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'innerRadiusRatio',
+        help: `Size of the center circle. Value should be between 0~1 as it's a ratio from original radius.`,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.innerRadiusRatio,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            min: 0,
+            max: 0.95,
+            step: 0.05,
+        },
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         description: `
