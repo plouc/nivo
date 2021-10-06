@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, select, number } from '@storybook/addon-knobs'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
 // @ts-ignore
@@ -23,11 +23,30 @@ const commonProperties = {
     value: 'loc',
 }
 
+const innerRadiusRatio = number(
+
+    'innerRadiusRatio',
+    0,
+    {
+        range: true,
+        min: .01,
+        max: .99,
+        step: .01,
+    }
+)
+
 const stories = storiesOf('Sunburst', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('default', () => <Sunburst {...commonProperties} />)
+stories.add('default', () => {
+  return (
+    <div>
+      <Sunburst {...commonProperties} innerRadiusRatio={innerRadiusRatio}/>
+      <Sunburst {...commonProperties} innerRadiusRatio={0}/>
+    </div>
+  )
+})
 
 stories.add('with child color modifier', () => (
     <Sunburst<RawDatum>

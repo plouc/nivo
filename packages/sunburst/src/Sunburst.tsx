@@ -53,7 +53,9 @@ const InnerSunburst = <RawDatum,>({
     onMouseMove,
     tooltip = defaultProps.tooltip,
     role = defaultProps.role,
+    innerRadiusRatio,
 }: InnerSunburstProps<RawDatum>) => {
+  console.log('innerRadiusRatio inner??', innerRadiusRatio)
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
         width,
         height,
@@ -77,6 +79,7 @@ const InnerSunburst = <RawDatum,>({
         colorBy,
         inheritColorFromParent,
         childColor,
+        innerRadiusRatio,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {

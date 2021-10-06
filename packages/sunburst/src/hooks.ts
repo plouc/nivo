@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
+// import { scaleSqrt as d3scaleSqrt } from 'd3-scale'
 import cloneDeep from 'lodash/cloneDeep'
 import sortBy from 'lodash/sortBy'
 import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
@@ -25,6 +26,7 @@ export const useSunburst = <RawDatum>({
     colorBy = defaultProps.colorBy,
     inheritColorFromParent = defaultProps.inheritColorFromParent,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    innerRadiusRatio,
 }: {
     data: DataProps<RawDatum>['data']
     id?: DataProps<RawDatum>['id']
@@ -68,6 +70,16 @@ export const useSunburst = <RawDatum>({
         // are going to be computed first
         const sortedNodes = sortBy(descendants, 'depth')
 
+        const innerRadiusOffset = radius * Math.min(innerRadiusRatio, 1)
+        const chartArea = radius - innerRadiusOffset
+        const maxDepth = Math.max(...sortedNodes.map(n => n.depth))
+        const arcWidth = Math.floor(chartArea / maxDepth)
+
+        // ???????????
+        // const depthToArcWidth = d3scaleSqrt()
+        //     .domain([1, maxDepth - 1])
+        //     .range([0, chartArea / (maxDepth - 1)])
+
         return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
             const id = getId(descendant.data)
             // d3 hierarchy node value is optional by default as it depends on
@@ -82,8 +94,12 @@ export const useSunburst = <RawDatum>({
             const arc: Arc = {
                 startAngle: descendant.x0,
                 endAngle: descendant.x1,
-                innerRadius: Math.sqrt(descendant.y0),
-                outerRadius: Math.sqrt(descendant.y1),
+                innerRadius: innerRadiusRatio
+                    ? innerRadiusOffset + (arcWidth * (descendant.depth - 1))
+                    : Math.sqrt(descendant.y0),
+                outerRadius: innerRadiusRatio
+                    ? innerRadiusOffset + (arcWidth * descendant.depth)
+                    : Math.sqrt(descendant.y1),
             }
 
             let parent: ComputedDatum<RawDatum> | undefined
@@ -114,7 +130,7 @@ export const useSunburst = <RawDatum>({
             }
 
             return [...acc, normalizedNode]
-        }, [])
+        }, [innerRadiusRatio])
     }, [
         data,
         radius,
@@ -125,6 +141,7 @@ export const useSunburst = <RawDatum>({
         getColor,
         inheritColorFromParent,
         getChildColor,
+        innerRadiusRatio
     ])
 
     const arcGenerator = useArcGenerator({ cornerRadius })
