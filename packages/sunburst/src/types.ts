@@ -63,6 +63,7 @@ export type SunburstCommonProps<RawDatum> = {
     height: number
     margin?: Box
     cornerRadius: number
+    innerRadiusRatio: number
     theme: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
