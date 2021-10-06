@@ -9,7 +9,12 @@ export const ResponsiveBarCanvas = forwardRef(function ResponsiveBarCanvas<
     return (
         <ResponsiveWrapper>
             {({ width, height }) => (
-                <BarCanvas width={width} height={height} {...props} ref={ref} />
+                <BarCanvas
+                    width={width}
+                    height={height}
+                    {...(props as Omit<BarCanvasProps<BarDatum>, 'height' | 'width'>)}
+                    ref={ref}
+                />
             )}
         </ResponsiveWrapper>
     )
