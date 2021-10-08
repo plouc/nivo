@@ -21,6 +21,8 @@ export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
 export type ValueFormatter<Value extends ScaleValue> = (value: Value) => Value | string
 
+type Orientation = 'left' | 'right' | 'bottom' | 'top'
+
 export interface AxisProps<Value extends ScaleValue = any> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
@@ -33,6 +35,7 @@ export interface AxisProps<Value extends ScaleValue = any> {
     legendPosition?: AxisLegendPosition
     legendOffset?: number
     ariaHidden?: boolean
+    orient?: Orientation
 }
 
 export interface CanvasAxisProp<Value extends ScaleValue> extends Omit<AxisProps<Value>, 'legend'> {
