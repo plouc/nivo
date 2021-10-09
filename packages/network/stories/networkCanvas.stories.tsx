@@ -33,20 +33,6 @@ const commonProperties: NetworkCanvasProps<NodeType> = {
 
 export const Default = () => <NetworkCanvas<NodeType> {...commonProperties} />
 
-const customNodeRenderer = (ctx: CanvasRenderingContext2D, node: NetworkComputedNode<NodeType>) => {
-    ctx.fillStyle = node.color
-
-    ctx.beginPath()
-    ctx.moveTo(node.x, node.y - node.radius)
-    ctx.lineTo(node.x + node.radius, node.y + node.radius)
-    ctx.lineTo(node.x - node.radius, node.y + node.radius)
-    ctx.fill()
-}
-
-export const CustomNodeRenderer = () => (
-    <NetworkCanvas<NodeType> {...commonProperties} renderNode={customNodeRenderer} />
-)
-
 const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>) => (
     <div
         style={{
@@ -59,14 +45,28 @@ const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>)
     >
         <strong>ID: {node.id}</strong>
         <br />
-        Depth: {node.depth}
+        depth: {node.depth}
         <br />
-        Radius: {node.radius}
+        radius: {node.radius}
     </div>
 )
 
 export const CustomNodeTooltip = () => (
     <NetworkCanvas<NodeType> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+)
+
+const customNodeRenderer = (ctx: CanvasRenderingContext2D, node: NetworkComputedNode<NodeType>) => {
+    ctx.fillStyle = node.color
+
+    ctx.beginPath()
+    ctx.moveTo(node.x, node.y - node.radius)
+    ctx.lineTo(node.x + node.radius, node.y + node.radius)
+    ctx.lineTo(node.x - node.radius, node.y + node.radius)
+    ctx.fill()
+}
+
+export const CustomNodeRenderer = () => (
+    <NetworkCanvas<NodeType> {...commonProperties} renderNode={customNodeRenderer} />
 )
 
 export const OnClickHandler = () => (

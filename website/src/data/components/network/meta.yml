@@ -11,8 +11,12 @@ Network:
     - isomorphic
     - experimental
   stories:
+    - label: Custom node tooltip
+      link: network--custom-node-tooltip
     - label: Custom node component
       link: network--custom-node
+    - label: Custom link component
+      link: network--custom-link
   description: |
     A network component connecting nodes with links.
 
@@ -28,8 +32,12 @@ NetworkCanvas:
     - canvas
     - experimental
   stories:
+    - label: Custom node tooltip
+      link: networkcanvas--custom-node-tooltip
     - label: Custom node renderer
-      link: network--custom-node-renderer
+      link: networkcanvas--custom-node-renderer
+    - label: Custom link renderer
+      link: networkcanvas--custom-link-renderer
   description: |
     A variation around the [Network](self:/network/) component.
     Well suited for large data sets as it does not impact DOM tree depth,

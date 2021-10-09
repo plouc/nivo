@@ -245,7 +245,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         help: 'Enable/disable interactivity.',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         defaultValue: commonDefaultProps.isInteractive,
         controlType: 'switch',
     },
@@ -257,9 +257,9 @@ const props: ChartProperty[] = [
         help: 'Custom tooltip component for nodes.',
         flavors: ['svg', 'canvas'],
         description: `
-            A function allowing complete tooltip customisation,
-            it must return a valid HTML
-            element and will receive the node's data.
+            An optional component allowing complete tooltip customisation,
+            it must return a valid HTML element and will receive
+            the node's data as a property.
         `,
     },
     {

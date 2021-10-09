@@ -5,6 +5,7 @@ import { generateNetworkData } from '@nivo/generators'
 import {
     Network,
     NetworkNodeProps,
+    NetworkLinkProps,
     NetworkNodeTooltipProps,
     NetworkSvgProps,
     svgDefaultProps,
@@ -33,17 +34,6 @@ const commonProperties: NetworkSvgProps<NodeType> = {
 
 export const Default = () => <Network<NodeType> {...commonProperties} />
 
-const CustomNodeComponent = ({ node }: NetworkNodeProps<NodeType>) => (
-    <g transform={`translate(${node.x - 6},${node.y - 8}) scale(${0.5})`}>
-        <circle cx="12" cy="8" r="5" />
-        <path d="M3,21 h18 C 21,12 3,12 3,21" />
-    </g>
-)
-
-export const CustomNode = () => (
-    <Network<NodeType> {...commonProperties} nodeComponent={CustomNodeComponent} />
-)
-
 const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>) => (
     <div
         style={{
@@ -56,14 +46,41 @@ const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>)
     >
         <strong>ID: {node.id}</strong>
         <br />
-        Depth: {node.depth}
+        depth: {node.depth}
         <br />
-        Radius: {node.radius}
+        radius: {node.radius}
     </div>
 )
 
 export const CustomNodeTooltip = () => (
     <Network<NodeType> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+)
+
+const CustomNodeComponent = ({ node }: NetworkNodeProps<NodeType>) => (
+    <g transform={`translate(${node.x - 6},${node.y - 8}) scale(${0.5})`}>
+        <circle cx="12" cy="8" r="5" />
+        <path d="M3,21 h18 C 21,12 3,12 3,21" />
+    </g>
+)
+
+export const CustomNode = () => (
+    <Network<NodeType> {...commonProperties} nodeComponent={CustomNodeComponent} />
+)
+
+const CustomLinkComponent = ({ link }: NetworkLinkProps<NodeType>) => (
+    <line
+        x1={link.source.x}
+        y1={link.source.y}
+        x2={link.target.x}
+        y2={link.target.y}
+        stroke={link.color}
+        strokeWidth={1}
+        strokeDasharray="5 7"
+    />
+)
+
+export const CustomLink = () => (
+    <Network<NodeType> {...commonProperties} linkComponent={CustomLinkComponent} />
 )
 
 export const OnClickHandler = () => (
