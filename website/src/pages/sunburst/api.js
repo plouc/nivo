@@ -35,6 +35,7 @@ const SunburstApi = () => {
                     valueFormat: { format: '', enabled: false },
                     cornerRadius: 2,
                     innerRadiusRatio: 0.4,
+                    renderRootNode: false,
                     borderWidth: 1,
                     borderColor: 'white',
                     colors: { scheme: 'nivo' },

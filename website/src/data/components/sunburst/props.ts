@@ -118,6 +118,15 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'renderRootNode',
+        help: `Render the root node. By default, the root node is omitted.`,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaultProps.renderRootNode,
+        controlType: 'switch',
+        group: 'Base',
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         description: `
