@@ -23,6 +23,7 @@ export const useSunburst = <RawDatum>({
     radius,
     cornerRadius = defaultProps.cornerRadius,
     innerRadiusRatio = defaultProps.innerRadiusRatio,
+    renderRootNode = defaultProps.renderRootNode,
     colors = defaultProps.colors,
     colorBy = defaultProps.colorBy,
     inheritColorFromParent = defaultProps.inheritColorFromParent,
@@ -35,6 +36,7 @@ export const useSunburst = <RawDatum>({
     radius: number
     cornerRadius?: SunburstCommonProps<RawDatum>['cornerRadius']
     innerRadiusRatio?: SunburstCommonProps<RawDatum>['innerRadiusRatio']
+    renderRootNode?: SunburstCommonProps<RawDatum>['renderRootNode']
     colors?: SunburstCommonProps<RawDatum>['colors']
     colorBy?: SunburstCommonProps<RawDatum>['colorBy']
     inheritColorFromParent?: SunburstCommonProps<RawDatum>['inheritColorFromParent']
@@ -60,9 +62,11 @@ export const useSunburst = <RawDatum>({
         const hierarchy = d3Hierarchy(clonedData).sum(getValue)
 
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])
-        // exclude root node
-        const descendants = partition(hierarchy).descendants().slice(1)
-
+        
+        const descendants = renderRootNode 
+            ? partition(hierarchy).descendants()
+            : partition(hierarchy).descendants().slice(1)
+    
         const total = hierarchy.value ?? 0
 
         // It's important to sort node by depth,
@@ -91,8 +95,10 @@ export const useSunburst = <RawDatum>({
             const arc: Arc = {
                 startAngle: descendant.x0,
                 endAngle: descendant.x1,
-                innerRadius: scale(descendant.depth - 1),
-                outerRadius: scale(descendant.depth),
+                innerRadius: renderRootNode && descendant.depth === 0 
+                    ? 0 
+                    : scale(descendant.depth - 1),
+                outerRadius: renderRootNode && descendant.depth === 0 ? innerRadiusOffset : scale(descendant.depth),
             }
 
             let parent: ComputedDatum<RawDatum> | undefined
@@ -135,6 +141,7 @@ export const useSunburst = <RawDatum>({
         inheritColorFromParent,
         getChildColor,
         innerRadiusRatio,
+        renderRootNode,
     ])
 
     const arcGenerator = useArcGenerator({ cornerRadius })
