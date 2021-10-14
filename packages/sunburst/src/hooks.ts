@@ -62,11 +62,11 @@ export const useSunburst = <RawDatum>({
         const hierarchy = d3Hierarchy(clonedData).sum(getValue)
 
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])
-        
-        const descendants = renderRootNode 
+
+        const descendants = renderRootNode
             ? partition(hierarchy).descendants()
             : partition(hierarchy).descendants().slice(1)
-    
+
         const total = hierarchy.value ?? 0
 
         // It's important to sort node by depth,
@@ -95,10 +95,12 @@ export const useSunburst = <RawDatum>({
             const arc: Arc = {
                 startAngle: descendant.x0,
                 endAngle: descendant.x1,
-                innerRadius: renderRootNode && descendant.depth === 0 
-                    ? 0 
-                    : scale(descendant.depth - 1),
-                outerRadius: renderRootNode && descendant.depth === 0 ? innerRadiusOffset : scale(descendant.depth),
+                innerRadius:
+                    renderRootNode && descendant.depth === 0 ? 0 : scale(descendant.depth - 1),
+                outerRadius:
+                    renderRootNode && descendant.depth === 0
+                        ? innerRadiusOffset
+                        : scale(descendant.depth),
             }
 
             let parent: ComputedDatum<RawDatum> | undefined

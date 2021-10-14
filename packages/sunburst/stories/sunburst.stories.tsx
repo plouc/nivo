@@ -235,5 +235,4 @@ stories.add('with root node', () => (
         })}
         renderRootNode={boolean('renderRootNode', true)}
     />
-)
-)
+))
