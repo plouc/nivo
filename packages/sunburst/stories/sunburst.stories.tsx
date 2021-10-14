@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+import { withKnobs, boolean, select, number } from '@storybook/addon-knobs'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
 // @ts-ignore
@@ -223,3 +223,17 @@ const CenteredMetric = ({ nodes, centerX, centerY }: SunburstCustomLayerProps<Ra
 stories.add('adding a metric in the center using a custom layer', () => (
     <Sunburst<RawDatum> {...commonProperties} layers={['arcs', 'arcLabels', CenteredMetric]} />
 ))
+
+stories.add('with root node', () => (
+    <Sunburst<RawDatum>
+        {...commonProperties}
+        innerRadiusRatio={number('innerRadiusRatio', 0.25, {
+            range: true,
+            min: 0.0,
+            max: 0.95,
+            step: 0.05,
+        })}
+        renderRootNode={boolean('renderRootNode', true)}
+    />
+)
+)
