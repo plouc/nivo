@@ -165,8 +165,8 @@ export const CustomLegendLabel = () => (
 )
 
 export const WithGradient = () => (
-    <Radar 
-        {...commonProperties} 
+    <Radar
+        {...commonProperties}
         defs={[
             patternDotsDef('dots', {
                 background: '#fc0341',

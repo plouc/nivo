@@ -133,15 +133,15 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
 }
 
 interface RadarSvgFillMatcherDatum<D extends Record<string, unknown>> {
-    color: string;
-    data: RadarDataProps<D>['data'];
-    key: string;
+    color: string
+    data: RadarDataProps<D>['data']
+    key: string
 }
 
 export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps<D>> &
     RadarDataProps<D> &
     Dimensions &
-    ModernMotionProps & 
+    ModernMotionProps &
     SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
 
 export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>
