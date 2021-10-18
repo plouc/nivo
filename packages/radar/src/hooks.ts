@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
-import { useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { bindDefs, useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
 import {
@@ -8,6 +8,7 @@ import {
     RadarCommonProps,
     RadarDataProps,
     RadarCustomLayerProps,
+    RadarSvgProps,
     BoundLegendProps,
 } from './types'
 
@@ -22,6 +23,8 @@ export const useRadar = <D extends Record<string, unknown>>({
     height,
     colors = svgDefaultProps.colors,
     legends,
+    defs,
+    fill,
 }: {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
@@ -33,6 +36,8 @@ export const useRadar = <D extends Record<string, unknown>>({
     height: number
     colors: RadarCommonProps<D>['colors']
     legends: RadarCommonProps<D>['legends']
+    defs: RadarSvgProps<D>['defs']
+    fill: RadarSvgProps<D>['fill']
 }) => {
     const getIndex = usePropertyAccessor<D, string>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -47,6 +52,19 @@ export const useRadar = <D extends Record<string, unknown>>({
             }, {}),
         [keys, getColor]
     )
+
+    const { boundDefs, fillByKey } = useMemo(() => {
+        // expand keys into structure expected by bindDefs
+        const keyData = keys.map(k => ({ key: k, color: colorByKey[k], data, fill: null }))
+        const boundDefs = bindDefs(defs, keyData, fill)
+        const fillByKey = keyData.reduce((mapping, keyDatum) => {
+            const { key: keyName, ...fill } = keyDatum
+            mapping[keyName] = fill
+            return mapping
+        }, {} as Record<string, { fill: string | null }>)
+
+        return { boundDefs, fillByKey }
+    }, [keys, defs, fill, colorByKey])
 
     const { radius, radiusScale, centerX, centerY, angleStep } = useMemo(() => {
         const allValues: number[] = data.reduce(
@@ -107,6 +125,8 @@ export const useRadar = <D extends Record<string, unknown>>({
         indices,
         formatValue,
         colorByKey,
+        fillByKey,
+        boundDefs,
         radius,
         radiusScale,
         centerX,
