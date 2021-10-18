@@ -64,7 +64,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         }, {} as Record<string, { fill: string | null }>)
 
         return { boundDefs, fillByKey }
-    }, [keys, defs, fill, colorByKey])
+    }, [keys, data, defs, fill, colorByKey])
 
     const { radius, radiusScale, centerX, centerY, angleStep } = useMemo(() => {
         const allValues: number[] = data.reduce(
