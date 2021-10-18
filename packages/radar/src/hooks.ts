@@ -1,6 +1,12 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
-import { bindDefs, useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import {
+    // @ts-ignore
+    bindDefs,
+    useCurveInterpolation,
+    usePropertyAccessor,
+    useValueFormatter,
+} from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
 import {
