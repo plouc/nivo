@@ -57,11 +57,11 @@ export const useRadar = <D extends Record<string, unknown>>({
         // expand keys into structure expected by bindDefs
         const keyData = keys.map(k => ({ key: k, color: colorByKey[k], data, fill: null }))
         const boundDefs = bindDefs(defs, keyData, fill)
-        const fillByKey = keyData.reduce((mapping, keyDatum) => {
-            const { key: keyName, ...fill } = keyDatum
+        const fillByKey = keyData.reduce<Record<string, string | null>>((mapping, keyDatum) => {
+            const { key: keyName, fill } = keyDatum
             mapping[keyName] = fill
             return mapping
-        }, {} as Record<string, { fill: string | null }>)
+        }, {})
 
         return { boundDefs, fillByKey }
     }, [keys, data, defs, fill, colorByKey])
