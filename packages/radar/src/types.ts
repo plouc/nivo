@@ -132,7 +132,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-interface RadarSvgFillMatcherDatum<D extends Record<string, unknown>> {
+export interface RadarSvgFillMatcherDatum<D extends Record<string, unknown>> {
     color: string
     data: RadarDataProps<D>['data']
     key: string
