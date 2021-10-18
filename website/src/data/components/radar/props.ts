@@ -1,6 +1,6 @@
 import { closedCurvePropKeys } from '@nivo/core'
 import { svgDefaultProps } from '@nivo/radar'
-import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties, defsProperties } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
 
 const props: ChartProperty[] = [
@@ -210,6 +210,7 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.borderColor,
         controlType: 'inheritedColor',
     },
+    ...defsProperties('Style', ['svg']),
     {
         key: 'gridLevels',
         group: 'Grid',
