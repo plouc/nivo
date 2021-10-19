@@ -15,6 +15,8 @@ Radar:
       link: radar--with-formatted-values
     - label: Custom label component
       link: radar--custom-label-component
+    - label: Adding patterns to radar layers
+      link: radar--with-patterns
   description: |
     Generates a radar chart from an array of data.
     Note that margin object does not take grid labels into account,
