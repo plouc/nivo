@@ -164,7 +164,7 @@ export const CustomLegendLabel = () => (
     />
 )
 
-export const WithGradient = () => (
+export const WithPatterns = () => (
     <Radar
         {...commonProperties}
         defs={[
