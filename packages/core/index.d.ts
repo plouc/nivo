@@ -255,6 +255,7 @@ declare module '@nivo/core' {
             color: string
             opacity?: number
         }[]
+        gradientTransform?: string
     }
 
     export type PatternDotsDef = {

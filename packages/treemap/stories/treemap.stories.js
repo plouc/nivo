@@ -46,11 +46,15 @@ stories.add('patterns & gradients', () => (
             modifiers: [['darker', 3]],
         }}
         defs={[
-            linearGradientDef('gradient', [
-                { offset: 0, color: '#ffffff' },
-                { offset: 15, color: 'inherit' },
-                { offset: 100, color: 'inherit' },
-            ]),
+            linearGradientDef(
+                'gradient',
+                [
+                    { offset: 0, color: '#ffffff' },
+                    { offset: 15, color: 'inherit' },
+                    { offset: 100, color: 'inherit' },
+                ],
+                { gradientTransform: 'rotate(-90 0.5 0.5)' }
+            ),
             patternDotsDef('pattern', {
                 background: 'inherit',
                 color: '#ffffff',
