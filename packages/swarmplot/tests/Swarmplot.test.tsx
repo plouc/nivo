@@ -137,5 +137,22 @@ describe('SwarmPlot', () => {
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
         })
+
+        it('should support the borderWidth property', () => {
+            const wrapper = mount(
+                <SwarmPlot
+                    width={400}
+                    height={400}
+                    groupBy="group"
+                    groups={groups}
+                    data={sampleData}
+                    borderWidth={4}
+                />
+            )
+
+            expect(wrapper.find('circle').at(0).getDOMNode().getAttribute('stroke-width')).toEqual(
+                '4'
+            )
+        })
     })
 })
