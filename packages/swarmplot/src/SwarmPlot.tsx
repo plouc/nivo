@@ -36,6 +36,7 @@ const InnerSwarmPlot = <RawDatum,>({
     colors = defaultProps.colors as OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color'>>,
     colorBy = defaultProps.colorBy,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderWidth = defaultProps.borderWidth,
     layout = defaultProps.layout,
     spacing = defaultProps.spacing,
     gap = defaultProps.gap,
@@ -141,7 +142,7 @@ const InnerSwarmPlot = <RawDatum,>({
             <Circles<RawDatum>
                 key="circles"
                 nodes={nodes}
-                borderWidth={0}
+                borderWidth={borderWidth}
                 borderColor={borderColor}
                 isInteractive={isInteractive}
                 tooltip={tooltip}
