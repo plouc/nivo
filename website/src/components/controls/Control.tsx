@@ -63,6 +63,7 @@ const Container = styled(Cell)<{ isPropertySupported: boolean }>`
 `
 
 const Toggle = styled.span`
+    user-select: none;
     display: block;
     position: absolute;
     width: 20px;

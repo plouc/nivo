@@ -20,7 +20,13 @@ const MyChart = () => (
             linearGradientDef('gradientB', [
                 { offset: 0, color: '#000' },
                 { offset: 100, color: 'inherit' },
-            ]),
+            ],
+            // you may specify transforms for your gradients, e.g. rotations and skews,
+            // following the transform attribute format.
+            // For instance here we rotate 90 degrees relative to the center of the object.
+            {
+                gradientTransform: 'rotate(90 0.5 0.5)'
+            }),
             // using plain object
             {
                 id: 'gradientC',

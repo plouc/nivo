@@ -19,8 +19,8 @@ import {
 } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { ScaleSpec, Scale } from '@nivo/scales'
-import { AxisProps, TicksSpec } from '@nivo/axes'
+import { ScaleSpec, Scale, TicksSpec } from '@nivo/scales'
+import { AxisProps } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 import { Line as D3Line } from 'd3-shape'
 

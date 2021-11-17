@@ -16,6 +16,7 @@ import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
 import pie from './components/pie/meta.yml'
 import radar from './components/radar/meta.yml'
+import radialBar from './components/radial-bar/meta.yml'
 import sankey from './components/sankey/meta.yml'
 import scatterplot from './components/scatterplot/meta.yml'
 import stream from './components/stream/meta.yml'
@@ -128,6 +129,12 @@ export const components = [
         path: '/radar/',
         icon: 'radar',
         tags: radar.Radar.tags,
+    },
+    {
+        label: 'RadialBar',
+        path: '/radial-bar/',
+        icon: 'radial-bar',
+        tags: radialBar.RadialBar.tags,
     },
     {
         label: 'Sankey',

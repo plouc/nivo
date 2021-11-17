@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { radiansToDegrees } from '@nivo/core'
+import { radiansToDegrees, positionFromAngle, degreesToRadians } from '@nivo/core'
 import { DatumWithArc } from './types'
 
 /**
@@ -33,3 +33,53 @@ export const useFilteredDataBySkipAngle = <Datum extends DatumWithArc>(
     data: Datum[],
     skipAngle: number
 ) => useMemo(() => filterDataBySkipAngle(data, skipAngle), [data, skipAngle])
+
+export const svgEllipticalArcCommand = (
+    radius: number,
+    largeArcFlag: 0 | 1,
+    sweepFlag: 0 | 1,
+    x: number,
+    y: number
+) =>
+    [
+        'A',
+        radius,
+        radius,
+        0, // x-axis-rotation
+        largeArcFlag,
+        sweepFlag,
+        x,
+        y,
+    ].join(' ')
+
+export const generateSvgArc = (
+    radius: number,
+    originalStartAngle: number,
+    originalEndAngle: number
+): string => {
+    const startAngle = Math.min(originalStartAngle, originalEndAngle)
+    const endAngle = Math.max(originalStartAngle, originalEndAngle)
+
+    const start = positionFromAngle(degreesToRadians(endAngle), radius)
+    const end = positionFromAngle(degreesToRadians(startAngle), radius)
+
+    // we have a full circle, we cannot use a single elliptical arc
+    // to draw it, so we use 2 in that case.
+    if (endAngle - startAngle >= 360) {
+        const mid = positionFromAngle(degreesToRadians(startAngle + 180), radius)
+
+        return [
+            `M ${start.x} ${start.y}`,
+            svgEllipticalArcCommand(radius, 1, 1, mid.x, mid.y),
+            `M ${start.x} ${start.y}`,
+            svgEllipticalArcCommand(radius, 1, 0, mid.x, mid.y),
+        ].join(' ')
+    }
+
+    const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1
+
+    return [
+        `M ${start.x} ${start.y}`,
+        svgEllipticalArcCommand(radius, largeArcFlag, 0, end.x, end.y),
+    ].join(' ')
+}

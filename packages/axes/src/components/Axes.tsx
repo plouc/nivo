@@ -1,10 +1,11 @@
 import { memo } from 'react'
+import { ScaleValue, AnyScale } from '@nivo/scales'
 import { Axis } from './Axis'
 import { positions } from '../props'
-import { AnyScale, AxisProps, AxisValue } from '../types'
+import { AxisProps } from '../types'
 
 export const Axes = memo(
-    <X extends AxisValue, Y extends AxisValue>({
+    <X extends ScaleValue, Y extends ScaleValue>({
         xScale,
         yScale,
         width,

@@ -1,0 +1,23 @@
+flavors:
+  - flavor: svg
+    path: /radial-bar/
+
+RadialBar:
+  package: '@nivo/radial-bar'
+  tags:
+    - radial
+    - bar
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    A radial bar chart.
+
+    Note that margin object does not take grid labels into account,
+    so you should adjust it to leave enough room for it.
+
+    The responsive alternative of this component is
+    `ResponsiveRadialBar`.
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.

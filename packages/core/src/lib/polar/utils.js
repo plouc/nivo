@@ -28,3 +28,37 @@ export const absoluteAngleDegrees = angle => {
 }
 
 export const absoluteAngleRadians = angle => angle - TWO_PI * Math.floor((angle + Math.PI) / TWO_PI)
+
+/**
+ * Ensure angle is always between 0~360.
+ *
+ * @param {number} rawAngle - in degrees
+ *
+ * @returns {number}
+ */
+export const normalizeAngle = rawAngle => {
+    if (rawAngle < 0) {
+        return 360 - (-rawAngle % 360)
+    }
+
+    return rawAngle % 360
+}
+
+/**
+ * Ensure the absolute difference between start and end angles
+ * is at most given length.
+ *
+ * @param startAngle - in degrees
+ * @param endAngle   - in degrees
+ * @param length     - in degrees
+ *
+ * @returns {[number, number]}
+ */
+export const clampArc = (startAngle, endAngle, length = 360) => {
+    let clampedEndAngle = endAngle
+    if (Math.abs(endAngle - startAngle) > length) {
+        clampedEndAngle = startAngle + (endAngle > startAngle ? length : -length)
+    }
+
+    return [startAngle, clampedEndAngle]
+}

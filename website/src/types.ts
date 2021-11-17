@@ -134,14 +134,6 @@ export interface SwitchableRangeControlAttrs {
 }
 export type SwitchableRangeProperty = BaseChartProperty & SwitchableRangeControlAttrs
 
-export interface ObjectControlAttrs {
-    controlType: 'object'
-    controlOptions: {
-        props: Omit<ChartProperty, 'group'>[]
-    }
-}
-export type ObjectChartProperty = BaseChartProperty & ObjectControlAttrs
-
 export interface AngleControlAttrs {
     controlType: 'angle'
     controlOptions: {
@@ -152,6 +144,19 @@ export interface AngleControlAttrs {
     }
 }
 export type AngleChartProperty = BaseChartProperty & AngleControlAttrs
+
+export interface ObjectControlAttrs {
+    controlType: 'object'
+    controlOptions: {
+        props: (
+            | Omit<BaseChartProperty, 'group'>
+            | Omit<SwitchProperty, 'group'>
+            | Omit<RangeProperty, 'group'>
+            | Omit<AngleChartProperty, 'group'>
+        )[]
+    }
+}
+export type ObjectChartProperty = BaseChartProperty & ObjectControlAttrs
 
 export interface BaseChartProperty {
     key: string
@@ -170,6 +175,9 @@ export interface BaseChartProperty {
     flavors: Flavor[]
     // disable the control when the current chart flavor doesn't match
     enableControlForFlavors?: Flavor[]
+    // not used at the moment, indicate that a property is just used
+    // for the demo and not part of the component props.
+    excludeFromDoc?: boolean
 }
 
 export type ChartProperty =

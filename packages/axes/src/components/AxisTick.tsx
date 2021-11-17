@@ -2,9 +2,10 @@ import { useMemo, memo } from 'react'
 import * as React from 'react'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
-import { AxisTickProps, AxisValue } from '../types'
+import { ScaleValue } from '@nivo/scales'
+import { AxisTickProps } from '../types'
 
-const AxisTick = <Value extends AxisValue>({
+const AxisTick = <Value extends ScaleValue>({
     value: _value,
     format,
     lineX,

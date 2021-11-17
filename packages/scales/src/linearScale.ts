@@ -1,4 +1,4 @@
-import { NumberValue, scaleLinear } from 'd3-scale'
+import { NumberValue, scaleLinear, ScaleLinear as D3ScaleLinear } from 'd3-scale'
 import { ScaleLinearSpec, ScaleLinear, ComputedSerieAxis, ScaleAxis } from './types'
 
 export const createLinearScale = <Output extends NumberValue>(
@@ -36,6 +36,13 @@ export const createLinearScale = <Output extends NumberValue>(
     if (nice === true) scale.nice()
     else if (typeof nice === 'number') scale.nice(nice)
 
+    return castLinearScale<number, Output>(scale, stacked)
+}
+
+export const castLinearScale = <Range, Output>(
+    scale: D3ScaleLinear<Range, Output>,
+    stacked = false
+) => {
     const typedScale = (scale as unknown) as ScaleLinear<number>
     typedScale.type = 'linear'
     typedScale.stacked = stacked

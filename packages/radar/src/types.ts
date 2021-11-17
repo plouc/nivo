@@ -10,6 +10,7 @@ import {
     ValueFormat,
     ClosedCurveFactoryId,
     DotsItemSymbolComponent,
+    SvgDefsAndFill,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -131,7 +132,16 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
+export interface RadarSvgFillMatcherDatum<D extends Record<string, unknown>> {
+    color: string
+    data: RadarDataProps<D>['data']
+    key: string
+}
+
 export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps<D>> &
     RadarDataProps<D> &
     Dimensions &
-    ModernMotionProps
+    ModernMotionProps &
+    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
+
+export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>

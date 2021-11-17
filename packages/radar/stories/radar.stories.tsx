@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateWinesTastes } from '@nivo/generators'
-import { ClosedCurveFactoryId } from '@nivo/core'
+import { ClosedCurveFactoryId, patternDotsDef, patternSquaresDef } from '@nivo/core'
 // @ts-ignore
 import { Radar, GridLabelProps } from '../src'
 
@@ -144,3 +144,54 @@ const LabelComponent = ({ id, x, y, anchor }: GridLabelProps) => (
 )
 
 export const CustomLabelComponent = () => <Radar {...commonProperties} gridLabel={LabelComponent} />
+
+export const CustomLegendLabel = () => (
+    <Radar
+        {...commonProperties}
+        legends={[
+            {
+                data: commonProperties.keys.map(key => ({ id: key, label: `${key} base` })),
+                anchor: 'top-left',
+                direction: 'column',
+                itemWidth: 56,
+                itemHeight: 12,
+                itemsSpacing: 12,
+                itemTextColor: '#333',
+                symbolSize: 6,
+                symbolShape: 'circle',
+            },
+        ]}
+    />
+)
+
+export const WithPatterns = () => (
+    <Radar
+        {...commonProperties}
+        defs={[
+            patternDotsDef('dots', {
+                background: '#fc0341',
+                color: 'inherit',
+                size: 4,
+                padding: 2,
+                stagger: true,
+            }),
+            patternSquaresDef('squares', {
+                background: '#4287f5',
+                color: 'inherit',
+                size: 6,
+                padding: 4,
+                stagger: false,
+            }),
+        ]}
+        fill={[
+            {
+                match: node => node.key === commonProperties.keys[0],
+                id: 'dots',
+            },
+            {
+                match: node => node.key === commonProperties.keys[1],
+                id: 'squares',
+            },
+        ]}
+    />
+)
