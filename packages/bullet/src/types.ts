@@ -91,7 +91,8 @@ export type BulletSvgProps = Partial<CommonBulletProps> &
     BulletHandlers &
     ModernMotionProps & {
         data: Datum[]
-        axisFormat: (d: number) => string
+        axisFormat?: (d: number) => string
+        xAxis?: boolean
     }
 
 type MouseEventWithDatum<D, Element> = (
