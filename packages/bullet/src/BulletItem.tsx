@@ -12,6 +12,7 @@ import { BulletItemProps } from './types'
 export const BulletItem = ({
     id,
     axisFormat,
+    xAxis,
 
     scale,
     layout,
@@ -210,7 +211,7 @@ export const BulletItem = ({
                     onMeasureClick?.({ id, ...measure }, event)
                 }}
             />
-            {axis}
+            {xAxis && axis}
             {markerNodes}
             {titleNode}
         </animated.g>

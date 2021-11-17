@@ -203,6 +203,7 @@ export type BulletItemProps = Omit<
         measureHeight: number
         markerHeight: number
         axisFormat: (d: number) => string
+        xAxis?: boolean
     }
 
 export interface BulletTooltipProps {

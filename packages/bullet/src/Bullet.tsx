@@ -15,6 +15,7 @@ export const Bullet = (props: BulletSvgProps) => {
         reverse,
         axisPosition,
         axisFormat,
+        xAxis,
 
         minValue,
         maxValue,
@@ -94,6 +95,7 @@ export const Bullet = (props: BulletSvgProps) => {
                         width={innerWidth}
                         height={itemHeight}
                         axisFormat={axisFormat}
+                        xAxis={xAxis}
                         titlePosition={titlePosition}
                         titleAlign={titleAlign}
                         titleOffsetX={titleOffsetX}
