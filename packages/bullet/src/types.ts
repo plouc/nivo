@@ -203,7 +203,7 @@ export type BulletItemProps = Omit<
     Point & {
         measureHeight: number
         markerHeight: number
-        axisFormat: (d: number) => string
+        axisFormat?: (d: number) => string
         xAxis?: boolean
     }
 
