@@ -10,6 +10,7 @@ interface RadarLayerProps<D extends Record<string, unknown>> {
     data: D[]
     item: string
     colorByKey: Record<string | number, string>
+    fillByKey: Record<string, string | null>
     radiusScale: ScaleLinear<number, number>
     angleStep: number
     curveFactory: CurveFactory
@@ -23,6 +24,7 @@ export const RadarLayer = <D extends Record<string, unknown>>({
     data,
     item: key,
     colorByKey,
+    fillByKey,
     radiusScale,
     angleStep,
     curveFactory,
@@ -49,12 +51,13 @@ export const RadarLayer = <D extends Record<string, unknown>>({
         config: springConfig,
         immediate: !animate,
     })
+    const fill = fillByKey[key] ?? animatedProps.fill
 
     return (
         <animated.path
             key={key}
             d={animatedPath}
-            fill={animatedProps.fill}
+            fill={fill}
             fillOpacity={fillOpacity}
             stroke={animatedProps.stroke}
             strokeWidth={borderWidth}

@@ -38,4 +38,7 @@ export const svgDefaultProps = {
 
     animate: true,
     motionConfig: 'gentle' as const,
+
+    defs: [],
+    fill: [],
 }

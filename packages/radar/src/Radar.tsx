@@ -50,6 +50,8 @@ const InnerRadar = <D extends Record<string, unknown>>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
 }: InnerRadarProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -62,6 +64,8 @@ const InnerRadar = <D extends Record<string, unknown>>({
         indices,
         formatValue,
         colorByKey,
+        fillByKey,
+        boundDefs,
         radius,
         radiusScale,
         centerX,
@@ -81,6 +85,8 @@ const InnerRadar = <D extends Record<string, unknown>>({
         height: innerHeight,
         colors,
         legends,
+        defs,
+        fill,
     })
 
     const layerById: Record<RadarLayerId, ReactNode> = {
@@ -116,6 +122,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         data={data}
                         item={key}
                         colorByKey={colorByKey}
+                        fillByKey={fillByKey}
                         radiusScale={radiusScale}
                         angleStep={angleStep}
                         curveFactory={curveFactory}
@@ -187,6 +194,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
 
     return (
         <SvgWrapper
+            defs={boundDefs}
             width={outerWidth}
             height={outerHeight}
             margin={margin}

@@ -163,6 +163,24 @@ describe('bindDefs()', () => {
             ])
         })
 
+        it('should allow gradientTransform to be used', () => {
+            const defs = [
+                {
+                    id: 'gradient',
+                    type: 'linearGradient',
+                    colors: [],
+                    gradientTransform: 'rotate(90 0.5 0.5)',
+                },
+            ]
+            const nodes = [{}, {}]
+
+            const boundDefs = bindDefs(defs, nodes, [{ match: '*', id: 'gradient' }], {
+                targetKey: 'style.fill',
+            })
+
+            expect(boundDefs).toEqual(defs)
+        })
+
         it('should support inheritance', () => {
             const defs = [
                 {
