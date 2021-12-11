@@ -15,6 +15,9 @@ const initialProperties: UnmappedRadarProps = {
     spacing: svgDefaultProps.spacing,
     // valueFormat: { format: '>-.2f', enabled: true },
 
+    blankCellColor: svgDefaultProps.blankCellColor,
+    valueCellColor: svgDefaultProps.valueCellColor,
+
     margin: {
         top: 20,
         right: 20,

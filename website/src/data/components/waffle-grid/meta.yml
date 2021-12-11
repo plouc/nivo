@@ -14,7 +14,7 @@ WaffleGrid:
     This chart shows each value using a small waffle chart,
     meaning each value has its own waffle chart.
 
-    Each cell can represent more than `1` it's managed via
+    Each cell can represent more than `1`, this is managed via
     the `cellValue` property, it can be used to reduce the number
     of cells displayed, let's say your chart shows
     the repartition of gender for a given salary, you might have

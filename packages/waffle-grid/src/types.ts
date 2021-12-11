@@ -1,6 +1,7 @@
 import { FunctionComponent, AriaAttributes } from 'react'
 import { SpringConfig, SpringValues } from '@react-spring/web'
 import { Theme, Dimensions, Box, ModernMotionProps, SpringConfigPresetName } from '@nivo/core'
+import { InheritedColorConfig } from '@nivo/colors'
 
 export interface WaffleGridDataProps {
     data: number[][]
@@ -64,6 +65,8 @@ export type WaffleGridCommonProps = {
     enableBlankCells: boolean
 
     theme: Theme
+    blankCellColor: InheritedColorConfig<WaffleGridCellData>
+    valueCellColor: InheritedColorConfig<WaffleGridCellData>
 
     layers: (WaffleGridLayerId | WaffleGridCustomLayer)[]
     blankCellComponent: WaffleGridCellComponent

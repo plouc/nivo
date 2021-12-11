@@ -1,3 +1,5 @@
+import { useTheme } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import {
     WaffleGridDataProps,
     WaffleGridCommonProps,
@@ -5,7 +7,7 @@ import {
     WaffleGridAxisDataX,
     WaffleGridAxisDataY,
 } from './types'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 
 const nearestSquare = (n: number) => Math.pow(Math.ceil(Math.sqrt(n)), 2)
 
@@ -17,6 +19,8 @@ export const useWaffleGrid = ({
     yRange,
     cellValue,
     spacing = svgDefaultProps.spacing,
+    blankCellColor,
+    valueCellColor,
 }: {
     width: number
     height: number
@@ -25,6 +29,8 @@ export const useWaffleGrid = ({
     yRange: WaffleGridDataProps['yRange']
     cellValue: WaffleGridDataProps['cellValue']
     spacing: WaffleGridCommonProps['spacing']
+    blankCellColor: WaffleGridCommonProps['blankCellColor']
+    valueCellColor: WaffleGridCommonProps['valueCellColor']
 }) => {
     const xLength = xRange.length
     const yLength = yRange.length
@@ -102,12 +108,25 @@ export const useWaffleGrid = ({
         })
     })
 
+    const theme = useTheme()
+
+    const getBlankCellColor = useInheritedColor(blankCellColor, theme)
     const blankCells = cells
         .filter(cell => !cell.hasValue)
-        .map((cell, index) => ({ ...cell, index, color: 'rgb(62, 48, 54)' }))
+        .map((cell, index) => ({
+            ...cell,
+            index,
+            color: getBlankCellColor(cell),
+        }))
+
+    const getValueCellColor = useInheritedColor(valueCellColor, theme)
     const valueCells = cells
         .filter(cell => cell.hasValue)
-        .map((cell, index) => ({ ...cell, index, color: 'rgb(239, 78, 136)' }))
+        .map((cell, index) => ({
+            ...cell,
+            index,
+            color: getValueCellColor(cell),
+        }))
 
     return {
         blankCells,

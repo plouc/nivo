@@ -1,4 +1,4 @@
 export * from './types'
-export * from './props'
+export * from './defaults'
 export * from './ResponsiveWaffleGrid'
 export * from './WaffleGrid'

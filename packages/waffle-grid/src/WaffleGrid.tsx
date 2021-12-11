@@ -3,7 +3,7 @@ import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { WaffleGridCells } from './WaffleGridCells'
 import { WaffleGridAxes } from './WaffleGridAxes'
 import { WaffleGridSvgProps, WaffleGridLayerId, WaffleGridCustomLayerProps } from './types'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import { useWaffleGrid } from './hooks'
 
 type InnerWaffleGridProps = Omit<
@@ -21,6 +21,8 @@ export const InnerWaffleGrid = ({
     spacing = svgDefaultProps.spacing,
     margin: partialMargin,
     enableBlankCells = svgDefaultProps.enableBlankCells,
+    blankCellColor = svgDefaultProps.blankCellColor,
+    valueCellColor = svgDefaultProps.valueCellColor,
     layers = svgDefaultProps.layers,
     blankCellComponent = svgDefaultProps.blankCellComponent,
     valueCellComponent = svgDefaultProps.valueCellComponent,
@@ -47,6 +49,8 @@ export const InnerWaffleGrid = ({
         yRange,
         cellValue,
         spacing,
+        blankCellColor,
+        valueCellColor,
     })
 
     const layerById: Record<WaffleGridLayerId, ReactNode> = {
