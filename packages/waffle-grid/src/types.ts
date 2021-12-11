@@ -60,6 +60,7 @@ export interface WaffleGridCustomLayerProps {
 export type WaffleGridCustomLayer = FunctionComponent<WaffleGridCustomLayerProps>
 
 export type WaffleGridCommonProps = {
+    maxValue: 'auto' | number
     margin: Box
     spacing: number
     enableBlankCells: boolean

@@ -18,6 +18,7 @@ export const useWaffleGrid = ({
     xRange,
     yRange,
     cellValue,
+    maxValue: _maxValue,
     spacing = svgDefaultProps.spacing,
     blankCellColor,
     valueCellColor,
@@ -28,6 +29,7 @@ export const useWaffleGrid = ({
     xRange: WaffleGridDataProps['xRange']
     yRange: WaffleGridDataProps['yRange']
     cellValue: WaffleGridDataProps['cellValue']
+    maxValue: WaffleGridCommonProps['maxValue']
     spacing: WaffleGridCommonProps['spacing']
     blankCellColor: WaffleGridCommonProps['blankCellColor']
     valueCellColor: WaffleGridCommonProps['valueCellColor']
@@ -35,7 +37,8 @@ export const useWaffleGrid = ({
     const xLength = xRange.length
     const yLength = yRange.length
 
-    const maxValue = Math.max(...data.flat())
+    const autoMaxValue = Math.max(...data.flat())
+    const maxValue = _maxValue === 'auto' ? autoMaxValue : Math.max(_maxValue, autoMaxValue)
     const waffleCellCount = nearestSquare(maxValue / cellValue)
     const waffleCellSize = Math.sqrt(waffleCellCount)
 

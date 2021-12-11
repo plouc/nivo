@@ -53,6 +53,27 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'maxValue',
+        help: 'Maximum value.',
+        description: `
+            Maximum value, if 'auto', will use max value from the provided data.
+            
+            If the provided value is lower than one value in the provided data,
+            then it'll be ignored in favor of the one coming from your data.
+        `,
+        required: false,
+        defaultValue: svgDefaultProps.maxValue,
+        type: `number | 'auto'`,
+        controlType: 'switchableRange',
+        group: 'Base',
+        controlOptions: {
+            disabledValue: 'auto',
+            defaultValue: 1000,
+            min: 500,
+            max: 40000,
+        },
+    },
+    {
         key: 'width',
         group: 'Base',
         type: 'number',

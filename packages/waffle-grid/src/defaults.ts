@@ -1,8 +1,9 @@
 import { colorSchemes } from '@nivo/colors'
-import { WaffleGridLayerId } from './types'
+import { WaffleGridLayerId, WaffleGridCommonProps, WaffleGridSvgProps } from './types'
 import { WaffleGridCell } from './WaffleGridCell'
 
 export const commonDefaultProps = {
+    maxValue: 'auto',
     spacing: 6,
     enableBlankCells: true,
 
@@ -13,14 +14,13 @@ export const commonDefaultProps = {
 
     isInteractive: true,
 
-    animate: true,
-    motionConfig: 'gentle' as const,
-
     renderWrapper: true,
 }
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
+    animate: true,
+    motionConfig: 'gentle' as const,
     blankCellComponent: WaffleGridCell,
     valueCellComponent: WaffleGridCell,
     blankCellsStaggeredDelay: 2,

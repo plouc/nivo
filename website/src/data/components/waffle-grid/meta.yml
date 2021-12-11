@@ -21,5 +21,7 @@ WaffleGrid:
     to deal with high values, then you can say that 1 cell = 100 people
     for example.
 
+    Please note that each waffle chart is a square.
+
     The responsive alternative of this component is
     `ResponsiveWaffleGrid`.

@@ -6,11 +6,15 @@ import meta from '../../data/components/waffle-grid/meta.yml'
 import mapper from '../../data/components/radial-bar/mapper'
 import { groups } from '../../data/components/waffle-grid/props'
 
-type MappedRadarProps = Omit<WaffleGridSvgProps, 'data' | 'width' | 'height'>
-type UnmappedRadarProps = MappedRadarProps
+type MappedWaffleGridProps = Omit<
+    WaffleGridSvgProps,
+    'data' | 'xRange' | 'yRange' | 'width' | 'height'
+>
+type UnmappedWaffleGridProps = MappedWaffleGridProps
 
-const initialProperties: UnmappedRadarProps = {
+const initialProperties: UnmappedWaffleGridProps = {
     cellValue: 1000,
+    maxValue: svgDefaultProps.maxValue,
     enableBlankCells: svgDefaultProps.enableBlankCells,
     spacing: svgDefaultProps.spacing,
     // valueFormat: { format: '>-.2f', enabled: true },
@@ -33,40 +37,14 @@ const initialProperties: UnmappedRadarProps = {
     valueCellsStaggeredDelay: svgDefaultProps.valueCellsStaggeredDelay,
 
     isInteractive: svgDefaultProps.isInteractive,
-
-    /*
-    legends: [
-        {
-            anchor: 'right',
-            direction: 'column',
-            justify: false,
-            translateX: 80,
-            translateY: 0,
-            itemsSpacing: 6,
-            itemDirection: 'left-to-right',
-            itemWidth: 100,
-            itemHeight: 18,
-            itemTextColor: '#999',
-            symbolSize: 18,
-            symbolShape: 'square',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
-        },
-    ],
-    */
 }
 
 const WaffleGrid = () => (
-    <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
+    <ComponentTemplate<
+        UnmappedWaffleGridProps,
+        MappedWaffleGridProps,
+        ReturnType<typeof randomDemographicMatrix>
+    >
         name="WaffleGrid"
         meta={meta.WaffleGrid}
         icon="waffle-grid"
@@ -76,7 +54,10 @@ const WaffleGrid = () => (
         initialProperties={initialProperties}
         defaultProperties={svgDefaultProps}
         propertiesMapper={mapper}
-        codePropertiesMapper={(properties, data) => ({
+        codePropertiesMapper={(
+            properties: MappedWaffleGridProps,
+            data: ReturnType<typeof randomDemographicMatrix>
+        ) => ({
             xRange: data.xRange.keys,
             yRange: data.yRange.keys,
             ...properties,
