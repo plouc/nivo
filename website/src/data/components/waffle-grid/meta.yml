@@ -1,0 +1,17 @@
+flavors:
+  - flavor: svg
+    path: /waffle-grid/
+
+WaffleGrid:
+  package: '@nivo/waffle-grid'
+  tags:
+    - waffle
+    - grid
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    A chart composed of several waffle charts.
+
+    The responsive alternative of this component is
+    `ResponsiveWaffleGrid`.

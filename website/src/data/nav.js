@@ -26,6 +26,7 @@ import timeRange from './components/time-range/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
+import waffleGrid from './components/waffle-grid/meta.yml'
 
 export const components = [
     {
@@ -189,6 +190,13 @@ export const components = [
         path: '/waffle/',
         icon: 'waffle',
         tags: waffle.Waffle.tags,
+    },
+
+    {
+        label: 'WaffleGrid',
+        path: '/waffle-grid/',
+        icon: 'waffle',
+        tags: waffleGrid.WaffleGrid.tags,
     },
 ]
 
