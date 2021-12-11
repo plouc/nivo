@@ -268,6 +268,7 @@ export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
 
 export * from './bullet'
 export * from './chord'
+export * from './demographics'
 export * from './network'
 export * from './parallelCoordinates'
 export * from './sankey'
