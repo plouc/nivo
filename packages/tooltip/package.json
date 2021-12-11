@@ -21,7 +21,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@react-spring/web": "9.2.6"
+    "@react-spring/web": "9.3.1"
   },
   "devDependencies": {
     "@nivo/core": "0.74.0"
