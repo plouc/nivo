@@ -1,5 +1,4 @@
 import { randomChoice } from './random'
-import { range } from 'lodash'
 
 export const demographicsRanges = {
     age: {

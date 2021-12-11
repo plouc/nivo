@@ -1,6 +1,6 @@
 import { FunctionComponent, AriaAttributes } from 'react'
-import { SpringValues } from '@react-spring/web'
-import { Theme, Dimensions, Box, ModernMotionProps } from '@nivo/core'
+import { SpringConfig, SpringValues } from '@react-spring/web'
+import { Theme, Dimensions, Box, ModernMotionProps, SpringConfigPresetName } from '@nivo/core'
 
 export interface WaffleGridDataProps {
     data: number[][]
@@ -81,4 +81,7 @@ export type WaffleGridCommonProps = {
 export type WaffleGridSvgProps = Partial<WaffleGridCommonProps> &
     WaffleGridDataProps &
     Dimensions &
-    ModernMotionProps
+    ModernMotionProps & {
+        blankCellsMotionConfig?: SpringConfigPresetName | SpringConfig
+        valueCellsMotionConfig?: SpringConfigPresetName | SpringConfig
+    }

@@ -1,5 +1,10 @@
 import { svgDefaultProps } from '@nivo/waffle-grid'
-import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    motionProperties,
+    groupProperties,
+    motionConfigProperty,
+} from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
 
 const props: ChartProperty[] = [
@@ -140,100 +145,36 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         controlType: 'margin',
     },
-    /*
     {
-        key: 'startAngle',
+        key: 'cellValue',
         group: 'Base',
         type: 'number',
-        required: false,
-        help: 'Start angle (in degrees).',
+        required: true,
+        help: 'Define the value each cell represents.',
         flavors: ['svg'],
-        defaultValue: svgDefaultProps.startAngle,
-        controlType: 'angle',
-        controlOptions: {
-            min: -360,
-            max: 360,
-            step: 5,
-        },
-    },
-    {
-        key: 'endAngle',
-        group: 'Base',
-        type: 'number',
-        required: false,
-        help: 'End angle (in degrees).',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.endAngle,
-        controlType: 'angle',
-        controlOptions: {
-            min: -360,
-            max: 360,
-            step: 5,
-        },
-    },
-    {
-        key: 'innerRadius',
-        group: 'Base',
-        help: `Donut if greater than 0. Value should be between 0~1 as it's a ratio from outer radius.`,
-        type: 'number',
-        required: false,
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.innerRadius,
         controlType: 'range',
         controlOptions: {
-            min: 0,
-            max: 0.95,
-            step: 0.05,
-        },
-    },
-    {
-        key: 'padding',
-        group: 'Base',
-        type: 'number',
-        required: false,
-        help: 'Padding between each ring (ratio).',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.padding,
-        controlType: 'range',
-        controlOptions: {
-            min: 0,
-            max: 0.9,
-            step: 0.05,
-        },
-    },
-    {
-        key: 'padAngle',
-        group: 'Base',
-        type: 'number',
-        required: false,
-        help: 'Padding between each bar.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.padAngle,
-        controlType: 'range',
-        controlOptions: {
-            unit: '°',
-            min: 0,
-            max: 45,
-            step: 1,
-        },
-    },
-    {
-        key: 'cornerRadius',
-        group: 'Base',
-        type: 'number',
-        required: false,
-        help: 'Rounded corners.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.cornerRadius,
-        controlType: 'range',
-        controlOptions: {
+            min: 500,
+            max: 2000,
+            step: 100,
             unit: 'px',
-            min: 0,
-            max: 45,
-            step: 1,
         },
     },
-    */
+    {
+        key: 'spacing',
+        group: 'Base',
+        type: 'number',
+        required: false,
+        help: 'Spacing between each waffle.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.spacing,
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 36,
+            unit: 'px',
+        },
+    },
     themeProperty(['svg']),
     /*
     {
@@ -271,26 +212,6 @@ const props: ChartProperty[] = [
         controlType: 'inheritedColor',
     },
     {
-        key: 'enableTracks',
-        group: 'Tracks',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable tracks.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.enableTracks,
-        controlType: 'switch',
-    },
-    {
-        key: 'tracksColor',
-        group: 'Tracks',
-        type: 'string',
-        required: false,
-        help: 'Define tracks color.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.tracksColor,
-        controlType: 'colorPicker',
-    },
-    {
         key: 'enableRadialGrid',
         group: 'Grid & Axes',
         type: 'boolean',
@@ -309,114 +230,6 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: svgDefaultProps.enableCircularGrid,
         controlType: 'switch',
-    },
-    polarAxisProperty({
-        key: 'radialAxisStart',
-        flavors: ['svg'],
-        tickComponent: 'RadialAxisTickComponent',
-    }),
-    polarAxisProperty({
-        key: 'radialAxisEnd',
-        flavors: ['svg'],
-        tickComponent: 'RadialAxisTickComponent',
-    }),
-    polarAxisProperty({
-        key: 'circularAxisInner',
-        flavors: ['svg'],
-        tickComponent: 'CircularAxisTickComponent',
-    }),
-    polarAxisProperty({
-        key: 'circularAxisOuter',
-        flavors: ['svg'],
-        tickComponent: 'CircularAxisTickComponent',
-    }),
-    {
-        key: 'enableLabels',
-        group: 'Labels',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable labels.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.enableLabels,
-        controlType: 'switch',
-    },
-    {
-        key: 'label',
-        group: 'Labels',
-        type: 'string | (bar: ComputedBar) => string',
-        required: false,
-        help:
-            'Defines how to get label text, can be a string (used to access current bar property) or a function which will receive the actual bar data.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.label,
-        controlType: 'choices',
-        controlOptions: {
-            choices: ['category', 'groupId', 'value', 'formattedValue'].map(choice => ({
-                label: choice,
-                value: choice,
-            })),
-        },
-    },
-    {
-        key: 'labelsSkipAngle',
-        group: 'Labels',
-        type: 'number',
-        required: false,
-        help: `Skip label if corresponding arc's angle is lower than provided value.`,
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.labelsSkipAngle,
-        controlType: 'range',
-        controlOptions: {
-            unit: '°',
-            min: 0,
-            max: 45,
-            step: 1,
-        },
-    },
-    {
-        key: 'labelsRadiusOffset',
-        group: 'Labels',
-        type: 'number',
-        required: false,
-        help: `
-            Define the radius to use to determine the label position, starting from inner radius,
-            this is expressed as a ratio. Centered at 0.5 by default.
-        `,
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.labelsRadiusOffset,
-        controlType: 'range',
-        controlOptions: {
-            min: 0,
-            max: 2,
-            step: 0.05,
-        },
-    },
-    {
-        key: 'labelsTextColor',
-        group: 'Labels',
-        help: 'Defines how to compute label text color.',
-        type: 'string | object | Function',
-        required: false,
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.labelsTextColor,
-        controlType: 'inheritedColor',
-    },
-    {
-        key: 'layers',
-        group: 'Customization',
-        type: '(RadialBarLayerId | RadialBarCustomLayer)[]',
-        required: false,
-        help: 'Defines the order of layers and add custom layers.',
-        description: `
-            You can also use this to insert extra layers
-            to the chart, the extra layer should be a component.
-            
-            The component will receive properties as defined in
-            the \`RadialBarCustomLayerProps\` interface
-            and must return a valid SVG element.
-        `,
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.layers,
     },
     */
     {
@@ -537,6 +350,18 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
     },
     ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    motionConfigProperty(
+        'blankCellsMotionConfig',
+        ['svg'],
+        undefined,
+        'Optional motion config override for blank cells.'
+    ),
+    motionConfigProperty(
+        'valueCellsMotionConfig',
+        ['svg'],
+        undefined,
+        'Optional motion config override for value cells.'
+    ),
 ]
 
 export const groups = groupProperties(props)

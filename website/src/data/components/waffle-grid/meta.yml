@@ -11,7 +11,15 @@ WaffleGrid:
     - isomorphic
   stories: []
   description: |
-    A chart composed of several waffle charts.
+    This chart shows each value using a small waffle chart,
+    meaning each value has its own waffle chart.
+
+    Each cell can represent more than `1` it's managed via
+    the `cellValue` property, it can be used to reduce the number
+    of cells displayed, let's say your chart shows
+    the repartition of gender for a given salary, you might have
+    to deal with high values, then you can say that 1 cell = 100 people
+    for example.
 
     The responsive alternative of this component is
     `ResponsiveWaffleGrid`.

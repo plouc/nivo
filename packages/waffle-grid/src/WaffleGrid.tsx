@@ -23,6 +23,8 @@ export const InnerWaffleGrid = ({
     layers = svgDefaultProps.layers,
     blankCellComponent = svgDefaultProps.blankCellComponent,
     valueCellComponent = svgDefaultProps.valueCellComponent,
+    blankCellsMotionConfig,
+    valueCellsMotionConfig,
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -57,8 +59,10 @@ export const InnerWaffleGrid = ({
                 key="cells"
                 blankCells={blankCells}
                 blankCellComponent={blankCellComponent}
+                blankCellsMotionConfig={blankCellsMotionConfig}
                 valueCells={valueCells}
                 valueCellComponent={valueCellComponent}
+                valueCellsMotionConfig={valueCellsMotionConfig}
             />
         )
     }

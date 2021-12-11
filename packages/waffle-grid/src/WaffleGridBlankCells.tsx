@@ -1,16 +1,19 @@
 import { createElement } from 'react'
-import { useTransition, config, SpringConfig } from '@react-spring/web'
-import { useMotionConfig } from '@nivo/core'
-import { WaffleGridCellData, WaffleGridCellComponent } from './types'
+import { useTransition } from '@react-spring/web'
+import { useMotionConfig, useSpringConfig } from '@nivo/core'
+import { WaffleGridCellData, WaffleGridCellComponent, WaffleGridSvgProps } from './types'
 
 export const WaffleGridBlankCells = ({
     cells,
     cellComponent,
+    motionConfig,
 }: {
     cells: WaffleGridCellData[]
     cellComponent: WaffleGridCellComponent
+    motionConfig: WaffleGridSvgProps['blankCellsMotionConfig']
 }) => {
     const { animate, config: defaultSpringConfig } = useMotionConfig()
+    const springConfig = useSpringConfig(motionConfig || defaultSpringConfig)
 
     const transitions = useTransition<
         WaffleGridCellData,
@@ -23,36 +26,12 @@ export const WaffleGridBlankCells = ({
         }
     >(cells, {
         keys: cell => cell.key,
-        from: cell => ({
-            x: cell.x + cell.size / 2,
-            y: cell.y + cell.size / 2,
-            radius: cell.size / 2,
-            color: cell.color,
-            opacity: 0,
-        }),
-        enter: cell => ({
-            x: cell.x + cell.size / 2,
-            y: cell.y + cell.size / 2,
-            radius: cell.size / 2,
-            color: cell.color,
-            opacity: 1,
-        }),
-        update: cell => ({
-            x: cell.x + cell.size / 2,
-            y: cell.y + cell.size / 2,
-            radius: cell.size / 2,
-            color: cell.color,
-            opacity: 1,
-        }),
-        leave: cell => ({
-            x: cell.x + cell.size / 2,
-            y: cell.y + cell.size / 2,
-            radius: cell.size / 2,
-            color: cell.color,
-            opacity: 0,
-        }),
+        from: inOutTransition,
+        enter: finalTransition,
+        update: finalTransition,
+        leave: inOutTransition,
         trail: animate ? 2 : undefined,
-        config: config.stiff,
+        config: springConfig,
         immediate: !animate,
     })
 
@@ -67,3 +46,18 @@ export const WaffleGridBlankCells = ({
         </>
     )
 }
+
+const inOutTransition = (cell: WaffleGridCellData) => ({
+    x: cell.x + cell.size / 2,
+    y: cell.y + cell.size / 2,
+    radius: cell.size / 2,
+    color: cell.color,
+    opacity: 0,
+})
+const finalTransition = (cell: WaffleGridCellData) => ({
+    x: cell.x + cell.size / 2,
+    y: cell.y + cell.size / 2,
+    radius: cell.size / 2,
+    color: cell.color,
+    opacity: 1,
+})

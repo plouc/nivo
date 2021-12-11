@@ -10,14 +10,9 @@ type MappedRadarProps = Omit<WaffleGridSvgProps, 'data' | 'width' | 'height'>
 type UnmappedRadarProps = MappedRadarProps
 
 const initialProperties: UnmappedRadarProps = {
-    valueFormat: { format: '>-.2f', enabled: true },
-
-    startAngle: svgDefaultProps.startAngle,
-    endAngle: svgDefaultProps.endAngle,
-    innerRadius: svgDefaultProps.innerRadius,
-    padding: 0.4,
-    padAngle: svgDefaultProps.padAngle,
-    cornerRadius: 2,
+    cellValue: 1000,
+    spacing: svgDefaultProps.spacing,
+    // valueFormat: { format: '>-.2f', enabled: true },
 
     margin: {
         top: 20,
@@ -30,48 +25,14 @@ const initialProperties: UnmappedRadarProps = {
     borderWidth: svgDefaultProps.borderWidth,
     borderColor: svgDefaultProps.borderColor,
 
-    enableTracks: svgDefaultProps.enableTracks,
-    tracksColor: svgDefaultProps.tracksColor,
-
-    enableRadialGrid: svgDefaultProps.enableRadialGrid,
-    enableCircularGrid: svgDefaultProps.enableCircularGrid,
-    radialAxisStart: {
-        enable: true,
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-    },
-    radialAxisEnd: {
-        enable: false,
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-    },
-    circularAxisInner: {
-        enable: false,
-        tickSize: 5,
-        tickPadding: 12,
-        tickRotation: 0,
-    },
-    circularAxisOuter: {
-        enable: true,
-        tickSize: 5,
-        tickPadding: 12,
-        tickRotation: 0,
-    },
-
-    enableLabels: svgDefaultProps.enableLabels,
-    label: svgDefaultProps.label,
-    labelsSkipAngle: svgDefaultProps.labelsSkipAngle,
-    labelsRadiusOffset: svgDefaultProps.labelsRadiusOffset,
-    labelsTextColor: svgDefaultProps.labelsTextColor,
-
-    animate: true,
+    animate: svgDefaultProps.animate,
     motionConfig: 'gentle' as const,
-    transitionMode: svgDefaultProps.transitionMode,
+    blankCellsMotionConfig: 'gentle' as const,
+    valueCellsMotionConfig: 'stiff' as const,
 
     isInteractive: svgDefaultProps.isInteractive,
 
+    /*
     legends: [
         {
             anchor: 'right',
@@ -99,6 +60,7 @@ const initialProperties: UnmappedRadarProps = {
             ],
         },
     ],
+    */
 }
 
 const WaffleGrid = () => (
@@ -112,7 +74,13 @@ const WaffleGrid = () => (
         initialProperties={initialProperties}
         defaultProperties={svgDefaultProps}
         propertiesMapper={mapper}
+        codePropertiesMapper={(properties, data) => ({
+            xRange: data.xRange.keys,
+            yRange: data.yRange.keys,
+            ...properties,
+        })}
         generateData={randomDemographicMatrix}
+        getTabData={data => data.data}
     >
         {(properties, data, theme, logAction) => (
             <ResponsiveWaffleGrid
@@ -120,7 +88,6 @@ const WaffleGrid = () => (
                 data={data.data}
                 xRange={data.xRange.keys}
                 yRange={data.yRange.keys}
-                cellValue={1000}
                 theme={theme}
             />
         )}
