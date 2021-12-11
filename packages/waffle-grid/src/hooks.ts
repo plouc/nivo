@@ -47,10 +47,10 @@ export const useWaffleGrid = ({
     let cellSize: number
     if (xLength > yLength) {
         height = (width / xLength) * yLength
-        cellSize = (width - spacing * (xLength + 1)) / xLength / waffleCellSize
+        cellSize = (width - spacing * xLength) / xLength / waffleCellSize
     } else {
         width = (height / yLength) * xLength
-        cellSize = (height - spacing * (yLength + 1)) / yLength / waffleCellSize
+        cellSize = (height - spacing * yLength) / yLength / waffleCellSize
     }
 
     const originX = (_width - width) / 2
@@ -60,18 +60,20 @@ export const useWaffleGrid = ({
     const xAxis: WaffleGridAxisDataX = {
         ticks: xRange.map((xKey, index) => ({
             id: xKey,
-            x: originX + spacing * (index + 1) + waffleSize * index,
-            width: waffleSize,
+            x: originX + (waffleSize + spacing) * index,
+            width: waffleSize + spacing,
         })),
-        y: originY + height,
+        y1: originY,
+        y2: originY + height,
     }
     const yAxis: WaffleGridAxisDataY = {
         ticks: yRange.map((yKey, index) => ({
             id: yKey,
-            y: originY + spacing * (index + 1) + waffleSize * index,
-            height: waffleSize,
+            y: originY + (waffleSize + spacing) * index,
+            height: waffleSize + spacing,
         })),
-        x: originX,
+        x1: originX,
+        x2: originX + width,
     }
 
     const waffleArray = Array.from({ length: waffleCellSize })
@@ -79,10 +81,10 @@ export const useWaffleGrid = ({
     const cells: WaffleGridCellData[] = []
     let cellIndex = 0
     data.forEach((row, rowIndex) => {
-        const waffleY = yAxis.ticks[rowIndex].y
+        const waffleY = yAxis.ticks[rowIndex].y + spacing * 0.5
 
         row.forEach((blockValue, columnIndex) => {
-            const waffleX = xAxis.ticks[columnIndex].x
+            const waffleX = xAxis.ticks[columnIndex].x + spacing * 0.5
 
             const lastValueDotIndex = Math.min(Math.round(blockValue / cellValue), waffleCellCount)
 

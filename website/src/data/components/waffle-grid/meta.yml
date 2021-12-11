@@ -14,6 +14,10 @@ WaffleGrid:
     This chart shows each value using a small waffle chart,
     meaning each value has its own waffle chart.
 
+    You should be careful with the number of cells you end up with,
+    the chart will become janky if you have too many cells,
+    especially transitions.
+
     Each cell can represent more than `1`, this is managed via
     the `cellValue` property, it can be used to reduce the number
     of cells displayed, let's say your chart shows

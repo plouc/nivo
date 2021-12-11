@@ -1,14 +1,17 @@
 import { colorSchemes } from '@nivo/colors'
-import { WaffleGridLayerId, WaffleGridCommonProps, WaffleGridSvgProps } from './types'
+import { WaffleGridLayerId } from './types'
 import { WaffleGridCell } from './WaffleGridCell'
 
 export const commonDefaultProps = {
-    maxValue: 'auto',
+    maxValue: 'auto' as const,
     spacing: 6,
     enableBlankCells: true,
 
     blankCellColor: { theme: 'grid.line.stroke' },
     valueCellColor: colorSchemes.nivo[1],
+
+    enableGridX: true,
+    enableGridY: true,
 
     layers: ['grid', 'axes', 'cells'] as WaffleGridLayerId[],
 

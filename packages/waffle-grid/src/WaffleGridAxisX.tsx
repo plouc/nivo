@@ -1,14 +1,14 @@
-import { animated, config, useTransition } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { animated, useTransition } from '@react-spring/web'
+import { useTheme, useMotionConfig } from '@nivo/core'
 import { WaffleGridAxisDataX, WaffleGridAxisTickX } from './types'
 
-const transitionConfig = config.stiff
 const transitionTrail = 60
 
 export const WaffleGridAxisX = ({ axis }: { axis: WaffleGridAxisDataX }) => {
     const theme = useTheme()
+    const { springConfig } = useMotionConfig()
 
-    const y = axis.y + 10
+    const y = axis.y2 + 10
 
     const transitions = useTransition<
         WaffleGridAxisTickX,
@@ -40,7 +40,7 @@ export const WaffleGridAxisX = ({ axis }: { axis: WaffleGridAxisDataX }) => {
             opacity: 0,
         }),
         trail: transitionTrail,
-        config: transitionConfig,
+        config: springConfig,
     })
 
     return (

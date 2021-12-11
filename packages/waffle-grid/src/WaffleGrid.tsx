@@ -2,6 +2,7 @@ import { ReactNode, Fragment, createElement, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { WaffleGridCells } from './WaffleGridCells'
 import { WaffleGridAxes } from './WaffleGridAxes'
+import { WaffleGridGrid } from './WaffleGridGrid'
 import { WaffleGridSvgProps, WaffleGridLayerId, WaffleGridCustomLayerProps } from './types'
 import { svgDefaultProps } from './defaults'
 import { useWaffleGrid } from './hooks'
@@ -18,12 +19,14 @@ export const InnerWaffleGrid = ({
     xRange,
     yRange,
     cellValue,
-    maxValue,
+    maxValue = svgDefaultProps.maxValue,
     spacing = svgDefaultProps.spacing,
     margin: partialMargin,
     enableBlankCells = svgDefaultProps.enableBlankCells,
     blankCellColor = svgDefaultProps.blankCellColor,
     valueCellColor = svgDefaultProps.valueCellColor,
+    enableGridX = svgDefaultProps.enableGridX,
+    enableGridY = svgDefaultProps.enableGridY,
     layers = svgDefaultProps.layers,
     blankCellComponent = svgDefaultProps.blankCellComponent,
     valueCellComponent = svgDefaultProps.valueCellComponent,
@@ -61,6 +64,22 @@ export const InnerWaffleGrid = ({
         cells: null,
     }
 
+    if (layers.includes('grid')) {
+        layerById.grid = (
+            <WaffleGridGrid
+                key="grid"
+                xAxis={xAxis}
+                enableX={enableGridX}
+                yAxis={yAxis}
+                enableY={enableGridY}
+            />
+        )
+    }
+
+    if (layers.includes('axes')) {
+        layerById.axes = <WaffleGridAxes key="axes" xAxis={xAxis} yAxis={yAxis} />
+    }
+
     if (layers.includes('cells')) {
         layerById.cells = (
             <WaffleGridCells
@@ -76,10 +95,6 @@ export const InnerWaffleGrid = ({
                 valueCellsStaggeredDelay={valueCellsStaggeredDelay}
             />
         )
-    }
-
-    if (layers.includes('axes')) {
-        layerById.axes = <WaffleGridAxes key="axes" xAxis={xAxis} yAxis={yAxis} />
     }
 
     const customLayerProps = useMemo<WaffleGridCustomLayerProps>(

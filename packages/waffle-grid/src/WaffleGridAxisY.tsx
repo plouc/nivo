@@ -8,7 +8,7 @@ const transitionTrail = 60
 export const WaffleGridAxisY = ({ axis }: { axis: WaffleGridAxisDataY }) => {
     const theme = useTheme()
 
-    const x = axis.x - 10
+    const x = axis.x1 - 10
 
     const transitions = useTransition<
         WaffleGridAxisTickY,

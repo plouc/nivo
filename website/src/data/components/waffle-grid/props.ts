@@ -68,9 +68,9 @@ const props: ChartProperty[] = [
         group: 'Base',
         controlOptions: {
             disabledValue: 'auto',
-            defaultValue: 1000,
-            min: 500,
-            max: 40000,
+            defaultValue: 10000,
+            min: 10000,
+            max: 100000,
         },
     },
     {
@@ -184,6 +184,24 @@ const props: ChartProperty[] = [
         `,
         flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
+    },
+    {
+        key: 'enableGridX',
+        group: 'Grid & Axes',
+        help: 'Enable/disable x grid.',
+        type: 'boolean',
+        required: false,
+        defaultValue: svgDefaultProps.enableGridX,
+        controlType: 'switch',
+    },
+    {
+        key: 'enableGridY',
+        group: 'Grid & Axes',
+        help: 'Enable/disable y grid.',
+        type: 'boolean',
+        required: false,
+        defaultValue: svgDefaultProps.enableGridY,
+        controlType: 'switch',
     },
     {
         key: 'isInteractive',

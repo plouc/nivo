@@ -16,11 +16,13 @@ const initialProperties: UnmappedWaffleGridProps = {
     cellValue: 1000,
     maxValue: svgDefaultProps.maxValue,
     enableBlankCells: svgDefaultProps.enableBlankCells,
-    spacing: svgDefaultProps.spacing,
-    // valueFormat: { format: '>-.2f', enabled: true },
+    spacing: 16,
 
     blankCellColor: svgDefaultProps.blankCellColor,
     valueCellColor: svgDefaultProps.valueCellColor,
+
+    enableGridX: svgDefaultProps.enableGridX,
+    enableGridY: svgDefaultProps.enableGridY,
 
     margin: {
         top: 20,

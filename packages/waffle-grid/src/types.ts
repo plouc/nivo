@@ -44,11 +44,13 @@ export interface WaffleGridAxisTickY {
 }
 export interface WaffleGridAxisDataX {
     ticks: WaffleGridAxisTickX[]
-    y: number
+    y1: number
+    y2: number
 }
 export interface WaffleGridAxisDataY {
     ticks: WaffleGridAxisTickY[]
-    x: number
+    x1: number
+    x2: number
 }
 
 export type WaffleGridLayerId = 'grid' | 'axes' | 'cells'
@@ -68,6 +70,9 @@ export type WaffleGridCommonProps = {
     theme: Theme
     blankCellColor: InheritedColorConfig<WaffleGridCellData>
     valueCellColor: InheritedColorConfig<WaffleGridCellData>
+
+    enableGridX: boolean
+    enableGridY: boolean
 
     layers: (WaffleGridLayerId | WaffleGridCustomLayer)[]
     blankCellComponent: WaffleGridCellComponent
