@@ -69,7 +69,7 @@ const WaffleGrid = () => (
     <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
         name="WaffleGrid"
         meta={meta.WaffleGrid}
-        icon="waffle"
+        icon="waffle-grid"
         flavors={meta.flavors}
         currentFlavor="svg"
         properties={groups}

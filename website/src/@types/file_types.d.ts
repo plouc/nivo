@@ -40,3 +40,12 @@ declare module '*sankey/meta.yml' {
 
     export default meta
 }
+
+declare module '*waffle-grid/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        WaffleGrid: ChartMeta
+    }
+
+    export default meta
+}

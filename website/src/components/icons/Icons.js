@@ -27,6 +27,7 @@ import SwarmPlotIcon from './SwarmPlotIcon'
 import TimeRangeIcon from './TimeRangeIcon'
 import TreeMapIcon from './TreeMapIcon'
 import WaffleIcon from './WaffleIcon'
+import { WaffleGridIcon } from './WaffleGridIcon'
 import ParallelCoordinatesIcon from './ParallelCoordinatesIcon'
 import VoronoiIcon from './VoronoiIcon'
 import { colors, Icon, Colors } from './styled'
@@ -62,6 +63,7 @@ const Icons = () => (
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <WaffleGridIcon />
         <RadialBarIcon />
         <MarimekkoIcon />
         <AreaBumpIcon />

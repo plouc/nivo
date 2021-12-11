@@ -195,7 +195,7 @@ export const components = [
     {
         label: 'WaffleGrid',
         path: '/waffle-grid/',
-        icon: 'waffle',
+        icon: 'waffle-grid',
         tags: waffleGrid.WaffleGrid.tags,
     },
 ]
