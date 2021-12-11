@@ -1,9 +1,9 @@
-# `@nivo/radial-bar`
+# `@nivo/waffle-grid`
 
-[![version](https://img.shields.io/npm/v/@nivo/radial-bar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/radial-bar)
+[![version](https://img.shields.io/npm/v/@nivo/waffle-grid.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/waffle-grid)
 
-## RadialBar
+## WaffleGrid
 
-[documentation](http://nivo.rocks/radial-bar)
+[documentation](http://nivo.rocks/waffle-grid)
 
-![RadialBar](https://raw.githubusercontent.com/plouc/nivo/master/packages/radial-bar/doc/radial-bar.png)
+![WaffleGrid](https://raw.githubusercontent.com/plouc/nivo/master/packages/waffle-grid/doc/waffle-grid.png)
