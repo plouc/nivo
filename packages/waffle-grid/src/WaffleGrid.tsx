@@ -20,6 +20,7 @@ export const InnerWaffleGrid = ({
     cellValue,
     spacing = svgDefaultProps.spacing,
     margin: partialMargin,
+    enableBlankCells = svgDefaultProps.enableBlankCells,
     layers = svgDefaultProps.layers,
     blankCellComponent = svgDefaultProps.blankCellComponent,
     valueCellComponent = svgDefaultProps.valueCellComponent,
@@ -52,13 +53,13 @@ export const InnerWaffleGrid = ({
         grid: null,
         axes: null,
         cells: null,
-        legends: null,
     }
 
     if (layers.includes('cells')) {
         layerById.cells = (
             <WaffleGridCells
                 key="cells"
+                enableBlankCells={enableBlankCells}
                 blankCells={blankCells}
                 blankCellComponent={blankCellComponent}
                 blankCellsMotionConfig={blankCellsMotionConfig}

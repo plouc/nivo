@@ -61,6 +61,7 @@ export type WaffleGridCustomLayer = FunctionComponent<WaffleGridCustomLayerProps
 export type WaffleGridCommonProps = {
     margin: Box
     spacing: number
+    enableBlankCells: boolean
 
     theme: Theme
 

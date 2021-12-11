@@ -11,6 +11,7 @@ type UnmappedRadarProps = MappedRadarProps
 
 const initialProperties: UnmappedRadarProps = {
     cellValue: 1000,
+    enableBlankCells: svgDefaultProps.enableBlankCells,
     spacing: svgDefaultProps.spacing,
     // valueFormat: { format: '>-.2f', enabled: true },
 
@@ -21,15 +22,11 @@ const initialProperties: UnmappedRadarProps = {
         left: 100,
     },
 
-    colors: svgDefaultProps.colors,
-    borderWidth: svgDefaultProps.borderWidth,
-    borderColor: svgDefaultProps.borderColor,
-
     animate: svgDefaultProps.animate,
-    motionConfig: 'gentle' as const,
-    blankCellsMotionConfig: 'gentle' as const,
+    motionConfig: 'gentle',
+    blankCellsMotionConfig: 'stiff',
     blankCellsStaggeredDelay: svgDefaultProps.blankCellsStaggeredDelay,
-    valueCellsMotionConfig: 'stiff' as const,
+    valueCellsMotionConfig: 'gentle',
     valueCellsStaggeredDelay: svgDefaultProps.valueCellsStaggeredDelay,
 
     isInteractive: svgDefaultProps.isInteractive,

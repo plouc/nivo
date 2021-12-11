@@ -102,6 +102,16 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'enableBlankCells',
+        group: 'Base',
+        type: 'boolean',
+        required: false,
+        help: 'Enable/disable blank cells.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.enableBlankCells,
+        controlType: 'switch',
+    },
+    {
         key: 'spacing',
         group: 'Base',
         type: 'number',
@@ -117,62 +127,23 @@ const props: ChartProperty[] = [
         },
     },
     themeProperty(['svg']),
-    /*
     {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function | string[]',
+        key: 'layers',
+        group: 'Customization',
+        type: '(WaffleGridLayerId | WaffleGridCustomLayer)[]',
         required: false,
-        help: 'Defines how to compute colors.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.colors,
-        controlType: 'ordinalColors',
-    },
-    {
-        key: 'borderWidth',
-        group: 'Style',
-        type: 'number',
-        required: false,
-        help: 'Bars border width.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.borderWidth,
-        controlType: 'lineWidth',
-    },
-    {
-        key: 'borderColor',
-        group: 'Style',
-        type: 'InheritedColorConfig<ComputedBar>',
-        required: false,
-        help: 'Method to compute border color.',
+        help: 'Defines the order of layers and add custom layers.',
         description: `
-            how to compute border color,
-            [see dedicated documentation](self:/guides/colors).
+            You can also use this to insert extra layers
+            to the chart, the extra layer should be a component.
+            
+            The component will receive properties as defined in
+            the \`WaffleGridCustomLayerProps\` interface
+            and must return a valid SVG element.
         `,
         flavors: ['svg'],
-        defaultValue: svgDefaultProps.borderColor,
-        controlType: 'inheritedColor',
+        defaultValue: svgDefaultProps.layers,
     },
-    {
-        key: 'enableRadialGrid',
-        group: 'Grid & Axes',
-        type: 'boolean',
-        required: false,
-        help: 'Enable radial grid (rays)',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.enableRadialGrid,
-        controlType: 'switch',
-    },
-    {
-        key: 'enableCircularGrid',
-        group: 'Grid & Axes',
-        type: 'boolean',
-        required: false,
-        help: 'Enable circular grid (rings)',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.enableCircularGrid,
-        controlType: 'switch',
-    },
-    */
     {
         key: 'isInteractive',
         group: 'Interactivity',
@@ -183,48 +154,6 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.isInteractive,
         controlType: 'switch',
     },
-    /*
-    {
-        key: 'tooltip',
-        group: 'Interactivity',
-        type: 'RadialBarTooltipComponent',
-        required: false,
-        help: 'Override default tooltip.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'onClick',
-        group: 'Interactivity',
-        type: '(bar: ComputedBar, event: MouseEvent) => void',
-        required: false,
-        help: 'onClick handler.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'onMouseEnter',
-        group: 'Interactivity',
-        type: '(bar: ComputedBar, event: MouseEvent) => void',
-        required: false,
-        help: 'onMouseEnter handler.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'onMouseMove',
-        group: 'Interactivity',
-        type: '(bar: ComputedBar, event: MouseEvent) => void',
-        required: false,
-        help: 'onMouseMove handler.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'onMouseLeave',
-        group: 'Interactivity',
-        type: '(bar: ComputedBar, event: MouseEvent) => void',
-        required: false,
-        help: 'onMouseLeave handler.',
-        flavors: ['svg'],
-    },
-    */
     {
         key: 'role',
         group: 'Accessibility',
@@ -262,7 +191,7 @@ const props: ChartProperty[] = [
         'blankCellsMotionConfig',
         ['svg'],
         undefined,
-        'Optional motion config override for blank cells.'
+        'Optional motion config override for blank cells, use global `motionConfig` if unspecified.'
     ),
     {
         key: 'blankCellsStaggeredDelay',
@@ -283,7 +212,7 @@ const props: ChartProperty[] = [
         'valueCellsMotionConfig',
         ['svg'],
         undefined,
-        'Optional motion config override for value cells.'
+        'Optional motion config override for value cells, use global `motionConfig` if unspecified.'
     ),
     {
         key: 'valueCellsStaggeredDelay',

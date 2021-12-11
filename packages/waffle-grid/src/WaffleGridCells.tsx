@@ -3,6 +3,7 @@ import { WaffleGridBlankCells } from './WaffleGridBlankCells'
 import { WaffleGridValueCells } from './WaffleGridValueCells'
 
 export const WaffleGridCells = ({
+    enableBlankCells,
     blankCells,
     blankCellComponent,
     blankCellsMotionConfig,
@@ -12,6 +13,7 @@ export const WaffleGridCells = ({
     valueCellsMotionConfig,
     valueCellsStaggeredDelay,
 }: {
+    enableBlankCells: boolean
     blankCells: WaffleGridCellData[]
     blankCellComponent: WaffleGridCellComponent
     blankCellsMotionConfig: WaffleGridSvgProps['blankCellsMotionConfig']
@@ -23,12 +25,14 @@ export const WaffleGridCells = ({
 }) => {
     return (
         <g>
-            <WaffleGridBlankCells
-                cells={blankCells}
-                cellComponent={blankCellComponent}
-                motionConfig={blankCellsMotionConfig}
-                staggeredDelay={blankCellsStaggeredDelay}
-            />
+            {enableBlankCells && (
+                <WaffleGridBlankCells
+                    cells={blankCells}
+                    cellComponent={blankCellComponent}
+                    motionConfig={blankCellsMotionConfig}
+                    staggeredDelay={blankCellsStaggeredDelay}
+                />
+            )}
             <WaffleGridValueCells
                 cells={valueCells}
                 cellComponent={valueCellComponent}

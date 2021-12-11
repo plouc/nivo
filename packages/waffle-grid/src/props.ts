@@ -2,9 +2,10 @@ import { WaffleGridLayerId } from './types'
 import { WaffleGridCell } from './WaffleGridCell'
 
 export const commonDefaultProps = {
-    layers: ['grid', 'axes', 'cells'] as WaffleGridLayerId[],
-
     spacing: 6,
+    enableBlankCells: true,
+
+    layers: ['grid', 'axes', 'cells'] as WaffleGridLayerId[],
 
     isInteractive: true,
 
