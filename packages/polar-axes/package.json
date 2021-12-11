@@ -30,7 +30,7 @@
   "dependencies": {
     "@nivo/arcs": "0.74.0",
     "@nivo/scales": "0.74.0",
-    "@react-spring/web": "9.2.6"
+    "@react-spring/web": "9.3.1"
   },
   "devDependencies": {
     "@nivo/core": "0.74.0"

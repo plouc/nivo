@@ -35,7 +35,7 @@
     "@nivo/legends": "0.74.0",
     "@nivo/scales": "0.74.0",
     "@nivo/tooltip": "0.74.0",
-    "@react-spring/web": "9.2.6",
+    "@react-spring/web": "9.3.1",
     "d3-scale": "^3.2.3",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.21"
