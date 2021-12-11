@@ -28,7 +28,9 @@ const initialProperties: UnmappedRadarProps = {
     animate: svgDefaultProps.animate,
     motionConfig: 'gentle' as const,
     blankCellsMotionConfig: 'gentle' as const,
+    blankCellsStaggeredDelay: svgDefaultProps.blankCellsStaggeredDelay,
     valueCellsMotionConfig: 'stiff' as const,
+    valueCellsStaggeredDelay: svgDefaultProps.valueCellsStaggeredDelay,
 
     isInteractive: svgDefaultProps.isInteractive,
 

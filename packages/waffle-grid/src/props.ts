@@ -18,4 +18,6 @@ export const svgDefaultProps = {
     ...commonDefaultProps,
     blankCellComponent: WaffleGridCell,
     valueCellComponent: WaffleGridCell,
+    blankCellsStaggeredDelay: 2,
+    valueCellsStaggeredDelay: 2,
 }

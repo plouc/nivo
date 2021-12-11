@@ -15,7 +15,7 @@ interface RangeControlProps {
     value: number
     onChange: (value: number) => void
     options: {
-        unit: 'px' | '°'
+        unit: 'px' | '°' | 'ms'
         min: number
         max: number
         step?: number

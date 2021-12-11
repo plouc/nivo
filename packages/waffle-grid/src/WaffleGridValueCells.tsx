@@ -7,10 +7,12 @@ export const WaffleGridValueCells = ({
     cells,
     cellComponent,
     motionConfig,
+    staggeredDelay,
 }: {
     cells: WaffleGridCellData[]
     cellComponent: WaffleGridCellComponent
     motionConfig: WaffleGridSvgProps['valueCellsMotionConfig']
+    staggeredDelay: number
 }) => {
     const { animate, config: defaultSpringConfig } = useMotionConfig()
     const springConfig = useSpringConfig(motionConfig || defaultSpringConfig)
@@ -30,7 +32,7 @@ export const WaffleGridValueCells = ({
         enter: finalTransition,
         update: finalTransition,
         leave: outTransition,
-        trail: animate ? 2 : undefined,
+        trail: animate ? staggeredDelay : undefined,
         config: springConfig,
         immediate: !animate,
     })

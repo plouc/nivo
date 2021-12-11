@@ -83,5 +83,7 @@ export type WaffleGridSvgProps = Partial<WaffleGridCommonProps> &
     Dimensions &
     ModernMotionProps & {
         blankCellsMotionConfig?: SpringConfigPresetName | SpringConfig
+        blankCellsStaggeredDelay?: number
         valueCellsMotionConfig?: SpringConfigPresetName | SpringConfig
+        valueCellsStaggeredDelay?: number
     }

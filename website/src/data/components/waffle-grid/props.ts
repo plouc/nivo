@@ -8,77 +8,36 @@ import {
 import { ChartProperty } from '../../../types'
 
 const props: ChartProperty[] = [
-    /*
     {
         key: 'data',
         group: 'Base',
-        type: 'object[]',
+        type: 'number[][]',
         required: true,
         help: 'Chart data.',
         description: `
-            Here is what the data for a single chart with 2 bars would look like:
-            
-            \`\`\`
-            [
-                {
-                    id: 'Fruits',
-                    data: [{ x: 'Apples', y: 32 }]
-                },
-                {
-                    id: 'Vegetables',
-                    data: [{ x: 'Eggplants', y: 27 }]
-                }
-            ]
-            \`\`\`
-            
-            You can add several metrics per group:
-            
-            \`\`\`
-            [
-                {
-                    id: 'Fruits',
-                    data: [
-                        { x: 'Apples', y: 32 },
-                        { x: 'Mangoes', y: 15 }
-                    ]
-                },
-                {
-                    id: 'Vegetables',
-                    data: [
-                        { x: 'Eggplants', y: 27 },
-                        { x: 'Avocados', y: 34 }
-                    ]
-                }
-            ]
-            \`\`\`
-            
-            When a bar is computed, the \`id\` is going to be added
-            as the \`groupId\`, \`x\` as the \`category\` and \`y\`
-            as the value, for example the first bar for the number of Apples
-            in the Fruits group would be:
-            
-            \`\`\`
-            {
-                groupId: 'Fruits',
-                category: 'Apples',
-                value: 32
-            }
-            \`\`\`
-            
-            You might read those values when adding an \`onClick\` handler
-            for example, or when customizing the tooltip.
+            Please note that the number of rows should match the length
+            of \`yRange\` and each row number of columns should match
+            the length of \`xRange\`.
         `,
         flavors: ['svg'],
     },
     {
-        key: 'maxValue',
+        key: 'xRange',
         group: 'Base',
-        type: `'auto' | number`,
-        required: false,
-        help: `If 'auto', the max value is derived from the data, otherwise use a static value.`,
+        type: 'string[]',
+        required: true,
+        help: 'X range.',
         flavors: ['svg'],
-        defaultValue: svgDefaultProps.maxValue,
     },
+    {
+        key: 'yRange',
+        group: 'Base',
+        type: 'string[]',
+        required: true,
+        help: 'Y range.',
+        flavors: ['svg'],
+    },
+    /*
     {
         key: 'valueFormat',
         group: 'Base',
@@ -356,12 +315,42 @@ const props: ChartProperty[] = [
         undefined,
         'Optional motion config override for blank cells.'
     ),
+    {
+        key: 'blankCellsStaggeredDelay',
+        group: 'Motion',
+        type: 'number',
+        required: false,
+        help: 'Control the delay between each blank cell transition.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.blankCellsStaggeredDelay,
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 20,
+            unit: 'ms',
+        },
+    },
     motionConfigProperty(
         'valueCellsMotionConfig',
         ['svg'],
         undefined,
         'Optional motion config override for value cells.'
     ),
+    {
+        key: 'valueCellsStaggeredDelay',
+        group: 'Motion',
+        type: 'number',
+        required: false,
+        help: 'Control the delay between each value cell transition.',
+        flavors: ['svg'],
+        defaultValue: svgDefaultProps.valueCellsStaggeredDelay,
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 20,
+            unit: 'ms',
+        },
+    },
 ]
 
 export const groups = groupProperties(props)

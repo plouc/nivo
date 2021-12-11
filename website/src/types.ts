@@ -21,7 +21,7 @@ export interface RangeControlAttrs {
         min: number
         max: number
         step?: number
-        unit?: 'px' | '°'
+        unit?: 'px' | '°' | 'ms'
     }
 }
 export type RangeProperty = BaseChartProperty & RangeControlAttrs
@@ -102,7 +102,7 @@ export type OrdinalColorsProperty = BaseChartProperty & OrdinalColorsControlAttr
 export interface NumberArrayControlAttrs {
     controlType: 'numberArray'
     controlOptions: {
-        unit?: 'px' | '°'
+        unit?: 'px' | '°' | 'ms'
         items: {
             label: string
             min?: number
