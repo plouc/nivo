@@ -50,7 +50,7 @@ export interface WaffleGridAxisDataY {
     x: number
 }
 
-export type WaffleGridLayerId = 'grid' | 'axes' | 'cells' | 'legends'
+export type WaffleGridLayerId = 'grid' | 'axes' | 'cells'
 
 export interface WaffleGridCustomLayerProps {
     blankCells: WaffleGridCellData[]

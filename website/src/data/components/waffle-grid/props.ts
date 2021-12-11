@@ -37,24 +37,6 @@ const props: ChartProperty[] = [
         help: 'Y range.',
         flavors: ['svg'],
     },
-    /*
-    {
-        key: 'valueFormat',
-        group: 'Base',
-        type: 'string | (value: number) => string',
-        required: false,
-        help: 'Optional formatter for values (`y`).',
-        description: `
-            The formatted value can then be used for labels & tooltips.
-
-            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
-            please have a look at it for available formats, you can also pass a function
-            which will receive the raw value and should return the formatted one.
-        `,
-        flavors: ['svg'],
-        controlType: 'valueFormat',
-    },
-    */
     {
         key: 'width',
         group: 'Base',
@@ -241,39 +223,6 @@ const props: ChartProperty[] = [
         required: false,
         help: 'onMouseLeave handler.',
         flavors: ['svg'],
-    },
-    {
-        key: 'legends',
-        group: 'Legends',
-        type: 'LegendProps[]',
-        required: false,
-        help: `Optional chart's legends.`,
-        flavors: ['svg'],
-        controlType: 'array',
-        controlOptions: {
-            props: getLegendsProps(['svg']),
-            shouldCreate: true,
-            addLabel: 'add legend',
-            shouldRemove: true,
-            getItemTitle: (index, legend) =>
-                `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
-            svgDefaultProps: {
-                dataFrom: 'keys',
-                anchor: 'top-left',
-                direction: 'column',
-                justify: false,
-                translateX: 0,
-                translateY: 0,
-                itemWidth: 100,
-                itemHeight: 20,
-                itemsSpacing: 0,
-                symbolSize: 20,
-                itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
-                },
-            },
-        },
     },
     */
     {
