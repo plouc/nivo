@@ -65,11 +65,12 @@ export type WaffleGridCommonProps = {
     maxValue: 'auto' | number
     margin: Box
     spacing: number
+    cellSpacing: number
     enableBlankCells: boolean
 
     theme: Theme
-    blankCellColor: InheritedColorConfig<WaffleGridCellData>
-    valueCellColor: InheritedColorConfig<WaffleGridCellData>
+    blankCellColor: InheritedColorConfig<Omit<WaffleGridCellData, 'color'>>
+    valueCellColor: InheritedColorConfig<Omit<WaffleGridCellData, 'color'>>
 
     enableGridX: boolean
     enableGridY: boolean
@@ -88,12 +89,21 @@ export type WaffleGridCommonProps = {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
+export interface WaffleGridCellsMotion {
+    config: SpringConfigPresetName | SpringConfig
+    staggeredDelay: number
+    positionOffsetIn: [number, number]
+    randomizePositionOffsetIn: boolean
+    positionOffsetOut: [number, number]
+    randomizePositionOffsetOut: boolean
+}
+
+export type WaffleGridMotionProps = ModernMotionProps & {
+    blankCellsMotion: Partial<WaffleGridCellsMotion>
+    valueCellsMotion: Partial<WaffleGridCellsMotion>
+}
+
 export type WaffleGridSvgProps = Partial<WaffleGridCommonProps> &
     WaffleGridDataProps &
     Dimensions &
-    ModernMotionProps & {
-        blankCellsMotionConfig?: SpringConfigPresetName | SpringConfig
-        blankCellsStaggeredDelay?: number
-        valueCellsMotionConfig?: SpringConfigPresetName | SpringConfig
-        valueCellsStaggeredDelay?: number
-    }
+    Partial<WaffleGridMotionProps>

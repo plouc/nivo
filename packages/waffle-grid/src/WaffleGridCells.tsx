@@ -1,44 +1,92 @@
-import { WaffleGridCellData, WaffleGridCellComponent, WaffleGridSvgProps } from './types'
-import { WaffleGridBlankCells } from './WaffleGridBlankCells'
-import { WaffleGridValueCells } from './WaffleGridValueCells'
+import { createElement, useMemo } from 'react'
+import { useTransition } from '@react-spring/web'
+import { useMotionConfig, useSpringConfig } from '@nivo/core'
+import { WaffleGridCellData, WaffleGridCellComponent, WaffleGridCellsMotion } from './types'
+import { svgDefaultProps } from './defaults'
+
+type WaffleGridCellsProps = {
+    cells: WaffleGridCellData[]
+    cellComponent: WaffleGridCellComponent
+} & Partial<WaffleGridCellsMotion>
 
 export const WaffleGridCells = ({
-    enableBlankCells,
-    blankCells,
-    blankCellComponent,
-    blankCellsMotionConfig,
-    blankCellsStaggeredDelay,
-    valueCells,
-    valueCellComponent,
-    valueCellsMotionConfig,
-    valueCellsStaggeredDelay,
-}: {
-    enableBlankCells: boolean
-    blankCells: WaffleGridCellData[]
-    blankCellComponent: WaffleGridCellComponent
-    blankCellsMotionConfig: WaffleGridSvgProps['blankCellsMotionConfig']
-    blankCellsStaggeredDelay: number
-    valueCells: WaffleGridCellData[]
-    valueCellComponent: WaffleGridCellComponent
-    valueCellsMotionConfig: WaffleGridSvgProps['valueCellsMotionConfig']
-    valueCellsStaggeredDelay: number
-}) => {
+    cells,
+    cellComponent,
+    config: motionConfig,
+    staggeredDelay = svgDefaultProps.cellsMotionStaggeredDelay,
+    positionOffsetIn = svgDefaultProps.cellsMotionPositionOffsetIn,
+    randomizePositionOffsetIn = svgDefaultProps.cellsMotionRandomizePositionOffsetIn,
+    positionOffsetOut = svgDefaultProps.cellsMotionPositionOffsetOut,
+    randomizePositionOffsetOut = svgDefaultProps.cellsMotionRandomizePositionOffsetOut,
+}: WaffleGridCellsProps) => {
+    const { animate, config: defaultSpringConfig } = useMotionConfig()
+    const springConfig = useSpringConfig(motionConfig || defaultSpringConfig)
+
+    const transitionIn = useMemo(() => {
+        const getOffset = getOffsetFunction(randomizePositionOffsetIn)
+
+        return (cell: WaffleGridCellData) => ({
+            x: cell.x + cell.size / 2 + getOffset(positionOffsetIn[0]),
+            y: cell.y + cell.size / 2 + getOffset(positionOffsetIn[1]),
+            radius: cell.size / 2,
+            color: cell.color,
+            opacity: 0,
+        })
+    }, [positionOffsetIn, randomizePositionOffsetIn])
+
+    const transitionOut = useMemo(() => {
+        const getOffset = getOffsetFunction(randomizePositionOffsetOut)
+
+        return (cell: WaffleGridCellData) => ({
+            x: cell.x + cell.size / 2 + getOffset(positionOffsetOut[0]),
+            y: cell.y + cell.size / 2 + getOffset(positionOffsetOut[1]),
+            radius: cell.size / 2,
+            color: cell.color,
+            opacity: 0,
+        })
+    }, [positionOffsetIn, randomizePositionOffsetOut])
+
+    const transitions = useTransition<
+        WaffleGridCellData,
+        {
+            x: number
+            y: number
+            radius: number
+            color: string
+            opacity: number
+        }
+    >(cells, {
+        keys: cell => cell.index,
+        from: transitionIn,
+        enter: finalTransition,
+        update: finalTransition,
+        leave: transitionOut,
+        trail: animate ? staggeredDelay : undefined,
+        config: springConfig,
+        immediate: !animate,
+    })
+
     return (
-        <g>
-            {enableBlankCells && (
-                <WaffleGridBlankCells
-                    cells={blankCells}
-                    cellComponent={blankCellComponent}
-                    motionConfig={blankCellsMotionConfig}
-                    staggeredDelay={blankCellsStaggeredDelay}
-                />
+        <>
+            {transitions((style, cell) =>
+                createElement(cellComponent, {
+                    cell,
+                    style,
+                })
             )}
-            <WaffleGridValueCells
-                cells={valueCells}
-                cellComponent={valueCellComponent}
-                motionConfig={valueCellsMotionConfig}
-                staggeredDelay={valueCellsStaggeredDelay}
-            />
-        </g>
+        </>
     )
 }
+
+const getOffsetFunction = (randomize: boolean) => {
+    if (!randomize) return (offset: number) => offset
+    return (offset: number) => Math.random() * offset
+}
+
+const finalTransition = (cell: WaffleGridCellData) => ({
+    x: cell.x + cell.size / 2,
+    y: cell.y + cell.size / 2,
+    radius: cell.size / 2,
+    color: cell.color,
+    opacity: 1,
+})

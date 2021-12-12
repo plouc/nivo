@@ -5,6 +5,7 @@ import { WaffleGridCell } from './WaffleGridCell'
 export const commonDefaultProps = {
     maxValue: 'auto' as const,
     spacing: 6,
+    cellSpacing: 1,
     enableBlankCells: true,
 
     blankCellColor: { theme: 'grid.line.stroke' },
@@ -26,6 +27,9 @@ export const svgDefaultProps = {
     motionConfig: 'gentle' as const,
     blankCellComponent: WaffleGridCell,
     valueCellComponent: WaffleGridCell,
-    blankCellsStaggeredDelay: 2,
-    valueCellsStaggeredDelay: 2,
+    cellsMotionStaggeredDelay: 2,
+    cellsMotionPositionOffsetIn: [0, 0] as [number, number],
+    cellsMotionRandomizePositionOffsetIn: false,
+    cellsMotionPositionOffsetOut: [0, 0] as [number, number],
+    cellsMotionRandomizePositionOffsetOut: false,
 }

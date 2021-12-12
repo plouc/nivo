@@ -1,6 +1,6 @@
 import { ReactNode, Fragment, createElement, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { WaffleGridCells } from './WaffleGridCells'
+import { WaffleGridAllCells } from './WaffleGridAllCells'
 import { WaffleGridAxes } from './WaffleGridAxes'
 import { WaffleGridGrid } from './WaffleGridGrid'
 import { WaffleGridSvgProps, WaffleGridLayerId, WaffleGridCustomLayerProps } from './types'
@@ -21,6 +21,7 @@ export const InnerWaffleGrid = ({
     cellValue,
     maxValue = svgDefaultProps.maxValue,
     spacing = svgDefaultProps.spacing,
+    cellSpacing = svgDefaultProps.cellSpacing,
     margin: partialMargin,
     enableBlankCells = svgDefaultProps.enableBlankCells,
     blankCellColor = svgDefaultProps.blankCellColor,
@@ -29,11 +30,9 @@ export const InnerWaffleGrid = ({
     enableGridY = svgDefaultProps.enableGridY,
     layers = svgDefaultProps.layers,
     blankCellComponent = svgDefaultProps.blankCellComponent,
+    blankCellsMotion = {},
     valueCellComponent = svgDefaultProps.valueCellComponent,
-    blankCellsMotionConfig,
-    blankCellsStaggeredDelay = svgDefaultProps.blankCellsStaggeredDelay,
-    valueCellsMotionConfig,
-    valueCellsStaggeredDelay = svgDefaultProps.valueCellsStaggeredDelay,
+    valueCellsMotion = {},
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -54,6 +53,7 @@ export const InnerWaffleGrid = ({
         cellValue,
         maxValue,
         spacing,
+        cellSpacing,
         blankCellColor,
         valueCellColor,
     })
@@ -82,17 +82,15 @@ export const InnerWaffleGrid = ({
 
     if (layers.includes('cells')) {
         layerById.cells = (
-            <WaffleGridCells
+            <WaffleGridAllCells
                 key="cells"
                 enableBlankCells={enableBlankCells}
                 blankCells={blankCells}
                 blankCellComponent={blankCellComponent}
-                blankCellsMotionConfig={blankCellsMotionConfig}
-                blankCellsStaggeredDelay={blankCellsStaggeredDelay}
+                blankCellsMotion={blankCellsMotion}
                 valueCells={valueCells}
                 valueCellComponent={valueCellComponent}
-                valueCellsMotionConfig={valueCellsMotionConfig}
-                valueCellsStaggeredDelay={valueCellsStaggeredDelay}
+                valueCellsMotion={valueCellsMotion}
             />
         )
     }
@@ -115,6 +113,13 @@ export const InnerWaffleGrid = ({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
         >
+            <rect
+                x={yAxis.x1}
+                y={xAxis.y1}
+                width={yAxis.x2 - yAxis.x1}
+                height={xAxis.y2 - xAxis.y1}
+                fill="#ff000011"
+            />
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
