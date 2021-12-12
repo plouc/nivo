@@ -23,7 +23,7 @@ export const demographicsRanges = {
     },
     gender: {
         id: 'Gender',
-        keys: ['Man', 'Woman', 'Non-Binary or GNC', 'Not Listed'],
+        keys: ['Man', 'Woman', 'Non-Binary or GNC', 'Other'],
     },
     raceAndEthnicity: {
         id: 'Race & Ethnicity',
@@ -35,19 +35,19 @@ export const demographicsRanges = {
             'South East Asian',
             'Middle Eastern',
             'South Asian',
-            'Not Listed',
             'Black or of African descent',
             'Native American, Pacific Islander, or Indigenous Australian',
+            'Other',
         ],
     },
     disabilityStatus: {
         id: 'Disability Status',
         keys: [
-            'Not Listed',
             'Cognitive impairments',
             'Visual impairments',
             'Hearing impairments',
             'Mobility impairments',
+            'Other',
         ],
     },
 }

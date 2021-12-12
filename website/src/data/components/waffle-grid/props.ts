@@ -1,11 +1,129 @@
 import { svgDefaultProps } from '@nivo/waffle-grid'
 import {
-    themeProperty,
-    motionProperties,
     groupProperties,
     motionConfigProperty,
+    motionProperties,
+    themeProperty,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    ApiFlavor,
+    ChartProperty,
+    ObjectChartProperty,
+    SvgFlavor,
+    SwitchableRangeProperty,
+} from '../../../types'
+import { dimensionsProps, marginProp } from '../../../lib/component-properties/dimensions'
+import { booleanProp } from '../../../lib/component-properties/boolean'
+import { numberWithRangeProp } from '../../../lib/component-properties/range'
+import { isInteractiveProp } from '../../../lib/component-properties/interactivity'
+import { a11yCommonProps } from '../../../lib/component-properties/a11y'
+
+const cellsMotionProperty = (key: string): ObjectChartProperty => ({
+    key,
+    flavors: [SvgFlavor],
+    help: `${key} configuration.`,
+    type: 'object',
+    required: false,
+    group: 'Motion',
+    controlType: 'object',
+    controlOptions: {
+        props: [
+            motionConfigProperty(
+                'config',
+                [SvgFlavor],
+                undefined,
+                'Optional motion config override for cells, use global `motionConfig` if unspecified.'
+            ),
+            {
+                key: 'staggeredDelay',
+                type: 'number',
+                required: false,
+                help:
+                    'Control the delay between each value cell transition to achieve staggered transitions.',
+                flavors: [SvgFlavor],
+                defaultValue: svgDefaultProps.valueCellsStaggeredDelay,
+                controlType: 'range',
+                controlOptions: {
+                    min: 0,
+                    max: 20,
+                    unit: 'ms',
+                },
+            },
+            {
+                key: 'positionOffsetIn',
+                type: '[number, number]',
+                help: 'x/y offset when cells enter the chart.',
+                flavors: [SvgFlavor],
+                required: false,
+                defaultValue: svgDefaultProps.valueCellsPositionOffsetIn,
+                controlType: 'numberArray',
+                controlOptions: {
+                    unit: 'px',
+                    items: [
+                        {
+                            label: 'x',
+                            min: -400,
+                            max: 400,
+                            step: 10,
+                        },
+                        {
+                            label: 'y',
+                            min: -400,
+                            max: 400,
+                            step: 10,
+                        },
+                    ],
+                },
+            },
+            {
+                key: 'randomizePositionOffsetIn',
+                type: 'boolean',
+                help:
+                    'Randomize x/y offset when cells enter the chart, according to `positionOffsetIn`.',
+                flavors: [SvgFlavor],
+                required: false,
+                defaultValue: svgDefaultProps.valueCellsRandomizePositionOffsetIn,
+                controlType: 'switch',
+            },
+            {
+                key: 'positionOffsetOut',
+                type: '[number, number]',
+                help: 'x/y offset when cells leave the chart.',
+                flavors: [SvgFlavor],
+                required: false,
+                defaultValue: svgDefaultProps.valueCellsPositionOffsetOut,
+                controlType: 'numberArray',
+                controlOptions: {
+                    unit: 'px',
+                    items: [
+                        {
+                            label: 'x',
+                            min: -400,
+                            max: 400,
+                            step: 10,
+                        },
+                        {
+                            label: 'y',
+                            min: -400,
+                            max: 400,
+                            step: 10,
+                        },
+                    ],
+                },
+            },
+            {
+                key: 'randomizePositionOffsetOut',
+                type: 'boolean',
+                help:
+                    'Randomize x/y offset when cells leave the chart, according to `positionOffsetOut`.',
+                flavors: [SvgFlavor],
+                required: false,
+                defaultValue: svgDefaultProps.valueCellsRandomizePositionOffsetOut,
+                controlType: 'switch',
+            },
+        ],
+    },
+})
 
 const props: ChartProperty[] = [
     {
@@ -19,7 +137,7 @@ const props: ChartProperty[] = [
             of \`yRange\` and each row number of columns should match
             the length of \`xRange\`.
         `,
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
     },
     {
         key: 'xRange',
@@ -27,7 +145,7 @@ const props: ChartProperty[] = [
         type: 'string[]',
         required: true,
         help: 'X range.',
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
     },
     {
         key: 'yRange',
@@ -35,23 +153,19 @@ const props: ChartProperty[] = [
         type: 'string[]',
         required: true,
         help: 'Y range.',
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
     },
-    {
+    numberWithRangeProp({
         key: 'cellValue',
         group: 'Base',
-        type: 'number',
         required: true,
         help: 'Define the value each cell represents.',
-        flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
-            min: 500,
-            max: 2000,
-            step: 100,
-            unit: 'px',
-        },
-    },
+        flavors: [SvgFlavor],
+        min: 500,
+        max: 2000,
+        step: 100,
+        unit: 'px',
+    }),
     {
         key: 'maxValue',
         help: 'Maximum value.',
@@ -72,89 +186,47 @@ const props: ChartProperty[] = [
             min: 10000,
             max: 100000,
         },
-    },
-    {
-        key: 'width',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveRadialBar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveRadialBar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        flavors: ['svg'],
-        controlType: 'margin',
-    },
-    {
+    } as SwitchableRangeProperty,
+    ...dimensionsProps([SvgFlavor, ApiFlavor]),
+    marginProp([SvgFlavor]),
+    booleanProp({
         key: 'enableBlankCells',
         group: 'Base',
-        type: 'boolean',
         required: false,
         help: 'Enable/disable blank cells.',
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
         defaultValue: svgDefaultProps.enableBlankCells,
-        controlType: 'switch',
-    },
-    {
+    }),
+    numberWithRangeProp({
         key: 'spacing',
         group: 'Base',
-        type: 'number',
         required: false,
         help: 'Spacing between each waffle.',
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
         defaultValue: svgDefaultProps.spacing,
-        controlType: 'range',
-        controlOptions: {
-            min: 0,
-            max: 36,
-            unit: 'px',
-        },
-    },
-    themeProperty(['svg']),
+        min: 0,
+        max: 36,
+        unit: 'px',
+    }),
+    numberWithRangeProp({
+        key: 'cellSpacing',
+        group: 'Base',
+        required: false,
+        help: 'Spacing between each cell.',
+        flavors: [SvgFlavor],
+        defaultValue: svgDefaultProps.cellSpacing,
+        min: 0,
+        max: 4,
+        unit: 'px',
+    }),
+    themeProperty([SvgFlavor]),
     {
         key: 'blankCellColor',
         group: 'Style',
         help: 'Defines how to compute blank cells color.',
         type: 'InheritedColorConfig<WaffleGridCellData>',
         required: false,
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
         defaultValue: svgDefaultProps.blankCellColor,
         controlType: 'inheritedColor',
     },
@@ -164,7 +236,7 @@ const props: ChartProperty[] = [
         help: 'Defines how to compute value cells color.',
         type: 'InheritedColorConfig<WaffleGridCellData>',
         required: false,
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
         defaultValue: svgDefaultProps.valueCellColor,
         controlType: 'inheritedColor',
     },
@@ -182,112 +254,30 @@ const props: ChartProperty[] = [
             the \`WaffleGridCustomLayerProps\` interface
             and must return a valid SVG element.
         `,
-        flavors: ['svg'],
+        flavors: [SvgFlavor],
         defaultValue: svgDefaultProps.layers,
     },
-    {
+    booleanProp({
         key: 'enableGridX',
         group: 'Grid & Axes',
+        flavors: [SvgFlavor],
         help: 'Enable/disable x grid.',
-        type: 'boolean',
         required: false,
         defaultValue: svgDefaultProps.enableGridX,
-        controlType: 'switch',
-    },
-    {
+    }),
+    booleanProp({
         key: 'enableGridY',
         group: 'Grid & Axes',
+        flavors: [SvgFlavor],
         help: 'Enable/disable y grid.',
-        type: 'boolean',
         required: false,
         defaultValue: svgDefaultProps.enableGridY,
-        controlType: 'switch',
-    },
-    {
-        key: 'isInteractive',
-        group: 'Interactivity',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable interactivity.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.isInteractive,
-        controlType: 'switch',
-    },
-    {
-        key: 'role',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element role attribute.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaLabel',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaLabelledBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaDescribedBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        flavors: ['svg'],
-    },
-    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
-    motionConfigProperty(
-        'blankCellsMotionConfig',
-        ['svg'],
-        undefined,
-        'Optional motion config override for blank cells, use global `motionConfig` if unspecified.'
-    ),
-    {
-        key: 'blankCellsStaggeredDelay',
-        group: 'Motion',
-        type: 'number',
-        required: false,
-        help: 'Control the delay between each blank cell transition.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.blankCellsStaggeredDelay,
-        controlType: 'range',
-        controlOptions: {
-            min: 0,
-            max: 20,
-            unit: 'ms',
-        },
-    },
-    motionConfigProperty(
-        'valueCellsMotionConfig',
-        ['svg'],
-        undefined,
-        'Optional motion config override for value cells, use global `motionConfig` if unspecified.'
-    ),
-    {
-        key: 'valueCellsStaggeredDelay',
-        group: 'Motion',
-        type: 'number',
-        required: false,
-        help: 'Control the delay between each value cell transition.',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.valueCellsStaggeredDelay,
-        controlType: 'range',
-        controlOptions: {
-            min: 0,
-            max: 20,
-            unit: 'ms',
-        },
-    },
+    }),
+    isInteractiveProp([SvgFlavor], svgDefaultProps.isInteractive),
+    ...a11yCommonProps([SvgFlavor]),
+    ...motionProperties([SvgFlavor], svgDefaultProps, 'react-spring'),
+    cellsMotionProperty('blankCellsMotion'),
+    cellsMotionProperty('valueCellsMotion'),
 ]
 
 export const groups = groupProperties(props)

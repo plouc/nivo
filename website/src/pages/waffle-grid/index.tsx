@@ -13,10 +13,11 @@ type MappedWaffleGridProps = Omit<
 type UnmappedWaffleGridProps = MappedWaffleGridProps
 
 const initialProperties: UnmappedWaffleGridProps = {
-    cellValue: 1000,
+    cellValue: 2000, // 1000,
     maxValue: svgDefaultProps.maxValue,
     enableBlankCells: svgDefaultProps.enableBlankCells,
-    spacing: 16,
+    spacing: 10,
+    cellSpacing: svgDefaultProps.cellSpacing,
 
     blankCellColor: svgDefaultProps.blankCellColor,
     valueCellColor: svgDefaultProps.valueCellColor,
@@ -26,17 +27,38 @@ const initialProperties: UnmappedWaffleGridProps = {
 
     margin: {
         top: 20,
-        right: 20,
+        right: 100,
         bottom: 100,
         left: 100,
     },
 
+    /*
+    margin: {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
+    },
+     */
+
     animate: svgDefaultProps.animate,
     motionConfig: 'gentle',
-    blankCellsMotionConfig: 'stiff',
-    blankCellsStaggeredDelay: svgDefaultProps.blankCellsStaggeredDelay,
-    valueCellsMotionConfig: 'gentle',
-    valueCellsStaggeredDelay: svgDefaultProps.valueCellsStaggeredDelay,
+    blankCellsMotion: {
+        config: 'stiff',
+        staggeredDelay: svgDefaultProps.cellsMotionStaggeredDelay,
+        positionOffsetIn: [0, 0],
+        randomizePositionOffsetIn: false,
+        positionOffsetOut: [0, 0],
+        randomizePositionOffsetOut: false,
+    },
+    valueCellsMotion: {
+        config: 'gentle',
+        staggeredDelay: svgDefaultProps.cellsMotionStaggeredDelay,
+        positionOffsetIn: [-200, -200],
+        randomizePositionOffsetIn: true,
+        positionOffsetOut: [200, 200],
+        randomizePositionOffsetOut: true,
+    },
 
     isInteractive: svgDefaultProps.isInteractive,
 }

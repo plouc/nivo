@@ -13,6 +13,8 @@ WaffleGrid:
   description: |
     This chart shows each value using a small waffle chart,
     meaning each value has its own waffle chart.
+    This is a fancy alternative to an heatmap, rather than color
+    coding, the number of *value cells* represents the value.
 
     You should be careful with the number of cells you end up with,
     the chart will become janky if you have too many cells,

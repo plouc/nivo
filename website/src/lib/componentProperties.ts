@@ -2,9 +2,9 @@ import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
 import { config } from '@react-spring/web'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
-import { Flavor, ChartProperty } from '../types'
+import { Flavor, ChartProperty, BaseChartProperty } from '../types'
 
-export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
+export const themeProperty = (flavors: Flavor[]): BaseChartProperty => ({
     key: 'theme',
     group: 'Style',
     type: 'Theme',

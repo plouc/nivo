@@ -1,4 +1,8 @@
-export type Flavor = 'svg' | 'html' | 'canvas' | 'api'
+export const SvgFlavor = 'svg'
+export const HtmlFlavor = 'html'
+export const CanvasFlavor = 'canvas'
+export const ApiFlavor = 'api'
+export type Flavor = typeof SvgFlavor | typeof HtmlFlavor | typeof CanvasFlavor | typeof ApiFlavor
 
 export interface ChartMeta {
     package: string
