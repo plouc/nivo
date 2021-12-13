@@ -13,6 +13,10 @@ export const commonDefaultProps = {
 
     enableGridX: true,
     enableGridY: true,
+    axisTop: null,
+    axisRight: null,
+    axisBottom: {},
+    axisLeft: {},
 
     layers: ['grid', 'axes', 'cells'] as WaffleGridLayerId[],
 

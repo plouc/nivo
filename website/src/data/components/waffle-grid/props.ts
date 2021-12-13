@@ -1,5 +1,6 @@
 import { svgDefaultProps } from '@nivo/waffle-grid'
 import {
+    axesProperties,
     groupProperties,
     motionConfigProperty,
     motionProperties,
@@ -82,7 +83,7 @@ const cellsMotionProperty = (key: string): ObjectChartProperty => ({
                     'Randomize x/y offset when cells enter the chart, according to `positionOffsetIn`.',
                 flavors: [SvgFlavor],
                 required: false,
-                defaultValue: svgDefaultProps.valueCellsRandomizePositionOffsetIn,
+                defaultValue: svgDefaultProps.cellsMotionRandomizePositionOffsetIn,
                 controlType: 'switch',
             },
             {
@@ -91,7 +92,7 @@ const cellsMotionProperty = (key: string): ObjectChartProperty => ({
                 help: 'x/y offset when cells leave the chart.',
                 flavors: [SvgFlavor],
                 required: false,
-                defaultValue: svgDefaultProps.valueCellsPositionOffsetOut,
+                defaultValue: svgDefaultProps.cellsMotionPositionOffsetOut,
                 controlType: 'numberArray',
                 controlOptions: {
                     unit: 'px',
@@ -118,7 +119,7 @@ const cellsMotionProperty = (key: string): ObjectChartProperty => ({
                     'Randomize x/y offset when cells leave the chart, according to `positionOffsetOut`.',
                 flavors: [SvgFlavor],
                 required: false,
-                defaultValue: svgDefaultProps.valueCellsRandomizePositionOffsetOut,
+                defaultValue: svgDefaultProps.cellsMotionRandomizePositionOffsetOut,
                 controlType: 'switch',
             },
         ],
@@ -273,6 +274,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.enableGridY,
     }),
+    ...axesProperties([SvgFlavor]),
     isInteractiveProp([SvgFlavor], svgDefaultProps.isInteractive),
     ...a11yCommonProps([SvgFlavor]),
     ...motionProperties([SvgFlavor], svgDefaultProps, 'react-spring'),

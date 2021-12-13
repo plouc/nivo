@@ -1,7 +1,10 @@
 import { FunctionComponent, AriaAttributes } from 'react'
 import { SpringConfig, SpringValues } from '@react-spring/web'
 import { Theme, Dimensions, Box, ModernMotionProps, SpringConfigPresetName } from '@nivo/core'
+import { AxisProps, CanvasAxisProp, GridValues } from '@nivo/axes'
+import { ScaleBand } from '@nivo/scales'
 import { InheritedColorConfig } from '@nivo/colors'
+import { BarCanvasLayer, RenderBarProps } from '@nivo/bar'
 
 export interface WaffleGridDataProps {
     data: number[][]
@@ -43,11 +46,13 @@ export interface WaffleGridAxisTickY {
     height: number
 }
 export interface WaffleGridAxisDataX {
+    scale: ScaleBand<string>
     ticks: WaffleGridAxisTickX[]
     y1: number
     y2: number
 }
 export interface WaffleGridAxisDataY {
+    scale: ScaleBand<string>
     ticks: WaffleGridAxisTickY[]
     x1: number
     x2: number
@@ -106,4 +111,10 @@ export type WaffleGridMotionProps = ModernMotionProps & {
 export type WaffleGridSvgProps = Partial<WaffleGridCommonProps> &
     WaffleGridDataProps &
     Dimensions &
+    Partial<{
+        axisBottom: AxisProps
+        axisLeft: AxisProps
+        axisRight: AxisProps
+        axisTop: AxisProps
+    }> &
     Partial<WaffleGridMotionProps>

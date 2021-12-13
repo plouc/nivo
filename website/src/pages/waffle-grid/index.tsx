@@ -3,7 +3,7 @@ import { randomDemographicMatrix } from '@nivo/generators'
 import { ResponsiveWaffleGrid, WaffleGridSvgProps, svgDefaultProps } from '@nivo/waffle-grid'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle-grid/meta.yml'
-import mapper from '../../data/components/radial-bar/mapper'
+import mapper from '../../data/components/waffle-grid/mapper'
 import { groups } from '../../data/components/waffle-grid/props'
 
 type MappedWaffleGridProps = Omit<
@@ -24,6 +24,40 @@ const initialProperties: UnmappedWaffleGridProps = {
 
     enableGridX: svgDefaultProps.enableGridX,
     enableGridY: svgDefaultProps.enableGridY,
+    axisTop: {
+        enable: false,
+        tickSize: 0,
+        tickPadding: 10,
+        tickRotation: 0,
+        legend: 'X dimension',
+        legendOffset: 36,
+    },
+    axisRight: {
+        enable: false,
+        tickSize: 0,
+        tickPadding: 10,
+        tickRotation: 0,
+        legend: 'Y dimension',
+        legendOffset: 0,
+    },
+    axisBottom: {
+        enable: true,
+        tickSize: 0,
+        tickPadding: 10,
+        tickRotation: -90,
+        legend: 'X dimension',
+        legendPosition: 'middle',
+        legendOffset: 80,
+    },
+    axisLeft: {
+        enable: true,
+        tickSize: 0,
+        tickPadding: 10,
+        tickRotation: 0,
+        legend: 'Y dimension',
+        legendPosition: 'middle',
+        legendOffset: -80,
+    },
 
     margin: {
         top: 20,

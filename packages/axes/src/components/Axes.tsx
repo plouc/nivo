@@ -8,6 +8,8 @@ export const Axes = memo(
     <X extends ScaleValue, Y extends ScaleValue>({
         xScale,
         yScale,
+        x = 0,
+        y = 0,
         width,
         height,
         top,
@@ -17,6 +19,8 @@ export const Axes = memo(
     }: {
         xScale: AnyScale
         yScale: AnyScale
+        x?: number
+        y?: number
         width: number
         height: number
         top?: AxisProps<X> | null
@@ -44,8 +48,8 @@ export const Axes = memo(
                             key={position}
                             {...axis}
                             axis={isXAxis ? 'x' : 'y'}
-                            x={position === 'right' ? width : 0}
-                            y={position === 'bottom' ? height : 0}
+                            x={position === 'right' ? x + width : x}
+                            y={position === 'bottom' ? y + height : y}
                             scale={isXAxis ? xScale : yScale}
                             length={isXAxis ? width : height}
                             ticksPosition={ticksPosition}

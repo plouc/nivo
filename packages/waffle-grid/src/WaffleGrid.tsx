@@ -1,7 +1,7 @@
 import { ReactNode, Fragment, createElement, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { Axes } from '@nivo/axes'
 import { WaffleGridAllCells } from './WaffleGridAllCells'
-import { WaffleGridAxes } from './WaffleGridAxes'
 import { WaffleGridGrid } from './WaffleGridGrid'
 import { WaffleGridSvgProps, WaffleGridLayerId, WaffleGridCustomLayerProps } from './types'
 import { svgDefaultProps } from './defaults'
@@ -28,6 +28,10 @@ export const InnerWaffleGrid = ({
     valueCellColor = svgDefaultProps.valueCellColor,
     enableGridX = svgDefaultProps.enableGridX,
     enableGridY = svgDefaultProps.enableGridY,
+    axisTop,
+    axisRight,
+    axisBottom,
+    axisLeft,
     layers = svgDefaultProps.layers,
     blankCellComponent = svgDefaultProps.blankCellComponent,
     blankCellsMotion = {},
@@ -77,7 +81,22 @@ export const InnerWaffleGrid = ({
     }
 
     if (layers.includes('axes')) {
-        layerById.axes = <WaffleGridAxes key="axes" xAxis={xAxis} yAxis={yAxis} />
+        // layerById.axes = <WaffleGridAxes key="axes" xAxis={xAxis} yAxis={yAxis} />
+        layerById.axes = (
+            <Axes
+                key="axes"
+                xScale={xAxis.scale}
+                yScale={yAxis.scale}
+                x={yAxis.x1}
+                y={xAxis.y1}
+                width={yAxis.x2 - yAxis.x1}
+                height={xAxis.y2 - xAxis.y1}
+                top={axisTop}
+                right={axisRight}
+                bottom={axisBottom}
+                left={axisLeft}
+            />
+        )
     }
 
     if (layers.includes('cells')) {
