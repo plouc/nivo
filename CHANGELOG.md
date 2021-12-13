@@ -1,5 +1,25 @@
+<a name="v0.74.1"></a>
+## v0.74.1 (2021-12-13)
+
+
+#### Features
+
+* **defs:**  allow gradientTransform to be passed to gradient definitions, fixes #1098 (#1812) ([76062b53](https://github.com/plouc/nivo/commit/76062b534db9bf46208661cf05c7b549ec797cce))
+* **radar:**  add support for patterns and gradients (#1807) ([0b3bdb0b](https://github.com/plouc/nivo/commit/0b3bdb0bc8bca177851d876446f79754026fcdb6))
+* **radial-bar:**  update website package as it is now published ([2757063c](https://github.com/plouc/nivo/commit/2757063c4dbcf64f4390d4490b4e2501331eeb15))
+
+#### Bug Fixes
+
+* **radial-bar:**  remove unnecessary console log ([dd72cd41](https://github.com/plouc/nivo/commit/dd72cd4167d9456a461040007beae6eca4970c95))
+
+#### Chore
+
+*   update @react-spring/web to 9.3.1 ([d43dfea1](https://github.com/plouc/nivo/commit/d43dfea179be1a1a3c9da71eb13ea2dbcd744ee7))
+
+
+
 <a name="v0.74.0"></a>
-## v0.74.0 (2021-10-09)
+## v0.74.0 (%cs)
 
 
 #### Features
