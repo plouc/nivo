@@ -163,6 +163,10 @@ capture:
       #   selector: '#chart'
       #   output: ./packages/marimekko/doc/marimekko.png
 
+      - path: /waffle-grid
+        selector: '#chart'
+        output: ./packages/waffle-grid/doc/waffle-grid.png
+
       #########################################################################
       #
       #  ICONS
@@ -534,15 +538,28 @@ capture:
       #   selector: '#time-range-darkColored'
       #   output: ./website/src/assets/icons/time-range-dark-colored.png
 
-      - path: /internal/icons/
-        selector: '#radial-bar-lightNeutral'
-        output: ./website/src/assets/icons/radial-bar-light-neutral.png
-      - path: /internal/icons/
-        selector: '#radial-bar-lightColored'
-        output: ./website/src/assets/icons/radial-bar-light-colored.png
-      - path: /internal/icons/
-        selector: '#radial-bar-darkNeutral'
-        output: ./website/src/assets/icons/radial-bar-dark-neutral.png
-      - path: /internal/icons/
-        selector: '#radial-bar-darkColored'
-        output: ./website/src/assets/icons/radial-bar-dark-colored.png
+      # - path: /internal/icons/
+      #   selector: '#radial-bar-lightNeutral'
+      #   output: ./website/src/assets/icons/radial-bar-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#radial-bar-lightColored'
+      #   output: ./website/src/assets/icons/radial-bar-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#radial-bar-darkNeutral'
+      #   output: ./website/src/assets/icons/radial-bar-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#radial-bar-darkColored'
+      #   output: ./website/src/assets/icons/radial-bar-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#waffle-grid-lightNeutral'
+      #   output: ./website/src/assets/icons/waffle-grid-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#waffle-grid-lightColored'
+      #   output: ./website/src/assets/icons/waffle-grid-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#waffle-grid-darkNeutral'
+      #   output: ./website/src/assets/icons/waffle-grid-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#waffle-grid-darkColored'
+      #   output: ./website/src/assets/icons/waffle-grid-dark-colored.png

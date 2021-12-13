@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Interpolation, SpringConfig } from '@react-spring/web'
+import { Interpolation, SpringConfig, config as springConfig } from '@react-spring/web'
 import { CurveFactory } from 'd3-shape'
 import { ComponentType } from 'react'
 
@@ -193,6 +193,8 @@ declare module '@nivo/core' {
         motionConfig: string | SpringConfig
     }>
 
+    export type SpringConfigPresetName = keyof typeof springConfig
+    export function useSpringConfig(config: SpringConfigPresetName | SpringConfig): SpringConfig
     export function useMotionConfig(): {
         animate: boolean
         config: SpringConfig

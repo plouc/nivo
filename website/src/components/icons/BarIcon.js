@@ -29,6 +29,7 @@ const chartProps = {
         { id: '4', A: 5, B: 3, C: 2 },
     ],
     isInteractive: false,
+    animate: false,
 }
 
 const BarIconItem = ({ type }) => (

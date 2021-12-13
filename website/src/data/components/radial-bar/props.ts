@@ -7,7 +7,10 @@ import {
     getLegendsProps,
     polarAxisProperty,
 } from '../../../lib/componentProperties'
+import { dimensionsProps, marginProp } from '../../../lib/component-properties/dimensions'
 import { ChartProperty } from '../../../types'
+import { a11yCommonProps } from '../../../lib/component-properties/a11y'
+import { booleanProp } from '../../../lib/component-properties/boolean'
 
 const props: ChartProperty[] = [
     {
@@ -96,55 +99,8 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         controlType: 'valueFormat',
     },
-    {
-        key: 'width',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveRadialBar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveRadialBar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        flavors: ['svg'],
-        controlType: 'margin',
-    },
+    ...dimensionsProps(['svg', 'api']),
+    marginProp(['svg', 'api']),
     {
         key: 'startAngle',
         group: 'Base',
@@ -420,16 +376,14 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
     },
-    {
+    booleanProp({
         key: 'isInteractive',
         group: 'Interactivity',
-        type: 'boolean',
         required: false,
         help: 'Enable/disable interactivity.',
         flavors: ['svg'],
         defaultValue: svgDefaultProps.isInteractive,
-        controlType: 'switch',
-    },
+    }),
     {
         key: 'tooltip',
         group: 'Interactivity',
@@ -503,38 +457,7 @@ const props: ChartProperty[] = [
             },
         },
     },
-    {
-        key: 'role',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element role attribute.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaLabel',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaLabelledBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaDescribedBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        flavors: ['svg'],
-    },
+    ...a11yCommonProps(['svg']),
     ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
     {
         key: 'transitionMode',

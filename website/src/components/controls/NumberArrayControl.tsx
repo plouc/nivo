@@ -13,7 +13,7 @@ interface NumberArrayControlProps {
     flavors: Flavor[]
     currentFlavor: Flavor
     options: {
-        unit: 'px' | '°'
+        unit: 'px' | '°' | 'ms'
         items: {
             label: ReactNode
             min: number

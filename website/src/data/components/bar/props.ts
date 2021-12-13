@@ -8,6 +8,8 @@ import {
     groupProperties,
 } from '../../../lib/componentProperties'
 import { ChartProperty } from '../../../types'
+import { a11yCommonProps } from '../../../lib/component-properties/a11y'
+import { dimensionsProps } from '../../../lib/component-properties/dimensions'
 
 const props: ChartProperty[] = [
     {
@@ -217,46 +219,7 @@ const props: ChartProperty[] = [
             max: 10,
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using \`ResponsiveBar\`.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using \`ResponsiveBar\`.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
+    ...dimensionsProps(['svg', 'canvas', 'api']),
     {
         key: 'pixelRatio',
         flavors: ['canvas'],
@@ -598,27 +561,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         controlType: 'switch',
     },
-    {
-        key: 'ariaLabel',
-        flavors: ['svg'],
-        group: 'Accessibility',
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        type: 'string',
-    },
-    {
-        key: 'ariaLabelledBy',
-        flavors: ['svg'],
-        group: 'Accessibility',
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        type: 'string',
-    },
-    {
-        key: 'ariaDescribedBy',
-        flavors: ['svg'],
-        group: 'Accessibility',
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        type: 'string',
-    },
+    ...a11yCommonProps(['svg']),
     {
         key: 'barAriaLabel',
         flavors: ['svg'],

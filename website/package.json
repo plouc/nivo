@@ -32,6 +32,7 @@
     "@nivo/swarmplot": "0.74.1",
     "@nivo/treemap": "0.74.1",
     "@nivo/voronoi": "0.74.1",
+    "@nivo/waffle-grid": "0.74.1",
     "@nivo/waffle": "0.74.1",
     "@types/react-helmet": "^6.1.2",
     "@types/styled-components": "^5.1.13",

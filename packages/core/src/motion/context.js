@@ -13,20 +13,26 @@ import { config as presets } from '@react-spring/web'
 
 export const motionConfigContext = createContext()
 
+export const useSpringConfig = _config =>
+    useMemo(() => (isString(_config) ? presets[_config] : _config), [_config])
+
 /**
  * For now we're supporting both react-motion and react-spring,
  * however, react-motion will be gradually replaced by react-spring.
  */
 export const MotionConfigProvider = ({ children, animate, stiffness, damping, config }) => {
-    const value = useMemo(() => {
-        const reactSpringConfig = isString(config) ? presets[config] : config
+    const springConfig = useSpringConfig(config)
 
-        return {
+    const value = useMemo(
+        () => ({
             animate,
+            // react-motion
             springConfig: { stiffness, damping },
-            config: reactSpringConfig,
-        }
-    }, [animate, stiffness, damping, config])
+            // react-spring
+            config: springConfig,
+        }),
+        [animate, stiffness, damping, springConfig]
+    )
 
     return <motionConfigContext.Provider value={value}>{children}</motionConfigContext.Provider>
 }

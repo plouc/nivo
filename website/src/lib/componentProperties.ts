@@ -1,9 +1,10 @@
 import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
+import { config } from '@react-spring/web'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
-import { Flavor, ChartProperty } from '../types'
+import { Flavor, ChartProperty, BaseChartProperty } from '../types'
 
-export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
+export const themeProperty = (flavors: Flavor[]): BaseChartProperty => ({
     key: 'theme',
     group: 'Style',
     type: 'Theme',
@@ -44,6 +45,26 @@ export const defsProperties = (group: string, flavors: Flavor[]): ChartProperty[
         required: false,
     },
 ]
+
+const motionConfigType = [
+    ...Object.keys(config).map(presetName => `'${presetName}'`),
+    'SpringConfig',
+].join(' | ')
+export const motionConfigProperty = (
+    key: string,
+    flavors: Flavor[],
+    defaultValue: string | undefined = undefined,
+    help: string = 'Motion config for react-spring, either a preset or a custom configuration.'
+) => ({
+    key,
+    flavors,
+    help,
+    type: motionConfigType,
+    required: false,
+    defaultValue,
+    controlType: 'motionConfig',
+    group: 'Motion',
+})
 
 export const motionProperties = (
     flavors: Flavor[],
@@ -100,16 +121,7 @@ export const motionProperties = (
             },
         })
     } else if (type === 'react-spring') {
-        props.push({
-            key: 'motionConfig',
-            flavors,
-            help: 'Motion config for react-spring, either a preset or a custom configuration.',
-            type: 'string | object',
-            required: false,
-            defaultValue: defaults.motionConfig,
-            controlType: 'motionConfig',
-            group: 'Motion',
-        })
+        props.push(motionConfigProperty('motionConfig', flavors, defaults.motionConfig))
     }
 
     return props

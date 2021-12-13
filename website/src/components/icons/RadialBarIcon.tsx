@@ -28,14 +28,15 @@ const RadialBarIconItem = ({ type }: { type: IconType }) => (
             data={data}
             height={ICON_SIZE}
             width={ICON_SIZE}
-            innerRadius={.25}
-            padding={.3}
+            innerRadius={0.25}
+            padding={0.3}
             colors={colors[type].colors[3]}
             tracksColor={colors[type].colors[0]}
             enableRadialGrid={false}
             enableCircularGrid={false}
             radialAxisStart={null}
             circularAxisOuter={null}
+            isInteractive={false}
             animate={false}
         />
     </Icon>
