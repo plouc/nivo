@@ -32,7 +32,7 @@ Bar:
       link: bar--race-chart
     - label: Initial hidden ids
       link: bar--initial-hidden-ids
-    - label: Using custom label for legeds
+    - label: Using custom label for legends
       link: bar--custom-legend-labels
     - label: Using annotations
       link: bar--with-annotations
