@@ -5,14 +5,14 @@ import { blendMode, custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { closedCurve } from './commons/curves'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 
-type RadarApiProps = OmitStrict<
+export type RadarApiProps = OmitStrict<
     RadarSvgProps<any>,
     'renderWrapper' | 'layers' | 'isInteractive' | 'sliceTooltip' | 'animate' | 'motionConfig'
 >
 
-const radarMapping = {
+export const radarMapping = {
     component: Radar as FunctionComponent<RadarApiProps>,
     schema: Joi.object<RadarApiProps>().keys({
         data: custom.array().min(1).required(),
@@ -50,5 +50,3 @@ const radarMapping = {
         margin: { top: 40, right: 40, bottom: 40, left: 40 },
     },
 }
-
-export default radarMapping

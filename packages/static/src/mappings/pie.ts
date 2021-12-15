@@ -3,7 +3,7 @@ import Joi from 'joi'
 import { Pie, PieSvgProps } from '@nivo/pie'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 import { custom } from './common'
 
 export type PieApiProps = OmitStrict<
@@ -23,7 +23,7 @@ export type PieApiProps = OmitStrict<
     | 'renderWrapper'
 >
 
-const pieMapping = {
+export const pieMapping = {
     component: Pie as FunctionComponent<PieApiProps>,
     schema: Joi.object<PieApiProps>().keys({
         data: custom.array().min(1).required(),
@@ -68,5 +68,3 @@ const pieMapping = {
         margin: { top: 40, right: 50, bottom: 40, left: 50 },
     },
 }
-
-export default pieMapping

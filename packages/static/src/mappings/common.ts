@@ -6,12 +6,14 @@ export const custom = Joi.extend(
         base: Joi.array(),
         coerce: {
             from: 'string',
-            method: (value, helpers) => {
-                if (typeof value !== 'string') return
+            method: (value: any) => {
+                if (typeof value !== 'string') return {}
 
                 try {
                     return { value: JSON.parse(value) }
-                } catch (ignoreErr) {} // eslint-disable-line no-empty
+                } catch (ignoreErr) {
+                    return {}
+                }
             },
         },
     },
@@ -20,12 +22,14 @@ export const custom = Joi.extend(
         base: Joi.object(),
         coerce: {
             from: 'string',
-            method: (value, helpers) => {
-                if (typeof value !== 'string') return
+            method: (value: any) => {
+                if (typeof value !== 'string') return {}
 
                 try {
                     return { value: JSON.parse(value) }
-                } catch (ignoreErr) {} // eslint-disable-line no-empty
+                } catch (ignoreErr) {
+                    return {}
+                }
             },
         },
     }
@@ -46,10 +50,10 @@ export const axis = Joi.object()
     .allow(null)
 
 export const axes = {
-    axisTop: exports.axis,
-    axisRight: exports.axis,
-    axisBottom: exports.axis,
-    axisLeft: exports.axis,
+    axisTop: axis,
+    axisRight: axis,
+    axisBottom: axis,
+    axisLeft: axis,
 }
 
 export const blendMode = Joi.valid(

@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Bar, BarSvgProps } from '@nivo/bar'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 import { custom, axes } from './common'
 import { dimensions } from './commons/dimensions'
 import { inheritedColor, ordinalColors } from './commons/colors'
@@ -30,7 +30,7 @@ export type BarApiProps = OmitStrict<
     | 'initialHiddenIds'
 >
 
-const barMapping = {
+export const barMapping = {
     component: Bar as FunctionComponent<BarApiProps>,
     schema: Joi.object<BarApiProps>().keys({
         width: dimensions.width,
@@ -85,5 +85,3 @@ const barMapping = {
         margin: { top: 40, right: 50, bottom: 40, left: 50 },
     },
 }
-
-export default barMapping

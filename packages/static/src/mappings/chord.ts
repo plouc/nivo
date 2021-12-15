@@ -2,10 +2,10 @@ import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
 import { Chord, ChordProps } from '@nivo/chord'
-import { custom, blendMode } from './common'
+import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 
 // filter out all dynamic properties
 export type ChordApiProps = OmitStrict<
@@ -31,7 +31,7 @@ export type ChordApiProps = OmitStrict<
     | 'layers'
 >
 
-const chordMapping = {
+export const chordMapping = {
     component: Chord as unknown as FunctionComponent<ChordApiProps>,
     schema: Joi.object<ChordApiProps>().keys({
         width: dimensions.width,
@@ -75,5 +75,3 @@ const chordMapping = {
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
     },
 }
-
-export default chordMapping
