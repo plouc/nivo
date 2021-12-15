@@ -24,14 +24,14 @@
     "@rollup/plugin-node-resolve": "^13.1.1",
     "@storybook/addon-actions": "^6.0.26",
     "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-knobs": "^6.0.26",
-    "@storybook/addon-links": "^6.0.26",
-    "@storybook/addon-storysource": "^6.0.26",
-    "@storybook/addons": "^6.0.26",
-    "@storybook/react": "^6.0.26",
-    "@storybook/theming": "^6.0.26",
+    "@storybook/addon-knobs": "^6.4.0",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/addon-storysource": "^6.4.9",
+    "@storybook/addons": "^6.4.9",
+    "@storybook/react": "^6.4.9",
+    "@storybook/theming": "^6.4.9",
     "@types/enzyme": "^3.10.10",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.170",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
@@ -56,8 +56,8 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "gh-pages": "^1.0.0",
-    "jest": "^26.0.1",
-    "jsdom": "^16.2.2",
+    "jest": "^27.4.5",
+    "jsdom": "^19.0.0",
     "lerna": "^3.22.1",
     "lodash": "^4.17.21",
     "npm-normalize-package-bin": "^1.0.1",
@@ -98,5 +98,8 @@
   ],
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^6.4.9"
   }
 }

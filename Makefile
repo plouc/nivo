@@ -44,7 +44,7 @@ help: ##prints help
 ########################################################################################################################
 
 bootstrap: ##@0 global lerna bootstrap
-	@./node_modules/.bin/lerna bootstrap
+	@yarn lerna bootstrap
 
 init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
@@ -53,7 +53,7 @@ init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) packages-build
 
 fmt: ##@0 global format code using prettier (js, css, md)
-	@./node_modules/.bin/prettier --color --write \
+	@yarn prettier --color --write \
 		"packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
@@ -63,7 +63,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
-	@./node_modules/.bin/prettier --color --list-different \
+	@yarn prettier --color --list-different \
         "packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
@@ -113,15 +113,15 @@ lint: ##@0 run eslint & tslint
 
 package-lint-%: ##@1 packages run eslint on package
 	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
-	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
+	@yarn eslint ./packages/${*}/{src,tests}
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
+	@yarn eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
 packages-lint-fix: ##@1 packages run eslint on all packages with a fix option
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
+	@yarn eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
@@ -183,13 +183,13 @@ packages-publish: ##@1 packages publish all packages
 	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact
+	@yarn lerna publish --exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact --npm-tag=next
+	@yarn lerna publish --exact --npm-tag=next
 
 package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
@@ -227,13 +227,13 @@ website-deploy: ##@2 website build & deploy website
 	@$(MAKE) website-build
 
 	@echo "${YELLOW}Deploying website${RESET}"
-	@./node_modules/.bin/gh-pages -d website/public -r git@github.com:plouc/nivo.git -b gh-pages
+	@yarn gh-pages -d website/public -r git@github.com:plouc/nivo.git -b gh-pages
 
 website-audit: ##@2 website audit website build
 	@cd website && yarn analyze
 
 website-lint: ##@2 website run eslint on the website code
-	@./node_modules/.bin/eslint ./website/src
+	@yarn eslint ./website/src
 
 website-sprites: ##@2 website build sprite sheet
 	@glue --img website/src/assets --css website/src/styles website/src/assets/icons
@@ -255,7 +255,7 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 	@$(MAKE) storybook-build
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
-	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
+	@yarn gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
 
 ########################################################################################################################
 #
@@ -272,7 +272,7 @@ api: ##@5 API run API in regular mode (no watcher)
 	@cd api && yarn start
 
 api-lint: ##@5 API run eslint on the API code
-	@./node_modules/.bin/eslint ./api/src
+	@yarn eslint ./api/src
 
 api-deploy: ##@5 Deploy API on heroku
 	git subtree push --prefix api heroku master
