@@ -6,7 +6,7 @@ import { custom } from './common'
 import { dimensions } from './commons/dimensions'
 import { inheritedColor } from './commons/colors'
 import { axes } from './common'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 
 export type HeatMapApiProps = OmitStrict<
     HeatMapSvgProps & Dimensions,
@@ -18,7 +18,7 @@ export type HeatMapApiProps = OmitStrict<
     | 'animate'
 >
 
-const heatMapMapping = {
+export const heatmapMapping = {
     component: HeatMap as unknown as FunctionComponent<HeatMapApiProps>,
     schema: Joi.object<HeatMapApiProps>().keys({
         data: custom.array().min(1).required(),
@@ -54,5 +54,3 @@ const heatMapMapping = {
         margin: { top: 60, right: 0, bottom: 0, left: 60 },
     },
 }
-
-export default heatMapMapping

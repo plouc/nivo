@@ -1,7 +1,7 @@
 import { pick } from 'lodash'
-import React, { FunctionComponent } from 'react'
+import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { ChartProps, chartsMapping, ChartType } from '../mapping'
+import { ChartProps, chartsMapping, ChartType } from './mappings'
 
 const staticProps = {
     animate: false,
@@ -18,10 +18,10 @@ export const renderChart = <T extends ChartType>(
         type: T
         props: ChartProps<T>
     },
-    override
+    override: Partial<ChartProps<T>>
 ) => {
     const chart = chartsMapping[type]
-    const component = chart.component as FunctionComponent<ChartProps<T>>
+    const component = chart.component
     const mergedProps = {
         ...staticProps,
         ...chart.defaults,
@@ -29,7 +29,8 @@ export const renderChart = <T extends ChartType>(
         ...pick(override, chart.runtimeProps || []),
     }
     const rendered = renderToStaticMarkup(
-        React.createElement<ChartProps<T>>(component, mergedProps)
+        // @ts-ignore
+        createElement(component, mergedProps)
     )
 
     return `<?xml version="1.0" ?>${rendered}`

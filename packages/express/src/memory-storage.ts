@@ -1,4 +1,4 @@
-import { ChartProps, ChartType } from '../mapping'
+import { ChartProps, ChartType } from '@nivo/static'
 
 export interface StorageEntry<T extends ChartType> {
     type: T

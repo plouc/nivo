@@ -3,14 +3,14 @@ import Joi from 'joi'
 import { Calendar, CalendarSvgProps } from '@nivo/calendar'
 import { custom } from './common'
 import { dimensions } from './commons/dimensions'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 
 export type CalendarApiProps = OmitStrict<
     CalendarSvgProps,
     'isInteractive' | 'onClick' | 'tooltip' | 'renderWrapper' | 'role'
 >
 
-const calendarMapping = {
+export const calendarMapping = {
     component: Calendar as FunctionComponent<CalendarApiProps>,
     schema: Joi.object<CalendarApiProps>().keys({
         data: custom.array().min(1).required(),
@@ -57,5 +57,3 @@ const calendarMapping = {
         margin: { top: 40, right: 50, bottom: 40, left: 50 },
     },
 }
-
-export default calendarMapping

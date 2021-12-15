@@ -1,29 +1,32 @@
+import { Request, Response, NextFunction } from 'express'
 import { omit } from 'lodash'
-import joi from 'joi'
+import Joi from 'joi'
 
 export const validate = (
-    schema: joi.Schema,
+    schema: Joi.Schema,
     options: {
         omit?: string[]
     } = {}
 ) => {
     const { omit: omitProps } = options
 
-    return (req, res, next) => {
+    return (req: Request, res: Response, next: NextFunction) => {
         let data = req.body
         if (omit) {
+            // @ts-ignore
             data = omit(data, omitProps)
         }
 
         try {
-            req.payload = joi.attempt(data, schema, null, {
+            // @ts-ignore
+            req.payload = schema.validate(data, {
                 abortEarly: true,
                 convert: true,
             })
             next()
-        } catch (err) {
-            console.log('ERROR', err)
+        } catch (err: any) {
             return res.status(400).json({
+                // @ts-ignore
                 errors: err.details.map(({ message, path }) => {
                     return `${message}${path ? ` (${path})` : ''}`
                 }),

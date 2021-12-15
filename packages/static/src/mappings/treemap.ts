@@ -5,14 +5,14 @@ import { TreeMap, TreeMapSvgProps } from '@nivo/treemap'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 
 export type TreeMapApiProps = OmitStrict<
     TreeMapSvgProps & Dimensions,
     'isInteractive' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick' | 'animate'
 >
 
-const treeMapMapping = {
+export const treemapMapping = {
     component: TreeMap as unknown as FunctionComponent<TreeMapApiProps>,
     schema: Joi.object<TreeMapApiProps>().keys({
         data: custom.object().required(),
@@ -67,5 +67,3 @@ const treeMapMapping = {
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
     },
 }
-
-export default treeMapMapping

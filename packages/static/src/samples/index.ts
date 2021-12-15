@@ -6,12 +6,18 @@ import {
     generateWinesTastes,
     generateSankeyData,
 } from '@nivo/generators'
-import { StorageEntry } from '../lib/storage'
+import { ChartProps, ChartType, LineApiProps } from '../mappings'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const moreKeys = [...keys, 'junk', 'sushi', 'ramen', 'curry', 'udon', 'bagel']
 
-const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
+export const samples: Record<
+    string,
+    {
+        type: ChartType
+        props: ChartProps<ChartType>
+    }
+> = {
     bar: {
         type: 'bar',
         props: {
@@ -85,7 +91,7 @@ const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
             identity: 'country',
             cumulative: false,
             curve: 'monotoneX',
-        },
+        } as LineApiProps,
     },
     pie: {
         type: 'pie',
@@ -100,8 +106,6 @@ const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
             innerRadius: 0.5,
             padAngle: 0.5,
             cornerRadius: 5,
-            radialLabelsTextColor: 'inherit:darker(1.4)',
-            radialLabelsLinkColor: 'inherit',
             margin: {
                 top: 100,
                 right: 100,
@@ -130,9 +134,8 @@ const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
             height: 800,
             data: generateSankeyData({ nodeCount: 13, maxIterations: 2 }),
             colors: { scheme: 'paired' },
-            nodePaddingX: 3,
             nodeOpacity: 1,
-            nodeWidth: 14,
+            nodeThickness: 14,
             nodeBorderWidth: 0,
             linkOpacity: 0.15,
             labelPadding: 20,
@@ -156,7 +159,6 @@ const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
     treemap: {
         type: 'treemap',
         props: {
-            type: 'treemap',
             width: 800,
             height: 500,
             data: generateLibTree(),
@@ -169,5 +171,3 @@ const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
         },
     },
 }
-
-export default samples

@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Sankey, SankeySvgProps, sankeyAlignmentPropKeys } from '@nivo/sankey'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { blendMode, custom } from './common'
@@ -25,7 +25,7 @@ export type SankeyApiProps = OmitStrict<
     | 'ariaDescribedBy'
 >
 
-const sankeyMapping = {
+export const sankeyMapping = {
     component: Sankey as FunctionComponent<SankeyApiProps>,
     schema: Joi.object<SankeyApiProps>().keys({
         width: dimensions.width,
@@ -89,5 +89,3 @@ const sankeyMapping = {
         linkBlendMode: 'normal',
     },
 }
-
-export default sankeyMapping

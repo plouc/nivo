@@ -4,10 +4,10 @@ import { Line, LineSvgProps } from '@nivo/line'
 // @ts-ignore
 import { curvePropKeys } from '@nivo/core'
 import { custom, axes, blendMode } from './common'
-import { scale } from './commons/scales'
+// import { scale } from './commons/scales'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 import { FunctionComponent } from 'react'
 
 export type LineApiProps = OmitStrict<
@@ -30,7 +30,7 @@ export type LineApiProps = OmitStrict<
     | 'motionConfig'
 >
 
-const lineMapping = {
+export const lineMapping = {
     component: Line as unknown as FunctionComponent<LineApiProps>,
     schema: Joi.object<LineApiProps>().keys({
         data: custom
@@ -109,5 +109,3 @@ const lineMapping = {
         margin: { top: 40, right: 50, bottom: 40, left: 50 },
     },
 }
-
-export default lineMapping

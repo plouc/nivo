@@ -1,32 +1,30 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { CirclePacking, CirclePackingSvgProps } from '@nivo/circle-packing'
+import { Sunburst, SunburstSvgProps } from '@nivo/sunburst'
 import { custom } from './common'
+import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
-import { inheritedColor, ordinalColors } from './commons/colors'
-import { OmitStrict } from '../lib/types'
+import { OmitStrict } from '../types'
 
-export type CirclePackingApiProps = OmitStrict<
-    CirclePackingSvgProps<any>,
+export type SunburstApiProps = OmitStrict<
+    SunburstSvgProps<any>,
     | 'isInteractive'
-    | 'onMouseEnter'
-    | 'onMouseMove'
-    | 'onMouseLeave'
+    | 'tooltip'
     | 'onClick'
-    | 'zoomedId'
     | 'animate'
     | 'motionConfig'
+    | 'transitionMode'
+    | 'renderWrapper'
 >
 
-const circlePackingMapping = {
-    component: CirclePacking as FunctionComponent<CirclePackingApiProps>,
-    schema: Joi.object<CirclePackingApiProps>().keys({
+export const sunburstMapping = {
+    component: Sunburst as FunctionComponent<SunburstApiProps>,
+    schema: Joi.object<SunburstApiProps>().keys({
         data: custom.object().required(),
         id: Joi.string(),
         value: Joi.string(),
         valueFormat: Joi.string(),
-        padding: Joi.number(),
-        leavesOnly: Joi.boolean(),
+        cornerRadius: Joi.number().min(0),
         width: dimensions.width,
         height: dimensions.height,
         margin: dimensions.margin,
@@ -35,18 +33,17 @@ const circlePackingMapping = {
         colorBy: Joi.any().valid('id', 'depth'),
         inheritColorFromParent: Joi.boolean(),
         childColor: inheritedColor,
-        borderWidth: Joi.number(),
+        borderWidth: Joi.number().min(0),
         borderColor: inheritedColor,
 
-        enableLabels: Joi.boolean(),
-        label: Joi.string(),
-        labelsSkipRadius: Joi.number(),
-        labelTextColor: inheritedColor,
+        enableArcLabels: Joi.boolean(),
+        arcLabel: Joi.string(),
+        arcLabelsRadiusOffset: Joi.number(),
+        arcLabelsSkipAngle: Joi.number().min(0),
+        arcLabelsTextColor: inheritedColor,
     }),
     runtimeProps: ['width', 'height', 'colors'],
     defaults: {
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
     },
 }
-
-export default circlePackingMapping

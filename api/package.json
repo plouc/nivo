@@ -1,6 +1,7 @@
 {
   "name": "@nivo/api",
   "version": "0.74.1",
+  "private": true,
   "description": "Rendering API for nivo dataviz React/d3 components",
   "main": "src/app.js",
   "licenses": [
@@ -18,56 +19,29 @@
     "node": "16.x"
   },
   "devDependencies": {
-    "mustache": "^2.3.0",
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "@nivo/bar": "0.74.1",
-    "@nivo/bullet": "0.74.1",
-    "@nivo/calendar": "0.74.1",
-    "@nivo/chord": "0.74.1",
-    "@nivo/circle-packing": "0.74.1",
-    "@nivo/core": "0.74.1",
-    "@nivo/generators": "0.74.0",
-    "@nivo/heatmap": "0.74.1",
-    "@nivo/legends": "0.74.1",
-    "@nivo/line": "0.74.1",
-    "@nivo/parallel-coordinates": "0.74.1",
-    "@nivo/pie": "0.74.1",
-    "@nivo/radar": "0.74.1",
-    "@nivo/sankey": "0.74.1",
-    "@nivo/scatterplot": "0.74.1",
-    "@nivo/stream": "0.74.1",
-    "@nivo/sunburst": "0.74.1",
-    "@nivo/treemap": "0.74.1",
-    "@nivo/voronoi": "0.74.1",
-    "@nivo/waffle": "0.74.1",
+    "@nivo/express": "0.74.1",
     "@types/body-parser": "^1.19.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/node": "^16.11.12",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11",
-    "@types/uuid": "^8.3.3",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
     "cors": "2.8.5",
     "express": "4.17.1",
     "express-winston": "4.2.0",
-    "joi": "17.5.0",
-    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4",
-    "uuid": "^3.1.0",
     "winston": "3.3.3"
   },
   "scripts": {
-    "readme": "node misc/readmeData.js | mustache - misc/README.mustache > README.md",
-    "start": "node build/app.ts",
-    "dev": "nodemon src/app.ts",
-    "build": "rm -rf build && tsc"
+    "start": "yarn build && node app.js",
+    "dev": "nodemon app.ts",
+    "build": "tsc"
   },
   "publishConfig": {
     "access": "public"
