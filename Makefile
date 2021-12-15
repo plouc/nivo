@@ -86,6 +86,8 @@ clean-all: ##@0 global uninstall node modules, remove transpiled code & lock fil
 	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
 	@rm -rf website/node_modules
 	@rm -rf website/package-lock.json
+	@rm -rf api/node_modules
+	@rm -rf api/package-lock.json
 
 define clean-source-lib
 	rm -rf $(1)/*/cjs
