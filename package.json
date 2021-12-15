@@ -79,6 +79,7 @@
   },
   "resolutions": {
     "@types/react": "^17.0.11",
+    "@types/eslint": "7.29.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
