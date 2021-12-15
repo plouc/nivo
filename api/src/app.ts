@@ -1,4 +1,3 @@
-import path from 'path'
 import express from 'express'
 import { forOwn } from 'lodash'
 import * as uuid from 'uuid'
@@ -29,10 +28,6 @@ app.use(
     })
 )
 app.use(compression())
-
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'api.yml'))
-})
 
 app.get('/status', (req, res) => {
     res.status(200).json({
