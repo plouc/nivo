@@ -65,8 +65,9 @@
   },
   "scripts": {
     "readme": "node misc/readmeData.js | mustache - misc/README.mustache > README.md",
-    "start": "node src/app.ts",
-    "dev": "nodemon src/app.ts"
+    "start": "node build/app.ts",
+    "dev": "nodemon src/app.ts",
+    "build": "rm -rf build && tsc"
   },
   "publishConfig": {
     "access": "public"

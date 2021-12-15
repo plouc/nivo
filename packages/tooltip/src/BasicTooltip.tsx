@@ -2,7 +2,7 @@ import { memo, ReactNode } from 'react'
 import { useTheme, ValueFormat, useValueFormatter } from '@nivo/core'
 import { Chip } from './Chip'
 
-interface BasicTooltipProps {
+export interface BasicTooltipProps {
     id: ReactNode
     value?: number | string | Date
     format?: ValueFormat<number | string | Date>
