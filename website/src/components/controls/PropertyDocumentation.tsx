@@ -1,10 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
+import { Flavor } from '../../types'
 
-const PropertyDocumentation = ({ id, property, flavors, currentFlavor }) => {
+interface PropertyDocumentationProps {
+    id: string
+    property: any
+    flavors: Flavor[]
+    currentFlavor: Flavor
+}
+
+const PropertyDocumentation = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+}: PropertyDocumentationProps) => {
     return (
         <Control
             id={id}
@@ -17,13 +29,6 @@ const PropertyDocumentation = ({ id, property, flavors, currentFlavor }) => {
             <Help>{property.help}</Help>
         </Control>
     )
-}
-
-PropertyDocumentation.propTypes = {
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
 }
 
 export default PropertyDocumentation

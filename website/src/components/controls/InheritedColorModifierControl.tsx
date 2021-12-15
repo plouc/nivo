@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Select from './Select'
 import { TextInput } from './TextInput'
@@ -8,6 +7,13 @@ const modifierTypes = ['brighter', 'darker', 'opacity'].map(prop => ({
     label: prop,
     value: prop,
 }))
+
+interface InheritedColorModifierControlProps {
+    /*
+    modifier: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
+    */
+}
 
 const InheritedColorModifierControl = ({ modifier, onChange }) => {
     return (
@@ -32,11 +38,6 @@ const InheritedColorModifierControl = ({ modifier, onChange }) => {
             />
         </Container>
     )
-}
-
-InheritedColorModifierControl.propTypes = {
-    modifier: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired,
 }
 
 export default InheritedColorModifierControl

@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import isString from 'lodash/isString'
 import isPlainObject from 'lodash/isPlainObject'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { inheritedColorPropType } from '@nivo/colors'
 import { Control } from './Control'
@@ -17,15 +16,31 @@ const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].m
 
 const defaultInheritableProperties = ['color']
 
+interface InheritedColorControlProps {
+    /*
+    property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    onChange: PropTypes.func.isRequired,
+    defaultCustomColor: PropTypes.string.isRequired,
+    defaultThemeProperty: PropTypes.string.isRequired,
+    defaultFrom: PropTypes.string.isRequired,
+    value: inheritedColorPropType.isRequired,
+    options: PropTypes.shape({
+        inheritableProperties: PropTypes.arrayOf(PropTypes.string),
+    }),
+    */
+}
+
 const InheritedColorControl = ({
     id,
     property,
     flavors,
     currentFlavor,
     value,
-    defaultCustomColor,
-    defaultThemeProperty,
-    defaultFrom,
+    defaultCustomColor = 'black',
+    defaultThemeProperty = 'background',
+    defaultFrom = 'color',
     onChange,
     options: { inheritableProperties = defaultInheritableProperties } = {},
 }) => {
@@ -170,25 +185,6 @@ const InheritedColorControl = ({
             <Help>{property.help}</Help>
         </Control>
     )
-}
-
-InheritedColorControl.propTypes = {
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    onChange: PropTypes.func.isRequired,
-    defaultCustomColor: PropTypes.string.isRequired,
-    defaultThemeProperty: PropTypes.string.isRequired,
-    defaultFrom: PropTypes.string.isRequired,
-    value: inheritedColorPropType.isRequired,
-    options: PropTypes.shape({
-        inheritableProperties: PropTypes.arrayOf(PropTypes.string),
-    }),
-}
-InheritedColorControl.defaultProps = {
-    defaultCustomColor: 'black',
-    defaultThemeProperty: 'background',
-    defaultFrom: 'color',
 }
 
 export default InheritedColorControl

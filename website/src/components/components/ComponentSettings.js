@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ControlsGroup from '../controls/ControlsGroup'
 import media from '../../theming/mediaQueries'
@@ -45,6 +44,17 @@ const Title = styled.div`
     `}
 `
 
+/*
+ComponentSettings.propTypes = {
+    component: PropTypes.string.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    settings: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    groups: PropTypes.array.isRequired,
+}
+*/
+
 const ComponentSettings = ({ component, flavors, currentFlavor, settings, onChange, groups }) => {
     return (
         <Container>
@@ -66,15 +76,6 @@ const ComponentSettings = ({ component, flavors, currentFlavor, settings, onChan
             })}
         </Container>
     )
-}
-
-ComponentSettings.propTypes = {
-    component: PropTypes.string.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    settings: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
-    groups: PropTypes.array.isRequired,
 }
 
 export default ComponentSettings

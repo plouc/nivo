@@ -1,6 +1,4 @@
 import React, { useCallback } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import {
     colorSchemeIds,
     colorSchemes,
@@ -16,7 +14,7 @@ import { Help } from './Help'
 import Select from './Select'
 
 const options = colorSchemeIds.map(scheme => {
-    let colors = []
+    let colors: string[] = []
     if (isCategoricalColorScheme(scheme)) {
         colors = colorSchemes[scheme]
     } else if (isDivergingColorScheme(scheme)) {
@@ -46,6 +44,20 @@ const Option = props => {
             <ColorsControlItem id={props.value} colors={props.data.colors} />
         </components.Option>
     )
+}
+
+interface OrdinalColorsControlProps {
+    /*
+    id: PropTypes.string.isRequired,
+    property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.object.isRequired,
+    options: PropTypes.shape({
+        includeSequential: PropTypes.bool,
+    }).isRequired,
+    */
 }
 
 const OrdinalColorsControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
@@ -86,21 +98,6 @@ const OrdinalColorsControl = ({ id, property, flavors, currentFlavor, value, onC
             <Help>{property.help}</Help>
         </Control>
     )
-}
-
-OrdinalColorsControl.propTypes = {
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.object.isRequired,
-    options: PropTypes.shape({
-        includeSequential: PropTypes.bool,
-    }).isRequired,
-}
-OrdinalColorsControl.defaultProps = {
-    options: {},
 }
 
 export default OrdinalColorsControl
