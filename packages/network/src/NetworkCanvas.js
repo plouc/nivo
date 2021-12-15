@@ -129,7 +129,7 @@ const NetworkCanvas = props => {
     ])
 
     const getNodeFromMouseEvent = useCallback(
-        (event: MouseEvent) => {
+        (event) => {
             if (!canvasEl.current) return null
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -150,7 +150,7 @@ const NetworkCanvas = props => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        (event: React.MouseEvent<HTMLCanvasElement>) => {
+        (event) => {
             const node = getNodeFromMouseEvent(event)
             if (node) {
                 showTooltipFromEvent(<NetworkNodeTooltip node={node} tooltip={tooltip} />, event)
@@ -166,7 +166,7 @@ const NetworkCanvas = props => {
     }, [hideTooltip])
 
     const handleClick = useCallback(
-        (event: React.MouseEvent<HTMLCanvasElement>) => {
+        (event) => {
             if (!onClick) return
 
             const node = getNodeFromMouseEvent(event)
