@@ -266,5 +266,8 @@ api: ##@5 API run API in regular mode (no watcher)
 	@echo "${YELLOW}Starting API${RESET}"
 	@cd api && yarn start
 
+api-lint:
+	@./node_modules/.bin/eslint ./api/src
+
 api-deploy: ##@5 Deploy API on heroku
 	git subtree push --prefix api heroku master
