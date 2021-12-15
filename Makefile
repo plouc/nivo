@@ -230,6 +230,9 @@ website-deploy: ##@2 website build & deploy website
 website-audit: ##@2 website audit website build
 	@cd website && yarn analyze
 
+website-lint: ##@2 website run eslint on the website code
+	@./node_modules/.bin/eslint ./website/src
+
 website-sprites: ##@2 website build sprite sheet
 	@glue --img website/src/assets --css website/src/styles website/src/assets/icons
 
@@ -266,7 +269,7 @@ api: ##@5 API run API in regular mode (no watcher)
 	@echo "${YELLOW}Starting API${RESET}"
 	@cd api && yarn start
 
-api-lint:
+api-lint: ##@5 API run eslint on the API code
 	@./node_modules/.bin/eslint ./api/src
 
 api-deploy: ##@5 Deploy API on heroku
