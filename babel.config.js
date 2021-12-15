@@ -1,3 +1,7 @@
 module.exports = {
-    presets: [['react-app', { runtime: 'automatic', typescript: true }]],
+    presets: [
+        ["@babel/preset-env", { loose: true }],
+        "@babel/preset-react",
+        "@babel/preset-typescript",
+    ],
 }

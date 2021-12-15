@@ -6,6 +6,7 @@ import stripBanner from 'rollup-plugin-strip-banner'
 import cleanup from 'rollup-plugin-cleanup'
 import size from 'rollup-plugin-size'
 import visualizer from 'rollup-plugin-visualizer'
+import { terser } from "rollup-plugin-terser"
 
 const pkg = process.env.PACKAGE
 const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
@@ -13,8 +14,8 @@ const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
 const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx']
 const babelConfig = {
     extensions,
-    exclude: 'node_modules/**',
-    babelHelpers: 'runtime',
+    exclude: /node_modules/,
+    babelHelpers: 'bundled',
     comments: false,
     plugins: ['lodash'],
 }
@@ -63,6 +64,7 @@ const commonPlugins = [
         modulesOnly: true,
     }),
     babel(babelConfig),
+    !isWatching && terser(),
     cleanup()
 ]
 
