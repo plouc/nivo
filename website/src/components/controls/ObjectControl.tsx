@@ -1,10 +1,21 @@
 import React, { memo, useMemo, useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ControlsGroup from './ControlsGroup'
 import { PropertyHeader } from './PropertyHeader'
 import { Cell, Toggle } from './styled'
 import { Help } from './Help'
+
+interface ObjectControlProps {
+    /*
+    property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.object.isRequired,
+    props: PropTypes.array.isRequired,
+    isOpenedByDefault: PropTypes.bool,
+     */
+}
 
 const ObjectControl = memo(
     ({
@@ -55,17 +66,6 @@ const ObjectControl = memo(
         )
     }
 )
-
-ObjectControl.displayName = 'ObjectControl'
-ObjectControl.propTypes = {
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.object.isRequired,
-    props: PropTypes.array.isRequired,
-    isOpenedByDefault: PropTypes.bool,
-}
 
 export default ObjectControl
 

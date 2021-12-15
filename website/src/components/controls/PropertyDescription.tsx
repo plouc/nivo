@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import dedent from 'dedent-js'
 import { Markdown } from '../Markdown'
@@ -14,16 +13,16 @@ const Description = styled.div`
     }
 `
 
-const PropertyDescription = ({ description }) => {
+interface PropertyDescriptionProps {
+    description: string
+}
+
+const PropertyDescription = ({ description }: PropertyDescriptionProps) => {
     return (
         <Description>
             <Markdown source={dedent(description)} />
         </Description>
     )
-}
-
-PropertyDescription.propTypes = {
-    description: PropTypes.string.isRequired,
 }
 
 export default PropertyDescription

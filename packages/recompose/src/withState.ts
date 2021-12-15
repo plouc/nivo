@@ -5,8 +5,7 @@ import { wrapDisplayName } from './wrapDisplayName'
 
 type StateProps<TState, TStateName extends string, TStateUpdaterName extends string> = {
     [stateName in TStateName]: TState
-} &
-    { [stateUpdateName in TStateUpdaterName]: (state: TState) => TState }
+} & { [stateUpdateName in TStateUpdaterName]: (state: TState) => TState }
 
 export const withState =
     <TOuter, TState, TStateName extends string, TStateUpdaterName extends string>(

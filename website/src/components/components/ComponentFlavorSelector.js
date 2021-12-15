@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
 
@@ -87,6 +86,18 @@ const labelByFlavor = {
     api: 'http api',
 }
 
+/*
+ComponentFlavorSelector.propTypes = {
+    flavors: PropTypes.arrayOf(
+        PropTypes.shape({
+            flavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']),
+            path: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    current: PropTypes.string.isRequired,
+}
+*/
+
 const ComponentFlavorSelector = ({ flavors, current }) => {
     return (
         <Container>
@@ -103,16 +114,6 @@ const ComponentFlavorSelector = ({ flavors, current }) => {
             })}
         </Container>
     )
-}
-
-ComponentFlavorSelector.propTypes = {
-    flavors: PropTypes.arrayOf(
-        PropTypes.shape({
-            flavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']),
-            path: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    current: PropTypes.string.isRequired,
 }
 
 export default ComponentFlavorSelector

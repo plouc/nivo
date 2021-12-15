@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import pick from 'lodash/pick'
 import { Control } from './Control'
@@ -27,24 +26,26 @@ const RangeRow = styled.div`
     margin-bottom: 5px;
 `
 
-export default class SwitchableRangeControl extends Component {
-    static propTypes = {
-        id: PropTypes.string.isRequired,
-        property: PropTypes.object.isRequired,
-        flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-        currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        options: PropTypes.shape({
-            unit: PropTypes.string,
-            defaultValue: PropTypes.number.isRequired,
-            disabledValue: PropTypes.any.isRequired,
-            min: PropTypes.number.isRequired,
-            max: PropTypes.number.isRequired,
-            step: PropTypes.number,
-        }).isRequired,
-        onChange: PropTypes.func.isRequired,
-    }
+interface SwitchableRangeControlProps {
+    /*
+    id: PropTypes.string.isRequired,
+    property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    options: PropTypes.shape({
+        unit: PropTypes.string,
+        defaultValue: PropTypes.number.isRequired,
+        disabledValue: PropTypes.any.isRequired,
+        min: PropTypes.number.isRequired,
+        max: PropTypes.number.isRequired,
+        step: PropTypes.number,
+    }).isRequired,
+    onChange: PropTypes.func.isRequired,
+     */
+}
 
+export default class SwitchableRangeControl extends Component {
     constructor(props) {
         super(props)
 

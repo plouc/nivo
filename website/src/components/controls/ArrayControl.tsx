@@ -1,10 +1,28 @@
 import React, { memo, Fragment, useMemo, useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { PropertyHeader } from './PropertyHeader'
 import ControlsGroup from './ControlsGroup'
 import { Cell, Toggle } from './styled'
 import { Help } from './Help'
+
+interface ArrayControlProps {
+    /*
+    property: PropTypes.object.isRequired,
+    value: PropTypes.array.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    options: PropTypes.shape({
+        props: PropTypes.array.isRequired,
+        shouldCreate: PropTypes.bool,
+        addLabel: PropTypes.string,
+        shouldRemove: PropTypes.bool,
+        removeLabel: PropTypes.string,
+        defaults: PropTypes.object,
+        getItemTitle: PropTypes.func,
+    }).isRequired,
+    onChange: PropTypes.func.isRequired,
+    */
+}
 
 const ArrayControl = memo(
     ({
@@ -109,24 +127,6 @@ const ArrayControl = memo(
         )
     }
 )
-
-ArrayControl.displayName = 'ArrayControl'
-ArrayControl.propTypes = {
-    property: PropTypes.object.isRequired,
-    value: PropTypes.array.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    options: PropTypes.shape({
-        props: PropTypes.array.isRequired,
-        shouldCreate: PropTypes.bool,
-        addLabel: PropTypes.string,
-        shouldRemove: PropTypes.bool,
-        removeLabel: PropTypes.string,
-        defaults: PropTypes.object,
-        getItemTitle: PropTypes.func,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-}
 
 export default ArrayControl
 
