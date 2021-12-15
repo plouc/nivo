@@ -11,7 +11,7 @@ export const custom = Joi.extend(
 
                 try {
                     return { value: JSON.parse(value) }
-                } catch (ignoreErr) {}
+                } catch (ignoreErr) {} // eslint-disable-line no-empty
             },
         },
     },
@@ -25,7 +25,7 @@ export const custom = Joi.extend(
 
                 try {
                     return { value: JSON.parse(value) }
-                } catch (ignoreErr) {}
+                } catch (ignoreErr) {} // eslint-disable-line no-empty
             },
         },
     }
