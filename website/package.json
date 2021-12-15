@@ -61,5 +61,8 @@
     "build": "gatsby build",
     "start": "gatsby develop",
     "serve": "gatsby serve"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

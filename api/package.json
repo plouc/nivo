@@ -15,7 +15,7 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">=6.0.0"
+    "node": "16.x"
   },
   "devDependencies": {
     "mustache": "^2.3.0",
