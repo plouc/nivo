@@ -240,8 +240,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'arcLabel',
-        help:
-            'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
+        help: 'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
         type: 'string | Function',
         required: false,
         defaultValue: defaultProps.arcLabel,

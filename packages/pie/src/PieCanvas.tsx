@@ -87,28 +87,21 @@ const InnerPieCanvas = <RawDatum,>({
         colors,
     })
 
-    const {
-        dataWithArc,
-        arcGenerator,
-        centerX,
-        centerY,
-        radius,
-        innerRadius,
-        setActiveId,
-    } = usePieFromBox<RawDatum>({
-        data: normalizedData,
-        width: innerWidth,
-        height: innerHeight,
-        fit,
-        innerRadius: innerRadiusRatio,
-        startAngle,
-        endAngle,
-        padAngle,
-        sortByValue,
-        cornerRadius,
-        activeInnerRadiusOffset,
-        activeOuterRadiusOffset,
-    })
+    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius, setActiveId } =
+        usePieFromBox<RawDatum>({
+            data: normalizedData,
+            width: innerWidth,
+            height: innerHeight,
+            fit,
+            innerRadius: innerRadiusRatio,
+            startAngle,
+            endAngle,
+            padAngle,
+            sortByValue,
+            cornerRadius,
+            activeInnerRadiusOffset,
+            activeOuterRadiusOffset,
+        })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
 

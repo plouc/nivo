@@ -14,14 +14,10 @@ import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'
 
 export const useAreaBumpSeries = ({ data, width, height, align, spacing, xPadding }) =>
-    useMemo(() => computeSeries({ data, width, height, align, spacing, xPadding }), [
-        data,
-        width,
-        height,
-        align,
-        spacing,
-        xPadding,
-    ])
+    useMemo(
+        () => computeSeries({ data, width, height, align, spacing, xPadding }),
+        [data, width, height, align, spacing, xPadding]
+    )
 
 export const useAreaGenerator = interpolation =>
     useMemo(
@@ -130,7 +126,11 @@ export const useAreaBump = ({
     isInteractive,
     current,
 }) => {
-    const { series: rawSeries, xScale, heightScale } = useAreaBumpSeries({
+    const {
+        series: rawSeries,
+        xScale,
+        heightScale,
+    } = useAreaBumpSeries({
         data,
         width,
         height,

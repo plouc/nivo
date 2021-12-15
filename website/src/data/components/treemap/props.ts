@@ -105,6 +105,7 @@ const props: ChartProperty[] = [
     {
         key: 'width',
         group: 'Base',
+        flavors: ['svg', 'canvas', 'html', 'api'],
         enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
@@ -117,6 +118,7 @@ const props: ChartProperty[] = [
     {
         key: 'height',
         group: 'Base',
+        flavors: ['svg', 'canvas', 'html', 'api'],
         enableControlForFlavors: ['api'],
         help: 'Chart height.',
         description: `
@@ -216,8 +218,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'labelSkipSize',
-        help:
-            'Skip label rendering if node minimal side length is lower than given value, 0 to disable.',
+        help: 'Skip label rendering if node minimal side length is lower than given value, 0 to disable.',
         type: 'number',
         required: false,
         controlType: 'range',

@@ -43,7 +43,7 @@ export const castLinearScale = <Range, Output>(
     scale: D3ScaleLinear<Range, Output>,
     stacked = false
 ) => {
-    const typedScale = (scale as unknown) as ScaleLinear<number>
+    const typedScale = scale as unknown as ScaleLinear<number>
     typedScale.type = 'linear'
     typedScale.stacked = stacked
 

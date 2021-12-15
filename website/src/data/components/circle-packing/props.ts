@@ -220,8 +220,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'childColor',
-        help:
-            'Defines how to compute child nodes color, only used when inheritColorFromParent is enabled.',
+        help: 'Defines how to compute child nodes color, only used when inheritColorFromParent is enabled.',
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.childColor,

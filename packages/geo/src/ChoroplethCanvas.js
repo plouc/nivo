@@ -175,10 +175,10 @@ const ChoroplethCanvas = memo(
                 projection,
             ]
         )
-        const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
-            isInteractive,
-            hideTooltip,
-        ])
+        const handleMouseLeave = useCallback(
+            () => isInteractive && hideTooltip(),
+            [isInteractive, hideTooltip]
+        )
         const handleClick = useCallback(
             event => {
                 if (!isInteractive || !onClick) return

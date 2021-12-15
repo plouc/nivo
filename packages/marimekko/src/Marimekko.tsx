@@ -59,24 +59,23 @@ const InnerMarimekko = <RawDatum,>({
         partialMargin
     )
 
-    const { computedData, bars, thicknessScale, dimensionsScale, dimensionIds } = useMarimekko<
-        RawDatum
-    >({
-        data,
-        id,
-        value,
-        dimensions,
-        valueFormat,
-        layout,
-        offset,
-        outerPadding,
-        innerPadding,
-        colors,
-        borderColor,
-        borderWidth,
-        width: innerWidth,
-        height: innerHeight,
-    })
+    const { computedData, bars, thicknessScale, dimensionsScale, dimensionIds } =
+        useMarimekko<RawDatum>({
+            data,
+            id,
+            value,
+            dimensions,
+            valueFormat,
+            layout,
+            offset,
+            outerPadding,
+            innerPadding,
+            colors,
+            borderColor,
+            borderWidth,
+            width: innerWidth,
+            height: innerHeight,
+        })
 
     const layerById: Record<LayerId, ReactNode> = {
         grid: null,

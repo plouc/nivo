@@ -162,7 +162,11 @@ export const useLine = ({
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
     const [hiddenIds, setHiddenIds] = useState([])
 
-    const { xScale, yScale, series: rawSeries } = useMemo(
+    const {
+        xScale,
+        yScale,
+        series: rawSeries,
+    } = useMemo(
         () =>
             computeXYScalesForSeries(
                 data.filter(item => hiddenIds.indexOf(item.id) === -1),

@@ -25,9 +25,8 @@ export const commonDefaultProps = {
     axisBottom: {},
     axisLeft: {},
 
-    nodeId: (({ serieId, index }) => `${serieId}.${index}`) as ScatterPlotCommonProps<
-        ScatterPlotDatum
-    >['nodeId'],
+    nodeId: (({ serieId, index }) =>
+        `${serieId}.${index}`) as ScatterPlotCommonProps<ScatterPlotDatum>['nodeId'],
     nodeSize: 9,
     nodeComponent: Node,
 

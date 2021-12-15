@@ -5,9 +5,8 @@ flavors:
     path: /circle-packing/html/
   - flavor: canvas
     path: /circle-packing/canvas/
-  # Disabled until the API is fixed
-  # - flavor: api
-  #   path: /circle-packing/api/
+  - flavor: api
+    path: /circle-packing/api/
 
 CirclePacking:
   package: '@nivo/circle-packing'

@@ -333,8 +333,7 @@ const props: ChartProperty[] = [
     {
         key: 'linkBlendMode',
         flavors: ['svg'],
-        help:
-            'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) property for links.',
+        help: 'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) property for links.',
         type: 'string',
         required: false,
         defaultValue: svgDefaultProps.linkBlendMode,

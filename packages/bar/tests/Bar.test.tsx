@@ -69,7 +69,7 @@ it('should allow grouped mode', () => {
     const props = wrapper.find('BarItem').map(bar => {
         const {
             bar: { height, width, x, y },
-        } = (bar.props() as unknown) as BarItemProps<BarDatum>
+        } = bar.props() as unknown as BarItemProps<BarDatum>
 
         return { height, width, x, y }
     })
@@ -135,7 +135,7 @@ it('should allow horizontal layout', () => {
     const props = wrapper.find('BarItem').map(bar => {
         const {
             bar: { height, width, x, y },
-        } = (bar.props() as unknown) as BarItemProps<BarDatum>
+        } = bar.props() as unknown as BarItemProps<BarDatum>
 
         return { height, width, x, y }
     })
@@ -185,7 +185,7 @@ it('should allow grouped horizontal layout', () => {
     const props = wrapper.find('BarItem').map(bar => {
         const {
             bar: { height, width, x, y },
-        } = (bar.props() as unknown) as BarItemProps<BarDatum>
+        } = bar.props() as unknown as BarItemProps<BarDatum>
 
         return { height, width, x, y }
     })

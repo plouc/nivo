@@ -95,11 +95,10 @@ const AreaBump = props => {
         current: currentSerie,
     })
 
-    const boundDefs = useMemo(() => bindDefs(defs, series, fill, { targetKey: 'fill' }), [
-        defs,
-        series,
-        fill,
-    ])
+    const boundDefs = useMemo(
+        () => bindDefs(defs, series, fill, { targetKey: 'fill' }),
+        [defs, series, fill]
+    )
 
     const layerById = {
         grid: enableGridX && (

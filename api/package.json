@@ -42,22 +42,31 @@
     "@nivo/treemap": "0.74.1",
     "@nivo/voronoi": "0.74.1",
     "@nivo/waffle": "0.74.1",
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.12",
+    "@types/react": "17.0.11",
+    "@types/react-dom": "17.0.8",
+    "@types/uuid": "^8.3.3",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
-    "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "express-winston": "^2.4.0",
-    "joi": "^14.3.0",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "express-winston": "4.2.0",
+    "joi": "17.5.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.3.4",
     "uuid": "^3.1.0",
-    "winston": "^2.3.1"
+    "winston": "3.3.3"
   },
   "scripts": {
     "readme": "node misc/readmeData.js | mustache - misc/README.mustache > README.md",
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node src/app.ts",
+    "dev": "nodemon src/app.ts"
   },
   "publishConfig": {
     "access": "public"

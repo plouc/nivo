@@ -40,11 +40,10 @@ export const BarItem = <RawDatum extends BarDatum>({
     const theme = useTheme()
     const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
 
-    const renderTooltip = useMemo(() => () => createElement(tooltip, { ...bar, ...data }), [
-        tooltip,
-        bar,
-        data,
-    ])
+    const renderTooltip = useMemo(
+        () => () => createElement(tooltip, { ...bar, ...data }),
+        [tooltip, bar, data]
+    )
 
     const handleClick = useCallback(
         (event: MouseEvent<SVGRectElement>) => {

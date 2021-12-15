@@ -60,11 +60,13 @@ const ribbonWillEnter = ({ data: ribbon }) => ({
     ...interpolateColor(ribbon.source.color),
 })
 
-const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
-    ...getRibbonAngles(ribbon, true, springConfig),
-    opacity: 0,
-    ...interpolateColor(ribbon.source.color, springConfig),
-})
+const ribbonWillLeave =
+    springConfig =>
+    ({ data: ribbon }) => ({
+        ...getRibbonAngles(ribbon, true, springConfig),
+        opacity: 0,
+        ...interpolateColor(ribbon.source.color, springConfig),
+    })
 
 const ChordRibbons = memo(
     ({

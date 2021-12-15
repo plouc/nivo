@@ -73,8 +73,7 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string | Function',
         required: false,
-        help:
-            'Propety used to group nodes, must return a group which is available in the groups property.',
+        help: 'Propety used to group nodes, must return a group which is available in the groups property.',
         defaultValue: defaultProps.groupBy,
     },
     {
@@ -446,8 +445,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'debugMesh',
-        help:
-            'Display the mesh used to detect mouse interactions (voronoi cells), depends on useMesh.',
+        help: 'Display the mesh used to detect mouse interactions (voronoi cells), depends on useMesh.',
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.debugMesh,

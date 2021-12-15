@@ -157,7 +157,11 @@ export const useBump = ({
     isInteractive,
     currentSerie,
 }) => {
-    const { series: rawSeries, xScale, yScale } = useMemo(
+    const {
+        series: rawSeries,
+        xScale,
+        yScale,
+    } = useMemo(
         () =>
             computeSeries({
                 width,

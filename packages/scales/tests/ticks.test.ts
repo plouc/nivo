@@ -7,17 +7,7 @@ describe('linear scale', () => {
 
     it('should return default ticks', () => {
         expect(getScaleTicks(linearScale)).toEqual([
-            0,
-            50,
-            100,
-            150,
-            200,
-            250,
-            300,
-            350,
-            400,
-            450,
-            500,
+            0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500,
         ])
     })
 

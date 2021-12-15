@@ -7,7 +7,7 @@ import mapper from '../../data/components/treemap/mapper'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 import meta from '../../data/components/treemap/meta.yml'
 
-const data = generateLightDataSet()
+const data = generateLightDataSet().root
 
 const TreeMapApi = () => {
     return (
@@ -18,10 +18,11 @@ const TreeMapApi = () => {
                 chartClass="treemap"
                 apiPath="/charts/treemap"
                 flavors={meta.flavors}
+                dataProperty="data"
                 controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
-                    root: JSON.stringify(data.root, null, '  '),
+                    data: JSON.stringify(data, null, '  '),
                     identity: 'name',
                     value: 'loc',
                     valueFormat: { format: '.02s', enabled: true },
@@ -30,6 +31,8 @@ const TreeMapApi = () => {
                     innerPadding: TreeMapDefaultProps.innerPadding,
                     outerPadding: TreeMapDefaultProps.outerPadding,
 
+                    width: 800,
+                    height: 560,
                     margin: {
                         top: 10,
                         right: 10,
@@ -55,13 +58,13 @@ const TreeMapApi = () => {
                         modifiers: [['darker', 2]],
                     },
 
-                    colors: { scheme: 'nivo' },
-                    colorBy: 'path.1',
-                    nodeOpacity: 0.5,
-                    borderWidth: 0,
+                    colors: TreeMapDefaultProps.colors,
+                    colorBy: TreeMapDefaultProps.colorBy,
+                    nodeOpacity: TreeMapDefaultProps.nodeOpacity,
+                    borderWidth: TreeMapDefaultProps.borderWidth,
                     borderColor: {
                         from: 'color',
-                        modifiers: [['darker', 0.3]],
+                        modifiers: [['darker', 0.1]],
                     },
                 }}
             />

@@ -45,7 +45,7 @@ export const defaultProps = {
     arcLinkLabelsTextColor: { theme: 'labels.text.fill' },
     arcLinkLabelsColor: { theme: 'axis.ticks.line.stroke' },
 
-    colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
+    colors: { scheme: 'nivo' } as unknown as OrdinalColorScaleConfig,
     defs: [],
     fill: [],
 

@@ -84,6 +84,7 @@ export interface CirclePackingCommonProps<RawDatum> {
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string
+    renderWrapper?: boolean
 }
 
 export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum> &

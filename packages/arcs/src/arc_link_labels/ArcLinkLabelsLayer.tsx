@@ -40,21 +40,17 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
 }: ArcLinkLabelsLayerProps<Datum>) => {
     const getLabel = usePropertyAccessor<Datum, string>(labelAccessor)
 
-    const {
-        transition,
-        interpolateLink,
-        interpolateTextAnchor,
-        interpolateTextPosition,
-    } = useArcLinkLabelsTransition<Datum>({
-        data,
-        skipAngle,
-        offset,
-        diagonalLength,
-        straightLength,
-        textOffset,
-        linkColor,
-        textColor,
-    })
+    const { transition, interpolateLink, interpolateTextAnchor, interpolateTextPosition } =
+        useArcLinkLabelsTransition<Datum>({
+            data,
+            skipAngle,
+            offset,
+            diagonalLength,
+            straightLength,
+            textOffset,
+            linkColor,
+            textColor,
+        })
 
     const Label: ArcLinkLabelComponent<Datum> = component
 

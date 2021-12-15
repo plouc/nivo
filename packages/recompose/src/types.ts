@@ -22,6 +22,5 @@ export type InferableComponentEnhancer<TInjectedProps> = InferableComponentEnhan
     {}
 >
 
-export type DefaultingInferableComponentEnhancer<
-    TInjectedProps
-> = InferableComponentEnhancerWithProps<TInjectedProps, Partial<TInjectedProps>>
+export type DefaultingInferableComponentEnhancer<TInjectedProps> =
+    InferableComponentEnhancerWithProps<TInjectedProps, Partial<TInjectedProps>>

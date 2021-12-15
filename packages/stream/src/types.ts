@@ -30,9 +30,7 @@ export interface StreamDatum {
     [key: string]: string | number
 }
 
-export type StackFunc<RawDatum extends StreamDatum> = (
-    data: RawDatum[]
-) => {
+export type StackFunc<RawDatum extends StreamDatum> = (data: RawDatum[]) => {
     0: number
     1: number
     data: RawDatum

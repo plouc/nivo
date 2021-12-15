@@ -199,7 +199,7 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
                 const value = getValue(d)
 
                 if (value) {
-                    setValue(d, (parseFloat(String(value)) as unknown) as Value)
+                    setValue(d, parseFloat(String(value)) as unknown as Value)
                 }
             })
         })
@@ -213,7 +213,7 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
                 const value = getValue(d)
 
                 if (value) {
-                    setValue(d, (parseTime(value as Date) as unknown) as Value)
+                    setValue(d, parseTime(value as Date) as unknown as Value)
                 }
             })
         })

@@ -11,12 +11,14 @@ export const getIndexScale = <RawDatum>(
     size: number,
     axis: 'x' | 'y'
 ) => {
-    return (computeScale(
-        indexScale,
-        { all: data.map(getIndex), min: 0, max: 0 },
-        size,
-        axis
-    ) as ScaleBand<string>).padding(padding)
+    return (
+        computeScale(
+            indexScale,
+            { all: data.map(getIndex), min: 0, max: 0 },
+            size,
+            axis
+        ) as ScaleBand<string>
+    ).padding(padding)
 }
 
 /**

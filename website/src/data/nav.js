@@ -217,13 +217,12 @@ const all = components.concat([
         icon: 'circle-packing',
         tags: circlePacking.CirclePackingCanvas.tags,
     },
-    // Disabled until the API is fixed
-    // {
-    //     label: 'CirclePacking HTTP API',
-    //     path: '/circle-packing/api/',
-    //     icon: 'circle-packing',
-    //     tags: [...circlePacking.CirclePacking.tags, 'HTTP API'],
-    // },
+    {
+        label: 'CirclePacking HTTP API',
+        path: '/circle-packing/api/',
+        icon: 'circle-packing',
+        tags: [...circlePacking.CirclePacking.tags, 'HTTP API'],
+    },
     {
         label: 'CalendarCanvas',
         path: '/calendar/canvas/',
