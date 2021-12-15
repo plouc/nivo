@@ -36,7 +36,6 @@
     "@types/react-helmet": "^6.1.4",
     "@types/styled-components": "^5.1.18",
     "babel-plugin-styled-components": "^1.13.2",
-    "babel-preset-gatsby": "^2.4.0",
     "dedent-js": "^1.0.1",
     "gatsby": "^4.4.0",
     "gatsby-image": "^3.11.0",
