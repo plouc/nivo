@@ -19,9 +19,10 @@ export const defaultProps = {
     colors: { scheme: 'nivo' } as StreamCommonProps<any>['colors'],
     fillOpacity: 1,
     borderWidth: 0,
-    borderColor: { from: 'color', modifiers: [['darker', 1]] } as StreamCommonProps<
-        any
-    >['borderColor'],
+    borderColor: {
+        from: 'color',
+        modifiers: [['darker', 1]],
+    } as StreamCommonProps<any>['borderColor'],
 
     enableDots: false,
     dotPosition: 'center' as StreamCommonProps<any>['dotPosition'],

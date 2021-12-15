@@ -43,7 +43,7 @@ export const createTimeScale = <Input extends Date | NumberValue>(
     if (nice === true) scale.nice()
     else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice)
 
-    const typedScale = (scale as unknown) as ScaleTime<Input>
+    const typedScale = scale as unknown as ScaleTime<Input>
 
     typedScale.type = 'time'
     typedScale.useUTC = useUTC

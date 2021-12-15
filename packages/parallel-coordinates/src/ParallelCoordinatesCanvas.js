@@ -35,21 +35,16 @@ const ParallelCoordinatesCanvas = ({
         partialMargin
     )
 
-    const {
-        variablesScale,
-        variablesWithScale,
-        dataWithPoints,
-        lineGenerator,
-        getLineColor,
-    } = useParallelCoordinates({
-        width: innerWidth,
-        height: innerHeight,
-        data,
-        variables,
-        layout,
-        colors,
-        curve,
-    })
+    const { variablesScale, variablesWithScale, dataWithPoints, lineGenerator, getLineColor } =
+        useParallelCoordinates({
+            width: innerWidth,
+            height: innerHeight,
+            data,
+            variables,
+            layout,
+            colors,
+            curve,
+        })
 
     const theme = useTheme()
 

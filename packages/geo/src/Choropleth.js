@@ -90,10 +90,10 @@ const Choropleth = memo(
                 showTooltipFromEvent(<Tooltip feature={feature} />, event),
             [isInteractive, showTooltipFromEvent, Tooltip]
         )
-        const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
-            isInteractive,
-            hideTooltip,
-        ])
+        const handleMouseLeave = useCallback(
+            () => isInteractive && hideTooltip(),
+            [isInteractive, hideTooltip]
+        )
 
         return (
             <SvgWrapper

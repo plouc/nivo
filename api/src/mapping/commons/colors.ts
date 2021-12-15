@@ -1,17 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016-today Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-'use strict'
+import Joi from 'joi'
+import { colorSchemeIds } from '@nivo/colors'
 
-const Joi = require('joi')
-const { colorSchemeIds } = require('@nivo/colors')
-
-exports.ordinalColors = Joi.alternatives().try(
+export const ordinalColors = Joi.alternatives().try(
     Joi.array().items(Joi.string()),
     Joi.object().keys({
         scheme: Joi.valid(...colorSchemeIds).required(),
@@ -22,7 +12,7 @@ exports.ordinalColors = Joi.alternatives().try(
     })
 )
 
-exports.inheritedColor = Joi.alternatives().try(
+export const inheritedColor = Joi.alternatives().try(
     Joi.string(),
     Joi.object().keys({
         theme: Joi.string().required(),

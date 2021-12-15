@@ -106,7 +106,7 @@ export const getFormatter = <Value extends ScaleValue>(
         return ((d: any) => formatter(d instanceof Date ? d : new Date(d))) as ValueFormatter<Value>
     }
 
-    return (d3Format(format) as unknown) as ValueFormatter<Value>
+    return d3Format(format) as unknown as ValueFormatter<Value>
 }
 
 export const computeGridLines = <Value extends ScaleValue>({

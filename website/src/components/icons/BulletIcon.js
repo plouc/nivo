@@ -57,13 +57,11 @@ const Range = colors => d => {
     return <rect x={d.x} y={d.y} width={d.width} height={d.height} fill={color} />
 }
 
-const Measure = color => d => (
+const Measure = color => d =>
     <rect x={d.x} y={d.y} width={d.width} height={d.height} fill={color} />
-)
 
-const Marker = color => d => (
+const Marker = color => d =>
     <rect fill={color} x={d.x - d.size / 2} y={d.y - d.size / 2} width={d.size} height={d.size} />
-)
 
 const BulletIconItem = ({ type }) => (
     <Icon id={`bullet-${type}`} type={type}>

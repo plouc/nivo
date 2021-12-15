@@ -301,8 +301,7 @@ const props: ChartProperty[] = [
     {
         key: 'pointSymbol',
         flavors: ['svg'],
-        help:
-            'Overrides default point circle. The function will receive `size`, `color`, `borderWidth` and `borderColor` props and must return a valid SVG element.',
+        help: 'Overrides default point circle. The function will receive `size`, `color`, `borderWidth` and `borderColor` props and must return a valid SVG element.',
         type: 'Function',
         required: false,
         group: 'Points',
@@ -362,8 +361,7 @@ const props: ChartProperty[] = [
         key: 'pointLabel',
         flavors: ['svg', 'api'],
         group: 'Points',
-        help:
-            'Property to use to determine point label. If a function is provided, it will receive current point data and should return the desired label.',
+        help: 'Property to use to determine point label. If a function is provided, it will receive current point data and should return the desired label.',
         type: 'string',
         required: false,
         controlType: 'choices',

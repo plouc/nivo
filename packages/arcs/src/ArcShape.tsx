@@ -39,17 +39,17 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
 }: ArcShapeProps<Datum>) => {
     const handleClick = useCallback(event => onClick?.(datum, event), [onClick, datum])
 
-    const handleMouseEnter = useCallback(event => onMouseEnter?.(datum, event), [
-        onMouseEnter,
-        datum,
-    ])
+    const handleMouseEnter = useCallback(
+        event => onMouseEnter?.(datum, event),
+        [onMouseEnter, datum]
+    )
 
     const handleMouseMove = useCallback(event => onMouseMove?.(datum, event), [onMouseMove, datum])
 
-    const handleMouseLeave = useCallback(event => onMouseLeave?.(datum, event), [
-        onMouseLeave,
-        datum,
-    ])
+    const handleMouseLeave = useCallback(
+        event => onMouseLeave?.(datum, event),
+        [onMouseLeave, datum]
+    )
 
     return (
         <animated.path

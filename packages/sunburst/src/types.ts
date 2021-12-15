@@ -74,6 +74,7 @@ export type SunburstCommonProps<RawDatum> = {
     enableArcLabels: boolean
     layers: SunburstLayer<RawDatum>[]
     role: string
+    renderWrapper: boolean
     transitionMode: ArcTransitionMode
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element

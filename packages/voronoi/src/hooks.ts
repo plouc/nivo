@@ -19,17 +19,12 @@ export const useVoronoiMesh = <Datum>({
     height: number
     debug?: boolean
 }) => {
-    const points2d = useMemo(
-        () => computeMeshPoints<Datum>({ points, x, y }),
-        [points, x, y]
-    )
+    const points2d = useMemo(() => computeMeshPoints<Datum>({ points, x, y }), [points, x, y])
 
-    return useMemo(() => computeMesh({ points: points2d, width, height, debug }), [
-        points2d,
-        width,
-        height,
-        debug,
-    ])
+    return useMemo(
+        () => computeMesh({ points: points2d, width, height, debug }),
+        [points2d, width, height, debug]
+    )
 }
 
 export const useVoronoi = ({
@@ -46,10 +41,10 @@ export const useVoronoi = ({
     yDomain: VoronoiCommonProps['yDomain']
 }) => {
     const xScale = useMemo(() => scaleLinear().domain(xDomain).range([0, width]), [xDomain, width])
-    const yScale = useMemo(() => scaleLinear().domain(yDomain).range([0, height]), [
-        yDomain,
-        height,
-    ])
+    const yScale = useMemo(
+        () => scaleLinear().domain(yDomain).range([0, height]),
+        [yDomain, height]
+    )
 
     const points = useMemo(
         () =>

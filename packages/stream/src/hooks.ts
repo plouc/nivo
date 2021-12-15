@@ -111,9 +111,10 @@ export const useStream = <RawDatum extends StreamDatum>({
     )
     const getBorderColor = useInheritedColor<StreamLayerData>(borderColor, theme)
 
-    const getDotSize = useMemo(() => (typeof dotSize === 'function' ? dotSize : () => dotSize), [
-        dotSize,
-    ])
+    const getDotSize = useMemo(
+        () => (typeof dotSize === 'function' ? dotSize : () => dotSize),
+        [dotSize]
+    )
     const getDotColor = useInheritedColor(dotColor, theme)
     const getDotBorderWidth = useMemo(
         () => (typeof dotBorderWidth === 'function' ? dotBorderWidth : () => dotBorderWidth),

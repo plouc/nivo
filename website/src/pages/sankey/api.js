@@ -38,8 +38,6 @@ const SankeyApi = () => {
                     colors: { scheme: 'category10' },
 
                     nodeOpacity: 1,
-                    nodeHoverOpacity: 1,
-                    nodeHoverOthersOpacity: 0.35,
                     nodeThickness: 18,
                     nodeInnerPadding: 3,
                     nodeSpacing: 24,
@@ -51,8 +49,6 @@ const SankeyApi = () => {
                     nodeBorderRadius: 0,
 
                     linkOpacity: 0.5,
-                    linkHoverOpacity: 0.6,
-                    linkHoverOthersOpacity: 0.1,
                     linkContract: 0,
                     linkBlendMode: 'multiply',
                     enableLinkGradient: true,

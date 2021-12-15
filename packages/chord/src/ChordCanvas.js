@@ -67,26 +67,19 @@ const ChordCanvas = memo(
             partialMargin
         )
 
-        const {
-            center,
-            radius,
-            innerRadius,
-            arcGenerator,
-            ribbonGenerator,
-            arcs,
-            ribbons,
-        } = useChord({
-            keys,
-            matrix,
-            label,
-            valueFormat,
-            width: innerWidth,
-            height: innerHeight,
-            innerRadiusRatio,
-            innerRadiusOffset,
-            padAngle,
-            colors,
-        })
+        const { center, radius, innerRadius, arcGenerator, ribbonGenerator, arcs, ribbons } =
+            useChord({
+                keys,
+                matrix,
+                label,
+                valueFormat,
+                width: innerWidth,
+                height: innerHeight,
+                innerRadiusRatio,
+                innerRadiusOffset,
+                padAngle,
+                colors,
+            })
 
         const { currentArc, setCurrentArc, getArcOpacity, getRibbonOpacity } = useChordSelection({
             arcs,

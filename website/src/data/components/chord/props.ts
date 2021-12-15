@@ -236,8 +236,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'label',
-        help:
-            'Defines how to get label text, can be a string (used to access current arc data property) or a function which will receive the actual arc data.',
+        help: 'Defines how to get label text, can be a string (used to access current arc data property) or a function which will receive the actual arc data.',
         type: 'string | Function',
         required: false,
         defaultValue: defaults.label,

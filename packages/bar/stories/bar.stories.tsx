@@ -241,8 +241,7 @@ stories.add(
     ),
     {
         info: {
-            text:
-                'You can customize rendering of axis ticks using the corresponding axis `renderTick` property.',
+            text: 'You can customize rendering of axis ticks using the corresponding axis `renderTick` property.',
         },
     }
 )

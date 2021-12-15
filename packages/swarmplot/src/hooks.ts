@@ -61,13 +61,10 @@ export const useOrdinalScale = ({
     groups: string[]
     gap: number
 }) =>
-    useMemo(() => computeOrdinalScale({ width, height, axis, groups, gap }), [
-        width,
-        height,
-        axis,
-        groups,
-        gap,
-    ])
+    useMemo(
+        () => computeOrdinalScale({ width, height, axis, groups, gap }),
+        [width, height, axis, groups, gap]
+    )
 
 const useSize = <RawDatum>(size: SizeSpec<RawDatum>) =>
     useMemo(() => getSizeGenerator<RawDatum>(size), [size])

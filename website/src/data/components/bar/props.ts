@@ -128,8 +128,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'reverse',
-        help:
-            'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',
+        help: 'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',
         type: 'boolean',
         required: false,
         defaultValue: svgDefaultProps.reverse,

@@ -83,11 +83,10 @@ const InnerCirclePacking = <RawDatum,>({
 
     const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
 
-    const boundDefs = useMemo(() => bindDefs(defs, zoomedNodes, fill, { targetKey: 'fill' }), [
-        defs,
-        zoomedNodes,
-        fill,
-    ])
+    const boundDefs = useMemo(
+        () => bindDefs(defs, zoomedNodes, fill, { targetKey: 'fill' }),
+        [defs, zoomedNodes, fill]
+    )
 
     const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
@@ -158,6 +157,7 @@ export const CirclePacking = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
+    renderWrapper,
     ...otherProps
 }: Partial<Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
     Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
@@ -165,6 +165,7 @@ export const CirclePacking = <RawDatum,>({
         isInteractive={isInteractive}
         animate={animate}
         motionConfig={motionConfig}
+        renderWrapper={renderWrapper}
         theme={theme}
     >
         <InnerCirclePacking<RawDatum> isInteractive={isInteractive} {...otherProps} />

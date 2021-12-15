@@ -17,16 +17,12 @@ type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | IterateeShortha
 // then it's absolute.
 export type RelativeOrAbsolutePosition = number | { abs: number }
 
-export type AnnotationPositionGetter<Datum> = (
-    datum: Datum
-) => {
+export type AnnotationPositionGetter<Datum> = (datum: Datum) => {
     x: number
     y: number
 }
 
-export type AnnotationDimensionsGetter<Datum> = (
-    datum: Datum
-) => {
+export type AnnotationDimensionsGetter<Datum> = (datum: Datum) => {
     size: number
     width: number
     height: number

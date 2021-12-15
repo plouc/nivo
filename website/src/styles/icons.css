@@ -1,5 +1,5 @@
 /* glue: 0.13 hash: cc3bb7ef36 */
-        .sprite-icons-waffle-light-neutral,
+.sprite-icons-waffle-light-neutral,
 .sprite-icons-waffle-light-colored,
 .sprite-icons-waffle-dark-neutral,
 .sprite-icons-waffle-dark-colored,
@@ -124,762 +124,766 @@
 .sprite-icons-area-bump-light-colored,
 .sprite-icons-area-bump-dark-neutral,
 .sprite-icons-area-bump-dark-colored {
-            background-image: url('../assets/icons.png');
-            background-repeat: no-repeat;
-        }
-        
-        .sprite-icons-waffle-light-neutral {
-            background-position: -4px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-waffle-light-colored {
-            background-position: -64px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-waffle-dark-neutral {
-            background-position: -4px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-waffle-dark-colored {
-            background-position: -64px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-voronoi-red {
-            background-position: -124px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-voronoi-light-neutral {
-            background-position: -124px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-voronoi-light-colored {
-            background-position: -4px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-voronoi-grey {
-            background-position: -64px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-voronoi-dark-neutral {
-            background-position: -124px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-voronoi-dark-colored {
-            background-position: -184px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-treemap-red {
-            background-position: -184px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-treemap-light-neutral {
-            background-position: -184px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-treemap-light-colored {
-            background-position: -4px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-treemap-grey {
-            background-position: -64px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-treemap-dark-neutral {
-            background-position: -124px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-treemap-dark-colored {
-            background-position: -184px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-time-range-light-neutral {
-            background-position: -244px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-time-range-light-colored {
-            background-position: -244px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-time-range-dark-neutral {
-            background-position: -244px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-time-range-dark-colored {
-            background-position: -244px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-swarmplot-light-neutral {
-            background-position: -4px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-swarmplot-light-colored {
-            background-position: -64px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-swarmplot-dark-neutral {
-            background-position: -124px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-swarmplot-dark-colored {
-            background-position: -184px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sunburst-red {
-            background-position: -244px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sunburst-light-neutral {
-            background-position: -304px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sunburst-light-colored {
-            background-position: -304px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sunburst-grey {
-            background-position: -304px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sunburst-dark-neutral {
-            background-position: -304px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sunburst-dark-colored {
-            background-position: -304px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-stream-light-neutral {
-            background-position: -4px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-stream-light-colored {
-            background-position: -64px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-stream-dark-neutral {
-            background-position: -124px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-stream-dark-colored {
-            background-position: -184px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-scatterplot-light-neutral {
-            background-position: -244px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-scatterplot-light-colored {
-            background-position: -304px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-scatterplot-dark-neutral {
-            background-position: -364px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-scatterplot-dark-colored {
-            background-position: -364px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sankey-red {
-            background-position: -364px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sankey-light-neutral {
-            background-position: -364px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sankey-light-colored {
-            background-position: -364px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sankey-grey {
-            background-position: -364px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sankey-dark-neutral {
-            background-position: -4px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-sankey-dark-colored {
-            background-position: -64px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radial-bar-light-neutral {
-            background-position: -124px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radial-bar-light-colored {
-            background-position: -184px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radial-bar-dark-neutral {
-            background-position: -244px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radial-bar-dark-colored {
-            background-position: -304px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radar-light-neutral {
-            background-position: -364px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radar-light-colored {
-            background-position: -424px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radar-dark-neutral {
-            background-position: -424px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-radar-dark-colored {
-            background-position: -424px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-pie-light-neutral {
-            background-position: -424px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-pie-light-colored {
-            background-position: -424px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-pie-dark-neutral {
-            background-position: -424px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-pie-dark-colored {
-            background-position: -424px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-parallel-coordinates-light-neutral {
-            background-position: -4px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-parallel-coordinates-light-colored {
-            background-position: -64px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-parallel-coordinates-dark-neutral {
-            background-position: -124px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-parallel-coordinates-dark-colored {
-            background-position: -184px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-nivo-icon {
-            background-position: -244px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-network-light-neutral {
-            background-position: -304px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-network-light-colored {
-            background-position: -364px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-network-dark-neutral {
-            background-position: -424px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-network-dark-colored {
-            background-position: -484px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-marimekko-light-neutral {
-            background-position: -484px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-marimekko-light-colored {
-            background-position: -484px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-marimekko-dark-neutral {
-            background-position: -484px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-marimekko-dark-colored {
-            background-position: -484px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-line-light-neutral {
-            background-position: -484px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-line-light-colored {
-            background-position: -484px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-line-dark-neutral {
-            background-position: -484px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-line-dark-colored {
-            background-position: -4px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-heatmap-light-neutral {
-            background-position: -64px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-heatmap-light-colored {
-            background-position: -124px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-heatmap-dark-neutral {
-            background-position: -184px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-heatmap-dark-colored {
-            background-position: -244px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-geomap-light-neutral {
-            background-position: -304px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-geomap-light-colored {
-            background-position: -364px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-geomap-dark-neutral {
-            background-position: -424px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-geomap-dark-colored {
-            background-position: -484px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-funnel-light-neutral {
-            background-position: -544px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-funnel-light-colored {
-            background-position: -544px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-funnel-dark-neutral {
-            background-position: -544px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-funnel-dark-colored {
-            background-position: -544px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-data-light-neutral {
-            background-position: -544px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-data-light-colored {
-            background-position: -544px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-data-dark-neutral {
-            background-position: -544px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-data-dark-colored {
-            background-position: -544px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-code-light-neutral {
-            background-position: -544px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-code-light-colored {
-            background-position: -4px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-code-dark-neutral {
-            background-position: -64px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-code-dark-colored {
-            background-position: -124px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-circle-packing-light-neutral {
-            background-position: -184px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-circle-packing-light-colored {
-            background-position: -244px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-circle-packing-dark-neutral {
-            background-position: -304px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-circle-packing-dark-colored {
-            background-position: -364px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-choropleth-light-neutral {
-            background-position: -424px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-choropleth-light-colored {
-            background-position: -484px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-choropleth-dark-neutral {
-            background-position: -544px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-choropleth-dark-colored {
-            background-position: -604px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-chord-light-neutral {
-            background-position: -604px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-chord-light-colored {
-            background-position: -604px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-chord-dark-neutral {
-            background-position: -604px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-chord-dark-colored {
-            background-position: -604px -244px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-calendar-light-neutral {
-            background-position: -604px -304px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-calendar-light-colored {
-            background-position: -604px -364px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-calendar-dark-neutral {
-            background-position: -604px -424px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-calendar-dark-colored {
-            background-position: -604px -484px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bump-light-neutral {
-            background-position: -604px -544px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bump-light-colored {
-            background-position: -4px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bump-dark-neutral {
-            background-position: -64px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bump-dark-colored {
-            background-position: -124px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bullet-light-neutral {
-            background-position: -184px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bullet-light-colored {
-            background-position: -244px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bullet-dark-neutral {
-            background-position: -304px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bullet-dark-colored {
-            background-position: -364px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bar-light-neutral {
-            background-position: -424px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bar-light-colored {
-            background-position: -484px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bar-dark-neutral {
-            background-position: -544px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-bar-dark-colored {
-            background-position: -604px -604px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-area-bump-light-neutral {
-            background-position: -664px -4px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-area-bump-light-colored {
-            background-position: -664px -64px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-area-bump-dark-neutral {
-            background-position: -664px -124px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        .sprite-icons-area-bump-dark-colored {
-            background-position: -664px -184px;
-            width: 52px;
-            height: 52px;
-        }
-        
-        @media screen and (-webkit-min-device-pixel-ratio: 1.0), screen and (min--moz-device-pixel-ratio: 1.0), screen and (-o-min-device-pixel-ratio: 100/100), screen and (min-device-pixel-ratio: 1.0), screen and (min-resolution: 1.0dppx) {
-            .sprite-icons-waffle-light-neutral,
+    background-image: url('../assets/icons.png');
+    background-repeat: no-repeat;
+}
+
+.sprite-icons-waffle-light-neutral {
+    background-position: -4px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-waffle-light-colored {
+    background-position: -64px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-waffle-dark-neutral {
+    background-position: -4px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-waffle-dark-colored {
+    background-position: -64px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-voronoi-red {
+    background-position: -124px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-voronoi-light-neutral {
+    background-position: -124px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-voronoi-light-colored {
+    background-position: -4px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-voronoi-grey {
+    background-position: -64px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-voronoi-dark-neutral {
+    background-position: -124px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-voronoi-dark-colored {
+    background-position: -184px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-treemap-red {
+    background-position: -184px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-treemap-light-neutral {
+    background-position: -184px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-treemap-light-colored {
+    background-position: -4px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-treemap-grey {
+    background-position: -64px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-treemap-dark-neutral {
+    background-position: -124px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-treemap-dark-colored {
+    background-position: -184px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-time-range-light-neutral {
+    background-position: -244px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-time-range-light-colored {
+    background-position: -244px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-time-range-dark-neutral {
+    background-position: -244px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-time-range-dark-colored {
+    background-position: -244px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-swarmplot-light-neutral {
+    background-position: -4px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-swarmplot-light-colored {
+    background-position: -64px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-swarmplot-dark-neutral {
+    background-position: -124px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-swarmplot-dark-colored {
+    background-position: -184px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sunburst-red {
+    background-position: -244px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sunburst-light-neutral {
+    background-position: -304px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sunburst-light-colored {
+    background-position: -304px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sunburst-grey {
+    background-position: -304px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sunburst-dark-neutral {
+    background-position: -304px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sunburst-dark-colored {
+    background-position: -304px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-stream-light-neutral {
+    background-position: -4px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-stream-light-colored {
+    background-position: -64px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-stream-dark-neutral {
+    background-position: -124px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-stream-dark-colored {
+    background-position: -184px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-scatterplot-light-neutral {
+    background-position: -244px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-scatterplot-light-colored {
+    background-position: -304px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-scatterplot-dark-neutral {
+    background-position: -364px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-scatterplot-dark-colored {
+    background-position: -364px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sankey-red {
+    background-position: -364px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sankey-light-neutral {
+    background-position: -364px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sankey-light-colored {
+    background-position: -364px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sankey-grey {
+    background-position: -364px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sankey-dark-neutral {
+    background-position: -4px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-sankey-dark-colored {
+    background-position: -64px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radial-bar-light-neutral {
+    background-position: -124px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radial-bar-light-colored {
+    background-position: -184px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radial-bar-dark-neutral {
+    background-position: -244px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radial-bar-dark-colored {
+    background-position: -304px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radar-light-neutral {
+    background-position: -364px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radar-light-colored {
+    background-position: -424px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radar-dark-neutral {
+    background-position: -424px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-radar-dark-colored {
+    background-position: -424px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-pie-light-neutral {
+    background-position: -424px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-pie-light-colored {
+    background-position: -424px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-pie-dark-neutral {
+    background-position: -424px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-pie-dark-colored {
+    background-position: -424px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-parallel-coordinates-light-neutral {
+    background-position: -4px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-parallel-coordinates-light-colored {
+    background-position: -64px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-parallel-coordinates-dark-neutral {
+    background-position: -124px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-parallel-coordinates-dark-colored {
+    background-position: -184px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-nivo-icon {
+    background-position: -244px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-network-light-neutral {
+    background-position: -304px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-network-light-colored {
+    background-position: -364px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-network-dark-neutral {
+    background-position: -424px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-network-dark-colored {
+    background-position: -484px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-marimekko-light-neutral {
+    background-position: -484px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-marimekko-light-colored {
+    background-position: -484px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-marimekko-dark-neutral {
+    background-position: -484px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-marimekko-dark-colored {
+    background-position: -484px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-line-light-neutral {
+    background-position: -484px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-line-light-colored {
+    background-position: -484px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-line-dark-neutral {
+    background-position: -484px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-line-dark-colored {
+    background-position: -4px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-heatmap-light-neutral {
+    background-position: -64px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-heatmap-light-colored {
+    background-position: -124px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-heatmap-dark-neutral {
+    background-position: -184px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-heatmap-dark-colored {
+    background-position: -244px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-geomap-light-neutral {
+    background-position: -304px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-geomap-light-colored {
+    background-position: -364px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-geomap-dark-neutral {
+    background-position: -424px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-geomap-dark-colored {
+    background-position: -484px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-funnel-light-neutral {
+    background-position: -544px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-funnel-light-colored {
+    background-position: -544px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-funnel-dark-neutral {
+    background-position: -544px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-funnel-dark-colored {
+    background-position: -544px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-data-light-neutral {
+    background-position: -544px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-data-light-colored {
+    background-position: -544px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-data-dark-neutral {
+    background-position: -544px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-data-dark-colored {
+    background-position: -544px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-code-light-neutral {
+    background-position: -544px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-code-light-colored {
+    background-position: -4px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-code-dark-neutral {
+    background-position: -64px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-code-dark-colored {
+    background-position: -124px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-circle-packing-light-neutral {
+    background-position: -184px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-circle-packing-light-colored {
+    background-position: -244px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-circle-packing-dark-neutral {
+    background-position: -304px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-circle-packing-dark-colored {
+    background-position: -364px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-choropleth-light-neutral {
+    background-position: -424px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-choropleth-light-colored {
+    background-position: -484px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-choropleth-dark-neutral {
+    background-position: -544px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-choropleth-dark-colored {
+    background-position: -604px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-chord-light-neutral {
+    background-position: -604px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-chord-light-colored {
+    background-position: -604px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-chord-dark-neutral {
+    background-position: -604px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-chord-dark-colored {
+    background-position: -604px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-calendar-light-neutral {
+    background-position: -604px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-calendar-light-colored {
+    background-position: -604px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-calendar-dark-neutral {
+    background-position: -604px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-calendar-dark-colored {
+    background-position: -604px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bump-light-neutral {
+    background-position: -604px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bump-light-colored {
+    background-position: -4px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bump-dark-neutral {
+    background-position: -64px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bump-dark-colored {
+    background-position: -124px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bullet-light-neutral {
+    background-position: -184px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bullet-light-colored {
+    background-position: -244px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bullet-dark-neutral {
+    background-position: -304px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bullet-dark-colored {
+    background-position: -364px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bar-light-neutral {
+    background-position: -424px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bar-light-colored {
+    background-position: -484px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bar-dark-neutral {
+    background-position: -544px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bar-dark-colored {
+    background-position: -604px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-neutral {
+    background-position: -664px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-colored {
+    background-position: -664px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-neutral {
+    background-position: -664px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-colored {
+    background-position: -664px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 1),
+    screen and (min--moz-device-pixel-ratio: 1),
+    screen and (-o-min-device-pixel-ratio: 100/100),
+    screen and (min-device-pixel-ratio: 1),
+    screen and (min-resolution: 1dppx) {
+    .sprite-icons-waffle-light-neutral,
     .sprite-icons-waffle-light-colored,
     .sprite-icons-waffle-dark-neutral,
     .sprite-icons-waffle-dark-colored,
@@ -1004,15 +1008,19 @@
     .sprite-icons-area-bump-light-colored,
     .sprite-icons-area-bump-dark-neutral,
     .sprite-icons-area-bump-dark-colored {
-                background-image: url('../assets/icons.png');
-                -webkit-background-size: 720px 660px;
-                -moz-background-size: 720px 660px;
-                background-size: 720px 660px;
-            }
-        }
-        
-        @media screen and (-webkit-min-device-pixel-ratio: 2.0), screen and (min--moz-device-pixel-ratio: 2.0), screen and (-o-min-device-pixel-ratio: 200/100), screen and (min-device-pixel-ratio: 2.0), screen and (min-resolution: 2.0dppx) {
-            .sprite-icons-waffle-light-neutral,
+        background-image: url('../assets/icons.png');
+        -webkit-background-size: 720px 660px;
+        -moz-background-size: 720px 660px;
+        background-size: 720px 660px;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (min--moz-device-pixel-ratio: 2),
+    screen and (-o-min-device-pixel-ratio: 200/100),
+    screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 2dppx) {
+    .sprite-icons-waffle-light-neutral,
     .sprite-icons-waffle-light-colored,
     .sprite-icons-waffle-dark-neutral,
     .sprite-icons-waffle-dark-colored,
@@ -1137,10 +1145,9 @@
     .sprite-icons-area-bump-light-colored,
     .sprite-icons-area-bump-dark-neutral,
     .sprite-icons-area-bump-dark-colored {
-                background-image: url('../assets/icons@2x.png');
-                -webkit-background-size: 720px 660px;
-                -moz-background-size: 720px 660px;
-                background-size: 720px 660px;
-            }
-        }
-        
+        background-image: url('../assets/icons@2x.png');
+        -webkit-background-size: 720px 660px;
+        -moz-background-size: 720px 660px;
+        background-size: 720px 660px;
+    }
+}

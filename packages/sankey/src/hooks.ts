@@ -59,7 +59,7 @@ export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink
 
     // deep clone is required as the sankey diagram mutates data
     // we need a different identity for correct updates
-    const data = (cloneDeep(_data) as unknown) as {
+    const data = cloneDeep(_data) as unknown as {
         nodes: SankeyNodeDatum<N, L>[]
         links: SankeyLinkDatum<N, L>[]
     }

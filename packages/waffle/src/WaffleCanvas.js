@@ -118,16 +118,8 @@ class WaffleCanvas extends Component {
     }
 
     handleMouseHover = (showTooltip, hideTooltip) => event => {
-        const {
-            isInteractive,
-            margin,
-            theme,
-            cells,
-            cellSize,
-            origin,
-            tooltipFormat,
-            tooltip,
-        } = this.props
+        const { isInteractive, margin, theme, cells, cellSize, origin, tooltipFormat, tooltip } =
+            this.props
 
         if (!isInteractive || !cells) return
 

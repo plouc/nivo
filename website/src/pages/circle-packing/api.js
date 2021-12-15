@@ -18,7 +18,7 @@ const CirclePackingApi = () => {
             <ApiClient
                 componentName="CirclePacking"
                 chartClass="circle-packing"
-                apiPath="/charts/circle-packing"
+                apiPath="/charts/circle_packing"
                 flavors={meta.flavors}
                 dataProperty="root"
                 controlGroups={groups}
@@ -32,8 +32,8 @@ const CirclePackingApi = () => {
                         bottom: 20,
                         left: 20,
                     },
-                    root: JSON.stringify(root, null, '  '),
-                    identity: 'name',
+                    data: JSON.stringify(root, null, '  '),
+                    id: 'name',
                     value: 'loc',
                     valueFormat: { format: '', enabled: false },
                     colors: { scheme: 'nivo' },
@@ -52,7 +52,6 @@ const CirclePackingApi = () => {
                         from: 'color',
                         modifiers: [['darker', 0.8]],
                     },
-                    labelTextDY: 4,
                     borderWidth: 0,
                     borderColor: {
                         from: 'color',

@@ -1,25 +1,17 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-'use strict'
-
-const {
+import {
     generateLibTree,
     generateDrinkStats,
     generateCountriesData,
     generateProgrammingLanguageStats,
     generateWinesTastes,
     generateSankeyData,
-} = require('@nivo/generators')
+} from '@nivo/generators'
+import { StorageEntry } from '../lib/storage'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
+const moreKeys = [...keys, 'junk', 'sushi', 'ramen', 'curry', 'udon', 'bagel']
 
-module.exports = {
+const samples: Record<string, Omit<StorageEntry<any>, 'url'>> = {
     bar: {
         type: 'bar',
         props: {
@@ -31,17 +23,16 @@ module.exports = {
             colors: 'nivo',
         },
     },
-    bubble: {
-        type: 'bubble',
+    circle_packing: {
+        type: 'circle_packing',
         props: {
             width: 600,
             height: 600,
-            root: generateLibTree(),
-            identity: 'name',
+            data: generateLibTree(),
+            id: 'name',
             value: 'loc',
             label: 'name',
             margin: { top: 0, right: 0, bottom: 0, left: 0 },
-            colors: 'nivo',
         },
     },
     chord: {
@@ -49,7 +40,7 @@ module.exports = {
         props: {
             width: 800,
             height: 800,
-            data: [
+            matrix: [
                 [11975, 5871, 8916, 2868, 1967, 2987, 4300],
                 [1951, 10048, 2060, 6171, 1967, 2987, 4300],
                 [8010, 16145, 8090, 8045, 1967, 2987, 4300],
@@ -58,13 +49,32 @@ module.exports = {
                 [1013, 990, 940, 6907, 1967, 2987, 4300],
                 [1013, 990, 940, 6907, 3000, 3456, 876],
             ],
-            colors: 'd320c',
+            keys: moreKeys.slice(0, 7),
+            colors: { scheme: 'paired' },
             padAngle: 0.01,
             innerRadiusRatio: 0.98,
             innerRadiusOffset: 0.01,
         },
     },
-    heatmap: require('./heatmap'),
+    heatmap: {
+        type: 'heatmap',
+        props: {
+            width: 900,
+            height: 600,
+            data: generateCountriesData(moreKeys, { size: 9, min: 0, max: 100 }),
+            keys: moreKeys,
+            indexBy: 'country',
+            forceSquare: true,
+            cellShape: 'circle',
+            cellBorderWidth: 2,
+            cellBorderColor: 'inherit:darker(0.4)',
+            padding: 4,
+            sizeVariation: 0.5,
+            enableGridY: true,
+            labelTextColor: 'inherit:darker(2.4)',
+            colors: 'PuOr',
+        },
+    },
     line: {
         type: 'line',
         props: {
@@ -75,7 +85,6 @@ module.exports = {
             identity: 'country',
             cumulative: false,
             curve: 'monotoneX',
-            colors: 'nivo',
         },
     },
     pie: {
@@ -120,7 +129,7 @@ module.exports = {
             width: 1400,
             height: 800,
             data: generateSankeyData({ nodeCount: 13, maxIterations: 2 }),
-            colors: 'd320b',
+            colors: { scheme: 'paired' },
             nodePaddingX: 3,
             nodeOpacity: 1,
             nodeWidth: 14,
@@ -135,8 +144,13 @@ module.exports = {
             width: 800,
             height: 800,
             data: generateLibTree(),
-            identity: 'name',
+            id: 'name',
             value: 'loc',
+            childColor: { from: 'color', modifiers: [['brighter', 0.1]] },
+            cornerRadius: 2,
+            enableArcLabels: true,
+            arcLabelsSkipAngle: 10,
+            arcLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
         },
     },
     treemap: {
@@ -145,15 +159,15 @@ module.exports = {
             type: 'treemap',
             width: 800,
             height: 500,
-            root: generateLibTree(),
+            data: generateLibTree(),
             identity: 'name',
             value: 'loc',
-            label: 'loc',
             labelFormat: '.0s',
             leavesOnly: false,
             innerPadding: 3,
             outerPadding: 3,
-            colors: 'nivo',
         },
     },
 }
+
+export default samples

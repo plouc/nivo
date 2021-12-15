@@ -108,9 +108,10 @@ export const Circles = <RawDatum,>({
     const getBorderWidth = useBorderWidth<RawDatum>(borderWidth)
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
 
-    const transitionPhases = useMemo(() => getTransitionPhases<RawDatum>(getBorderColor), [
-        getBorderColor,
-    ])
+    const transitionPhases = useMemo(
+        () => getTransitionPhases<RawDatum>(getBorderColor),
+        [getBorderColor]
+    )
 
     const transition = useTransition<
         ComputedDatum<RawDatum>,

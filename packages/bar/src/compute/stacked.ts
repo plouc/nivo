@@ -20,7 +20,7 @@ type Params<RawDatum, XScaleInput, YScaleInput> = {
 }
 
 const flattenDeep = <T>(arr: T[]): T =>
-    arr.some(Array.isArray) ? flattenDeep(([] as T[]).concat(...arr)) : ((arr as unknown) as T)
+    arr.some(Array.isArray) ? flattenDeep(([] as T[]).concat(...arr)) : (arr as unknown as T)
 
 const filterZerosIfLog = (array: number[], type: string) =>
     type === 'log' ? array.filter(num => num !== 0) : array
@@ -205,7 +205,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     }
 
     const values = filterZerosIfLog(
-        flattenDeep((stackedData as unknown) as number[][]),
+        flattenDeep(stackedData as unknown as number[][]),
         valueScale.type
     )
     const min = Math.min(...values)

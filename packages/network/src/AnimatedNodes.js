@@ -19,12 +19,14 @@ const willEnter = ({ style }) => ({
     scale: 0,
 })
 
-const willLeave = springConfig => ({ style }) => ({
-    x: style.x,
-    y: style.y,
-    radius: style.radius,
-    scale: spring(0, springConfig),
-})
+const willLeave =
+    springConfig =>
+    ({ style }) => ({
+        x: style.x,
+        y: style.y,
+        radius: style.radius,
+        scale: spring(0, springConfig),
+    })
 
 const AnimatedNodes = ({ nodes, color, borderColor, ...props }) => {
     const { springConfig } = useMotionConfig()

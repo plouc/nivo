@@ -138,10 +138,10 @@ const GeoMapCanvas = memo(props => {
         },
         [showTooltipFromEvent, hideTooltip, isInteractive, Tooltip, canvasEl, features, projection]
     )
-    const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
-        isInteractive,
-        hideTooltip,
-    ])
+    const handleMouseLeave = useCallback(
+        () => isInteractive && hideTooltip(),
+        [isInteractive, hideTooltip]
+    )
     const handleClick = useCallback(
         event => {
             if (!isInteractive || !onClick) return

@@ -347,8 +347,7 @@ const props: ChartProperty[] = [
         group: 'Labels',
         type: 'string | (bar: ComputedBar) => string',
         required: false,
-        help:
-            'Defines how to get label text, can be a string (used to access current bar property) or a function which will receive the actual bar data.',
+        help: 'Defines how to get label text, can be a string (used to access current bar property) or a function which will receive the actual bar data.',
         flavors: ['svg'],
         defaultValue: svgDefaultProps.label,
         controlType: 'choices',
