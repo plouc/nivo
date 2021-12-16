@@ -39,8 +39,6 @@ describe('Bullet', () => {
             expect(items.at(0).prop('measures')).toEqual([30])
             expect(items.at(0).prop('markers')).toEqual([20])
             expect(items.at(0).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 40])
-            let ticks = wrapper.find(Axis).at(0).find(AxisTick)
-            expect(ticks).toHaveLength(9)
             expect(
                 wrapper
                     .find(Axis)
