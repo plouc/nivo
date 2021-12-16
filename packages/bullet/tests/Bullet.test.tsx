@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { AxisTickProps } from '@nivo/axes'
+import { AxisTickProps, Axis, AxisTick } from '@nivo/axes'
 import { Bullet, BulletItemProps, BulletRectsItemProps } from '../src'
 
 const sampleData = [
@@ -39,11 +39,13 @@ describe('Bullet', () => {
             expect(items.at(0).prop('measures')).toEqual([30])
             expect(items.at(0).prop('markers')).toEqual([20])
             expect(items.at(0).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 40])
+            let ticks = wrapper.find(Axis).at(0).find(AxisTick)
+            expect(ticks).toHaveLength(9)
             expect(
                 wrapper
-                    .find('Memo(Axis)')
+                    .find(Axis)
                     .at(0)
-                    .find('Memo(AxisTick)')
+                    .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
                 Array [
@@ -66,9 +68,9 @@ describe('Bullet', () => {
             expect(items.at(1).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 100])
             expect(
                 wrapper
-                    .find('Memo(Axis)')
+                    .find(Axis)
                     .at(1)
-                    .find('Memo(AxisTick)')
+                    .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
                 Array [
@@ -93,9 +95,9 @@ describe('Bullet', () => {
             expect(items.at(2).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 50])
             expect(
                 wrapper
-                    .find('Memo(Axis)')
+                    .find(Axis)
                     .at(2)
-                    .find('Memo(AxisTick)')
+                    .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
                 Array [
@@ -131,9 +133,9 @@ describe('Bullet', () => {
 
             expect(
                 wrapper
-                    .find('Memo(Axis)')
+                    .find(Axis)
                     .first()
-                    .find('Memo(AxisTick)')
+                    .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
                 Array [
@@ -158,7 +160,7 @@ describe('Bullet', () => {
         it('should use horizontal layout by default', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} />)
             const items = wrapper.find('BulletItem')
-            const ticks = wrapper.find('Memo(Axis)').first().find('Memo(AxisTick)')
+            const ticks = wrapper.find(Axis).first().find(AxisTick)
 
             expect(
                 ticks
@@ -189,7 +191,7 @@ describe('Bullet', () => {
         it('should support reverse layout', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} reverse />)
             const items = wrapper.find('BulletItem')
-            const ticks = wrapper.find('Memo(Axis)').first().find('Memo(AxisTick)')
+            const ticks = wrapper.find(Axis).first().find(AxisTick)
             expect(
                 ticks
                     .map(el =>
