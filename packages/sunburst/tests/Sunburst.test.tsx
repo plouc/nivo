@@ -1,4 +1,5 @@
 import { mount } from 'enzyme'
+import { ArcShape, ArcLabelsLayer, ArcLabelComponent as ArcLabel } from '@nivo/arcs'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef } from '@nivo/core'
 // @ts-ignore
@@ -92,7 +93,7 @@ describe('Sunburst', () => {
         it('should use default id and value properties', () => {
             const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -122,7 +123,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -152,7 +153,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -196,7 +197,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -226,7 +227,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -256,7 +257,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -286,7 +287,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -326,7 +327,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -372,7 +373,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(5)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -405,7 +406,7 @@ describe('Sunburst', () => {
     describe('slice labels', () => {
         it('should be disabled by default', () => {
             const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
-            expect(wrapper.find('ArcLabelsLayer').exists()).toBeFalsy()
+            expect(wrapper.find(ArcLabelsLayer).exists()).toBeFalsy()
         })
 
         it('should render labels when enabled', () => {
@@ -413,7 +414,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} enableArcLabels />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(5)
 
             expect(labels.at(0).text()).toEqual('84.62%')
@@ -434,7 +435,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(5)
 
             expect(labels.at(0).prop('datum').formattedValue).toEqual('$110.00')
@@ -464,7 +465,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(5)
 
             expect(labels.at(0).text()).toEqual('A')
@@ -485,7 +486,7 @@ describe('Sunburst', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(5)
 
             expect(labels.at(0).find('text').text()).toEqual('A - 110')
@@ -500,7 +501,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onClick={onClick} />
             )
 
-            wrapper.find('ArcShape').at(0).simulate('click')
+            wrapper.find(ArcShape).at(0).simulate('click')
 
             expect(onClick).toHaveBeenCalledTimes(1)
             const [datum] = onClick.mock.calls[0]
@@ -513,7 +514,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onMouseEnter={onMouseEnter} />
             )
 
-            wrapper.find('ArcShape').at(1).simulate('mouseenter')
+            wrapper.find(ArcShape).at(1).simulate('mouseenter')
 
             expect(onMouseEnter).toHaveBeenCalledTimes(1)
             const [datum] = onMouseEnter.mock.calls[0]
@@ -526,7 +527,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onMouseMove={onMouseMove} />
             )
 
-            wrapper.find('ArcShape').at(2).simulate('mousemove')
+            wrapper.find(ArcShape).at(2).simulate('mousemove')
 
             expect(onMouseMove).toHaveBeenCalledTimes(1)
             const [datum] = onMouseMove.mock.calls[0]
@@ -539,7 +540,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onMouseLeave={onMouseLeave} />
             )
 
-            wrapper.find('ArcShape').at(0).simulate('mouseleave')
+            wrapper.find(ArcShape).at(0).simulate('mouseleave')
 
             expect(onMouseLeave).toHaveBeenCalledTimes(1)
             const [datum] = onMouseLeave.mock.calls[0]
@@ -565,17 +566,17 @@ describe('Sunburst', () => {
                 />
             )
 
-            wrapper.find('ArcShape').at(0).simulate('click')
-            wrapper.find('ArcShape').at(0).simulate('mouseenter')
-            wrapper.find('ArcShape').at(0).simulate('mousemove')
-            wrapper.find('ArcShape').at(0).simulate('mouseleave')
+            wrapper.find(ArcShape).at(0).simulate('click')
+            wrapper.find(ArcShape).at(0).simulate('mouseenter')
+            wrapper.find(ArcShape).at(0).simulate('mousemove')
+            wrapper.find(ArcShape).at(0).simulate('mouseleave')
 
             expect(onClick).not.toHaveBeenCalled()
             expect(onMouseEnter).not.toHaveBeenCalled()
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
 
-            wrapper.find('ArcShape').forEach(arc => {
+            wrapper.find(ArcShape).forEach(arc => {
                 const shape = arc.find('path')
                 expect(shape.prop('onClick')).toBeUndefined()
                 expect(shape.prop('onMouseEnter')).toBeUndefined()
@@ -591,7 +592,7 @@ describe('Sunburst', () => {
 
             expect(wrapper.find('SunburstTooltip').exists()).toBeFalsy()
 
-            wrapper.find('ArcShape').at(1).simulate('mouseenter')
+            wrapper.find(ArcShape).at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find('SunburstTooltip')
             expect(tooltip.exists()).toBeTruthy()
@@ -604,7 +605,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
             )
 
-            wrapper.find('ArcShape').at(1).simulate('mouseenter')
+            wrapper.find(ArcShape).at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find(CustomTooltip)
             expect(tooltip.exists()).toBeTruthy()
@@ -615,10 +616,10 @@ describe('Sunburst', () => {
     describe('layers', () => {
         it('should support disabling a layer', () => {
             const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
-            expect(wrapper.find('ArcShape')).toHaveLength(5)
+            expect(wrapper.find(ArcShape)).toHaveLength(5)
 
             wrapper.setProps({ layers: ['arcLabels'] })
-            expect(wrapper.find('ArcShape')).toHaveLength(0)
+            expect(wrapper.find(ArcShape)).toHaveLength(0)
         })
 
         it('should support adding a custom layer', () => {
