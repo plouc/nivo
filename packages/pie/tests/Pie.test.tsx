@@ -8,6 +8,7 @@ import {
     ArcLinkLabelComponent as ArcLinkLabel,
 } from '@nivo/arcs'
 import { LegendSvgItem, SymbolSquare } from '@nivo/legends'
+// @ts-ignore
 import { Pie } from '../src/index'
 
 const sampleData = [
@@ -547,9 +548,7 @@ describe('Pie', () => {
             sampleData.forEach((datum, index) => {
                 const legendItem = legendItems.at(index)
                 expect(legendItem.text()).toEqual(datum.id)
-                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(
-                    datum.color
-                )
+                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(datum.color)
             })
         })
 
@@ -582,9 +581,7 @@ describe('Pie', () => {
             sampleData.forEach((datum, index) => {
                 const legendItem = legendItems.at(index)
                 expect(legendItem.text()).toEqual(`${datum.id}.${index}`)
-                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(
-                    datum.color
-                )
+                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(datum.color)
             })
         })
 
