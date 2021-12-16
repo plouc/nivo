@@ -1,4 +1,5 @@
 import { mount } from 'enzyme'
+import { Axis } from '@nivo/axes'
 import Line from '../src/Line'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
@@ -92,7 +93,7 @@ it('should have left and bottom axis by default', () => {
     ]
     const wrapper = mount(<Line width={500} height={300} data={data} animate={false} />)
 
-    const axes = wrapper.find('Memo(Axis)')
+    const axes = wrapper.find(Axis)
     expect(axes).toHaveLength(2)
     expect(axes.at(0).prop('axis')).toBe('x')
     expect(axes.at(1).prop('axis')).toBe('y')
