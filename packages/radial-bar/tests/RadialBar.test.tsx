@@ -1,6 +1,6 @@
 import { mount } from 'enzyme'
 import { degreesToRadians } from '@nivo/core'
-import { DatumWithArcAndColor } from '@nivo/arcs'
+import { DatumWithArcAndColor, ArcShape } from '@nivo/arcs'
 // @ts-ignore
 import { RadialBar, RadialBarSvgProps, ComputedBar, RadialBarTooltipProps } from '../src'
 
@@ -47,7 +47,7 @@ const stackedData: RadialBarSvgProps['data'] = [
 it('should render a basic radial bar chart', () => {
     const wrapper = mount(<RadialBar {...baseProps} />)
 
-    const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+    const bars = wrapper.find('RadialBarArcs').find(ArcShape)
     expect(bars).toHaveLength(3)
 
     const bar0 = bars.at(0)
@@ -85,7 +85,7 @@ describe('data', () => {
     it('should support value formatting via d3 format', () => {
         const wrapper = mount(<RadialBar {...baseProps} valueFormat=">-.2f" />)
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(3)
 
         expect(bars.at(0).prop<ComputedBar>('datum').formattedValue).toBe('10.00')
@@ -96,7 +96,7 @@ describe('data', () => {
     it('should support value formatting via custom function', () => {
         const wrapper = mount(<RadialBar {...baseProps} valueFormat={value => `${value}%`} />)
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(3)
 
         expect(bars.at(0).prop<ComputedBar>('datum').formattedValue).toBe('10%')
@@ -109,7 +109,7 @@ describe('tooltip', () => {
     it('should show a tooltip with category, groupId and formatted value', () => {
         const wrapper = mount(<RadialBar {...baseProps} valueFormat=">-.2f" />)
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(3)
 
         bars.at(0).find('path').simulate('mouseenter')
@@ -135,7 +135,7 @@ describe('tooltip', () => {
             <RadialBar {...baseProps} valueFormat={value => `${value}%`} tooltip={CustomTooltip} />
         )
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(3)
 
         bars.at(0).find('path').simulate('mouseenter')
@@ -157,7 +157,7 @@ describe('style', () => {
         const colors = ['#ff0000', '#00ff00', '#0000ff']
         const wrapper = mount(<RadialBar {...baseProps} data={stackedData} colors={colors} />)
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(9)
 
         expect(bars.at(0).prop<ComputedBar>('datum').color).toBe('#ff0000')
@@ -186,7 +186,7 @@ describe('style', () => {
             />
         )
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(3)
 
         expect(bars.at(0).prop<ComputedBar>('datum').color).toBe('#ff0000')
@@ -207,7 +207,7 @@ describe('style', () => {
             />
         )
 
-        const bars = wrapper.find('RadialBarArcs').find('ArcShape')
+        const bars = wrapper.find('RadialBarArcs').find(ArcShape)
         expect(bars).toHaveLength(3)
 
         expect(bars.at(0).prop<ComputedBar>('datum').color).toBe('#ff0000')
@@ -220,7 +220,7 @@ describe('tracks', () => {
     it('should show tracks by default', () => {
         const wrapper = mount(<RadialBar {...baseProps} />)
 
-        const tracks = wrapper.find('RadialBarTracks').find('ArcShape')
+        const tracks = wrapper.find('RadialBarTracks').find(ArcShape)
         expect(tracks).toHaveLength(3)
 
         const datum0 = tracks.at(0).prop<DatumWithArcAndColor>('datum')
@@ -248,7 +248,7 @@ describe('tracks', () => {
     it('should allow to customize tracks color', () => {
         const wrapper = mount(<RadialBar {...baseProps} tracksColor="#ff0000" />)
 
-        const tracks = wrapper.find('RadialBarTracks').find('ArcShape')
+        const tracks = wrapper.find('RadialBarTracks').find(ArcShape)
         expect(tracks).toHaveLength(3)
 
         expect(tracks.at(0).prop<DatumWithArcAndColor>('datum').color).toBe('#ff0000')
