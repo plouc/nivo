@@ -1,8 +1,7 @@
 import { mount } from 'enzyme'
+import { LegendProps, BoxLegendSvg } from '@nivo/legends'
 // @ts-ignore
-import { Radar, RadarSvgProps } from '../src'
-import { RadarSliceTooltipProps } from '../dist/types'
-import { LegendProps } from '@nivo/legends'
+import { Radar, RadarSvgProps, RadarSliceTooltipProps } from '../src'
 
 type TestDatum = {
     A: number
@@ -172,8 +171,8 @@ describe('legend', () => {
         const legends = [baseLegend]
         const wrapper = mount(<Radar {...baseProps} legends={legends} />)
 
-        expect(wrapper.find('BoxLegendSvg').find('text').at(0).text()).toBe(keys[0])
-        expect(wrapper.find('BoxLegendSvg').find('text').at(1).text()).toBe(keys[1])
+        expect(wrapper.find(BoxLegendSvg).find('text').at(0).text()).toBe(keys[0])
+        expect(wrapper.find(BoxLegendSvg).find('text').at(1).text()).toBe(keys[1])
     })
 
     it('show custom legend label when legend data size is 1', () => {
@@ -184,8 +183,8 @@ describe('legend', () => {
         ]
         const wrapper = mount(<Radar {...baseProps} legends={legends} />)
 
-        expect(wrapper.find('BoxLegendSvg').find('text').at(0).text()).toBe(customLabels.A)
-        expect(wrapper.find('BoxLegendSvg').find('text').at(1).text()).toBe(customLabels.B)
+        expect(wrapper.find(BoxLegendSvg).find('text').at(0).text()).toBe(customLabels.A)
+        expect(wrapper.find(BoxLegendSvg).find('text').at(1).text()).toBe(customLabels.B)
     })
 
     it('show custom legend label when legend data size is 2 over', () => {
@@ -200,9 +199,9 @@ describe('legend', () => {
         ]
         const wrapper = mount(<Radar {...baseProps} legends={legends} />)
 
-        expect(wrapper.find('BoxLegendSvg').find('text').at(0).text()).toBe(customLabels[0].A)
-        expect(wrapper.find('BoxLegendSvg').find('text').at(1).text()).toBe(customLabels[0].B)
-        expect(wrapper.find('BoxLegendSvg').find('text').at(2).text()).toBe(customLabels[1].A)
-        expect(wrapper.find('BoxLegendSvg').find('text').at(3).text()).toBe(customLabels[1].B)
+        expect(wrapper.find(BoxLegendSvg).find('text').at(0).text()).toBe(customLabels[0].A)
+        expect(wrapper.find(BoxLegendSvg).find('text').at(1).text()).toBe(customLabels[0].B)
+        expect(wrapper.find(BoxLegendSvg).find('text').at(2).text()).toBe(customLabels[1].A)
+        expect(wrapper.find(BoxLegendSvg).find('text').at(3).text()).toBe(customLabels[1].B)
     })
 })
