@@ -1,5 +1,13 @@
 import { mount } from 'enzyme'
 import { radiansToDegrees } from '@nivo/core'
+import {
+    ArcShape,
+    ArcLabelsLayer,
+    ArcLabelComponent as ArcLabel,
+    ArcLinkLabelsLayer,
+    ArcLinkLabelComponent as ArcLinkLabel,
+} from '@nivo/arcs'
+import { LegendSvgItem, SymbolSquare } from '@nivo/legends'
 import { Pie } from '../src/index'
 
 const sampleData = [
@@ -40,7 +48,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -68,7 +76,7 @@ describe('Pie', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -96,7 +104,7 @@ describe('Pie', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -123,7 +131,7 @@ describe('Pie', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -144,7 +152,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} sortByValue animate={false} />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             const arc30 = arcs.at(0)
@@ -166,7 +174,7 @@ describe('Pie', () => {
             )
 
             // we can use a slice to check computed radii
-            const arc = wrapper.find('ArcShape').at(0)
+            const arc = wrapper.find(ArcShape).at(0)
             expect(arc.prop('datum').arc.innerRadius).toEqual(100)
             expect(arc.prop('datum').arc.outerRadius).toEqual(200)
         })
@@ -176,7 +184,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} padAngle={10} animate={false} />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
             arcs.forEach(arc => {
                 expect(radiansToDegrees(arc.prop('datum').arc.padAngle)).toEqual(10)
@@ -215,7 +223,7 @@ describe('Pie', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
             expect(radiansToDegrees(arcs.at(0).prop('datum').arc.startAngle)).toEqual(90)
             expect(radiansToDegrees(arcs.at(2).prop('datum').arc.endAngle)).toEqual(180)
@@ -236,7 +244,7 @@ describe('Pie', () => {
             )
 
             // we can use a slice to check computed radii
-            const arc = wrapper.find('ArcShape').at(0)
+            const arc = wrapper.find(ArcShape).at(0)
             expect(arc.prop('datum').arc.innerRadius).toEqual(200)
             expect(arc.prop('datum').arc.outerRadius).toEqual(400)
         })
@@ -254,7 +262,7 @@ describe('Pie', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -278,7 +286,7 @@ describe('Pie', () => {
                 />
             )
 
-            const arcs = wrapper.find('ArcShape')
+            const arcs = wrapper.find(ArcShape)
             expect(arcs).toHaveLength(sampleData.length)
 
             expect(arcs.at(0).prop('datum').id).toEqual('A')
@@ -302,7 +310,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
+            const slices = wrapper.find(ArcShape)
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -332,8 +340,8 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            expect(wrapper.find('ArcLabelsLayer').exists()).toBeTruthy()
-            const labels = wrapper.find('ArcLabel')
+            expect(wrapper.find(ArcLabelsLayer).exists()).toBeTruthy()
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -351,7 +359,7 @@ describe('Pie', () => {
                     animate={false}
                 />
             )
-            expect(wrapper.find('ArcLabelsLayer').exists()).toBeFalsy()
+            expect(wrapper.find(ArcLabelsLayer).exists()).toBeFalsy()
         })
 
         it('should use formattedValue', () => {
@@ -365,7 +373,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -378,7 +386,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} arcLabel="id" animate={false} />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -397,7 +405,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLabel')
+            const labels = wrapper.find(ArcLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -432,8 +440,8 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            expect(wrapper.find('ArcLinkLabelsLayer').exists()).toBeTruthy()
-            const labels = wrapper.find('ArcLinkLabel')
+            expect(wrapper.find(ArcLinkLabelsLayer).exists()).toBeTruthy()
+            const labels = wrapper.find(ArcLinkLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -451,7 +459,7 @@ describe('Pie', () => {
                     animate={false}
                 />
             )
-            expect(wrapper.find('ArcLinkLabelsLayer').exists()).toBeFalsy()
+            expect(wrapper.find(ArcLinkLabelsLayer).exists()).toBeFalsy()
         })
 
         it('should allow to change the label accessor using a path', () => {
@@ -465,7 +473,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLinkLabel')
+            const labels = wrapper.find(ArcLinkLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -484,7 +492,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('ArcLinkLabel')
+            const labels = wrapper.find(ArcLinkLabel)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -533,13 +541,13 @@ describe('Pie', () => {
                 />
             )
 
-            const legendItems = wrapper.find('LegendSvgItem')
+            const legendItems = wrapper.find(LegendSvgItem)
             expect(legendItems).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
                 const legendItem = legendItems.at(index)
                 expect(legendItem.text()).toEqual(datum.id)
-                expect(legendItem.find('SymbolSquare').find('rect').prop('fill')).toEqual(
+                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(
                     datum.color
                 )
             })
@@ -568,13 +576,13 @@ describe('Pie', () => {
                 />
             )
 
-            const legendItems = wrapper.find('LegendSvgItem')
+            const legendItems = wrapper.find(LegendSvgItem)
             expect(legendItems).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
                 const legendItem = legendItems.at(index)
                 expect(legendItem.text()).toEqual(`${datum.id}.${index}`)
-                expect(legendItem.find('SymbolSquare').find('rect').prop('fill')).toEqual(
+                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(
                     datum.color
                 )
             })
@@ -599,8 +607,8 @@ describe('Pie', () => {
                 />
             )
 
-            const legendItems = wrapper.find('LegendSvgItem')
-            const shapes = wrapper.find('ArcShape')
+            const legendItems = wrapper.find(LegendSvgItem)
+            const shapes = wrapper.find(ArcShape)
 
             expect(shapes.at(0).prop('style').opacity).toMatchInlineSnapshot(`1`)
 
@@ -622,7 +630,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} onClick={onClick} animate={false} />
             )
 
-            wrapper.find('ArcShape').at(0).simulate('click')
+            wrapper.find(ArcShape).at(0).simulate('click')
 
             expect(onClick).toHaveBeenCalledTimes(1)
             const [datum] = onClick.mock.calls[0]
@@ -641,7 +649,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('ArcShape').at(1).simulate('mouseenter')
+            wrapper.find(ArcShape).at(1).simulate('mouseenter')
 
             expect(onMouseEnter).toHaveBeenCalledTimes(1)
             const [datum] = onMouseEnter.mock.calls[0]
@@ -660,7 +668,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('ArcShape').at(2).simulate('mousemove')
+            wrapper.find(ArcShape).at(2).simulate('mousemove')
 
             expect(onMouseMove).toHaveBeenCalledTimes(1)
             const [datum] = onMouseMove.mock.calls[0]
@@ -679,7 +687,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('ArcShape').at(0).simulate('mouseleave')
+            wrapper.find(ArcShape).at(0).simulate('mouseleave')
 
             expect(onMouseLeave).toHaveBeenCalledTimes(1)
             const [datum] = onMouseLeave.mock.calls[0]
@@ -706,7 +714,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slice = wrapper.find('ArcShape').at(0)
+            const slice = wrapper.find(ArcShape).at(0)
             slice.simulate('click')
             slice.simulate('mouseenter')
             slice.simulate('mousemove')
@@ -717,7 +725,7 @@ describe('Pie', () => {
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
 
-            wrapper.find('ArcShape').forEach(slice => {
+            wrapper.find(ArcShape).forEach(slice => {
                 const shape = slice.find('path')
                 expect(shape.prop('onClick')).toBeUndefined()
                 expect(shape.prop('onMouseEnter')).toBeUndefined()
@@ -735,7 +743,7 @@ describe('Pie', () => {
 
             expect(wrapper.find('PieTooltip').exists()).toBeFalsy()
 
-            wrapper.find('ArcShape').at(1).simulate('mouseenter')
+            wrapper.find(ArcShape).at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find('PieTooltip')
             expect(tooltip.exists()).toBeTruthy()
@@ -754,7 +762,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('ArcShape').at(1).simulate('mouseenter')
+            wrapper.find(ArcShape).at(1).simulate('mouseenter')
 
             expect(wrapper.find(CustomTooltip).exists()).toBeTruthy()
         })
@@ -765,10 +773,10 @@ describe('Pie', () => {
             const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
-            expect(wrapper.find('ArcShape')).toHaveLength(3)
+            expect(wrapper.find(ArcShape)).toHaveLength(3)
 
             wrapper.setProps({ layers: ['arcLinkLabels', 'arcLabels', 'legends'] })
-            expect(wrapper.find('ArcShape')).toHaveLength(0)
+            expect(wrapper.find(ArcShape)).toHaveLength(0)
         })
 
         it('should support adding a custom layer', () => {
