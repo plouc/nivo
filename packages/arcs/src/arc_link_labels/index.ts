@@ -1,3 +1,6 @@
+import { ArcLinkLabel } from './ArcLinkLabel'
+
+export const ArcLinkLabelComponent = ArcLinkLabel
 export * from './ArcLinkLabelsLayer'
 export * from './canvas'
 export * from './compute'
