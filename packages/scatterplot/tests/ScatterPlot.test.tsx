@@ -1,6 +1,11 @@
 import { mount } from 'enzyme'
+import { Axis, AxisTick } from '@nivo/axes'
+import { Annotation } from '@nivo/annotations'
+// @ts-ignore
+import { CartesianMarkersItem } from '@nivo/core'
 // @ts-ignore
 import { ScatterPlot, ScatterPlotNodeData } from '../src'
+import { Tooltip } from '../src/Tooltip'
 
 type TestDatum = {
     id: number
@@ -168,7 +173,7 @@ describe('data', () => {
         expect(nodeC.xValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
         expect(nodeC.formattedX).toBe('2020-10-03')
 
-        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        const ticks = wrapper.find(Axis).find(AxisTick)
         expect(ticks).toHaveLength(3)
         expect(ticks.at(0).text()).toBe('2020-10-01')
         expect(ticks.at(1).text()).toBe('2020-10-02')
@@ -217,7 +222,7 @@ describe('data', () => {
         expect(nodeC.xValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
         expect(nodeC.formattedX).toBe('2020-10-03')
 
-        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        const ticks = wrapper.find(Axis).find(AxisTick)
         expect(ticks).toHaveLength(3)
         expect(ticks.at(0).text()).toBe('2020-10-01')
         expect(ticks.at(1).text()).toBe('2020-10-02')
@@ -346,7 +351,7 @@ describe('data', () => {
         expect(nodeC.yValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
         expect(nodeC.formattedY).toBe('2020-10-03')
 
-        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        const ticks = wrapper.find(Axis).find(AxisTick)
         expect(ticks).toHaveLength(3)
         expect(ticks.at(0).text()).toBe('2020-10-01')
         expect(ticks.at(1).text()).toBe('2020-10-02')
@@ -395,7 +400,7 @@ describe('data', () => {
         expect(nodeC.yValue).toStrictEqual(new Date('2020-10-03T00:00:00.000Z'))
         expect(nodeC.formattedY).toBe('2020-10-03')
 
-        const ticks = wrapper.find('Memo(Axis)').find('Memo(AxisTick)')
+        const ticks = wrapper.find(Axis).find(AxisTick)
         expect(ticks).toHaveLength(3)
         expect(ticks.at(0).text()).toBe('2020-10-01')
         expect(ticks.at(1).text()).toBe('2020-10-02')
@@ -498,13 +503,13 @@ describe('tooltip', () => {
     it('should have a tooltip by default', () => {
         const wrapper = mount(<ScatterPlot<TestDatum> {...baseProps} />)
 
-        let tooltip = wrapper.find('Tooltip').at(1)
+        let tooltip = wrapper.find(Tooltip)
         expect(tooltip.exists()).toBe(false)
 
         const node = wrapper.find('Node').at(2)
         node.find('circle').simulate('mouseenter')
 
-        tooltip = wrapper.find('Tooltip').at(1)
+        tooltip = wrapper.find(Tooltip)
         expect(tooltip.exists()).toBe(true)
         expect(tooltip.text()).toBe('default: x: 22, y: 18')
     })
@@ -513,7 +518,7 @@ describe('tooltip', () => {
         const wrapper = mount(<ScatterPlot<TestDatum> {...baseProps} isInteractive={false} />)
 
         wrapper.find('Node').at(2).find('circle').simulate('mouseenter')
-        expect(wrapper.find('Tooltip').exists()).toBe(false)
+        expect(wrapper.find(Tooltip).exists()).toBe(false)
     })
 
     it('should support a custom tooltip component', () => {
@@ -559,7 +564,7 @@ describe('event handlers', () => {
             const [datum] = mock.mock.calls[0]
             expect(datum.id).toBe('default.1')
 
-            const tooltip = wrapper.find('Tooltip').at(1)
+            const tooltip = wrapper.find(Tooltip)
             if (eventHandler.tooltipExpected) {
                 expect(tooltip.exists()).toBe(true)
                 expect(tooltip.text()).toBe('default: x: 7, y: 13')
@@ -605,7 +610,7 @@ describe('annotations', () => {
             />
         )
 
-        const annotation = wrapper.find('Annotation')
+        const annotation = wrapper.find(Annotation)
         expect(annotation.exists()).toBe(true)
 
         const node = wrapper.find('Node').at(2)
@@ -633,7 +638,7 @@ describe('annotations', () => {
             />
         )
 
-        const markers = wrapper.find('CartesianMarkersItem')
+        const markers = wrapper.find(CartesianMarkersItem)
         expect(markers.length).toBe(2)
 
         const xMarker = markers.at(0)
