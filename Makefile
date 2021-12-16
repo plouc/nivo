@@ -124,31 +124,31 @@ packages-lint-fix: ##@1 packages run eslint on all packages with a fix option
 	@yarn eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
-	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
 
 package-test-%: ##@1 packages run tests for a package
-	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
 
 package-watch-test-%: ##@1 packages run tests for a package and watch for changes
-	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
 
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
-	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
 
 package-watch-test-%: ##@1 packages run tests for a package and watch for changes
-	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
 
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
 packages-watch-test: ##@1 packages run tests for all packages and watch for changes
 	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
-	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
 
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
-	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
+	@export BABEL_ENV=development; yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
 packages-types: ##@1 packages build all package types
 	@echo "${YELLOW}Building TypeScript types for all packages${RESET}"
