@@ -22,6 +22,7 @@ const babelConfig = {
 
 const externals = [
     'prop-types',
+    'joi',
 ]
 
 const mapGlobal = name => {
