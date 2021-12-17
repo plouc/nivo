@@ -1,5 +1,48 @@
+<a name="v0.75.0"></a>
+## v0.75.0 (2021-12-17)
+
+
+#### Features
+
+* **api:**
+  *  create new @nivo/static & @nivo/express packages ([fc0f27ff](https://github.com/plouc/nivo/commit/fc0f27ff314f783713c3497d625a3f8992038512))
+  *  fix heroku deployment ([a4dbb440](https://github.com/plouc/nivo/commit/a4dbb440c12fc8cd42153a039ed74ecfe87a5adc))
+  *  migrate API to TypeScript and fix stale mappings and examples ([d53681b4](https://github.com/plouc/nivo/commit/d53681b439d3bac08e978491a56518b3fe9c98b5))
+* **build:**
+  *  init support for development builds ([643a1c95](https://github.com/plouc/nivo/commit/643a1c95a117d62d0e2c3a1ea7f6d60bfaae1994))
+  *  fix build after upgrading a bunch of dependencies ([60cdbbbf](https://github.com/plouc/nivo/commit/60cdbbbf1a9f2631f0703f7c69f8d0cbbb9b6522))
+* **eslint:**
+  *  enable eslint for the website ([1ec5fbd0](https://github.com/plouc/nivo/commit/1ec5fbd0a8ff392aa185589c980f2f80fc6b48f9))
+  *  enable eslint for the api ([35d4a4a7](https://github.com/plouc/nivo/commit/35d4a4a702251b8b098fb235b8d79b5d521f77fc))
+* **storybook:**  upgrade storybook and addons ([64ac24e0](https://github.com/plouc/nivo/commit/64ac24e048a333155887c0a94f3accebd2362014))
+* **ts:**  upgrade TypeScript version ([eff43e28](https://github.com/plouc/nivo/commit/eff43e2865c337e2c1aae263f92e548a51756c33))
+* **website:**
+  *  update the API url to match the new path ([ec6e7d96](https://github.com/plouc/nivo/commit/ec6e7d963baa72aec959cc4c62e74ee6a6204662))
+  *  fix gatsby build due to dependencies updates ([6bfeaa86](https://github.com/plouc/nivo/commit/6bfeaa86e443359dfcd77fe7f26ea48a49a2388f))
+  *  update gatsby ([50778907](https://github.com/plouc/nivo/commit/50778907b4c76f0a32b617117f640ff5e465b13d))
+
+#### Bug Fixes
+
+* **bar:**  avoid to redefine react forwardRef type ([cd6e3ec3](https://github.com/plouc/nivo/commit/cd6e3ec37791393f88519924778602ba9da06065))
+* **build:**  fix error with duplicated typings for eslint by forcing the resolution of the package ([384e4240](https://github.com/plouc/nivo/commit/384e424070e313158dda140f4c12f8a76cffe9ee))
+* **ci:**  fix triggers for the CI workflow ([0750223f](https://github.com/plouc/nivo/commit/0750223fc78721ed5e744b152b0f2d52c31efa2e))
+* **core:**
+  *  import missing SVGProps type ([feb6de60](https://github.com/plouc/nivo/commit/feb6de60ec34ce289792e72db3eaacd3dcf6814a))
+  *  export linearGradientDef in typings ([7cfbfc96](https://github.com/plouc/nivo/commit/7cfbfc9623631cd94e165f25a1919cf9019dbdb3))
+* **format:**  fix formatting issues ([7d03e9a3](https://github.com/plouc/nivo/commit/7d03e9a39b5439007740a1eabdf6b4eebcc4c4e4))
+* **swarmplot:**  use the borderWidth property - fixes #1813 ([edd3990c](https://github.com/plouc/nivo/commit/edd3990c0846353c001853531948477ea7837500))
+* **website:**  fix React runtime issue with Gatsby ([e36b06b3](https://github.com/plouc/nivo/commit/e36b06b30120db374d9163cbefe3eaa44ed8a9be))
+
+#### Chore
+
+* **eslint:**  upgrade eslint ([82138679](https://github.com/plouc/nivo/commit/821386794a03273103f2c759faa4942d698ec74a))
+* **node:**  update Node.js to v16 ([b15f63cb](https://github.com/plouc/nivo/commit/b15f63cb94bb2f431c95f2145434a0b5dd267021))
+* **rollup:**  update rollup ([c253548f](https://github.com/plouc/nivo/commit/c253548fb18c6c6745d9a8abb0b6d6fedde74b99))
+
+
+
 <a name="v0.74.1"></a>
-## v0.74.1 (2021-12-13)
+## v0.74.1 (%cs)
 
 
 #### Features
