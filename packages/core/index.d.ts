@@ -246,19 +246,22 @@ declare module '@nivo/core' {
         | 'stepBefore'
 
     export function useAnimatedPath(path: string): Interpolation<string>
-        
+
     export type GradientColor = {
-      offset: number
-      color: string
-      opacity?: number
+        offset: number
+        color: string
+        opacity?: number
     }
 
-    export function linearGradientDef(id: string, colors: GradientColor[], options?: SVGProps<SVGLinearGradientElement>
+    export function linearGradientDef(
+        id: string,
+        colors: GradientColor[],
+        options?: React.SVGProps<SVGLinearGradientElement>
     ): {
         id: string
         type: 'linearGradient'
         colors: GradientColor[]
-      } & SVGProps<SVGLinearGradientElement>
+    } & React.SVGProps<SVGLinearGradientElement>
 
     export type LinearGradientDef = {
         id: string
