@@ -1,3 +1,4 @@
+// @ts-ignore
 import { ChordDefaultProps as defaults } from '@nivo/chord'
 import {
     themeProperty,
@@ -5,7 +6,10 @@ import {
     groupProperties,
     getLegendsProps,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
 
 const props: ChartProperty[] = [
     {
@@ -33,6 +37,7 @@ const props: ChartProperty[] = [
             \`\`\`
         `,
         required: true,
+        flavors: allFlavors,
         type: 'string[]',
     },
     {
@@ -46,6 +51,7 @@ const props: ChartProperty[] = [
         `,
         required: true,
         type: 'Array<number[]>',
+        flavors: allFlavors,
     },
     {
         key: 'valueFormat',
@@ -53,80 +59,19 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         help: `Optional value formatter.`,
+        flavors: allFlavors,
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveChord/>\`.
-            Also note that width does not include labels,
-            so you should add enough margin to display them.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveChord/>\`.
-            Also note that width does not include labels,
-            so you should add enough margin to display them.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'padAngle',
         help: 'Padding angle.',
         required: false,
         defaultValue: defaults.padAngle,
         type: 'number',
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             min: 0,
             max: 1,
             step: 0.01,
@@ -138,9 +83,10 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.innerRadiusRatio,
         type: 'number',
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             min: 0,
             max: 1,
             step: 0.01,
@@ -152,32 +98,29 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.innerRadiusOffset,
         type: 'number',
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             min: 0,
             max: 1,
             step: 0.01,
         },
     },
-    themeProperty(['svg', 'canvas', 'api']),
-    {
-        key: 'colors',
-        help: 'Defines how to compute arc/ribbon color.',
-        type: 'string | Function | string[]',
-        required: false,
+    themeProperty(allFlavors),
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaults.colors,
-        flavors: ['svg', 'canvas', 'api'],
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
+        help: 'Defines how to compute arcs & ribbons color.',
+    }),
     {
         key: 'arcOpacity',
         help: 'Arcs opacity.',
         required: false,
         defaultValue: defaults.arcOpacity,
         type: 'number',
-        controlType: 'opacity',
+        flavors: allFlavors,
+        control: { type: 'opacity' },
         group: 'Style',
     },
     {
@@ -186,7 +129,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.arcBorderWidth,
         type: 'number',
-        controlType: 'lineWidth',
+        flavors: allFlavors,
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
@@ -194,8 +138,9 @@ const props: ChartProperty[] = [
         help: 'Arcs border color.',
         required: false,
         defaultValue: defaults.arcBorderColor,
+        flavors: allFlavors,
         type: 'string | object | Function',
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     {
@@ -204,7 +149,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.ribbonOpacity,
         type: 'number',
-        controlType: 'opacity',
+        flavors: allFlavors,
+        control: { type: 'opacity' },
         group: 'Style',
     },
     {
@@ -213,7 +159,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.ribbonBorderWidth,
         type: 'number',
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
+        flavors: allFlavors,
         group: 'Style',
     },
     {
@@ -222,7 +169,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.ribbonBorderColor,
         type: 'string | object | Function',
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
+        flavors: allFlavors,
         group: 'Style',
     },
     {
@@ -231,7 +179,8 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         defaultValue: defaults.enableLabel,
-        controlType: 'switch',
+        control: { type: 'switch' },
+        flavors: allFlavors,
         group: 'Labels',
     },
     {
@@ -240,9 +189,10 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         defaultValue: defaults.label,
-        controlType: 'choices',
         group: 'Labels',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'choices',
             choices: ['id', 'value', `d => \`\${d.id} [\${d.value}]\``].map(choice => ({
                 label: choice,
                 value: choice,
@@ -255,9 +205,10 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.labelOffset,
         type: 'number',
-        controlType: 'range',
+        flavors: allFlavors,
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: -80,
             max: 80,
@@ -269,9 +220,10 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.labelRotation,
         type: 'number',
-        controlType: 'angle',
         group: 'Labels',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'angle',
             min: -180,
             max: 180,
             step: 5,
@@ -286,8 +238,9 @@ const props: ChartProperty[] = [
         help: 'Method to compute label text color.',
         type: 'string | object | Function',
         required: false,
+        flavors: allFlavors,
         defaultValue: defaults.labelTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Labels',
     },
     {
@@ -311,20 +264,15 @@ const props: ChartProperty[] = [
             modifications to the 2d context inside this function
             to avoid side effects.
         `,
+        flavors: allFlavors,
         required: false,
         type: 'Array<string | Function>',
         defaultValue: defaults.layers,
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg', 'canvas'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaults.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'arcHoverOpacity',
         flavors: ['svg', 'canvas'],
@@ -332,7 +280,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.arcHoverOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Interactivity',
     },
     {
@@ -342,7 +290,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.arcHoverOthersOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Interactivity',
     },
     {
@@ -352,7 +300,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.ribbonHoverOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Interactivity',
     },
     {
@@ -362,7 +310,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.ribbonHoverOthersOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Interactivity',
     },
     {
@@ -461,13 +409,14 @@ const props: ChartProperty[] = [
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
-        controlType: 'array',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
             defaults: {
                 dataFrom: 'keys',
@@ -481,8 +430,8 @@ const props: ChartProperty[] = [
                 itemsSpacing: 0,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },

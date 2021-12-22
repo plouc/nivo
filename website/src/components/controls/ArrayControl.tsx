@@ -1,37 +1,31 @@
-import React, { memo, Fragment, useMemo, useState, useCallback } from 'react'
+import React, { memo, Fragment, useMemo, useState, useCallback, MouseEvent } from 'react'
 import styled from 'styled-components'
 import { PropertyHeader } from './PropertyHeader'
 import ControlsGroup from './ControlsGroup'
 import { Cell, Toggle } from './styled'
 import { Help } from './Help'
+import { Flavor, ChartProperty } from '../../types'
+import { ArrayControlConfig } from './types'
 
 interface ArrayControlProps {
-    /*
-    property: PropTypes.object.isRequired,
-    value: PropTypes.array.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    options: PropTypes.shape({
-        props: PropTypes.array.isRequired,
-        shouldCreate: PropTypes.bool,
-        addLabel: PropTypes.string,
-        shouldRemove: PropTypes.bool,
-        removeLabel: PropTypes.string,
-        defaults: PropTypes.object,
-        getItemTitle: PropTypes.func,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-    */
+    id: string
+    property: ChartProperty
+    value: unknown[]
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    config: ArrayControlConfig
+    onChange: (value: unknown) => void
+    context?: any
 }
 
-const ArrayControl = memo(
+export const ArrayControl = memo(
     ({
         property,
         flavors,
         currentFlavor,
         value,
         onChange,
-        options: {
+        config: {
             props,
             shouldCreate = false,
             addLabel = 'add',
@@ -40,23 +34,24 @@ const ArrayControl = memo(
             defaults = {},
             getItemTitle,
         },
-    }) => {
+    }: ArrayControlProps) => {
         const [activeItems, setActiveItems] = useState([0])
         const append = useCallback(() => {
             onChange([...value, { ...defaults }])
             setActiveItems([value.length])
         }, [value, onChange, defaults, setActiveItems])
+
         const remove = useCallback(
-            index => event => {
+            (index: number) => (event: MouseEvent) => {
                 event.stopPropagation()
-                const items = value.filter((v, i) => i !== index)
+                const items = value.filter((_item: any, i) => i !== index)
                 setActiveItems([])
                 onChange(items)
             },
             [value, onChange, setActiveItems]
         )
         const change = useCallback(
-            index => itemValue => {
+            (index: number) => (itemValue: unknown) => {
                 onChange(
                     value.map((v, i) => {
                         if (i === index) return itemValue
@@ -67,7 +62,7 @@ const ArrayControl = memo(
             [value, onChange]
         )
         const toggle = useCallback(
-            index => () => {
+            (index: number) => () => {
                 setActiveItems(items => {
                     if (items.includes(index)) {
                         return items.filter(i => i !== index)
@@ -118,7 +113,6 @@ const ArrayControl = memo(
                                 controls={subProps}
                                 settings={item}
                                 onChange={change(index)}
-                                isNested={true}
                             />
                         )}
                     </Fragment>
@@ -127,8 +121,6 @@ const ArrayControl = memo(
         )
     }
 )
-
-export default ArrayControl
 
 const Header = styled(Cell)`
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
@@ -144,7 +136,9 @@ const Title = styled.div`
     color: ${({ theme }) => theme.colors.textLight};
 `
 
-const SubHeader = styled(Cell)`
+const SubHeader = styled(Cell)<{
+    isOpened: boolean
+}>`
     cursor: pointer;
     font-weight: 600;
     user-select: none;

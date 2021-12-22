@@ -1,69 +1,13 @@
+// @ts-ignore
 import { NetworkDefaultProps } from '@nivo/network'
 import { motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas']
 
 const props: ChartProperty[] = [
-    {
-        key: 'width',
-        group: 'Base',
-        help: 'Chart width.',
-        description: `
-            Not required if using responsive component.
-        `,
-        type: 'number',
-        required: true,
-        flavors: ['svg', 'canvas'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        help: 'Chart height.',
-        description: `
-            Not required if using responsive component.
-        `,
-        type: 'number',
-        required: true,
-        flavors: ['svg', 'canvas'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        required: false,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        type: 'object',
-        required: false,
-        help: 'Chart margin.',
-        flavors: ['svg', 'canvas'],
-        controlType: 'margin',
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'linkDistance',
         group: 'Simulation',
@@ -93,8 +37,8 @@ const props: ChartProperty[] = [
             of \`distanceMin\` and \`distanceMax\`.
         `,
         flavors: ['svg', 'canvas'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 1,
             max: 100,
         },
@@ -130,8 +74,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: NetworkDefaultProps.iterations,
         flavors: ['svg', 'canvas'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 60,
             max: 260,
         },
@@ -152,7 +96,7 @@ const props: ChartProperty[] = [
         help: `Control nodes' border width.`,
         defaultValue: NetworkDefaultProps.nodeBorderWidth,
         flavors: ['svg', 'canvas'],
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'nodeBorderColor',
@@ -162,7 +106,7 @@ const props: ChartProperty[] = [
         help: `Control nodes' border color.`,
         defaultValue: NetworkDefaultProps.nodeBorderColor,
         flavors: ['svg', 'canvas'],
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'linkThickness',
@@ -173,7 +117,7 @@ const props: ChartProperty[] = [
         help: `Control links' thickness.`,
         flavors: ['svg', 'canvas'],
         defaultValue: NetworkDefaultProps.linkThickness,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'linkColor',
@@ -183,8 +127,8 @@ const props: ChartProperty[] = [
         help: `Control links' color.`,
         defaultValue: NetworkDefaultProps.linkColor,
         flavors: ['svg', 'canvas'],
-        controlType: 'inheritedColor',
-        controlOptions: {
+        control: {
+            type: 'inheritedColor',
             inheritableProperties: ['source.color', 'target.color'],
         },
     },

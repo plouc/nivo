@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 type TextInputProps = {
     isNumber?: boolean
-    unit?: 'px' | '°'
+    unit?: 'px' | '°' | 'ms'
 } & InputHTMLAttributes<HTMLInputElement>
 
 export const TextInput = memo(({ unit, isNumber = false, ...props }: TextInputProps) => {

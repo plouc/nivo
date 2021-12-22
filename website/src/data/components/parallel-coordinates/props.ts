@@ -1,11 +1,18 @@
+// @ts-ignore
 import { lineCurvePropKeys } from '@nivo/core'
+// @ts-ignore
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { chartDimensions, ordinalColors } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
 
-const props = [
+const allFlavors: Flavor[] = ['svg', 'canvas']
+
+const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Chart data.',
         type: 'Array<object | Array>',
         required: true,
@@ -13,6 +20,7 @@ const props = [
     {
         key: 'variables',
         type: 'object[]',
+        flavors: allFlavors,
         help: 'Variables configuration.',
         description: `
             Variables configuration, define accessor (\`key\`)
@@ -24,35 +32,44 @@ const props = [
             discrete values such as gender.
         `,
         group: 'Variables',
-        controlType: 'array',
-        controlOptions: {
+        required: true,
+        control: {
+            type: 'array',
             shouldCreate: false,
             shouldRemove: false,
-            getItemTitle: (index, values) => `${values.key} (${values.type})`,
+            getItemTitle: (_index: number, values: any) => `${values.key} (${values.type})`,
             props: [
                 {
                     key: 'key',
                     help: 'Variable key, used to access to corresponding datum value.',
-                    controlType: 'text',
-                    controlOptions: {
+                    flavors: allFlavors,
+                    type: 'string',
+                    required: true,
+                    control: {
+                        type: 'text',
                         disabled: true,
                     },
                 },
                 {
                     key: 'type',
                     help: `Variable type, must be one of: 'linear', 'point'.`,
-                    controlType: 'text',
-                    controlOptions: {
+                    flavors: allFlavors,
+                    type: `'linear' | 'point'`,
+                    required: true,
+                    control: {
+                        type: 'text',
                         disabled: true,
                     },
                 },
                 {
                     key: 'min',
                     help: 'Min value of linear scale.',
+                    flavors: allFlavors,
                     type: `number | 'auto'`,
-                    controlType: 'switchableRange',
-                    controlOptions: {
-                        when: ({ type }) => type === 'linear',
+                    required: false,
+                    when: ({ type }) => type === 'linear',
+                    control: {
+                        type: 'switchableRange',
                         disabledValue: 'auto',
                         defaultValue: 0,
                         min: -100,
@@ -62,10 +79,12 @@ const props = [
                 {
                     key: 'max',
                     help: 'Max value of linear scale.',
+                    flavors: allFlavors,
                     type: `number | 'auto'`,
-                    controlType: 'switchableRange',
-                    controlOptions: {
-                        when: ({ type }) => type === 'linear',
+                    required: false,
+                    when: ({ type }) => type === 'linear',
+                    control: {
+                        type: 'switchableRange',
                         disabledValue: 'auto',
                         defaultValue: 1000,
                         min: -100,
@@ -90,12 +109,13 @@ const props = [
     {
         key: 'layout',
         help: `Chart layout.`,
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaults.layout,
-        controlType: 'radio',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -105,16 +125,17 @@ const props = [
     {
         key: 'curve',
         help: 'Curve interpolation.',
+        flavors: allFlavors,
         description: `
             Defines the curve factory to use for the line generator.
         `,
         type: 'string',
         required: false,
         defaultValue: defaults.curve,
-        controlType: 'choices',
         group: 'Base',
-        controlOptions: {
-            choices: lineCurvePropKeys.map(key => ({
+        control: {
+            type: 'choices',
+            choices: lineCurvePropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
@@ -123,12 +144,13 @@ const props = [
     {
         key: 'axesPlan',
         help: `Axes plan.`,
+        flavors: allFlavors,
         type: `string`,
         required: false,
         defaultValue: defaults.axesPlan,
-        controlType: 'radio',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'foreground', value: 'foreground' },
                 { label: 'background', value: 'background' },
@@ -138,104 +160,43 @@ const props = [
     {
         key: 'axesTicksPosition',
         help: `Axes ticks position.`,
+        flavors: allFlavors,
         type: `string`,
         required: false,
         defaultValue: defaults.axesTicksPosition,
-        controlType: 'radio',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'before', value: 'before' },
                 { label: 'after', value: 'after' },
             ],
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`ResponsiveParallelCoords\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`ResponsiveParallelCoords\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'canvas']),
-    {
-        key: 'colors',
-        help: 'Defines color range.',
-        type: 'string | Function | string[]',
-        required: false,
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaults.colors,
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
+    }),
     {
         key: 'strokeWidth',
         help: 'Lines stroke width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.strokeWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'lineOpacity',
         help: 'Lines opacity.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.lineOpacity,
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Style',
     },
     ...motionProperties(['svg'], defaults, 'react-spring'),

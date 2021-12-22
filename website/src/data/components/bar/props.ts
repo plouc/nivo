@@ -1,24 +1,34 @@
 import { svgDefaultProps } from '@nivo/bar'
 import {
     themeProperty,
-    axesProperties,
     motionProperties,
     defsProperties,
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    chartDimensions,
+    ordinalColors,
+    chartGrid,
+    axes,
+    isInteractive,
+} from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
+        group: 'Base',
         help: 'Chart data.',
         type: 'object[]',
         required: true,
-        group: 'Base',
+        flavors: allFlavors,
     },
     {
         key: 'indexBy',
+        group: 'Base',
         help: 'Key to use to index the data.',
         description: `
             Key to use to index the data,
@@ -28,27 +38,29 @@ const props: ChartProperty[] = [
             receive the data item and must return the desired index.
         `,
         type: 'string | (datum: RawDatum): string | number',
+        flavors: allFlavors,
         required: false,
         defaultValue: svgDefaultProps.indexBy,
-        group: 'Base',
     },
     {
         key: 'keys',
+        group: 'Base',
         help: 'Keys to use to determine each serie.',
         type: 'string[]',
+        flavors: allFlavors,
         required: false,
         defaultValue: svgDefaultProps.keys,
-        group: 'Base',
     },
     {
         key: 'groupMode',
+        group: 'Base',
         help: `How to group bars.`,
-        type: 'grouped | stacked',
+        type: `'grouped' | 'stacked'`,
+        flavors: allFlavors,
         required: false,
         defaultValue: svgDefaultProps.groupMode,
-        controlType: 'radio',
-        group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'stacked', value: 'stacked' },
                 { label: 'grouped', value: 'grouped' },
@@ -57,13 +69,14 @@ const props: ChartProperty[] = [
     },
     {
         key: 'layout',
+        group: 'Base',
         help: `How to display bars.`,
-        type: 'horizontal | vertical',
+        type: `'horizontal' | 'vertical'`,
+        flavors: allFlavors,
         required: false,
         defaultValue: svgDefaultProps.layout,
-        controlType: 'radio',
-        group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -72,19 +85,23 @@ const props: ChartProperty[] = [
     },
     {
         key: 'valueScale',
-        type: 'object',
         group: 'Base',
+        type: 'object',
         help: `value scale configuration.`,
         defaultValue: svgDefaultProps.valueScale,
-        controlType: 'object',
-        controlOptions: {
+        flavors: allFlavors,
+        required: false,
+        control: {
+            type: 'object',
             props: [
                 {
                     key: 'type',
                     help: `Scale type.`,
                     type: 'string',
-                    controlType: 'choices',
-                    controlOptions: {
+                    required: true,
+                    flavors: allFlavors,
+                    control: {
+                        type: 'choices',
                         disabled: true,
                         choices: ['linear', 'symlog'].map(v => ({
                             label: v,
@@ -97,19 +114,23 @@ const props: ChartProperty[] = [
     },
     {
         key: 'indexScale',
-        type: 'object',
         group: 'Base',
+        type: 'object',
         help: `index scale configuration.`,
         defaultValue: svgDefaultProps.indexScale,
-        controlType: 'object',
-        controlOptions: {
+        flavors: allFlavors,
+        required: false,
+        control: {
+            type: 'object',
             props: [
                 {
                     key: 'type',
                     help: `Scale type.`,
                     type: 'string',
-                    controlType: 'choices',
-                    controlOptions: {
+                    required: true,
+                    flavors: ['svg', 'canvas', 'api'],
+                    control: {
+                        type: 'choices',
                         disabled: true,
                         choices: ['band'].map(v => ({
                             label: v,
@@ -119,35 +140,39 @@ const props: ChartProperty[] = [
                 },
                 {
                     key: 'round',
+                    required: true,
+                    flavors: ['svg', 'canvas', 'api'],
                     help: 'Toggle index scale (for bar width) rounding.',
                     type: 'boolean',
-                    controlType: 'switch',
+                    control: { type: 'switch' },
                 },
             ],
         },
     },
     {
         key: 'reverse',
+        group: 'Base',
         help: 'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',
         type: 'boolean',
         required: false,
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.reverse,
-        controlType: 'switch',
-        group: 'Base',
+        control: { type: 'switch' },
     },
     {
         key: 'minValue',
+        group: 'Base',
         help: 'Minimum value.',
         description: `
             Minimum value, if 'auto',
             will use min value from the provided data.
         `,
         required: false,
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.minValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
-        group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: -1000,
             min: -1000,
@@ -156,17 +181,18 @@ const props: ChartProperty[] = [
     },
     {
         key: 'maxValue',
+        group: 'Base',
         help: 'Maximum value.',
         description: `
             Maximum value, if 'auto',
             will use max value from the provided data.
         `,
         required: false,
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.maxValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
-        group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 1000,
             min: 0,
@@ -185,18 +211,20 @@ const props: ChartProperty[] = [
             which will receive the raw value and should return the formatted one.
         `,
         required: false,
+        flavors: allFlavors,
         type: 'string | (value: number) => string | number',
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'padding',
         help: 'Padding between each bar (ratio).',
         type: 'number',
         required: false,
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.padding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 0.9,
             step: 0.05,
@@ -207,87 +235,22 @@ const props: ChartProperty[] = [
         help: 'Padding between grouped/stacked bars.',
         type: 'number',
         required: false,
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.innerPadding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 10,
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using \`ResponsiveBar\`.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using \`ResponsiveBar\`.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    themeProperty(['svg', 'canvas', 'api']),
-    {
-        key: 'colors',
-        help: 'Defines color range.',
-        type: 'string | Function | string[]',
-        required: false,
+    ...chartDimensions(allFlavors),
+    themeProperty(allFlavors),
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.colors,
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
+    }),
     {
         key: 'colorBy',
         type: `'id' | 'indexValue'`,
@@ -295,11 +258,12 @@ const props: ChartProperty[] = [
         description: `
             Property to use to determine node color.
         `,
+        flavors: allFlavors,
         required: false,
         defaultValue: svgDefaultProps.colorBy,
-        controlType: 'choices',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 {
                     label: 'id',
@@ -316,11 +280,12 @@ const props: ChartProperty[] = [
         key: 'borderRadius',
         help: 'Rectangle border radius.',
         type: 'number',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.borderRadius,
-        controlType: 'range',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -330,10 +295,11 @@ const props: ChartProperty[] = [
         key: 'borderWidth',
         help: 'Width of bar border.',
         type: 'number',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.borderWidth,
-        controlType: 'lineWidth',
         group: 'Style',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'borderColor',
@@ -343,10 +309,11 @@ const props: ChartProperty[] = [
             [see dedicated documentation](self:/guides/colors).
         `,
         type: 'string | object | Function',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.borderColor,
-        controlType: 'inheritedColor',
         group: 'Style',
+        control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
     {
@@ -373,10 +340,11 @@ const props: ChartProperty[] = [
         key: 'enableLabel',
         help: 'Enable/disable labels.',
         type: 'boolean',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.enableLabel,
-        controlType: 'switch',
         group: 'Labels',
+        control: { type: 'switch' },
     },
     {
         key: 'label',
@@ -403,6 +371,7 @@ const props: ChartProperty[] = [
             \`\`\`
         `,
         type: 'string | Function',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.label,
     },
@@ -410,11 +379,12 @@ const props: ChartProperty[] = [
         key: 'labelSkipWidth',
         help: 'Skip label if bar width is lower than provided value, ignored if 0.',
         type: 'number',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.labelSkipWidth,
-        controlType: 'range',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -424,11 +394,12 @@ const props: ChartProperty[] = [
         key: 'labelSkipHeight',
         help: 'Skip label if bar height is lower than provided value, ignored if 0.',
         type: 'number',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.labelSkipHeight,
-        controlType: 'range',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -438,54 +409,23 @@ const props: ChartProperty[] = [
         key: 'labelTextColor',
         help: 'Defines how to compute label text color.',
         type: 'string | object | Function',
+        flavors: ['svg', 'canvas', 'api'],
         required: false,
         defaultValue: svgDefaultProps.labelTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Labels',
     },
-    {
-        key: 'enableGridX',
-        group: 'Grid & Axes',
-        help: 'Enable/disable x grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: svgDefaultProps.enableGridX,
-        controlType: 'switch',
-    },
-    {
-        key: 'gridXValues',
-        group: 'Grid & Axes',
-        help: 'Specify values to use for vertical grid lines.',
-        type: 'Array<number | string>',
-        required: false,
-    },
-    {
-        key: 'enableGridY',
-        group: 'Grid & Axes',
-        help: 'Enable/disable y grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: svgDefaultProps.enableGridY,
-        controlType: 'switch',
-    },
-    {
-        key: 'gridYValues',
-        group: 'Grid & Axes',
-        help: 'Specify values to use for horizontal grid lines.',
-        type: 'Array<number | string>',
-        required: false,
-    },
-    ...axesProperties(),
-    {
-        key: 'isInteractive',
+    ...chartGrid({
+        flavors: allFlavors,
+        xDefault: svgDefaultProps.enableGridX,
+        yDefault: svgDefaultProps.enableGridY,
+        values: true,
+    }),
+    ...axes({ flavors: allFlavors }),
+    isInteractive({
         flavors: ['svg', 'canvas'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: svgDefaultProps.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'tooltip',
         flavors: ['svg', 'canvas'],
@@ -522,7 +462,8 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: 'Showcase custom tooltip component.',
         type: 'boolean',
-        controlType: 'switch',
+        required: false,
+        control: { type: 'switch' },
     },
     {
         key: 'onClick',
@@ -555,13 +496,14 @@ const props: ChartProperty[] = [
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
-        controlType: 'array',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index: number, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
             svgDefaultProps: {
                 dataFrom: 'keys',
@@ -575,8 +517,8 @@ const props: ChartProperty[] = [
                 itemsSpacing: 0,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },
@@ -585,6 +527,7 @@ const props: ChartProperty[] = [
     {
         key: 'isFocusable',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: 'Make the root SVG element and each bar item focusable, for keyboard navigation.',
         description: `
@@ -595,11 +538,12 @@ const props: ChartProperty[] = [
             at a fixed location.
         `,
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'ariaLabel',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
         type: 'string',
@@ -607,6 +551,7 @@ const props: ChartProperty[] = [
     {
         key: 'ariaLabelledBy',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
         type: 'string',
@@ -614,6 +559,7 @@ const props: ChartProperty[] = [
     {
         key: 'ariaDescribedBy',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
         type: 'string',
@@ -621,6 +567,7 @@ const props: ChartProperty[] = [
     {
         key: 'barAriaLabel',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for bar items.',
         type: '(data) => string',
@@ -628,6 +575,7 @@ const props: ChartProperty[] = [
     {
         key: 'barAriaLabelledBy',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for bar items.',
         type: '(data) => string',
@@ -635,6 +583,7 @@ const props: ChartProperty[] = [
     {
         key: 'barAriaDescribedBy',
         flavors: ['svg'],
+        required: false,
         group: 'Accessibility',
         help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for bar items.',
         type: '(data) => string',

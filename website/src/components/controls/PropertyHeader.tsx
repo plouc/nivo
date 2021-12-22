@@ -35,7 +35,8 @@ const getDefaultValue = (value: any) => {
 }
 
 type PropertyHeaderProps = ChartProperty & {
-    id: string
+    id?: string
+    name?: string
     context?: any
 }
 

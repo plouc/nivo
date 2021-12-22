@@ -3,12 +3,14 @@ import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import { Flavor } from '../../types'
+import { ColorPickerControlConfig } from './types'
 
 interface ColorPickerControlProps {
     id: string
     property: any
     flavors: Flavor[]
     currentFlavor: Flavor
+    config: ColorPickerControlConfig
     value: string
     onChange: (value: string) => void
     context: any

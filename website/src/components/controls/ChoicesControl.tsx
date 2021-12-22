@@ -4,6 +4,7 @@ import Select from './Select'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import { Flavor } from '../../types'
+import { ChoicesControlConfig } from './types'
 
 interface ChoicesControlProps {
     id: string
@@ -12,9 +13,8 @@ interface ChoicesControlProps {
     currentFlavor: Flavor
     value: string | number | boolean
     onChange: (value: string | number | boolean) => void
-    options: {
-        choices: any
-    }
+    config: ChoicesControlConfig
+    context?: any
 }
 
 export const ChoicesControl = memo(
@@ -24,11 +24,11 @@ export const ChoicesControl = memo(
         flavors,
         currentFlavor,
         value: _value,
-        options,
+        config,
         onChange,
     }: ChoicesControlProps) => {
         const handleUpdate = useCallback(value => onChange(value.value), [onChange])
-        const value = options.choices.find(({ value: v }) => v === _value)
+        const value = config.choices.find(({ value: v }) => v === _value)
 
         return (
             <Control
@@ -39,7 +39,7 @@ export const ChoicesControl = memo(
                 supportedFlavors={property.flavors}
             >
                 <PropertyHeader id={id} {...property} />
-                <Select options={options.choices} value={value} onChange={handleUpdate} />
+                <Select options={config.choices} value={value} onChange={handleUpdate} />
                 <Help>{property.help}</Help>
             </Control>
         )

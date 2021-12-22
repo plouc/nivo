@@ -1,7 +1,9 @@
-import { boxAlignments } from '@nivo/core'
 import { calendarDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
 
 const props: ChartProperty[] = [
     {
@@ -21,6 +23,7 @@ const props: ChartProperty[] = [
         `,
         type: 'object[]',
         required: true,
+        flavors: allFlavors,
     },
     {
         key: 'from',
@@ -28,6 +31,7 @@ const props: ChartProperty[] = [
         help: 'start date',
         type: 'string | Date',
         required: true,
+        flavors: allFlavors,
     },
     {
         key: 'to',
@@ -35,54 +39,19 @@ const props: ChartProperty[] = [
         help: 'end date',
         type: 'string | Date',
         required: true,
+        flavors: allFlavors,
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using responsive alternative of
-            the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using responsive alternative of
-            the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'direction',
         help: 'defines calendar layout direction.',
         type: 'string',
         required: false,
         defaultValue: defaults.direction,
-        controlType: 'radio',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -90,26 +59,15 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
         key: 'align',
         help: 'defines how calendar should be aligned inside chart container.',
         type: 'string',
         required: false,
+        flavors: ['svg', 'canvas', 'api'],
         defaultValue: defaults.align,
-        controlType: 'boxAnchor',
         group: 'Base',
-        controlOptions: {
-            choices: boxAlignments.map(align => ({
-                label: align,
-                value: align,
-            })),
+        control: {
+            type: 'boxAnchor',
         },
     },
     {
@@ -122,11 +80,12 @@ const props: ChartProperty[] = [
             desired lower bound value.
         `,
         required: false,
+        flavors: ['svg', 'canvas', 'api'],
         defaultValue: defaults.minValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 0,
             min: -300,
@@ -143,11 +102,12 @@ const props: ChartProperty[] = [
             desired higher bound value.
         `,
         required: false,
+        flavors: ['svg', 'canvas', 'api'],
         defaultValue: defaults.maxValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 100,
             min: 0,
@@ -167,6 +127,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string[]',
         required: false,
+        flavors: ['svg', 'canvas', 'api'],
         defaultValue: defaults.colors,
     },
     {
@@ -174,23 +135,10 @@ const props: ChartProperty[] = [
         help: 'color to use to fill days without available value.',
         type: 'string',
         required: false,
+        flavors: ['svg', 'canvas', 'api'],
         defaultValue: defaults.emptyColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Style',
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
     },
     // Years
     {
@@ -199,9 +147,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.yearSpacing,
-        controlType: 'range',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Years',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 160,
@@ -214,6 +163,7 @@ const props: ChartProperty[] = [
         help: `can be used to customize years label, returns 'YYYY' by default.`,
         type: '(year: number) => string | number',
         required: false,
+        flavors: ['svg', 'canvas', 'api'],
     },
     {
         key: 'yearLegendPosition',
@@ -221,9 +171,10 @@ const props: ChartProperty[] = [
         type: `'before' | 'after'`,
         required: false,
         defaultValue: defaults.yearLegendPosition,
-        controlType: 'radio',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Years',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'before', value: 'before' },
                 { label: 'after', value: 'after' },
@@ -236,9 +187,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.yearLegendOffset,
-        controlType: 'range',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Years',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 60,
@@ -251,9 +203,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.monthSpacing,
-        controlType: 'range',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Months',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 160,
@@ -267,7 +220,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.monthBorderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Months',
     },
     {
@@ -277,7 +230,7 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaults.monthBorderColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Months',
     },
     {
@@ -286,6 +239,7 @@ const props: ChartProperty[] = [
         type: '(year: number, month: number, date: Date) => string | number',
         required: false,
         group: 'Months',
+        flavors: ['svg', 'canvas', 'api'],
     },
     {
         key: 'monthLegendPosition',
@@ -293,9 +247,10 @@ const props: ChartProperty[] = [
         type: `'before' | 'after'`,
         required: false,
         defaultValue: defaults.monthLegendPosition,
-        controlType: 'radio',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Months',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'before', value: 'before' },
                 { label: 'after', value: 'after' },
@@ -308,9 +263,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.monthLegendOffset,
-        controlType: 'range',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Months',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -323,9 +279,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.daySpacing,
-        controlType: 'range',
+        flavors: ['svg', 'canvas', 'api'],
         group: 'Days',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 20,
@@ -337,7 +294,8 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.dayBorderWidth,
-        controlType: 'lineWidth',
+        flavors: ['svg', 'canvas', 'api'],
+        control: { type: 'lineWidth' },
         group: 'Days',
     },
     {
@@ -346,19 +304,14 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaults.dayBorderColor,
-        controlType: 'colorPicker',
+        flavors: ['svg', 'canvas', 'api'],
+        control: { type: 'colorPicker' },
         group: 'Days',
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg', 'canvas'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaults.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'onClick',
         flavors: ['svg', 'canvas'],
@@ -397,7 +350,8 @@ const props: ChartProperty[] = [
         flavors: ['svg', 'canvas'],
         help: 'Showcase custom tooltip.',
         type: 'boolean',
-        controlType: 'switch',
+        required: false,
+        control: { type: 'switch' },
         group: 'Interactivity',
     },
 ]

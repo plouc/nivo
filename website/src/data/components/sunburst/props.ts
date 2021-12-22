@@ -6,12 +6,16 @@ import {
     motionProperties,
     themeProperty,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'api']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Chart data, which should be immutable.',
         description: `
             Chart data, which must conform to this structure
@@ -44,6 +48,7 @@ const props: ChartProperty[] = [
     {
         key: 'id',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Id accessor.',
         description: `
             define id accessor, if string given,
@@ -60,6 +65,7 @@ const props: ChartProperty[] = [
     {
         key: 'value',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Value accessor',
         description: `
             define value accessor, if string given,
@@ -76,6 +82,7 @@ const props: ChartProperty[] = [
     {
         key: 'valueFormat',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
@@ -86,82 +93,34 @@ const props: ChartProperty[] = [
         `,
         required: false,
         type: 'string | (value: number) => string | number',
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'cornerRadius',
         help: 'Round node shape.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.cornerRadius,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 45,
             step: 1,
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        description: `
-            not required if using
-            \`<ResponsiveSunburst/>\`.
-        `,
-        help: 'Chart width.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        description: `
-            not required if using
-            \`<ResponsiveSunburst/>\`.
-        `,
-        help: 'Chart height.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'api']),
-    {
-        key: 'colors',
-        help: 'Defines how to compute node color.',
-        required: false,
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaultProps.colors,
-        controlType: 'ordinalColors',
-        type: 'string | Function | string[]',
-        group: 'Style',
-    },
+    }),
     {
         key: 'colorBy',
         help: `Define the property to use to assign a color to arcs.`,
+        flavors: allFlavors,
         description: `
             When using \`id\`, each node will get a new color,
             and when using \`depth\` the nodes' color will depend on their depth.
@@ -169,9 +128,9 @@ const props: ChartProperty[] = [
         type: `'id' | 'depth'`,
         required: false,
         defaultValue: defaultProps.colorBy,
-        controlType: 'radio',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'id', value: 'id' },
                 { label: 'depth', value: 'depth' },
@@ -181,37 +140,41 @@ const props: ChartProperty[] = [
     {
         key: 'inheritColorFromParent',
         help: 'Inherit color from parent node starting from 2nd level.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.inheritColorFromParent,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Style',
     },
     {
         key: 'childColor',
         help: 'Defines how to compute child nodes color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.childColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     {
         key: 'borderWidth',
         help: 'Node border width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'borderColor',
         help: 'Defines how to compute arcs color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     ...defsProperties('Style', ['svg', 'api']),
@@ -225,28 +188,31 @@ const props: ChartProperty[] = [
             [dedicated guide](self:/guides/patterns)
             for further information.
         `,
+        required: false,
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Style',
     },
     {
         key: 'enableArcLabels',
         help: 'Enable/disable arc labels.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.enableArcLabels,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Arc labels',
     },
     {
         key: 'arcLabel',
         help: 'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
+        flavors: allFlavors,
         type: 'string | Function',
         required: false,
         defaultValue: defaultProps.arcLabel,
-        controlType: 'choices',
         group: 'Arc labels',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
                 choice => ({
                     label: choice,
@@ -261,12 +227,13 @@ const props: ChartProperty[] = [
             Define the radius to use to determine the label position, starting from inner radius,
             this is expressed as a ratio.
         `,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLabelsRadiusOffset,
-        controlType: 'range',
         group: 'Arc labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 2,
             step: 0.05,
@@ -275,12 +242,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLabelsSkipAngle',
         help: `Skip label if corresponding arc's angle is lower than provided value.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLabelsSkipAngle,
-        controlType: 'range',
         group: 'Arc labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: '°',
             min: 0,
             max: 45,
@@ -290,16 +258,18 @@ const props: ChartProperty[] = [
     {
         key: 'arcLabelsTextColor',
         help: 'Defines how to compute arc label text color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.arcLabelsTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Arc labels',
     },
     {
         key: 'layers',
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
+        flavors: ['svg'],
         description: `
             You can also use this to insert extra layers
             to the chart, the extra layer must be a function.
@@ -324,16 +294,10 @@ const props: ChartProperty[] = [
         type: 'Array<string | Function>',
         defaultValue: defaultProps.layers,
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg'],
-        help: 'Enable/disable interactivity.',
-        type: '{boolean}',
-        required: false,
         defaultValue: defaultProps.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     ...motionProperties(['svg'], defaultProps, 'react-spring'),
     {
         key: 'transitionMode',
@@ -342,9 +306,9 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaultProps.transitionMode,
-        controlType: 'choices',
         group: 'Motion',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: arcTransitionModes.map(choice => ({
                 label: choice,
                 value: choice,
@@ -383,9 +347,10 @@ const props: ChartProperty[] = [
         key: 'custom tooltip example',
         flavors: ['svg'],
         group: 'Interactivity',
+        required: false,
         help: 'Showcase custom tooltip component.',
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'onClick',

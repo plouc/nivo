@@ -1,3 +1,4 @@
+// @ts-ignore
 import { GeoMapDefaultProps, ChoroplethDefaultProps } from '@nivo/geo'
 import { getLegendsProps, groupProperties } from '../../../lib/componentProperties'
 import { props as geoProps } from '../geo/props'
@@ -10,6 +11,7 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string | Function',
         required: false,
+        flavors: ['svg', 'canvas'],
         help: 'Label accessor.',
         description: `
             Accessor to label, if a string is provided,
@@ -24,6 +26,7 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string | Function',
         required: false,
+        flavors: ['svg', 'canvas'],
         help: 'Value accessor.',
         description: `
             Accessor to data value, if a string is provided,
@@ -38,6 +41,7 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string | Function',
         required: false,
+        flavors: ['svg', 'canvas'],
         help: 'Value formatter.',
         description: `
             Optional formatting of values, if provided, it will
@@ -61,31 +65,35 @@ const props: ChartProperty[] = [
         `,
         type: 'number[]',
         required: true,
+        flavors: ['svg', 'canvas'],
         group: 'Base',
     },
     {
         key: 'colors',
+        group: 'Style',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
+        flavors: ['svg', 'canvas'],
         defaultValue: 'nivo',
-        controlType: 'quantizeColors',
-        group: 'Style',
+        control: { type: 'quantizeColors' },
     },
     {
         key: 'unknownColor',
+        group: 'Style',
         help: 'Defines the color to use for features without value.',
         type: 'string',
         required: false,
+        flavors: ['svg', 'canvas'],
         defaultValue: 'nivo',
-        controlType: 'colorPicker',
-        group: 'Style',
+        control: { type: 'colorPicker' },
     },
     {
         key: 'layers',
         group: 'Customization',
         type: `Array<'graticule' | 'features' | Function>`,
         required: false,
+        flavors: ['svg', 'canvas'],
         help: 'Defines the order of layers.',
         description: `
             Defines the order of layers, available layers are:
@@ -107,6 +115,7 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         type: 'Function',
         required: false,
+        flavors: ['svg', 'canvas'],
         help: 'Custom tooltip component.',
         description: `
             A function allowing complete tooltip customisation,
@@ -116,20 +125,24 @@ const props: ChartProperty[] = [
     },
     {
         key: 'custom tooltip example',
+        group: 'Interactivity',
         excludeFromDoc: true,
+        required: false,
         help: 'Showcase custom tooltip.',
         type: 'boolean',
-        controlType: 'switch',
-        group: 'Interactivity',
+        flavors: ['svg', 'canvas'],
+        control: { type: 'switch' },
     },
     {
         key: 'legends',
         type: '{Array<object>}',
         help: `Optional chart's legends.`,
         group: 'Legends',
-        controlType: 'array',
-        controlOptions: {
-            props: getLegendsProps(),
+        flavors: ['svg', 'canvas'],
+        required: false,
+        control: {
+            type: 'array',
+            props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
@@ -145,8 +158,8 @@ const props: ChartProperty[] = [
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
                 itemTextColor: '#777',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
                 effects: [
                     {

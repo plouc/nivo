@@ -6,6 +6,7 @@ import { TextInput } from './TextInput'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import { Flavor } from '../../types'
+import { RangeControlConfig } from './types'
 
 interface RangeControlProps {
     id: string
@@ -14,16 +15,12 @@ interface RangeControlProps {
     currentFlavor: Flavor
     value: number
     onChange: (value: number) => void
-    options: {
-        unit: 'px' | '°'
-        min: number
-        max: number
-        step?: number
-    }
+    config: RangeControlConfig
+    context?: any
 }
 
 export const RangeControl = memo(
-    ({ id, property, flavors, currentFlavor, options, value, onChange }: RangeControlProps) => {
+    ({ id, property, flavors, currentFlavor, config, value, onChange }: RangeControlProps) => {
         const handleChange = useCallback(event => onChange(Number(event.target.value)), [onChange])
 
         return (
@@ -39,7 +36,7 @@ export const RangeControl = memo(
                     <TextInput
                         id={id}
                         value={value}
-                        unit={options.unit}
+                        unit={config.unit}
                         isNumber={true}
                         onChange={handleChange}
                     />
@@ -47,7 +44,7 @@ export const RangeControl = memo(
                         type="range"
                         value={value}
                         onChange={handleChange}
-                        {...pick(options, ['min', 'max', 'step'])}
+                        {...pick(config, ['min', 'max', 'step'])}
                     />
                 </Row>
                 <Help>{property.help}</Help>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Fragment, ReactNode, useCallback } from 'react'
+import React, { ChangeEvent, Fragment, useCallback } from 'react'
 import styled from 'styled-components'
 import { ChartProperty, Flavor } from '../../types'
 import { Control } from './Control'
@@ -6,23 +6,17 @@ import { PropertyHeader } from './PropertyHeader'
 import { Label } from './Label'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
+import { NumberArrayControlConfig } from './types'
 
 interface NumberArrayControlProps {
     id: string
     property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
-    options: {
-        unit: 'px' | '°'
-        items: {
-            label: ReactNode
-            min: number
-            max: number
-            step?: number
-        }[]
-    }
+    config: NumberArrayControlConfig
     value: number[]
     onChange: (value: number[]) => void
+    context?: any
 }
 
 export const NumberArrayControl = ({
@@ -30,7 +24,7 @@ export const NumberArrayControl = ({
     property,
     flavors,
     currentFlavor,
-    options: { unit, items },
+    config: { unit, items },
     value,
     onChange,
 }: NumberArrayControlProps) => {

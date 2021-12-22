@@ -3,13 +3,15 @@ import styled from 'styled-components'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
+import { ChartProperty, Flavor } from '../../types'
+import { BoxAnchorControlConfig } from './types'
 
 const boxWidth = 80
 const boxHeight = 50
 const boxPadding = 10
 const outlineRadius = 8
 
-const anchors = [
+const anchors: [string, number, number][] = [
     ['center', boxWidth / 2, boxHeight / 2],
     ['top-left', 0, 0],
     ['top', boxWidth / 2, 0],
@@ -33,11 +35,15 @@ const Rect = styled.rect`
     stroke-opacity: 0.6;
 `
 
-const Dot = styled.circle`
+const Dot = styled.circle<{
+    isSelected: boolean
+}>`
     fill: ${({ isSelected, theme }) => (isSelected ? theme.colors.accent : theme.colors.textLight)};
 `
 
-const DotOutline = styled.circle`
+const DotOutline = styled.circle<{
+    isSelected: boolean
+}>`
     fill: red;
     fill-opacity: 0;
     stroke-width: 2px;
@@ -54,7 +60,25 @@ const Value = styled.span`
     margin-left: 20px;
 `
 
-const BoxAnchorControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
+interface BoxAnchorControlProps {
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: string
+    config: BoxAnchorControlConfig
+    onChange: (value: string) => void
+    context?: any
+}
+
+export const BoxAnchorControl = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+    value,
+    onChange,
+}: BoxAnchorControlProps) => {
     return (
         <Control
             id={id}
@@ -98,5 +122,3 @@ const BoxAnchorControl = ({ id, property, flavors, currentFlavor, value, onChang
         </Control>
     )
 }
-
-export default BoxAnchorControl

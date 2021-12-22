@@ -7,12 +7,16 @@ import {
     getLegendsProps,
     motionProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Chart data, which should be immutable.',
         description: `
             Chart data, which must conform to this structure
@@ -40,6 +44,7 @@ const props: ChartProperty[] = [
     {
         key: 'id',
         group: 'Base',
+        flavors: allFlavors,
         help: 'ID accessor which should return a unique value for the whole dataset.',
         description: `
             Define how to access the ID of each datum,
@@ -52,6 +57,7 @@ const props: ChartProperty[] = [
     {
         key: 'value',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Value accessor.',
         description: `
             Define how to access the value of each datum,
@@ -64,6 +70,7 @@ const props: ChartProperty[] = [
     {
         key: 'valueFormat',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
@@ -74,70 +81,19 @@ const props: ChartProperty[] = [
         `,
         required: false,
         type: 'string | (value: number) => string | number',
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsivePie/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsivePie/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'startAngle',
         help: 'Start angle (in degrees), useful to make gauges for example.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.startAngle,
         group: 'Base',
-        controlType: 'angle',
-        controlOptions: {
-            unit: '°',
+        control: {
+            type: 'angle',
             min: -180,
             max: 360,
             step: 5,
@@ -146,13 +102,13 @@ const props: ChartProperty[] = [
     {
         key: 'endAngle',
         help: 'End angle (in degrees), useful to make gauges for example.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.endAngle,
         group: 'Base',
-        controlType: 'angle',
-        controlOptions: {
-            unit: '°',
+        control: {
+            type: 'angle',
             min: -360,
             max: 360,
             step: 5,
@@ -161,21 +117,23 @@ const props: ChartProperty[] = [
     {
         key: 'fit',
         help: `If 'true', pie will be optimized to occupy more space when using partial pie.`,
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.fit,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Base',
     },
     {
         key: 'innerRadius',
         help: `Donut chart if greater than 0. Value should be between 0~1 as it's a ratio from original radius.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.innerRadius,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 0.95,
             step: 0.05,
@@ -184,12 +142,13 @@ const props: ChartProperty[] = [
     {
         key: 'padAngle',
         help: 'Padding between each pie slice.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.padAngle,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: '°',
             min: 0,
             max: 45,
@@ -199,12 +158,13 @@ const props: ChartProperty[] = [
     {
         key: 'cornerRadius',
         help: 'Rounded slices.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.cornerRadius,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 45,
@@ -214,30 +174,18 @@ const props: ChartProperty[] = [
     {
         key: 'sortByValue',
         help: `If 'true', arcs will be ordered according to their associated value.`,
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.sortByValue,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Base',
     },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    themeProperty(['svg', 'canvas', 'api']),
-    {
-        key: 'colors',
-        help: 'Defines color range.',
-        type: 'string | Function | string[]',
-        required: false,
+    themeProperty(allFlavors),
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaultProps.colors,
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
+    }),
     ...defsProperties('Style', ['svg', 'api']),
     {
         key: 'showcase pattern usage',
@@ -249,46 +197,51 @@ const props: ChartProperty[] = [
             [dedicated guide](self:/guides/patterns)
             for further information.
         `,
+        required: false,
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Style',
     },
     {
         key: 'borderWidth',
         help: 'Slices border width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'borderColor',
         help: 'Method to compute border color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     {
         key: 'enableArcLabels',
         help: 'Enable/disable arc labels.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.enableArcLabels,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Arc labels',
     },
     {
         key: 'arcLabel',
         help: 'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
+        flavors: allFlavors,
         type: 'string | Function',
         required: false,
         defaultValue: defaultProps.arcLabel,
-        controlType: 'choices',
         group: 'Arc labels',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
                 choice => ({
                     label: choice,
@@ -303,12 +256,13 @@ const props: ChartProperty[] = [
             Define the radius to use to determine the label position, starting from inner radius,
             this is expressed as a ratio.
         `,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLabelsRadiusOffset,
-        controlType: 'range',
         group: 'Arc labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 2,
             step: 0.05,
@@ -317,12 +271,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLabelsSkipAngle',
         help: `Skip label if corresponding arc's angle is lower than provided value.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLabelsSkipAngle,
-        controlType: 'range',
         group: 'Arc labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: '°',
             min: 0,
             max: 45,
@@ -332,24 +287,27 @@ const props: ChartProperty[] = [
     {
         key: 'arcLabelsTextColor',
         help: 'Defines how to compute arc label text color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.arcLabelsTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Arc labels',
     },
     {
         key: 'enableArcLinkLabels',
         help: 'Enable/disable arc link labels.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.enableArcLinkLabels,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Arc link labels',
     },
     {
         key: 'arcLinkLabel',
         help: 'Arc link label',
+        flavors: allFlavors,
         description: `
             Defines how to get label text,
             can be a string (used to access current node data property)
@@ -358,9 +316,9 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         defaultValue: defaultProps.arcLinkLabel,
-        controlType: 'choices',
         group: 'Arc link labels',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['id', 'value', `d => \`\${d.id} (\${d.value})\``].map(choice => ({
                 label: choice,
                 value: choice,
@@ -370,12 +328,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLinkLabelsSkipAngle',
         help: `Skip label if corresponding slice's angle is lower than provided value.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsSkipAngle,
-        controlType: 'range',
         group: 'Arc link labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: '°',
             min: 0,
             max: 45,
@@ -385,12 +344,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLinkLabelsOffset',
         help: `Link offset from pie outer radius, useful to have links overlapping pie slices.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsOffset,
-        controlType: 'range',
         group: 'Arc link labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: -24,
             max: 24,
@@ -400,12 +360,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLinkLabelsDiagonalLength',
         help: `Link diagonal length.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsDiagonalLength,
-        controlType: 'range',
         group: 'Arc link labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -415,12 +376,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLinkLabelsStraightLength',
         help: `Length of the straight segment of the links.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsStraightLength,
-        controlType: 'range',
         group: 'Arc link labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -430,12 +392,13 @@ const props: ChartProperty[] = [
     {
         key: 'arcLinkLabelsTextOffset',
         help: `X offset from links' end.`,
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsTextOffset,
-        controlType: 'range',
         group: 'Arc link labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -445,34 +408,38 @@ const props: ChartProperty[] = [
     {
         key: 'arcLinkLabelsThickness',
         help: 'Links stroke width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsThickness,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Arc link labels',
     },
     {
         key: 'arcLinkLabelsTextColor',
         help: 'Defines how to compute arc link label text color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Arc link labels',
     },
     {
         key: 'arcLinkLabelsColor',
         help: 'Defines how to compute arc link label link color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.arcLinkLabelsColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Arc link labels',
     },
     {
         key: 'layers',
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
+        flavors: allFlavors,
         description: `
             You can also use this to insert extra layers
             to the chart, the extra layer must be a function.
@@ -507,16 +474,10 @@ const props: ChartProperty[] = [
         type: 'Array<string | Function>',
         defaultValue: defaultProps.layers,
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg', 'canvas'],
-        group: 'Interactivity',
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaultProps.isInteractive,
-        controlType: 'switch',
-    },
+    }),
     {
         key: 'activeInnerRadiusOffset',
         flavors: ['svg', 'canvas'],
@@ -524,9 +485,9 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaultProps.activeInnerRadiusOffset,
-        controlType: 'range',
         group: 'Interactivity',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 50,
@@ -539,9 +500,9 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaultProps.activeOuterRadiusOffset,
-        controlType: 'range',
         group: 'Interactivity',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 50,
@@ -606,7 +567,8 @@ const props: ChartProperty[] = [
         flavors: ['svg', 'canvas'],
         help: 'Showcase custom tooltip.',
         type: 'boolean',
-        controlType: 'switch',
+        required: false,
+        control: { type: 'switch' },
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaultProps, 'react-spring'),
@@ -617,9 +579,9 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaultProps.transitionMode,
-        controlType: 'choices',
         group: 'Motion',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: arcTransitionModes.map(choice => ({
                 label: choice,
                 value: choice,
@@ -632,13 +594,14 @@ const props: ChartProperty[] = [
         type: 'Legend[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
-        controlType: 'array',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
             defaults: {
                 anchor: 'top-left',
@@ -651,8 +614,8 @@ const props: ChartProperty[] = [
                 itemsSpacing: 0,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },

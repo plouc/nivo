@@ -1,16 +1,16 @@
+// @ts-ignore
 import { HeatMapDefaultProps as defaults } from '@nivo/heatmap'
-import {
-    themeProperty,
-    axesProperties,
-    motionProperties,
-    groupProperties,
-} from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { chartDimensions, chartGrid, axes, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Chart data.',
         type: 'object[]',
         required: true,
@@ -18,6 +18,7 @@ const props: ChartProperty[] = [
     {
         key: 'indexBy',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Key to use to index the data.',
         description: `
             Key to use to index the data,
@@ -33,6 +34,7 @@ const props: ChartProperty[] = [
     {
         key: 'keys',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Keys to use to determine each serie.',
         type: 'string[]',
         required: false,
@@ -41,6 +43,7 @@ const props: ChartProperty[] = [
     {
         key: 'minValue',
         help: 'Minimum value.',
+        flavors: allFlavors,
         description: `
             Minimum value.
             If 'auto', will pick the lowest value
@@ -51,9 +54,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.minValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 0,
             min: -100,
@@ -63,6 +66,7 @@ const props: ChartProperty[] = [
     {
         key: 'maxValue',
         help: 'Maximum value.',
+        flavors: allFlavors,
         description: `
             Maximum value. If 'auto', will pick the highest value
             in the provided data set. Should be overriden
@@ -72,9 +76,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.maxValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 100,
             min: -100,
@@ -84,22 +88,24 @@ const props: ChartProperty[] = [
     {
         key: 'forceSquare',
         help: 'Force square cells (width = height).',
+        flavors: allFlavors,
         required: false,
         defaultValue: defaults.forceSquare,
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Base',
     },
     {
         key: 'sizeVariation',
         help: 'Cell size variation.',
+        flavors: allFlavors,
         description: `Size variation (0~1), if value is 0 size won't be affected. If you use for example the value 0.3, cell width/height will vary between 0.7~1 according to its corresponding value.`,
         required: false,
         defaultValue: defaults.sizeVariation,
         type: 'number',
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 1,
             step: 0.02,
@@ -108,81 +114,24 @@ const props: ChartProperty[] = [
     {
         key: 'padding',
         help: 'Padding.',
+        flavors: allFlavors,
         required: false,
         defaultValue: defaults.padding,
         type: 'number',
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 36,
             unit: 'px',
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveHeatMap/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveHeatMap/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'cellShape',
         help: `Cell shape/component.`,
+        flavors: allFlavors,
         description: `
             Cell shape, can be one of: \`'rect'\`, \`'circle'\`,
             if a function is provided, it must return
@@ -206,9 +155,9 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         defaultValue: defaults.cellShape,
-        controlType: 'choices',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['rect', 'circle', 'Custom(props) => (…)'].map(key => ({
                 label: key,
                 value: key,
@@ -218,33 +167,37 @@ const props: ChartProperty[] = [
     {
         key: 'colors',
         help: 'Defines color range.',
+        flavors: allFlavors,
         type: 'string | Function | string[]',
         required: false,
         defaultValue: 'nivo',
-        controlType: 'quantizeColors',
+        control: { type: 'quantizeColors' },
         group: 'Style',
     },
     {
         key: 'cellOpacity',
         help: 'Cell opacity (0~1).',
+        flavors: allFlavors,
         required: false,
         defaultValue: defaults.cellOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Style',
     },
     {
         key: 'cellBorderWidth',
         help: 'Cell border width.',
+        flavors: allFlavors,
         required: false,
         defaultValue: defaults.cellBorderWidth,
         type: 'number',
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'cellBorderColor',
         help: 'Method to compute cell border color.',
+        flavors: allFlavors,
         description: `
             how to compute cell border color,
             [see dedicated documentation](self:/guides/colors).
@@ -252,21 +205,23 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         defaultValue: defaults.cellBorderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     {
         key: 'enableLabels',
         help: 'Enable/disable labels.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaults.enableLabels,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Labels',
     },
     {
         key: 'labelTextColor',
         help: 'Method to compute label text color.',
+        flavors: allFlavors,
         description: `
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
@@ -274,38 +229,19 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         defaultValue: defaults.labelTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Labels',
     },
-    {
-        key: 'enableGridX',
-        help: 'Enable/disable x grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.enableGridX,
-        controlType: 'switch',
-        group: 'Grid & Axes',
-    },
-    {
-        key: 'enableGridY',
-        help: 'Enable/disable y grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.enableGridY,
-        controlType: 'switch',
-        group: 'Grid & Axes',
-    },
-    ...axesProperties(),
-    {
-        key: 'isInteractive',
+    ...chartGrid({
+        flavors: allFlavors,
+        xDefault: defaults.enableGridX,
+        yDefault: defaults.enableGridY,
+    }),
+    ...axes({ flavors: allFlavors }),
+    isInteractive({
         flavors: ['svg', 'canvas'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaults.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'onClick',
         flavors: ['svg', 'canvas'],
@@ -347,9 +283,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.hoverTarget,
         type: 'string',
-        controlType: 'choices',
         group: 'Interactivity',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['cell', 'row', 'column', 'rowColumn'].map(key => ({
                 label: key,
                 value: key,
@@ -363,7 +299,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.cellHoverOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Interactivity',
     },
     {
@@ -373,7 +309,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.cellHoverOthersOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaults, 'react-spring'),

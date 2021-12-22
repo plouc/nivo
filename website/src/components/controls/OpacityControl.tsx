@@ -4,18 +4,22 @@ import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
+// @ts-ignore
 import { useTheme } from '../../theming/context'
-import { Flavor, OpacityChartProperty } from '../../types'
+import { Flavor, ChartProperty } from '../../types'
+import { OpacityControlConfig } from './types'
 
 const size = 24
 
 interface OpacityControlProps {
     id: string
-    property: OpacityChartProperty
+    property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
+    config: OpacityControlConfig
     value: number
     onChange: (value: number) => void
+    context?: any
 }
 
 export const OpacityControl = ({

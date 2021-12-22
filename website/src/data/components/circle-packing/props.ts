@@ -5,13 +5,17 @@ import {
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'html', 'canvas', 'api']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
         help: 'Chart data, which should be immutable.',
+        flavors: allFlavors,
         description: `
             Chart data, which must conform to this structure
             if using the default \`id\` and \`value\` accessors:
@@ -43,6 +47,7 @@ const props: ChartProperty[] = [
     {
         key: 'id',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Id accessor.',
         description: `
             define id accessor, if string given,
@@ -59,6 +64,7 @@ const props: ChartProperty[] = [
     {
         key: 'value',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Value accessor',
         description: `
             define value accessor, if string given,
@@ -75,6 +81,7 @@ const props: ChartProperty[] = [
     {
         key: 'valueFormat',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
@@ -85,11 +92,12 @@ const props: ChartProperty[] = [
         `,
         required: false,
         type: 'string | (value: number) => string | number',
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'padding',
         help: 'Padding between each circle.',
+        flavors: allFlavors,
         description: `
             Padding between adjacent circles.
             Please be aware that when zoomed
@@ -100,9 +108,9 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaultProps.padding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 32,
@@ -111,85 +119,19 @@ const props: ChartProperty[] = [
     {
         key: 'leavesOnly',
         help: 'Only render leaf nodes (skip parent nodes).',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.leavesOnly,
-        controlType: 'switch',
         group: 'Base',
+        control: { type: 'switch' },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using \`<ResponsiveCirclePacking/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using \`<ResponsiveCirclePacking/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'html', 'canvas']),
-    {
-        key: 'colors',
-        help: 'Define how to compute node color.',
-        description: `
-            colors used to colorize the circles,
-            [see dedicated documentation](self:/guides/colors).
-        `,
-        type: 'string | Function | string[]',
-        required: false,
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: { scheme: 'nivo' },
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
+    }),
     {
         key: 'colorBy',
         help: `Define the property to use to assign a color to circles.`,
@@ -200,9 +142,10 @@ const props: ChartProperty[] = [
         type: `'id' | 'depth'`,
         required: false,
         defaultValue: defaultProps.colorBy,
-        controlType: 'radio',
+        flavors: allFlavors,
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'id', value: 'id' },
                 { label: 'depth', value: 'depth' },
@@ -214,31 +157,35 @@ const props: ChartProperty[] = [
         help: 'Inherit color from parent node starting from 2nd level.',
         type: 'boolean',
         required: false,
+        flavors: allFlavors,
         defaultValue: defaultProps.inheritColorFromParent,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Style',
     },
     {
         key: 'childColor',
         help: 'Defines how to compute child nodes color, only used when inheritColorFromParent is enabled.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.childColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     {
         key: 'borderWidth',
         help: 'Width of circle border.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultProps.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'borderColor',
         help: 'Method to compute border color.',
+        flavors: allFlavors,
         description: `
             how to compute border color,
             [see dedicated documentation](self:/guides/colors).
@@ -246,28 +193,32 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     ...defsProperties('Style', ['svg']),
     {
         key: 'circleComponent',
         help: 'Custom circle component.',
+        type: 'Component',
+        flavors: ['svg'],
         group: 'Style',
         required: false,
     },
     {
         key: 'enableLabels',
         help: 'Enable/disable labels.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.enableLabels,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Labels',
     },
     {
         key: 'label',
         help: 'Label accessor.',
+        flavors: allFlavors,
         description: `
             Defines how to get label text,
             can be a string (used to access current node data property)
@@ -276,9 +227,9 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         defaultValue: defaultProps.label,
-        controlType: 'choices',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['id', 'value', 'formattedValue', `d => \`\${d.id}: \${d.value}\``].map(
                 choice => ({
                     label: choice,
@@ -290,6 +241,7 @@ const props: ChartProperty[] = [
     {
         key: 'labelsFilter',
         help: 'Filter labels using custom conditions.',
+        flavors: allFlavors,
         description: `
             Please note that at this stage, nodes are already excluded
             according to \`labelsSkipRadius\`.
@@ -312,10 +264,11 @@ const props: ChartProperty[] = [
         help: 'Skip label rendering if node radius is lower than given value, 0 to disable.',
         type: 'number',
         required: false,
+        flavors: allFlavors,
         defaultValue: defaultProps.labelsSkipRadius,
-        controlType: 'range',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 32,
@@ -324,6 +277,7 @@ const props: ChartProperty[] = [
     {
         key: 'labelTextColor',
         help: 'Method to compute label text color.',
+        flavors: allFlavors,
         description: `
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
@@ -331,25 +285,21 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.labelTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Labels',
     },
     {
         key: 'labelComponent',
         help: 'Custom label component.',
+        type: 'Component',
+        flavors: allFlavors,
         group: 'Labels',
         required: false,
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg', 'html', 'canvas'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaultProps.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'onMouseEnter',
         flavors: ['svg', 'html'],

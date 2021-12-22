@@ -4,31 +4,33 @@ import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
+import { ChartProperty, Flavor } from '../../types'
+import { LineWidthControlConfig } from './types'
 
 const size = 24
 
-const Row = styled.div`
-    display: grid;
-    grid-template-columns: 60px ${size}px auto;
-    grid-column-gap: 9px;
-    align-items: center;
-    max-width: 240px;
-    margin-bottom: 5px;
-`
+interface LineWidthControlProps {
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    config: LineWidthControlConfig
+    value: number
+    onChange: (value: number) => void
+    context?: any
+}
 
-const Line = styled.line`
-    stroke: ${({ theme }) => theme.colors.border};
-    stroke-width: 1px;
-    fill: none;
-`
-
-const Marker = styled.line`
-    stroke: ${({ theme }) => theme.colors.accent};
-    fill: none;
-`
-
-const LineWidthControl = memo(
-    ({ id, property, flavors, currentFlavor, value, context, onChange }) => {
+export const LineWidthControl = memo(
+    ({
+        id,
+        property,
+        flavors,
+        currentFlavor,
+        value,
+        context,
+        onChange,
+        config,
+    }: LineWidthControlProps) => {
         const handleChange = useCallback(
             event => {
                 onChange(Number(event.target.value))
@@ -57,7 +59,14 @@ const LineWidthControl = memo(
                             strokeWidth={value}
                         />
                     </svg>
-                    <input type="range" value={value} onChange={handleChange} min={0} max={20} />
+                    <input
+                        type="range"
+                        value={value}
+                        onChange={handleChange}
+                        min={0}
+                        max={20}
+                        step={config.step}
+                    />
                 </Row>
                 <Help>{property.help}</Help>
             </Control>
@@ -65,6 +74,22 @@ const LineWidthControl = memo(
     }
 )
 
-LineWidthControl.displayName = 'LineWidthControl'
+const Row = styled.div`
+    display: grid;
+    grid-template-columns: 60px ${size}px auto;
+    grid-column-gap: 9px;
+    align-items: center;
+    max-width: 240px;
+    margin-bottom: 5px;
+`
 
-export default LineWidthControl
+const Line = styled.line`
+    stroke: ${({ theme }) => theme.colors.border};
+    stroke-width: 1px;
+    fill: none;
+`
+
+const Marker = styled.line`
+    stroke: ${({ theme }) => theme.colors.accent};
+    fill: none;
+`

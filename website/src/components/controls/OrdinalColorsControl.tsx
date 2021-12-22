@@ -6,21 +6,24 @@ import {
     isDivergingColorScheme,
     isSequentialColorScheme,
 } from '@nivo/colors'
+// @ts-ignore
 import { components } from 'react-select'
 import { ColorsControlItem } from './ColorsControlItem'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import Select from './Select'
+import { ChartProperty, Flavor } from '../../types'
+import { OrdinalColorsControlConfig } from './types'
 
 const options = colorSchemeIds.map(scheme => {
     let colors: string[] = []
     if (isCategoricalColorScheme(scheme)) {
-        colors = colorSchemes[scheme]
+        colors = colorSchemes[scheme] as string[]
     } else if (isDivergingColorScheme(scheme)) {
-        colors = colorSchemes[scheme][11]
+        colors = colorSchemes[scheme][11] as string[]
     } else if (isSequentialColorScheme(scheme)) {
-        colors = colorSchemes[scheme][9]
+        colors = colorSchemes[scheme][9] as string[]
     }
 
     return {
@@ -30,7 +33,7 @@ const options = colorSchemeIds.map(scheme => {
     }
 })
 
-const SingleValue = props => {
+const SingleValue = (props: any) => {
     return (
         <components.SingleValue {...props}>
             <ColorsControlItem id={props.data.label} colors={props.data.colors} />
@@ -38,7 +41,7 @@ const SingleValue = props => {
     )
 }
 
-const Option = props => {
+const Option = (props: any) => {
     return (
         <components.Option {...props}>
             <ColorsControlItem id={props.value} colors={props.data.colors} />
@@ -47,20 +50,24 @@ const Option = props => {
 }
 
 interface OrdinalColorsControlProps {
-    /*
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.object.isRequired,
-    options: PropTypes.shape({
-        includeSequential: PropTypes.bool,
-    }).isRequired,
-    */
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    config: OrdinalColorsControlConfig
+    value: { scheme: string }
+    onChange: (value: { scheme: string }) => void
+    context?: any
 }
 
-const OrdinalColorsControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
+export const OrdinalColorsControl = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+    value,
+    onChange,
+}: OrdinalColorsControlProps) => {
     const selectedOption = options.find(o => o.value === value.scheme)
     const handleChange = useCallback(
         option => {
@@ -99,5 +106,3 @@ const OrdinalColorsControl = ({ id, property, flavors, currentFlavor, value, onC
         </Control>
     )
 }
-
-export default OrdinalColorsControl

@@ -2,12 +2,14 @@ import React, { useState, useCallback } from 'react'
 import isString from 'lodash/isString'
 import isPlainObject from 'lodash/isPlainObject'
 import styled from 'styled-components'
-import { inheritedColorPropType } from '@nivo/colors'
+import { InheritedColorConfig } from '@nivo/colors'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import Select from './Select'
 import InheritedColorModifierControl from './InheritedColorModifierControl'
+import { ChartProperty, Flavor } from '../../types'
+import { InheritedColorControlConfig } from './types'
 
 const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].map(prop => ({
     label: prop,
@@ -17,33 +19,30 @@ const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].m
 const defaultInheritableProperties = ['color']
 
 interface InheritedColorControlProps {
-    /*
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    onChange: PropTypes.func.isRequired,
-    defaultCustomColor: PropTypes.string.isRequired,
-    defaultThemeProperty: PropTypes.string.isRequired,
-    defaultFrom: PropTypes.string.isRequired,
-    value: inheritedColorPropType.isRequired,
-    options: PropTypes.shape({
-        inheritableProperties: PropTypes.arrayOf(PropTypes.string),
-    }),
-    */
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: InheritedColorConfig<any>
+    config: InheritedColorControlConfig
+    onChange: (value: InheritedColorConfig<any>) => any
+    context?: any
 }
 
-const InheritedColorControl = ({
+export const InheritedColorControl = ({
     id,
     property,
     flavors,
     currentFlavor,
     value,
-    defaultCustomColor = 'black',
-    defaultThemeProperty = 'background',
-    defaultFrom = 'color',
     onChange,
-    options: { inheritableProperties = defaultInheritableProperties } = {},
-}) => {
+    config: {
+        inheritableProperties = defaultInheritableProperties,
+        defaultCustomColor = 'black',
+        defaultThemeProperty = 'background',
+        defaultFrom = 'color',
+    },
+}: InheritedColorControlProps) => {
     const [customColor, setCustomColor] = useState(isString(value) ? value : defaultCustomColor)
     const [themeProp, setThemeProp] = useState(
         isPlainObject(value) && value.theme !== undefined ? value.theme : defaultThemeProperty
@@ -140,7 +139,7 @@ const InheritedColorControl = ({
                     />
                     <SubLabel>modifiers</SubLabel>
                     {modifiers.length === 0 && <NoModifiers>No modifier.</NoModifiers>}
-                    {modifiers.map((modifier, i) => (
+                    {modifiers.map((modifier, i: number) => (
                         <InheritedColorModifierControl
                             key={i}
                             modifier={modifier}
@@ -187,15 +186,15 @@ const InheritedColorControl = ({
     )
 }
 
-export default InheritedColorControl
-
 const TypeSelector = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 10px;
 `
 
-const TypeSelectorItem = styled.span`
+const TypeSelectorItem = styled.span<{
+    isActive: boolean
+}>`
     cursor: pointer;
     padding: 5px 9px;
     text-align: center;

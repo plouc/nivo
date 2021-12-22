@@ -3,23 +3,22 @@ import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
+import { ChartProperty, Flavor } from '../../types'
+import { TextControlConfig } from './types'
 
 interface TextControlProps {
-    /*
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    onChange: PropTypes.func.isRequired,
-    options: PropTypes.shape({
-        disabled: PropTypes.bool,
-    }).isRequired,
-     */
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: string | number
+    onChange: (value: string) => void
+    config: TextControlConfig
+    context?: any
 }
 
-const TextControl = memo(
-    ({ id, property, flavors, currentFlavor, value, onChange, options = {} }) => {
+export const TextControl = memo(
+    ({ id, property, flavors, currentFlavor, value, onChange, config = {} }: TextControlProps) => {
         const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])
 
         return (
@@ -36,12 +35,10 @@ const TextControl = memo(
                     type="text"
                     value={value}
                     onChange={handleUpdate}
-                    disabled={options.disabled === true}
+                    disabled={config.disabled === true}
                 />
                 <Help>{property.help}</Help>
             </Control>
         )
     }
 )
-
-export default TextControl
