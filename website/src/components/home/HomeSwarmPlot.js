@@ -7,7 +7,7 @@ const HomeSwarmPlot = ({ reversedColors, nivoTheme }) => {
     const data = generateSwarmPlotData(['thing'], { min: 50, max: 50 })
 
     return (
-        <HomeItem to="/swarmplot">
+        <HomeItem to="/swarmplot/">
             <ResponsiveSwarmPlotCanvas
                 data={data.data}
                 groups={data.groups}

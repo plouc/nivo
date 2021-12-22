@@ -374,26 +374,26 @@ export const allComponents = sortBy(all, 'label')
 export const guides = [
     {
         label: 'Axes',
-        path: '/guides/axes',
+        path: '/guides/axes/',
     },
     {
         label: 'Colors',
-        path: '/guides/colors',
+        path: '/guides/colors/',
     },
     {
         label: 'Legends',
-        path: '/guides/legends',
+        path: '/guides/legends/',
     },
     {
         label: 'Gradients',
-        path: '/guides/gradients',
+        path: '/guides/gradients/',
     },
     {
         label: 'Patterns',
-        path: '/guides/patterns',
+        path: '/guides/patterns/',
     },
     {
         label: 'Theming',
-        path: '/guides/theming',
+        path: '/guides/theming/',
     },
 ]

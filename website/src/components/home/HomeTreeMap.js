@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 const HomeTreeMap = ({ colors, nivoTheme }) => {
     return (
-        <HomeItem to="/treemap">
+        <HomeItem to="/treemap/">
             <ResponsiveTreeMapCanvas
                 margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
                 data={generateLibTree()}

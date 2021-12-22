@@ -46,13 +46,13 @@ const About = () => {
                         <li>Exhaustive documentation</li>
                         <li>Isomorphic rendering</li>
                         <li>
-                            <Link to="/components?filter=svg">SVG charts</Link>
+                            <Link to="/components/?filter=svg">SVG charts</Link>
                         </li>
                         <li>
-                            <Link to="/components?filter=html">HTML charts</Link>
+                            <Link to="/components/?filter=html">HTML charts</Link>
                         </li>
                         <li>
-                            <Link to="/components?filter=canvas">Canvas charts</Link>
+                            <Link to="/components/?filter=canvas">Canvas charts</Link>
                         </li>
                         <li>
                             <a
@@ -64,16 +64,16 @@ const About = () => {
                             </a>
                         </li>
                         <li>
-                            <Link to="/guides/legends">Legends</Link>
+                            <Link to="/guides/legends/">Legends</Link>
                         </li>
                         <li>
                             <Link to="/guides/annotations">Annotations</Link>
                         </li>
                         <li>
-                            <Link to="/guides/patterns">SVG patterns</Link>
+                            <Link to="/guides/patterns/">SVG patterns</Link>
                         </li>
                         <li>
-                            <Link to="/guides/gradients">Gradients</Link>
+                            <Link to="/guides/gradients/">Gradients</Link>
                         </li>
                         <li>Responsive charts</li>
                     </ul>

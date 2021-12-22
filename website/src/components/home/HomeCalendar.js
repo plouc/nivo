@@ -9,7 +9,7 @@ const calendarData = generateDayCounts(calendarFrom, calendarTo)
 
 const HomeCalendar = ({ colors, nivoTheme }) => {
     return (
-        <HomeItem to="/calendar">
+        <HomeItem to="/calendar/">
             <ResponsiveCalendarCanvas
                 margin={{ top: 20, right: 2, bottom: 2, left: 20 }}
                 from={calendarFrom}

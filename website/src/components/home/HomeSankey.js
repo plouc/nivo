@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 const HomeSankey = ({ colors, nivoTheme }) => {
     return (
-        <HomeItem to="/sankey">
+        <HomeItem to="/sankey/">
             <ResponsiveSankey
                 margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
                 data={generateSankeyData({ nodeCount: 11, maxIterations: 2 })}

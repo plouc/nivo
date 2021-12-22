@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 const HomePie = ({ colors, nivoTheme }) => {
     return (
-        <HomeItem to="/pie">
+        <HomeItem to="/pie/">
             <ResponsivePie
                 margin={{
                     top: 26,

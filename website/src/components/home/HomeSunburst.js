@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 const HomeSunburst = ({ colors }) => {
     return (
-        <HomeItem to="/sunburst">
+        <HomeItem to="/sunburst/">
             <ResponsiveSunburst
                 data={generateLibTree()}
                 identity="name"

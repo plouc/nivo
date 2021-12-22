@@ -9,9 +9,9 @@ import * as nav from '../data/nav'
 export const HeaderNav = () => {
     return (
         <Container>
-            <HeaderInternalLink to="/about">About</HeaderInternalLink>
-            <HeaderInternalLink to="/references">References</HeaderInternalLink>
-            <HeaderInternalLink to="/components">Components</HeaderInternalLink>
+            <HeaderInternalLink to="/about/">About</HeaderInternalLink>
+            <HeaderInternalLink to="/references/">References</HeaderInternalLink>
+            <HeaderInternalLink to="/components/">Components</HeaderInternalLink>
             <HeaderItem>
                 Guides
                 <HeaderSub>
@@ -22,7 +22,7 @@ export const HeaderNav = () => {
                     ))}
                 </HeaderSub>
             </HeaderItem>
-            <HeaderInternalLink to="/faq">FAQ</HeaderInternalLink>
+            <HeaderInternalLink to="/faq/">FAQ</HeaderInternalLink>
             <HeaderExternalLink
                 href="https://nivo.rocks/storybook/"
                 target="_blank"
