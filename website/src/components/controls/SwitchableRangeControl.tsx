@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useCallback, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import pick from 'lodash/pick'
 import { Control } from './Control'
@@ -6,6 +6,8 @@ import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import { TextInput } from './TextInput'
 import { Switch } from './Switch'
+import { SwitchableRangeControlConfig } from './types'
+import { ChartProperty, Flavor } from '../../types'
 
 const SwitchRow = styled.div`
     display: flex;
@@ -27,107 +29,87 @@ const RangeRow = styled.div`
 `
 
 interface SwitchableRangeControlProps {
-    /*
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    options: PropTypes.shape({
-        unit: PropTypes.string,
-        defaultValue: PropTypes.number.isRequired,
-        disabledValue: PropTypes.any.isRequired,
-        min: PropTypes.number.isRequired,
-        max: PropTypes.number.isRequired,
-        step: PropTypes.number,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-     */
+    id: string
+    property: ChartProperty
+    config: SwitchableRangeControlConfig
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: number | string
+    onChange: (value: number | string) => void
+    context?: any
 }
 
-export default class SwitchableRangeControl extends Component {
-    constructor(props) {
-        super(props)
+export const SwitchableRangeControl = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+    value,
+    config,
+    onChange,
+}: SwitchableRangeControlProps) => {
+    const [isSliderEnabled, setIsSliderEnabled] = useState(value !== config.disabledValue)
+    const [sliderValue, setSliderValue] = useState(
+        value === config.disabledValue ? config.defaultValue : value
+    )
 
-        const {
-            value,
-            options: { disabledValue, defaultValue },
-        } = this.props
-        this.state = {
-            isSliderEnabled: value !== disabledValue,
-            sliderValue: value === disabledValue ? defaultValue : value,
-        }
-    }
+    const handleSliderUpdate = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            setSliderValue(Number(e.target.value))
+            onChange(Number(e.target.value))
+        },
+        [setSliderValue, onChange]
+    )
 
-    handleSwitchUpdate = checked => {
-        const {
-            onChange,
-            options: { disabledValue },
-        } = this.props
-        const { sliderValue } = this.state
-        if (checked === false) {
-            this.setState({ isSliderEnabled: true })
-            onChange(Number(sliderValue))
-        } else {
-            this.setState({ isSliderEnabled: false })
-            onChange(disabledValue)
-        }
-    }
+    const handleSwitchUpdate = useCallback(
+        (checked: boolean) => {
+            if (!checked) {
+                setIsSliderEnabled(true)
+                onChange(Number(sliderValue))
+            } else {
+                setIsSliderEnabled(false)
+                onChange(config.disabledValue)
+            }
+        },
+        [onChange, config.disabledValue, sliderValue, setIsSliderEnabled]
+    )
 
-    handleSliderUpdate = e => {
-        const { onChange } = this.props
-        this.setState({ sliderValue: Number(e.target.value) })
-        onChange(Number(e.target.value))
-    }
-
-    render() {
-        const {
-            id,
-            property,
-            flavors,
-            currentFlavor,
-            options: { disabledValue, unit },
-            value,
-        } = this.props
-        const { isSliderEnabled, sliderValue } = this.state
-
-        return (
-            <Control
-                id={id}
-                description={property.description}
-                flavors={flavors}
-                currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
-            >
-                <PropertyHeader {...property} />
-                <SwitchRow>
-                    <Switch
-                        id={`${id}.switch`}
-                        value={!isSliderEnabled}
-                        onChange={this.handleSwitchUpdate}
+    return (
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
+            <PropertyHeader {...property} />
+            <SwitchRow>
+                <Switch
+                    id={`${id}.switch`}
+                    value={!isSliderEnabled}
+                    onChange={handleSwitchUpdate}
+                />
+                <span
+                    style={{
+                        color: isSliderEnabled ? '#bbbbbb' : 'inherit',
+                    }}
+                >
+                    {config.disabledValue}
+                </span>
+            </SwitchRow>
+            {isSliderEnabled && (
+                <RangeRow>
+                    <TextInput value={value} unit={config.unit} isNumber={true} disabled={true} />
+                    <input
+                        id={`${id}.slider`}
+                        type="range"
+                        value={sliderValue}
+                        onChange={handleSliderUpdate}
+                        {...pick(config, ['min', 'max', 'step'])}
                     />
-                    <span
-                        style={{
-                            color: isSliderEnabled ? '#bbbbbb' : 'inherit',
-                        }}
-                    >
-                        {disabledValue}
-                    </span>
-                </SwitchRow>
-                {isSliderEnabled && (
-                    <RangeRow>
-                        <TextInput value={value} unit={unit} isNumber={true} disabled={true} />
-                        <input
-                            id={`${id}.slider`}
-                            type="range"
-                            value={sliderValue}
-                            onChange={this.handleSliderUpdate}
-                            {...pick(this.props.options, ['min', 'max', 'step'])}
-                        />
-                    </RangeRow>
-                )}
-                <Help>{property.help}</Help>
-            </Control>
-        )
-    }
+                </RangeRow>
+            )}
+            <Help>{property.help}</Help>
+        </Control>
+    )
 }

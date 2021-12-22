@@ -16,6 +16,8 @@ const initialProperties = {
     useMesh: true,
     debugMesh: false,
     curve: 'monotoneX',
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     margin: {
         top: 50,
         right: 160,

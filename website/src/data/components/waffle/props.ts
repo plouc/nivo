@@ -1,3 +1,4 @@
+// @ts-ignore
 import { WaffleDefaultProps } from '@nivo/waffle'
 import {
     themeProperty,
@@ -6,7 +7,10 @@ import {
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'html', 'canvas']
 
 const defaults = WaffleDefaultProps
 
@@ -18,7 +22,7 @@ const props: ChartProperty[] = [
         required: true,
         help: 'Max value.',
         description: 'Max value, ratio will be computed against this value for each datum.',
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'data',
@@ -36,7 +40,7 @@ const props: ChartProperty[] = [
         `,
         type: 'object[]',
         required: true,
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
     },
     // {
     //     key: 'hiddenIds',
@@ -59,9 +63,9 @@ const props: ChartProperty[] = [
         type: 'number',
         help: 'Number of rows.',
         required: true,
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             min: 1,
             max: 100,
         },
@@ -72,9 +76,9 @@ const props: ChartProperty[] = [
         type: 'number',
         help: 'Number of columns.',
         required: true,
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             min: 1,
             max: 100,
         },
@@ -85,10 +89,10 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: `How to fill the waffle.`,
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
         defaultValue: defaults.fillDirection,
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 { label: 'top', value: 'top' },
                 { label: 'right', value: 'right' },
@@ -103,65 +107,15 @@ const props: ChartProperty[] = [
         type: 'number',
         help: 'Padding between each cell.',
         required: true,
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 10,
         },
     },
-    {
-        key: 'width',
-        group: 'Base',
-        enableControlForFlavors: ['api'],
-        flavors: ['svg', 'html', 'canvas'],
-        help: 'Chart width.',
-        description: `
-            not required if using responsive alternative
-            of the component
-            \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        enableControlForFlavors: ['api'],
-        flavors: ['svg', 'html', 'canvas'],
-        help: 'Chart height.',
-        description: `
-            not required if using responsive alternative
-            of the component
-            \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        type: 'object',
-        required: false,
-        help: 'Chart margin.',
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'margin',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'html', 'canvas']),
     {
         key: 'cellComponent',
@@ -169,25 +123,19 @@ const props: ChartProperty[] = [
         help: 'Override default cell component.',
         type: 'Function',
         required: false,
-        controlType: 'choices',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['default', 'Custom(props) => (…)'].map(key => ({
                 label: key,
                 value: key,
             })),
         },
     },
-    {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function | string[]',
-        required: false,
-        help: 'Defines how to compute node color.',
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaults.colors,
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'ordinalColors',
-    },
+    }),
     {
         key: 'emptyColor',
         group: 'Style',
@@ -195,8 +143,8 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaults.emptyColor,
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'colorPicker',
+        flavors: allFlavors,
+        control: { type: 'colorPicker' },
     },
     {
         key: 'emptyOpacity',
@@ -205,8 +153,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.emptyOpacity,
         type: 'number',
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'opacity',
+        flavors: allFlavors,
+        control: { type: 'opacity' },
     },
     {
         key: 'borderWidth',
@@ -215,8 +163,8 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Control cell border width.',
         defaultValue: defaults.borderWidth,
-        flavors: ['svg', 'html', 'canvas'],
-        controlType: 'lineWidth',
+        flavors: allFlavors,
+        control: { type: 'lineWidth' },
     },
     {
         key: 'borderColor',
@@ -226,19 +174,13 @@ const props: ChartProperty[] = [
         help: 'Method to compute cell border color.',
         defaultValue: defaults.borderColor,
         flavors: ['svg', 'html', 'canvas'],
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
-    {
-        key: 'isInteractive',
-        group: 'Interactivity',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable interactivity.',
-        defaultValue: defaults.isInteractive,
+    isInteractive({
         flavors: ['svg', 'html', 'canvas'],
-        controlType: 'switch',
-    },
+        defaultValue: defaults.isInteractive,
+    }),
     {
         key: 'onClick',
         group: 'Interactivity',
@@ -253,7 +195,7 @@ const props: ChartProperty[] = [
         type: 'Function',
         required: false,
         help: 'Custom tooltip component',
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will
@@ -281,9 +223,9 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         type: 'boolean',
         required: false,
-        controlType: 'switch',
+        control: { type: 'switch' },
         help: 'Showcase custom tooltip.',
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'legends',
@@ -292,8 +234,8 @@ const props: ChartProperty[] = [
         required: false,
         help: `Optional chart's legends.`,
         flavors: ['svg', 'canvas'],
-        controlType: 'array',
-        controlOptions: {
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
@@ -310,8 +252,8 @@ const props: ChartProperty[] = [
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
                 itemTextColor: '#777',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
                 effects: [
                     {

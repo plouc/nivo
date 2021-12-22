@@ -1,10 +1,13 @@
 import React, { useCallback } from 'react'
+// @ts-ignore
 import { quantizeColorScales } from '@nivo/core'
 import Select from './Select'
 import { ColorsControlItem } from './ColorsControlItem'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
+import { ChartProperty, Flavor } from '../../types'
+import { QuantizeColorsControlConfig } from './types'
 
 const options = Object.keys(quantizeColorScales).map(id => ({
     id,
@@ -13,16 +16,20 @@ const options = Object.keys(quantizeColorScales).map(id => ({
 
 interface QuantizeColorsControlProps {
     id: string
-    property: any
-    onChange: any
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    config: QuantizeColorsControlConfig
+    onChange: (value: string) => void
     value: string
+    context?: any
 }
 
-const renderOption = option => {
+const renderOption = (option: { value: string; colors: string[] }) => {
     return <ColorsControlItem id={option.value} colors={option.colors} />
 }
 
-const renderValue = value => {
+const renderValue = (value: { value: string; colors: string[] }) => {
     return (
         <div className="colors_item colors_item-current">
             <div className="colors_item_colors">
@@ -38,7 +45,7 @@ const renderValue = value => {
     )
 }
 
-const QuantizeColorsControl = ({
+export const QuantizeColorsControl = ({
     id,
     property,
     flavors,
@@ -47,7 +54,7 @@ const QuantizeColorsControl = ({
     onChange,
 }: QuantizeColorsControlProps) => {
     const handleColorsChange = useCallback(
-        value => {
+        (value: { value: string }) => {
             onChange(value.value)
         },
         [onChange]
@@ -78,5 +85,3 @@ const QuantizeColorsControl = ({
         </Control>
     )
 }
-
-export default QuantizeColorsControl

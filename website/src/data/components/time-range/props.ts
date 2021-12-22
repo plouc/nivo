@@ -1,13 +1,16 @@
-import { boxAlignments } from '@nivo/core'
 import { timeRangeDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, getLegendsProps, groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
         help: 'Chart data.',
+        flavors: allFlavors,
         description: `
             Chart data, which must conform to this structure:
             \`\`\`
@@ -25,6 +28,7 @@ const props: ChartProperty[] = [
     {
         key: 'from',
         group: 'Base',
+        flavors: allFlavors,
         help: 'start date',
         type: 'string | Date',
         required: false,
@@ -33,56 +37,21 @@ const props: ChartProperty[] = [
         key: 'to',
         group: 'Base',
         help: 'end date',
+        flavors: allFlavors,
         type: 'string | Date',
         required: false,
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using responsive alternative of
-            the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using responsive alternative of
-            the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'direction',
         help: 'defines calendar layout direction.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaults.direction,
-        controlType: 'radio',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -90,31 +59,21 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
         key: 'align',
         help: 'defines how calendar should be aligned inside chart container.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaults.align,
         group: 'Base',
-        controlType: 'boxAnchor',
-        controlOptions: {
-            choices: boxAlignments.map((align: string) => ({
-                label: align,
-                value: align,
-            })),
+        control: {
+            type: 'boxAnchor',
         },
     },
     {
         key: 'minValue',
         help: 'Minimum value.',
+        flavors: allFlavors,
         description: `
             Minimum value. If 'auto', will pick the lowest value
             in the provided data set.
@@ -124,9 +83,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.minValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 0,
             min: -300,
@@ -136,6 +95,7 @@ const props: ChartProperty[] = [
     {
         key: 'maxValue',
         help: 'Maximum value.',
+        flavors: allFlavors,
         description: `
             Maximum value. If 'auto', will pick the highest value
             in the provided data set.
@@ -145,9 +105,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.maxValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 100,
             min: 0,
@@ -158,6 +118,7 @@ const props: ChartProperty[] = [
     {
         key: 'colors',
         group: 'Style',
+        flavors: allFlavors,
         help: 'Cell colors.',
         description: `
             An array of colors to be used in conjunction with
@@ -172,16 +133,18 @@ const props: ChartProperty[] = [
     {
         key: 'emptyColor',
         help: 'color to use to fill days without available value.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaults.emptyColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Style',
     },
     // Months
     {
         key: 'monthLegend',
         help: `can be used to customize months label, returns abbreviated month name (english) by default. This can be used to use a different language`,
+        flavors: allFlavors,
         type: '(year: number, month: number, date: Date) => string | number',
         required: false,
         group: 'Months',
@@ -189,12 +152,13 @@ const props: ChartProperty[] = [
     {
         key: 'monthLegendPosition',
         help: 'defines month legends position.',
+        flavors: allFlavors,
         type: `'before' | 'after'`,
         required: false,
         defaultValue: defaults.monthLegendPosition,
-        controlType: 'radio',
         group: 'Months',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'before', value: 'before' },
                 { label: 'after', value: 'after' },
@@ -204,12 +168,13 @@ const props: ChartProperty[] = [
     {
         key: 'monthLegendOffset',
         help: 'define offset from month edge to its label.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.monthLegendOffset,
-        controlType: 'range',
         group: 'Months',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -219,12 +184,13 @@ const props: ChartProperty[] = [
     {
         key: 'weekdayLegendOffset',
         help: 'define offset from weekday edge to its label.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.weekdayLegendOffset,
-        controlType: 'range',
         group: 'Weekday',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -233,7 +199,8 @@ const props: ChartProperty[] = [
     {
         key: 'weekdayTicks',
         help: 'define weekday tickmarks to show',
-        type: 'Array<0 | 1 | 2 | 3 | 4 | 5 | 6>',
+        flavors: allFlavors,
+        type: '(0 | 1 | 2 | 3 | 4 | 5 | 6)[]',
         required: false,
         defaultValue: [1, 3, 5],
         group: 'Weekday',
@@ -252,21 +219,23 @@ const props: ChartProperty[] = [
     {
         key: 'square',
         help: 'force day cell into square shape',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaults.square,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Days',
     },
     {
         key: 'dayRadius',
         help: 'define border radius of each day cell.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.dayRadius,
-        controlType: 'range',
         group: 'Days',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 20,
@@ -275,12 +244,13 @@ const props: ChartProperty[] = [
     {
         key: 'daySpacing',
         help: 'define spacing between each day cell.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.daySpacing,
-        controlType: 'range',
         group: 'Days',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 20,
@@ -289,33 +259,31 @@ const props: ChartProperty[] = [
     {
         key: 'dayBorderWidth',
         help: 'width of days border.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.dayBorderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Days',
     },
     {
         key: 'dayBorderColor',
         help: 'color to use for days border.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaults.dayBorderColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Days',
     },
-    {
-        key: 'isInteractive',
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
+    isInteractive({
+        flavors: ['svg'],
         defaultValue: defaults.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'onClick',
         group: 'Interactivity',
+        flavors: allFlavors,
         help: 'onClick handler, it receives clicked day data and mouse event.',
         type: '(day, event) => void',
         required: false,
@@ -323,6 +291,7 @@ const props: ChartProperty[] = [
     {
         key: 'tooltip',
         group: 'Interactivity',
+        flavors: allFlavors,
         type: 'Function',
         required: false,
         help: 'Custom tooltip component.',
@@ -350,8 +319,10 @@ const props: ChartProperty[] = [
     {
         key: 'custom tooltip example',
         help: 'Showcase custom tooltip.',
+        flavors: allFlavors,
         type: 'boolean',
-        controlType: 'switch',
+        required: false,
+        control: { type: 'switch' },
         group: 'Interactivity',
     },
     {
@@ -360,13 +331,14 @@ const props: ChartProperty[] = [
         type: 'LegendProps[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
-        controlType: 'array',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
             defaults: {
                 anchor: 'bottom-right',
@@ -380,8 +352,8 @@ const props: ChartProperty[] = [
                 translateX: -85,
                 translateY: -240,
                 symbolSize: 20,
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },

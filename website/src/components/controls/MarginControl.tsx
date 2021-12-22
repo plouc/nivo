@@ -1,72 +1,44 @@
-import React, { useCallback, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import styled from 'styled-components'
+import { Box as BoxType } from '@nivo/core'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
+import { ChartProperty, Flavor } from '../../types'
+import { MarginControlConfig } from './types'
 
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: 50px 60px 50px 60px auto;
-    grid-column-gap: 9px;
-    grid-row-gap: 5px;
-    margin-bottom: 5px;
-`
-
-const Label = styled.label`
-    text-align: right;
-`
-
-const BoxCell = styled.div`
-    grid-column-start: 5;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    padding: 5px 0;
-`
-
-const Box = styled.div`
-    width: 100%;
-    height: 100%;
-    max-width: 80px;
-    margin-left: 12px;
-    border: 2px solid ${({ theme }) => theme.colors.border};
-    ${({ side, theme }) => {
-        if (side === null) return ''
-
-        return `
-            border-${side}-color: ${theme.colors.accent};
-            border-${side}-width: 3px;
-        `
-    }}
-`
+type Side = keyof BoxType
 
 interface MarginControlProps {
-    /*
-    id: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.shape({
-        top: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        left: PropTypes.number,
-    }).isRequired,
-    onChange: PropTypes.func.isRequired,
-    */
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: BoxType
+    config: MarginControlConfig
+    onChange: (value: BoxType) => void
+    context?: any
 }
 
-const MarginControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
-    const [side, setSide] = useState(null)
+export const MarginControl = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+    value,
+    onChange,
+}: MarginControlProps) => {
+    const [side, setSide] = useState<null | Side>(null)
 
-    const handleChange = side => e => {
+    const handleChange = (side: Side) => (e: ChangeEvent<HTMLInputElement>) => {
         onChange({
             ...value,
             [side]: Number(e.target.value),
         })
     }
 
-    const handleFocus = side => () => {
+    const handleFocus = (side: Side) => () => {
         setSide(side)
     }
 
@@ -133,4 +105,39 @@ const MarginControl = ({ id, property, flavors, currentFlavor, value, onChange }
     )
 }
 
-export default MarginControl
+const Grid = styled.div`
+    display: grid;
+    grid-template-columns: 50px 60px 50px 60px auto;
+    grid-column-gap: 9px;
+    grid-row-gap: 5px;
+    margin-bottom: 5px;
+`
+
+const Label = styled.label`
+    text-align: right;
+`
+
+const BoxCell = styled.div`
+    grid-column-start: 5;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    padding: 5px 0;
+`
+
+const Box = styled.div<{
+    side: Side | null
+}>`
+    width: 100%;
+    height: 100%;
+    max-width: 80px;
+    margin-left: 12px;
+    border: 2px solid ${({ theme }) => theme.colors.border};
+    ${({ side, theme }) => {
+        if (side === null) return ''
+
+        return `
+            border-${side}-color: ${theme.colors.accent};
+            border-${side}-width: 3px;
+        `
+    }}
+`

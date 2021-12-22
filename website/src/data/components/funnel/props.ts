@@ -1,6 +1,9 @@
 import { svgDefaultProps as defaults } from '@nivo/funnel'
 import { themeProperty, groupProperties, motionProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
@@ -26,15 +29,7 @@ const props: ChartProperty[] = [
             this for the \`colors\` property.            
         `,
     },
-    {
-        key: 'margin',
-        group: 'Base',
-        type: 'object',
-        required: false,
-        help: 'Chart margin.',
-        flavors: ['svg'],
-        controlType: 'margin',
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'direction',
         group: 'Base',
@@ -43,8 +38,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.direction,
         flavors: ['svg'],
-        controlType: 'radio',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -59,8 +54,8 @@ const props: ChartProperty[] = [
         help: `Part shape interpolation.`,
         defaultValue: defaults.interpolation,
         flavors: ['svg'],
-        controlType: 'radio',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'smooth', value: 'smooth' },
                 { label: 'linear', value: 'linear' },
@@ -75,8 +70,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.spacing,
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 30,
             unit: 'px',
@@ -90,8 +85,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.shapeBlending,
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 1,
             step: 0.01,
@@ -107,19 +102,13 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         flavors: ['svg'],
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     themeProperty(['svg']),
-    {
-        key: 'colors',
-        group: 'Style',
-        help: 'Defines how to compute parts color.',
-        type: 'string | Function | string[]',
-        required: false,
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaults.colors,
-        flavors: ['svg'],
-        controlType: 'ordinalColors',
-    },
+    }),
     {
         key: 'fillOpacity',
         group: 'Style',
@@ -128,7 +117,7 @@ const props: ChartProperty[] = [
         defaultValue: defaults.fillOpacity,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
     {
         key: 'borderWidth',
@@ -138,7 +127,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.borderWidth,
         flavors: ['svg'],
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'borderColor',
@@ -152,7 +141,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.borderColor,
         flavors: ['svg'],
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'borderOpacity',
@@ -162,7 +151,7 @@ const props: ChartProperty[] = [
         defaultValue: defaults.borderOpacity,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
     {
         key: 'enableLabel',
@@ -175,7 +164,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.enableLabel,
         flavors: ['svg'],
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'labelColor',
@@ -189,7 +178,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.labelColor,
         flavors: ['svg'],
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'enableBeforeSeparators',
@@ -202,7 +191,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.enableBeforeSeparators,
         flavors: ['svg'],
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'beforeSeparatorLength',
@@ -215,8 +204,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.beforeSeparatorLength,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -234,8 +223,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.beforeSeparatorOffset,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -252,7 +241,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.enableAfterSeparators,
         flavors: ['svg'],
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'afterSeparatorLength',
@@ -265,8 +254,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.afterSeparatorLength,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -284,8 +273,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.afterSeparatorOffset,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -307,16 +296,10 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: defaults.layers,
     },
-    {
-        key: 'isInteractive',
-        group: 'Interactivity',
-        type: 'boolean',
-        help: 'Enable/disable interactivity.',
-        required: false,
-        defaultValue: defaults.isInteractive,
+    isInteractive({
         flavors: ['svg'],
-        controlType: 'switch',
-    },
+        defaultValue: defaults.isInteractive,
+    }),
     {
         key: 'currentPartSizeExtension',
         group: 'Interactivity',
@@ -328,8 +311,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.currentPartSizeExtension,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -342,8 +325,8 @@ const props: ChartProperty[] = [
         required: false,
         type: 'number',
         flavors: ['svg'],
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,

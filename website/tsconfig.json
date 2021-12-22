@@ -2,6 +2,7 @@
   "include": ["./src/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "lib": ["ES2020", "DOM"],
     "target": "es5",
     "jsx": "react",
     "skipLibCheck": true,

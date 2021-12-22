@@ -1,4 +1,3 @@
-import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
 import { Flavor, ChartProperty } from '../types'
@@ -58,7 +57,7 @@ export const motionProperties = (
             type: 'boolean',
             required: false,
             defaultValue: defaults.animate !== undefined ? defaults.animate : defaultAnimate,
-            controlType: 'switch',
+            control: { type: 'switch' },
             group: 'Motion',
         },
     ]
@@ -75,8 +74,8 @@ export const motionProperties = (
                     ? defaults.motionStiffness
                     : defaultMotionStiffness,
             group: 'Motion',
-            controlType: 'range',
-            controlOptions: {
+            control: {
+                type: 'range',
                 min: 0,
                 max: 300,
                 step: 5,
@@ -92,9 +91,9 @@ export const motionProperties = (
                 defaults.motionDamping !== undefined
                     ? defaults.motionDamping
                     : defaultMotionDamping,
-            controlType: 'range',
             group: 'Motion',
-            controlOptions: {
+            control: {
+                type: 'range',
                 min: 0,
                 max: 40,
             },
@@ -107,122 +106,13 @@ export const motionProperties = (
             type: 'string | object',
             required: false,
             defaultValue: defaults.motionConfig,
-            controlType: 'motionConfig',
+            control: { type: 'motionConfig' },
             group: 'Motion',
         })
     }
 
     return props
 }
-
-export const axesProperties = ({
-    flavors,
-    exclude = [],
-}: {
-    flavors?: Flavor[]
-    exclude?: string[]
-} = {}): ChartProperty[] =>
-    [
-        {
-            position: 'top',
-            orientations: ['top', 'bottom'],
-        },
-        {
-            position: 'right',
-            orientations: ['left', 'right'],
-        },
-        {
-            position: 'bottom',
-            orientations: ['top', 'bottom'],
-        },
-        {
-            position: 'left',
-            orientations: ['left', 'right'],
-        },
-    ]
-        .filter(axis => !exclude.includes(axis.position))
-        .reduce((properties: any[], { position }) => {
-            const axisKey = upperFirst(position)
-
-            return [
-                ...properties,
-                {
-                    key: `axis${axisKey}`,
-                    flavors,
-                    help: `${axisKey} axis configuration.`,
-                    type: 'object',
-                    required: false,
-                    group: 'Grid & Axes',
-                    controlType: 'object',
-                    controlOptions: {
-                        props: [
-                            {
-                                key: `enable`,
-                                flavors,
-                                help: `enable ${axisKey} axis, it's not an actual prop (demo only).`,
-                                controlType: 'switch',
-                                excludeFromDoc: true,
-                            },
-                            {
-                                key: `tickSize`,
-                                flavors,
-                                help: `${axisKey} axis tick size.`,
-                                type: 'number',
-                                controlType: 'range',
-                                controlOptions: {
-                                    unit: 'px',
-                                    min: 0,
-                                    max: 20,
-                                },
-                            },
-                            {
-                                key: `tickPadding`,
-                                flavors,
-                                help: `${axisKey} axis tick padding.`,
-                                type: 'number',
-                                controlType: 'range',
-                                controlOptions: {
-                                    unit: 'px',
-                                    min: 0,
-                                    max: 20,
-                                },
-                            },
-                            {
-                                key: `tickRotation`,
-                                flavors,
-                                help: `${axisKey} axis tick rotation.`,
-                                type: 'number',
-                                controlType: 'angle',
-                                controlOptions: {
-                                    start: 90,
-                                    min: -90,
-                                    max: 90,
-                                },
-                            },
-                            {
-                                key: `legend`,
-                                flavors,
-                                help: `${axisKey} axis legend.`,
-                                type: 'string',
-                                controlType: 'text',
-                            },
-                            {
-                                key: `legendOffset`,
-                                flavors,
-                                help: `${axisKey} axis legend offset from axis.`,
-                                type: 'number',
-                                controlType: 'range',
-                                controlOptions: {
-                                    unit: 'px',
-                                    min: -60,
-                                    max: 60,
-                                },
-                            },
-                        ],
-                    },
-                },
-            ]
-        }, [])
 
 export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>[] => [
     {
@@ -231,7 +121,7 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Defines legend anchor relative to chart's viewport.`,
         type: 'string',
         required: false,
-        controlType: 'boxAnchor',
+        control: { type: 'boxAnchor' },
     },
     {
         key: 'direction',
@@ -239,8 +129,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Legend direction, must be one of 'column', 'row'.`,
         type: `'column' | 'row'`,
         required: false,
-        controlType: 'radio',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 {
                     label: 'column',
@@ -257,7 +147,7 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         key: 'justify',
         flavors,
         help: `Justify symbol and label.`,
-        controlType: 'switch',
+        control: { type: 'switch' },
         type: 'boolean',
         required: false,
     },
@@ -267,8 +157,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Legend block x translation.`,
         type: `number`,
         required: false,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: -200,
             max: 200,
             unit: 'px',
@@ -280,8 +170,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Legend block y translation.`,
         type: `number`,
         required: false,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: -200,
             max: 200,
             unit: 'px',
@@ -293,8 +183,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Legend item width.`,
         type: `number`,
         required: true,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 10,
             max: 200,
             unit: 'px',
@@ -306,8 +196,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Legend item height.`,
         type: `number`,
         required: true,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 10,
             max: 200,
             unit: 'px',
@@ -319,8 +209,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Spacing between each item.`,
         type: `number`,
         required: false,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 60,
             unit: 'px',
@@ -332,8 +222,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Item symbol size.`,
         type: `number`,
         required: false,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 2,
             max: 60,
             unit: 'px',
@@ -345,8 +235,8 @@ export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>
         help: `Item layout direction.`,
         type: `string`,
         required: false,
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'].map(
                 v => ({
                     label: v,
@@ -407,8 +297,8 @@ export const polarAxisProperty = ({
         type: 'object',
         required: false,
         flavors,
-        controlType: 'object',
-        controlOptions: {
+        control: {
+            type: 'object',
             props: [
                 {
                     key: 'enable',
@@ -417,7 +307,7 @@ export const polarAxisProperty = ({
                     help: `enable ${key} axis, it's not an actual prop (demo only).`,
                     flavors,
                     excludeFromDoc: true,
-                    controlType: 'switch',
+                    control: { type: 'switch' },
                 },
                 {
                     key: 'tickSize',
@@ -425,8 +315,8 @@ export const polarAxisProperty = ({
                     required: false,
                     help: `${key} axis tick size.`,
                     flavors,
-                    controlType: 'range',
-                    controlOptions: {
+                    control: {
+                        type: 'range',
                         unit: 'px',
                         min: 0,
                         max: 20,
@@ -438,8 +328,8 @@ export const polarAxisProperty = ({
                     required: false,
                     help: `${key} axis tick padding.`,
                     flavors,
-                    controlType: 'range',
-                    controlOptions: {
+                    control: {
+                        type: 'range',
                         unit: 'px',
                         min: 0,
                         max: 20,
@@ -451,8 +341,8 @@ export const polarAxisProperty = ({
                     required: false,
                     help: `${key} axis tick rotation.`,
                     flavors,
-                    controlType: 'angle',
-                    controlOptions: {
+                    control: {
+                        type: 'angle',
                         start: 90,
                         min: -90,
                         max: 90,

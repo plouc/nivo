@@ -1,10 +1,11 @@
 import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
-import { AngleControlAttrs, Flavor } from '../../types'
+import { ChartProperty, Flavor } from '../../types'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
+import { AngleControlConfig } from './types'
 
 const size = 36
 const center = size / 2
@@ -12,25 +13,20 @@ const markerSize = 6
 
 interface AngleControlProps {
     id: string
-    property: {
-        name: string
-        required?: boolean
-        help?: string
-        description?: string
-        flavors: Flavor[]
-    }
+    property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
     value: number
-    options: AngleControlAttrs['controlOptions']
-    onChange: (v: number) => void
+    config: AngleControlConfig
+    onChange: (value: number) => void
+    context?: any
 }
 
 export const AngleControl = memo(
-    ({ id, property, flavors, currentFlavor, value, options, onChange }: AngleControlProps) => {
-        const start = options.start || 0
-        const min = options.min || 0
-        const max = options.max || 360
+    ({ id, property, flavors, currentFlavor, value, config, onChange }: AngleControlProps) => {
+        const start = config.start || 0
+        const min = config.min || 0
+        const max = config.max || 360
 
         const handleChange = useCallback(
             event => {

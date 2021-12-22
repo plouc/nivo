@@ -1,62 +1,23 @@
+// @ts-ignore
 import { GeoMapDefaultProps } from '@nivo/geo'
 import { themeProperty, defsProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas']
 
 export const props: ChartProperty[] = [
-    {
-        key: 'width',
-        group: 'Base',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using responsive alternative
-            of the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using responsive alternative
-            of the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'projectionType',
+        flavors: ['svg', 'canvas'],
         help: 'Defines the projection to use.',
+        type: 'string',
         required: false,
         defaultValue: GeoMapDefaultProps.projectionType,
-        controlType: 'choices',
         group: 'Projection',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 { label: 'azimuthalEqualArea', value: 'azimuthalEqualArea' },
                 { label: 'azimuthalEquidistant', value: 'azimuthalEquidistant' },
@@ -73,26 +34,28 @@ export const props: ChartProperty[] = [
     },
     {
         key: 'projectionScale',
+        flavors: ['svg', 'canvas'],
         help: 'Projection scale.',
         required: false,
         defaultValue: GeoMapDefaultProps.projectionScale,
         type: 'number',
-        controlType: 'range',
         group: 'Projection',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 400,
         },
     },
     {
         key: 'projectionTranslation',
+        flavors: ['svg', 'canvas'],
         type: '[number, number]',
         help: 'Projection x/y translation.',
         required: false,
         defaultValue: GeoMapDefaultProps.projectionTranslation,
-        controlType: 'numberArray',
         group: 'Projection',
-        controlOptions: {
+        control: {
+            type: 'numberArray',
             unit: 'px',
             items: [
                 {
@@ -112,13 +75,14 @@ export const props: ChartProperty[] = [
     },
     {
         key: 'projectionRotation',
+        flavors: ['svg', 'canvas'],
         type: '[number, number, number]',
         help: 'Projection rotation.',
         required: false,
         defaultValue: GeoMapDefaultProps.projectionRotation,
         group: 'Projection',
-        controlType: 'numberArray',
-        controlOptions: {
+        control: {
+            type: 'numberArray',
             items: [
                 {
                     label: 'lambda (λ)',
@@ -141,67 +105,68 @@ export const props: ChartProperty[] = [
     themeProperty(['svg', 'canvas']),
     {
         key: 'borderWidth',
+        flavors: ['svg', 'canvas'],
         help: 'Control border width.',
         type: 'number',
         required: false,
         defaultValue: GeoMapDefaultProps.borderWidth,
         group: 'Style',
-        controlType: 'lineWidth',
-        controlOptions: {
+        control: {
+            type: 'lineWidth',
             step: 0.5,
         },
     },
     {
         key: 'borderColor',
+        flavors: ['svg', 'canvas'],
         help: 'Method to compute border color.',
         type: 'string | object | Function',
         required: false,
         defaultValue: GeoMapDefaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     {
         key: 'enableGraticule',
+        flavors: ['svg', 'canvas'],
         help: 'Enable meridians and parallels, useful for showing projection distortion.',
         type: 'boolean',
         required: false,
         defaultValue: GeoMapDefaultProps.enableGraticule,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Graticule',
     },
     {
         key: 'graticuleLineWidth',
+        flavors: ['svg', 'canvas'],
         help: 'Control meridians and parallel lines width.',
         type: 'number',
         required: false,
         defaultValue: GeoMapDefaultProps.graticuleLineWidth,
-        controlType: 'lineWidth',
         group: 'Graticule',
-        controlOptions: {
+        control: {
+            type: 'lineWidth',
             step: 0.5,
         },
     },
     {
         key: 'graticuleLineColor',
+        flavors: ['svg', 'canvas'],
         help: 'Control meridians and parallel lines color.',
         type: 'string',
         required: false,
         defaultValue: GeoMapDefaultProps.graticuleLineColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Graticule',
     },
     ...defsProperties('Style', ['svg']),
-    {
-        key: 'isInteractive',
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
+    isInteractive({
+        flavors: ['svg', 'canvas'],
         defaultValue: GeoMapDefaultProps.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'onClick',
+        flavors: ['svg', 'canvas'],
         help: 'onClick handler, it receives clicked node data and style plus mouse event.',
         type: 'Function',
         required: false,

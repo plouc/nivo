@@ -6,6 +6,7 @@ import {
     colorInterpolatorIds,
     colorInterpolators,
 } from '@nivo/colors'
+// @ts-ignore
 import { components } from 'react-select'
 import { ColorsControlItem } from './ColorsControlItem'
 import { Control } from './Control'
@@ -13,6 +14,7 @@ import { PropertyHeader } from './PropertyHeader'
 import { Help } from './Help'
 import Select from './Select'
 import { ChartProperty, Flavor } from '../../types'
+import { ColorsControlConfig } from './types'
 
 const colors = colorSchemeIds.map(id => ({
     id,
@@ -24,21 +26,17 @@ const sequentialColors = colorInterpolatorIds.map(id => ({
     colors: range(0, 1, 0.05).map(t => colorInterpolators[id](t)),
 }))
 
-const SingleValue = props => {
-    return (
-        <components.SingleValue {...props}>
-            <ColorsControlItem id={props.data.label} colors={props.data.colors} />
-        </components.SingleValue>
-    )
-}
+const SingleValue = (props: any) => (
+    <components.SingleValue {...props}>
+        <ColorsControlItem id={props.data.label} colors={props.data.colors} />
+    </components.SingleValue>
+)
 
-const Option = props => {
-    return (
-        <components.Option {...props}>
-            <ColorsControlItem id={props.value} colors={props.data.colors} />
-        </components.Option>
-    )
-}
+const Option = (props: any) => (
+    <components.Option {...props}>
+        <ColorsControlItem id={props.value} colors={props.data.colors} />
+    </components.Option>
+)
 
 interface ColorsControlProps {
     id: string
@@ -47,9 +45,8 @@ interface ColorsControlProps {
     currentFlavor: Flavor
     onChange: any
     value: string
-    options?: {
-        includeSequential?: boolean
-    }
+    config: ColorsControlConfig
+    context?: any
 }
 
 export const ColorsControl = ({
@@ -58,7 +55,7 @@ export const ColorsControl = ({
     flavors,
     currentFlavor,
     value,
-    options: controlOptions = {},
+    config,
     onChange,
 }: ColorsControlProps) => {
     const handleChange = useCallback(
@@ -68,8 +65,8 @@ export const ColorsControl = ({
         [onChange]
     )
 
-    let options = colors
-    if (controlOptions.includeSequential === true) {
+    let options: any[] = colors
+    if (config.includeSequential === true) {
         options = options.concat(sequentialColors)
     }
     options = options.map(({ id, colors }) => ({

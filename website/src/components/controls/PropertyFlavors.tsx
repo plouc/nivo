@@ -40,6 +40,7 @@ const Flavor = styled.span<{ isSupported: boolean }>`
     padding: 3px 8px 5px;
     border: 1px solid ${({ theme }) => theme.colors.border};
     border-right-width: 0;
+    text-decoration: ${({ isSupported }) => (isSupported ? 'normal' : 'line-through')};
     color: ${({ isSupported, theme }) =>
         isSupported ? theme.colors.text : theme.colors.textLight};
 

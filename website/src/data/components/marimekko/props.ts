@@ -1,18 +1,28 @@
 import { defaultProps as defaults, offsetById } from '@nivo/marimekko'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import {
     themeProperty,
     defsProperties,
     groupProperties,
     getLegendsProps,
     motionProperties,
-    axesProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    chartDimensions,
+    ordinalColors,
+    chartGrid,
+    axes,
+    isInteractive,
+} from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Chart data, which should be immutable.',
         description: `
             The data doesn't have to conform to a specific schema,
@@ -25,6 +35,7 @@ const props: ChartProperty[] = [
     {
         key: 'id',
         group: 'Base',
+        flavors: allFlavors,
         help: 'ID accessor.',
         description: `
             Define how to access the ID of each datum,
@@ -36,6 +47,7 @@ const props: ChartProperty[] = [
     {
         key: 'value',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Value accessor.',
         description: `
             Define how to access the value of each datum,
@@ -48,6 +60,7 @@ const props: ChartProperty[] = [
     {
         key: 'dimensions',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Data dimensions configuration.',
         type: '{ id: string, value: string | (datum: RawDatum) => number }',
         required: true,
@@ -55,6 +68,7 @@ const props: ChartProperty[] = [
     {
         key: 'valueFormat',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
@@ -65,17 +79,18 @@ const props: ChartProperty[] = [
         `,
         required: false,
         type: 'string | (value: number) => string | number',
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'layout',
         help: `How to display bars.`,
         type: 'string',
+        flavors: allFlavors,
         required: false,
         defaultValue: defaults.layout,
-        controlType: 'radio',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -86,11 +101,12 @@ const props: ChartProperty[] = [
         key: 'offset',
         help: 'Offset type.',
         type: 'OffsetId',
+        flavors: allFlavors,
         required: false,
-        controlType: 'choices',
         group: 'Base',
         defaultValue: defaults.offset,
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: Object.keys(offsetById).map(key => ({
                 label: key,
                 value: key,
@@ -100,12 +116,13 @@ const props: ChartProperty[] = [
     {
         key: 'outerPadding',
         help: 'Space before the first bar and after the last one.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.outerPadding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 20,
             unit: 'px',
@@ -114,80 +131,30 @@ const props: ChartProperty[] = [
     {
         key: 'innerPadding',
         help: 'Space between bars.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.innerPadding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 20,
             unit: 'px',
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveMarimekko />\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveMarimekko />\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        type: 'object',
-        required: false,
-        help: 'Chart margin.',
-        flavors: ['svg', 'api'],
-        controlType: 'margin',
-    },
-    themeProperty(['svg', 'api']),
-    {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function | string[]',
-        required: false,
-        help: 'Defines color range.',
-        defaultValue: defaults.colors,
-        flavors: ['svg', 'api'],
-        controlType: 'ordinalColors',
-    },
-    ...defsProperties('Style', ['svg', 'api']),
+    ...chartDimensions(allFlavors),
+    themeProperty(allFlavors),
+    ordinalColors({
+        flavors: allFlavors,
+        defaultValue: defaults.colors as OrdinalColorScaleConfig,
+    }),
+    ...defsProperties('Style', allFlavors),
     {
         key: 'showcase pattern usage',
         flavors: ['svg'],
         help: 'Patterns.',
+        required: false,
         description: `
             You can use \`defs\` and \`fill\` properties
             to use patterns, see
@@ -195,64 +162,41 @@ const props: ChartProperty[] = [
             for further information.
         `,
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Style',
     },
     {
         key: 'borderWidth',
         help: 'Slices border width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'borderColor',
         help: 'Method to compute border color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
-    ...axesProperties(),
-    {
-        key: 'enableGridX',
-        help: 'Enable/disable x grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.enableGridX,
-        controlType: 'switch',
-        group: 'Grid & Axes',
-    },
-    {
-        key: 'gridXValues',
-        group: 'Grid & Axes',
-        help: 'Specify values to use for vertical grid lines.',
-        type: 'number[]',
-        required: false,
-    },
-    {
-        key: 'enableGridY',
-        help: 'Enable/disable y grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.enableGridY,
-        controlType: 'switch',
-        group: 'Grid & Axes',
-    },
-    {
-        key: 'gridYValues',
-        group: 'Grid & Axes',
-        help: 'Specify values to use for horizontal grid lines.',
-        type: 'number[]',
-        required: false,
-    },
+    ...chartGrid({
+        flavors: allFlavors,
+        values: true,
+        xDefault: defaults.enableGridX,
+        yDefault: defaults.enableGridY,
+    }),
+    ...axes({ flavors: allFlavors }),
     {
         key: 'layers',
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
+        flavors: allFlavors,
         description: `
             You can also use this to insert extra layers
             to the chart, the extra layer must be a component.
@@ -276,16 +220,10 @@ const props: ChartProperty[] = [
         type: 'Array<string | Function>',
         defaultValue: defaults.layers,
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg'],
-        group: 'Interactivity',
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaults.isInteractive,
-        controlType: 'switch',
-    },
+    }),
     {
         key: 'onClick',
         flavors: ['svg'],
@@ -321,6 +259,7 @@ const props: ChartProperty[] = [
     {
         key: 'tooltip',
         group: 'Interactivity',
+        flavors: allFlavors,
         type: 'Component',
         required: false,
         help: 'Custom tooltip component',
@@ -342,8 +281,10 @@ const props: ChartProperty[] = [
     {
         key: 'custom tooltip example',
         help: 'Showcase custom tooltip.',
+        flavors: allFlavors,
+        required: false,
         type: 'boolean',
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaults, 'react-spring'),
@@ -353,13 +294,14 @@ const props: ChartProperty[] = [
         type: 'Legend[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
-        controlType: 'array',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
             defaults: {
                 anchor: 'top-left',
@@ -372,8 +314,8 @@ const props: ChartProperty[] = [
                 itemsSpacing: 0,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },

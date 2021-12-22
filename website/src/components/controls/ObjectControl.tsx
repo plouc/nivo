@@ -4,39 +4,43 @@ import ControlsGroup from './ControlsGroup'
 import { PropertyHeader } from './PropertyHeader'
 import { Cell, Toggle } from './styled'
 import { Help } from './Help'
+import { ChartProperty, Flavor } from '../../types'
+import { ObjectControlConfig } from './types'
 
 interface ObjectControlProps {
-    /*
-    property: PropTypes.object.isRequired,
-    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
-    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.object.isRequired,
-    props: PropTypes.array.isRequired,
-    isOpenedByDefault: PropTypes.bool,
-     */
+    id: string
+    property: ChartProperty
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    onChange: (value: object) => void
+    value: object
+    isOpenedByDefault?: boolean
+    config: ObjectControlConfig
+    context: any
 }
 
-const ObjectControl = memo(
+export const ObjectControl = memo(
     ({
         property,
+        config,
         flavors,
         currentFlavor,
         value,
-        props,
         onChange,
         context,
         isOpenedByDefault = false,
-    }) => {
+    }: ObjectControlProps) => {
         const [isOpened, setIsOpened] = useState(isOpenedByDefault)
         const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
 
-        const subProps = useMemo(() =>
-            props.map(prop => ({
-                ...prop,
-                name: prop.key,
-                group: property.group,
-            }))
+        const subProps = useMemo(
+            () =>
+                config.props.map(prop => ({
+                    ...prop,
+                    name: prop.key,
+                    group: property.group,
+                })),
+            [config.props]
         )
 
         const newContext = {
@@ -58,7 +62,6 @@ const ObjectControl = memo(
                         controls={subProps}
                         settings={value}
                         onChange={onChange}
-                        isNested={true}
                         context={newContext}
                     />
                 )}
@@ -67,15 +70,15 @@ const ObjectControl = memo(
     }
 )
 
-export default ObjectControl
-
 const Title = styled.div`
     white-space: nowrap;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.accentLight};
 `
 
-const Header = styled(Cell)`
+const Header = styled(Cell)<{
+    isOpened: boolean
+}>`
     cursor: pointer;
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
 

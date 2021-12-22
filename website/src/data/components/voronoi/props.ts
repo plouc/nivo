@@ -1,11 +1,15 @@
 import { defaultVoronoiProps } from '@nivo/voronoi'
 import { groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Chart data.',
         description: `
             Chart data, which must conform to this structure:
@@ -23,6 +27,7 @@ const props: ChartProperty[] = [
     {
         key: 'xDomain',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Defines the x values domain.',
         type: '[number, number]',
         required: false,
@@ -31,61 +36,18 @@ const props: ChartProperty[] = [
     {
         key: 'yDomain',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Defines the y values domain.',
         type: '[number, number]',
         required: false,
         defaultValue: defaultVoronoiProps.yDomain,
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        description: `
-            not required if using
-            \`<ResponsiveVoronoi/>\`.
-        `,
-        help: 'Chart width.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        description: `
-            not required if using
-            \`<ResponsiveVoronoi/>\`.
-        `,
-        help: 'Chart height.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'layers',
-        flavors: ['svg'],
-        group: 'Base',
+        flavors: allFlavors,
+        group: 'Customization',
+        type: 'string | Component',
         help: 'Defines the order of layers.',
         description: `
             Defines the order of layers, available layers are:
@@ -102,75 +64,83 @@ const props: ChartProperty[] = [
     {
         key: 'enableLinks',
         help: 'Enable/disable links.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultVoronoiProps.enableLinks,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Links',
     },
     {
         key: 'linkLineWidth',
         help: 'Links line width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultVoronoiProps.linkLineWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Links',
     },
     {
         key: 'linkLineColor',
         help: 'Links color.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaultVoronoiProps.linkLineColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Links',
     },
     {
         key: 'enableCells',
         help: 'Enable/disable cells.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultVoronoiProps.enableCells,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Cells',
     },
     {
         key: 'cellLineWidth',
         help: 'Border width for cells.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultVoronoiProps.cellLineWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Cells',
     },
     {
         key: 'cellLineColor',
         help: 'Border color for cells.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaultVoronoiProps.cellLineColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Cells',
     },
     {
         key: 'enablePoints',
         help: 'Enable/disable points.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaultVoronoiProps.enablePoints,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Points',
     },
     {
         key: 'pointSize',
         help: 'Size of points.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaultVoronoiProps.pointSize,
-        controlType: 'range',
         group: 'Points',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 12,
@@ -180,10 +150,11 @@ const props: ChartProperty[] = [
     {
         key: 'pointColor',
         help: 'Points color.',
+        flavors: allFlavors,
         type: 'string',
         required: false,
         defaultValue: defaultVoronoiProps.pointColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
         group: 'Points',
     },
 ]

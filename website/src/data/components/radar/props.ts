@@ -6,7 +6,15 @@ import {
     groupProperties,
     defsProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    chartDimensions,
+    ordinalColors,
+    blendMode,
+    isInteractive,
+} from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'api']
 
 const props: ChartProperty[] = [
     {
@@ -31,7 +39,7 @@ const props: ChartProperty[] = [
             skills for each user by language
             (3 layers and 4 dimensions).
         `,
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
     },
     {
         key: 'indexBy',
@@ -43,7 +51,7 @@ const props: ChartProperty[] = [
             Key to use to index the data, this key
             must exist in each data item.
         `,
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
     },
     {
         key: 'keys',
@@ -55,7 +63,7 @@ const props: ChartProperty[] = [
             Keys to use to determine each serie.
             Those keys should exist in each data item.
         `,
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
     },
     {
         key: 'maxValue',
@@ -68,10 +76,10 @@ const props: ChartProperty[] = [
             will use max value from
             the provided data.
         `,
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.maxValue,
-        controlType: 'switchableRange',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 200,
             min: 0,
@@ -91,8 +99,8 @@ const props: ChartProperty[] = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        flavors: ['svg', 'api'],
-        controlType: 'valueFormat',
+        flavors: allFlavors,
+        control: { type: 'valueFormat' },
     },
     {
         key: 'curve',
@@ -105,104 +113,45 @@ const props: ChartProperty[] = [
             for the line generator.
         `,
         defaultValue: svgDefaultProps.curve,
-        flavors: ['svg', 'api'],
-        controlType: 'choices',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'choices',
             choices: closedCurvePropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
         },
     },
-    {
-        key: 'width',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveRadar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveRadar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        flavors: ['svg', 'api'],
-        controlType: 'margin',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'api']),
-    {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function | string[]',
-        required: false,
-        help: 'Defines how to compute colors.',
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.colors,
-        flavors: ['svg', 'api'],
-        controlType: 'ordinalColors',
-    },
+    }),
     {
         key: 'fillOpacity',
         group: 'Style',
         type: 'number',
         required: false,
         help: 'Shape fill opacity.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.fillOpacity,
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
-    {
-        key: 'blendMode',
-        group: 'Style',
-        type: 'string',
-        required: false,
-        help: 'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) for shapes.',
+    blendMode({
+        target: 'layers',
         flavors: ['svg'],
         defaultValue: svgDefaultProps.blendMode,
-        controlType: 'blendMode',
-    },
+    }),
     {
         key: 'borderWidth',
         group: 'Style',
         type: 'number',
         required: false,
         help: 'Shape border width.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'borderColor',
@@ -210,9 +159,9 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         help: 'Method to compute border color.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
     {
@@ -221,10 +170,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Number of levels to display for grid',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.gridLevels,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 1,
             max: 12,
         },
@@ -235,10 +184,10 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: 'Determine shape of the grid.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.gridShape,
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 { label: 'circular', value: 'circular' },
                 { label: 'linear', value: 'linear' },
@@ -277,10 +226,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Label offset from outer radius.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.gridLabelOffset,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 60,
@@ -292,9 +241,9 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         help: 'Enable/disable dots.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.enableDots,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'dotSymbol',
@@ -316,10 +265,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Size of the dots.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.dotSize,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 2,
             max: 64,
@@ -330,9 +279,9 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         help: 'Method to compute dots color.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.dotColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Dots',
     },
     {
@@ -341,10 +290,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Width of the dots border.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.dotBorderWidth,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 10,
@@ -356,9 +305,9 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         help: 'Method to compute dots border color.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.dotBorderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'enableDotLabel',
@@ -366,9 +315,9 @@ const props: ChartProperty[] = [
         help: 'Enable/disable dots label.',
         type: 'boolean',
         required: false,
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.enableDotLabel,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'dotLabel',
@@ -380,8 +329,8 @@ const props: ChartProperty[] = [
             'Property to use to determine dot label. If a function is provided, it will receive current value and serie and must return a label.',
         flavors: ['svg'],
         defaultValue: svgDefaultProps.dotLabel,
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 'value',
                 'formattedValue',
@@ -401,10 +350,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Label Y offset from dot shape.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.dotLabelYOffset,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: -24,
             max: 24,
@@ -426,16 +375,10 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
     },
-    {
-        key: 'isInteractive',
-        group: 'Interactivity',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable interactivity.',
+    isInteractive({
         flavors: ['svg'],
         defaultValue: svgDefaultProps.isInteractive,
-        controlType: 'switch',
-    },
+    }),
     {
         key: 'sliceTooltip',
         group: 'Interactivity',

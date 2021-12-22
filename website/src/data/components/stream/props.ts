@@ -3,12 +3,20 @@ import { areaCurvePropKeys, stackOrderPropKeys, stackOffsetPropKeys } from '@niv
 import { defaultProps, svgDefaultProps } from '@nivo/stream'
 import {
     themeProperty,
-    axesProperties,
     motionProperties,
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    chartDimensions,
+    ordinalColors,
+    chartGrid,
+    axes,
+    isInteractive,
+} from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
@@ -76,7 +84,7 @@ const props: ChartProperty[] = [
             which will receive the raw value and should return the formatted one.
         `,
         flavors: ['svg'],
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'offsetType',
@@ -85,8 +93,8 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Offset type.',
         flavors: ['svg'],
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: stackOffsetPropKeys.map((key: string) => ({
                 label: key,
                 value: key,
@@ -100,8 +108,8 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Layers order.',
         flavors: ['svg'],
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: stackOrderPropKeys.map((key: string) => ({
                 label: key,
                 value: key,
@@ -120,74 +128,20 @@ const props: ChartProperty[] = [
         `,
         defaultValue: defaultProps.curve,
         flavors: ['svg'],
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: areaCurvePropKeys.map((key: string) => ({
                 label: key,
                 value: key,
             })),
         },
     },
-    {
-        key: 'width',
-        group: 'Base',
-        type: '{number}',
-        required: true,
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveStream/>\`.
-        `,
-        flavors: ['svg'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        type: '{number}',
-        required: true,
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveStream/>\`.
-        `,
-        flavors: ['svg'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        type: 'object',
-        required: false,
-        help: 'Chart margin.',
-        flavors: ['svg'],
-        controlType: 'margin',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg']),
-    {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function',
-        required: false,
-        help: 'Defines how to compute line color.',
-        flavors: ['svg'],
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaultProps.colors,
-        controlType: 'ordinalColors',
-    },
+    }),
     {
         key: 'fillOpacity',
         group: 'Style',
@@ -196,7 +150,7 @@ const props: ChartProperty[] = [
         help: 'Layers fill opacity.',
         flavors: ['svg'],
         defaultValue: defaultProps.fillOpacity,
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
     {
         key: 'borderWidth',
@@ -206,7 +160,7 @@ const props: ChartProperty[] = [
         required: false,
         flavors: ['svg'],
         defaultValue: defaultProps.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'borderColor',
@@ -220,7 +174,7 @@ const props: ChartProperty[] = [
         `,
         flavors: ['svg'],
         defaultValue: defaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
     {
@@ -240,27 +194,12 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: svgDefaultProps.layers,
     },
-    {
-        key: 'enableGridX',
-        group: 'Grid & Axes',
-        help: 'Enable/disable x grid.',
-        type: 'boolean',
-        required: false,
-        flavors: ['svg'],
-        defaultValue: defaultProps.enableGridX,
-        controlType: 'switch',
-    },
-    {
-        key: 'enableGridY',
-        group: 'Grid & Axes',
-        help: 'Enable/disable y grid.',
-        type: 'boolean',
-        required: false,
-        flavors: ['svg'],
-        defaultValue: defaultProps.enableGridY,
-        controlType: 'switch',
-    },
-    ...axesProperties(),
+    ...chartGrid({
+        flavors: allFlavors,
+        xDefault: defaultProps.enableGridX,
+        yDefault: defaultProps.enableGridY,
+    }),
+    ...axes({ flavors: allFlavors }),
     {
         key: 'enableDots',
         group: 'Dots',
@@ -269,7 +208,7 @@ const props: ChartProperty[] = [
         required: false,
         flavors: ['svg'],
         defaultValue: defaultProps.enableDots,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'renderDot',
@@ -289,8 +228,8 @@ const props: ChartProperty[] = [
         required: false,
         flavors: ['svg'],
         defaultValue: defaultProps.dotSize,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 2,
             max: 20,
@@ -304,7 +243,7 @@ const props: ChartProperty[] = [
         required: false,
         flavors: ['svg'],
         defaultValue: defaultProps.dotColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'dotBorderWidth',
@@ -316,7 +255,7 @@ const props: ChartProperty[] = [
         required: false,
         flavors: ['svg'],
         defaultValue: defaultProps.dotBorderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'dotBorderColor',
@@ -326,18 +265,12 @@ const props: ChartProperty[] = [
         required: false,
         flavors: ['svg'],
         defaultValue: defaultProps.dotBorderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaultProps.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'tooltip',
         flavors: ['svg'],
@@ -376,7 +309,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.enableStackTooltip,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Interactivity',
     },
     {

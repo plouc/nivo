@@ -1,18 +1,29 @@
 import { commonDefaultProps, svgDefaultProps } from '@nivo/scatterplot'
 import {
     themeProperty,
-    axesProperties,
     motionProperties,
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    chartDimensions,
+    ordinalColors,
+    blendMode,
+    chartGrid,
+    axes,
+    isInteractive,
+} from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'canvas']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
         help: 'Chart data.',
+        flavors: allFlavors,
+        type: 'Object[]',
         description: `
             Chart data, which must conform to this structure:
             \`\`\`
@@ -36,16 +47,20 @@ const props: ChartProperty[] = [
         key: 'xScale',
         type: 'object',
         help: `X scale configuration.`,
+        flavors: allFlavors,
         group: 'Base',
-        controlType: 'object',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'object',
             props: [
                 {
                     key: 'type',
                     help: `Scale type, supports linear, point and time scales.`,
                     type: 'string',
-                    controlType: 'choices',
-                    controlOptions: {
+                    flavors: allFlavors,
+                    required: true,
+                    control: {
+                        type: 'choices',
                         disabled: true,
                         choices: ['linear'].map(v => ({
                             label: v,
@@ -56,10 +71,11 @@ const props: ChartProperty[] = [
                 {
                     key: 'min',
                     help: 'Minimum scale value.',
+                    flavors: allFlavors,
                     required: false,
                     type: `number | 'auto'`,
-                    controlType: 'switchableRange',
-                    controlOptions: {
+                    control: {
+                        type: 'switchableRange',
                         disabledValue: 'auto',
                         defaultValue: 0,
                         min: -2000,
@@ -69,10 +85,11 @@ const props: ChartProperty[] = [
                 {
                     key: 'max',
                     help: 'Maximum scale value.',
+                    flavors: allFlavors,
                     required: false,
                     type: `number | 'auto'`,
-                    controlType: 'switchableRange',
-                    controlOptions: {
+                    control: {
+                        type: 'switchableRange',
                         disabledValue: 'auto',
                         defaultValue: 1200,
                         min: -2000,
@@ -85,6 +102,8 @@ const props: ChartProperty[] = [
     {
         key: 'xFormat',
         group: 'Base',
+        flavors: allFlavors,
+        required: false,
         type: 'string | Function',
         help: 'Optional formatter for x values.',
         description: `
@@ -97,22 +116,26 @@ const props: ChartProperty[] = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'yScale',
         group: 'Base',
+        flavors: allFlavors,
         type: 'object',
         help: `Y scale configuration.`,
-        controlType: 'object',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'object',
             props: [
                 {
                     key: 'type',
                     help: `Scale type, supports linear, point and time scales.`,
                     type: 'string',
-                    controlType: 'choices',
-                    controlOptions: {
+                    flavors: allFlavors,
+                    required: true,
+                    control: {
+                        type: 'choices',
                         disabled: true,
                         choices: ['linear'].map(v => ({
                             label: v,
@@ -123,10 +146,11 @@ const props: ChartProperty[] = [
                 {
                     key: 'min',
                     help: 'Minimum scale value.',
+                    flavors: allFlavors,
                     required: false,
                     type: `number | 'auto'`,
-                    controlType: 'switchableRange',
-                    controlOptions: {
+                    control: {
+                        type: 'switchableRange',
                         disabledValue: 'auto',
                         defaultValue: 0,
                         min: -2000,
@@ -137,9 +161,10 @@ const props: ChartProperty[] = [
                     key: 'max',
                     help: 'Maximum scale value.',
                     required: false,
+                    flavors: allFlavors,
                     type: `number | 'auto'`,
-                    controlType: 'switchableRange',
-                    controlOptions: {
+                    control: {
+                        type: 'switchableRange',
                         disabledValue: 'auto',
                         defaultValue: 1200,
                         min: -2000,
@@ -152,6 +177,8 @@ const props: ChartProperty[] = [
     {
         key: 'yFormat',
         group: 'Base',
+        flavors: allFlavors,
+        required: false,
         type: 'string | Function',
         help: 'Optional formatter for y values.',
         description: `
@@ -164,11 +191,13 @@ const props: ChartProperty[] = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
     },
     {
         key: 'nodeId',
         group: 'Base',
+        flavors: allFlavors,
+        required: false,
         defaultValue: '(d) => `${d.serieId}.${d.index}`',
         type: 'string | (datum) => string',
         help: `ID accessor for the node.`,
@@ -185,8 +214,10 @@ const props: ChartProperty[] = [
     {
         key: 'nodeSize',
         group: 'Base',
+        flavors: allFlavors,
         defaultValue: commonDefaultProps.nodeSize,
         type: 'number | object | Function',
+        required: false,
         help: `How to compute node size, static or dynamic.`,
         description: `
             If you provide a **number**, all nodes will have the same
@@ -209,107 +240,30 @@ const props: ChartProperty[] = [
             If you use a **custom function**, it will receive the current
             node and must **return a number**.
         `,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 2,
             max: 24,
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        description: `
-            Not required if using
-            \`Responsive*\` component.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        help: 'Chart width.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        description: `
-            Not required if using
-            \`Responsive*\` component.
-            Also note that width exclude top/bottom axes,
-            please add margin to make sure they're visible.
-        `,
-        help: 'Chart height.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
+    ...chartDimensions(allFlavors),
     themeProperty(['svg', 'canvas']),
-    {
-        key: 'colors',
-        group: 'Style',
-        help: 'Defines color range.',
-        type: 'string | Function | string[]',
-        required: false,
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: commonDefaultProps.colors,
-        controlType: 'ordinalColors',
-    },
-    {
-        key: 'blendMode',
-        group: 'Style',
+    }),
+    blendMode({
         flavors: ['svg'],
-        help: 'Defines CSS mix-blend-mode property.',
-        description: `
-            Defines CSS \`mix-blend-mode\` property for nodes,
-            see
-            [MDN documentation](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode).
-        `,
-        type: 'string',
-        required: false,
-        defaultValue: commonDefaultProps.blendMode,
-        controlType: 'blendMode',
-    },
+        target: 'nodes',
+        defaultValue: 'normal', // commonDefaultProps.blendMode,
+    }),
     {
         key: 'layers',
         flavors: ['svg', 'canvas'],
         group: 'Customization',
         help: 'Defines the order of layers.',
+        type: '(string | Component)[]',
         description: `
             Defines the order of layers, available layers are:
             \`grid\`, \`axes\`, \`points\`, \`markers\`,
@@ -381,48 +335,17 @@ const props: ChartProperty[] = [
         `,
         required: false,
     },
-    {
-        key: 'enableGridX',
-        help: 'Enable/disable x grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: commonDefaultProps.enableGridX,
-        controlType: 'switch',
-        group: 'Grid & Axes',
-    },
-    {
-        key: 'gridXValues',
-        group: 'Grid & Axes',
-        help: 'Specify values to use for vertical grid lines.',
-        type: 'Array<number | string | Date>',
-        required: false,
-    },
-    {
-        key: 'enableGridY',
-        group: 'Grid & Axes',
-        help: 'Enable/disable y grid.',
-        type: 'boolean',
-        required: false,
-        defaultValue: commonDefaultProps.enableGridY,
-        controlType: 'switch',
-    },
-    {
-        key: 'gridYValues',
-        group: 'Grid & Axes',
-        help: 'Specify values to use for horizontal grid lines.',
-        type: 'Array<number | string | Date>',
-        required: false,
-    },
-    ...axesProperties(),
-    {
-        key: 'isInteractive',
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
+    ...chartGrid({
+        flavors: allFlavors,
+        values: true,
+        xDefault: commonDefaultProps.enableGridX,
+        yDefault: commonDefaultProps.enableGridY,
+    }),
+    ...axes({ flavors: allFlavors }),
+    isInteractive({
+        flavors: ['svg', 'canvas'],
         defaultValue: commonDefaultProps.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'useMesh',
         group: 'Interactivity',
@@ -430,16 +353,17 @@ const props: ChartProperty[] = [
         help: 'Use a mesh to detect mouse interactions.',
         type: 'boolean',
         required: false,
-        defaultValue: commonDefaultProps.useMesh,
-        controlType: 'switch',
+        defaultValue: true, // commonDefaultProps.useMesh,
+        control: { type: 'switch' },
     },
     {
         key: 'debugMesh',
         help: 'Display mesh used to detect mouse interactions (voronoi cells).',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: commonDefaultProps.debugMesh,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Interactivity',
     },
     {
@@ -461,6 +385,7 @@ const props: ChartProperty[] = [
     {
         key: 'onMouseEnter',
         group: 'Interactivity',
+        flavors: allFlavors,
         help: 'onMouseEnter handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
         required: false,
@@ -468,6 +393,7 @@ const props: ChartProperty[] = [
     {
         key: 'onMouseMove',
         group: 'Interactivity',
+        flavors: allFlavors,
         help: 'onMouseMove handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
         required: false,
@@ -475,6 +401,7 @@ const props: ChartProperty[] = [
     {
         key: 'onMouseLeave',
         group: 'Interactivity',
+        flavors: allFlavors,
         help: 'onMouseLeave handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
         required: false,
@@ -482,6 +409,7 @@ const props: ChartProperty[] = [
     {
         key: 'onClick',
         group: 'Interactivity',
+        flavors: allFlavors,
         help: 'onClick handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
         required: false,
@@ -492,13 +420,14 @@ const props: ChartProperty[] = [
         flavors: ['svg', 'canvas'],
         type: 'object[]',
         help: `Optional chart's legends.`,
-        controlType: 'array',
-        controlOptions: {
+        required: false,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
             defaults: {
                 anchor: 'top-left',
@@ -511,8 +440,8 @@ const props: ChartProperty[] = [
                 itemsSpacing: 0,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },
@@ -520,6 +449,7 @@ const props: ChartProperty[] = [
     {
         key: 'annotations',
         group: 'Annotations',
+        flavors: allFlavors,
         help: 'Extra annotations.',
         type: 'object[]',
         required: false,

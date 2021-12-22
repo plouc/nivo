@@ -1,6 +1,14 @@
 import { svgDefaultProps, sankeyAlignmentPropKeys } from '@nivo/sankey'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    chartDimensions,
+    ordinalColors,
+    blendMode,
+    isInteractive,
+} from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'api']
 
 const props: ChartProperty[] = [
     {
@@ -9,7 +17,7 @@ const props: ChartProperty[] = [
         type: '{ nodes: object[], links: object[] }',
         required: true,
         help: 'Chart data defining nodes and links.',
-        flavors: ['svg', 'api'],
+        flavors: allFlavors,
         description: `
             Chart data, which must conform to this structure:
 
@@ -40,8 +48,8 @@ const props: ChartProperty[] = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        flavors: ['svg', 'api'],
-        controlType: 'valueFormat',
+        flavors: allFlavors,
+        control: { type: 'valueFormat' },
     },
     {
         key: 'layout',
@@ -50,9 +58,9 @@ const props: ChartProperty[] = [
         required: false,
         help: `Control sankey layout direction.`,
         defaultValue: svgDefaultProps.layout,
-        flavors: ['svg', 'api'],
-        controlType: 'radio',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -72,9 +80,9 @@ const props: ChartProperty[] = [
             for further information.
         `,
         defaultValue: svgDefaultProps.align,
-        flavors: ['svg', 'api'],
-        controlType: 'choices',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'choices',
             choices: sankeyAlignmentPropKeys.map((key: string) => ({
                 label: key,
                 value: key,
@@ -102,75 +110,21 @@ const props: ChartProperty[] = [
             for further information.
         `,
         defaultValue: svgDefaultProps.sort,
-        flavors: ['svg', 'api'],
-        controlType: 'choices',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'choices',
             choices: ['auto', 'input', 'ascending', 'descending'].map(key => ({
                 label: key,
                 value: key,
             })),
         },
     },
-    {
-        key: 'width',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveSankey/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveSankey/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        group: 'Base',
-        flavors: ['svg', 'api'],
-        controlType: 'margin',
-    },
-    themeProperty(['svg', 'api']),
-    {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function | string[]',
-        required: false,
-        help: 'Defines how to compute nodes color.',
+    ...chartDimensions(allFlavors),
+    themeProperty(allFlavors),
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.colors,
-        flavors: ['svg', 'api'],
-        controlType: 'ordinalColors',
-    },
+    }),
     {
         key: 'nodeThickness',
         group: 'Nodes',
@@ -178,9 +132,9 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Node thickness.',
         defaultValue: svgDefaultProps.nodeThickness,
-        flavors: ['svg', 'api'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 2,
             max: 100,
@@ -193,8 +147,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.nodeOpacity,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'opacity',
+        flavors: allFlavors,
+        control: { type: 'opacity' },
     },
     {
         key: 'nodeHoverOpacity',
@@ -204,7 +158,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.nodeHoverOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
     {
         key: 'nodeHoverOthersOpacity',
@@ -213,7 +167,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.nodeHoverOthersOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Nodes',
     },
     {
@@ -223,9 +177,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.nodeSpacing,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 60,
@@ -238,9 +192,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.nodeInnerPadding,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 20,
@@ -253,8 +207,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.nodeBorderWidth,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'lineWidth',
+        flavors: allFlavors,
+        control: { type: 'lineWidth' },
     },
     {
         key: 'nodeBorderColor',
@@ -267,8 +221,8 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         defaultValue: svgDefaultProps.nodeBorderColor,
-        flavors: ['svg', 'api'],
-        controlType: 'inheritedColor',
+        flavors: allFlavors,
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'nodeBorderRadius',
@@ -277,9 +231,9 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: svgDefaultProps.nodeBorderRadius,
-        flavors: ['svg', 'api'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 12,
@@ -292,8 +246,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.linkOpacity,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'opacity',
+        flavors: allFlavors,
+        control: { type: 'opacity' },
     },
     {
         key: 'linkHoverOpacity',
@@ -303,7 +257,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.linkHoverOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
     {
         key: 'linkHoverOthersOpacity',
@@ -313,7 +267,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.linkHoverOthersOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
     },
     {
         key: 'linkContract',
@@ -322,24 +276,21 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.linkContract,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 60,
         },
     },
-    {
+    blendMode({
         key: 'linkBlendMode',
+        target: 'links',
         flavors: ['svg'],
-        help: 'Defines CSS [mix-blend-mode](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode) property for links.',
-        type: 'string',
-        required: false,
-        defaultValue: svgDefaultProps.linkBlendMode,
-        controlType: 'blendMode',
         group: 'Links',
-    },
+        defaultValue: svgDefaultProps.linkBlendMode,
+    }),
     {
         key: 'enableLinkGradient',
         group: 'Links',
@@ -347,8 +298,8 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         defaultValue: svgDefaultProps.enableLinkGradient,
-        flavors: ['svg', 'api'],
-        controlType: 'switch',
+        flavors: allFlavors,
+        control: { type: 'switch' },
     },
     {
         key: 'enableLabels',
@@ -357,8 +308,8 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         defaultValue: svgDefaultProps.enableLabels,
-        flavors: ['svg', 'api'],
-        controlType: 'switch',
+        flavors: allFlavors,
+        control: { type: 'switch' },
     },
     {
         key: 'labelPosition',
@@ -367,9 +318,9 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: svgDefaultProps.labelPosition,
-        flavors: ['svg', 'api'],
-        controlType: 'radio',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'radio',
             choices: ['inside', 'outside'].map(key => ({
                 label: key,
                 value: key,
@@ -383,9 +334,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: svgDefaultProps.labelPadding,
         type: 'number',
-        flavors: ['svg', 'api'],
-        controlType: 'range',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 60,
@@ -402,8 +353,8 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         required: false,
         defaultValue: svgDefaultProps.labelTextColor,
-        flavors: ['svg', 'api'],
-        controlType: 'inheritedColor',
+        flavors: allFlavors,
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'labelOrientation',
@@ -412,25 +363,19 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: svgDefaultProps.labelOrientation,
-        flavors: ['svg', 'api'],
-        controlType: 'radio',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'radio',
             choices: ['horizontal', 'vertical'].map((key: string) => ({
                 label: key,
                 value: key,
             })),
         },
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg'],
-        group: 'Interactivity',
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: svgDefaultProps.isInteractive,
-        controlType: 'switch',
-    },
+    }),
     {
         key: 'nodeTooltip',
         flavors: ['svg'],

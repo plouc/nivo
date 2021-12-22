@@ -1,12 +1,16 @@
 import { defaultProps } from '@nivo/bullet'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
         help: 'Chart data.',
+        flavors: ['svg'],
         description: `
             Chart data, which must conform to this structure:
             \`\`\`
@@ -31,6 +35,7 @@ const props: ChartProperty[] = [
     {
         key: 'minValue',
         help: 'Minimum value.',
+        flavors: ['svg'],
         description: `
             Minimum value, if 'auto',
             will use min value from
@@ -39,9 +44,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaultProps.minValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 0,
             min: 0,
@@ -51,6 +56,7 @@ const props: ChartProperty[] = [
     {
         key: 'maxValue',
         help: 'Maximum value.',
+        flavors: ['svg'],
         description: `
             Maximum value, if 'auto',
             will use max value from
@@ -59,56 +65,26 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaultProps.maxValue,
         type: `number | 'auto'`,
-        controlType: 'switchableRange',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'switchableRange',
             disabledValue: 'auto',
             defaultValue: 100,
             min: 50,
             max: 100,
         },
     },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        group: 'Base',
-        help: 'Chart width.',
-        description: 'not required if using `ResponsiveBullet`.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        group: 'Base',
-        help: 'Chart height.',
-        description: 'not required if using `ResponsiveBullet`.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'layout',
         group: 'Base',
         help: `How to display items.`,
+        flavors: ['svg'],
         type: 'string',
         required: false,
         defaultValue: defaultProps.layout,
-        controlType: 'radio',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
@@ -124,28 +100,22 @@ const props: ChartProperty[] = [
             for vertical layout and right instead of left
             for horizontal one.
         `,
+        flavors: ['svg'],
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.reverse,
-        controlType: 'switch',
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
+        control: { type: 'switch' },
     },
     {
         key: 'spacing',
         help: 'define spacing between items.',
         type: 'number',
+        flavors: ['svg'],
         required: false,
         defaultValue: defaultProps.spacing,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -156,10 +126,11 @@ const props: ChartProperty[] = [
         help: 'define size of measure related to item size, expressed as a ratio.',
         type: 'number',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.measureSize,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 1,
             step: 0.05,
@@ -170,10 +141,11 @@ const props: ChartProperty[] = [
         help: 'define size of markers related to item size, expressed as a ratio.',
         type: 'number',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.markerSize,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 2,
             step: 0.05,
@@ -190,9 +162,9 @@ const props: ChartProperty[] = [
             [see dedicated documentation](self:/guides/colors).
         `,
         type: 'string | object | Function',
-        controlType: 'inheritedColor',
         required: false,
         defaultValue: defaultProps.rangeBorderColor,
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'rangeBorderWidth',
@@ -200,9 +172,9 @@ const props: ChartProperty[] = [
         group: 'Style',
         help: 'Width of range border.',
         type: 'number',
-        controlType: 'lineWidth',
         required: false,
         defaultValue: defaultProps.rangeBorderWidth,
+        control: { type: 'lineWidth' },
     },
     {
         key: 'rangeComponent',
@@ -221,11 +193,12 @@ const props: ChartProperty[] = [
             \`greens\` or sequential form: \`seq:green\`.
         `,
         type: 'string | Function | string[]',
+        flavors: ['svg'],
         required: false,
         defaultValue: defaultProps.rangeColors,
-        controlType: 'colors',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'colors',
             includeSequential: true,
         },
     },
@@ -239,9 +212,9 @@ const props: ChartProperty[] = [
             [see dedicated documentation](self:/guides/colors).
         `,
         type: 'string | object | Function',
-        controlType: 'inheritedColor',
         required: false,
         defaultValue: defaultProps.measureBorderColor,
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'measureBorderWidth',
@@ -249,9 +222,9 @@ const props: ChartProperty[] = [
         group: 'Style',
         help: 'Width of measure border.',
         type: 'number',
-        controlType: 'lineWidth',
         required: false,
         defaultValue: defaultProps.measureBorderWidth,
+        control: { type: 'lineWidth' },
     },
     {
         key: 'measureComponent',
@@ -271,10 +244,11 @@ const props: ChartProperty[] = [
         `,
         type: 'string | Function | string[]',
         required: false,
+        flavors: ['svg'],
         defaultValue: defaultProps.measureColors,
-        controlType: 'colors',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'colors',
             includeSequential: true,
         },
     },
@@ -288,6 +262,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'markerColors',
+        flavors: ['svg'],
         help: 'Markers colors.',
         description: `
             Defines colors for markers,
@@ -297,9 +272,9 @@ const props: ChartProperty[] = [
         type: 'string | Function| string[]',
         required: false,
         defaultValue: defaultProps.markerColors,
-        controlType: 'colors',
         group: 'Style',
-        controlOptions: {
+        control: {
+            type: 'colors',
             includeSequential: true,
         },
     },
@@ -309,9 +284,10 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaultProps.axisPosition,
-        controlType: 'radio',
+        flavors: ['svg'],
         group: 'Axes',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'before', value: 'before' },
                 { label: 'after', value: 'after' },
@@ -324,9 +300,10 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaultProps.titlePosition,
-        controlType: 'radio',
+        flavors: ['svg'],
         group: 'Title',
-        controlOptions: {
+        control: {
+            type: 'radio',
             choices: [
                 { label: 'before', value: 'before' },
                 { label: 'after', value: 'after' },
@@ -339,9 +316,10 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaultProps.titleAlign,
-        controlType: 'choices',
+        flavors: ['svg'],
         group: 'Title',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 { label: 'start', value: 'start' },
                 { label: 'middle', value: 'middle' },
@@ -354,10 +332,11 @@ const props: ChartProperty[] = [
         help: 'title x offset from bullet edge.',
         type: 'number',
         required: false,
-        defaultValue: defaultProps.titleOffset,
-        controlType: 'range',
+        defaultValue: defaultProps.titleOffsetX,
+        flavors: ['svg'],
         group: 'Title',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: -100,
             max: 100,
             unit: 'px',
@@ -368,10 +347,11 @@ const props: ChartProperty[] = [
         help: 'title y offset from bullet edge.',
         type: 'number',
         required: false,
-        defaultValue: defaultProps.titleOffset,
-        controlType: 'range',
+        defaultValue: defaultProps.titleOffsetY,
+        flavors: ['svg'],
         group: 'Title',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: -100,
             max: 100,
             unit: 'px',
@@ -383,9 +363,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaultProps.titleRotation,
-        controlType: 'angle',
+        flavors: ['svg'],
         group: 'Title',
-        controlOptions: {
+        control: {
+            type: 'angle',
             start: 90,
             min: -360,
             max: 360,

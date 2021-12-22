@@ -1,6 +1,15 @@
+// @ts-ignore
 import { TreeMapDefaultProps } from '@nivo/treemap'
-import { motionProperties, defsProperties, groupProperties } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import {
+    motionProperties,
+    defsProperties,
+    groupProperties,
+    themeProperty,
+} from '../../../lib/componentProperties'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg', 'html', 'canvas', 'api']
 
 const defaults = TreeMapDefaultProps
 
@@ -8,6 +17,7 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        flavors: allFlavors,
         help: 'The hierarchical data object.',
         type: 'object',
         required: true,
@@ -15,6 +25,7 @@ const props: ChartProperty[] = [
     {
         key: 'identity',
         group: 'Base',
+        flavors: allFlavors,
         help: 'The key or function to use to retrieve nodes identity.',
         type: 'string | Function',
         required: false,
@@ -23,6 +34,7 @@ const props: ChartProperty[] = [
     {
         key: 'value',
         group: 'Base',
+        flavors: allFlavors,
         help: 'The key or function to use to retrieve nodes value.',
         type: 'string | Function',
         required: false,
@@ -34,14 +46,16 @@ const props: ChartProperty[] = [
             Value format supporting d3-format notation, this formatted value
             will then be used for labels and tooltips.
         `,
+        flavors: allFlavors,
         type: 'string | Function',
         required: false,
-        controlType: 'valueFormat',
+        control: { type: 'valueFormat' },
         group: 'Base',
     },
     {
         key: 'tile',
         group: 'Base',
+        flavors: allFlavors,
         help: 'Strategy used to compute nodes.',
         description: `
             Strategy used to compute nodes, see
@@ -50,8 +64,8 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: 'squarify',
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 { label: 'binary', value: 'binary' },
                 { label: 'squarify', value: 'squarify' },
@@ -68,21 +82,23 @@ const props: ChartProperty[] = [
     {
         key: 'leavesOnly',
         help: 'Only render leaf nodes (no parent).',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaults.leavesOnly,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Base',
     },
     {
         key: 'innerPadding',
         help: 'Padding between parent and child node.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.innerPadding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 32,
@@ -91,121 +107,76 @@ const props: ChartProperty[] = [
     {
         key: 'outerPadding',
         help: 'Padding between parent and child node.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.outerPadding,
-        controlType: 'range',
         group: 'Base',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 32,
         },
     },
-    {
-        key: 'width',
-        group: 'Base',
-        flavors: ['svg', 'canvas', 'html', 'api'],
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using responsive alternative
-            of the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        flavors: ['svg', 'canvas', 'html', 'api'],
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using responsive alternative
-            of the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
-        key: 'colors',
-        help: 'Defines how to compute node color.',
-        type: 'string | Function | string[]',
-        required: false,
+    ...chartDimensions(allFlavors),
+    themeProperty(allFlavors),
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: defaults.colors,
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
+    }),
     {
         key: 'nodeOpacity',
         help: 'Node opacity (0~1).',
+        flavors: allFlavors,
         required: false,
         defaultValue: defaults.nodeOpacity,
         type: 'number',
-        controlType: 'opacity',
+        control: { type: 'opacity' },
         group: 'Style',
     },
     {
         key: 'borderWidth',
         help: 'Control node border width.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
         defaultValue: defaults.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
         group: 'Style',
     },
     {
         key: 'borderColor',
         help: 'Method to compute border color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Style',
     },
     ...defsProperties('Style', ['svg']),
     {
         key: 'enableLabel',
         help: 'Enable/disable labels.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaults.enableLabel,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Labels',
     },
     {
         key: 'label',
         help: 'Label accessor.',
+        flavors: allFlavors,
         description:
             'Defines how to get label text, can be a string (used to access current node property) or a function which will receive the actual node and must return the desired label.',
         type: 'string | Function',
         required: false,
-        controlType: 'choices',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: [
                 'formattedValue',
                 'id',
@@ -219,11 +190,12 @@ const props: ChartProperty[] = [
     {
         key: 'labelSkipSize',
         help: 'Skip label rendering if node minimal side length is lower than given value, 0 to disable.',
+        flavors: allFlavors,
         type: 'number',
         required: false,
-        controlType: 'range',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 100,
@@ -232,18 +204,20 @@ const props: ChartProperty[] = [
     {
         key: 'orientLabel',
         help: 'Orient labels according to max node width/height.',
+        flavors: allFlavors,
         type: 'boolean',
         required: false,
         defaultValue: defaults.orientLabel,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Labels',
     },
     {
         key: 'labelTextColor',
         help: 'Method to compute label text color.',
+        flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Labels',
     },
     {
@@ -253,7 +227,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         defaultValue: defaults.enableParentLabel,
-        controlType: 'switch',
+        control: { type: 'switch' },
         group: 'Labels',
     },
     {
@@ -264,9 +238,9 @@ const props: ChartProperty[] = [
             'Defines how to get parent label text, can be a string (used to access current node property) or a function which will receive the actual node and must return the desired label.',
         type: 'string | Function',
         required: false,
-        controlType: 'choices',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['id', 'formattedValue', `node => node.pathComponents.join(' / ')`].map(
                 prop => ({
                     label: prop,
@@ -282,9 +256,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.parentLabelSize,
         type: `number`,
-        controlType: 'range',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 10,
             max: 40,
         },
@@ -295,10 +269,10 @@ const props: ChartProperty[] = [
         help: 'Parent label position.',
         type: `'top' | 'right' | 'bottom' | 'left'`,
         required: false,
-        controlType: 'choices',
         group: 'Labels',
         defaultValue: defaults.parentLabelPosition,
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['top', 'right', 'bottom', 'left'].map(prop => ({
                 label: prop,
                 value: prop,
@@ -312,9 +286,9 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.parentLabelPadding,
         type: `number`,
-        controlType: 'range',
         group: 'Labels',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 20,
         },
@@ -325,19 +299,13 @@ const props: ChartProperty[] = [
         help: 'Method to compute parent label text color.',
         type: 'string | object | Function',
         required: false,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
         group: 'Labels',
     },
-    {
-        key: 'isInteractive',
+    isInteractive({
         flavors: ['svg', 'html', 'canvas'],
-        help: 'Enable/disable interactivity.',
-        type: 'boolean',
-        required: false,
         defaultValue: defaults.isInteractive,
-        controlType: 'switch',
-        group: 'Interactivity',
-    },
+    }),
     {
         key: 'onMouseEnter',
         flavors: ['svg', 'html'],

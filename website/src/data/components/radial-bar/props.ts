@@ -7,7 +7,10 @@ import {
     getLegendsProps,
     polarAxisProperty,
 } from '../../../lib/componentProperties'
-import { ChartProperty } from '../../../types'
+import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import { ChartProperty, Flavor } from '../../../types'
+
+const allFlavors: Flavor[] = ['svg']
 
 const props: ChartProperty[] = [
     {
@@ -69,7 +72,7 @@ const props: ChartProperty[] = [
             You might read those values when adding an \`onClick\` handler
             for example, or when customizing the tooltip.
         `,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'maxValue',
@@ -77,7 +80,7 @@ const props: ChartProperty[] = [
         type: `'auto' | number`,
         required: false,
         help: `If 'auto', the max value is derived from the data, otherwise use a static value.`,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.maxValue,
     },
     {
@@ -93,68 +96,20 @@ const props: ChartProperty[] = [
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
         `,
-        flavors: ['svg'],
-        controlType: 'valueFormat',
+        flavors: allFlavors,
+        control: { type: 'valueFormat' },
     },
-    {
-        key: 'width',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveRadialBar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        group: 'Base',
-        type: 'number',
-        required: true,
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveRadialBar/>\`.
-        `,
-        flavors: ['svg', 'api'],
-        enableControlForFlavors: ['api'],
-        controlType: 'range',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        group: 'Base',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        flavors: ['svg'],
-        controlType: 'margin',
-    },
+    ...chartDimensions(allFlavors),
     {
         key: 'startAngle',
         group: 'Base',
         type: 'number',
         required: false,
         help: 'Start angle (in degrees).',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.startAngle,
-        controlType: 'angle',
-        controlOptions: {
+        control: {
+            type: 'angle',
             min: -360,
             max: 360,
             step: 5,
@@ -166,10 +121,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'End angle (in degrees).',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.endAngle,
-        controlType: 'angle',
-        controlOptions: {
+        control: {
+            type: 'angle',
             min: -360,
             max: 360,
             step: 5,
@@ -181,10 +136,10 @@ const props: ChartProperty[] = [
         help: `Donut if greater than 0. Value should be between 0~1 as it's a ratio from outer radius.`,
         type: 'number',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.innerRadius,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 0.95,
             step: 0.05,
@@ -196,10 +151,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Padding between each ring (ratio).',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.padding,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 0.9,
             step: 0.05,
@@ -211,10 +166,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Padding between each bar.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.padAngle,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: '°',
             min: 0,
             max: 45,
@@ -227,10 +182,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Rounded corners.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.cornerRadius,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 45,
@@ -238,25 +193,19 @@ const props: ChartProperty[] = [
         },
     },
     themeProperty(['svg']),
-    {
-        key: 'colors',
-        group: 'Style',
-        type: 'string | Function | string[]',
-        required: false,
-        help: 'Defines how to compute colors.',
-        flavors: ['svg'],
+    ordinalColors({
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.colors,
-        controlType: 'ordinalColors',
-    },
+    }),
     {
         key: 'borderWidth',
         group: 'Style',
         type: 'number',
         required: false,
         help: 'Bars border width.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.borderWidth,
-        controlType: 'lineWidth',
+        control: { type: 'lineWidth' },
     },
     {
         key: 'borderColor',
@@ -268,9 +217,9 @@ const props: ChartProperty[] = [
             how to compute border color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.borderColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'enableTracks',
@@ -278,9 +227,9 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         help: 'Enable/disable tracks.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.enableTracks,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'tracksColor',
@@ -288,9 +237,9 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: 'Define tracks color.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.tracksColor,
-        controlType: 'colorPicker',
+        control: { type: 'colorPicker' },
     },
     {
         key: 'enableRadialGrid',
@@ -298,9 +247,9 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         help: 'Enable radial grid (rays)',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.enableRadialGrid,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'enableCircularGrid',
@@ -308,28 +257,28 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         help: 'Enable circular grid (rings)',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.enableCircularGrid,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     polarAxisProperty({
         key: 'radialAxisStart',
-        flavors: ['svg'],
+        flavors: allFlavors,
         tickComponent: 'RadialAxisTickComponent',
     }),
     polarAxisProperty({
         key: 'radialAxisEnd',
-        flavors: ['svg'],
+        flavors: allFlavors,
         tickComponent: 'RadialAxisTickComponent',
     }),
     polarAxisProperty({
         key: 'circularAxisInner',
-        flavors: ['svg'],
+        flavors: allFlavors,
         tickComponent: 'CircularAxisTickComponent',
     }),
     polarAxisProperty({
         key: 'circularAxisOuter',
-        flavors: ['svg'],
+        flavors: allFlavors,
         tickComponent: 'CircularAxisTickComponent',
     }),
     {
@@ -338,9 +287,9 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         help: 'Enable/disable labels.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.enableLabels,
-        controlType: 'switch',
+        control: { type: 'switch' },
     },
     {
         key: 'label',
@@ -348,10 +297,10 @@ const props: ChartProperty[] = [
         type: 'string | (bar: ComputedBar) => string',
         required: false,
         help: 'Defines how to get label text, can be a string (used to access current bar property) or a function which will receive the actual bar data.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.label,
-        controlType: 'choices',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: ['category', 'groupId', 'value', 'formattedValue'].map(choice => ({
                 label: choice,
                 value: choice,
@@ -364,10 +313,10 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: `Skip label if corresponding arc's angle is lower than provided value.`,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.labelsSkipAngle,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             unit: '°',
             min: 0,
             max: 45,
@@ -383,10 +332,10 @@ const props: ChartProperty[] = [
             Define the radius to use to determine the label position, starting from inner radius,
             this is expressed as a ratio. Centered at 0.5 by default.
         `,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.labelsRadiusOffset,
-        controlType: 'range',
-        controlOptions: {
+        control: {
+            type: 'range',
             min: 0,
             max: 2,
             step: 0.05,
@@ -398,9 +347,9 @@ const props: ChartProperty[] = [
         help: 'Defines how to compute label text color.',
         type: 'string | object | Function',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.labelsTextColor,
-        controlType: 'inheritedColor',
+        control: { type: 'inheritedColor' },
     },
     {
         key: 'layers',
@@ -416,26 +365,20 @@ const props: ChartProperty[] = [
             the \`RadialBarCustomLayerProps\` interface
             and must return a valid SVG element.
         `,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.layers,
     },
-    {
-        key: 'isInteractive',
-        group: 'Interactivity',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable interactivity.',
-        flavors: ['svg'],
+    isInteractive({
+        flavors: allFlavors,
         defaultValue: svgDefaultProps.isInteractive,
-        controlType: 'switch',
-    },
+    }),
     {
         key: 'tooltip',
         group: 'Interactivity',
         type: 'RadialBarTooltipComponent',
         required: false,
         help: 'Override default tooltip.',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onClick',
@@ -443,7 +386,7 @@ const props: ChartProperty[] = [
         type: '(bar: ComputedBar, event: MouseEvent) => void',
         required: false,
         help: 'onClick handler.',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseEnter',
@@ -451,7 +394,7 @@ const props: ChartProperty[] = [
         type: '(bar: ComputedBar, event: MouseEvent) => void',
         required: false,
         help: 'onMouseEnter handler.',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseMove',
@@ -459,7 +402,7 @@ const props: ChartProperty[] = [
         type: '(bar: ComputedBar, event: MouseEvent) => void',
         required: false,
         help: 'onMouseMove handler.',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseLeave',
@@ -467,7 +410,7 @@ const props: ChartProperty[] = [
         type: '(bar: ComputedBar, event: MouseEvent) => void',
         required: false,
         help: 'onMouseLeave handler.',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'legends',
@@ -475,16 +418,16 @@ const props: ChartProperty[] = [
         type: 'LegendProps[]',
         required: false,
         help: `Optional chart's legends.`,
-        flavors: ['svg'],
-        controlType: 'array',
-        controlOptions: {
+        flavors: allFlavors,
+        control: {
+            type: 'array',
             props: getLegendsProps(['svg']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
-            getItemTitle: (index, legend) =>
+            getItemTitle: (index, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
-            svgDefaultProps: {
+            defaults: {
                 dataFrom: 'keys',
                 anchor: 'top-left',
                 direction: 'column',
@@ -496,8 +439,8 @@ const props: ChartProperty[] = [
                 itemsSpacing: 0,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
-                onClick: data => {
-                    alert(JSON.stringify(data, null, '    '))
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
                 },
             },
         },
@@ -508,7 +451,7 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: 'Main element role attribute.',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'ariaLabel',
@@ -516,7 +459,7 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'ariaLabelledBy',
@@ -524,7 +467,7 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'ariaDescribedBy',
@@ -532,19 +475,19 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
-    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    ...motionProperties(allFlavors, svgDefaultProps, 'react-spring'),
     {
         key: 'transitionMode',
-        flavors: ['svg'],
+        flavors: allFlavors,
         help: 'Define how transitions behave.',
         type: 'string',
         required: false,
         defaultValue: svgDefaultProps.transitionMode,
-        controlType: 'choices',
         group: 'Motion',
-        controlOptions: {
+        control: {
+            type: 'choices',
             choices: arcTransitionModes.map(choice => ({
                 label: choice,
                 value: choice,
