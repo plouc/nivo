@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 export const HomeCirclePacking = ({ reversedColors }) => {
     return (
-        <HomeItem to="/circle-packing">
+        <HomeItem to="/circle-packing/">
             <ResponsiveCirclePackingCanvas
                 data={generateLibTree()}
                 id="name"

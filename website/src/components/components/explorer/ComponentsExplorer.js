@@ -20,7 +20,7 @@ const ComponentsExplorer = ({ location, navigate }) => {
             if (term) params.append('q', term)
             if (filter) params.append('filter', filter)
 
-            navigate(`/components?${params.toString()}`, {
+            navigate(`/components/?${params.toString()}`, {
                 replace: true,
             })
         },
@@ -32,7 +32,7 @@ const ComponentsExplorer = ({ location, navigate }) => {
             if (term) params.append('q', term)
             if (filter) params.append('filter', filter)
 
-            navigate(`/components?${params.toString()}`)
+            navigate(`/components/?${params.toString()}`)
         },
         [term, navigate]
     )

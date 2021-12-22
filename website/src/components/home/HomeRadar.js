@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 const HomeRadar = ({ colors, nivoTheme }) => {
     return (
-        <HomeItem to="/radar">
+        <HomeItem to="/radar/">
             <ResponsiveRadar
                 {...generateWinesTastes()}
                 indexBy="taste"

@@ -5,7 +5,7 @@ import { HomeItem, HomeItemLabel } from './styled'
 
 const HomeChord = ({ colors }) => {
     return (
-        <HomeItem to="/chord">
+        <HomeItem to="/chord/">
             <ResponsiveChordCanvas
                 colors={colors}
                 padAngle={0.04}

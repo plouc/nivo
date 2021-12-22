@@ -15,7 +15,7 @@ voronoi.data = range(80).map(id => ({
 
 const HomeVoronoi = ({ colors }) => {
     return (
-        <HomeItem to="/voronoi">
+        <HomeItem to="/voronoi/">
             <ResponsiveVoronoi
                 data={voronoi.data}
                 xDomain={voronoi.xDomain}

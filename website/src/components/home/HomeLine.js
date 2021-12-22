@@ -6,7 +6,7 @@ import { commonAxes } from './settings'
 
 const HomeLine = ({ colors, theme, nivoTheme }) => {
     return (
-        <HomeItem to="/line">
+        <HomeItem to="/line/">
             <ResponsiveLine
                 margin={{ top: 10, bottom: 15, left: 24, right: 10 }}
                 data={generateDrinkStats(12)}

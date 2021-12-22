@@ -18,7 +18,7 @@ const Home = ({ colors, nivoTheme, isHorizontal = false }) => {
         : ['hot dogs', 'burgers', 'sandwich']
 
     return (
-        <HomeItem to="/bar">
+        <HomeItem to="/bar/">
             <ResponsiveBar
                 data={data}
                 indexBy="country"

@@ -16,7 +16,7 @@ const generateStreamData = () =>
 
 const HomeStream = ({ reversedColors, nivoTheme }) => {
     return (
-        <HomeItem to="/stream">
+        <HomeItem to="/stream/">
             <ResponsiveStream
                 data={generateStreamData()}
                 keys={range(streamDataLayerCount)}
