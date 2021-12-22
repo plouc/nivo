@@ -1,17 +1,24 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { defaultTheme } from '@nivo/core'
+import {
+    // @ts-ignore
+    defaultTheme,
+    Theme,
+} from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
+// @ts-ignore
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import { ComponentPage } from '../../components/components/ComponentPage'
 import { ComponentHeader } from '../../components/components/ComponentHeader'
 import { Markdown } from '../../components/Markdown'
+// @ts-ignore
 import ComponentSettings from '../../components/components/ComponentSettings'
 import media from '../../theming/mediaQueries'
+import { ChartProperty } from '../../types'
 
-const initialTheme = {
+const initialTheme: Theme = {
     background: '#ffffff', // defaultTheme.background,
     textColor: defaultTheme.textColor,
     fontSize: defaultTheme.fontSize,
@@ -37,7 +44,11 @@ const initialTheme = {
     },
 }
 
-const controlGroups = [
+const controlGroups: {
+    name: string
+    group: string
+    properties: ChartProperty[]
+}[] = [
     {
         name: 'Theme',
         group: 'Theme',
@@ -45,19 +56,19 @@ const controlGroups = [
             {
                 name: 'background',
                 help: 'main background color.',
-                controlType: 'colorPicker',
+                control: { type: 'colorPicker' },
             },
             {
                 name: 'textColor',
                 help: 'main text color.',
-                controlType: 'colorPicker',
+                control: { type: 'colorPicker' },
             },
             // fontFamily: 'sans-serif',
             {
                 name: 'fontSize',
                 help: 'main font size.',
-                controlType: 'range',
-                controlOptions: {
+                control: {
+                    type: 'range',
                     unit: 'px',
                     min: 6,
                     max: 36,
@@ -65,29 +76,29 @@ const controlGroups = [
             },
             {
                 name: 'axis',
-                controlType: 'object',
-                controlOptions: {
+                control: {
+                    type: 'object',
                     isOpenedByDefault: true,
                     props: [
                         {
                             key: 'ticks',
-                            controlType: 'object',
-                            controlOptions: {
+                            control: {
+                                type: 'object',
                                 isOpenedByDefault: true,
                                 props: [
                                     {
                                         key: 'line',
-                                        controlType: 'object',
-                                        controlOptions: {
+                                        control: {
+                                            type: 'object',
                                             isOpenedByDefault: true,
                                             props: [
                                                 {
                                                     key: 'strokeWidth',
-                                                    controlType: 'lineWidth',
+                                                    control: { type: 'lineWidth' },
                                                 },
                                                 {
                                                     key: 'stroke',
-                                                    controlType: 'colorPicker',
+                                                    control: { type: 'colorPicker' },
                                                 },
                                             ],
                                         },
@@ -97,23 +108,23 @@ const controlGroups = [
                         },
                         {
                             key: 'domain',
-                            controlType: 'object',
-                            controlOptions: {
+                            control: {
+                                type: 'object',
                                 isOpenedByDefault: true,
                                 props: [
                                     {
                                         key: 'line',
-                                        controlType: 'object',
-                                        controlOptions: {
+                                        control: {
+                                            type: 'object',
                                             isOpenedByDefault: true,
                                             props: [
                                                 {
                                                     key: 'strokeWidth',
-                                                    controlType: 'lineWidth',
+                                                    control: { type: 'lineWidth' },
                                                 },
                                                 {
                                                     key: 'stroke',
-                                                    controlType: 'colorPicker',
+                                                    control: { type: 'colorPicker' },
                                                 },
                                             ],
                                         },
@@ -126,23 +137,23 @@ const controlGroups = [
             },
             {
                 name: 'grid',
-                controlType: 'object',
-                controlOptions: {
+                control: {
+                    type: 'object',
                     isOpenedByDefault: true,
                     props: [
                         {
                             key: 'line',
-                            controlType: 'object',
-                            controlOptions: {
+                            control: {
+                                type: 'object',
                                 isOpenedByDefault: true,
                                 props: [
                                     {
                                         key: 'stroke',
-                                        controlType: 'colorPicker',
+                                        control: { type: 'colorPicker' },
                                     },
                                     {
                                         key: 'strokeWidth',
-                                        controlType: 'lineWidth',
+                                        control: { type: 'lineWidth' },
                                     },
                                 ],
                             },
@@ -244,8 +255,9 @@ const Theming = () => {
                                             ],
                                         },
                                     ]}
-                                    enableDots={true}
-                                    enableDotLabel={true}
+                                    enablePoints
+                                    enablePointLabel
+                                    pointSize={10}
                                     theme={theme}
                                     animate={false}
                                     axisBottom={{

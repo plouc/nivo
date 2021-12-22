@@ -1,18 +1,42 @@
 import React from 'react'
-import { Defs, patternDotsDef, PatternDots } from '@nivo/core'
-import GuideDemoBlock from '../GuideDemoBlock'
+import {
+    Defs,
+    // @ts-ignore
+    patternDotsDef,
+    // @ts-ignore
+    PatternDots,
+} from '@nivo/core'
+import { ChartProperty } from '../../../types'
+import { GuideDemoBlock } from '../GuideDemoBlock'
 
+const defaults = (PatternDots as unknown as any).defaultProps as Settings
 const SAMPLE_SIZE = 120
 const patternId = 'dots-pattern'
 
-const controls = [
+interface Settings {
+    size: number
+    padding: number
+    stagger: boolean
+    background: string
+    color: string
+}
+
+const initialSettings: Settings = {
+    size: defaults.size,
+    padding: defaults.padding,
+    stagger: defaults.stagger,
+    background: defaults.background,
+    color: defaults.color,
+}
+
+const controls: ChartProperty[] = [
     {
         name: 'size',
         type: 'number',
         help: 'dots size.',
-        controlType: 'range',
-        defaultValue: PatternDots.defaultProps.size,
-        controlOptions: {
+        defaultValue: defaults.size,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 1,
             max: 24,
@@ -22,9 +46,9 @@ const controls = [
         name: 'padding',
         type: 'number',
         help: 'padding between dots.',
-        controlType: 'range',
-        defaultValue: PatternDots.defaultProps.padding,
-        controlOptions: {
+        defaultValue: defaults.padding,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -34,44 +58,37 @@ const controls = [
         name: 'stagger',
         type: 'boolean',
         help: 'staggered dots.',
-        defaultValue: PatternDots.defaultProps.stagger,
-        controlType: 'switch',
+        defaultValue: defaults.stagger,
+        control: { type: 'switch' },
     },
     {
         name: 'background',
         type: 'string',
         help: 'pattern background color.',
-        defaultValue: PatternDots.defaultProps.background,
-        controlType: 'colorPicker',
+        defaultValue: defaults.background,
+        control: { type: 'colorPicker' },
     },
     {
         name: 'color',
         type: 'string',
         help: 'dots color.',
-        defaultValue: PatternDots.defaultProps.color,
-        controlType: 'colorPicker',
+        defaultValue: defaults.color,
+        control: { type: 'colorPicker' },
     },
 ]
 
-const initialSettings = {
-    size: PatternDots.defaultProps.size,
-    padding: PatternDots.defaultProps.padding,
-    stagger: PatternDots.defaultProps.stagger,
-    background: PatternDots.defaultProps.background,
-    color: PatternDots.defaultProps.color,
-}
-
-const generateCode = settings =>
+const generateCode = (settings: Settings) =>
     `
 // helper
+import { patternDotsDef } from '@nivo/core'
 patternDotsDef('${patternId}', ${JSON.stringify(settings, null, '  ')})
 // plain object
 ${JSON.stringify(patternDotsDef(patternId, settings), null, '    ')}
 `.trim()
 
-const PatternDotsDemo = () => {
+export const PatternsDotsDemo = () => {
     return (
-        <GuideDemoBlock
+        <GuideDemoBlock<Settings>
             title="Dots"
             controls={controls}
             initialSettings={initialSettings}
@@ -86,5 +103,3 @@ const PatternDotsDemo = () => {
         </GuideDemoBlock>
     )
 }
-
-export default PatternDotsDemo
