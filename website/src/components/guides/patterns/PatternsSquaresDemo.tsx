@@ -1,18 +1,42 @@
 import React from 'react'
-import { Defs, patternSquaresDef, PatternSquares } from '@nivo/core'
-import GuideDemoBlock from '../GuideDemoBlock'
+import {
+    Defs,
+    // @ts-ignore
+    patternSquaresDef,
+    // @ts-ignore
+    PatternSquares,
+} from '@nivo/core'
+import { ChartProperty } from '../../../types'
+import { GuideDemoBlock } from '../GuideDemoBlock'
 
+const defaults = (PatternSquares as unknown as any).defaultProps as Settings
 const SAMPLE_SIZE = 120
 const patternId = 'squares-pattern'
 
-const controls = [
+interface Settings {
+    size: number
+    padding: number
+    stagger: boolean
+    background: string
+    color: string
+}
+
+const initialSettings: Settings = {
+    size: defaults.size,
+    padding: defaults.padding,
+    stagger: defaults.stagger,
+    background: defaults.background,
+    color: defaults.color,
+}
+
+const controls: ChartProperty[] = [
     {
         name: 'size',
         type: 'number',
         help: 'squares size.',
-        defaultValue: PatternSquares.defaultProps.size,
-        controlType: 'range',
-        controlOptions: {
+        defaultValue: defaults.size,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 1,
             max: 24,
@@ -22,9 +46,9 @@ const controls = [
         name: 'padding',
         type: 'number',
         help: 'padding between squares.',
-        defaultValue: PatternSquares.defaultProps.padding,
-        controlType: 'range',
-        controlOptions: {
+        defaultValue: defaults.padding,
+        control: {
+            type: 'range',
             unit: 'px',
             min: 0,
             max: 36,
@@ -34,44 +58,37 @@ const controls = [
         name: 'stagger',
         type: 'boolean',
         help: 'staggered squares.',
-        defaultValue: PatternSquares.defaultProps.stagger,
-        controlType: 'switch',
+        defaultValue: defaults.stagger,
+        control: { type: 'switch' },
     },
     {
         name: 'background',
         type: 'string',
         help: 'pattern background color.',
-        defaultValue: PatternSquares.defaultProps.background,
-        controlType: 'colorPicker',
+        defaultValue: defaults.background,
+        control: { type: 'colorPicker' },
     },
     {
         name: 'color',
         type: 'string',
         help: 'squares color.',
-        defaultValue: PatternSquares.defaultProps.color,
-        controlType: 'colorPicker',
+        defaultValue: defaults.color,
+        control: { type: 'colorPicker' },
     },
 ]
 
-const initialSettings = {
-    size: PatternSquares.defaultProps.size,
-    padding: PatternSquares.defaultProps.padding,
-    stagger: PatternSquares.defaultProps.stagger,
-    background: PatternSquares.defaultProps.background,
-    color: PatternSquares.defaultProps.color,
-}
-
-const generateCode = settings =>
+const generateCode = (settings: Settings) =>
     `
 // helper
+import { patternSquaresDef } from '@nivo/core'
 patternSquaresDef('${patternId}', ${JSON.stringify(settings, null, '  ')})
 // plain object
 ${JSON.stringify(patternSquaresDef(patternId, settings), null, '    ')}
 `.trim()
 
-const PatternsSquaresDemo = () => {
+export const PatternsSquaresDemo = () => {
     return (
-        <GuideDemoBlock
+        <GuideDemoBlock<Settings>
             title="Squares"
             controls={controls}
             initialSettings={initialSettings}
@@ -86,5 +103,3 @@ const PatternsSquaresDemo = () => {
         </GuideDemoBlock>
     )
 }
-
-export default PatternsSquaresDemo

@@ -1,0 +1,5 @@
+export * from './PatternsDotsDemo'
+export * from './PatternsExample'
+export * from './PatternsIllustrations'
+export * from './PatternsLinesDemo'
+export * from './PatternsSquaresDemo'

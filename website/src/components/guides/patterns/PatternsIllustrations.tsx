@@ -1,13 +1,15 @@
 import React from 'react'
+// @ts-ignore
 import { patternDotsDef, patternLinesDef, patternSquaresDef } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
 import { generateCountriesData } from '@nivo/generators'
 import { FullWidthBanner } from '../../styled'
+// @ts-ignore
 import { useTheme } from '../../../theming/context'
 
-const PatternsIllustrations = () => {
+export const PatternsIllustrations = () => {
     const theme = useTheme()
 
     return (
@@ -16,6 +18,7 @@ const PatternsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveStream
                         margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
+                        // @ts-ignore
                         data={generateCountriesData(['a', 'b', 'c'], { size: 7 })}
                         indexBy="country"
                         keys={['a', 'b', 'c']}
@@ -61,6 +64,7 @@ const PatternsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveBar
                         margin={{ top: 15, right: -2, bottom: -2, left: -2 }}
+                        // @ts-ignore
                         data={generateCountriesData(['a', 'b', 'c'], { size: 7 })}
                         indexBy="country"
                         keys={['a', 'b', 'c']}
@@ -70,6 +74,7 @@ const PatternsIllustrations = () => {
                         axisBottom={null}
                         enableGridY={false}
                         enableLabel={false}
+                        // @ts-ignore
                         colorBy="index"
                         defs={[
                             patternLinesDef('example2.lines', {
@@ -126,6 +131,7 @@ const PatternsIllustrations = () => {
                         animate={false}
                         enableLabel={false}
                         enableParentLabel={false}
+                        // @ts-ignore
                         defs={[
                             patternLinesDef('example3.lines', {
                                 rotation: -45,
@@ -146,5 +152,3 @@ const PatternsIllustrations = () => {
         </FullWidthBanner>
     )
 }
-
-export default PatternsIllustrations

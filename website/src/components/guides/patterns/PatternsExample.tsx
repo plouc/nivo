@@ -36,6 +36,4 @@ const MyChart = () => (
 )
 `.trim()
 
-const PatternsExample = () => <Highlight code={code} language="jsx" />
-
-export default PatternsExample
+export const PatternsExample = () => <Highlight code={code} language="jsx" />

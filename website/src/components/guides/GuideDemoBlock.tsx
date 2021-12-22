@@ -1,9 +1,47 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
 import { CollapsibleCard } from '../CollapsibleCard'
 import ControlsGroup from '../controls/ControlsGroup'
 import { Highlight } from '../Highlight'
+import { ChartProperty } from '../../types'
+
+interface GuideDemoBlockProps<Settings> {
+    title: string
+    initialSettings: Settings
+    controls: ChartProperty[]
+    generateCode: (settings: Settings) => string
+    children: (settings: Settings) => ReactNode
+}
+
+export function GuideDemoBlock<Settings>({
+    title,
+    initialSettings,
+    controls,
+    generateCode,
+    children,
+}: GuideDemoBlockProps<Settings>) {
+    const [settings, setSettings] = useState(initialSettings)
+
+    return (
+        <CollapsibleCard title={title} expandedByDefault={true}>
+            <Container>
+                <Preview>{children(settings)}</Preview>
+                <Controls>
+                    <ControlsGroup
+                        name={title}
+                        controls={controls}
+                        settings={settings}
+                        onChange={setSettings}
+                    />
+                </Controls>
+                <Code>
+                    <Highlight language="jsx" code={generateCode(settings)} />
+                </Code>
+            </Container>
+        </CollapsibleCard>
+    )
+}
 
 const Container = styled.div`
     display: grid;
@@ -50,28 +88,3 @@ const Controls = styled.div`
     overflow-x: hidden;
     overflow-y: auto;
 `
-
-const GuideDemoBlock = ({ title, initialSettings, controls, generateCode, children }) => {
-    const [settings, setSettings] = useState(initialSettings)
-
-    return (
-        <CollapsibleCard title={title} expandedByDefault={true}>
-            <Container>
-                <Preview>{children(settings)}</Preview>
-                <Controls>
-                    <ControlsGroup
-                        name={title}
-                        controls={controls}
-                        settings={settings}
-                        onChange={setSettings}
-                    />
-                </Controls>
-                <Code>
-                    <Highlight language="jsx" code={generateCode(settings)} />
-                </Code>
-            </Container>
-        </CollapsibleCard>
-    )
-}
-
-export default GuideDemoBlock

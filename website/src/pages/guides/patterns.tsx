@@ -1,13 +1,16 @@
 import React from 'react'
 import { Link } from 'gatsby'
+// @ts-ignore
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
-import PatternsIllustrations from '../../components/guides/patterns/PatternsIllustrations'
-import PatternsExample from '../../components/guides/patterns/PatternsExample'
-import PatternsDots from '../../components/guides/patterns/PatternsDots'
-import PatternsLines from '../../components/guides/patterns/PatternsLines'
-import PatternsSquares from '../../components/guides/patterns/PatternsSquares'
+import {
+    PatternsIllustrations,
+    PatternsExample,
+    PatternsDotsDemo,
+    PatternsLinesDemo,
+    PatternsSquaresDemo,
+} from '../../components/guides/patterns'
 import { DescriptionBlock } from '../../components/styled'
 
 const Patterns = () => (
@@ -52,9 +55,9 @@ const Patterns = () => (
             <h2>Example</h2>
             <PatternsExample />
             <h2>Available patterns</h2>
-            <PatternsDots />
-            <PatternsLines />
-            <PatternsSquares />
+            <PatternsDotsDemo />
+            <PatternsLinesDemo />
+            <PatternsSquaresDemo />
             <h2>Known limitations</h2>
             <p>
                 Please be aware that pattern usage has some limitations, it's{' '}
