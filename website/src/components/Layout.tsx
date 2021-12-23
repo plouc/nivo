@@ -1,16 +1,11 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import styled from 'styled-components'
 import Header from './Header'
 import media from '../theming/mediaQueries'
+// @ts-ignore
 import MiniNav from './nav/MiniNav'
 
-/*
-Layout.propTypes = {
-    children: PropTypes.node.isRequired,
-}
-*/
-
-const Layout = ({ children }) => {
+const Layout = ({ children }: PropsWithChildren<{}>) => {
     return (
         <>
             <Header />
