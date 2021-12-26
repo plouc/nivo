@@ -3,7 +3,7 @@ import { LegendSvgItem } from '@nivo/legends'
 import { Highlight } from '../../Highlight'
 import { useTheme } from '../../../theming/context'
 
-const shapes = ['square', 'circle', 'triangle', 'diamond']
+const shapes = ['square', 'circle', 'triangle', 'diamond'] as const
 
 const code = `
 const CustomSymbolShape = ({
@@ -23,7 +23,7 @@ const CustomSymbolShape = ({
 )
 `.trim()
 
-const SymbolShape = () => {
+export const SymbolShape = () => {
     const theme = useTheme()
 
     const itemsProps = {
@@ -82,5 +82,3 @@ const SymbolShape = () => {
         </div>
     )
 }
-
-export default SymbolShape

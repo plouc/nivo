@@ -9,7 +9,7 @@ const legendProps = {
     itemHeight: 24,
 }
 
-const LegendDirection = () => {
+export const LegendDirection = () => {
     const theme = useTheme()
 
     return (
@@ -47,5 +47,3 @@ const LegendDirection = () => {
         </div>
     )
 }
-
-export default LegendDirection

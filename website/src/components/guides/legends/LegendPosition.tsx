@@ -13,7 +13,7 @@ const anchors = [
     'bottom-left',
     'left',
     'center',
-]
+] as const
 
 const translateExamples = [
     {
@@ -48,7 +48,7 @@ const legendProps = {
     direction: 'column',
 }
 
-const LegendPosition = () => {
+export const LegendPosition = () => {
     const theme = useTheme()
 
     return (
@@ -177,5 +177,3 @@ const LegendPosition = () => {
         </div>
     )
 }
-
-export default LegendPosition

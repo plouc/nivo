@@ -9,7 +9,7 @@ import { linearXScale, pointXScale, timeXScale, timeXScaleHours } from './scales
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'
 
-const AxesTicks = () => {
+export const AxesTicks = () => {
     const theme = useAxisTheme()
 
     return (
@@ -153,5 +153,3 @@ const AxesTicks = () => {
         </>
     )
 }
-
-export default AxesTicks

@@ -11,7 +11,7 @@ import { useAxisTheme } from './theme'
 
 const axisPositions = ['start', 'middle', 'end'] as const
 
-const AxesLegend = () => {
+export const AxesLegend = () => {
     const theme = useAxisTheme()
 
     return (
@@ -76,5 +76,3 @@ const AxesLegend = () => {
         </>
     )
 }
-
-export default AxesLegend
