@@ -80,7 +80,10 @@ deploy-all: ##@0 global deploy website & storybook
 	@$(MAKE) website-deploy
 	@$(MAKE) storybook-deploy
 
-netlify-build: website-build storybook-build ##@0 Build the website and storybook to netlify
+netlify-build: ##@0 Build the website and storybook to netlify
+	@$(MAKE) init
+	@$(MAKE) website-build
+	@$(MAKE) website-build
 	@cp -a storybook-static website/public/storybook
 
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
