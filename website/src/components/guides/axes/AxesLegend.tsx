@@ -1,11 +1,15 @@
 import React from 'react'
-import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
+import {
+    ThemeProvider,
+    // @ts-ignore
+    MotionConfigProvider,
+} from '@nivo/core'
 import { Axis } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'
 
-const axisPositions = ['start', 'middle', 'end']
+const axisPositions = ['start', 'middle', 'end'] as const
 
 const AxesLegend = () => {
     const theme = useAxisTheme()
@@ -42,9 +46,6 @@ const AxesLegend = () => {
                                             axis="x"
                                             scale={linearXScale}
                                             length={280}
-                                            animate={false}
-                                            motionStiffness={0}
-                                            motionDamping={0}
                                             legend={position}
                                             legendPosition={position}
                                             legendOffset={-32}
@@ -60,9 +61,6 @@ const AxesLegend = () => {
                                             axis="y"
                                             scale={linearYScale}
                                             length={160}
-                                            animate={false}
-                                            motionStiffness={0}
-                                            motionDamping={0}
                                             legend={position}
                                             legendPosition={position}
                                             legendOffset={-32}
