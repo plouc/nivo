@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { Theme as NivoTheme } from '@nivo/core'
+import { startCase } from 'lodash'
 import { Seo } from '../Seo'
 import Layout from '../Layout'
 import { useTheme } from '../../theming/context'
@@ -61,6 +62,7 @@ export const ComponentTemplate = <
     dataKey,
     getDataSize,
     getTabData = data => data,
+    image,
     children,
 }: ComponentTemplateProps<UnmappedProps, Props, Data>) => {
     const theme = useTheme()
@@ -93,6 +95,8 @@ export const ComponentTemplate = <
 
     const hasStories = meta.stories !== undefined && meta.stories.length > 0
 
+    const title = `${startCase(name)} chart`
+    const description = `${meta.package} package ${startCase(name)} chart.`
     const tags = useMemo(() => [meta.package, ...meta.tags], [meta])
 
     const flavorKeys = useMemo(() => flavors.map(flavor => flavor.flavor), [flavors])
@@ -100,7 +104,7 @@ export const ComponentTemplate = <
     return (
         <Layout>
             <ComponentPage>
-                <Seo title={name} keywords={tags} />
+                <Seo title={title} description={description} image={image} keywords={tags} />
                 <ComponentHeader chartClass={name} tags={tags} />
                 <ComponentFlavorSelector flavors={flavors} current={currentFlavor} />
                 <ComponentDescription description={meta.description} />
