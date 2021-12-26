@@ -60,6 +60,7 @@
     "jsdom": "^19.0.0",
     "lerna": "^3.22.1",
     "lodash": "^4.17.21",
+    "netlify-cli": "^8.4.2",
     "npm-normalize-package-bin": "^1.0.1",
     "prettier": "^2.5.1",
     "prop-types": "^15.7.2",

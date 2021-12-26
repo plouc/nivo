@@ -16,3 +16,5 @@ build
 
 /stats
 /api/app.js
+# Local Netlify folder
+.netlify
