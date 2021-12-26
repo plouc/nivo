@@ -1,6 +1,8 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
+import { useStaticQuery, graphql } from 'gatsby'
+import { getSrc } from 'gatsby-plugin-image'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveAreaBump, AreaBumpDefaultProps } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -103,6 +105,20 @@ const initialProperties = {
 }
 
 const Bump = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bump.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="AreaBump"
@@ -115,6 +131,7 @@ const Bump = () => {
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
