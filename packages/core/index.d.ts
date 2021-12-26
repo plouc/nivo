@@ -247,6 +247,10 @@ declare module '@nivo/core' {
 
     export function useAnimatedPath(path: string): Interpolation<string>
 
+    // ------------------------------------------------------------------------
+    // Patterns & Gradients
+    // ------------------------------------------------------------------------
+
     export type GradientColor = {
         offset: number
         color: string
@@ -283,10 +287,20 @@ declare module '@nivo/core' {
         padding?: number
         stagger?: boolean
     }
+    export function patternDotsDef(
+        id: string,
+        options?: Omit<PatternDotsDef, 'id' | 'type'>
+    ): PatternDotsDef
+    export function PatternDots(props: Omit<PatternDotsDef, 'type'>): JSX.Element
 
     export type PatternSquaresDef = Omit<PatternDotsDef, 'type'> & {
         type: 'patternSquares'
     }
+    export function patternSquaresDef(
+        id: string,
+        options?: Omit<PatternSquaresDef, 'id' | 'type'>
+    ): PatternSquaresDef
+    export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
 
     export type PatternLinesDef = {
         id: string
@@ -297,12 +311,23 @@ declare module '@nivo/core' {
         color?: string
         lineWidth?: number
     }
+    export function patternLinesDef(
+        id: string,
+        options?: Omit<PatternLinesDef, 'id' | 'type'>
+    ): PatternLinesDef
+    export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
 
     export type Def = LinearGradientDef | PatternDotsDef | PatternSquaresDef | PatternLinesDef
 
     export type DefsProps = {
         defs: Def[]
     }
+
+    export function Defs(props: DefsProps): JSX.Element
+
+    // ------------------------------------------------------------------------
+    // Motion
+    // ------------------------------------------------------------------------
 
     export const defaultAnimate = true
     export const defaultMotionStiffness = 90
@@ -323,12 +348,6 @@ declare module '@nivo/core' {
         left: 0
     }
     export const defaultMargin: DefaultMargin
-
-    export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
-    export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
-    export function PatternDots(props: Omit<PatternDotsDef, 'type'>): JSX.Element
-
-    export function Defs(props: DefsProps): JSX.Element
 
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number

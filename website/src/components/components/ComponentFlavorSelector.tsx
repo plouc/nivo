@@ -2,6 +2,40 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
+import { Flavor } from '../../types'
+
+const labelByFlavor: Record<Flavor, string> = {
+    svg: 'svg',
+    html: 'html',
+    canvas: 'canvas',
+    api: 'http api',
+}
+
+interface ComponentFlavorSelectorProps {
+    flavors: {
+        flavor: Flavor
+        path: string
+    }[]
+    current: Flavor
+}
+
+export const ComponentFlavorSelector = ({ flavors, current }: ComponentFlavorSelectorProps) => {
+    return (
+        <Container>
+            {flavors.map(flavor => {
+                return (
+                    <FlavorItem
+                        key={flavor.flavor}
+                        to={flavor.path}
+                        className={current === flavor.flavor ? 'isCurrent' : ''}
+                    >
+                        {labelByFlavor[flavor.flavor]}
+                    </FlavorItem>
+                )
+            })}
+        </Container>
+    )
+}
 
 const Container = styled.div`
     font-size: 0.8rem;
@@ -34,7 +68,7 @@ const Container = styled.div`
     `}
 `
 
-const Flavor = styled(Link)`
+const FlavorItem = styled(Link)`
     display: inline-block;
     position: relative;
     font-weight: 600;
@@ -78,42 +112,3 @@ const Flavor = styled(Link)`
         }
     }
 `
-
-const labelByFlavor = {
-    svg: 'svg',
-    html: 'html',
-    canvas: 'canvas',
-    api: 'http api',
-}
-
-/*
-ComponentFlavorSelector.propTypes = {
-    flavors: PropTypes.arrayOf(
-        PropTypes.shape({
-            flavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']),
-            path: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    current: PropTypes.string.isRequired,
-}
-*/
-
-const ComponentFlavorSelector = ({ flavors, current }) => {
-    return (
-        <Container>
-            {flavors.map(flavor => {
-                return (
-                    <Flavor
-                        key={flavor.flavor}
-                        to={flavor.path}
-                        className={current === flavor.flavor ? 'isCurrent' : ''}
-                    >
-                        {labelByFlavor[flavor.flavor]}
-                    </Flavor>
-                )
-            })}
-        </Container>
-    )
-}
-
-export default ComponentFlavorSelector

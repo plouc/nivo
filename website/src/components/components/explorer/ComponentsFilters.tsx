@@ -1,42 +1,44 @@
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import media from '../../../theming/mediaQueries'
 
-const filters = ['SVG', 'HTML', 'Canvas', 'HTTP API']
+const filters = ['SVG', 'HTML', 'Canvas', 'HTTP API'] as const
 
-const ComponentsFilters = memo(({ filter: currentFilter, onChange }) => {
-    return (
-        <Container>
-            <Item
-                isActive={currentFilter === null}
-                onClick={() => {
-                    onChange(null)
-                }}
-            >
-                All
-            </Item>
-            {filters.map(filter => (
-                <Item
-                    key={filter}
-                    isActive={currentFilter && filter.toLowerCase() === currentFilter.toLowerCase()}
-                    onClick={() => {
-                        onChange(filter)
-                    }}
-                >
-                    {filter}
-                </Item>
-            ))}
-        </Container>
-    )
-})
-
-ComponentsFilters.displayName = 'ComponentsFilters'
-ComponentsFilters.propTypes = {
-    onChange: PropTypes.func.isRequired,
+interface ComponentsFiltersProps {
+    filter: string | null
+    onChange: (filter: string | null) => void
 }
 
-export default ComponentsFilters
+export const ComponentsFilters = memo(
+    ({ filter: currentFilter, onChange }: ComponentsFiltersProps) => {
+        return (
+            <Container>
+                <Item
+                    isActive={currentFilter === null}
+                    onClick={() => {
+                        onChange(null)
+                    }}
+                >
+                    All
+                </Item>
+                {filters.map(filter => (
+                    <Item
+                        key={filter}
+                        isActive={
+                            currentFilter !== null &&
+                            filter.toLowerCase() === currentFilter.toLowerCase()
+                        }
+                        onClick={() => {
+                            onChange(filter)
+                        }}
+                    >
+                        {filter}
+                    </Item>
+                ))}
+            </Container>
+        )
+    }
+)
 
 const Container = styled.div`
     display: flex;
@@ -48,7 +50,9 @@ const Container = styled.div`
     font-weight: 700;
 `
 
-const Item = styled.span`
+const Item = styled.span<{
+    isActive: boolean
+}>`
     line-height: 38px;
     background: ${({ isActive, theme }) =>
         isActive ? theme.colors.accent : theme.colors.cardBackground};

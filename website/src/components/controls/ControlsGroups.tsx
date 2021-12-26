@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import ControlsGroup from '../controls/ControlsGroup'
+import { ControlsGroup } from './ControlsGroup'
 import media from '../../theming/mediaQueries'
 import { ChartProperty } from '../../types'
 

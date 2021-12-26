@@ -13,8 +13,7 @@ import { Seo } from '../../components/Seo'
 import { ComponentPage } from '../../components/components/ComponentPage'
 import { ComponentHeader } from '../../components/components/ComponentHeader'
 import { Markdown } from '../../components/Markdown'
-// @ts-ignore
-import ComponentSettings from '../../components/components/ComponentSettings'
+import { ComponentSettings } from '../../components/components/ComponentSettings'
 import media from '../../theming/mediaQueries'
 import { ChartProperty } from '../../types'
 
@@ -282,7 +281,6 @@ const Theming = () => {
                     )}
                 </Charts>
                 <ComponentSettings
-                    component="theming"
                     settings={theme}
                     onChange={setTheme}
                     groups={controlGroups}

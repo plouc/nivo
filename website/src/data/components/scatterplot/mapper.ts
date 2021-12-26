@@ -1,4 +1,3 @@
-import React from 'react'
 import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
 
 export default settingsMapper(

@@ -4,6 +4,33 @@ import styled from 'styled-components'
 import media from '../../../theming/mediaQueries'
 import { useTheme } from '../../../theming/context'
 
+interface ComponentsGridItemProps {
+    path: string
+    name: string
+    icon: string
+    tags: string[]
+}
+
+export const ComponentsGridItem = memo(({ path, name, icon, tags }: ComponentsGridItemProps) => {
+    const theme = useTheme()
+
+    return (
+        <Container to={path}>
+            <Icon className={`sprite-icons-${icon}-${theme.id}-colored`} />
+            <Header>
+                <Name>{name}</Name>
+                {tags.length > 0 && (
+                    <Tags>
+                        {tags.map(tag => (
+                            <Tag key={tag}>{tag}</Tag>
+                        ))}
+                    </Tags>
+                )}
+            </Header>
+        </Container>
+    )
+})
+
 const Container = styled(Link)`
     text-decoration: none;
     background-color: ${({ theme }) => theme.colors.cardBackground};
@@ -86,25 +113,3 @@ const Tag = styled.span`
         border-left: none;
     }
 `
-
-const ComponentsGridItem = memo(({ path, name, icon, tags }) => {
-    const theme = useTheme()
-
-    return (
-        <Container to={path}>
-            <Icon className={`sprite-icons-${icon}-${theme.id}-colored`} />
-            <Header>
-                <Name>{name}</Name>
-                {tags.length > 0 && (
-                    <Tags>
-                        {tags.map(tag => (
-                            <Tag key={tag}>{tag}</Tag>
-                        ))}
-                    </Tags>
-                )}
-            </Header>
-        </Container>
-    )
-})
-
-export default ComponentsGridItem

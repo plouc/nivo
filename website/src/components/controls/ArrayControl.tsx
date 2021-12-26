@@ -1,7 +1,7 @@
 import React, { memo, Fragment, useMemo, useState, useCallback, MouseEvent } from 'react'
 import styled from 'styled-components'
 import { PropertyHeader } from './PropertyHeader'
-import ControlsGroup from './ControlsGroup'
+import { ControlsGroup } from './ControlsGroup'
 import { Cell, Toggle } from './styled'
 import { Help } from './Help'
 import { Flavor, ChartProperty } from '../../types'

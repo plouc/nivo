@@ -1,7 +1,7 @@
 import React from 'react'
 import { generateLibTree } from '@nivo/generators'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/circle-packing/props'
 import mapper from '../../data/components/circle-packing/mapper'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -18,7 +18,7 @@ const CirclePackingApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/circle-packing.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }

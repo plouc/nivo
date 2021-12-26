@@ -161,7 +161,9 @@ const Nav = styled.nav`
     `}
 `
 
-const NavItem = styled.span`
+const NavItem = styled.span<{
+    isCurrent: boolean
+}>`
     cursor: pointer;
     height: 46px;
     display: block;

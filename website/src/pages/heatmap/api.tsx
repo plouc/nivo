@@ -1,6 +1,6 @@
 import React from 'react'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/heatmap/props'
 import mapper from '../../data/components/heatmap/mapper'
 import { generateLightDataSet } from '../../data/components/heatmap/generator'
@@ -18,7 +18,7 @@ const HeatMapApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/heatmap.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }
