@@ -1,4 +1,7 @@
-const siteUrl = process.env.SITE_URL || 'https://nivo.rocks' // no trailing slash
+// 1. custom env var
+// 2. netlify deployment
+// 3. main site
+const siteUrl = process.env.SITE_URL || process.env.DEPLOY_URL || 'https://nivo.rocks' // no trailing slash
 
 module.exports = {
     siteMetadata: {
