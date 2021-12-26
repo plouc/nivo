@@ -6,22 +6,22 @@
 
 [documentation](http://nivo.rocks/geomap)
 
-![GeoMap](https://raw.githubusercontent.com/plouc/nivo/master/packages/geo/doc/geomap.png)
+![GeoMap](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/geomap.png)
 
 ## GeoMapCanvas
 
 [documentation](http://nivo.rocks/geomap/canvas)
 
-![GeoMapCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/geo/doc/geomap-canvas.png)
+![GeoMapCanvas](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/geomap-canvas.png)
 
 ## Choropleth
 
 [documentation](http://nivo.rocks/choropleth)
 
-![Choropleth](https://raw.githubusercontent.com/plouc/nivo/master/packages/geo/doc/choropleth.png)
+![Choropleth](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/choropleth.png)
 
 ## ChoroplethCanvas
 
 [documentation](http://nivo.rocks/choropleth/canvas)
 
-![ChoroplethCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/geo/doc/choropleth-canvas.png)
+![ChoroplethCanvas](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/choropleth-canvas.png)

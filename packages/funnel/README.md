@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/funnel)
 
-![Funnel](https://raw.githubusercontent.com/plouc/nivo/master/packages/funnel/doc/funnel.png)
+![Funnel](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/funnel.png)
