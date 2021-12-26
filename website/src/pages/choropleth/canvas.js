@@ -6,6 +6,7 @@ import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/choropleth/props'
 import { generateChoroplethData } from '../../data/components/geo/generator'
 import countries from '../../data/components/geo/world_countries'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -63,6 +64,20 @@ const initialProperties = {
 }
 
 const ChoroplethCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/choropleth-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="ChoroplethCanvas"
@@ -80,6 +95,7 @@ const ChoroplethCanvas = () => {
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
             generateData={generateChoroplethData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

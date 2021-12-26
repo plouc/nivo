@@ -4,6 +4,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
 import { generateNetworkData } from '@nivo/generators'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = Object.freeze({
     pixelRatio:
@@ -33,6 +34,20 @@ const initialProperties = Object.freeze({
 const generateData = () => generateNetworkData()
 
 const NetworkCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/network-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="NetworkCanvas"
@@ -52,6 +67,7 @@ const NetworkCanvas = () => {
                 })
             }
             getDataSize={data => data.nodes.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

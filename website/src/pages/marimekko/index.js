@@ -5,6 +5,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/marimekko/meta.yml'
 import mapper from '../../data/components/marimekko/mapper'
 import { groups } from '../../data/components/marimekko/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const getRandomValue = () => random(0, 32)
 
@@ -141,6 +142,20 @@ const initialProperties = {
 }
 
 const Marimekko = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/marimekko.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Marimekko"
@@ -153,6 +168,7 @@ const Marimekko = () => {
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 const handleClick = bar => {

@@ -5,13 +5,28 @@ import { groups } from '../../data/components/bar/props'
 import meta from '../../data/components/bar/meta.yml'
 import mapper from '../../data/components/bar/mapper'
 import { generateLightDataSet } from '../../data/components/bar/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const { data, keys } = generateLightDataSet()
 
 const BarApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Bar HTTP API" keywords={[...meta.Bar.tags, 'HTTP API']} />
+            <Seo title="Bar HTTP API" image={image} keywords={[...meta.Bar.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Bar"
                 chartClass="bar"

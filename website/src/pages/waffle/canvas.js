@@ -4,6 +4,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => [
     {
@@ -112,6 +113,20 @@ const initialProperties = {
 }
 
 const WaffleCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/waffle-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="WaffleCanvas"
@@ -129,6 +144,7 @@ const WaffleCanvas = () => {
                 tooltip: properties.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
             })}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

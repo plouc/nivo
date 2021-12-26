@@ -5,6 +5,7 @@ import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
 import { groups } from '../../data/components/scatterplot/props'
 import { generateLightDataSet } from '../../data/components/scatterplot/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     margin: {
@@ -111,6 +112,20 @@ const initialProperties = {
 }
 
 const ScatterPlot = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/scatterplot.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="ScatterPlot"
@@ -123,6 +138,7 @@ const ScatterPlot = () => {
             defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
+            image={image}
         >
             {(properties, data, theme, logAction) => (
                 <ResponsiveScatterPlot

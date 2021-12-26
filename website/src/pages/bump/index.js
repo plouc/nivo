@@ -6,6 +6,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
 import mapper from '../../data/components/bump/mapper'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -115,6 +116,20 @@ const initialProperties = {
 }
 
 const Bump = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bump.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Bump"
@@ -127,6 +142,7 @@ const Bump = () => {
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

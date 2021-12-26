@@ -12,6 +12,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/sankey/meta.yml'
 import mapper from '../../data/components/sankey/mapper'
 import { groups } from '../../data/components/sankey/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 type MappedSankeyProps = Omit<SankeySvgProps<DefaultNode, DefaultLink>, 'data' | 'width' | 'height'>
 type UnmappedSankeyProps = Omit<MappedSankeyProps, 'valueFormat'> & {
@@ -98,54 +99,71 @@ const initialProperties: UnmappedSankeyProps = {
 
 const generateData = () => generateSankeyData({ nodeCount: 6, maxIterations: 8 })
 
-const Sankey = () => (
-    <ComponentTemplate<
-        UnmappedSankeyProps,
-        MappedSankeyProps,
-        SankeySvgProps<DefaultNode, DefaultLink>['data']
-    >
-        name="Sankey"
-        meta={meta.Sankey}
-        icon="sankey"
-        flavors={meta.flavors}
-        currentFlavor="svg"
-        properties={groups}
-        initialProperties={initialProperties}
-        defaultProperties={svgDefaultProps}
-        propertiesMapper={mapper}
-        generateData={generateData}
-    >
-        {(properties, data, theme, logAction) => {
-            return (
-                <ResponsiveSankey
-                    data={data}
-                    {...properties}
-                    theme={theme}
-                    onClick={node => {
-                        let label
-                        if ('id' in node) {
-                            label = `[node] ${node.id}: ${node.value}`
-                        } else {
-                            label = `[link] ${node.source.id} > ${node.target.id}: ${node.value}`
-                        }
+const Sankey = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/sankey.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
 
-                        logAction({
-                            type: 'click',
-                            label,
-                            data: omit(node, [
-                                'sourceLinks',
-                                'targetLinks',
-                                'source.sourceLinks',
-                                'source.targetLinks',
-                                'target.sourceLinks',
-                                'target.targetLinks',
-                            ]),
-                        })
-                    }}
-                />
-            )
-        }}
-    </ComponentTemplate>
-)
+    return (
+        <ComponentTemplate<
+            UnmappedSankeyProps,
+            MappedSankeyProps,
+            SankeySvgProps<DefaultNode, DefaultLink>['data']
+        >
+            name="Sankey"
+            meta={meta.Sankey}
+            icon="sankey"
+            flavors={meta.flavors}
+            currentFlavor="svg"
+            properties={groups}
+            initialProperties={initialProperties}
+            defaultProperties={svgDefaultProps}
+            propertiesMapper={mapper}
+            generateData={generateData}
+            image={image}
+        >
+            {(properties, data, theme, logAction) => {
+                return (
+                    <ResponsiveSankey
+                        data={data}
+                        {...properties}
+                        theme={theme}
+                        onClick={node => {
+                            let label
+                            if ('id' in node) {
+                                label = `[node] ${node.id}: ${node.value}`
+                            } else {
+                                label = `[link] ${node.source.id} > ${node.target.id}: ${node.value}`
+                            }
+
+                            logAction({
+                                type: 'click',
+                                label,
+                                data: omit(node, [
+                                    'sourceLinks',
+                                    'targetLinks',
+                                    'source.sourceLinks',
+                                    'source.targetLinks',
+                                    'target.sourceLinks',
+                                    'target.targetLinks',
+                                ]),
+                            })
+                        }}
+                    />
+                )
+            }}
+        </ComponentTemplate>
+    )
+}
 
 export default Sankey

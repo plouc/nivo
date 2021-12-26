@@ -5,6 +5,7 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/pie/props'
 import mapper from '../../data/components/pie/mapper'
 import meta from '../../data/components/pie/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const DATASET_SIZE = 12
 const generateData = () =>
@@ -16,9 +17,23 @@ const generateData = () =>
 const data = generateData()
 
 const PieApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/pie.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Pie HTTP API" keywords={[...meta.Pie.tags, 'HTTP API']} />
+            <Seo title="Pie HTTP API" image={image} keywords={[...meta.Pie.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Pie"
                 chartClass="pie"

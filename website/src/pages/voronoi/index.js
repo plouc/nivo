@@ -4,6 +4,7 @@ import { ResponsiveVoronoi, defaultVoronoiProps } from '@nivo/voronoi'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/voronoi/meta.yml'
 import { groups } from '../../data/components/voronoi/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const xDomain = [0, 100]
 const yDomain = [0, 100]
@@ -38,6 +39,20 @@ const initialProperties = {
 }
 
 const Voronoi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/voronoi.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Voronoi"
@@ -49,6 +64,7 @@ const Voronoi = () => {
             initialProperties={initialProperties}
             defaultProperties={defaultVoronoiProps}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme) => {
                 return (

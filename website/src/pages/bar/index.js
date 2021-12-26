@@ -6,6 +6,7 @@ import meta from '../../data/components/bar/meta.yml'
 import { generateLightDataSet } from '../../data/components/bar/generator'
 import mapper from '../../data/components/bar/mapper'
 import { groups } from '../../data/components/bar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = () => {
     /* return custom tooltip */
@@ -151,6 +152,20 @@ const initialProperties = {
 }
 
 const Bar = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Bar"
@@ -169,6 +184,7 @@ const Bar = () => {
             })}
             generateData={generateLightDataSet}
             getTabData={data => data.data}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

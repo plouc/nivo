@@ -6,13 +6,32 @@ import { groups } from '../../data/components/treemap/props'
 import mapper from '../../data/components/treemap/mapper'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 import meta from '../../data/components/treemap/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const data = generateLightDataSet().root
 
 const TreeMapApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/treemap.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="TreeMap HTTP API" keywords={[...meta.TreeMap.tags, 'HTTP API']} />
+            <Seo
+                title="TreeMap HTTP API"
+                image={image}
+                keywords={[...meta.TreeMap.tags, 'HTTP API']}
+            />
             <ApiClient
                 componentName="TreeMap"
                 chartClass="treemap"

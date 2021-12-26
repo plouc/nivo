@@ -5,6 +5,7 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
 import meta from '../../data/components/calendar/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const from = new Date(2015, 3, 1)
 const to = new Date(2018, 7, 12)
@@ -12,9 +13,27 @@ const generateData = () => generateDayCounts(from, to)
 const data = generateData()
 
 const CalendarApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/calendar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Calendar HTTP API" keywords={[...meta.Calendar.tags, 'HTTP API']} />
+            <Seo
+                title="Calendar HTTP API"
+                image={image}
+                keywords={[...meta.Calendar.tags, 'HTTP API']}
+            />
             <ApiClient
                 componentName="Calendar"
                 chartClass="calendar"

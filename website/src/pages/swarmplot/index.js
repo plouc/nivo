@@ -5,6 +5,7 @@ import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'
 import { groups } from '../../data/components/swarmplot/props'
 import { generateLightDataSet } from '../../data/components/swarmplot/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = Object.freeze({
     groupBy: 'group',
@@ -96,7 +97,21 @@ const initialProperties = Object.freeze({
     motionConfig: 'gentle',
 })
 
-const ScatterPlot = () => {
+const SwarmPlot = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/swarmplot.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="SwarmPlot"
@@ -115,6 +130,7 @@ const ScatterPlot = () => {
             generateData={generateLightDataSet}
             getTabData={data => data.data}
             getDataSize={data => data.data.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
@@ -138,4 +154,4 @@ const ScatterPlot = () => {
     )
 }
 
-export default ScatterPlot
+export default SwarmPlot

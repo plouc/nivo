@@ -5,13 +5,32 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/sankey/props'
 import mapper from '../../data/components/sankey/mapper'
 import meta from '../../data/components/sankey/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const data = generateSankeyData({ nodeCount: 6, maxIterations: 8 })
 
 const SankeyApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/sankey.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Sankey HTTP API" keywords={[...meta.Sankey.tags, 'HTTP API']} />
+            <Seo
+                title="Sankey HTTP API"
+                image={image}
+                keywords={[...meta.Sankey.tags, 'HTTP API']}
+            />
             <ApiClient
                 componentName="Sankey"
                 chartClass="sankey"

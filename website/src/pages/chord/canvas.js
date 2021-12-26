@@ -5,6 +5,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/chord/meta.yml'
 import mapper from '../../data/components/chord/mapper'
 import { groups } from '../../data/components/chord/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const MATRIX_SIZE = 38
 
@@ -87,6 +88,20 @@ const initialProperties = {
 const generateData = () => generateChordData({ size: MATRIX_SIZE })
 
 const ChordCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/chord-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="ChordCanvas"
@@ -105,6 +120,7 @@ const ChordCanvas = () => {
             dataKey="matrix"
             getDataSize={() => MATRIX_SIZE * MATRIX_SIZE + MATRIX_SIZE}
             getTabData={data => data.matrix}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
