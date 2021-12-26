@@ -1,17 +1,18 @@
 import React, { useState, useCallback, useMemo } from 'react'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 import { Theme as NivoTheme } from '@nivo/core'
 import { startCase } from 'lodash'
 import { Seo } from '../Seo'
 import Layout from '../Layout'
 import { useTheme } from '../../theming/context'
-import generateCode from '../../lib/generateChartCode'
+import { generateChartCode } from '../../lib/generateChartCode'
 import { ComponentPage } from './ComponentPage'
 import { ComponentHeader } from './ComponentHeader'
-import ComponentFlavorSelector from './ComponentFlavorSelector'
+import { ComponentFlavorSelector } from './ComponentFlavorSelector'
 import { ComponentDescription } from './ComponentDescription'
 import { ComponentTabs } from './ComponentTabs'
 import { ActionsLogger, useActionsLogger } from './ActionsLogger'
-import ComponentSettings from './ComponentSettings'
+import { ComponentSettings } from './ComponentSettings'
 import { Stories } from './Stories'
 import { ChartMeta, ChartProperty, Flavor } from '../../types'
 
@@ -40,6 +41,7 @@ interface ComponentTemplateProps<UnmappedProps extends object, Props extends obj
     getDataSize?: (data: Data) => number
     getTabData?: (data: Data) => Data
     children: (properties: Props, data: Data, theme: NivoTheme, logAction: any) => JSX.Element
+    image?: IGatsbyImageData
 }
 
 export const ComponentTemplate = <
@@ -87,7 +89,7 @@ export const ComponentTemplate = <
         codeProperties = codePropertiesMapper(mappedProperties, data)
     }
 
-    const code = generateCode(`Responsive${name}`, codeProperties, {
+    const code = generateChartCode(`Responsive${name}`, codeProperties, {
         pkg: meta.package,
         defaults: defaultProperties,
         dataKey: hasData ? dataKey : null,
@@ -122,7 +124,6 @@ export const ComponentTemplate = <
                 </ComponentTabs>
                 <ActionsLogger actions={actions} isFullWidth={!hasStories} />
                 <ComponentSettings
-                    component={name}
                     settings={settings}
                     onChange={setSettings}
                     groups={properties}

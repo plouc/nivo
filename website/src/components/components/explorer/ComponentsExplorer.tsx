@@ -1,15 +1,25 @@
 import React, { useMemo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import media from '../../../theming/mediaQueries'
 import PageContent from '../../PageContent'
-import URLSearchParams from 'url-search-params'
-import ComponentsSearch from './ComponentsSearch'
-import ComponentsFilters from './ComponentsFilters'
-import ComponentsGrid from './ComponentsGrid'
+import { ComponentsSearch } from './ComponentsSearch'
+import { ComponentsFilters } from './ComponentsFilters'
+import { ComponentsGrid } from './ComponentsGrid'
 
-const ComponentsExplorer = ({ location, navigate }) => {
+interface ComponentsExplorerProps {
+    location: {
+        search: string
+    }
+    navigate: (
+        path: string,
+        options?: {
+            replace?: boolean
+        }
+    ) => void
+}
+
+export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerProps) => {
     const [term, filter] = useMemo(() => {
         const params = new URLSearchParams(location.search)
         return [params.get('q'), params.get('filter')]
@@ -28,7 +38,7 @@ const ComponentsExplorer = ({ location, navigate }) => {
         [filter, navigate]
     )
     const handleFilter = useCallback(
-        filter => {
+        (filter: string | null) => {
             const params = new URLSearchParams()
             if (term) params.append('q', term)
             if (filter) params.append('filter', filter)
@@ -51,13 +61,6 @@ const ComponentsExplorer = ({ location, navigate }) => {
             <ComponentsGrid term={term} filter={filter} />
         </PageContent>
     )
-}
-
-ComponentsExplorer.propTypes = {
-    location: PropTypes.shape({
-        search: PropTypes.string.isRequired,
-    }).isRequired,
-    navigate: PropTypes.func.isRequired,
 }
 
 const Header = styled.div`
@@ -102,5 +105,3 @@ const SearchAndFilters = styled.div`
         }
     `}
 `
-
-export default ComponentsExplorer

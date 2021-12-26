@@ -110,7 +110,7 @@ const Pie = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/pie.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }

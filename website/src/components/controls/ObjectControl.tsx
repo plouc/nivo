@@ -1,6 +1,6 @@
 import React, { memo, useMemo, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import ControlsGroup from './ControlsGroup'
+import { ControlsGroup } from './ControlsGroup'
 import { PropertyHeader } from './PropertyHeader'
 import { Cell, Toggle } from './styled'
 import { Help } from './Help'

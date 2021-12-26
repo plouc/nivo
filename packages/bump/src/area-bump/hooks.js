@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { createElement, useMemo, useCallback } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
 import { useTheme } from '@nivo/core'

@@ -6,7 +6,7 @@ import isNumber from 'lodash/isNumber'
 import isBoolean from 'lodash/isBoolean'
 import dedent from 'dedent-js'
 
-const indent = (content, spaces = 8) =>
+const indent = (content: string, spaces: number = 8) =>
     content
         .split('\n')
         .map((line, i) => {
@@ -15,10 +15,10 @@ const indent = (content, spaces = 8) =>
         })
         .join('\n')
 
-const toJson = value => {
+const toJson = (value: any) => {
     const jsonString = JSON.stringify(value, null, 4)
     const normalized = jsonString
-        .replace(/^(\s+)"([a-z]{1}[a-z]*)"\: /gim, (match, space, key) => {
+        .replace(/^(\s+)"([a-z]{1}[a-z]*)"\: /gim, (_match, space, key) => {
             return `${space}${key}: `
         })
         .replace(/"/gm, `'`)
@@ -30,10 +30,20 @@ const toJson = value => {
     return indent(normalized)
 }
 
-const generate = (
-    name,
-    props,
-    { dataKey = 'data', children = [], defaults = {}, pkg = 'nivo' } = {}
+export const generateChartCode = (
+    name: string,
+    props: any,
+    {
+        dataKey = 'data',
+        children = [],
+        defaults = {},
+        pkg = 'nivo',
+    }: {
+        dataKey?: string
+        children?: any[]
+        defaults?: any
+        pkg?: string
+    } = {}
 ) => {
     const properties = []
     let args = ''
@@ -96,5 +106,3 @@ const My${name} = (${args}) => (
     />
 )`
 }
-
-export default generate

@@ -1,7 +1,7 @@
 import React from 'react'
 import { generateDayCounts } from '@nivo/generators'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
 import meta from '../../data/components/calendar/meta.yml'
@@ -21,7 +21,7 @@ const CalendarApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/calendar.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }

@@ -1,18 +1,35 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
-import ApiPreview from './ApiPreview'
 import media from '../../../theming/mediaQueries'
 import { useTheme } from '../../../theming/context'
 import { CodeBlock } from '../../CodeBlock'
+import { ApiPreview } from './ApiPreview'
 
-const tabs = ['preview', 'body', 'data']
+const tabs = ['preview', 'body', 'data'] as const
+type Tab = typeof tabs[number]
 
-const ApiTabs = ({ chartClass, data, body, isLoading, responseStatus, chartUrl }) => {
+interface ApiTabsProps<Data = any, Body = any> {
+    chartClass: string
+    data: Data
+    body: Body
+    isLoading: boolean
+    responseStatus: number | null
+    chartUrl: string
+}
+
+export function ApiTabs<Data = any, Body = any>({
+    chartClass,
+    data,
+    body,
+    isLoading,
+    responseStatus,
+    chartUrl,
+}: ApiTabsProps) {
     const theme = useTheme()
 
-    const [currentTab, setCurrentTab] = useState('preview')
-    const [hoverTab, setHoverTab] = useState(null)
+    const [currentTab, setCurrentTab] = useState<Tab>('preview')
+    const [hoverTab, setHoverTab] = useState<Tab | null>(null)
 
     return (
         <Wrapper className={`chart-tabs--${currentTab}`}>
@@ -39,11 +56,7 @@ const ApiTabs = ({ chartClass, data, body, isLoading, responseStatus, chartUrl }
             </Nav>
             <Content>
                 {currentTab === 'preview' && (
-                    <ApiPreview
-                        isLoading={isLoading}
-                        responseStatus={responseStatus}
-                        chartUrl={chartUrl}
-                    />
+                    <ApiPreview responseStatus={responseStatus} chartUrl={chartUrl} />
                 )}
                 {currentTab === 'body' && <CodeBlock>{JSON.stringify(body, null, '  ')}</CodeBlock>}
                 {currentTab === 'data' && <CodeBlock>{data}</CodeBlock>}
@@ -57,8 +70,6 @@ ApiTabs.propTypes = {
     chartClass: PropTypes.string.isRequired,
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
 }
-
-export default ApiTabs
 
 const Wrapper = styled.div`
     position: fixed;
@@ -106,7 +117,9 @@ const Nav = styled.nav`
     position: relative;
 `
 
-const NavItem = styled.span`
+const NavItem = styled.span<{
+    isCurrent: boolean
+}>`
     cursor: pointer;
     height: 46px;
     display: block;
@@ -141,7 +154,31 @@ const Content = styled.div`
     overflow-y: auto;
 `
 
-const LoaderContainer = styled.div`
+const Loader = ({ isLoading }: { isLoading: boolean }) => {
+    return (
+        <LoaderContainer isLoading={isLoading}>
+            <span>
+                <LoaderBar index={0} />
+            </span>
+            <span>
+                <LoaderBar index={1} />
+            </span>
+            <span>
+                <LoaderBar index={2} />
+            </span>
+            <span>
+                <LoaderBar index={3} />
+            </span>
+            <span>
+                <LoaderBar index={4} />
+            </span>
+        </LoaderContainer>
+    )
+}
+
+const LoaderContainer = styled.div<{
+    isLoading: boolean
+}>`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -171,7 +208,9 @@ const loaderBarAnimation = keyframes`
     }
 `
 
-const LoaderBar = styled.span`
+const LoaderBar = styled.span<{
+    index: number
+}>`
     display: block;
     background: ${({ theme }) => theme.colors.accent};
     width: 100%;
@@ -183,25 +222,3 @@ const LoaderBar = styled.span`
     animation-iteration-count: infinite;
     animation-delay: ${({ index }) => (index + 1) * 60}ms;
 `
-
-const Loader = ({ isLoading }) => {
-    return (
-        <LoaderContainer isLoading={isLoading}>
-            <span>
-                <LoaderBar index={0} />
-            </span>
-            <span>
-                <LoaderBar index={1} />
-            </span>
-            <span>
-                <LoaderBar index={2} />
-            </span>
-            <span>
-                <LoaderBar index={3} />
-            </span>
-            <span>
-                <LoaderBar index={4} />
-            </span>
-        </LoaderContainer>
-    )
-}

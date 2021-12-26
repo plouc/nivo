@@ -1,7 +1,7 @@
 import React from 'react'
 import { generateSankeyData } from '@nivo/generators'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/sankey/props'
 import mapper from '../../data/components/sankey/mapper'
 import meta from '../../data/components/sankey/meta.yml'
@@ -18,7 +18,7 @@ const SankeyApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/sankey.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }

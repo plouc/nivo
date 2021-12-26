@@ -1,14 +1,18 @@
 import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { MdSearch, MdClose } from 'react-icons/md'
 
-const ComponentsSearch = memo(({ term, onChange, style }) => {
+interface ComponentsSearchProps {
+    term: string
+    onChange: (term: string) => void
+}
+
+export const ComponentsSearch = memo(({ term, onChange }: ComponentsSearchProps) => {
     const handleSearch = useCallback(event => onChange(event.target.value), [onChange])
     const handleClear = useCallback(() => onChange(''), [onChange])
 
     return (
-        <Container style={style}>
+        <Container>
             <Input type="text" onChange={handleSearch} placeholder="Search" value={term} />
             <StyledSearchIcon />
             {term.length > 0 && (
@@ -19,15 +23,6 @@ const ComponentsSearch = memo(({ term, onChange, style }) => {
         </Container>
     )
 })
-
-ComponentsSearch.displayName = 'ComponentsSearch'
-ComponentsSearch.propTypes = {
-    term: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    style: PropTypes.object,
-}
-
-export default ComponentsSearch
 
 const Container = styled.div`
     position: relative;

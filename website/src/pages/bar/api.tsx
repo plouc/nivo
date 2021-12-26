@@ -1,6 +1,6 @@
 import React from 'react'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/bar/props'
 import meta from '../../data/components/bar/meta.yml'
 import mapper from '../../data/components/bar/mapper'
@@ -18,7 +18,7 @@ const BarApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/bar.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }

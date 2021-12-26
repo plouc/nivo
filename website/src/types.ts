@@ -11,17 +11,7 @@ export interface ChartMeta {
     }[]
 }
 
-export interface ArrayPropertyControlAttrs {
-    props: ChartProperty[]
-    shouldCreate: boolean
-    addLabel: string
-    shouldRemove: boolean
-    removeLabel: string
-    defaults: object
-    getItemTitle: (index: number, item: unknown) => string
-}
-
-export interface ChartProperty {
+export interface ChartProperty<Settings = any> {
     key: string
     name?: string
     group: string
@@ -43,5 +33,10 @@ export interface ChartProperty {
     // for the demo and not part of the component props.
     excludeFromDoc?: boolean
     control?: ControlConfig
-    when?: (settings: any) => boolean
+    when?: (settings: Settings) => boolean
+}
+
+export interface ChartPropertiesGroup {
+    name: string
+    properties: ChartProperty[]
 }

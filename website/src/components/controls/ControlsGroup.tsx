@@ -420,7 +420,7 @@ interface ControlsGroupProps {
     context?: any
 }
 
-const ControlsGroup = ({
+export const ControlsGroup = ({
     name,
     flavors = ['svg'],
     currentFlavor = 'svg',
@@ -444,5 +444,3 @@ const ControlsGroup = ({
         ))}
     </>
 )
-
-export default ControlsGroup

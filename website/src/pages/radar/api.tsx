@@ -1,7 +1,7 @@
 import React from 'react'
 import { generateWinesTastes } from '@nivo/generators'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/radar/props'
 import mapper from '../../data/components/radar/mapper'
 import meta from '../../data/components/radar/meta.yml'
@@ -18,7 +18,7 @@ const RadarApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/radar.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }

@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-    Defs,
-    PatternLines,
-    // @ts-ignore
-    patternLinesDef,
-} from '@nivo/core'
+import { Defs, PatternLines, patternLinesDef } from '@nivo/core'
 import { ChartProperty } from '../../../types'
 import { GuideDemoBlock } from '../GuideDemoBlock'
 

@@ -13,15 +13,13 @@ const serieIds = ['JavaScript', 'ReasonML', 'TypeScript', 'Elm', 'CoffeeScript']
 const generateData = () => {
     const years = range(2000, 2006)
 
-    const series = serieIds.map(id => ({
+    return serieIds.map(id => ({
         id,
         data: years.map(year => ({
             x: year,
             y: random(10, 30),
         })),
     }))
-
-    return series
 }
 
 const initialProperties = {
@@ -112,7 +110,7 @@ const AreaBump = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/area-bump.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }
@@ -133,6 +131,11 @@ const AreaBump = () => {
             image={image}
         >
             {(properties, data, theme, logAction) => {
+                console.log({
+                    properties,
+                    data,
+                })
+
                 return (
                     <ResponsiveAreaBump
                         data={data}

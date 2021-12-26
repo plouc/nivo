@@ -16,7 +16,7 @@ const TooltipKey = styled.span`
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = ({ color, ...bar }) => {
+const CustomTooltip = ({ color, ...bar }: any) => {
     return (
         <TooltipWrapper style={{ color: color }}>
             <TooltipKey>id</TooltipKey>
@@ -42,7 +42,7 @@ export default settingsMapper(
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
-        tooltip: (value, values) => {
+        tooltip: (_value: any, values: any) => {
             if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip

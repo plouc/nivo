@@ -1,7 +1,7 @@
 import React from 'react'
 import omit from 'lodash/omit'
 import { Seo } from '../../components/Seo'
-import ApiClient from '../../components/components/api-client/ApiClient'
+import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/line/props'
 import mapper from '../../data/components/line/mapper'
 import defaultSettings from '../../data/components/line/defaults'
@@ -20,7 +20,7 @@ const LineApi = () => {
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/line.png" }) {
                 childImageSharp {
-                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
             }
         }
