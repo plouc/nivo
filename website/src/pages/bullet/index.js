@@ -5,6 +5,7 @@ import { generateBulletData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
 import { groups } from '../../data/components/bullet/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => [
     generateBulletData('temp.', shuffle([100, 120, 140])[0]),
@@ -46,6 +47,20 @@ const initialProperties = {
 }
 
 const Bullet = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bullet.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Bullet"
@@ -57,6 +72,7 @@ const Bullet = () => {
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

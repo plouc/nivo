@@ -5,13 +5,32 @@ import { groups } from '../../data/components/heatmap/props'
 import mapper from '../../data/components/heatmap/mapper'
 import { generateLightDataSet } from '../../data/components/heatmap/generator'
 import meta from '../../data/components/heatmap/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const data = generateLightDataSet()
 
 const HeatMapApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/heatmap.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="HeatMap HTTP API" keywords={[...meta.HeatMap.tags, 'HTTP API']} />
+            <Seo
+                title="HeatMap HTTP API"
+                image={image}
+                keywords={[...meta.HeatMap.tags, 'HTTP API']}
+            />
             <ApiClient
                 componentName="HeatMap"
                 chartClass="heatmap"

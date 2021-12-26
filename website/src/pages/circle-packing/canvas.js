@@ -6,6 +6,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const NODE_COUNT = 800
 
@@ -57,6 +58,22 @@ const initialProperties = {
 }
 
 const CirclePackingCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(
+                absolutePath: { glob: "**/src/assets/captures/circle-packing-canvas.png" }
+            ) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="CirclePackingCanvas"
@@ -70,6 +87,7 @@ const CirclePackingCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={() => NODE_COUNT}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

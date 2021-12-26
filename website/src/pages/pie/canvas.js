@@ -5,6 +5,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'
 import { groups } from '../../data/components/pie/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const DATASET_SIZE = 24
 const generateData = () =>
@@ -89,6 +90,20 @@ const initialProperties = {
 }
 
 const PieCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/pie-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="PieCanvas"
@@ -102,6 +117,7 @@ const PieCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={data => data.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 const handleArcClick = slice => {

@@ -5,13 +5,28 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/radar/props'
 import mapper from '../../data/components/radar/mapper'
 import meta from '../../data/components/radar/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const { data, keys } = generateWinesTastes()
 
 const RadarApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/radar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Radar HTTP API" keywords={[...meta.Radar.tags, 'HTTP API']} />
+            <Seo title="Radar HTTP API" image={image} keywords={[...meta.Radar.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Radar"
                 chartClass="radar"

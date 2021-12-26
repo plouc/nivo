@@ -5,15 +5,30 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/chord/props'
 import mapper from '../../data/components/chord/mapper'
 import meta from '../../data/components/chord/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const MATRIX_SIZE = 5
 
 const data = generateChordData({ size: MATRIX_SIZE })
 
 const ChordApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/chord.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Chord HTTP API" keywords={[...meta.Chord.tags, 'HTTP API']} />
+            <Seo title="Chord HTTP API" image={image} keywords={[...meta.Chord.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Chord"
                 chartClass="chord"

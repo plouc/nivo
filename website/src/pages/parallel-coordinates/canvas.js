@@ -7,6 +7,7 @@ import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
 import variables from '../../data/components/parallel-coordinates/variables'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const lineCount = 320
 
@@ -33,6 +34,22 @@ const initialProperties = {
 const generateData = () => generateParallelCoordinatesData({ size: lineCount })
 
 const ParallelCoordinatesCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(
+                absolutePath: { glob: "**/src/assets/captures/parallel-coordinates-canvas.png" }
+            ) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="ParallelCoordinatesCanvas"
@@ -46,6 +63,7 @@ const ParallelCoordinatesCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={() => lineCount}
+            image={image}
         >
             {(properties, data, theme) => {
                 return (

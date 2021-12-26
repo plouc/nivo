@@ -7,6 +7,7 @@ import mapper from '../../data/components/line/mapper'
 import { groups } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
 import { generateHeavyDataSet } from '../../data/components/line/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const xValues = [0, 20, 40, 60, 80, 100, 120]
 const yValues = [0, 500, 1000, 1500, 2000, 2500]
@@ -115,6 +116,20 @@ const initialProperties = {
 }
 
 const LineCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/line-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Line"
@@ -128,6 +143,7 @@ const LineCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
             getDataSize={data => data.length * data[0].data.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

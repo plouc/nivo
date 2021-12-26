@@ -5,6 +5,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const from = new Date(2013, 3, 1)
 const to = new Date(2019, 7, 12)
@@ -67,6 +68,20 @@ const initialProperties = {
 }
 
 const CalendarCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/calendar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="CalendarCanvas"
@@ -83,6 +98,7 @@ const CalendarCanvas = () => {
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

@@ -5,13 +5,32 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/sunburst/props'
 import mapper from '../../data/components/sunburst/mapper'
 import meta from '../../data/components/sunburst/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const data = generateLibTree()
 
 const SunburstApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Sunburst HTTP API" keywords={[...meta.Sunburst.tags, 'HTTP API']} />
+            <Seo
+                title="Sunburst HTTP API"
+                image={image}
+                keywords={[...meta.Sunburst.tags, 'HTTP API']}
+            />
             <ApiClient
                 componentName="Sunburst"
                 chartClass="sunburst"

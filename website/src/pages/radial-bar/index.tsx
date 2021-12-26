@@ -4,6 +4,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/radial-bar/meta.yml'
 import mapper from '../../data/components/radial-bar/mapper'
 import { groups } from '../../data/components/radial-bar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'width' | 'height'>
 type UnmappedRadarProps = Omit<
@@ -132,35 +133,52 @@ const generateData = () => {
     }))
 }
 
-const RadialBar = () => (
-    <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
-        name="RadialBar"
-        meta={meta.RadialBar}
-        icon="radial-bar"
-        flavors={meta.flavors}
-        currentFlavor="svg"
-        properties={groups}
-        initialProperties={initialProperties}
-        defaultProperties={svgDefaultProps}
-        propertiesMapper={mapper}
-        generateData={generateData}
-    >
-        {(properties, data, theme, logAction) => (
-            <ResponsiveRadialBar
-                data={data}
-                {...properties}
-                theme={theme}
-                onClick={bar => {
-                    logAction({
-                        type: 'click',
-                        label: `${bar.category} - ${bar.groupId}: ${bar.value}`,
-                        color: bar.color,
-                        data: bar,
-                    })
-                }}
-            />
-        )}
-    </ComponentTemplate>
-)
+const RadialBar = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/radial-bar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
+    return (
+        <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
+            name="RadialBar"
+            meta={meta.RadialBar}
+            icon="radial-bar"
+            flavors={meta.flavors}
+            currentFlavor="svg"
+            properties={groups}
+            initialProperties={initialProperties}
+            defaultProperties={svgDefaultProps}
+            propertiesMapper={mapper}
+            generateData={generateData}
+            image={image}
+        >
+            {(properties, data, theme, logAction) => (
+                <ResponsiveRadialBar
+                    data={data}
+                    {...properties}
+                    theme={theme}
+                    onClick={bar => {
+                        logAction({
+                            type: 'click',
+                            label: `${bar.category} - ${bar.groupId}: ${bar.value}`,
+                            color: bar.color,
+                            data: bar,
+                        })
+                    }}
+                />
+            )}
+        </ComponentTemplate>
+    )
+}
 
 export default RadialBar

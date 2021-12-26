@@ -6,6 +6,7 @@ import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/geomap/props'
 import countries from '../../data/components/geo/world_countries'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     margin: {
@@ -32,6 +33,20 @@ const initialProperties = {
 }
 
 const GeoMap = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/geomap.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="GeoMap"
@@ -48,6 +63,7 @@ const GeoMap = () => {
                 ...properties,
             })}
             hasData={false}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

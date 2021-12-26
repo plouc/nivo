@@ -7,13 +7,28 @@ import mapper from '../../data/components/line/mapper'
 import defaultSettings from '../../data/components/line/defaults'
 import { generateLightDataSet } from '../../data/components/line/generator'
 import meta from '../../data/components/line/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const data = generateLightDataSet()
 
 const LineApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/line.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
-            <Seo title="Line HTTP API" keywords={[...meta.Line.tags, 'HTTP API']} />
+            <Seo title="Line HTTP API" image={image} keywords={[...meta.Line.tags, 'HTTP API']} />
             <ApiClient
                 componentName="Line"
                 apiPath="/charts/line"

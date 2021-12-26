@@ -7,6 +7,7 @@ import mapper from '../../data/components/line/mapper'
 import { groups } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
 import { generateLightDataSet } from '../../data/components/line/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     ...omit(defaultSettings, ['width', 'height']),
@@ -61,6 +62,20 @@ const linearData = [
 ]
 
 const Line = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/line.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Line"
@@ -73,6 +88,7 @@ const Line = () => {
             defaultProperties={LineDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

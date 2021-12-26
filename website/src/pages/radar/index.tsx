@@ -5,6 +5,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/radar/meta.yml'
 import mapper from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 type MappedRadarProps = Omit<RadarSvgProps<any>, 'data' | 'keys' | 'width' | 'height'>
 type UnmappedRadarProps = Omit<MappedRadarProps, 'valueFormat'> & {
@@ -79,30 +80,52 @@ const initialProperties: UnmappedRadarProps = {
     ],
 }
 
-const Radar = () => (
-    <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
-        name="Radar"
-        meta={meta.Radar}
-        icon="radar"
-        flavors={meta.flavors}
-        currentFlavor="svg"
-        properties={groups}
-        initialProperties={initialProperties}
-        defaultProperties={svgDefaultProps}
-        propertiesMapper={mapper}
-        codePropertiesMapper={(properties: any, data: any) => ({
-            keys: data.keys,
-            ...properties,
-        })}
-        generateData={generateWinesTastes}
-        getTabData={data => data.data}
-    >
-        {(properties, data, theme) => {
-            return (
-                <ResponsiveRadar data={data.data} keys={data.keys} {...properties} theme={theme} />
-            )
-        }}
-    </ComponentTemplate>
-)
+const Radar = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/radar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
+    return (
+        <ComponentTemplate<UnmappedRadarProps, MappedRadarProps, any>
+            name="Radar"
+            meta={meta.Radar}
+            icon="radar"
+            flavors={meta.flavors}
+            currentFlavor="svg"
+            properties={groups}
+            initialProperties={initialProperties}
+            defaultProperties={svgDefaultProps}
+            propertiesMapper={mapper}
+            codePropertiesMapper={(properties: any, data: any) => ({
+                keys: data.keys,
+                ...properties,
+            })}
+            generateData={generateWinesTastes}
+            getTabData={data => data.data}
+            image={image}
+        >
+            {(properties, data, theme) => {
+                return (
+                    <ResponsiveRadar
+                        data={data.data}
+                        keys={data.keys}
+                        {...properties}
+                        theme={theme}
+                    />
+                )
+            }}
+        </ComponentTemplate>
+    )
+}
 
 export default Radar

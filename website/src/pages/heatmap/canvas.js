@@ -6,6 +6,7 @@ import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
 import { groups } from '../../data/components/heatmap/props'
 import { generateHeavyDataSet } from '../../data/components/heatmap/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     indexBy: 'country',
@@ -95,6 +96,20 @@ const initialProperties = {
 }
 
 const HeatMapCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/heatmap-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="HeatMapCanvas"
@@ -115,6 +130,7 @@ const HeatMapCanvas = () => {
             generateData={generateHeavyDataSet}
             getDataSize={data => data.data.length * data.keys.length}
             getTabData={data => data.data}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

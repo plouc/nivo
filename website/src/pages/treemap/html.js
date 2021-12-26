@@ -5,6 +5,7 @@ import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     identity: 'name',
@@ -56,6 +57,20 @@ const initialProperties = {
 }
 
 const TreeMapHtml = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/treemap-html.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="TreeMapHtml"
@@ -68,6 +83,7 @@ const TreeMapHtml = () => {
             defaultProperties={TreeMapDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

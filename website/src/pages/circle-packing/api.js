@@ -5,14 +5,30 @@ import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/circle-packing/props'
 import mapper from '../../data/components/circle-packing/mapper'
 import meta from '../../data/components/circle-packing/meta.yml'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const root = generateLibTree()
 
 const CirclePackingApi = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/circle-packing.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <>
             <Seo
                 title="CirclePacking HTTP API"
+                image={image}
                 keywords={[...meta.CirclePacking.tags, 'HTTP API']}
             />
             <ApiClient

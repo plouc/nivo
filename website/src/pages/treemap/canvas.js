@@ -10,6 +10,7 @@ import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateHeavyDataSet } from '../../data/components/treemap/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     identity: TreeMapCanvasDefaultProps.identity,
@@ -55,6 +56,20 @@ const initialProperties = {
 }
 
 const TreeMapCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/treemap-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="TreeMapCanvas"
@@ -67,6 +82,7 @@ const TreeMapCanvas = () => {
             defaultProperties={TreeMapCanvasDefaultProps}
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

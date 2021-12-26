@@ -6,6 +6,7 @@ import mapper from '../../data/components/stream/mapper'
 import { groups } from '../../data/components/stream/props'
 import { generateLightDataSet } from '../../data/components/stream/generator'
 import defaultSettings from '../../data/components/stream/defaults'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     ...defaultSettings,
@@ -35,6 +36,20 @@ const initialProperties = {
 }
 
 const Stream = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/stream.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Stream"
@@ -52,6 +67,7 @@ const Stream = () => {
             })}
             generateData={generateLightDataSet}
             getTabData={data => data.data}
+            image={image}
         >
             {(properties, data, theme) => {
                 return (

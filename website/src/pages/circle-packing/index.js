@@ -6,6 +6,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     margin: {
@@ -57,6 +58,20 @@ const initialProperties = {
 const generateData = () => generateLibTree()
 
 const CirclePacking = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/circle-packing.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="CirclePacking"
@@ -69,6 +84,7 @@ const CirclePacking = () => {
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

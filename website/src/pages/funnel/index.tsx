@@ -8,6 +8,7 @@ import mapper from '../../data/components/funnel/mapper'
 import { groups } from '../../data/components/funnel/props'
 import { generateLightDataSet } from '../../data/components/funnel/generator'
 import { FunnelDatum, FunnelSvgProps } from '@nivo/funnel/dist/types/types'
+import { graphql, useStaticQuery } from 'gatsby'
 
 type MappedFunnelProps = Omit<FunnelSvgProps<FunnelDatum>, 'data' | 'width' | 'height'>
 type UnmappedFunnelProps = Omit<MappedFunnelProps, 'valueFormat'> & {
@@ -56,41 +57,58 @@ const initialProperties: UnmappedFunnelProps = {
     motionConfig: 'wobbly' as const,
 }
 
-const Funnel = () => (
-    <ComponentTemplate<UnmappedFunnelProps, MappedFunnelProps, FunnelDatum[]>
-        name="Funnel"
-        meta={meta.Funnel}
-        icon="funnel"
-        flavors={meta.flavors}
-        currentFlavor="svg"
-        properties={groups}
-        initialProperties={initialProperties}
-        defaultProperties={svgDefaultProps}
-        propertiesMapper={mapper}
-        generateData={generateLightDataSet}
-    >
-        {(properties, data, theme, logAction) => (
-            <ResponsiveFunnel
-                data={data}
-                {...properties}
-                theme={merge({}, theme, {
-                    labels: {
-                        text: {
-                            fontSize: 14,
+const Funnel = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/funnel.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
+    return (
+        <ComponentTemplate<UnmappedFunnelProps, MappedFunnelProps, FunnelDatum[]>
+            name="Funnel"
+            meta={meta.Funnel}
+            icon="funnel"
+            flavors={meta.flavors}
+            currentFlavor="svg"
+            properties={groups}
+            initialProperties={initialProperties}
+            defaultProperties={svgDefaultProps}
+            propertiesMapper={mapper}
+            generateData={generateLightDataSet}
+            image={image}
+        >
+            {(properties, data, theme, logAction) => (
+                <ResponsiveFunnel
+                    data={data}
+                    {...properties}
+                    theme={merge({}, theme, {
+                        labels: {
+                            text: {
+                                fontSize: 14,
+                            },
                         },
-                    },
-                })}
-                onClick={part => {
-                    logAction({
-                        type: 'click',
-                        label: `[part] id: ${part.data.id}, value: ${part.formattedValue}`,
-                        color: part.color,
-                        data: omit(part, ['points', 'areaPoints', 'borderPoints']),
-                    })
-                }}
-            />
-        )}
-    </ComponentTemplate>
-)
+                    })}
+                    onClick={part => {
+                        logAction({
+                            type: 'click',
+                            label: `[part] id: ${part.data.id}, value: ${part.formattedValue}`,
+                            color: part.color,
+                            data: omit(part, ['points', 'areaPoints', 'borderPoints']),
+                        })
+                    }}
+                />
+            )}
+        </ComponentTemplate>
+    )
+}
 
 export default Funnel

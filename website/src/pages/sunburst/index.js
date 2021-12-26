@@ -6,6 +6,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/sunburst/meta.yml'
 import mapper from '../../data/components/sunburst/mapper'
 import { groups } from '../../data/components/sunburst/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = () => {
     /* return custom tooltip */
@@ -53,6 +54,20 @@ const initialProperties = {
 }
 
 const Sunburst = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 900, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Sunburst"
@@ -65,6 +80,7 @@ const Sunburst = () => {
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
