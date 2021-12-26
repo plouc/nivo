@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/network/)
 
-![Network](https://raw.githubusercontent.com/plouc/nivo/master/packages/network/doc/network.png)
+![Network](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/network.png)
 
 ## NetworkCanvas
 
 [documentation](http://nivo.rocks/network/canvas/)
 
-![NetworkCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/network/doc/network-canvas.png)
+![NetworkCanvas](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/network-canvas.png)

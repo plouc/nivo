@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/chord)
 
-![Chord](https://raw.githubusercontent.com/plouc/nivo/master/packages/chord/doc/chord.png)
+![Chord](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/chord.png)
 
 ## ChordCanvas
 
 [documentation](http://nivo.rocks/chord/canvas)
 
-![ChordCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/chord/doc/chord-canvas.png)
+![ChordCanvas](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/chord-canvas.png)

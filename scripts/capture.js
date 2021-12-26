@@ -22,13 +22,7 @@ const projectDir = process.cwd()
 const websiteDir = Path.join(projectDir, 'website')
 const websiteCapturesDir = Path.join(websiteDir, 'src', 'assets', 'captures')
 const websiteIconsDir = Path.join(websiteDir, 'src', 'assets', 'icons')
-const getPackageDir = (pkg) => Path.join(projectDir, 'packages', pkg)
-const getPackageDocDir = (pkg) => Path.join(getPackageDir(pkg), 'doc')
 const getChartFileName = (chart, flavor) => `${chart}${flavor !== DEFAULT_FLAVOR ? `-${flavor}` : ''}.png`
-const getChartDocFilePath = (pkg, chart, flavor) => Path.join(
-    getPackageDocDir(pkg),
-    getChartFileName(chart, flavor)
-)
 const getChartWebsiteFilePath = (chart, flavor) => Path.join(
     websiteCapturesDir,
     getChartFileName(chart, flavor)
@@ -72,12 +66,11 @@ const captureChart = async (page, { pkg, chart, flavor, theme }) => {
 
     const clip = await element.boundingBox()
 
-    const docFilePath = getChartDocFilePath(pkg, chart, flavor)
     const websiteFilePath = getChartWebsiteFilePath(chart, flavor)
 
     // initially saved to the package doc dir
     await page.screenshot({
-        path: docFilePath,
+        path: websiteFilePath,
         clip,
         omitBackground: true,
     })
@@ -85,7 +78,7 @@ const captureChart = async (page, { pkg, chart, flavor, theme }) => {
     // also save a copy in the website, for social images
     await fs.copyFile(docFilePath, websiteFilePath)
 
-    console.log(chalk`{green saved to {white ${docFilePath}} and {white ${websiteFilePath}}}`)
+    console.log(chalk`{green saved to {white ${websiteFilePath}}}`)
     console.log('')
 }
 

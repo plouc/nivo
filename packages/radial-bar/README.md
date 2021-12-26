@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/radial-bar)
 
-![RadialBar](https://raw.githubusercontent.com/plouc/nivo/master/packages/radial-bar/doc/radial-bar.png)
+![RadialBar](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/radial-bar.png)
