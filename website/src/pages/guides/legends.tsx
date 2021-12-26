@@ -1,13 +1,16 @@
 import React from 'react'
+// @ts-ignore
 import { themeContext } from '@nivo/core'
 import { useTheme } from '../../theming/context'
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
-import LegendPosition from '../../components/guides/legends/LegendPosition'
-import LegendDirection from '../../components/guides/legends/LegendDirection'
-import LegendItemDirection from '../../components/guides/legends/LegendItemDirection'
-import SymbolShape from '../../components/guides/legends/SymbolShape'
+import {
+    LegendPosition,
+    LegendDirection,
+    LegendItemDirection,
+    SymbolShape,
+} from '../../components/guides/legends'
 import { DescriptionBlock } from '../../components/styled'
 
 const Legends = () => {
@@ -16,7 +19,7 @@ const Legends = () => {
     return (
         <Layout>
             <themeContext.Provider value={theme.nivo}>
-                <Seo title="Legends Guide" />
+                <Seo title="Legends Guide" description="How to add legends to your nivo charts?" />
                 <PageContent>
                     <div className="guide__header">
                         <h1>Legends</h1>

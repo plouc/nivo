@@ -3,15 +3,13 @@ import { Link } from 'gatsby'
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
-import AxesPosition from '../../components/guides/axes/AxesPosition'
-import AxesTicks from '../../components/guides/axes/AxesTicks'
-import AxesLegend from '../../components/guides/axes/AxesLegend'
+import { AxesPosition, AxesTicks, AxesLegend } from '../../components/guides/axes'
 import { DescriptionBlock } from '../../components/styled'
 
 const AxesGuide = () => {
     return (
         <Layout>
-            <Seo title="Axes Guide" />
+            <Seo title="Axes Guide" description="Using chart axes in nivo components." />
             <PageContent>
                 <div className="guide__header">
                     <h1>Axes</h1>

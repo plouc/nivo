@@ -9,7 +9,7 @@ import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'
 
-const AxesPosition = () => {
+export const AxesPosition = () => {
     const theme = useAxisTheme()
 
     return (
@@ -62,5 +62,3 @@ const AxesPosition = () => {
         </>
     )
 }
-
-export default AxesPosition
