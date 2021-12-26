@@ -1,5 +1,9 @@
 import React from 'react'
-import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
+import {
+    ThemeProvider,
+    // @ts-ignore
+    MotionConfigProvider,
+} from '@nivo/core'
 import { Axis } from '@nivo/axes'
 import { linearXScale, pointXScale, timeXScale, timeXScaleHours } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
@@ -63,11 +67,9 @@ const AxesTicks = () => {
                                 <g transform={`translate(50,50)`}>
                                     <Axis
                                         axis="x"
-                                        scale={pointXScale}
+                                        scale={pointXScale as any}
                                         tickValues={['A', 'C', 'E', 'G', 'I']}
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="point scale ['A', 'C', 'E', 'G', 'I']"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -80,8 +82,6 @@ const AxesTicks = () => {
                                         scale={linearXScale}
                                         tickValues={[0, 20, 40, 60, 80]}
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="linear scale [0, 20, 40, 60, 80]"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -91,16 +91,14 @@ const AxesTicks = () => {
                                 <g transform={`translate(50,190)`}>
                                     <Axis
                                         axis="x"
-                                        scale={timeXScale}
+                                        scale={timeXScale as any}
                                         tickValues={[
                                             new Date(2019, 0, 1, 0, 0, 0, 0),
                                             new Date(2019, 6, 1, 0, 0, 0, 0),
                                             new Date(2020, 0, 1, 0, 0, 0, 0),
                                         ]}
                                         length={280}
-                                        theme={theme}
                                         format="%Y/%m"
-                                        animate={false}
                                         legend="time scale with three dates"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -112,12 +110,10 @@ const AxesTicks = () => {
                                 <g transform={`translate(50,50)`}>
                                     <Axis
                                         axis="x"
-                                        scale={timeXScaleHours}
+                                        scale={timeXScaleHours as any}
                                         tickValues="every 15 minutes"
                                         format="%H:%M"
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="time scale, every 15 minutes"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -130,8 +126,6 @@ const AxesTicks = () => {
                                         scale={linearXScale}
                                         tickValues={5}
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="linear scale, tickValues: 5"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -141,12 +135,10 @@ const AxesTicks = () => {
                                 <g transform={`translate(50,190)`}>
                                     <Axis
                                         axis="x"
-                                        scale={timeXScale}
+                                        scale={timeXScale as any}
                                         tickValues={5}
                                         length={280}
-                                        theme={theme}
                                         format="%Y/%m"
-                                        animate={false}
                                         legend="time scale, tickValues: 5"
                                         legendPosition="start"
                                         legendOffset={-38}

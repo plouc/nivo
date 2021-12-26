@@ -1,5 +1,9 @@
 import React from 'react'
-import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
+import {
+    ThemeProvider,
+    // @ts-ignore
+    MotionConfigProvider,
+} from '@nivo/core'
 import { Axes } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
@@ -28,9 +32,6 @@ const AxesPosition = () => {
                                         yScale={linearYScale}
                                         width={280}
                                         height={160}
-                                        animate={false}
-                                        motionStiffness={0}
-                                        motionDamping={0}
                                         top={{
                                             legend: 'axisTop',
                                             legendPosition: 'middle',
