@@ -1,5 +1,4 @@
-// @ts-ignore
-import { AreaBumpDefaultProps as defaults } from '@nivo/bump'
+import { areaBumpSvgDefaultProps as defaults } from '@nivo/bump'
 import {
     themeProperty,
     defsProperties,

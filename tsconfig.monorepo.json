@@ -15,13 +15,14 @@
         { "path": "./packages/polar-axes" },
         { "path": "./packages/voronoi" },
 
-        // Utility package
+        // Utility packages
         { "path": "./packages/generators" },
         { "path": "./packages/recompose" },
 
         // Charts now
         { "path": "./packages/bar" },
         { "path": "./packages/bullet" },
+        { "path": "./packages/bump" },
         { "path": "./packages/calendar" },
         { "path": "./packages/circle-packing" },
         { "path": "./packages/funnel" },
@@ -35,7 +36,7 @@
         { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" },
 
-        // static rendering and express middleware
+        // Static rendering and express middleware
         { "path": "./packages/static" },
         { "path": "./packages/express" }
     ]

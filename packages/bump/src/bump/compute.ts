@@ -1,29 +1,48 @@
 import { scalePoint } from 'd3-scale'
+import { castPointScale } from '@nivo/scales'
+import { BumpDataProps, BumpDatum, BumpComputedSerie, BumpSeriePoint } from './types'
 
-export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yOuterPadding }) => {
-    let xValues = new Set()
-    let yValues = new Set()
+export const computeSeries = <D extends BumpDatum>({
+    width,
+    height,
+    data,
+    xPadding,
+    xOuterPadding,
+    yOuterPadding,
+}: {
+    width: number
+    height: number
+    data: BumpDataProps<D>['data']
+    xPadding: number
+    xOuterPadding: number
+    yOuterPadding: number
+}) => {
+    const xValuesSet = new Set<D['x']>()
+    const yValuesSet = new Set<number>()
+
     data.forEach(serie => {
         serie.data.forEach(datum => {
-            if (!xValues.has(datum.x)) {
-                xValues.add(datum.x)
-            }
-            if (!yValues.has(datum.y) && datum.y !== null) {
-                yValues.add(datum.y)
+            xValuesSet.add(datum.x)
+            if (datum.y !== null) {
+                yValuesSet.add(datum.y)
             }
         })
     })
-    xValues = Array.from(xValues)
-    yValues = Array.from(yValues).sort((a, b) => a - b)
 
-    const xScale = scalePoint().domain(xValues).range([0, width]).padding(xOuterPadding)
+    const xValues: D['x'][] = Array.from(xValuesSet)
+    const xScale = castPointScale<D['x']>(
+        scalePoint<D['x']>().domain(xValues).range([0, width]).padding(xOuterPadding)
+    )
 
-    const yScale = scalePoint().domain(yValues).range([0, height]).padding(yOuterPadding)
+    const yValues: number[] = Array.from(yValuesSet).sort((a, b) => a - b)
+    const yScale = castPointScale<number>(
+        scalePoint<number>().domain(yValues).range([0, height]).padding(yOuterPadding)
+    )
 
     const linePointPadding = xScale.step() * Math.min(xPadding * 0.5, 0.5)
 
-    const series = data.map(rawSerie => {
-        const serie = {
+    const series: Omit<BumpComputedSerie<D>, 'color' | 'style'>[] = data.map(rawSerie => {
+        const serie: Omit<BumpComputedSerie<D>, 'color' | 'style'> = {
             ...rawSerie,
             points: [],
             linePoints: [],
@@ -32,21 +51,23 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
         rawSerie.data.forEach((datum, i) => {
             let x = null
             let y = null
-            if (datum.y !== null && datum.y !== undefined) {
-                x = xScale(datum.x)
-                y = yScale(datum.y)
+
+            if (datum.y !== null) {
+                x = xScale(datum.x)!
+                y = yScale(datum.y)!
             }
-            const point = {
+
+            const point: BumpSeriePoint<D> = {
                 id: `${rawSerie.id}.${i}`,
                 serie: rawSerie,
                 data: datum,
-                x,
+                x: x as number,
                 y,
             }
             serie.points.push(point)
 
             // only add pre transition point if the datum is not empty
-            if (x !== null) {
+            if (point.x !== null) {
                 if (i === 0) {
                     serie.linePoints.push([0, point.y])
                 } else {

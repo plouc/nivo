@@ -1,5 +1,4 @@
-// @ts-ignore
-import { BumpDefaultProps as defaults } from '@nivo/bump'
+import { bumpSvgDefaultProps as defaults } from '@nivo/bump'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,

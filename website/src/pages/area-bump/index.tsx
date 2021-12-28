@@ -3,7 +3,7 @@ import range from 'lodash/range'
 import random from 'lodash/random'
 import { useStaticQuery, graphql } from 'gatsby'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { ResponsiveAreaBump, AreaBumpDefaultProps } from '@nivo/bump'
+import { ResponsiveAreaBump, areaBumpSvgDefaultProps as defaults } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/area-bump/meta.yml'
 import { groups } from '../../data/components/area-bump/props'
@@ -30,16 +30,16 @@ const initialProperties = {
         left: 100,
     },
 
-    align: AreaBumpDefaultProps.align,
-    interpolation: AreaBumpDefaultProps.interpolation,
+    align: defaults.align,
+    interpolation: defaults.interpolation,
     spacing: 8,
-    xPadding: AreaBumpDefaultProps.xPadding,
+    xPadding: defaults.xPadding,
 
     colors: { scheme: 'nivo' },
     blendMode: 'multiply',
-    fillOpacity: AreaBumpDefaultProps.fillOpacity,
-    activeFillOpacity: AreaBumpDefaultProps.activeFillOpacity,
-    inactiveFillOpacity: AreaBumpDefaultProps.inactiveFillOpacity,
+    fillOpacity: defaults.fillOpacity,
+    activeFillOpacity: defaults.activeFillOpacity,
+    inactiveFillOpacity: defaults.inactiveFillOpacity,
     defs: [
         patternDotsDef('dots', {
             background: 'inherit',
@@ -60,22 +60,22 @@ const initialProperties = {
         { match: { id: 'CoffeeScript' }, id: 'dots' },
         { match: { id: 'TypeScript' }, id: 'lines' },
     ],
-    borderWidth: AreaBumpDefaultProps.borderWidth,
-    activeBorderWidth: AreaBumpDefaultProps.activeBorderWidth,
-    inactiveBorderWidth: AreaBumpDefaultProps.inactiveBorderWidth,
-    borderColor: AreaBumpDefaultProps.borderColor,
-    borderOpacity: AreaBumpDefaultProps.borderOpacity,
-    activeBorderOpacity: AreaBumpDefaultProps.activeBorderOpacity,
-    inactiveBorderOpacity: AreaBumpDefaultProps.inactiveBorderOpacity,
+    borderWidth: defaults.borderWidth,
+    activeBorderWidth: defaults.activeBorderWidth,
+    inactiveBorderWidth: defaults.inactiveBorderWidth,
+    borderColor: defaults.borderColor,
+    borderOpacity: defaults.borderOpacity,
+    activeBorderOpacity: defaults.activeBorderOpacity,
+    inactiveBorderOpacity: defaults.inactiveBorderOpacity,
 
     startLabel: 'id',
-    startLabelPadding: AreaBumpDefaultProps.startLabelPadding,
-    startLabelTextColor: AreaBumpDefaultProps.startLabelTextColor,
+    startLabelPadding: defaults.startLabelPadding,
+    startLabelTextColor: defaults.startLabelTextColor,
     endLabel: 'id',
-    endLabelPadding: AreaBumpDefaultProps.endLabelPadding,
-    endLabelTextColor: AreaBumpDefaultProps.endLabelTextColor,
+    endLabelPadding: defaults.endLabelPadding,
+    endLabelTextColor: defaults.endLabelTextColor,
 
-    enableGridX: AreaBumpDefaultProps.enableGridX,
+    enableGridX: defaults.enableGridX,
     axisTop: {
         enable: true,
         tickSize: 5,
@@ -97,8 +97,8 @@ const initialProperties = {
 
     isInteractive: true,
 
-    animate: AreaBumpDefaultProps.animate,
-    motionConfig: AreaBumpDefaultProps.motionConfig,
+    animate: defaults.animate,
+    motionConfig: defaults.motionConfig,
 }
 
 const AreaBump = () => {
@@ -124,20 +124,15 @@ const AreaBump = () => {
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
-            defaultProperties={AreaBumpDefaultProps}
+            defaultProperties={defaults}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
         >
             {(properties, data, theme, logAction) => {
-                console.log({
-                    properties,
-                    data,
-                })
-
                 return (
-                    <ResponsiveAreaBump
+                    <ResponsiveAreaBump<{ x: number; y: number }>
                         data={data}
                         {...properties}
                         theme={theme}
