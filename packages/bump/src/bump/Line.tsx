@@ -60,6 +60,7 @@ export const Line = <D extends BumpDatum>({
     return (
         <>
             <animated.path
+                data-testid={`line.${serie.id}`}
                 fill="none"
                 d={animatedPath}
                 stroke={animatedProps.color}
@@ -70,6 +71,7 @@ export const Line = <D extends BumpDatum>({
             />
             {isInteractive && (
                 <path
+                    data-testid={`line.${serie.id}.interactive`}
                     fill="none"
                     stroke="red"
                     strokeOpacity={0}

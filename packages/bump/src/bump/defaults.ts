@@ -1,7 +1,7 @@
 import { ModernMotionProps } from '@nivo/core'
 import { LineTooltip } from './LineTooltip'
 import { Point } from './Point'
-import { BumpCommonProps, BumpSvgProps } from './types'
+import { BumpCommonProps, BumpPointComponent } from './types'
 
 const commonDefaultProps: Omit<
     BumpCommonProps<any>,
@@ -32,7 +32,7 @@ const commonDefaultProps: Omit<
     startLabel: false,
     startLabelPadding: 16,
     startLabelTextColor: { from: 'color' },
-    endLabel: 'id',
+    endLabel: true,
     endLabelPadding: 16,
     endLabelTextColor: { from: 'color' },
 
@@ -59,7 +59,7 @@ const commonDefaultProps: Omit<
 }
 
 export const bumpSvgDefaultProps: typeof commonDefaultProps & {
-    pointComponent: BumpSvgProps<any>['pointComponent']
+    pointComponent: BumpPointComponent<any>
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
 } = {

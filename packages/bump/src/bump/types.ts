@@ -1,5 +1,5 @@
 import { FunctionComponent, MouseEvent } from 'react'
-import { Theme, Box, Dimensions, ModernMotionProps, PropertyAccessor } from '@nivo/core'
+import { Theme, Box, Dimensions, ModernMotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
 
@@ -56,7 +56,7 @@ export type BumpDataProps<D extends BumpDatum> = {
 
 export type BumpInterpolation = 'smooth' | 'linear'
 
-export type BumpLabel = PropertyAccessor<any, string> | false
+export type BumpLabel<D extends BumpDatum> = ((serie: BumpComputedSerie<D>) => string) | boolean
 export interface BumpLabelData<D extends BumpDatum> {
     serie: BumpComputedSerie<D>
     id: BumpSerie<D>['id']
@@ -94,10 +94,10 @@ export type BumpCommonProps<D extends BumpDatum> = {
     activeOpacity: number
     inactiveOpacity: number
 
-    startLabel: BumpLabel
+    startLabel: BumpLabel<D>
     startLabelPadding: number
     startLabelTextColor: InheritedColorConfig<BumpComputedSerie<D>>
-    endLabel: BumpLabel
+    endLabel: BumpLabel<D>
     endLabelPadding: number
     endLabelTextColor: InheritedColorConfig<BumpComputedSerie<D>>
 
@@ -133,6 +133,6 @@ export type BumpCommonProps<D extends BumpDatum> = {
 
 export type BumpSvgProps<D extends BumpDatum> = Partial<BumpCommonProps<D>> &
     BumpDataProps<D> & {
-        pointComponent: BumpPointComponent<D>
+        pointComponent?: BumpPointComponent<D>
     } & Dimensions &
     ModernMotionProps

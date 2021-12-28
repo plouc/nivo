@@ -30,6 +30,7 @@ export const Point = <D extends BumpDatum>({ point }: PointProps<D>) => {
 
     return (
         <animated.circle
+            data-testid={`point.${point.serie.id}.${point.data.x}`}
             cx={animatedProps.x}
             cy={animatedProps.y}
             r={to(animatedProps.radius, v => Math.max(v, 0))}

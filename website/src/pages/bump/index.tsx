@@ -2,7 +2,7 @@ import React from 'react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveBump, bumpSvgDefaultProps as defaults } from '@nivo/bump'
+import { ResponsiveBump, bumpSvgDefaultProps as defaults, BumpCommonProps } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
@@ -37,7 +37,11 @@ const generateData = () => {
     return series
 }
 
-const initialProperties = {
+type UnmappedProps = Omit<BumpCommonProps<{ x: number; y: number }>, 'whatever'>
+
+type Props = UnmappedProps
+
+const initialProperties: UnmappedProps = {
     margin: {
         top: 40,
         right: 100,
@@ -137,7 +141,7 @@ const Bump = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedProps, Props>
             name="Bump"
             meta={meta.Bump}
             icon="chord"
