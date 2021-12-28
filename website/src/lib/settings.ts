@@ -2,7 +2,7 @@ import omit from 'lodash/omit'
 import upperFirst from 'lodash/upperFirst'
 
 export const settingsMapper =
-    (mapping: any, { exclude = [] } = {}) =>
+    (mapping: any, { exclude = [] }: { exclude?: string[] } = {}) =>
     (settings: any, options: any = {}) => {
         const overrides: any = {}
 

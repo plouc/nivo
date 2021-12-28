@@ -1,10 +1,23 @@
-import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
+import { Line as D3Line } from 'd3-shape'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { useSerieHandlers } from './hooks'
+import { BumpCommonProps, BumpComputedSerie, BumpDatum } from './types'
+import { useBumpSerieHandlers } from './hooks'
 
-const Line = ({
+interface LineProps<D extends BumpDatum> {
+    serie: BumpComputedSerie<D>
+    lineGenerator: D3Line<[number, number | null]>
+    yStep: number
+    isInteractive: BumpCommonProps<D>['isInteractive']
+    onMouseEnter?: BumpCommonProps<D>['onMouseEnter']
+    onMouseMove?: BumpCommonProps<D>['onMouseMove']
+    onMouseLeave?: BumpCommonProps<D>['onMouseLeave']
+    onClick?: BumpCommonProps<D>['onClick']
+    setActiveSerieIds: (serieIds: string[]) => void
+    tooltip: BumpCommonProps<D>['tooltip']
+}
+
+export const Line = <D extends BumpDatum>({
     serie,
     lineGenerator,
     yStep,
@@ -13,26 +26,30 @@ const Line = ({
     onMouseMove,
     onMouseLeave,
     onClick,
-    setCurrentSerie,
+    setActiveSerieIds,
     tooltip,
-}) => {
-    const handlers = useSerieHandlers({
+}: LineProps<D>) => {
+    const handlers = useBumpSerieHandlers<D>({
         serie,
         isInteractive,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
-        setCurrent: setCurrentSerie,
+        setActiveSerieIds,
         tooltip,
     })
 
     const { animate, config: springConfig } = useMotionConfig()
 
-    const linePath = lineGenerator(serie.linePoints)
+    const linePath = lineGenerator(serie.linePoints)!
 
     const animatedPath = useAnimatedPath(linePath)
-    const animatedProps = useSpring({
+    const animatedProps = useSpring<{
+        color: string
+        opacity: number
+        lineWidth: number
+    }>({
         color: serie.color,
         opacity: serie.style.opacity,
         lineWidth: serie.style.lineWidth,
@@ -68,26 +85,3 @@ const Line = ({
         </>
     )
 }
-
-Line.propTypes = {
-    serie: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
-        linePoints: PropTypes.array.isRequired,
-        style: PropTypes.shape({
-            lineWidth: PropTypes.number.isRequired,
-            opacity: PropTypes.number.isRequired,
-        }).isRequired,
-    }).isRequired,
-    lineGenerator: PropTypes.func.isRequired,
-    yStep: PropTypes.number.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    setCurrentSerie: PropTypes.func.isRequired,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-}
-
-export default memo(Line)

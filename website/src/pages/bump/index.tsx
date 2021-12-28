@@ -1,18 +1,24 @@
 import React from 'react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
-import { ResponsiveBump, BumpDefaultProps } from '@nivo/bump'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveBump, bumpSvgDefaultProps as defaults } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
 import mapper from '../../data/components/bump/mapper'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => {
     const years = range(2000, 2005)
     const ranks = range(1, 13)
 
-    const series = ranks.map(rank => {
+    const series: {
+        id: string
+        data: {
+            x: number
+            y: number
+        }[]
+    }[] = ranks.map(rank => {
         return {
             id: `Serie ${rank}`,
             data: [],
@@ -39,25 +45,25 @@ const initialProperties = {
         left: 60,
     },
 
-    interpolation: BumpDefaultProps.interpolation,
-    xPadding: BumpDefaultProps.xPadding,
-    xOuterPadding: BumpDefaultProps.xOuterPadding,
-    yOuterPadding: BumpDefaultProps.yOuterPadding,
+    interpolation: defaults.interpolation,
+    xPadding: defaults.xPadding,
+    xOuterPadding: defaults.xOuterPadding,
+    yOuterPadding: defaults.yOuterPadding,
 
     colors: { scheme: 'spectral' },
     lineWidth: 3,
     activeLineWidth: 6,
     inactiveLineWidth: 3,
-    opacity: BumpDefaultProps.opacity,
-    activeOpacity: BumpDefaultProps.activeOpacity,
+    opacity: defaults.opacity,
+    activeOpacity: defaults.activeOpacity,
     inactiveOpacity: 0.15,
 
     startLabel: false,
-    startLabelPadding: BumpDefaultProps.startLabelPadding,
-    startLabelTextColor: BumpDefaultProps.startLabelTextColor,
+    startLabelPadding: defaults.startLabelPadding,
+    startLabelTextColor: defaults.startLabelTextColor,
     endLabel: 'id',
-    endLabelPadding: BumpDefaultProps.endLabelPadding,
-    endLabelTextColor: BumpDefaultProps.endLabelTextColor,
+    endLabelPadding: defaults.endLabelPadding,
+    endLabelTextColor: defaults.endLabelTextColor,
 
     pointSize: 10,
     activePointSize: 16,
@@ -84,7 +90,7 @@ const initialProperties = {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        format: v => `#${v}`,
+        format: (value: number) => `#${value}`,
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: 40,
@@ -103,7 +109,7 @@ const initialProperties = {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        format: v => `#${v}`,
+        format: (value: number) => `#${value}`,
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: -40,
@@ -111,8 +117,8 @@ const initialProperties = {
 
     isInteractive: true,
 
-    animate: BumpDefaultProps.animate,
-    motionConfig: BumpDefaultProps.motionConfig,
+    animate: defaults.animate,
+    motionConfig: defaults.motionConfig,
 }
 
 const Bump = () => {
@@ -138,7 +144,7 @@ const Bump = () => {
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
-            defaultProperties={BumpDefaultProps}
+            defaultProperties={defaults}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
@@ -146,7 +152,7 @@ const Bump = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBump
+                    <ResponsiveBump<{ x: number; y: number }>
                         data={data}
                         {...properties}
                         theme={theme}
