@@ -5,6 +5,11 @@ interface LineTooltipProps<D extends BumpDatum> {
     serie: BumpComputedSerie<D>
 }
 
-export const LineTooltip = <D extends BumpDatum>({ serie }: LineTooltipProps<D>) => {
-    return <BasicTooltip id={serie.id} enableChip={true} color={serie.color} />
-}
+export const LineTooltip = <D extends BumpDatum>({ serie }: LineTooltipProps<D>) => (
+    <BasicTooltip
+        data-testid={`tooltip.${serie.id}`}
+        id={serie.id}
+        enableChip={true}
+        color={serie.color}
+    />
+)

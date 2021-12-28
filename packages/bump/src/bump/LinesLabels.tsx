@@ -6,7 +6,7 @@ import { useBumpSeriesLabels } from './hooks'
 
 interface LineLabelsProps<D extends BumpDatum> {
     series: BumpComputedSerie<D>[]
-    getLabel: BumpLabel
+    getLabel: BumpLabel<D>
     position: 'start' | 'end'
     padding: number
     color: InheritedColorConfig<BumpComputedSerie<D>>
@@ -52,6 +52,7 @@ export const LinesLabels = <D extends BumpDatum>({
 
                 return (
                     <animated.text
+                        data-testid={`label.${position}.${label.serie.id}`}
                         key={label.id}
                         x={animatedProps.x}
                         y={animatedProps.y}
