@@ -42,7 +42,7 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
 
     const { animate, config: springConfig } = useMotionConfig()
 
-    const linePath = lineGenerator(serie.linePoints)!
+    const linePath = lineGenerator(serie.linePoints) || ''
 
     const animatedPath = useAnimatedPath(linePath)
     const animatedProps = useSpring<{

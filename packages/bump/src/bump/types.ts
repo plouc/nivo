@@ -1,7 +1,9 @@
 import { FunctionComponent, MouseEvent } from 'react'
+import { Line as D3Line } from 'd3-shape'
 import { Theme, Box, Dimensions, ModernMotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
+import { ScalePoint } from '@nivo/scales'
 
 export interface BumpDatum {
     x: number | string
@@ -14,7 +16,7 @@ export interface DefaultBumpDatum {
 }
 
 export type BumpSerieExtraProps = {
-    [key: string]: any
+    [key: string]: unknown
 }
 
 export type BumpSerie<
@@ -92,8 +94,34 @@ export type BumpMouseHandler<Datum extends BumpDatum, ExtraProps extends BumpSer
 ) => void
 
 export type BumpLayerId = 'grid' | 'axes' | 'labels' | 'lines' | 'points'
-export interface BumpCustomLayerProps {}
-export type BumpCustomLayer = FunctionComponent<BumpCustomLayerProps>
+export interface BumpCustomLayerProps<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+> {
+    innerHeight: number
+    innerWidth: number
+    lineGenerator: D3Line<[number, number | null]>
+    points: BumpPoint<Datum, ExtraProps>[]
+    series: BumpComputedSerie<Datum, ExtraProps>[]
+    xScale: ScalePoint<Datum['x']>
+    yScale: ScalePoint<number>
+    activeSerieIds: string[]
+    setActiveSerieIds: (serieIds: string[]) => void
+}
+export type BumpCustomLayer<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+> = FunctionComponent<BumpCustomLayerProps<Datum, ExtraProps>>
+export type BumpLayer<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> =
+    | BumpLayerId
+    | BumpCustomLayer<Datum, ExtraProps>
+
+export type BumpLineTooltip<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+> = FunctionComponent<{
+    serie: BumpComputedSerie<Datum, ExtraProps>
+}>
 
 export type BumpCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> = {
     margin: Box
@@ -136,15 +164,15 @@ export type BumpCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSeri
     axisTop: AxisProps | null
 
     isInteractive: boolean
-    defaultActiveSerieIds: BumpSerie<Datum, ExtraProps>['id'][]
+    defaultActiveSerieIds: string[]
     onMouseEnter: BumpMouseHandler<Datum, ExtraProps>
     onMouseMove: BumpMouseHandler<Datum, ExtraProps>
     onMouseLeave: BumpMouseHandler<Datum, ExtraProps>
     onClick: BumpMouseHandler<Datum, ExtraProps>
-    tooltip: FunctionComponent<{ serie: BumpComputedSerie<Datum, ExtraProps> }>
+    tooltip: BumpLineTooltip<Datum, ExtraProps>
     role: string
 
-    layers: (BumpLayerId | BumpCustomLayer)[]
+    layers: BumpLayer<Datum, ExtraProps>[]
 
     renderWrapper: boolean
 }

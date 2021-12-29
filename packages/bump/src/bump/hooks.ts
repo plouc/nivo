@@ -159,7 +159,7 @@ const usePointStyle = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtr
 
 export const useBump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = {}
+    ExtraProps extends BumpSerieExtraProps = Record<string, never>
 >({
     width,
     height,
@@ -332,7 +332,7 @@ export const useBumpSerieHandlers = <
             setActiveSerieIds([serie.id])
             onMouseEnter && onMouseEnter(serie, event)
         },
-        [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds]
+        [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds, tooltip]
     )
 
     const handleMouseMove = useCallback(
@@ -340,7 +340,7 @@ export const useBumpSerieHandlers = <
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             onMouseMove && onMouseMove(serie, event)
         },
-        [serie, onMouseMove, showTooltipFromEvent]
+        [serie, onMouseMove, showTooltipFromEvent, tooltip]
     )
 
     const handleMouseLeave = useCallback(
@@ -430,5 +430,5 @@ export const useBumpSeriesLabels = <
         })
 
         return labels
-    }, [series, position, padding, getColor])
+    }, [series, position, padding, getColor, getLabel])
 }
