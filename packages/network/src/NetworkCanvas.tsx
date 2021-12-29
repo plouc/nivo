@@ -3,14 +3,14 @@ import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } fr
 import { useTooltip } from '@nivo/tooltip'
 import { canvasDefaultProps } from './defaults'
 import { useNetwork } from './hooks'
-import { NetworkCanvasProps, NetworkInputNode } from './types'
+import { NetworkCanvasProps, InputNode, NodeTooltip } from './types'
 
-type InnerNetworkCanvasProps<N extends NetworkInputNode> = Omit<
-    NetworkCanvasProps<N>,
+type InnerNetworkCanvasProps<Node extends InputNode> = Omit<
+    NetworkCanvasProps<Node>,
     'renderWrapper' | 'theme'
 >
 
-const InnerNetworkCanvas = <N extends NetworkInputNode>({
+const InnerNetworkCanvas = <Node extends InputNode>({
     width,
     height,
     margin: partialMargin,
@@ -27,6 +27,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
     layers = canvasDefaultProps.layers,
 
     renderNode = canvasDefaultProps.renderNode,
+    nodeSize = canvasDefaultProps.nodeSize,
     nodeColor = canvasDefaultProps.nodeColor,
     nodeBorderWidth = canvasDefaultProps.nodeBorderWidth,
     nodeBorderColor = canvasDefaultProps.nodeBorderColor,
@@ -36,9 +37,9 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
     linkColor = canvasDefaultProps.linkColor,
 
     isInteractive = canvasDefaultProps.isInteractive,
-    nodeTooltip = canvasDefaultProps.nodeTooltip,
+    nodeTooltip = canvasDefaultProps.nodeTooltip as NodeTooltip<Node>,
     onClick,
-}: InnerNetworkCanvasProps<N>) => {
+}: InnerNetworkCanvasProps<Node>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -46,7 +47,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         partialMargin
     )
 
-    const [nodes, links] = useNetwork<N>({
+    const { nodes, links, setActiveNodeIds } = useNetwork<Node>({
         center: [innerWidth / 2, innerHeight / 2],
         nodes: rawNodes,
         links: rawLinks,
@@ -55,6 +56,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
         distanceMin,
         distanceMax,
         iterations,
+        nodeSize,
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
@@ -119,7 +121,7 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
                     x - margin.left,
                     y - margin.top
                 )
-                return distanceFromNode <= node.radius
+                return distanceFromNode <= node.size / 2
             })
         },
         [canvasEl, margin, nodes]
@@ -132,16 +134,19 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
             const node = getNodeFromMouseEvent(event)
             if (node) {
                 showTooltipFromEvent(createElement(nodeTooltip, { node }), event)
+                setActiveNodeIds([node.id])
             } else {
                 hideTooltip()
+                setActiveNodeIds([])
             }
         },
-        [getNodeFromMouseEvent, showTooltipFromEvent, nodeTooltip, hideTooltip]
+        [getNodeFromMouseEvent, showTooltipFromEvent, nodeTooltip, hideTooltip, setActiveNodeIds]
     )
 
     const handleMouseLeave = useCallback(() => {
         hideTooltip()
-    }, [hideTooltip])
+        setActiveNodeIds([])
+    }, [hideTooltip, setActiveNodeIds])
 
     const handleClick = useCallback(
         (event: MouseEvent) => {
@@ -173,15 +178,15 @@ const InnerNetworkCanvas = <N extends NetworkInputNode>({
     )
 }
 
-export const NetworkCanvas = <N extends NetworkInputNode = NetworkInputNode>({
+export const NetworkCanvas = <Node extends InputNode = InputNode>({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,
     animate = canvasDefaultProps.animate,
     motionConfig = canvasDefaultProps.motionConfig,
     renderWrapper,
     ...otherProps
-}: NetworkCanvasProps<N>) => (
+}: NetworkCanvasProps<Node>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerNetworkCanvas<N> isInteractive={isInteractive} {...otherProps} />
+        <InnerNetworkCanvas<Node> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

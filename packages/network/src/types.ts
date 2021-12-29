@@ -1,27 +1,28 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { AnimatedProps } from '@react-spring/web'
-import { Box, Theme, Dimensions, ModernMotionProps } from '@nivo/core'
+import { Box, Theme, Dimensions, ModernMotionProps, CssMixBlendMode } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
+import { AnnotationMatcher } from '@nivo/annotations'
 
-export interface NetworkInputNode {
+export interface InputNode {
     id: string
 }
 
-export interface NetworkComputedNode<N extends NetworkInputNode> {
+export interface ComputedNode<Node extends InputNode> {
     id: string
+    data: Node
     x: number
     y: number
-    radius: number
+    size: number
     color: string
     borderWidth: number
     borderColor: string
-    data: N
 }
 
-export interface NetworkNodeAnimatedProps {
+export interface NodeAnimatedProps {
     x: number
     y: number
-    radius: number
+    size: number
     color: string
     borderWidth: number
     borderColor: string
@@ -29,21 +30,19 @@ export interface NetworkNodeAnimatedProps {
     scale: number
 }
 
-export interface NetworkNodeProps<N extends NetworkInputNode> {
-    node: NetworkComputedNode<N>
-    animated: AnimatedProps<NetworkNodeAnimatedProps>
-    scale?: number
-    onClick?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
-    onMouseEnter?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
-    onMouseMove?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
-    onMouseLeave?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+export interface NodeProps<Node extends InputNode> {
+    node: ComputedNode<Node>
+    animated: AnimatedProps<NodeAnimatedProps>
+    blendMode: NonNullable<NetworkSvgProps<Node>['nodeBlendMode']>
+    onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    onMouseLeave?: (node: ComputedNode<Node>, event: MouseEvent) => void
 }
-export type NetworkNodeComponent<N extends NetworkInputNode> = FunctionComponent<
-    NetworkNodeProps<N>
->
-export type NetworkNodeCanvasRenderer<N extends NetworkInputNode> = (
+export type NodeComponent<Node extends InputNode> = FunctionComponent<NodeProps<Node>>
+export type NodeCanvasRenderer<Node extends InputNode> = (
     ctx: CanvasRenderingContext2D,
-    node: NetworkComputedNode<N>
+    node: ComputedNode<Node>
 ) => void
 
 export interface InputLink {
@@ -51,12 +50,12 @@ export interface InputLink {
     target: string
 }
 
-export interface ComputedLink<N extends NetworkInputNode> {
+export interface ComputedLink<Node extends InputNode> {
     id: string
-    source: NetworkComputedNode<N>
-    previousSource?: NetworkComputedNode<N>
-    target: NetworkComputedNode<N>
-    previousTarget?: NetworkComputedNode<N>
+    source: ComputedNode<Node>
+    previousSource?: ComputedNode<Node>
+    target: ComputedNode<Node>
+    previousTarget?: ComputedNode<Node>
     thickness: number
     color: string
 }
@@ -70,63 +69,47 @@ export interface LinkAnimatedProps {
     opacity: number
 }
 
-export interface NetworkLinkProps<N extends NetworkInputNode> {
-    link: ComputedLink<N>
+export interface LinkProps<Node extends InputNode> {
+    link: ComputedLink<Node>
     animated: AnimatedProps<LinkAnimatedProps>
+    blendMode: NonNullable<NetworkSvgProps<Node>['linkBlendMode']>
 }
-export type NetworkLinkComponent<N extends NetworkInputNode> = FunctionComponent<
-    NetworkLinkProps<N>
->
-export type NetworkLinkCanvasRenderer<N extends NetworkInputNode> = (
+export type LinkComponent<Node extends InputNode> = FunctionComponent<LinkProps<Node>>
+export type LinkCanvasRenderer<Node extends InputNode> = (
     ctx: CanvasRenderingContext2D,
-    node: ComputedLink<N>
+    node: ComputedLink<Node>
 ) => void
 
-export interface NetworkDataProps<N extends NetworkInputNode> {
+export interface NetworkDataProps<Node extends InputNode> {
     data: {
-        nodes: N[]
+        nodes: Node[]
         links: InputLink[]
     }
 }
 
-export type NetworkLayerId = 'links' | 'nodes'
-export interface NetworkCustomLayerProps<N extends NetworkInputNode> {
-    nodes: NetworkComputedNode<N>[]
-    links: ComputedLink<N>[]
+export type LayerId = 'links' | 'nodes' | 'annotations'
+export interface CustomLayerProps<Node extends InputNode> {
+    nodes: ComputedNode<Node>[]
+    links: ComputedLink<Node>[]
 }
-export type NetworkCustomLayer<N extends NetworkInputNode> = FunctionComponent<
-    NetworkCustomLayerProps<N>
->
-export type NetworkCustomCanvasLayer<N extends NetworkInputNode> = (
+export type CustomLayer<Node extends InputNode> = FunctionComponent<CustomLayerProps<Node>>
+export type CustomCanvasLayer<Node extends InputNode> = (
     ctx: CanvasRenderingContext2D,
-    props: NetworkCustomLayerProps<N>
+    props: CustomLayerProps<Node>
 ) => void
 
-export interface NetworkNodeTooltipProps<N extends NetworkInputNode> {
-    node: NetworkComputedNode<N>
+export interface NodeTooltipProps<Node extends InputNode> {
+    node: ComputedNode<Node>
 }
-export type NetworkNodeTooltipComponent<N extends NetworkInputNode> = FunctionComponent<
-    NetworkNodeTooltipProps<N>
->
+export type NodeTooltip<Node extends InputNode> = FunctionComponent<NodeTooltipProps<Node>>
 
-// support static color or a dynamic function receiving the node
-export type NetworkNodeColor<N extends NetworkInputNode> =
-    | string
-    | ((node: NetworkComputedNode<N>) => string)
+export type NodeDerivedProp<Node extends InputNode, T> = T | ((node: ComputedNode<Node>) => T)
+export type LinkDerivedProp<Node extends InputNode, T> = T | ((link: ComputedLink<Node>) => T)
 
-// support static distance, a property access if passing a string
-// or a dynamic function receiving the link.
-export type NetworkLinkDistance = number | string | ((link: InputLink) => number)
-
-// support static thickness or a dynamic function receiving the link
-export type NetworkLinkThickness<N extends NetworkInputNode> =
-    | number
-    | ((link: ComputedLink<N>) => number)
-
-export interface NetworkCommonProps<N extends NetworkInputNode> {
+export type NetworkCommonProps<Node extends InputNode> = {
     margin: Box
 
-    linkDistance: NetworkLinkDistance
+    linkDistance: LinkDerivedProp<Node, number>
     repulsivity: number
     distanceMin: number
     distanceMax: number
@@ -134,16 +117,23 @@ export interface NetworkCommonProps<N extends NetworkInputNode> {
 
     theme: Theme
 
-    nodeColor: NetworkNodeColor<N>
-    nodeBorderWidth: number
-    nodeBorderColor: InheritedColorConfig<NetworkComputedNode<N>>
+    nodeSize: NodeDerivedProp<Node, number>
+    activeNodeSize: NodeDerivedProp<Node, number>
+    inactiveNodeSize: NodeDerivedProp<Node, number>
+    nodeColor: NodeDerivedProp<Node, string>
+    nodeBorderWidth: NodeDerivedProp<Node, number>
+    nodeBorderColor: InheritedColorConfig<ComputedNode<Node>>
 
-    linkThickness: NetworkLinkThickness<N>
-    linkColor: InheritedColorConfig<ComputedLink<N>>
+    linkThickness: LinkDerivedProp<Node, number>
+    activeLinkThickness: LinkDerivedProp<Node, number>
+    linkColor: InheritedColorConfig<ComputedLink<Node>>
+
+    annotations: AnnotationMatcher<ComputedNode<Node>>[]
 
     isInteractive: boolean
-    nodeTooltip: NetworkNodeTooltipComponent<N>
-    onClick: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+    defaultActiveNodeIds: string[]
+    nodeTooltip: NodeTooltip<Node>
+    onClick: (node: ComputedNode<Node>, event: MouseEvent) => void
 
     renderWrapper: boolean
 
@@ -151,24 +141,23 @@ export interface NetworkCommonProps<N extends NetworkInputNode> {
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-}
+} & Required<ModernMotionProps>
 
-export type NetworkSvgProps<N extends NetworkInputNode> = Partial<NetworkCommonProps<N>> &
-    NetworkDataProps<N> &
-    Dimensions &
-    ModernMotionProps & {
-        layers?: (NetworkLayerId | NetworkCustomLayer<N>)[]
-        nodeComponent?: NetworkNodeComponent<N>
-        linkComponent?: NetworkLinkComponent<N>
+export type NetworkSvgProps<Node extends InputNode> = Partial<NetworkCommonProps<Node>> &
+    NetworkDataProps<Node> &
+    Dimensions & {
+        layers?: (LayerId | CustomLayer<Node>)[]
+        nodeComponent?: NodeComponent<Node>
+        nodeBlendMode?: CssMixBlendMode
+        linkComponent?: LinkComponent<Node>
+        linkBlendMode?: CssMixBlendMode
     }
 
-export type NetworkCanvasProps<N extends NetworkInputNode> = Partial<NetworkCommonProps<N>> &
-    NetworkDataProps<N> &
-    Dimensions &
-    // only used by tooltips
-    ModernMotionProps & {
-        layers?: (NetworkLayerId | NetworkCustomCanvasLayer<N>)[]
-        renderNode?: NetworkNodeCanvasRenderer<N>
-        renderLink?: NetworkLinkCanvasRenderer<N>
+export type NetworkCanvasProps<Node extends InputNode> = Partial<NetworkCommonProps<Node>> &
+    NetworkDataProps<Node> &
+    Dimensions & {
+        layers?: (LayerId | CustomCanvasLayer<Node>)[]
+        renderNode?: NodeCanvasRenderer<Node>
+        renderLink?: LinkCanvasRenderer<Node>
         pixelRatio?: number
     }

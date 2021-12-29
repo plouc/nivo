@@ -3,16 +3,18 @@ import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { svgDefaultProps } from './defaults'
 import { useNetwork } from './hooks'
-import { NetworkNodes } from './NetworkNodes'
 import { NetworkLinks } from './NetworkLinks'
-import { NetworkInputNode, NetworkLayerId, NetworkSvgProps } from './types'
+import { NetworkNodes } from './NetworkNodes'
+import { NetworkNodeAnnotations } from './NetworkNodeAnnotations'
 
-type InnerNetworkProps<N extends NetworkInputNode> = Omit<
-    NetworkSvgProps<N>,
+import { InputNode, LayerId, NodeTooltip, NetworkSvgProps, ComputedNode } from './types'
+
+type InnerNetworkProps<Node extends InputNode> = Omit<
+    NetworkSvgProps<Node>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerNetwork = <N extends NetworkInputNode>({
+const InnerNetwork = <Node extends InputNode>({
     width,
     height,
     margin: partialMargin,
@@ -27,31 +29,42 @@ const InnerNetwork = <N extends NetworkInputNode>({
 
     layers = svgDefaultProps.layers,
 
-    nodeComponent = svgDefaultProps.nodeComponent,
+    nodeComponent = svgDefaultProps.nodeComponent as NonNullable<
+        NetworkSvgProps<Node>['nodeComponent']
+    >,
+    nodeSize = svgDefaultProps.nodeSize,
+    activeNodeSize = svgDefaultProps.activeNodeSize,
+    inactiveNodeSize = svgDefaultProps.inactiveNodeSize,
     nodeColor = svgDefaultProps.nodeColor,
+    nodeBlendMode = svgDefaultProps.nodeBlendMode,
     nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
     nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
-    linkComponent = svgDefaultProps.linkComponent,
+    linkComponent = svgDefaultProps.linkComponent as NonNullable<
+        NetworkSvgProps<Node>['linkComponent']
+    >,
     linkThickness = svgDefaultProps.linkThickness,
     linkColor = svgDefaultProps.linkColor,
+    linkBlendMode = svgDefaultProps.linkBlendMode,
+
+    annotations = svgDefaultProps.annotations as NonNullable<NetworkSvgProps<Node>['annotations']>,
 
     isInteractive = svgDefaultProps.isInteractive,
-    nodeTooltip = svgDefaultProps.nodeTooltip,
+    nodeTooltip = svgDefaultProps.nodeTooltip as NodeTooltip<Node>,
     onClick,
 
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: InnerNetworkProps<N>) => {
+}: InnerNetworkProps<Node>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const [nodes, links] = useNetwork<N>({
+    const { nodes, links, setActiveNodeIds } = useNetwork<Node>({
         center: [innerWidth / 2, innerHeight / 2],
         nodes: rawNodes,
         links: rawLinks,
@@ -60,6 +73,9 @@ const InnerNetwork = <N extends NetworkInputNode>({
         distanceMin,
         distanceMax,
         iterations,
+        nodeSize,
+        activeNodeSize,
+        inactiveNodeSize,
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
@@ -70,38 +86,55 @@ const InnerNetwork = <N extends NetworkInputNode>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleNodeHover = useCallback(
-        (node, event) => {
+        (node: ComputedNode<Node>, event) => {
             showTooltipFromEvent(createElement(nodeTooltip, { node }), event)
+            setActiveNodeIds([node.id])
         },
-        [showTooltipFromEvent, nodeTooltip]
+        [showTooltipFromEvent, nodeTooltip, setActiveNodeIds]
     )
 
     const handleNodeLeave = useCallback(() => {
         hideTooltip()
-    }, [hideTooltip])
+        setActiveNodeIds([])
+    }, [hideTooltip, setActiveNodeIds])
 
-    const layerById: Record<NetworkLayerId, ReactNode> = {
+    const layerById: Record<LayerId, ReactNode> = {
         links: null,
         nodes: null,
+        annotations: null,
     }
+
+    console.log(nodes)
 
     if (layers.includes('links') && links !== null) {
         layerById.links = (
-            <NetworkLinks<N> key="links" links={links} linkComponent={linkComponent} />
+            <NetworkLinks<Node>
+                key="links"
+                links={links}
+                linkComponent={linkComponent}
+                blendMode={linkBlendMode}
+            />
         )
     }
 
     if (layers.includes('nodes') && nodes !== null) {
         layerById.nodes = (
-            <NetworkNodes<N>
+            <NetworkNodes<Node>
                 key="nodes"
                 nodes={nodes}
                 nodeComponent={nodeComponent}
+                blendMode={nodeBlendMode}
                 onClick={isInteractive ? onClick : undefined}
                 onMouseEnter={isInteractive ? handleNodeHover : undefined}
                 onMouseMove={isInteractive ? handleNodeHover : undefined}
                 onMouseLeave={isInteractive ? handleNodeLeave : undefined}
             />
+        )
+    }
+
+    if (layers.includes('annotations') && nodes !== null) {
+        layerById.annotations = (
+            <NetworkNodeAnnotations<Node> nodes={nodes} annotations={annotations} />
         )
     }
 
@@ -136,14 +169,14 @@ const InnerNetwork = <N extends NetworkInputNode>({
     )
 }
 
-export const Network = <N extends NetworkInputNode = NetworkInputNode>({
+export const Network = <Node extends InputNode = InputNode>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: NetworkSvgProps<N>) => (
+}: NetworkSvgProps<Node>) => (
     <Container
         {...{
             animate,
@@ -153,6 +186,6 @@ export const Network = <N extends NetworkInputNode = NetworkInputNode>({
             theme,
         }}
     >
-        <InnerNetwork<N> isInteractive={isInteractive} {...otherProps} />
+        <InnerNetwork<Node> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

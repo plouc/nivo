@@ -1,10 +1,14 @@
 import React from 'react'
-import { ResponsiveNetwork, svgDefaultProps } from '@nivo/network'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveNetwork, svgDefaultProps as defaults } from '@nivo/network'
+import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
+import mapper, {
+    dynamicNodeSizeValue,
+    dynamicLinkThicknessValue,
+} from '../../data/components/network/mapper'
 import { groups } from '../../data/components/network/props'
-import { generateNetworkData } from '@nivo/generators'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = Object.freeze({
     margin: {
@@ -18,15 +22,18 @@ const initialProperties = Object.freeze({
     repulsivity: 6,
     iterations: 60,
 
-    nodeColor: node => node.color,
+    nodeSize: dynamicNodeSizeValue,
+    nodeColor: (node: any) => node.color,
+    nodeBlendMode: 'normal',
     nodeBorderWidth: 1,
     nodeBorderColor: {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
 
-    linkColor: svgDefaultProps.linkColor,
-    linkThickness: link => (2 - link.source.depth) * 2,
+    linkThickness: dynamicLinkThicknessValue,
+    linkColor: defaults.linkColor,
+    linkBlendMode: 'multiply',
 
     isInteractive: true,
 
@@ -60,7 +67,8 @@ const Network = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={svgDefaultProps}
+            defaultProperties={defaults}
+            propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={data => data.nodes.length}
             image={image}
@@ -68,9 +76,35 @@ const Network = () => {
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveNetwork
-                        data={data}
+                        data={
+                            data /*{
+                            nodes: [
+                                { id: 'A' },
+                                { id: 'B' },
+                                { id: 'C' },
+                                { id: 'D' },
+                                { id: 'E' },
+                            ],
+                            links: [
+                                { source: 'A', target: 'B' },
+                                { source: 'B', target: 'C' },
+                                { source: 'C', target: 'D' },
+                                { source: 'D', target: 'E' },
+                            ],
+                        }*/
+                        }
                         {...properties}
                         theme={theme}
+                        annotations={[
+                            {
+                                type: 'circle',
+                                match: { id: '10' },
+                                noteX: 40,
+                                noteY: 40,
+                                offset: 4,
+                                note: 'Node id: 10',
+                            },
+                        ]}
                         onClick={node => {
                             logAction({
                                 type: 'click',

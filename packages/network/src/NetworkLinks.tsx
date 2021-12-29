@@ -1,16 +1,17 @@
 import { createElement, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedLink, NetworkInputNode, NetworkLinkComponent } from './types'
+import { ComputedLink, InputNode, LinkComponent, NetworkSvgProps } from './types'
 
-interface NetworkLinksProps<N extends NetworkInputNode> {
-    links: ComputedLink<N>[]
-    linkComponent: NetworkLinkComponent<N>
+interface NetworkLinksProps<Node extends InputNode> {
+    links: ComputedLink<Node>[]
+    linkComponent: LinkComponent<Node>
+    blendMode: NonNullable<NetworkSvgProps<Node>['linkBlendMode']>
 }
 
 const getEnterTransition =
-    <N extends NetworkInputNode>() =>
-    (link: ComputedLink<N>) => ({
+    <Node extends InputNode>() =>
+    (link: ComputedLink<Node>) => ({
         x1: link.source.x,
         y1: link.source.y,
         x2: link.source.x,
@@ -20,8 +21,8 @@ const getEnterTransition =
     })
 
 const getRegularTransition =
-    <N extends NetworkInputNode>() =>
-    (link: ComputedLink<N>) => ({
+    <Node extends InputNode>() =>
+    (link: ComputedLink<Node>) => ({
         x1: link.source.x,
         y1: link.source.y,
         x2: link.target.x,
@@ -31,8 +32,8 @@ const getRegularTransition =
     })
 
 const getExitTransition =
-    <N extends NetworkInputNode>() =>
-    (link: ComputedLink<N>) => ({
+    <Node extends InputNode>() =>
+    (link: ComputedLink<Node>) => ({
         x1: link.source.x,
         y1: link.source.y,
         x2: link.source.x,
@@ -41,19 +42,20 @@ const getExitTransition =
         opacity: 0,
     })
 
-export const NetworkLinks = <N extends NetworkInputNode>({
+export const NetworkLinks = <Node extends InputNode>({
     links,
     linkComponent,
-}: NetworkLinksProps<N>) => {
+    blendMode,
+}: NetworkLinksProps<Node>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const [enterTransition, regularTransition, exitTransition] = useMemo(
-        () => [getEnterTransition<N>(), getRegularTransition<N>(), getExitTransition<N>()],
+        () => [getEnterTransition<Node>(), getRegularTransition<Node>(), getExitTransition<Node>()],
         []
     )
 
     const transition = useTransition<
-        ComputedLink<N>,
+        ComputedLink<Node>,
         {
             x1: number
             y1: number
@@ -81,6 +83,7 @@ export const NetworkLinks = <N extends NetworkInputNode>({
                     key: link.id,
                     link,
                     animated: transitionProps,
+                    blendMode,
                 })
             })}
         </>

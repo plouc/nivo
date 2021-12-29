@@ -1,13 +1,15 @@
 import { animated } from '@react-spring/web'
-import { NetworkInputNode, NetworkLinkProps } from './types'
+import { InputNode, LinkProps } from './types'
 
-export const NetworkLink = <N extends NetworkInputNode>({
+export const NetworkLink = <Node extends InputNode>({
     link,
     animated: animatedProps,
-}: NetworkLinkProps<N>) => {
+    blendMode,
+}: LinkProps<Node>) => {
     return (
         <animated.line
             stroke={animatedProps.color}
+            style={{ mixBlendMode: blendMode }}
             strokeWidth={link.thickness}
             strokeLinecap="round"
             x1={animatedProps.x1}
