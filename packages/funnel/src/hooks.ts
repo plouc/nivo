@@ -6,7 +6,7 @@ import { useTheme, useValueFormatter } from '@nivo/core'
 import { useAnnotations } from '@nivo/annotations'
 import { useTooltip, TooltipActionsContextData } from '@nivo/tooltip'
 import { svgDefaultProps as defaults } from './props'
-import { PartTooltip } from './PartTooltip'
+import { PartTooltip, PartTooltipProps } from './PartTooltip'
 import {
     FunnelDatum,
     FunnelCommonProps,
@@ -213,6 +213,7 @@ export const computePartsHandlers = <D extends FunnelDatum>({
     onClick,
     showTooltipFromEvent,
     hideTooltip,
+    tooltip = PartTooltip,
 }: {
     parts: FunnelPart<D>[]
     setCurrentPartId: (id: string | number | null) => void
@@ -223,13 +224,14 @@ export const computePartsHandlers = <D extends FunnelDatum>({
     onClick?: FunnelCommonProps<D>['onClick']
     showTooltipFromEvent: TooltipActionsContextData['showTooltipFromEvent']
     hideTooltip: () => void
+    tooltip?: (props: PartTooltipProps<D>) => JSX.Element
 }) => {
     if (!isInteractive) return parts
 
     return parts.map(part => {
         const boundOnMouseEnter = (event: MouseEvent) => {
             setCurrentPartId(part.data.id)
-            showTooltipFromEvent(createElement(PartTooltip, { part }), event)
+            showTooltipFromEvent(createElement(tooltip, { part }), event)
             onMouseEnter !== undefined && onMouseEnter(part, event)
         }
 
@@ -240,7 +242,7 @@ export const computePartsHandlers = <D extends FunnelDatum>({
         }
 
         const boundOnMouseMove = (event: MouseEvent) => {
-            showTooltipFromEvent(createElement(PartTooltip, { part }), event)
+            showTooltipFromEvent(createElement(tooltip, { part }), event)
             onMouseMove !== undefined && onMouseMove(part, event)
         }
 
@@ -296,6 +298,7 @@ export const useFunnel = <D extends FunnelDatum>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    tooltip,
 }: {
     data: FunnelDataProps<D>['data']
     width: number
@@ -324,6 +327,7 @@ export const useFunnel = <D extends FunnelDatum>({
     onMouseMove?: FunnelCommonProps<D>['onMouseMove']
     onMouseLeave?: FunnelCommonProps<D>['onMouseLeave']
     onClick?: FunnelCommonProps<D>['onClick']
+    tooltip?: (props: PartTooltipProps<D>) => JSX.Element
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale<D>(colors, 'id')
@@ -573,6 +577,7 @@ export const useFunnel = <D extends FunnelDatum>({
                 onClick,
                 showTooltipFromEvent,
                 hideTooltip,
+                tooltip,
             }),
         [
             parts,
@@ -584,6 +589,7 @@ export const useFunnel = <D extends FunnelDatum>({
             onClick,
             showTooltipFromEvent,
             hideTooltip,
+            tooltip,
         ]
     )
 
