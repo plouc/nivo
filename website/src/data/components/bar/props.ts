@@ -12,6 +12,7 @@ import {
     chartGrid,
     axes,
     isInteractive,
+    commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -540,30 +541,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         control: { type: 'switch' },
     },
-    {
-        key: 'ariaLabel',
-        flavors: ['svg'],
-        required: false,
-        group: 'Accessibility',
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        type: 'string',
-    },
-    {
-        key: 'ariaLabelledBy',
-        flavors: ['svg'],
-        required: false,
-        group: 'Accessibility',
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        type: 'string',
-    },
-    {
-        key: 'ariaDescribedBy',
-        flavors: ['svg'],
-        required: false,
-        group: 'Accessibility',
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        type: 'string',
-    },
+    ...commonAccessibilityProps(['svg']),
     {
         key: 'barAriaLabel',
         flavors: ['svg'],

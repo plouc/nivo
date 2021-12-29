@@ -13,6 +13,7 @@ import {
     chartGrid,
     axes,
     isInteractive,
+    commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -321,30 +322,7 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaultProps, 'react-spring'),
-    {
-        key: 'ariaLabel',
-        flavors: ['svg'],
-        group: 'Accessibility',
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        type: 'string',
-        required: false,
-    },
-    {
-        key: 'ariaLabelledBy',
-        flavors: ['svg'],
-        group: 'Accessibility',
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        type: 'string',
-        required: false,
-    },
-    {
-        key: 'ariaDescribedBy',
-        flavors: ['svg'],
-        group: 'Accessibility',
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        type: 'string',
-        required: false,
-    },
+    ...commonAccessibilityProps(['svg']),
 ]
 
 export const groups = groupProperties(props)
