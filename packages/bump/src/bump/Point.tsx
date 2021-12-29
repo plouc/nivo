@@ -1,15 +1,17 @@
 import { SVGAttributes } from 'react'
 import { useSpring, animated, to } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { BumpDatum, BumpPoint } from './types'
+import { BumpDatum, BumpPoint, BumpSerieExtraProps } from './types'
 
 const pointStyle: SVGAttributes<SVGCircleElement>['style'] = { pointerEvents: 'none' }
 
-interface PointProps<D extends BumpDatum> {
-    point: BumpPoint<D>
+interface PointProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+    point: BumpPoint<Datum, ExtraProps>
 }
 
-export const Point = <D extends BumpDatum>({ point }: PointProps<D>) => {
+export const Point = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
+    point,
+}: PointProps<Datum, ExtraProps>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const animatedProps = useSpring<{
@@ -21,9 +23,9 @@ export const Point = <D extends BumpDatum>({ point }: PointProps<D>) => {
     }>({
         x: point.x,
         y: point.y,
-        radius: point.style.size / 2,
+        radius: point.size / 2,
         color: point.color,
-        borderWidth: point.style.borderWidth,
+        borderWidth: point.borderWidth,
         config: springConfig,
         immediate: !animate,
     })

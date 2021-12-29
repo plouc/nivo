@@ -1,23 +1,23 @@
 import { useSpring, animated } from '@react-spring/web'
 import { Line as D3Line } from 'd3-shape'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { BumpCommonProps, BumpComputedSerie, BumpDatum } from './types'
+import { BumpCommonProps, BumpComputedSerie, BumpDatum, BumpSerieExtraProps } from './types'
 import { useBumpSerieHandlers } from './hooks'
 
-interface LineProps<D extends BumpDatum> {
-    serie: BumpComputedSerie<D>
+interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+    serie: BumpComputedSerie<Datum, ExtraProps>
     lineGenerator: D3Line<[number, number | null]>
     yStep: number
-    isInteractive: BumpCommonProps<D>['isInteractive']
-    onMouseEnter?: BumpCommonProps<D>['onMouseEnter']
-    onMouseMove?: BumpCommonProps<D>['onMouseMove']
-    onMouseLeave?: BumpCommonProps<D>['onMouseLeave']
-    onClick?: BumpCommonProps<D>['onClick']
+    isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
+    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onMouseEnter']
+    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onMouseMove']
+    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onMouseLeave']
+    onClick?: BumpCommonProps<Datum, ExtraProps>['onClick']
     setActiveSerieIds: (serieIds: string[]) => void
-    tooltip: BumpCommonProps<D>['tooltip']
+    tooltip: BumpCommonProps<Datum, ExtraProps>['tooltip']
 }
 
-export const Line = <D extends BumpDatum>({
+export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     serie,
     lineGenerator,
     yStep,
@@ -28,8 +28,8 @@ export const Line = <D extends BumpDatum>({
     onClick,
     setActiveSerieIds,
     tooltip,
-}: LineProps<D>) => {
-    const handlers = useBumpSerieHandlers<D>({
+}: LineProps<Datum, ExtraProps>) => {
+    const handlers = useBumpSerieHandlers<Datum, ExtraProps>({
         serie,
         isInteractive,
         onMouseEnter,
@@ -51,8 +51,8 @@ export const Line = <D extends BumpDatum>({
         lineWidth: number
     }>({
         color: serie.color,
-        opacity: serie.style.opacity,
-        lineWidth: serie.style.lineWidth,
+        opacity: serie.opacity,
+        lineWidth: serie.lineWidth,
         config: springConfig,
         immediate: !animate,
     })

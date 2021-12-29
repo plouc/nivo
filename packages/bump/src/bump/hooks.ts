@@ -13,6 +13,7 @@ import {
     BumpPoint,
     BumpLabel,
     BumpLabelData,
+    BumpSerieExtraProps,
 } from './types'
 import { computeSeries } from './compute'
 
@@ -34,7 +35,7 @@ const useSerieDerivedProp = <Target, Output extends string | number>(
         return () => instruction
     }, [instruction])
 
-const useSerieStyle = <D extends BumpDatum>({
+const useSerieStyle = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     lineWidth,
     activeLineWidth,
     inactiveLineWidth,
@@ -44,16 +45,16 @@ const useSerieStyle = <D extends BumpDatum>({
     isInteractive,
     activeSerieIds,
 }: {
-    lineWidth: BumpCommonProps<D>['lineWidth']
-    activeLineWidth: BumpCommonProps<D>['activeLineWidth']
-    inactiveLineWidth: BumpCommonProps<D>['inactiveLineWidth']
-    opacity: BumpCommonProps<D>['opacity']
-    activeOpacity: BumpCommonProps<D>['activeOpacity']
-    inactiveOpacity: BumpCommonProps<D>['inactiveOpacity']
-    isInteractive: BumpCommonProps<D>['isInteractive']
+    lineWidth: BumpCommonProps<Datum, ExtraProps>['lineWidth']
+    activeLineWidth: BumpCommonProps<Datum, ExtraProps>['activeLineWidth']
+    inactiveLineWidth: BumpCommonProps<Datum, ExtraProps>['inactiveLineWidth']
+    opacity: BumpCommonProps<Datum, ExtraProps>['opacity']
+    activeOpacity: BumpCommonProps<Datum, ExtraProps>['activeOpacity']
+    inactiveOpacity: BumpCommonProps<Datum, ExtraProps>['inactiveOpacity']
+    isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
     activeSerieIds: string[]
 }) => {
-    type Serie = Omit<BumpComputedSerie<D>, 'color' | 'style'>
+    type Serie = Omit<BumpComputedSerie<Datum, ExtraProps>, 'color' | 'opacity' | 'lineWidth'>
 
     const getLineWidth = useSerieDerivedProp<Serie, number>(lineWidth)
     const getActiveLineWidth = useSerieDerivedProp<Serie, number>(activeLineWidth)
@@ -65,22 +66,22 @@ const useSerieStyle = <D extends BumpDatum>({
 
     const getNormalStyle = useCallback(
         (serie: Serie) => ({
-            lineWidth: getLineWidth(serie),
             opacity: getOpacity(serie),
+            lineWidth: getLineWidth(serie),
         }),
         [getLineWidth, getOpacity]
     )
     const getActiveStyle = useCallback(
         (serie: Serie) => ({
-            lineWidth: getActiveLineWidth(serie),
             opacity: getActiveOpacity(serie),
+            lineWidth: getActiveLineWidth(serie),
         }),
         [getActiveLineWidth, getActiveOpacity]
     )
     const getInactiveStyle = useCallback(
         (serie: Serie) => ({
-            lineWidth: getInactiveLineWidth(serie),
             opacity: getInactiveOpacity(serie),
+            lineWidth: getInactiveLineWidth(serie),
         }),
         [getInactiveLineWidth, getInactiveOpacity]
     )
@@ -95,7 +96,7 @@ const useSerieStyle = <D extends BumpDatum>({
     )
 }
 
-const usePointStyle = <D extends BumpDatum>({
+const usePointStyle = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     pointSize,
     activePointSize,
     inactivePointSize,
@@ -105,16 +106,16 @@ const usePointStyle = <D extends BumpDatum>({
     isInteractive,
     activeSerieIds,
 }: {
-    pointSize: BumpCommonProps<D>['pointSize']
-    activePointSize: BumpCommonProps<D>['activePointSize']
-    inactivePointSize: BumpCommonProps<D>['inactivePointSize']
-    pointBorderWidth: BumpCommonProps<D>['pointBorderWidth']
-    activePointBorderWidth: BumpCommonProps<D>['activePointBorderWidth']
-    inactivePointBorderWidth: BumpCommonProps<D>['inactivePointBorderWidth']
-    isInteractive: BumpCommonProps<D>['isInteractive']
+    pointSize: BumpCommonProps<Datum, ExtraProps>['pointSize']
+    activePointSize: BumpCommonProps<Datum, ExtraProps>['activePointSize']
+    inactivePointSize: BumpCommonProps<Datum, ExtraProps>['inactivePointSize']
+    pointBorderWidth: BumpCommonProps<Datum, ExtraProps>['pointBorderWidth']
+    activePointBorderWidth: BumpCommonProps<Datum, ExtraProps>['activePointBorderWidth']
+    inactivePointBorderWidth: BumpCommonProps<Datum, ExtraProps>['inactivePointBorderWidth']
+    isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
     activeSerieIds: string[]
 }) => {
-    type Point = Omit<BumpPoint<D>, 'style'>
+    type Point = Omit<BumpPoint<Datum, ExtraProps>, 'size' | 'borderWidth'>
 
     const getSize = useSerieDerivedProp(pointSize)
     const getActiveSize = useSerieDerivedProp(activePointSize)
@@ -156,7 +157,10 @@ const usePointStyle = <D extends BumpDatum>({
     )
 }
 
-export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
+export const useBump = <
+    Datum extends BumpDatum = DefaultBumpDatum,
+    ExtraProps extends BumpSerieExtraProps = {}
+>({
     width,
     height,
     data,
@@ -184,28 +188,28 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
 }: {
     width: number
     height: number
-    data: BumpDataProps<D>['data']
-    interpolation: BumpCommonProps<D>['interpolation']
-    xPadding: BumpCommonProps<D>['xPadding']
-    xOuterPadding: BumpCommonProps<D>['xOuterPadding']
-    yOuterPadding: BumpCommonProps<D>['yOuterPadding']
-    lineWidth: BumpCommonProps<D>['lineWidth']
-    activeLineWidth: BumpCommonProps<D>['activeLineWidth']
-    inactiveLineWidth: BumpCommonProps<D>['inactiveLineWidth']
-    colors: BumpCommonProps<D>['colors']
-    opacity: BumpCommonProps<D>['opacity']
-    activeOpacity: BumpCommonProps<D>['activeOpacity']
-    inactiveOpacity: BumpCommonProps<D>['inactiveOpacity']
-    pointSize: BumpCommonProps<D>['pointSize']
-    activePointSize: BumpCommonProps<D>['activePointSize']
-    inactivePointSize: BumpCommonProps<D>['inactivePointSize']
-    pointColor: BumpCommonProps<D>['pointColor']
-    pointBorderWidth: BumpCommonProps<D>['pointBorderWidth']
-    activePointBorderWidth: BumpCommonProps<D>['activePointBorderWidth']
-    inactivePointBorderWidth: BumpCommonProps<D>['inactivePointBorderWidth']
-    pointBorderColor: BumpCommonProps<D>['pointBorderColor']
-    isInteractive: BumpCommonProps<D>['isInteractive']
-    defaultActiveSerieIds: BumpCommonProps<D>['defaultActiveSerieIds']
+    data: BumpDataProps<Datum, ExtraProps>['data']
+    interpolation: BumpCommonProps<Datum, ExtraProps>['interpolation']
+    xPadding: BumpCommonProps<Datum, ExtraProps>['xPadding']
+    xOuterPadding: BumpCommonProps<Datum, ExtraProps>['xOuterPadding']
+    yOuterPadding: BumpCommonProps<Datum, ExtraProps>['yOuterPadding']
+    lineWidth: BumpCommonProps<Datum, ExtraProps>['lineWidth']
+    activeLineWidth: BumpCommonProps<Datum, ExtraProps>['activeLineWidth']
+    inactiveLineWidth: BumpCommonProps<Datum, ExtraProps>['inactiveLineWidth']
+    colors: BumpCommonProps<Datum, ExtraProps>['colors']
+    opacity: BumpCommonProps<Datum, ExtraProps>['opacity']
+    activeOpacity: BumpCommonProps<Datum, ExtraProps>['activeOpacity']
+    inactiveOpacity: BumpCommonProps<Datum, ExtraProps>['inactiveOpacity']
+    pointSize: BumpCommonProps<Datum, ExtraProps>['pointSize']
+    activePointSize: BumpCommonProps<Datum, ExtraProps>['activePointSize']
+    inactivePointSize: BumpCommonProps<Datum, ExtraProps>['inactivePointSize']
+    pointColor: BumpCommonProps<Datum, ExtraProps>['pointColor']
+    pointBorderWidth: BumpCommonProps<Datum, ExtraProps>['pointBorderWidth']
+    activePointBorderWidth: BumpCommonProps<Datum, ExtraProps>['activePointBorderWidth']
+    inactivePointBorderWidth: BumpCommonProps<Datum, ExtraProps>['inactivePointBorderWidth']
+    pointBorderColor: BumpCommonProps<Datum, ExtraProps>['pointBorderColor']
+    isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
+    defaultActiveSerieIds: string[]
 }) => {
     const [activeSerieIds, setActiveSerieIds] = useState<string[]>(defaultActiveSerieIds)
 
@@ -215,7 +219,7 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
         yScale,
     } = useMemo(
         () =>
-            computeSeries<D>({
+            computeSeries<Datum, ExtraProps>({
                 width,
                 height,
                 data,
@@ -228,11 +232,8 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
 
     const lineGenerator = useLineGenerator(interpolation)
 
-    const getColor = useOrdinalColorScale<Omit<BumpComputedSerie<D>, 'color' | 'style'>>(
-        colors,
-        'id'
-    )
-    const getSerieStyle = useSerieStyle<D>({
+    const getColor = useOrdinalColorScale(colors, 'id')
+    const getSerieStyle = useSerieStyle<Datum, ExtraProps>({
         lineWidth,
         activeLineWidth,
         inactiveLineWidth,
@@ -243,12 +244,12 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
         activeSerieIds,
     })
 
-    const series: BumpComputedSerie<D>[] = useMemo(
+    const series: BumpComputedSerie<Datum, ExtraProps>[] = useMemo(
         () =>
             rawSeries.map(serie => ({
                 ...serie,
-                color: getColor(serie),
-                style: getSerieStyle(serie),
+                color: getColor(serie.data),
+                ...getSerieStyle(serie),
             })),
         [rawSeries, getColor, getSerieStyle]
     )
@@ -256,7 +257,7 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
     const theme = useTheme()
     const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
-    const getPointStyle = usePointStyle<D>({
+    const getPointStyle = usePointStyle<Datum, ExtraProps>({
         pointSize,
         activePointSize,
         inactivePointSize,
@@ -266,12 +267,12 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
         isInteractive,
         activeSerieIds,
     })
-    const points: BumpPoint<D>[] = useMemo(() => {
-        const pts: BumpPoint<D>[] = []
+    const points: BumpPoint<Datum, ExtraProps>[] = useMemo(() => {
+        const pts: BumpPoint<Datum, ExtraProps>[] = []
         series.forEach(serie => {
             serie.points.forEach(rawPoint => {
                 // @ts-ignore
-                const point: BumpPoint<D> = {
+                const point: BumpPoint<Datum, ExtraProps> = {
                     ...rawPoint,
                     serie,
                     isActive: activeSerieIds.includes(serie.id),
@@ -279,9 +280,11 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
                 }
                 point.color = getPointColor(point)
                 point.borderColor = getPointBorderColor(point)
-                point.style = getPointStyle(point)
 
-                pts.push(point)
+                pts.push({
+                    ...point,
+                    ...getPointStyle(point),
+                })
             })
         })
 
@@ -299,7 +302,10 @@ export const useBump = <D extends BumpDatum = DefaultBumpDatum>({
     }
 }
 
-export const useBumpSerieHandlers = <D extends BumpDatum>({
+export const useBumpSerieHandlers = <
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+>({
     serie,
     isInteractive,
     onMouseEnter,
@@ -309,14 +315,14 @@ export const useBumpSerieHandlers = <D extends BumpDatum>({
     setActiveSerieIds,
     tooltip,
 }: {
-    serie: BumpComputedSerie<D>
-    isInteractive: BumpCommonProps<D>['isInteractive']
-    onMouseEnter?: BumpCommonProps<D>['onMouseEnter']
-    onMouseMove?: BumpCommonProps<D>['onMouseMove']
-    onMouseLeave?: BumpCommonProps<D>['onMouseLeave']
-    onClick?: BumpCommonProps<D>['onClick']
+    serie: BumpComputedSerie<Datum, ExtraProps>
+    isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
+    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onMouseEnter']
+    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onMouseMove']
+    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onMouseLeave']
+    onClick?: BumpCommonProps<Datum, ExtraProps>['onClick']
     setActiveSerieIds: (serieIds: string[]) => void
-    tooltip: BumpCommonProps<D>['tooltip']
+    tooltip: BumpCommonProps<Datum, ExtraProps>['tooltip']
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
@@ -364,18 +370,21 @@ export const useBumpSerieHandlers = <D extends BumpDatum>({
     )
 }
 
-export const useBumpSeriesLabels = <D extends BumpDatum>({
+export const useBumpSeriesLabels = <
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+>({
     series,
     position,
     padding,
     color,
     getLabel,
 }: {
-    series: BumpComputedSerie<D>[]
+    series: BumpComputedSerie<Datum, ExtraProps>[]
     position: 'start' | 'end'
     padding: number
-    color: InheritedColorConfig<BumpComputedSerie<D>>
-    getLabel: BumpLabel<D>
+    color: InheritedColorConfig<BumpComputedSerie<Datum, ExtraProps>>
+    getLabel: BumpLabel<Datum, ExtraProps>
 }) => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)
@@ -391,11 +400,11 @@ export const useBumpSeriesLabels = <D extends BumpDatum>({
             signedPadding = padding
         }
 
-        const labels: BumpLabelData<D>[] = []
+        const labels: BumpLabelData<Datum, ExtraProps>[] = []
         series.forEach(serie => {
             let label = serie.id
             if (typeof getLabel === 'function') {
-                label = getLabel(serie)
+                label = getLabel(serie.data)
             }
 
             const point =
@@ -414,7 +423,7 @@ export const useBumpSeriesLabels = <D extends BumpDatum>({
                 x: point[0] + signedPadding,
                 y: point[1],
                 color: getColor(serie),
-                opacity: serie.style.opacity,
+                opacity: serie.opacity,
                 serie,
                 textAnchor,
             })

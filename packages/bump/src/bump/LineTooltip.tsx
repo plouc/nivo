@@ -1,14 +1,16 @@
 import { BasicTooltip } from '@nivo/tooltip'
-import { BumpComputedSerie, BumpDatum } from './types'
+import { BumpComputedSerie, BumpDatum, BumpSerieExtraProps } from './types'
 
-interface LineTooltipProps<D extends BumpDatum> {
-    serie: BumpComputedSerie<D>
+interface LineTooltipProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+    serie: BumpComputedSerie<Datum, ExtraProps>
 }
 
-export const LineTooltip = <D extends BumpDatum>({ serie }: LineTooltipProps<D>) => (
+export const LineTooltip = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
+    serie,
+}: LineTooltipProps<Datum, ExtraProps>) => (
     <BasicTooltip
-        data-testid={`tooltip.${serie.id}`}
-        id={serie.id}
+        data-testid={`tooltip.${serie.data.id}`}
+        id={serie.data.id}
         enableChip={true}
         color={serie.color}
     />

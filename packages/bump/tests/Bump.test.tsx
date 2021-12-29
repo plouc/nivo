@@ -7,7 +7,7 @@ interface Datum {
     y: number
 }
 
-const sampleData: BumpSvgProps<Datum>['data'] = [
+const sampleData: BumpSvgProps<Datum, any>['data'] = [
     {
         id: 'A',
         data: [
@@ -73,7 +73,7 @@ const sampleData: BumpSvgProps<Datum>['data'] = [
     },
 ]
 
-const baseProps: BumpSvgProps<Datum> = {
+const baseProps: BumpSvgProps<Datum, any> = {
     width: 800,
     height: 600,
     data: sampleData,
@@ -116,6 +116,24 @@ describe('style', () => {
         expect(wrapper.find(`circle[data-testid='point.C.2002']`).prop('fill')).toEqual(colors[2])
         expect(wrapper.find(`circle[data-testid='point.C.2003']`).prop('fill')).toEqual(colors[2])
     })
+
+    it('colors from data', () => {
+        const colors = ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)']
+        const wrapper = mount(
+            <Bump<Datum, { color: string }>
+                {...baseProps}
+                data={sampleData.map((serie, i) => ({
+                    ...serie,
+                    color: colors[i],
+                }))}
+                colors={serie => serie.color}
+            />
+        )
+
+        expect(wrapper.find(`path[data-testid='line.A']`).prop('stroke')).toEqual(colors[0])
+        expect(wrapper.find(`path[data-testid='line.B']`).prop('stroke')).toEqual(colors[1])
+        expect(wrapper.find(`path[data-testid='line.C']`).prop('stroke')).toEqual(colors[2])
+    })
 })
 
 describe('labels', () => {
@@ -146,6 +164,23 @@ describe('labels', () => {
         expect(wrapper.find(`text[data-testid='label.end.A']`).text()).toEqual('Serie A')
         expect(wrapper.find(`text[data-testid='label.end.B']`).text()).toEqual('Serie B')
         expect(wrapper.find(`text[data-testid='label.end.C']`).text()).toEqual('Serie C')
+    })
+
+    it('label from data', () => {
+        const wrapper = mount(
+            <Bump<Datum, { label: string }>
+                {...baseProps}
+                data={sampleData.map(serie => ({
+                    ...serie,
+                    label: `Serie ${serie.id} label`,
+                }))}
+                endLabel={serie => serie.label}
+            />
+        )
+
+        expect(wrapper.find(`text[data-testid='label.end.A']`).text()).toEqual('Serie A label')
+        expect(wrapper.find(`text[data-testid='label.end.B']`).text()).toEqual('Serie B label')
+        expect(wrapper.find(`text[data-testid='label.end.C']`).text()).toEqual('Serie C label')
     })
 
     it('start labels', () => {

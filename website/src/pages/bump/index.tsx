@@ -37,7 +37,7 @@ const generateData = () => {
     return series
 }
 
-type UnmappedProps = Omit<BumpCommonProps<{ x: number; y: number }>, 'whatever'>
+type UnmappedProps = Omit<BumpCommonProps<{ x: number; y: number }, {}>, 'whatever'>
 
 type Props = UnmappedProps
 
@@ -65,7 +65,7 @@ const initialProperties: UnmappedProps = {
     startLabel: false,
     startLabelPadding: defaults.startLabelPadding,
     startLabelTextColor: defaults.startLabelTextColor,
-    endLabel: 'id',
+    endLabel: true,
     endLabelPadding: defaults.endLabelPadding,
     endLabelTextColor: defaults.endLabelTextColor,
 
