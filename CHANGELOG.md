@@ -1,5 +1,42 @@
+<a name="v0.76.0"></a>
+## v0.76.0 (2021-12-29)
+
+
+#### Features
+
+* **bump:**
+  *  add tests for the AreaBump chart ([3f5ed416](https://github.com/plouc/nivo/commit/3f5ed416b451bdb7c4c33cd90623ddb65508690b))
+  *  improve website documentation ([6bb16dc4](https://github.com/plouc/nivo/commit/6bb16dc481e96b519ebfc1005d61900317332a94))
+  *  improve AreaBump typings and add support for series extra properties ([a68d98d1](https://github.com/plouc/nivo/commit/a68d98d1640746bd6252dfadedacf25b2ac3610d))
+  *  fix Bump linting errors & warnings ([1afc0a4b](https://github.com/plouc/nivo/commit/1afc0a4bd078ea5701a00f384febf5449d39c307))
+  *  improve website documentation ([235d85eb](https://github.com/plouc/nivo/commit/235d85eb34bae7b9537868a98318ed72ec892982))
+  *  allow extra props for Bump data series ([ba2fca2e](https://github.com/plouc/nivo/commit/ba2fca2ef63f2527505013cb4982a2fe5f5e4185))
+  *  add tests for the Bump chart ([90006b67](https://github.com/plouc/nivo/commit/90006b67491125f2a4fbb7ec9909b3fc79c04ae3))
+  *  migrate @nivo/bump to TypeScript ([4be280b3](https://github.com/plouc/nivo/commit/4be280b3c9d9e23525e377d849b50267aa0b2d3d))
+* **captures:**  improve the script used to generate charts' images & icons ([74d9872f](https://github.com/plouc/nivo/commit/74d9872ff0987254b9148ebe9cf9664b79cde886))
+* **packages:**  use website captures in packages' READMEs ([f9f0acb2](https://github.com/plouc/nivo/commit/f9f0acb25466ed4902279f1caa129f33b3f3dfd6))
+* **website:**
+  *  continue migration to TypeScript ([fe2652fe](https://github.com/plouc/nivo/commit/fe2652fe3033273b3dbfe881520926ef8e31dccf))
+  *  try to increase node memory limit for netlify ([7a244d20](https://github.com/plouc/nivo/commit/7a244d207c8c7533c319e0248cb03b6abc195248))
+  *  use chart image for OG tags ([121491fd](https://github.com/plouc/nivo/commit/121491fdd360aa2a33376150b8e044c2cd4cf2d9))
+  *  skip lib checks ([a597f171](https://github.com/plouc/nivo/commit/a597f1717e562110372b982c43642da396067559))
+  *  add captures for all charts ([1daa7fe1](https://github.com/plouc/nivo/commit/1daa7fe1de4edc712b1ce0e3e28bc6cf62f60ab9))
+  *  test chart SEO image with AreaBump ([c417b2b1](https://github.com/plouc/nivo/commit/c417b2b131e1c625668743858d657bd7e8915757))
+  *  use netlify url if available ([4316288f](https://github.com/plouc/nivo/commit/4316288f7185eb7f85c693af4d026c88b69bec2c))
+  *  run init before building for netlify ([d175ef70](https://github.com/plouc/nivo/commit/d175ef701e19825b0842c712d24c7a6a9246e65a))
+  *  init support for netlify ([d68870e4](https://github.com/plouc/nivo/commit/d68870e4b3c90b79a5fcc11fda5e228346c2f919))
+  *  improve SEO ([f39dc01e](https://github.com/plouc/nivo/commit/f39dc01e1af8b5c876ed51aaeb4d47794d6bfb5a))
+  *  migrate the legends guide to TypeScript ([c3d76090](https://github.com/plouc/nivo/commit/c3d760905e78c4ce3cec996fe19262bfae21abb2))
+  *  migrate the axes guide to TypeScript ([1f4f480e](https://github.com/plouc/nivo/commit/1f4f480ebc9f5f2b46194096781527e1a5ce9996))
+  *  fix guides ([12d0f396](https://github.com/plouc/nivo/commit/12d0f396a2e97252009ec9d9a20c541ec4f41103))
+  *  add traling slash to all URLs ([d7e7926d](https://github.com/plouc/nivo/commit/d7e7926dd4561bafb7c6db37ca0f2a74d8304735))
+  *  adjust guides interactive demos to use the new control definitions ([7d17732e](https://github.com/plouc/nivo/commit/7d17732e1bfb0f59135a4016c62f99581c3bb025))
+  *  normalize charts properties definition ([e9446233](https://github.com/plouc/nivo/commit/e94462334e8149e06c112c10d1acf28f1e17f612))
+
+
+
 <a name="v0.75.0"></a>
-## v0.75.0 (2021-12-17)
+## v0.75.0 (%cs)
 
 
 #### Features

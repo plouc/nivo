@@ -1,6 +1,6 @@
 {
   "name": "@nivo/core",
-  "version": "0.75.0",
+  "version": "0.76.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -20,7 +20,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/recompose": "0.75.0",
+    "@nivo/recompose": "0.76.0",
     "@react-spring/web": "9.3.1",
     "d3-color": "^2.0.0",
     "d3-format": "^1.4.4",
@@ -34,11 +34,11 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@nivo/tooltip": "0.75.0",
+    "@nivo/tooltip": "0.76.0",
     "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {
-    "@nivo/tooltip": "0.75.0",
+    "@nivo/tooltip": "0.76.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 18.0.0"
   },
