@@ -1,12 +1,12 @@
-import { NetworkComputedNode, NetworkInputNode } from './types'
+import { ComputedNode, InputNode } from './types'
 
-export const renderCanvasNode = <N extends NetworkInputNode>(
+export const renderCanvasNode = <Node extends InputNode>(
     ctx: CanvasRenderingContext2D,
-    node: NetworkComputedNode<N>
+    node: ComputedNode<Node>
 ) => {
     ctx.fillStyle = node.color
     ctx.beginPath()
-    ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI)
+    ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
     ctx.fill()
 
     if (node.borderWidth > 0) {

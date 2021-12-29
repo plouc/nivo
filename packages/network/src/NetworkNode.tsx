@@ -1,14 +1,15 @@
 import { animated, to } from '@react-spring/web'
-import { NetworkInputNode, NetworkNodeProps } from './types'
+import { InputNode, NodeProps } from './types'
 
-export const NetworkNode = <N extends NetworkInputNode>({
+export const NetworkNode = <Node extends InputNode>({
     node,
     animated: animatedProps,
+    blendMode,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodeProps<N>) => {
+}: NodeProps<Node>) => {
     return (
         <animated.circle
             transform={to(
@@ -17,8 +18,9 @@ export const NetworkNode = <N extends NetworkInputNode>({
                     return `translate(${x},${y}) scale(${scale})`
                 }
             )}
-            r={animatedProps.radius}
+            r={to([animatedProps.size], size => size / 2)}
             fill={animatedProps.color}
+            style={{ mixBlendMode: blendMode }}
             strokeWidth={animatedProps.borderWidth}
             stroke={animatedProps.borderColor}
             onClick={onClick ? event => onClick(node, event) : undefined}

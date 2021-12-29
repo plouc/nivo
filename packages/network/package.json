@@ -31,6 +31,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
+    "@nivo/annotations": "0.76.0",
     "@nivo/colors": "0.76.0",
     "@nivo/tooltip": "0.76.0",
     "@react-spring/web": "9.3.1",

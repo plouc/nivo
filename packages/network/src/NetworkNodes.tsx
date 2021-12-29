@@ -1,28 +1,24 @@
 import { createElement, MouseEvent, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import {
-    NetworkComputedNode,
-    NetworkInputNode,
-    NetworkNodeAnimatedProps,
-    NetworkNodeComponent,
-} from './types'
+import { InputNode, ComputedNode, NodeAnimatedProps, NodeComponent, NetworkSvgProps } from './types'
 
-interface NetworkNodesProps<N extends NetworkInputNode> {
-    nodes: NetworkComputedNode<N>[]
-    nodeComponent: NetworkNodeComponent<N>
-    onClick?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
-    onMouseEnter?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
-    onMouseMove?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
-    onMouseLeave?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
+interface NetworkNodesProps<Node extends InputNode> {
+    nodes: ComputedNode<Node>[]
+    nodeComponent: NodeComponent<Node>
+    blendMode: NonNullable<NetworkSvgProps<Node>['nodeBlendMode']>
+    onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    onMouseLeave?: (node: ComputedNode<Node>, event: MouseEvent) => void
 }
 
 const getEnterTransition =
-    <N extends NetworkInputNode>() =>
-    (node: NetworkComputedNode<N>) => ({
+    <Node extends InputNode>() =>
+    (node: ComputedNode<Node>) => ({
         x: node.x,
         y: node.y,
-        radius: node.radius,
+        size: node.size,
         color: node.color,
         borderWidth: node.borderWidth,
         borderColor: node.borderColor,
@@ -30,11 +26,11 @@ const getEnterTransition =
     })
 
 const getRegularTransition =
-    <N extends NetworkInputNode>() =>
-    (node: NetworkComputedNode<N>) => ({
+    <N extends InputNode>() =>
+    (node: ComputedNode<N>) => ({
         x: node.x,
         y: node.y,
-        radius: node.radius,
+        size: node.size,
         color: node.color,
         borderWidth: node.borderWidth,
         borderColor: node.borderColor,
@@ -42,33 +38,34 @@ const getRegularTransition =
     })
 
 const getExitTransition =
-    <N extends NetworkInputNode>() =>
-    (node: NetworkComputedNode<N>) => ({
+    <Node extends InputNode>() =>
+    (node: ComputedNode<Node>) => ({
         x: node.x,
         y: node.y,
-        radius: node.radius,
+        size: node.size,
         color: node.color,
         borderWidth: node.borderWidth,
         borderColor: node.borderColor,
         scale: 0,
     })
 
-export const NetworkNodes = <N extends NetworkInputNode>({
+export const NetworkNodes = <Node extends InputNode>({
     nodes,
     nodeComponent,
+    blendMode,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodesProps<N>) => {
+}: NetworkNodesProps<Node>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const [enterTransition, regularTransition, exitTransition] = useMemo(
-        () => [getEnterTransition<N>(), getRegularTransition<N>(), getExitTransition<N>()],
+        () => [getEnterTransition<Node>(), getRegularTransition<Node>(), getExitTransition<Node>()],
         []
     )
 
-    const transition = useTransition<NetworkComputedNode<N>, NetworkNodeAnimatedProps>(nodes, {
+    const transition = useTransition<ComputedNode<Node>, NodeAnimatedProps>(nodes, {
         keys: node => node.id,
         initial: regularTransition,
         from: enterTransition,
@@ -86,6 +83,7 @@ export const NetworkNodes = <N extends NetworkInputNode>({
                     key: node.id,
                     node,
                     animated: transitionProps,
+                    blendMode,
                     onClick,
                     onMouseEnter,
                     onMouseMove,

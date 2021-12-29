@@ -1,10 +1,11 @@
 import React from 'react'
-import { ResponsiveNetworkCanvas, canvasDefaultProps } from '@nivo/network'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveNetworkCanvas, canvasDefaultProps as defaults } from '@nivo/network'
+import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
+import mapper from '../../data/components/network/mapper'
 import { groups } from '../../data/components/network/props'
-import { generateNetworkData } from '@nivo/generators'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = Object.freeze({
     pixelRatio:
@@ -21,12 +22,13 @@ const initialProperties = Object.freeze({
     repulsivity: 4,
     iterations: 60,
 
-    nodeColor: node => node.color,
+    nodeSize: defaults.nodeSize,
+    nodeColor: '#ff0000', // node => node.color,
     nodeBorderWidth: 1,
     nodeBorderColor: { theme: 'background' },
 
-    linkColor: canvasDefaultProps.linkColor,
-    linkThickness: 1,
+    linkColor: defaults.linkColor,
+    linkThickness: defaults.linkThickness,
 
     isInteractive: true,
 })
@@ -57,7 +59,8 @@ const NetworkCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={canvasDefaultProps}
+            defaultProperties={defaults}
+            propertiesMapper={mapper}
             generateData={() =>
                 generateData({
                     rootNodeRadius: 10,

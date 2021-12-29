@@ -1,11 +1,13 @@
-import { commonDefaultProps } from '@nivo/network'
+import { commonDefaultProps as defaults } from '@nivo/network'
 import { groupProperties, themeProperty, motionProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
     isInteractive,
     commonAccessibilityProps,
+    blendMode,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
+import { dynamicNodeSizeValue, dynamicLinkThicknessValue } from './mapper'
 
 const allFlavors: Flavor[] = ['svg', 'canvas']
 
@@ -24,14 +26,15 @@ const props: ChartProperty[] = [
             {
                 nodes: {
                     id: string
-                }[],
+                }[]
                 links: {
-                    source: string, // ref to node id
-                    target: string, // ref to node id
-                    value:  number
+                    source: string // ref to node id
+                    target: string // ref to node id
                 }[]
             }
             \`\`\`
+            
+            Please note that each node id **must** be unique.
         `,
     },
     ...chartDimensions(allFlavors),
@@ -64,12 +67,12 @@ const props: ChartProperty[] = [
             of \`distanceMin\` and \`distanceMax\`.
         `,
         flavors: allFlavors,
+        defaultValue: defaults.repulsivity,
         control: {
             type: 'range',
             min: 1,
             max: 100,
         },
-        defaultValue: commonDefaultProps.repulsivity,
     },
     {
         key: 'distanceMin',
@@ -78,7 +81,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Sets the minimum distance between nodes for the many-body force.',
         flavors: allFlavors,
-        defaultValue: commonDefaultProps.distanceMin,
+        defaultValue: defaults.distanceMin,
     },
     {
         key: 'distanceMax',
@@ -87,7 +90,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Sets the maximum disteance between nodes for the many-body force.',
         flavors: allFlavors,
-        defaultValue: commonDefaultProps.distanceMax,
+        defaultValue: defaults.distanceMax,
     },
     {
         key: 'iterations',
@@ -100,7 +103,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         flavors: allFlavors,
-        defaultValue: commonDefaultProps.iterations,
+        defaultValue: defaults.iterations,
         control: {
             type: 'range',
             min: 60,
@@ -126,14 +129,38 @@ const props: ChartProperty[] = [
         flavors: ['canvas'],
     },
     {
+        key: 'nodeSize',
+        group: 'Nodes',
+        type: 'number | (node: InputNode) => number',
+        required: false,
+        help: `Control nodes' size.`,
+        flavors: allFlavors,
+        defaultValue: defaults.nodeSize,
+        control: {
+            type: 'switchableRange',
+            disabledValue: dynamicNodeSizeValue,
+            defaultValue: defaults.nodeSize,
+            unit: 'px',
+            min: 4,
+            max: 64,
+        },
+    },
+    {
         key: 'nodeColor',
         group: 'Nodes',
         type: 'string | (node: InputNode) => string',
         required: false,
         help: `Control nodes' color.`,
         flavors: allFlavors,
-        defaultValue: commonDefaultProps.nodeColor,
+        defaultValue: defaults.nodeColor,
     },
+    blendMode({
+        group: 'Nodes',
+        key: 'nodeBlendMode',
+        target: 'nodes',
+        flavors: ['svg'],
+        defaultValue: defaults.nodeBlendMode,
+    }),
     {
         key: 'nodeBorderWidth',
         group: 'Nodes',
@@ -141,8 +168,8 @@ const props: ChartProperty[] = [
         required: false,
         help: `Control nodes' border width.`,
         flavors: allFlavors,
+        defaultValue: defaults.nodeBorderWidth,
         control: { type: 'lineWidth' },
-        defaultValue: commonDefaultProps.nodeBorderWidth,
     },
     {
         key: 'nodeBorderColor',
@@ -151,8 +178,8 @@ const props: ChartProperty[] = [
         required: false,
         help: `Control nodes' border color.`,
         flavors: allFlavors,
+        defaultValue: defaults.nodeBorderColor,
         control: { type: 'inheritedColor' },
-        defaultValue: commonDefaultProps.nodeBorderColor,
     },
     {
         key: 'linkComponent',
@@ -173,29 +200,42 @@ const props: ChartProperty[] = [
     },
     {
         key: 'linkThickness',
-        enableControlForFlavors: ['canvas'],
         group: 'Links',
         type: 'number | (link: NetworkComputedLink) => number',
         required: false,
         help: `Control links' thickness.`,
         flavors: allFlavors,
-        control: { type: 'lineWidth' },
-        defaultValue: commonDefaultProps.linkThickness,
+        defaultValue: defaults.linkThickness,
+        control: {
+            type: 'switchableRange',
+            disabledValue: dynamicLinkThicknessValue,
+            defaultValue: defaults.linkThickness,
+            unit: 'px',
+            min: 1,
+            max: 12,
+        },
     },
     {
         key: 'linkColor',
         group: 'Links',
-        type: 'InheritedColorConfig<NetworkComputedLink>',
+        type: 'InheritedColorConfig<ComputedLink>',
         required: false,
         help: `Control links' color.`,
         flavors: allFlavors,
+        defaultValue: defaults.linkColor,
         control: {
             type: 'inheritedColor',
             inheritableProperties: ['source.color', 'target.color'],
         },
-        defaultValue: commonDefaultProps.linkColor,
     },
-    isInteractive({ flavors: allFlavors, defaultValue: commonDefaultProps.isInteractive }),
+    blendMode({
+        group: 'Links',
+        key: 'linkBlendMode',
+        target: 'links',
+        flavors: ['svg'],
+        defaultValue: defaults.linkBlendMode,
+    }),
+    isInteractive({ flavors: allFlavors, defaultValue: defaults.isInteractive }),
     {
         key: 'nodeTooltip',
         group: 'Interactivity',
@@ -221,7 +261,7 @@ const props: ChartProperty[] = [
         key: 'onMouseEnter',
         group: 'Interactivity',
         help: 'onMouseEnter handler.',
-        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
+        type: '(node: ComputedNode, event: MouseEvent) => void',
         required: false,
         flavors: ['svg', 'canvas'],
     },
@@ -229,7 +269,7 @@ const props: ChartProperty[] = [
         key: 'onMouseMove',
         group: 'Interactivity',
         help: 'onMouseMove handler.',
-        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
+        type: '(node: ComputedNode, event: MouseEvent) => void',
         required: false,
         flavors: ['svg', 'canvas'],
     },
@@ -237,7 +277,7 @@ const props: ChartProperty[] = [
         key: 'onMouseLeave',
         group: 'Interactivity',
         help: 'onMouseLeave handler.',
-        type: '(node: NetworkComputedNode, event: MouseEvent) => void',
+        type: '(node: ComputedNode, event: MouseEvent) => void',
         required: false,
         flavors: allFlavors,
     },
@@ -247,11 +287,11 @@ const props: ChartProperty[] = [
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
         required: false,
-        defaultValue: commonDefaultProps.layers,
+        defaultValue: defaults.layers,
         flavors: ['svg', 'canvas'],
     },
     ...commonAccessibilityProps(['svg']),
-    ...motionProperties(['svg'], commonDefaultProps, 'react-spring'),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
