@@ -15,24 +15,30 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
+        type: 'BumpSerie<Datum, ExtraProps>[]',
         help: 'Chart data.',
         flavors: allFlavors,
         description: `
             Chart data, which must conform to this structure:
+
             \`\`\`
-            Array<{
+            {
                 id:   string
-                data: Array<{
+                data: {
                     x: number | string
-                    y: number | string
-                }>
-            }>
+                    y: number | null
+                }[]
+            }[]
             \`\`\`
+
             This component assumes that every serie contains all
             x values sorted the same way they should appear on the chart.
+            
+            As this component is a TypeScript generic, it is possible to customize
+            the datum using the \`Datum\` arg, and it's also possible to add
+            some extra properties to the series by passing \`ExtraProps\`.
         `,
         required: true,
-        type: 'object[]',
     },
     ...chartDimensions(allFlavors),
     {
@@ -163,9 +169,9 @@ const props: ChartProperty[] = [
     },
     {
         key: 'startLabel',
-        help: 'Start label.',
+        help: 'Start label, use a boolean to enable/disable, or a function to customize its text.',
         group: 'Labels',
-        type: 'false | string | (serie: Serie) => string',
+        type: 'boolean | (serie: BumpSerie) => string',
         defaultValue: defaults.startLabel,
         flavors: ['svg'],
         required: false,
@@ -186,8 +192,8 @@ const props: ChartProperty[] = [
     },
     {
         key: 'startLabelTextColor',
-        help: 'Method to compute start label text color.',
-        type: 'string | object | Function',
+        help: 'Method to compute start label text color, or a function to customize its text.',
+        type: 'InheritedColorConfig<BumpComputedSerie>',
         required: false,
         flavors: ['svg'],
         defaultValue: defaults.startLabelTextColor,
@@ -196,9 +202,9 @@ const props: ChartProperty[] = [
     },
     {
         key: 'endLabel',
-        help: 'End label.',
+        help: 'End label, use a boolean to enable/disable.',
         group: 'Labels',
-        type: 'false | string | (serie: Serie) => string',
+        type: 'boolean | (serie: BumpSerie) => string',
         defaultValue: defaults.endLabel,
         flavors: ['svg'],
         required: false,
@@ -220,7 +226,7 @@ const props: ChartProperty[] = [
     {
         key: 'endLabelTextColor',
         help: 'Method to compute end label text color.',
-        type: 'string | object | Function',
+        type: 'InheritedColorConfig<BumpComputedSerie>',
         required: false,
         defaultValue: defaults.endLabelTextColor,
         flavors: ['svg'],
@@ -280,6 +286,7 @@ const props: ChartProperty[] = [
         control: {
             type: 'inheritedColor',
             inheritableProperties: ['serie.color'],
+            defaultFrom: 'serie.color',
         },
     },
     {
@@ -323,6 +330,7 @@ const props: ChartProperty[] = [
         control: {
             type: 'inheritedColor',
             inheritableProperties: ['color', 'serie.color'],
+            defaultFrom: 'color',
         },
     },
     ...chartGrid({
@@ -338,7 +346,7 @@ const props: ChartProperty[] = [
     {
         key: 'onMouseEnter',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
         help: 'onMouseEnter handler.',
         required: false,
         flavors: ['svg'],
@@ -346,7 +354,7 @@ const props: ChartProperty[] = [
     {
         key: 'onMouseMove',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
         help: 'onMouseMove handler.',
         required: false,
         flavors: ['svg'],
@@ -354,7 +362,7 @@ const props: ChartProperty[] = [
     {
         key: 'onMouseLeave',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
         help: 'onMouseLeave handler.',
         required: false,
         flavors: ['svg'],
@@ -362,7 +370,7 @@ const props: ChartProperty[] = [
     {
         key: 'onClick',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
         help: 'onClick handler.',
         required: false,
         flavors: ['svg'],
