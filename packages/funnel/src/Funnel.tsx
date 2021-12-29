@@ -45,6 +45,7 @@ const InnerFunnel = <D extends FunnelDatum>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    tooltip,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -91,6 +92,7 @@ const InnerFunnel = <D extends FunnelDatum>({
         onMouseMove,
         onMouseLeave,
         onClick,
+        tooltip,
     })
 
     const layerById: Record<FunnelLayerId, ReactNode> = {
