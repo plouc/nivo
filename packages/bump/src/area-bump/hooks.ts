@@ -355,7 +355,7 @@ export const useAreaBumpSeriesLabels = <
 
             return {
                 id: serie.id,
-                label: getLabel(serie),
+                label: getLabel(serie.data),
                 x: point.x + signedPadding,
                 y: point.y,
                 color: getColor(serie),

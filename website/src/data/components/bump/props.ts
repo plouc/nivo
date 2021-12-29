@@ -175,6 +175,7 @@ const props: ChartProperty[] = [
         defaultValue: defaults.startLabel,
         flavors: ['svg'],
         required: false,
+        control: { type: 'switch' },
     },
     {
         key: 'startLabelPadding',
@@ -202,12 +203,13 @@ const props: ChartProperty[] = [
     },
     {
         key: 'endLabel',
-        help: 'End label, use a boolean to enable/disable.',
+        help: 'End label, use a boolean to enable/disable, or a function to customize its text.',
         group: 'Labels',
         type: 'boolean | (serie: BumpSerie) => string',
         defaultValue: defaults.endLabel,
         flavors: ['svg'],
         required: false,
+        control: { type: 'switch' },
     },
     {
         key: 'endLabelPadding',

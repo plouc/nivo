@@ -24,21 +24,27 @@ const props: ChartProperty[] = [
         help: 'Chart data.',
         description: `
             Chart data, which must conform to this structure:
+
             \`\`\`
-            Array<{
+            {
                 id:   string
-                data: Array<{
+                data: {
                     x: number | string
                     y: number
-                }>
-            }>
+                }[]
+            }[]
             \`\`\`
+
             This component assumes that every serie contains all
             x values sorted the same way they should appear on the chart.
+            
+            As this component is a TypeScript generic, it is possible to customize
+            the datum using the \`Datum\` arg, and it's also possible to add
+            some extra properties to the series by passing \`ExtraProps\`.
         `,
         required: true,
-        type: 'object[]',
-        flavors: ['svg'],
+        type: 'AreaBumpSerie<Datum, ExtraProps>[]',
+        flavors: allFlavors,
     },
     ...chartDimensions(allFlavors),
     {
@@ -48,7 +54,7 @@ const props: ChartProperty[] = [
         type: 'string',
         required: false,
         defaultValue: defaults.align,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: {
             type: 'choices',
             choices: [
@@ -65,7 +71,7 @@ const props: ChartProperty[] = [
         help: `Area interpolation.`,
         required: false,
         defaultValue: defaults.interpolation,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: {
             type: 'radio',
             choices: [
@@ -80,7 +86,7 @@ const props: ChartProperty[] = [
         type: 'number',
         help: 'Spacing.',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: defaults.spacing,
         control: {
             type: 'range',
@@ -95,7 +101,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.xPadding,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: {
             type: 'range',
             min: 0,
@@ -103,7 +109,7 @@ const props: ChartProperty[] = [
             step: 0.05,
         },
     },
-    themeProperty(['svg']),
+    themeProperty(allFlavors),
     ordinalColors({ flavors: allFlavors, defaultValue: defaults.colors }),
     blendMode({
         target: 'areas',
@@ -117,7 +123,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area fill opacity.',
         defaultValue: defaults.fillOpacity,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'opacity' },
     },
     {
@@ -127,7 +133,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area fill opacity for active series.',
         defaultValue: defaults.activeFillOpacity,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'opacity' },
     },
     {
@@ -137,7 +143,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area fill opacity for inactive series.',
         defaultValue: defaults.inactiveFillOpacity,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'opacity' },
     },
     {
@@ -147,7 +153,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area border width.',
         defaultValue: defaults.borderWidth,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'lineWidth' },
     },
     {
@@ -157,7 +163,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area border width for active series.',
         defaultValue: defaults.activeBorderWidth,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'lineWidth' },
     },
     {
@@ -167,7 +173,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area border width for inactive series.',
         defaultValue: defaults.inactiveBorderWidth,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'lineWidth' },
     },
     {
@@ -177,7 +183,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Method to compute area border color.',
         defaultValue: defaults.borderColor,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'inheritedColor' },
     },
     {
@@ -186,7 +192,7 @@ const props: ChartProperty[] = [
         type: 'number | (serie: Serie) => number',
         required: false,
         help: 'Area border opacity.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: defaults.borderOpacity,
         control: { type: 'opacity' },
     },
@@ -197,7 +203,7 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area border opacity for active series.',
         defaultValue: defaults.activeBorderOpacity,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'opacity' },
     },
     {
@@ -207,27 +213,28 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Area border opacity for inactive series.',
         defaultValue: defaults.inactiveBorderOpacity,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'opacity' },
     },
     ...defsProperties('Style', ['svg']),
     {
         key: 'startLabel',
         group: 'Labels',
-        type: 'false | string | (serie: Serie) => string',
+        type: 'boolean | (serie: AreaBumpSerie) => string',
         required: false,
-        help: 'Define area start label',
+        help: 'Start label, use a boolean to enable/disable, or a function to customize its text.',
         defaultValue: defaults.startLabel,
-        flavors: ['svg'],
+        flavors: allFlavors,
+        control: { type: 'switch' },
     },
     {
         key: 'startLabelPadding',
         group: 'Labels',
         type: 'number',
         required: false,
-        help: 'Define area start label padding',
+        help: 'Define area start label padding.',
         defaultValue: defaults.startLabelPadding,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: {
             type: 'range',
             min: 0,
@@ -237,30 +244,31 @@ const props: ChartProperty[] = [
     {
         key: 'startLabelTextColor',
         group: 'Labels',
-        type: 'string | object | Function',
+        type: 'InheritedColorConfig<AreaBumpComputedSerie>',
         required: false,
         help: 'Method to compute start label text color.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: defaults.startLabelTextColor,
         control: { type: 'inheritedColor' },
     },
     {
         key: 'endLabel',
         group: 'Labels',
-        type: 'false | string | (serie: Serie) => string',
+        type: 'boolean | (serie: AreaBumpSerie) => string',
         required: false,
-        help: 'Define area end label',
+        help: 'End label, use a boolean to enable/disable, or a function to customize its text.',
         defaultValue: defaults.endLabel,
-        flavors: ['svg'],
+        flavors: allFlavors,
+        control: { type: 'switch' },
     },
     {
         key: 'endLabelPadding',
         group: 'Labels',
         type: 'number',
         required: false,
-        help: 'Define area end label padding',
+        help: 'Define area end label padding.',
         defaultValue: defaults.endLabelPadding,
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: {
             type: 'range',
             min: 0,
@@ -270,11 +278,11 @@ const props: ChartProperty[] = [
     {
         key: 'endLabelTextColor',
         help: 'Method to compute end label text color.',
-        type: 'string | object | Function',
+        type: 'InheritedColorConfig<AreaBumpComputedSerie>',
         required: false,
         defaultValue: defaults.endLabelTextColor,
         group: 'Labels',
-        flavors: ['svg'],
+        flavors: allFlavors,
         control: { type: 'inheritedColor' },
     },
     ...chartGrid({
@@ -288,36 +296,44 @@ const props: ChartProperty[] = [
         defaultValue: defaults.isInteractive,
     }),
     {
+        key: 'defaultActiveSerieIds',
+        group: 'Interactivity',
+        type: 'string[]',
+        help: 'Default active serie ids.',
+        required: false,
+        flavors: allFlavors,
+    },
+    {
         key: 'onMouseEnter',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: AreaBumpComputedSerie, event: MouseEvent) => void',
         help: 'onMouseEnter handler.',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseMove',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: AreaBumpComputedSerie, event: MouseEvent) => void',
         help: 'onMouseMove handler.',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseLeave',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: AreaBumpComputedSerie, event: MouseEvent) => void',
         help: 'onMouseLeave handler.',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'onClick',
         group: 'Interactivity',
-        type: '(serie, event) => void',
+        type: '(serie: AreaBumpComputedSerie, event: MouseEvent) => void',
         help: 'onClick handler.',
         required: false,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
         key: 'tooltip',
@@ -325,7 +341,7 @@ const props: ChartProperty[] = [
         type: 'Function',
         required: false,
         help: 'Custom tooltip component.',
-        flavors: ['svg'],
+        flavors: allFlavors,
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML
