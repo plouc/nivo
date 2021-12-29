@@ -1,4 +1,5 @@
 import { FunctionComponent, MouseEvent } from 'react'
+import { Area } from 'd3-shape'
 import {
     PropertyAccessor,
     Box,
@@ -10,7 +11,6 @@ import {
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
-import { Area } from 'd3-shape'
 import { ScalePoint } from '@nivo/scales'
 
 export interface AreaBumpDatum {
@@ -23,16 +23,21 @@ export interface DefaultAreaBumpDatum {
     y: number
 }
 
-export interface AreaBumpSerie<D extends AreaBumpDatum> {
+export type AreaBumpSerieExtraProps = Record<string, unknown>
+
+export type AreaBumpSerie<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = ExtraProps & {
     id: string
-    data: D[]
+    data: Datum[]
 }
 
-export interface AreaBumpPoint<D extends AreaBumpDatum> {
+export interface AreaBumpPoint<Datum extends AreaBumpDatum> {
     x: number
     y: number
     height: number
-    data: D
+    data: Datum
 }
 
 export interface AreaBumpAreaPoint {
@@ -43,33 +48,43 @@ export interface AreaBumpAreaPoint {
 
 export type AreaBumpAreaGenerator = Area<AreaBumpAreaPoint>
 
-export interface AreaBumpComputedSerie<D extends AreaBumpDatum> extends AreaBumpSerie<D> {
-    points: AreaBumpPoint<D>[]
+export interface AreaBumpComputedSerie<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> {
+    id: string
+    data: AreaBumpSerie<Datum, ExtraProps>
+    points: AreaBumpPoint<Datum>[]
     areaPoints: AreaBumpAreaPoint[]
     color: string
     fill?: string
-    style: {
-        fillOpacity: number
-        borderWidth: number
-        borderColor: string
-        borderOpacity: number
-    }
+    fillOpacity: number
+    borderWidth: number
+    borderColor: string
+    borderOpacity: number
 }
 
 export type AreaBumpAlign = 'start' | 'middle' | 'end'
 
-export type AreaBumpDataProps<D extends AreaBumpDatum> = {
-    data: AreaBumpSerie<D>[]
+export type AreaBumpDataProps<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = {
+    data: AreaBumpSerie<Datum, ExtraProps>[]
 }
 
 export type AreaBumpInterpolation = 'smooth' | 'linear'
 
-export type AreaBumpLabel<D extends AreaBumpDatum> =
-    | PropertyAccessor<AreaBumpComputedSerie<D>, string>
-    | false
-export interface AreaBumpLabelData<D extends AreaBumpDatum> {
-    serie: AreaBumpComputedSerie<D>
-    id: AreaBumpSerie<D>['id']
+export type AreaBumpLabel<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = PropertyAccessor<AreaBumpComputedSerie<Datum, ExtraProps>, string> | false
+export interface AreaBumpLabelData<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> {
+    id: string
+    serie: AreaBumpComputedSerie<Datum, ExtraProps>
     label: string
     x: number
     y: number
@@ -78,26 +93,44 @@ export interface AreaBumpLabelData<D extends AreaBumpDatum> {
     textAnchor: 'start' | 'end'
 }
 
-export type AreaBumpMouseHandler<D extends AreaBumpDatum> = (
-    serie: AreaBumpComputedSerie<D>,
-    event: MouseEvent<SVGPathElement>
-) => void
+export type AreaBumpMouseHandler<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = (serie: AreaBumpComputedSerie<Datum, ExtraProps>, event: MouseEvent<SVGPathElement>) => void
 
 export type AreaBumpLayerId = 'grid' | 'axes' | 'labels' | 'areas'
-export interface AreaBumpCustomLayerProps<D extends AreaBumpDatum> {
+export interface AreaBumpCustomLayerProps<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> {
     innerWidth: number
     innerHeight: number
     outerWidth: number
     outerHeight: number
-    series: AreaBumpComputedSerie<D>[]
-    xScale: ScalePoint<D['x']>
+    series: AreaBumpComputedSerie<Datum, ExtraProps>[]
+    xScale: ScalePoint<Datum['x']>
     areaGenerator: AreaBumpAreaGenerator
 }
-export type AreaBumpCustomLayer<D extends AreaBumpDatum> = FunctionComponent<
-    AreaBumpCustomLayerProps<D>
->
+export type AreaBumpCustomLayer<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = FunctionComponent<AreaBumpCustomLayerProps<Datum, ExtraProps>>
+export type AreaBumpLayer<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = AreaBumpLayerId | AreaBumpCustomLayer<Datum, ExtraProps>
 
-export type AreaBumpCommonProps<D extends AreaBumpDatum> = {
+export type AreaBumpAreaTooltip<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = FunctionComponent<{
+    serie: AreaBumpComputedSerie<Datum, ExtraProps>
+}>
+
+export type AreaBumpCommonProps<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = {
     margin: Box
 
     align: AreaBumpAlign
@@ -106,7 +139,7 @@ export type AreaBumpCommonProps<D extends AreaBumpDatum> = {
     xPadding: number
 
     theme: Theme
-    colors: OrdinalColorScaleConfig<Omit<AreaBumpComputedSerie<D>, 'color' | 'style'>>
+    colors: OrdinalColorScaleConfig<AreaBumpSerie<Datum, ExtraProps>>
     blendMode: CssMixBlendMode
     fillOpacity: number
     activeFillOpacity: number
@@ -114,17 +147,22 @@ export type AreaBumpCommonProps<D extends AreaBumpDatum> = {
     borderWidth: number
     activeBorderWidth: number
     inactiveBorderWidth: number
-    borderColor: InheritedColorConfig<Omit<AreaBumpComputedSerie<D>, 'style'>>
+    borderColor: InheritedColorConfig<
+        Omit<
+            AreaBumpComputedSerie<Datum, ExtraProps>,
+            'fillOpacity' | 'borderWidth' | 'borderColor' | 'borderOpacity'
+        >
+    >
     borderOpacity: number
     activeBorderOpacity: number
     inactiveBorderOpacity: number
 
-    startLabel: AreaBumpLabel<D>
+    startLabel: AreaBumpLabel<Datum, ExtraProps>
     startLabelPadding: number
-    startLabelTextColor: InheritedColorConfig<AreaBumpComputedSerie<D>>
-    endLabel: AreaBumpLabel<D>
+    startLabelTextColor: InheritedColorConfig<AreaBumpComputedSerie<Datum, ExtraProps>>
+    endLabel: AreaBumpLabel<Datum, ExtraProps>
     endLabelPadding: number
-    endLabelTextColor: InheritedColorConfig<AreaBumpComputedSerie<D>>
+    endLabelTextColor: InheritedColorConfig<AreaBumpComputedSerie<Datum, ExtraProps>>
 
     enableGridX: boolean
     axisBottom: AxisProps | null
@@ -132,20 +170,23 @@ export type AreaBumpCommonProps<D extends AreaBumpDatum> = {
 
     isInteractive: boolean
     defaultActiveSerieIds: string[]
-    onMouseEnter: AreaBumpMouseHandler<D>
-    onMouseMove: AreaBumpMouseHandler<D>
-    onMouseLeave: AreaBumpMouseHandler<D>
-    onClick: AreaBumpMouseHandler<D>
-    tooltip: FunctionComponent<{ serie: AreaBumpComputedSerie<D> }>
+    onMouseEnter: AreaBumpMouseHandler<Datum, ExtraProps>
+    onMouseMove: AreaBumpMouseHandler<Datum, ExtraProps>
+    onMouseLeave: AreaBumpMouseHandler<Datum, ExtraProps>
+    onClick: AreaBumpMouseHandler<Datum, ExtraProps>
+    tooltip: AreaBumpAreaTooltip<Datum, ExtraProps>
     role: string
 
-    layers: (AreaBumpLayerId | AreaBumpCustomLayer<D>)[]
+    layers: AreaBumpLayer<Datum, ExtraProps>[]
 
     renderWrapper: boolean
 }
 
-export type AreaBumpSvgProps<D extends AreaBumpDatum> = Partial<AreaBumpCommonProps<D>> &
-    AreaBumpDataProps<D> &
-    SvgDefsAndFill<AreaBumpComputedSerie<D>> &
+export type AreaBumpSvgProps<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = Partial<AreaBumpCommonProps<Datum, ExtraProps>> &
+    AreaBumpDataProps<Datum, ExtraProps> &
+    SvgDefsAndFill<AreaBumpComputedSerie<Datum, ExtraProps>> &
     Dimensions &
     ModernMotionProps

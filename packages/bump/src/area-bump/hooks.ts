@@ -1,4 +1,4 @@
-import { createElement, useMemo, useCallback } from 'react'
+import { createElement, useMemo, useCallback, useState } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
 import { useTheme, usePropertyAccessor } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
@@ -13,9 +13,14 @@ import {
     AreaBumpInterpolation,
     AreaBumpLabel,
     AreaBumpLabelData,
+    AreaBumpSerieExtraProps,
+    DefaultAreaBumpDatum,
 } from './types'
 
-const useAreaBumpSeries = <D extends AreaBumpDatum>({
+const useAreaBumpSeries = <
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+>({
     data,
     width,
     height,
@@ -23,15 +28,15 @@ const useAreaBumpSeries = <D extends AreaBumpDatum>({
     spacing,
     xPadding,
 }: {
-    data: AreaBumpDataProps<D>['data']
+    data: AreaBumpDataProps<Datum, ExtraProps>['data']
     width: number
     height: number
-    align: AreaBumpCommonProps<D>['align']
-    spacing: AreaBumpCommonProps<D>['spacing']
-    xPadding: AreaBumpCommonProps<D>['xPadding']
+    align: AreaBumpCommonProps<Datum, ExtraProps>['align']
+    spacing: AreaBumpCommonProps<Datum, ExtraProps>['spacing']
+    xPadding: AreaBumpCommonProps<Datum, ExtraProps>['xPadding']
 }) =>
     useMemo(
-        () => computeSeries<D>({ data, width, height, align, spacing, xPadding }),
+        () => computeSeries<Datum, ExtraProps>({ data, width, height, align, spacing, xPadding }),
         [data, width, height, align, spacing, xPadding]
     )
 
@@ -54,7 +59,7 @@ const useSerieDerivedProp = <Target, Output extends string | number>(
         return () => instruction
     }, [instruction])
 
-const useSerieStyle = <D extends AreaBumpDatum>({
+const useSerieStyle = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps>({
     fillOpacity,
     activeFillOpacity,
     inactiveFillOpacity,
@@ -66,22 +71,25 @@ const useSerieStyle = <D extends AreaBumpDatum>({
     activeBorderOpacity,
     inactiveBorderOpacity,
     isInteractive,
-    current,
+    activeSerieIds,
 }: {
-    fillOpacity: AreaBumpCommonProps<D>['fillOpacity']
-    activeFillOpacity: AreaBumpCommonProps<D>['activeFillOpacity']
-    inactiveFillOpacity: AreaBumpCommonProps<D>['inactiveFillOpacity']
-    borderWidth: AreaBumpCommonProps<D>['borderWidth']
-    activeBorderWidth: AreaBumpCommonProps<D>['activeBorderWidth']
-    inactiveBorderWidth: AreaBumpCommonProps<D>['inactiveBorderWidth']
-    borderColor: AreaBumpCommonProps<D>['borderColor']
-    borderOpacity: AreaBumpCommonProps<D>['borderOpacity']
-    activeBorderOpacity: AreaBumpCommonProps<D>['activeBorderOpacity']
-    inactiveBorderOpacity: AreaBumpCommonProps<D>['inactiveBorderOpacity']
-    isInteractive: AreaBumpCommonProps<D>['isInteractive']
-    current: any
+    fillOpacity: AreaBumpCommonProps<Datum, ExtraProps>['fillOpacity']
+    activeFillOpacity: AreaBumpCommonProps<Datum, ExtraProps>['activeFillOpacity']
+    inactiveFillOpacity: AreaBumpCommonProps<Datum, ExtraProps>['inactiveFillOpacity']
+    borderWidth: AreaBumpCommonProps<Datum, ExtraProps>['borderWidth']
+    activeBorderWidth: AreaBumpCommonProps<Datum, ExtraProps>['activeBorderWidth']
+    inactiveBorderWidth: AreaBumpCommonProps<Datum, ExtraProps>['inactiveBorderWidth']
+    borderColor: AreaBumpCommonProps<Datum, ExtraProps>['borderColor']
+    borderOpacity: AreaBumpCommonProps<Datum, ExtraProps>['borderOpacity']
+    activeBorderOpacity: AreaBumpCommonProps<Datum, ExtraProps>['activeBorderOpacity']
+    inactiveBorderOpacity: AreaBumpCommonProps<Datum, ExtraProps>['inactiveBorderOpacity']
+    isInteractive: AreaBumpCommonProps<Datum, ExtraProps>['isInteractive']
+    activeSerieIds: string[]
 }) => {
-    type Serie = Omit<AreaBumpComputedSerie<D>, 'style'>
+    type Serie = Omit<
+        AreaBumpComputedSerie<Datum, ExtraProps>,
+        'fillOpacity' | 'borderWidth' | 'borderColor' | 'borderOpacity'
+    >
 
     const getFillOpacity = useSerieDerivedProp<Serie, number>(fillOpacity)
     const getActiveFillOpacity = useSerieDerivedProp<Serie, number>(activeFillOpacity)
@@ -128,15 +136,18 @@ const useSerieStyle = <D extends AreaBumpDatum>({
 
     return useCallback(
         (serie: Serie) => {
-            if (!isInteractive || current === null) return getNormalStyle(serie)
-            if (serie.id === current) return getActiveStyle(serie)
+            if (!isInteractive || activeSerieIds.length === 0) return getNormalStyle(serie)
+            if (activeSerieIds.includes(serie.id)) return getActiveStyle(serie)
             return getInactiveStyle(serie)
         },
-        [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, current]
+        [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, activeSerieIds]
     )
 }
 
-export const useAreaBump = <D extends AreaBumpDatum>({
+export const useAreaBump = <
+    Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>
+>({
     data,
     width,
     height,
@@ -156,34 +167,36 @@ export const useAreaBump = <D extends AreaBumpDatum>({
     activeBorderOpacity,
     inactiveBorderOpacity,
     isInteractive,
-    current,
+    defaultActiveSerieIds,
 }: {
-    data: AreaBumpDataProps<D>['data']
+    data: AreaBumpDataProps<Datum, ExtraProps>['data']
     width: number
     height: number
-    align: AreaBumpCommonProps<D>['align']
-    spacing: AreaBumpCommonProps<D>['spacing']
-    xPadding: AreaBumpCommonProps<D>['xPadding']
-    interpolation: AreaBumpCommonProps<D>['interpolation']
-    colors: AreaBumpCommonProps<D>['colors']
-    fillOpacity: AreaBumpCommonProps<D>['fillOpacity']
-    activeFillOpacity: AreaBumpCommonProps<D>['activeFillOpacity']
-    inactiveFillOpacity: AreaBumpCommonProps<D>['inactiveFillOpacity']
-    borderWidth: AreaBumpCommonProps<D>['borderWidth']
-    activeBorderWidth: AreaBumpCommonProps<D>['activeBorderWidth']
-    inactiveBorderWidth: AreaBumpCommonProps<D>['inactiveBorderWidth']
-    borderColor: AreaBumpCommonProps<D>['borderColor']
-    borderOpacity: AreaBumpCommonProps<D>['borderOpacity']
-    activeBorderOpacity: AreaBumpCommonProps<D>['activeBorderOpacity']
-    inactiveBorderOpacity: AreaBumpCommonProps<D>['inactiveBorderOpacity']
-    isInteractive: AreaBumpCommonProps<D>['isInteractive']
-    current: any
+    align: AreaBumpCommonProps<Datum, ExtraProps>['align']
+    spacing: AreaBumpCommonProps<Datum, ExtraProps>['spacing']
+    xPadding: AreaBumpCommonProps<Datum, ExtraProps>['xPadding']
+    interpolation: AreaBumpCommonProps<Datum, ExtraProps>['interpolation']
+    colors: AreaBumpCommonProps<Datum, ExtraProps>['colors']
+    fillOpacity: AreaBumpCommonProps<Datum, ExtraProps>['fillOpacity']
+    activeFillOpacity: AreaBumpCommonProps<Datum, ExtraProps>['activeFillOpacity']
+    inactiveFillOpacity: AreaBumpCommonProps<Datum, ExtraProps>['inactiveFillOpacity']
+    borderWidth: AreaBumpCommonProps<Datum, ExtraProps>['borderWidth']
+    activeBorderWidth: AreaBumpCommonProps<Datum, ExtraProps>['activeBorderWidth']
+    inactiveBorderWidth: AreaBumpCommonProps<Datum, ExtraProps>['inactiveBorderWidth']
+    borderColor: AreaBumpCommonProps<Datum, ExtraProps>['borderColor']
+    borderOpacity: AreaBumpCommonProps<Datum, ExtraProps>['borderOpacity']
+    activeBorderOpacity: AreaBumpCommonProps<Datum, ExtraProps>['activeBorderOpacity']
+    inactiveBorderOpacity: AreaBumpCommonProps<Datum, ExtraProps>['inactiveBorderOpacity']
+    isInteractive: AreaBumpCommonProps<Datum, ExtraProps>['isInteractive']
+    defaultActiveSerieIds: string[]
 }) => {
+    const [activeSerieIds, setActiveSerieIds] = useState<string[]>(defaultActiveSerieIds)
+
     const {
         series: rawSeries,
         xScale,
         heightScale,
-    } = useAreaBumpSeries<D>({
+    } = useAreaBumpSeries<Datum, ExtraProps>({
         data,
         width,
         height,
@@ -195,7 +208,7 @@ export const useAreaBump = <D extends AreaBumpDatum>({
     const areaGenerator = useAreaGenerator(interpolation)
 
     const getColor = useOrdinalColorScale(colors, 'id')
-    const getSerieStyle = useSerieStyle<D>({
+    const getSerieStyle = useSerieStyle<Datum, ExtraProps>({
         fillOpacity,
         activeFillOpacity,
         inactiveFillOpacity,
@@ -207,20 +220,20 @@ export const useAreaBump = <D extends AreaBumpDatum>({
         activeBorderOpacity,
         inactiveBorderOpacity,
         isInteractive,
-        current,
+        activeSerieIds,
     })
 
-    const series: AreaBumpComputedSerie<D>[] = useMemo(
+    const series: AreaBumpComputedSerie<Datum, ExtraProps>[] = useMemo(
         () =>
             rawSeries.map(serie => {
                 const serieWithColor = {
                     ...serie,
-                    color: getColor(serie),
+                    color: getColor(serie.data),
                 }
 
                 return {
                     ...serieWithColor,
-                    style: getSerieStyle(serieWithColor),
+                    ...getSerieStyle(serieWithColor),
                 }
             }),
         [rawSeries, getColor, getSerieStyle]
@@ -231,37 +244,42 @@ export const useAreaBump = <D extends AreaBumpDatum>({
         xScale,
         heightScale,
         areaGenerator,
+        activeSerieIds,
+        setActiveSerieIds,
     }
 }
 
-export const useAreaBumpSerieHandlers = <D extends AreaBumpDatum>({
+export const useAreaBumpSerieHandlers = <
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+>({
     serie,
     isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    setCurrent,
+    setActiveSerieIds,
     tooltip,
 }: {
-    serie: AreaBumpComputedSerie<D>
-    isInteractive: AreaBumpCommonProps<D>['isInteractive']
-    onMouseEnter?: AreaBumpCommonProps<D>['onMouseEnter']
-    onMouseMove?: AreaBumpCommonProps<D>['onMouseMove']
-    onMouseLeave?: AreaBumpCommonProps<D>['onMouseLeave']
-    onClick?: AreaBumpCommonProps<D>['onClick']
-    setCurrent: any
-    tooltip: AreaBumpCommonProps<D>['tooltip']
+    serie: AreaBumpComputedSerie<Datum, ExtraProps>
+    isInteractive: AreaBumpCommonProps<Datum, ExtraProps>['isInteractive']
+    onMouseEnter?: AreaBumpCommonProps<Datum, ExtraProps>['onMouseEnter']
+    onMouseMove?: AreaBumpCommonProps<Datum, ExtraProps>['onMouseMove']
+    onMouseLeave?: AreaBumpCommonProps<Datum, ExtraProps>['onMouseLeave']
+    onClick?: AreaBumpCommonProps<Datum, ExtraProps>['onClick']
+    setActiveSerieIds: (serieIds: string[]) => void
+    tooltip: AreaBumpCommonProps<Datum, ExtraProps>['tooltip']
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
         event => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
-            setCurrent(serie.id)
+            setActiveSerieIds([serie.id])
             onMouseEnter && onMouseEnter(serie, event)
         },
-        [serie, onMouseEnter, showTooltipFromEvent, setCurrent]
+        [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds, tooltip]
     )
 
     const handleMouseMove = useCallback(
@@ -269,16 +287,16 @@ export const useAreaBumpSerieHandlers = <D extends AreaBumpDatum>({
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             onMouseMove && onMouseMove(serie, event)
         },
-        [serie, onMouseMove, showTooltipFromEvent]
+        [serie, onMouseMove, showTooltipFromEvent, tooltip]
     )
 
     const handleMouseLeave = useCallback(
         event => {
             hideTooltip()
-            setCurrent(null)
+            setActiveSerieIds([])
             onMouseLeave && onMouseLeave(serie, event)
         },
-        [serie, onMouseLeave, hideTooltip, setCurrent]
+        [serie, onMouseLeave, hideTooltip, setActiveSerieIds]
     )
 
     const handleClick = useCallback(
@@ -299,19 +317,22 @@ export const useAreaBumpSerieHandlers = <D extends AreaBumpDatum>({
     )
 }
 
-export const useAreaBumpSeriesLabels = <D extends AreaBumpDatum>({
+export const useAreaBumpSeriesLabels = <
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+>({
     label,
     series,
     position,
     padding,
     color,
 }: {
-    label: Exclude<AreaBumpLabel<D>, false>
-    series: AreaBumpComputedSerie<D>[]
+    label: Exclude<AreaBumpLabel<Datum, ExtraProps>, false>
+    series: AreaBumpComputedSerie<Datum, ExtraProps>[]
     position: 'start' | 'end'
     padding: number
-    color: InheritedColorConfig<AreaBumpComputedSerie<D>>
-}): AreaBumpLabelData<D>[] => {
+    color: InheritedColorConfig<AreaBumpComputedSerie<Datum, ExtraProps>>
+}): AreaBumpLabelData<Datum, ExtraProps>[] => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)
 
@@ -338,7 +359,7 @@ export const useAreaBumpSeriesLabels = <D extends AreaBumpDatum>({
                 x: point.x + signedPadding,
                 y: point.y,
                 color: getColor(serie),
-                opacity: serie.style.fillOpacity,
+                opacity: serie.fillOpacity,
                 serie,
                 textAnchor,
             }

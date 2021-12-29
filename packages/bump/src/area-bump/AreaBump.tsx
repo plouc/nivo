@@ -1,4 +1,4 @@
-import { useState, Fragment, useMemo, ReactNode, createElement } from 'react'
+import { Fragment, useMemo, ReactNode, createElement } from 'react'
 import {
     // @ts-ignore
     bindDefs,
@@ -16,15 +16,19 @@ import {
     DefaultAreaBumpDatum,
     AreaBumpLayerId,
     AreaBumpCustomLayerProps,
+    AreaBumpSerieExtraProps,
 } from './types'
 import { areaBumpSvgDefaultProps } from './defaults'
 
-type InnerAreaBumpProps<D extends AreaBumpDatum> = Omit<
-    AreaBumpSvgProps<D>,
+type InnerAreaBumpProps<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> = Omit<
+    AreaBumpSvgProps<Datum, ExtraProps>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerAreaBump = <D extends AreaBumpDatum>({
+const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps>({
     data,
     align = areaBumpSvgDefaultProps.align,
 
@@ -32,55 +36,73 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
     height,
     margin: partialMargin,
 
-    layers = areaBumpSvgDefaultProps.layers,
+    layers = areaBumpSvgDefaultProps.layers as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['layers']
+    >,
 
     interpolation = areaBumpSvgDefaultProps.interpolation,
     spacing = areaBumpSvgDefaultProps.spacing,
     xPadding = areaBumpSvgDefaultProps.xPadding,
 
-    colors = areaBumpSvgDefaultProps.colors,
+    colors = areaBumpSvgDefaultProps.colors as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['colors']
+    >,
     blendMode = areaBumpSvgDefaultProps.blendMode,
     fillOpacity = areaBumpSvgDefaultProps.fillOpacity,
     activeFillOpacity = areaBumpSvgDefaultProps.activeFillOpacity,
     inactiveFillOpacity = areaBumpSvgDefaultProps.inactiveFillOpacity,
     defs = areaBumpSvgDefaultProps.defs,
-    fill = areaBumpSvgDefaultProps.fill,
+    fill = areaBumpSvgDefaultProps.fill as NonNullable<AreaBumpSvgProps<Datum, ExtraProps>['fill']>,
     borderWidth = areaBumpSvgDefaultProps.borderWidth,
     activeBorderWidth = areaBumpSvgDefaultProps.activeBorderWidth,
     inactiveBorderWidth = areaBumpSvgDefaultProps.inactiveBorderWidth,
-    borderColor = areaBumpSvgDefaultProps.borderColor,
+    borderColor = areaBumpSvgDefaultProps.borderColor as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['borderColor']
+    >,
     borderOpacity = areaBumpSvgDefaultProps.borderOpacity,
     activeBorderOpacity = areaBumpSvgDefaultProps.activeBorderOpacity,
     inactiveBorderOpacity = areaBumpSvgDefaultProps.inactiveBorderOpacity,
 
-    startLabel = areaBumpSvgDefaultProps.startLabel,
+    startLabel = areaBumpSvgDefaultProps.startLabel as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['startLabel']
+    >,
     startLabelPadding = areaBumpSvgDefaultProps.startLabelPadding,
-    startLabelTextColor = areaBumpSvgDefaultProps.startLabelTextColor,
-    endLabel = areaBumpSvgDefaultProps.endLabel,
+    startLabelTextColor = areaBumpSvgDefaultProps.startLabelTextColor as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['startLabelTextColor']
+    >,
+    endLabel = areaBumpSvgDefaultProps.endLabel as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['endLabel']
+    >,
     endLabelPadding = areaBumpSvgDefaultProps.endLabelPadding,
-    endLabelTextColor = areaBumpSvgDefaultProps.endLabelTextColor,
+    endLabelTextColor = areaBumpSvgDefaultProps.endLabelTextColor as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['endLabelTextColor']
+    >,
 
     enableGridX = areaBumpSvgDefaultProps.enableGridX,
     axisTop = areaBumpSvgDefaultProps.axisTop,
     axisBottom = areaBumpSvgDefaultProps.axisBottom,
 
     isInteractive = areaBumpSvgDefaultProps.isInteractive,
+    defaultActiveSerieIds = areaBumpSvgDefaultProps.defaultActiveSerieIds,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = areaBumpSvgDefaultProps.tooltip,
+    tooltip = areaBumpSvgDefaultProps.tooltip as NonNullable<
+        AreaBumpSvgProps<Datum, ExtraProps>['tooltip']
+    >,
     role = areaBumpSvgDefaultProps.role,
-}: InnerAreaBumpProps<D>) => {
-    const [currentSerie, setCurrentSerie] = useState(null)
-
+}: InnerAreaBumpProps<Datum, ExtraProps>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const { series, xScale, heightScale, areaGenerator } = useAreaBump<D>({
+    const { series, xScale, heightScale, areaGenerator, setActiveSerieIds } = useAreaBump<
+        Datum,
+        ExtraProps
+    >({
         data,
         width: innerWidth,
         height: innerHeight,
@@ -100,7 +122,7 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
         activeBorderOpacity,
         inactiveBorderOpacity,
         isInteractive,
-        current: currentSerie,
+        defaultActiveSerieIds,
     })
 
     const boundDefs = useMemo(
@@ -137,13 +159,13 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
         layerById.areas = (
             <Fragment key="areas">
                 {series.map(serie => (
-                    <Area<D>
+                    <Area<Datum, ExtraProps>
                         key={serie.id}
                         areaGenerator={areaGenerator}
                         serie={serie}
                         blendMode={blendMode}
                         isInteractive={isInteractive}
-                        setCurrentSerie={setCurrentSerie}
+                        setActiveSerieIds={setActiveSerieIds}
                         onMouseEnter={onMouseEnter}
                         onMouseMove={onMouseMove}
                         onMouseLeave={onMouseLeave}
@@ -159,7 +181,7 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
         layerById.labels = (
             <Fragment key="labels">
                 {startLabel !== false && (
-                    <AreasLabels<D>
+                    <AreasLabels<Datum, ExtraProps>
                         label={startLabel}
                         series={series}
                         position="start"
@@ -168,7 +190,7 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
                     />
                 )}
                 {endLabel !== false && (
-                    <AreasLabels<D>
+                    <AreasLabels<Datum, ExtraProps>
                         label={endLabel}
                         series={series}
                         position="end"
@@ -180,7 +202,7 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
         )
     }
 
-    const customLayerProps: AreaBumpCustomLayerProps<D> = useMemo(
+    const customLayerProps: AreaBumpCustomLayerProps<Datum, ExtraProps> = useMemo(
         () => ({
             innerWidth,
             innerHeight,
@@ -212,14 +234,17 @@ const InnerAreaBump = <D extends AreaBumpDatum>({
     )
 }
 
-export const AreaBump = <D extends AreaBumpDatum = DefaultAreaBumpDatum>({
+export const AreaBump = <
+    Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>
+>({
     isInteractive = areaBumpSvgDefaultProps.isInteractive,
     animate = areaBumpSvgDefaultProps.animate,
     motionConfig = areaBumpSvgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: AreaBumpSvgProps<D>) => (
+}: AreaBumpSvgProps<Datum, ExtraProps>) => (
     <Container
         {...{
             animate,
@@ -229,6 +254,6 @@ export const AreaBump = <D extends AreaBumpDatum = DefaultAreaBumpDatum>({
             theme,
         }}
     >
-        <InnerAreaBump<D> isInteractive={isInteractive} {...otherProps} />
+        <InnerAreaBump<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

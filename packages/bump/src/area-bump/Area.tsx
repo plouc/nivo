@@ -6,22 +6,23 @@ import {
     AreaBumpCommonProps,
     AreaBumpComputedSerie,
     AreaBumpDatum,
+    AreaBumpSerieExtraProps,
 } from './types'
 
-interface AreaProps<D extends AreaBumpDatum> {
-    serie: AreaBumpComputedSerie<D>
+interface AreaProps<Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps> {
+    serie: AreaBumpComputedSerie<Datum, ExtraProps>
     areaGenerator: AreaBumpAreaGenerator
-    blendMode: AreaBumpCommonProps<D>['blendMode']
-    isInteractive: AreaBumpCommonProps<D>['isInteractive']
-    onMouseEnter?: AreaBumpCommonProps<D>['onMouseEnter']
-    onMouseMove?: AreaBumpCommonProps<D>['onMouseMove']
-    onMouseLeave?: AreaBumpCommonProps<D>['onMouseLeave']
-    onClick?: AreaBumpCommonProps<D>['onClick']
-    setCurrentSerie: any
-    tooltip: AreaBumpCommonProps<D>['tooltip']
+    blendMode: AreaBumpCommonProps<Datum, ExtraProps>['blendMode']
+    isInteractive: AreaBumpCommonProps<Datum, ExtraProps>['isInteractive']
+    onMouseEnter?: AreaBumpCommonProps<Datum, ExtraProps>['onMouseEnter']
+    onMouseMove?: AreaBumpCommonProps<Datum, ExtraProps>['onMouseMove']
+    onMouseLeave?: AreaBumpCommonProps<Datum, ExtraProps>['onMouseLeave']
+    onClick?: AreaBumpCommonProps<Datum, ExtraProps>['onClick']
+    setActiveSerieIds: (serieIds: string[]) => void
+    tooltip: AreaBumpCommonProps<Datum, ExtraProps>['tooltip']
 }
 
-export const Area = <D extends AreaBumpDatum>({
+export const Area = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps>({
     serie,
     areaGenerator,
     blendMode,
@@ -30,23 +31,23 @@ export const Area = <D extends AreaBumpDatum>({
     onMouseMove,
     onMouseLeave,
     onClick,
-    setCurrentSerie,
+    setActiveSerieIds,
     tooltip,
-}: AreaProps<D>) => {
-    const handlers = useAreaBumpSerieHandlers<D>({
+}: AreaProps<Datum, ExtraProps>) => {
+    const handlers = useAreaBumpSerieHandlers<Datum, ExtraProps>({
         serie,
         isInteractive,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
-        setCurrent: setCurrentSerie,
+        setActiveSerieIds,
         tooltip,
     })
 
     const { animate, config: springConfig } = useMotionConfig()
 
-    const animatedPath = useAnimatedPath(areaGenerator(serie.areaPoints)!)
+    const animatedPath = useAnimatedPath(areaGenerator(serie.areaPoints) || '')
     const animatedProps = useSpring<{
         color: string
         fillOpacity: number
@@ -54,9 +55,9 @@ export const Area = <D extends AreaBumpDatum>({
         strokeOpacity: number
     }>({
         color: serie.color,
-        fillOpacity: serie.style.fillOpacity,
-        stroke: serie.style.borderColor,
-        strokeOpacity: serie.style.borderOpacity,
+        fillOpacity: serie.fillOpacity,
+        stroke: serie.borderColor,
+        strokeOpacity: serie.borderOpacity,
         config: springConfig,
         immediate: !animate,
     })
@@ -67,7 +68,7 @@ export const Area = <D extends AreaBumpDatum>({
             fill={serie.fill ? serie.fill : animatedProps.color}
             fillOpacity={animatedProps.fillOpacity}
             stroke={animatedProps.stroke}
-            strokeWidth={serie.style.borderWidth}
+            strokeWidth={serie.borderWidth}
             strokeOpacity={animatedProps.strokeOpacity}
             style={{ mixBlendMode: blendMode }}
             onMouseEnter={handlers.onMouseEnter}

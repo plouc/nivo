@@ -15,9 +15,7 @@ export interface DefaultBumpDatum {
     y: number
 }
 
-export type BumpSerieExtraProps = {
-    [key: string]: unknown
-}
+export type BumpSerieExtraProps = Record<string, unknown>
 
 export type BumpSerie<
     Datum extends BumpDatum,

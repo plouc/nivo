@@ -7,7 +7,7 @@ interface Datum {
     y: number
 }
 
-const sampleData: BumpSvgProps<Datum, any>['data'] = [
+const sampleData: BumpSvgProps<Datum, Record<string, unknown>>['data'] = [
     {
         id: 'A',
         data: [
@@ -73,7 +73,7 @@ const sampleData: BumpSvgProps<Datum, any>['data'] = [
     },
 ]
 
-const baseProps: BumpSvgProps<Datum, any> = {
+const baseProps: BumpSvgProps<Datum, Record<string, unknown>> = {
     width: 800,
     height: 600,
     data: sampleData,

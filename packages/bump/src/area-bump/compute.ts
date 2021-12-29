@@ -5,9 +5,13 @@ import {
     AreaBumpComputedSerie,
     AreaBumpDataProps,
     AreaBumpDatum,
+    AreaBumpSerieExtraProps,
 } from './types'
 
-export const computeSeries = <D extends AreaBumpDatum>({
+export const computeSeries = <
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+>({
     data,
     width,
     height,
@@ -15,21 +19,24 @@ export const computeSeries = <D extends AreaBumpDatum>({
     spacing,
     xPadding,
 }: {
-    data: AreaBumpDataProps<D>['data']
+    data: AreaBumpDataProps<Datum, ExtraProps>['data']
     width: number
     height: number
-    align: AreaBumpCommonProps<D>['align']
-    spacing: AreaBumpCommonProps<D>['spacing']
-    xPadding: AreaBumpCommonProps<D>['xPadding']
+    align: AreaBumpCommonProps<Datum, ExtraProps>['align']
+    spacing: AreaBumpCommonProps<Datum, ExtraProps>['spacing']
+    xPadding: AreaBumpCommonProps<Datum, ExtraProps>['xPadding']
 }): {
-    series: Omit<AreaBumpComputedSerie<D>, 'color' | 'style'>[]
-    xScale: ScalePoint<D['x']>
+    series: Omit<
+        AreaBumpComputedSerie<Datum, ExtraProps>,
+        'color' | 'fill' | 'fillOpacity' | 'borderWidth' | 'borderColor' | 'borderOpacity'
+    >[]
+    xScale: ScalePoint<Datum['x']>
     heightScale: ScaleLinear<number>
 } => {
     const slices = new Map<
-        D['x'],
+        Datum['x'],
         {
-            id: D['x']
+            id: Datum['x']
             total: number
             x: number
             values: Map<
@@ -81,8 +88,8 @@ export const computeSeries = <D extends AreaBumpDatum>({
         })
     })
 
-    const xScale = castPointScale<D['x']>(
-        scalePoint<D['x']>().domain(Array.from(slices.keys())).range([0, width])
+    const xScale = castPointScale<Datum['x']>(
+        scalePoint<Datum['x']>().domain(Array.from(slices.keys())).range([0, width])
     )
 
     const heightScale = castLinearScale<number, number>(
@@ -119,8 +126,12 @@ export const computeSeries = <D extends AreaBumpDatum>({
     const areaPointPadding = xScale.step() * Math.min(xPadding * 0.5, 0.5)
 
     const series = data.map(serie => {
-        const computedSerie: Omit<AreaBumpComputedSerie<D>, 'color' | 'style'> = {
-            ...serie,
+        const computedSerie: Omit<
+            AreaBumpComputedSerie<Datum, ExtraProps>,
+            'color' | 'fill' | 'fillOpacity' | 'borderWidth' | 'borderColor' | 'borderOpacity'
+        > = {
+            id: serie.id,
+            data: serie,
             points: [],
             areaPoints: [],
         }
