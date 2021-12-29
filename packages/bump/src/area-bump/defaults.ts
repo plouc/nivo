@@ -36,7 +36,7 @@ const commonDefaultProps: Omit<
     startLabel: false,
     startLabelPadding: 12,
     startLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
-    endLabel: 'id',
+    endLabel: true,
     endLabelPadding: 12,
     endLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
 

@@ -1,7 +1,6 @@
 import { FunctionComponent, MouseEvent } from 'react'
 import { Area } from 'd3-shape'
 import {
-    PropertyAccessor,
     Box,
     Theme,
     Dimensions,
@@ -78,7 +77,7 @@ export type AreaBumpInterpolation = 'smooth' | 'linear'
 export type AreaBumpLabel<
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps
-> = PropertyAccessor<AreaBumpSerie<Datum, ExtraProps>, string> | false
+> = ((serie: AreaBumpSerie<Datum, ExtraProps>) => string) | boolean
 export interface AreaBumpLabelData<
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps

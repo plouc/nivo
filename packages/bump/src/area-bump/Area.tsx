@@ -64,6 +64,7 @@ export const Area = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSer
 
     return (
         <animated.path
+            data-testid={`area.${serie.id}`}
             d={animatedPath}
             fill={serie.fill ? serie.fill : animatedProps.color}
             fillOpacity={animatedProps.fillOpacity}
