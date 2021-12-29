@@ -7,7 +7,12 @@ import {
     getLegendsProps,
     polarAxisProperty,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    ordinalColors,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg']
@@ -445,38 +450,7 @@ const props: ChartProperty[] = [
             },
         },
     },
-    {
-        key: 'role',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element role attribute.',
-        flavors: allFlavors,
-    },
-    {
-        key: 'ariaLabel',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        flavors: allFlavors,
-    },
-    {
-        key: 'ariaLabelledBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        flavors: allFlavors,
-    },
-    {
-        key: 'ariaDescribedBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        flavors: allFlavors,
-    },
+    ...commonAccessibilityProps(allFlavors),
     ...motionProperties(allFlavors, svgDefaultProps, 'react-spring'),
     {
         key: 'transitionMode',

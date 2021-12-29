@@ -1,6 +1,10 @@
 import { commonDefaultProps } from '@nivo/network'
 import { groupProperties, themeProperty, motionProperties } from '../../../lib/componentProperties'
-import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas']
@@ -246,38 +250,7 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.layers,
         flavors: ['svg', 'canvas'],
     },
-    {
-        key: 'role',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element role attribute.',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaLabel',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-label](https://www.w3.org/TR/wai-aria/#aria-label).',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaLabelledBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby).',
-        flavors: ['svg'],
-    },
-    {
-        key: 'ariaDescribedBy',
-        group: 'Accessibility',
-        type: 'string',
-        required: false,
-        help: 'Main element [aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby).',
-        flavors: ['svg'],
-    },
+    ...commonAccessibilityProps(['svg']),
     ...motionProperties(['svg'], commonDefaultProps, 'react-spring'),
 ]
 
