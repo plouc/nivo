@@ -78,7 +78,7 @@ export type AreaBumpInterpolation = 'smooth' | 'linear'
 export type AreaBumpLabel<
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps
-> = PropertyAccessor<AreaBumpComputedSerie<Datum, ExtraProps>, string> | false
+> = PropertyAccessor<AreaBumpSerie<Datum, ExtraProps>, string> | false
 export interface AreaBumpLabelData<
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps
