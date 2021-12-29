@@ -17,35 +17,41 @@ interface NetworkNodesProps<N extends NetworkInputNode> {
     onMouseLeave?: (node: NetworkComputedNode<N>, event: MouseEvent) => void
 }
 
-const getEnterTransition = <N extends NetworkInputNode>() => (node: NetworkComputedNode<N>) => ({
-    x: node.x,
-    y: node.y,
-    radius: node.radius,
-    color: node.color,
-    borderWidth: node.borderWidth,
-    borderColor: node.borderColor,
-    scale: 0,
-})
+const getEnterTransition =
+    <N extends NetworkInputNode>() =>
+    (node: NetworkComputedNode<N>) => ({
+        x: node.x,
+        y: node.y,
+        radius: node.radius,
+        color: node.color,
+        borderWidth: node.borderWidth,
+        borderColor: node.borderColor,
+        scale: 0,
+    })
 
-const getRegularTransition = <N extends NetworkInputNode>() => (node: NetworkComputedNode<N>) => ({
-    x: node.x,
-    y: node.y,
-    radius: node.radius,
-    color: node.color,
-    borderWidth: node.borderWidth,
-    borderColor: node.borderColor,
-    scale: 1,
-})
+const getRegularTransition =
+    <N extends NetworkInputNode>() =>
+    (node: NetworkComputedNode<N>) => ({
+        x: node.x,
+        y: node.y,
+        radius: node.radius,
+        color: node.color,
+        borderWidth: node.borderWidth,
+        borderColor: node.borderColor,
+        scale: 1,
+    })
 
-const getExitTransition = <N extends NetworkInputNode>() => (node: NetworkComputedNode<N>) => ({
-    x: node.x,
-    y: node.y,
-    radius: node.radius,
-    color: node.color,
-    borderWidth: node.borderWidth,
-    borderColor: node.borderColor,
-    scale: 0,
-})
+const getExitTransition =
+    <N extends NetworkInputNode>() =>
+    (node: NetworkComputedNode<N>) => ({
+        x: node.x,
+        y: node.y,
+        radius: node.radius,
+        color: node.color,
+        borderWidth: node.borderWidth,
+        borderColor: node.borderColor,
+        scale: 0,
+    })
 
 export const NetworkNodes = <N extends NetworkInputNode>({
     nodes,

@@ -125,9 +125,9 @@ export const useNetwork = <N extends NetworkInputNode = NetworkInputNode>({
         simulation.tick(iterations)
 
         // d3 mutates data, hence the castings
-        setCurrentNodes((nodesCopy as unknown) as NetworkComputedNode<N>[])
+        setCurrentNodes(nodesCopy as unknown as NetworkComputedNode<N>[])
         setCurrentLinks(
-            ((linksCopy as unknown) as ComputedLink<N>[]).map(link => {
+            (linksCopy as unknown as ComputedLink<N>[]).map(link => {
                 link.previousSource = currentNodes
                     ? currentNodes.find(n => n.id === link.source.id)
                     : undefined
