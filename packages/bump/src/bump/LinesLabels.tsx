@@ -1,28 +1,28 @@
 import { useSprings, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
-import { BumpComputedSerie, BumpDatum, BumpLabel } from './types'
+import { BumpComputedSerie, BumpDatum, BumpLabel, BumpSerieExtraProps } from './types'
 import { useBumpSeriesLabels } from './hooks'
 
-interface LineLabelsProps<D extends BumpDatum> {
-    series: BumpComputedSerie<D>[]
-    getLabel: BumpLabel<D>
+interface LineLabelsProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+    series: BumpComputedSerie<Datum, ExtraProps>[]
+    getLabel: BumpLabel<Datum, ExtraProps>
     position: 'start' | 'end'
     padding: number
-    color: InheritedColorConfig<BumpComputedSerie<D>>
+    color: InheritedColorConfig<BumpComputedSerie<Datum, ExtraProps>>
 }
 
-export const LinesLabels = <D extends BumpDatum>({
+export const LinesLabels = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     series,
     getLabel,
     position,
     padding,
     color,
-}: LineLabelsProps<D>) => {
+}: LineLabelsProps<Datum, ExtraProps>) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
-    const labels = useBumpSeriesLabels<D>({
+    const labels = useBumpSeriesLabels<Datum, ExtraProps>({
         series,
         getLabel,
         position,

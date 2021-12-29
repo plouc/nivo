@@ -1,8 +1,14 @@
 import { scalePoint } from 'd3-scale'
 import { castPointScale } from '@nivo/scales'
-import { BumpDataProps, BumpDatum, BumpComputedSerie, BumpSeriePoint } from './types'
+import {
+    BumpDataProps,
+    BumpDatum,
+    BumpComputedSerie,
+    BumpSeriePoint,
+    BumpSerieExtraProps,
+} from './types'
 
-export const computeSeries = <D extends BumpDatum>({
+export const computeSeries = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     width,
     height,
     data,
@@ -12,12 +18,12 @@ export const computeSeries = <D extends BumpDatum>({
 }: {
     width: number
     height: number
-    data: BumpDataProps<D>['data']
+    data: BumpDataProps<Datum, ExtraProps>['data']
     xPadding: number
     xOuterPadding: number
     yOuterPadding: number
 }) => {
-    const xValuesSet = new Set<D['x']>()
+    const xValuesSet = new Set<Datum['x']>()
     const yValuesSet = new Set<number>()
 
     data.forEach(serie => {
@@ -29,9 +35,9 @@ export const computeSeries = <D extends BumpDatum>({
         })
     })
 
-    const xValues: D['x'][] = Array.from(xValuesSet)
-    const xScale = castPointScale<D['x']>(
-        scalePoint<D['x']>().domain(xValues).range([0, width]).padding(xOuterPadding)
+    const xValues: Datum['x'][] = Array.from(xValuesSet)
+    const xScale = castPointScale<Datum['x']>(
+        scalePoint<Datum['x']>().domain(xValues).range([0, width]).padding(xOuterPadding)
     )
 
     const yValues: number[] = Array.from(yValuesSet).sort((a, b) => a - b)
@@ -41,57 +47,62 @@ export const computeSeries = <D extends BumpDatum>({
 
     const linePointPadding = xScale.step() * Math.min(xPadding * 0.5, 0.5)
 
-    const series: Omit<BumpComputedSerie<D>, 'color' | 'style'>[] = data.map(rawSerie => {
-        const serie: Omit<BumpComputedSerie<D>, 'color' | 'style'> = {
-            ...rawSerie,
-            points: [],
-            linePoints: [],
-        }
-
-        rawSerie.data.forEach((datum, i) => {
-            let x = null
-            let y = null
-
-            if (datum.y !== null) {
-                x = xScale(datum.x)!
-                y = yScale(datum.y)!
+    const series: Omit<BumpComputedSerie<Datum, ExtraProps>, 'color' | 'opacity' | 'lineWidth'>[] =
+        data.map(rawSerie => {
+            const serie: Omit<
+                BumpComputedSerie<Datum, ExtraProps>,
+                'color' | 'opacity' | 'lineWidth'
+            > = {
+                id: rawSerie.id,
+                data: rawSerie,
+                points: [],
+                linePoints: [],
             }
 
-            const point: BumpSeriePoint<D> = {
-                id: `${rawSerie.id}.${i}`,
-                serie: rawSerie,
-                data: datum,
-                x: x as number,
-                y,
-            }
-            serie.points.push(point)
+            rawSerie.data.forEach((datum, i) => {
+                let x = null
+                let y = null
 
-            // only add pre transition point if the datum is not empty
-            if (point.x !== null) {
-                if (i === 0) {
-                    serie.linePoints.push([0, point.y])
-                } else {
-                    serie.linePoints.push([point.x - linePointPadding, point.y])
+                if (datum.y !== null) {
+                    x = xScale(datum.x)!
+                    y = yScale(datum.y)!
                 }
-            }
 
-            serie.linePoints.push([point.x, point.y])
-
-            // only add post transition point if the datum is not empty
-            if (x !== null) {
-                if (i === rawSerie.data.length - 1 && x) {
-                    serie.linePoints.push([width, point.y])
-                } else {
-                    serie.linePoints.push([point.x + linePointPadding, point.y])
+                const point: BumpSeriePoint<Datum, ExtraProps> = {
+                    id: `${rawSerie.id}.${i}`,
+                    serie: rawSerie,
+                    data: datum,
+                    x: x as number,
+                    y,
                 }
-            }
+                serie.points.push(point)
 
-            // remove points having null coordinates
-            serie.points = serie.points.filter(point => point.x !== null)
+                // only add pre transition point if the datum is not empty
+                if (point.x !== null) {
+                    if (i === 0) {
+                        serie.linePoints.push([0, point.y])
+                    } else {
+                        serie.linePoints.push([point.x - linePointPadding, point.y])
+                    }
+                }
+
+                serie.linePoints.push([point.x, point.y])
+
+                // only add post transition point if the datum is not empty
+                if (x !== null) {
+                    if (i === rawSerie.data.length - 1 && x) {
+                        serie.linePoints.push([width, point.y])
+                    } else {
+                        serie.linePoints.push([point.x + linePointPadding, point.y])
+                    }
+                }
+
+                // remove points having null coordinates
+                serie.points = serie.points.filter(point => point.x !== null)
+            })
+
+            return serie
         })
-
-        return serie
-    })
 
     return {
         series,

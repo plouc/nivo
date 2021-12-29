@@ -1,7 +1,14 @@
 import { storiesOf } from '@storybook/react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
-import { AreaBump, Bump } from '../src'
+// @ts-ignore
+import { AreaBump, Bump, BumpPoint, BumpSvgProps } from '../src'
+
+interface Datum {
+    x: number
+    y: number
+    extra: number
+}
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -10,7 +17,7 @@ const generateData = () => {
     const series = ranks.map(rank => {
         return {
             id: `Serie ${rank}`,
-            data: [],
+            data: [] as Datum[],
         }
     })
 
@@ -27,45 +34,43 @@ const generateData = () => {
     return series
 }
 
-const commonProps = {
+const commonProps: BumpSvgProps<any, any> = {
     width: 900,
     height: 360,
     margin: { top: 40, right: 100, bottom: 40, left: 100 },
-    titleOffsetX: -80,
     data: generateData(),
-    spacing: 80,
 }
 
 const stories = storiesOf('Bump', module)
 
 stories.add('default', () => <Bump {...commonProps} />)
 
-const CustomPoint = ({ x, y, isActive, isInactive, size, color, borderColor, borderWidth }) => {
+const CustomPoint = ({ point }: { point: BumpPoint<any, any> }) => {
     return (
-        <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
+        <g transform={`translate(${point.x}, ${point.y})`} style={{ pointerEvents: 'none' }}>
             <rect
-                x={size * -0.5 - 4}
-                y={size * -0.5 + 4}
-                width={size + borderWidth}
-                height={size + borderWidth}
+                x={point.size * -0.5 - 4}
+                y={point.size * -0.5 + 4}
+                width={point.size + point.borderWidth}
+                height={point.size + point.borderWidth}
                 fill="rgba(0, 0, 0, .07)"
             />
             <rect
-                x={size * -0.5}
-                y={size * -0.5}
-                width={size}
-                height={size}
-                fill={color}
-                stroke={borderColor}
-                strokeWidth={borderWidth}
+                x={point.size * -0.5}
+                y={point.size * -0.5}
+                width={point.size}
+                height={point.size}
+                fill={point.color}
+                stroke={point.borderColor}
+                strokeWidth={point.borderWidth}
             />
-            {isActive && (
-                <text textAnchor="middle" y={4} fill={borderColor}>
+            {point.isActive && (
+                <text textAnchor="middle" y={4} fill={point.borderColor}>
                     A
                 </text>
             )}
-            {isInactive && (
-                <text textAnchor="middle" y={4} fill={borderColor}>
+            {point.isInactive && (
+                <text textAnchor="middle" y={4} fill={point.borderColor}>
                     I
                 </text>
             )}
@@ -74,7 +79,7 @@ const CustomPoint = ({ x, y, isActive, isInactive, size, color, borderColor, bor
 }
 
 stories.add('Custom points', () => (
-    <Bump
+    <Bump<Datum>
         {...commonProps}
         pointComponent={CustomPoint}
         pointSize={20}
@@ -89,7 +94,7 @@ stories.add('Custom points', () => (
 ))
 
 stories.add('Missing data', () => (
-    <Bump
+    <Bump<{ x: number; y: number | null }>
         {...commonProps}
         pointSize={12}
         activePointSize={16}
@@ -133,7 +138,7 @@ stories.add('Missing data', () => (
 ))
 
 stories.add('More series than ranks', () => (
-    <Bump
+    <Bump<{ x: number; y: number | null }>
         {...commonProps}
         data={generateData().map(series => ({
             ...series,
@@ -146,9 +151,8 @@ stories.add('More series than ranks', () => (
 ))
 
 stories.add('Area with fill pattern', () => (
-    <AreaBump
+    <AreaBump<Datum>
         {...commonProps}
-        indexBy="id"
         defs={[
             {
                 id: 'dots',

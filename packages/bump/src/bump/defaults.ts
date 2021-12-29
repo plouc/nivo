@@ -4,7 +4,7 @@ import { Point } from './Point'
 import { BumpCommonProps, BumpPointComponent } from './types'
 
 const commonDefaultProps: Omit<
-    BumpCommonProps<any>,
+    BumpCommonProps<any, any>,
     | 'onMouseEnter'
     | 'onMouseMove'
     | 'onMouseLeave'
@@ -59,7 +59,7 @@ const commonDefaultProps: Omit<
 }
 
 export const bumpSvgDefaultProps: typeof commonDefaultProps & {
-    pointComponent: BumpPointComponent<any>
+    pointComponent: BumpPointComponent<any, any>
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
 } = {

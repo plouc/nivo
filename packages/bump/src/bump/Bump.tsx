@@ -1,19 +1,25 @@
 import { createElement, useMemo, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
-import { BumpDatum, BumpLayerId, BumpSvgProps, DefaultBumpDatum } from './types'
+import {
+    BumpDatum,
+    BumpLayerId,
+    BumpSerieExtraProps,
+    BumpSvgProps,
+    DefaultBumpDatum,
+} from './types'
 import { useBump } from './hooks'
 import { bumpSvgDefaultProps } from './defaults'
 import { Line } from './Line'
 import { LinesLabels } from './LinesLabels'
 import { Points } from './Points'
 
-type InnerBumpProps<D extends BumpDatum> = Omit<
-    BumpSvgProps<D>,
+type InnerBumpProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> = Omit<
+    BumpSvgProps<Datum, ExtraProps>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerBump = <D extends BumpDatum>({
+const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     data,
 
     width,
@@ -67,7 +73,7 @@ const InnerBump = <D extends BumpDatum>({
     onClick,
     tooltip = bumpSvgDefaultProps.tooltip,
     role = bumpSvgDefaultProps.role,
-}: InnerBumpProps<D>) => {
+}: InnerBumpProps<Datum, ExtraProps>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -75,7 +81,7 @@ const InnerBump = <D extends BumpDatum>({
     )
 
     const { series, points, xScale, yScale, lineGenerator, activeSerieIds, setActiveSerieIds } =
-        useBump<D>({
+        useBump<Datum, ExtraProps>({
             width: innerWidth,
             height: innerHeight,
             data,
@@ -142,7 +148,7 @@ const InnerBump = <D extends BumpDatum>({
         layerById.lines = (
             <Fragment key="lines">
                 {series.map(serie => (
-                    <Line<D>
+                    <Line<Datum, ExtraProps>
                         key={serie.id}
                         serie={serie}
                         setActiveSerieIds={setActiveSerieIds}
@@ -162,7 +168,11 @@ const InnerBump = <D extends BumpDatum>({
 
     if (layers.includes('points')) {
         layerById.points = (
-            <Points<D> key="points" pointComponent={pointComponent} points={points} />
+            <Points<Datum, ExtraProps>
+                key="points"
+                pointComponent={pointComponent}
+                points={points}
+            />
         )
     }
 
@@ -170,7 +180,7 @@ const InnerBump = <D extends BumpDatum>({
         layerById.labels = (
             <Fragment key="legends">
                 {startLabel !== false && (
-                    <LinesLabels<D>
+                    <LinesLabels<Datum, ExtraProps>
                         series={series}
                         getLabel={startLabel}
                         position="start"
@@ -179,7 +189,7 @@ const InnerBump = <D extends BumpDatum>({
                     />
                 )}
                 {endLabel !== false && (
-                    <LinesLabels<D>
+                    <LinesLabels<Datum, ExtraProps>
                         series={series}
                         getLabel={endLabel}
                         position="end"
@@ -229,14 +239,17 @@ const InnerBump = <D extends BumpDatum>({
     )
 }
 
-export const Bump = <D extends BumpDatum = DefaultBumpDatum>({
+export const Bump = <
+    Datum extends BumpDatum = DefaultBumpDatum,
+    ExtraProps extends BumpSerieExtraProps = {}
+>({
     isInteractive = bumpSvgDefaultProps.isInteractive,
     animate = bumpSvgDefaultProps.animate,
     motionConfig = bumpSvgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: BumpSvgProps<D>) => (
+}: BumpSvgProps<Datum, ExtraProps>) => (
     <Container
         {...{
             animate,
@@ -246,6 +259,6 @@ export const Bump = <D extends BumpDatum = DefaultBumpDatum>({
             theme,
         }}
     >
-        <InnerBump<D> isInteractive={isInteractive} {...otherProps} />
+        <InnerBump<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
