@@ -3,10 +3,17 @@ import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
 import { graphql, useStaticQuery } from 'gatsby'
 import { ResponsiveBump, bumpSvgDefaultProps as defaults, BumpCommonProps } from '@nivo/bump'
+import { ModernMotionProps } from '@nivo/core'
+import { AxisProps } from '@nivo/axes'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
 import mapper from '../../data/components/bump/mapper'
+
+interface Datum {
+    x: number
+    y: number
+}
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -14,10 +21,7 @@ const generateData = () => {
 
     const series: {
         id: string
-        data: {
-            x: number
-            y: number
-        }[]
+        data: Datum[]
     }[] = ranks.map(rank => {
         return {
             id: `Serie ${rank}`,
@@ -37,11 +41,21 @@ const generateData = () => {
     return series
 }
 
-type UnmappedProps = Omit<BumpCommonProps<{ x: number; y: number }, {}>, 'whatever'>
+type Props = Omit<
+    BumpCommonProps<Datum, {}>,
+    'theme' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick' | 'renderWrapper'
+> &
+    ModernMotionProps
 
-type Props = UnmappedProps
+type UnmappedProps = Omit<Props, 'axisTop' | 'axisRight' | 'axisBottom' | 'axisLeft'> & {
+    axisTop: AxisProps & { enable: boolean }
+    axisRight: AxisProps & { enable: boolean }
+    axisBottom: AxisProps & { enable: boolean }
+    axisLeft: AxisProps & { enable: boolean }
+}
 
 const initialProperties: UnmappedProps = {
+    ...defaults,
     margin: {
         top: 40,
         right: 100,
@@ -49,25 +63,11 @@ const initialProperties: UnmappedProps = {
         left: 60,
     },
 
-    interpolation: defaults.interpolation,
-    xPadding: defaults.xPadding,
-    xOuterPadding: defaults.xOuterPadding,
-    yOuterPadding: defaults.yOuterPadding,
-
     colors: { scheme: 'spectral' },
     lineWidth: 3,
     activeLineWidth: 6,
     inactiveLineWidth: 3,
-    opacity: defaults.opacity,
-    activeOpacity: defaults.activeOpacity,
     inactiveOpacity: 0.15,
-
-    startLabel: false,
-    startLabelPadding: defaults.startLabelPadding,
-    startLabelTextColor: defaults.startLabelTextColor,
-    endLabel: true,
-    endLabelPadding: defaults.endLabelPadding,
-    endLabelTextColor: defaults.endLabelTextColor,
 
     pointSize: 10,
     activePointSize: 16,
@@ -78,8 +78,6 @@ const initialProperties: UnmappedProps = {
     inactivePointBorderWidth: 0,
     pointBorderColor: { from: 'serie.color' },
 
-    enableGridX: true,
-    enableGridY: true,
     axisTop: {
         enable: true,
         tickSize: 5,
@@ -118,11 +116,6 @@ const initialProperties: UnmappedProps = {
         legendPosition: 'middle',
         legendOffset: -40,
     },
-
-    isInteractive: true,
-
-    animate: defaults.animate,
-    motionConfig: defaults.motionConfig,
 }
 
 const Bump = () => {
@@ -156,7 +149,7 @@ const Bump = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBump<{ x: number; y: number }>
+                    <ResponsiveBump<Datum>
                         data={data}
                         {...properties}
                         theme={theme}

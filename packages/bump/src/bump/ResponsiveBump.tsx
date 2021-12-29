@@ -4,7 +4,7 @@ import { Bump } from './Bump'
 
 export const ResponsiveBump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = {}
+    ExtraProps extends BumpSerieExtraProps = Record<string, never>
 >(
     props: Omit<BumpSvgProps<Datum, ExtraProps>, 'width' | 'height'>
 ) => (

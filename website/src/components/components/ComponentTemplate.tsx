@@ -79,7 +79,7 @@ export const ComponentTemplate = <
 
     const [actions, logAction] = useActionsLogger()
 
-    let mappedProperties = settings
+    let mappedProperties = settings as unknown as Props
     if (propertiesMapper !== undefined) {
         mappedProperties = propertiesMapper(settings, data)
     }
@@ -92,7 +92,7 @@ export const ComponentTemplate = <
     const code = generateChartCode(`Responsive${name}`, codeProperties, {
         pkg: meta.package,
         defaults: defaultProperties,
-        dataKey: hasData ? dataKey : null,
+        dataKey: hasData ? dataKey : undefined,
     })
 
     const hasStories = meta.stories !== undefined && meta.stories.length > 0

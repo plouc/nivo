@@ -2,8 +2,11 @@ import { createElement, useMemo, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import {
+    BumpCustomLayerProps,
     BumpDatum,
+    BumpLayer,
     BumpLayerId,
+    BumpLineTooltip,
     BumpSerieExtraProps,
     BumpSvgProps,
     DefaultBumpDatum,
@@ -26,7 +29,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     height,
     margin: partialMargin,
 
-    layers = bumpSvgDefaultProps.layers,
+    layers = bumpSvgDefaultProps.layers as BumpLayer<Datum, ExtraProps>[],
 
     interpolation = bumpSvgDefaultProps.interpolation,
     xPadding = bumpSvgDefaultProps.xPadding,
@@ -48,7 +51,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     endLabelPadding = bumpSvgDefaultProps.endLabelPadding,
     endLabelTextColor = bumpSvgDefaultProps.endLabelTextColor,
 
-    pointComponent = bumpSvgDefaultProps.pointComponent,
+    pointComponent = bumpSvgDefaultProps.pointComponent as Exclude<
+        BumpSvgProps<Datum, ExtraProps>['pointComponent'],
+        undefined
+    >,
     pointSize = bumpSvgDefaultProps.pointSize,
     activePointSize = bumpSvgDefaultProps.activePointSize,
     inactivePointSize = bumpSvgDefaultProps.inactivePointSize,
@@ -71,7 +77,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = bumpSvgDefaultProps.tooltip,
+    tooltip = bumpSvgDefaultProps.tooltip as BumpLineTooltip<Datum, ExtraProps>,
     role = bumpSvgDefaultProps.role,
 }: InnerBumpProps<Datum, ExtraProps>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -201,7 +207,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
         )
     }
 
-    const customLayerProps = useMemo(
+    const customLayerProps: BumpCustomLayerProps<Datum, ExtraProps> = useMemo(
         () => ({
             innerHeight,
             innerWidth,
@@ -241,7 +247,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
 
 export const Bump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = {}
+    ExtraProps extends BumpSerieExtraProps = Record<string, never>
 >({
     isInteractive = bumpSvgDefaultProps.isInteractive,
     animate = bumpSvgDefaultProps.animate,
