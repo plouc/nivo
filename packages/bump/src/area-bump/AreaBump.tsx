@@ -182,7 +182,7 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
             <Fragment key="labels">
                 {startLabel !== false && (
                     <AreasLabels<Datum, ExtraProps>
-                        label={startLabel}
+                        getLabel={startLabel}
                         series={series}
                         position="start"
                         padding={startLabelPadding}
@@ -191,7 +191,7 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
                 )}
                 {endLabel !== false && (
                     <AreasLabels<Datum, ExtraProps>
-                        label={endLabel}
+                        getLabel={endLabel}
                         series={series}
                         position="end"
                         padding={endLabelPadding}

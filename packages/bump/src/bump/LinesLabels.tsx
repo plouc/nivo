@@ -6,7 +6,7 @@ import { useBumpSeriesLabels } from './hooks'
 
 interface LineLabelsProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
     series: BumpComputedSerie<Datum, ExtraProps>[]
-    getLabel: BumpLabel<Datum, ExtraProps>
+    getLabel: Exclude<BumpLabel<Datum, ExtraProps>, false>
     position: 'start' | 'end'
     padding: number
     color: InheritedColorConfig<BumpComputedSerie<Datum, ExtraProps>>

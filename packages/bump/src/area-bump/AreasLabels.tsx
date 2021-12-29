@@ -10,7 +10,7 @@ import {
 import { useAreaBumpSeriesLabels } from './hooks'
 
 interface AreaLabelsProps<Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps> {
-    label: Exclude<AreaBumpLabel<Datum, ExtraProps>, false>
+    getLabel: Exclude<AreaBumpLabel<Datum, ExtraProps>, false>
     series: AreaBumpComputedSerie<Datum, ExtraProps>[]
     position: 'start' | 'end'
     padding: number
@@ -21,7 +21,7 @@ export const AreasLabels = <
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps
 >({
-    label,
+    getLabel,
     series,
     position,
     padding,
@@ -31,7 +31,7 @@ export const AreasLabels = <
     const { animate, config: springConfig } = useMotionConfig()
 
     const labels = useAreaBumpSeriesLabels<Datum, ExtraProps>({
-        label,
+        getLabel,
         series,
         position,
         padding,
@@ -60,6 +60,7 @@ export const AreasLabels = <
 
                 return (
                     <animated.text
+                        data-testid={`label.${position}.${label.serie.id}`}
                         key={label.id}
                         x={animatedProps.x}
                         y={animatedProps.y}

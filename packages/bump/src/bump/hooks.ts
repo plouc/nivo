@@ -384,7 +384,7 @@ export const useBumpSeriesLabels = <
     position: 'start' | 'end'
     padding: number
     color: InheritedColorConfig<BumpComputedSerie<Datum, ExtraProps>>
-    getLabel: BumpLabel<Datum, ExtraProps>
+    getLabel: Exclude<BumpLabel<Datum, ExtraProps>, false>
 }) => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)

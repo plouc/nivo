@@ -1,6 +1,6 @@
 import { createElement, useMemo, useCallback, useState } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
-import { useTheme, usePropertyAccessor } from '@nivo/core'
+import { useTheme } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'
@@ -321,22 +321,20 @@ export const useAreaBumpSeriesLabels = <
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps
 >({
-    label,
     series,
     position,
     padding,
     color,
+    getLabel,
 }: {
-    label: Exclude<AreaBumpLabel<Datum, ExtraProps>, false>
     series: AreaBumpComputedSerie<Datum, ExtraProps>[]
     position: 'start' | 'end'
     padding: number
     color: InheritedColorConfig<AreaBumpComputedSerie<Datum, ExtraProps>>
+    getLabel: Exclude<AreaBumpLabel<Datum, ExtraProps>, false>
 }): AreaBumpLabelData<Datum, ExtraProps>[] => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)
-
-    const getLabel = usePropertyAccessor(label)
 
     return useMemo(() => {
         let textAnchor: 'start' | 'end'
@@ -350,12 +348,17 @@ export const useAreaBumpSeriesLabels = <
         }
 
         return series.map(serie => {
+            let label = serie.id
+            if (typeof getLabel === 'function') {
+                label = getLabel(serie.data)
+            }
+
             const point =
                 position === 'start' ? serie.points[0] : serie.points[serie.points.length - 1]
 
             return {
                 id: serie.id,
-                label: getLabel(serie.data),
+                label,
                 x: point.x + signedPadding,
                 y: point.y,
                 color: getColor(serie),
