@@ -41,6 +41,9 @@ const InnerNetwork = <N extends NetworkInputNode>({
     onClick,
 
     role = svgDefaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: InnerNetworkProps<N>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -103,7 +106,15 @@ const InnerNetwork = <N extends NetworkInputNode>({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
+        >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (
