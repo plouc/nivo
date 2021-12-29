@@ -1,6 +1,6 @@
 import { commonDefaultProps } from '@nivo/network'
-import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
-import { chartDimensions, pixelRatio } from '../../../lib/chart-properties'
+import { groupProperties, themeProperty, motionProperties } from '../../../lib/componentProperties'
+import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas']
@@ -31,7 +31,6 @@ const props: ChartProperty[] = [
         `,
     },
     ...chartDimensions(allFlavors),
-    pixelRatio(),
     {
         key: 'linkDistance',
         group: 'Simulation',
@@ -74,13 +73,8 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Sets the minimum distance between nodes for the many-body force.',
-<<<<<<< HEAD
         flavors: allFlavors,
-        defaultValue: NetworkDefaultProps.distanceMin,
-=======
-        flavors: ['svg', 'canvas'],
         defaultValue: commonDefaultProps.distanceMin,
->>>>>>> feat(network): types are now valid
     },
     {
         key: 'distanceMax',
@@ -88,13 +82,8 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         help: 'Sets the maximum disteance between nodes for the many-body force.',
-<<<<<<< HEAD
         flavors: allFlavors,
-        defaultValue: NetworkDefaultProps.distanceMax,
-=======
-        flavors: ['svg', 'canvas'],
         defaultValue: commonDefaultProps.distanceMax,
->>>>>>> feat(network): types are now valid
     },
     {
         key: 'iterations',
@@ -106,22 +95,15 @@ const props: ChartProperty[] = [
         `,
         type: 'number',
         required: false,
-<<<<<<< HEAD
-        defaultValue: NetworkDefaultProps.iterations,
         flavors: allFlavors,
+        defaultValue: commonDefaultProps.iterations,
         control: {
             type: 'range',
-=======
-        defaultValue: commonDefaultProps.iterations,
-        flavors: ['svg', 'canvas'],
-        controlType: 'range',
-        controlOptions: {
->>>>>>> feat(network): types are now valid
             min: 60,
             max: 260,
         },
     },
-    themeProperty(['svg', 'canvas']),
+    themeProperty(allFlavors),
     {
         key: 'nodeComponent',
         group: 'Nodes',
@@ -145,13 +127,8 @@ const props: ChartProperty[] = [
         type: 'string | (node: InputNode) => string',
         required: false,
         help: `Control nodes' color.`,
-<<<<<<< HEAD
         flavors: allFlavors,
-        defaultValue: NetworkDefaultProps.nodeColor,
-=======
-        flavors: ['svg', 'canvas'],
         defaultValue: commonDefaultProps.nodeColor,
->>>>>>> feat(network): types are now valid
     },
     {
         key: 'nodeBorderWidth',
@@ -159,15 +136,9 @@ const props: ChartProperty[] = [
         type: 'number | (node: NetworkComputedNode) => number',
         required: false,
         help: `Control nodes' border width.`,
-<<<<<<< HEAD
-        defaultValue: NetworkDefaultProps.nodeBorderWidth,
         flavors: allFlavors,
         control: { type: 'lineWidth' },
-=======
         defaultValue: commonDefaultProps.nodeBorderWidth,
-        flavors: ['svg', 'canvas'],
-        controlType: 'lineWidth',
->>>>>>> feat(network): types are now valid
     },
     {
         key: 'nodeBorderColor',
@@ -175,15 +146,9 @@ const props: ChartProperty[] = [
         type: 'InheritedColorConfig<NetworkComputedNode>',
         required: false,
         help: `Control nodes' border color.`,
-<<<<<<< HEAD
-        defaultValue: NetworkDefaultProps.nodeBorderColor,
         flavors: allFlavors,
         control: { type: 'inheritedColor' },
-=======
         defaultValue: commonDefaultProps.nodeBorderColor,
-        flavors: ['svg', 'canvas'],
-        controlType: 'inheritedColor',
->>>>>>> feat(network): types are now valid
     },
     {
         key: 'linkComponent',
@@ -209,15 +174,9 @@ const props: ChartProperty[] = [
         type: 'number | (link: NetworkComputedLink) => number',
         required: false,
         help: `Control links' thickness.`,
-<<<<<<< HEAD
         flavors: allFlavors,
-        defaultValue: NetworkDefaultProps.linkThickness,
         control: { type: 'lineWidth' },
-=======
-        flavors: ['svg', 'canvas'],
         defaultValue: commonDefaultProps.linkThickness,
-        controlType: 'lineWidth',
->>>>>>> feat(network): types are now valid
     },
     {
         key: 'linkColor',
@@ -225,30 +184,14 @@ const props: ChartProperty[] = [
         type: 'InheritedColorConfig<NetworkComputedLink>',
         required: false,
         help: `Control links' color.`,
-<<<<<<< HEAD
-        defaultValue: NetworkDefaultProps.linkColor,
         flavors: allFlavors,
         control: {
             type: 'inheritedColor',
-=======
-        defaultValue: commonDefaultProps.linkColor,
-        flavors: ['svg', 'canvas'],
-        controlType: 'inheritedColor',
-        controlOptions: {
->>>>>>> feat(network): types are now valid
             inheritableProperties: ['source.color', 'target.color'],
         },
+        defaultValue: commonDefaultProps.linkColor,
     },
-    {
-        key: 'isInteractive',
-        group: 'Interactivity',
-        type: 'boolean',
-        required: false,
-        help: 'Enable/disable interactivity.',
-        flavors: ['svg', 'canvas'],
-        defaultValue: commonDefaultProps.isInteractive,
-        controlType: 'switch',
-    },
+    isInteractive({ flavors: allFlavors, defaultValue: commonDefaultProps.isInteractive }),
     {
         key: 'nodeTooltip',
         group: 'Interactivity',

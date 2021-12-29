@@ -8,32 +8,38 @@ interface NetworkLinksProps<N extends NetworkInputNode> {
     linkComponent: NetworkLinkComponent<N>
 }
 
-const getEnterTransition = <N extends NetworkInputNode>() => (link: ComputedLink<N>) => ({
-    x1: link.source.x,
-    y1: link.source.y,
-    x2: link.source.x,
-    y2: link.source.y,
-    color: link.color,
-    opacity: 0,
-})
+const getEnterTransition =
+    <N extends NetworkInputNode>() =>
+    (link: ComputedLink<N>) => ({
+        x1: link.source.x,
+        y1: link.source.y,
+        x2: link.source.x,
+        y2: link.source.y,
+        color: link.color,
+        opacity: 0,
+    })
 
-const getRegularTransition = <N extends NetworkInputNode>() => (link: ComputedLink<N>) => ({
-    x1: link.source.x,
-    y1: link.source.y,
-    x2: link.target.x,
-    y2: link.target.y,
-    color: link.color,
-    opacity: 1,
-})
+const getRegularTransition =
+    <N extends NetworkInputNode>() =>
+    (link: ComputedLink<N>) => ({
+        x1: link.source.x,
+        y1: link.source.y,
+        x2: link.target.x,
+        y2: link.target.y,
+        color: link.color,
+        opacity: 1,
+    })
 
-const getExitTransition = <N extends NetworkInputNode>() => (link: ComputedLink<N>) => ({
-    x1: link.source.x,
-    y1: link.source.y,
-    x2: link.source.x,
-    y2: link.source.y,
-    color: link.color,
-    opacity: 0,
-})
+const getExitTransition =
+    <N extends NetworkInputNode>() =>
+    (link: ComputedLink<N>) => ({
+        x1: link.source.x,
+        y1: link.source.y,
+        x2: link.source.x,
+        y2: link.source.y,
+        color: link.color,
+        opacity: 0,
+    })
 
 export const NetworkLinks = <N extends NetworkInputNode>({
     links,
