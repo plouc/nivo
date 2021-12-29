@@ -1,28 +1,36 @@
 import { useSprings, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
-import { AreaBumpComputedSerie, AreaBumpDatum, AreaBumpLabel } from './types'
+import {
+    AreaBumpComputedSerie,
+    AreaBumpDatum,
+    AreaBumpLabel,
+    AreaBumpSerieExtraProps,
+} from './types'
 import { useAreaBumpSeriesLabels } from './hooks'
 
-interface AreaLabelsProps<D extends AreaBumpDatum> {
-    label: Exclude<AreaBumpLabel<D>, false>
-    series: AreaBumpComputedSerie<D>[]
+interface AreaLabelsProps<Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps> {
+    label: Exclude<AreaBumpLabel<Datum, ExtraProps>, false>
+    series: AreaBumpComputedSerie<Datum, ExtraProps>[]
     position: 'start' | 'end'
     padding: number
-    color: InheritedColorConfig<AreaBumpComputedSerie<D>>
+    color: InheritedColorConfig<AreaBumpComputedSerie<Datum, ExtraProps>>
 }
 
-export const AreasLabels = <D extends AreaBumpDatum>({
+export const AreasLabels = <
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+>({
     label,
     series,
     position,
     padding,
     color,
-}: AreaLabelsProps<D>) => {
+}: AreaLabelsProps<Datum, ExtraProps>) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
-    const labels = useAreaBumpSeriesLabels<D>({
+    const labels = useAreaBumpSeriesLabels<Datum, ExtraProps>({
         label,
         series,
         position,

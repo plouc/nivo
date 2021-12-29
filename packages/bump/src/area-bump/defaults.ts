@@ -1,9 +1,9 @@
 import { ModernMotionProps, SvgDefsAndFill } from '@nivo/core'
-import { AreaBumpCommonProps, AreaBumpComputedSerie } from './types'
+import { AreaBumpCommonProps, AreaBumpComputedSerie, DefaultAreaBumpDatum } from './types'
 import { AreaTooltip } from './AreaTooltip'
 
 const commonDefaultProps: Omit<
-    AreaBumpCommonProps<any>,
+    AreaBumpCommonProps<DefaultAreaBumpDatum, Record<string, unknown>>,
     | 'onMouseEnter'
     | 'onMouseMove'
     | 'onMouseLeave'
@@ -52,7 +52,7 @@ const commonDefaultProps: Omit<
 }
 
 export const areaBumpSvgDefaultProps: typeof commonDefaultProps &
-    SvgDefsAndFill<AreaBumpComputedSerie<any>> & {
+    SvgDefsAndFill<AreaBumpComputedSerie<DefaultAreaBumpDatum, Record<string, unknown>>> & {
         animate: boolean
         motionConfig: ModernMotionProps['motionConfig']
     } = {

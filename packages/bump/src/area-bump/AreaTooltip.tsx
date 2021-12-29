@@ -1,10 +1,18 @@
 import { BasicTooltip } from '@nivo/tooltip'
-import { AreaBumpDatum, AreaBumpComputedSerie } from './types'
+import { AreaBumpDatum, AreaBumpComputedSerie, AreaBumpSerieExtraProps } from './types'
 
-interface AreaTooltipProps<D extends AreaBumpDatum> {
-    serie: AreaBumpComputedSerie<D>
+interface AreaTooltipProps<
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+> {
+    serie: AreaBumpComputedSerie<Datum, ExtraProps>
 }
 
-export const AreaTooltip = <D extends AreaBumpDatum>({ serie }: AreaTooltipProps<D>) => {
-    return <BasicTooltip id={serie.id} enableChip={true} color={serie.color} />
-}
+export const AreaTooltip = <
+    Datum extends AreaBumpDatum,
+    ExtraProps extends AreaBumpSerieExtraProps
+>({
+    serie,
+}: AreaTooltipProps<Datum, ExtraProps>) => (
+    <BasicTooltip id={serie.id} enableChip={true} color={serie.color} />
+)
