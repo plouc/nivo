@@ -27,6 +27,7 @@ export const CircleAnnotationOutline = ({ x, y, size }: { x: number; y: number; 
                             theme.annotations.outline.strokeWidth +
                             theme.annotations.outline.outlineWidth * 2,
                         stroke: theme.annotations.outline.outlineColor,
+                        opacity: theme.annotations.outline.outlineOpacity,
                     }}
                 />
             )}

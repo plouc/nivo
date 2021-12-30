@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 import media from '../../../theming/mediaQueries'
 import { useTheme } from '../../../theming/context'
@@ -9,7 +8,7 @@ import { ApiPreview } from './ApiPreview'
 const tabs = ['preview', 'body', 'data'] as const
 type Tab = typeof tabs[number]
 
-interface ApiTabsProps<Data = any, Body = any> {
+interface ApiTabsProps<Data, Body> {
     chartClass: string
     data: Data
     body: Body
@@ -25,7 +24,7 @@ export function ApiTabs<Data = any, Body = any>({
     isLoading,
     responseStatus,
     chartUrl,
-}: ApiTabsProps) {
+}: ApiTabsProps<Data, Body>) {
     const theme = useTheme()
 
     const [currentTab, setCurrentTab] = useState<Tab>('preview')
@@ -64,11 +63,6 @@ export function ApiTabs<Data = any, Body = any>({
             </Content>
         </Wrapper>
     )
-}
-
-ApiTabs.propTypes = {
-    chartClass: PropTypes.string.isRequired,
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
 }
 
 const Wrapper = styled.div`

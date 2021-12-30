@@ -34,6 +34,7 @@ export const DotAnnotationOutline = ({
                         fill: 'none',
                         strokeWidth: theme.annotations.outline.outlineWidth * 2,
                         stroke: theme.annotations.outline.outlineColor,
+                        opacity: theme.annotations.outline.outlineOpacity,
                     }}
                 />
             )}

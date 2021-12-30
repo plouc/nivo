@@ -114,23 +114,27 @@ declare module '@nivo/core' {
                 fill: string
                 outlineWidth: number
                 outlineColor: string
+                outlineOpacity: number
             } & Partial<Omit<React.CSSProperties, 'fill'>>
             link: {
                 stroke: string
                 strokeWidth: number
                 outlineWidth: number
                 outlineColor: string
+                outlineOpacity: number
             } & Partial<Omit<React.CSSProperties, 'stroke' | 'strokeWidth'>>
             outline: {
                 stroke: string
                 strokeWidth: number
                 outlineWidth: number
                 outlineColor: string
+                outlineOpacity: number
             } & Partial<Omit<React.CSSProperties, 'stroke' | 'strokeWidth'>>
             symbol: {
                 fill: string
                 outlineWidth: number
                 outlineColor: string
+                outlineOpacity: number
             } & Partial<Omit<React.CSSProperties, 'fill'>>
         }
     }
