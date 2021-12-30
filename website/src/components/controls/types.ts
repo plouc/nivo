@@ -110,6 +110,7 @@ export interface AngleControlConfig {
 export interface ObjectControlConfig {
     type: 'object'
     props: Omit<ChartProperty, 'group'>[]
+    isOpenedByDefault?: boolean
 }
 
 export interface ArrayControlConfig {

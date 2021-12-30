@@ -1,4 +1,5 @@
 export * from './accessibility'
+export * from './annotations'
 export * from './axes'
 export * from './chart-dimensions'
 export * from './colors'

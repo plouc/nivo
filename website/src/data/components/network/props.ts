@@ -5,6 +5,7 @@ import {
     isInteractive,
     commonAccessibilityProps,
     blendMode,
+    annotations,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 import { dynamicNodeSizeValue, dynamicLinkThicknessValue } from './mapper'
@@ -234,6 +235,19 @@ const props: ChartProperty[] = [
         target: 'links',
         flavors: ['svg'],
         defaultValue: defaults.linkBlendMode,
+    }),
+    annotations({
+        target: 'nodes',
+        flavors: allFlavors,
+        newDefaults: {
+            type: 'circle',
+            match: { id: '0' },
+            note: 'New annotation',
+            noteX: 160,
+            noteY: 36,
+            offset: 6,
+            noteTextOffset: 5,
+        },
     }),
     isInteractive({ flavors: allFlavors, defaultValue: defaults.isInteractive }),
     {
