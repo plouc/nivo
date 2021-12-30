@@ -63,12 +63,6 @@ export interface BaseAnnotationSpec<Datum> {
     noteY: RelativeOrAbsolutePosition
     noteWidth?: number
     noteTextOffset?: number
-    // circle/dot
-    // size?: number
-    // // rect
-    // width?: number
-    // // rect
-    // height?: number
 }
 
 // This annotation can be used to draw a circle

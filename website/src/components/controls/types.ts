@@ -1,3 +1,4 @@
+import { AnnotationMatcher } from '@nivo/annotations'
 import { ChartProperty } from '../../types'
 
 export interface SwitchControlAttrs {
@@ -113,15 +114,15 @@ export interface ObjectControlConfig {
     isOpenedByDefault?: boolean
 }
 
-export interface ArrayControlConfig {
+export interface ArrayControlConfig<Item = object> {
     type: 'array'
     props: Omit<ChartProperty, 'group'>[]
     shouldCreate: boolean
     addLabel?: string
     shouldRemove: boolean
     removeLabel?: string
-    defaults?: object
-    getItemTitle?: (index: number, item: unknown) => string
+    defaults?: Item
+    getItemTitle?: (index: number, item: Item) => string
 }
 
 export interface TextControlConfig {
@@ -132,6 +133,11 @@ export interface TextControlConfig {
 export interface ColorsControlConfig {
     type: 'colors'
     includeSequential?: boolean
+}
+
+export interface AnnotationsControlConfig {
+    type: 'annotations'
+    createDefaults: AnnotationMatcher<any>
 }
 
 export type ControlConfig =
@@ -157,3 +163,4 @@ export type ControlConfig =
     | ArrayControlConfig
     | TextControlConfig
     | ColorsControlConfig
+    | AnnotationsControlConfig

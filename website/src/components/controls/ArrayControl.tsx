@@ -7,120 +7,118 @@ import { Help } from './Help'
 import { Flavor, ChartProperty } from '../../types'
 import { ArrayControlConfig } from './types'
 
-interface ArrayControlProps {
+interface ArrayControlProps<Item> {
     id: string
     property: ChartProperty
-    value: unknown[]
+    value: Item[]
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: ArrayControlConfig
-    onChange: (value: unknown) => void
+    config: ArrayControlConfig<Item>
+    onChange: (value: Item[]) => void
     context?: any
 }
 
-export const ArrayControl = memo(
-    ({
-        property,
-        flavors,
-        currentFlavor,
-        value,
-        onChange,
-        config: {
-            props,
-            shouldCreate = false,
-            addLabel = 'add',
-            shouldRemove = false,
-            removeLabel = 'remove',
-            defaults = {},
-            getItemTitle,
+function NonMemoizedArrayControl<Item = object>({
+    property,
+    flavors,
+    currentFlavor,
+    value,
+    onChange,
+    config: {
+        props,
+        shouldCreate = false,
+        addLabel = 'add',
+        shouldRemove = false,
+        removeLabel = 'remove',
+        defaults = {} as Item,
+        getItemTitle,
+    },
+}: ArrayControlProps<Item>) {
+    const [activeItems, setActiveItems] = useState([0])
+    const append = useCallback(() => {
+        onChange([...value, { ...defaults }])
+        setActiveItems([value.length])
+    }, [value, onChange, defaults, setActiveItems])
+
+    const remove = useCallback(
+        (index: number) => (event: MouseEvent) => {
+            event.stopPropagation()
+            const items = value.filter((_item: any, i) => i !== index)
+            setActiveItems([])
+            onChange(items)
         },
-    }: ArrayControlProps) => {
-        const [activeItems, setActiveItems] = useState([0])
-        const append = useCallback(() => {
-            onChange([...value, { ...defaults }])
-            setActiveItems([value.length])
-        }, [value, onChange, defaults, setActiveItems])
-
-        const remove = useCallback(
-            (index: number) => (event: MouseEvent) => {
-                event.stopPropagation()
-                const items = value.filter((_item: any, i) => i !== index)
-                setActiveItems([])
-                onChange(items)
-            },
-            [value, onChange, setActiveItems]
-        )
-        const change = useCallback(
-            (index: number) => (itemValue: unknown) => {
-                onChange(
-                    value.map((v, i) => {
-                        if (i === index) return itemValue
-                        return v
-                    })
-                )
-            },
-            [value, onChange]
-        )
-        const toggle = useCallback(
-            (index: number) => () => {
-                setActiveItems(items => {
-                    if (items.includes(index)) {
-                        return items.filter(i => i !== index)
-                    }
-                    return [...activeItems, index]
+        [value, onChange, setActiveItems]
+    )
+    const change = useCallback(
+        (index: number) => (itemValue: Item) => {
+            onChange(
+                value.map((v, i) => {
+                    if (i === index) return itemValue
+                    return v
                 })
-            },
-            [setActiveItems]
-        )
+            )
+        },
+        [value, onChange]
+    )
+    const toggle = useCallback(
+        (index: number) => () => {
+            setActiveItems(items => {
+                if (items.includes(index)) {
+                    return items.filter(i => i !== index)
+                }
+                return [...activeItems, index]
+            })
+        },
+        [setActiveItems]
+    )
 
-        const subProps = useMemo(
-            () =>
-                props.map(prop => ({
-                    ...prop,
-                    name: prop.key,
-                    group: property.group,
-                })),
-            [props]
-        )
+    const subProps = useMemo(
+        () =>
+            props.map(prop => ({
+                ...prop,
+                name: prop.key,
+                group: property.group,
+            })),
+        [props]
+    )
 
-        return (
-            <>
-                <Header>
-                    <PropertyHeader {...property} />
-                    <Help>{property.help}</Help>
-                    {shouldCreate && <AddButton onClick={append}>{addLabel}</AddButton>}
-                </Header>
-                {value.map((item, index) => (
-                    <Fragment key={index}>
-                        <SubHeader isOpened={activeItems.includes(index)} onClick={toggle(index)}>
-                            <Title>
-                                {getItemTitle !== undefined
-                                    ? getItemTitle(index, item)
-                                    : `${property.key}[${index}]`}
-                                {shouldRemove && (
-                                    <RemoveButton onClick={remove(index)}>
-                                        {removeLabel}
-                                    </RemoveButton>
-                                )}
-                            </Title>
-                            <Toggle isOpened={activeItems.includes(index)} />
-                        </SubHeader>
-                        {activeItems.includes(index) && (
-                            <ControlsGroup
-                                name={property.key}
-                                flavors={flavors}
-                                currentFlavor={currentFlavor}
-                                controls={subProps}
-                                settings={item}
-                                onChange={change(index)}
-                            />
-                        )}
-                    </Fragment>
-                ))}
-            </>
-        )
-    }
-)
+    return (
+        <>
+            <Header>
+                <PropertyHeader {...property} />
+                <Help>{property.help}</Help>
+                {shouldCreate && <AddButton onClick={append}>{addLabel}</AddButton>}
+            </Header>
+            {value.map((item, index) => (
+                <Fragment key={index}>
+                    <SubHeader isOpened={activeItems.includes(index)} onClick={toggle(index)}>
+                        <Title>
+                            {getItemTitle !== undefined
+                                ? getItemTitle(index, item)
+                                : `${property.key}[${index}]`}
+                            {shouldRemove && (
+                                <RemoveButton onClick={remove(index)}>{removeLabel}</RemoveButton>
+                            )}
+                        </Title>
+                        <Toggle isOpened={activeItems.includes(index)} />
+                    </SubHeader>
+                    {activeItems.includes(index) && (
+                        <ControlsGroup
+                            name={property.key}
+                            flavors={flavors}
+                            currentFlavor={currentFlavor}
+                            controls={subProps}
+                            settings={item}
+                            onChange={change(index)}
+                        />
+                    )}
+                </Fragment>
+            ))}
+        </>
+    )
+}
+
+export const ArrayControl = memo(NonMemoizedArrayControl) as typeof NonMemoizedArrayControl
 
 const Header = styled(Cell)`
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
