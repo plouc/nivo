@@ -104,8 +104,6 @@ const InnerNetwork = <Node extends InputNode>({
         annotations: null,
     }
 
-    console.log(nodes)
-
     if (layers.includes('links') && links !== null) {
         layerById.links = (
             <NetworkLinks<Node>

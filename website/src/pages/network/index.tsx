@@ -35,6 +35,8 @@ const initialProperties = Object.freeze({
     linkColor: defaults.linkColor,
     linkBlendMode: 'multiply',
 
+    annotations: defaults.annotations,
+
     isInteractive: true,
 
     animate: true,
@@ -95,16 +97,6 @@ const Network = () => {
                         }
                         {...properties}
                         theme={theme}
-                        annotations={[
-                            {
-                                type: 'circle',
-                                match: { id: '10' },
-                                noteX: 40,
-                                noteY: 40,
-                                offset: 4,
-                                note: 'Node id: 10',
-                            },
-                        ]}
                         onClick={node => {
                             logAction({
                                 type: 'click',

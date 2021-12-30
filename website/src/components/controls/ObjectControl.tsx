@@ -28,9 +28,10 @@ export const ObjectControl = memo(
         value,
         onChange,
         context,
-        isOpenedByDefault = false,
     }: ObjectControlProps) => {
-        const [isOpened, setIsOpened] = useState(isOpenedByDefault)
+        const [isOpened, setIsOpened] = useState(
+            config.isOpenedByDefault !== undefined ? config.isOpenedByDefault : false
+        )
         const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
 
         const subProps = useMemo(
