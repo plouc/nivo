@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveNetwork, svgDefaultProps as defaults } from '@nivo/network'
+import { ComputedNode, ResponsiveNetwork, svgDefaultProps as defaults } from '@nivo/network'
 import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
@@ -19,7 +19,7 @@ const initialProperties = Object.freeze({
     },
 
     linkDistance: 30,
-    repulsivity: 6,
+    repulsivity: 3,
     iterations: 60,
 
     nodeSize: dynamicNodeSizeValue,
@@ -78,26 +78,10 @@ const Network = () => {
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveNetwork
-                        data={
-                            data /*{
-                            nodes: [
-                                { id: 'A' },
-                                { id: 'B' },
-                                { id: 'C' },
-                                { id: 'D' },
-                                { id: 'E' },
-                            ],
-                            links: [
-                                { source: 'A', target: 'B' },
-                                { source: 'B', target: 'C' },
-                                { source: 'C', target: 'D' },
-                                { source: 'D', target: 'E' },
-                            ],
-                        }*/
-                        }
+                        data={data}
                         {...properties}
                         theme={theme}
-                        onClick={node => {
+                        onClick={(node: ComputedNode<any>) => {
                             logAction({
                                 type: 'click',
                                 label: `[node] id: ${node.id}, index: ${node.index}`,

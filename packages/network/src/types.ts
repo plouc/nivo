@@ -13,6 +13,7 @@ export interface ComputedNode<Node extends InputNode> {
     data: Node
     x: number
     y: number
+    index: number
     size: number
     color: string
     borderWidth: number
@@ -103,13 +104,14 @@ export interface NodeTooltipProps<Node extends InputNode> {
 }
 export type NodeTooltip<Node extends InputNode> = FunctionComponent<NodeTooltipProps<Node>>
 
-export type NodeDerivedProp<Node extends InputNode, T> = T | ((node: ComputedNode<Node>) => T)
-export type LinkDerivedProp<Node extends InputNode, T> = T | ((link: ComputedLink<Node>) => T)
+export type DerivedProp<Target, Output extends number | string> =
+    | Output
+    | ((target: Target) => Output)
 
 export type NetworkCommonProps<Node extends InputNode> = {
     margin: Box
 
-    linkDistance: LinkDerivedProp<Node, number>
+    linkDistance: DerivedProp<ComputedLink<Node>, number>
     repulsivity: number
     distanceMin: number
     distanceMax: number
@@ -117,15 +119,17 @@ export type NetworkCommonProps<Node extends InputNode> = {
 
     theme: Theme
 
-    nodeSize: NodeDerivedProp<Node, number>
-    activeNodeSize: NodeDerivedProp<Node, number>
-    inactiveNodeSize: NodeDerivedProp<Node, number>
-    nodeColor: NodeDerivedProp<Node, string>
-    nodeBorderWidth: NodeDerivedProp<Node, number>
-    nodeBorderColor: InheritedColorConfig<ComputedNode<Node>>
+    nodeSize: DerivedProp<Node, number>
+    activeNodeSize: DerivedProp<Node, number>
+    inactiveNodeSize: DerivedProp<Node, number>
+    nodeColor: DerivedProp<Node, string>
+    nodeBorderWidth: DerivedProp<Node, number>
+    nodeBorderColor: InheritedColorConfig<
+        Omit<ComputedNode<Node>, 'size' | 'borderWidth' | 'borderColor'>
+    >
 
-    linkThickness: LinkDerivedProp<Node, number>
-    activeLinkThickness: LinkDerivedProp<Node, number>
+    linkThickness: DerivedProp<ComputedLink<Node>, number>
+    activeLinkThickness: DerivedProp<ComputedLink<Node>, number>
     linkColor: InheritedColorConfig<ComputedLink<Node>>
 
     annotations: AnnotationMatcher<ComputedNode<Node>>[]

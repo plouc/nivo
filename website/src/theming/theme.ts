@@ -94,21 +94,22 @@ const lightTheme: DefaultTheme = {
         annotations: {
             text: {
                 fill: '#333333',
-                outlineWidth: 3,
+                outlineWidth: 1.5,
                 outlineColor: '#ffffff',
             },
             link: {
-                stroke: '#333333',
+                stroke: '#6c6363',
                 outlineWidth: 2,
                 outlineColor: '#ffffff',
             },
             outline: {
-                stroke: '#333333',
+                stroke: '#6c6363',
+                strokeWidth: 1.5,
                 outlineWidth: 2,
                 outlineColor: '#ffffff',
             },
             symbol: {
-                fill: '#333333',
+                fill: '#6c6363',
                 outlineWidth: 2,
                 outlineColor: '#ffffff',
             },
@@ -216,21 +217,22 @@ const darkTheme: DefaultTheme = {
         annotations: {
             text: {
                 fill: '#dddddd',
-                outlineWidth: 3,
+                outlineWidth: 1.5,
                 outlineColor: '#0e1317',
             },
             link: {
-                stroke: '#ffffff',
+                stroke: '#8093a4',
                 outlineWidth: 2,
                 outlineColor: '#0e1317',
             },
             outline: {
-                stroke: '#ffffff',
+                stroke: '#8093a4',
+                strokeWidth: 1.5,
                 outlineWidth: 2,
                 outlineColor: '#0e1317',
             },
             symbol: {
-                fill: '#ffffff',
+                fill: '#8093a4',
                 outlineWidth: 2,
                 outlineColor: '#0e1317',
             },

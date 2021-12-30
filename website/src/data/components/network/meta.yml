@@ -9,7 +9,6 @@ Network:
   tags:
     - svg
     - isomorphic
-    - experimental
   stories:
     - label: Custom node tooltip
       link: network--custom-node-tooltip
