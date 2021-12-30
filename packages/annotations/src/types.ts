@@ -107,6 +107,7 @@ export type RectAnnotationSpec<Datum> = BaseAnnotationSpec<Datum> & {
     offset?: number
 
     size?: never
+    borderRadius?: number
 }
 
 export type AnnotationSpec<Datum> =

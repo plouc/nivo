@@ -247,6 +247,7 @@ const props: ChartProperty[] = [
             noteY: 36,
             offset: 6,
             noteTextOffset: 5,
+            borderRadius: 3,
         },
     }),
     isInteractive({ flavors: allFlavors, defaultValue: defaults.isInteractive }),
