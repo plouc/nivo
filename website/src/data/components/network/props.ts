@@ -8,7 +8,11 @@ import {
     annotations,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
-import { dynamicNodeSizeValue, dynamicLinkThicknessValue } from './mapper'
+import {
+    dynamicNodeSizeValue,
+    dynamicActiveNodeSizeValue,
+    dynamicLinkThicknessValue,
+} from './mapper'
 
 const allFlavors: Flavor[] = ['svg', 'canvas']
 
@@ -43,7 +47,6 @@ const props: ChartProperty[] = [
         key: 'linkDistance',
         group: 'Simulation',
         type: 'number | string | (link: Link) => number',
-        required: false,
         help: `Control links' distance.`,
         flavors: allFlavors,
         description: `
@@ -61,7 +64,6 @@ const props: ChartProperty[] = [
         key: 'repulsivity',
         group: 'Simulation',
         type: 'number',
-        required: false,
         help: 'Control how nodes repel each other.',
         description: `
             This value will also affect the strength
@@ -79,7 +81,6 @@ const props: ChartProperty[] = [
         key: 'distanceMin',
         group: 'Simulation',
         type: 'number',
-        required: false,
         help: 'Sets the minimum distance between nodes for the many-body force.',
         flavors: allFlavors,
         defaultValue: defaults.distanceMin,
@@ -88,7 +89,6 @@ const props: ChartProperty[] = [
         key: 'distanceMax',
         group: 'Simulation',
         type: 'number',
-        required: false,
         help: 'Sets the maximum disteance between nodes for the many-body force.',
         flavors: allFlavors,
         defaultValue: defaults.distanceMax,
@@ -102,7 +102,6 @@ const props: ChartProperty[] = [
             however it will also involve more computing.
         `,
         type: 'number',
-        required: false,
         flavors: allFlavors,
         defaultValue: defaults.iterations,
         control: {
@@ -116,7 +115,6 @@ const props: ChartProperty[] = [
         key: 'nodeComponent',
         group: 'Nodes',
         type: 'NetworkNodeComponent',
-        required: false,
         help: `Custom node component for the SVG implementation.`,
         flavors: ['svg'],
         defaultValue: 'NetworkNode',
@@ -125,7 +123,6 @@ const props: ChartProperty[] = [
         key: 'renderNode',
         group: 'Nodes',
         type: 'NetworkNodeCanvasRenderer',
-        required: false,
         help: `Custom node rendering for the canvas implementation.`,
         flavors: ['canvas'],
     },
@@ -133,7 +130,6 @@ const props: ChartProperty[] = [
         key: 'nodeSize',
         group: 'Nodes',
         type: 'number | (node: InputNode) => number',
-        required: false,
         help: `Control nodes' size.`,
         flavors: allFlavors,
         defaultValue: defaults.nodeSize,
@@ -147,10 +143,39 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'activeNodeSize',
+        group: 'Nodes',
+        type: 'number | (node: InputNode) => number',
+        help: `Control active nodes' size.`,
+        flavors: allFlavors,
+        defaultValue: defaults.activeNodeSize,
+        control: {
+            type: 'switchableRange',
+            disabledValue: dynamicActiveNodeSizeValue,
+            defaultValue: defaults.activeNodeSize as number,
+            unit: 'px',
+            min: 4,
+            max: 64,
+        },
+    },
+    {
+        key: 'inactiveNodeSize',
+        group: 'Nodes',
+        type: 'number | (node: InputNode) => number',
+        help: `Control inactive nodes' size.`,
+        flavors: allFlavors,
+        defaultValue: defaults.inactiveNodeSize,
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 4,
+            max: 64,
+        },
+    },
+    {
         key: 'nodeColor',
         group: 'Nodes',
         type: 'string | (node: InputNode) => string',
-        required: false,
         help: `Control nodes' color.`,
         flavors: allFlavors,
         defaultValue: defaults.nodeColor,
@@ -166,7 +191,6 @@ const props: ChartProperty[] = [
         key: 'nodeBorderWidth',
         group: 'Nodes',
         type: 'number | (node: NetworkComputedNode) => number',
-        required: false,
         help: `Control nodes' border width.`,
         flavors: allFlavors,
         defaultValue: defaults.nodeBorderWidth,
@@ -176,7 +200,6 @@ const props: ChartProperty[] = [
         key: 'nodeBorderColor',
         group: 'Nodes',
         type: 'InheritedColorConfig<NetworkComputedNode>',
-        required: false,
         help: `Control nodes' border color.`,
         flavors: allFlavors,
         defaultValue: defaults.nodeBorderColor,
@@ -186,7 +209,6 @@ const props: ChartProperty[] = [
         key: 'linkComponent',
         group: 'Links',
         type: 'NetworkLinkComponent',
-        required: false,
         help: `Custom link component for the SVG implementation.`,
         flavors: ['svg'],
         defaultValue: 'NetworkLink',
@@ -195,7 +217,6 @@ const props: ChartProperty[] = [
         key: 'renderLink',
         group: 'Links',
         type: 'NetworkLinkCanvasRenderer',
-        required: false,
         help: `Custom link rendering for the canvas implementation.`,
         flavors: ['canvas'],
     },
@@ -203,7 +224,6 @@ const props: ChartProperty[] = [
         key: 'linkThickness',
         group: 'Links',
         type: 'number | (link: NetworkComputedLink) => number',
-        required: false,
         help: `Control links' thickness.`,
         flavors: allFlavors,
         defaultValue: defaults.linkThickness,
@@ -220,7 +240,6 @@ const props: ChartProperty[] = [
         key: 'linkColor',
         group: 'Links',
         type: 'InheritedColorConfig<ComputedLink>',
-        required: false,
         help: `Control links' color.`,
         flavors: allFlavors,
         defaultValue: defaults.linkColor,
@@ -241,7 +260,6 @@ const props: ChartProperty[] = [
         key: 'nodeTooltip',
         group: 'Interactivity',
         type: 'NetworkNodeTooltipComponent',
-        required: false,
         help: 'Custom tooltip component for nodes.',
         flavors: allFlavors,
         description: `
@@ -255,7 +273,6 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: 'onClick handler.',
         type: '(node: NetworkComputedNode, event: MouseEvent) => void',
-        required: false,
         flavors: allFlavors,
     },
     {
@@ -263,7 +280,6 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: 'onMouseEnter handler.',
         type: '(node: ComputedNode, event: MouseEvent) => void',
-        required: false,
         flavors: allFlavors,
     },
     {
@@ -271,7 +287,6 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: 'onMouseMove handler.',
         type: '(node: ComputedNode, event: MouseEvent) => void',
-        required: false,
         flavors: allFlavors,
     },
     {
@@ -279,7 +294,6 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: 'onMouseLeave handler.',
         type: '(node: ComputedNode, event: MouseEvent) => void',
-        required: false,
         flavors: allFlavors,
     },
     annotations({
@@ -300,7 +314,6 @@ const props: ChartProperty[] = [
         type: `('links' | 'nodes')[] | FunctionComponent<LayerProps>`,
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
-        required: false,
         defaultValue: defaults.layers,
         flavors: ['svg', 'canvas'],
     },

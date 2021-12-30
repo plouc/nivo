@@ -6,6 +6,7 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/network/meta.yml'
 import mapper, {
     dynamicNodeSizeValue,
+    dynamicActiveNodeSizeValue,
     dynamicLinkThicknessValue,
 } from '../../data/components/network/mapper'
 import { groups } from '../../data/components/network/props'
@@ -23,6 +24,8 @@ const initialProperties = Object.freeze({
     iterations: 60,
 
     nodeSize: dynamicNodeSizeValue,
+    activeNodeSize: dynamicActiveNodeSizeValue,
+    inactiveNodeSize: defaults.inactiveNodeSize,
     nodeColor: (node: any) => node.color,
     nodeBlendMode: 'normal',
     nodeBorderWidth: 1,

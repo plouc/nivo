@@ -23,12 +23,16 @@ const initialProperties = Object.freeze({
     iterations: 60,
 
     nodeSize: defaults.nodeSize,
-    nodeColor: '#ff0000', // node => node.color,
+    activeNodeSize: defaults.activeNodeSize,
+    inactiveNodeSize: defaults.inactiveNodeSize,
+    nodeColor: (node: any) => node.color,
     nodeBorderWidth: 1,
     nodeBorderColor: { theme: 'background' },
 
     linkColor: defaults.linkColor,
     linkThickness: defaults.linkThickness,
+
+    annotations: defaults.annotations,
 
     isInteractive: true,
 })

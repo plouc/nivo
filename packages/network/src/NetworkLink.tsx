@@ -1,7 +1,8 @@
 import { animated } from '@react-spring/web'
 import { InputNode, LinkProps } from './types'
+import { memo } from 'react'
 
-export const NetworkLink = <Node extends InputNode>({
+const NonMemoizedNetworkLink = <Node extends InputNode>({
     link,
     animated: animatedProps,
     blendMode,
@@ -12,9 +13,12 @@ export const NetworkLink = <Node extends InputNode>({
         style={{ mixBlendMode: blendMode }}
         strokeWidth={link.thickness}
         strokeLinecap="round"
+        opacity={animatedProps.opacity}
         x1={animatedProps.x1}
         y1={animatedProps.y1}
         x2={animatedProps.x2}
         y2={animatedProps.y2}
     />
 )
+
+export const NetworkLink = memo(NonMemoizedNetworkLink) as typeof NonMemoizedNetworkLink

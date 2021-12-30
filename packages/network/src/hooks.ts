@@ -222,25 +222,7 @@ export const useNetwork = <Node extends InputNode = InputNode>({
 
         // d3 mutates data, hence the castings
         setCurrentNodes(nodesCopy)
-        setCurrentLinks(
-            (linksCopy as unknown as ComputedLink<Node>[]).map(link => {
-                const previousSource = currentNodes
-                    ? currentNodes.find(n => n.id === link.source.id)
-                    : undefined
-                link.previousSource = previousSource
-                    ? (previousSource as ComputedNode<Node>)
-                    : undefined
-
-                const previousTarget = currentNodes
-                    ? currentNodes.find(n => n.id === link.target.id)
-                    : undefined
-                link.previousTarget = previousTarget
-                    ? (previousTarget as ComputedNode<Node>)
-                    : undefined
-
-                return link
-            })
-        )
+        setCurrentLinks(linksCopy as unknown as ComputedLink<Node>[])
 
         return () => {
             // prevent the simulation from continuing in case the data is updated.
