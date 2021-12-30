@@ -73,6 +73,19 @@ export const annotations = ({
                     },
                 },
                 {
+                    key: 'borderRadius',
+                    flavors,
+                    help: `Rect border radius.`,
+                    type: 'number',
+                    required: false,
+                    when: (settings: any) => settings.type === 'rect',
+                    control: {
+                        type: 'range',
+                        min: 0,
+                        max: 12,
+                    },
+                },
+                {
                     key: 'note',
                     flavors,
                     help: `Annotation note.`,

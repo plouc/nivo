@@ -30,6 +30,7 @@ export const Annotation = <Datum,>(annotation: BoundAnnotation<Datum>) => {
                     y={y}
                     width={annotation.width}
                     height={annotation.height}
+                    borderRadius={annotation.borderRadius}
                 />
             )}
             <AnnotationLink points={computed.points} />
