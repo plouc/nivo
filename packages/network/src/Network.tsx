@@ -132,7 +132,11 @@ const InnerNetwork = <Node extends InputNode>({
 
     if (layers.includes('annotations') && nodes !== null) {
         layerById.annotations = (
-            <NetworkNodeAnnotations<Node> nodes={nodes} annotations={annotations} />
+            <NetworkNodeAnnotations<Node>
+                key="annotations"
+                nodes={nodes}
+                annotations={annotations}
+            />
         )
     }
 

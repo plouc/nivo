@@ -107,7 +107,7 @@ const props: ChartProperty[] = [
         defaultValue: defaults.iterations,
         control: {
             type: 'range',
-            min: 60,
+            min: 30,
             max: 260,
         },
     },
@@ -236,20 +236,6 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: defaults.linkBlendMode,
     }),
-    annotations({
-        target: 'nodes',
-        flavors: allFlavors,
-        newDefaults: {
-            type: 'circle',
-            match: { id: '0' },
-            note: 'New annotation',
-            noteX: 160,
-            noteY: 36,
-            offset: 6,
-            noteTextOffset: 5,
-            borderRadius: 3,
-        },
-    }),
     isInteractive({ flavors: allFlavors, defaultValue: defaults.isInteractive }),
     {
         key: 'nodeTooltip',
@@ -296,6 +282,20 @@ const props: ChartProperty[] = [
         required: false,
         flavors: allFlavors,
     },
+    annotations({
+        target: 'nodes',
+        flavors: allFlavors,
+        newDefaults: {
+            type: 'circle',
+            match: { id: '0' },
+            note: 'New annotation',
+            noteX: 160,
+            noteY: 36,
+            offset: 6,
+            noteTextOffset: 5,
+            borderRadius: 3,
+        },
+    }),
     {
         key: 'layers',
         type: `('links' | 'nodes')[] | FunctionComponent<LayerProps>`,

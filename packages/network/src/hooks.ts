@@ -11,8 +11,7 @@ import {
     InputLink,
     InputNode,
     NetworkCommonProps,
-    NodeDerivedProp,
-    LinkDerivedProp,
+    DerivedProp,
     ComputedNode,
     ComputedLink,
 } from './types'
@@ -53,16 +52,8 @@ const computeForces = <Node extends InputNode>({
     return { link: linkForce, charge: chargeForce, center: centerForce }
 }
 
-const useNodeDerivedProp = <Node extends InputNode, T extends string | number>(
-    instruction: NodeDerivedProp<Node, T>
-) =>
-    useMemo(() => {
-        if (typeof instruction === 'function') return instruction
-        return () => instruction
-    }, [instruction])
-
-const useLinkDerivedProp = <Node extends InputNode, T extends string | number>(
-    instruction: LinkDerivedProp<Node, T>
+const useDerivedProp = <Target, Output extends string | number>(
+    instruction: DerivedProp<Target, Output>
 ) =>
     useMemo(() => {
         if (typeof instruction === 'function') return instruction
@@ -88,46 +79,60 @@ const useNodeStyle = <Node extends InputNode>({
     isInteractive: NetworkCommonProps<Node>['isInteractive']
     activeNodeIds: string[]
 }) => {
+    type IntermediateNode = Pick<ComputedNode<Node>, 'id' | 'data' | 'index' | 'x' | 'y'>
+
     const theme = useTheme()
 
-    const getSize = useNodeDerivedProp(size)
-    const getColor = useNodeDerivedProp(color)
-    const getBorderWidth = useNodeDerivedProp(borderWidth)
+    const getSize = useDerivedProp(size)
+    const getColor = useDerivedProp(color)
+    const getBorderWidth = useDerivedProp(borderWidth)
     const getBorderColor = useInheritedColor(borderColor, theme)
     const getNormalStyle = useCallback(
-        (node: ComputedNode<Node>) => ({
-            size: getSize(node),
-            color: getColor(node),
-            borderWidth: getBorderWidth(node),
-            borderColor: getBorderColor(node),
-        }),
+        (node: IntermediateNode) => {
+            const color = getColor(node.data)
+
+            return {
+                size: getSize(node.data),
+                color,
+                borderWidth: getBorderWidth(node.data),
+                borderColor: getBorderColor({ ...node, color }),
+            }
+        },
         [getSize, getColor, getBorderWidth, getBorderColor]
     )
 
-    const getActiveSize = useNodeDerivedProp(activeSize)
+    const getActiveSize = useDerivedProp(activeSize)
     const getActiveStyle = useCallback(
-        (node: ComputedNode<Node>) => ({
-            size: getActiveSize(node),
-            color: getColor(node),
-            borderWidth: getBorderWidth(node),
-            borderColor: getBorderColor(node),
-        }),
+        (node: IntermediateNode) => {
+            const color = getColor(node.data)
+
+            return {
+                size: getActiveSize(node.data),
+                color,
+                borderWidth: getBorderWidth(node.data),
+                borderColor: getBorderColor({ ...node, color }),
+            }
+        },
         [getActiveSize, getColor, getBorderWidth, getBorderColor]
     )
 
-    const getInactiveSize = useNodeDerivedProp(inactiveSize)
+    const getInactiveSize = useDerivedProp(inactiveSize)
     const getInactiveStyle = useCallback(
-        (node: ComputedNode<Node>) => ({
-            size: getInactiveSize(node),
-            color: getColor(node),
-            borderWidth: getBorderWidth(node),
-            borderColor: getBorderColor(node),
-        }),
+        (node: IntermediateNode) => {
+            const color = getColor(node.data)
+
+            return {
+                size: getInactiveSize(node.data),
+                color,
+                borderWidth: getBorderWidth(node.data),
+                borderColor: getBorderColor({ ...node, color }),
+            }
+        },
         [getInactiveSize, getColor, getBorderWidth, getBorderColor]
     )
 
     return useCallback(
-        (node: ComputedNode<Node>) => {
+        (node: IntermediateNode) => {
             if (!isInteractive || activeNodeIds.length === 0) return getNormalStyle(node)
             if (activeNodeIds.includes(node.id)) return getActiveStyle(node)
             return getInactiveStyle(node)
@@ -175,7 +180,9 @@ export const useNetwork = <Node extends InputNode = InputNode>({
 }) => {
     // we're using `null` instead of empty array so that we can dissociate
     // initial rendering from updates when using transitions.
-    const [currentNodes, setCurrentNodes] = useState<null | ComputedNode<Node>[]>(null)
+    const [currentNodes, setCurrentNodes] = useState<
+        null | Pick<ComputedNode<Node>, 'id' | 'data' | 'index' | 'x' | 'y'>[]
+    >(null)
     const [currentLinks, setCurrentLinks] = useState<null | ComputedLink<Node>[]>(null)
 
     const centerX = center[0]
@@ -190,7 +197,15 @@ export const useNetwork = <Node extends InputNode = InputNode>({
             center: [centerX, centerY],
         })
 
-        const nodesCopy: Node[] = nodes.map(node => ({ ...node }))
+        const nodesCopy: Pick<ComputedNode<Node>, 'id' | 'data' | 'index' | 'x' | 'y'>[] =
+            nodes.map(node => ({
+                id: node.id,
+                data: { ...node },
+                // populated later by D3, mutation
+                index: 0,
+                x: 0,
+                y: 0,
+            }))
         const linksCopy: InputLink[] = links.map(link => ({
             // generate a unique id for each link
             id: `${link.source}.${link.target}`,
@@ -206,14 +221,21 @@ export const useNetwork = <Node extends InputNode = InputNode>({
         simulation.tick(iterations)
 
         // d3 mutates data, hence the castings
-        setCurrentNodes(nodesCopy as unknown as ComputedNode<Node>[])
+        setCurrentNodes(nodesCopy)
         setCurrentLinks(
             (linksCopy as unknown as ComputedLink<Node>[]).map(link => {
-                link.previousSource = currentNodes
+                const previousSource = currentNodes
                     ? currentNodes.find(n => n.id === link.source.id)
                     : undefined
-                link.previousTarget = currentNodes
+                link.previousSource = previousSource
+                    ? (previousSource as ComputedNode<Node>)
+                    : undefined
+
+                const previousTarget = currentNodes
                     ? currentNodes.find(n => n.id === link.target.id)
+                    : undefined
+                link.previousTarget = previousTarget
+                    ? (previousTarget as ComputedNode<Node>)
                     : undefined
 
                 return link
@@ -238,10 +260,6 @@ export const useNetwork = <Node extends InputNode = InputNode>({
 
     const [activeNodeIds, setActiveNodeIds] = useState<string[]>([])
 
-    const theme = useTheme()
-    const getLinkThickness = useLinkDerivedProp(linkThickness)
-    const getLinkColor = useInheritedColor(linkColor, theme)
-
     const getNodeStyle = useNodeStyle<Node>({
         size: nodeSize,
         activeSize: activeNodeSize,
@@ -252,29 +270,35 @@ export const useNetwork = <Node extends InputNode = InputNode>({
         isInteractive,
         activeNodeIds,
     })
-
     const enhancedNodes: ComputedNode<Node>[] | null = useMemo(() => {
         if (currentNodes === null) return null
 
-        return currentNodes.map(node => {
-            return {
-                ...node,
-                ...getNodeStyle(node),
-            }
-        })
+        return currentNodes.map(node => ({
+            ...node,
+            ...getNodeStyle(node),
+        }))
     }, [currentNodes, getNodeStyle])
 
+    const theme = useTheme()
+    const getLinkThickness = useDerivedProp(linkThickness)
+    const getLinkColor = useInheritedColor(linkColor, theme)
     const enhancedLinks: ComputedLink<Node>[] | null = useMemo(() => {
-        if (currentLinks === null) return null
+        if (currentLinks === null || enhancedNodes === null) return null
 
         return currentLinks.map(link => {
-            return {
+            const linkWithEnhancedNodes = {
                 ...link,
-                thickness: getLinkThickness(link),
-                color: getLinkColor(link),
+                source: enhancedNodes.find(node => node.id === link.source.id)!,
+                target: enhancedNodes.find(node => node.id === link.target.id)!,
+            }
+
+            return {
+                ...linkWithEnhancedNodes,
+                thickness: getLinkThickness(linkWithEnhancedNodes),
+                color: getLinkColor(linkWithEnhancedNodes),
             }
         })
-    }, [currentLinks, getLinkThickness, getLinkColor])
+    }, [currentLinks, getLinkThickness, getLinkColor, enhancedNodes])
 
     return {
         nodes: enhancedNodes,
