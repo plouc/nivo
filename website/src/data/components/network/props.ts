@@ -1,4 +1,4 @@
-import { commonDefaultProps as defaults } from '@nivo/network'
+import { commonDefaultProps as defaults, svgDefaultProps } from '@nivo/network'
 import { groupProperties, themeProperty, motionProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
@@ -140,7 +140,7 @@ const props: ChartProperty[] = [
         control: {
             type: 'switchableRange',
             disabledValue: dynamicNodeSizeValue,
-            defaultValue: defaults.nodeSize,
+            defaultValue: defaults.nodeSize as number,
             unit: 'px',
             min: 4,
             max: 64,
@@ -160,7 +160,7 @@ const props: ChartProperty[] = [
         key: 'nodeBlendMode',
         target: 'nodes',
         flavors: ['svg'],
-        defaultValue: defaults.nodeBlendMode,
+        defaultValue: svgDefaultProps.nodeBlendMode,
     }),
     {
         key: 'nodeBorderWidth',
@@ -210,7 +210,7 @@ const props: ChartProperty[] = [
         control: {
             type: 'switchableRange',
             disabledValue: dynamicLinkThicknessValue,
-            defaultValue: defaults.linkThickness,
+            defaultValue: defaults.linkThickness as number,
             unit: 'px',
             min: 1,
             max: 12,
@@ -234,7 +234,7 @@ const props: ChartProperty[] = [
         key: 'linkBlendMode',
         target: 'links',
         flavors: ['svg'],
-        defaultValue: defaults.linkBlendMode,
+        defaultValue: svgDefaultProps.linkBlendMode,
     }),
     isInteractive({ flavors: allFlavors, defaultValue: defaults.isInteractive }),
     {
@@ -243,7 +243,7 @@ const props: ChartProperty[] = [
         type: 'NetworkNodeTooltipComponent',
         required: false,
         help: 'Custom tooltip component for nodes.',
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
         description: `
             An optional component allowing complete tooltip customisation,
             it must return a valid HTML element and will receive
@@ -256,7 +256,7 @@ const props: ChartProperty[] = [
         help: 'onClick handler.',
         type: '(node: NetworkComputedNode, event: MouseEvent) => void',
         required: false,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseEnter',
@@ -264,7 +264,7 @@ const props: ChartProperty[] = [
         help: 'onMouseEnter handler.',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         required: false,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseMove',
@@ -272,7 +272,7 @@ const props: ChartProperty[] = [
         help: 'onMouseMove handler.',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         required: false,
-        flavors: ['svg', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'onMouseLeave',
@@ -285,7 +285,7 @@ const props: ChartProperty[] = [
     annotations({
         target: 'nodes',
         flavors: allFlavors,
-        newDefaults: {
+        createDefaults: {
             type: 'circle',
             match: { id: '0' },
             note: 'New annotation',
@@ -293,7 +293,6 @@ const props: ChartProperty[] = [
             noteY: 36,
             offset: 6,
             noteTextOffset: 5,
-            borderRadius: 3,
         },
     }),
     {

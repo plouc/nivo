@@ -24,6 +24,7 @@ import { InheritedColorControl } from './InheritedColorControl'
 import { BlendModeControl } from './BlendModeControl'
 import PropertyDocumentation from './PropertyDocumentation'
 import { ValueFormatControl } from './ValueFormatControl'
+import { AnnotationsControl } from './AnnotationsControl'
 import { ChartProperty, Flavor } from '../../types'
 
 export const shouldRenderProperty = (property: ChartProperty, currentSettings: any) => {
@@ -391,6 +392,20 @@ const ControlSwitcher = memo(
             case 'valueFormat':
                 return (
                     <ValueFormatControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        config={controlConfig}
+                        value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'annotations':
+                return (
+                    <AnnotationsControl
                         id={id}
                         property={property}
                         flavors={flavors}
