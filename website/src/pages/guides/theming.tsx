@@ -7,7 +7,6 @@ import {
 } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
-// @ts-ignore
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import { ComponentPage } from '../../components/components/ComponentPage'
@@ -15,7 +14,7 @@ import { ComponentHeader } from '../../components/components/ComponentHeader'
 import { Markdown } from '../../components/Markdown'
 import { ComponentSettings } from '../../components/components/ComponentSettings'
 import media from '../../theming/mediaQueries'
-import { ChartProperty } from '../../types'
+import { ChartPropertiesGroup } from '../../types'
 
 const initialTheme: Theme = {
     background: '#ffffff', // defaultTheme.background,
@@ -41,30 +40,61 @@ const initialTheme: Theme = {
             strokeWidth: defaultTheme.grid.line.strokeWidth,
         },
     },
+    annotations: {
+        text: {
+            fontSize: defaultTheme.annotations.text.fontSize,
+            outlineWidth: defaultTheme.annotations.text.outlineWidth,
+            outlineColor: defaultTheme.annotations.text.outlineColor,
+            outlineOpacity: defaultTheme.annotations.text.outlineOpacity,
+        },
+        link: {
+            stroke: defaultTheme.annotations.link.stroke,
+            strokeWidth: defaultTheme.annotations.link.strokeWidth,
+            outlineWidth: defaultTheme.annotations.link.outlineWidth,
+            outlineColor: defaultTheme.annotations.link.outlineColor,
+            outlineOpacity: defaultTheme.annotations.link.outlineOpacity,
+        },
+        outline: {
+            stroke: defaultTheme.annotations.outline.stroke,
+            strokeWidth: defaultTheme.annotations.outline.strokeWidth,
+            outlineWidth: defaultTheme.annotations.outline.outlineWidth,
+            outlineColor: defaultTheme.annotations.outline.outlineColor,
+            outlineOpacity: defaultTheme.annotations.outline.outlineOpacity,
+        },
+        symbol: {
+            fill: defaultTheme.annotations.symbol.fill,
+            outlineWidth: defaultTheme.annotations.symbol.outlineWidth,
+            outlineColor: defaultTheme.annotations.symbol.outlineColor,
+            outlineOpacity: defaultTheme.annotations.symbol.outlineOpacity,
+        },
+    },
 }
 
-const controlGroups: {
-    name: string
-    group: string
-    properties: ChartProperty[]
-}[] = [
+const controlGroups: ChartPropertiesGroup[] = [
     {
-        name: 'Theme',
-        group: 'Theme',
+        name: 'Base',
         properties: [
             {
+                group: 'Theme',
+                key: 'background',
                 name: 'background',
+                type: 'string',
                 help: 'main background color.',
                 control: { type: 'colorPicker' },
             },
             {
+                group: 'Theme',
+                key: 'textColor',
                 name: 'textColor',
+                type: 'string',
                 help: 'main text color.',
                 control: { type: 'colorPicker' },
             },
-            // fontFamily: 'sans-serif',
             {
+                group: 'Theme',
+                key: 'fontSize',
                 name: 'fontSize',
+                type: 'number',
                 help: 'main font size.',
                 control: {
                     type: 'range',
@@ -73,30 +103,40 @@ const controlGroups: {
                     max: 36,
                 },
             },
+        ],
+    },
+    {
+        name: 'Axes & Grid',
+        properties: [
             {
+                group: 'Theme',
+                key: 'axis',
                 name: 'axis',
+                type: 'object',
                 control: {
                     type: 'object',
                     isOpenedByDefault: true,
                     props: [
                         {
                             key: 'ticks',
+                            type: 'object',
                             control: {
                                 type: 'object',
-                                isOpenedByDefault: true,
                                 props: [
                                     {
                                         key: 'line',
+                                        type: 'object',
                                         control: {
                                             type: 'object',
-                                            isOpenedByDefault: true,
                                             props: [
                                                 {
                                                     key: 'strokeWidth',
+                                                    type: 'number',
                                                     control: { type: 'lineWidth' },
                                                 },
                                                 {
                                                     key: 'stroke',
+                                                    type: 'string',
                                                     control: { type: 'colorPicker' },
                                                 },
                                             ],
@@ -107,22 +147,24 @@ const controlGroups: {
                         },
                         {
                             key: 'domain',
+                            type: 'object',
                             control: {
                                 type: 'object',
-                                isOpenedByDefault: true,
                                 props: [
                                     {
                                         key: 'line',
+                                        type: 'object',
                                         control: {
                                             type: 'object',
-                                            isOpenedByDefault: true,
                                             props: [
                                                 {
                                                     key: 'strokeWidth',
+                                                    type: 'number',
                                                     control: { type: 'lineWidth' },
                                                 },
                                                 {
                                                     key: 'stroke',
+                                                    type: 'string',
                                                     control: { type: 'colorPicker' },
                                                 },
                                             ],
@@ -135,24 +177,177 @@ const controlGroups: {
                 },
             },
             {
+                group: 'Theme',
+                key: 'grid',
                 name: 'grid',
+                type: 'object',
                 control: {
                     type: 'object',
                     isOpenedByDefault: true,
                     props: [
                         {
                             key: 'line',
+                            type: 'object',
                             control: {
                                 type: 'object',
-                                isOpenedByDefault: true,
                                 props: [
                                     {
                                         key: 'stroke',
+                                        type: 'string',
                                         control: { type: 'colorPicker' },
                                     },
                                     {
                                         key: 'strokeWidth',
+                                        type: 'number',
                                         control: { type: 'lineWidth' },
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ],
+    },
+    {
+        name: 'Annotations',
+        properties: [
+            {
+                group: 'Theme',
+                key: 'annotations',
+                name: 'annotations',
+                type: 'object',
+                control: {
+                    type: 'object',
+                    isOpenedByDefault: true,
+                    props: [
+                        {
+                            key: 'text',
+                            type: 'object',
+                            control: {
+                                type: 'object',
+                                props: [
+                                    {
+                                        key: 'fontSize',
+                                        type: 'number',
+                                        control: {
+                                            type: 'range',
+                                            unit: 'px',
+                                            min: 6,
+                                            max: 36,
+                                        },
+                                    },
+                                    {
+                                        key: 'outlineWidth',
+                                        type: 'number',
+                                        control: { type: 'lineWidth' },
+                                    },
+                                    {
+                                        key: 'outlineColor',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'outlineOpacity',
+                                        type: 'number',
+                                        control: { type: 'opacity' },
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            key: 'link',
+                            type: 'object',
+                            control: {
+                                type: 'object',
+                                props: [
+                                    {
+                                        key: 'stroke',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'strokeWidth',
+                                        type: 'number',
+                                        control: { type: 'lineWidth' },
+                                    },
+                                    {
+                                        key: 'outlineWidth',
+                                        type: 'number',
+                                        control: { type: 'lineWidth' },
+                                    },
+                                    {
+                                        key: 'outlineColor',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'outlineOpacity',
+                                        type: 'number',
+                                        control: { type: 'opacity' },
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            key: 'outline',
+                            type: 'object',
+                            control: {
+                                type: 'object',
+                                props: [
+                                    {
+                                        key: 'stroke',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'strokeWidth',
+                                        type: 'number',
+                                        control: { type: 'lineWidth' },
+                                    },
+                                    {
+                                        key: 'outlineWidth',
+                                        type: 'number',
+                                        control: { type: 'lineWidth' },
+                                    },
+                                    {
+                                        key: 'outlineColor',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'outlineOpacity',
+                                        type: 'number',
+                                        control: { type: 'opacity' },
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            key: 'symbol',
+                            type: 'object',
+                            control: {
+                                type: 'object',
+                                props: [
+                                    {
+                                        key: 'fill',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'outlineWidth',
+                                        type: 'number',
+                                        control: { type: 'lineWidth' },
+                                    },
+                                    {
+                                        key: 'outlineColor',
+                                        type: 'string',
+                                        control: { type: 'colorPicker' },
+                                    },
+                                    {
+                                        key: 'outlineOpacity',
+                                        type: 'number',
+                                        control: { type: 'opacity' },
                                     },
                                 ],
                             },
@@ -221,6 +416,7 @@ const Theming = () => {
                                         { id: 'E', value: 23 },
                                     ]}
                                     theme={theme}
+                                    colorBy="indexValue"
                                     animate={false}
                                     axisBottom={{
                                         legend: 'X axis legend',
@@ -347,7 +543,9 @@ const Nav = styled.nav`
     `}
 `
 
-const NavItem = styled.span`
+const NavItem = styled.span<{
+    isCurrent: boolean
+}>`
     cursor: pointer;
     height: 46px;
     display: flex;
@@ -413,4 +611,5 @@ const Code = styled.pre`
     font-size: 0.8rem;
     line-height: 1.7;
     padding: 12px 20px;
+    overflow-y: auto;
 `

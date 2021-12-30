@@ -20,7 +20,16 @@ interface RangeControlProps {
 }
 
 export const RangeControl = memo(
-    ({ id, property, flavors, currentFlavor, config, value, onChange }: RangeControlProps) => {
+    ({
+        id,
+        property,
+        flavors,
+        currentFlavor,
+        config,
+        value,
+        onChange,
+        context,
+    }: RangeControlProps) => {
         const handleChange = useCallback(event => onChange(Number(event.target.value)), [onChange])
 
         return (
@@ -31,7 +40,7 @@ export const RangeControl = memo(
                 currentFlavor={currentFlavor}
                 supportedFlavors={property.flavors}
             >
-                <PropertyHeader id={id} {...property} />
+                <PropertyHeader id={id} {...property} context={context} />
                 <Row>
                     <TextInput
                         id={id}

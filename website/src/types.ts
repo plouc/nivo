@@ -18,15 +18,15 @@ export interface ChartProperty<Settings = any> {
     // type of the property, preferably expressed with TypeScript notation
     type: string
     // will be parsed in Markdown and supports links
-    help: string
+    help?: string
     // will be parsed in Markdown and supports links
     description?: string
     // assumed to be optional by default
-    required: boolean
+    required?: boolean
     // default property value as defined for the component,
     // default props should be exported by nivo packages
     defaultValue?: any
-    flavors: Flavor[]
+    flavors?: Flavor[]
     // disable the control when the current chart flavor doesn't match
     enableControlForFlavors?: Flavor[]
     // not used at the moment, indicate that a property is just used

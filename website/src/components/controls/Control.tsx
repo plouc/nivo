@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ReactNode, PropsWithChildren } from 'react'
+import React, { useState, useCallback, PropsWithChildren } from 'react'
 import intersection from 'lodash/intersection'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
@@ -9,10 +9,10 @@ import { Cell } from './styled'
 
 interface ControlProps {
     id: string
-    description?: ReactNode
+    description?: string
     flavors: Flavor[]
     currentFlavor: Flavor
-    supportedFlavors: Flavor[]
+    supportedFlavors?: Flavor[]
 }
 
 export const Control = ({
@@ -47,9 +47,9 @@ export const Control = ({
             )}
             {children}
             {showFlavors && (
-                <PropertyFlavors flavors={flavors} supportedFlavors={supportedFlavors} />
+                <PropertyFlavors flavors={flavors} supportedFlavors={supportedFlavors!} />
             )}
-            {showDescription && <PropertyDescription description={description} />}
+            {description && showDescription && <PropertyDescription description={description} />}
         </Container>
     )
 }

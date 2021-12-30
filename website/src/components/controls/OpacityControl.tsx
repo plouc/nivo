@@ -29,6 +29,7 @@ export const OpacityControl = ({
     currentFlavor,
     value,
     onChange,
+    context,
 }: OpacityControlProps) => {
     const theme = useTheme()
     const handleChange = useCallback(
@@ -46,7 +47,7 @@ export const OpacityControl = ({
             currentFlavor={currentFlavor}
             supportedFlavors={property.flavors}
         >
-            <PropertyHeader id={id} {...property} />
+            <PropertyHeader id={id} {...property} context={context} />
             <Row>
                 <TextInput value={value} onChange={handleChange} isNumber={true} />
                 <svg width={size} height={size}>

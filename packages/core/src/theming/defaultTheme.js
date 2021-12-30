@@ -99,12 +99,14 @@ export const defaultTheme = {
             fontSize: 13,
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
         link: {
             stroke: '#000000',
             strokeWidth: 1,
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
         outline: {
             fill: 'none',
@@ -112,11 +114,13 @@ export const defaultTheme = {
             strokeWidth: 2,
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
         symbol: {
             fill: '#000000',
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
     },
 }

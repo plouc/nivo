@@ -32,6 +32,7 @@ export const AnnotationLink = ({
         style.strokeWidth =
             theme.annotations.link.strokeWidth + theme.annotations.link.outlineWidth * 2
         style.stroke = theme.annotations.link.outlineColor
+        style.opacity = theme.annotations.link.outlineOpacity
     }
 
     return <animated.path fill="none" d={animatedPath} style={style} />
