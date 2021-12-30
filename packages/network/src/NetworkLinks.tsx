@@ -31,17 +31,6 @@ const getRegularTransition =
         opacity: 1,
     })
 
-const getExitTransition =
-    <Node extends InputNode>() =>
-    (link: ComputedLink<Node>) => ({
-        x1: link.source.x,
-        y1: link.source.y,
-        x2: link.source.x,
-        y2: link.source.y,
-        color: link.color,
-        opacity: 0,
-    })
-
 export const NetworkLinks = <Node extends InputNode>({
     links,
     linkComponent,
@@ -49,8 +38,8 @@ export const NetworkLinks = <Node extends InputNode>({
 }: NetworkLinksProps<Node>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const [enterTransition, regularTransition, exitTransition] = useMemo(
-        () => [getEnterTransition<Node>(), getRegularTransition<Node>(), getExitTransition<Node>()],
+    const [enterTransition, regularTransition] = useMemo(
+        () => [getEnterTransition<Node>(), getRegularTransition<Node>()],
         []
     )
 
@@ -70,7 +59,6 @@ export const NetworkLinks = <Node extends InputNode>({
         from: enterTransition,
         enter: regularTransition,
         update: regularTransition,
-        leave: exitTransition,
         expires: true,
         config: springConfig,
         immediate: !animate,

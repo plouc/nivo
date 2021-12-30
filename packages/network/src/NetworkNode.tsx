@@ -1,7 +1,8 @@
+import { memo } from 'react'
 import { animated, to } from '@react-spring/web'
 import { InputNode, NodeProps } from './types'
 
-export const NetworkNode = <Node extends InputNode>({
+const NonMemoizedNetworkNode = <Node extends InputNode>({
     node,
     animated: animatedProps,
     blendMode,
@@ -26,3 +27,5 @@ export const NetworkNode = <Node extends InputNode>({
         onMouseLeave={onMouseLeave ? event => onMouseLeave(node, event) : undefined}
     />
 )
+
+export const NetworkNode = memo(NonMemoizedNetworkNode) as typeof NonMemoizedNetworkNode
