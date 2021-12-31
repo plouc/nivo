@@ -1,11 +1,14 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { InputNode, NetworkSvgProps } from './types'
+import { InputLink, InputNode, NetworkSvgProps } from './types'
 import { Network } from './Network'
 
-export const ResponsiveNetwork = <Node extends InputNode = InputNode>(
-    props: Omit<NetworkSvgProps<Node>, 'height' | 'width'>
+export const ResponsiveNetwork = <
+    Node extends InputNode = InputNode,
+    Link extends InputLink = InputLink
+>(
+    props: Omit<NetworkSvgProps<Node, Link>, 'height' | 'width'>
 ) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <Network<Node> width={width} height={height} {...props} />}
+        {({ width, height }) => <Network<Node, Link> width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )

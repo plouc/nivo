@@ -1,12 +1,19 @@
 import { createElement, MouseEvent, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { InputNode, ComputedNode, NodeAnimatedProps, NodeComponent, NetworkSvgProps } from './types'
+import {
+    InputNode,
+    ComputedNode,
+    NodeAnimatedProps,
+    NodeComponent,
+    NetworkSvgProps,
+    InputLink,
+} from './types'
 
-interface NetworkNodesProps<Node extends InputNode> {
+interface NetworkNodesProps<Node extends InputNode, Link extends InputLink> {
     nodes: ComputedNode<Node>[]
-    nodeComponent: NodeComponent<Node>
-    blendMode: NonNullable<NetworkSvgProps<Node>['nodeBlendMode']>
+    nodeComponent: NodeComponent<Node, Link>
+    blendMode: NonNullable<NetworkSvgProps<Node, Link>['nodeBlendMode']>
     onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
@@ -23,6 +30,7 @@ const getEnterTransition =
         borderWidth: node.borderWidth,
         borderColor: node.borderColor,
         scale: 0,
+        opacity: 0,
     })
 
 const getRegularTransition =
@@ -35,6 +43,7 @@ const getRegularTransition =
         borderWidth: node.borderWidth,
         borderColor: node.borderColor,
         scale: 1,
+        opacity: 1,
     })
 
 const getExitTransition =
@@ -47,9 +56,10 @@ const getExitTransition =
         borderWidth: node.borderWidth,
         borderColor: node.borderColor,
         scale: 0,
+        opacity: 0,
     })
 
-export const NetworkNodes = <Node extends InputNode>({
+export const NetworkNodes = <Node extends InputNode, Link extends InputLink>({
     nodes,
     nodeComponent,
     blendMode,
@@ -57,7 +67,7 @@ export const NetworkNodes = <Node extends InputNode>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodesProps<Node>) => {
+}: NetworkNodesProps<Node, Link>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const [enterTransition, regularTransition, exitTransition] = useMemo(
