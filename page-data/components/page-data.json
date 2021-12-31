@@ -1,5 +1,5 @@
 {
-    "componentChunkName": "component---src-pages-components-js",
+    "componentChunkName": "component---src-pages-components-tsx",
     "path": "/components/",
     "result": {"pageContext":{}},
     "staticQueryHashes": ["3087563097"]}

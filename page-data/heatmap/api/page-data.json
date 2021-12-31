@@ -1,5 +1,5 @@
 {
-    "componentChunkName": "component---src-pages-heatmap-api-js",
+    "componentChunkName": "component---src-pages-heatmap-api-tsx",
     "path": "/heatmap/api/",
     "result": {"pageContext":{}},
-    "staticQueryHashes": ["2553729126","3087563097"]}
+    "staticQueryHashes": ["1152708062","3087563097"]}

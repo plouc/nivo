@@ -1,5 +1,5 @@
 {
-    "componentChunkName": "component---src-pages-sunburst-api-js",
+    "componentChunkName": "component---src-pages-sunburst-api-tsx",
     "path": "/sunburst/api/",
     "result": {"pageContext":{}},
-    "staticQueryHashes": ["3087563097","3715114815"]}
+    "staticQueryHashes": ["3087563097","562475396"]}

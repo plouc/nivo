@@ -1,5 +1,5 @@
 {
-    "componentChunkName": "component---src-pages-bar-api-js",
+    "componentChunkName": "component---src-pages-bar-api-tsx",
     "path": "/bar/api/",
     "result": {"pageContext":{}},
-    "staticQueryHashes": ["2085855288","3087563097"]}
+    "staticQueryHashes": ["2064855481","3087563097"]}
