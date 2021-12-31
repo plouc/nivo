@@ -14,24 +14,32 @@ type ExtraNode = {
 }
 
 export const generateNetworkData = ({
-    rootNodeSize = 24,
-    minMidNodes = 6,
-    maxMidNodes = 16,
-    midNodeSize = 16,
-    minLeaves = 4,
-    maxLeaves = 16,
-    leafSize = 8,
+    rootSize = 32,
+    midSize = 24,
+    leafSize = 12,
+    minMidNodes = 5,
+    maxMidNodes = 11,
+    minLeaves = 3,
+    maxLeaves = 9,
+}: {
+    rootSize?: number
+    midSize?: number
+    leafSize?: number
+    minMidNodes?: number
+    maxMidNodes?: number
+    minLeaves?: number
+    maxLeaves?: number
 } = {}) => {
     const rootNode = {
-        id: '0',
+        id: 'Node 0',
         height: 2,
-        size: rootNodeSize,
+        size: rootSize,
         color: 'rgb(244, 117, 96)',
     }
     let nodes = Array.from({ length: random(minMidNodes, maxMidNodes) }, (_, k) => ({
-        id: `${k + 1}`,
+        id: `Node ${k + 1}`,
         height: 1,
-        size: midNodeSize,
+        size: midSize,
         color: 'rgb(97, 205, 187)',
     }))
 
@@ -39,7 +47,7 @@ export const generateNetworkData = ({
     const extraNodes: ExtraNode[] = []
     nodes.forEach(source => {
         links.push({
-            source: '0',
+            source: 'Node 0',
             target: source.id,
             distance: 80,
         })

@@ -54,7 +54,6 @@ export const svgDefaultProps = {
     nodeComponent: NetworkNode as NonNullable<
         NetworkSvgProps<InputNode, InputLink>['nodeComponent']
     >,
-    nodeBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode, InputLink>['nodeBlendMode']>,
     linkComponent: NetworkLink as NonNullable<
         NetworkSvgProps<InputNode, InputLink>['linkComponent']
     >,

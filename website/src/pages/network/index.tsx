@@ -31,7 +31,6 @@ const initialProperties = Object.freeze({
     activeNodeSize: dynamicActiveNodeSizeValue,
     inactiveNodeSize: defaults.inactiveNodeSize,
     nodeColor: (node: any) => node.color,
-    nodeBlendMode: 'normal',
     nodeBorderWidth: 1,
     nodeBorderColor: {
         from: 'color',

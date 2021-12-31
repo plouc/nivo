@@ -28,7 +28,10 @@ const initialProperties = Object.freeze({
     inactiveNodeSize: defaults.inactiveNodeSize,
     nodeColor: (node: any) => node.color,
     nodeBorderWidth: 1,
-    nodeBorderColor: { theme: 'background' },
+    nodeBorderColor: {
+        from: 'color',
+        modifiers: [['darker', 0.8]],
+    },
 
     linkThickness: dynamicLinkThicknessValue,
     linkColor: defaults.linkColor,
@@ -38,7 +41,13 @@ const initialProperties = Object.freeze({
     isInteractive: true,
 })
 
-const generateData = () => generateNetworkData()
+const generateData = () =>
+    generateNetworkData({
+        minMidNodes: 9,
+        maxMidNodes: 15,
+        minLeaves: 7,
+        maxLeaves: 12,
+    })
 
 const NetworkCanvas = () => {
     const {
@@ -66,14 +75,7 @@ const NetworkCanvas = () => {
             initialProperties={initialProperties}
             defaultProperties={defaults}
             propertiesMapper={mapper}
-            generateData={() =>
-                generateData({
-                    rootNodeRadius: 10,
-                    maxMidNodes: 32,
-                    midNodeRadius: 6,
-                    leafRadius: 3,
-                })
-            }
+            generateData={generateData}
             getDataSize={data => data.nodes.length}
             image={image}
         >

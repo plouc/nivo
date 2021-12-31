@@ -1,19 +1,11 @@
 import { createElement, MouseEvent, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import {
-    InputNode,
-    ComputedNode,
-    NodeAnimatedProps,
-    NodeComponent,
-    NetworkSvgProps,
-    InputLink,
-} from './types'
+import { InputNode, ComputedNode, NodeAnimatedProps, NodeComponent } from './types'
 
-interface NetworkNodesProps<Node extends InputNode, Link extends InputLink> {
+interface NetworkNodesProps<Node extends InputNode> {
     nodes: ComputedNode<Node>[]
-    nodeComponent: NodeComponent<Node, Link>
-    blendMode: NonNullable<NetworkSvgProps<Node, Link>['nodeBlendMode']>
+    nodeComponent: NodeComponent<Node>
     onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
@@ -59,15 +51,14 @@ const getExitTransition =
         opacity: 0,
     })
 
-export const NetworkNodes = <Node extends InputNode, Link extends InputLink>({
+export const NetworkNodes = <Node extends InputNode>({
     nodes,
     nodeComponent,
-    blendMode,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodesProps<Node, Link>) => {
+}: NetworkNodesProps<Node>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const [enterTransition, regularTransition, exitTransition] = useMemo(
@@ -93,7 +84,6 @@ export const NetworkNodes = <Node extends InputNode, Link extends InputLink>({
                     key: node.id,
                     node,
                     animated: transitionProps,
-                    blendMode,
                     onClick,
                     onMouseEnter,
                     onMouseMove,

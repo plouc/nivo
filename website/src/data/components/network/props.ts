@@ -197,13 +197,6 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         defaultValue: defaults.nodeColor,
     },
-    blendMode({
-        group: 'Nodes',
-        key: 'nodeBlendMode',
-        target: 'nodes',
-        flavors: ['svg'],
-        defaultValue: svgDefaultProps.nodeBlendMode,
-    }),
     {
         key: 'nodeBorderWidth',
         group: 'Nodes',
