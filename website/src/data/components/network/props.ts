@@ -52,13 +52,30 @@ const props: ChartProperty[] = [
         description: `
             If you set a **number**, this value will be used for all links.
 
-            If you use a **string**, this will be used to pick the distance
-            from the corresponding link property, thus, this property
-            should exist on each link.
-
             If you use a **function**, it will receive a link and must return
             the desired distance.
+            
+            Please note that in most cases you won't get links having the
+            exact distance you specified as it also depends on the other forces.
         `,
+    },
+    {
+        key: 'centeringStrength',
+        group: 'Simulation',
+        type: 'number',
+        help: 'Control how much the centering force affects nodes positioning.',
+        description: `
+            This value will also affect the strength
+            of \`distanceMin\` and \`distanceMax\`.
+        `,
+        flavors: allFlavors,
+        defaultValue: defaults.centeringStrength,
+        control: {
+            type: 'range',
+            min: 0,
+            max: 2,
+            step: 0.1,
+        },
     },
     {
         key: 'repulsivity',

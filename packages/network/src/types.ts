@@ -139,6 +139,7 @@ export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> =
     margin: Box
 
     linkDistance: DerivedProp<Link, number>
+    centeringStrength: number
     repulsivity: number
     distanceMin: number
     distanceMax: number

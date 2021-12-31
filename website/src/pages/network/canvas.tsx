@@ -4,7 +4,7 @@ import { ResponsiveNetworkCanvas, canvasDefaultProps as defaults } from '@nivo/n
 import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
-import mapper from '../../data/components/network/mapper'
+import mapper, { dynamicLinkThicknessValue } from '../../data/components/network/mapper'
 import { groups } from '../../data/components/network/props'
 
 const initialProperties = Object.freeze({
@@ -18,9 +18,10 @@ const initialProperties = Object.freeze({
         left: 0,
     },
 
-    linkDistance: 'distance',
-    repulsivity: 4,
-    iterations: 60,
+    linkDistance: (link: any) => link.distance,
+    centeringStrength: 0.3,
+    repulsivity: 6,
+    iterations: defaults.iterations,
 
     nodeSize: defaults.nodeSize,
     activeNodeSize: defaults.activeNodeSize,
@@ -29,8 +30,8 @@ const initialProperties = Object.freeze({
     nodeBorderWidth: 1,
     nodeBorderColor: { theme: 'background' },
 
+    linkThickness: dynamicLinkThicknessValue,
     linkColor: defaults.linkColor,
-    linkThickness: defaults.linkThickness,
 
     annotations: defaults.annotations,
 

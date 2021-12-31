@@ -223,6 +223,7 @@ website: ##@2 website start website in dev mode
 
 website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"
+	@-rm -rf website/.cache
 	@cd website && yarn build
 
 website-serve: ##@2 website build & serve website

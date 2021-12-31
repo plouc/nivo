@@ -7,24 +7,30 @@ import networkDarkColoredImg from '../../assets/icons/network-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 import { IconType } from './types'
 
+type Node = {
+    id: string
+    size: number
+    color: string
+}
+
 const getData = (currentColors: any) => {
     let nodes = 'ABCDE'.split('').map(id => ({
         id,
-        radius: 5,
+        size: 10,
         color: currentColors[2],
     }))
     const links = nodes.map(node => ({
         source: 'root',
         target: node.id,
-        distance: 2,
+        distance: 30,
     }))
 
-    const leaves: any[] = []
+    const leaves: Node[] = []
     nodes.forEach(node => {
         Array.from({ length: 7 }, (v, k) => {
             leaves.push({
                 id: `${node.id}.${k}`,
-                radius: 3,
+                size: 6,
                 color: currentColors[4],
             })
             links.push({
@@ -36,18 +42,22 @@ const getData = (currentColors: any) => {
     })
 
     nodes = nodes.concat(leaves)
-    nodes.unshift({ id: 'root', radius: 11, color: currentColors[4] })
+    nodes.unshift({ id: 'root', size: 20, color: currentColors[4] })
 
     return { nodes, links }
 }
 
+type Link = ReturnType<typeof getData>['links'][number]
+
 const chartProps = {
     width: ICON_SIZE,
     height: ICON_SIZE,
-    linkDistance: (link: any) => link.distance,
-    repulsivity: 5,
+    linkDistance: (link: Link) => link.distance,
+    centeringStrength: 1.2,
+    repulsivity: 4,
     linkThickness: 2,
-    nodeColor: (node: any) => node.color,
+    nodeSize: (node: Node) => node.size,
+    nodeColor: (node: Node) => node.color,
     linkColor: { from: 'source.color' },
     animate: false,
     isInteractive: false,
@@ -55,7 +65,7 @@ const chartProps = {
 
 const NetworkIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`network-${type}`} type={type}>
-        <Network {...chartProps} data={getData(colors[type].colors)} />
+        <Network<Node, Link> {...chartProps} data={getData(colors[type].colors)} />
     </Icon>
 )
 

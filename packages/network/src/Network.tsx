@@ -21,6 +21,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     data: { nodes: rawNodes, links: rawLinks },
 
     linkDistance = svgDefaultProps.linkDistance,
+    centeringStrength = svgDefaultProps.centeringStrength,
     repulsivity = svgDefaultProps.repulsivity,
     distanceMin = svgDefaultProps.distanceMin,
     distanceMax = svgDefaultProps.distanceMax,
@@ -70,6 +71,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
         nodes: rawNodes,
         links: rawLinks,
         linkDistance,
+        centeringStrength,
         repulsivity,
         distanceMin,
         distanceMax,

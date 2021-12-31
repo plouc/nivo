@@ -23,8 +23,8 @@ const initialProperties = Object.freeze({
     },
 
     linkDistance: (link: Link) => link.distance,
-    distanceMax: 50,
-    repulsivity: defaults.repulsivity,
+    centeringStrength: 0.3,
+    repulsivity: 6,
     iterations: defaults.iterations,
 
     nodeSize: dynamicNodeSizeValue,
