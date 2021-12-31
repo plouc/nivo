@@ -19,6 +19,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
     data: { nodes: rawNodes, links: rawLinks },
 
     linkDistance = canvasDefaultProps.linkDistance,
+    centeringStrength = canvasDefaultProps.centeringStrength,
     repulsivity = canvasDefaultProps.repulsivity,
     distanceMin = canvasDefaultProps.distanceMin,
     distanceMax = canvasDefaultProps.distanceMax,
@@ -54,6 +55,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
         nodes: rawNodes,
         links: rawLinks,
         linkDistance,
+        centeringStrength,
         repulsivity,
         distanceMin,
         distanceMax,

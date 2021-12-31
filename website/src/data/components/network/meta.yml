@@ -17,7 +17,12 @@ Network:
     - label: Custom link component
       link: network--custom-link
   description: |
-    A network component connecting nodes with links.
+    A network component connecting nodes with links using various forces,
+    the resulting layout will depends on `linkDistance`, `centeringStrength`
+    and `repulsivity`, so you should play with those parameters in order
+    to achieve the desired result.
+
+    You can also add some extra constrains via `distanceMin` and `distanceMax`.
 
     The responsive alternative of this component is `ResponsiveNetwork`.
 

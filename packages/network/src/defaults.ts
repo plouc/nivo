@@ -22,10 +22,11 @@ export const commonDefaultProps: Omit<
     layers: ['links', 'nodes', 'annotations'],
 
     linkDistance: 30,
-    repulsivity: 3,
+    centeringStrength: 1,
+    repulsivity: 10,
     distanceMin: 1,
     distanceMax: Infinity,
-    iterations: 160,
+    iterations: 120,
 
     nodeSize: 12,
     activeNodeSize: 18,

@@ -25,12 +25,14 @@ const useDerivedProp = <Target, Output extends string | number>(
 
 const useComputeForces = <Node extends InputNode, Link extends InputLink>({
     linkDistance,
+    centeringStrength,
     repulsivity,
     distanceMin,
     distanceMax,
     center,
 }: {
     linkDistance: NetworkCommonProps<Node, Link>['linkDistance']
+    centeringStrength: NetworkCommonProps<Node, Link>['centeringStrength']
     repulsivity: NetworkCommonProps<Node, Link>['repulsivity']
     distanceMin: NetworkCommonProps<Node, Link>['distanceMin']
     distanceMax: NetworkCommonProps<Node, Link>['distanceMax']
@@ -42,9 +44,9 @@ const useComputeForces = <Node extends InputNode, Link extends InputLink>({
     const centerY = center[1]
 
     return useMemo(() => {
-        const linkForce = forceLink<TransientNode<Node>, TransientLink<Node, Link>>().distance(
-            link => getLinkDistance(link.data)
-        )
+        const linkForce = forceLink<TransientNode<Node>, TransientLink<Node, Link>>()
+            .distance(link => getLinkDistance(link.data))
+            .strength(centeringStrength)
 
         const chargeForce = forceManyBody()
             .strength(-repulsivity)
@@ -54,7 +56,15 @@ const useComputeForces = <Node extends InputNode, Link extends InputLink>({
         const centerForce = forceCenter(centerX, centerY)
 
         return { link: linkForce, charge: chargeForce, center: centerForce }
-    }, [getLinkDistance, repulsivity, distanceMin, distanceMax, centerX, centerY])
+    }, [
+        getLinkDistance,
+        centeringStrength,
+        repulsivity,
+        distanceMin,
+        distanceMax,
+        centerX,
+        centerY,
+    ])
 }
 
 const useNodeStyle = <Node extends InputNode, Link extends InputLink>({
@@ -141,6 +151,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
     nodes,
     links,
     linkDistance = commonDefaultProps.linkDistance,
+    centeringStrength = commonDefaultProps.centeringStrength,
     repulsivity = commonDefaultProps.repulsivity,
     distanceMin = commonDefaultProps.distanceMin,
     distanceMax = commonDefaultProps.distanceMax,
@@ -159,6 +170,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
     nodes: Node[]
     links: Link[]
     linkDistance?: NetworkCommonProps<Node, Link>['linkDistance']
+    centeringStrength?: NetworkCommonProps<Node, Link>['centeringStrength']
     repulsivity?: NetworkCommonProps<Node, Link>['repulsivity']
     distanceMin?: NetworkCommonProps<Node, Link>['distanceMin']
     distanceMax?: NetworkCommonProps<Node, Link>['distanceMax']
@@ -180,6 +192,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
 
     const forces = useComputeForces<Node, Link>({
         linkDistance,
+        centeringStrength,
         repulsivity,
         distanceMin,
         distanceMax,
