@@ -46,20 +46,14 @@ export const AnnotationsControl = memo(
             control: ArrayControlConfig<AnnotationMatcher<any>>
         } = useMemo(
             () => ({
-                key: property.key,
-                group: property.group,
-                help: property.help,
-                type: property.type,
-                required: property.required,
-                flavors: property.flavors,
-                defaultValue: property.defaultValue,
+                ...property,
                 control: {
                     type: 'array',
                     shouldCreate: true,
                     addLabel: 'add annotation',
                     shouldRemove: true,
                     getItemTitle: (index, annotation) =>
-                        `annotation[${index}] '${annotation.note}' (${annotation.type})`,
+                        `annotations[${index}] '${annotation.note}' (${annotation.type})`,
                     defaults: createDefaults,
                     props: [
                         {

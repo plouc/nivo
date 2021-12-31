@@ -165,6 +165,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
     linkThickness = commonDefaultProps.linkThickness,
     linkColor = commonDefaultProps.linkColor,
     isInteractive = commonDefaultProps.isInteractive,
+    defaultActiveNodeIds = commonDefaultProps.defaultActiveNodeIds,
 }: {
     center: [number, number]
     nodes: Node[]
@@ -184,6 +185,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
     linkThickness?: NetworkCommonProps<Node, Link>['linkThickness']
     linkColor?: NetworkCommonProps<Node, Link>['linkColor']
     isInteractive?: NetworkCommonProps<Node, Link>['isInteractive']
+    defaultActiveNodeIds?: NetworkCommonProps<Node, Link>['defaultActiveNodeIds']
 }) => {
     // we're using `null` instead of empty array so that we can dissociate
     // initial rendering from updates when using transitions.
@@ -239,7 +241,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
         }
     }, [nodes, links, forces, iterations, setTransientNodes, setTransientLinks])
 
-    const [activeNodeIds, setActiveNodeIds] = useState<string[]>([])
+    const [activeNodeIds, setActiveNodeIds] = useState<string[]>(defaultActiveNodeIds)
 
     const getNodeStyle = useNodeStyle<Node, Link>({
         size: nodeSize,
@@ -287,6 +289,7 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
     return {
         nodes: computedNodes,
         links: computedLinks,
+        activeNodeIds,
         setActiveNodeIds,
     }
 }

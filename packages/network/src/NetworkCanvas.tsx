@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect, createElement, MouseEvent } from 'react'
+import { useCallback, useRef, useEffect, createElement, MouseEvent, useMemo } from 'react'
 import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { useComputedAnnotations, renderAnnotationsToCanvas } from '@nivo/annotations'
@@ -11,6 +11,7 @@ import {
     NodeTooltip,
     InputLink,
     NetworkSvgProps,
+    CustomLayerProps,
 } from './types'
 
 type InnerNetworkCanvasProps<Node extends InputNode, Link extends InputLink> = Omit<
@@ -52,6 +53,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
     >,
 
     isInteractive = canvasDefaultProps.isInteractive,
+    defaultActiveNodeIds = canvasDefaultProps.defaultActiveNodeIds,
     nodeTooltip = canvasDefaultProps.nodeTooltip as NodeTooltip<Node>,
     onClick,
 }: InnerNetworkCanvasProps<Node, Link>) => {
@@ -62,7 +64,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
         partialMargin
     )
 
-    const { nodes, links, setActiveNodeIds } = useNetwork<Node, Link>({
+    const { nodes, links, activeNodeIds, setActiveNodeIds } = useNetwork<Node, Link>({
         center: [innerWidth / 2, innerHeight / 2],
         nodes: rawNodes,
         links: rawLinks,
@@ -80,12 +82,24 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
         nodeBorderColor,
         linkThickness,
         linkColor,
+        isInteractive,
+        defaultActiveNodeIds,
     })
 
     const boundAnnotations = useNodeAnnotations<Node>(nodes!, annotations)
     const computedAnnotations = useComputedAnnotations<ComputedNode<Node>>({
         annotations: boundAnnotations,
     })
+
+    const customLayerProps: CustomLayerProps<Node, Link> = useMemo(
+        () => ({
+            nodes: nodes || [],
+            links: links || [],
+            activeNodeIds,
+            setActiveNodeIds,
+        }),
+        [nodes, links, activeNodeIds, setActiveNodeIds]
+    )
 
     const theme = useTheme()
 
@@ -114,11 +128,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
                     theme,
                 })
             } else if (typeof layer === 'function' && nodes !== null && links !== null) {
-                layer(ctx, {
-                    // ...props,
-                    nodes,
-                    links,
-                })
+                layer(ctx, customLayerProps)
             }
         })
     }, [
@@ -135,6 +145,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
         renderNode,
         renderLink,
         computedAnnotations,
+        customLayerProps,
     ])
 
     const getNodeFromMouseEvent = useCallback(
