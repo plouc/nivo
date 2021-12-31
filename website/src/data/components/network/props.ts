@@ -311,7 +311,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         createDefaults: {
             type: 'circle',
-            match: { id: '0' },
+            match: { id: 'Node 0' },
             note: 'New annotation',
             noteX: 160,
             noteY: 36,

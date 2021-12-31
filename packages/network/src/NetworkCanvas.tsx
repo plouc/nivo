@@ -1,9 +1,17 @@
 import { useCallback, useRef, useEffect, createElement, MouseEvent } from 'react'
 import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
+import { useComputedAnnotations, renderAnnotationsToCanvas } from '@nivo/annotations'
 import { canvasDefaultProps } from './defaults'
-import { useNetwork } from './hooks'
-import { NetworkCanvasProps, InputNode, NodeTooltip, InputLink } from './types'
+import { useNetwork, useNodeAnnotations } from './hooks'
+import {
+    NetworkCanvasProps,
+    InputNode,
+    ComputedNode,
+    NodeTooltip,
+    InputLink,
+    NetworkSvgProps,
+} from './types'
 
 type InnerNetworkCanvasProps<Node extends InputNode, Link extends InputLink> = Omit<
     NetworkCanvasProps<Node, Link>,
@@ -39,6 +47,10 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
     linkThickness = canvasDefaultProps.linkThickness,
     linkColor = canvasDefaultProps.linkColor,
 
+    annotations = canvasDefaultProps.annotations as NonNullable<
+        NetworkSvgProps<Node, Link>['annotations']
+    >,
+
     isInteractive = canvasDefaultProps.isInteractive,
     nodeTooltip = canvasDefaultProps.nodeTooltip as NodeTooltip<Node>,
     onClick,
@@ -70,6 +82,11 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
         linkColor,
     })
 
+    const boundAnnotations = useNodeAnnotations<Node>(nodes!, annotations)
+    const computedAnnotations = useComputedAnnotations<ComputedNode<Node>>({
+        annotations: boundAnnotations,
+    })
+
     const theme = useTheme()
 
     useEffect(() => {
@@ -91,6 +108,11 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
                 links.forEach(link => renderLink(ctx, link))
             } else if (layer === 'nodes' && nodes !== null) {
                 nodes.forEach(node => renderNode(ctx, node))
+            } else if (layer === 'annotations') {
+                renderAnnotationsToCanvas<ComputedNode<Node>>(ctx, {
+                    annotations: computedAnnotations as any,
+                    theme,
+                })
             } else if (typeof layer === 'function' && nodes !== null && links !== null) {
                 layer(ctx, {
                     // ...props,
@@ -112,6 +134,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
         links,
         renderNode,
         renderLink,
+        computedAnnotations,
     ])
 
     const getNodeFromMouseEvent = useCallback(

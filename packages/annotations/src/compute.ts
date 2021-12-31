@@ -7,7 +7,6 @@ import {
 } from '@nivo/core'
 import { defaultProps } from './props'
 import {
-    AnnotationSpec,
     AnnotationPositionGetter,
     AnnotationDimensionsGetter,
     BoundAnnotation,
@@ -89,7 +88,7 @@ export const getLinkAngle = (
 }
 
 export const computeAnnotation = <Datum>(
-    annotation: Required<AnnotationSpec<Datum>>
+    annotation: BoundAnnotation<Datum>
 ): AnnotationInstructions => {
     const {
         x,

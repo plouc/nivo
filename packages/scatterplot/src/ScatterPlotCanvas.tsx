@@ -200,6 +200,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         debugMesh,
         voronoi,
         currentNode,
+        boundAnnotations,
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
