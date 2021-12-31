@@ -4,10 +4,9 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { generateNetworkData } from '@nivo/generators'
 import {
     NetworkCanvas,
-    canvasDefaultProps,
     NetworkCanvasProps,
-    NetworkComputedNode,
-    NetworkNodeTooltipProps,
+    ComputedNode,
+    NodeTooltipProps,
     // @ts-ignore
 } from '../src'
 
@@ -19,21 +18,22 @@ export default {
 
 const data = generateNetworkData()
 
-type NodeType = typeof data['nodes'][0]
+type Node = typeof data['nodes'][number]
+type Link = typeof data['links'][number]
 
-const commonProperties: NetworkCanvasProps<NodeType> = {
-    ...canvasDefaultProps,
+const commonProperties: NetworkCanvasProps<Node, Link> = {
     data,
-    width: 900,
-    height: 400,
+    width: 600,
+    height: 600,
     nodeColor: node => node.color,
-    repulsivity: 6,
+    repulsivity: 10,
     iterations: 60,
+    linkDistance: link => link.distance * 1.3,
 }
 
-export const Default = () => <NetworkCanvas<NodeType> {...commonProperties} />
+export const Default = () => <NetworkCanvas<Node, Link> {...commonProperties} />
 
-const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>) => (
+const CustomNodeTooltipComponent = ({ node }: NodeTooltipProps<Node>) => (
     <div
         style={{
             background: node.color,
@@ -45,30 +45,28 @@ const CustomNodeTooltipComponent = ({ node }: NetworkNodeTooltipProps<NodeType>)
     >
         <strong>ID: {node.id}</strong>
         <br />
-        depth: {node.depth}
-        <br />
-        radius: {node.radius}
+        size: {node.size}
     </div>
 )
 
 export const CustomNodeTooltip = () => (
-    <NetworkCanvas<NodeType> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+    <NetworkCanvas<Node, Link> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
 )
 
-const customNodeRenderer = (ctx: CanvasRenderingContext2D, node: NetworkComputedNode<NodeType>) => {
+const customNodeRenderer = (ctx: CanvasRenderingContext2D, node: ComputedNode<Node>) => {
     ctx.fillStyle = node.color
 
     ctx.beginPath()
-    ctx.moveTo(node.x, node.y - node.radius)
-    ctx.lineTo(node.x + node.radius, node.y + node.radius)
-    ctx.lineTo(node.x - node.radius, node.y + node.radius)
+    ctx.moveTo(node.x, node.y - node.size / 2)
+    ctx.lineTo(node.x + node.size / 2, node.y + node.size / 2)
+    ctx.lineTo(node.x - node.size / 2, node.y + node.size / 2)
     ctx.fill()
 }
 
 export const CustomNodeRenderer = () => (
-    <NetworkCanvas<NodeType> {...commonProperties} renderNode={customNodeRenderer} />
+    <NetworkCanvas<Node, Link> {...commonProperties} renderNode={customNodeRenderer} />
 )
 
 export const OnClickHandler = () => (
-    <NetworkCanvas<NodeType> {...commonProperties} onClick={action('onClick')} />
+    <NetworkCanvas<Node, Link> {...commonProperties} onClick={action('onClick')} />
 )
