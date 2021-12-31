@@ -1,15 +1,19 @@
-import { createElement, MouseEvent, useMemo } from 'react'
+import { createElement, useCallback, useMemo, MouseEvent } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { InputNode, ComputedNode, NodeAnimatedProps, NodeComponent } from './types'
+import { useTooltip } from '@nivo/tooltip'
+import { InputNode, ComputedNode, NodeAnimatedProps, NetworkSvgProps, InputLink } from './types'
 
-interface NetworkNodesProps<Node extends InputNode> {
+interface NetworkNodesProps<Node extends InputNode, Link extends InputLink> {
     nodes: ComputedNode<Node>[]
-    nodeComponent: NodeComponent<Node>
-    onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
-    onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
-    onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
-    onMouseLeave?: (node: ComputedNode<Node>, event: MouseEvent) => void
+    nodeComponent: NonNullable<NetworkSvgProps<Node, Link>['nodeComponent']>
+    onMouseEnter: NetworkSvgProps<Node, Link>['onMouseEnter']
+    onMouseMove: NetworkSvgProps<Node, Link>['onMouseMove']
+    onMouseLeave: NetworkSvgProps<Node, Link>['onMouseLeave']
+    onClick: NetworkSvgProps<Node, Link>['onClick']
+    tooltip: NonNullable<NetworkSvgProps<Node, Link>['nodeTooltip']>
+    setActiveNodeIds: (nodeIds: string[]) => void
+    isInteractive: NonNullable<NetworkSvgProps<Node, Link>['isInteractive']>
 }
 
 const getEnterTransition =
@@ -51,14 +55,17 @@ const getExitTransition =
         opacity: 0,
     })
 
-export const NetworkNodes = <Node extends InputNode>({
+export const NetworkNodes = <Node extends InputNode, Link extends InputLink>({
     nodes,
     nodeComponent,
-    onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NetworkNodesProps<Node>) => {
+    onClick,
+    tooltip,
+    setActiveNodeIds,
+    isInteractive,
+}: NetworkNodesProps<Node, Link>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const [enterTransition, regularTransition, exitTransition] = useMemo(
@@ -77,6 +84,34 @@ export const NetworkNodes = <Node extends InputNode>({
         immediate: !animate,
     })
 
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseEnter = useCallback(
+        (node: ComputedNode<Node>, event: MouseEvent) => {
+            showTooltipFromEvent(createElement(tooltip, { node }), event)
+            setActiveNodeIds([node.id])
+            onMouseEnter?.(node, event)
+        },
+        [showTooltipFromEvent, tooltip, setActiveNodeIds, onMouseEnter]
+    )
+
+    const handleMouseMove = useCallback(
+        (node: ComputedNode<Node>, event: MouseEvent) => {
+            showTooltipFromEvent(createElement(tooltip, { node }), event)
+            onMouseMove?.(node, event)
+        },
+        [showTooltipFromEvent, tooltip, onMouseMove]
+    )
+
+    const handleMouseLeave = useCallback(
+        (node: ComputedNode<Node>, event: MouseEvent) => {
+            hideTooltip()
+            setActiveNodeIds([])
+            onMouseLeave?.(node, event)
+        },
+        [hideTooltip, setActiveNodeIds, onMouseLeave]
+    )
+
     return (
         <>
             {transition((transitionProps, node) =>
@@ -84,10 +119,10 @@ export const NetworkNodes = <Node extends InputNode>({
                     key: node.id,
                     node,
                     animated: transitionProps,
-                    onClick,
-                    onMouseEnter,
-                    onMouseMove,
-                    onMouseLeave,
+                    onMouseEnter: isInteractive ? handleMouseEnter : undefined,
+                    onMouseMove: isInteractive ? handleMouseMove : undefined,
+                    onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+                    onClick: isInteractive ? onClick : undefined,
                 })
             )}
         </>

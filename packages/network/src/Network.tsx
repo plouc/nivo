@@ -1,12 +1,18 @@
-import { Fragment, ReactNode, useCallback, createElement } from 'react'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
 import { svgDefaultProps } from './defaults'
 import { useNetwork } from './hooks'
 import { NetworkLinks } from './NetworkLinks'
 import { NetworkNodes } from './NetworkNodes'
 import { NetworkNodeAnnotations } from './NetworkNodeAnnotations'
-import { InputNode, LayerId, NodeTooltip, NetworkSvgProps, ComputedNode, InputLink } from './types'
+import {
+    InputNode,
+    LayerId,
+    NodeTooltip,
+    NetworkSvgProps,
+    InputLink,
+    CustomLayerProps,
+} from './types'
 
 type InnerNetworkProps<Node extends InputNode, Link extends InputLink> = Omit<
     NetworkSvgProps<Node, Link>,
@@ -51,7 +57,11 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     >,
 
     isInteractive = svgDefaultProps.isInteractive,
+    defaultActiveNodeIds = svgDefaultProps.defaultActiveNodeIds,
     nodeTooltip = svgDefaultProps.nodeTooltip as NodeTooltip<Node>,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
     onClick,
 
     role = svgDefaultProps.role,
@@ -65,7 +75,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
         partialMargin
     )
 
-    const { nodes, links, setActiveNodeIds } = useNetwork<Node, Link>({
+    const { nodes, links, activeNodeIds, setActiveNodeIds } = useNetwork<Node, Link>({
         center: [innerWidth / 2, innerHeight / 2],
         nodes: rawNodes,
         links: rawLinks,
@@ -83,22 +93,9 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
         nodeBorderColor,
         linkThickness,
         linkColor,
+        isInteractive,
+        defaultActiveNodeIds,
     })
-
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleNodeHover = useCallback(
-        (node: ComputedNode<Node>, event) => {
-            showTooltipFromEvent(createElement(nodeTooltip, { node }), event)
-            setActiveNodeIds([node.id])
-        },
-        [showTooltipFromEvent, nodeTooltip, setActiveNodeIds]
-    )
-
-    const handleNodeLeave = useCallback(() => {
-        hideTooltip()
-        setActiveNodeIds([])
-    }, [hideTooltip, setActiveNodeIds])
 
     const layerById: Record<LayerId, ReactNode> = {
         links: null,
@@ -119,14 +116,17 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
 
     if (layers.includes('nodes') && nodes !== null) {
         layerById.nodes = (
-            <NetworkNodes<Node>
+            <NetworkNodes<Node, Link>
                 key="nodes"
                 nodes={nodes}
                 nodeComponent={nodeComponent}
-                onClick={isInteractive ? onClick : undefined}
-                onMouseEnter={isInteractive ? handleNodeHover : undefined}
-                onMouseMove={isInteractive ? handleNodeHover : undefined}
-                onMouseLeave={isInteractive ? handleNodeLeave : undefined}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={nodeTooltip}
+                setActiveNodeIds={setActiveNodeIds}
+                isInteractive={isInteractive}
             />
         )
     }
@@ -141,6 +141,16 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
         )
     }
 
+    const customLayerProps: CustomLayerProps<Node, Link> = useMemo(
+        () => ({
+            nodes: nodes || [],
+            links: links || [],
+            activeNodeIds,
+            setActiveNodeIds,
+        }),
+        [nodes, links, activeNodeIds, setActiveNodeIds]
+    )
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -153,17 +163,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return (
-                        <Fragment key={i}>
-                            {createElement(layer, {
-                                // ...props,
-                                // innerWidth,
-                                // innerHeight,
-                                nodes: nodes || [],
-                                links: links || [],
-                            })}
-                        </Fragment>
-                    )
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null

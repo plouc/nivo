@@ -9,8 +9,6 @@ export const commonDefaultProps: Omit<
     NetworkCommonProps<InputNode, InputLink>,
     | 'margin'
     | 'theme'
-    | 'activeLinkThickness'
-    | 'defaultActiveNodeIds'
     | 'onClick'
     | 'renderWrapper'
     | 'ariaLabel'
@@ -39,6 +37,7 @@ export const commonDefaultProps: Omit<
     linkColor: { from: 'source.color' },
 
     isInteractive: true,
+    defaultActiveNodeIds: [],
     nodeTooltip: NetworkNodeTooltip,
 
     annotations: [],

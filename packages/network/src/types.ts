@@ -114,6 +114,8 @@ export type LayerId = 'links' | 'nodes' | 'annotations'
 export interface CustomLayerProps<Node extends InputNode, Link extends InputLink> {
     nodes: ComputedNode<Node>[]
     links: ComputedLink<Node, Link>[]
+    activeNodeIds: string[]
+    setActiveNodeIds: (nodeIds: string[]) => void
 }
 export type CustomLayer<Node extends InputNode, Link extends InputLink> = FunctionComponent<
     CustomLayerProps<Node, Link>
@@ -154,7 +156,6 @@ export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> =
     >
 
     linkThickness: DerivedProp<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>, number>
-    activeLinkThickness: DerivedProp<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>, number>
     linkColor: InheritedColorConfig<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>>
 
     annotations: AnnotationMatcher<ComputedNode<Node>>[]
@@ -181,6 +182,9 @@ export type NetworkSvgProps<Node extends InputNode, Link extends InputLink> = Pa
         nodeComponent?: NodeComponent<Node>
         linkComponent?: LinkComponent<Node, Link>
         linkBlendMode?: CssMixBlendMode
+        onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
+        onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
+        onMouseLeave?: (node: ComputedNode<Node>, event: MouseEvent) => void
     }
 
 export type NetworkCanvasProps<Node extends InputNode, Link extends InputLink> = Partial<
