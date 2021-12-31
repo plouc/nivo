@@ -4,7 +4,7 @@ import {
     AnnotationDimensionsGetter,
     AnnotationMatcher,
     AnnotationPositionGetter,
-    AnnotationSpec,
+    BoundAnnotation,
 } from './types'
 
 /**
@@ -35,7 +35,7 @@ export const useAnnotations = <Datum>({
 export const useComputedAnnotations = <Datum>({
     annotations,
 }: {
-    annotations: Required<AnnotationSpec<Datum>>[]
+    annotations: BoundAnnotation<Datum>[]
 }) =>
     useMemo(
         () =>
@@ -48,5 +48,5 @@ export const useComputedAnnotations = <Datum>({
         [annotations]
     )
 
-export const useComputedAnnotation = <Datum>(annotation: Required<AnnotationSpec<Datum>>) =>
+export const useComputedAnnotation = <Datum>(annotation: BoundAnnotation<Datum>) =>
     useMemo(() => computeAnnotation<Datum>(annotation), [annotation])
