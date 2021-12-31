@@ -1,5 +1,47 @@
+<a name="v0.77.0"></a>
+## v0.77.0 (2021-12-31)
+
+
+#### Features
+
+* **annotations:**
+  *  add outline opacity ([365f2610](https://github.com/plouc/nivo/commit/365f2610c5acc45cb7c9692b130888ec04fe3b1e))
+  *  add support for border radius to rect annotations ([c0043507](https://github.com/plouc/nivo/commit/c0043507ba6ef500e25ef297e0c32efa9a094c2c))
+* **network:**
+  *  fix codesandbox example ([cda66831](https://github.com/plouc/nivo/commit/cda6683122213a19ba1a8c779016bf76832de22c))
+  *  add missing tests ([ca5ee4e8](https://github.com/plouc/nivo/commit/ca5ee4e83fa72b591f0c613518fdc313532ad176))
+  *  add support for canvas annotations ([aed35906](https://github.com/plouc/nivo/commit/aed35906f46d806d4b815f848c59412eee8fe70e))
+  *  remove nodeBlendMode as it doesn't play well with link endings underneath ([bfbe9b69](https://github.com/plouc/nivo/commit/bfbe9b697e80466de84d82d975116e2ffcf04564))
+  *  add the ability to control the center force strength ([609287da](https://github.com/plouc/nivo/commit/609287dab840c769e78de22fe4b74be7ad5bef37))
+  *  add the ability to extend the links data structure via a generic ([7fdff22f](https://github.com/plouc/nivo/commit/7fdff22f97a9954f334c66bb292cb886b66a33b2))
+  *  memoize default node & link components ([d70ad138](https://github.com/plouc/nivo/commit/d70ad1380df348622fd52cc8596cf9f555df652e))
+  *  add basic tests ([07a1e333](https://github.com/plouc/nivo/commit/07a1e33376afb59eeb8ad57e3498ab475753e285))
+  *  add support for active nodes and annotations ([5575928d](https://github.com/plouc/nivo/commit/5575928da59f2c03e69272ff4ec55bb52b35ccf5))
+  *  forward aria props to SvgWrapper ([e91b04f7](https://github.com/plouc/nivo/commit/e91b04f7c8ec0fac92d588dfdfd78c8cafcb4ee9))
+  *  fix remaining issues after rebasing against master ([90edbd01](https://github.com/plouc/nivo/commit/90edbd01c9c7b6f70fb9638ead64d859a68be925))
+  *  update stories for custom components ([b6741dd5](https://github.com/plouc/nivo/commit/b6741dd5ba45ad61c4bc73b7e5b3b4a6e6626181))
+  *  improve custom tooltip stories ([cbe9b21a](https://github.com/plouc/nivo/commit/cbe9b21a851c7b0eedbd2820829955c6f56a809b))
+  *  add stories for custom node component and renderer ([8f13a530](https://github.com/plouc/nivo/commit/8f13a5305cfef3007d682600b9e58bf7909a1ee2))
+  *  fix website icon due to API changes ([b115f701](https://github.com/plouc/nivo/commit/b115f701cc7addb351887bbc9dbb673f9ee933f7))
+  *  network can be used in standalone mode via the useNetwork hook ([1b03cecd](https://github.com/plouc/nivo/commit/1b03cecd8070279cfac4dd5d7f802d382376c9d9))
+  *  add support for custom link component ([2b26bf3d](https://github.com/plouc/nivo/commit/2b26bf3d137e60197eb3bf92e9a0d17e723f5d4e))
+  *  add support for custom node component ([8e85cf1d](https://github.com/plouc/nivo/commit/8e85cf1d633130d5f64a1813323f9f2144a1af60))
+  *  types are now valid ([c3d5dd1b](https://github.com/plouc/nivo/commit/c3d5dd1b2f3ba5b326f934741809eac548d97225))
+  *  add support for generic node datum ([375252a5](https://github.com/plouc/nivo/commit/375252a5472d588ae1f6b9f0c4bd556dced49ba5))
+  *  replace react-motion with react-spring and use the same component for static and animated variants ([82a2d05c](https://github.com/plouc/nivo/commit/82a2d05ccfdb745d3698e979c0960df8a0ad79ca))
+  *  remove prop-types ([fa152f5c](https://github.com/plouc/nivo/commit/fa152f5cc8b050eaec3e3a8bb89b8acaf1faf43f))
+  *  adjust old TypeScript definitions ([353010f7](https://github.com/plouc/nivo/commit/353010f79f56588782f001be3ac4ad4711be889a))
+  *  remove deprecated license header from package ([0137c963](https://github.com/plouc/nivo/commit/0137c963b1f1ea62bdfe1c2626f3c3bb93364ca2))
+  *  change all files extension to ts/tsx ([797c1311](https://github.com/plouc/nivo/commit/797c1311fbba45e236eab52fc391162287c7c0fe))
+* **website:**
+  *  add a dedicated control for chart annotations ([9060197e](https://github.com/plouc/nivo/commit/9060197e9192257a09a9902c950e87e491b789d1))
+  *  add the ability to control charts annotations ([720716bf](https://github.com/plouc/nivo/commit/720716bf7150611e4138af5bda6be3b423bbcb0c))
+  *  add a helper to generate common accessibility props ([63a7eb60](https://github.com/plouc/nivo/commit/63a7eb60472504bedbdaef238e54497b63efa19a))
+
+
+
 <a name="v0.76.0"></a>
-## v0.76.0 (2021-12-29)
+## v0.76.0 (%cs)
 
 
 #### Features
