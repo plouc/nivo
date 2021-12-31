@@ -34,7 +34,6 @@ NetworkCanvas:
   package: '@nivo/network'
   tags:
     - canvas
-    - experimental
   stories:
     - label: Custom node tooltip
       link: networkcanvas--custom-node-tooltip

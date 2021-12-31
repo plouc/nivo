@@ -43,18 +43,15 @@ export interface NodeAnimatedProps {
     scale: number
 }
 
-export interface NodeProps<Node extends InputNode, Link extends InputLink> {
+export interface NodeProps<Node extends InputNode> {
     node: ComputedNode<Node>
     animated: AnimatedProps<NodeAnimatedProps>
-    blendMode: NonNullable<NetworkSvgProps<Node, Link>['nodeBlendMode']>
     onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseLeave?: (node: ComputedNode<Node>, event: MouseEvent) => void
 }
-export type NodeComponent<Node extends InputNode, Link extends InputLink> = FunctionComponent<
-    NodeProps<Node, Link>
->
+export type NodeComponent<Node extends InputNode> = FunctionComponent<NodeProps<Node>>
 export type NodeCanvasRenderer<Node extends InputNode> = (
     ctx: CanvasRenderingContext2D,
     node: ComputedNode<Node>
@@ -181,8 +178,7 @@ export type NetworkSvgProps<Node extends InputNode, Link extends InputLink> = Pa
     NetworkDataProps<Node, Link> &
     Dimensions & {
         layers?: (LayerId | CustomLayer<Node, Link>)[]
-        nodeComponent?: NodeComponent<Node, Link>
-        nodeBlendMode?: CssMixBlendMode
+        nodeComponent?: NodeComponent<Node>
         linkComponent?: LinkComponent<Node, Link>
         linkBlendMode?: CssMixBlendMode
     }

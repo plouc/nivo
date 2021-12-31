@@ -36,7 +36,6 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     activeNodeSize = svgDefaultProps.activeNodeSize,
     inactiveNodeSize = svgDefaultProps.inactiveNodeSize,
     nodeColor = svgDefaultProps.nodeColor,
-    nodeBlendMode = svgDefaultProps.nodeBlendMode,
     nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
     nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
@@ -120,11 +119,10 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
 
     if (layers.includes('nodes') && nodes !== null) {
         layerById.nodes = (
-            <NetworkNodes<Node, Link>
+            <NetworkNodes<Node>
                 key="nodes"
                 nodes={nodes}
                 nodeComponent={nodeComponent}
-                blendMode={nodeBlendMode}
                 onClick={isInteractive ? onClick : undefined}
                 onMouseEnter={isInteractive ? handleNodeHover : undefined}
                 onMouseMove={isInteractive ? handleNodeHover : undefined}
