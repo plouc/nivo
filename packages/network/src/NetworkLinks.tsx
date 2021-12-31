@@ -1,17 +1,17 @@
 import { createElement, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedLink, InputNode, LinkComponent, NetworkSvgProps } from './types'
+import { ComputedLink, InputLink, InputNode, LinkComponent, NetworkSvgProps } from './types'
 
-interface NetworkLinksProps<Node extends InputNode> {
-    links: ComputedLink<Node>[]
-    linkComponent: LinkComponent<Node>
-    blendMode: NonNullable<NetworkSvgProps<Node>['linkBlendMode']>
+interface NetworkLinksProps<Node extends InputNode, Link extends InputLink> {
+    links: ComputedLink<Node, Link>[]
+    linkComponent: LinkComponent<Node, Link>
+    blendMode: NonNullable<NetworkSvgProps<Node, Link>['linkBlendMode']>
 }
 
 const getEnterTransition =
-    <Node extends InputNode>() =>
-    (link: ComputedLink<Node>) => ({
+    <Node extends InputNode, Link extends InputLink>() =>
+    (link: ComputedLink<Node, Link>) => ({
         x1: link.source.x,
         y1: link.source.y,
         x2: link.source.x,
@@ -21,8 +21,8 @@ const getEnterTransition =
     })
 
 const getRegularTransition =
-    <Node extends InputNode>() =>
-    (link: ComputedLink<Node>) => ({
+    <Node extends InputNode, Link extends InputLink>() =>
+    (link: ComputedLink<Node, Link>) => ({
         x1: link.source.x,
         y1: link.source.y,
         x2: link.target.x,
@@ -31,20 +31,20 @@ const getRegularTransition =
         opacity: 1,
     })
 
-export const NetworkLinks = <Node extends InputNode>({
+export const NetworkLinks = <Node extends InputNode, Link extends InputLink>({
     links,
     linkComponent,
     blendMode,
-}: NetworkLinksProps<Node>) => {
+}: NetworkLinksProps<Node, Link>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const [enterTransition, regularTransition] = useMemo(
-        () => [getEnterTransition<Node>(), getRegularTransition<Node>()],
+        () => [getEnterTransition<Node, Link>(), getRegularTransition<Node, Link>()],
         []
     )
 
     const transition = useTransition<
-        ComputedLink<Node>,
+        ComputedLink<Node, Link>,
         {
             x1: number
             y1: number

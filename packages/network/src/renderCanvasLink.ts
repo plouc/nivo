@@ -1,8 +1,8 @@
-import { InputNode, ComputedLink } from './types'
+import { InputNode, ComputedLink, InputLink } from './types'
 
-export const renderCanvasLink = <Node extends InputNode>(
+export const renderCanvasLink = <Node extends InputNode, Link extends InputLink>(
     ctx: CanvasRenderingContext2D,
-    link: ComputedLink<Node>
+    link: ComputedLink<Node, Link>
 ) => {
     ctx.strokeStyle = link.color
     ctx.lineWidth = link.thickness

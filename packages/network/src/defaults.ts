@@ -1,4 +1,4 @@
-import { NetworkCommonProps, InputNode, LayerId, NetworkSvgProps } from './types'
+import { NetworkCommonProps, InputNode, LayerId, NetworkSvgProps, InputLink } from './types'
 import { NetworkNode } from './NetworkNode'
 import { renderCanvasNode } from './renderCanvasNode'
 import { NetworkLink } from './NetworkLink'
@@ -6,7 +6,7 @@ import { renderCanvasLink } from './renderCanvasLink'
 import { NetworkNodeTooltip } from './NetworkNodeTooltip'
 
 export const commonDefaultProps: Omit<
-    NetworkCommonProps<InputNode>,
+    NetworkCommonProps<InputNode, InputLink>,
     | 'margin'
     | 'theme'
     | 'activeLinkThickness'
@@ -22,10 +22,10 @@ export const commonDefaultProps: Omit<
     layers: ['links', 'nodes', 'annotations'],
 
     linkDistance: 30,
-    repulsivity: 10,
+    repulsivity: 3,
     distanceMin: 1,
     distanceMax: Infinity,
-    iterations: 90,
+    iterations: 160,
 
     nodeSize: 12,
     activeNodeSize: 18,
@@ -50,10 +50,14 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    nodeComponent: NetworkNode as NonNullable<NetworkSvgProps<InputNode>['nodeComponent']>,
-    nodeBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode>['nodeBlendMode']>,
-    linkComponent: NetworkLink as NonNullable<NetworkSvgProps<InputNode>['linkComponent']>,
-    linkBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode>['linkBlendMode']>,
+    nodeComponent: NetworkNode as NonNullable<
+        NetworkSvgProps<InputNode, InputLink>['nodeComponent']
+    >,
+    nodeBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode, InputLink>['nodeBlendMode']>,
+    linkComponent: NetworkLink as NonNullable<
+        NetworkSvgProps<InputNode, InputLink>['linkComponent']
+    >,
+    linkBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode, InputLink>['linkBlendMode']>,
 }
 
 export const canvasDefaultProps = {

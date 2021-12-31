@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import { animated, to } from '@react-spring/web'
-import { InputNode, NodeProps } from './types'
+import { InputLink, InputNode, NodeProps } from './types'
 
-const NonMemoizedNetworkNode = <Node extends InputNode>({
+const NonMemoizedNetworkNode = <Node extends InputNode, Link extends InputLink>({
     node,
     animated: animatedProps,
     blendMode,
@@ -10,7 +10,7 @@ const NonMemoizedNetworkNode = <Node extends InputNode>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: NodeProps<Node>) => (
+}: NodeProps<Node, Link>) => (
     <animated.circle
         data-testid={`node.${node.id}`}
         transform={to([animatedProps.x, animatedProps.y, animatedProps.scale], (x, y, scale) => {
@@ -21,6 +21,7 @@ const NonMemoizedNetworkNode = <Node extends InputNode>({
         style={{ mixBlendMode: blendMode }}
         strokeWidth={animatedProps.borderWidth}
         stroke={animatedProps.borderColor}
+        opacity={animatedProps.opacity}
         onClick={onClick ? event => onClick(node, event) : undefined}
         onMouseEnter={onMouseEnter ? event => onMouseEnter(node, event) : undefined}
         onMouseMove={onMouseMove ? event => onMouseMove(node, event) : undefined}

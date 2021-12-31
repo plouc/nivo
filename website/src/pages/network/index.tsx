@@ -11,6 +11,9 @@ import mapper, {
 } from '../../data/components/network/mapper'
 import { groups } from '../../data/components/network/props'
 
+type Node = ReturnType<typeof generateData>['nodes'][number]
+type Link = ReturnType<typeof generateData>['links'][number]
+
 const initialProperties = Object.freeze({
     margin: {
         top: 0,
@@ -19,9 +22,10 @@ const initialProperties = Object.freeze({
         left: 0,
     },
 
-    linkDistance: 30,
-    repulsivity: 3,
-    iterations: 60,
+    linkDistance: (link: Link) => link.distance,
+    distanceMax: 50,
+    repulsivity: defaults.repulsivity,
+    iterations: defaults.iterations,
 
     nodeSize: dynamicNodeSizeValue,
     activeNodeSize: dynamicActiveNodeSizeValue,
@@ -80,7 +84,7 @@ const Network = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveNetwork
+                    <ResponsiveNetwork<Node, Link>
                         data={data}
                         {...properties}
                         theme={theme}

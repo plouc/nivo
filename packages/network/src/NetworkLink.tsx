@@ -1,12 +1,12 @@
 import { animated } from '@react-spring/web'
-import { InputNode, LinkProps } from './types'
+import { InputLink, InputNode, LinkProps } from './types'
 import { memo } from 'react'
 
-const NonMemoizedNetworkLink = <Node extends InputNode>({
+const NonMemoizedNetworkLink = <Node extends InputNode, Link extends InputLink>({
     link,
     animated: animatedProps,
     blendMode,
-}: LinkProps<Node>) => (
+}: LinkProps<Node, Link>) => (
     <animated.line
         data-testid={`link.${link.id}`}
         stroke={animatedProps.color}

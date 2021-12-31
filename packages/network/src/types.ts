@@ -4,6 +4,7 @@ import { Box, Theme, Dimensions, ModernMotionProps, CssMixBlendMode } from '@niv
 import { InheritedColorConfig } from '@nivo/colors'
 import { AnnotationMatcher } from '@nivo/annotations'
 
+// minimal node data
 export interface InputNode {
     id: string
 }
@@ -11,14 +12,25 @@ export interface InputNode {
 export interface ComputedNode<Node extends InputNode> {
     id: string
     data: Node
+    // computed by D3
+    index: number
     x: number
     y: number
-    index: number
+    vx: number
+    vy: number
+    // styles computed by nivo
     size: number
     color: string
     borderWidth: number
     borderColor: string
 }
+
+// intermediate type for D3 as it mutates nodes,
+// `ComputedNode` is used for the final data structure.
+export type TransientNode<Node extends InputNode> = Omit<
+    ComputedNode<Node>,
+    'size' | 'color' | 'borderWidth' | 'borderColor'
+>
 
 export interface NodeAnimatedProps {
     x: number
@@ -31,16 +43,18 @@ export interface NodeAnimatedProps {
     scale: number
 }
 
-export interface NodeProps<Node extends InputNode> {
+export interface NodeProps<Node extends InputNode, Link extends InputLink> {
     node: ComputedNode<Node>
     animated: AnimatedProps<NodeAnimatedProps>
-    blendMode: NonNullable<NetworkSvgProps<Node>['nodeBlendMode']>
+    blendMode: NonNullable<NetworkSvgProps<Node, Link>['nodeBlendMode']>
     onClick?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseEnter?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseMove?: (node: ComputedNode<Node>, event: MouseEvent) => void
     onMouseLeave?: (node: ComputedNode<Node>, event: MouseEvent) => void
 }
-export type NodeComponent<Node extends InputNode> = FunctionComponent<NodeProps<Node>>
+export type NodeComponent<Node extends InputNode, Link extends InputLink> = FunctionComponent<
+    NodeProps<Node, Link>
+>
 export type NodeCanvasRenderer<Node extends InputNode> = (
     ctx: CanvasRenderingContext2D,
     node: ComputedNode<Node>
@@ -51,14 +65,23 @@ export interface InputLink {
     target: string
 }
 
-export interface ComputedLink<Node extends InputNode> {
+export interface ComputedLink<Node extends InputNode, Link extends InputLink> {
     id: string
+    data: Link
+    index: number
     source: ComputedNode<Node>
-    previousSource?: ComputedNode<Node>
     target: ComputedNode<Node>
-    previousTarget?: ComputedNode<Node>
     thickness: number
     color: string
+}
+
+// intermediate type for D3 as it mutates links,
+// `ComputedLink` is used for the final data structure.
+export interface TransientLink<Node extends InputNode, Link extends InputLink> {
+    data: Link
+    index: number
+    source: TransientNode<Node>
+    target: TransientNode<Node>
 }
 
 export interface LinkAnimatedProps {
@@ -70,33 +93,37 @@ export interface LinkAnimatedProps {
     opacity: number
 }
 
-export interface LinkProps<Node extends InputNode> {
-    link: ComputedLink<Node>
+export interface LinkProps<Node extends InputNode, Link extends InputLink> {
+    link: ComputedLink<Node, Link>
     animated: AnimatedProps<LinkAnimatedProps>
-    blendMode: NonNullable<NetworkSvgProps<Node>['linkBlendMode']>
+    blendMode: NonNullable<NetworkSvgProps<Node, Link>['linkBlendMode']>
 }
-export type LinkComponent<Node extends InputNode> = FunctionComponent<LinkProps<Node>>
-export type LinkCanvasRenderer<Node extends InputNode> = (
+export type LinkComponent<Node extends InputNode, Link extends InputLink> = FunctionComponent<
+    LinkProps<Node, Link>
+>
+export type LinkCanvasRenderer<Node extends InputNode, Link extends InputLink> = (
     ctx: CanvasRenderingContext2D,
-    node: ComputedLink<Node>
+    node: ComputedLink<Node, Link>
 ) => void
 
-export interface NetworkDataProps<Node extends InputNode> {
+export interface NetworkDataProps<Node extends InputNode, Link extends InputLink> {
     data: {
         nodes: Node[]
-        links: InputLink[]
+        links: Link[]
     }
 }
 
 export type LayerId = 'links' | 'nodes' | 'annotations'
-export interface CustomLayerProps<Node extends InputNode> {
+export interface CustomLayerProps<Node extends InputNode, Link extends InputLink> {
     nodes: ComputedNode<Node>[]
-    links: ComputedLink<Node>[]
+    links: ComputedLink<Node, Link>[]
 }
-export type CustomLayer<Node extends InputNode> = FunctionComponent<CustomLayerProps<Node>>
-export type CustomCanvasLayer<Node extends InputNode> = (
+export type CustomLayer<Node extends InputNode, Link extends InputLink> = FunctionComponent<
+    CustomLayerProps<Node, Link>
+>
+export type CustomCanvasLayer<Node extends InputNode, Link extends InputLink> = (
     ctx: CanvasRenderingContext2D,
-    props: CustomLayerProps<Node>
+    props: CustomLayerProps<Node, Link>
 ) => void
 
 export interface NodeTooltipProps<Node extends InputNode> {
@@ -108,10 +135,10 @@ export type DerivedProp<Target, Output extends number | string> =
     | Output
     | ((target: Target) => Output)
 
-export type NetworkCommonProps<Node extends InputNode> = {
+export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> = {
     margin: Box
 
-    linkDistance: DerivedProp<ComputedLink<Node>, number>
+    linkDistance: DerivedProp<Link, number>
     repulsivity: number
     distanceMin: number
     distanceMax: number
@@ -128,9 +155,9 @@ export type NetworkCommonProps<Node extends InputNode> = {
         Omit<ComputedNode<Node>, 'size' | 'borderWidth' | 'borderColor'>
     >
 
-    linkThickness: DerivedProp<ComputedLink<Node>, number>
-    activeLinkThickness: DerivedProp<ComputedLink<Node>, number>
-    linkColor: InheritedColorConfig<ComputedLink<Node>>
+    linkThickness: DerivedProp<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>, number>
+    activeLinkThickness: DerivedProp<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>, number>
+    linkColor: InheritedColorConfig<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>>
 
     annotations: AnnotationMatcher<ComputedNode<Node>>[]
 
@@ -147,21 +174,25 @@ export type NetworkCommonProps<Node extends InputNode> = {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 } & Required<ModernMotionProps>
 
-export type NetworkSvgProps<Node extends InputNode> = Partial<NetworkCommonProps<Node>> &
-    NetworkDataProps<Node> &
+export type NetworkSvgProps<Node extends InputNode, Link extends InputLink> = Partial<
+    NetworkCommonProps<Node, Link>
+> &
+    NetworkDataProps<Node, Link> &
     Dimensions & {
-        layers?: (LayerId | CustomLayer<Node>)[]
-        nodeComponent?: NodeComponent<Node>
+        layers?: (LayerId | CustomLayer<Node, Link>)[]
+        nodeComponent?: NodeComponent<Node, Link>
         nodeBlendMode?: CssMixBlendMode
-        linkComponent?: LinkComponent<Node>
+        linkComponent?: LinkComponent<Node, Link>
         linkBlendMode?: CssMixBlendMode
     }
 
-export type NetworkCanvasProps<Node extends InputNode> = Partial<NetworkCommonProps<Node>> &
-    NetworkDataProps<Node> &
+export type NetworkCanvasProps<Node extends InputNode, Link extends InputLink> = Partial<
+    NetworkCommonProps<Node, Link>
+> &
+    NetworkDataProps<Node, Link> &
     Dimensions & {
-        layers?: (LayerId | CustomCanvasLayer<Node>)[]
+        layers?: (LayerId | CustomCanvasLayer<Node, Link>)[]
         renderNode?: NodeCanvasRenderer<Node>
-        renderLink?: LinkCanvasRenderer<Node>
+        renderLink?: LinkCanvasRenderer<Node, Link>
         pixelRatio?: number
     }

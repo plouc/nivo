@@ -6,15 +6,14 @@ import { useNetwork } from './hooks'
 import { NetworkLinks } from './NetworkLinks'
 import { NetworkNodes } from './NetworkNodes'
 import { NetworkNodeAnnotations } from './NetworkNodeAnnotations'
+import { InputNode, LayerId, NodeTooltip, NetworkSvgProps, ComputedNode, InputLink } from './types'
 
-import { InputNode, LayerId, NodeTooltip, NetworkSvgProps, ComputedNode } from './types'
-
-type InnerNetworkProps<Node extends InputNode> = Omit<
-    NetworkSvgProps<Node>,
+type InnerNetworkProps<Node extends InputNode, Link extends InputLink> = Omit<
+    NetworkSvgProps<Node, Link>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerNetwork = <Node extends InputNode>({
+const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     width,
     height,
     margin: partialMargin,
@@ -30,7 +29,7 @@ const InnerNetwork = <Node extends InputNode>({
     layers = svgDefaultProps.layers,
 
     nodeComponent = svgDefaultProps.nodeComponent as NonNullable<
-        NetworkSvgProps<Node>['nodeComponent']
+        NetworkSvgProps<Node, Link>['nodeComponent']
     >,
     nodeSize = svgDefaultProps.nodeSize,
     activeNodeSize = svgDefaultProps.activeNodeSize,
@@ -41,13 +40,15 @@ const InnerNetwork = <Node extends InputNode>({
     nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
     linkComponent = svgDefaultProps.linkComponent as NonNullable<
-        NetworkSvgProps<Node>['linkComponent']
+        NetworkSvgProps<Node, Link>['linkComponent']
     >,
     linkThickness = svgDefaultProps.linkThickness,
     linkColor = svgDefaultProps.linkColor,
     linkBlendMode = svgDefaultProps.linkBlendMode,
 
-    annotations = svgDefaultProps.annotations as NonNullable<NetworkSvgProps<Node>['annotations']>,
+    annotations = svgDefaultProps.annotations as NonNullable<
+        NetworkSvgProps<Node, Link>['annotations']
+    >,
 
     isInteractive = svgDefaultProps.isInteractive,
     nodeTooltip = svgDefaultProps.nodeTooltip as NodeTooltip<Node>,
@@ -57,14 +58,14 @@ const InnerNetwork = <Node extends InputNode>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: InnerNetworkProps<Node>) => {
+}: InnerNetworkProps<Node, Link>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const { nodes, links, setActiveNodeIds } = useNetwork<Node>({
+    const { nodes, links, setActiveNodeIds } = useNetwork<Node, Link>({
         center: [innerWidth / 2, innerHeight / 2],
         nodes: rawNodes,
         links: rawLinks,
@@ -106,7 +107,7 @@ const InnerNetwork = <Node extends InputNode>({
 
     if (layers.includes('links') && links !== null) {
         layerById.links = (
-            <NetworkLinks<Node>
+            <NetworkLinks<Node, Link>
                 key="links"
                 links={links}
                 linkComponent={linkComponent}
@@ -117,7 +118,7 @@ const InnerNetwork = <Node extends InputNode>({
 
     if (layers.includes('nodes') && nodes !== null) {
         layerById.nodes = (
-            <NetworkNodes<Node>
+            <NetworkNodes<Node, Link>
                 key="nodes"
                 nodes={nodes}
                 nodeComponent={nodeComponent}
@@ -132,7 +133,7 @@ const InnerNetwork = <Node extends InputNode>({
 
     if (layers.includes('annotations') && nodes !== null) {
         layerById.annotations = (
-            <NetworkNodeAnnotations<Node>
+            <NetworkNodeAnnotations<Node, Link>
                 key="annotations"
                 nodes={nodes}
                 annotations={annotations}
@@ -171,14 +172,14 @@ const InnerNetwork = <Node extends InputNode>({
     )
 }
 
-export const Network = <Node extends InputNode = InputNode>({
+export const Network = <Node extends InputNode = InputNode, Link extends InputLink = InputLink>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: NetworkSvgProps<Node>) => (
+}: NetworkSvgProps<Node, Link>) => (
     <Container
         {...{
             animate,
@@ -188,6 +189,6 @@ export const Network = <Node extends InputNode = InputNode>({
             theme,
         }}
     >
-        <InnerNetwork<Node> isInteractive={isInteractive} {...otherProps} />
+        <InnerNetwork<Node, Link> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
