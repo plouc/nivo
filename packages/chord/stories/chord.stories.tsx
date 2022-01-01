@@ -1,13 +1,20 @@
 import { storiesOf } from '@storybook/react'
 import { generateChordData } from '@nivo/generators'
 import { TableTooltip, BasicTooltip, Chip } from '@nivo/tooltip'
-import { Chord } from '../src'
+// @ts-ignore
+import { Chord, ArcDatum, ArcTooltipComponentProps, RibbonTooltipComponentProps } from '../src'
+
+const generateData = (size: number) => {
+    const { matrix, keys } = generateChordData({ size })
+
+    return { data: matrix, keys }
+}
 
 const commonProperties = {
     width: 900,
     height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
-    ...generateChordData({ size: 7 }),
+    ...generateData(7),
     xPadding: 0.2,
 }
 
@@ -17,9 +24,9 @@ stories.add('default', () => <Chord {...commonProperties} />)
 
 stories.add('radial labels', () => <Chord {...commonProperties} labelRotation={-90} />)
 
-const customLabel = d => `${d.id} [${d.value}]`
+const customLabel = (arc: Omit<ArcDatum, 'label' | 'color'>) => `${arc.id} [${arc.value}]`
 stories.add('custom labels text', () => (
-    <Chord {...commonProperties} {...generateChordData({ size: 5 })} label={customLabel} />
+    <Chord {...commonProperties} {...generateData(5)} label={customLabel} />
 ))
 
 stories.add('angle padding', () => (
@@ -43,7 +50,7 @@ stories.add('alternative colors', () => (
 stories.add('putting labels inside arcs', () => (
     <Chord
         {...commonProperties}
-        {...generateChordData({ size: 5 })}
+        {...generateData(5)}
         padAngle={0.02}
         innerRadiusRatio={0.8}
         innerRadiusOffset={0.02}
@@ -55,7 +62,7 @@ stories.add('putting labels inside arcs', () => (
 stories.add('with formatted values', () => (
     <Chord
         {...commonProperties}
-        {...generateChordData({ size: 5 })}
+        {...generateData(5)}
         valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
@@ -64,7 +71,7 @@ stories.add('with formatted values', () => (
     />
 ))
 
-const ArcTooltip = ({ arc }) => (
+const ArcTooltip = ({ arc }: ArcTooltipComponentProps) => (
     <BasicTooltip
         id={`Custom arc tooltip, ${arc.label}`}
         value={arc.formattedValue}
@@ -73,7 +80,7 @@ const ArcTooltip = ({ arc }) => (
     />
 )
 
-const RibbonTooltip = ({ ribbon }) => (
+const RibbonTooltip = ({ ribbon }: RibbonTooltipComponentProps) => (
     <TableTooltip
         rows={[
             [
@@ -95,7 +102,7 @@ const RibbonTooltip = ({ ribbon }) => (
 stories.add('custom tooltips', () => (
     <Chord
         {...commonProperties}
-        {...generateChordData({ size: 5 })}
+        {...generateData(5)}
         arcTooltip={ArcTooltip}
         ribbonTooltip={RibbonTooltip}
     />
