@@ -27,14 +27,15 @@ const initialProperties = {
     arcBorderWidth: 1,
     arcBorderColor: {
         from: 'color',
-        modifiers: [['darker', 0.4]],
+        modifiers: [['darker', 0.6]],
     },
 
+    ribbonBlendMode: 'normal',
     ribbonOpacity: 0.5,
     ribbonBorderWidth: 1,
     ribbonBorderColor: {
         from: 'color',
-        modifiers: [['darker', 0.4]],
+        modifiers: [['darker', 0.6]],
     },
 
     enableLabel: true,
@@ -55,8 +56,7 @@ const initialProperties = {
     ribbonHoverOthersOpacity: 0.25,
 
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 7,
+    motionConfig: 'stiff',
 
     legends: [
         {

@@ -1,6 +1,15 @@
+import { to, SpringValues } from '@react-spring/web'
 import { arc as d3Arc } from 'd3-shape'
 import { chord as d3Chord, ChordLayout, ribbon as d3Ribbon } from 'd3-chord'
-import { ArcDatum, ChordCommonProps, ChordDataProps } from './types'
+import {
+    ArcDatum,
+    ChordCommonProps,
+    ChordDataProps,
+    RibbonAnimatedProps,
+    RibbonDatum,
+    RibbonGenerator,
+    ArcGenerator,
+} from './types'
 import { OrdinalColorScale } from '@nivo/colors'
 
 export const computeChordLayout = ({ padAngle }: { padAngle: ChordCommonProps['padAngle'] }) =>
@@ -17,16 +26,20 @@ export const computeChordGenerators = ({
     innerRadiusRatio: ChordCommonProps['innerRadiusRatio']
     innerRadiusOffset: ChordCommonProps['innerRadiusOffset']
 }) => {
-    const center = [width / 2, height / 2]
+    const center: [number, number] = [width / 2, height / 2]
     const radius = Math.min(width, height) / 2
     const innerRadius = radius * innerRadiusRatio
     const ribbonRadius = radius * (innerRadiusRatio - innerRadiusOffset)
 
-    const arcGenerator = d3Arc().outerRadius(radius).innerRadius(innerRadius)
-
-    const ribbonGenerator = d3Ribbon().radius(ribbonRadius)
-
-    return { center, radius, innerRadius, arcGenerator, ribbonGenerator }
+    return {
+        center,
+        radius,
+        innerRadius,
+        arcGenerator: d3Arc()
+            .outerRadius(radius)
+            .innerRadius(innerRadius) as unknown as ArcGenerator,
+        ribbonGenerator: d3Ribbon().radius(ribbonRadius) as unknown as RibbonGenerator,
+    }
 }
 
 export const computeChordArcsAndRibbons = ({
@@ -40,35 +53,87 @@ export const computeChordArcsAndRibbons = ({
     chord: ChordLayout
     data: ChordDataProps['data']
     keys: ChordDataProps['keys']
-    getLabel: (arc: ArcDatum) => string
-    formatValue: (valuee: number) => string
-    getColor: OrdinalColorScale<any>
-}) => {
-    const ribbons = chord(data)
+    getLabel: (arc: Omit<ArcDatum, 'label' | 'color'>) => string
+    formatValue: (value: number) => string
+    getColor: OrdinalColorScale<Omit<ArcDatum, 'label' | 'color'>>
+}): {
+    arcs: ArcDatum[]
+    ribbons: RibbonDatum[]
+} => {
+    const _ribbons = chord(data)
 
-    const arcs = ribbons.groups.map(arc => {
-        arc.id = keys[arc.index]
-        arc.color = getColor(arc)
-        arc.formattedValue = formatValue(arc.value)
-        arc.label = getLabel(arc)
+    const arcs: ArcDatum[] = _ribbons.groups.map(chordGroup => {
+        const arc: Omit<ArcDatum, 'label' | 'color'> = {
+            ...chordGroup,
+            id: keys[chordGroup.index],
+            formattedValue: formatValue(chordGroup.value),
+        }
 
-        return arc
+        return {
+            ...arc,
+            label: getLabel(arc),
+            color: getColor(arc),
+        }
     })
 
-    ribbons.forEach(ribbon => {
-        ribbon.source.id = keys[ribbon.source.index]
-        ribbon.source.color = getColor(ribbon.source)
-        ribbon.source.formattedValue = formatValue(ribbon.source.value)
-        ribbon.source.label = getLabel(ribbon.source)
+    const ribbons: RibbonDatum[] = _ribbons.map(_ribbon => {
+        const source = {
+            ..._ribbon.source,
+            id: keys[_ribbon.source.index],
+            formattedValue: formatValue(_ribbon.source.value),
+        }
 
-        ribbon.target.id = keys[ribbon.target.index]
-        ribbon.target.color = getColor(ribbon.target)
-        ribbon.target.formattedValue = formatValue(ribbon.target.value)
-        ribbon.target.label = getLabel(ribbon.target)
+        const target = {
+            ..._ribbon.target,
+            id: keys[_ribbon.target.index],
+            formattedValue: formatValue(_ribbon.target.value),
+        }
 
-        // ensure id remains the same even if source/target are reversed
-        ribbon.id = [ribbon.source.id, ribbon.target.id].sort().join('.')
+        return {
+            ..._ribbon,
+            // ensure id remains the same even if source/target are reversed
+            id: [source.id, target.id].sort().join('.'),
+            source: {
+                ...source,
+                label: getLabel(source),
+                color: getColor(source),
+            },
+            target: {
+                ...target,
+                label: getLabel(target),
+                color: getColor(target),
+            },
+        }
     })
 
     return { arcs, ribbons }
 }
+
+export const computeRibbonPath = ({
+    sourceStartAngle,
+    sourceEndAngle,
+    targetStartAngle,
+    targetEndAngle,
+    ribbonGenerator,
+}: SpringValues<
+    Pick<
+        RibbonAnimatedProps,
+        'sourceStartAngle' | 'sourceEndAngle' | 'targetStartAngle' | 'targetEndAngle'
+    >
+> & {
+    ribbonGenerator: RibbonGenerator
+}) =>
+    to(
+        [sourceStartAngle, sourceEndAngle, targetStartAngle, targetEndAngle],
+        (sourceStartAngle, sourceEndAngle, targetStartAngle, targetEndAngle) =>
+            ribbonGenerator({
+                source: {
+                    startAngle: Math.min(sourceStartAngle, sourceEndAngle),
+                    endAngle: Math.max(sourceEndAngle, sourceStartAngle),
+                },
+                target: {
+                    startAngle: Math.min(targetStartAngle, targetEndAngle),
+                    endAngle: Math.max(targetEndAngle, targetStartAngle),
+                },
+            })
+    )

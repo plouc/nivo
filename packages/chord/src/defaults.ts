@@ -72,15 +72,11 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    // arcComponent:
-    // ribbonComponent
     ribbonBlendMode: 'normal' as NonNullable<ChordSvgProps['ribbonBlendMode']>,
     ribbonTooltip: ChordRibbonTooltip,
 }
 
 export const canvasDefaultProps = {
     ...commonDefaultProps,
-    // renderArc
-    // renderRibbon
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

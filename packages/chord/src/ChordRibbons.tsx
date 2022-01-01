@@ -1,26 +1,31 @@
 import { memo } from 'react'
-import mapValues from 'lodash/mapValues'
-import { TransitionMotion, spring } from 'react-motion'
-import { midAngle, useMotionConfig } from '@nivo/core'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
+import { useTransition } from '@react-spring/web'
+import {
+    useTheme,
+    // @ts-ignore
+    midAngle,
+    useMotionConfig,
+} from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { ChordRibbon } from './ChordRibbon'
-import { ChordCommonProps, ChordSvgProps, RibbonDatum } from './types'
+import {
+    ChordCommonProps,
+    ChordSvgProps,
+    RibbonDatum,
+    RibbonAnimatedProps,
+    RibbonGenerator,
+    ArcDatum,
+} from './types'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
  * we sort arcs by value to have smooth transitions, otherwise,
  * if source|target arc value becomes greater than the other,
  * the ribbon will be reversed.
- *
- * @param {Object}  source
- * @param {Object}  target
- * @param {boolean} useMiddleAngle
- * @param {Object}  [springConfig]
- * @return {Object}
  */
-const getRibbonAngles = ({ source, target }, useMiddleAngle, springConfig) => {
-    let firstArc
-    let secondArc
+const getRibbonAngles = ({ source, target }: RibbonDatum, useMiddleAngle: boolean) => {
+    let firstArc: ArcDatum
+    let secondArc: ArcDatum
     if (source.startAngle < target.startAngle) {
         firstArc = source
         secondArc = target
@@ -29,50 +34,31 @@ const getRibbonAngles = ({ source, target }, useMiddleAngle, springConfig) => {
         secondArc = source
     }
 
-    let angles
-    if (useMiddleAngle === true) {
+    if (useMiddleAngle) {
         const firstMiddleAngle = midAngle(firstArc)
         const secondMiddleAngle = midAngle(secondArc)
 
-        angles = {
+        return {
             sourceStartAngle: firstMiddleAngle,
             sourceEndAngle: firstMiddleAngle,
             targetStartAngle: secondMiddleAngle,
             targetEndAngle: secondMiddleAngle,
         }
-    } else {
-        angles = {
-            sourceStartAngle: firstArc.startAngle,
-            sourceEndAngle: firstArc.endAngle,
-            targetStartAngle: secondArc.startAngle,
-            targetEndAngle: secondArc.endAngle,
-        }
     }
 
-    if (!springConfig) return angles
-
-    return mapValues(angles, angle => spring(angle, springConfig))
+    return {
+        sourceStartAngle: firstArc.startAngle,
+        sourceEndAngle: firstArc.endAngle,
+        targetStartAngle: secondArc.startAngle,
+        targetEndAngle: secondArc.endAngle,
+    }
 }
-
-const ribbonWillEnter = ({ data: ribbon }) => ({
-    ...getRibbonAngles(ribbon, true),
-    opacity: 0,
-    ...interpolateColor(ribbon.source.color),
-})
-
-const ribbonWillLeave =
-    springConfig =>
-    ({ data: ribbon }) => ({
-        ...getRibbonAngles(ribbon, true, springConfig),
-        opacity: 0,
-        ...interpolateColor(ribbon.source.color, springConfig),
-    })
 
 interface ChordRibbonsProps {
     ribbons: RibbonDatum[]
-    ribbonGenerator: any
+    ribbonGenerator: RibbonGenerator
     borderWidth: ChordCommonProps['ribbonBorderWidth']
-    getBorderColor: (ribbon: RibbonDatum) => string
+    borderColor: ChordCommonProps['ribbonBorderColor']
     getOpacity: (ribbon: RibbonDatum) => number
     blendMode: NonNullable<ChordSvgProps['ribbonBlendMode']>
     isInteractive: ChordCommonProps['isInteractive']
@@ -89,7 +75,7 @@ export const ChordRibbons = memo(
         ribbons,
         ribbonGenerator,
         borderWidth,
-        getBorderColor,
+        borderColor,
         getOpacity,
         blendMode,
         isInteractive,
@@ -100,99 +86,62 @@ export const ChordRibbons = memo(
         onClick,
         tooltip,
     }: ChordRibbonsProps) => {
-        const { animate, springConfig: _springConfig } = useMotionConfig()
+        const { animate, config: springConfig } = useMotionConfig()
 
-        if (animate !== true) {
-            return (
-                <g>
-                    {ribbons.map(ribbon => {
-                        return (
-                            <ChordRibbon
-                                key={ribbon.id}
-                                ribbon={ribbon}
-                                ribbonGenerator={ribbonGenerator}
-                                sourceStartAngle={ribbon.source.startAngle}
-                                sourceEndAngle={ribbon.source.endAngle}
-                                targetStartAngle={ribbon.target.startAngle}
-                                targetEndAngle={ribbon.target.endAngle}
-                                color={ribbon.source.color}
-                                blendMode={blendMode}
-                                opacity={getOpacity(ribbon)}
-                                borderWidth={borderWidth}
-                                getBorderColor={getBorderColor}
-                                isInteractive={isInteractive}
-                                setCurrent={setCurrent}
-                                onMouseEnter={onMouseEnter}
-                                onMouseMove={onMouseMove}
-                                onMouseLeave={onMouseLeave}
-                                onClick={onClick}
-                                tooltip={tooltip}
-                            />
-                        )
-                    })}
-                </g>
-            )
-        }
+        const theme = useTheme()
+        const getBorderColor = useInheritedColor(borderColor, theme)
 
-        const springConfig = {
-            ..._springConfig,
-            precision: 0.001,
-        }
+        const transition = useTransition<RibbonDatum, RibbonAnimatedProps>(ribbons, {
+            keys: ribbon => ribbon.id,
+            initial: ribbon => ({
+                ...getRibbonAngles(ribbon, false),
+                color: ribbon.source.color,
+                opacity: getOpacity(ribbon),
+                borderColor: getBorderColor(ribbon.source),
+            }),
+            from: ribbon => ({
+                ...getRibbonAngles(ribbon, false),
+                color: ribbon.source.color,
+                opacity: 0,
+                borderColor: getBorderColor(ribbon.source),
+            }),
+            update: ribbon => ({
+                ...getRibbonAngles(ribbon, false),
+                color: ribbon.source.color,
+                opacity: getOpacity(ribbon),
+                borderColor: getBorderColor(ribbon.source),
+            }),
+            leave: ribbon => ({
+                ...getRibbonAngles(ribbon, false),
+                color: ribbon.source.color,
+                opacity: 0,
+                borderColor: getBorderColor(ribbon.source),
+            }),
+            expires: true,
+            config: springConfig,
+            immediate: !animate,
+        })
 
         return (
-            <TransitionMotion
-                willEnter={ribbonWillEnter}
-                willLeave={ribbonWillLeave(springConfig)}
-                styles={ribbons.map(ribbon => {
-                    return {
-                        key: ribbon.id,
-                        data: ribbon,
-                        style: {
-                            ...getRibbonAngles(ribbon, false, springConfig),
-                            opacity: spring(getOpacity(ribbon), springConfig),
-                            ...interpolateColor(ribbon.source.color, springConfig),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => (
-                    <>
-                        {interpolatedStyles.map(({ key, style, data: ribbon }) => {
-                            const color = getInterpolatedColor(style)
-
-                            return (
-                                <ChordRibbon
-                                    key={key}
-                                    ribbon={ribbon}
-                                    ribbonGenerator={ribbonGenerator}
-                                    sourceStartAngle={style.sourceStartAngle}
-                                    sourceEndAngle={Math.max(
-                                        style.sourceEndAngle,
-                                        style.sourceStartAngle
-                                    )}
-                                    targetStartAngle={style.targetStartAngle}
-                                    targetEndAngle={Math.max(
-                                        style.targetEndAngle,
-                                        style.targetStartAngle
-                                    )}
-                                    color={color}
-                                    blendMode={blendMode}
-                                    opacity={style.opacity}
-                                    borderWidth={borderWidth}
-                                    getBorderColor={getBorderColor}
-                                    isInteractive={isInteractive}
-                                    setCurrent={setCurrent}
-                                    onMouseEnter={onMouseEnter}
-                                    onMouseMove={onMouseMove}
-                                    onMouseLeave={onMouseLeave}
-                                    onClick={onClick}
-                                    tooltip={tooltip}
-                                />
-                            )
-                        })}
-                    </>
-                )}
-            </TransitionMotion>
+            <>
+                {transition((animatedProps, ribbon) => (
+                    <ChordRibbon
+                        key={ribbon.id}
+                        ribbon={ribbon}
+                        ribbonGenerator={ribbonGenerator}
+                        animatedProps={animatedProps}
+                        borderWidth={borderWidth}
+                        blendMode={blendMode}
+                        setCurrent={setCurrent}
+                        isInteractive={isInteractive}
+                        tooltip={tooltip}
+                        onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
+                        onMouseLeave={onMouseLeave}
+                        onClick={onClick}
+                    />
+                ))}
+            </>
         )
     }
 )

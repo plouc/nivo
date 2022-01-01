@@ -5,7 +5,12 @@ import {
     groupProperties,
     getLegendsProps,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    ordinalColors,
+    isInteractive,
+    blendMode,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
@@ -143,6 +148,13 @@ const props: ChartProperty[] = [
         control: { type: 'inheritedColor' },
         group: 'Style',
     },
+    blendMode({
+        key: 'ribbonBlendMode',
+        target: 'ribbons',
+        group: 'Style',
+        flavors: ['svg'],
+        defaultValue: defaults.ribbonBlendMode,
+    }),
     {
         key: 'ribbonOpacity',
         help: 'Ribbons opacity.',
@@ -436,7 +448,7 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

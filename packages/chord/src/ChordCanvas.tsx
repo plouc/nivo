@@ -2,7 +2,9 @@ import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react
 import {
     useDimensions,
     useTheme,
+    // @ts-ignore
     midAngle,
+    // @ts-ignore
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,
@@ -38,7 +40,7 @@ const getArcFromMouseEvent = ({
     const centerX = margin.left + center[0]
     const centerY = margin.top + center[1]
 
-    return findArcUnderCursor(centerX, centerY, radius, innerRadius, arcs, x, y)
+    return findArcUnderCursor(centerX, centerY, radius, innerRadius, arcs as any[], x, y)
 }
 
 type InnerChordCanvasProps = Omit<ChordCanvasProps, 'renderWrapper' | 'theme'>
@@ -156,10 +158,7 @@ const InnerChordCanvas = ({
                     ctx.fill()
 
                     if (ribbonBorderWidth > 0) {
-                        ctx.strokeStyle = getRibbonBorderColor({
-                            ...ribbon,
-                            color: ribbon.source.color,
-                        })
+                        ctx.strokeStyle = getRibbonBorderColor(ribbon.source)
                         ctx.lineWidth = ribbonBorderWidth
                         ctx.stroke()
                     }
@@ -214,7 +213,7 @@ const InnerChordCanvas = ({
 
                     ctx.textAlign = props.align
                     ctx.textBaseline = props.baseline
-                    ctx.fillStyle = getLabelTextColor(arc, theme)
+                    ctx.fillStyle = getLabelTextColor(arc)
                     ctx.fillText(arc.label, 0, 0)
 
                     ctx.restore()
