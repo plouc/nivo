@@ -12,7 +12,9 @@ Chord:
     - relational
     - svg
     - isomorphic
-  stories: []
+  stories:
+    - label: Custom arc & ribbon tooltip
+      link: chord--custom-tooltips
   description: |
     Chord diagram, uses [d3-chord](https://github.com/d3/d3-chord),
     see [this demo](https://observablehq.com/@d3/chord-diagram).
