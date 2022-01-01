@@ -49,7 +49,7 @@ const initialProperties = {
         modifiers: [['darker', 1]],
     },
 
-    colors: { scheme: 'paired' },
+    colors: { scheme: 'red_blue' },
 
     isInteractive: true,
     arcHoverOpacity: 1,

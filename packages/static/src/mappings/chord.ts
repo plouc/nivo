@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
-import { Chord, ChordProps } from '@nivo/chord'
+import { Chord, ChordSvgProps } from '@nivo/chord'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
@@ -9,11 +9,10 @@ import { OmitStrict } from '../types'
 
 // filter out all dynamic properties
 export type ChordApiProps = OmitStrict<
-    ChordProps & Dimensions,
+    ChordSvgProps & Dimensions,
     | 'isInteractive'
     | 'animate'
-    | 'motionStiffness'
-    | 'motionDamping'
+    | 'motionConfig'
     | 'onRibbonMouseEnter'
     | 'onRibbonMouseMove'
     | 'onRibbonMouseLeave'
@@ -38,7 +37,7 @@ export const chordMapping = {
         height: dimensions.height,
         margin: dimensions.margin,
 
-        matrix: custom.array().required(),
+        data: custom.array().required(),
         keys: Joi.array().required(),
 
         padAngle: Joi.number(),
