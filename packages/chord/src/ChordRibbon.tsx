@@ -1,19 +1,21 @@
 import { createElement, memo, useMemo, MouseEvent } from 'react'
+import { SpringValues, animated } from '@react-spring/web'
 import { useTooltip } from '@nivo/tooltip'
-import { ChordCommonProps, ChordSvgProps, RibbonDatum } from './types'
+import {
+    ChordCommonProps,
+    ChordSvgProps,
+    RibbonAnimatedProps,
+    RibbonDatum,
+    RibbonGenerator,
+} from './types'
+import { computeRibbonPath } from './compute'
 
 interface ChordRibbonProps {
     ribbon: RibbonDatum
-    ribbonGenerator: any
-    sourceStartAngle: number
-    sourceEndAngle: number
-    targetStartAngle: number
-    targetEndAngle: number
-    color: string
+    ribbonGenerator: RibbonGenerator
+    animatedProps: SpringValues<RibbonAnimatedProps>
+    borderWidth: ChordCommonProps['ribbonBorderWidth']
     blendMode: NonNullable<ChordSvgProps['ribbonBlendMode']>
-    opacity: number
-    borderWidth: number
-    getBorderColor: (ribbon: RibbonDatum) => string
     setCurrent: (ribbon: RibbonDatum | null) => void
     isInteractive: ChordCommonProps['isInteractive']
     tooltip: NonNullable<ChordSvgProps['ribbonTooltip']>
@@ -27,14 +29,8 @@ export const ChordRibbon = memo(
     ({
         ribbon,
         ribbonGenerator,
-        sourceStartAngle,
-        sourceEndAngle,
-        targetStartAngle,
-        targetEndAngle,
-        color,
-        opacity,
+        animatedProps,
         borderWidth,
-        getBorderColor,
         blendMode,
         isInteractive,
         setCurrent,
@@ -82,22 +78,18 @@ export const ChordRibbon = memo(
         }, [isInteractive, ribbon, onClick])
 
         return (
-            <path
-                d={ribbonGenerator({
-                    source: {
-                        startAngle: sourceStartAngle,
-                        endAngle: sourceEndAngle,
-                    },
-                    target: {
-                        startAngle: targetStartAngle,
-                        endAngle: targetEndAngle,
-                    },
+            <animated.path
+                d={computeRibbonPath({
+                    sourceStartAngle: animatedProps.sourceStartAngle,
+                    sourceEndAngle: animatedProps.sourceEndAngle,
+                    targetStartAngle: animatedProps.targetStartAngle,
+                    targetEndAngle: animatedProps.targetEndAngle,
+                    ribbonGenerator,
                 })}
-                fill={color}
-                fillOpacity={opacity}
+                fill={animatedProps.color}
+                opacity={animatedProps.opacity}
                 strokeWidth={borderWidth}
-                stroke={getBorderColor({ ...ribbon, color })}
-                strokeOpacity={opacity}
+                stroke={animatedProps.borderColor}
                 style={{ mixBlendMode: blendMode }}
                 onMouseEnter={handleMouseEnter}
                 onMouseMove={handleMouseMove}

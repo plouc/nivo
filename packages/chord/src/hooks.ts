@@ -1,9 +1,14 @@
 import { useMemo, useState } from 'react'
-import { useValueFormatter, getLabelGenerator } from '@nivo/core'
+import {
+    useValueFormatter,
+    // @ts-ignore
+    getLabelGenerator,
+} from '@nivo/core'
 import { OrdinalColorScale, useOrdinalColorScale } from '@nivo/colors'
 import { computeChordLayout, computeChordGenerators, computeChordArcsAndRibbons } from './compute'
 import { ArcDatum, ChordCommonProps, ChordDataProps, CustomLayerProps, RibbonDatum } from './types'
 import { commonDefaultProps } from './defaults'
+import { ChordLayout } from 'd3-chord'
 
 export const useChordLayout = ({ padAngle }: { padAngle: ChordCommonProps['padAngle'] }) =>
     useMemo(() => computeChordLayout({ padAngle }), [padAngle])
@@ -38,12 +43,12 @@ export const useChordArcsAndRibbons = ({
     getLabel,
     formatValue,
 }: {
-    chord: any
+    chord: ChordLayout
     data: ChordDataProps['data']
     keys: ChordDataProps['keys']
-    getLabel: (arc: ArcDatum) => string
+    getLabel: (arc: Omit<ArcDatum, 'label' | 'color'>) => string
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<ArcDatum>
+    getColor: OrdinalColorScale<Omit<ArcDatum, 'label' | 'color'>>
 }) =>
     useMemo(
         () =>

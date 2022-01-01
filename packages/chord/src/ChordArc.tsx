@@ -1,12 +1,12 @@
 import { createElement, memo, useMemo, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
-import { ArcDatum, ChordCommonProps } from './types'
+import { ArcDatum, ArcGenerator, ChordCommonProps } from './types'
 
 interface ChordArcProps {
     arc: ArcDatum
     startAngle: number
     endAngle: number
-    arcGenerator: any
+    arcGenerator: ArcGenerator
     borderWidth: number
     getBorderColor: (arc: ArcDatum) => string
     opacity: number
@@ -75,7 +75,7 @@ export const ChordArc = memo(
 
         return (
             <path
-                d={arcGenerator({ startAngle, endAngle })}
+                d={arcGenerator({ startAngle, endAngle }) || ''}
                 fill={arc.color}
                 fillOpacity={opacity}
                 strokeWidth={borderWidth}

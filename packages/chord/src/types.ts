@@ -1,4 +1,6 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
+import { RibbonGenerator as D3RibbonGenerator } from 'd3-chord'
+import { Arc as D3Arc } from 'd3-shape'
 import {
     Box,
     Theme,
@@ -39,15 +41,46 @@ export interface ArcDatum {
     color: string
 }
 
-export interface RibbonSubject extends ArcDatum {
-    subindex: number
-}
-
 export interface RibbonDatum {
     id: string
-    source: RibbonSubject
-    target: RibbonSubject
+    source: ArcDatum
+    target: ArcDatum
 }
+
+export interface RibbonAnimatedProps {
+    sourceStartAngle: number
+    sourceEndAngle: number
+    targetStartAngle: number
+    targetEndAngle: number
+    color: string
+    opacity: number
+    borderColor: string
+}
+
+export type RibbonGenerator = D3RibbonGenerator<
+    any,
+    | RibbonDatum
+    | {
+          source: {
+              startAngle: number
+              endAngle: number
+          }
+          target: {
+              startAngle: number
+              endAngle: number
+          }
+      },
+    RibbonDatum
+>
+
+export type ArcGenerator = D3Arc<
+    any,
+    | ArcDatum
+    | {
+          startAngle: number
+          endAngle: number
+      }
+>
 
 export interface ArcTooltipComponentProps {
     arc: ArcDatum
@@ -66,7 +99,7 @@ export type ChordRibbonMouseHandler = (ribbon: any, event: MouseEvent) => void
 export type ChordCommonProps = {
     margin: Box
 
-    label: PropertyAccessor<ArcDatum, string>
+    label: PropertyAccessor<Omit<ArcDatum, 'label' | 'color'>, string>
     valueFormat: ValueFormat<number>
 
     padAngle: number
@@ -74,13 +107,13 @@ export type ChordCommonProps = {
     innerRadiusOffset: number
 
     theme: Theme
-    colors: OrdinalColorScaleConfig
+    colors: OrdinalColorScaleConfig<Omit<ArcDatum, 'label' | 'color'>>
 
     arcOpacity: number
     arcHoverOpacity: number
     arcHoverOthersOpacity: number
     arcBorderWidth: number
-    arcBorderColor: InheritedColorConfig<any>
+    arcBorderColor: InheritedColorConfig<ArcDatum>
     onArcMouseEnter: ChordArcMouseHandler
     onArcMouseMove: ChordArcMouseHandler
     onArcMouseLeave: ChordArcMouseHandler
@@ -92,12 +125,12 @@ export type ChordCommonProps = {
     ribbonHoverOpacity: number
     ribbonHoverOthersOpacity: number
     ribbonBorderWidth: number
-    ribbonBorderColor: InheritedColorConfig<any>
+    ribbonBorderColor: InheritedColorConfig<ArcDatum>
 
     enableLabel: boolean
     labelOffset: number
     labelRotation: number
-    labelTextColor: InheritedColorConfig<any>
+    labelTextColor: InheritedColorConfig<ArcDatum>
 
     isInteractive: boolean
     defaultActiveNodeIds: string[]

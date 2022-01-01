@@ -97,9 +97,7 @@ const InnerChord = ({
     })
 
     const theme = useTheme()
-    const getLabelTextColor = useInheritedColor(labelTextColor, theme)
     const getArcBorderColor = useInheritedColor(arcBorderColor, theme)
-    const getRibbonBorderColor = useInheritedColor(ribbonBorderColor, theme)
 
     const customLayerProps = useCustomLayerProps({
         center,
@@ -132,7 +130,7 @@ const InnerChord = ({
                     ribbons={ribbons}
                     ribbonGenerator={ribbonGenerator}
                     borderWidth={ribbonBorderWidth}
-                    getBorderColor={getRibbonBorderColor}
+                    borderColor={ribbonBorderColor}
                     getOpacity={getRibbonOpacity}
                     blendMode={ribbonBlendMode}
                     setCurrent={setCurrentRibbon}
@@ -175,7 +173,7 @@ const InnerChord = ({
                     arcs={arcs}
                     radius={radius + labelOffset}
                     rotation={labelRotation}
-                    getColor={getLabelTextColor}
+                    color={labelTextColor}
                 />
             </g>
         )

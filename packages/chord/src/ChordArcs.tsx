@@ -3,11 +3,11 @@ import { TransitionMotion, spring } from 'react-motion'
 import { interpolateColor } from '@nivo/colors'
 import { useMotionConfig } from '@nivo/core'
 import { ChordArc } from './ChordArc'
-import { ArcDatum, ChordCommonProps } from './types'
+import { ArcDatum, ArcGenerator, ChordCommonProps } from './types'
 
 interface ChordArcsProps {
     arcs: ArcDatum[]
-    arcGenerator: any
+    arcGenerator: ArcGenerator
     borderWidth: ChordCommonProps['arcBorderWidth']
     getBorderColor: (arc: ArcDatum) => string
     getOpacity: (arc: ArcDatum) => number
