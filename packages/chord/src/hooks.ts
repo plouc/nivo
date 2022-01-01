@@ -122,21 +122,21 @@ export const useChord = ({
 export const useChordSelection = ({
     arcs,
     arcOpacity = commonDefaultProps.arcOpacity,
-    arcHoverOpacity = commonDefaultProps.arcHoverOpacity,
-    arcHoverOthersOpacity = commonDefaultProps.arcHoverOthersOpacity,
+    activeArcOpacity = commonDefaultProps.activeArcOpacity,
+    inactiveArcOpacity = commonDefaultProps.inactiveArcOpacity,
     ribbons,
     ribbonOpacity = commonDefaultProps.ribbonOpacity,
-    ribbonHoverOpacity = commonDefaultProps.ribbonHoverOpacity,
-    ribbonHoverOthersOpacity = commonDefaultProps.ribbonHoverOthersOpacity,
+    activeRibbonOpacity = commonDefaultProps.activeRibbonOpacity,
+    inactiveRibbonOpacity = commonDefaultProps.inactiveRibbonOpacity,
 }: {
     arcs: ArcDatum[]
     arcOpacity?: ChordCommonProps['arcOpacity']
-    arcHoverOpacity?: ChordCommonProps['arcHoverOpacity']
-    arcHoverOthersOpacity?: ChordCommonProps['arcHoverOthersOpacity']
+    activeArcOpacity?: ChordCommonProps['activeArcOpacity']
+    inactiveArcOpacity?: ChordCommonProps['inactiveArcOpacity']
     ribbons: RibbonDatum[]
     ribbonOpacity?: ChordCommonProps['ribbonOpacity']
-    ribbonHoverOpacity?: ChordCommonProps['ribbonHoverOpacity']
-    ribbonHoverOthersOpacity?: ChordCommonProps['ribbonHoverOthersOpacity']
+    activeRibbonOpacity?: ChordCommonProps['activeRibbonOpacity']
+    inactiveRibbonOpacity?: ChordCommonProps['inactiveRibbonOpacity']
 }) => {
     const [currentArc, setCurrentArc] = useState<ArcDatum | null>(null)
     const [currentRibbon, setCurrentRibbon] = useState<RibbonDatum | null>(null)
@@ -172,20 +172,20 @@ export const useChordSelection = ({
     const getArcOpacity = useMemo(
         () => (arc: ArcDatum) => {
             if (!hasSelection) return arcOpacity
-            return selection.selectedArcIds.includes(arc.id)
-                ? arcHoverOpacity
-                : arcHoverOthersOpacity
+
+            return selection.selectedArcIds.includes(arc.id) ? activeArcOpacity : inactiveArcOpacity
         },
-        [selection.selectedArcIds, arcOpacity, arcHoverOpacity, arcHoverOthersOpacity]
+        [selection.selectedArcIds, arcOpacity, activeArcOpacity, inactiveArcOpacity]
     )
     const getRibbonOpacity = useMemo(
         () => (ribbon: RibbonDatum) => {
             if (!hasSelection) return ribbonOpacity
+
             return selection.selectedRibbonIds.includes(ribbon.id)
-                ? ribbonHoverOpacity
-                : ribbonHoverOthersOpacity
+                ? activeRibbonOpacity
+                : inactiveRibbonOpacity
         },
-        [selection.selectedRibbonIds, ribbonOpacity, ribbonHoverOpacity, ribbonHoverOthersOpacity]
+        [selection.selectedRibbonIds, ribbonOpacity, activeRibbonOpacity, inactiveRibbonOpacity]
     )
 
     return {

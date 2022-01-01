@@ -31,8 +31,8 @@ export const commonDefaultProps: Omit<
     colors: { scheme: 'nivo' },
 
     arcOpacity: 1,
-    arcHoverOpacity: 1,
-    arcHoverOthersOpacity: 0.15,
+    activeArcOpacity: 1,
+    inactiveArcOpacity: 0.15,
     arcBorderWidth: 1,
     arcBorderColor: {
         from: 'color',
@@ -41,8 +41,8 @@ export const commonDefaultProps: Omit<
     arcTooltip: ChordArcTooltip,
 
     ribbonOpacity: 0.5,
-    ribbonHoverOpacity: 0.85,
-    ribbonHoverOthersOpacity: 0.15,
+    activeRibbonOpacity: 0.85,
+    inactiveRibbonOpacity: 0.15,
     ribbonBorderWidth: 1,
     ribbonBorderColor: {
         from: 'color',
@@ -60,7 +60,6 @@ export const commonDefaultProps: Omit<
     },
 
     isInteractive: true,
-    defaultActiveNodeIds: [],
 
     legends: [],
 

@@ -118,8 +118,8 @@ export type ChordCommonProps = {
     colors: OrdinalColorScaleConfig<Omit<ArcDatum, 'label' | 'color'>>
 
     arcOpacity: number
-    arcHoverOpacity: number
-    arcHoverOthersOpacity: number
+    activeArcOpacity: number
+    inactiveArcOpacity: number
     arcBorderWidth: number
     arcBorderColor: InheritedColorConfig<ArcDatum>
     onArcMouseEnter: ChordArcMouseHandler
@@ -130,8 +130,8 @@ export type ChordCommonProps = {
 
     ribbonBlendMode: CssMixBlendMode
     ribbonOpacity: number
-    ribbonHoverOpacity: number
-    ribbonHoverOthersOpacity: number
+    activeRibbonOpacity: number
+    inactiveRibbonOpacity: number
     ribbonBorderWidth: number
     ribbonBorderColor: InheritedColorConfig<ArcDatum>
 
@@ -141,7 +141,6 @@ export type ChordCommonProps = {
     labelTextColor: InheritedColorConfig<ArcDatum>
 
     isInteractive: boolean
-    defaultActiveNodeIds: string[]
 
     legends: LegendProps[]
 
