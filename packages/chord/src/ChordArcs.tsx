@@ -1,15 +1,15 @@
 import { memo } from 'react'
-import { TransitionMotion, spring } from 'react-motion'
-import { interpolateColor } from '@nivo/colors'
-import { useMotionConfig } from '@nivo/core'
+import { useTransition } from '@react-spring/web'
+import { useMotionConfig, useTheme } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { ChordArc } from './ChordArc'
-import { ArcDatum, ArcGenerator, ChordCommonProps } from './types'
+import { ArcDatum, ArcGenerator, ChordCommonProps, ArcAnimatedProps } from './types'
 
 interface ChordArcsProps {
     arcs: ArcDatum[]
     arcGenerator: ArcGenerator
     borderWidth: ChordCommonProps['arcBorderWidth']
-    getBorderColor: (arc: ArcDatum) => string
+    borderColor: ChordCommonProps['arcBorderColor']
     getOpacity: (arc: ArcDatum) => number
     setCurrent: (arc: ArcDatum | null) => void
     isInteractive: ChordCommonProps['isInteractive']
@@ -24,7 +24,7 @@ export const ChordArcs = memo(
     ({
         arcs,
         borderWidth,
-        getBorderColor,
+        borderColor,
         getOpacity,
         arcGenerator,
         setCurrent,
@@ -35,82 +35,65 @@ export const ChordArcs = memo(
         onClick,
         tooltip,
     }: ChordArcsProps) => {
-        const { animate, springConfig: _springConfig } = useMotionConfig()
+        const { animate, config: springConfig } = useMotionConfig()
 
-        if (!animate) {
-            return (
-                <>
-                    {arcs.map(arc => {
-                        return (
-                            <ChordArc
-                                key={arc.id}
-                                arc={arc}
-                                arcGenerator={arcGenerator}
-                                startAngle={arc.startAngle}
-                                endAngle={arc.endAngle}
-                                opacity={getOpacity(arc)}
-                                borderWidth={borderWidth}
-                                getBorderColor={getBorderColor}
-                                isInteractive={isInteractive}
-                                setCurrent={setCurrent}
-                                onMouseEnter={onMouseEnter}
-                                onMouseMove={onMouseMove}
-                                onMouseLeave={onMouseLeave}
-                                onClick={onClick}
-                                tooltip={tooltip}
-                            />
-                        )
-                    })}
-                </>
-            )
-        }
+        const theme = useTheme()
+        const getBorderColor = useInheritedColor(borderColor, theme)
 
-        const springConfig = {
-            ..._springConfig,
-            precision: 0.001,
-        }
+        const transition = useTransition<ArcDatum, ArcAnimatedProps>(arcs, {
+            keys: arc => arc.id,
+            initial: arc => ({
+                startAngle: arc.startAngle,
+                endAngle: arc.endAngle,
+                color: arc.color,
+                opacity: getOpacity(arc),
+                borderColor: getBorderColor(arc),
+            }),
+            from: arc => ({
+                startAngle: arc.startAngle,
+                endAngle: arc.endAngle,
+                color: arc.color,
+                opacity: 0,
+                borderColor: getBorderColor(arc),
+            }),
+            update: arc => ({
+                startAngle: arc.startAngle,
+                endAngle: arc.endAngle,
+                color: arc.color,
+                opacity: getOpacity(arc),
+                borderColor: getBorderColor(arc),
+            }),
+            leave: arc => ({
+                startAngle: arc.startAngle,
+                endAngle: arc.endAngle,
+                color: arc.color,
+                opacity: 0,
+                borderColor: getBorderColor(arc),
+            }),
+            expires: true,
+            config: springConfig,
+            immediate: !animate,
+        })
 
         return (
-            <TransitionMotion
-                styles={arcs.map(arc => {
-                    return {
-                        key: arc.id,
-                        data: arc,
-                        style: {
-                            startAngle: spring(arc.startAngle, springConfig),
-                            endAngle: spring(arc.endAngle, springConfig),
-                            opacity: spring(getOpacity(arc), springConfig),
-                            ...interpolateColor(arc.color, springConfig),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => (
-                    <>
-                        {interpolatedStyles.map(({ key, style, data: arc }) => {
-                            return (
-                                <ChordArc
-                                    key={key}
-                                    arc={arc}
-                                    arcGenerator={arcGenerator}
-                                    startAngle={style.startAngle}
-                                    endAngle={style.endAngle}
-                                    opacity={style.opacity}
-                                    borderWidth={borderWidth}
-                                    getBorderColor={getBorderColor}
-                                    isInteractive={isInteractive}
-                                    setCurrent={setCurrent}
-                                    onMouseEnter={onMouseEnter}
-                                    onMouseMove={onMouseMove}
-                                    onMouseLeave={onMouseLeave}
-                                    onClick={onClick}
-                                    tooltip={tooltip}
-                                />
-                            )
-                        })}
-                    </>
-                )}
-            </TransitionMotion>
+            <>
+                {transition((animatedProps, arc) => (
+                    <ChordArc
+                        key={arc.id}
+                        arc={arc}
+                        arcGenerator={arcGenerator}
+                        animatedProps={animatedProps}
+                        borderWidth={borderWidth}
+                        setCurrent={setCurrent}
+                        isInteractive={isInteractive}
+                        tooltip={tooltip}
+                        onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
+                        onMouseLeave={onMouseLeave}
+                        onClick={onClick}
+                    />
+                ))}
+            </>
         )
     }
 )

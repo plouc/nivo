@@ -1,6 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { Container, SvgWrapper, useDimensions, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
+import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from './defaults'
 import { useChord, useChordSelection, useCustomLayerProps } from './hooks'
@@ -96,9 +95,6 @@ const InnerChord = ({
         ribbonHoverOthersOpacity,
     })
 
-    const theme = useTheme()
-    const getArcBorderColor = useInheritedColor(arcBorderColor, theme)
-
     const customLayerProps = useCustomLayerProps({
         center,
         radius,
@@ -152,7 +148,7 @@ const InnerChord = ({
                     arcs={arcs}
                     arcGenerator={arcGenerator}
                     borderWidth={arcBorderWidth}
-                    getBorderColor={getArcBorderColor}
+                    borderColor={arcBorderColor}
                     getOpacity={getArcOpacity}
                     setCurrent={setCurrentArc}
                     isInteractive={isInteractive}
