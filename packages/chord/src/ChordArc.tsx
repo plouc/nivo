@@ -1,15 +1,14 @@
 import { createElement, memo, useMemo, MouseEvent } from 'react'
+import { SpringValues, animated } from '@react-spring/web'
 import { useTooltip } from '@nivo/tooltip'
-import { ArcDatum, ArcGenerator, ChordCommonProps } from './types'
+import { ArcAnimatedProps, ArcDatum, ArcGenerator, ChordCommonProps } from './types'
+import { computeArcPath } from './compute'
 
 interface ChordArcProps {
     arc: ArcDatum
-    startAngle: number
-    endAngle: number
+    animatedProps: SpringValues<ArcAnimatedProps>
     arcGenerator: ArcGenerator
     borderWidth: number
-    getBorderColor: (arc: ArcDatum) => string
-    opacity: number
     setCurrent: (arc: ArcDatum | null) => void
     isInteractive: ChordCommonProps['isInteractive']
     onMouseEnter?: ChordCommonProps['onArcMouseEnter']
@@ -22,11 +21,8 @@ interface ChordArcProps {
 export const ChordArc = memo(
     ({
         arc,
-        startAngle,
-        endAngle,
+        animatedProps,
         borderWidth,
-        getBorderColor,
-        opacity,
         arcGenerator,
         setCurrent,
         isInteractive,
@@ -74,13 +70,16 @@ export const ChordArc = memo(
         }, [isInteractive, arc, onClick])
 
         return (
-            <path
-                d={arcGenerator({ startAngle, endAngle }) || ''}
-                fill={arc.color}
-                fillOpacity={opacity}
+            <animated.path
+                d={computeArcPath({
+                    startAngle: animatedProps.startAngle,
+                    endAngle: animatedProps.endAngle,
+                    arcGenerator,
+                })}
+                fill={animatedProps.color}
+                opacity={animatedProps.opacity}
                 strokeWidth={borderWidth}
-                stroke={getBorderColor(arc)}
-                strokeOpacity={opacity}
+                stroke={animatedProps.borderColor}
                 onMouseEnter={handleMouseEnter}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}

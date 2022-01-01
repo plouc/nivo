@@ -9,6 +9,7 @@ import {
     RibbonDatum,
     RibbonGenerator,
     ArcGenerator,
+    ArcAnimatedProps,
 } from './types'
 import { OrdinalColorScale } from '@nivo/colors'
 
@@ -108,6 +109,14 @@ export const computeChordArcsAndRibbons = ({
 
     return { arcs, ribbons }
 }
+
+export const computeArcPath = ({
+    startAngle,
+    endAngle,
+    arcGenerator,
+}: SpringValues<Pick<ArcAnimatedProps, 'startAngle' | 'endAngle'>> & {
+    arcGenerator: ArcGenerator
+}) => to([startAngle, endAngle], (startAngle, endAngle) => arcGenerator({ startAngle, endAngle }))
 
 export const computeRibbonPath = ({
     sourceStartAngle,

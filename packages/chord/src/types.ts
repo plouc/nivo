@@ -41,6 +41,14 @@ export interface ArcDatum {
     color: string
 }
 
+export interface ArcAnimatedProps {
+    startAngle: number
+    endAngle: number
+    color: string
+    opacity: number
+    borderColor: string
+}
+
 export interface RibbonDatum {
     id: string
     source: ArcDatum
