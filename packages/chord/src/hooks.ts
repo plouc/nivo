@@ -1,12 +1,24 @@
 import { useMemo, useState } from 'react'
 import { useValueFormatter, getLabelGenerator } from '@nivo/core'
-import { useOrdinalColorScale } from '@nivo/colors'
+import { OrdinalColorScale, useOrdinalColorScale } from '@nivo/colors'
 import { computeChordLayout, computeChordGenerators, computeChordArcsAndRibbons } from './compute'
+import { ArcDatum, ChordCommonProps, ChordDataProps, CustomLayerProps, RibbonDatum } from './types'
+import { commonDefaultProps } from './defaults'
 
-export const useChordLayout = ({ padAngle }) =>
+export const useChordLayout = ({ padAngle }: { padAngle: ChordCommonProps['padAngle'] }) =>
     useMemo(() => computeChordLayout({ padAngle }), [padAngle])
 
-export const useChordGenerators = ({ width, height, innerRadiusRatio, innerRadiusOffset }) =>
+export const useChordGenerators = ({
+    width,
+    height,
+    innerRadiusRatio,
+    innerRadiusOffset,
+}: {
+    width: number
+    height: number
+    innerRadiusRatio: ChordCommonProps['innerRadiusRatio']
+    innerRadiusOffset: ChordCommonProps['innerRadiusOffset']
+}) =>
     useMemo(
         () =>
             computeChordGenerators({
@@ -18,31 +30,56 @@ export const useChordGenerators = ({ width, height, innerRadiusRatio, innerRadiu
         [width, height, innerRadiusRatio, innerRadiusOffset]
     )
 
-export const useChordArcsAndRibbons = ({ chord, getColor, keys, matrix, getLabel, formatValue }) =>
+export const useChordArcsAndRibbons = ({
+    chord,
+    getColor,
+    keys,
+    data,
+    getLabel,
+    formatValue,
+}: {
+    chord: any
+    data: ChordDataProps['data']
+    keys: ChordDataProps['keys']
+    getLabel: (arc: ArcDatum) => string
+    formatValue: (value: number) => string
+    getColor: OrdinalColorScale<ArcDatum>
+}) =>
     useMemo(
         () =>
             computeChordArcsAndRibbons({
                 chord,
-                getColor,
+                data,
                 keys,
-                matrix,
                 getLabel,
                 formatValue,
+                getColor,
             }),
-        [chord, getColor, keys, matrix, getLabel, formatValue]
+        [chord, getColor, keys, data, getLabel, formatValue]
     )
 
 export const useChord = ({
+    data,
     keys,
-    matrix,
-    label,
+    label = commonDefaultProps.label,
     valueFormat,
     width,
     height,
-    innerRadiusRatio,
-    innerRadiusOffset,
-    padAngle,
-    colors,
+    innerRadiusRatio = commonDefaultProps.innerRadiusRatio,
+    innerRadiusOffset = commonDefaultProps.innerRadiusOffset,
+    padAngle = commonDefaultProps.padAngle,
+    colors = commonDefaultProps.colors,
+}: {
+    data: ChordDataProps['data']
+    keys: ChordDataProps['keys']
+    label?: ChordCommonProps['label']
+    valueFormat?: ChordCommonProps['valueFormat']
+    width: number
+    height: number
+    innerRadiusRatio?: ChordCommonProps['innerRadiusRatio']
+    innerRadiusOffset?: ChordCommonProps['innerRadiusOffset']
+    padAngle?: ChordCommonProps['padAngle']
+    colors?: ChordCommonProps['colors']
 }) => {
     const chord = useChordLayout({ padAngle })
     const { center, radius, innerRadius, arcGenerator, ribbonGenerator } = useChordGenerators({
@@ -52,14 +89,14 @@ export const useChord = ({
         innerRadiusOffset,
     })
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
-    const formatValue = useValueFormatter(valueFormat)
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     const getColor = useOrdinalColorScale(colors, 'id')
     const { arcs, ribbons } = useChordArcsAndRibbons({
         chord,
         getColor,
         keys,
-        matrix,
+        data,
         getLabel,
         formatValue,
     })
@@ -79,16 +116,25 @@ export const useChord = ({
 
 export const useChordSelection = ({
     arcs,
-    arcOpacity,
-    arcHoverOpacity,
-    arcHoverOthersOpacity,
+    arcOpacity = commonDefaultProps.arcOpacity,
+    arcHoverOpacity = commonDefaultProps.arcHoverOpacity,
+    arcHoverOthersOpacity = commonDefaultProps.arcHoverOthersOpacity,
     ribbons,
-    ribbonOpacity,
-    ribbonHoverOpacity,
-    ribbonHoverOthersOpacity,
+    ribbonOpacity = commonDefaultProps.ribbonOpacity,
+    ribbonHoverOpacity = commonDefaultProps.ribbonHoverOpacity,
+    ribbonHoverOthersOpacity = commonDefaultProps.ribbonHoverOthersOpacity,
+}: {
+    arcs: ArcDatum[]
+    arcOpacity?: ChordCommonProps['arcOpacity']
+    arcHoverOpacity?: ChordCommonProps['arcHoverOpacity']
+    arcHoverOthersOpacity?: ChordCommonProps['arcHoverOthersOpacity']
+    ribbons: RibbonDatum[]
+    ribbonOpacity?: ChordCommonProps['ribbonOpacity']
+    ribbonHoverOpacity?: ChordCommonProps['ribbonHoverOpacity']
+    ribbonHoverOthersOpacity?: ChordCommonProps['ribbonHoverOthersOpacity']
 }) => {
-    const [currentArc, setCurrentArc] = useState(null)
-    const [currentRibbon, setCurrentRibbon] = useState(null)
+    const [currentArc, setCurrentArc] = useState<ArcDatum | null>(null)
+    const [currentRibbon, setCurrentRibbon] = useState<RibbonDatum | null>(null)
 
     const selection = useMemo(() => {
         const selectedArcIds = []
@@ -119,7 +165,7 @@ export const useChordSelection = ({
         selection.selectedArcIds.length > 1 || selection.selectedRibbonIds.length > 0
 
     const getArcOpacity = useMemo(
-        () => arc => {
+        () => (arc: ArcDatum) => {
             if (!hasSelection) return arcOpacity
             return selection.selectedArcIds.includes(arc.id)
                 ? arcHoverOpacity
@@ -128,7 +174,7 @@ export const useChordSelection = ({
         [selection.selectedArcIds, arcOpacity, arcHoverOpacity, arcHoverOthersOpacity]
     )
     const getRibbonOpacity = useMemo(
-        () => ribbon => {
+        () => (ribbon: RibbonDatum) => {
             if (!hasSelection) return ribbonOpacity
             return selection.selectedRibbonIds.includes(ribbon.id)
                 ? ribbonHoverOpacity
@@ -149,14 +195,21 @@ export const useChordSelection = ({
     }
 }
 
-export const useChordLayerContext = ({
+export const useCustomLayerProps = ({
     center,
     radius,
     arcs,
     arcGenerator,
     ribbons,
     ribbonGenerator,
-}) =>
+}: {
+    center: [number, number]
+    radius: number
+    arcs: ArcDatum[]
+    arcGenerator: any
+    ribbons: RibbonDatum[]
+    ribbonGenerator: any
+}): CustomLayerProps =>
     useMemo(
         () => ({
             center,

@@ -11,8 +11,8 @@ export function Chord() {
   const [data, flavor] = useChart(() => generateChordData({ size: 7 }))
 
   if (flavor === 'canvas') {
-    return <ResponsiveChordCanvas {...data} {...props} />
+    return <ResponsiveChordCanvas {...props} data{data.matrix} keys={data.keys} />
   }
 
-  return <ResponsiveChord {...data} {...props} />
+  return <ResponsiveChord {...props} data{data.matrix} keys={data.keys} />
 }

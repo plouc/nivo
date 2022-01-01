@@ -1,10 +1,10 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import mapValues from 'lodash/mapValues'
 import { TransitionMotion, spring } from 'react-motion'
-import { blendModePropType, midAngle, useMotionConfig } from '@nivo/core'
+import { midAngle, useMotionConfig } from '@nivo/core'
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
-import ChordRibbon from './ChordRibbon'
+import { ChordRibbon } from './ChordRibbon'
+import { ChordCommonProps, ChordSvgProps, RibbonDatum } from './types'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -68,7 +68,23 @@ const ribbonWillLeave =
         ...interpolateColor(ribbon.source.color, springConfig),
     })
 
-const ChordRibbons = memo(
+interface ChordRibbonsProps {
+    ribbons: RibbonDatum[]
+    ribbonGenerator: any
+    borderWidth: ChordCommonProps['ribbonBorderWidth']
+    getBorderColor: (ribbon: RibbonDatum) => string
+    getOpacity: (ribbon: RibbonDatum) => number
+    blendMode: NonNullable<ChordSvgProps['ribbonBlendMode']>
+    isInteractive: ChordCommonProps['isInteractive']
+    setCurrent: (ribbon: RibbonDatum | null) => void
+    tooltip: NonNullable<ChordSvgProps['ribbonTooltip']>
+    onMouseEnter: ChordSvgProps['onRibbonMouseEnter']
+    onMouseMove: ChordSvgProps['onRibbonMouseMove']
+    onMouseLeave: ChordSvgProps['onRibbonMouseLeave']
+    onClick: ChordSvgProps['onRibbonClick']
+}
+
+export const ChordRibbons = memo(
     ({
         ribbons,
         ribbonGenerator,
@@ -83,7 +99,7 @@ const ChordRibbons = memo(
         onMouseLeave,
         onClick,
         tooltip,
-    }) => {
+    }: ChordRibbonsProps) => {
         const { animate, springConfig: _springConfig } = useMotionConfig()
 
         if (animate !== true) {
@@ -180,22 +196,3 @@ const ChordRibbons = memo(
         )
     }
 )
-
-ChordRibbons.displayName = 'ChordRibbons'
-ChordRibbons.propTypes = {
-    ribbons: PropTypes.array.isRequired,
-    ribbonGenerator: PropTypes.func.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    getBorderColor: PropTypes.func.isRequired,
-    getOpacity: PropTypes.func.isRequired,
-    blendMode: blendModePropType.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-}
-
-export default ChordRibbons

@@ -1,9 +1,22 @@
 import { arc as d3Arc } from 'd3-shape'
-import { chord as d3Chord, ribbon as d3Ribbon } from 'd3-chord'
+import { chord as d3Chord, ChordLayout, ribbon as d3Ribbon } from 'd3-chord'
+import { ArcDatum, ChordCommonProps, ChordDataProps } from './types'
+import { OrdinalColorScale } from '@nivo/colors'
 
-export const computeChordLayout = ({ padAngle }) => d3Chord().padAngle(padAngle)
+export const computeChordLayout = ({ padAngle }: { padAngle: ChordCommonProps['padAngle'] }) =>
+    d3Chord().padAngle(padAngle)
 
-export const computeChordGenerators = ({ width, height, innerRadiusRatio, innerRadiusOffset }) => {
+export const computeChordGenerators = ({
+    width,
+    height,
+    innerRadiusRatio,
+    innerRadiusOffset,
+}: {
+    width: number
+    height: number
+    innerRadiusRatio: ChordCommonProps['innerRadiusRatio']
+    innerRadiusOffset: ChordCommonProps['innerRadiusOffset']
+}) => {
     const center = [width / 2, height / 2]
     const radius = Math.min(width, height) / 2
     const innerRadius = radius * innerRadiusRatio
@@ -18,13 +31,20 @@ export const computeChordGenerators = ({ width, height, innerRadiusRatio, innerR
 
 export const computeChordArcsAndRibbons = ({
     chord,
-    getColor,
+    data,
     keys,
-    matrix,
     getLabel,
     formatValue,
+    getColor,
+}: {
+    chord: ChordLayout
+    data: ChordDataProps['data']
+    keys: ChordDataProps['keys']
+    getLabel: (arc: ArcDatum) => string
+    formatValue: (valuee: number) => string
+    getColor: OrdinalColorScale<any>
 }) => {
-    const ribbons = chord(matrix)
+    const ribbons = chord(data)
 
     const arcs = ribbons.groups.map(arc => {
         arc.id = keys[arc.index]

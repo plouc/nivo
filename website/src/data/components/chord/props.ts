@@ -1,5 +1,4 @@
-// @ts-ignore
-import { ChordDefaultProps as defaults } from '@nivo/chord'
+import { commonDefaultProps as defaults } from '@nivo/chord'
 import {
     themeProperty,
     motionProperties,
@@ -12,6 +11,19 @@ import { ChartProperty, Flavor } from '../../../types'
 const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
 
 const props: ChartProperty[] = [
+    {
+        key: 'data',
+        group: 'Base',
+        help: 'The matrix used to compute the chord diagram.',
+        description: `
+            The matrix used to compute the chord diagram,
+            it must be a square matrix, meaning each row length
+            must equal the row count.
+        `,
+        required: true,
+        type: 'number[][]',
+        flavors: allFlavors,
+    },
     {
         key: 'keys',
         group: 'Base',
@@ -41,25 +53,13 @@ const props: ChartProperty[] = [
         type: 'string[]',
     },
     {
-        key: 'matrix',
-        group: 'Base',
-        help: 'The matrix used to compute the chord diagram.',
-        description: `
-            The matrix used to compute the chord diagram,
-            it must be a square matrix, meaning each row length
-            must equal the row count.
-        `,
-        required: true,
-        type: 'Array<number[]>',
-        flavors: allFlavors,
-    },
-    {
         key: 'valueFormat',
         group: 'Base',
         type: 'string | Function',
         required: false,
         help: `Optional value formatter.`,
         flavors: allFlavors,
+        // control: { type: 'valueFormat'}
     },
     ...chartDimensions(allFlavors),
     {

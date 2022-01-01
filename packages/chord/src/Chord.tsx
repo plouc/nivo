@@ -1,51 +1,55 @@
-import { Fragment } from 'react'
-import { withContainer, SvgWrapper, useDimensions, useTheme } from '@nivo/core'
+import { createElement, Fragment, ReactNode } from 'react'
+import { Container, SvgWrapper, useDimensions, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import { ChordPropTypes, ChordDefaultProps } from './props'
-import { useChord, useChordSelection, useChordLayerContext } from './hooks'
-import ChordRibbons from './ChordRibbons'
-import ChordArcs from './ChordArcs'
-import ChordLabels from './ChordLabels'
+import { svgDefaultProps } from './defaults'
+import { useChord, useChordSelection, useCustomLayerProps } from './hooks'
+import { ChordRibbons } from './ChordRibbons'
+import { ChordArcs } from './ChordArcs'
+import { ChordLabels } from './ChordLabels'
+import { ChordSvgProps, LayerId } from './types'
 
-const Chord = ({
+type InnerChordProps = Omit<ChordSvgProps, 'animate' | 'motionConfig' | 'renderWrapper' | 'theme'>
+
+const InnerChord = ({
+    data,
+    keys,
+    label,
+    valueFormat,
+
     margin: partialMargin,
     width,
     height,
 
-    keys,
-    matrix,
-    label,
-    valueFormat,
-    innerRadiusRatio,
-    innerRadiusOffset,
-    padAngle,
+    innerRadiusRatio = svgDefaultProps.innerRadiusRatio,
+    innerRadiusOffset = svgDefaultProps.innerRadiusOffset,
+    padAngle = svgDefaultProps.padAngle,
 
-    layers,
+    layers = svgDefaultProps.layers,
 
-    colors,
+    colors = svgDefaultProps.colors,
 
-    arcBorderWidth,
-    arcBorderColor,
-    arcOpacity,
-    arcHoverOpacity,
-    arcHoverOthersOpacity,
-    arcTooltip,
+    arcBorderWidth = svgDefaultProps.arcBorderWidth,
+    arcBorderColor = svgDefaultProps.arcBorderColor,
+    arcOpacity = svgDefaultProps.arcOpacity,
+    arcHoverOpacity = svgDefaultProps.arcHoverOpacity,
+    arcHoverOthersOpacity = svgDefaultProps.arcHoverOthersOpacity,
+    arcTooltip = svgDefaultProps.arcTooltip,
 
-    ribbonBorderWidth,
-    ribbonBorderColor,
-    ribbonBlendMode,
-    ribbonOpacity,
-    ribbonHoverOpacity,
-    ribbonHoverOthersOpacity,
-    ribbonTooltip,
+    ribbonBorderWidth = svgDefaultProps.ribbonBorderWidth,
+    ribbonBorderColor = svgDefaultProps.ribbonBorderColor,
+    ribbonBlendMode = svgDefaultProps.ribbonBlendMode,
+    ribbonOpacity = svgDefaultProps.ribbonOpacity,
+    ribbonHoverOpacity = svgDefaultProps.ribbonHoverOpacity,
+    ribbonHoverOthersOpacity = svgDefaultProps.ribbonHoverOthersOpacity,
+    ribbonTooltip = svgDefaultProps.ribbonTooltip,
 
-    enableLabel,
-    labelOffset,
-    labelRotation,
-    labelTextColor,
+    enableLabel = svgDefaultProps.enableLabel,
+    labelOffset = svgDefaultProps.labelOffset,
+    labelRotation = svgDefaultProps.labelRotation,
+    labelTextColor = svgDefaultProps.labelTextColor,
 
-    isInteractive,
+    isInteractive = svgDefaultProps.isInteractive,
     onArcMouseEnter,
     onArcMouseMove,
     onArcMouseLeave,
@@ -55,9 +59,13 @@ const Chord = ({
     onRibbonMouseLeave,
     onRibbonClick,
 
-    legends,
-    role,
-}) => {
+    legends = svgDefaultProps.legends,
+
+    role = svgDefaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+}: InnerChordProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -65,8 +73,8 @@ const Chord = ({
     )
 
     const { center, radius, arcGenerator, ribbonGenerator, arcs, ribbons } = useChord({
+        data,
         keys,
-        matrix,
         label,
         valueFormat,
         width: innerWidth,
@@ -93,7 +101,7 @@ const Chord = ({
     const getArcBorderColor = useInheritedColor(arcBorderColor, theme)
     const getRibbonBorderColor = useInheritedColor(ribbonBorderColor, theme)
 
-    const layerContext = useChordLayerContext({
+    const customLayerProps = useCustomLayerProps({
         center,
         radius,
         arcs,
@@ -110,8 +118,15 @@ const Chord = ({
         color: arc.color,
     }))
 
-    const layerById = {
-        ribbons: (
+    const layerById: Record<LayerId, ReactNode> = {
+        ribbons: null,
+        arcs: null,
+        labels: null,
+        legends: null,
+    }
+
+    if (layers.includes('ribbons')) {
+        layerById.ribbons = (
             <g key="ribbons" transform={`translate(${center[0]}, ${center[1]})`}>
                 <ChordRibbons
                     ribbons={ribbons}
@@ -129,8 +144,11 @@ const Chord = ({
                     tooltip={ribbonTooltip}
                 />
             </g>
-        ),
-        arcs: (
+        )
+    }
+
+    if (layers.includes('arcs')) {
+        layerById.arcs = (
             <g key="arcs" transform={`translate(${center[0]}, ${center[1]})`}>
                 <ChordArcs
                     arcs={arcs}
@@ -147,25 +165,10 @@ const Chord = ({
                     tooltip={arcTooltip}
                 />
             </g>
-        ),
-        labels: null,
-        legends: (
-            <Fragment key="legends">
-                {legends.map((legend, i) => (
-                    <BoxLegendSvg
-                        key={i}
-                        {...legend}
-                        containerWidth={innerWidth}
-                        containerHeight={innerHeight}
-                        data={legendData}
-                        theme={theme}
-                    />
-                ))}
-            </Fragment>
-        ),
+        )
     }
 
-    if (enableLabel === true) {
+    if (layers.includes('labels') && enableLabel) {
         layerById.labels = (
             <g key="labels" transform={`translate(${center[0]}, ${center[1]})`}>
                 <ChordLabels
@@ -178,29 +181,60 @@ const Chord = ({
         )
     }
 
+    if (layers.includes('legends') && legends.length > 0) {
+        layerById.legends = (
+            <Fragment key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legendData}
+                    />
+                ))}
+            </Fragment>
+        )
+    }
+
     return (
         <SvgWrapper
             width={outerWidth}
             height={outerHeight}
             margin={margin}
-            theme={theme}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
         >
             {layers.map((layer, i) => {
-                if (layerById[layer] !== undefined) {
-                    return layerById[layer]
-                }
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{layer(layerContext)}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
                 }
 
-                return null
+                return layerById?.[layer] ?? null
             })}
         </SvgWrapper>
     )
 }
 
-Chord.propTypes = ChordPropTypes
-Chord.defaultProps = ChordDefaultProps
-
-export default withContainer(Chord)
+export const Chord = ({
+    isInteractive = svgDefaultProps.isInteractive,
+    animate = svgDefaultProps.animate,
+    motionConfig = svgDefaultProps.motionConfig,
+    theme,
+    renderWrapper,
+    ...otherProps
+}: ChordSvgProps) => (
+    <Container
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
+    >
+        <InnerChord isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)

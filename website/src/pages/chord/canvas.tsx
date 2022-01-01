@@ -1,37 +1,40 @@
 import React from 'react'
 import { generateChordData } from '@nivo/generators'
-import { ResponsiveChord } from '@nivo/chord'
+import { ResponsiveChordCanvas, canvasDefaultProps } from '@nivo/chord'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
 import mapper from '../../data/components/chord/mapper'
 import { groups } from '../../data/components/chord/props'
 import { graphql, useStaticQuery } from 'gatsby'
 
-const MATRIX_SIZE = 5
+const MATRIX_SIZE = 38
 
 const initialProperties = {
     margin: {
         top: 60,
-        right: 60,
-        bottom: 90,
+        right: 200,
+        bottom: 60,
         left: 60,
     },
 
     valueFormat: '.2f',
 
-    padAngle: 0.02,
-    innerRadiusRatio: 0.96,
-    innerRadiusOffset: 0.02,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
+    padAngle: 0.006,
+    innerRadiusRatio: 0.86,
+    innerRadiusOffset: 0,
 
     arcOpacity: 1,
-    arcBorderWidth: 1,
+    arcBorderWidth: 0,
     arcBorderColor: {
         from: 'color',
         modifiers: [['darker', 0.4]],
     },
 
     ribbonOpacity: 0.5,
-    ribbonBorderWidth: 1,
+    ribbonBorderWidth: 0,
     ribbonBorderColor: {
         from: 'color',
         modifiers: [['darker', 0.4]],
@@ -39,39 +42,34 @@ const initialProperties = {
 
     enableLabel: true,
     label: 'id',
-    labelOffset: 12,
+    labelOffset: 9,
     labelRotation: -90,
     labelTextColor: {
         from: 'color',
         modifiers: [['darker', 1]],
     },
 
-    colors: { scheme: 'nivo' },
+    colors: { scheme: 'paired' },
 
     isInteractive: true,
     arcHoverOpacity: 1,
-    arcHoverOthersOpacity: 0.25,
+    arcHoverOthersOpacity: 0.4,
     ribbonHoverOpacity: 0.75,
-    ribbonHoverOthersOpacity: 0.25,
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 7,
+    ribbonHoverOthersOpacity: 0,
 
     legends: [
         {
-            anchor: 'bottom',
-            direction: 'row',
+            anchor: 'right',
+            direction: 'column',
             justify: false,
-            translateX: 0,
-            translateY: 70,
+            translateX: 120,
+            translateY: 0,
             itemWidth: 80,
-            itemHeight: 14,
+            itemHeight: 11,
             itemsSpacing: 0,
             itemTextColor: '#999',
             itemDirection: 'left-to-right',
             symbolSize: 12,
-            symbolShape: 'circle',
             onClick: d => {
                 alert(JSON.stringify(d, null, '    '))
             },
@@ -89,14 +87,14 @@ const initialProperties = {
 
 const generateData = () => generateChordData({ size: MATRIX_SIZE })
 
-const Chord = () => {
+const ChordCanvas = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/chord.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/chord-canvas.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -106,27 +104,28 @@ const Chord = () => {
 
     return (
         <ComponentTemplate
-            name="Chord"
-            meta={meta.Chord}
+            name="ChordCanvas"
+            meta={meta.ChordCanvas}
             icon="chord"
             flavors={meta.flavors}
-            currentFlavor="svg"
+            currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
+            defaultProperties={canvasDefaultProps}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,
                 ...properties,
             })}
             generateData={generateData}
-            dataKey="matrix"
+            getDataSize={() => MATRIX_SIZE * MATRIX_SIZE + MATRIX_SIZE}
             getTabData={data => data.matrix}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveChord
-                        matrix={data.matrix}
+                    <ResponsiveChordCanvas
+                        data={data.matrix}
                         keys={data.keys}
                         {...properties}
                         theme={theme}
@@ -138,14 +137,6 @@ const Chord = () => {
                                 data: arc,
                             })
                         }}
-                        onRibbonClick={ribbon => {
-                            logAction({
-                                type: 'click',
-                                label: `[ribbon] ${ribbon.source.label} —> ${ribbon.target.label}`,
-                                color: ribbon.source.color,
-                                data: ribbon,
-                            })
-                        }}
                     />
                 )
             }}
@@ -153,4 +144,4 @@ const Chord = () => {
     )
 }
 
-export default Chord
+export default ChordCanvas

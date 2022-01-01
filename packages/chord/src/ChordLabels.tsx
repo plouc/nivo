@@ -1,13 +1,21 @@
-import PropTypes from 'prop-types'
+import { memo } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps, useTheme } from '@nivo/core'
 import { useMotionConfig } from '@nivo/core'
+import { ArcDatum } from './types'
 
-const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
+interface ChordLabelsProps {
+    arcs: ArcDatum[]
+    radius: number
+    rotation: number
+    getColor: (arc: ArcDatum) => string
+}
+
+export const ChordLabels = memo(({ arcs, radius, rotation, getColor }: ChordLabelsProps) => {
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
 
-    if (animate !== true) {
+    if (animate) {
         return (
             <>
                 {arcs.map(arc => {
@@ -75,13 +83,4 @@ const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
             )}
         </TransitionMotion>
     )
-}
-
-ChordLabels.propTypes = {
-    arcs: PropTypes.array.isRequired,
-    radius: PropTypes.number.isRequired,
-    rotation: PropTypes.number.isRequired,
-    getColor: PropTypes.func.isRequired,
-}
-
-export default ChordLabels
+})
