@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import PropTypes from 'prop-types'
 import { treeMapTilePropType, defsPropTypes } from '@nivo/core'
 import {
@@ -13,8 +5,8 @@ import {
     colorPropertyAccessorPropType,
     inheritedColorPropType,
 } from '@nivo/colors'
-import TreeMapNode from './TreeMapNode'
-import TreeMapHtmlNode from './TreeMapHtmlNode'
+import { TreeMapNode } from './TreeMapNode'
+import { TreeMapHtmlNode } from './TreeMapHtmlNode'
 
 const commonPropTypes = {
     identity: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,

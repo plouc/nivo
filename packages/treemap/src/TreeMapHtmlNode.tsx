@@ -1,24 +1,25 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
+import { NodeProps, TreeMapDatum } from './types'
+import { htmlNodeTransform, htmlLabelTransform } from './transitions'
 
-const TreeMapHtmlNode = ({
+/*
+parentLabelHtmlTransform: `translate(${
+    node.parentLabelX - (node.parentLabelRotation === 0 ? 0 : 5)
+}px,${node.parentLabelY - (node.parentLabelRotation === 0 ? 5 : 0)}px) rotate(${
+    node.parentLabelRotation
+}deg)`,
+*/
+
+const NonMemoizedTreeMapHtmlNode = <Datum extends TreeMapDatum>({
     node,
     animatedProps,
     borderWidth,
     enableLabel,
     enableParentLabel,
     labelSkipSize,
-}) => {
+}: NodeProps<Datum>) => {
     const theme = useTheme()
 
     const showLabel =
@@ -36,7 +37,7 @@ const TreeMapHtmlNode = ({
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                transform: animatedProps.htmlTransform,
+                transform: htmlNodeTransform(animatedProps.x, animatedProps.y),
                 width: animatedProps.width,
                 height: animatedProps.height,
                 borderWidth,
@@ -76,7 +77,11 @@ const TreeMapHtmlNode = ({
                         whiteSpace: 'nowrap',
                         color: node.labelTextColor,
                         transformOrigin: 'center center',
-                        transform: animatedProps.labelHtmlTransform,
+                        transform: htmlLabelTransform(
+                            animatedProps.labelX,
+                            animatedProps.labelY,
+                            animatedProps.labelRotation
+                        ),
                         opacity: animatedProps.labelOpacity,
                         pointerEvents: 'none',
                     }}
@@ -97,7 +102,11 @@ const TreeMapHtmlNode = ({
                         height: 10,
                         color: node.parentLabelTextColor,
                         transformOrigin: 'top left',
-                        transform: animatedProps.parentLabelHtmlTransform,
+                        transform: htmlLabelTransform(
+                            animatedProps.parentLabelX,
+                            animatedProps.parentLabelY,
+                            animatedProps.parentLabelRotation
+                        ),
                         opacity: animatedProps.parentLabelOpacity,
                         pointerEvents: 'none',
                     }}
@@ -109,13 +118,4 @@ const TreeMapHtmlNode = ({
     )
 }
 
-TreeMapHtmlNode.propTypes = {
-    node: PropTypes.object.isRequired,
-    animatedProps: PropTypes.object.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    enableLabel: PropTypes.bool.isRequired,
-    enableParentLabel: PropTypes.bool.isRequired,
-    labelSkipSize: PropTypes.number.isRequired,
-}
-
-export default memo(TreeMapHtmlNode)
+export const TreeMapHtmlNode = memo(NonMemoizedTreeMapHtmlNode) as typeof NonMemoizedTreeMapHtmlNode

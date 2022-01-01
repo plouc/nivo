@@ -37,6 +37,7 @@
         { "path": "./packages/sunburst" },
         { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" },
+        { "path": "./packages/treemap" },
 
         // Static rendering and express middleware
         { "path": "./packages/static" },

@@ -36,7 +36,7 @@ const initialProperties = {
     enableParentLabel: TreeMapDefaultProps.enableParentLabel,
     parentLabel: TreeMapDefaultProps.parentLabel,
     parentLabelSize: TreeMapDefaultProps.parentLabelSize,
-    parentLabelPosition: TreeMapDefaultProps.parentLabelPosition,
+    parentLabelPosition: 'left',
     parentLabelPadding: TreeMapDefaultProps.parentLabelPadding,
     parentLabelTextColor: {
         from: 'color',
