@@ -27,6 +27,8 @@ const initialProperties = {
     innerRadiusOffset: 0,
 
     arcOpacity: 1,
+    activeArcOpacity: 1,
+    inactiveArcOpacity: 0.4,
     arcBorderWidth: 0,
     arcBorderColor: {
         from: 'color',
@@ -34,6 +36,8 @@ const initialProperties = {
     },
 
     ribbonOpacity: 0.5,
+    activeRibbonOpacity: 0.75,
+    inactiveRibbonOpacity: 0,
     ribbonBorderWidth: 0,
     ribbonBorderColor: {
         from: 'color',
@@ -52,10 +56,6 @@ const initialProperties = {
     colors: { scheme: 'red_blue' },
 
     isInteractive: true,
-    arcHoverOpacity: 1,
-    arcHoverOthersOpacity: 0.4,
-    ribbonHoverOpacity: 0.75,
-    ribbonHoverOthersOpacity: 0,
 
     legends: [
         {

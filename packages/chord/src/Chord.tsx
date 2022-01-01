@@ -31,16 +31,16 @@ const InnerChord = ({
     arcBorderWidth = svgDefaultProps.arcBorderWidth,
     arcBorderColor = svgDefaultProps.arcBorderColor,
     arcOpacity = svgDefaultProps.arcOpacity,
-    arcHoverOpacity = svgDefaultProps.arcHoverOpacity,
-    arcHoverOthersOpacity = svgDefaultProps.arcHoverOthersOpacity,
+    activeArcOpacity = svgDefaultProps.activeArcOpacity,
+    inactiveArcOpacity = svgDefaultProps.inactiveArcOpacity,
     arcTooltip = svgDefaultProps.arcTooltip,
 
     ribbonBorderWidth = svgDefaultProps.ribbonBorderWidth,
     ribbonBorderColor = svgDefaultProps.ribbonBorderColor,
     ribbonBlendMode = svgDefaultProps.ribbonBlendMode,
     ribbonOpacity = svgDefaultProps.ribbonOpacity,
-    ribbonHoverOpacity = svgDefaultProps.ribbonHoverOpacity,
-    ribbonHoverOthersOpacity = svgDefaultProps.ribbonHoverOthersOpacity,
+    activeRibbonOpacity = svgDefaultProps.activeRibbonOpacity,
+    inactiveRibbonOpacity = svgDefaultProps.inactiveRibbonOpacity,
     ribbonTooltip = svgDefaultProps.ribbonTooltip,
 
     enableLabel = svgDefaultProps.enableLabel,
@@ -87,12 +87,12 @@ const InnerChord = ({
     const { setCurrentArc, setCurrentRibbon, getArcOpacity, getRibbonOpacity } = useChordSelection({
         arcs,
         arcOpacity,
-        arcHoverOpacity,
-        arcHoverOthersOpacity,
+        activeArcOpacity,
+        inactiveArcOpacity,
         ribbons,
         ribbonOpacity,
-        ribbonHoverOpacity,
-        ribbonHoverOthersOpacity,
+        activeRibbonOpacity,
+        inactiveRibbonOpacity,
     })
 
     const customLayerProps = useCustomLayerProps({

@@ -24,6 +24,8 @@ const initialProperties = {
     innerRadiusOffset: 0.02,
 
     arcOpacity: 1,
+    activeArcOpacity: 1,
+    inactiveArcOpacity: 0.25,
     arcBorderWidth: 1,
     arcBorderColor: {
         from: 'color',
@@ -32,6 +34,8 @@ const initialProperties = {
 
     ribbonBlendMode: 'normal',
     ribbonOpacity: 0.5,
+    activeRibbonOpacity: 0.75,
+    inactiveRibbonOpacity: 0.25,
     ribbonBorderWidth: 1,
     ribbonBorderColor: {
         from: 'color',
@@ -50,10 +54,6 @@ const initialProperties = {
     colors: { scheme: 'nivo' },
 
     isInteractive: true,
-    arcHoverOpacity: 1,
-    arcHoverOthersOpacity: 0.25,
-    ribbonHoverOpacity: 0.75,
-    ribbonHoverOthersOpacity: 0.25,
 
     animate: true,
     motionConfig: 'stiff',
