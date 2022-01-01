@@ -34,13 +34,13 @@ const ChordApi = () => {
                 chartClass="chord"
                 apiPath="/charts/chord"
                 flavors={meta.flavors}
-                dataProperty="matrix"
+                //dataProperty="matrix"
                 controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 800,
                     height: 800,
-                    matrix: JSON.stringify(data.matrix, null, '  '),
+                    data: JSON.stringify(data.matrix, null, '  '),
                     keys: data.keys,
                     margin: {
                         top: 40,
