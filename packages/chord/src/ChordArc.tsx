@@ -42,7 +42,7 @@ export const ChordArc = memo(
                 showTooltipFromEvent(createElement(tooltip, { arc }), event)
                 onMouseEnter?.(arc, event)
             }
-        }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseEnter])
+        }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseEnter, setCurrent])
 
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
@@ -61,7 +61,7 @@ export const ChordArc = memo(
                 hideTooltip()
                 onMouseLeave?.(arc, event)
             }
-        }, [isInteractive, hideTooltip, arc, onMouseLeave])
+        }, [isInteractive, hideTooltip, arc, onMouseLeave, setCurrent])
 
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined

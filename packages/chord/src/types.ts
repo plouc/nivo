@@ -18,9 +18,9 @@ export interface CustomLayerProps {
     center: [number, number]
     radius: number
     arcs: ArcDatum[]
-    arcGenerator: any
+    arcGenerator: ArcGenerator
     ribbons: RibbonDatum[]
-    ribbonGenerator: any
+    ribbonGenerator: RibbonGenerator
 }
 export type CustomLayer = FunctionComponent<CustomLayerProps>
 export type CustomCanvasLayer = (ctx: CanvasRenderingContext2D, props: CustomLayerProps) => void
