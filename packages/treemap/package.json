@@ -21,11 +21,12 @@
   ],
   "main": "./dist/nivo-treemap.cjs.js",
   "module": "./dist/nivo-treemap.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/colors": "0.77.0",

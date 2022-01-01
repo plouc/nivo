@@ -1,24 +1,17 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
+import { NodeProps, TreeMapDatum } from './types'
+import { svgNodeTransform, svgLabelTransform } from './transitions'
 
-const TreeMapNode = ({
+const NonMemoizedTreeMapNode = <Datum extends TreeMapDatum>({
     node,
     animatedProps,
     borderWidth,
     enableLabel,
     enableParentLabel,
     labelSkipSize,
-}) => {
+}: NodeProps<Datum>) => {
     const theme = useTheme()
 
     const showLabel =
@@ -29,7 +22,7 @@ const TreeMapNode = ({
     const showParentLabel = enableParentLabel && node.isParent
 
     return (
-        <animated.g transform={animatedProps.transform}>
+        <animated.g transform={svgNodeTransform(animatedProps.x, animatedProps.y)}>
             <animated.rect
                 width={to(animatedProps.width, v => Math.max(v, 0))}
                 height={to(animatedProps.height, v => Math.max(v, 0))}
@@ -52,7 +45,11 @@ const TreeMapNode = ({
                         pointerEvents: 'none',
                     }}
                     fillOpacity={animatedProps.labelOpacity}
-                    transform={animatedProps.labelTransform}
+                    transform={svgLabelTransform(
+                        animatedProps.labelX,
+                        animatedProps.labelY,
+                        animatedProps.labelRotation
+                    )}
                 >
                     {node.label}
                 </animated.text>
@@ -66,7 +63,11 @@ const TreeMapNode = ({
                         pointerEvents: 'none',
                     }}
                     fillOpacity={animatedProps.parentLabelOpacity}
-                    transform={animatedProps.parentLabelTransform}
+                    transform={svgLabelTransform(
+                        animatedProps.parentLabelX,
+                        animatedProps.parentLabelY,
+                        animatedProps.parentLabelRotation
+                    )}
                 >
                     {node.parentLabel}
                 </animated.text>
@@ -75,13 +76,4 @@ const TreeMapNode = ({
     )
 }
 
-TreeMapNode.propTypes = {
-    node: PropTypes.object.isRequired,
-    animatedProps: PropTypes.object.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    enableLabel: PropTypes.bool.isRequired,
-    enableParentLabel: PropTypes.bool.isRequired,
-    labelSkipSize: PropTypes.number.isRequired,
-}
-
-export default memo(TreeMapNode)
+export const TreeMapNode = memo(NonMemoizedTreeMapNode) as typeof NonMemoizedTreeMapNode

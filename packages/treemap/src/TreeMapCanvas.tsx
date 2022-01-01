@@ -1,59 +1,68 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { useCallback, useEffect, useRef } from 'react'
+import { createElement, useCallback, useEffect, useRef } from 'react'
 import {
     degreesToRadians,
     getRelativeCursor,
     isCursorInRect,
-    withContainer,
+    Container,
     useDimensions,
     useTheme,
+    Margin,
 } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import { TreeMapCanvasPropTypes, TreeMapCanvasDefaultProps } from './props'
 import { useTreeMap } from './hooks'
-import TreeMapNodeTooltip from './TreeMapNodeTooltip'
+import {
+    ComputedNode,
+    DefaultTreeMapDatum,
+    TreeMapCanvasProps,
+    TreeMapCommonProps,
+    TreeMapDatum,
+} from './types'
+import { canvasDefaultProps } from './defaults'
 
-const findNodeUnderCursor = (nodes, margin, x, y) =>
+const findNodeUnderCursor = <Datum extends TreeMapDatum>(
+    nodes: ComputedNode<Datum>[],
+    margin: Margin,
+    x: number,
+    y: number
+) =>
     nodes.find(node =>
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
-const TreeMapCanvas = ({
+type InnerTreeMapCanvasProps<Datum extends TreeMapDatum> = Omit<
+    TreeMapCanvasProps<Datum>,
+    'renderWrapper' | 'theme'
+>
+
+const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
     data,
-    identity,
-    value,
-    tile,
+    identity = canvasDefaultProps.identity as TreeMapCommonProps<Datum>['identity'],
+    value = canvasDefaultProps.identity as TreeMapCommonProps<Datum>['value'],
+    tile = canvasDefaultProps.tile,
     valueFormat,
-    innerPadding,
-    outerPadding,
-    leavesOnly,
+    innerPadding = canvasDefaultProps.innerPadding,
+    outerPadding = canvasDefaultProps.outerPadding,
+    leavesOnly = canvasDefaultProps.leavesOnly,
     width,
     height,
     margin: partialMargin,
-    colors,
-    colorBy,
-    nodeOpacity,
-    borderWidth,
-    borderColor,
-    enableLabel,
-    label,
-    labelTextColor,
-    orientLabel,
-    labelSkipSize,
-    isInteractive,
+    colors = canvasDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
+    colorBy = canvasDefaultProps.colorBy,
+    nodeOpacity = canvasDefaultProps.nodeOpacity,
+    borderWidth = canvasDefaultProps.borderWidth,
+    borderColor = canvasDefaultProps.borderColor as TreeMapCommonProps<Datum>['borderColor'],
+    enableLabel = canvasDefaultProps.enableLabel,
+    label = canvasDefaultProps.label as TreeMapCommonProps<Datum>['label'],
+    labelTextColor = canvasDefaultProps.labelTextColor,
+    orientLabel = canvasDefaultProps.orientLabel,
+    labelSkipSize = canvasDefaultProps.labelSkipSize,
+    isInteractive = canvasDefaultProps.isInteractive,
     onMouseMove,
     onClick,
-    tooltip,
-    pixelRatio,
-}) => {
-    const canvasEl = useRef(null)
+    tooltip = canvasDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
+    pixelRatio = canvasDefaultProps.pixelRatio,
+}: InnerTreeMapCanvasProps<Datum>) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -61,7 +70,7 @@ const TreeMapCanvas = ({
         partialMargin
     )
 
-    const { nodes } = useTreeMap({
+    const { nodes } = useTreeMap<Datum>({
         data,
         identity,
         value,
@@ -85,10 +94,12 @@ const TreeMapCanvas = ({
     const theme = useTheme()
 
     useEffect(() => {
+        if (canvasEl.current === null) return
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')
+        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -126,7 +137,7 @@ const TreeMapCanvas = ({
                 ctx.rotate(degreesToRadians(rotate ? -90 : 0))
 
                 ctx.fillStyle = node.labelTextColor
-                ctx.fillText(node.label, 0, 0)
+                ctx.fillText(`${node.label}`, 0, 0)
 
                 ctx.restore()
             })
@@ -151,16 +162,14 @@ const TreeMapCanvas = ({
 
     const handleMouseHover = useCallback(
         event => {
+            if (canvasEl.current === null) return
+
             const [x, y] = getRelativeCursor(canvasEl.current, event)
             const node = findNodeUnderCursor(nodes, margin, x, y)
 
             if (node !== undefined) {
-                showTooltipFromEvent(
-                    <TreeMapNodeTooltip node={node} tooltip={tooltip} />,
-                    event,
-                    'left'
-                )
-                onMouseMove && onMouseMove(node, event)
+                showTooltipFromEvent(createElement(tooltip, { node }), event, 'left')
+                onMouseMove?.(node, event)
             } else {
                 hideTooltip()
             }
@@ -174,12 +183,14 @@ const TreeMapCanvas = ({
 
     const handleClick = useCallback(
         event => {
+            if (canvasEl.current === null) return
+
             const [x, y] = getRelativeCursor(canvasEl.current, event)
             const node = findNodeUnderCursor(nodes, margin, x, y)
 
             if (node === undefined) return
 
-            onClick && onClick(node, event)
+            onClick?.(node, event)
         },
         [canvasEl, nodes, margin, onClick]
     )
@@ -201,9 +212,15 @@ const TreeMapCanvas = ({
     )
 }
 
-TreeMapCanvas.propTypes = TreeMapCanvasPropTypes
-
-const WrappedTreeMapCanvas = withContainer(TreeMapCanvas)
-WrappedTreeMapCanvas.defaultProps = TreeMapCanvasDefaultProps
-
-export default WrappedTreeMapCanvas
+export const TreeMapCanvas = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
+    theme,
+    isInteractive = canvasDefaultProps.isInteractive,
+    animate = canvasDefaultProps.animate,
+    motionConfig = canvasDefaultProps.motionConfig,
+    renderWrapper,
+    ...otherProps
+}: TreeMapCanvasProps<Datum>) => (
+    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+        <InnerTreeMapCanvas<Datum> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)
