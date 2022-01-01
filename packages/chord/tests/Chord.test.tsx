@@ -1,4 +1,5 @@
 import { mount } from 'enzyme'
+import { Globals } from '@react-spring/web'
 // @ts-ignore
 import { Chord } from '../src'
 
@@ -18,6 +19,14 @@ const baseProps = {
     height: 600,
     animate: false,
 }
+
+beforeAll(() => {
+    Globals.assign({ skipAnimation: true })
+})
+
+afterAll(() => {
+    Globals.assign({ skipAnimation: false })
+})
 
 it('basic chord diagram', () => {
     const wrapper = mount(<Chord {...baseProps} />)
@@ -219,5 +228,99 @@ describe('interactivity', () => {
                 onClick.mockClear()
             })
         })
+    })
+})
+
+describe('active/inactive', () => {
+    it('arcs', () => {
+        const wrapper = mount(
+            <Chord
+                {...baseProps}
+                arcOpacity={0.5}
+                ribbonOpacity={0.5}
+                activeArcOpacity={1}
+                activeRibbonOpacity={1}
+                inactiveArcOpacity={0}
+                inactiveRibbonOpacity={0}
+            />
+        )
+
+        sampleData.keys.forEach(activeKey => {
+            const activeArc = wrapper.find(`[data-testid='arc.${activeKey}']`).first()
+            expect(activeArc.prop('opacity').get()).toEqual(0.5)
+
+            activeArc.children().first().simulate('mouseenter')
+            expect(activeArc.prop('opacity').get()).toEqual(1)
+
+            // all other arcs should be inactive
+            sampleData.keys
+                .filter(key => key !== activeKey)
+                .forEach(inactiveKey => {
+                    const inactiveArc = wrapper.find(`[data-testid='arc.${inactiveKey}']`).first()
+
+                    expect(inactiveArc.prop('opacity').get()).toEqual(0)
+                })
+
+            // all ribbons having the current arc as a source or target should be active
+            wrapper
+                .find(`[data-testid^='ribbon.']`)
+                .filterWhere(ribbon => !ribbon.is('path'))
+                .forEach(ribbon => {
+                    const ribbonId = ribbon.prop('data-testid').slice(7)
+                    if (ribbonId.includes(activeKey)) {
+                        expect(ribbon.prop('opacity').get()).toEqual(1)
+                    } else {
+                        expect(ribbon.prop('opacity').get()).toEqual(0)
+                    }
+                })
+
+            activeArc.children().first().simulate('mouseleave')
+        })
+    })
+
+    it('ribbons', () => {
+        const wrapper = mount(
+            <Chord
+                {...baseProps}
+                arcOpacity={0.5}
+                ribbonOpacity={0.5}
+                activeArcOpacity={1}
+                activeRibbonOpacity={1}
+                inactiveArcOpacity={0}
+                inactiveRibbonOpacity={0}
+            />
+        )
+
+        wrapper
+            .find(`[data-testid^='ribbon.']`)
+            .filterWhere(ribbon => !ribbon.is('path'))
+            .forEach(ribbon => {
+                const ribbonId = ribbon.prop('data-testid').slice(7)
+                expect(ribbon.prop('opacity').get()).toEqual(0.5)
+
+                ribbon.children().first().simulate('mouseenter')
+                expect(ribbon.prop('opacity').get()).toEqual(1)
+
+                // other ribbons should be inactive
+                wrapper
+                    .find(`[data-testid^='ribbon.']`)
+                    .filterWhere(ribbon => !ribbon.is('path'))
+                    .filterWhere(ribbon => !ribbon.is(`[data-testid^='ribbon.${ribbonId}']`))
+                    .forEach(inactiveRibbon => {
+                        expect(inactiveRibbon.prop('opacity').get()).toEqual(0)
+                    })
+
+                const relatedArcIds = ribbonId.split('.')
+                sampleData.keys.forEach(key => {
+                    const arc = wrapper.find(`[data-testid='arc.${key}']`).first()
+                    if (relatedArcIds.includes(key)) {
+                        expect(arc.prop('opacity').get()).toEqual(1)
+                    } else {
+                        expect(arc.prop('opacity').get()).toEqual(0)
+                    }
+                })
+
+                ribbon.children().first().simulate('mouseleave')
+            })
     })
 })
