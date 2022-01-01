@@ -120,7 +120,6 @@ export const useChord = ({
 }
 
 export const useChordSelection = ({
-    arcs,
     arcOpacity = commonDefaultProps.arcOpacity,
     activeArcOpacity = commonDefaultProps.activeArcOpacity,
     inactiveArcOpacity = commonDefaultProps.inactiveArcOpacity,
@@ -129,7 +128,6 @@ export const useChordSelection = ({
     activeRibbonOpacity = commonDefaultProps.activeRibbonOpacity,
     inactiveRibbonOpacity = commonDefaultProps.inactiveRibbonOpacity,
 }: {
-    arcs: ArcDatum[]
     arcOpacity?: ChordCommonProps['arcOpacity']
     activeArcOpacity?: ChordCommonProps['activeArcOpacity']
     inactiveArcOpacity?: ChordCommonProps['inactiveArcOpacity']
@@ -164,7 +162,7 @@ export const useChordSelection = ({
         }
 
         return { selectedArcIds, selectedRibbonIds }
-    }, [currentArc, currentRibbon, arcs, ribbons])
+    }, [currentArc, currentRibbon, ribbons])
 
     const hasSelection =
         selection.selectedArcIds.length > 1 || selection.selectedRibbonIds.length > 0
@@ -175,7 +173,7 @@ export const useChordSelection = ({
 
             return selection.selectedArcIds.includes(arc.id) ? activeArcOpacity : inactiveArcOpacity
         },
-        [selection.selectedArcIds, arcOpacity, activeArcOpacity, inactiveArcOpacity]
+        [hasSelection, selection.selectedArcIds, arcOpacity, activeArcOpacity, inactiveArcOpacity]
     )
     const getRibbonOpacity = useMemo(
         () => (ribbon: RibbonDatum) => {
@@ -185,7 +183,13 @@ export const useChordSelection = ({
                 ? activeRibbonOpacity
                 : inactiveRibbonOpacity
         },
-        [selection.selectedRibbonIds, ribbonOpacity, activeRibbonOpacity, inactiveRibbonOpacity]
+        [
+            hasSelection,
+            selection.selectedRibbonIds,
+            ribbonOpacity,
+            activeRibbonOpacity,
+            inactiveRibbonOpacity,
+        ]
     )
 
     return {

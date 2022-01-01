@@ -85,7 +85,6 @@ const InnerChord = ({
     })
 
     const { setCurrentArc, setCurrentRibbon, getArcOpacity, getRibbonOpacity } = useChordSelection({
-        arcs,
         arcOpacity,
         activeArcOpacity,
         inactiveArcOpacity,

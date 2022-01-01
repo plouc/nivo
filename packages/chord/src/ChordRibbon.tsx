@@ -48,16 +48,16 @@ export const ChordRibbon = memo(
             return (event: MouseEvent) => {
                 setCurrent(ribbon)
                 showTooltipFromEvent(createElement(tooltip, { ribbon }), event)
-                onMouseEnter && onMouseEnter(ribbon, event)
+                onMouseEnter?.(ribbon, event)
             }
-        }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseEnter])
+        }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseEnter, setCurrent])
 
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
 
             return (event: MouseEvent) => {
                 showTooltipFromEvent(createElement(tooltip, { ribbon }), event)
-                onMouseMove && onMouseMove(ribbon, event)
+                onMouseMove?.(ribbon, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseMove])
 
@@ -67,14 +67,14 @@ export const ChordRibbon = memo(
             return (event: MouseEvent) => {
                 setCurrent(null)
                 hideTooltip()
-                onMouseLeave && onMouseLeave(ribbon, event)
+                onMouseLeave?.(ribbon, event)
             }
-        }, [isInteractive, hideTooltip, ribbon, onMouseLeave])
+        }, [isInteractive, hideTooltip, ribbon, onMouseLeave, setCurrent])
 
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined
 
-            return (event: MouseEvent) => onClick(ribbon, event)
+            return (event: MouseEvent) => onClick?.(ribbon, event)
         }, [isInteractive, ribbon, onClick])
 
         return (

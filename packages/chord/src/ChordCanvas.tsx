@@ -103,7 +103,6 @@ const InnerChordCanvas = ({
     })
 
     const { currentArc, setCurrentArc, getArcOpacity, getRibbonOpacity } = useChordSelection({
-        arcs,
         arcOpacity,
         activeArcOpacity,
         inactiveArcOpacity,
@@ -257,6 +256,8 @@ const InnerChordCanvas = ({
         outerHeight,
         margin,
         pixelRatio,
+        center,
+        radius,
         theme,
         layers,
         arcs,
@@ -316,8 +317,10 @@ const InnerChordCanvas = ({
             innerRadius,
             arcs,
             setCurrentArc,
+            currentArc,
             showTooltipFromEvent,
             hideTooltip,
+            arcTooltip,
             onArcMouseEnter,
             onArcMouseMove,
             onArcMouseLeave,

@@ -41,7 +41,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
                     dominantBaseline: textProps.baseline,
                 }
             }),
-        [arcs, radius, radius, rotation, getColor]
+        [arcs, radius, rotation, getColor]
     )
 
     const transition = useTransition<
