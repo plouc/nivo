@@ -79,6 +79,7 @@ export const ChordRibbon = memo(
 
         return (
             <animated.path
+                data-testid={`ribbon.${ribbon.source.id}.${ribbon.target.id}`}
                 d={computeRibbonPath({
                     sourceStartAngle: animatedProps.sourceStartAngle,
                     sourceEndAngle: animatedProps.sourceEndAngle,
