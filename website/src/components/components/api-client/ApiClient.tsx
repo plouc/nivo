@@ -144,7 +144,7 @@ const ControlPanel = styled.div`
             bottom: 0;
             --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
             height: calc(var(--innerHeight) * 0.45);
-            width: 60%;
+            width: 55%;
         }
     `}
 
