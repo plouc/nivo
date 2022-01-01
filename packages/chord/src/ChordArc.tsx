@@ -1,8 +1,25 @@
-import { createElement, memo, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import { createElement, memo, useMemo, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
+import { ArcDatum, ChordCommonProps } from './types'
 
-const ChordArc = memo(
+interface ChordArcProps {
+    arc: ArcDatum
+    startAngle: number
+    endAngle: number
+    arcGenerator: any
+    borderWidth: number
+    getBorderColor: (arc: ArcDatum) => string
+    opacity: number
+    setCurrent: (arc: ArcDatum | null) => void
+    isInteractive: ChordCommonProps['isInteractive']
+    onMouseEnter?: ChordCommonProps['onArcMouseEnter']
+    onMouseMove?: ChordCommonProps['onArcMouseMove']
+    onMouseLeave?: ChordCommonProps['onArcMouseLeave']
+    onClick?: ChordCommonProps['onArcClick']
+    tooltip: ChordCommonProps['arcTooltip']
+}
+
+export const ChordArc = memo(
     ({
         arc,
         startAngle,
@@ -18,35 +35,42 @@ const ChordArc = memo(
         onMouseLeave,
         onClick,
         tooltip,
-    }) => {
+    }: ChordArcProps) => {
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useMemo(() => {
             if (!isInteractive) return undefined
-            return event => {
+
+            return (event: MouseEvent) => {
                 setCurrent(arc)
                 showTooltipFromEvent(createElement(tooltip, { arc }), event)
                 onMouseEnter && onMouseEnter(arc, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseEnter])
+
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
-            return event => {
+
+            return (event: MouseEvent) => {
                 showTooltipFromEvent(createElement(tooltip, { arc }), event)
                 onMouseMove && onMouseMove(arc, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseMove])
+
         const handleMouseLeave = useMemo(() => {
             if (!isInteractive) return undefined
-            return event => {
+
+            return (event: MouseEvent) => {
                 setCurrent(null)
                 hideTooltip()
                 onMouseLeave && onMouseLeave(arc, event)
             }
         }, [isInteractive, hideTooltip, arc, onMouseLeave])
+
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined
-            return event => onClick(arc, event)
+
+            return (event: MouseEvent) => onClick(arc, event)
         }, [isInteractive, arc, onClick])
 
         return (
@@ -65,23 +89,3 @@ const ChordArc = memo(
         )
     }
 )
-
-ChordArc.displayName = 'ChordArc'
-ChordArc.propTypes = {
-    arc: PropTypes.object.isRequired,
-    startAngle: PropTypes.number.isRequired,
-    endAngle: PropTypes.number.isRequired,
-    arcGenerator: PropTypes.func.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    getBorderColor: PropTypes.func.isRequired,
-    opacity: PropTypes.number.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-}
-
-export default ChordArc

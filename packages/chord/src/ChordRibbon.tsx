@@ -1,9 +1,29 @@
-import { createElement, memo, useMemo } from 'react'
-import PropTypes from 'prop-types'
-import { blendModePropType } from '@nivo/core'
+import { createElement, memo, useMemo, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
+import { ChordCommonProps, ChordSvgProps, RibbonDatum } from './types'
 
-const ChordRibbon = memo(
+interface ChordRibbonProps {
+    ribbon: RibbonDatum
+    ribbonGenerator: any
+    sourceStartAngle: number
+    sourceEndAngle: number
+    targetStartAngle: number
+    targetEndAngle: number
+    color: string
+    blendMode: NonNullable<ChordSvgProps['ribbonBlendMode']>
+    opacity: number
+    borderWidth: number
+    getBorderColor: (ribbon: RibbonDatum) => string
+    setCurrent: (ribbon: RibbonDatum | null) => void
+    isInteractive: ChordCommonProps['isInteractive']
+    tooltip: NonNullable<ChordSvgProps['ribbonTooltip']>
+    onMouseEnter: ChordSvgProps['onRibbonMouseEnter']
+    onMouseMove: ChordSvgProps['onRibbonMouseMove']
+    onMouseLeave: ChordSvgProps['onRibbonMouseLeave']
+    onClick: ChordSvgProps['onRibbonClick']
+}
+
+export const ChordRibbon = memo(
     ({
         ribbon,
         ribbonGenerator,
@@ -23,35 +43,42 @@ const ChordRibbon = memo(
         onMouseLeave,
         onClick,
         tooltip,
-    }) => {
+    }: ChordRibbonProps) => {
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useMemo(() => {
             if (!isInteractive) return undefined
-            return event => {
+
+            return (event: MouseEvent) => {
                 setCurrent(ribbon)
                 showTooltipFromEvent(createElement(tooltip, { ribbon }), event)
                 onMouseEnter && onMouseEnter(ribbon, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseEnter])
+
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
-            return event => {
+
+            return (event: MouseEvent) => {
                 showTooltipFromEvent(createElement(tooltip, { ribbon }), event)
                 onMouseMove && onMouseMove(ribbon, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseMove])
+
         const handleMouseLeave = useMemo(() => {
             if (!isInteractive) return undefined
-            return event => {
+
+            return (event: MouseEvent) => {
                 setCurrent(null)
                 hideTooltip()
                 onMouseLeave && onMouseLeave(ribbon, event)
             }
         }, [isInteractive, hideTooltip, ribbon, onMouseLeave])
+
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined
-            return event => onClick(ribbon, event)
+
+            return (event: MouseEvent) => onClick(ribbon, event)
         }, [isInteractive, ribbon, onClick])
 
         return (
@@ -80,27 +107,3 @@ const ChordRibbon = memo(
         )
     }
 )
-
-ChordRibbon.displayName = 'ChordRibbon'
-ChordRibbon.propTypes = {
-    ribbon: PropTypes.object.isRequired,
-    ribbonGenerator: PropTypes.func.isRequired,
-    sourceStartAngle: PropTypes.number.isRequired,
-    sourceEndAngle: PropTypes.number.isRequired,
-    targetStartAngle: PropTypes.number.isRequired,
-    targetEndAngle: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    blendMode: blendModePropType.isRequired,
-    opacity: PropTypes.number.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    getBorderColor: PropTypes.func.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-}
-
-export default ChordRibbon

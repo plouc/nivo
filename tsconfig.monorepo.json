@@ -24,6 +24,7 @@
         { "path": "./packages/bullet" },
         { "path": "./packages/bump" },
         { "path": "./packages/calendar" },
+        { "path": "./packages/chord" },
         { "path": "./packages/circle-packing" },
         { "path": "./packages/funnel" },
         { "path": "./packages/marimekko" },
