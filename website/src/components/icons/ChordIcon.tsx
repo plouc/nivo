@@ -7,16 +7,18 @@ import chordDarkNeutralImg from '../../assets/icons/chord-dark-neutral.png'
 import chordDarkColoredImg from '../../assets/icons/chord-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
-const Wrapper = styled.div`
-    & svg > g > g > g:first-child path:nth-child(1),
-    & svg > g > g > g:first-child path:nth-child(3) {
+const Wrapper = styled.div<{
+    ribbonColor: string
+}>`
+    & svg > g > g:first-child path:nth-child(1),
+    & svg > g > g:first-child path:nth-child(3) {
         fill: none;
     }
-    & svg > g > g > g:first-child path:nth-child(2),
-    & svg > g > g > g:first-child path:nth-child(4),
-    & svg > g > g > g:first-child path:nth-child(5) {
+    & svg > g > g:first-child path:nth-child(2),
+    & svg > g > g:first-child path:nth-child(4),
+    & svg > g > g:first-child path:nth-child(5) {
         fill: ${({ ribbonColor }) => ribbonColor};
-        fill-opacity: 1;
+        opacity: 1;
     }
 `
 
@@ -24,7 +26,7 @@ const chartProps = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     keys: ['A', 'B', 'C', 'D'],
-    matrix: [
+    data: [
         [0, 2, 3, 0], // A
         [2, 0, 0, 2], // B
         [4, 0, 4, 4], // C
@@ -54,7 +56,7 @@ const ChordIconItem = ({ type }) => (
     </Icon>
 )
 
-const ChordIcon = () => (
+export const ChordIcon = () => (
     <>
         <ChordIconItem type="lightNeutral" />
         <IconImg url={chordLightNeutralImg} />
@@ -66,5 +68,3 @@ const ChordIcon = () => (
         <IconImg url={chordDarkColoredImg} />
     </>
 )
-
-export default ChordIcon

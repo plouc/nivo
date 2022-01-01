@@ -109,8 +109,6 @@ export const HomeBaseline = styled.div`
     color: white;
     font-weight: 300;
     font-size: 15px;
-    display: flex;
-    align-items: center;
     justify-content: flex-start;
     line-height: 26px;
     padding: 0 20px;

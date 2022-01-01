@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { generateChordData } from '@nivo/generators'
 import { ResponsiveChordCanvas } from '@nivo/chord'
 import { HomeItem, HomeItemLabel } from './styled'
 
-const HomeChord = ({ colors }) => {
+export const HomeChord = ({ colors }: { colors: string[] }) => {
+    const { matrix, keys } = useMemo(() => generateChordData({ size: 7 }), [])
+
     return (
         <HomeItem to="/chord/">
             <ResponsiveChordCanvas
+                data={matrix}
+                keys={keys}
                 colors={colors}
                 padAngle={0.04}
                 innerRadiusRatio={0.9}
-                {...generateChordData({ size: 7 })}
                 enableLabel={false}
                 isInteractive={false}
                 animate={false}
@@ -23,5 +26,3 @@ const HomeChord = ({ colors }) => {
         </HomeItem>
     )
 }
-
-export default HomeChord

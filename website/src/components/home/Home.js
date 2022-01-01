@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTheme } from '../../theming/context'
 import { Container, HomeBaseline, HomeLogo } from './styled'
-import HomeChord from './HomeChord'
+import { HomeChord } from './HomeChord'
 import HomeLine from './HomeLine'
 import { HomeCirclePacking } from './HomeCirclePacking'
 import HomeBar from './HomeBar'
