@@ -40,7 +40,7 @@ export const ChordArc = memo(
             return (event: MouseEvent) => {
                 setCurrent(arc)
                 showTooltipFromEvent(createElement(tooltip, { arc }), event)
-                onMouseEnter && onMouseEnter(arc, event)
+                onMouseEnter?.(arc, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseEnter])
 
@@ -49,7 +49,7 @@ export const ChordArc = memo(
 
             return (event: MouseEvent) => {
                 showTooltipFromEvent(createElement(tooltip, { arc }), event)
-                onMouseMove && onMouseMove(arc, event)
+                onMouseMove?.(arc, event)
             }
         }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseMove])
 
@@ -59,18 +59,19 @@ export const ChordArc = memo(
             return (event: MouseEvent) => {
                 setCurrent(null)
                 hideTooltip()
-                onMouseLeave && onMouseLeave(arc, event)
+                onMouseLeave?.(arc, event)
             }
         }, [isInteractive, hideTooltip, arc, onMouseLeave])
 
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined
 
-            return (event: MouseEvent) => onClick(arc, event)
+            return (event: MouseEvent) => onClick?.(arc, event)
         }, [isInteractive, arc, onClick])
 
         return (
             <animated.path
+                data-testid={`arc.${arc.id}`}
                 d={computeArcPath({
                     startAngle: animatedProps.startAngle,
                     endAngle: animatedProps.endAngle,

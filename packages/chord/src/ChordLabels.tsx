@@ -96,6 +96,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
             {transition((transitionProps, label) => (
                 <animated.text
                     key={label.id}
+                    data-testid={`label.${label.id}`}
                     style={{
                         ...theme.labels.text,
                         pointerEvents: 'none',
