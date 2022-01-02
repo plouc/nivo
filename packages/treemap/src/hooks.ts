@@ -8,29 +8,21 @@ import {
     HierarchyNode,
     HierarchyRectangularNode,
 } from 'd3-hierarchy'
-import {
-    // @ts-ignore
-    treeMapTileFromProp,
-    useTheme,
-    useValueFormatter,
-    PropertyAccessor,
-    usePropertyAccessor,
-} from '@nivo/core'
+import { useTheme, useValueFormatter, PropertyAccessor, usePropertyAccessor } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { commonDefaultProps } from './defaults'
 import {
     DefaultTreeMapDatum,
-    NodeMouseEventHandler,
     TreeMapCommonProps,
     TreeMapDataProps,
-    TreeMapDatum,
     ComputedNode,
     ComputedNodeWithoutStyles,
     ComputedNodeWithHandlers,
 } from './types'
+import { tileByType } from './tiling'
 
-export const useTreeMapLayout = <Datum extends TreeMapDatum>({
+export const useTreeMapLayout = <Datum extends object>({
     width,
     height,
     tile,
@@ -54,7 +46,7 @@ export const useTreeMapLayout = <Datum extends TreeMapDatum>({
     useMemo(() => {
         const treemap = d3Treemap<Datum>()
             .size([width, height])
-            .tile(treeMapTileFromProp(tile))
+            .tile(tileByType[tile])
             .round(true)
             .paddingInner(innerPadding)
             .paddingOuter(outerPadding)
@@ -78,7 +70,7 @@ export const useTreeMapLayout = <Datum extends TreeMapDatum>({
         leavesOnly,
     ])
 
-export const useHierarchy = <Datum extends TreeMapDatum>({
+export const useHierarchy = <Datum extends object>({
     root,
     getValue,
 }: {
@@ -86,7 +78,7 @@ export const useHierarchy = <Datum extends TreeMapDatum>({
     getValue: (datum: Datum) => number
 }) => useMemo(() => hierarchy<Datum>(root).sum(getValue), [root, getValue])
 
-const computeNodeIdAndPath = <Datum extends TreeMapDatum>(
+const computeNodeIdAndPath = <Datum extends object>(
     node: HierarchyNode<Datum>,
     getIdentity: (node: Datum) => string
 ) => {
@@ -98,7 +90,7 @@ const computeNodeIdAndPath = <Datum extends TreeMapDatum>(
     return { path: path.join('.'), pathComponents: path }
 }
 
-export const useTreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
+export const useTreeMap = <Datum extends object = DefaultTreeMapDatum>({
     data,
     width,
     height,
@@ -117,11 +109,11 @@ export const useTreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
     parentLabelPosition = commonDefaultProps.parentLabelPosition,
     parentLabelPadding = commonDefaultProps.parentLabelPadding,
     colors = commonDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
-    colorBy = commonDefaultProps.colorBy,
+    colorBy = commonDefaultProps.colorBy as TreeMapCommonProps<Datum>['colorBy'],
     nodeOpacity = commonDefaultProps.nodeOpacity,
     borderColor = commonDefaultProps.borderColor as TreeMapCommonProps<Datum>['borderColor'],
-    labelTextColor = commonDefaultProps.labelTextColor,
-    parentLabelTextColor = commonDefaultProps.parentLabelTextColor,
+    labelTextColor = commonDefaultProps.labelTextColor as TreeMapCommonProps<Datum>['labelTextColor'],
+    parentLabelTextColor = commonDefaultProps.parentLabelTextColor as TreeMapCommonProps<Datum>['parentLabelTextColor'],
 }: {
     data: TreeMapDataProps<Datum>['data']
     width: number
@@ -165,7 +157,7 @@ export const useTreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
         leavesOnly,
     })
 
-    const hierarchy = useHierarchy({ root: data, getValue })
+    const hierarchy = useHierarchy<Datum>({ root: data, getValue })
 
     const rawNodes = useMemo(() => {
         // d3 treemap mutates the data, so we need to copy it
@@ -231,10 +223,10 @@ export const useTreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
             }),
         [
             rawNodes,
-            leavesOnly,
             getIdentity,
             formatValue,
             getLabel,
+            orientLabel,
             getParentLabel,
             parentLabelSize,
             parentLabelPosition,
@@ -264,15 +256,7 @@ export const useTreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
 
                 return nodeWithStyles
             }),
-        [
-            nodes,
-            getColor,
-            nodeOpacity,
-            getBorderColor,
-            getLabelTextColor,
-            getParentLabelTextColor,
-            orientLabel,
-        ]
+        [nodes, getColor, nodeOpacity, getBorderColor, getLabelTextColor, getParentLabelTextColor]
     )
 
     return {
@@ -282,7 +266,7 @@ export const useTreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
     }
 }
 
-export const useInteractiveTreeMapNodes = <Datum extends TreeMapDatum>(
+export const useInteractiveTreeMapNodes = <Datum extends object>(
     nodes: ComputedNode<Datum>[],
     {
         isInteractive,
@@ -293,10 +277,10 @@ export const useInteractiveTreeMapNodes = <Datum extends TreeMapDatum>(
         tooltip,
     }: {
         isInteractive: TreeMapCommonProps<Datum>['isInteractive']
-        onMouseEnter?: NodeMouseEventHandler<Datum>
-        onMouseMove?: NodeMouseEventHandler<Datum>
-        onMouseLeave?: NodeMouseEventHandler<Datum>
-        onClick?: NodeMouseEventHandler<Datum>
+        onMouseEnter?: TreeMapCommonProps<Datum>['onMouseEnter']
+        onMouseMove?: TreeMapCommonProps<Datum>['onMouseMove']
+        onMouseLeave?: TreeMapCommonProps<Datum>['onMouseLeave']
+        onClick?: TreeMapCommonProps<Datum>['onClick']
         tooltip: TreeMapCommonProps<Datum>['tooltip']
     }
 ): ComputedNodeWithHandlers<Datum>[] => {
@@ -353,6 +337,6 @@ export const useInteractiveTreeMapNodes = <Datum extends TreeMapDatum>(
                     onClick: (event: MouseEvent) => handleClick(node, event),
                 }
             }),
-        [nodes, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
+        [isInteractive, nodes, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
     )
 }

@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { linearGradientDef, patternDotsDef } from '@nivo/core'
+// @ts-ignore
 import { TreeMap } from '../src'
 
 const commonProperties = {

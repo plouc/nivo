@@ -4,15 +4,13 @@ import { useMotionConfig } from '@nivo/core'
 import { useInteractiveTreeMapNodes } from './hooks'
 import {
     ComputedNode,
-    NodeMouseEventHandler,
     TreeMapCommonProps,
-    TreeMapDatum,
     NodeAnimatedProps,
     NodeComponent,
     ComputedNodeWithHandlers,
 } from './types'
 
-const getAnimatedNodeProps = <Datum extends TreeMapDatum>(
+const getAnimatedNodeProps = <Datum extends object>(
     node: ComputedNodeWithHandlers<Datum>
 ): NodeAnimatedProps => ({
     x: node.x,
@@ -30,7 +28,7 @@ const getAnimatedNodeProps = <Datum extends TreeMapDatum>(
     parentLabelOpacity: 1,
 })
 
-const getEndingAnimatedNodeProps = <Datum extends TreeMapDatum>(
+const getEndingAnimatedNodeProps = <Datum extends object>(
     node: ComputedNodeWithHandlers<Datum>
 ): NodeAnimatedProps => {
     const x = node.x + node.width / 2
@@ -53,7 +51,7 @@ const getEndingAnimatedNodeProps = <Datum extends TreeMapDatum>(
     }
 }
 
-interface TreeMapNodesProps<Datum extends TreeMapDatum> {
+interface TreeMapNodesProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
     nodeComponent: NodeComponent<Datum>
     borderWidth: TreeMapCommonProps<Datum>['borderWidth']
@@ -61,14 +59,14 @@ interface TreeMapNodesProps<Datum extends TreeMapDatum> {
     labelSkipSize: TreeMapCommonProps<Datum>['labelSkipSize']
     enableParentLabel: TreeMapCommonProps<Datum>['enableParentLabel']
     isInteractive: TreeMapCommonProps<Datum>['isInteractive']
-    onMouseEnter?: NodeMouseEventHandler<Datum>
-    onMouseMove?: NodeMouseEventHandler<Datum>
-    onMouseLeave?: NodeMouseEventHandler<Datum>
-    onClick?: NodeMouseEventHandler<Datum>
+    onMouseEnter?: TreeMapCommonProps<Datum>['onMouseEnter']
+    onMouseMove?: TreeMapCommonProps<Datum>['onMouseMove']
+    onMouseLeave?: TreeMapCommonProps<Datum>['onMouseLeave']
+    onClick?: TreeMapCommonProps<Datum>['onClick']
     tooltip: TreeMapCommonProps<Datum>['tooltip']
 }
 
-const NonMemoizedTreeMapNodes = <Datum extends TreeMapDatum>({
+const NonMemoizedTreeMapNodes = <Datum extends object>({
     nodes,
     nodeComponent,
     borderWidth,

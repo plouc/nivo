@@ -11,9 +11,9 @@ const generateData = () => generateLightDataSet().root
 
 interface Datum {
     name: string
-    loc: number
+    loc?: number
     color: string
-    children: Datum[]
+    children?: Datum[]
 }
 
 const initialProperties = {

@@ -1,15 +1,15 @@
 import { Container, useDimensions } from '@nivo/core'
 import { useTreeMap } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
-import { DefaultTreeMapDatum, TreeMapCommonProps, TreeMapDatum, TreeMapHtmlProps } from './types'
+import { DefaultTreeMapDatum, TreeMapCommonProps, TreeMapHtmlProps } from './types'
 import { htmlDefaultProps } from './defaults'
 
-type InnerTreeMapHtmlProps<Datum extends TreeMapDatum> = Omit<
+type InnerTreeMapHtmlProps<Datum extends object> = Omit<
     TreeMapHtmlProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerTreeMapHtml = <Datum extends TreeMapDatum>({
+const InnerTreeMapHtml = <Datum extends object>({
     data,
     identity = htmlDefaultProps.identity as TreeMapCommonProps<Datum>['identity'],
     value = htmlDefaultProps.value as TreeMapCommonProps<Datum>['value'],
@@ -23,13 +23,13 @@ const InnerTreeMapHtml = <Datum extends TreeMapDatum>({
     height,
     margin: partialMargin,
     colors = htmlDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
-    colorBy = htmlDefaultProps.colorBy,
+    colorBy = htmlDefaultProps.colorBy as TreeMapCommonProps<Datum>['colorBy'],
     nodeOpacity = htmlDefaultProps.nodeOpacity,
     borderWidth = htmlDefaultProps.borderWidth,
     borderColor = htmlDefaultProps.borderColor as TreeMapCommonProps<Datum>['borderColor'],
     enableLabel = htmlDefaultProps.enableLabel,
     label = htmlDefaultProps.label as TreeMapCommonProps<Datum>['label'],
-    labelTextColor = htmlDefaultProps.labelTextColor,
+    labelTextColor = htmlDefaultProps.labelTextColor as TreeMapCommonProps<Datum>['labelTextColor'],
     orientLabel = htmlDefaultProps.orientLabel,
     labelSkipSize = htmlDefaultProps.labelSkipSize,
     enableParentLabel = htmlDefaultProps.enableParentLabel,
@@ -37,13 +37,13 @@ const InnerTreeMapHtml = <Datum extends TreeMapDatum>({
     parentLabelSize = htmlDefaultProps.parentLabelSize,
     parentLabelPosition = htmlDefaultProps.parentLabelPosition,
     parentLabelPadding = htmlDefaultProps.parentLabelPadding,
-    parentLabelTextColor = htmlDefaultProps.parentLabelTextColor,
+    parentLabelTextColor = htmlDefaultProps.parentLabelTextColor as TreeMapCommonProps<Datum>['parentLabelTextColor'],
     isInteractive = htmlDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = htmlDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
+    tooltip = htmlDefaultProps.tooltip as TreeMapCommonProps<Datum>['tooltip'],
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -113,7 +113,7 @@ const InnerTreeMapHtml = <Datum extends TreeMapDatum>({
     )
 }
 
-export const TreeMapHtml = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
+export const TreeMapHtml = <Datum extends object = DefaultTreeMapDatum>({
     isInteractive = htmlDefaultProps.isInteractive,
     animate = htmlDefaultProps.animate,
     motionConfig = htmlDefaultProps.motionConfig,

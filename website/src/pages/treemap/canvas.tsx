@@ -9,9 +9,9 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 interface Datum {
     name: string
-    loc: number
+    loc?: number
     color: string
-    children: Datum[]
+    children?: Datum[]
 }
 
 const initialProperties = {

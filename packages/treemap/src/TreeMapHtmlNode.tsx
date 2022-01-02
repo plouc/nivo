@@ -1,18 +1,10 @@
 import { memo } from 'react'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
-import { NodeProps, TreeMapDatum } from './types'
+import { NodeProps } from './types'
 import { htmlNodeTransform, htmlLabelTransform } from './transitions'
 
-/*
-parentLabelHtmlTransform: `translate(${
-    node.parentLabelX - (node.parentLabelRotation === 0 ? 0 : 5)
-}px,${node.parentLabelY - (node.parentLabelRotation === 0 ? 5 : 0)}px) rotate(${
-    node.parentLabelRotation
-}deg)`,
-*/
-
-const NonMemoizedTreeMapHtmlNode = <Datum extends TreeMapDatum>({
+const NonMemoizedTreeMapHtmlNode = <Datum extends object>({
     node,
     animatedProps,
     borderWidth,

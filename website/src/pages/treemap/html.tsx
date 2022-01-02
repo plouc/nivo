@@ -9,9 +9,9 @@ import { generateLightDataSet } from '../../data/components/treemap/generator'
 
 interface Datum {
     name: string
-    loc: number
+    loc?: number
     color: string
-    children: Datum[]
+    children?: Datum[]
 }
 
 const initialProperties = {

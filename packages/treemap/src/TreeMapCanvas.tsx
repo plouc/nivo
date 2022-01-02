@@ -10,16 +10,10 @@ import {
 } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { useTreeMap } from './hooks'
-import {
-    ComputedNode,
-    DefaultTreeMapDatum,
-    TreeMapCanvasProps,
-    TreeMapCommonProps,
-    TreeMapDatum,
-} from './types'
+import { ComputedNode, DefaultTreeMapDatum, TreeMapCanvasProps, TreeMapCommonProps } from './types'
 import { canvasDefaultProps } from './defaults'
 
-const findNodeUnderCursor = <Datum extends TreeMapDatum>(
+const findNodeUnderCursor = <Datum extends object>(
     nodes: ComputedNode<Datum>[],
     margin: Margin,
     x: number,
@@ -29,12 +23,12 @@ const findNodeUnderCursor = <Datum extends TreeMapDatum>(
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
-type InnerTreeMapCanvasProps<Datum extends TreeMapDatum> = Omit<
+type InnerTreeMapCanvasProps<Datum extends object> = Omit<
     TreeMapCanvasProps<Datum>,
     'renderWrapper' | 'theme'
 >
 
-const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
+const InnerTreeMapCanvas = <Datum extends object>({
     data,
     identity = canvasDefaultProps.identity as TreeMapCommonProps<Datum>['identity'],
     value = canvasDefaultProps.identity as TreeMapCommonProps<Datum>['value'],
@@ -47,19 +41,19 @@ const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
     height,
     margin: partialMargin,
     colors = canvasDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
-    colorBy = canvasDefaultProps.colorBy,
+    colorBy = canvasDefaultProps.colorBy as TreeMapCommonProps<Datum>['colorBy'],
     nodeOpacity = canvasDefaultProps.nodeOpacity,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor = canvasDefaultProps.borderColor as TreeMapCommonProps<Datum>['borderColor'],
     enableLabel = canvasDefaultProps.enableLabel,
     label = canvasDefaultProps.label as TreeMapCommonProps<Datum>['label'],
-    labelTextColor = canvasDefaultProps.labelTextColor,
+    labelTextColor = canvasDefaultProps.labelTextColor as TreeMapCommonProps<Datum>['labelTextColor'],
     orientLabel = canvasDefaultProps.orientLabel,
     labelSkipSize = canvasDefaultProps.labelSkipSize,
     isInteractive = canvasDefaultProps.isInteractive,
     onMouseMove,
     onClick,
-    tooltip = canvasDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
+    tooltip = canvasDefaultProps.tooltip as TreeMapCommonProps<Datum>['tooltip'],
     pixelRatio = canvasDefaultProps.pixelRatio,
     role,
     ariaLabel,
@@ -100,10 +94,11 @@ const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
     useEffect(() => {
         if (canvasEl.current === null) return
 
+        const ctx = canvasEl.current.getContext('2d')
+        if (ctx === null) return
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
-
-        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -220,7 +215,7 @@ const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
     )
 }
 
-export const TreeMapCanvas = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
+export const TreeMapCanvas = <Datum extends object = DefaultTreeMapDatum>({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,
     animate = canvasDefaultProps.animate,

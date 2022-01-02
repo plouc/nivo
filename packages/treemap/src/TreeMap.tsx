@@ -7,27 +7,21 @@ import {
 } from '@nivo/core'
 import { useTreeMap } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
-import {
-    DefaultTreeMapDatum,
-    NodeComponent,
-    TreeMapCommonProps,
-    TreeMapDatum,
-    TreeMapSvgProps,
-} from './types'
+import { DefaultTreeMapDatum, NodeComponent, TreeMapCommonProps, TreeMapSvgProps } from './types'
 import { svgDefaultProps } from './defaults'
 
-type InnerTreeMapProps<Datum extends TreeMapDatum> = Omit<
+type InnerTreeMapProps<Datum extends object> = Omit<
     TreeMapSvgProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerTreeMap = <Datum extends TreeMapDatum>({
+const InnerTreeMap = <Datum extends object>({
     data,
     identity = svgDefaultProps.identity as TreeMapCommonProps<Datum>['identity'],
     value = svgDefaultProps.value as TreeMapCommonProps<Datum>['value'],
     valueFormat,
     tile = svgDefaultProps.tile,
-    nodeComponent = svgDefaultProps.nodeComponent as unknown as NodeComponent<Datum>,
+    nodeComponent = svgDefaultProps.nodeComponent as NodeComponent<Datum>,
     innerPadding = svgDefaultProps.innerPadding,
     outerPadding = svgDefaultProps.outerPadding,
     leavesOnly = svgDefaultProps.leavesOnly,
@@ -35,7 +29,7 @@ const InnerTreeMap = <Datum extends TreeMapDatum>({
     height,
     margin: partialMargin,
     colors = svgDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
-    colorBy = svgDefaultProps.colorBy,
+    colorBy = svgDefaultProps.colorBy as TreeMapCommonProps<Datum>['colorBy'],
     nodeOpacity = svgDefaultProps.nodeOpacity,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor as TreeMapCommonProps<Datum>['borderColor'],
@@ -43,7 +37,7 @@ const InnerTreeMap = <Datum extends TreeMapDatum>({
     fill = svgDefaultProps.fill,
     enableLabel = svgDefaultProps.enableLabel,
     label = svgDefaultProps.label as TreeMapCommonProps<Datum>['label'],
-    labelTextColor = svgDefaultProps.labelTextColor,
+    labelTextColor = svgDefaultProps.labelTextColor as TreeMapCommonProps<Datum>['labelTextColor'],
     orientLabel = svgDefaultProps.orientLabel,
     labelSkipSize = svgDefaultProps.labelSkipSize,
     enableParentLabel = svgDefaultProps.enableParentLabel,
@@ -51,13 +45,13 @@ const InnerTreeMap = <Datum extends TreeMapDatum>({
     parentLabelSize = svgDefaultProps.parentLabelSize,
     parentLabelPosition = svgDefaultProps.parentLabelPosition,
     parentLabelPadding = svgDefaultProps.parentLabelPadding,
-    parentLabelTextColor = svgDefaultProps.parentLabelTextColor,
+    parentLabelTextColor = svgDefaultProps.parentLabelTextColor as TreeMapCommonProps<Datum>['parentLabelTextColor'],
     isInteractive = svgDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = svgDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
+    tooltip = svgDefaultProps.tooltip as TreeMapCommonProps<Datum>['tooltip'],
     role,
     ariaLabel,
     ariaLabelledBy,
@@ -126,7 +120,7 @@ const InnerTreeMap = <Datum extends TreeMapDatum>({
     )
 }
 
-export const TreeMap = <Datum extends TreeMapDatum = DefaultTreeMapDatum>({
+export const TreeMap = <Datum extends object = DefaultTreeMapDatum>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,

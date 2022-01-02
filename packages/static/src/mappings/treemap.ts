@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
-import { TreeMap, TreeMapSvgProps, DefaultTreeMapDatum, TreeMapDatum } from '@nivo/treemap'
+import { TreeMap, TreeMapSvgProps, DefaultTreeMapDatum } from '@nivo/treemap'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { OmitStrict } from '../types'
 
-export type TreeMapApiProps<Datum extends TreeMapDatum = DefaultTreeMapDatum> = OmitStrict<
+export type TreeMapApiProps<Datum = DefaultTreeMapDatum> = OmitStrict<
     TreeMapSvgProps<Datum> & Dimensions,
     | 'isInteractive'
     | 'onMouseEnter'

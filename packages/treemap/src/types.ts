@@ -1,4 +1,5 @@
 import { AriaAttributes, FunctionComponent, MouseEvent, MouseEventHandler } from 'react'
+import { SpringValues } from '@react-spring/web'
 import {
     Box,
     Dimensions,
@@ -6,21 +7,18 @@ import {
     ValueFormat,
     PropertyAccessor,
     ModernMotionProps,
+    SvgDefsAndFill,
 } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { SpringValues } from '@react-spring/web'
-
-export interface TreeMapDatum {
-    children: TreeMapDatum[]
-}
+import { InheritedColorConfig, OrdinalColorScaleConfig, DatumIdentityAccessor } from '@nivo/colors'
+import { TileType } from './tiling'
 
 export interface DefaultTreeMapDatum {
     id: string
-    value: string
-    children: DefaultTreeMapDatum[]
+    value?: number
+    children?: DefaultTreeMapDatum[]
 }
 
-export interface ComputedNode<Datum extends TreeMapDatum> {
+export interface ComputedNode<Datum extends object> {
     id: string
     path: string
     pathComponents: string[]
@@ -49,12 +47,12 @@ export interface ComputedNode<Datum extends TreeMapDatum> {
     parentLabelRotation: number
 }
 
-export type ComputedNodeWithoutStyles<Datum extends TreeMapDatum> = Omit<
+export type ComputedNodeWithoutStyles<Datum extends object> = Omit<
     ComputedNode<Datum>,
     'color' | 'opacity' | 'borderColor' | 'labelTextColor' | 'parentLabelTextColor'
 >
 
-export interface ComputedNodeWithHandlers<Datum extends TreeMapDatum> extends ComputedNode<Datum> {
+export interface ComputedNodeWithHandlers<Datum extends object> extends ComputedNode<Datum> {
     onMouseEnter?: MouseEventHandler
     onMouseMove?: MouseEventHandler
     onMouseLeave?: MouseEventHandler
@@ -77,7 +75,7 @@ export type NodeAnimatedProps = {
     parentLabelOpacity: number
 }
 
-export interface NodeProps<Datum extends TreeMapDatum> {
+export interface NodeProps<Datum extends object> {
     node: ComputedNodeWithHandlers<Datum>
     animatedProps: SpringValues<NodeAnimatedProps>
     borderWidth: TreeMapCommonProps<Datum>['borderWidth']
@@ -85,44 +83,42 @@ export interface NodeProps<Datum extends TreeMapDatum> {
     labelSkipSize: TreeMapCommonProps<Datum>['labelSkipSize']
     enableParentLabel: TreeMapCommonProps<Datum>['enableParentLabel']
 }
-export type NodeComponent<Datum extends TreeMapDatum> = FunctionComponent<NodeProps<Datum>>
+export type NodeComponent<Datum extends object> = FunctionComponent<NodeProps<Datum>>
 
-export type TreeMapTile = 'binary' | 'squarify' | 'slice' | 'dice' | 'sliceDice' | 'resquarify'
-
-export interface TooltipProps<Datum extends TreeMapDatum> {
+export interface TooltipProps<Datum extends object> {
     node: ComputedNode<Datum>
 }
-export type TooltipComponent<Datum extends TreeMapDatum> = FunctionComponent<TooltipProps<Datum>>
+export type TooltipComponent<Datum extends object> = FunctionComponent<TooltipProps<Datum>>
 
 export type LayerId = 'nodes'
 
-export interface CustomLayerProps<Datum extends TreeMapDatum> {
+export interface CustomLayerProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
 }
-export type CustomSvgLayer<Datum extends TreeMapDatum> = FunctionComponent<CustomLayerProps<Datum>>
-export type CustomHtmlLayer<Datum extends TreeMapDatum> = FunctionComponent<CustomLayerProps<Datum>>
-export type CustomCanvasLayer<Datum extends TreeMapDatum> = (
+export type CustomSvgLayer<Datum extends object> = FunctionComponent<CustomLayerProps<Datum>>
+export type CustomHtmlLayer<Datum extends object> = FunctionComponent<CustomLayerProps<Datum>>
+export type CustomCanvasLayer<Datum extends object> = (
     ctx: CanvasRenderingContext2D,
     props: CustomLayerProps<Datum>
 ) => void
 
-export type NodeMouseEventHandler<Datum extends TreeMapDatum> = (
+export type NodeMouseEventHandler<Datum extends object> = (
     node: ComputedNode<Datum>,
     event: MouseEvent
 ) => void
 
-export interface TreeMapDataProps<Datum extends TreeMapDatum> {
+export interface TreeMapDataProps<Datum extends object> {
     data: Datum
 }
 
-export type TreeMapCommonProps<Datum extends TreeMapDatum> = {
+export type TreeMapCommonProps<Datum extends object> = {
     margin: Box
 
     identity: PropertyAccessor<Datum, string>
     value: PropertyAccessor<Datum, number>
     valueFormat: ValueFormat<number>
 
-    tile: TreeMapTile
+    tile: TileType
     leavesOnly: boolean
     innerPadding: number
     outerPadding: number
@@ -131,7 +127,11 @@ export type TreeMapCommonProps<Datum extends TreeMapDatum> = {
     label: PropertyAccessor<Omit<ComputedNodeWithoutStyles<Datum>, 'label' | 'parentLabel'>, string>
     labelFormat: ValueFormat<number>
     labelSkipSize: number
-    labelTextColor: InheritedColorConfig<any>
+    labelTextColor: InheritedColorConfig<
+        ComputedNodeWithoutStyles<Datum> & {
+            color: ComputedNode<Datum>['color']
+        }
+    >
     orientLabel: boolean
 
     enableParentLabel: boolean
@@ -139,11 +139,15 @@ export type TreeMapCommonProps<Datum extends TreeMapDatum> = {
     parentLabelSize: number
     parentLabelPosition: 'top' | 'right' | 'bottom' | 'left'
     parentLabelPadding: number
-    parentLabelTextColor: InheritedColorConfig<any>
+    parentLabelTextColor: InheritedColorConfig<
+        ComputedNodeWithoutStyles<Datum> & {
+            color: ComputedNode<Datum>['color']
+        }
+    >
 
     theme: Theme
     colors: OrdinalColorScaleConfig<ComputedNodeWithoutStyles<Datum>>
-    colorBy: any //colorPropertyAccessorPropType.isRequired,
+    colorBy: string | DatumIdentityAccessor<ComputedNodeWithoutStyles<Datum>>
     nodeOpacity: number
     borderWidth: number
     borderColor: InheritedColorConfig<
@@ -153,6 +157,10 @@ export type TreeMapCommonProps<Datum extends TreeMapDatum> = {
     >
 
     isInteractive: boolean
+    onMouseEnter: NodeMouseEventHandler<Datum>
+    onMouseMove: NodeMouseEventHandler<Datum>
+    onMouseLeave: NodeMouseEventHandler<Datum>
+    onClick: NodeMouseEventHandler<Datum>
     tooltip: TooltipComponent<Datum>
 
     renderWrapper: boolean
@@ -163,36 +171,36 @@ export type TreeMapCommonProps<Datum extends TreeMapDatum> = {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 } & ModernMotionProps
 
-export type TreeMapSvgProps<Datum extends TreeMapDatum> = Partial<TreeMapCommonProps<Datum>> &
+export type TreeMapSvgProps<Datum extends object> = Partial<TreeMapCommonProps<Datum>> &
     TreeMapDataProps<Datum> &
-    Dimensions & {
+    Dimensions &
+    SvgDefsAndFill<ComputedNode<Datum>> & {
         nodeComponent?: NodeComponent<Datum>
         layers?: (LayerId | CustomSvgLayer<Datum>)[]
-        defs?: any[]
-        fill?: any[]
-        onMouseEnter?: NodeMouseEventHandler<Datum>
-        onMouseMove?: NodeMouseEventHandler<Datum>
-        onMouseLeave?: NodeMouseEventHandler<Datum>
-        onClick?: NodeMouseEventHandler<Datum>
     }
 
-export type TreeMapHtmlProps<Datum extends TreeMapDatum> = Partial<TreeMapCommonProps<Datum>> &
+export type TreeMapHtmlProps<Datum extends object> = Partial<TreeMapCommonProps<Datum>> &
     TreeMapDataProps<Datum> &
     Dimensions & {
         nodeComponent?: NodeComponent<Datum>
         layers?: (LayerId | CustomHtmlLayer<Datum>)[]
-        pixelRatio?: number
-        onMouseEnter?: NodeMouseEventHandler<Datum>
-        onMouseMove?: NodeMouseEventHandler<Datum>
-        onMouseLeave?: NodeMouseEventHandler<Datum>
-        onClick?: NodeMouseEventHandler<Datum>
     }
 
-export type TreeMapCanvasProps<Datum extends TreeMapDatum> = Partial<TreeMapCommonProps<Datum>> &
+export type TreeMapCanvasProps<Datum extends object> = Partial<
+    Omit<
+        TreeMapCommonProps<Datum>,
+        | 'enableParentLabel'
+        | 'parentLabel'
+        | 'parentLabelSize'
+        | 'parentLabelPosition'
+        | 'parentLabelPadding'
+        | 'parentLabelTextColor'
+        | 'onMouseEnter'
+        | 'onMouseLeave'
+    >
+> &
     TreeMapDataProps<Datum> &
     Dimensions & {
         layers?: (LayerId | CustomCanvasLayer<Datum>)[]
         pixelRatio?: number
-        onMouseMove?: NodeMouseEventHandler<Datum>
-        onClick?: NodeMouseEventHandler<Datum>
     }
