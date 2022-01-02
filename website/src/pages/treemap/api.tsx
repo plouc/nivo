@@ -1,6 +1,6 @@
 import React from 'react'
 // @ts-ignore
-import { TreeMapDefaultProps } from '@nivo/treemap'
+import { svgDefaultProps as defaults } from '@nivo/treemap'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/treemap/props'
@@ -46,10 +46,10 @@ const TreeMapApi = () => {
                     identity: 'name',
                     value: 'loc',
                     valueFormat: { format: '.02s', enabled: true },
-                    tile: TreeMapDefaultProps.tile,
-                    leavesOnly: TreeMapDefaultProps.leavesOnly,
-                    innerPadding: TreeMapDefaultProps.innerPadding,
-                    outerPadding: TreeMapDefaultProps.outerPadding,
+                    tile: defaults.tile,
+                    leavesOnly: defaults.leavesOnly,
+                    innerPadding: defaults.innerPadding,
+                    outerPadding: defaults.outerPadding,
 
                     width: 800,
                     height: 560,
@@ -60,28 +60,28 @@ const TreeMapApi = () => {
                         left: 10,
                     },
 
-                    enableLabel: TreeMapDefaultProps.enableLabel,
-                    label: TreeMapDefaultProps.label,
+                    enableLabel: defaults.enableLabel,
+                    label: defaults.label,
                     labelSkipSize: 12,
                     labelTextColor: {
                         from: 'color',
                         modifiers: [['darker', 1.2]],
                     },
-                    orientLabel: TreeMapDefaultProps.orientLabel,
-                    enableParentLabel: TreeMapDefaultProps.enableParentLabel,
-                    parentLabel: TreeMapDefaultProps.parentLabel,
-                    parentLabelSize: TreeMapDefaultProps.parentLabelSize,
-                    parentLabelPosition: TreeMapDefaultProps.parentLabelPosition,
-                    parentLabelPadding: TreeMapDefaultProps.parentLabelPadding,
+                    orientLabel: defaults.orientLabel,
+                    enableParentLabel: defaults.enableParentLabel,
+                    parentLabel: defaults.parentLabel,
+                    parentLabelSize: defaults.parentLabelSize,
+                    parentLabelPosition: defaults.parentLabelPosition,
+                    parentLabelPadding: defaults.parentLabelPadding,
                     parentLabelTextColor: {
                         from: 'color',
                         modifiers: [['darker', 2]],
                     },
 
-                    colors: TreeMapDefaultProps.colors,
-                    colorBy: TreeMapDefaultProps.colorBy,
-                    nodeOpacity: TreeMapDefaultProps.nodeOpacity,
-                    borderWidth: TreeMapDefaultProps.borderWidth,
+                    colors: defaults.colors,
+                    colorBy: defaults.colorBy,
+                    nodeOpacity: defaults.nodeOpacity,
+                    borderWidth: defaults.borderWidth,
                     borderColor: {
                         from: 'color',
                         modifiers: [['darker', 0.1]],

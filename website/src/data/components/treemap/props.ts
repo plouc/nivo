@@ -1,5 +1,4 @@
-// @ts-ignore
-import { TreeMapDefaultProps } from '@nivo/treemap'
+import { commonDefaultProps as defaults } from '@nivo/treemap'
 import {
     motionProperties,
     defsProperties,
@@ -10,8 +9,6 @@ import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/char
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'html', 'canvas', 'api']
-
-const defaults = TreeMapDefaultProps
 
 const props: ChartProperty[] = [
     {
