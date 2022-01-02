@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
 import { NodeProps } from './types'
-import { htmlNodeTransform, htmlLabelTransform } from './transitions'
+import { htmlNodeTransform, htmlLabelTransform, htmlParentLabelTransform } from './transitions'
 
 const NonMemoizedTreeMapHtmlNode = <Datum extends object>({
     node,
@@ -94,7 +94,7 @@ const NonMemoizedTreeMapHtmlNode = <Datum extends object>({
                         height: 10,
                         color: node.parentLabelTextColor,
                         transformOrigin: 'top left',
-                        transform: htmlLabelTransform(
+                        transform: htmlParentLabelTransform(
                             animatedProps.parentLabelX,
                             animatedProps.parentLabelY,
                             animatedProps.parentLabelRotation
