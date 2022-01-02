@@ -7,14 +7,7 @@ import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 
-const generateData = () => generateLightDataSet().root
-
-interface Datum {
-    name: string
-    loc?: number
-    color: string
-    children?: Datum[]
-}
+type Datum = ReturnType<typeof generateLightDataSet>
 
 const initialProperties = {
     identity: 'name',
@@ -91,7 +84,7 @@ const TreeMap = () => {
             initialProperties={initialProperties}
             defaultProperties={defaults}
             propertiesMapper={mapper}
-            generateData={generateData}
+            generateData={generateLightDataSet}
             image={image}
         >
             {(properties, data, theme, logAction) => {

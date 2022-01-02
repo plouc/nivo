@@ -265,3 +265,9 @@ declare module '*waffle/meta.yml' {
 
     export default meta
 }
+
+declare module '*.png' {
+    const file: string
+
+    export default file
+}

@@ -27,7 +27,7 @@ const getData = (currentColors: any) => {
 
     const leaves: Node[] = []
     nodes.forEach(node => {
-        Array.from({ length: 7 }, (v, k) => {
+        Array.from({ length: 7 }, (_v, k) => {
             leaves.push({
                 id: `${node.id}.${k}`,
                 size: 6,

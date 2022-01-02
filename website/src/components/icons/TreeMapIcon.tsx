@@ -4,12 +4,13 @@ import treemapLightColoredImg from '../../assets/icons/treemap-light-colored.png
 import treemapDarkNeutralImg from '../../assets/icons/treemap-dark-neutral.png'
 import treemapDarkColoredImg from '../../assets/icons/treemap-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
 const width = ICON_SIZE
 const height = ICON_SIZE * 0.7
 const spacing = 2
 
-const TreeMapIconItem = ({ type }) => (
+const TreeMapIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`treemap-${type}`} type={type}>
         <svg width={ICON_SIZE} height={ICON_SIZE}>
             <g transform={`translate(${(ICON_SIZE - width) / 2},${(ICON_SIZE - height) / 2})`}>
@@ -67,7 +68,7 @@ const TreeMapIconItem = ({ type }) => (
     </Icon>
 )
 
-const TreeMapIcon = () => (
+export const TreeMapIcon = () => (
     <>
         <TreeMapIconItem type="lightNeutral" />
         <IconImg url={treemapLightNeutralImg} />
@@ -79,5 +80,3 @@ const TreeMapIcon = () => (
         <IconImg url={treemapDarkColoredImg} />
     </>
 )
-
-export default TreeMapIcon

@@ -45,6 +45,8 @@ afterAll(() => {
     Globals.assign({ skipAnimation: false })
 })
 
+it('should render a basic treemap chart', () => {})
+
 /*
 it('should render a basic network chart', () => {
     const wrapper = mount(<Network {...baseProps} />)
