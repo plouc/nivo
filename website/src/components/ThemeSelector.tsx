@@ -1,27 +1,23 @@
 import React, { useCallback, useMemo } from 'react'
-import styled from 'styled-components'
-import { useTheme } from '../theming/context'
-import { useGlobalDispatch, useGlobalState } from './state'
+import styled, { useTheme } from 'styled-components'
+import { useSetTheme } from '../theming/SwitchableThemeProvider'
 import { Switch } from './controls/Switch'
-// import useLocalStorage from '../lib/useLocalStorage'
 
 const ThemeSelector = () => {
-    // const [themeId, saveThemeId] = useLocalStorage('theme')
-    const dispatch = useGlobalDispatch()
-    const state = useGlobalState()
+    const theme = useTheme()
+    const themeId = theme.id
+    const setThemeId = useSetTheme()
+
     const toggleTheme = useCallback(() => {
-        const theme = state.theme === 'light' ? 'dark' : 'light'
-        // saveThemeId(theme)
-        dispatch({ type: 'setTheme', theme })
-    }, [dispatch, state.theme])
+        setThemeId(themeId === 'light' ? 'dark' : 'light')
+    }, [theme, themeId])
+
     const setTheme = useCallback(
         theme => {
-            // saveThemeId(theme)
-            dispatch({ type: 'setTheme', theme })
+            setThemeId(theme)
         },
-        [dispatch]
+        [setThemeId]
     )
-    const theme = useTheme()
     const colors = useMemo(
         () => ({
             on: theme.colors.cardBackground,
@@ -35,20 +31,20 @@ const ThemeSelector = () => {
         <ToggleContainer>
             <ToggleItem
                 id="lightTheme"
-                isActive={state.theme === 'light'}
+                isActive={themeId === 'light'}
                 onClick={() => setTheme('light')}
             >
                 light
             </ToggleItem>
             <Switch
                 id="themeToggle"
-                value={state.theme === 'dark'}
+                value={themeId === 'dark'}
                 onChange={toggleTheme}
                 colors={colors}
             />
             <ToggleItem
                 id="darkTheme"
-                isActive={state.theme === 'dark'}
+                isActive={themeId === 'dark'}
                 onClick={() => setTheme('dark')}
             >
                 dark

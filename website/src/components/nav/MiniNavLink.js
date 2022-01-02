@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import { Link } from 'gatsby'
-import styled from 'styled-components'
-import { useTheme } from '../../theming/context'
+import styled, { useTheme } from 'styled-components'
 
 const Label = styled.span`
     position: absolute;

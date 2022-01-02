@@ -1,8 +1,7 @@
 import React, { memo } from 'react'
 import { Link } from 'gatsby'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import media from '../../../theming/mediaQueries'
-import { useTheme } from '../../../theming/context'
 
 interface ComponentsGridItemProps {
     path: string

@@ -1,7 +1,7 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 // @ts-ignore
 import { themeContext } from '@nivo/core'
-import { useTheme } from '../../theming/context'
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'

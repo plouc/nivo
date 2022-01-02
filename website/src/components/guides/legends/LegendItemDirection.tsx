@@ -1,6 +1,6 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 import { LegendSvgItem } from '@nivo/legends'
-import { useTheme } from '../../../theming/context'
 
 const itemDirections = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'] as const
 

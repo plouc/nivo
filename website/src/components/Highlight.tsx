@@ -1,6 +1,6 @@
 import React from 'react'
 import HighlightBase, { defaultProps, Language } from 'prism-react-renderer'
-import { useTheme } from '../theming/context'
+import { useTheme } from 'styled-components'
 
 interface HighlightProps {
     code: string

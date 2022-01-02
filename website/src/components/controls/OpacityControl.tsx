@@ -1,11 +1,9 @@
 import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Control } from './Control'
 import { PropertyHeader } from './PropertyHeader'
 import { TextInput } from './TextInput'
 import { Help } from './Help'
-// @ts-ignore
-import { useTheme } from '../../theming/context'
 import { Flavor, ChartProperty } from '../../types'
 import { OpacityControlConfig } from './types'
 
