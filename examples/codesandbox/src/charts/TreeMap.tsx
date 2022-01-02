@@ -13,15 +13,17 @@ const props = {
   valueFormat: '.02s',
 }
 
+type Datum = ReturnType<typeof generateLibTree>
+
 export function TreeMap() {
   const [data, flavor] = useChart(generateLibTree)
 
   switch (flavor) {
     case 'canvas':
-      return <ResponsiveTreeMapCanvas data={data} {...props} />
+      return <ResponsiveTreeMapCanvas<Datum> data={data} {...props} />
     case 'html':
-      return <ResponsiveTreeMapHtml data={data} {...props} />
+      return <ResponsiveTreeMapHtml<Datum> data={data} {...props} />
     case 'svg':
-      return <ResponsiveTreeMap data={data} {...props} />
+      return <ResponsiveTreeMap<Datum> data={data} {...props} />
   }
 }

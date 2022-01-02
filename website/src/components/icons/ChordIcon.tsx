@@ -6,6 +6,7 @@ import chordLightColoredImg from '../../assets/icons/chord-light-colored.png'
 import chordDarkNeutralImg from '../../assets/icons/chord-dark-neutral.png'
 import chordDarkColoredImg from '../../assets/icons/chord-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
 const Wrapper = styled.div<{
     ribbonColor: string
@@ -48,7 +49,7 @@ const chartProps = {
     animate: false,
 }
 
-const ChordIconItem = ({ type }) => (
+const ChordIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`chord-${type}`} type={type}>
         <Wrapper ribbonColor={colors[type].colors[1]}>
             <Chord {...chartProps} colors={[colors[type].colors[4]]} />

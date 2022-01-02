@@ -2,7 +2,7 @@ import { generateLibTree } from '@nivo/generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
 
-export const generateLightDataSet = () => ({ root: generateLibTree() })
+export const generateLightDataSet = () => generateLibTree()
 
 const HEAVY_NODE_COUNT = 600
 

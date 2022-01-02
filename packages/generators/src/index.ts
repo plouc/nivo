@@ -226,13 +226,24 @@ const libTreeItems = [
     ],
 ]
 
-export const generateLibTree = (name = 'nivo', limit?: number | null, children = libTreeItems) => {
+interface LibTreeDatum {
+    name: string
+    loc?: number
+    color: string
+    children?: LibTreeDatum[]
+}
+
+export const generateLibTree = (
+    name = 'nivo',
+    limit?: number | null,
+    children = libTreeItems
+): LibTreeDatum => {
     limit = limit || children.length
     if (limit > children.length) {
         limit = children.length
     }
 
-    const tree: Record<string, unknown> = {
+    const tree: LibTreeDatum = {
         name,
         color: randColor(),
     }

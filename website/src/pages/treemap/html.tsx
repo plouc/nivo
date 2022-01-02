@@ -7,12 +7,7 @@ import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 
-interface Datum {
-    name: string
-    loc?: number
-    color: string
-    children?: Datum[]
-}
+type Datum = ReturnType<typeof generateLightDataSet>
 
 const initialProperties = {
     identity: 'name',
@@ -95,7 +90,7 @@ const TreeMapHtml = () => {
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveTreeMapHtml<Datum>
-                        data={data.root}
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={node => {

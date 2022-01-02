@@ -1,18 +1,13 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import { ResponsiveTreeMapCanvas, canvasDefaultProps as defaults } from '@nivo/treemap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateHeavyDataSet } from '../../data/components/treemap/generator'
-import { graphql, useStaticQuery } from 'gatsby'
 
-interface Datum {
-    name: string
-    loc?: number
-    color: string
-    children?: Datum[]
-}
+type Datum = ReturnType<typeof generateHeavyDataSet>['root']
 
 const initialProperties = {
     identity: defaults.identity,
@@ -84,6 +79,8 @@ const TreeMapCanvas = () => {
             defaultProperties={defaults}
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
+            getTabData={data => data.root}
+            getDataSize={data => data.nodeCount}
             image={image}
         >
             {(properties, data, theme, logAction) => {

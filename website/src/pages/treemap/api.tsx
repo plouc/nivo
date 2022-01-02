@@ -1,5 +1,4 @@
-import React from 'react'
-// @ts-ignore
+import React, { useMemo } from 'react'
 import { svgDefaultProps as defaults } from '@nivo/treemap'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
@@ -8,8 +7,6 @@ import mapper from '../../data/components/treemap/mapper'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 import meta from '../../data/components/treemap/meta.yml'
 import { graphql, useStaticQuery } from 'gatsby'
-
-const data = generateLightDataSet().root
 
 const TreeMapApi = () => {
     const {
@@ -25,6 +22,8 @@ const TreeMapApi = () => {
             }
         }
     `)
+
+    const data = useMemo(() => generateLightDataSet(), [])
 
     return (
         <>
