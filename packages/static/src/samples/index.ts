@@ -154,7 +154,7 @@ export const samples: Record<
             enableArcLabels: true,
             arcLabelsSkipAngle: 10,
             arcLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
-        } as ChartProps<'sunburst'>,
+        },
     },
     treemap: {
         type: 'treemap',
@@ -168,6 +168,6 @@ export const samples: Record<
             leavesOnly: false,
             innerPadding: 3,
             outerPadding: 3,
-        } as unknown as ChartProps<'treemap'>,
+        },
     },
 }
