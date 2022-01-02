@@ -44,6 +44,10 @@ const InnerTreeMapHtml = <Datum extends TreeMapDatum>({
     onMouseLeave,
     onClick,
     tooltip = htmlDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
+    role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: InnerTreeMapHtmlProps<Datum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -79,6 +83,10 @@ const InnerTreeMapHtml = <Datum extends TreeMapDatum>({
 
     return (
         <div
+            role={role}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
             style={{
                 position: 'relative',
                 width: outerWidth,

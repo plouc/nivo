@@ -61,6 +61,10 @@ const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
     onClick,
     tooltip = canvasDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
     pixelRatio = canvasDefaultProps.pixelRatio,
+    role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: InnerTreeMapCanvasProps<Datum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -208,6 +212,10 @@ const InnerTreeMapCanvas = <Datum extends TreeMapDatum>({
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            role={role}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
         />
     )
 }
