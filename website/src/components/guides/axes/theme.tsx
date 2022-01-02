@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Theme } from '@nivo/core'
-import { useTheme } from '../../../theming/context'
+import { useTheme } from 'styled-components'
 
 export const useAxisTheme = (): Theme => {
     const theme = useTheme()

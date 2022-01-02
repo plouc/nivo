@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, useTheme } from 'styled-components'
 import media from '../../../theming/mediaQueries'
-import { useTheme } from '../../../theming/context'
 import { CodeBlock } from '../../CodeBlock'
 import { ApiPreview } from './ApiPreview'
 

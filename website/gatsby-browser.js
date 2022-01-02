@@ -1,13 +1,18 @@
 import React from 'react'
-import PageWrapper from './src/components/PageWrapper'
+import { RootWrapper } from './src/components/RootWrapper'
+import { PageWrapper } from './src/components/PageWrapper'
 
-export const wrapPageElement = ({ element }) => {
-    return (
-        <PageWrapper>
-            {element}
-        </PageWrapper>
-    )
-}
+export const wrapRootElement = ({ element }) => (
+    <RootWrapper>
+        {element}
+    </RootWrapper>
+)
+
+export const wrapPageElement = ({ element }) => (
+    <PageWrapper>
+        {element}
+    </PageWrapper>
+)
 
 export const onServiceWorkerUpdateReady = () => {
     const answer = window.confirm([

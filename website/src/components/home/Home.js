@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTheme } from '../../theming/context'
+import { useTheme } from 'styled-components'
 import { Container, HomeBaseline, HomeLogo } from './styled'
 import { HomeChord } from './HomeChord'
 import HomeLine from './HomeLine'

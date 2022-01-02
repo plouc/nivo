@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactSelect from 'react-select'
-import { useTheme } from '../../theming/context'
+import { useTheme } from 'styled-components'
 
 const Select = props => {
     const theme = useTheme()

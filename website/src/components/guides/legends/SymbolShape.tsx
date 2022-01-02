@@ -1,7 +1,7 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 import { LegendSvgItem } from '@nivo/legends'
 import { Highlight } from '../../Highlight'
-import { useTheme } from '../../../theming/context'
 
 const shapes = ['square', 'circle', 'triangle', 'diamond'] as const
 

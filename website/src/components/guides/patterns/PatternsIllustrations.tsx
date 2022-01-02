@@ -1,13 +1,11 @@
 import React from 'react'
-// @ts-ignore
+import { useTheme } from 'styled-components'
 import { patternDotsDef, patternLinesDef, patternSquaresDef } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
 import { generateCountriesData } from '@nivo/generators'
 import { FullWidthBanner } from '../../styled'
-// @ts-ignore
-import { useTheme } from '../../../theming/context'
 
 export const PatternsIllustrations = () => {
     const theme = useTheme()

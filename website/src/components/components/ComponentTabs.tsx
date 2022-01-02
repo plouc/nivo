@@ -1,7 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import media from '../../theming/mediaQueries'
-import { useTheme } from '../../theming/context'
 import { Highlight } from '../Highlight'
 import { CodeBlock } from '../CodeBlock'
 
