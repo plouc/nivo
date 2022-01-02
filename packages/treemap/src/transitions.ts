@@ -18,12 +18,15 @@ export const htmlLabelTransform = (
     rotation: SpringValue<number>
 ) => to([x, y, rotation], (x, y, rotation) => `translate(${x}px,${y}px) rotate(${rotation}deg)`)
 
-// export const htmlParentLabelTransform = () => to()
-
-/*
-parentLabelHtmlTransform: `translate(${
-    node.parentLabelX - (node.parentLabelRotation === 0 ? 0 : 5)
-}px,${node.parentLabelY - (node.parentLabelRotation === 0 ? 5 : 0)}px) rotate(${
-    node.parentLabelRotation
-}deg)`,
-*/
+export const htmlParentLabelTransform = (
+    x: SpringValue<number>,
+    y: SpringValue<number>,
+    rotation: SpringValue<number>
+) =>
+    to(
+        [x, y, rotation],
+        (x, y, rotation) =>
+            `translate(${x - (rotation === 0 ? 0 : 5)}px,${
+                y - (rotation === 0 ? 5 : 0)
+            }px) rotate(${rotation}deg)`
+    )
