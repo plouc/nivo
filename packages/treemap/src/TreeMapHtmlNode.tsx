@@ -23,6 +23,7 @@ const NonMemoizedTreeMapHtmlNode = <Datum extends object>({
 
     return (
         <animated.div
+            data-testid={`node.${node.id}`}
             id={node.path.replace(/[^\w]/gi, '-')}
             style={{
                 boxSizing: 'border-box',
@@ -56,6 +57,7 @@ const NonMemoizedTreeMapHtmlNode = <Datum extends object>({
             />
             {showLabel && (
                 <animated.span
+                    data-testid={`label.${node.id}`}
                     style={{
                         ...theme.labels.text,
                         position: 'absolute',
@@ -83,6 +85,7 @@ const NonMemoizedTreeMapHtmlNode = <Datum extends object>({
             )}
             {showParentLabel && (
                 <animated.span
+                    data-testid={`parentLabel.${node.id}`}
                     style={{
                         ...theme.labels.text,
                         position: 'absolute',
