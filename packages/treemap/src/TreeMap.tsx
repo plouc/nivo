@@ -59,6 +59,9 @@ const InnerTreeMap = <Datum extends TreeMapDatum>({
     onClick,
     tooltip = svgDefaultProps.tooltip as unknown as TreeMapCommonProps<Datum>['tooltip'],
     role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
 }: InnerTreeMapProps<Datum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -101,6 +104,9 @@ const InnerTreeMap = <Datum extends TreeMapDatum>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
         >
             <TreeMapNodes<Datum>
                 nodes={nodes}

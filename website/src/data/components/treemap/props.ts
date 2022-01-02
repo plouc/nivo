@@ -5,7 +5,12 @@ import {
     groupProperties,
     themeProperty,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    ordinalColors,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'html', 'canvas', 'api']
@@ -335,6 +340,7 @@ const props: ChartProperty[] = [
         help: 'onClick handler.',
         required: false,
     },
+    ...commonAccessibilityProps(allFlavors),
     ...motionProperties(['svg', 'html', 'canvas'], defaults, 'react-spring'),
 ]
 
