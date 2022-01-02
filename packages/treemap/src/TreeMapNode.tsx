@@ -24,6 +24,7 @@ const NonMemoizedTreeMapNode = <Datum extends object>({
     return (
         <animated.g transform={svgNodeTransform(animatedProps.x, animatedProps.y)}>
             <animated.rect
+                data-testid={`node.${node.id}`}
                 width={to(animatedProps.width, v => Math.max(v, 0))}
                 height={to(animatedProps.height, v => Math.max(v, 0))}
                 fill={node.fill ? node.fill : animatedProps.color}
@@ -37,6 +38,7 @@ const NonMemoizedTreeMapNode = <Datum extends object>({
             />
             {showLabel && (
                 <animated.text
+                    data-testid={`label.${node.id}`}
                     textAnchor="middle"
                     dominantBaseline="central"
                     style={{
@@ -56,6 +58,7 @@ const NonMemoizedTreeMapNode = <Datum extends object>({
             )}
             {showParentLabel && (
                 <animated.text
+                    data-testid={`parentLabel.${node.id}`}
                     dominantBaseline="central"
                     style={{
                         ...theme.labels.text,
