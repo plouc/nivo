@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/core'
-import { NodeProps, TreeMapDatum } from './types'
+import { NodeProps } from './types'
 import { svgNodeTransform, svgLabelTransform } from './transitions'
 
-const NonMemoizedTreeMapNode = <Datum extends TreeMapDatum>({
+const NonMemoizedTreeMapNode = <Datum extends object>({
     node,
     animatedProps,
     borderWidth,

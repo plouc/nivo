@@ -1,4 +1,4 @@
-import { commonDefaultProps as defaults } from '@nivo/treemap'
+import { commonDefaultProps as defaults, tileByType } from '@nivo/treemap'
 import {
     motionProperties,
     defsProperties,
@@ -68,17 +68,10 @@ const props: ChartProperty[] = [
         defaultValue: 'squarify',
         control: {
             type: 'choices',
-            choices: [
-                { label: 'binary', value: 'binary' },
-                { label: 'squarify', value: 'squarify' },
-                { label: 'slice', value: 'slice' },
-                { label: 'dice', value: 'dice' },
-                { label: 'sliceDice', value: 'sliceDice' },
-                {
-                    label: 'resquarify',
-                    value: 'resquarify',
-                },
-            ],
+            choices: Object.keys(tileByType).map(tile => ({
+                label: tile,
+                value: tile,
+            })),
         },
     },
     {

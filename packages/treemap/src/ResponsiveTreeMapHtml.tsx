@@ -1,8 +1,8 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { DefaultTreeMapDatum, TreeMapDatum, TreeMapHtmlProps } from './types'
+import { DefaultTreeMapDatum, TreeMapHtmlProps } from './types'
 import { TreeMapHtml } from './TreeMapHtml'
 
-export const ResponsiveTreeMapHtml = <Datum extends TreeMapDatum = DefaultTreeMapDatum>(
+export const ResponsiveTreeMapHtml = <Datum extends object = DefaultTreeMapDatum>(
     props: Omit<TreeMapHtmlProps<Datum>, 'height' | 'width'>
 ) => (
     <ResponsiveWrapper>
