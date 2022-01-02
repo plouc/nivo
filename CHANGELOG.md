@@ -1,5 +1,37 @@
+<a name="v0.78.0"></a>
+## v0.78.0 (2022-01-02)
+
+
+#### Features
+
+* **chord:**
+  *  fix various hooks dependencies issues ([5469cc9f](https://github.com/plouc/nivo/commit/5469cc9fb783f90c3872120a140553013a1f1136))
+  *  add tests for active/inactive arcs & ribbons ([00d839ec](https://github.com/plouc/nivo/commit/00d839ecbd2387d9c513e124e9ae7525f08c9f36))
+  *  rename properties related to active/inactive styles ([7c3e7a7a](https://github.com/plouc/nivo/commit/7c3e7a7ab68ee2f6a667a788221c100340fa51f0))
+  *  init unit tests ([7c1d39b6](https://github.com/plouc/nivo/commit/7c1d39b68398d86a3da993ea55570c4ab8e9a0d1))
+  *  update stories ([73467c9d](https://github.com/plouc/nivo/commit/73467c9d939dba10906b3d2688a9bf0b360f64f1))
+  *  adjust website icon and home demo according to the new API ([90210e4d](https://github.com/plouc/nivo/commit/90210e4d0577730255c81e22bb95da2040ed69e5))
+  *  migrate arc transitions to react-spring ([ebf01a18](https://github.com/plouc/nivo/commit/ebf01a18174c36b5fa7e3296b9428fa2791e052b))
+  *  fix static mapping used for the http API ([a9926666](https://github.com/plouc/nivo/commit/a99266669ec3cec79e8e2c31ea3b9843a608bd55))
+  *  migrate ribbons and arcs transitions to react-spring ([458ba58b](https://github.com/plouc/nivo/commit/458ba58b2b01245284970c2a7740cee78b17862a))
+  *  init TypeScript migration ([16c316b7](https://github.com/plouc/nivo/commit/16c316b7e15a57f314a3f9a7230630869b75c427))
+* **network:**  improve stories ([8faac86a](https://github.com/plouc/nivo/commit/8faac86aaa9da630e398d620e4b8a4a33b82a2ab))
+* **treemap:**
+  *  add unit tests ([64628e1f](https://github.com/plouc/nivo/commit/64628e1f1215f976db4c53d66a574e286b87b7f7))
+  *  fix html parent label interpolation ([ba6071a3](https://github.com/plouc/nivo/commit/ba6071a334bc657afda369e9c07ce4657c1fdfd7))
+  *  add support for custom layers to SVG and canvas implementations ([b45f0d11](https://github.com/plouc/nivo/commit/b45f0d116c06dbc4b8129f639fdd25e40ab15a39))
+  *  adjust website according to new typings ([8946b02f](https://github.com/plouc/nivo/commit/8946b02fe312ef7007c4679179dde994670eda60))
+  *  fix static mapping and sample ([a7a44000](https://github.com/plouc/nivo/commit/a7a4400076e151b21ea5828e5227a7ae5945b774))
+  *  datum now just extends object ([0fdd6854](https://github.com/plouc/nivo/commit/0fdd6854cc03a221022facbce2754fdd263f51a1))
+  *  add support for basic aria attributes to all flavors ([7213ca05](https://github.com/plouc/nivo/commit/7213ca0586076cd8bc5764f01009340c7730102a))
+  *  fix static mapping and sample ([7b5b3939](https://github.com/plouc/nivo/commit/7b5b3939d53c14c3363001f0e1b3a9caeb632c32))
+  *  migrate the package to TypeScript ([1795f712](https://github.com/plouc/nivo/commit/1795f7126f74f059573c8dfff17dbc221a7b251d))
+* **website:**  fix api client layout ([36914f28](https://github.com/plouc/nivo/commit/36914f28a29b07e548f352db6f15d80e6bdd542d))
+
+
+
 <a name="v0.77.0"></a>
-## v0.77.0 (2021-12-31)
+## v0.77.0 (%cs)
 
 
 #### Features

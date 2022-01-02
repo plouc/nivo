@@ -1,6 +1,6 @@
 {
   "name": "@nivo/bar",
-  "version": "0.77.0",
+  "version": "0.78.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,22 +29,22 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/annotations": "0.77.0",
-    "@nivo/axes": "0.77.0",
-    "@nivo/colors": "0.77.0",
-    "@nivo/legends": "0.77.0",
-    "@nivo/scales": "0.77.0",
-    "@nivo/tooltip": "0.77.0",
+    "@nivo/annotations": "0.78.0",
+    "@nivo/axes": "0.78.0",
+    "@nivo/colors": "0.78.0",
+    "@nivo/legends": "0.78.0",
+    "@nivo/scales": "0.78.0",
+    "@nivo/tooltip": "0.78.0",
     "@react-spring/web": "9.3.1",
     "d3-scale": "^3.2.3",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "0.77.0"
+    "@nivo/core": "0.78.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.77.0",
+    "@nivo/core": "0.78.0",
     "react": ">= 16.14.0 < 18.0.0"
   },
   "publishConfig": {

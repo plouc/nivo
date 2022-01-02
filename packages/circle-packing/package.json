@@ -1,6 +1,6 @@
 {
   "name": "@nivo/circle-packing",
-  "version": "0.77.0",
+  "version": "0.78.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,18 +29,18 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/colors": "0.77.0",
-    "@nivo/tooltip": "0.77.0",
+    "@nivo/colors": "0.78.0",
+    "@nivo/tooltip": "0.78.0",
     "@react-spring/web": "9.3.1",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "0.77.0",
+    "@nivo/core": "0.78.0",
     "@types/d3-hierarchy": "^1.1.7"
   },
   "peerDependencies": {
-    "@nivo/core": "0.77.0",
+    "@nivo/core": "0.78.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 18.0.0"
   },

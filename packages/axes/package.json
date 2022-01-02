@@ -1,6 +1,6 @@
 {
   "name": "@nivo/axes",
-  "version": "0.77.0",
+  "version": "0.78.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -27,18 +27,18 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/scales": "0.77.0",
+    "@nivo/scales": "0.78.0",
     "@react-spring/web": "9.3.1",
     "d3-format": "^1.4.4",
     "d3-time-format": "^3.0.0"
   },
   "devDependencies": {
-    "@nivo/core": "0.77.0",
+    "@nivo/core": "0.78.0",
     "@types/d3-format": "^1.4.1",
     "@types/d3-time-format": "^2.3.1"
   },
   "peerDependencies": {
-    "@nivo/core": "0.77.0",
+    "@nivo/core": "0.78.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 18.0.0"
   },
