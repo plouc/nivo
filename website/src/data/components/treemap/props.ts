@@ -333,6 +333,21 @@ const props: ChartProperty[] = [
         help: 'onClick handler.',
         required: false,
     },
+    {
+        key: 'nodeComponent',
+        type: 'NodeComponent',
+        group: 'Customization',
+        help: 'Override the default node component.',
+        flavors: ['svg', 'html'],
+    },
+    {
+        key: 'layers',
+        type: `('nodes' | CustomSvgLayer | CustomHtmlLayer | CustomCanvasLayer)[]`,
+        group: 'Customization',
+        help: 'Define layers, please use the appropriate variant for custom layers.',
+        defaultValue: defaults.layers,
+        flavors: ['svg', 'html', 'canvas'],
+    },
     ...commonAccessibilityProps(allFlavors),
     ...motionProperties(['svg', 'html', 'canvas'], defaults, 'react-spring'),
 ]

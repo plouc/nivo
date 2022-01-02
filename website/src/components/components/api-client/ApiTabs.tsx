@@ -69,9 +69,8 @@ const Wrapper = styled.div`
     position: fixed;
     top: ${({ theme }) => theme.dimensions.headerHeight}px;
     right: 0;
-    width: 60%;
     --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
-    width: calc(var(--innerWidth) * 0.6);
+    width: calc(var(--innerWidth) * 0.55);
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
     height: calc(var(--innerHeight) * 0.55);
     z-index: 10;
