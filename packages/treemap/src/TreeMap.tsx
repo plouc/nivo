@@ -1,3 +1,4 @@
+import { createElement, Fragment, ReactNode } from 'react'
 import {
     SvgWrapper,
     Container,
@@ -5,9 +6,15 @@ import {
     // @ts-ignore
     bindDefs,
 } from '@nivo/core'
-import { useTreeMap } from './hooks'
+import { useTreeMap, useCustomLayerProps } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
-import { DefaultTreeMapDatum, NodeComponent, TreeMapCommonProps, TreeMapSvgProps } from './types'
+import {
+    DefaultTreeMapDatum,
+    NodeComponent,
+    TreeMapCommonProps,
+    TreeMapSvgProps,
+    LayerId,
+} from './types'
 import { svgDefaultProps } from './defaults'
 
 type InnerTreeMapProps<Datum extends object> = Omit<
@@ -28,6 +35,7 @@ const InnerTreeMap = <Datum extends object>({
     width,
     height,
     margin: partialMargin,
+    layers = svgDefaultProps.layers as NonNullable<TreeMapSvgProps<Datum>['layers']>,
     colors = svgDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
     colorBy = svgDefaultProps.colorBy as TreeMapCommonProps<Datum>['colorBy'],
     nodeOpacity = svgDefaultProps.nodeOpacity,
@@ -89,20 +97,14 @@ const InnerTreeMap = <Datum extends object>({
         parentLabelTextColor,
     })
 
-    const boundDefs = bindDefs(defs, nodes, fill)
+    const layerById: Record<LayerId, ReactNode> = {
+        nodes: null,
+    }
 
-    return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            defs={boundDefs}
-            role={role}
-            ariaLabel={ariaLabel}
-            ariaLabelledBy={ariaLabelledBy}
-            ariaDescribedBy={ariaDescribedBy}
-        >
+    if (layers.includes('nodes')) {
+        layerById.nodes = (
             <TreeMapNodes<Datum>
+                key="nodes"
                 nodes={nodes}
                 nodeComponent={nodeComponent}
                 borderWidth={borderWidth}
@@ -116,6 +118,31 @@ const InnerTreeMap = <Datum extends object>({
                 onClick={onClick}
                 tooltip={tooltip}
             />
+        )
+    }
+
+    const customLayerProps = useCustomLayerProps<Datum>({ nodes })
+
+    const boundDefs = bindDefs(defs, nodes, fill)
+
+    return (
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            defs={boundDefs}
+            role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
+        >
+            {layers.map((layer, i) => {
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
+                }
+
+                return layerById?.[layer] ?? null
+            })}
         </SvgWrapper>
     )
 }

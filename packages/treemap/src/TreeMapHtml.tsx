@@ -1,8 +1,9 @@
+import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions } from '@nivo/core'
-import { useTreeMap } from './hooks'
+import { useCustomLayerProps, useTreeMap } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
-import { DefaultTreeMapDatum, TreeMapCommonProps, TreeMapHtmlProps } from './types'
-import { htmlDefaultProps } from './defaults'
+import { DefaultTreeMapDatum, TreeMapCommonProps, TreeMapHtmlProps, LayerId } from './types'
+import { htmlDefaultProps, svgDefaultProps } from './defaults'
 
 type InnerTreeMapHtmlProps<Datum extends object> = Omit<
     TreeMapHtmlProps<Datum>,
@@ -22,6 +23,7 @@ const InnerTreeMapHtml = <Datum extends object>({
     width,
     height,
     margin: partialMargin,
+    layers = svgDefaultProps.layers as NonNullable<TreeMapHtmlProps<Datum>['layers']>,
     colors = htmlDefaultProps.colors as TreeMapCommonProps<Datum>['colors'],
     colorBy = htmlDefaultProps.colorBy as TreeMapCommonProps<Datum>['colorBy'],
     nodeOpacity = htmlDefaultProps.nodeOpacity,
@@ -81,6 +83,32 @@ const InnerTreeMapHtml = <Datum extends object>({
         parentLabelTextColor,
     })
 
+    const layerById: Record<LayerId, ReactNode> = {
+        nodes: null,
+    }
+
+    if (layers.includes('nodes')) {
+        layerById.nodes = (
+            <TreeMapNodes<Datum>
+                key="nodes"
+                nodes={nodes}
+                nodeComponent={nodeComponent}
+                borderWidth={borderWidth}
+                enableLabel={enableLabel}
+                labelSkipSize={labelSkipSize}
+                enableParentLabel={enableParentLabel}
+                isInteractive={isInteractive}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
+            />
+        )
+    }
+
+    const customLayerProps = useCustomLayerProps<Datum>({ nodes })
+
     return (
         <div
             role={role}
@@ -94,20 +122,13 @@ const InnerTreeMapHtml = <Datum extends object>({
             }}
         >
             <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
-                <TreeMapNodes<Datum>
-                    nodes={nodes}
-                    nodeComponent={nodeComponent}
-                    borderWidth={borderWidth}
-                    enableLabel={enableLabel}
-                    labelSkipSize={labelSkipSize}
-                    enableParentLabel={enableParentLabel}
-                    isInteractive={isInteractive}
-                    onMouseEnter={onMouseEnter}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseLeave}
-                    onClick={onClick}
-                    tooltip={tooltip}
-                />
+                {layers.map((layer, i) => {
+                    if (typeof layer === 'function') {
+                        return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
+                    }
+
+                    return layerById?.[layer] ?? null
+                })}
             </div>
         </div>
     )

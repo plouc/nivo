@@ -128,8 +128,7 @@ const ControlPanel = styled.div`
     right: 0;
     bottom: 0;
     --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
-    --partialWidth: calc(var(--innerWidth) * 0.6);
-    width: var(--partialWidth);
+    width: calc(var(--innerWidth) * 0.55);
     background: ${({ theme }) => theme.colors.cardAltBackground};
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
     height: calc(var(--innerHeight) * 0.45);

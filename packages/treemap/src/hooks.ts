@@ -19,6 +19,7 @@ import {
     ComputedNode,
     ComputedNodeWithoutStyles,
     ComputedNodeWithHandlers,
+    CustomLayerProps,
 } from './types'
 import { tileByType } from './tiling'
 
@@ -340,3 +341,13 @@ export const useInteractiveTreeMapNodes = <Datum extends object>(
         [isInteractive, nodes, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
     )
 }
+
+export const useCustomLayerProps = <Datum extends object>({
+    nodes,
+}: CustomLayerProps<Datum>): CustomLayerProps<Datum> =>
+    useMemo(
+        () => ({
+            nodes,
+        }),
+        [nodes]
+    )
