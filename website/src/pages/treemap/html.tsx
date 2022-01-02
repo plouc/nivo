@@ -1,20 +1,27 @@
 import React from 'react'
-import { ResponsiveTreeMapHtml, TreeMapDefaultProps } from '@nivo/treemap'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveTreeMapHtml, htmlDefaultProps as defaults } from '@nivo/treemap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
 import { groups } from '../../data/components/treemap/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
-import { graphql, useStaticQuery } from 'gatsby'
+
+interface Datum {
+    name: string
+    loc: number
+    color: string
+    children: Datum[]
+}
 
 const initialProperties = {
     identity: 'name',
     value: 'loc',
     valueFormat: { format: '.02s', enabled: true },
-    tile: TreeMapDefaultProps.tile,
-    leavesOnly: TreeMapDefaultProps.leavesOnly,
-    innerPadding: TreeMapDefaultProps.innerPadding,
-    outerPadding: TreeMapDefaultProps.outerPadding,
+    tile: defaults.tile,
+    leavesOnly: defaults.leavesOnly,
+    innerPadding: defaults.innerPadding,
+    outerPadding: defaults.outerPadding,
 
     margin: {
         top: 10,
@@ -24,36 +31,36 @@ const initialProperties = {
     },
 
     enableLabel: true,
-    label: TreeMapDefaultProps.label,
+    label: defaults.label,
     labelSkipSize: 12,
     labelTextColor: {
         from: 'color',
         modifiers: [['darker', 2]],
     },
-    orientLabel: TreeMapDefaultProps.orientLabel,
-    enableParentLabel: TreeMapDefaultProps.enableParentLabel,
-    parentLabel: TreeMapDefaultProps.parentLabel,
-    parentLabelSize: TreeMapDefaultProps.parentLabelSize,
-    parentLabelPosition: TreeMapDefaultProps.parentLabelPosition,
-    parentLabelPadding: TreeMapDefaultProps.parentLabelPadding,
+    orientLabel: defaults.orientLabel,
+    enableParentLabel: defaults.enableParentLabel,
+    parentLabel: defaults.parentLabel,
+    parentLabelSize: defaults.parentLabelSize,
+    parentLabelPosition: defaults.parentLabelPosition,
+    parentLabelPadding: defaults.parentLabelPadding,
     parentLabelTextColor: {
         from: 'color',
         modifiers: [['darker', 3]],
     },
 
     colors: { scheme: 'yellow_orange_red' },
-    colorBy: TreeMapDefaultProps.colorBy,
-    nodeOpacity: TreeMapDefaultProps.nodeOpacity,
-    borderWidth: TreeMapDefaultProps.borderWidth,
+    colorBy: defaults.colorBy,
+    nodeOpacity: defaults.nodeOpacity,
+    borderWidth: defaults.borderWidth,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.1]],
     },
 
-    animate: TreeMapDefaultProps.animate,
-    motionConfig: TreeMapDefaultProps.motionConfig,
+    animate: defaults.animate,
+    motionConfig: defaults.motionConfig,
 
-    isInteractive: TreeMapDefaultProps.isInteractive,
+    isInteractive: defaults.isInteractive,
 }
 
 const TreeMapHtml = () => {
@@ -80,14 +87,14 @@ const TreeMapHtml = () => {
             currentFlavor="html"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={TreeMapDefaultProps}
+            defaultProperties={defaults}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveTreeMapHtml
+                    <ResponsiveTreeMapHtml<Datum>
                         data={data.root}
                         {...properties}
                         theme={theme}

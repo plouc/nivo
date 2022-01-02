@@ -1,15 +1,21 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
-import { TreeMap, TreeMapSvgProps } from '@nivo/treemap'
+import { TreeMap, TreeMapSvgProps, DefaultTreeMapDatum, TreeMapDatum } from '@nivo/treemap'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { OmitStrict } from '../types'
 
-export type TreeMapApiProps = OmitStrict<
-    TreeMapSvgProps & Dimensions,
-    'isInteractive' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick' | 'animate'
+export type TreeMapApiProps<Datum extends TreeMapDatum = DefaultTreeMapDatum> = OmitStrict<
+    TreeMapSvgProps<Datum> & Dimensions,
+    | 'isInteractive'
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'animate'
+    | 'renderWrapper'
 >
 
 export const treemapMapping = {
@@ -38,6 +44,7 @@ export const treemapMapping = {
         labelSkipSize: Joi.number(),
         orientLabel: Joi.boolean(),
         labelTextColor: inheritedColor,
+
         enableParentLabel: Joi.boolean(),
         parentLabel: Joi.string(),
         parentLabelSize: Joi.number().min(0),
