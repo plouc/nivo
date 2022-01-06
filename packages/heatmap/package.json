@@ -21,11 +21,12 @@
   ],
   "main": "./dist/nivo-heatmap.cjs.js",
   "module": "./dist/nivo-heatmap.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/axes": "0.78.0",

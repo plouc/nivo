@@ -1,17 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useMotionConfig, useTheme } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@nivo/core'
 
-const HeatMapCellRect = ({
+const HeatMapCellCircle = ({
     data,
     label,
     x,
@@ -33,10 +25,7 @@ const HeatMapCellRect = ({
 
     const animatedProps = useSpring({
         transform: `translate(${x}, ${y})`,
-        width,
-        height,
-        xOffset: width * -0.5,
-        yOffset: height * -0.5,
+        radius: Math.min(width, height) / 2,
         color,
         opacity,
         textColor,
@@ -55,11 +44,8 @@ const HeatMapCellRect = ({
             onMouseLeave={onLeave}
             onClick={onClick ? event => onClick(data, event) : undefined}
         >
-            <animated.rect
-                x={animatedProps.xOffset}
-                y={animatedProps.yOffset}
-                width={animatedProps.width}
-                height={animatedProps.height}
+            <animated.circle
+                r={animatedProps.radius}
                 fill={animatedProps.color}
                 fillOpacity={animatedProps.opacity}
                 strokeWidth={animatedProps.borderWidth}
@@ -83,7 +69,7 @@ const HeatMapCellRect = ({
     )
 }
 
-HeatMapCellRect.propTypes = {
+HeatMapCellCircle.propTypes = {
     data: PropTypes.object.isRequired,
     label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     x: PropTypes.number.isRequired,
@@ -101,4 +87,4 @@ HeatMapCellRect.propTypes = {
     onClick: PropTypes.func,
 }
 
-export default memo(HeatMapCellRect)
+export default memo(HeatMapCellCircle)

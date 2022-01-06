@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useEffect, useRef, useCallback } from 'react'
 import {
     getRelativeCursor,
@@ -19,7 +11,7 @@ import { useTooltip } from '@nivo/tooltip'
 import { useHeatMap } from './hooks'
 import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'
-import HeatMapCellTooltip from './HeatMapCellTooltip'
+import { HeatMapTooltip } from './HeatMapTooltip'
 
 const HeatMapCanvas = ({
     data,
@@ -165,7 +157,7 @@ const HeatMapCanvas = ({
             if (cell !== undefined) {
                 setCurrentCellId(cell.id)
                 showTooltipFromEvent(
-                    <HeatMapCellTooltip cell={cell} tooltip={tooltip} format={tooltipFormat} />,
+                    <HeatMapTooltip cell={cell} tooltip={tooltip} format={tooltipFormat} />,
                     event
                 )
             } else {
