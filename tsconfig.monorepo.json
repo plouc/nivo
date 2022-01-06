@@ -27,6 +27,7 @@
         { "path": "./packages/chord" },
         { "path": "./packages/circle-packing" },
         { "path": "./packages/funnel" },
+        { "path": "./packages/heatmap" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/network" },
         { "path": "./packages/pie" },
