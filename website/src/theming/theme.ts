@@ -79,6 +79,23 @@ const lightTheme: DefaultTheme = {
             text: {
                 fontSize: 12,
             },
+            ticks: {
+                line: {
+                    strokeWidth: 1,
+                    stroke: '#637079',
+                },
+                text: {
+                    fill: '#6a7c89',
+                    fontSize: 10,
+                },
+            },
+            title: {
+                text: {
+                    fill: '#6f6f6f',
+                    fontSize: 10,
+                    fontWeight: 800,
+                },
+            },
         },
         tooltip: {
             container: {
@@ -197,6 +214,23 @@ const darkTheme: DefaultTheme = {
             text: {
                 fontSize: 12,
                 fill: '#8d9cab',
+            },
+            ticks: {
+                line: {
+                    strokeWidth: 1,
+                    stroke: '#c8d4e0',
+                },
+                text: {
+                    fill: '#8d9cab',
+                    fontSize: 10,
+                },
+            },
+            title: {
+                text: {
+                    fill: '#ccd7e2',
+                    fontSize: 10,
+                    fontWeight: 800,
+                },
             },
         },
         tooltip: {
