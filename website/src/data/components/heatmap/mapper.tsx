@@ -1,5 +1,5 @@
 import React from 'react'
-import { settingsMapper, mapAxis } from '../../../lib/settings'
+import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
 
 const CustomCell = ({
     value,
@@ -40,6 +40,7 @@ const CustomCell = ({
 
 export default settingsMapper(
     {
+        valueFormat: mapFormat,
         cellShape: value => {
             if (value === `Custom(props) => (…)`) return CustomCell
             return value

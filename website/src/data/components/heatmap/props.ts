@@ -1,7 +1,12 @@
-// @ts-ignore
-import { HeatMapDefaultProps as defaults } from '@nivo/heatmap'
+import { commonDefaultProps as defaults, svgDefaultProps as svgDefaults } from '@nivo/heatmap'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions, chartGrid, axes, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    chartGrid,
+    axes,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
@@ -10,48 +15,18 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
-        flavors: allFlavors,
         help: 'Chart data.',
-        type: 'object[]',
+        type: 'HeatMapSerie<Datum, ExtraProps>[]',
         required: true,
     },
     {
-        key: 'indexBy',
-        group: 'Base',
-        flavors: allFlavors,
-        help: 'Key to use to index the data.',
-        description: `
-            Key to use to index the data,
-            this key must exist in each data item.
-            You can also provide a function which will
-            receive the data item and must return
-            the desired index
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaults.indexBy,
-    },
-    {
-        key: 'keys',
-        group: 'Base',
-        flavors: allFlavors,
-        help: 'Keys to use to determine each serie.',
-        type: 'string[]',
-        required: false,
-        defaultValue: defaults.keys,
-    },
-    {
         key: 'minValue',
-        help: 'Minimum value.',
-        flavors: allFlavors,
         description: `
-            Minimum value.
             If 'auto', will pick the lowest value
             in the provided data set. Should be overriden
             if your data set does not contain desired
             lower bound value.
         `,
-        required: false,
         defaultValue: defaults.minValue,
         type: `number | 'auto'`,
         group: 'Base',
@@ -65,15 +40,13 @@ const props: ChartProperty[] = [
     },
     {
         key: 'maxValue',
-        help: 'Maximum value.',
         flavors: allFlavors,
         description: `
-            Maximum value. If 'auto', will pick the highest value
+            If 'auto', will pick the highest value
             in the provided data set. Should be overriden
             if your data set does not contain desired
             higher bound value.
         `,
-        required: false,
         defaultValue: defaults.maxValue,
         type: `number | 'auto'`,
         group: 'Base',
@@ -86,21 +59,81 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        type: 'string | (value: number) => string | number',
+        control: { type: 'valueFormat' },
+    },
+    ...chartDimensions(allFlavors),
+    {
         key: 'forceSquare',
         help: 'Force square cells (width = height).',
-        flavors: allFlavors,
-        required: false,
         defaultValue: defaults.forceSquare,
         type: 'boolean',
         control: { type: 'switch' },
         group: 'Base',
     },
     {
+        key: 'xOuterPadding',
+        defaultValue: defaults.xOuterPadding,
+        type: 'number',
+        group: 'Base',
+        control: {
+            type: 'range',
+            min: 0,
+            max: 1,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'xInnerPadding',
+        defaultValue: defaults.xInnerPadding,
+        type: 'number',
+        group: 'Base',
+        control: {
+            type: 'range',
+            min: 0,
+            max: 1,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'yOuterPadding',
+        flavors: allFlavors,
+        defaultValue: defaults.yOuterPadding,
+        type: 'number',
+        group: 'Base',
+        control: {
+            type: 'range',
+            min: 0,
+            max: 1,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'yInnerPadding',
+        defaultValue: defaults.yInnerPadding,
+        type: 'number',
+        group: 'Base',
+        control: {
+            type: 'range',
+            min: 0,
+            max: 1,
+            step: 0.05,
+        },
+    },
+    {
         key: 'sizeVariation',
         help: 'Cell size variation.',
-        flavors: allFlavors,
         description: `Size variation (0~1), if value is 0 size won't be affected. If you use for example the value 0.3, cell width/height will vary between 0.7~1 according to its corresponding value.`,
-        required: false,
         defaultValue: defaults.sizeVariation,
         type: 'number',
         group: 'Base',
@@ -111,123 +144,90 @@ const props: ChartProperty[] = [
             step: 0.02,
         },
     },
-    {
-        key: 'padding',
-        help: 'Padding.',
-        flavors: allFlavors,
-        required: false,
-        defaultValue: defaults.padding,
-        type: 'number',
-        group: 'Base',
-        control: {
-            type: 'range',
-            min: 0,
-            max: 36,
-            unit: 'px',
-        },
-    },
-    ...chartDimensions(allFlavors),
-    themeProperty(['svg', 'canvas', 'api']),
-    {
-        key: 'cellShape',
-        help: `Cell shape/component.`,
-        flavors: allFlavors,
-        description: `
-            Cell shape, can be one of: \`'rect'\`, \`'circle'\`,
-            if a function is provided, it must return
-            a valid SVG element and will receive
-            the following props:
-            \`\`\`
-            {
-                value:       number,
-                x:           number,
-                y:           number,
-                width:       number,
-                height:      number,
-                color:       string,
-                opacity:     number,
-                borderWidth: number,
-                borderColor: string,
-                textColor:   string,
-            }
-            \`\`\`
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaults.cellShape,
-        group: 'Style',
-        control: {
-            type: 'choices',
-            choices: ['rect', 'circle', 'Custom(props) => (…)'].map(key => ({
-                label: key,
-                value: key,
-            })),
-        },
-    },
+    themeProperty(allFlavors),
     {
         key: 'colors',
-        help: 'Defines color range.',
-        flavors: allFlavors,
-        type: 'string | Function | string[]',
-        required: false,
-        defaultValue: 'nivo',
-        control: { type: 'quantizeColors' },
         group: 'Style',
+        type: 'ContinuousColorScaleConfig | ((datum) => string)',
+        control: {
+            type: 'continuous_colors',
+        },
     },
     {
         key: 'cellOpacity',
-        help: 'Cell opacity (0~1).',
-        flavors: allFlavors,
-        required: false,
+        group: 'Style',
         defaultValue: defaults.cellOpacity,
         type: 'number',
         control: { type: 'opacity' },
-        group: 'Style',
     },
     {
-        key: 'cellBorderWidth',
+        key: 'activeCellOpacity',
+        group: 'Style',
+        flavors: ['svg', 'canvas'],
+        defaultValue: defaults.cellOpacity,
+        type: 'number',
+        control: { type: 'opacity' },
+    },
+    {
+        key: 'inactiveCellOpacity',
+        group: 'Style',
+        flavors: ['svg', 'canvas'],
+        defaultValue: defaults.cellOpacity,
+        type: 'number',
+        control: { type: 'opacity' },
+    },
+    {
+        key: 'borderRadius',
+        group: 'Style',
+        help: 'Cell border radius, when using `rect`.',
+        flavors: ['svg', 'api'],
+        defaultValue: svgDefaults.borderRadius,
+        type: 'number',
+        control: { type: 'range', min: 0, max: 16 },
+    },
+    {
+        key: 'borderWidth',
+        group: 'Style',
         help: 'Cell border width.',
-        flavors: allFlavors,
-        required: false,
-        defaultValue: defaults.cellBorderWidth,
+        defaultValue: defaults.borderWidth,
         type: 'number',
         control: { type: 'lineWidth' },
-        group: 'Style',
     },
     {
-        key: 'cellBorderColor',
+        key: 'borderColor',
+        group: 'Style',
         help: 'Method to compute cell border color.',
-        flavors: allFlavors,
         description: `
             how to compute cell border color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        type: 'string | object | Function',
-        required: false,
-        defaultValue: defaults.cellBorderColor,
+        type: 'InheritedColorConfig<ComputedCell>',
+        defaultValue: defaults.borderColor,
         control: { type: 'inheritedColor' },
-        group: 'Style',
     },
     {
         key: 'enableLabels',
         help: 'Enable/disable labels.',
-        flavors: allFlavors,
         type: 'boolean',
-        required: false,
         defaultValue: defaults.enableLabels,
         control: { type: 'switch' },
         group: 'Labels',
     },
     {
+        key: 'label',
+        help: 'Define what to use as a label.',
+        type: 'PropertyAccessor',
+        defaultValue: defaults.label,
+        group: 'Labels',
+    },
+    {
         key: 'labelTextColor',
         help: 'Method to compute label text color.',
-        flavors: allFlavors,
         description: `
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
         `,
         type: 'string | object | Function',
-        required: false,
         defaultValue: defaults.labelTextColor,
         control: { type: 'inheritedColor' },
         group: 'Labels',
@@ -238,6 +238,189 @@ const props: ChartProperty[] = [
         yDefault: defaults.enableGridY,
     }),
     ...axes({ flavors: allFlavors }),
+    {
+        key: 'legends',
+        group: 'Legends',
+        type: `ContinuousColorsLegendProps[]`,
+        control: {
+            type: 'array',
+            shouldCreate: true,
+            shouldRemove: true,
+            props: [
+                {
+                    key: 'anchor',
+                    type: 'LegendAnchor',
+                    control: { type: 'boxAnchor' },
+                },
+                {
+                    key: 'translateX',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: -200,
+                        max: 200,
+                    },
+                },
+                {
+                    key: 'translateY',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: -200,
+                        max: 200,
+                    },
+                },
+                {
+                    key: 'length',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: 60,
+                        max: 500,
+                    },
+                },
+                {
+                    key: 'thickness',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: 6,
+                        max: 32,
+                    },
+                },
+                {
+                    key: 'direction',
+                    type: `'row' | 'column'`,
+                    control: {
+                        type: 'radio',
+                        choices: [
+                            {
+                                label: 'row',
+                                value: 'row',
+                            },
+                            {
+                                label: 'column',
+                                value: 'column',
+                            },
+                        ],
+                    },
+                },
+                {
+                    key: 'tickPosition',
+                    type: `'before' | 'after'`,
+                    control: {
+                        type: 'radio',
+                        choices: [
+                            {
+                                label: 'before',
+                                value: 'before',
+                            },
+                            {
+                                label: 'after',
+                                value: 'after',
+                            },
+                        ],
+                    },
+                },
+                {
+                    key: 'tickSize',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: 0,
+                        max: 12,
+                    },
+                },
+                {
+                    key: 'tickSpacing',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: 0,
+                        max: 12,
+                    },
+                },
+                {
+                    key: 'tickOverlap',
+                    type: 'boolean',
+                    control: { type: 'switch' },
+                },
+                {
+                    key: 'title',
+                    type: 'string',
+                    control: { type: 'text' },
+                },
+                {
+                    key: 'titleAlign',
+                    type: `'start' | 'middle' | 'end'`,
+                    control: {
+                        type: 'radio',
+                        choices: [
+                            {
+                                label: 'start',
+                                value: 'start',
+                            },
+                            {
+                                label: 'middle',
+                                value: 'middle',
+                            },
+                            {
+                                label: 'end',
+                                value: 'end',
+                            },
+                        ],
+                    },
+                },
+                {
+                    key: 'titleOffset',
+                    type: 'number',
+                    control: {
+                        type: 'range',
+                        min: 0,
+                        max: 12,
+                    },
+                },
+            ],
+        },
+    },
+    {
+        key: 'layers',
+        type: `('grid' | 'axes' | 'cells' | CustomLayer | CustomCanvasLayer)[]`,
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers, please use the appropriate variant for custom layers.',
+        defaultValue: defaults.layers,
+        flavors: ['svg', 'canvas'],
+    },
+    {
+        key: 'cellComponent',
+        group: 'Customization',
+        type: `'rect' | 'circle' | CellComponent`,
+        help: 'Cell component, the API does not support `CellComponent`.',
+        flavors: ['svg', 'api'],
+        defaultValue: 'rect',
+        control: {
+            type: 'choices',
+            choices: ['rect', 'circle', 'CustomCell'].map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
+    {
+        key: 'renderCell',
+        group: 'Customization',
+        type: `'rect' | 'circle' | CellCanvasRenderer`,
+        help: 'Cell renderer for canvas implementation.',
+        flavors: ['canvas'],
+        defaultValue: 'rect',
+        control: {
+            type: 'choices',
+            choices: ['rect', 'circle', 'customRenderCell'].map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
     isInteractive({
         flavors: ['svg', 'canvas'],
         defaultValue: defaults.isInteractive,
@@ -247,7 +430,6 @@ const props: ChartProperty[] = [
         flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: '(cell, event) => void',
-        required: false,
         help: 'onClick handler.',
         description: `
             onClick handler, will receive node data
@@ -280,7 +462,6 @@ const props: ChartProperty[] = [
             - **column**: highlight the current cell's column
             - **rowColumn**: highlight the current cell's row & column
         `,
-        required: false,
         defaultValue: defaults.hoverTarget,
         type: 'string',
         group: 'Interactivity',
@@ -292,26 +473,7 @@ const props: ChartProperty[] = [
             })),
         },
     },
-    {
-        key: 'cellHoverOpacity',
-        flavors: ['svg', 'canvas'],
-        help: 'Cell opacity on hover.',
-        required: false,
-        defaultValue: defaults.cellHoverOpacity,
-        type: 'number',
-        control: { type: 'opacity' },
-        group: 'Interactivity',
-    },
-    {
-        key: 'cellHoverOthersOpacity',
-        flavors: ['svg', 'canvas'],
-        help: 'Cell opacity when not hovered.',
-        required: false,
-        defaultValue: defaults.cellHoverOthersOpacity,
-        type: 'number',
-        control: { type: 'opacity' },
-        group: 'Interactivity',
-    },
+    ...commonAccessibilityProps(allFlavors),
     ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
