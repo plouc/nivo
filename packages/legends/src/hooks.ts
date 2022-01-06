@@ -34,8 +34,9 @@ export const useQuantizeColorScaleLegendData = ({
                 color: domainValue,
             }
         })
-        if (reverse === true) items.reverse()
+
+        if (reverse) items.reverse()
 
         return items
-    }, [overriddenDomain, scale, reverse])
+    }, [overriddenDomain, scale, reverse, separator, valueFormat])
 }

@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { ScaleDiverging, ScaleQuantize, ScaleSequential } from 'd3-scale'
+import { CompleteTheme, ValueFormat } from '@nivo/core'
 import { SymbolProps } from './svg/symbols/types'
-import { CompleteTheme } from '@nivo/core'
 
 /**
  * This can be used to add effect on legends on interaction.
@@ -147,3 +148,30 @@ export type LegendCanvasProps = {
         | 'itemDirection'
         | 'itemTextColor'
     >
+
+export interface ContinuousColorsLegendProps {
+    id: string
+    scale: ScaleSequential<string> | ScaleDiverging<string> | ScaleQuantize<string>
+    ticks?: number | number[]
+    length?: number
+    thickness?: number
+    direction?: LegendDirection
+    borderWidth?: number
+    borderColor?: string
+    tickPosition?: 'before' | 'after'
+    tickSize?: number
+    tickSpacing?: number
+    tickOverlap?: boolean
+    tickFormat?: ValueFormat<number>
+    title?: string
+    titleAlign?: 'start' | 'middle' | 'end'
+    titleOffset?: number
+}
+
+export type AnchoredContinuousColorsLegendProps = ContinuousColorsLegendProps & {
+    anchor: LegendAnchor
+    translateX?: number
+    translateY?: number
+    containerWidth: number
+    containerHeight: number
+}
