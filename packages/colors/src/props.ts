@@ -14,8 +14,6 @@ export const ordinalColorsPropType = PropTypes.oneOfType([
     PropTypes.string,
 ])
 
-export const colorPropertyAccessorPropType = PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-
 export const inheritedColorPropType = PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,

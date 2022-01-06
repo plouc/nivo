@@ -7,7 +7,7 @@ import {
     isCategoricalColorScheme,
     isSequentialColorScheme,
     isDivergingColorScheme,
-} from './schemes'
+} from '../schemes'
 
 /**
  * Static color.
