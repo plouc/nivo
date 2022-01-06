@@ -49,6 +49,18 @@ export const defaultTheme = {
             },
         },
         text: {},
+        ticks: {
+            line: {
+                stroke: '#777777',
+                strokeWidth: 1,
+            },
+            text: {
+                fontSize: 10,
+            },
+        },
+        title: {
+            text: {},
+        },
     },
     labels: {
         text: {},

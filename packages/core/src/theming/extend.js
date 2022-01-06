@@ -14,6 +14,8 @@ const fontProps = [
     'axis.ticks.text',
     'axis.legend.text',
     'legends.text',
+    'legends.ticks.text',
+    'legends.title.text',
     'labels.text',
     'dots.text',
     'markers.text',

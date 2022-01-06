@@ -87,6 +87,13 @@ declare module '@nivo/core' {
                 text: Partial<React.CSSProperties>
             }
             text: Partial<React.CSSProperties>
+            ticks: {
+                line: Partial<React.CSSProperties>
+                text: Partial<React.CSSProperties>
+            }
+            title: {
+                text: Partial<React.CSSProperties>
+            }
         }
         labels: {
             text: Partial<React.CSSProperties>
@@ -165,6 +172,13 @@ declare module '@nivo/core' {
                     text: CompleteTheme['legends']['hidden']['text']
                 }>
                 text: Partial<CompleteTheme['legends']['text']>
+                ticks: Partial<{
+                    line: Partial<CompleteTheme['legends']['ticks']['line']>
+                    text: Partial<CompleteTheme['legends']['ticks']['text']>
+                }>
+                title: Partial<{
+                    text: Partial<CompleteTheme['legends']['title']['text']>
+                }>
             }>
             labels: Partial<{
                 text: Partial<CompleteTheme['labels']['text']>
