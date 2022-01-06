@@ -41,7 +41,7 @@ const CustomCell = ({
 export default settingsMapper(
     {
         valueFormat: mapFormat,
-        cellShape: value => {
+        cellShape: (value: string) => {
             if (value === `Custom(props) => (…)`) return CustomCell
             return value
         },
@@ -49,6 +49,12 @@ export default settingsMapper(
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
+        legends: (legends: any[]) => {
+            return legends.map(legend => ({
+                ...legend,
+                tickFormat: mapFormat(legend.tickFormat),
+            }))
+        },
     },
     {
         exclude: ['enable axisTop', 'enable axisRight', 'enable axisBottom', 'enable axisLeft'],

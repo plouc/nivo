@@ -33,7 +33,7 @@ export const computeCells = <Datum extends HeatMapDatum, ExtraProps extends obje
             allValues.push(datum.y)
 
             cells.push({
-                id: `${datum.x}.${serie.id}`,
+                id: `${serie.id}.${datum.x}`,
                 serieId: serie.id,
                 value: datum.y,
                 data: datum,

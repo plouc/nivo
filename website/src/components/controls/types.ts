@@ -32,6 +32,7 @@ export interface ChoicesControlConfig {
 
 export interface RadioControlConfig {
     type: 'radio'
+    columns?: number
     choices: {
         label: string
         value: string

@@ -12,6 +12,7 @@ import {
 import { useHeatMap } from './hooks'
 import { svgDefaultProps } from './defaults'
 import { HeatMapCells } from './HeatMapCells'
+import { HeatMapCellAnnotations } from './HeatMapCellAnnotations'
 
 type InnerHeatMapProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
     HeatMapSvgProps<Datum, ExtraProps>,
@@ -52,6 +53,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     colors = svgDefaultProps.colors,
     nanColor = svgDefaultProps.nanColor,
     legends = svgDefaultProps.legends,
+    annotations = svgDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
     isInteractive = svgDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
@@ -93,6 +95,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         axes: null,
         cells: null,
         legends: null,
+        annotations: null,
     }
 
     if (layers.includes('grid')) {
@@ -155,6 +158,16 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
                     />
                 ))}
             </Fragment>
+        )
+    }
+
+    if (layers.includes('annotations') && annotations.length > 0) {
+        layerById.annotations = (
+            <HeatMapCellAnnotations<Datum>
+                key="annotations"
+                cells={cells}
+                annotations={annotations}
+            />
         )
     }
 

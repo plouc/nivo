@@ -11,15 +11,16 @@ import {
 import { AxisProps } from '@nivo/axes'
 import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
 import { AnchoredContinuousColorsLegendProps } from '@nivo/legends'
+import { AnnotationMatcher } from '@nivo/annotations'
 
 export interface HeatMapDatum {
     x: string | number
-    y: number
+    y: number | null | undefined
 }
 
 export interface DefaultHeatMapDatum {
     x: string
-    y: number
+    y: number | null | undefined
 }
 
 export type HeatMapSerie<Datum extends HeatMapDatum, ExtraProps extends object> = {
@@ -64,7 +65,7 @@ export interface HeatMapDataProps<Datum extends HeatMapDatum, ExtraProps extends
     data: HeatMapSerie<Datum, ExtraProps>[]
 }
 
-export type LayerId = 'grid' | 'axes' | 'cells' | 'legends'
+export type LayerId = 'grid' | 'axes' | 'cells' | 'legends' | 'annotations'
 export interface CustomLayerProps<Datum extends HeatMapDatum> {
     cells: ComputedCell<Datum>[]
 }
@@ -137,6 +138,8 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
     labelTextColor: InheritedColorConfig<Omit<ComputedCell<Datum>, 'labelTextColor'>>
 
     legends: Omit<AnchoredContinuousColorsLegendProps, 'containerWidth' | 'containerHeight'>[]
+
+    annotations: AnnotationMatcher<ComputedCell<Datum>>[]
 
     isInteractive: boolean
     hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'

@@ -14,7 +14,7 @@ export const commonDefaultProps: Omit<
 > & {
     layers: LayerId[]
 } = {
-    layers: ['grid', 'axes', 'cells', 'legends'],
+    layers: ['grid', 'axes', 'cells', 'legends', 'annotations'],
 
     minValue: 'auto',
     maxValue: 'auto',
@@ -50,6 +50,7 @@ export const commonDefaultProps: Omit<
     nanColor: '#000000',
 
     legends: [],
+    annotations: [],
 
     isInteractive: true,
     hoverTarget: 'rowColumn',
