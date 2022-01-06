@@ -16,6 +16,8 @@ import {
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { computeCells } from './compute'
+import { ComputedNode, InputNode } from '@nivo/network'
+import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 
 export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
@@ -321,3 +323,25 @@ export const useHeatMap = <
     }
     */
 }
+
+const getCellAnnotationPosition = <Datum extends HeatMapDatum>(cell: ComputedCell<Datum>) => ({
+    x: cell.x,
+    y: cell.y,
+})
+
+const getCellAnnotationDimensions = <Datum extends HeatMapDatum>(cell: ComputedCell<Datum>) => ({
+    size: Math.max(cell.width, cell.height),
+    width: cell.width,
+    height: cell.height,
+})
+
+export const useCellAnnotations = <Datum extends HeatMapDatum>(
+    cells: ComputedCell<Datum>[],
+    annotations: AnnotationMatcher<ComputedCell<Datum>>[]
+) =>
+    useAnnotations<ComputedCell<Datum>>({
+        data: cells,
+        annotations,
+        getPosition: getCellAnnotationPosition,
+        getDimensions: getCellAnnotationDimensions,
+    })

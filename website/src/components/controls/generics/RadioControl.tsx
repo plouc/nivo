@@ -20,7 +20,7 @@ export const RadioControl = memo(
         property,
         flavors,
         currentFlavor,
-        config,
+        config: { choices, columns },
         value,
         onChange,
         context,
@@ -36,7 +36,7 @@ export const RadioControl = memo(
                 supportedFlavors={property.flavors}
             >
                 <PropertyHeader {...property} context={context} />
-                <Radio options={config.choices} value={value} onChange={handleUpdate} />
+                <Radio options={choices} columns={columns} value={value} onChange={handleUpdate} />
                 <Help>{property.help}</Help>
             </Control>
         )

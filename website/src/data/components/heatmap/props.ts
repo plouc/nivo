@@ -6,6 +6,7 @@ import {
     axes,
     isInteractive,
     commonAccessibilityProps,
+    annotations,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -149,6 +150,7 @@ const props: ChartProperty[] = [
         key: 'colors',
         group: 'Style',
         type: 'ContinuousColorScaleConfig | ((datum) => string)',
+        defaultValue: defaults.colors,
         control: {
             type: 'continuous_colors',
         },
@@ -346,6 +348,11 @@ const props: ChartProperty[] = [
                     control: { type: 'switch' },
                 },
                 {
+                    key: 'tickFormat',
+                    type: 'string | (value: number) => string | number',
+                    control: { type: 'valueFormat' },
+                },
+                {
                     key: 'title',
                     type: 'string',
                     control: { type: 'text' },
@@ -355,6 +362,7 @@ const props: ChartProperty[] = [
                     type: `'start' | 'middle' | 'end'`,
                     control: {
                         type: 'radio',
+                        columns: 3,
                         choices: [
                             {
                                 label: 'start',
@@ -473,6 +481,19 @@ const props: ChartProperty[] = [
             })),
         },
     },
+    annotations({
+        target: 'nodes',
+        flavors: allFlavors,
+        createDefaults: {
+            type: 'rect',
+            match: { id: 'Germany.Bus' },
+            note: 'Bus in Germany',
+            noteX: 120,
+            noteY: -130,
+            offset: 6,
+            noteTextOffset: 5,
+        },
+    }),
     ...commonAccessibilityProps(allFlavors),
     ...motionProperties(['svg'], defaults, 'react-spring'),
 ]

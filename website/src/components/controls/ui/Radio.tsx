@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 interface RadioProps {
     value: string
+    columns?: number
     options: {
         value: string
         label: string
@@ -10,9 +11,9 @@ interface RadioProps {
     onChange: (e: any) => void
 }
 
-export const Radio = memo(({ options, value, onChange }: RadioProps) => {
+export const Radio = memo(({ options, columns = 2, value, onChange }: RadioProps) => {
     return (
-        <Container>
+        <Container columns={columns}>
             {options.map(option => (
                 <Item isSelected={option.value === value} key={option.value}>
                     <input
@@ -28,10 +29,12 @@ export const Radio = memo(({ options, value, onChange }: RadioProps) => {
     )
 })
 
-const Container = styled.div`
+const Container = styled.div<{
+    columns: number
+}>`
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
     border: 1px solid ${({ theme }) => theme.colors.border};
     font-size: 14px;
     border-right-width: 0;
