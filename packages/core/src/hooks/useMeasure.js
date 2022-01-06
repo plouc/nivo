@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react'
-import ResizeObserver from 'resize-observer-polyfill'
 
 export const useMeasure = () => {
     const measureRef = useRef(null)
