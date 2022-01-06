@@ -23,7 +23,7 @@ const toJson = (value: any) => {
         })
         .replace(/"/gm, `'`)
 
-    if (normalized.length < 120) {
+    if (normalized.length < 80) {
         return normalized.replace(/\n/gm, ' ').replace(/\s{2,}/g, ' ')
     }
 
