@@ -22,7 +22,9 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "devDependencies": {
-    "@nivo/core": "0.78.0"
+    "@nivo/colors": "0.78.0",
+    "@nivo/core": "0.78.0",
+    "d3-scale": "^3.2.3"
   },
   "peerDependencies": {
     "@nivo/core": "0.78.0",

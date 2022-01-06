@@ -1,4 +1,13 @@
-import { BoxLegendSvgProps, LegendAnchor, LegendItemDirection } from './types'
+import { scaleLinear } from 'd3-scale'
+import { getValueFormatter } from '@nivo/core'
+import { computeContinuousColorScaleColorStops } from '@nivo/colors'
+import {
+    BoxLegendSvgProps,
+    ContinuousColorsLegendProps,
+    LegendAnchor,
+    LegendItemDirection,
+} from './types'
+import { continuousColorsLegendDefaults } from './defaults'
 
 const isObject = <T>(item: unknown): item is T =>
     typeof item === 'object' && !Array.isArray(item) && item !== null
@@ -132,7 +141,7 @@ export const computeItemLayout = ({
 
             labelY = height / 2
             labelAlignment = 'central'
-            if (justify === true) {
+            if (justify) {
                 labelX = width
                 labelAnchor = 'end'
             } else {
@@ -147,7 +156,7 @@ export const computeItemLayout = ({
 
             labelY = height / 2
             labelAlignment = 'central'
-            if (justify === true) {
+            if (justify) {
                 labelX = 0
                 labelAnchor = 'start'
             } else {
@@ -163,7 +172,7 @@ export const computeItemLayout = ({
             labelX = width / 2
 
             labelAnchor = 'middle'
-            if (justify === true) {
+            if (justify) {
                 labelY = height
                 labelAlignment = 'alphabetic'
             } else {
@@ -178,7 +187,7 @@ export const computeItemLayout = ({
 
             labelX = width / 2
             labelAnchor = 'middle'
-            if (justify === true) {
+            if (justify) {
                 labelY = 0
                 labelAlignment = 'text-before-edge'
             } else {
@@ -191,10 +200,186 @@ export const computeItemLayout = ({
     return {
         symbolX,
         symbolY,
-
         labelX,
         labelY,
         labelAnchor,
         labelAlignment,
+    }
+}
+
+export const computeContinuousColorsLegend = ({
+    // id,
+    scale,
+    ticks,
+    length = continuousColorsLegendDefaults.length,
+    thickness = continuousColorsLegendDefaults.thickness,
+    direction = continuousColorsLegendDefaults.direction,
+    tickPosition = continuousColorsLegendDefaults.tickPosition,
+    tickSize = continuousColorsLegendDefaults.tickSize,
+    tickSpacing = continuousColorsLegendDefaults.tickSpacing,
+    tickOverlap = continuousColorsLegendDefaults.tickOverlap,
+    tickFormat = continuousColorsLegendDefaults.tickFormat,
+    title,
+    titleAlign = continuousColorsLegendDefaults.titleAlign,
+    titleOffset = continuousColorsLegendDefaults.titleOffset,
+}: ContinuousColorsLegendProps) => {
+    const domain = scale.domain()
+
+    const positionScale = scaleLinear().domain(domain)
+    if (domain.length === 2) {
+        // sequential, quantize
+        positionScale.range([0, length])
+    } else if (domain.length === 3) {
+        // diverging
+        positionScale.range([0, length / 2, length])
+    }
+
+    let values: number[]
+    if ('thresholds' in scale) {
+        // quantize
+        values = [domain[0], ...scale.thresholds(), domain[1]]
+    } else {
+        // sequential, diverging
+        values = Array.isArray(ticks) ? ticks : (scale as any).ticks(ticks)
+    }
+
+    const colorStops = computeContinuousColorScaleColorStops(scale, 32)
+
+    const formatValue = getValueFormatter(tickFormat)
+
+    const computedTicks: {
+        x1: number
+        y1: number
+        x2: number
+        y2: number
+        text: string
+        textX: number
+        textY: number
+        textHorizontalAlign: 'start' | 'middle' | 'end'
+        textVerticalAlign: 'alphabetic' | 'central' | 'hanging'
+    }[] = []
+
+    let titleX: number
+    let titleY: number
+    let titleRotation: number
+    let titleVerticalAlign: 'alphabetic' | 'hanging'
+
+    if (direction === 'row') {
+        let y1: number
+        let y2: number
+
+        let textY: number
+        const textHorizontalAlign = 'middle'
+        let textVerticalAlign: 'alphabetic' | 'hanging'
+
+        titleRotation = 0
+        if (titleAlign === 'start') {
+            titleX = 0
+        } else if (titleAlign === 'middle') {
+            titleX = length / 2
+        } else {
+            titleX = length
+        }
+
+        if (tickPosition === 'before') {
+            y1 = -tickSize
+            y2 = tickOverlap ? thickness : 0
+
+            textY = -tickSize - tickSpacing
+            textVerticalAlign = 'alphabetic'
+
+            titleY = thickness + titleOffset
+            titleVerticalAlign = 'hanging'
+        } else {
+            y1 = tickOverlap ? 0 : thickness
+            y2 = thickness + tickSize
+
+            textY = y2 + tickSpacing
+            textVerticalAlign = 'hanging'
+
+            titleY = -titleOffset
+            titleVerticalAlign = 'alphabetic'
+        }
+
+        values.forEach(value => {
+            const x = positionScale(value)
+
+            computedTicks.push({
+                x1: x,
+                y1,
+                x2: x,
+                y2,
+                text: formatValue(value),
+                textX: x,
+                textY,
+                textHorizontalAlign,
+                textVerticalAlign,
+            })
+        })
+    } else {
+        let x1: number
+        let x2: number
+
+        let textX: number
+        let textHorizontalAlign: 'start' | 'end'
+        const textVerticalAlign = 'central'
+
+        titleRotation = -90
+        if (titleAlign === 'start') {
+            titleY = length
+        } else if (titleAlign === 'middle') {
+            titleY = length / 2
+        } else {
+            titleY = 0
+        }
+
+        if (tickPosition === 'before') {
+            x1 = -tickSize
+            x2 = tickOverlap ? thickness : 0
+
+            textX = x1 - tickSpacing
+            textHorizontalAlign = 'end'
+
+            titleX = thickness + titleOffset
+            titleVerticalAlign = 'hanging'
+        } else {
+            x1 = tickOverlap ? 0 : thickness
+            x2 = thickness + tickSize
+
+            textX = x2 + tickSpacing
+            textHorizontalAlign = 'start'
+
+            titleX = -titleOffset
+            titleVerticalAlign = 'alphabetic'
+        }
+
+        values.forEach(value => {
+            const y = positionScale(value)
+
+            computedTicks.push({
+                x1,
+                y1: y,
+                x2,
+                y2: y,
+                text: formatValue(value),
+                textX,
+                textY: y,
+                textHorizontalAlign,
+                textVerticalAlign,
+            })
+        })
+    }
+
+    return {
+        colorStops,
+        ticks: computedTicks,
+        title: {
+            text: title,
+            x: titleX,
+            y: titleY,
+            rotation: titleRotation,
+            horizontalAlign: titleAlign,
+            verticalAlign: titleVerticalAlign,
+        },
     }
 }
