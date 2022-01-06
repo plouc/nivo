@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { useSetTheme } from '../theming/SwitchableThemeProvider'
-import { Switch } from './controls/Switch'
+import { Switch } from './controls/ui'
 
 const ThemeSelector = () => {
     const theme = useTheme()

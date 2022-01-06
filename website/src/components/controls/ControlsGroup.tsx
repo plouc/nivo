@@ -1,31 +1,39 @@
 import React, { memo, useCallback } from 'react'
 import get from 'lodash/get'
 import snakeCase from 'lodash/snakeCase'
-import { ArrayControl } from './ArrayControl'
-import { ObjectControl } from './ObjectControl'
-import { SwitchControl } from './SwitchControl'
-import { SwitchableRangeControl } from './SwitchableRangeControl'
-import { ColorsControl } from './ColorsControl'
-import { QuantizeColorsControl } from './QuantizeColorsControl'
-import { ColorPickerControl } from './ColorPickerControl'
-import { TextControl } from './TextControl'
-import { RadioControl } from './RadioControl'
-import { RangeControl } from './RangeControl'
-import { ChoicesControl } from './ChoicesControl'
-import { BoxAnchorControl } from './BoxAnchorControl'
-import { MarginControl } from './MarginControl'
-import { OpacityControl } from './OpacityControl'
-import { LineWidthControl } from './LineWidthControl'
-import { MotionConfigControl } from './MotionConfigControl'
-import { NumberArrayControl } from './NumberArrayControl'
-import { AngleControl } from './AngleControl'
-import { OrdinalColorsControl } from './OrdinalColorsControl'
-import { InheritedColorControl } from './InheritedColorControl'
-import { BlendModeControl } from './BlendModeControl'
-import PropertyDocumentation from './PropertyDocumentation'
-import { ValueFormatControl } from './ValueFormatControl'
-import { AnnotationsControl } from './AnnotationsControl'
 import { ChartProperty, Flavor } from '../../types'
+import { ControlContext } from './types'
+import {
+    ArrayControl,
+    ObjectControl,
+    SwitchControl,
+    SwitchableRangeControl,
+    TextControl,
+    RadioControl,
+    RangeControl,
+    ChoicesControl,
+    NumberArrayControl,
+    PropertyDocumentation,
+} from './generics'
+import {
+    BoxAnchorControl,
+    MarginControl,
+    LineWidthControl,
+    MotionConfigControl,
+    AngleControl,
+    ValueFormatControl,
+    AnnotationsControl,
+} from './specialized'
+import {
+    BlendModeControl,
+    ContinuousColorsControl,
+    ColorPickerControl,
+    ColorsControl,
+    OrdinalColorsControl,
+    OpacityControl,
+    InheritedColorControl,
+    QuantizeColorsControl,
+} from './colors'
 
 export const shouldRenderProperty = (property: ChartProperty, currentSettings: any) => {
     if (typeof property.when !== 'function') return true
@@ -39,7 +47,7 @@ interface ControlSwitcherProps {
     currentFlavor: Flavor
     settings: any
     onChange: any
-    context: any
+    context?: ControlContext
 }
 
 const ControlSwitcher = memo(
@@ -88,6 +96,7 @@ const ControlSwitcher = memo(
                     property={property}
                     flavors={flavors}
                     currentFlavor={currentFlavor}
+                    context={context}
                 />
             )
         }
@@ -175,6 +184,7 @@ const ControlSwitcher = memo(
                         flavors={flavors}
                         currentFlavor={currentFlavor}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -417,6 +427,20 @@ const ControlSwitcher = memo(
                     />
                 )
 
+            case 'continuous_colors':
+                return (
+                    <ContinuousColorsControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        config={controlConfig}
+                        value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
             default:
                 throw new Error(
                     `invalid control type: ${controlConfig!.type} for property: ${property.name}`
@@ -432,7 +456,7 @@ interface ControlsGroupProps {
     controls: ChartProperty[]
     settings: any
     onChange: any
-    context?: any
+    context?: ControlContext
 }
 
 export const ControlsGroup = ({
@@ -445,9 +469,9 @@ export const ControlsGroup = ({
     context,
 }: ControlsGroupProps) => (
     <>
-        {controls.map(control => (
+        {controls.map((control, index) => (
             <ControlSwitcher
-                key={control.name}
+                key={`${control.name}.${index}`}
                 groupName={name}
                 flavors={flavors}
                 currentFlavor={currentFlavor}

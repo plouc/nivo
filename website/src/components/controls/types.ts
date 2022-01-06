@@ -140,6 +140,10 @@ export interface AnnotationsControlConfig {
     createDefaults: AnnotationMatcher<any>
 }
 
+export interface ContinuousColorsControlConfig {
+    type: 'continuous_colors'
+}
+
 export type ControlConfig =
     | SwitchControlAttrs
     | RangeControlConfig
@@ -164,3 +168,8 @@ export type ControlConfig =
     | TextControlConfig
     | ColorsControlConfig
     | AnnotationsControlConfig
+    | ContinuousColorsControlConfig
+
+export interface ControlContext {
+    path: string[]
+}
