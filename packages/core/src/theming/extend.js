@@ -13,6 +13,7 @@ import set from 'lodash/set'
 const fontProps = [
     'axis.ticks.text',
     'axis.legend.text',
+    'legends.title.text',
     'legends.text',
     'legends.ticks.text',
     'legends.title.text',

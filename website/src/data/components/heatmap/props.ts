@@ -31,7 +31,7 @@ const props: ChartProperty[] = [
             }[]
         }[]
         \`\`\`
-        `
+        `,
     },
     {
         key: 'minValue',
