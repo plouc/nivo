@@ -1,25 +1,9 @@
 import {
-  HeatMapDatum,
   ResponsiveHeatMap,
   ResponsiveHeatMapCanvas,
 } from '@nivo/heatmap'
-import { generateCountriesData } from '@nivo/generators'
+import { generateXYSeries } from '@nivo/generators'
 import { useChart } from '../hooks'
-
-const keys = [
-  'hot dogs',
-  'burgers',
-  'sandwich',
-  'kebab',
-  'fries',
-  'donut',
-  'junk',
-  'sushi',
-  'ramen',
-  'curry',
-  'udon',
-  'bagel',
-]
 
 const props = {
   axisTop: {
@@ -31,18 +15,29 @@ const props = {
     legendOffset: 36,
   },
   margin: { top: 60, right: 80, bottom: 60, left: 80 },
-  indexBy: 'country',
-  keys,
 }
 
 export function HeatMap() {
   const [data, flavor] = useChart(
     () =>
-      generateCountriesData(keys, {
-        size: 9,
-        min: 0,
-        max: 100,
-      }) as HeatMapDatum[]
+      generateXYSeries({
+        serieIds: ['Japan', 'France', 'US', 'Germany', 'Norway', 'Iceland', 'UK', 'Vietnam'],
+        x: {
+          values: ['Train', 'Subway', 'Bus', 'Car', 'Boat', 'Moto', 'Moped', 'Bicycle', 'Others'],
+        },
+        y: {
+          length: NaN,
+          min: -100_000,
+          max: 100_000,
+          round: true,
+        },
+      }) as {
+        id: string
+        data: {
+          x: string
+          y: number
+        }[]
+      }[]
   )
 
   if (flavor === 'canvas') {
