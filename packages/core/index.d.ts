@@ -379,6 +379,11 @@ declare module '@nivo/core' {
         outerHeight: number
     }
 
+    export function useMeasure(): [
+        React.RefObject<HTMLDivElement>,
+        { left: number; top: number; width: number; height: number }
+    ]
+
     type SvgWrapperType = (
         props: React.PropsWithChildren<{
             width: number
