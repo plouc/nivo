@@ -17,9 +17,9 @@ HeatMap:
     - label: Custom tooltip
       link: heatmap-custom-tooltip
   description: |
-    An heat map matrix, you can chose between various colors scales
-    or pass yours, you also have the ability to change the cell shape
-    for rectangle or circle and even use a custom rendering function.
+    An heat map matrix, you can chose between various colors scales,
+    you also have the ability to change the cell shape
+    for rectangle or circle and even use a custom component.
 
     The responsive alternative of this component is `ResponsiveHeatMap`.
 
@@ -35,7 +35,7 @@ HeatMapCanvas:
     - canvas
   stories: []
   description: |
-    A variation around the [HeatMap](self:/heatmap) component.
+    A variation around the [HeatMap](self:/heatmap/) component.
     Well suited for large data sets as it does not impact DOM tree depth,
     however you'll lose the isomorphic ability and transitions.
 

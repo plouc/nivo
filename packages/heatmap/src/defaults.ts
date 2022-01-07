@@ -44,7 +44,7 @@ export const commonDefaultProps: Omit<
         type: 'sequential',
         scheme: 'brown_blueGreen',
     },
-    emptyColor: '#00000000',
+    emptyColor: '#000000',
 
     legends: [],
     annotations: [],

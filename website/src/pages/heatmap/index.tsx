@@ -1,10 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import isFunction from 'lodash/isFunction'
-import {
-    ResponsiveHeatMap,
-    svgDefaultProps as defaults,
-} from '@nivo/heatmap'
+import { ResponsiveHeatMap, svgDefaultProps as defaults } from '@nivo/heatmap'
 import { generateXYSeries } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
@@ -93,6 +90,7 @@ const initialProperties = {
         minValue: -100_000,
         maxValue: 100_000,
     },
+    emptyColor: '#555555',
     cellComponent: 'rect',
     opacity: defaults.opacity,
     activeOpacity: defaults.activeOpacity,

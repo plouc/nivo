@@ -7,7 +7,8 @@ import {
     HeatMapDatum,
     HeatMapCommonProps,
     HeatMapSvgProps,
-    LayerId, CustomLayerProps,
+    LayerId,
+    CustomLayerProps,
 } from './types'
 import { useHeatMap } from './hooks'
 import { svgDefaultProps } from './defaults'
@@ -74,7 +75,10 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         partialMargin
     )
 
-    const { xScale, yScale, cells, colorScale, activeCell, setActiveCell } = useHeatMap<Datum, ExtraProps>({
+    const { xScale, yScale, cells, colorScale, activeCell, setActiveCell } = useHeatMap<
+        Datum,
+        ExtraProps
+    >({
         data,
         valueFormat,
         width: innerWidth,
@@ -180,7 +184,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     const customLayerProps: CustomLayerProps<Datum> = {
         cells,
         activeCell,
-        setActiveCell
+        setActiveCell,
     }
 
     return (
