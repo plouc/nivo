@@ -1,12 +1,7 @@
-import { useMemo, useCallback } from 'react'
-import {
-    useTheme,
-    usePropertyAccessor,
-    useValueFormatter,
-    // @ts-ignore
-    getLabelGenerator,
-} from '@nivo/core'
-import { useInheritedColor, useContinuousColorScale } from '@nivo/colors'
+import { useMemo, useCallback, useState } from 'react'
+import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { useInheritedColor, getContinuousColorScale } from '@nivo/colors'
+import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 import {
     ComputedCell,
     DefaultHeatMapDatum,
@@ -16,8 +11,6 @@ import {
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { computeCells } from './compute'
-import { ComputedNode, InputNode } from '@nivo/network'
-import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 
 export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
@@ -50,21 +43,44 @@ export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends o
         [data, width, height, xInnerPadding, xOuterPadding, yInnerPadding, yOuterPadding]
     )
 
+/*
 const computeX = (column: number, cellWidth: number, padding: number) => {
     return column * cellWidth + cellWidth * 0.5 + padding * column + padding
 }
 const computeY = (row: number, cellHeight: number, padding: number) => {
     return row * cellHeight + cellHeight * 0.5 + padding * row + padding
 }
+*/
 
 const isHoverTargetByType = {
-    cell: (cell: ComputedCell<object>, current: ComputedCell<object>) =>
-        cell.xKey === current.xKey && cell.yKey === current.yKey,
-    row: (cell: ComputedCell<object>, current: ComputedCell<object>) => cell.yKey === current.yKey,
-    column: (cell: ComputedCell<object>, current: ComputedCell<object>) =>
-        cell.xKey === current.xKey,
-    rowColumn: (cell: ComputedCell<object>, current: ComputedCell<object>) =>
-        cell.xKey === current.xKey || cell.yKey === current.yKey,
+    cell: <Datum extends HeatMapDatum>(
+        cell: Omit<
+            ComputedCell<Datum>,
+            'formattedValue' | 'color' | 'opacity' | 'borderColor' | 'label' | 'labelTextColor'
+        >,
+        current: ComputedCell<Datum>
+    ) => cell.id === current.id,
+    row: <Datum extends HeatMapDatum>(
+        cell: Omit<
+            ComputedCell<Datum>,
+            'formattedValue' | 'color' | 'opacity' | 'borderColor' | 'label' | 'labelTextColor'
+        >,
+        current: ComputedCell<Datum>
+    ) => cell.serieId === current.serieId,
+    column: <Datum extends HeatMapDatum>(
+        cell: Omit<
+            ComputedCell<Datum>,
+            'formattedValue' | 'color' | 'opacity' | 'borderColor' | 'label' | 'labelTextColor'
+        >,
+        current: ComputedCell<Datum>
+    ) => cell.data.x === current.data.x,
+    rowColumn: <Datum extends HeatMapDatum>(
+        cell: Omit<
+            ComputedCell<Datum>,
+            'formattedValue' | 'color' | 'opacity' | 'borderColor' | 'label' | 'labelTextColor'
+        >,
+        current: ComputedCell<Datum>
+    ) => cell.serieId === current.serieId || cell.data.x === current.data.x,
 }
 
 /*
@@ -130,21 +146,21 @@ export const useHeatMap = <
     valueFormat,
     width,
     height,
-    forceSquare = commonDefaultProps.forceSquare,
+    // forceSquare = commonDefaultProps.forceSquare,
     xOuterPadding = commonDefaultProps.xOuterPadding,
     xInnerPadding = commonDefaultProps.xInnerPadding,
     yOuterPadding = commonDefaultProps.yOuterPadding,
     yInnerPadding = commonDefaultProps.yInnerPadding,
-    sizeVariation,
+    // sizeVariation,
     colors = commonDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
-    nanColor,
-    opacity,
-    activeOpacity,
-    inactiveOpacity,
+    emptyColor = commonDefaultProps.emptyColor,
+    opacity = commonDefaultProps.opacity,
+    activeOpacity = commonDefaultProps.activeOpacity,
+    inactiveOpacity = commonDefaultProps.inactiveOpacity,
     borderColor = commonDefaultProps.borderColor as HeatMapCommonProps<Datum>['borderColor'],
     label = commonDefaultProps.label as HeatMapCommonProps<Datum>['label'],
     labelTextColor = commonDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
-    hoverTarget,
+    hoverTarget = commonDefaultProps.hoverTarget,
 }: {
     data: HeatMapDataProps<Datum, ExtraProps>['data']
     minValue?: HeatMapCommonProps<Datum>['minValue']
@@ -159,7 +175,7 @@ export const useHeatMap = <
     yInnerPadding?: HeatMapCommonProps<Datum>['yInnerPadding']
     sizeVariation?: HeatMapCommonProps<Datum>['sizeVariation']
     colors?: HeatMapCommonProps<Datum>['colors']
-    nanColor?: HeatMapCommonProps<Datum>['nanColor']
+    emptyColor?: HeatMapCommonProps<Datum>['emptyColor']
     opacity?: HeatMapCommonProps<Datum>['opacity']
     activeOpacity?: HeatMapCommonProps<Datum>['activeOpacity']
     inactiveOpacity?: HeatMapCommonProps<Datum>['inactiveOpacity']
@@ -168,6 +184,8 @@ export const useHeatMap = <
     labelTextColor?: HeatMapCommonProps<Datum>['labelTextColor']
     hoverTarget?: HeatMapCommonProps<Datum>['hoverTarget']
 }) => {
+    const [activeCell, setActiveCell] = useState<ComputedCell<Datum> | null>(null)
+
     const { cells, xScale, yScale, minValue, maxValue } = useComputeCells<Datum, ExtraProps>({
         data,
         width,
@@ -178,15 +196,33 @@ export const useHeatMap = <
         yInnerPadding,
     })
 
-    const colorScale = useContinuousColorScale(colors, {
-        min: minValue,
-        max: maxValue,
-    })
+    const colorScale = useMemo(() => {
+        if (typeof colors === 'function') return null
+
+        return getContinuousColorScale(colors, {
+            min: minValue,
+            max: maxValue,
+        })
+    }, [colors, minValue, maxValue])
+
+    const activeIds = useMemo(() => {
+        if (!activeCell) return []
+
+        const isHoverTarget = isHoverTargetByType[hoverTarget]
+
+        return cells.filter(cell => isHoverTarget(cell, activeCell)).map(cell => cell.id)
+    }, [cells, activeCell, hoverTarget])
 
     const getColor = useCallback(
-        (cell: Omit<ComputedCell<Datum>, 'color' | 'opacity' | 'borderColor'>) =>
-            colorScale(cell.value),
-        [colorScale]
+        (cell: Omit<ComputedCell<Datum>, 'color' | 'opacity' | 'borderColor'>) => {
+            if (cell.value !== null) {
+                if (typeof colors === 'function') return colors(cell)
+                if (colorScale !== null) return colorScale(cell.value)
+            }
+
+            return emptyColor
+        },
+        [colors, colorScale, emptyColor]
     )
     const theme = useTheme()
     const getBorderColor = useInheritedColor(borderColor, theme)
@@ -194,31 +230,40 @@ export const useHeatMap = <
     const formatValue = useValueFormatter(valueFormat)
     const getLabel = usePropertyAccessor(label)
 
-    const computedCells = cells.map(cell => {
-        const computedCell = {
-            ...cell,
-            formattedValue: formatValue(cell.value),
-            opacity: 1,
-        } as ComputedCell<Datum>
+    const computedCells = useMemo(
+        () =>
+            cells.map(cell => {
+                let computedOpacity = opacity
+                if (activeIds.length > 0) {
+                    computedOpacity = activeIds.includes(cell.id) ? activeOpacity : inactiveOpacity
+                }
 
-        computedCell.label = getLabel(computedCell)
-        computedCell.color = getColor(computedCell)
-        computedCell.borderColor = getBorderColor(computedCell)
-        computedCell.labelTextColor = getLabelTextColor(computedCell)
+                const computedCell = {
+                    ...cell,
+                    formattedValue: cell.value !== null ? formatValue(cell.value) : null,
+                    opacity: computedOpacity,
+                } as ComputedCell<Datum>
 
-        return computedCell
-    })
+                computedCell.label = getLabel(computedCell)
+                computedCell.color = getColor(computedCell)
+                computedCell.borderColor = getBorderColor(computedCell)
+                computedCell.labelTextColor = getLabelTextColor(computedCell)
+
+                return computedCell
+            }),
+        [cells, getColor, getBorderColor, getLabelTextColor, formatValue, getLabel, activeIds]
+    )
 
     return {
         cells: computedCells,
         xScale,
         yScale,
         colorScale,
+        activeCell,
+        setActiveCell,
     }
 
     /*
-    const [currentCellId, setCurrentCellId] = useState(null)
-
     const layoutConfig = useMemo(() => {
         const columns = keys.length
         const rows = data.length
@@ -253,9 +298,6 @@ export const useHeatMap = <
         }
     }, [sizeVariation, values])
 
-    const getCellBorderColor = useInheritedColor(cellBorderColor, theme)
-    const getLabelTextColor = useInheritedColor(labelTextColor, theme)
-
     const cells = useMemo(
         () =>
             computeCells<Datum>({
@@ -287,40 +329,6 @@ export const useHeatMap = <
             getLabelTextColor,
         ]
     )
-
-    const cellsWithCurrent = useMemo(() => {
-        if (currentCellId === null) return cells
-
-        const isHoverTarget = isHoverTargetByType[hoverTarget]
-        const currentCell = cells.find(cell => cell.id === currentCellId)
-
-        return cells.map(cell => {
-            const opacity = isHoverTarget(cell, currentCell)
-                ? cellHoverOpacity
-                : cellHoverOthersOpacity
-
-            if (opacity === cell.opacity) return cell
-
-            return {
-                ...cell,
-                opacity,
-            }
-        })
-    }, [cells, currentCellId, hoverTarget, cellHoverOpacity, cellHoverOthersOpacity])
-
-    return {
-        cells: cellsWithCurrent,
-        getIndex,
-        xScale: scales.x,
-        yScale: scales.y,
-        ...layoutConfig,
-        sizeScale,
-        currentCellId,
-        setCurrentCellId,
-        colorScale,
-        getCellBorderColor,
-        getLabelTextColor,
-    }
     */
 }
 

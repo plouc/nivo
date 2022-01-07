@@ -1,33 +1,62 @@
 import React from 'react'
-import { ResponsiveHeatMapCanvas } from '@nivo/heatmap'
+import { graphql, useStaticQuery } from 'gatsby'
 import isFunction from 'lodash/isFunction'
+import {
+    ResponsiveHeatMapCanvas,
+    canvasDefaultProps as defaults,
+} from '@nivo/heatmap'
+import { generateXYSeries, sets } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
 import { groups } from '../../data/components/heatmap/props'
-import { generateHeavyDataSet } from '../../data/components/heatmap/generator'
-import { graphql, useStaticQuery } from 'gatsby'
+
+const getData = () =>
+    generateXYSeries({
+        serieIds: sets.countryCodes.slice(0, 26),
+        x: {
+            values: sets.names,
+        },
+        y: {
+            length: NaN,
+            min: -100_000,
+            max: 100_000,
+            round: true,
+        },
+    })
 
 const initialProperties = {
-    indexBy: 'country',
-
     margin: {
-        top: 100,
-        right: 60,
-        bottom: 100,
+        top: 70,
+        right: 90,
+        bottom: 120,
         left: 60,
     },
+
+    minValue: defaults.minValue,
+    maxValue: defaults.maxValue,
+    valueFormat: { format: '>-.2s', enabled: true },
 
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
-    minValue: 'auto',
-    maxValue: 'auto',
-    forceSquare: false,
+    forceSquare: defaults.forceSquare,
     sizeVariation: 0,
-    padding: 0,
-    colors: 'BrBG',
+    xOuterPadding: defaults.xOuterPadding,
+    xInnerPadding: defaults.xInnerPadding,
+    yOuterPadding: defaults.yOuterPadding,
+    yInnerPadding: defaults.yInnerPadding,
 
+    colors: {
+        type: 'diverging',
+        scheme: 'red_yellow_blue',
+        divergeAt: 0.5,
+        minValue: -100_000,
+        maxValue: 100_000,
+    },
+
+    enableGridX: false,
+    enableGridY: true,
     axisTop: {
         enable: true,
         orient: 'top',
@@ -35,7 +64,7 @@ const initialProperties = {
         tickPadding: 5,
         tickRotation: -90,
         legend: '',
-        legendOffset: 36,
+        legendOffset: 46,
     },
     axisRight: {
         enable: true,
@@ -45,10 +74,10 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'country',
         legendPosition: 'middle',
-        legendOffset: 40,
+        legendOffset: 70,
     },
     axisBottom: {
-        enable: true,
+        enable: false,
         orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
@@ -65,34 +94,46 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'country',
         legendPosition: 'middle',
-        legendOffset: -40,
+        legendOffset: -42,
     },
 
-    enableGridX: false,
-    enableGridY: true,
-
-    cellShape: 'rect',
-    cellOpacity: 1,
-    cellBorderWidth: 0,
-    cellBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.4]],
-    },
+    renderCell: 'rect',
+    opacity: defaults.opacity,
+    activeOpacity: defaults.activeOpacity,
+    inactiveOpacity: defaults.inactiveOpacity,
+    borderRadius: defaults.borderRadius,
+    borderWidth: defaults.borderWidth,
+    borderColor: defaults.borderColor,
 
     enableLabels: false,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 1.4]],
-    },
+    labelTextColor: defaults.labelTextColor,
+
+    legends: [
+        {
+            anchor: 'bottom',
+            translateX: 0,
+            translateY: 30,
+            length: 400,
+            thickness: 8,
+            direction: 'row',
+            tickPosition: 'after',
+            tickSize: 3,
+            tickSpacing: 4,
+            tickOverlap: false,
+            tickFormat: { format: '>-.2s', enabled: true },
+            title: 'Value →',
+            titleAlign: 'start',
+            titleOffset: 4,
+        },
+    ],
+
+    annotations: [],
 
     animate: true,
-    motionStiffness: 120,
-    motionDamping: 9,
+    motionConfig: defaults.motionConfig,
 
     isInteractive: true,
     hoverTarget: 'rowColumn',
-    cellHoverOpacity: 1,
-    cellHoverOthersOpacity: 0.5,
 }
 
 const HeatMapCanvas = () => {
@@ -127,22 +168,20 @@ const HeatMapCanvas = () => {
                     ? 'Custom(props) => (…)'
                     : properties.cellShape,
             })}
-            generateData={generateHeavyDataSet}
-            getDataSize={data => data.data.length * data.keys.length}
-            getTabData={data => data.data}
+            generateData={getData}
+            getDataSize={data => data.length * data[0].data.length}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveHeatMapCanvas
-                        data={data.data}
-                        keys={data.keys}
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={cell => {
                             logAction({
                                 type: 'click',
-                                label: `[cell] ${cell.yKey}.${cell.xKey}: ${cell.value}`,
+                                label: `${cell.serieId} → ${cell.data.x}: ${cell.formattedValue}`,
                                 color: cell.color,
                                 data: cell,
                             })

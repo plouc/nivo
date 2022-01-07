@@ -7,7 +7,7 @@ import {
     HeatMapDatum,
     HeatMapCommonProps,
     HeatMapSvgProps,
-    LayerId,
+    LayerId, CustomLayerProps,
 } from './types'
 import { useHeatMap } from './hooks'
 import { svgDefaultProps } from './defaults'
@@ -28,13 +28,15 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     width,
     height,
     margin: partialMargin,
-    forceSquare = svgDefaultProps.forceSquare,
+    // forceSquare = svgDefaultProps.forceSquare,
     xInnerPadding = svgDefaultProps.xInnerPadding,
     xOuterPadding = svgDefaultProps.xOuterPadding,
     yInnerPadding = svgDefaultProps.yInnerPadding,
     yOuterPadding = svgDefaultProps.yOuterPadding,
-    sizeVariation = svgDefaultProps.sizeVariation,
-    cellComponent = svgDefaultProps.cellComponent,
+    // sizeVariation = svgDefaultProps.sizeVariation,
+    cellComponent = svgDefaultProps.cellComponent as NonNullable<
+        HeatMapSvgProps<Datum, ExtraProps>['cellComponent']
+    >,
     opacity = svgDefaultProps.opacity,
     activeOpacity = svgDefaultProps.activeOpacity,
     inactiveOpacity = svgDefaultProps.inactiveOpacity,
@@ -48,10 +50,10 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     axisBottom = svgDefaultProps.axisBottom,
     axisLeft = svgDefaultProps.axisLeft,
     enableLabels = svgDefaultProps.enableLabels,
-    label = svgDefaultProps.label,
-    labelTextColor = svgDefaultProps.labelTextColor,
-    colors = svgDefaultProps.colors,
-    nanColor = svgDefaultProps.nanColor,
+    label = svgDefaultProps.label as HeatMapCommonProps<Datum>['label'],
+    labelTextColor = svgDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
+    colors = svgDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
+    emptyColor = svgDefaultProps.emptyColor,
     legends = svgDefaultProps.legends,
     annotations = svgDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
     isInteractive = svgDefaultProps.isInteractive,
@@ -72,7 +74,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         partialMargin
     )
 
-    const { xScale, yScale, cells, colorScale } = useHeatMap<Datum, ExtraProps>({
+    const { xScale, yScale, cells, colorScale, activeCell, setActiveCell } = useHeatMap<Datum, ExtraProps>({
         data,
         valueFormat,
         width: innerWidth,
@@ -82,12 +84,14 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         yInnerPadding,
         yOuterPadding,
         colors,
+        emptyColor,
         opacity,
         activeOpacity,
         inactiveOpacity,
         borderColor,
         label,
         labelTextColor,
+        hoverTarget,
     })
 
     const layerById: Record<LayerId, ReactNode> = {
@@ -131,9 +135,11 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
             <Fragment key="cells">
                 <HeatMapCells<Datum, ExtraProps>
                     cells={cells}
+                    cellComponent={cellComponent}
                     borderRadius={borderRadius}
                     borderWidth={borderWidth}
                     isInteractive={isInteractive}
+                    setActiveCell={setActiveCell}
                     onMouseEnter={onMouseEnter}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
@@ -145,7 +151,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         )
     }
 
-    if (layers.includes('legends')) {
+    if (layers.includes('legends') && colorScale !== null) {
         layerById.legends = (
             <Fragment key="legends">
                 {legends.map((legend, index) => (
@@ -171,6 +177,12 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         )
     }
 
+    const customLayerProps: CustomLayerProps<Datum> = {
+        cells,
+        activeCell,
+        setActiveCell
+    }
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -186,7 +198,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, {})}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null

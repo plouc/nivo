@@ -1,86 +1,21 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import isFunction from 'lodash/isFunction'
 import {
     ResponsiveHeatMap,
     svgDefaultProps as defaults,
-} from '../../../../packages/heatmap/dist/nivo-heatmap.cjs'
-import { patternLinesDef } from '@nivo/core'
-import isFunction from 'lodash/isFunction'
+} from '@nivo/heatmap'
+import { generateXYSeries } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
 import { groups } from '../../data/components/heatmap/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
-interface XYRangeStaticValues {
-    values: string[] | number[]
-}
-
-interface XYRandomNumericValues {
-    length: number
-    min: number
-    max: number
-    round?: boolean
-}
-
-type XYRangeValues = XYRangeStaticValues | XYRandomNumericValues
-
-const generateXYSeries = ({
-    serieIds,
-    x,
-    y,
-}: {
-    serieIds: string[]
-    x: XYRangeValues
-    y: XYRangeValues
-}) => {
-    const xLength = 'length' in x ? x.length : x.values.length
-
-    let getX: (index: number) => string | number
-    if ('values' in x) {
-        getX = (index: number) => x.values[index]
-    } else {
-        getX = () => {
-            let xValue = x.min + Math.random() * (x.max - x.min)
-            if (x.round) {
-                xValue = Math.round(xValue)
-            }
-
-            return xValue
-        }
-    }
-
-    let getY: (index: number) => string | number
-    if ('values' in y) {
-        getY = (index: number) => y.values[index]
-    } else {
-        getY = () => {
-            let yValue = y.min + Math.random() * (y.max - y.min)
-            if (y.round) {
-                yValue = Math.round(yValue)
-            }
-
-            return yValue
-        }
-    }
-
-    return serieIds.map(serieId => {
-        return {
-            id: serieId,
-            data: Array.from({ length: xLength }).map((_, index) => {
-                return {
-                    x: getX(index),
-                    y: getY(index),
-                }
-            }),
-        }
-    })
-}
-
-const getData = () => {
-    return generateXYSeries({
+const getData = () =>
+    generateXYSeries({
         serieIds: ['Japan', 'France', 'US', 'Germany', 'Norway', 'Iceland', 'UK', 'Vietnam'],
         x: {
-            values: ['Plane', 'Train', 'Subway', 'Bus', 'Car', 'Moto', 'Bicycle', 'Others'],
+            values: ['Train', 'Subway', 'Bus', 'Car', 'Boat', 'Moto', 'Moped', 'Bicycle', 'Others'],
         },
         y: {
             length: NaN,
@@ -89,7 +24,6 @@ const getData = () => {
             round: true,
         },
     })
-}
 
 const initialProperties = {
     margin: {
@@ -106,9 +40,9 @@ const initialProperties = {
     forceSquare: defaults.forceSquare,
     sizeVariation: 0,
     xOuterPadding: defaults.xOuterPadding,
-    xInnerPadding: 0.05,
+    xInnerPadding: defaults.xInnerPadding,
     yOuterPadding: defaults.yOuterPadding,
-    yInnerPadding: 0.05,
+    yInnerPadding: defaults.yInnerPadding,
 
     enableGridX: defaults.enableGridX,
     enableGridY: defaults.enableGridY,
@@ -160,32 +94,15 @@ const initialProperties = {
         maxValue: 100_000,
     },
     cellComponent: 'rect',
-    cellOpacity: 1,
-    activeCellOpacity: 1,
-    inactiveCellOpacity: 1,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.6]],
-    },
+    opacity: defaults.opacity,
+    activeOpacity: defaults.activeOpacity,
+    inactiveOpacity: defaults.inactiveOpacity,
+    borderRadius: defaults.borderRadius,
+    borderWidth: defaults.borderWidth,
+    borderColor: defaults.borderColor,
 
-    enableLabels: true,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 2]],
-    },
-
-    defs: [
-        patternLinesDef('lines', {
-            background: 'inherit',
-            color: 'rgba(0, 0, 0, 0.1)',
-            rotation: -45,
-            lineWidth: 4,
-            spacing: 7,
-        }),
-    ],
-    fill: [{ match: d => false && d.value < 30, id: 'lines' }],
+    enableLabels: defaults.enableLabels,
+    labelTextColor: defaults.labelTextColor,
 
     legends: [
         {
@@ -206,13 +123,13 @@ const initialProperties = {
         },
     ],
 
-    annotations: [],
+    annotations: defaults.annotations,
 
     animate: defaults.animate,
     motionConfig: defaults.motionConfig,
 
     isInteractive: defaults.isInteractive,
-    hoverTarget: 'cell',
+    hoverTarget: defaults.hoverTarget,
 }
 
 const HeatMap = () => {
@@ -260,7 +177,7 @@ const HeatMap = () => {
                         onClick={cell => {
                             logAction({
                                 type: 'click',
-                                label: `${cell.serieId} ${cell.data.x}: ${cell.formattedValue}`,
+                                label: `${cell.serieId} → ${cell.data.x}: ${cell.formattedValue}`,
                                 color: cell.color,
                                 data: cell,
                             })
