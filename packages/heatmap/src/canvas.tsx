@@ -1,21 +1,12 @@
-/**
- * Render heatmap rect cell.
- *
- * @param {Object}  ctx
- * @param {boolean} enableLabels
- * @param {number}  x
- * @param {number}  y
- * @param {number}  width
- * @param {number}  height
- * @param {string}  color
- * @param {number}  opacity
- * @param {string}  labelTextColor
- * @param {number | string}  label
- */
-export const renderRect = (
-    ctx,
-    { enableLabels, theme },
-    { x, y, width, height, color, opacity, labelTextColor, label }
+import { CellCanvasRendererProps, HeatMapDatum } from './types'
+
+export const renderRect = <Datum extends HeatMapDatum>(
+    ctx: CanvasRenderingContext2D,
+    {
+        cell: { x, y, width, height, color, opacity, labelTextColor, label },
+        enableLabels,
+        theme,
+    }: CellCanvasRendererProps<Datum>
 ) => {
     ctx.save()
     ctx.globalAlpha = opacity
@@ -23,7 +14,7 @@ export const renderRect = (
     ctx.fillStyle = color
     ctx.fillRect(x - width / 2, y - height / 2, width, height)
 
-    if (enableLabels === true) {
+    if (enableLabels) {
         ctx.fillStyle = labelTextColor
         ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
         ctx.fillText(label, x, y)
@@ -32,24 +23,13 @@ export const renderRect = (
     ctx.restore()
 }
 
-/**
- * Render heatmap circle cell.
- *
- * @param {Object}  ctx
- * @param {boolean} enableLabels
- * @param {number}  x
- * @param {number}  y
- * @param {number}  width
- * @param {number}  height
- * @param {string}  color
- * @param {number}  opacity
- * @param {string}  labelTextColor
- * @param {number | string}  label
- */
-export const renderCircle = (
-    ctx,
-    { enableLabels, theme },
-    { x, y, width, height, color, opacity, labelTextColor, label }
+export const renderCircle = <Datum extends HeatMapDatum>(
+    ctx: CanvasRenderingContext2D,
+    {
+        cell: { x, y, width, height, color, opacity, labelTextColor, label },
+        enableLabels,
+        theme,
+    }: CellCanvasRendererProps<Datum>
 ) => {
     ctx.save()
     ctx.globalAlpha = opacity
@@ -61,7 +41,7 @@ export const renderCircle = (
     ctx.arc(x, y, radius, 0, 2 * Math.PI)
     ctx.fill()
 
-    if (enableLabels === true) {
+    if (enableLabels) {
         ctx.fillStyle = labelTextColor
         ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
         ctx.fillText(label, x, y)

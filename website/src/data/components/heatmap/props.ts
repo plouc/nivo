@@ -156,25 +156,25 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'cellOpacity',
+        key: 'opacity',
         group: 'Style',
-        defaultValue: defaults.cellOpacity,
+        defaultValue: defaults.opacity,
         type: 'number',
         control: { type: 'opacity' },
     },
     {
-        key: 'activeCellOpacity',
+        key: 'activeOpacity',
         group: 'Style',
         flavors: ['svg', 'canvas'],
-        defaultValue: defaults.cellOpacity,
+        defaultValue: defaults.activeOpacity,
         type: 'number',
         control: { type: 'opacity' },
     },
     {
-        key: 'inactiveCellOpacity',
+        key: 'inactiveOpacity',
         group: 'Style',
         flavors: ['svg', 'canvas'],
-        defaultValue: defaults.cellOpacity,
+        defaultValue: defaults.inactiveOpacity,
         type: 'number',
         control: { type: 'opacity' },
     },
@@ -495,7 +495,7 @@ const props: ChartProperty[] = [
         },
     }),
     ...commonAccessibilityProps(allFlavors),
-    ...motionProperties(['svg'], defaults, 'react-spring'),
+    ...motionProperties(['svg', 'canvas'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

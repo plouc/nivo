@@ -1,52 +1,72 @@
-import { useEffect, useRef, useCallback } from 'react'
-import {
-    getRelativeCursor,
-    isCursorInRect,
-    useDimensions,
-    useTheme,
-    withContainer,
-} from '@nivo/core'
-import { renderAxesToCanvas } from '@nivo/axes'
+import { useEffect, useRef, useCallback, createElement } from 'react'
+import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container } from '@nivo/core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { useHeatMap } from './hooks'
-import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'
-import { HeatMapTooltip } from './HeatMapTooltip'
+import { canvasDefaultProps } from './defaults'
+import {
+    CellCanvasRenderer,
+    DefaultHeatMapDatum,
+    HeatMapCanvasProps,
+    HeatMapCommonProps,
+    HeatMapDatum,
+    CellShape,
+} from './types'
 
-const HeatMapCanvas = ({
+type InnerNetworkCanvasProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
+    HeatMapCanvasProps<Datum, ExtraProps>,
+    'renderWrapper' | 'theme'
+>
+
+const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
-    keys,
-    indexBy,
-    minValue,
-    maxValue,
+    layers = canvasDefaultProps.layers,
+    minValue: _minValue = canvasDefaultProps.minValue,
+    maxValue: _maxValue = canvasDefaultProps.maxValue,
+    valueFormat,
     width,
     height,
     margin: partialMargin,
-    forceSquare,
-    padding,
-    sizeVariation,
-    cellShape,
-    cellOpacity,
-    cellBorderColor,
-    axisTop,
-    axisRight,
-    axisBottom,
-    axisLeft,
-    enableLabels,
-    label,
-    labelTextColor,
-    colors,
-    nanColor,
-    isInteractive,
+    // forceSquare = canvasDefaultProps.forceSquare,
+    xInnerPadding = canvasDefaultProps.xInnerPadding,
+    xOuterPadding = canvasDefaultProps.xOuterPadding,
+    yInnerPadding = canvasDefaultProps.yInnerPadding,
+    yOuterPadding = canvasDefaultProps.yOuterPadding,
+    // sizeVariation = canvasDefaultProps.sizeVariation,
+    renderCell: _renderCell = canvasDefaultProps.renderCell as CellShape,
+    opacity = canvasDefaultProps.opacity,
+    activeOpacity = canvasDefaultProps.activeOpacity,
+    inactiveOpacity = canvasDefaultProps.inactiveOpacity,
+    // borderWidth = canvasDefaultProps.borderWidth,
+    borderColor = canvasDefaultProps.borderColor as HeatMapCommonProps<Datum>['borderColor'],
+    enableGridX = canvasDefaultProps.enableGridX,
+    enableGridY = canvasDefaultProps.enableGridY,
+    axisTop = canvasDefaultProps.axisTop,
+    axisRight = canvasDefaultProps.axisRight,
+    axisBottom = canvasDefaultProps.axisBottom,
+    axisLeft = canvasDefaultProps.axisLeft,
+    enableLabels = canvasDefaultProps.enableLabels,
+    label = canvasDefaultProps.label as HeatMapCommonProps<Datum>['label'],
+    labelTextColor = canvasDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
+    colors = canvasDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
+    emptyColor = canvasDefaultProps.emptyColor,
+    // legends = canvasDefaultProps.legends,
+    // annotations = canvasDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
+    isInteractive = canvasDefaultProps.isInteractive,
+    // onMouseEnter,
+    // onMouseMove,
+    // onMouseLeave,
     onClick,
-    hoverTarget,
-    cellHoverOpacity,
-    cellHoverOthersOpacity,
-    tooltipFormat,
-    tooltip,
-    pixelRatio,
-}) => {
-    const canvasEl = useRef(null)
+    hoverTarget = canvasDefaultProps.hoverTarget,
+    tooltip = canvasDefaultProps.tooltip as HeatMapCommonProps<Datum>['tooltip'],
+    role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    pixelRatio = canvasDefaultProps.pixelRatio,
+}: InnerNetworkCanvasProps<Datum, ExtraProps>) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -54,67 +74,93 @@ const HeatMapCanvas = ({
         partialMargin
     )
 
-    const { cells, xScale, yScale, offsetX, offsetY, currentCellId, setCurrentCellId } = useHeatMap(
-        {
-            data,
-            keys,
-            indexBy,
-            minValue,
-            maxValue,
-            width: innerWidth,
-            height: innerHeight,
-            padding,
-            forceSquare,
-            sizeVariation,
-            colors,
-            nanColor,
-            cellOpacity,
-            cellBorderColor,
-            label,
-            labelTextColor,
-            hoverTarget,
-            cellHoverOpacity,
-            cellHoverOthersOpacity,
-        }
-    )
+    const { xScale, yScale, cells, activeCell, setActiveCell } = useHeatMap<Datum, ExtraProps>({
+        data,
+        valueFormat,
+        width: innerWidth,
+        height: innerHeight,
+        xInnerPadding,
+        xOuterPadding,
+        yInnerPadding,
+        yOuterPadding,
+        colors,
+        emptyColor,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
+        borderColor,
+        label,
+        labelTextColor,
+        hoverTarget,
+    })
 
     const theme = useTheme()
 
+    let renderCell: CellCanvasRenderer<Datum>
+    if (typeof _renderCell === 'function') {
+        renderCell = _renderCell
+    } else if (_renderCell === 'circle') {
+        renderCell = renderCircle
+    } else {
+        renderCell = renderRect
+    }
+
     useEffect(() => {
-        canvasEl.current.width = outerWidth * pixelRatio
-        canvasEl.current.height = outerHeight * pixelRatio
+        if (canvasEl.current === null) return
 
         const ctx = canvasEl.current.getContext('2d')
+        if (!ctx) return
+
+        canvasEl.current.width = outerWidth * pixelRatio
+        canvasEl.current.height = outerHeight * pixelRatio
 
         ctx.scale(pixelRatio, pixelRatio)
 
         ctx.fillStyle = theme.background
         ctx.fillRect(0, 0, outerWidth, outerHeight)
-        ctx.translate(margin.left + offsetX, margin.top + offsetY)
+        ctx.translate(margin.left, margin.top) // + offsetX, margin.top + offsetY)
 
-        renderAxesToCanvas(ctx, {
-            xScale,
-            yScale,
-            width: innerWidth - offsetX * 2,
-            height: innerHeight - offsetY * 2,
-            top: axisTop,
-            right: axisRight,
-            bottom: axisBottom,
-            left: axisLeft,
-            theme,
-        })
+        layers.forEach(layer => {
+            if (layer === 'grid') {
+                ctx.lineWidth = theme.grid.line.strokeWidth as number
+                ctx.strokeStyle = theme.grid.line.stroke as string
 
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
+                if (enableGridX) {
+                    renderGridLinesToCanvas(ctx, {
+                        width: innerWidth,
+                        height: innerHeight,
+                        scale: xScale,
+                        axis: 'x',
+                    })
+                }
+                if (enableGridY) {
+                    renderGridLinesToCanvas(ctx, {
+                        width: innerWidth,
+                        height: innerHeight,
+                        scale: yScale,
+                        axis: 'y',
+                    })
+                }
+            } else if (layer === 'axes') {
+                renderAxesToCanvas(ctx, {
+                    xScale,
+                    yScale,
+                    width: innerWidth, // - offsetX * 2,
+                    height: innerHeight, // - offsetY * 2,
+                    top: axisTop,
+                    right: axisRight,
+                    bottom: axisBottom,
+                    left: axisLeft,
+                    theme,
+                })
+            } else if (layer === 'cells') {
+                ctx.textAlign = 'center'
+                ctx.textBaseline = 'middle'
 
-        let renderCell
-        if (cellShape === 'rect') {
-            renderCell = renderRect
-        } else {
-            renderCell = renderCircle
-        }
-        cells.forEach(cell => {
-            renderCell(ctx, { enableLabels, theme }, cell)
+                cells.forEach(cell => {
+                    renderCell(ctx, { cell, enableLabels, theme })
+                })
+            }
         })
     }, [
         canvasEl,
@@ -124,9 +170,9 @@ const HeatMapCanvas = ({
         innerWidth,
         innerHeight,
         margin,
-        offsetX,
-        offsetY,
-        cellShape,
+        renderCell,
+        enableGridX,
+        enableGridY,
         axisTop,
         axisRight,
         axisBottom,
@@ -142,12 +188,14 @@ const HeatMapCanvas = ({
 
     const handleMouseHover = useCallback(
         event => {
+            if (canvasEl.current === null) return
+
             const [x, y] = getRelativeCursor(canvasEl.current, event)
 
             const cell = cells.find(c =>
                 isCursorInRect(
-                    c.x + margin.left + offsetX - c.width / 2,
-                    c.y + margin.top + offsetY - c.height / 2,
+                    c.x + margin.left - c.width / 2, // + offsetX - c.width / 2,
+                    c.y + margin.top - c.height / 2, //+ offsetY - c.height / 2,
                     c.width,
                     c.height,
                     x,
@@ -155,13 +203,10 @@ const HeatMapCanvas = ({
                 )
             )
             if (cell !== undefined) {
-                setCurrentCellId(cell.id)
-                showTooltipFromEvent(
-                    <HeatMapTooltip cell={cell} tooltip={tooltip} format={tooltipFormat} />,
-                    event
-                )
+                setActiveCell(cell)
+                showTooltipFromEvent(createElement(tooltip, { cell }), event)
             } else {
-                setCurrentCellId(null)
+                setActiveCell(null)
                 hideTooltip()
             }
         },
@@ -169,29 +214,27 @@ const HeatMapCanvas = ({
             canvasEl,
             cells,
             margin,
-            offsetX,
-            offsetY,
-            setCurrentCellId,
+            // offsetX,
+            // offsetY,
+            setActiveCell,
             showTooltipFromEvent,
             hideTooltip,
             tooltip,
-            tooltipFormat,
         ]
     )
 
     const handleMouseLeave = useCallback(() => {
-        setCurrentCellId(null)
+        setActiveCell(null)
         hideTooltip()
-    }, [setCurrentCellId, hideTooltip])
+    }, [setActiveCell, hideTooltip])
 
     const handleClick = useCallback(
         event => {
-            if (currentCellId === null) return
+            if (activeCell === null) return
 
-            const currentCell = cells.find(cell => cell.id === currentCellId)
-            currentCell && onClick(currentCell, event)
+            onClick?.(activeCell, event)
         },
-        [cells, currentCellId, onClick]
+        [cells, activeCell, onClick]
     )
 
     return (
@@ -207,13 +250,26 @@ const HeatMapCanvas = ({
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            role={role}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
         />
     )
 }
 
-HeatMapCanvas.propTypes = HeatMapPropTypes
-
-const WrappedHeatMapCanvas = withContainer(HeatMapCanvas)
-WrappedHeatMapCanvas.defaultProps = HeatMapDefaultProps
-
-export default WrappedHeatMapCanvas
+export const HeatMapCanvas = <
+    Datum extends HeatMapDatum = DefaultHeatMapDatum,
+    ExtraProps extends object = Record<string, never>
+>({
+    theme,
+    isInteractive = canvasDefaultProps.isInteractive,
+    animate = canvasDefaultProps.animate,
+    motionConfig = canvasDefaultProps.motionConfig,
+    renderWrapper,
+    ...otherProps
+}: HeatMapCanvasProps<Datum, ExtraProps>) => (
+    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+        <InnerHeatMapCanvas<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)

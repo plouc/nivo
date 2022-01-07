@@ -5,6 +5,7 @@ export const commonDefaultProps: Omit<
     HeatMapCommonProps<DefaultHeatMapDatum>,
     | 'margin'
     | 'theme'
+    | 'valueFormat'
     | 'onClick'
     | 'renderWrapper'
     | 'role'
@@ -26,28 +27,24 @@ export const commonDefaultProps: Omit<
     yOuterPadding: 0,
     sizeVariation: 0,
 
-    opacity: 0.85,
+    opacity: 1,
     activeOpacity: 1,
-    inactiveOpacity: 0.35,
+    inactiveOpacity: 0.15,
     borderWidth: 0,
-    borderColor: { from: 'color' },
+    borderColor: { from: 'color', modifiers: [['darker', 0.8]] },
 
     enableGridX: false,
     enableGridY: false,
-    axisTop: {},
-    axisRight: null,
-    axisBottom: null,
-    axisLeft: {},
 
     enableLabels: true,
     label: 'formattedValue',
-    labelTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
+    labelTextColor: { from: 'color', modifiers: [['darker', 2]] },
 
     colors: {
         type: 'sequential',
         scheme: 'brown_blueGreen',
     },
-    nanColor: '#000000',
+    emptyColor: '#00000000',
 
     legends: [],
     annotations: [],
@@ -62,12 +59,20 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
+    axisTop: {},
+    axisRight: null,
+    axisBottom: null,
+    axisLeft: {},
     borderRadius: 0,
     cellComponent: 'rect',
 }
 
 export const canvasDefaultProps = {
     ...commonDefaultProps,
+    axisTop: {},
+    axisRight: null,
+    axisBottom: null,
+    axisLeft: {},
     renderCell: 'rect',
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

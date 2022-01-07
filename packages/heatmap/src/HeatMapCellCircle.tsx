@@ -1,90 +1,61 @@
-import { memo } from 'react'
-import PropTypes from 'prop-types'
-import { useSpring, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { memo, useMemo } from 'react'
+import { animated, to } from '@react-spring/web'
+import { useTheme } from '@nivo/core'
+import { HeatMapDatum, CellComponentProps } from './types'
 
-const HeatMapCellCircle = ({
-    data,
-    label,
-    x,
-    y,
-    width,
-    height,
-    color,
-    opacity,
+const NonMemoizedHeatMapCellCircle = <Datum extends HeatMapDatum>({
+    cell,
     borderWidth,
-    borderColor,
-    enableLabel,
-    textColor,
-    onHover,
-    onLeave,
+    animatedProps,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
     onClick,
-}) => {
+    enableLabels,
+}: CellComponentProps<Datum>) => {
     const theme = useTheme()
-    const { animate, config: springConfig } = useMotionConfig()
 
-    const animatedProps = useSpring({
-        transform: `translate(${x}, ${y})`,
-        radius: Math.min(width, height) / 2,
-        color,
-        opacity,
-        textColor,
-        borderWidth,
-        borderColor,
-        config: springConfig,
-        immediate: !animate,
-    })
+    const handlers = useMemo(
+        () => ({
+            onMouseEnter: onMouseEnter ? onMouseEnter(cell) : undefined,
+            onMouseMove: onMouseMove ? onMouseMove(cell) : undefined,
+            onMouseLeave: onMouseLeave ? onMouseLeave(cell) : undefined,
+            onClick: onClick ? onClick(cell) : undefined,
+        }),
+        [cell, onMouseEnter, onMouseMove, onMouseLeave]
+    )
 
     return (
         <animated.g
-            transform={animatedProps.transform}
             style={{ cursor: 'pointer' }}
-            onMouseEnter={onHover}
-            onMouseMove={onHover}
-            onMouseLeave={onLeave}
-            onClick={onClick ? event => onClick(data, event) : undefined}
+            opacity={animatedProps.opacity}
+            {...handlers}
+            transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x}, ${y})`)}
         >
             <animated.circle
-                r={animatedProps.radius}
+                r={12}
                 fill={animatedProps.color}
                 fillOpacity={animatedProps.opacity}
-                strokeWidth={animatedProps.borderWidth}
+                strokeWidth={borderWidth}
                 stroke={animatedProps.borderColor}
-                strokeOpacity={animatedProps.opacity}
             />
-            {enableLabel && (
+            {enableLabels && (
                 <animated.text
                     dominantBaseline="central"
                     textAnchor="middle"
+                    fill={animatedProps.labelTextColor}
                     style={{
                         ...theme.labels.text,
-                        fill: animatedProps.textColor,
+                        fill: undefined,
                     }}
-                    fillOpacity={animatedProps.opacity}
                 >
-                    {label}
+                    {cell.label}
                 </animated.text>
             )}
         </animated.g>
     )
 }
 
-HeatMapCellCircle.propTypes = {
-    data: PropTypes.object.isRequired,
-    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    opacity: PropTypes.number.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    enableLabel: PropTypes.bool.isRequired,
-    textColor: PropTypes.string.isRequired,
-    onHover: PropTypes.func,
-    onLeave: PropTypes.func,
-    onClick: PropTypes.func,
-}
-
-export default memo(HeatMapCellCircle)
+export const HeatMapCellCircle = memo(
+    NonMemoizedHeatMapCellCircle
+) as typeof NonMemoizedHeatMapCellCircle

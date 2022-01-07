@@ -30,12 +30,17 @@ export const computeCells = <Datum extends HeatMapDatum, ExtraProps extends obje
 
         serie.data.forEach(datum => {
             xValuesSet.add(datum.x)
-            allValues.push(datum.y)
+
+            let value: number | null = null
+            if (datum.y !== undefined && datum.y !== null) {
+                allValues.push(datum.y)
+                value = datum.y
+            }
 
             cells.push({
                 id: `${serie.id}.${datum.x}`,
                 serieId: serie.id,
-                value: datum.y,
+                value,
                 data: datum,
             })
         })
@@ -63,7 +68,7 @@ export const computeCells = <Datum extends HeatMapDatum, ExtraProps extends obje
 
     const cellsWithPosition: Omit<
         ComputedCell<Datum>,
-        'formattedValue' | 'color' | 'opacity' | 'borderColor'
+        'formattedValue' | 'color' | 'opacity' | 'borderColor' | 'label' | 'labelTextColor'
     >[] = cells.map(cell => ({
         ...cell,
         x: xScale(cell.data.x)! + cellWidth / 2,

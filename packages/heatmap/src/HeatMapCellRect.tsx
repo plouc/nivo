@@ -1,96 +1,71 @@
-import { memo } from 'react'
-import PropTypes from 'prop-types'
-import { useSpring, animated } from '@react-spring/web'
-import { useMotionConfig, useTheme } from '@nivo/core'
+import { memo, useMemo } from 'react'
+import { animated, to } from '@react-spring/web'
+import { useTheme } from '@nivo/core'
+import { CellComponentProps, HeatMapDatum } from './types'
 
-const HeatMapCellRect = ({
-    data,
-    label,
-    x,
-    y,
-    width,
-    height,
-    color,
-    opacity,
+const NonMemoizedHeatMapCellRect = <Datum extends HeatMapDatum>({
+    cell,
     borderWidth,
-    borderColor,
-    enableLabel,
-    textColor,
-    onHover,
-    onLeave,
+    borderRadius,
+    animatedProps,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
     onClick,
-}) => {
+    enableLabels,
+}: CellComponentProps<Datum>) => {
     const theme = useTheme()
-    const { animate, config: springConfig } = useMotionConfig()
 
-    const animatedProps = useSpring({
-        transform: `translate(${x}, ${y})`,
-        width,
-        height,
-        xOffset: width * -0.5,
-        yOffset: height * -0.5,
-        color,
-        opacity,
-        textColor,
-        borderWidth,
-        borderColor,
-        config: springConfig,
-        immediate: !animate,
-    })
+    const handlers = useMemo(
+        () => ({
+            onMouseEnter: onMouseEnter ? onMouseEnter(cell) : undefined,
+            onMouseMove: onMouseMove ? onMouseMove(cell) : undefined,
+            onMouseLeave: onMouseLeave ? onMouseLeave(cell) : undefined,
+            onClick: onClick ? onClick(cell) : undefined,
+        }),
+        [cell, onMouseEnter, onMouseMove, onMouseLeave]
+    )
 
     return (
         <animated.g
-            transform={animatedProps.transform}
             style={{ cursor: 'pointer' }}
-            onMouseEnter={onHover}
-            onMouseMove={onHover}
-            onMouseLeave={onLeave}
-            onClick={onClick ? event => onClick(data, event) : undefined}
+            opacity={animatedProps.opacity}
+            {...handlers}
+            transform={to(
+                [animatedProps.x, animatedProps.y, animatedProps.scale],
+                (x, y, scale) => `translate(${x}, ${y}) scale(${scale})`
+            )}
         >
             <animated.rect
-                x={animatedProps.xOffset}
-                y={animatedProps.yOffset}
+                transform={to(
+                    [animatedProps.width, animatedProps.height],
+                    (width, height) => `translate(${width * -0.5}, ${height * -0.5})`
+                )}
+                key={cell.id}
+                fill={animatedProps.color}
                 width={animatedProps.width}
                 height={animatedProps.height}
-                fill={animatedProps.color}
-                fillOpacity={animatedProps.opacity}
-                strokeWidth={animatedProps.borderWidth}
                 stroke={animatedProps.borderColor}
-                strokeOpacity={animatedProps.opacity}
+                strokeWidth={borderWidth}
+                rx={borderRadius}
+                ry={borderRadius}
             />
-            {enableLabel && (
+            {enableLabels && (
                 <animated.text
-                    dominantBaseline="central"
                     textAnchor="middle"
+                    dominantBaseline="central"
+                    fill={animatedProps.labelTextColor}
                     style={{
                         ...theme.labels.text,
-                        fill: animatedProps.textColor,
+                        fill: undefined,
+                        userSelect: 'none',
                     }}
-                    fillOpacity={animatedProps.opacity}
                 >
-                    {label}
+                    {cell.label}
                 </animated.text>
             )}
         </animated.g>
     )
 }
 
-HeatMapCellRect.propTypes = {
-    data: PropTypes.object.isRequired,
-    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    opacity: PropTypes.number.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    enableLabel: PropTypes.bool.isRequired,
-    textColor: PropTypes.string.isRequired,
-    onHover: PropTypes.func,
-    onLeave: PropTypes.func,
-    onClick: PropTypes.func,
-}
-
-export default memo(HeatMapCellRect)
+export const HeatMapCellRect = memo(NonMemoizedHeatMapCellRect) as typeof NonMemoizedHeatMapCellRect
