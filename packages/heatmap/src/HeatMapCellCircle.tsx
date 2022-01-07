@@ -33,7 +33,10 @@ const NonMemoizedHeatMapCellCircle = <Datum extends HeatMapDatum>({
             transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x}, ${y})`)}
         >
             <animated.circle
-                r={12}
+                r={to(
+                    [animatedProps.width, animatedProps.height],
+                    (width, height) => Math.min(width, height) / 2
+                )}
                 fill={animatedProps.color}
                 fillOpacity={animatedProps.opacity}
                 strokeWidth={borderWidth}

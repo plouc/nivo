@@ -1,10 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import isFunction from 'lodash/isFunction'
-import {
-    ResponsiveHeatMapCanvas,
-    canvasDefaultProps as defaults,
-} from '@nivo/heatmap'
+import { ResponsiveHeatMapCanvas, canvasDefaultProps as defaults } from '@nivo/heatmap'
 import { generateXYSeries, sets } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
@@ -47,16 +44,8 @@ const initialProperties = {
     yOuterPadding: defaults.yOuterPadding,
     yInnerPadding: defaults.yInnerPadding,
 
-    colors: {
-        type: 'diverging',
-        scheme: 'red_yellow_blue',
-        divergeAt: 0.5,
-        minValue: -100_000,
-        maxValue: 100_000,
-    },
-
     enableGridX: false,
-    enableGridY: true,
+    enableGridY: false,
     axisTop: {
         enable: true,
         orient: 'top',
@@ -98,10 +87,17 @@ const initialProperties = {
     },
 
     renderCell: 'rect',
+    colors: {
+        type: 'diverging',
+        scheme: 'red_yellow_blue',
+        divergeAt: 0.5,
+        minValue: -100_000,
+        maxValue: 100_000,
+    },
+    emptyColor: '#555555',
     opacity: defaults.opacity,
     activeOpacity: defaults.activeOpacity,
     inactiveOpacity: defaults.inactiveOpacity,
-    borderRadius: defaults.borderRadius,
     borderWidth: defaults.borderWidth,
     borderColor: defaults.borderColor,
 

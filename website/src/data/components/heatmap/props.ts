@@ -19,6 +19,19 @@ const props: ChartProperty[] = [
         help: 'Chart data.',
         type: 'HeatMapSerie<Datum, ExtraProps>[]',
         required: true,
+        description: `
+        The default expected type is:
+        
+        \`\`\`
+        {
+            id: string
+            data: {
+                x: string | number
+                y: number | null
+            }[]
+        }[]
+        \`\`\`
+        `
     },
     {
         key: 'minValue',
@@ -156,6 +169,14 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'emptyColor',
+        group: 'Style',
+        help: 'Color to use for cells not having a value.',
+        type: 'string',
+        defaultValue: defaults.emptyColor,
+        control: { type: 'colorPicker' },
+    },
+    {
         key: 'opacity',
         group: 'Style',
         defaultValue: defaults.opacity,
@@ -190,7 +211,6 @@ const props: ChartProperty[] = [
     {
         key: 'borderWidth',
         group: 'Style',
-        help: 'Cell border width.',
         defaultValue: defaults.borderWidth,
         type: 'number',
         control: { type: 'lineWidth' },
@@ -198,7 +218,6 @@ const props: ChartProperty[] = [
     {
         key: 'borderColor',
         group: 'Style',
-        help: 'Method to compute cell border color.',
         description: `
             how to compute cell border color,
             [see dedicated documentation](self:/guides/colors).
@@ -224,7 +243,6 @@ const props: ChartProperty[] = [
     },
     {
         key: 'labelTextColor',
-        help: 'Method to compute label text color.',
         description: `
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
