@@ -22,7 +22,7 @@ const NonMemoizedHeatMapCellCircle = <Datum extends HeatMapDatum>({
             onMouseLeave: onMouseLeave ? onMouseLeave(cell) : undefined,
             onClick: onClick ? onClick(cell) : undefined,
         }),
-        [cell, onMouseEnter, onMouseMove, onMouseLeave]
+        [cell, onMouseEnter, onMouseMove, onMouseLeave, onClick]
     )
 
     return (

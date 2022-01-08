@@ -251,7 +251,18 @@ export const useHeatMap = <
 
                 return computedCell
             }),
-        [cells, getColor, getBorderColor, getLabelTextColor, formatValue, getLabel, activeIds]
+        [
+            cells,
+            getColor,
+            getBorderColor,
+            getLabelTextColor,
+            formatValue,
+            getLabel,
+            activeIds,
+            opacity,
+            activeOpacity,
+            inactiveOpacity,
+        ]
     )
 
     return {
