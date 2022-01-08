@@ -5,6 +5,7 @@ import waffleLightColoredImg from '../../assets/icons/waffle-light-colored.png'
 import waffleDarkNeutralImg from '../../assets/icons/waffle-dark-neutral.png'
 import waffleDarkColoredImg from '../../assets/icons/waffle-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
 const chartProps = {
     width: ICON_SIZE,
@@ -24,32 +25,22 @@ const chartProps = {
     isInteractive: false,
 }
 
-const WaffleIconItem = ({ type }) => (
+const WaffleIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`waffle-${type}`} type={type}>
         <Waffle {...chartProps} colors={[colors[type].colors[4], colors[type].colors[0]]} />
     </Icon>
 )
 
-const WaffleIcon = () => (
+export const WaffleIcon = () => (
     <>
         <WaffleIconItem type="lightNeutral" />
         <Icon id="waffle-grey">
-            <Waffle
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#767676', '#cbcbcb']}
-            />
+            <Waffle {...chartProps} colors={['#767676', '#cbcbcb']} />
         </Icon>
         <IconImg url={waffleLightNeutralImg} />
         <WaffleIconItem type="lightColored" />
         <Icon id="waffle-red">
-            <Waffle
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#e2462f', '#ffb8b5']}
-            />
+            <Waffle {...chartProps} colors={['#e2462f', '#ffb8b5']} />
         </Icon>
         <IconImg url={waffleLightColoredImg} />
         <WaffleIconItem type="darkNeutral" />
@@ -58,5 +49,3 @@ const WaffleIcon = () => (
         <IconImg url={waffleDarkColoredImg} />
     </>
 )
-
-export default WaffleIcon

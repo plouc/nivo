@@ -1,12 +1,19 @@
 import React from 'react'
-import { Stream } from '@nivo/stream'
+import { Stream, StreamSvgProps } from '@nivo/stream'
 import streamLightNeutralImg from '../../assets/icons/stream-light-neutral.png'
 import streamLightColoredImg from '../../assets/icons/stream-light-colored.png'
 import streamDarkNeutralImg from '../../assets/icons/stream-dark-neutral.png'
 import streamDarkColoredImg from '../../assets/icons/stream-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    A: number
+    B: number
+    C: number
+}
+
+const chartProps: StreamSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     keys: ['A', 'B', 'C'],
@@ -32,16 +39,16 @@ const chartProps = {
     animate: false,
 }
 
-const StreamIconItem = ({ type }) => (
+const StreamIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`stream-${type}`} type={type}>
-        <Stream
+        <Stream<Datum>
             {...chartProps}
             colors={[colors[type].colors[3], colors[type].colors[1], colors[type].colors[4]]}
         />
     </Icon>
 )
 
-const StreamIcon = () => (
+export const StreamIcon = () => (
     <>
         <StreamIconItem type="lightNeutral" />
         <IconImg url={streamLightNeutralImg} />
@@ -53,5 +60,3 @@ const StreamIcon = () => (
         <IconImg url={streamDarkColoredImg} />
     </>
 )
-
-export default StreamIcon

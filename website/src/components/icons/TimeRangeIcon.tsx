@@ -1,12 +1,13 @@
 import React from 'react'
-import { TimeRange } from '@nivo/calendar'
+import { TimeRange, TimeRangeSvgProps } from '@nivo/calendar'
 import timeRangeLightNeutralImg from '../../assets/icons/time-range-light-neutral.png'
 import timeRangeLightColoredImg from '../../assets/icons/time-range-light-colored.png'
 import timeRangeDarkNeutralImg from '../../assets/icons/time-range-dark-neutral.png'
 import timeRangeDarkColoredImg from '../../assets/icons/time-range-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const pad = value => `0${value}`.slice(-2)
+const pad = (value: number) => `0${value}`.slice(-2)
 const data = Array(21)
     .fill('')
     .map((_, index) => ({
@@ -14,7 +15,7 @@ const data = Array(21)
         value: Math.round(Math.random() * 400),
     }))
 
-const chartProps = {
+const chartProps: TimeRangeSvgProps = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data,
@@ -30,7 +31,7 @@ const chartProps = {
     weekdayLegendOffset: 0,
 }
 
-const TimeRangeIconItem = ({ type }) => {
+const TimeRangeIconItem = ({ type }: { type: IconType }) => {
     const currentColors = colors[type].colors
 
     return (
@@ -51,7 +52,7 @@ const TimeRangeIconItem = ({ type }) => {
     )
 }
 
-const TimeRangeIcon = () => (
+export const TimeRangeIcon = () => (
     <>
         <TimeRangeIconItem type="lightNeutral" />
         <IconImg url={timeRangeLightNeutralImg} />
@@ -63,5 +64,3 @@ const TimeRangeIcon = () => (
         <IconImg url={timeRangeDarkColoredImg} />
     </>
 )
-
-export default TimeRangeIcon

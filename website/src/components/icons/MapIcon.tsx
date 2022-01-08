@@ -30,7 +30,15 @@ const rects = [
     [size * 0.6, size * 0.7, size * 0.4, size * 0.3],
 ]
 
-const MapIcon = ({ stroke, fill, colors = [] }) => {
+export const MapIcon = ({
+    stroke,
+    fill,
+    colors = [],
+}: {
+    stroke: string
+    fill: string
+    colors?: string[]
+}) => {
     return (
         <svg width={size} height={size}>
             <mask id="choropleth-icon-mask">
@@ -96,5 +104,3 @@ const MapIcon = ({ stroke, fill, colors = [] }) => {
         </svg>
     )
 }
-
-export default MapIcon

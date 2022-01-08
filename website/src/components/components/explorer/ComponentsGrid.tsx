@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { ComponentsGridItem } from './ComponentsGridItem'
 import * as nav from '../../../data/nav'
@@ -13,7 +13,9 @@ const getFilterFunction = (term?: string | null, filter?: string | null): Filter
         predicates.push(({ name }) => name.toLowerCase().includes(term.toLowerCase()))
     }
     if (filter) {
+        // @ts-ignore
         predicates.push(({ flavors }) => flavors[filter.toLowerCase()] === true)
+        predicates.push(({ tags }) => tags.includes(filter))
     }
 
     return item => predicates.every(predicate => predicate(item))

@@ -1,12 +1,17 @@
-import React from 'react'
-import { Line } from '@nivo/line'
+import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
+import { Line, LineSvgProps } from '@nivo/line'
 import lineLightNeutralImg from '../../assets/icons/line-light-neutral.png'
 import lineLightColoredImg from '../../assets/icons/line-light-colored.png'
 import lineDarkNeutralImg from '../../assets/icons/line-dark-neutral.png'
 import lineDarkColoredImg from '../../assets/icons/line-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+const chartProps: LineSvgProps & {
+    width: number
+    height: number
+} = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     margin: {
@@ -57,27 +62,34 @@ const chartProps = {
     },
 }
 
-const LineIconItem = ({ type }) => (
-    <Icon id={`line-${type}`} type={type}>
-        <Line
-            {...chartProps}
-            colors={[colors[type].colors[2], colors[type].colors[4]]}
-            theme={{
-                axis: {
-                    domain: {
-                        line: {
-                            stroke: colors[type].colors[3],
-                            strokeWidth: 3,
-                            strokeLinecap: 'square',
-                        },
+const LineIconItem = ({ type }: { type: IconType }) => {
+    const theme: Theme = useMemo(
+        () => ({
+            axis: {
+                domain: {
+                    line: {
+                        stroke: colors[type].colors[3],
+                        strokeWidth: 3,
+                        strokeLinecap: 'square',
                     },
                 },
-            }}
-        />
-    </Icon>
-)
+            },
+        }),
+        [type]
+    )
 
-const LineIcon = () => (
+    return (
+        <Icon id={`line-${type}`} type={type}>
+            <Line
+                {...chartProps}
+                colors={[colors[type].colors[2], colors[type].colors[4]]}
+                theme={theme}
+            />
+        </Icon>
+    )
+}
+
+export const LineIcon = () => (
     <>
         <LineIconItem type="lightNeutral" />
         <IconImg url={lineLightNeutralImg} />
@@ -89,5 +101,3 @@ const LineIcon = () => (
         <IconImg url={lineDarkColoredImg} />
     </>
 )
-
-export default LineIcon

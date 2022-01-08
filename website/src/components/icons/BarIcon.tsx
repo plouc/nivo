@@ -1,12 +1,20 @@
-import React from 'react'
-import { Bar } from '@nivo/bar'
+import React, { useMemo } from 'react'
+import { Bar, BarSvgProps } from '@nivo/bar'
 import barLightNeutralImg from '../../assets/icons/bar-light-neutral.png'
 import barLightColoredImg from '../../assets/icons/bar-light-colored.png'
 import barDarkNeutralImg from '../../assets/icons/bar-dark-neutral.png'
 import barDarkColoredImg from '../../assets/icons/bar-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    id: string
+    A: number
+    B: number
+    C: number
+}
+
+const chartProps: BarSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     indexBy: 'id',
@@ -31,16 +39,20 @@ const chartProps = {
     isInteractive: false,
 }
 
-const BarIconItem = ({ type }) => (
-    <Icon id={`bar-${type}`} type={type}>
-        <Bar
-            {...chartProps}
-            colors={[colors[type].colors[1], colors[type].colors[2], colors[type].colors[4]]}
-        />
-    </Icon>
-)
+const BarIconItem = ({ type }: { type: IconType }) => {
+    const typedColors = useMemo(
+        () => [colors[type].colors[1], colors[type].colors[2], colors[type].colors[4]],
+        [type]
+    )
 
-const BarIcon = () => (
+    return (
+        <Icon id={`bar-${type}`} type={type}>
+            <Bar<Datum> {...chartProps} colors={typedColors} />
+        </Icon>
+    )
+}
+
+export const BarIcon = () => (
     <>
         <BarIconItem type="lightNeutral" />
         <IconImg url={barLightNeutralImg} />
@@ -52,5 +64,3 @@ const BarIcon = () => (
         <IconImg url={barDarkColoredImg} />
     </>
 )
-
-export default BarIcon

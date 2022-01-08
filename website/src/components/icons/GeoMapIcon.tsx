@@ -4,15 +4,16 @@ import geomapLightColoredImg from '../../assets/icons/geomap-light-colored.png'
 import geomapDarkNeutralImg from '../../assets/icons/geomap-dark-neutral.png'
 import geomapDarkColoredImg from '../../assets/icons/geomap-dark-colored.png'
 import { Icon, colors, IconImg } from './styled'
-import MapIcon from './MapIcon'
+import { MapIcon } from './MapIcon'
+import { IconType } from './types'
 
-const GeoMapIconItem = ({ type }) => (
+const GeoMapIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`geomap-${type}`} type={type}>
         <MapIcon stroke={colors[type].colors[4]} fill={colors[type].colors[0]} />
     </Icon>
 )
 
-const GeoMapIcon = () => (
+export const GeoMapIcon = () => (
     <>
         <GeoMapIconItem type="lightNeutral" />
         <IconImg url={geomapLightNeutralImg} />
@@ -24,5 +25,3 @@ const GeoMapIcon = () => (
         <IconImg url={geomapDarkColoredImg} />
     </>
 )
-
-export default GeoMapIcon

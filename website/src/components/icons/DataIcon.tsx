@@ -4,8 +4,9 @@ import dataLightColoredImg from '../../assets/icons/data-light-colored.png'
 import dataDarkNeutralImg from '../../assets/icons/data-dark-neutral.png'
 import dataDarkColoredImg from '../../assets/icons/data-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const DataIconItem = ({ type }) => (
+const DataIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`data-${type}`} type={type}>
         <svg width={ICON_SIZE} height={ICON_SIZE}>
             <g transform={`translate(${ICON_SIZE / 2},${ICON_SIZE / 2})`}>
@@ -29,7 +30,7 @@ const DataIconItem = ({ type }) => (
     </Icon>
 )
 
-const DataIcon = () => (
+export const DataIcon = () => (
     <>
         <DataIconItem type="lightNeutral" />
         <IconImg url={dataLightNeutralImg} />
@@ -41,5 +42,3 @@ const DataIcon = () => (
         <IconImg url={dataDarkColoredImg} />
     </>
 )
-
-export default DataIcon

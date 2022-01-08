@@ -1,12 +1,14 @@
-import React from 'react'
-import { AreaBump } from '@nivo/bump'
+import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
+import { AreaBump, AreaBumpSvgProps, AreaBumpSerieExtraProps } from '@nivo/bump'
 import areaBumpLightNeutralImg from '../../assets/icons/area-bump-light-neutral.png'
 import areaBumpLightColoredImg from '../../assets/icons/area-bump-light-colored.png'
 import areaBumpDarkNeutralImg from '../../assets/icons/area-bump-dark-neutral.png'
 import areaBumpDarkColoredImg from '../../assets/icons/area-bump-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+const chartProps: AreaBumpSvgProps<{ x: number; y: number }, AreaBumpSerieExtraProps> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: [
@@ -99,37 +101,40 @@ const chartProps = {
     axisTop: null,
     axisBottom: null,
     enableGridX: false,
-    isInteractive: true,
+    isInteractive: false,
 }
 
-const AreaBumpIconItem = ({ type }) => (
-    <Icon id={`area-bump-${type}`} type={type}>
-        <AreaBump
-            {...chartProps}
-            colors={colors[type].colors}
-            theme={{
-                axis: {
-                    domain: {
-                        line: {
-                            stroke: colors[type].colors[3],
-                            strokeWidth: 3,
-                            strokeLinecap: 'square',
-                        },
-                    },
-                },
-                grid: {
+const AreaBumpIconItem = ({ type }: { type: IconType }) => {
+    const theme: Theme = useMemo(
+        () => ({
+            axis: {
+                domain: {
                     line: {
-                        strokeWidth: 2,
-                        strokeOpacity: 0.5,
-                        stroke: colors[type].colors[1],
+                        stroke: colors[type].colors[3],
+                        strokeWidth: 3,
+                        strokeLinecap: 'square',
                     },
                 },
-            }}
-        />
-    </Icon>
-)
+            },
+            grid: {
+                line: {
+                    strokeWidth: 2,
+                    strokeOpacity: 0.5,
+                    stroke: colors[type].colors[1],
+                },
+            },
+        }),
+        []
+    )
 
-const AreaBumpIcon = () => (
+    return (
+        <Icon id={`area-bump-${type}`} type={type}>
+            <AreaBump {...chartProps} colors={colors[type].colors} theme={theme} />
+        </Icon>
+    )
+}
+
+export const AreaBumpIcon = () => (
     <>
         <AreaBumpIconItem type="lightNeutral" />
         <IconImg url={areaBumpLightNeutralImg} />
@@ -141,5 +146,3 @@ const AreaBumpIcon = () => (
         <IconImg url={areaBumpDarkColoredImg} />
     </>
 )
-
-export default AreaBumpIcon
