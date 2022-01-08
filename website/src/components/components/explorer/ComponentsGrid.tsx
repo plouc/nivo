@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ComponentsGridItem } from './ComponentsGridItem'
 import * as nav from '../../../data/nav'
 import media from '../../../theming/mediaQueries'
-import { ChartNavData } from '../../../types'
+import { ChartNavData, Flavor } from '../../../types'
 
 type FilterFunction = (item: ChartNavData) => boolean
 
@@ -13,9 +13,11 @@ const getFilterFunction = (term?: string | null, filter?: string | null): Filter
         predicates.push(({ name }) => name.toLowerCase().includes(term.toLowerCase()))
     }
     if (filter) {
-        // @ts-ignore
-        predicates.push(({ flavors }) => flavors[filter.toLowerCase()] === true)
-        predicates.push(({ tags }) => tags.includes(filter))
+        const normalizedFilter = filter.toLowerCase()
+        predicates.push(({ tags, flavors }) => {
+            if (tags.includes(normalizedFilter)) return true
+            return !!(normalizedFilter in flavors && flavors[normalizedFilter as Flavor])
+        })
     }
 
     return item => predicates.every(predicate => predicate(item))
