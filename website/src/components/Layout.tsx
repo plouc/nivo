@@ -1,15 +1,21 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useCallback, useState } from 'react'
 import styled from 'styled-components'
-import Header from './Header'
+import { Header } from './Header'
 import media from '../theming/mediaQueries'
-// @ts-ignore
-import MiniNav from './nav/MiniNav'
+import { MiniNav, FullNav } from './nav'
 
 const Layout = ({ children }: PropsWithChildren<{}>) => {
+    const [isNavOpen, setIsNavOpen] = useState(false)
+
+    const toggleNav = useCallback(() => {
+        setIsNavOpen(isOpen => !isOpen)
+    }, [setIsNavOpen])
+
     return (
         <>
-            <Header />
+            <Header isNavOpen={isNavOpen} toggleNav={toggleNav} />
             <MiniNav />
+            {isNavOpen && <FullNav />}
             <Content>
                 <InnerContent>{children}</InnerContent>
             </Content>

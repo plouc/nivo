@@ -6,9 +6,7 @@ flavors:
 
 SwarmPlot:
   package: '@nivo/swarmplot'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Custom circle component
       link: swarmplot--custom-circle-component

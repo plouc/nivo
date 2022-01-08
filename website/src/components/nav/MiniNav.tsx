@@ -1,29 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
-import MiniNavLink from './MiniNavLink'
+import { MiniNavLink } from './MiniNavLink'
 import logoImg from '../../assets/icons/nivo-icon.png'
 import media from '../../theming/mediaQueries'
 import * as nav from '../../data/nav'
 
-class MiniNav extends Component {
-    render() {
-        return (
-            <Wrapper>
-                <Logo to="/">
-                    <span className="sprite-icons-nivo-logo" />
-                </Logo>
-                <Container>
-                    {nav.components.map(item => {
-                        return <MiniNavLink key={item.path} {...item} />
-                    })}
-                </Container>
-            </Wrapper>
-        )
-    }
+export const MiniNav = () => {
+    return (
+        <Wrapper>
+            <Logo to="/">
+                <span className="sprite-icons-nivo-logo" />
+            </Logo>
+            <Container>
+                {nav.components.map(item => (
+                    <MiniNavLink key={item.id} {...item} />
+                ))}
+            </Container>
+        </Wrapper>
+    )
 }
-
-export default MiniNav
 
 const Wrapper = styled.aside`
     position: fixed;
@@ -66,7 +62,7 @@ const Logo = styled(Link)`
     display: block;
     background-color: ${({ theme }) => theme.colors.cardBackground};
     background-image: url(${logoImg});
-    background-size: 52%;
+    background-size: 60%;
     background-position: center center;
     background-repeat: no-repeat;
 `

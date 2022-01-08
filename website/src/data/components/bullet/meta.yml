@@ -4,9 +4,7 @@ flavors:
 
 Bullet:
   package: '@nivo/bullet'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: custom range
       link: bullet--custom-range

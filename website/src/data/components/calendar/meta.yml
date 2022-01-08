@@ -8,9 +8,7 @@ flavors:
 
 Calendar:
   package: '@nivo/calendar'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories: []
   description: |
     This component is heavily inspired by

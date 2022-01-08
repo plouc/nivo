@@ -4,9 +4,7 @@ flavors:
 
 TimeRange:
   package: '@nivo/calendar'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories: []
   description: |
     The TimeRange chart is similar to the [Calendar](self:/calendar) chart, but

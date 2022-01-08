@@ -1,30 +1,46 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback, MouseEvent } from 'react'
 import { Link } from 'gatsby'
 import styled, { useTheme } from 'styled-components'
 import media from '../../../theming/mediaQueries'
+import { ChartNavData } from '../../../types'
 
-interface ComponentsGridItemProps {
-    path: string
-    name: string
-    icon: string
-    tags: string[]
-}
-
-export const ComponentsGridItem = memo(({ path, name, icon, tags }: ComponentsGridItemProps) => {
+export const ComponentsGridItem = memo(({ name, id, flavors, tags }: ChartNavData) => {
     const theme = useTheme()
 
+    const handleVariantClick = useCallback((event: MouseEvent) => {
+        event.stopPropagation()
+    }, [])
+
     return (
-        <Container to={path}>
-            <Icon className={`sprite-icons-${icon}-${theme.id}-colored`} />
+        <Container to={`/${id}/`}>
+            <Icon className={`sprite-icons-${id}-${theme.id}-colored`} />
             <Header>
                 <Name>{name}</Name>
-                {tags.length > 0 && (
+                {/*tags.length > 0 && (
                     <Tags>
                         {tags.map(tag => (
                             <Tag key={tag}>{tag}</Tag>
                         ))}
                     </Tags>
-                )}
+                )*/}
+                <Flavors>
+                    <Flavor to={`/${id}/`}>SVG</Flavor>
+                    {flavors.html && (
+                        <Flavor onClick={handleVariantClick} to={`/${id}/html/`}>
+                            HTML
+                        </Flavor>
+                    )}
+                    {flavors.canvas && (
+                        <Flavor onClick={handleVariantClick} to={`/${id}/canvas/`}>
+                            Canvas
+                        </Flavor>
+                    )}
+                    {flavors.api && (
+                        <Flavor onClick={handleVariantClick} to={`/${id}/api/`}>
+                            API
+                        </Flavor>
+                    )}
+                </Flavors>
             </Header>
         </Container>
     )
@@ -35,17 +51,15 @@ const Container = styled(Link)`
     background-color: ${({ theme }) => theme.colors.cardBackground};
     border-radius: 2px;
     padding: 12px;
-    cursor: pointer;
     color: ${({ theme }) => theme.colors.text};
     border: 1px solid ${({ theme }) => theme.colors.cardBackground};
     box-shadow: ${({ theme }) => theme.cardShadow};
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 
     &:focus,
     &:hover {
-        color: ${({ theme }) => theme.colors.accent};
         box-shadow: none;
         border-color: ${({ theme }) => theme.colors.accent};
         outline: 0;
@@ -89,6 +103,35 @@ const Icon = styled.span`
     display: block;
     width: 52px;
     height: 52px;
+`
+
+const Flavors = styled.div`
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+`
+
+const Flavor = styled(Link)`
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.75rem;
+    line-height: 1em;
+    font-weight: 700;
+    padding: 3px 4px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    border-radius: 2px;
+    background-color: ${({ theme }) => theme.colors.accent};
+    border: 1px solid ${({ theme }) => theme.colors.accent};
+    color: #ffffff;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.cardBackground};
+        color: ${({ theme }) => theme.colors.accent};
+    }
 `
 
 const Tags = styled.div`

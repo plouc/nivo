@@ -40,3 +40,15 @@ export interface ChartPropertiesGroup {
     name: string
     properties: ChartProperty[]
 }
+
+export interface ChartNavData {
+    name: string
+    id: string
+    tags: string[]
+    flavors: {
+        svg: true
+        html?: boolean
+        canvas?: boolean
+        api?: boolean
+    }
+}

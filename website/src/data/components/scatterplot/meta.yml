@@ -6,9 +6,7 @@ flavors:
 
 ScatterPlot:
   package: '@nivo/scatterplot'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Using custom node
       link: scatterplot--custom-node

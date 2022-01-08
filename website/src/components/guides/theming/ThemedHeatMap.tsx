@@ -55,10 +55,21 @@ export const ThemedHeatMap = ({ theme }: { theme: CompleteTheme }) => {
                     anchor: 'right',
                     direction: 'column',
                     translateX: 32,
-                    length: 180,
+                    length: 140,
                     thickness: 10,
                     ticks: [-100, -75, -50, -25, 0, 25, 50, 75, 100],
                     title: 'Legend Title →',
+                },
+            ]}
+            annotations={[
+                {
+                    match: { id: 'B.B' },
+                    type: 'rect',
+                    offset: 3,
+                    borderRadius: 3,
+                    noteX: 20,
+                    noteY: { abs: -10 },
+                    note: 'Sample annotation',
                 },
             ]}
         />

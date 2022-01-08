@@ -12,8 +12,6 @@ TreeMap:
   package: '@nivo/treemap'
   tags:
     - hierarchy
-    - svg
-    - isomorphic
   stories:
     - label: Using custom tooltip
       link: treemap--custom-tooltip

@@ -8,9 +8,7 @@ flavors:
 
 Waffle:
   package: '@nivo/waffle'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories: []
   description: |
     A waffle component. You can fully customize it using `cellComponent`
