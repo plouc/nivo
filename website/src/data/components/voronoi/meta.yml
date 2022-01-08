@@ -5,7 +5,6 @@ flavors:
 Voronoi:
   package: '@nivo/voronoi'
   tags:
-    - svg
     - experimental
   stories: []
   description: |

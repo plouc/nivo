@@ -6,9 +6,7 @@ flavors:
 
 Network:
   package: '@nivo/network'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Custom node tooltip
       link: network--custom-node-tooltip

@@ -5,7 +5,7 @@ const dimensions = {
     headerHeight: 60,
     contentMargin: 30,
     contentMarginSmall: 20,
-    miniNavWidth: 80,
+    miniNavWidth: 60,
     miniNavItemSize: 56,
 }
 

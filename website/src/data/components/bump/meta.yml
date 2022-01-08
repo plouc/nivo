@@ -4,9 +4,7 @@ flavors:
 
 Bump:
   package: '@nivo/bump'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Custom points
       link: bump--custom-points

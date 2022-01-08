@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import styled from 'styled-components'
 import media from '../../../theming/mediaQueries'
 
-const filters = ['SVG', 'HTML', 'Canvas', 'HTTP API'] as const
+const filters = ['SVG', 'HTML', 'Canvas', 'API'] as const
 
 interface ComponentsFiltersProps {
     filter: string | null

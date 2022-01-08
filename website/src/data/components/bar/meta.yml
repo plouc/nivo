@@ -8,9 +8,7 @@ flavors:
 
 Bar:
   package: '@nivo/bar'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Using markers
       link: bar--with-marker

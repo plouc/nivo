@@ -10,8 +10,6 @@ Chord:
   package: '@nivo/chord'
   tags:
     - relational
-    - svg
-    - isomorphic
   stories:
     - label: Custom arc & ribbon tooltip
       link: chord--custom-tooltips

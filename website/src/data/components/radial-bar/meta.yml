@@ -7,8 +7,6 @@ RadialBar:
   tags:
     - radial
     - bar
-    - svg
-    - isomorphic
   stories: []
   description: |
     A radial bar chart.

@@ -1,26 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { ComponentsGridItem } from './ComponentsGridItem'
 import * as nav from '../../../data/nav'
 import media from '../../../theming/mediaQueries'
+import { ChartNavData } from '../../../types'
 
-type NavItem = {
-    label: string
-    path: string
-    icon: string
-    tags: string[]
-}
-type FilterFunction = (item: NavItem) => boolean
+type FilterFunction = (item: ChartNavData) => boolean
 
 const getFilterFunction = (term?: string | null, filter?: string | null): FilterFunction => {
     let predicates: FilterFunction[] = []
     if (term && term.length > 0) {
-        predicates.push(({ label }) => label.toLowerCase().includes(term.toLowerCase()))
+        predicates.push(({ name }) => name.toLowerCase().includes(term.toLowerCase()))
     }
     if (filter) {
-        predicates.push(({ tags }) =>
-            tags.map(tag => tag.toLowerCase()).includes(filter.toLowerCase())
-        )
+        predicates.push(({ flavors }) => flavors[filter.toLowerCase()] === true)
     }
 
     return item => predicates.every(predicate => predicate(item))
@@ -32,10 +25,11 @@ interface ComponentsGridProps {
 }
 
 export const ComponentsGrid = ({ filter, term }: ComponentsGridProps) => {
-    let items = nav.allComponents
+    let items = nav.components
+
     if (term || filter) {
         const filterFunction = getFilterFunction(term, filter)
-        items = nav.allComponents.filter(filterFunction)
+        items = items.filter(filterFunction)
     }
 
     if (items.length === 0) {
@@ -50,13 +44,7 @@ export const ComponentsGrid = ({ filter, term }: ComponentsGridProps) => {
     return (
         <Grid>
             {items.map(item => (
-                <ComponentsGridItem
-                    key={item.path}
-                    path={item.path}
-                    name={item.label}
-                    icon={item.icon}
-                    tags={item.tags}
-                />
+                <ComponentsGridItem key={item.id} {...item} />
             ))}
         </Grid>
     )

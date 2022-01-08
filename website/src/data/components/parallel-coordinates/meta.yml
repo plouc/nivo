@@ -6,9 +6,7 @@ flavors:
   
 ParallelCoordinates:
   package: '@nivo/parallel-coordinates'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories: []
   description: |
     Parallel coordinates chart, supports continuous numerical

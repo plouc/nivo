@@ -1,4 +1,3 @@
-import sortBy from 'lodash/sortBy'
 import areaBump from './components/area-bump/meta.yml'
 import bar from './components/bar/meta.yml'
 import circlePacking from './components/circle-packing/meta.yml'
@@ -26,350 +25,255 @@ import timeRange from './components/time-range/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
+import { ChartNavData } from '../types'
 
-export const components = [
+export const components: ChartNavData[] = [
     {
-        label: 'AreaBump',
-        path: '/area-bump/',
-        icon: 'area-bump',
+        name: 'AreaBump',
+        id: 'area-bump',
         tags: areaBump.AreaBump.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Bar',
-        path: '/bar/',
-        icon: 'bar',
+        name: 'Bar',
+        id: 'bar',
         tags: bar.Bar.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'CirclePacking',
-        path: '/circle-packing/',
-        icon: 'circle-packing',
+        name: 'CirclePacking',
+        id: 'circle-packing',
         tags: circlePacking.CirclePacking.tags,
+        flavors: {
+            svg: true,
+            html: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Bump',
-        path: '/bump/',
-        icon: 'bump',
+        name: 'Bump',
+        id: 'bump',
         tags: bump.Bump.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Bullet',
-        path: '/bullet/',
-        icon: 'bullet',
+        name: 'Bullet',
+        id: 'bullet',
         tags: bullet.Bullet.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Calendar',
-        path: '/calendar/',
-        icon: 'calendar',
+        name: 'Calendar',
+        id: 'calendar',
         tags: calendar.Calendar.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Choropleth',
-        path: '/choropleth/',
-        icon: 'choropleth',
+        name: 'Choropleth',
+        id: 'choropleth',
         tags: choropleth.Choropleth.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+        },
     },
     {
-        label: 'Chord',
-        path: '/chord/',
-        icon: 'chord',
+        name: 'Chord',
+        id: 'chord',
         tags: chord.Chord.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Funnel',
-        path: '/funnel/',
-        icon: 'funnel',
+        name: 'Funnel',
+        id: 'funnel',
         tags: funnel.Funnel.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'GeoMap',
-        path: '/geomap/',
-        icon: 'geomap',
+        name: 'GeoMap',
+        id: 'geomap',
         tags: geomap.GeoMap.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+        },
     },
     {
-        label: 'HeatMap',
-        path: '/heatmap/',
-        icon: 'heatmap',
+        name: 'HeatMap',
+        id: 'heatmap',
         tags: heatmap.HeatMap.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Line',
-        path: '/line/',
-        icon: 'line',
+        name: 'Line',
+        id: 'line',
         tags: line.Line.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Marimekko',
-        path: '/marimekko/',
-        icon: 'marimekko',
+        name: 'Marimekko',
+        id: 'marimekko',
         tags: marimekko.Marimekko.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Network',
-        path: '/network/',
-        icon: 'network',
+        name: 'Network',
+        id: 'network',
         tags: network.Network.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+        },
     },
     {
-        label: 'ParallelCoordinates',
-        path: '/parallel-coordinates/',
-        icon: 'parallel-coordinates',
+        name: 'ParallelCoordinates',
+        id: 'parallel-coordinates',
         tags: parallelCoordinates.ParallelCoordinates.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+        },
     },
     {
-        label: 'Pie',
-        path: '/pie/',
-        icon: 'pie',
+        name: 'Pie',
+        id: 'pie',
         tags: pie.Pie.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Radar',
-        path: '/radar/',
-        icon: 'radar',
+        name: 'Radar',
+        id: 'radar',
         tags: radar.Radar.tags,
+        flavors: {
+            svg: true,
+            api: true,
+        },
     },
     {
-        label: 'RadialBar',
-        path: '/radial-bar/',
-        icon: 'radial-bar',
+        name: 'RadialBar',
+        id: 'radial-bar',
         tags: radialBar.RadialBar.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Sankey',
-        path: '/sankey/',
-        icon: 'sankey',
+        name: 'Sankey',
+        id: 'sankey',
         tags: sankey.Sankey.tags,
+        flavors: {
+            svg: true,
+            api: true,
+        },
     },
     {
-        label: 'ScatterPlot',
-        path: '/scatterplot/',
-        icon: 'scatterplot',
+        name: 'ScatterPlot',
+        id: 'scatterplot',
         tags: scatterplot.ScatterPlot.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+        },
     },
     {
-        label: 'Stream',
-        path: '/stream/',
-        icon: 'stream',
+        name: 'Stream',
+        id: 'stream',
         tags: stream.Stream.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Sunburst',
-        path: '/sunburst/',
-        icon: 'sunburst',
+        name: 'Sunburst',
+        id: 'sunburst',
         tags: sunburst.Sunburst.tags,
+        flavors: {
+            svg: true,
+            api: true,
+        },
     },
     {
-        label: 'SwarmPlot',
-        path: '/swarmplot/',
-        icon: 'swarmplot',
+        name: 'SwarmPlot',
+        id: 'swarmplot',
         tags: swarmplot.SwarmPlot.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
+        },
     },
     {
-        label: 'TimeRange',
-        path: '/time-range/',
-        icon: 'time-range',
+        name: 'TimeRange',
+        id: 'time-range',
         tags: timeRange.TimeRange.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'TreeMap',
-        path: '/treemap/',
-        icon: 'treemap',
+        name: 'TreeMap',
+        id: 'treemap',
         tags: treemap.TreeMap.tags,
+        flavors: {
+            svg: true,
+            html: true,
+            canvas: true,
+            api: true,
+        },
     },
     {
-        label: 'Voronoi',
-        path: '/voronoi/',
-        icon: 'voronoi',
+        name: 'Voronoi',
+        id: 'voronoi',
         tags: voronoi.Voronoi.tags,
+        flavors: {
+            svg: true,
+        },
     },
     {
-        label: 'Waffle',
-        path: '/waffle/',
-        icon: 'waffle',
+        name: 'Waffle',
+        id: 'waffle',
         tags: waffle.Waffle.tags,
+        flavors: {
+            svg: true,
+            html: true,
+            canvas: true,
+        },
     },
 ]
-
-const all = components.concat([
-    {
-        label: 'BarCanvas',
-        path: '/bar/canvas/',
-        icon: 'bar',
-        tags: bar.BarCanvas.tags,
-    },
-    {
-        label: 'Bar HTTP API',
-        path: '/bar/api/',
-        icon: 'bar',
-        tags: [...bar.Bar.tags, 'HTTP API'],
-    },
-    {
-        label: 'CirclePackingHtml',
-        path: '/circle-packing/html/',
-        icon: 'circle-packing',
-        tags: circlePacking.CirclePackingHtml.tags,
-    },
-    {
-        label: 'CirclePackingCanvas',
-        path: '/circle-packing/canvas/',
-        icon: 'circle-packing',
-        tags: circlePacking.CirclePackingCanvas.tags,
-    },
-    {
-        label: 'CirclePacking HTTP API',
-        path: '/circle-packing/api/',
-        icon: 'circle-packing',
-        tags: [...circlePacking.CirclePacking.tags, 'HTTP API'],
-    },
-    {
-        label: 'CalendarCanvas',
-        path: '/calendar/canvas/',
-        icon: 'calendar',
-        tags: calendar.CalendarCanvas.tags,
-    },
-    {
-        label: 'Calendar HTTP API',
-        path: '/calendar/api/',
-        icon: 'calendar',
-        tags: [...calendar.Calendar.tags, 'HTTP API'],
-    },
-    {
-        label: 'ChoroplethCanvas',
-        path: '/choropleth/canvas/',
-        icon: 'choropleth',
-        tags: choropleth.ChoroplethCanvas.tags,
-    },
-    {
-        label: 'ChordCanvas',
-        path: '/chord/canvas/',
-        icon: 'chord',
-        tags: chord.ChordCanvas.tags,
-    },
-    {
-        label: 'Chord HTTP API',
-        path: '/chord/api/',
-        icon: 'chord',
-        tags: [...chord.Chord.tags, 'HTTP API'],
-    },
-    {
-        label: 'GeoMapCanvas',
-        path: '/geomap/canvas/',
-        icon: 'geomap',
-        tags: geomap.GeoMapCanvas.tags,
-    },
-    {
-        label: 'HeatMapCanvas',
-        path: '/heatmap/canvas/',
-        icon: 'heatmap',
-        tags: heatmap.HeatMapCanvas.tags,
-    },
-    {
-        label: 'HeatMap HTTP API',
-        path: '/heatmap/api/',
-        icon: 'heatmap',
-        tags: [...heatmap.HeatMap.tags, 'HTTP API'],
-    },
-    {
-        label: 'LineCanvas',
-        path: '/line/canvas/',
-        icon: 'line',
-        tags: line.LineCanvas.tags,
-    },
-    {
-        label: 'Line HTTP API',
-        path: '/line/api/',
-        icon: 'line',
-        tags: [...line.Line.tags, 'HTTP API'],
-    },
-    {
-        label: 'NetworkCanvas',
-        path: '/network/canvas/',
-        icon: 'network',
-        tags: network.NetworkCanvas.tags,
-    },
-    {
-        label: 'ParallelCoordinatesCanvas',
-        path: '/parallel-coordinates/canvas/',
-        icon: 'parallel-coordinates',
-        tags: parallelCoordinates.ParallelCoordinatesCanvas.tags,
-    },
-    {
-        label: 'PieCanvas',
-        path: '/pie/canvas/',
-        icon: 'pie',
-        tags: pie.PieCanvas.tags,
-    },
-    {
-        label: 'Pie HTTP API',
-        path: '/pie/api/',
-        icon: 'pie',
-        tags: [...pie.Pie.tags, 'HTTP API'],
-    },
-    {
-        label: 'Radar HTTP API',
-        path: '/radar/api/',
-        icon: 'radar',
-        tags: [...radar.Radar.tags, 'HTTP API'],
-    },
-    {
-        label: 'Sankey HTTP API',
-        path: '/sankey/api/',
-        icon: 'sankey',
-        tags: [...sankey.Sankey.tags, 'HTTP API'],
-    },
-    {
-        label: 'ScatterPlotCanvas',
-        path: '/scatterplot/canvas/',
-        icon: 'scatterplot',
-        tags: scatterplot.ScatterPlotCanvas.tags,
-    },
-    {
-        label: 'Sunburst HTTP API',
-        path: '/sunburst/api/',
-        icon: 'sunburst',
-        tags: [...sunburst.Sunburst.tags, 'HTTP API'],
-    },
-    {
-        label: 'SwarmPlotCanvas',
-        path: '/swarmplot/canvas/',
-        icon: 'swarmplot',
-        tags: swarmplot.SwarmPlotCanvas.tags,
-    },
-    {
-        label: 'TreeMapHtml',
-        path: '/treemap/html/',
-        icon: 'treemap',
-        tags: treemap.TreeMapHtml.tags,
-    },
-    {
-        label: 'TreeMapCanvas',
-        path: '/treemap/canvas/',
-        icon: 'treemap',
-        tags: treemap.TreeMapCanvas.tags,
-    },
-    {
-        label: 'TreeMap HTTP API',
-        path: '/treemap/api/',
-        icon: 'treemap',
-        tags: [...treemap.TreeMap.tags, 'HTTP API'],
-    },
-    {
-        label: 'WaffleHtml',
-        path: '/waffle/html/',
-        icon: 'waffle',
-        tags: waffle.WaffleHtml.tags,
-    },
-    {
-        label: 'WaffleCanvas',
-        path: '/waffle/canvas/',
-        icon: 'waffle',
-        tags: waffle.WaffleCanvas.tags,
-    },
-])
-
-export const allComponents = sortBy(all, 'label')
 
 export const guides = [
     {

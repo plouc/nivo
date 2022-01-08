@@ -9,8 +9,6 @@ Sankey:
   tags:
     - relational
     - flow
-    - svg
-    - isomorphic
   stories: []
   description: |
     Computes a sankey diagram from nodes and links, built

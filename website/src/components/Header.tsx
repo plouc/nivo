@@ -1,14 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { HeaderNav } from './HeaderNav'
+import { HeaderNav } from './nav'
 
-const Header = () => (
+interface HeaderProps {
+    isNavOpen: boolean
+    toggleNav: () => void
+}
+
+export const Header = ({ isNavOpen, toggleNav }: HeaderProps) => (
     <Container>
-        <HeaderNav />
+        <HeaderNav isNavOpen={isNavOpen} toggleNav={toggleNav} />
     </Container>
 )
-
-export default Header
 
 const Container = styled.header`
     position: fixed;

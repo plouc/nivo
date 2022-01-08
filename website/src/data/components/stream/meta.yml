@@ -6,8 +6,6 @@ Stream:
   package: '@nivo/stream'
   tags:
     - stacked
-    - svg
-    - isomorphic
   stories:
     - label: Use custom legend label
       link: stream--custom-legend-label

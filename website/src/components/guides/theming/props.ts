@@ -1,6 +1,6 @@
 import { ChartPropertiesGroup, ChartProperty } from '../../../types'
 
-const OPEN_ALL_BY_DEFAULTS = true
+const OPEN_ALL_BY_DEFAULTS = false
 
 const fontSizeProp: ChartProperty = {
     key: 'fontSize',

@@ -12,8 +12,6 @@ CirclePacking:
   package: '@nivo/circle-packing'
   tags:
     - hierarchy
-    - svg
-    - isomorphic
   stories:
     - label: Using formatted values
       link: circlepacking--with-formatted-values

@@ -8,9 +8,7 @@ flavors:
 
 HeatMap:
   package: '@nivo/heatmap'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Custom cell component
       link: heatmap--custom-cell-component

@@ -8,8 +8,6 @@ Radar:
   package: '@nivo/radar'
   tags:
     - radial
-    - svg
-    - isomorphic
   stories:
     - label: Formatting tooltip value
       link: radar--with-formatted-values
