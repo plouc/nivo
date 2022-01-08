@@ -2,10 +2,11 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
 import { FaGithub, FaTwitter } from 'react-icons/fa'
-import { FiX, FiMenu, FiExternalLink, FiChevronDown } from 'react-icons/fi'
+import { FiExternalLink, FiChevronDown } from 'react-icons/fi'
 import media from '../../theming/mediaQueries'
 import ThemeSelector from '../ThemeSelector'
 import * as nav from '../../data/nav'
+import { NavToggleButton } from './NavToggleButton'
 
 interface HeaderNavProps {
     isNavOpen: boolean
@@ -66,10 +67,7 @@ export const HeaderNav = ({ isNavOpen, toggleNav }: HeaderNavProps) => {
             >
                 <FaTwitter />
             </IconExternalLink>
-            <NavToggleButton onClick={toggleNav}>
-                {isNavOpen && <FiX />}
-                {!isNavOpen && <FiMenu />}
-            </NavToggleButton>
+            <NavToggleButton isOpen={isNavOpen} onClick={toggleNav} />
         </Container>
     )
 }
@@ -194,31 +192,6 @@ const IconExternalLink = styled.a`
     ${media.mobile`
         & {
             display: none;
-        }
-    `}
-`
-
-const NavToggleButton = styled.div`
-    height: ${({ theme }) => theme.dimensions.headerHeight}px;
-    width: ${({ theme }) => theme.dimensions.headerHeight}px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
-    margin-left: 12px;
-    font-size: 24px;
-    color: white;
-
-    ${media.tablet`
-        & {
-            margin-left: 0;
-        }
-    `}
-
-    ${media.mobile`
-        & {
-            margin-left: 0;
         }
     `}
 `
