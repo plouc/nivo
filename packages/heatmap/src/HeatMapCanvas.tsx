@@ -164,6 +164,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         })
     }, [
         canvasEl,
+        layers,
         cells,
         outerWidth,
         outerHeight,
@@ -234,7 +235,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 
             onClick?.(activeCell, event)
         },
-        [cells, activeCell, onClick]
+        [activeCell, onClick]
     )
 
     return (
