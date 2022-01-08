@@ -65,7 +65,7 @@ const GeoMapCanvas = () => {
                 features: '/* please have a look at the description for usage */',
                 ...properties,
             })}
-            hasData={false}
+            generateData={() => undefined}
             image={image}
         >
             {(properties, data, theme, logAction) => {

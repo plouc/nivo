@@ -145,7 +145,10 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
     >
     labelTextColor: InheritedColorConfig<Omit<ComputedCell<Datum>, 'labelTextColor'>>
 
-    legends: Omit<AnchoredContinuousColorsLegendProps, 'containerWidth' | 'containerHeight'>[]
+    legends: Omit<
+        AnchoredContinuousColorsLegendProps,
+        'scale' | 'containerWidth' | 'containerHeight'
+    >[]
 
     annotations: AnnotationMatcher<ComputedCell<Datum>>[]
 

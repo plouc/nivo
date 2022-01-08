@@ -1,70 +1,30 @@
-import { generateCountriesData } from '@nivo/generators'
+import { generateXYSeries, sets } from '@nivo/generators'
+import { Data } from './types'
 
-const dishes = [
-    'hot dog',
-    'burger',
-    'sandwich',
-    'kebab',
-    'fries',
-    'donut',
-    'junk',
-    'sushi',
-    'ramen',
-    'curry',
-    'udon',
-    'bagel',
-    'yakitori',
-    'takoyaki',
-    'tacos',
-    'miso soup',
-    'tortilla',
-    'tapas',
-    'chipirones',
-    'gazpacho',
-    'soba',
-    'bavette',
-    'steak',
-    'pizza',
-    'spaghetti',
-    'ravioli',
-    'salad',
-    'pad thai',
-    'bun',
-    'waffle',
-    'crepe',
-    'churros',
-    'paella',
-    'empanadas',
-    'bruschetta',
-    'onion soup',
-    'cassoulet',
-    'bouillabaisse',
-    'unagi',
-    'tempura',
-    'tonkatsu',
-    'shabu-shabu',
-    'twinkies',
-    'jerky',
-    'fajitas',
-    'jambalaya',
-    'meatloaf',
-    `mac n' cheese`,
-    'baked beans',
-    'popcorn',
-    'buffalo wings',
-    'BBQ ribs',
-    'apple pie',
-    'nachos',
-    'risotto',
-    'tiramisu',
-]
+export const getLightData = () =>
+    generateXYSeries({
+        serieIds: ['Japan', 'France', 'US', 'Germany', 'Norway', 'Iceland', 'UK', 'Vietnam'],
+        x: {
+            values: ['Train', 'Subway', 'Bus', 'Car', 'Boat', 'Moto', 'Moped', 'Bicycle', 'Others'],
+        },
+        y: {
+            length: NaN,
+            min: -100_000,
+            max: 100_000,
+            round: true,
+        },
+    }) as Data
 
-export const generateLightDataSet = () => ({
-    data: generateCountriesData(dishes.slice(0, 11), { size: 9, min: 0, max: 100 }),
-    keys: dishes.slice(0, 11),
-})
-
-export const generateHeavyDataSet = () => ({
-    data: generateCountriesData(dishes, { size: 22, min: 0, max: 100 }),
-    keys: dishes,
-})
+export const getHeavyData = () =>
+    generateXYSeries({
+        serieIds: sets.countryCodes.slice(0, 26),
+        x: {
+            values: sets.names,
+        },
+        y: {
+            length: NaN,
+            min: -100_000,
+            max: 100_000,
+            round: true,
+        },
+    }) as Data
