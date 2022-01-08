@@ -4,9 +4,10 @@ import choroplethLightColoredImg from '../../assets/icons/choropleth-light-color
 import choroplethDarkNeutralImg from '../../assets/icons/choropleth-dark-neutral.png'
 import choroplethDarkColoredImg from '../../assets/icons/choropleth-dark-colored.png'
 import { Icon, colors, IconImg } from './styled'
-import MapIcon from './MapIcon'
+import { MapIcon } from './MapIcon'
+import { IconType } from './types'
 
-const ChoroplethIconItem = ({ type }) => (
+const ChoroplethIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`choropleth-${type}`} type={type}>
         <MapIcon
             stroke={colors[type].colors[4]}
@@ -30,7 +31,7 @@ const ChoroplethIconItem = ({ type }) => (
     </Icon>
 )
 
-const ChoroplethIcon = () => (
+export const ChoroplethIcon = () => (
     <>
         <ChoroplethIconItem type="lightNeutral" />
         <IconImg url={choroplethLightNeutralImg} />
@@ -42,5 +43,3 @@ const ChoroplethIcon = () => (
         <IconImg url={choroplethDarkColoredImg} />
     </>
 )
-
-export default ChoroplethIcon

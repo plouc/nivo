@@ -1,12 +1,21 @@
 import React from 'react'
-import { Marimekko } from '@nivo/marimekko'
+import { Marimekko, SvgProps } from '@nivo/marimekko'
 import marimekkoLightNeutralImg from '../../assets/icons/marimekko-light-neutral.png'
 import marimekkoLightColoredImg from '../../assets/icons/marimekko-light-colored.png'
 import marimekkoDarkNeutralImg from '../../assets/icons/marimekko-dark-neutral.png'
 import marimekkoDarkColoredImg from '../../assets/icons/marimekko-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    id: string
+    value: number
+    A: number
+    B: number
+    C: number
+}
+
+const chartProps: SvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     id: 'id',
@@ -33,16 +42,16 @@ const chartProps = {
     animate: false,
 }
 
-const MarimekkoIconItem = ({ type }) => (
+const MarimekkoIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`marimekko-${type}`} type={type}>
-        <Marimekko
+        <Marimekko<Datum>
             {...chartProps}
             colors={[colors[type].colors[1], colors[type].colors[2], colors[type].colors[4]]}
         />
     </Icon>
 )
 
-const BarIcon = () => (
+export const MarimekkoIcon = () => (
     <>
         <MarimekkoIconItem type="lightNeutral" />
         <IconImg url={marimekkoLightNeutralImg} />
@@ -54,5 +63,3 @@ const BarIcon = () => (
         <IconImg url={marimekkoDarkColoredImg} />
     </>
 )
-
-export default BarIcon

@@ -4,8 +4,9 @@ import codeLightColoredImg from '../../assets/icons/code-light-colored.png'
 import codeDarkNeutralImg from '../../assets/icons/data-dark-neutral.png'
 import codeDarkColoredImg from '../../assets/icons/data-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const CodeIconItem = ({ type }) => (
+export const CodeIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`code-${type}`} type={type}>
         <svg width={ICON_SIZE} height={ICON_SIZE}>
             <g transform={`translate(${ICON_SIZE / 2},${ICON_SIZE / 2})`}>
@@ -28,7 +29,7 @@ const CodeIconItem = ({ type }) => (
     </Icon>
 )
 
-const CodeIcon = () => (
+export const CodeIcon = () => (
     <>
         <CodeIconItem type="lightNeutral" />
         <IconImg url={codeLightNeutralImg} />
@@ -40,5 +41,3 @@ const CodeIcon = () => (
         <IconImg url={codeDarkColoredImg} />
     </>
 )
-
-export default CodeIcon

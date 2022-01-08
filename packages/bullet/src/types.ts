@@ -77,6 +77,8 @@ export type CommonBulletProps = Dimensions & {
 
     theme: Theme
 
+    isInteractive: boolean
+
     role: string
 }
 
@@ -194,6 +196,7 @@ export type BulletItemProps = Omit<
     | 'measureSize'
     | 'markerSize'
     | 'theme'
+    | 'isInteractive'
 > &
     BulletHandlers &
     EnhancedDatum &

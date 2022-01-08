@@ -1,12 +1,13 @@
 import React from 'react'
-import { Bullet } from '@nivo/bullet'
+import { Bullet, BulletSvgProps, BulletRectsItemProps, BulletMarkersItemProps } from '@nivo/bullet'
 import bulletLightNeutralImg from '../../assets/icons/bullet-light-neutral.png'
 import bulletLightColoredImg from '../../assets/icons/bullet-light-colored.png'
 import bulletDarkNeutralImg from '../../assets/icons/bullet-dark-neutral.png'
 import bulletDarkColoredImg from '../../assets/icons/bullet-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+const chartProps: BulletSvgProps = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: [
@@ -51,19 +52,27 @@ const chartProps = {
     },
 }
 
-const Range = colors => d => {
-    const color = d.data.v1 === 100 ? colors[1] : colors[0]
+const Range = (colors: [string, string]) => (rect: BulletRectsItemProps) => {
+    const color = rect.data.v1 === 100 ? colors[1] : colors[0]
 
-    return <rect x={d.x} y={d.y} width={d.width} height={d.height} fill={color} />
+    return <rect x={rect.x} y={rect.y} width={rect.width} height={rect.height} fill={color} />
 }
 
-const Measure = color => d =>
-    <rect x={d.x} y={d.y} width={d.width} height={d.height} fill={color} />
+const Measure = (color: string) => (rect: BulletRectsItemProps) =>
+    <rect x={rect.x} y={rect.y} width={rect.width} height={rect.height} fill={color} />
 
-const Marker = color => d =>
-    <rect fill={color} x={d.x - d.size / 2} y={d.y - d.size / 2} width={d.size} height={d.size} />
+const Marker = (color: string) => (marker: BulletMarkersItemProps) =>
+    (
+        <rect
+            fill={color}
+            x={marker.x - marker.size / 2}
+            y={marker.y - marker.size / 2}
+            width={marker.size}
+            height={marker.size}
+        />
+    )
 
-const BulletIconItem = ({ type }) => (
+const BulletIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`bullet-${type}`} type={type}>
         <Bullet
             {...chartProps}
@@ -74,7 +83,7 @@ const BulletIconItem = ({ type }) => (
     </Icon>
 )
 
-const BulletIcon = () => (
+export const BulletIcon = () => (
     <>
         <BulletIconItem type="lightNeutral" />
         <IconImg url={bulletLightNeutralImg} />
@@ -86,5 +95,3 @@ const BulletIcon = () => (
         <IconImg url={bulletDarkColoredImg} />
     </>
 )
-
-export default BulletIcon

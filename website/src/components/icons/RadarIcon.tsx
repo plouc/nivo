@@ -1,12 +1,21 @@
-import React from 'react'
-import { Radar } from '@nivo/radar'
+import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
+import { Radar, RadarSvgProps } from '@nivo/radar'
 import radarLightNeutralImg from '../../assets/icons/radar-light-neutral.png'
 import radarLightColoredImg from '../../assets/icons/radar-light-colored.png'
 import radarDarkNeutralImg from '../../assets/icons/radar-dark-neutral.png'
 import radarDarkColoredImg from '../../assets/icons/radar-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    id: string
+    A: number
+    B: number
+    C: number
+}
+
+const chartProps: RadarSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: [
@@ -34,24 +43,31 @@ const chartProps = {
     animate: false,
 }
 
-const RadarIconItem = ({ type }) => (
-    <Icon id={`radar-${type}`} type={type}>
-        <Radar
-            {...chartProps}
-            colors={[colors[type].colors[4], colors[type].colors[2], colors[type].colors[0]]}
-            theme={{
-                grid: {
-                    line: {
-                        strokeWidth: 3,
-                        stroke: colors[type].colors[3],
-                    },
+const RadarIconItem = ({ type }: { type: IconType }) => {
+    const theme: Theme = useMemo(
+        () => ({
+            grid: {
+                line: {
+                    strokeWidth: 3,
+                    stroke: colors[type].colors[3],
                 },
-            }}
-        />
-    </Icon>
-)
+            },
+        }),
+        [type]
+    )
 
-const RadarIcon = () => (
+    return (
+        <Icon id={`radar-${type}`} type={type}>
+            <Radar<Datum>
+                {...chartProps}
+                colors={[colors[type].colors[4], colors[type].colors[2], colors[type].colors[0]]}
+                theme={theme}
+            />
+        </Icon>
+    )
+}
+
+export const RadarIcon = () => (
     <>
         <RadarIconItem type="lightNeutral" />
         <IconImg url={radarLightNeutralImg} />
@@ -63,5 +79,3 @@ const RadarIcon = () => (
         <IconImg url={radarDarkColoredImg} />
     </>
 )
-
-export default RadarIcon

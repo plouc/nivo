@@ -4,7 +4,7 @@ import styled, { useTheme } from 'styled-components'
 import media from '../../../theming/mediaQueries'
 import { ChartNavData } from '../../../types'
 
-export const ComponentsGridItem = memo(({ name, id, flavors, tags }: ChartNavData) => {
+export const ComponentsGridItem = memo(({ name, id, flavors }: ChartNavData) => {
     const theme = useTheme()
 
     const handleVariantClick = useCallback((event: MouseEvent) => {
@@ -16,13 +16,6 @@ export const ComponentsGridItem = memo(({ name, id, flavors, tags }: ChartNavDat
             <Icon className={`sprite-icons-${id}-${theme.id}-colored`} />
             <Header>
                 <Name>{name}</Name>
-                {/*tags.length > 0 && (
-                    <Tags>
-                        {tags.map(tag => (
-                            <Tag key={tag}>{tag}</Tag>
-                        ))}
-                    </Tags>
-                )*/}
                 <Flavors>
                     <Flavor to={`/${id}/`}>SVG</Flavor>
                     {flavors.html && (
@@ -131,27 +124,5 @@ const Flavor = styled(Link)`
     &:hover {
         background-color: ${({ theme }) => theme.colors.cardBackground};
         color: ${({ theme }) => theme.colors.accent};
-    }
-`
-
-const Tags = styled.div`
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.colors.textLight};
-    line-height: 1em;
-    margin-top: 4px;
-    display: flex;
-    flex-wrap: wrap;
-`
-
-const Tag = styled.span`
-    display: inline-block;
-    margin-right: 6px;
-    margin-bottom: 6px;
-    border-left: 1px solid ${({ theme }) => theme.colors.accent};
-    padding-left: 7px;
-
-    &:first-child {
-        padding-left: 0;
-        border-left: none;
     }
 `

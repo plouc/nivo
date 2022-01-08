@@ -1,10 +1,11 @@
 import React from 'react'
-import { Voronoi } from '@nivo/voronoi'
+import { Voronoi, VoronoiSvgProps } from '@nivo/voronoi'
 import voronoiLightNeutralImg from '../../assets/icons/voronoi-light-neutral.png'
 import voronoiLightColoredImg from '../../assets/icons/voronoi-light-colored.png'
 import voronoiDarkNeutralImg from '../../assets/icons/voronoi-dark-neutral.png'
 import voronoiDarkColoredImg from '../../assets/icons/voronoi-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
 const chartProps = {
     width: ICON_SIZE,
@@ -27,18 +28,16 @@ const chartProps = {
     ],
     cellLineWidth: 3,
     pointSize: 10,
-    isInteractive: false,
-    animate: false,
-}
+} as VoronoiSvgProps
 
-const VoronoiIconItem = ({ type }) => (
+const VoronoiIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`voronoi-${type}`} type={type}>
         <Voronoi
             {...chartProps}
             cellLineColor={colors[type].colors[4]}
             pointColor={colors[type].colors[2]}
             layers={[
-                props => (
+                (props: any) => (
                     <rect width={props.width} height={props.width} fill={colors[type].colors[0]} />
                 ),
                 'links',
@@ -50,7 +49,7 @@ const VoronoiIconItem = ({ type }) => (
     </Icon>
 )
 
-const VoronoiIcon = () => (
+export const VoronoiIcon = () => (
     <>
         <VoronoiIconItem type="lightNeutral" />
         <IconImg url={voronoiLightNeutralImg} />
@@ -62,5 +61,3 @@ const VoronoiIcon = () => (
         <IconImg url={voronoiDarkColoredImg} />
     </>
 )
-
-export default VoronoiIcon

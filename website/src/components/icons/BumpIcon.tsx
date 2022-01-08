@@ -1,12 +1,19 @@
-import React from 'react'
-import { Bump } from '@nivo/bump'
+import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
+import { Bump, BumpSvgProps, BumpSerieExtraProps } from '@nivo/bump'
 import bumpLightNeutralImg from '../../assets/icons/bump-light-neutral.png'
 import bumpLightColoredImg from '../../assets/icons/bump-light-colored.png'
 import bumpDarkNeutralImg from '../../assets/icons/bump-dark-neutral.png'
 import bumpDarkColoredImg from '../../assets/icons/bump-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    x: number
+    y: number
+}
+
+const chartProps: BumpSvgProps<Datum, BumpSerieExtraProps> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: [
@@ -86,34 +93,40 @@ const chartProps = {
     isInteractive: false,
 }
 
-const BumpIconItem = ({ type }) => (
-    <Icon id={`bump-${type}`} type={type}>
-        <Bump
-            {...chartProps}
-            colors={colors[type].colors}
-            theme={{
-                axis: {
-                    domain: {
-                        line: {
-                            stroke: colors[type].colors[3],
-                            strokeWidth: 3,
-                            strokeLinecap: 'square',
-                        },
-                    },
-                },
-                grid: {
+const BumpIconItem = ({ type }: { type: IconType }) => {
+    const theme: Theme = useMemo(
+        () => ({
+            axis: {
+                domain: {
                     line: {
-                        strokeWidth: 2,
-                        strokeOpacity: 0.5,
-                        stroke: colors[type].colors[1],
+                        stroke: colors[type].colors[3],
+                        strokeWidth: 3,
+                        strokeLinecap: 'square',
                     },
                 },
-            }}
-        />
-    </Icon>
-)
+            },
+            grid: {
+                line: {
+                    strokeWidth: 2,
+                    strokeOpacity: 0.5,
+                    stroke: colors[type].colors[1],
+                },
+            },
+        }),
+        [type]
+    )
+    return (
+        <Icon id={`bump-${type}`} type={type}>
+            <Bump<Datum, BumpSerieExtraProps>
+                {...chartProps}
+                colors={colors[type].colors}
+                theme={theme}
+            />
+        </Icon>
+    )
+}
 
-const BumpIcon = () => (
+export const BumpIcon = () => (
     <>
         <BumpIconItem type="lightNeutral" />
         <IconImg url={bumpLightNeutralImg} />
@@ -125,5 +138,3 @@ const BumpIcon = () => (
         <IconImg url={bumpDarkColoredImg} />
     </>
 )
-
-export default BumpIcon

@@ -1,12 +1,19 @@
-import React from 'react'
-import { Funnel } from '@nivo/funnel'
+import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
+import { Funnel, FunnelSvgProps } from '@nivo/funnel'
 import funnelLightNeutralImg from '../../assets/icons/funnel-light-neutral.png'
 import funnelLightColoredImg from '../../assets/icons/funnel-light-colored.png'
 import funnelDarkNeutralImg from '../../assets/icons/funnel-dark-neutral.png'
 import funnelDarkColoredImg from '../../assets/icons/funnel-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    id: string
+    value: number
+}
+
+const chartProps: FunnelSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: [
@@ -40,28 +47,33 @@ const chartProps = {
     afterSeparatorLength: 0,
 }
 
-const FunnelIconItem = ({ type }) => {
+const FunnelIconItem = ({ type }: { type: IconType }) => {
     const currentColors = colors[type].colors
+
+    const theme: Theme = useMemo(
+        () => ({
+            grid: {
+                line: {
+                    stroke: currentColors[1],
+                    strokeWidth: 2,
+                },
+            },
+        }),
+        [type]
+    )
 
     return (
         <Icon id={`funnel-${type}`} type={type}>
-            <Funnel
+            <Funnel<Datum>
                 {...chartProps}
                 colors={[currentColors[4], currentColors[2], currentColors[1]]}
-                theme={{
-                    grid: {
-                        line: {
-                            stroke: currentColors[1],
-                            strokeWidth: 2,
-                        },
-                    },
-                }}
+                theme={theme}
             />
         </Icon>
     )
 }
 
-const FunnelIcon = () => (
+export const FunnelIcon = () => (
     <>
         <FunnelIconItem type="lightNeutral" />
         <IconImg url={funnelLightNeutralImg} />
@@ -73,5 +85,3 @@ const FunnelIcon = () => (
         <IconImg url={funnelDarkColoredImg} />
     </>
 )
-
-export default FunnelIcon

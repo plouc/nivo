@@ -5,6 +5,7 @@ import calendarLightColoredImg from '../../assets/icons/calendar-light-colored.p
 import calendarDarkNeutralImg from '../../assets/icons/calendar-dark-neutral.png'
 import calendarDarkColoredImg from '../../assets/icons/calendar-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
 const padding = 12
 const cellSize = (ICON_SIZE - padding * 2) / 5
@@ -12,9 +13,12 @@ const cellSize = (ICON_SIZE - padding * 2) / 5
 const generateCells = () => {
     let row = 0
     let column = 0
-    const cells = []
+    const cells: {
+        x: number
+        y: number
+    }[] = []
 
-    range(25).map(i => {
+    range(25).map(_ => {
         cells.push({
             x: column,
             y: row,
@@ -33,7 +37,7 @@ const generateCells = () => {
 
 const cells = generateCells()
 
-const CalendarIconItem = ({ type }) => (
+const CalendarIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`calendar-${type}`} type={type}>
         <svg width={ICON_SIZE} height={ICON_SIZE}>
             <g transform={`translate(${padding},${padding})`}>
@@ -74,7 +78,7 @@ const CalendarIconItem = ({ type }) => (
     </Icon>
 )
 
-const CalendarIcon = () => (
+export const CalendarIcon = () => (
     <>
         <CalendarIconItem type="lightNeutral" />
         <IconImg url={calendarLightNeutralImg} />
@@ -86,5 +90,3 @@ const CalendarIcon = () => (
         <IconImg url={calendarDarkColoredImg} />
     </>
 )
-
-export default CalendarIcon

@@ -1,12 +1,19 @@
 import React from 'react'
-import { Pie } from '@nivo/pie'
+import { Pie, PieSvgProps } from '@nivo/pie'
 import pieLightNeutralImg from '../../assets/icons/pie-light-neutral.png'
 import pieLightColoredImg from '../../assets/icons/pie-light-colored.png'
 import pieDarkNeutralImg from '../../assets/icons/pie-dark-neutral.png'
 import pieDarkColoredImg from '../../assets/icons/pie-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    id: string
+    label: string
+    value: number
+}
+
+const chartProps: PieSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: [
@@ -27,16 +34,16 @@ const chartProps = {
     isInteractive: false,
 }
 
-const PieIconItem = ({ type }) => (
+const PieIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`pie-${type}`} type={type}>
-        <Pie
+        <Pie<Datum>
             {...chartProps}
             colors={[colors[type].colors[4], colors[type].colors[3], colors[type].colors[2]]}
         />
     </Icon>
 )
 
-const PieIcon = () => (
+export const PieIcon = () => (
     <>
         <PieIconItem type="lightNeutral" />
         <IconImg url={pieLightNeutralImg} />
@@ -48,5 +55,3 @@ const PieIcon = () => (
         <IconImg url={pieDarkColoredImg} />
     </>
 )
-
-export default PieIcon

@@ -1,12 +1,19 @@
-import React from 'react'
-import { ScatterPlot } from '@nivo/scatterplot'
+import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
+import { ScatterPlot, ScatterPlotSvgProps } from '@nivo/scatterplot'
 import scatterPlotLightNeutralImg from '../../assets/icons/scatterplot-light-neutral.png'
 import scatterPlotLightColoredImg from '../../assets/icons/scatterplot-light-colored.png'
 import scatterPlotDarkNeutralImg from '../../assets/icons/scatterplot-dark-neutral.png'
 import scatterPlotDarkColoredImg from '../../assets/icons/scatterplot-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = {
+type Datum = {
+    x: number
+    y: number
+}
+
+const chartProps: ScatterPlotSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     margin: {
@@ -79,27 +86,34 @@ const chartProps = {
     },
 }
 
-const ScatterPlotIconItem = ({ type }) => (
-    <Icon id={`scatterplot-${type}`} type={type}>
-        <ScatterPlot
-            {...chartProps}
-            colors={[colors[type].colors[4], colors[type].colors[2], colors[type].colors[1]]}
-            theme={{
-                axis: {
-                    domain: {
-                        line: {
-                            stroke: colors[type].colors[3],
-                            strokeWidth: 3,
-                            strokeLinecap: 'square',
-                        },
+const ScatterPlotIconItem = ({ type }: { type: IconType }) => {
+    const theme: Theme = useMemo(
+        () => ({
+            axis: {
+                domain: {
+                    line: {
+                        stroke: colors[type].colors[3],
+                        strokeWidth: 3,
+                        strokeLinecap: 'square',
                     },
                 },
-            }}
-        />
-    </Icon>
-)
+            },
+        }),
+        [type]
+    )
 
-const ScatterPlotIcon = () => (
+    return (
+        <Icon id={`scatterplot-${type}`} type={type}>
+            <ScatterPlot
+                {...chartProps}
+                colors={[colors[type].colors[4], colors[type].colors[2], colors[type].colors[1]]}
+                theme={theme}
+            />
+        </Icon>
+    )
+}
+
+export const ScatterPlotIcon = () => (
     <>
         <ScatterPlotIconItem type="lightNeutral" />
         <IconImg url={scatterPlotLightNeutralImg} />
@@ -111,5 +125,3 @@ const ScatterPlotIcon = () => (
         <IconImg url={scatterPlotDarkColoredImg} />
     </>
 )
-
-export default ScatterPlotIcon

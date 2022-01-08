@@ -1,5 +1,7 @@
 import { ChartPropertiesGroup, ChartProperty } from '../../../types'
 
+// expands all object properties by default if true,
+// this can be useful for debugging.
 const OPEN_ALL_BY_DEFAULTS = false
 
 const fontSizeProp: ChartProperty = {

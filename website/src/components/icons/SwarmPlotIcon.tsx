@@ -1,14 +1,21 @@
 import React from 'react'
-import { SwarmPlot } from '@nivo/swarmplot'
+import { SwarmPlot, SwarmPlotSvgProps } from '@nivo/swarmplot'
 import swarmplotLightNeutralImg from '../../assets/icons/swarmplot-light-neutral.png'
 import swarmplotLightColoredImg from '../../assets/icons/swarmplot-light-colored.png'
 import swarmplotDarkNeutralImg from '../../assets/icons/swarmplot-dark-neutral.png'
 import swarmplotDarkColoredImg from '../../assets/icons/swarmplot-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
 const values = [
     1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 6, 6, 6, 7, 7, 8, 9,
 ]
+
+type Datum = {
+    id: number
+    group: string
+    value: number
+}
 
 const chartProps = {
     width: ICON_SIZE,
@@ -43,15 +50,15 @@ const chartProps = {
     spacing: 1,
     isInteractive: false,
     animate: true,
-}
+} as SwarmPlotSvgProps<Datum>
 
-const SwarmPlotIconItem = ({ type }) => (
+const SwarmPlotIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`swarmplot-${type}`} type={type}>
-        <SwarmPlot {...chartProps} colors={[colors[type].colors[3]]} />
+        <SwarmPlot<Datum> {...chartProps} colors={[colors[type].colors[3]]} />
     </Icon>
 )
 
-const SwarmPlotIcon = () => (
+export const SwarmPlotIcon = () => (
     <>
         <SwarmPlotIconItem type="lightNeutral" />
         <IconImg url={swarmplotLightNeutralImg} />
@@ -63,5 +70,3 @@ const SwarmPlotIcon = () => (
         <IconImg url={swarmplotDarkColoredImg} />
     </>
 )
-
-export default SwarmPlotIcon

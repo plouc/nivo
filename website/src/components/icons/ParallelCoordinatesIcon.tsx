@@ -1,12 +1,14 @@
 import React from 'react'
+// @ts-ignore
 import { ParallelCoordinates } from '@nivo/parallel-coordinates'
 import parallelCoordinatesLightNeutralImg from '../../assets/icons/parallel-coordinates-light-neutral.png'
 import parallelCoordinatesLightColoredImg from '../../assets/icons/parallel-coordinates-light-colored.png'
 import parallelCoordinatesDarkNeutralImg from '../../assets/icons/parallel-coordinates-dark-neutral.png'
 import parallelCoordinatesDarkColoredImg from '../../assets/icons/parallel-coordinates-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
+import { IconType } from './types'
 
-const chartProps = (lineColor, axisColor) => ({
+const chartProps = (lineColor: string, axisColor: string) => ({
     width: ICON_SIZE,
     height: ICON_SIZE,
     colors: [lineColor],
@@ -98,13 +100,13 @@ const chartProps = (lineColor, axisColor) => ({
     animate: false,
 })
 
-const ParallelCoordinatesIconItem = ({ type }) => (
+const ParallelCoordinatesIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`parallel-coordinates-${type}`} type={type}>
         <ParallelCoordinates {...chartProps(colors[type].colors[1], colors[type].colors[4])} />
     </Icon>
 )
 
-const ParallelCoordinatesIcon = () => (
+export const ParallelCoordinatesIcon = () => (
     <>
         <ParallelCoordinatesIconItem type="lightNeutral" />
         <IconImg url={parallelCoordinatesLightNeutralImg} />
@@ -116,5 +118,3 @@ const ParallelCoordinatesIcon = () => (
         <IconImg url={parallelCoordinatesDarkColoredImg} />
     </>
 )
-
-export default ParallelCoordinatesIcon

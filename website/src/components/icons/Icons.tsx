@@ -1,37 +1,38 @@
 import React, { Fragment } from 'react'
 import { Container } from './styled'
-import AreaBumpIcon from './AreaBumpIcon'
-import BarIcon from './BarIcon'
-import BulletIcon from './BulletIcon'
-import BumpIcon from './BumpIcon'
-import CalendarIcon from './CalendarIcon'
-import ChoroplethIcon from './ChoroplethIcon'
+import { AreaBumpIcon } from './AreaBumpIcon'
+import { BarIcon } from './BarIcon'
+import { BulletIcon } from './BulletIcon'
+import { BumpIcon } from './BumpIcon'
+import { CalendarIcon } from './CalendarIcon'
 import { ChordIcon } from './ChordIcon'
-import CirclePackingIcon from './CirclePackingIcon'
-import CodeIcon from './CodeIcon'
-import DataIcon from './DataIcon'
-import FunnelIcon from './FunnelIcon'
-import GeoMapIcon from './GeoMapIcon'
-import HeatMapIcon from './HeatMapIcon'
-import LineIcon from './LineIcon'
-import MarimekkoIcon from './MarimekkoIcon'
+import { ChoroplethIcon } from './ChoroplethIcon'
+import { CirclePackingIcon } from './CirclePackingIcon'
+import { CodeIcon } from './CodeIcon'
+import { DataIcon } from './DataIcon'
+import { FunnelIcon } from './FunnelIcon'
+import { GeoMapIcon } from './GeoMapIcon'
+import { HeatMapIcon } from './HeatMapIcon'
+import { LineIcon } from './LineIcon'
+import { MarimekkoIcon } from './MarimekkoIcon'
 import { NetworkIcon } from './NetworkIcon'
-import PieIcon from './PieIcon'
-import RadarIcon from './RadarIcon'
+import { ParallelCoordinatesIcon } from './ParallelCoordinatesIcon'
+import { PieIcon } from './PieIcon'
+import { RadarIcon } from './RadarIcon'
 import { RadialBarIcon } from './RadialBarIcon'
-import SankeyIcon from './SankeyIcon'
-import ScatterPlotIcon from './ScatterPlotIcon'
-import StreamIcon from './StreamIcon'
-import SunburstIcon from './SunburstIcon'
-import SwarmPlotIcon from './SwarmPlotIcon'
-import TimeRangeIcon from './TimeRangeIcon'
+import { SankeyIcon } from './SankeyIcon'
+import { ScatterPlotIcon } from './ScatterPlotIcon'
+import { StreamIcon } from './StreamIcon'
+import { SunburstIcon } from './SunburstIcon'
+import { SwarmPlotIcon } from './SwarmPlotIcon'
+import { TimeRangeIcon } from './TimeRangeIcon'
 import { TreeMapIcon } from './TreeMapIcon'
-import WaffleIcon from './WaffleIcon'
-import ParallelCoordinatesIcon from './ParallelCoordinatesIcon'
-import VoronoiIcon from './VoronoiIcon'
+import { VoronoiIcon } from './VoronoiIcon'
+import { WaffleIcon } from './WaffleIcon'
 import { colors, Icon, Colors } from './styled'
+import { IconType } from './types'
 
-const ColorsDemo = ({ type }) => {
+const ColorsDemo = ({ type }: { type: IconType }) => {
     return (
         <Icon type={type}>
             <Colors>
@@ -56,32 +57,32 @@ const ColorsDemo = ({ type }) => {
     )
 }
 
-const Icons = () => (
+export const Icons = () => (
     <Container>
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
-        <RadialBarIcon />
-        <MarimekkoIcon />
         <AreaBumpIcon />
-        <BumpIcon />
-        <FunnelIcon />
-        <NetworkIcon />
         <BarIcon />
-        <CirclePackingIcon />
         <BulletIcon />
+        <BumpIcon />
         <CalendarIcon />
-        <ChoroplethIcon />
         <ChordIcon />
-        <CodeIcon />
-        <DataIcon />
+        <ChoroplethIcon />
+        <CirclePackingIcon />
+        <FunnelIcon />
         <GeoMapIcon />
         <HeatMapIcon />
         <LineIcon />
+        <MarimekkoIcon />
+        <NetworkIcon />
         <ParallelCoordinatesIcon />
         <PieIcon />
         <RadarIcon />
+        <RadialBarIcon />
+        <CodeIcon />
+        <DataIcon />
         <SankeyIcon />
         <ScatterPlotIcon />
         <StreamIcon />
@@ -93,5 +94,3 @@ const Icons = () => (
         <WaffleIcon />
     </Container>
 )
-
-export default Icons
