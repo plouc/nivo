@@ -1,28 +1,21 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import isFunction from 'lodash/isFunction'
 import { ResponsiveHeatMapCanvas, canvasDefaultProps as defaults } from '@nivo/heatmap'
-import { generateXYSeries, sets } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
 import { groups } from '../../data/components/heatmap/props'
+import { getHeavyData } from '../../data/components/heatmap/generator'
+import {
+    Datum,
+    ExtraProps,
+    Data,
+    CanvasUnmappedProps,
+    CanvasMappedProps,
+    CanvasComponentProps,
+} from '../../data/components/heatmap/types'
 
-const getData = () =>
-    generateXYSeries({
-        serieIds: sets.countryCodes.slice(0, 26),
-        x: {
-            values: sets.names,
-        },
-        y: {
-            length: NaN,
-            min: -100_000,
-            max: 100_000,
-            round: true,
-        },
-    })
-
-const initialProperties = {
+const initialProperties: CanvasUnmappedProps = {
     margin: {
         top: 70,
         right: 90,
@@ -48,7 +41,6 @@ const initialProperties = {
     enableGridY: false,
     axisTop: {
         enable: true,
-        orient: 'top',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: -90,
@@ -57,7 +49,6 @@ const initialProperties = {
     },
     axisRight: {
         enable: true,
-        orient: 'right',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -67,7 +58,6 @@ const initialProperties = {
     },
     axisBottom: {
         enable: false,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: -90,
@@ -77,7 +67,6 @@ const initialProperties = {
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -106,6 +95,7 @@ const initialProperties = {
 
     legends: [
         {
+            id: 'default',
             anchor: 'bottom',
             translateX: 0,
             translateY: 30,
@@ -148,7 +138,7 @@ const HeatMapCanvas = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<CanvasUnmappedProps, CanvasMappedProps, Data, CanvasComponentProps>
             name="HeatMapCanvas"
             meta={meta.HeatMapCanvas}
             icon="heatmap"
@@ -156,21 +146,15 @@ const HeatMapCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
+            defaultProperties={defaults as CanvasComponentProps}
             propertiesMapper={mapper}
-            codePropertiesMapper={(properties, data) => ({
-                keys: data.keys,
-                ...properties,
-                cellShape: isFunction(properties.cellShape)
-                    ? 'Custom(props) => (…)'
-                    : properties.cellShape,
-            })}
-            generateData={getData}
+            generateData={getHeavyData}
             getDataSize={data => data.length * data[0].data.length}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveHeatMapCanvas
+                    <ResponsiveHeatMapCanvas<Datum, ExtraProps>
                         data={data}
                         {...properties}
                         theme={theme}

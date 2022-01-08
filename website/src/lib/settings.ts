@@ -21,5 +21,5 @@ export const settingsMapper =
 export const mapAxis = (type: string) => (value: any, settings: any) =>
     settings[`axis${upperFirst(type)}`].enable ? omit(value, ['enable']) : null
 
-export const mapFormat = ({ format, enabled }: { format: any; enabled: boolean }) =>
+export const mapFormat = ({ format, enabled }: { format: string; enabled: boolean }) =>
     enabled ? format : undefined

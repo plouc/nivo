@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { FaRegHandPointer } from 'react-icons/fa'
-import { ActionsLoggerLog } from './ActionsLoggerLog'
+import { ActionsLoggerLog, ActionsLoggerLogData } from './ActionsLoggerLog'
 import media from '../../theming/mediaQueries'
 
-export const useActionsLogger = (): [any[], (action: any) => void] => {
-    const [actions, setActions] = useState<any[]>([])
+export type ActionLoggerLogFn = (action: ActionsLoggerLogData) => void
+
+export const useActionsLogger = (): [ActionsLoggerLogData[], ActionLoggerLogFn] => {
+    const [actions, setActions] = useState<ActionsLoggerLogData[]>([])
     const logAction = useCallback(
-        action => {
+        (action: ActionsLoggerLogData) => {
             setActions(actions => [action, ...actions])
         },
         [setActions]
@@ -17,7 +19,7 @@ export const useActionsLogger = (): [any[], (action: any) => void] => {
 }
 
 interface ActionsLoggerProps {
-    actions: any[]
+    actions: ActionsLoggerLogData[]
     isFullWidth?: boolean
 }
 
@@ -31,11 +33,9 @@ export const ActionsLogger = ({ actions, isFullWidth = false }: ActionsLoggerPro
                     <EmptyMessage>Start interacting with the chart to log actions</EmptyMessage>
                 </EmptyContainer>
             )}
-            {actions.map((action, i) => {
-                return (
-                    <ActionsLoggerLog key={`${i}.${action.type}.${action.label}`} action={action} />
-                )
-            })}
+            {actions.map((action, i) => (
+                <ActionsLoggerLog key={`${i}.${action.type}.${action.label}`} action={action} />
+            ))}
         </Wrapper>
     )
 }

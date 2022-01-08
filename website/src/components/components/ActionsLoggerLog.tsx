@@ -1,7 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 
-export const ActionsLoggerLog = ({ action }: { action: any }) => {
+export interface ActionsLoggerLogData {
+    type: string
+    label: string
+    color?: string
+    data?: object
+}
+
+export const ActionsLoggerLog = ({ action }: { action: ActionsLoggerLogData }) => {
     const [isOpen, setIsOpen] = useState(false)
     const toggle = useCallback(() => setIsOpen(flag => !flag), [setIsOpen])
 

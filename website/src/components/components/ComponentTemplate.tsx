@@ -11,12 +11,17 @@ import { ComponentHeader } from './ComponentHeader'
 import { ComponentFlavorSelector } from './ComponentFlavorSelector'
 import { ComponentDescription } from './ComponentDescription'
 import { ComponentTabs } from './ComponentTabs'
-import { ActionsLogger, useActionsLogger } from './ActionsLogger'
+import { ActionsLogger, useActionsLogger, ActionLoggerLogFn } from './ActionsLogger'
 import { ComponentSettings } from './ComponentSettings'
 import { Stories } from './Stories'
 import { ChartMeta, ChartProperty, Flavor } from '../../types'
 
-interface ComponentTemplateProps<UnmappedProps extends object, Props extends object, Data> {
+interface ComponentTemplateProps<
+    UnmappedProps extends object,
+    MappedProps extends object,
+    Data,
+    ComponentProps extends object
+> {
     name: string
     meta: ChartMeta
     icon: string
@@ -32,22 +37,27 @@ interface ComponentTemplateProps<UnmappedProps extends object, Props extends obj
     // initial props of the demo, unmapped
     initialProperties: UnmappedProps
     // default props as defined in the package component
-    defaultProperties?: Partial<Props>
-    propertiesMapper?: (unmappedProps: UnmappedProps) => Props
-    codePropertiesMapper?: Function
-    hasData?: boolean
-    generateData?: (previousData?: Data | null) => Data | undefined
+    defaultProperties?: Partial<ComponentProps>
+    propertiesMapper?: (props: UnmappedProps, data: Data) => MappedProps
+    codePropertiesMapper?: (props: MappedProps, data: Data) => MappedProps
+    generateData: (previousData?: Data | null) => Data
     dataKey?: string
     getDataSize?: (data: Data) => number
     getTabData?: (data: Data) => Data
-    children: (properties: Props, data: Data, theme: NivoTheme, logAction: any) => JSX.Element
+    children: (
+        properties: MappedProps,
+        data: Data,
+        theme: NivoTheme,
+        logAction: ActionLoggerLogFn
+    ) => JSX.Element
     image?: IGatsbyImageData
 }
 
 export const ComponentTemplate = <
     UnmappedProps extends object = any,
-    Props extends object = any,
-    Data = any
+    MappedProps extends object = any,
+    Data = any,
+    ComponentProps extends object = any
 >({
     name,
     meta,
@@ -59,29 +69,30 @@ export const ComponentTemplate = <
     defaultProperties = {},
     propertiesMapper,
     codePropertiesMapper,
-    hasData = true,
-    generateData = () => undefined,
-    dataKey,
+    generateData,
+    dataKey = 'data',
     getDataSize,
     getTabData = data => data,
     image,
     children,
-}: ComponentTemplateProps<UnmappedProps, Props, Data>) => {
+}: ComponentTemplateProps<UnmappedProps, MappedProps, Data, ComponentProps>) => {
     const theme = useTheme()
 
-    const [settings, setSettings] = useState(initialProperties)
+    const [settings, setSettings] = useState<UnmappedProps>(initialProperties)
 
-    const initialData = useMemo(() => (hasData ? generateData() : null), [])
-    const [data, setData] = useState(initialData)
+    const [data, setData] = useState<Data>(() => generateData())
+
     const diceRoll = useCallback(() => {
         setData(currentData => generateData(currentData))
-    }, [setData])
+    }, [setData, generateData])
 
     const [actions, logAction] = useActionsLogger()
 
-    let mappedProperties = settings as unknown as Props
+    let mappedProperties: MappedProps
     if (propertiesMapper !== undefined) {
         mappedProperties = propertiesMapper(settings, data)
+    } else {
+        mappedProperties = settings as unknown as MappedProps
     }
 
     let codeProperties = mappedProperties
@@ -92,7 +103,7 @@ export const ComponentTemplate = <
     const code = generateChartCode(`Responsive${name}`, codeProperties, {
         pkg: meta.package,
         defaults: defaultProperties,
-        dataKey: hasData ? dataKey : undefined,
+        dataKey: data !== undefined ? dataKey : undefined,
     })
 
     const hasStories = meta.stories !== undefined && meta.stories.length > 0
@@ -102,6 +113,8 @@ export const ComponentTemplate = <
     const tags = useMemo(() => [meta.package, ...meta.tags], [meta])
 
     const flavorKeys = useMemo(() => flavors.map(flavor => flavor.flavor), [flavors])
+
+    const tabData = useMemo(() => getTabData(data), [data])
 
     return (
         <Layout>
@@ -113,12 +126,10 @@ export const ComponentTemplate = <
                 <ComponentTabs<Data>
                     chartClass={icon}
                     code={code}
-                    data={hasData ? getTabData(data!) : undefined}
+                    data={tabData}
                     dataKey={dataKey}
-                    nodeCount={
-                        hasData && getDataSize !== undefined ? getDataSize(data!) : undefined
-                    }
-                    diceRoll={hasData ? diceRoll : undefined}
+                    nodeCount={getDataSize !== undefined ? getDataSize(data) : undefined}
+                    diceRoll={data !== undefined ? diceRoll : undefined}
                 >
                     {children(mappedProperties, data, theme.nivo, logAction)}
                 </ComponentTabs>

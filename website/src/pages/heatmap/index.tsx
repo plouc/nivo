@@ -1,28 +1,21 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import isFunction from 'lodash/isFunction'
 import { ResponsiveHeatMap, svgDefaultProps as defaults } from '@nivo/heatmap'
-import { generateXYSeries } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
+import { getLightData } from '../../data/components/heatmap/generator'
 import { groups } from '../../data/components/heatmap/props'
+import {
+    Datum,
+    ExtraProps,
+    Data,
+    SvgUnmappedProps,
+    SvgMappedProps,
+    SvgComponentProps,
+} from '../../data/components/heatmap/types'
 
-const getData = () =>
-    generateXYSeries({
-        serieIds: ['Japan', 'France', 'US', 'Germany', 'Norway', 'Iceland', 'UK', 'Vietnam'],
-        x: {
-            values: ['Train', 'Subway', 'Bus', 'Car', 'Boat', 'Moto', 'Moped', 'Bicycle', 'Others'],
-        },
-        y: {
-            length: NaN,
-            min: -100_000,
-            max: 100_000,
-            round: true,
-        },
-    })
-
-const initialProperties = {
+const initialProperties: SvgUnmappedProps = {
     margin: {
         top: 60,
         right: 90,
@@ -45,7 +38,6 @@ const initialProperties = {
     enableGridY: defaults.enableGridY,
     axisTop: {
         enable: true,
-        orient: 'top',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: -90,
@@ -54,7 +46,6 @@ const initialProperties = {
     },
     axisRight: {
         enable: true,
-        orient: 'right',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -64,7 +55,6 @@ const initialProperties = {
     },
     axisBottom: {
         enable: false,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: -90,
@@ -74,7 +64,6 @@ const initialProperties = {
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -104,6 +93,7 @@ const initialProperties = {
 
     legends: [
         {
+            id: 'default',
             anchor: 'bottom',
             translateX: 0,
             translateY: 30,
@@ -146,7 +136,7 @@ const HeatMap = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<SvgUnmappedProps, SvgMappedProps, Data, SvgComponentProps>
             name="HeatMap"
             meta={meta.HeatMap}
             icon="heatmap"
@@ -154,21 +144,14 @@ const HeatMap = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaults}
+            defaultProperties={defaults as SvgComponentProps}
             propertiesMapper={mapper}
-            codePropertiesMapper={properties => ({
-                ...properties,
-                cellShape: isFunction(properties.cellShape)
-                    ? 'Custom(props) => (…)'
-                    : properties.cellShape,
-            })}
-            generateData={getData}
-            // getTabData={data => data.data}
+            generateData={getLightData}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveHeatMap
+                    <ResponsiveHeatMap<Datum, ExtraProps>
                         data={data}
                         {...properties}
                         theme={theme}

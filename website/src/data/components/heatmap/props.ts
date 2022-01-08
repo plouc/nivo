@@ -426,7 +426,7 @@ const props: ChartProperty[] = [
         defaultValue: 'rect',
         control: {
             type: 'choices',
-            choices: ['rect', 'circle', 'CustomCell'].map(key => ({
+            choices: ['rect', 'circle'].map(key => ({
                 label: key,
                 value: key,
             })),

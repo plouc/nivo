@@ -34,7 +34,7 @@ export const generateChartCode = (
     name: string,
     props: any,
     {
-        dataKey = 'data',
+        dataKey,
         children = [],
         defaults = {},
         pkg = 'nivo',
@@ -48,7 +48,7 @@ export const generateChartCode = (
     const properties = []
     let args = ''
 
-    if (dataKey !== null) {
+    if (dataKey !== undefined) {
         properties.push(`${dataKey}={${dataKey}}`)
         args = `{ ${dataKey} /* see ${dataKey} tab */ }`
     }

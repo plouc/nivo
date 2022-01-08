@@ -3,11 +3,11 @@ import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/heatmap/props'
 import mapper from '../../data/components/heatmap/mapper'
-import { generateLightDataSet } from '../../data/components/heatmap/generator'
+import { getLightData } from '../../data/components/heatmap/generator'
 import meta from '../../data/components/heatmap/meta.yml'
 import { graphql, useStaticQuery } from 'gatsby'
 
-const data = generateLightDataSet()
+const data = getLightData()
 
 const HeatMapApi = () => {
     const {
