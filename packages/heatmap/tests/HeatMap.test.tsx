@@ -1,5 +1,7 @@
 import { mount } from 'enzyme'
 import { Globals } from '@react-spring/web'
+import { Axes, Grid } from '@nivo/axes'
+import { Annotation } from '@nivo/annotations'
 // @ts-ignore
 import { HeatMap, HeatMapSvgProps, DefaultHeatMapDatum } from '../src'
 
@@ -180,45 +182,39 @@ describe('interactivity', () => {
 
 describe('layers', () => {
     it('custom order', () => {
-        /*
-        const wrapper = mount(<Network {...baseProps} layers={['nodes', 'links']} />)
+        const wrapper = mount(<HeatMap {...baseProps} layers={['cells', 'axes', 'grid']} />)
 
         const layers = wrapper.find('svg > g').children()
-        expect(layers.at(0).is('NetworkNodes')).toBeTruthy()
-        expect(layers.at(1).is('NetworkLinks')).toBeTruthy()
-        */
+        expect(layers).toHaveLength(3)
+        expect(layers.at(0).is('HeatMapCells')).toBeTruthy()
+        expect(layers.at(1).is(Axes)).toBeTruthy()
+        expect(layers.at(2).is(Grid)).toBeTruthy()
     })
 
     it('custom layer', () => {
-        /*
         const CustomLayer = () => null
-        const wrapper = mount(<Network {...baseProps} layers={[CustomLayer]} />)
+        const wrapper = mount(<HeatMap {...baseProps} layers={[CustomLayer]} />)
 
         const customLayer = wrapper.find(CustomLayer)
         expect(customLayer.exists()).toBeTruthy()
 
         const customLayerProps = customLayer.props()
-        expect(customLayerProps).toHaveProperty('nodes')
-        expect(customLayerProps).toHaveProperty('links')
-        expect(customLayerProps).toHaveProperty('activeNodeIds')
-        expect(customLayerProps).toHaveProperty('setActiveNodeIds')
-        */
+        expect(customLayerProps).toHaveProperty('cells')
+        expect(customLayerProps).toHaveProperty('activeCell')
+        expect(customLayerProps).toHaveProperty('setActiveCell')
     })
 })
 
 describe('annotations', () => {
-    it('rect annotation using id', () => {
-        /*
-        const annotatedNodeId = 'C'
+    it('annotation using id', () => {
+        const annotatedCellId = 'B.Y'
         const wrapper = mount(
-            <Network
+            <HeatMap
                 {...baseProps}
                 annotations={[
                     {
                         type: 'circle',
-                        match: {
-                            id: annotatedNodeId,
-                        },
+                        match: { id: annotatedCellId },
                         note: 'Note',
                         noteX: 160,
                         noteY: 36,
@@ -230,16 +226,15 @@ describe('annotations', () => {
         const annotation = wrapper.find(Annotation)
         expect(annotation.exists()).toBeTruthy()
 
-        const annotatedNode = wrapper.find(`circle[data-testid='node.${annotatedNodeId}']`)
-        const [nodeX, nodeY] = Array.from(
-            annotatedNode.prop('transform').match(/translate\(([0-9.]+),([0-9.]+)\)/)
+        const annotatedCell = wrapper.find(`g[data-testid='cell.${annotatedCellId}']`)
+        const [cellX, cellY] = Array.from(
+            annotatedCell.prop<string>('transform').match(/translate\(([0-9.]+), ([0-9.]+)\)/)!
         )
             .slice(1)
             .map(Number)
 
-        expect(annotation.find('circle').first().prop('cx')).toEqual(nodeX)
-        expect(annotation.find('circle').first().prop('cy')).toEqual(nodeY)
-        */
+        expect(annotation.find('circle').first().prop('cx')).toEqual(cellX)
+        expect(annotation.find('circle').first().prop('cy')).toEqual(cellY)
     })
 })
 
@@ -255,7 +250,6 @@ describe('accessibility', () => {
         )
 
         const svg = wrapper.find('svg')
-
         expect(svg.prop('aria-label')).toBe('AriaLabel')
         expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
         expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
