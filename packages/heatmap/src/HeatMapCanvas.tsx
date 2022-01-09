@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, createElement } from 'react'
+import { useEffect, useRef, useCallback, createElement, useMemo } from 'react'
 import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
@@ -25,8 +25,6 @@ type InnerNetworkCanvasProps<Datum extends HeatMapDatum, ExtraProps extends obje
 const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
     layers = canvasDefaultProps.layers,
-    minValue: _minValue = canvasDefaultProps.minValue,
-    maxValue: _maxValue = canvasDefaultProps.maxValue,
     valueFormat,
     width,
     height,
@@ -113,11 +111,14 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 
     const theme = useTheme()
 
-    const customLayerProps: CustomLayerProps<Datum> = {
-        cells,
-        activeCell,
-        setActiveCell,
-    }
+    const customLayerProps: CustomLayerProps<Datum> = useMemo(
+        () => ({
+            cells,
+            activeCell,
+            setActiveCell,
+        }),
+        [cells, activeCell, setActiveCell]
+    )
 
     useEffect(() => {
         if (canvasEl.current === null) return

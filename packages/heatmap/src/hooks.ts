@@ -141,8 +141,6 @@ export const useHeatMap = <
     ExtraProps extends object = Record<string, never>
 >({
     data,
-    minValue: _minValue = commonDefaultProps.minValue,
-    maxValue: _maxValue = commonDefaultProps.maxValue,
     valueFormat,
     width,
     height,
@@ -163,8 +161,6 @@ export const useHeatMap = <
     hoverTarget = commonDefaultProps.hoverTarget,
 }: {
     data: HeatMapDataProps<Datum, ExtraProps>['data']
-    minValue?: HeatMapCommonProps<Datum>['minValue']
-    maxValue?: HeatMapCommonProps<Datum>['maxValue']
     valueFormat?: HeatMapCommonProps<Datum>['valueFormat']
     width: number
     height: number

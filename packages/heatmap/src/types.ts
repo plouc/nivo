@@ -106,8 +106,6 @@ export type CellCanvasRenderer<Datum extends HeatMapDatum> = (
 export type CellShape = 'rect' | 'circle'
 
 export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
-    minValue: number | 'auto'
-    maxValue: number | 'auto'
     valueFormat: ValueFormat<number>
 
     margin: Box
