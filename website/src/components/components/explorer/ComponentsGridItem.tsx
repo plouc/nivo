@@ -12,7 +12,7 @@ export const ComponentsGridItem = memo(({ name, id, flavors }: ChartNavData) => 
     }, [])
 
     return (
-        <Container to={`/${id}/`}>
+        <Container>
             <Icon className={`sprite-icons-${id}-${theme.id}-colored`} />
             <Header>
                 <Name>{name}</Name>
@@ -39,8 +39,7 @@ export const ComponentsGridItem = memo(({ name, id, flavors }: ChartNavData) => 
     )
 })
 
-const Container = styled(Link)`
-    text-decoration: none;
+const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.cardBackground};
     border-radius: 2px;
     padding: 12px;
