@@ -23,8 +23,6 @@ const initialProperties: CanvasUnmappedProps = {
         left: 80,
     },
 
-    minValue: defaults.minValue,
-    maxValue: defaults.maxValue,
     valueFormat: { format: '>-.2s', enabled: true },
 
     pixelRatio:

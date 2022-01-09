@@ -34,45 +34,6 @@ const props: ChartProperty[] = [
         `,
     },
     {
-        key: 'minValue',
-        description: `
-            If 'auto', will pick the lowest value
-            in the provided data set. Should be overriden
-            if your data set does not contain desired
-            lower bound value.
-        `,
-        defaultValue: defaults.minValue,
-        type: `number | 'auto'`,
-        group: 'Base',
-        control: {
-            type: 'switchableRange',
-            disabledValue: 'auto',
-            defaultValue: 0,
-            min: -100,
-            max: 100,
-        },
-    },
-    {
-        key: 'maxValue',
-        flavors: allFlavors,
-        description: `
-            If 'auto', will pick the highest value
-            in the provided data set. Should be overriden
-            if your data set does not contain desired
-            higher bound value.
-        `,
-        defaultValue: defaults.maxValue,
-        type: `number | 'auto'`,
-        group: 'Base',
-        control: {
-            type: 'switchableRange',
-            disabledValue: 'auto',
-            defaultValue: 100,
-            min: -100,
-            max: 100,
-        },
-    },
-    {
         key: 'valueFormat',
         group: 'Base',
         help: 'Optional formatter for values.',
