@@ -87,8 +87,8 @@ const initialProperties: CanvasUnmappedProps = {
     opacity: defaults.opacity,
     activeOpacity: defaults.activeOpacity,
     inactiveOpacity: defaults.inactiveOpacity,
-    borderWidth: defaults.borderWidth,
-    borderColor: defaults.borderColor,
+    borderWidth: 1,
+    borderColor: '#000000',
 
     enableLabels: false,
     labelTextColor: defaults.labelTextColor,

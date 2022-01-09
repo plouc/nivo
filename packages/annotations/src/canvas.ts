@@ -115,9 +115,13 @@ export const renderAnnotationsToCanvas = <Datum>(
             })
         } else {
             ctx.font = `${theme.annotations.text.fontSize}px ${theme.annotations.text.fontFamily}`
+            ctx.textAlign = 'left'
+            ctx.textBaseline = 'alphabetic'
+
             ctx.fillStyle = theme.annotations.text.fill
             ctx.strokeStyle = theme.annotations.text.outlineColor
             ctx.lineWidth = theme.annotations.text.outlineWidth * 2
+
             if (theme.annotations.text.outlineWidth > 0) {
                 ctx.lineJoin = 'round'
                 ctx.strokeText(
