@@ -176,6 +176,104 @@ describe('interactivity', () => {
                     expect(onClick).not.toHaveBeenCalled()
                 })
             })
+
+            describe('active/inactive', () => {
+                it('should support single cell hover target', () => {
+                    const wrapper = mount(
+                        <HeatMap
+                            {...baseProps}
+                            activeOpacity={1}
+                            inactiveOpacity={0}
+                            hoverTarget="cell"
+                        />
+                    )
+
+                    const hoveredCell = wrapper.find(`g[data-testid='cell.B.Y']`)
+                    hoveredCell.simulate('mouseenter')
+
+                    const activeCellIds = ['B.Y']
+                    dataPoints.forEach(datum => {
+                        const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
+                        if (activeCellIds.includes(datum.id)) {
+                            expect(cell.prop('opacity').get()).toEqual(1)
+                        } else {
+                            expect(cell.prop('opacity').get()).toEqual(0)
+                        }
+                    })
+                })
+
+                it('should support row hover target', () => {
+                    const wrapper = mount(
+                        <HeatMap
+                            {...baseProps}
+                            activeOpacity={1}
+                            inactiveOpacity={0}
+                            hoverTarget="row"
+                        />
+                    )
+
+                    const hoveredCell = wrapper.find(`g[data-testid='cell.B.Y']`)
+                    hoveredCell.simulate('mouseenter')
+
+                    const activeCellIds = ['B.X', 'B.Y', 'B.Z']
+                    dataPoints.forEach(datum => {
+                        const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
+                        if (activeCellIds.includes(datum.id)) {
+                            expect(cell.prop('opacity').get()).toEqual(1)
+                        } else {
+                            expect(cell.prop('opacity').get()).toEqual(0)
+                        }
+                    })
+                })
+
+                it('should support column hover target', () => {
+                    const wrapper = mount(
+                        <HeatMap
+                            {...baseProps}
+                            activeOpacity={1}
+                            inactiveOpacity={0}
+                            hoverTarget="column"
+                        />
+                    )
+
+                    const hoveredCell = wrapper.find(`g[data-testid='cell.B.Y']`)
+                    hoveredCell.simulate('mouseenter')
+
+                    const activeCellIds = ['A.Y', 'B.Y', 'C.Y']
+                    dataPoints.forEach(datum => {
+                        const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
+                        if (activeCellIds.includes(datum.id)) {
+                            expect(cell.prop('opacity').get()).toEqual(1)
+                        } else {
+                            expect(cell.prop('opacity').get()).toEqual(0)
+                        }
+                    })
+                })
+
+                it('should support rowColumn hover target', () => {
+                    const wrapper = mount(
+                        <HeatMap
+                            {...baseProps}
+                            activeOpacity={1}
+                            inactiveOpacity={0}
+                            hoverTarget="rowColumn"
+                        />
+                    )
+
+                    const hoveredCell = wrapper.find(`g[data-testid='cell.B.Y']`)
+                    hoveredCell.simulate('mouseenter')
+
+                    const activeCellIds = ['B.X', 'B.Y', 'B.Z', 'A.Y', 'C.Y']
+                    dataPoints.forEach(datum => {
+                        const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
+                        if (activeCellIds.includes(datum.id)) {
+                            expect(cell.prop('opacity').get()).toEqual(1)
+                        } else {
+                            expect(cell.prop('opacity').get()).toEqual(0)
+                        }
+                    })
+                })
+            })
         })
     })
 })

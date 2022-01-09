@@ -496,7 +496,7 @@ describe('annotations', () => {
 
         const annotatedNode = wrapper.find(`circle[data-testid='node.${annotatedNodeId}']`)
         const [nodeX, nodeY] = Array.from(
-            annotatedNode.prop('transform').match(/translate\(([0-9.]+),([0-9.]+)\)/)
+            annotatedNode.prop<string>('transform').match(/translate\(([0-9.]+),([0-9.]+)\)/)!
         )
             .slice(1)
             .map(Number)
