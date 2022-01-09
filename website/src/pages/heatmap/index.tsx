@@ -23,8 +23,6 @@ const initialProperties: SvgUnmappedProps = {
         left: 90,
     },
 
-    minValue: defaults.minValue,
-    maxValue: defaults.maxValue,
     valueFormat: { format: '>-.2s', enabled: true },
 
     forceSquare: defaults.forceSquare,
