@@ -14,7 +14,6 @@ export const renderRect = <Datum extends HeatMapDatum>(
 
     ctx.fillStyle = color
     if (borderWidth > 0) {
-        console.log(borderWidth)
         ctx.strokeStyle = borderColor
         ctx.lineWidth = borderWidth
     }

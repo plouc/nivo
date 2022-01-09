@@ -31,6 +31,8 @@ const props: ChartProperty[] = [
             }[]
         }[]
         \`\`\`
+        
+        Please note that each serie **MUST** have the same length.
         `,
     },
     {
@@ -418,29 +420,40 @@ const props: ChartProperty[] = [
         defaultValue: defaults.isInteractive,
     }),
     {
+        key: 'tooltip',
+        group: 'Interactivity',
+        type: 'TooltipComponent',
+        help: 'Custom tooltip component.',
+        flavors: ['svg', 'canvas'],
+        description: `
+            An optional component allowing complete tooltip customisation,
+            it must return a valid HTML element and will receive
+            the cell's data as a property.
+        `,
+    },
+    {
+        key: 'onMouseEnter',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: '(cell: ComputedCell, event: MouseEvent) => void',
+    },
+    {
+        key: 'onMouseMove',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: '(cell: ComputedCell, event: MouseEvent) => void',
+    },
+    {
+        key: 'onMouseLeave',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: '(cell: ComputedCell, event: MouseEvent) => void',
+    },
+    {
         key: 'onClick',
         flavors: ['svg', 'canvas'],
         group: 'Interactivity',
-        type: '(cell, event) => void',
-        help: 'onClick handler.',
-        description: `
-            onClick handler, will receive node data
-            as first argument & event as second one.
-            The node data has the following shape:
-            \`\`\`
-            {
-                key:        string,
-                value:      number,
-                x:          number,
-                xKey:       {string|number},
-                y:          number,
-                yKey:       {string|number},
-                width:      number,
-                height:     number,
-                opacity:    number
-            }
-            \`\`\`
-        `,
+        type: '(cell: ComputedCell, event: MouseEvent) => void',
     },
     {
         key: 'hoverTarget',

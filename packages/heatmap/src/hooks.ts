@@ -260,46 +260,6 @@ export const useHeatMap = <
             offsetY,
         }
     }, [data, keys, width, height, padding, forceSquare])
-
-    const sizeScale = useMemo(() => {
-        if (sizeVariation > 0) {
-            return scaleLinear()
-                .range([1 - sizeVariation, 1])
-                .domain([values.min, values.max])
-        }
-    }, [sizeVariation, values])
-
-    const cells = useMemo(
-        () =>
-            computeCells<Datum>({
-                data,
-                keys,
-                getIndex,
-                xScale: scales.x,
-                yScale: scales.y,
-                sizeScale,
-                cellOpacity,
-                cellWidth: layoutConfig.cellWidth,
-                cellHeight: layoutConfig.cellHeight,
-                colorScale,
-                nanColor,
-                getLabel,
-                getLabelTextColor,
-            }),
-        [
-            data,
-            keys,
-            getIndex,
-            scales,
-            sizeScale,
-            cellOpacity,
-            layoutConfig,
-            colorScale,
-            nanColor,
-            getLabel,
-            getLabelTextColor,
-        ]
-    )
     */
 }
 
