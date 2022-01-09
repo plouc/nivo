@@ -1,4 +1,5 @@
 import { useMemo, useCallback, useState } from 'react'
+import { scaleLinear } from 'd3-scale'
 import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useInheritedColor, getContinuousColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
@@ -8,6 +9,7 @@ import {
     HeatMapCommonProps,
     HeatMapDataProps,
     HeatMapDatum,
+    SizeVariationConfig,
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { computeCells } from './compute'
@@ -43,15 +45,6 @@ export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends o
         [data, width, height, xInnerPadding, xOuterPadding, yInnerPadding, yOuterPadding]
     )
 
-/*
-const computeX = (column: number, cellWidth: number, padding: number) => {
-    return column * cellWidth + cellWidth * 0.5 + padding * column + padding
-}
-const computeY = (row: number, cellHeight: number, padding: number) => {
-    return row * cellHeight + cellHeight * 0.5 + padding * row + padding
-}
-*/
-
 const isHoverTargetByType = {
     cell: <Datum extends HeatMapDatum>(
         cell: Omit<
@@ -83,58 +76,23 @@ const isHoverTargetByType = {
     ) => cell.serieId === current.serieId || cell.data.x === current.data.x,
 }
 
-/*
-const computeCells = <Datum extends object>({
-    data,
-    keys,
-    getIndex,
-    xScale,
-    yScale,
-    sizeScale,
-    cellOpacity,
-    cellWidth,
-    cellHeight,
-    colorScale,
-    nanColor,
-    getLabel,
-    getLabelTextColor,
-}: {
-    data: HeatMapDataProps<Datum>['data']
-    keys: HeatMapCommonProps<Datum>['keys']
-    getIndex: (datum: Datum) => string | number
-}) => {
-    const cells = []
-    data.forEach(datum => {
-        keys.forEach(key => {
-            const value = datum[key]
-            const label = getLabel(datum, key)
-            const index = getIndex(datum)
-            const sizeMultiplier = sizeScale ? sizeScale(value) : 1
-            const width = sizeMultiplier * cellWidth
-            const height = sizeMultiplier * cellHeight
+const useSizeScale = (
+    size: false | SizeVariationConfig,
+    min: number,
+    max: number
+): ((value: number | null) => number) =>
+    useMemo(() => {
+        if (!size) return () => 1
 
-            const cell = {
-                id: `${key}.${index}`,
-                xKey: key,
-                yKey: index,
-                x: xScale(key),
-                y: yScale(index),
-                width,
-                height,
-                value,
-                label,
-                color: isNaN(value) ? nanColor : colorScale(value),
-                opacity: cellOpacity,
-            }
-            cell.labelTextColor = getLabelTextColor(cell)
+        const scale = scaleLinear()
+            .domain(size.values ? size.values : [min, max])
+            .range(size.sizes)
 
-            cells.push(cell)
-        })
-    })
-
-    return cells
-}
-*/
+        return (value: number | null) => {
+            if (value === null) return 1
+            return scale(value)
+        }
+    }, [size, min, max])
 
 export const useHeatMap = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
@@ -149,7 +107,7 @@ export const useHeatMap = <
     xInnerPadding = commonDefaultProps.xInnerPadding,
     yOuterPadding = commonDefaultProps.yOuterPadding,
     yInnerPadding = commonDefaultProps.yInnerPadding,
-    // sizeVariation,
+    sizeVariation = commonDefaultProps.sizeVariation,
     colors = commonDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
     emptyColor = commonDefaultProps.emptyColor,
     opacity = commonDefaultProps.opacity,
@@ -220,6 +178,7 @@ export const useHeatMap = <
         },
         [colors, colorScale, emptyColor]
     )
+    const getSize = useSizeScale(sizeVariation, minValue, maxValue)
     const theme = useTheme()
     const getBorderColor = useInheritedColor(borderColor, theme)
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
@@ -234,8 +193,12 @@ export const useHeatMap = <
                     computedOpacity = activeIds.includes(cell.id) ? activeOpacity : inactiveOpacity
                 }
 
+                const sizeMultiplier = getSize(cell.value)
+
                 const computedCell = {
                     ...cell,
+                    width: cell.width * sizeMultiplier,
+                    height: cell.height * sizeMultiplier,
                     formattedValue: cell.value !== null ? formatValue(cell.value) : null,
                     opacity: computedOpacity,
                 } as ComputedCell<Datum>
@@ -249,6 +212,7 @@ export const useHeatMap = <
             }),
         [
             cells,
+            getSize,
             getColor,
             getBorderColor,
             getLabelTextColor,
