@@ -1,7 +1,7 @@
 import { createElement, useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
-import { CanvasAxisProp, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
+import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
@@ -140,10 +140,10 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                     yScale: yScale as any,
                     width: innerWidth,
                     height: innerHeight,
-                    top: axisTop as CanvasAxisProp<RawDatum['x']>,
-                    right: axisRight as CanvasAxisProp<RawDatum['y']>,
-                    bottom: axisBottom as CanvasAxisProp<RawDatum['x']>,
-                    left: axisLeft as CanvasAxisProp<RawDatum['y']>,
+                    top: axisTop as CanvasAxisProps<RawDatum['x']>,
+                    right: axisRight as CanvasAxisProps<RawDatum['y']>,
+                    bottom: axisBottom as CanvasAxisProps<RawDatum['x']>,
+                    left: axisLeft as CanvasAxisProps<RawDatum['y']>,
                     theme,
                 })
             } else if (layer === 'nodes') {
@@ -151,7 +151,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                     renderNode(ctx, node)
                 })
             } else if (layer === 'mesh') {
-                if (debugMesh === true) {
+                if (debugMesh) {
                     renderVoronoiToCanvas(ctx, voronoi!)
                     if (currentNode) {
                         renderVoronoiCellToCanvas(ctx, voronoi!, currentNode.index)

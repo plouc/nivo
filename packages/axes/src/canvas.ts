@@ -2,7 +2,7 @@ import { degreesToRadians, CompleteTheme } from '@nivo/core'
 import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
-import { AxisLegendPosition, CanvasAxisProp, ValueFormatter } from './types'
+import { AxisLegendPosition, CanvasAxisProps, ValueFormatter } from './types'
 
 export const renderAxisToCanvas = <Value extends ScaleValue>(
     ctx: CanvasRenderingContext2D,
@@ -176,10 +176,10 @@ export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
         yScale: AnyScale
         width: number
         height: number
-        top?: CanvasAxisProp<X> | null
-        right?: CanvasAxisProp<Y> | null
-        bottom?: CanvasAxisProp<X> | null
-        left?: CanvasAxisProp<Y> | null
+        top?: CanvasAxisProps<X> | null
+        right?: CanvasAxisProps<Y> | null
+        bottom?: CanvasAxisProps<X> | null
+        left?: CanvasAxisProps<Y> | null
         theme: CompleteTheme
     }
 ) => {
@@ -187,8 +187,8 @@ export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
 
     positions.forEach(position => {
         const axis = axes[position] as typeof position extends 'bottom' | 'top'
-            ? CanvasAxisProp<X> | undefined
-            : CanvasAxisProp<Y> | undefined
+            ? CanvasAxisProps<X> | undefined
+            : CanvasAxisProps<Y> | undefined
 
         if (!axis) return null
 

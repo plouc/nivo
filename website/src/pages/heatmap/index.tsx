@@ -22,16 +22,13 @@ const initialProperties: SvgUnmappedProps = {
         bottom: 60,
         left: 90,
     },
-
     valueFormat: { format: '>-.2s', enabled: true },
-
     forceSquare: defaults.forceSquare,
-    sizeVariation: 0,
+    sizeVariation: defaults.sizeVariation,
     xOuterPadding: defaults.xOuterPadding,
     xInnerPadding: defaults.xInnerPadding,
     yOuterPadding: defaults.yOuterPadding,
     yInnerPadding: defaults.yInnerPadding,
-
     enableGridX: defaults.enableGridX,
     enableGridY: defaults.enableGridY,
     axisTop: {
@@ -69,7 +66,6 @@ const initialProperties: SvgUnmappedProps = {
         legendPosition: 'middle',
         legendOffset: -72,
     },
-
     colors: {
         type: 'diverging',
         scheme: 'red_yellow_blue',
@@ -78,17 +74,15 @@ const initialProperties: SvgUnmappedProps = {
         maxValue: 100_000,
     },
     emptyColor: '#555555',
-    cellComponent: 'rect',
+    cellComponent: defaults.cellComponent,
+    borderRadius: defaults.borderRadius,
     opacity: defaults.opacity,
     activeOpacity: defaults.activeOpacity,
     inactiveOpacity: defaults.inactiveOpacity,
-    borderRadius: defaults.borderRadius,
     borderWidth: defaults.borderWidth,
     borderColor: defaults.borderColor,
-
     enableLabels: defaults.enableLabels,
     labelTextColor: defaults.labelTextColor,
-
     legends: [
         {
             anchor: 'bottom',
@@ -107,14 +101,11 @@ const initialProperties: SvgUnmappedProps = {
             titleOffset: 4,
         },
     ],
-
     annotations: defaults.annotations,
-
-    animate: defaults.animate,
-    motionConfig: defaults.motionConfig,
-
     isInteractive: defaults.isInteractive,
     hoverTarget: defaults.hoverTarget,
+    animate: defaults.animate,
+    motionConfig: defaults.motionConfig,
 }
 
 const HeatMap = () => {
