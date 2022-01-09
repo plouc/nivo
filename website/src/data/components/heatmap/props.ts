@@ -107,17 +107,22 @@ const props: ChartProperty[] = [
     },
     {
         key: 'sizeVariation',
-        help: 'Cell size variation.',
-        description: `Size variation (0~1), if value is 0 size won't be affected. If you use for example the value 0.3, cell width/height will vary between 0.7~1 according to its corresponding value.`,
+        help: 'Optionally make the size of the cells vary depending on their value.',
+        description: `
+        To enable this feature, you can use the following config:
+        
+        \`\`\`
+        interface SizeVariationConfig {
+            // use auto min/max values if unspecified
+            values?: [min: number, max: number]
+            // expressed as a range from 0~1
+            sizes: [min: number, max: number]
+        }
+        \`\`\`
+        `,
         defaultValue: defaults.sizeVariation,
-        type: 'number',
+        type: 'false | SizeVariationConfig',
         group: 'Base',
-        control: {
-            type: 'range',
-            min: 0,
-            max: 1,
-            step: 0.02,
-        },
     },
     themeProperty(allFlavors),
     {

@@ -10,7 +10,7 @@ export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
     help: 'Define style for common elements such as labels, axes…',
     flavors,
     description: `
-        Please have a look at [the dedicated guide](self:/guides/theming)
+        Please have a look at [the dedicated guide](self:/guides/theming/)
         on how to define a theme for your charts. 
     `,
 })

@@ -63,7 +63,9 @@ export interface HeatMapDataProps<Datum extends HeatMapDatum, ExtraProps extends
 }
 
 export interface SizeVariationConfig {
-    values: [min: number, max: number]
+    // use auto min/max values if unspecified
+    values?: [min: number, max: number]
+    // expressed as a range from 0~1
     sizes: [min: number, max: number]
 }
 

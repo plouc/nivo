@@ -32,7 +32,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     xOuterPadding = svgDefaultProps.xOuterPadding,
     yInnerPadding = svgDefaultProps.yInnerPadding,
     yOuterPadding = svgDefaultProps.yOuterPadding,
-    // sizeVariation = svgDefaultProps.sizeVariation,
+    sizeVariation = svgDefaultProps.sizeVariation,
     cellComponent = svgDefaultProps.cellComponent as NonNullable<
         HeatMapSvgProps<Datum, ExtraProps>['cellComponent']
     >,
@@ -85,6 +85,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         xOuterPadding,
         yInnerPadding,
         yOuterPadding,
+        sizeVariation,
         colors,
         emptyColor,
         opacity,
