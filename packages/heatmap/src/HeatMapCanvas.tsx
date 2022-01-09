@@ -14,6 +14,7 @@ import {
     HeatMapCommonProps,
     HeatMapDatum,
     CellShape,
+    CustomLayerProps,
 } from './types'
 
 type InnerNetworkCanvasProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
@@ -56,9 +57,6 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     legends = canvasDefaultProps.legends,
     annotations = canvasDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
     isInteractive = canvasDefaultProps.isInteractive,
-    // onMouseEnter,
-    // onMouseMove,
-    // onMouseLeave,
     onClick,
     hoverTarget = canvasDefaultProps.hoverTarget,
     tooltip = canvasDefaultProps.tooltip as HeatMapCommonProps<Datum>['tooltip'],
@@ -114,6 +112,12 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     }
 
     const theme = useTheme()
+
+    const customLayerProps: CustomLayerProps<Datum> = {
+        cells,
+        activeCell,
+        setActiveCell,
+    }
 
     useEffect(() => {
         if (canvasEl.current === null) return
@@ -185,6 +189,8 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
                     annotations: computedAnnotations,
                     theme,
                 })
+            } else if (typeof layer === 'function') {
+                layer(ctx, customLayerProps)
             }
         })
     }, [
@@ -196,6 +202,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         innerHeight,
         margin,
         layers,
+        customLayerProps,
         cells,
         renderCell,
         enableGridX,

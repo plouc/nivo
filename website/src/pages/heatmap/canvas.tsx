@@ -77,9 +77,9 @@ const initialProperties: CanvasUnmappedProps = {
 
     renderCell: 'rect',
     colors: {
-        type: 'diverging',
+        type: 'quantize',
         scheme: 'red_yellow_blue',
-        divergeAt: 0.5,
+        steps: 10,
         minValue: -100_000,
         maxValue: 100_000,
     },

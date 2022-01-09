@@ -208,7 +208,6 @@ export const computeItemLayout = ({
 }
 
 export const computeContinuousColorsLegend = ({
-    // id,
     scale,
     ticks,
     length = continuousColorsLegendDefaults.length,
@@ -223,7 +222,8 @@ export const computeContinuousColorsLegend = ({
     titleAlign = continuousColorsLegendDefaults.titleAlign,
     titleOffset = continuousColorsLegendDefaults.titleOffset,
 }: ContinuousColorsLegendProps) => {
-    const domain = scale.domain()
+    // left to right for `row`, bottom to top for `column`
+    const domain = direction === 'column' ? [...scale.domain()].reverse() : scale.domain()
 
     const positionScale = scaleLinear().domain(domain)
     if (domain.length === 2) {
@@ -263,9 +263,9 @@ export const computeContinuousColorsLegend = ({
     let height: number
 
     const gradientX1 = 0
-    const gradientY1 = 0
+    let gradientY1 = 0
     let gradientX2 = 0
-    let gradientY2 = 0
+    const gradientY2 = 0
 
     let titleX: number
     let titleY: number
@@ -333,7 +333,7 @@ export const computeContinuousColorsLegend = ({
         width = thickness
         height = length
 
-        gradientY2 = 1
+        gradientY1 = 1
 
         let x1: number
         let x2: number
