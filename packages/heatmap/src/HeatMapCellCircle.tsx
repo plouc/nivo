@@ -27,6 +27,7 @@ const NonMemoizedHeatMapCellCircle = <Datum extends HeatMapDatum>({
 
     return (
         <animated.g
+            data-testid={`cell.${cell.id}`}
             style={{ cursor: 'pointer' }}
             opacity={animatedProps.opacity}
             {...handlers}
