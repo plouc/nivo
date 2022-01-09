@@ -150,7 +150,6 @@ export type LegendCanvasProps = {
     >
 
 export interface ContinuousColorsLegendProps {
-    id: string
     scale: ScaleSequential<string> | ScaleDiverging<string> | ScaleQuantize<string>
     ticks?: number | number[]
     length?: number

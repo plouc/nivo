@@ -72,7 +72,7 @@ export const computeContinuousColorScaleColorStops = (
     if ('thresholds' in scale) {
         const stops: {
             key: string
-            offset: string
+            offset: number
             stopColor: string
         }[] = []
 
@@ -82,12 +82,12 @@ export const computeContinuousColorScaleColorStops = (
 
             stops.push({
                 key: `${index}.0`,
-                offset: `${Math.round(normalizedScale(start) * 100)}%`,
+                offset: normalizedScale(start),
                 stopColor: color,
             })
             stops.push({
                 key: `${index}.1`,
-                offset: `${Math.round(normalizedScale(end) * 100)}%`,
+                offset: normalizedScale(end),
                 stopColor: color,
             })
         })
@@ -106,7 +106,7 @@ export const computeContinuousColorScaleColorStops = (
 
     return ((colorStopsScale as any).ticks(steps) as number[]).map((value: number) => ({
         key: `${value}`,
-        offset: `${Math.round(value * 100)}%`,
+        offset: value,
         stopColor: `${colorStopsScale(value)}`,
     }))
 }

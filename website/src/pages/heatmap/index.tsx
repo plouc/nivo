@@ -93,7 +93,6 @@ const initialProperties: SvgUnmappedProps = {
 
     legends: [
         {
-            id: 'default',
             anchor: 'bottom',
             translateX: 0,
             translateY: 30,

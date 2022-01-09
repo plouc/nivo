@@ -18,9 +18,9 @@ import {
 const initialProperties: CanvasUnmappedProps = {
     margin: {
         top: 70,
-        right: 90,
-        bottom: 120,
-        left: 60,
+        right: 60,
+        bottom: 20,
+        left: 80,
     },
 
     minValue: defaults.minValue,
@@ -54,7 +54,7 @@ const initialProperties: CanvasUnmappedProps = {
         tickRotation: 0,
         legend: 'country',
         legendPosition: 'middle',
-        legendOffset: 70,
+        legendOffset: 40,
     },
     axisBottom: {
         enable: false,
@@ -66,7 +66,7 @@ const initialProperties: CanvasUnmappedProps = {
         legendOffset: 36,
     },
     axisLeft: {
-        enable: true,
+        enable: false,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -95,13 +95,12 @@ const initialProperties: CanvasUnmappedProps = {
 
     legends: [
         {
-            id: 'default',
-            anchor: 'bottom',
-            translateX: 0,
-            translateY: 30,
-            length: 400,
-            thickness: 8,
-            direction: 'row',
+            anchor: 'left',
+            translateX: -50,
+            translateY: 0,
+            length: 200,
+            thickness: 10,
+            direction: 'column',
             tickPosition: 'after',
             tickSize: 3,
             tickSpacing: 4,
