@@ -169,7 +169,13 @@ export const renderContinuousColorLegendToCanvas = (
         height,
     })
 
+    const initialStyles = {
+        font: ctx.font,
+        textAlign: ctx.textAlign,
+        textBaseline: ctx.textBaseline,
+    }
     ctx.save()
+
     ctx.translate(x, y)
 
     const gradient = ctx.createLinearGradient(
@@ -232,4 +238,8 @@ export const renderContinuousColorLegendToCanvas = (
     }
 
     ctx.restore()
+
+    ctx.font = initialStyles.font
+    ctx.textAlign = initialStyles.textAlign
+    ctx.textBaseline = initialStyles.textBaseline
 }

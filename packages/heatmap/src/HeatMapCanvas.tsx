@@ -3,7 +3,8 @@ import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container }
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { renderContinuousColorLegendToCanvas } from '@nivo/legends'
-import { useHeatMap } from './hooks'
+import { renderAnnotationsToCanvas, useComputedAnnotations } from '@nivo/annotations'
+import { useHeatMap, useCellAnnotations } from './hooks'
 import { renderRect, renderCircle } from './canvas'
 import { canvasDefaultProps } from './defaults'
 import {
@@ -39,7 +40,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     opacity = canvasDefaultProps.opacity,
     activeOpacity = canvasDefaultProps.activeOpacity,
     inactiveOpacity = canvasDefaultProps.inactiveOpacity,
-    // borderWidth = canvasDefaultProps.borderWidth,
+    borderWidth = canvasDefaultProps.borderWidth,
     borderColor = canvasDefaultProps.borderColor as HeatMapCommonProps<Datum>['borderColor'],
     enableGridX = canvasDefaultProps.enableGridX,
     enableGridY = canvasDefaultProps.enableGridY,
@@ -53,7 +54,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     colors = canvasDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
     emptyColor = canvasDefaultProps.emptyColor,
     legends = canvasDefaultProps.legends,
-    // annotations = canvasDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
+    annotations = canvasDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
     isInteractive = canvasDefaultProps.isInteractive,
     // onMouseEnter,
     // onMouseMove,
@@ -98,7 +99,10 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         hoverTarget,
     })
 
-    const theme = useTheme()
+    const boundAnnotations = useCellAnnotations(cells, annotations)
+    const computedAnnotations = useComputedAnnotations({
+        annotations: boundAnnotations,
+    })
 
     let renderCell: CellCanvasRenderer<Datum>
     if (typeof _renderCell === 'function') {
@@ -108,6 +112,8 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     } else {
         renderCell = renderRect
     }
+
+    const theme = useTheme()
 
     useEffect(() => {
         if (canvasEl.current === null) return
@@ -162,7 +168,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
                 ctx.textBaseline = 'middle'
 
                 cells.forEach(cell => {
-                    renderCell(ctx, { cell, enableLabels, theme })
+                    renderCell(ctx, { cell, borderWidth, enableLabels, theme })
                 })
             } else if (layer === 'legends' && colorScale !== null) {
                 legends.forEach(legend => {
@@ -174,17 +180,23 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
                         theme,
                     })
                 })
+            } else if (layer === 'annotations') {
+                renderAnnotationsToCanvas(ctx, {
+                    annotations: computedAnnotations,
+                    theme,
+                })
             }
         })
     }, [
         canvasEl,
-        layers,
-        cells,
+        pixelRatio,
         outerWidth,
         outerHeight,
         innerWidth,
         innerHeight,
         margin,
+        layers,
+        cells,
         renderCell,
         enableGridX,
         enableGridY,
@@ -195,10 +207,11 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         xScale,
         yScale,
         theme,
+        borderWidth,
         enableLabels,
         colorScale,
         legends,
-        pixelRatio,
+        computedAnnotations,
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()

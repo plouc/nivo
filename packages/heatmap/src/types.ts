@@ -94,6 +94,7 @@ export type CellComponent<Datum extends HeatMapDatum> = FunctionComponent<CellCo
 
 export interface CellCanvasRendererProps<Datum extends HeatMapDatum> {
     cell: ComputedCell<Datum>
+    borderWidth: number
     enableLabels: boolean
     theme: CompleteTheme
 }

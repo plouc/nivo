@@ -262,10 +262,10 @@ export const computeContinuousColorsLegend = ({
     let width: number
     let height: number
 
-    const gradientX1: number = 0
-    const gradientY1: number = 0
-    let gradientX2: number = 0
-    let gradientY2: number = 0
+    const gradientX1 = 0
+    const gradientY1 = 0
+    let gradientX2 = 0
+    let gradientY2 = 0
 
     let titleX: number
     let titleY: number
