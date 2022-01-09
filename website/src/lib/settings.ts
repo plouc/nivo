@@ -1,5 +1,6 @@
 import omit from 'lodash/omit'
 import upperFirst from 'lodash/upperFirst'
+import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 
 export const settingsMapper =
     (mapping: any, { exclude = [] }: { exclude?: string[] } = {}) =>
@@ -18,7 +19,11 @@ export const settingsMapper =
         }
     }
 
-export const mapAxis = (type: string) => (value: any, settings: any) =>
+export type AxisWithToggle<Axis extends AxisProps | CanvasAxisProps> = NonNullable<Axis> & {
+    enable: boolean
+}
+
+export const mapAxis = (type: 'top' | 'right' | 'bottom' | 'left') => (value: any, settings: any) =>
     settings[`axis${upperFirst(type)}`].enable ? omit(value, ['enable']) : null
 
 export const mapFormat = ({ format, enabled }: { format: string; enabled: boolean }) =>

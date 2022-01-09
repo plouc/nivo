@@ -22,19 +22,15 @@ const initialProperties: CanvasUnmappedProps = {
         bottom: 20,
         left: 80,
     },
-
     valueFormat: { format: '>-.2s', enabled: true },
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     forceSquare: defaults.forceSquare,
-    sizeVariation: 0,
+    sizeVariation: defaults.sizeVariation,
     xOuterPadding: defaults.xOuterPadding,
     xInnerPadding: defaults.xInnerPadding,
     yOuterPadding: defaults.yOuterPadding,
     yInnerPadding: defaults.yInnerPadding,
-
     enableGridX: false,
     enableGridY: false,
     axisTop: {
@@ -72,7 +68,6 @@ const initialProperties: CanvasUnmappedProps = {
         legendPosition: 'middle',
         legendOffset: -42,
     },
-
     renderCell: 'rect',
     colors: {
         type: 'quantize',
@@ -87,10 +82,8 @@ const initialProperties: CanvasUnmappedProps = {
     inactiveOpacity: defaults.inactiveOpacity,
     borderWidth: 1,
     borderColor: '#000000',
-
     enableLabels: false,
     labelTextColor: defaults.labelTextColor,
-
     legends: [
         {
             anchor: 'left',
@@ -109,14 +102,11 @@ const initialProperties: CanvasUnmappedProps = {
             titleOffset: 4,
         },
     ],
-
     annotations: [],
-
-    animate: true,
-    motionConfig: defaults.motionConfig,
-
     isInteractive: true,
     hoverTarget: 'rowColumn',
+    animate: true,
+    motionConfig: defaults.motionConfig,
 }
 
 const HeatMapCanvas = () => {

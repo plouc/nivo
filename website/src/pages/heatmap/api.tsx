@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { svgDefaultProps as defaults } from '@nivo/heatmap'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/heatmap/props'
 import mapper from '../../data/components/heatmap/mapper'
 import { getLightData } from '../../data/components/heatmap/generator'
 import meta from '../../data/components/heatmap/meta.yml'
-import { graphql, useStaticQuery } from 'gatsby'
-
-const data = getLightData()
 
 const HeatMapApi = () => {
     const {
@@ -23,6 +22,8 @@ const HeatMapApi = () => {
             }
         }
     `)
+
+    const data = useMemo(() => getLightData(), [])
 
     return (
         <>
@@ -42,27 +43,32 @@ const HeatMapApi = () => {
                 defaultProps={{
                     width: 800,
                     height: 600,
-                    data: JSON.stringify(data.data, null, '  '),
-                    keys: data.keys,
-                    indexBy: 'country',
-
+                    data: JSON.stringify(data, null, '  '),
                     margin: {
                         top: 100,
                         right: 60,
                         bottom: 30,
                         left: 60,
                     },
-
-                    minValue: 'auto',
-                    maxValue: 'auto',
-                    forceSquare: true,
-                    sizeVariation: 0.4,
-                    padding: 2,
-                    colors: 'nivo',
-
+                    valueFormat: { format: '>-.2s', enabled: true },
+                    forceSquare: defaults.forceSquare,
+                    sizeVariation: defaults.sizeVariation,
+                    xOuterPadding: defaults.xOuterPadding,
+                    xInnerPadding: defaults.xInnerPadding,
+                    yOuterPadding: defaults.yOuterPadding,
+                    yInnerPadding: defaults.yInnerPadding,
+                    colors: {
+                        type: 'diverging',
+                        scheme: 'red_yellow_blue',
+                        divergeAt: 0.5,
+                        minValue: -100_000,
+                        maxValue: 100_000,
+                    },
+                    emptyColor: '#555555',
+                    enableGridX: false,
+                    enableGridY: true,
                     axisTop: {
                         enable: true,
-                        orient: 'top',
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: -55,
@@ -71,7 +77,6 @@ const HeatMapApi = () => {
                     },
                     axisRight: {
                         enable: false,
-                        orient: 'right',
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
@@ -81,7 +86,6 @@ const HeatMapApi = () => {
                     },
                     axisBottom: {
                         enable: false,
-                        orient: 'bottom',
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
@@ -91,7 +95,6 @@ const HeatMapApi = () => {
                     },
                     axisLeft: {
                         enable: true,
-                        orient: 'left',
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
@@ -99,23 +102,21 @@ const HeatMapApi = () => {
                         legendPosition: 'middle',
                         legendOffset: -40,
                     },
-
-                    enableGridX: false,
-                    enableGridY: true,
-
-                    cellShape: 'circle',
-                    cellOpacity: 1,
-                    cellBorderWidth: 0,
-                    cellBorderColor: {
+                    cellComponent: defaults.cellComponent,
+                    borderRadius: defaults.borderRadius,
+                    opacity: defaults.opacity,
+                    borderWidth: defaults.borderWidth,
+                    borderColor: {
                         from: 'color',
                         modifiers: [['darker', 0.4]],
                     },
-
                     enableLabels: true,
                     labelTextColor: {
                         from: 'color',
                         modifiers: [['darker', 1.4]],
                     },
+                    legends: [],
+                    annotations: [],
                 }}
             />
         </>

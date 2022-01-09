@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AnnotationMatcher } from '@nivo/annotations'
-import { AxisProps, CanvasAxisProp, GridValues } from '@nivo/axes'
+import { AxisProps, CanvasAxisProps, GridValues } from '@nivo/axes'
 import {
     Box,
     CartesianMarkerProps,
@@ -289,10 +289,10 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
     BarHandlers<RawDatum, HTMLCanvasElement> &
     Dimensions &
     Partial<{
-        axisBottom: CanvasAxisProp<any>
-        axisLeft: CanvasAxisProp<any>
-        axisRight: CanvasAxisProp<any>
-        axisTop: CanvasAxisProp<any>
+        axisBottom: CanvasAxisProps<any>
+        axisLeft: CanvasAxisProps<any>
+        axisRight: CanvasAxisProps<any>
+        axisTop: CanvasAxisProps<any>
 
         renderBar: (context: CanvasRenderingContext2D, props: RenderBarProps<RawDatum>) => void
 

@@ -9,7 +9,7 @@ import {
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
-import { AxisProps, CanvasAxisProp } from '@nivo/axes'
+import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
 import { AnchoredContinuousColorsLegendProps } from '@nivo/legends'
 import { AnnotationMatcher } from '@nivo/annotations'
@@ -62,6 +62,11 @@ export interface HeatMapDataProps<Datum extends HeatMapDatum, ExtraProps extends
     data: HeatMapSerie<Datum, ExtraProps>[]
 }
 
+export interface SizeVariationConfig {
+    values: [min: number, max: number]
+    sizes: [min: number, max: number]
+}
+
 export type LayerId = 'grid' | 'axes' | 'cells' | 'legends' | 'annotations'
 export interface CustomLayerProps<Datum extends HeatMapDatum> {
     cells: ComputedCell<Datum>[]
@@ -111,7 +116,7 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
     margin: Box
 
     forceSquare: boolean
-    sizeVariation: number
+    sizeVariation: false | SizeVariationConfig
     xInnerPadding: number
     xOuterPadding: number
     yInnerPadding: number
@@ -188,10 +193,10 @@ export type HeatMapCanvasProps<Datum extends HeatMapDatum, ExtraProps extends ob
     HeatMapDataProps<Datum, ExtraProps> &
     Dimensions &
     Partial<{
-        axisTop: CanvasAxisProp<Datum['x']> | null
-        axisRight: CanvasAxisProp<string> | null
-        axisBottom: CanvasAxisProp<Datum['x']> | null
-        axisLeft: CanvasAxisProp<string> | null
+        axisTop: CanvasAxisProps<Datum['x']> | null
+        axisRight: CanvasAxisProps<string> | null
+        axisBottom: CanvasAxisProps<Datum['x']> | null
+        axisLeft: CanvasAxisProps<string> | null
         layers: (LayerId | CustomCanvasLayer<Datum>)[]
         renderCell: CellShape | CellCanvasRenderer<Datum>
         pixelRatio: number

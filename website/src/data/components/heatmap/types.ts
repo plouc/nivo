@@ -1,4 +1,5 @@
 import { HeatMapDataProps, HeatMapSvgProps, HeatMapCanvasProps } from '@nivo/heatmap'
+import { AxisWithToggle } from '../../../lib/settings'
 
 export type Datum = {
     x: string
@@ -21,10 +22,10 @@ export type SvgUnmappedProps = Omit<
         format: string
         enabled: boolean
     }
-    axisTop: SvgMappedProps['axisTop'] & { enable: boolean }
-    axisRight: SvgMappedProps['axisRight'] & { enable: boolean }
-    axisBottom: SvgMappedProps['axisBottom'] & { enable: boolean }
-    axisLeft: SvgMappedProps['axisLeft'] & { enable: boolean }
+    axisTop: AxisWithToggle<NonNullable<SvgMappedProps['axisTop']>>
+    axisRight: AxisWithToggle<NonNullable<SvgMappedProps['axisRight']>>
+    axisBottom: AxisWithToggle<NonNullable<SvgMappedProps['axisBottom']>>
+    axisLeft: AxisWithToggle<NonNullable<SvgMappedProps['axisLeft']>>
     legends: (Omit<LegendProps, 'tickFormat'> & {
         tickFormat: {
             format: string
@@ -51,10 +52,10 @@ export type CanvasUnmappedProps = Omit<
         format: string
         enabled: boolean
     }
-    axisTop: SvgMappedProps['axisTop'] & { enable: boolean }
-    axisRight: SvgMappedProps['axisRight'] & { enable: boolean }
-    axisBottom: SvgMappedProps['axisBottom'] & { enable: boolean }
-    axisLeft: SvgMappedProps['axisLeft'] & { enable: boolean }
+    axisTop: AxisWithToggle<NonNullable<CanvasMappedProps['axisTop']>>
+    axisRight: AxisWithToggle<NonNullable<CanvasMappedProps['axisRight']>>
+    axisBottom: AxisWithToggle<NonNullable<CanvasMappedProps['axisBottom']>>
+    axisLeft: AxisWithToggle<NonNullable<CanvasMappedProps['axisLeft']>>
     legends: (Omit<LegendProps, 'tickFormat'> & {
         tickFormat: {
             format: string

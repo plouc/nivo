@@ -35,7 +35,8 @@ export interface AxisProps<Value extends ScaleValue = any> {
     ariaHidden?: boolean
 }
 
-export interface CanvasAxisProp<Value extends ScaleValue> extends Omit<AxisProps<Value>, 'legend'> {
+export interface CanvasAxisProps<Value extends ScaleValue = any>
+    extends Omit<AxisProps<Value>, 'legend'> {
     legend?: string
 }
 

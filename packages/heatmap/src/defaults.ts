@@ -22,7 +22,7 @@ export const commonDefaultProps: Omit<
     xOuterPadding: 0,
     yInnerPadding: 0,
     yOuterPadding: 0,
-    sizeVariation: 0,
+    sizeVariation: false,
 
     opacity: 1,
     activeOpacity: 1,
@@ -61,7 +61,7 @@ export const svgDefaultProps = {
     axisBottom: null,
     axisLeft: {},
     borderRadius: 0,
-    cellComponent: 'rect',
+    cellComponent: 'rect' as const,
 }
 
 export const canvasDefaultProps = {
@@ -70,6 +70,6 @@ export const canvasDefaultProps = {
     axisRight: null,
     axisBottom: null,
     axisLeft: {},
-    renderCell: 'rect',
+    renderCell: 'rect' as const,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }
