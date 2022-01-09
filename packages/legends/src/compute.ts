@@ -259,12 +259,25 @@ export const computeContinuousColorsLegend = ({
         textVerticalAlign: 'alphabetic' | 'central' | 'hanging'
     }[] = []
 
+    let width: number
+    let height: number
+
+    const gradientX1: number = 0
+    const gradientY1: number = 0
+    let gradientX2: number = 0
+    let gradientY2: number = 0
+
     let titleX: number
     let titleY: number
     let titleRotation: number
     let titleVerticalAlign: 'alphabetic' | 'hanging'
 
     if (direction === 'row') {
+        width = length
+        height = thickness
+
+        gradientX2 = 1
+
         let y1: number
         let y2: number
 
@@ -317,6 +330,11 @@ export const computeContinuousColorsLegend = ({
             })
         })
     } else {
+        width = thickness
+        height = length
+
+        gradientY2 = 1
+
         let x1: number
         let x2: number
 
@@ -371,15 +389,19 @@ export const computeContinuousColorsLegend = ({
     }
 
     return {
+        width,
+        height,
+        gradientX1,
+        gradientY1,
+        gradientX2,
+        gradientY2,
         colorStops,
         ticks: computedTicks,
-        title: {
-            text: title,
-            x: titleX,
-            y: titleY,
-            rotation: titleRotation,
-            horizontalAlign: titleAlign,
-            verticalAlign: titleVerticalAlign,
-        },
+        titleText: title,
+        titleX,
+        titleY,
+        titleRotation,
+        titleHorizontalAlign: titleAlign,
+        titleVerticalAlign,
     }
 }

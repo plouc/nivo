@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback, createElement } from 'react'
 import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
+import { renderContinuousColorLegendToCanvas } from '@nivo/legends'
 import { useHeatMap } from './hooks'
 import { renderRect, renderCircle } from './canvas'
 import { canvasDefaultProps } from './defaults'
@@ -51,7 +52,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     labelTextColor = canvasDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
     colors = canvasDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
     emptyColor = canvasDefaultProps.emptyColor,
-    // legends = canvasDefaultProps.legends,
+    legends = canvasDefaultProps.legends,
     // annotations = canvasDefaultProps.annotations as HeatMapCommonProps<Datum>['annotations'],
     isInteractive = canvasDefaultProps.isInteractive,
     // onMouseEnter,
@@ -74,7 +75,10 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         partialMargin
     )
 
-    const { xScale, yScale, cells, activeCell, setActiveCell } = useHeatMap<Datum, ExtraProps>({
+    const { xScale, yScale, cells, activeCell, setActiveCell, colorScale } = useHeatMap<
+        Datum,
+        ExtraProps
+    >({
         data,
         valueFormat,
         width: innerWidth,
@@ -160,6 +164,16 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
                 cells.forEach(cell => {
                     renderCell(ctx, { cell, enableLabels, theme })
                 })
+            } else if (layer === 'legends' && colorScale !== null) {
+                legends.forEach(legend => {
+                    renderContinuousColorLegendToCanvas(ctx, {
+                        ...legend,
+                        containerWidth: innerWidth,
+                        containerHeight: innerHeight,
+                        scale: colorScale,
+                        theme,
+                    })
+                })
             }
         })
     }, [
@@ -182,6 +196,8 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         yScale,
         theme,
         enableLabels,
+        colorScale,
+        legends,
         pixelRatio,
     ])
 

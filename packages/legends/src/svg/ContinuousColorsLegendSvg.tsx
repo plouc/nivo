@@ -5,7 +5,6 @@ import { ContinuousColorsLegendProps } from '../types'
 import { continuousColorsLegendDefaults } from '../defaults'
 
 export const ContinuousColorsLegendSvg = ({
-    id: _id,
     scale,
     ticks,
     length = continuousColorsLegendDefaults.length,
@@ -20,14 +19,22 @@ export const ContinuousColorsLegendSvg = ({
     titleAlign = continuousColorsLegendDefaults.titleAlign,
     titleOffset = continuousColorsLegendDefaults.titleOffset,
 }: ContinuousColorsLegendProps) => {
-    const id = `ContinuousColorsLegendSvgGradient.${_id}`
-
     const {
-        title: computedTitle,
+        width,
+        height,
+        gradientX1,
+        gradientY1,
+        gradientX2,
+        gradientY2,
         ticks: computedTicks,
         colorStops,
+        titleText,
+        titleX,
+        titleY,
+        titleRotation,
+        titleVerticalAlign,
+        titleHorizontalAlign,
     } = computeContinuousColorsLegend({
-        id: 'whatever',
         scale,
         ticks,
         length,
@@ -43,37 +50,35 @@ export const ContinuousColorsLegendSvg = ({
         titleOffset,
     })
 
-    let width = length
-    let height = thickness
-    let gradientX2 = 0
-    let gradientY2 = 0
-    if (direction === 'row') {
-        gradientX2 = 1
-    } else {
-        width = thickness
-        height = length
-        gradientY2 = 1
-    }
-
     const theme = useTheme()
+
+    const id = `ContinuousColorsLegendSvgGradient.${direction}.${colorStops
+        .map(stop => stop.offset)
+        .join('_')}`
 
     return (
         <g>
             <defs>
-                <linearGradient id={id} x2={gradientX2} y2={gradientY2}>
+                <linearGradient
+                    id={id}
+                    x1={gradientX1}
+                    y1={gradientY1}
+                    x2={gradientX2}
+                    y2={gradientY2}
+                >
                     {colorStops.map(colorStop => (
                         <stop {...colorStop} />
                     ))}
                 </linearGradient>
             </defs>
-            {computedTitle.text && (
+            {titleText && (
                 <text
-                    transform={`translate(${computedTitle.x}, ${computedTitle.y}) rotate(${computedTitle.rotation})`}
-                    textAnchor={computedTitle.horizontalAlign}
-                    dominantBaseline={computedTitle.verticalAlign}
+                    transform={`translate(${titleX}, ${titleY}) rotate(${titleRotation})`}
+                    textAnchor={titleHorizontalAlign}
+                    dominantBaseline={titleVerticalAlign}
                     style={theme.legends.title.text}
                 >
-                    {computedTitle.text}
+                    {titleText}
                 </text>
             )}
             <rect width={width} height={height} fill={`url(#${id}`} />
