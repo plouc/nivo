@@ -23,8 +23,6 @@ type InnerHeatMapProps<Datum extends HeatMapDatum, ExtraProps extends object> = 
 const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
     layers = svgDefaultProps.layers,
-    minValue: _minValue = svgDefaultProps.minValue,
-    maxValue: _maxValue = svgDefaultProps.maxValue,
     valueFormat,
     width,
     height,

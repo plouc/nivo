@@ -17,9 +17,6 @@ export const commonDefaultProps: Omit<
 } = {
     layers: ['grid', 'axes', 'cells', 'legends', 'annotations'],
 
-    minValue: 'auto',
-    maxValue: 'auto',
-
     forceSquare: false,
     xInnerPadding: 0,
     xOuterPadding: 0,
