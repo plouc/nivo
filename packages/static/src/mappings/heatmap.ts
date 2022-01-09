@@ -19,8 +19,6 @@ export const heatmapMapping = {
     component: HeatMap as unknown as FunctionComponent<HeatMapApiProps>,
     schema: Joi.object<HeatMapApiProps>().keys({
         data: custom.array().min(1).required(),
-        minValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
-        maxValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
         forceSquare: Joi.boolean(),
         sizeVariation: Joi.number().min(0).max(1),
         xOuterPadding: Joi.number().min(0).max(1),
