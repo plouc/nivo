@@ -1,47 +1,12 @@
 import React, { useCallback } from 'react'
-import {
-    colorSchemeIds,
-    colorSchemes,
-    isCategoricalColorScheme,
-    isDivergingColorScheme,
-    isSequentialColorScheme,
-} from '@nivo/colors'
-// @ts-ignore
-import { components } from 'react-select'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, OrdinalColorsControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Select } from '../ui'
-import { ColorsControlItem } from './ColorsControlItem'
-import { humanizeColorSchemeId } from './humanizeColorSchemeId'
-
-const options = colorSchemeIds.map(scheme => {
-    let colors: string[] = []
-    if (isCategoricalColorScheme(scheme)) {
-        colors = colorSchemes[scheme] as string[]
-    } else if (isDivergingColorScheme(scheme)) {
-        colors = colorSchemes[scheme][11] as string[]
-    } else if (isSequentialColorScheme(scheme)) {
-        colors = colorSchemes[scheme][9] as string[]
-    }
-
-    return {
-        label: humanizeColorSchemeId(scheme),
-        value: scheme,
-        colors,
-    }
-})
-
-const SingleValue = (props: any) => (
-    <components.SingleValue {...props}>
-        <ColorsControlItem id={props.data.label} colors={props.data.colors} />
-    </components.SingleValue>
-)
-
-const Option = (props: any) => (
-    <components.Option {...props}>
-        <ColorsControlItem id={props.label} colors={props.data.colors} />
-    </components.Option>
-)
+import {
+    ColorSchemeSelectOption,
+    ColorSchemeSelectValue,
+    useOrdinalColorSchemes,
+} from './colorSchemeSelect'
 
 interface OrdinalColorsControlProps {
     id: string
@@ -63,6 +28,8 @@ export const OrdinalColorsControl = ({
     onChange,
     context,
 }: OrdinalColorsControlProps) => {
+    const options = useOrdinalColorSchemes()
+
     const selectedOption = options.find(o => o.value === value.scheme)
     const handleChange = useCallback(
         option => {
@@ -86,17 +53,10 @@ export const OrdinalColorsControl = ({
                 value={selectedOption}
                 isSearchable
                 components={{
-                    SingleValue,
-                    Option,
+                    SingleValue: ColorSchemeSelectValue,
+                    Option: ColorSchemeSelectOption,
                 }}
             />
-            {/*
-            <Value>
-                {`{ scheme: `}
-                <code className="code-string">'{value.scheme}'</code>
-                {` }`}
-            </Value>
-            */}
             <Help>{property.help}</Help>
         </Control>
     )

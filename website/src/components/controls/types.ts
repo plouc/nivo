@@ -131,11 +131,6 @@ export interface TextControlConfig {
     disabled?: boolean
 }
 
-export interface ColorsControlConfig {
-    type: 'colors'
-    includeSequential?: boolean
-}
-
 export interface AnnotationsControlConfig {
     type: 'annotations'
     createDefaults: AnnotationMatcher<any>
@@ -143,6 +138,14 @@ export interface AnnotationsControlConfig {
 
 export interface ContinuousColorsControlConfig {
     type: 'continuous_colors'
+}
+
+export interface ColorInterpolatorsControlConfig {
+    type: 'color_interpolators'
+}
+
+export interface BulletColorsControlConfig {
+    type: 'bullet_colors'
 }
 
 export type ControlConfig =
@@ -167,9 +170,10 @@ export type ControlConfig =
     | ObjectControlConfig
     | ArrayControlConfig
     | TextControlConfig
-    | ColorsControlConfig
     | AnnotationsControlConfig
     | ContinuousColorsControlConfig
+    | ColorInterpolatorsControlConfig
+    | BulletColorsControlConfig
 
 export interface ControlContext {
     path: string[]

@@ -39,7 +39,7 @@ const Container = styled.div<{
     font-size: 14px;
     border-right-width: 0;
     border-bottom-width: 0;
-    max-width: 240px;
+    max-width: 320px;
 `
 
 const Item = styled.label<{ isSelected: boolean }>`

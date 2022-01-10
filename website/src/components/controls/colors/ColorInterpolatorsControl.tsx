@@ -1,25 +1,28 @@
 import React, { useCallback } from 'react'
+// @ts-ignore
+import { components } from 'react-select'
+import { ColorInterpolatorId } from '@nivo/colors'
 import { ChartProperty, Flavor } from '../../../types'
-import { ControlContext, QuantizeColorsControlConfig } from '../types'
+import { ControlContext, ColorInterpolatorsControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Select } from '../ui'
 import {
     ColorSchemeSelectOption,
     ColorSchemeSelectValue,
-    useLegacyQuantizeColors,
+    useColorInterpolators,
 } from './colorSchemeSelect'
 
-interface QuantizeColorsControlProps {
+interface OrdinalColorsControlProps {
     id: string
     property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: QuantizeColorsControlConfig
-    onChange: (value: string) => void
-    value: string
+    config: ColorInterpolatorsControlConfig
+    value: ColorInterpolatorId
+    onChange: (value: ColorInterpolatorId) => void
     context?: ControlContext
 }
 
-export const QuantizeColorsControl = ({
+export const ColorInterpolatorsControl = ({
     id,
     property,
     flavors,
@@ -27,8 +30,8 @@ export const QuantizeColorsControl = ({
     value: _value,
     onChange,
     context,
-}: QuantizeColorsControlProps) => {
-    const options = useLegacyQuantizeColors()
+}: OrdinalColorsControlProps) => {
+    const options = useColorInterpolators()
 
     const handleChange = useCallback(value => onChange(value.value), [onChange])
     const value = options.find(({ value: v }) => v === _value)

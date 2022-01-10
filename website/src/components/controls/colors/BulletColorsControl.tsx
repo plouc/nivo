@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { ChartProperty, Flavor } from '../../../types'
-import { ControlContext, QuantizeColorsControlConfig } from '../types'
+import { ControlContext, BulletColorsControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Select } from '../ui'
 import {
     ColorSchemeSelectOption,
     ColorSchemeSelectValue,
-    useLegacyQuantizeColors,
+    useBulletColors,
 } from './colorSchemeSelect'
 
 interface QuantizeColorsControlProps {
@@ -13,13 +13,13 @@ interface QuantizeColorsControlProps {
     property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: QuantizeColorsControlConfig
+    config: BulletColorsControlConfig
     onChange: (value: string) => void
     value: string
     context?: ControlContext
 }
 
-export const QuantizeColorsControl = ({
+export const BulletColorsControl = ({
     id,
     property,
     flavors,
@@ -28,7 +28,7 @@ export const QuantizeColorsControl = ({
     onChange,
     context,
 }: QuantizeColorsControlProps) => {
-    const options = useLegacyQuantizeColors()
+    const options = useBulletColors()
 
     const handleChange = useCallback(value => onChange(value.value), [onChange])
     const value = options.find(({ value: v }) => v === _value)
