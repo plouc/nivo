@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { Globals } from '@react-spring/web'
+import { Globals, SpringValue } from '@react-spring/web'
 import { Axes, Grid } from '@nivo/axes'
 import { Annotation } from '@nivo/annotations'
 // @ts-ignore
@@ -63,7 +63,147 @@ it('should render a basic heamap chart', () => {
     const wrapper = mount(<HeatMap {...baseProps} />)
 
     dataPoints.forEach(datum => {
-        expect(wrapper.find(`g[data-testid='cell.${datum.id}']`).exists()).toBeTruthy()
+        const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`)
+        expect(cell.exists()).toBeTruthy()
+
+        const cellRect = cell.find('rect').parent()
+        expect(cellRect.prop<SpringValue<number>>('width').get()).toEqual(100)
+        expect(cellRect.prop<SpringValue<number>>('height').get()).toEqual(100)
+    })
+})
+
+describe('size variation', () => {
+    CELL_SHAPES.forEach(shape => {
+        describe(shape, () => {
+            // use simpler data for easier assertions
+            const sizeVariationData = [
+                {
+                    id: 'A',
+                    data: [
+                        { x: 'X', y: 5 },
+                        { x: 'Y', y: 10 },
+                    ],
+                },
+                {
+                    id: 'B',
+                    data: [
+                        { x: 'X', y: 7.5 },
+                        { x: 'Y', y: 10 },
+                    ],
+                },
+            ]
+            const cellIdAndValues: { id: string; value: number }[] = []
+            sizeVariationData.forEach(serie => {
+                serie.data.forEach(datum => {
+                    cellIdAndValues.push({
+                        id: `${serie.id}.${datum.x}`,
+                        value: datum.y,
+                    })
+                })
+            })
+
+            it('0~1 range using default min/max values', () => {
+                const wrapper = mount(
+                    <HeatMap
+                        {...baseProps}
+                        cellComponent={shape}
+                        data={sizeVariationData}
+                        width={200}
+                        height={200}
+                        sizeVariation={{ sizes: [0, 1] }}
+                    />
+                )
+
+                cellIdAndValues.forEach(datum => {
+                    const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`)
+                    const cellShape = cell.find(shape).parent()
+
+                    const expectedSize = (datum.value - 5) * 10 * 2
+                    if (shape === 'rect') {
+                        expect(cellShape.prop<SpringValue<number>>('width').get()).toEqual(
+                            expectedSize
+                        )
+                        expect(cellShape.prop<SpringValue<number>>('height').get()).toEqual(
+                            expectedSize
+                        )
+                    } else {
+                        expect(cellShape.prop<SpringValue<number>>('r').get() * 2).toEqual(
+                            expectedSize
+                        )
+                    }
+                })
+            })
+
+            it('0~1 range using custom min/max values', () => {
+                const wrapper = mount(
+                    <HeatMap
+                        {...baseProps}
+                        cellComponent={shape}
+                        data={sizeVariationData}
+                        width={200}
+                        height={200}
+                        sizeVariation={{
+                            values: [0, 10],
+                            sizes: [0, 1],
+                        }}
+                    />
+                )
+
+                cellIdAndValues.forEach(datum => {
+                    const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`)
+                    const cellShape = cell.find(shape).parent()
+
+                    const expectedSize = datum.value * 10
+                    if (shape === 'rect') {
+                        expect(cellShape.prop<SpringValue<number>>('width').get()).toEqual(
+                            expectedSize
+                        )
+                        expect(cellShape.prop<SpringValue<number>>('height').get()).toEqual(
+                            expectedSize
+                        )
+                    } else {
+                        expect(cellShape.prop<SpringValue<number>>('r').get() * 2).toEqual(
+                            expectedSize
+                        )
+                    }
+                })
+            })
+
+            it('custom range using custom min/max values', () => {
+                const wrapper = mount(
+                    <HeatMap
+                        {...baseProps}
+                        cellComponent={shape}
+                        data={sizeVariationData}
+                        width={200}
+                        height={200}
+                        sizeVariation={{
+                            values: [0, 10],
+                            sizes: [0.5, 1],
+                        }}
+                    />
+                )
+
+                cellIdAndValues.forEach(datum => {
+                    const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`)
+                    const cellShape = cell.find(shape).parent()
+
+                    const expectedSize = (0.5 + datum.value * 0.05) * 100
+                    if (shape === 'rect') {
+                        expect(cellShape.prop<SpringValue<number>>('width').get()).toEqual(
+                            expectedSize
+                        )
+                        expect(cellShape.prop<SpringValue<number>>('height').get()).toEqual(
+                            expectedSize
+                        )
+                    } else {
+                        expect(cellShape.prop<SpringValue<number>>('r').get() * 2).toEqual(
+                            expectedSize
+                        )
+                    }
+                })
+            })
+        })
     })
 })
 
@@ -195,9 +335,9 @@ describe('interactivity', () => {
                     dataPoints.forEach(datum => {
                         const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
                         if (activeCellIds.includes(datum.id)) {
-                            expect(cell.prop('opacity').get()).toEqual(1)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(1)
                         } else {
-                            expect(cell.prop('opacity').get()).toEqual(0)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(0)
                         }
                     })
                 })
@@ -219,9 +359,9 @@ describe('interactivity', () => {
                     dataPoints.forEach(datum => {
                         const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
                         if (activeCellIds.includes(datum.id)) {
-                            expect(cell.prop('opacity').get()).toEqual(1)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(1)
                         } else {
-                            expect(cell.prop('opacity').get()).toEqual(0)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(0)
                         }
                     })
                 })
@@ -243,9 +383,9 @@ describe('interactivity', () => {
                     dataPoints.forEach(datum => {
                         const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
                         if (activeCellIds.includes(datum.id)) {
-                            expect(cell.prop('opacity').get()).toEqual(1)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(1)
                         } else {
-                            expect(cell.prop('opacity').get()).toEqual(0)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(0)
                         }
                     })
                 })
@@ -267,9 +407,9 @@ describe('interactivity', () => {
                     dataPoints.forEach(datum => {
                         const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`).parent()
                         if (activeCellIds.includes(datum.id)) {
-                            expect(cell.prop('opacity').get()).toEqual(1)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(1)
                         } else {
-                            expect(cell.prop('opacity').get()).toEqual(0)
+                            expect(cell.prop<SpringValue<number>>('opacity').get()).toEqual(0)
                         }
                     })
                 })

@@ -91,7 +91,7 @@ const ControlSwitcher = memo(
         // the control is only available for certain flavors in the UI
         // while being available for usage, this is typically used for
         // `width` & `height` properties, which cannot be set for the demos
-        // as we use the responsive version of the charts, but has to bed defined
+        // as we use the responsive version of the charts, but has to be defined
         // when using the HTTP API.
         if (
             Array.isArray(property.enableControlForFlavors) &&
