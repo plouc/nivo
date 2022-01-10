@@ -36,6 +36,8 @@ import {
     QuantizeColorsControl,
 } from './colors'
 
+// add some extra logic to render properties conditionally
+// depending on the current settings.
 export const shouldRenderProperty = (property: ChartProperty, currentSettings: any) => {
     if (typeof property.when !== 'function') return true
     return property.when(currentSettings)
@@ -80,9 +82,17 @@ const ControlSwitcher = memo(
         }
 
         let shouldRenderControl = controlConfig !== undefined
+
+        // the property is not available for the current flavor
         if (Array.isArray(property.flavors) && !property.flavors.includes(currentFlavor)) {
             shouldRenderControl = false
         }
+
+        // the control is only available for certain flavors in the UI
+        // while being available for usage, this is typically used for
+        // `width` & `height` properties, which cannot be set for the demos
+        // as we use the responsive version of the charts, but has to bed defined
+        // when using the HTTP API.
         if (
             Array.isArray(property.enableControlForFlavors) &&
             !property.enableControlForFlavors.includes(currentFlavor)
@@ -102,6 +112,7 @@ const ControlSwitcher = memo(
             )
         }
 
+        // every property which has a control should have a value
         if (value === undefined) {
             throw new Error(`no value defined for property: ${property.name}`)
         }

@@ -52,7 +52,7 @@ const props: ChartProperty[] = [
     ...chartDimensions(allFlavors),
     {
         key: 'forceSquare',
-        help: 'Force square cells (width = height).',
+        help: 'Force square cells (width = height), please note that **padding is ignored**.',
         defaultValue: defaults.forceSquare,
         type: 'boolean',
         control: { type: 'switch' },
@@ -229,11 +229,28 @@ const props: ChartProperty[] = [
     {
         key: 'legends',
         group: 'Legends',
+        help: 'Please note that **legends are ignored when using a custom function** for `colors`.',
         type: `ContinuousColorsLegendProps[]`,
         control: {
             type: 'array',
             shouldCreate: true,
             shouldRemove: true,
+            defaults: {
+                anchor: 'center',
+                translateX: 0,
+                translateY: 0,
+                length: 320,
+                thickness: 8,
+                direction: 'row',
+                tickPosition: 'after',
+                tickSize: 3,
+                tickSpacing: 4,
+                tickOverlap: false,
+                tickFormat: { format: '>-.2s', enabled: true },
+                title: 'New Legend',
+                titleAlign: 'start',
+                titleOffset: 4,
+            },
             props: [
                 {
                     key: 'anchor',
