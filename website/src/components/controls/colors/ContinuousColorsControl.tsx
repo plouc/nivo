@@ -2,16 +2,12 @@ import React, { useCallback, useState, useMemo } from 'react'
 import { upperFirst } from 'lodash'
 import {
     ContinuousColorScaleConfig,
-    sequentialColorSchemeIds,
-    ColorInterpolatorId,
-    divergingColorSchemeIds,
     divergingColorScaleDefaults,
     quantizeColorScaleDefaults,
 } from '@nivo/colors'
 import { ChartProperty, Flavor } from '../../../types'
 import { ContinuousColorsControlConfig, ControlContext, ObjectControlConfig } from '../types'
 import { ObjectControl } from '../generics'
-import { humanizeColorSchemeId } from './humanizeColorSchemeId'
 
 interface ContinuousColorsControlProps {
     id: string
@@ -30,37 +26,20 @@ const scaleTypeChoices = scaleTypes.map(type => ({
     value: type,
 }))
 
-const schemeChoices: {
-    label: string
-    value: ColorInterpolatorId
-}[] = []
-sequentialColorSchemeIds.forEach(schemeId => {
-    schemeChoices.push({
-        label: `Sequential: ${humanizeColorSchemeId(schemeId)}`,
-        value: schemeId,
-    })
-})
-divergingColorSchemeIds.forEach(schemeId => {
-    schemeChoices.push({
-        label: `Diverging: ${humanizeColorSchemeId(schemeId)}`,
-        value: schemeId,
-    })
-})
-
 const helpByType: Record<ContinuousColorScaleConfig['type'], string> = {
     sequential: `
-    The sequential color scale maps colors linearly from min to max value.
+    The \`sequential\` color scale maps colors linearly from min to max value.
     It is intended to be used with a sequential color scheme, 
     but also supports others.
     `,
     diverging: `
-    The diverging color scale maps colors from min to max value,
+    The \`diverging\` color scale maps colors from min to max value,
     with a diverging point which can be configured via \`divergeAt\`.
     It is intended to be used with a diverging color scheme, 
     but also supports others.
     `,
     quantize: `
-    The quantize color scale maps colors from min to max value
+    The \`quantize\` color scale maps colors from min to max value
     to a discrete color range, dividing the domain into uniform segments.
     You can either use a predefined color scheme or pass a
     custom array of colors.
@@ -98,7 +77,8 @@ export const ContinuousColorsControl = ({
                         required: true,
                         help: helpByType[value.type],
                         control: {
-                            type: 'choices',
+                            type: 'radio',
+                            columns: 3,
                             choices: scaleTypeChoices,
                         },
                     },
@@ -106,8 +86,7 @@ export const ContinuousColorsControl = ({
                         key: 'scheme',
                         type: 'string',
                         control: {
-                            type: 'choices',
-                            choices: schemeChoices,
+                            type: 'color_interpolators',
                         },
                     },
                     {

@@ -26,9 +26,10 @@ import {
 } from './specialized'
 import {
     BlendModeControl,
+    BulletColorsControl,
+    ColorInterpolatorsControl,
     ContinuousColorsControl,
     ColorPickerControl,
-    ColorsControl,
     OrdinalColorsControl,
     OpacityControl,
     InheritedColorControl,
@@ -206,20 +207,6 @@ const ControlSwitcher = memo(
             case 'text':
                 return (
                     <TextControl
-                        id={id}
-                        property={property}
-                        flavors={flavors}
-                        currentFlavor={currentFlavor}
-                        config={controlConfig}
-                        value={value}
-                        context={context}
-                        onChange={handleChange}
-                    />
-                )
-
-            case 'colors':
-                return (
-                    <ColorsControl
                         id={id}
                         property={property}
                         flavors={flavors}
@@ -430,6 +417,34 @@ const ControlSwitcher = memo(
             case 'continuous_colors':
                 return (
                     <ContinuousColorsControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        config={controlConfig}
+                        value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'color_interpolators':
+                return (
+                    <ColorInterpolatorsControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        config={controlConfig}
+                        value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'bullet_colors':
+                return (
+                    <BulletColorsControl
                         id={id}
                         property={property}
                         flavors={flavors}

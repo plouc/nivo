@@ -198,8 +198,7 @@ const props: ChartProperty[] = [
         defaultValue: defaultProps.rangeColors,
         group: 'Style',
         control: {
-            type: 'colors',
-            includeSequential: true,
+            type: 'bullet_colors',
         },
     },
     {
@@ -248,8 +247,7 @@ const props: ChartProperty[] = [
         defaultValue: defaultProps.measureColors,
         group: 'Style',
         control: {
-            type: 'colors',
-            includeSequential: true,
+            type: 'bullet_colors',
         },
     },
     {
@@ -274,8 +272,7 @@ const props: ChartProperty[] = [
         defaultValue: defaultProps.markerColors,
         group: 'Style',
         control: {
-            type: 'colors',
-            includeSequential: true,
+            type: 'bullet_colors',
         },
     },
     {
