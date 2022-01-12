@@ -1,4 +1,4 @@
-import { ReactNode, Fragment, createElement } from 'react'
+import { ReactNode, Fragment, createElement, useMemo } from 'react'
 import { SvgWrapper, Container, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { AnchoredContinuousColorsLegendSvg } from '@nivo/legends'
@@ -27,7 +27,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     width,
     height,
     margin: partialMargin,
-    // forceSquare = svgDefaultProps.forceSquare,
+    forceSquare = svgDefaultProps.forceSquare,
     xInnerPadding = svgDefaultProps.xInnerPadding,
     xOuterPadding = svgDefaultProps.xOuterPadding,
     yInnerPadding = svgDefaultProps.yInnerPadding,
@@ -67,20 +67,31 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     ariaLabelledBy,
     ariaDescribedBy,
 }: InnerHeatMapProps<Datum, ExtraProps>) => {
-    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
-        width,
-        height,
-        partialMargin
-    )
+    const {
+        margin: _margin,
+        innerWidth: _innerWidth,
+        innerHeight: _innerHeight,
+        outerWidth,
+        outerHeight,
+    } = useDimensions(width, height, partialMargin)
 
-    const { xScale, yScale, cells, colorScale, activeCell, setActiveCell } = useHeatMap<
-        Datum,
-        ExtraProps
-    >({
-        data,
-        valueFormat,
+    const {
         width: innerWidth,
         height: innerHeight,
+        offsetX,
+        offsetY,
+        xScale,
+        yScale,
+        cells,
+        colorScale,
+        activeCell,
+        setActiveCell,
+    } = useHeatMap<Datum, ExtraProps>({
+        data,
+        valueFormat,
+        width: _innerWidth,
+        height: _innerHeight,
+        forceSquare,
         xInnerPadding,
         xOuterPadding,
         yInnerPadding,
@@ -96,6 +107,15 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         labelTextColor,
         hoverTarget,
     })
+
+    const margin = useMemo(
+        () => ({
+            ..._margin,
+            top: _margin.top + offsetY,
+            left: _margin.left + offsetX,
+        }),
+        [_margin, offsetX, offsetY]
+    )
 
     const layerById: Record<LayerId, ReactNode> = {
         grid: null,
