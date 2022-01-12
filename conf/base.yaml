@@ -1,5 +1,21 @@
-baseUrl: http://localhost:9000
+baseUrl: http://localhost:8000
 capture:
+    home:
+      - id: bar-horizontal
+      - id: bar-vertical
+      - id: calendar
+      - id: chord
+      - id: circle-packing
+      - id: line
+      - id: pie
+      - id: radar
+      - id: sankey
+      - id: stream
+      - id: sunburst
+      - id: swarmplot
+      - id: treemap
+      - id: voronoi
+
     charts:
       - pkg: bump
         chart: bump
