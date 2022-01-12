@@ -24,6 +24,7 @@ const websiteDir = Path.join(projectDir, 'website')
 const websiteCapturesDir = Path.join(websiteDir, 'src', 'assets', 'captures')
 const websiteIconsDir = Path.join(websiteDir, 'src', 'assets', 'icons')
 const websiteHomeDemosDir = Path.join(websiteCapturesDir, 'home')
+const websitePagesDir = Path.join(websiteCapturesDir, 'pages')
 const getChartFileName = (chart, flavor) => `${chart}${flavor !== DEFAULT_FLAVOR ? `-${flavor}` : ''}.png`
 const getChartWebsiteFilePath = (chart, flavor) => Path.join(
     websiteCapturesDir,
@@ -44,6 +45,10 @@ const getChartIconFilePath = (chart, variant) => Path.join(
     `${chart}-${variant}.png`
 )
 const getHomeDemoFilePath = (id) => Path.join(websiteHomeDemosDir, `${id}.png`)
+const getPageUrl = (path) => {
+    return `${Path.join(config.get('baseUrl'), path)}/?capture=1`
+}
+const getPageFilePath = (id) => Path.join(websitePagesDir, `${id}.png`)
 
 const delay = (time) => new Promise((resolve) => {
     setTimeout(resolve, time)
@@ -71,7 +76,6 @@ const captureChart = async (page, { pkg, chart, flavor, theme }) => {
     }
 
     const clip = await element.boundingBox()
-
     const websiteFilePath = getChartWebsiteFilePath(chart, flavor)
 
     // initially saved to the package doc dir
@@ -227,8 +231,64 @@ const captureHomeDemos = async () => {
     }
 }
 
+const capturePages = async () => {
+    const pages = config.get('capture').pages
+
+    console.log(chalk`{yellow Starting capture for ${pages.length} page(s)}`)
+    console.log('')
+
+    try {
+        const browser = await puppeteer.launch({
+            headless: true
+        })
+        const page = await browser.newPage()
+
+        for (let pageConfig of pages) {
+            const url = getPageUrl(pageConfig.path)
+            const selector = pageConfig.selector
+
+            console.log(chalk`{yellow Capturing page {white ${pageConfig.id}}} {dim (url: ${url}, selector: ${selector})}`)
+
+            await page.setViewport({
+                width: pageConfig.viewport[0],
+                height: pageConfig.viewport[1],
+            })
+            await page.goto(url)
+
+            await page.waitFor(selector)
+            const element = await page.$(selector)
+            if (element === null) {
+                throw new Error(`Unable to find element matching selector: ${selector} (url: ${url})`)
+            }
+
+            const clip = await element.boundingBox()
+            const pageFilePath = getPageFilePath(pageConfig.id)
+
+            await page.screenshot({
+                path: pageFilePath,
+                clip,
+                omitBackground: true,
+            })
+
+            console.log(chalk`{green saved to {white ${pageFilePath}}}`)
+        }
+
+        await browser.close()
+
+        console.log(chalk`{green Done!}`)
+    } catch (error) {
+        console.log('')
+        console.error(chalk`{red oops, something went wrong :(}`)
+        console.error(error)
+
+        process.exit(1)
+    }
+}
+
+
 const run = async () => {
-    await captureHomeDemos()
+    await capturePages()
+    // await captureHomeDemos()
     // await captureCharts()
     // await captureIcons()
 }

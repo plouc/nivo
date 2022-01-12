@@ -1,5 +1,11 @@
 baseUrl: http://localhost:8000
 capture:
+    pages:
+      - id: home
+        path: ''
+        selector: '#all'
+        viewport: [1400, 900]
+
     home:
       - id: area-bump
       - id: bar-horizontal
