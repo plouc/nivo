@@ -29,11 +29,11 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     width,
     height,
     margin: partialMargin,
-    // forceSquare = canvasDefaultProps.forceSquare,
     xInnerPadding = canvasDefaultProps.xInnerPadding,
     xOuterPadding = canvasDefaultProps.xOuterPadding,
     yInnerPadding = canvasDefaultProps.yInnerPadding,
     yOuterPadding = canvasDefaultProps.yOuterPadding,
+    forceSquare = canvasDefaultProps.forceSquare,
     sizeVariation = canvasDefaultProps.sizeVariation,
     renderCell: _renderCell = canvasDefaultProps.renderCell as CellShape,
     opacity = canvasDefaultProps.opacity,
@@ -66,24 +66,35 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 }: InnerNetworkCanvasProps<Datum, ExtraProps>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
-    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
-        width,
-        height,
-        partialMargin
-    )
+    const {
+        margin: _margin,
+        innerWidth: _innerWidth,
+        innerHeight: _innerHeight,
+        outerWidth,
+        outerHeight,
+    } = useDimensions(width, height, partialMargin)
 
-    const { xScale, yScale, cells, activeCell, setActiveCell, colorScale } = useHeatMap<
-        Datum,
-        ExtraProps
-    >({
-        data,
-        valueFormat,
+    const {
         width: innerWidth,
         height: innerHeight,
+        offsetX,
+        offsetY,
+        xScale,
+        yScale,
+        cells,
+        colorScale,
+        activeCell,
+        setActiveCell,
+    } = useHeatMap<Datum, ExtraProps>({
+        data,
+        valueFormat,
+        width: _innerWidth,
+        height: _innerHeight,
         xInnerPadding,
         xOuterPadding,
         yInnerPadding,
         yOuterPadding,
+        forceSquare,
         sizeVariation,
         colors,
         emptyColor,
@@ -95,6 +106,15 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         labelTextColor,
         hoverTarget,
     })
+
+    const margin = useMemo(
+        () => ({
+            ..._margin,
+            top: _margin.top + offsetY,
+            left: _margin.left + offsetX,
+        }),
+        [_margin, offsetX, offsetY]
+    )
 
     const boundAnnotations = useCellAnnotations(cells, annotations)
     const computedAnnotations = useComputedAnnotations({

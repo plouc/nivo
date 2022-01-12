@@ -1,5 +1,4 @@
 import { useMemo, useCallback, useState } from 'react'
-import { scaleLinear } from 'd3-scale'
 import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useInheritedColor, getContinuousColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
@@ -12,7 +11,12 @@ import {
     SizeVariationConfig,
 } from './types'
 import { commonDefaultProps } from './defaults'
-import { computeCells } from './compute'
+import {
+    computeCells,
+    computeSizeScale,
+    getCellAnnotationPosition,
+    getCellAnnotationDimensions,
+} from './compute'
 
 export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
@@ -22,15 +26,15 @@ export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends o
     xOuterPadding,
     yInnerPadding,
     yOuterPadding,
+    forceSquare,
 }: {
     data: HeatMapDataProps<Datum, ExtraProps>['data']
     width: number
     height: number
-    xInnerPadding: HeatMapCommonProps<Datum>['xInnerPadding']
-    xOuterPadding: HeatMapCommonProps<Datum>['xOuterPadding']
-    yInnerPadding: HeatMapCommonProps<Datum>['yInnerPadding']
-    yOuterPadding: HeatMapCommonProps<Datum>['yOuterPadding']
-}) =>
+} & Pick<
+    HeatMapCommonProps<Datum>,
+    'xOuterPadding' | 'xInnerPadding' | 'yOuterPadding' | 'yInnerPadding' | 'forceSquare'
+>) =>
     useMemo(
         () =>
             computeCells<Datum, ExtraProps>({
@@ -41,8 +45,18 @@ export const useComputeCells = <Datum extends HeatMapDatum, ExtraProps extends o
                 xOuterPadding,
                 yInnerPadding,
                 yOuterPadding,
+                forceSquare,
             }),
-        [data, width, height, xInnerPadding, xOuterPadding, yInnerPadding, yOuterPadding]
+        [
+            data,
+            width,
+            height,
+            xInnerPadding,
+            xOuterPadding,
+            yInnerPadding,
+            yOuterPadding,
+            forceSquare,
+        ]
     )
 
 const isHoverTargetByType = {
@@ -81,74 +95,45 @@ const useSizeScale = (
     min: number,
     max: number
 ): ((value: number | null) => number) =>
-    useMemo(() => {
-        if (!size) return () => 1
+    useMemo(() => computeSizeScale(size, min, max), [size, min, max])
 
-        const scale = scaleLinear()
-            .domain(size.values ? size.values : [min, max])
-            .range(size.sizes)
-
-        return (value: number | null) => {
-            if (value === null) return 1
-            return scale(value)
-        }
-    }, [size, min, max])
-
-export const useHeatMap = <
-    Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
->({
-    data,
+const useCellsStyle = <Datum extends HeatMapDatum = DefaultHeatMapDatum>({
+    cells,
+    minValue,
+    maxValue,
+    sizeVariation,
+    colors,
+    emptyColor,
+    opacity,
+    activeOpacity,
+    inactiveOpacity,
+    borderColor,
+    label,
+    labelTextColor,
     valueFormat,
-    width,
-    height,
-    // forceSquare = commonDefaultProps.forceSquare,
-    xOuterPadding = commonDefaultProps.xOuterPadding,
-    xInnerPadding = commonDefaultProps.xInnerPadding,
-    yOuterPadding = commonDefaultProps.yOuterPadding,
-    yInnerPadding = commonDefaultProps.yInnerPadding,
-    sizeVariation = commonDefaultProps.sizeVariation,
-    colors = commonDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
-    emptyColor = commonDefaultProps.emptyColor,
-    opacity = commonDefaultProps.opacity,
-    activeOpacity = commonDefaultProps.activeOpacity,
-    inactiveOpacity = commonDefaultProps.inactiveOpacity,
-    borderColor = commonDefaultProps.borderColor as HeatMapCommonProps<Datum>['borderColor'],
-    label = commonDefaultProps.label as HeatMapCommonProps<Datum>['label'],
-    labelTextColor = commonDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
-    hoverTarget = commonDefaultProps.hoverTarget,
+    activeIds,
 }: {
-    data: HeatMapDataProps<Datum, ExtraProps>['data']
+    cells: Omit<
+        ComputedCell<Datum>,
+        'formattedValue' | 'color' | 'opacity' | 'borderColor' | 'label' | 'labelTextColor'
+    >[]
+    minValue: number
+    maxValue: number
     valueFormat?: HeatMapCommonProps<Datum>['valueFormat']
-    width: number
-    height: number
-    forceSquare?: HeatMapCommonProps<Datum>['forceSquare']
-    xOuterPadding?: HeatMapCommonProps<Datum>['xOuterPadding']
-    xInnerPadding?: HeatMapCommonProps<Datum>['xInnerPadding']
-    yOuterPadding?: HeatMapCommonProps<Datum>['yOuterPadding']
-    yInnerPadding?: HeatMapCommonProps<Datum>['yInnerPadding']
-    sizeVariation?: HeatMapCommonProps<Datum>['sizeVariation']
-    colors?: HeatMapCommonProps<Datum>['colors']
-    emptyColor?: HeatMapCommonProps<Datum>['emptyColor']
-    opacity?: HeatMapCommonProps<Datum>['opacity']
-    activeOpacity?: HeatMapCommonProps<Datum>['activeOpacity']
-    inactiveOpacity?: HeatMapCommonProps<Datum>['inactiveOpacity']
-    borderColor?: HeatMapCommonProps<Datum>['borderColor']
-    label?: HeatMapCommonProps<Datum>['label']
-    labelTextColor?: HeatMapCommonProps<Datum>['labelTextColor']
-    hoverTarget?: HeatMapCommonProps<Datum>['hoverTarget']
-}) => {
-    const [activeCell, setActiveCell] = useState<ComputedCell<Datum> | null>(null)
-
-    const { cells, xScale, yScale, minValue, maxValue } = useComputeCells<Datum, ExtraProps>({
-        data,
-        width,
-        height,
-        xOuterPadding,
-        xInnerPadding,
-        yOuterPadding,
-        yInnerPadding,
-    })
+    activeIds: string[]
+} & Pick<
+    HeatMapCommonProps<Datum>,
+    | 'sizeVariation'
+    | 'colors'
+    | 'emptyColor'
+    | 'opacity'
+    | 'activeOpacity'
+    | 'inactiveOpacity'
+    | 'borderColor'
+    | 'label'
+    | 'labelTextColor'
+>) => {
+    const getSize = useSizeScale(sizeVariation, minValue, maxValue)
 
     const colorScale = useMemo(() => {
         if (typeof colors === 'function') return null
@@ -158,14 +143,6 @@ export const useHeatMap = <
             max: maxValue,
         })
     }, [colors, minValue, maxValue])
-
-    const activeIds = useMemo(() => {
-        if (!activeCell) return []
-
-        const isHoverTarget = isHoverTargetByType[hoverTarget]
-
-        return cells.filter(cell => isHoverTarget(cell, activeCell)).map(cell => cell.id)
-    }, [cells, activeCell, hoverTarget])
 
     const getColor = useCallback(
         (cell: Omit<ComputedCell<Datum>, 'color' | 'opacity' | 'borderColor'>) => {
@@ -178,14 +155,14 @@ export const useHeatMap = <
         },
         [colors, colorScale, emptyColor]
     )
-    const getSize = useSizeScale(sizeVariation, minValue, maxValue)
     const theme = useTheme()
     const getBorderColor = useInheritedColor(borderColor, theme)
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
+
     const formatValue = useValueFormatter(valueFormat)
     const getLabel = usePropertyAccessor(label)
 
-    const computedCells = useMemo(
+    const styledCells = useMemo(
         () =>
             cells.map(cell => {
                 let computedOpacity = opacity
@@ -226,6 +203,103 @@ export const useHeatMap = <
     )
 
     return {
+        cells: styledCells,
+        colorScale,
+    }
+}
+
+export const useHeatMap = <
+    Datum extends HeatMapDatum = DefaultHeatMapDatum,
+    ExtraProps extends object = Record<string, never>
+>({
+    data,
+    valueFormat,
+    width: _width,
+    height: _height,
+    xOuterPadding = commonDefaultProps.xOuterPadding,
+    xInnerPadding = commonDefaultProps.xInnerPadding,
+    yOuterPadding = commonDefaultProps.yOuterPadding,
+    yInnerPadding = commonDefaultProps.yInnerPadding,
+    forceSquare = commonDefaultProps.forceSquare,
+    sizeVariation = commonDefaultProps.sizeVariation,
+    colors = commonDefaultProps.colors as HeatMapCommonProps<Datum>['colors'],
+    emptyColor = commonDefaultProps.emptyColor,
+    opacity = commonDefaultProps.opacity,
+    activeOpacity = commonDefaultProps.activeOpacity,
+    inactiveOpacity = commonDefaultProps.inactiveOpacity,
+    borderColor = commonDefaultProps.borderColor as HeatMapCommonProps<Datum>['borderColor'],
+    label = commonDefaultProps.label as HeatMapCommonProps<Datum>['label'],
+    labelTextColor = commonDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
+    hoverTarget = commonDefaultProps.hoverTarget,
+}: {
+    data: HeatMapDataProps<Datum, ExtraProps>['data']
+    width: number
+    height: number
+} & Partial<
+    Pick<
+        HeatMapCommonProps<Datum>,
+        | 'valueFormat'
+        | 'xOuterPadding'
+        | 'xInnerPadding'
+        | 'yOuterPadding'
+        | 'yInnerPadding'
+        | 'forceSquare'
+        | 'sizeVariation'
+        | 'colors'
+        | 'emptyColor'
+        | 'opacity'
+        | 'activeOpacity'
+        | 'inactiveOpacity'
+        | 'borderColor'
+        | 'label'
+        | 'labelTextColor'
+        | 'hoverTarget'
+    >
+>) => {
+    const [activeCell, setActiveCell] = useState<ComputedCell<Datum> | null>(null)
+
+    const { width, height, offsetX, offsetY, cells, xScale, yScale, minValue, maxValue } =
+        useComputeCells<Datum, ExtraProps>({
+            data,
+            width: _width,
+            height: _height,
+            xOuterPadding,
+            xInnerPadding,
+            yOuterPadding,
+            yInnerPadding,
+            forceSquare,
+        })
+
+    const activeIds = useMemo(() => {
+        if (!activeCell) return []
+
+        const isHoverTarget = isHoverTargetByType[hoverTarget]
+
+        return cells.filter(cell => isHoverTarget(cell, activeCell)).map(cell => cell.id)
+    }, [cells, activeCell, hoverTarget])
+
+    const { cells: computedCells, colorScale } = useCellsStyle<Datum>({
+        cells,
+        minValue,
+        maxValue,
+        sizeVariation,
+        colors,
+        emptyColor,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
+        borderColor,
+        label,
+        labelTextColor,
+        valueFormat,
+        activeIds,
+    })
+
+    return {
+        width,
+        height,
+        offsetX,
+        offsetY,
         cells: computedCells,
         xScale,
         yScale,
@@ -233,46 +307,7 @@ export const useHeatMap = <
         activeCell,
         setActiveCell,
     }
-
-    /*
-    const layoutConfig = useMemo(() => {
-        const columns = keys.length
-        const rows = data.length
-
-        let cellWidth = Math.max((width - padding * (columns + 1)) / columns, 0)
-        let cellHeight = Math.max((height - padding * (rows + 1)) / rows, 0)
-
-        let offsetX = 0
-        let offsetY = 0
-        if (forceSquare === true) {
-            const cellSize = Math.min(cellWidth, cellHeight)
-            cellWidth = cellSize
-            cellHeight = cellSize
-
-            offsetX = (width - ((cellWidth + padding) * columns + padding)) / 2
-            offsetY = (height - ((cellHeight + padding) * rows + padding)) / 2
-        }
-
-        return {
-            cellWidth,
-            cellHeight,
-            offsetX,
-            offsetY,
-        }
-    }, [data, keys, width, height, padding, forceSquare])
-    */
 }
-
-const getCellAnnotationPosition = <Datum extends HeatMapDatum>(cell: ComputedCell<Datum>) => ({
-    x: cell.x,
-    y: cell.y,
-})
-
-const getCellAnnotationDimensions = <Datum extends HeatMapDatum>(cell: ComputedCell<Datum>) => ({
-    size: Math.max(cell.width, cell.height),
-    width: cell.width,
-    height: cell.height,
-})
 
 export const useCellAnnotations = <Datum extends HeatMapDatum>(
     cells: ComputedCell<Datum>[],
