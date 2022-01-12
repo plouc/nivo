@@ -59,7 +59,7 @@ afterAll(() => {
     Globals.assign({ skipAnimation: false })
 })
 
-it('should render a basic heamap chart', () => {
+it('should render a basic heatmap chart', () => {
     const wrapper = mount(<HeatMap {...baseProps} />)
 
     dataPoints.forEach(datum => {
@@ -72,26 +72,59 @@ it('should render a basic heamap chart', () => {
     })
 })
 
-describe('size variation', () => {
+describe('force square cells', () => {
+    const expectedSquareSize = 100
+
     CELL_SHAPES.forEach(shape => {
         describe(shape, () => {
-            // use simpler data for easier assertions
-            const sizeVariationData = [
-                {
-                    id: 'A',
-                    data: [
-                        { x: 'X', y: 5 },
-                        { x: 'Y', y: 10 },
-                    ],
-                },
-                {
-                    id: 'B',
-                    data: [
-                        { x: 'X', y: 7.5 },
-                        { x: 'Y', y: 10 },
-                    ],
-                },
-            ]
+            it('cells should have square dimensions', () => {
+                const wrapper = mount(
+                    <HeatMap {...baseProps} cellComponent={shape} width={2000} forceSquare />
+                )
+
+                dataPoints.forEach(datum => {
+                    const cell = wrapper.find(`g[data-testid='cell.${datum.id}']`)
+                    const cellShape = cell.find(shape).parent()
+
+                    if (shape === 'rect') {
+                        expect(cellShape.prop<SpringValue<number>>('width').get()).toEqual(
+                            expectedSquareSize
+                        )
+                        expect(cellShape.prop<SpringValue<number>>('height').get()).toEqual(
+                            expectedSquareSize
+                        )
+                    } else {
+                        expect(cellShape.prop<SpringValue<number>>('r').get() * 2).toEqual(
+                            expectedSquareSize
+                        )
+                    }
+                })
+            })
+        })
+    })
+})
+
+describe('size variation', () => {
+    // use simpler data for easier assertions
+    const sizeVariationData = [
+        {
+            id: 'A',
+            data: [
+                { x: 'X', y: 5 },
+                { x: 'Y', y: 10 },
+            ],
+        },
+        {
+            id: 'B',
+            data: [
+                { x: 'X', y: 7.5 },
+                { x: 'Y', y: 10 },
+            ],
+        },
+    ]
+
+    CELL_SHAPES.forEach(shape => {
+        describe(shape, () => {
             const cellIdAndValues: { id: string; value: number }[] = []
             sizeVariationData.forEach(serie => {
                 serie.data.forEach(datum => {
