@@ -1,5 +1,74 @@
+<a name="v0.79.0"></a>
+## v0.79.0 (2022-01-12)
+
+
+#### Features
+
+* **circle-packing:**  remove unused prop-types package ([a4b4dfae](https://github.com/plouc/nivo/commit/a4b4dfaea5471e0b9e9420af2a70ebe9fbe03f11))
+* **colors:**  add support for continuous color scales ([f0867914](https://github.com/plouc/nivo/commit/f086791480c2742dde49ea80d1f0a7e671bb3aea))
+* **core:**
+  *  add support for legends ticks to nivo theme ([806da063](https://github.com/plouc/nivo/commit/806da0634178835d00a9daf8640f48ae427ae1a6))
+  *  remove resize-observer-polyfill as it should be added if IE support is needed ([22f2bf70](https://github.com/plouc/nivo/commit/22f2bf70edb3c0b325e390fd9ff36ba2487b16bf))
+* **generators:**  add a helper to generate x/y series ([15efb6e8](https://github.com/plouc/nivo/commit/15efb6e89459a3261c8bfa40714924ce31fb05b5))
+* **heatmap:**
+  *  adjust stories ([1867b606](https://github.com/plouc/nivo/commit/1867b606111ad1253cadb7e3cbcab2663c3275c5))
+  *  add tests for forceSquare ([2cbda769](https://github.com/plouc/nivo/commit/2cbda7692d7b6978bdf46a07ec373883c7004505))
+  *  restore forceSquare feature ([236e94c6](https://github.com/plouc/nivo/commit/236e94c64c09b4ae1481bbf14740e2a5826d9397))
+  *  add tests for size variation feature ([fdc93a6a](https://github.com/plouc/nivo/commit/fdc93a6a85f287b53e78be3a1c6efe2cdf15c8ca))
+  *  define a default legend config to prevent a crash when adding a new one on the interactive demo ([a9486b7a](https://github.com/plouc/nivo/commit/a9486b7a8199f0dc0f800996e5d9187da4cc866d))
+  *  add missing event handlers to the documentation ([bac7d7a1](https://github.com/plouc/nivo/commit/bac7d7a1273a38c85794387f30f60084c625f7e8))
+  *  restore size variation support ([849c7d7f](https://github.com/plouc/nivo/commit/849c7d7fadda9d20fe372dd194ed452f2dc9a0e0))
+  *  fix the http API documentation ([a91066fd](https://github.com/plouc/nivo/commit/a91066fdf3264c9aab9b69f531d358b8c345e5e5))
+  *  remove min/max value properties from the static package ([937604c3](https://github.com/plouc/nivo/commit/937604c3d4890ec4dcb8b405a66473b5113e220f))
+  *  remove min/max value properties from documentation ([824b794a](https://github.com/plouc/nivo/commit/824b794a74f04d4fad40b09d8f8fc7e64a697f66))
+  *  remove min/max value properties as they should be controlled where needed, for example the colors ([7a5a922b](https://github.com/plouc/nivo/commit/7a5a922b014ecfeed16c0f42c4833b7be4197288))
+  *  add support for annotations for the canvas implementation ([9aaaad59](https://github.com/plouc/nivo/commit/9aaaad5966bab7d3886dfa4a0be60e5afc826248))
+  *  add tests for hoverTarget ([d92ecd9c](https://github.com/plouc/nivo/commit/d92ecd9cde37d744b5dd0925391f7c6fa0b21343))
+  *  add tests for layers and annotations ([35111f7b](https://github.com/plouc/nivo/commit/35111f7b215f718665404a7d80ae8cd1a0732230))
+  *  init unit tests ([8f9ca823](https://github.com/plouc/nivo/commit/8f9ca823a0ac1061cdbfb776fec794c0d1ab33a1))
+  *  fix missing hooks deps ([7025bb9d](https://github.com/plouc/nivo/commit/7025bb9db384dcf162713b57fab5c1c84819731e))
+  *  update codesandbox example to reflect API changes ([da44298e](https://github.com/plouc/nivo/commit/da44298ef67480bbeff513ca0ed1f63e180613d5))
+  *  restore support for empty values and empty color ([be1a8afa](https://github.com/plouc/nivo/commit/be1a8afae9492861b20941a5bc583061b9e86359))
+  *  migrate canvas implementation to TypeScript ([d0cd5003](https://github.com/plouc/nivo/commit/d0cd500381294f0682eabd803b8c0ec3d652a713))
+  *  add support for annotations ([262c34a5](https://github.com/plouc/nivo/commit/262c34a53bbd6c4dbd3eb8f914aed4647fd846eb))
+  *  add the package to the monorepo TypeScript config ([6462c08f](https://github.com/plouc/nivo/commit/6462c08f198c9910ab854c89d77865255cdc93f6))
+  *  update the website documentation according to API changes and additions ([b636e5cb](https://github.com/plouc/nivo/commit/b636e5cbec7ce2725af0f82cd8fd182272e01418))
+  *  init TypeScript migration ([4929c468](https://github.com/plouc/nivo/commit/4929c4684fc4dd67945bc17f7a5ca34cfd4491d9))
+* **legends:**
+  *  fix continuous color scale legend when the direction is column ([b5527c1b](https://github.com/plouc/nivo/commit/b5527c1b5f9f1ca998333c846dc3e2eb973edd94))
+  *  add support for canvas continuous color legends and add it to heatmap ([e3e8f002](https://github.com/plouc/nivo/commit/e3e8f00271ccea89b5cd5802ba80e4298a82e455))
+  *  add support for continuous color scale legends ([e2203454](https://github.com/plouc/nivo/commit/e22034541527483b41b11eeff47399145fdd3bcc))
+* **website:**
+  *  add an open graph image for the homepage ([7b61ade4](https://github.com/plouc/nivo/commit/7b61ade41aea5c2947ed1beb310a1f07b3418528))
+  *  add the ability to take pages screenshots ([e7e7d8ac](https://github.com/plouc/nivo/commit/e7e7d8ac47c125e9d10d6ddcd5367b9ea2b69b22))
+  *  add more chart types to the homepage ([bd2c8ad5](https://github.com/plouc/nivo/commit/bd2c8ad551d8ec154d91161edc997b7dcd7e364c))
+  *  make chart labels visible by default on the homepage ([01e6c340](https://github.com/plouc/nivo/commit/01e6c34089ead20d862c482a9734fca8a7b1bbdd))
+  *  use static images for the homepage ([9ad4769d](https://github.com/plouc/nivo/commit/9ad4769d19744c0028ed62c2e6084b3cf89b44ac))
+  *  create new demo charts for the homepage ([2c77f8d5](https://github.com/plouc/nivo/commit/2c77f8d5f5417d5048fe15e8fcd33c796378c8a7))
+  *  improve color scheme controls ([f438ba6b](https://github.com/plouc/nivo/commit/f438ba6be266a469b5cf4ba9b9925765648b3ca4))
+  *  improve typings of ComponentTemplate and use it at its full potential for the heatmap ([37136c9a](https://github.com/plouc/nivo/commit/37136c9a720c1cc894507df53a77227393aad87c))
+  *  fix components explorer filtering ([bda98c8f](https://github.com/plouc/nivo/commit/bda98c8f064a64ceadfd3ca06d2cb52f21bff0c5))
+  *  animate navigation toggle button ([16f89bbf](https://github.com/plouc/nivo/commit/16f89bbfb54f5877c584acabbd4e82595be44f45))
+  *  convert all chart icons to TypeScript ([f23c5ebe](https://github.com/plouc/nivo/commit/f23c5ebe582ec0f1df8c718c55c4a7b879b2ea85))
+  *  add a mobile nav and improve the sitemap data ([5b184314](https://github.com/plouc/nivo/commit/5b184314dbf4b9d3e9f105797741d229fa13249f))
+  *  improve theming guide ([02da858b](https://github.com/plouc/nivo/commit/02da858b3b10f2c0f3e1f4d8f6bb22296a78d7be))
+  *  change the max length of generated code lines to be 80 instead of 120 ([a55c272e](https://github.com/plouc/nivo/commit/a55c272e4a793d577758b59bade008fbc580e2c6))
+  *  improve and reorganize controls ([3b433201](https://github.com/plouc/nivo/commit/3b433201327b4ae8cb0bc4111446f3375c9def08))
+  *  inline global styles ([e0a0ffbb](https://github.com/plouc/nivo/commit/e0a0ffbb064e132a6fd8bc312042126559ac701c))
+
+#### Bug Fixes
+
+* **tests:**  add resize-observer-polyfill when running unit tests ([312e18da](https://github.com/plouc/nivo/commit/312e18daa6ab8d715aa436cd690277bb6468af72))
+
+#### Chore
+
+* **core:**  export `useMeasure` in typings ([079770c4](https://github.com/plouc/nivo/commit/079770c4baa3d36f40289229ca03dc1dc9b0ff86))
+* **packages:**  improve package readmes ([38257b8f](https://github.com/plouc/nivo/commit/38257b8f3697ad14489ec03d5ae100389bfaabdd))
+
+
+
 <a name="v0.78.0"></a>
-## v0.78.0 (2022-01-02)
+## v0.78.0 (%cs)
 
 
 #### Features
