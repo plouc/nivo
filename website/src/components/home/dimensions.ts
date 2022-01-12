@@ -7,4 +7,6 @@ export const dimensions = {
         bottom: 20,
         left: 20,
     },
+    lineWidth: 6,
+    pointSize: 18,
 }

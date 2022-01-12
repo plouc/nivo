@@ -3,20 +3,25 @@ import { Link } from 'gatsby'
 import styled from 'styled-components'
 import { FiArrowRight } from 'react-icons/fi'
 import media from '../../theming/mediaQueries'
+import areaBump from '../../assets/captures/home/area-bump.png'
 import barHorizontal from '../../assets/captures/home/bar-horizontal.png'
 import barVertical from '../../assets/captures/home/bar-vertical.png'
+import bump from '../../assets/captures/home/bump.png'
 import chord from '../../assets/captures/home/chord.png'
+import choropleth from '../../assets/captures/home/choropleth.png'
 import line from '../../assets/captures/home/line.png'
 import circlePacking from '../../assets/captures/home/circle-packing.png'
 import stream from '../../assets/captures/home/stream.png'
 import pie from '../../assets/captures/home/pie.png'
 import calendar from '../../assets/captures/home/calendar.png'
 import radar from '../../assets/captures/home/radar.png'
+import radialBar from '../../assets/captures/home/radial-bar.png'
 import voronoi from '../../assets/captures/home/voronoi.png'
 import treemap from '../../assets/captures/home/treemap.png'
 import sunburst from '../../assets/captures/home/sunburst.png'
 import sankey from '../../assets/captures/home/sankey.png'
 import swarmplot from '../../assets/captures/home/swarmplot.png'
+import marimekko from '../../assets/captures/home/marimekko.png'
 import logoImg from '../../assets/nivo-logo.png'
 
 const Home = () => {
@@ -25,7 +30,7 @@ const Home = () => {
             <Item name="Chord Diagram" to="/chord/" image={chord} />
             <Item name="Line Chart" to="/line/" image={line} />
             <Item name="Circle Packing Layout" to="/circle-packing/" image={circlePacking} />
-            <Item name="Bar Chart" to="/bar/" image={barVertical} />
+            <Item name="Area Bump Chart" to="/area-bump/" image={areaBump} />
             <Item name="Bar Chart" to="/bar/" image={barHorizontal} />
             <Item name="Stream Chart" to="/stream/" image={stream} />
             <Item name="Pie Chart" to="/pie/" image={pie} />
@@ -45,13 +50,13 @@ const Home = () => {
             <Item name="Sunburst Chart" to="/sunburst/" image={sunburst} />
             <Item name="Sankey" to="/sankey/" image={sankey} />
             <Item name="Swarm Plot" to="/swarmplot/" image={swarmplot} />
-            <Item name="Chord Diagram" to="/chord/" image={chord} />
-            <Item name="Line Chart" to="/line/" image={line} />
-            <Item name="Circle Packing Layout" to="/circle-packing/" image={circlePacking} />
+            <Item name="Marimekko Chart" to="/marimekko/" image={marimekko} />
+            <Item name="Bump Chart" to="/bump/" image={bump} />
+            <Item name="Radial Bar Chart" to="/radial-bar/" image={radialBar} />
+            <Item name="Choropleth Map" to="/choropleth/" image={choropleth} />
             <Item name="Bar Chart" to="/bar/" image={barVertical} />
-            <Item name="Bar Chart" to="/bar/" image={barHorizontal} />
-            <Item name="Stream Chart" to="/stream/" image={stream} />
-            <Item name="Pie Chart" to="/pie/" image={pie} />
+            <Item name="Tree Map" to="/treemap/" image={treemap} />
+            <Item name="Chord Diagram" to="/chord/" image={chord} />
         </Container>
     )
 }
