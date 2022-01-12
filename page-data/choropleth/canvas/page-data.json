@@ -1,5 +1,5 @@
 {
-    "componentChunkName": "component---src-pages-choropleth-canvas-js",
+    "componentChunkName": "component---src-pages-choropleth-canvas-tsx",
     "path": "/choropleth/canvas/",
     "result": {"pageContext":{}},
     "staticQueryHashes": ["3087563097","674572293"]}

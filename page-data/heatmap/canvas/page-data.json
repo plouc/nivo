@@ -1,5 +1,5 @@
 {
-    "componentChunkName": "component---src-pages-heatmap-canvas-js",
+    "componentChunkName": "component---src-pages-heatmap-canvas-tsx",
     "path": "/heatmap/canvas/",
     "result": {"pageContext":{}},
     "staticQueryHashes": ["1772871452","3087563097"]}
