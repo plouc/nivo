@@ -1,7 +1,7 @@
 {
   "name": "@nivo/legends",
   "description": "legend components for nivo dataviz library",
-  "version": "0.79.0",
+  "version": "0.79.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,7 +22,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "devDependencies": {
-    "@nivo/colors": "0.79.0",
+    "@nivo/colors": "0.79.1",
     "@nivo/core": "0.79.0",
     "d3-scale": "^3.2.3"
   },

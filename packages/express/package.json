@@ -1,6 +1,6 @@
 {
   "name": "@nivo/express",
-  "version": "0.79.0",
+  "version": "0.79.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -21,7 +21,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/static": "0.79.0",
+    "@nivo/static": "0.79.1",
     "@types/express": "^4.17.13",
     "@types/uuid": "^8.3.3",
     "express": "^4.17.1",

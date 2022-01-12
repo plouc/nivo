@@ -1,6 +1,6 @@
 {
   "name": "@nivo/calendar",
-  "version": "0.79.0",
+  "version": "0.79.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,7 +29,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/legends": "0.79.0",
+    "@nivo/legends": "0.79.1",
     "@nivo/tooltip": "0.79.0",
     "d3-scale": "^3.2.3",
     "d3-time": "^1.0.10",

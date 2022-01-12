@@ -1,5 +1,15 @@
+<a name="v0.79.1"></a>
+## v0.79.1 (2022-01-12)
+
+
+#### Features
+
+* **colors:**  remove react-motion ([d68bd6d0](https://github.com/plouc/nivo/commit/d68bd6d00c29f9a6a5cd1cf21d03a42bffddd5ed))
+
+
+
 <a name="v0.79.0"></a>
-## v0.79.0 (2022-01-12)
+## v0.79.0 (%cs)
 
 
 #### Features
