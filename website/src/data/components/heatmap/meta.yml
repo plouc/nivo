@@ -10,10 +10,12 @@ HeatMap:
   package: '@nivo/heatmap'
   tags: []
   stories:
-    - label: Custom cell component
+    - label: Variable Cell Size
+      link: heatmap--variable-cell-size
+    - label: Custom Cell Component
       link: heatmap--custom-cell-component
-    - label: Custom tooltip
-      link: heatmap-custom-tooltip
+    - label: Custom Tooltip
+      link: heatmap--custom-tooltip
   description: |
     An heat map matrix, you can chose between various colors scales,
     you also have the ability to change the cell shape
@@ -31,7 +33,11 @@ HeatMapCanvas:
   package: '@nivo/heatmap'
   tags:
     - canvas
-  stories: []
+  stories:
+    - label: Variable Cell Size
+      link: heatmapcanvas--variable-cell-size
+    - label: Custom Tooltip
+      link: heatmapcanvas--custom-tooltip
   description: |
     A variation around the [HeatMap](self:/heatmap/) component.
     Well suited for large data sets as it does not impact DOM tree depth,
