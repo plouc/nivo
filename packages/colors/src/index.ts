@@ -1,5 +1,4 @@
 export * from './schemes'
 export * from './inheritedColor'
-export * from './motion'
 export * from './props'
 export * from './scales'
