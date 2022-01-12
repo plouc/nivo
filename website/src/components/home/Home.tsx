@@ -26,7 +26,7 @@ import logoImg from '../../assets/nivo-logo.png'
 
 const Home = () => {
     return (
-        <Container>
+        <Container id="all">
             <Item name="Chord Diagram" to="/chord/" image={chord} />
             <Item name="Line Chart" to="/line/" image={line} />
             <Item name="Circle Packing Layout" to="/circle-packing/" image={circlePacking} />
