@@ -12,7 +12,7 @@ export const HomeLineDemo = () => {
             <Line
                 width={dimensions.width}
                 height={dimensions.height}
-                margin={{ top: 10, bottom: 15, left: 24, right: 10 }}
+                margin={dimensions.margin}
                 data={generateDrinkStats(12)}
                 yScale={{ type: 'linear', stacked: true }}
                 lineWidth={4}

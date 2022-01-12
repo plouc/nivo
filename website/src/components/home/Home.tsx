@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
+import { FiArrowRight } from 'react-icons/fi'
 import media from '../../theming/mediaQueries'
 import barHorizontal from '../../assets/captures/home/bar-horizontal.png'
 import barVertical from '../../assets/captures/home/bar-vertical.png'
@@ -19,17 +20,15 @@ import swarmplot from '../../assets/captures/home/swarmplot.png'
 import logoImg from '../../assets/nivo-logo.png'
 
 const Home = () => {
-    // const theme = useTheme()
-
     return (
         <Container>
-            <Item name="Chord" to="/chord/" image={chord} />
-            <Item name="Line" to="/line/" image={line} />
-            <Item name="Circle Packing" to="/circle-packing/" image={circlePacking} />
-            <Item name="Bar" to="/bar/" image={barVertical} />
-            <Item name="Bar" to="/bar/" image={barHorizontal} />
-            <Item name="Stream" to="/stream/" image={stream} />
-            <Item name="Pie" to="/pie/" image={pie} />
+            <Item name="Chord Diagram" to="/chord/" image={chord} />
+            <Item name="Line Chart" to="/line/" image={line} />
+            <Item name="Circle Packing Layout" to="/circle-packing/" image={circlePacking} />
+            <Item name="Bar Chart" to="/bar/" image={barVertical} />
+            <Item name="Bar Chart" to="/bar/" image={barHorizontal} />
+            <Item name="Stream Chart" to="/stream/" image={stream} />
+            <Item name="Pie Chart" to="/pie/" image={pie} />
             <Logo
                 to="/components"
                 style={{
@@ -40,19 +39,19 @@ const Home = () => {
                 nivo provides a rich set of dataviz components, built on top of D3 and React.
             </Baseline>
             <Item name="Calendar" to="/calendar/" image={calendar} />
-            <Item name="Radar" to="/radar/" image={radar} />
-            <Item name="Voronoi" to="/voronoi/" image={voronoi} />
-            <Item name="TreeMap" to="/treemap/" image={treemap} />
-            <Item name="Sunburst" to="/sunburst/" image={sunburst} />
+            <Item name="Radar Chart" to="/radar/" image={radar} />
+            <Item name="Voronoi Tesselation" to="/voronoi/" image={voronoi} />
+            <Item name="Tree Map" to="/treemap/" image={treemap} />
+            <Item name="Sunburst Chart" to="/sunburst/" image={sunburst} />
             <Item name="Sankey" to="/sankey/" image={sankey} />
-            <Item name="SwarmPlot" to="/swarnplot/" image={swarmplot} />
-            <Item name="Chord" to="/chord/" image={chord} />
-            <Item name="Line" to="/line/" image={line} />
-            <Item name="Circle Packing" to="/circle-packing/" image={circlePacking} />
-            <Item name="Bar" to="/bar/" image={barVertical} />
-            <Item name="Bar" to="/bar/" image={barHorizontal} />
-            <Item name="Stream" to="/stream/" image={stream} />
-            <Item name="Pie" to="/pie/" image={pie} />
+            <Item name="Swarm Plot" to="/swarmplot/" image={swarmplot} />
+            <Item name="Chord Diagram" to="/chord/" image={chord} />
+            <Item name="Line Chart" to="/line/" image={line} />
+            <Item name="Circle Packing Layout" to="/circle-packing/" image={circlePacking} />
+            <Item name="Bar Chart" to="/bar/" image={barVertical} />
+            <Item name="Bar Chart" to="/bar/" image={barHorizontal} />
+            <Item name="Stream Chart" to="/stream/" image={stream} />
+            <Item name="Pie Chart" to="/pie/" image={pie} />
         </Container>
     )
 }
@@ -62,91 +61,111 @@ const Container = styled.div`
     background: ${({ theme }) => theme.colors.coloredRange[2]};
     width: 100%;
     height: 100%;
-    padding: 10px;
     display: grid;
 
     ${media.desktopLarge`
         grid-template-columns: repeat(6, 1fr);
         grid-template-rows: repeat(4, 1fr);
+        grid-column-gap: 16px;
+        grid-row-gap: 9px;
+        padding: 16px;
     `}
 
     ${media.desktop`
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(4, 1fr);
+        grid-column-gap: 12px;
+        grid-row-gap: 9px;
+        padding: 12px;
     `}
 
     ${media.tablet`
         grid-template-columns: repeat(3, 1fr);
         overflow-y: auto;
+        grid-column-gap: 16px;
+        grid-row-gap: 9px;
+        padding: 16px;
     `}
 
     ${media.mobile`
         grid-template-columns: repeat(2, 1fr);
         overflow-y: auto;
+        grid-column-gap: 12px;
+        grid-row-gap: 9px;
+        padding: 12px;
     `}
 `
 
 const Item = ({ name, to, image }: { name: string; to: string; image: string }) => (
-    <ItemContainer to={to} image={image}>
+    <ItemContainer to={to}>
+        <Illustration image={image} />
         <ItemLabel>
-            <span>{name} Documentation</span>
+            <span>{name}</span>
+            <FiArrowRight />
         </ItemLabel>
     </ItemContainer>
 )
 
 const ItemLabel = styled.span`
-    display: block;
-    position: absolute;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    top: 50%;
-    left: 0;
-    margin-top: -12px;
-    opacity: 0;
-    transform: translate(0, 15px);
-    transition: all 400ms;
+    border-top: 1px solid ${({ theme }) => theme.colors.coloredRange[3]}77;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.coloredRange[3]}77;
+    padding: 7px 0;
+    font-size: 14px;
+    line-height: 1em;
 
-    & span {
-        background: #fff;
-        color: ${({ theme }) => theme.colors.accent};
-        font-size: 14px;
-        line-height: 1em;
-        padding: 5px 9px;
-        border-radius: 2px;
+    svg {
+        font-size: 16px;
+        opacity: 0;
     }
 `
 
-const ItemContainer = styled(Link)<{
-    image: string
-}>`
-    position: relative;
-    border-radius: 2px;
+const Illustration = styled.div<{ image: string }>`
+    flex: 1;
     background-repeat: no-repeat;
     background-image: url('${({ image }) => image}');
     background-size: contain;
-    background-position: center center;
+    background-position: center bottom;
+`
+
+const ItemContainer = styled(Link)`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.coloredRange[4]};
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.coloredRange[1]};
-
+        background-color: ${({ theme }) => theme.colors.coloredRange[1]}55;
         ${ItemLabel} {
+            color: ${({ theme }) => theme.colors.coloredRange[0]};
+            border-top-color: ${({ theme }) => theme.colors.coloredRange[1]};
+            border-bottom-color: transparent;
+            padding-left: 9px;
+            padding-right: 9px;
+        }
+
+        svg {
             opacity: 1;
-            transform: translate(0, 0);
         }
     }
 
     ${media.desktop`
-        &:nth-child(6) {
+        &:nth-child(6),
+        &:nth-child(n+21) {
             display: none;
         }
     `}
-    
+
     ${media.tablet`
         height: 240px;
     `}
 
     ${media.mobile`
-        height: 180px;
+        height: 170px;
     `}
 `
 
@@ -160,6 +179,14 @@ const Logo = styled(Link)`
         background-color: ${({ theme }) => theme.colors.coloredRange[1]};
     }
 
+    ${media.desktopLarge`
+        background-size: 70%;
+    `}
+
+    ${media.desktop`
+        background-size: 70%;
+    `}
+    
     ${media.tablet`
         grid-column-start: 1;
         grid-row-start: 1;
@@ -171,8 +198,7 @@ const Logo = styled(Link)`
         grid-column-start: 1;
         grid-column-end: 3;
         grid-row-start: 1;
-        height: 90px;
-        padding: 0 50px;
+        height: 80px;
         background-size: 30%;
     `}
 `
@@ -185,24 +211,29 @@ const Baseline = styled.div`
     font-size: 18px;
     justify-content: flex-start;
     line-height: 28px;
+    max-width: 380px;
 
     ${media.desktopLarge`
         grid-column: 3 / span 2;
-        padding: 0 20px;
+    `}
+
+    ${media.desktop`
+        grid-column: 3 / span 2;
     `}
 
     ${media.tablet`
         grid-column: 2 / span 2;
         grid-row-start: 1;
-        height: 120px;
-        padding: 0 20px;
     `}
 
     ${media.mobile`
         grid-column: 1 / span 2;
         grid-row-start: 2;
         height: auto;
-        padding: 20px 50px 30px;
+        max-width: unset;
+        padding: 0 20px 20px;
+        justify-content: center;
+        text-align: center;
     `}
 `
 
