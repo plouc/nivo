@@ -1,14 +1,19 @@
 baseUrl: http://localhost:8000
 capture:
     home:
+      - id: area-bump
       - id: bar-horizontal
       - id: bar-vertical
+      - id: bump
       - id: calendar
       - id: chord
+      - id: choropleth
       - id: circle-packing
       - id: line
+      - id: marimekko
       - id: pie
       - id: radar
+      - id: radial-bar
       - id: sankey
       - id: stream
       - id: sunburst

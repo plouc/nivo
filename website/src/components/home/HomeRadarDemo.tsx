@@ -20,7 +20,8 @@ export const HomeRadarDemo = () => {
                 theme={nivoTheme}
                 colors={colors}
                 curve="linearClosed"
-                dotSize={7}
+                dotSize={dimensions.pointSize}
+                borderWidth={dimensions.lineWidth}
                 dotBorderWidth={1}
                 dotBorderColor={colors[1]}
                 enableDotLabel={false}

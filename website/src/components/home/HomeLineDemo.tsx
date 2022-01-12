@@ -15,13 +15,13 @@ export const HomeLineDemo = () => {
                 margin={dimensions.margin}
                 data={generateDrinkStats(12)}
                 yScale={{ type: 'linear', stacked: true }}
-                lineWidth={4}
+                lineWidth={dimensions.lineWidth}
                 curve="monotoneX"
                 theme={nivoTheme}
                 colors={colors}
                 animate={false}
                 isInteractive={false}
-                pointSize={16}
+                pointSize={dimensions.pointSize}
                 axisLeft={null}
                 axisBottom={null}
             />
