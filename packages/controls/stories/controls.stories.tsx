@@ -74,6 +74,10 @@ const specializedControls = [
 
 const colorControls = [
     {
+        name: 'color',
+        type: 'color',
+    },
+    {
         name: 'opacity',
         type: 'opacity',
     },
@@ -108,6 +112,7 @@ stories.add('Range', () => {
         name: 'Colors',
         type: 'object',
         value: {
+            color: '#d7ae44',
             opacity: 0.35,
         },
         props: colorControls,

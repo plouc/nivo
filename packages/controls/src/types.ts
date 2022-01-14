@@ -77,9 +77,14 @@ export type BoxAnchorControlProps = CommonControlProps<BoxAnchor> & {
     type: 'box_anchor'
 }
 
+export type ColorControlProps = CommonControlProps<number> & {
+    type: 'color'
+}
+
 export type ControlProps<Value = any> =
     | AngleControlProps
     | BoxAnchorControlProps
+    | ColorControlProps
     | LineWidthControlProps
     | ObjectControlProps<Extract<Value, Record<string, any>>>
     | OpacityControlProps
@@ -95,6 +100,7 @@ type NestObjectControlProps<Prop extends ControlProps, Obj extends Record<string
 export type ObjectNestedControlProps<Obj extends Record<string, any>, Value = any> =
     | NestObjectControlProps<AngleControlProps, Obj>
     | NestObjectControlProps<BoxAnchorControlProps, Obj>
+    | NestObjectControlProps<ColorControlProps, Obj>
     | NestObjectControlProps<LineWidthControlProps, Obj>
     | NestObjectControlProps<ObjectControlProps<Extract<Value, Record<string, any>>>, Obj>
     | NestObjectControlProps<OpacityControlProps, Obj>

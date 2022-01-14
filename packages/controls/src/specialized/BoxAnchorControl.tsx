@@ -28,10 +28,10 @@ export const BoxAnchorControl = ({
     return (
         <ControlContainer name={name}>
             <Container>
-                <div>
+                <Heading>
                     <Header name={name} context={context} />
                     <Value>{value}</Value>
-                </div>
+                </Heading>
                 <svg width={boxWidth + boxPadding * 2} height={boxHeight + boxPadding * 2}>
                     <g transform={`translate(${boxPadding},${boxPadding})`}>
                         <Rect width={boxWidth} height={boxHeight} />
@@ -63,6 +63,11 @@ export const BoxAnchorControl = ({
         </ControlContainer>
     )
 }
+
+const Heading = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 
 const Container = styled.div`
     display: flex;
@@ -99,5 +104,6 @@ const DotOutline = styled.circle<{
 `
 
 const Value = styled.span`
-    margin-left: 20px;
+    margin-top: 6px;
+    color: ${({ theme }) => theme.colors.accent};
 `
