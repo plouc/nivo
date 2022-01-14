@@ -1,0 +1,37 @@
+{
+  "name": "@nivo/controls",
+  "version": "0.79.1",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/controls"
+  },
+  "main": "./dist/nivo-controls.cjs.js",
+  "module": "./dist/nivo-controls.es.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "dependencies": {
+    "@types/styled-components": "^5.1.18",
+    "dedent-js": "^1.0.1",
+    "lodash": "^4.17.21",
+    "react-icons": "^4.3.1",
+    "react-markdown": "^7.1.1",
+    "styled-components": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": ">= 16.14.0 < 18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
