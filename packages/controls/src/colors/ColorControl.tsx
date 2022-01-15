@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from 'styled-components'
 import { ColorControlProps } from '../types'
-import { ControlContainer, Header } from '../ui'
+import { ControlContainer, Label } from '../ui'
 
 export const ColorControl = ({
     name,
@@ -21,7 +21,7 @@ export const ColorControl = ({
         <ControlContainer name={name}>
             <Container>
                 <Heading>
-                    <Header name={name} icon={icon} context={context} />
+                    <Label name={name} icon={icon} context={context} />
                     <Value>{value}</Value>
                 </Heading>
                 <input type="color" id={name} onChange={handleChange} value={value} />

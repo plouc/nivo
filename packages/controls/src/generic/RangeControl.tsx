@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from 'styled-components'
 import { RangeControlProps } from '../types'
-import { ControlContainer, Header, TextInput, Slider } from '../ui'
+import { ControlContainer, Label, TextInput, Slider } from '../ui'
 
 export const RangeControl = ({
     name,
@@ -19,7 +19,7 @@ export const RangeControl = ({
     return (
         <ControlContainer name={name} description={description}>
             <TopContainer>
-                <Header name={name} context={context} />
+                <Label name={name} context={context} />
                 <TextInput
                     name={name}
                     value={value}

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from 'styled-components'
 import { LineWidthControlProps } from '../types'
-import { ControlContainer, Header, TextInput, Slider } from '../ui'
+import { ControlContainer, Label, TextInput, Slider } from '../ui'
 
 const size = 24
 
@@ -35,7 +35,7 @@ export const LineWidthControl = ({
                         strokeWidth={value}
                     />
                 </svg>
-                <Header name={name} icon={icon} context={context} />
+                <Label name={name} icon={icon} context={context} />
                 <TextInput value={value} onChange={handleChange} unit="px" isNumber={true} />
             </TopContainer>
             <Slider

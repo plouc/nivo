@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { BoxAnchorControlProps, BoxAnchor } from '../types'
-import { ControlContainer, Header } from '../ui'
+import { ControlContainer, Label } from '../ui'
 
 const boxWidth = 80
 const boxHeight = 50
@@ -30,7 +30,7 @@ export const BoxAnchorControl = ({
         <ControlContainer name={name}>
             <Container>
                 <Heading>
-                    <Header name={name} icon={icon} context={context} />
+                    <Label name={name} icon={icon} context={context} />
                     <Value>{value}</Value>
                 </Heading>
                 <svg width={boxWidth + boxPadding * 2} height={boxHeight + boxPadding * 2}>

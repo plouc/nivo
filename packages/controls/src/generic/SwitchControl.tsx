@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { ControlContainer, Header, Switch } from '../ui'
+import { ControlContainer, Label, Switch } from '../ui'
 import { SwitchControlProps } from '../types'
 
 export const SwitchControl = ({
@@ -13,7 +13,7 @@ export const SwitchControl = ({
     return (
         <ControlContainer name={name} description={description}>
             <TopContainer>
-                <Header name={name} icon={icon} context={context} />
+                <Label name={name} icon={icon} context={context} />
                 <Switch name={name} value={value} onChange={onChange} />
             </TopContainer>
         </ControlContainer>

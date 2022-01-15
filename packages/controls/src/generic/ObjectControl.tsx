@@ -1,6 +1,6 @@
 import { ObjectControlProps, ObjectControlPropsCollection } from '../types'
 import { useCallback, useMemo } from 'react'
-import { ControlContainer, Header } from '../ui'
+import { ControlContainer, Label } from '../ui'
 import { Control } from '../Control'
 
 const ObjectControlNestedControl = <Obj extends Record<string, unknown>>({
@@ -47,7 +47,7 @@ export const ObjectControl = <Value extends Record<string, unknown>>({
     return (
         <>
             <ControlContainer name={name} description={description}>
-                <Header name={name} icon={icon} context={context} />
+                <Label name={name} icon={icon} context={context} />
             </ControlContainer>
             {props.map(control => (
                 <ObjectControlNestedControl

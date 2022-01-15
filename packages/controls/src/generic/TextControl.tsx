@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from 'styled-components'
-import { ControlContainer, Header, TextInput } from '../ui'
 import { TextControlProps } from '../types'
+import { ControlContainer, Label, TextInput } from '../ui'
 
 export const TextControl = ({
     name,
@@ -16,7 +16,7 @@ export const TextControl = ({
 
     return (
         <ControlContainer name={name} description={description}>
-            <Header name={name} icon={icon} context={context} />
+            <Label name={name} icon={icon} context={context} />
             <Container>
                 <TextInput
                     name={name}

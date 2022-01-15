@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from 'styled-components'
 import { AngleControlProps } from '../types'
-import { ControlContainer, Header, TextInput, Slider } from '../ui'
+import { ControlContainer, Label, TextInput, Slider } from '../ui'
 
 const size = 36
 const center = size / 2
@@ -37,7 +37,7 @@ export const AngleControl = ({
                         </g>
                     </g>
                 </svg>
-                <Header name={name} icon={icon} context={context} />
+                <Label name={name} icon={icon} context={context} />
                 <TextInput
                     name={name}
                     value={value}

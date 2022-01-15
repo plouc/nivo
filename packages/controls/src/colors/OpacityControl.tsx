@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { OpacityControlProps } from '../types'
-import { ControlContainer, Header, TextInput, Slider } from '../ui'
+import { ControlContainer, Label, TextInput, Slider } from '../ui'
 
 const size = 24
 
@@ -43,7 +43,7 @@ export const OpacityControl = ({
                         fillOpacity={value}
                     />
                 </svg>
-                <Header name={name} icon={icon} context={context} />
+                <Label name={name} icon={icon} context={context} />
                 <TextInput value={value} onChange={handleChange} isNumber={true} />
             </TopContainer>
             <Slider
