@@ -62,15 +62,16 @@ const Item = styled.label<{ isSelected: boolean }>`
     text-align: center;
     font-weight: ${({ isSelected }) => (isSelected ? 600 : 400)};
     background: ${({ isSelected, theme }) =>
-        isSelected ? theme.colors.cardBackground : theme.colors.inputBackground};
-    color: ${({ isSelected, theme }) => (isSelected ? theme.colors.text : theme.colors.textLight)};
+        isSelected ? theme.colors.panelBackground : theme.colors.inputBackground};
+    color: ${({ isSelected, theme }) =>
+        isSelected ? theme.colors.accent : theme.colors.textLight};
     border: 1px solid ${({ theme }) => theme.colors.border};
     border-top-width: 0;
     border-left-width: 0;
     user-select: none;
 
     &:hover {
-        color: ${({ theme }) => theme.colors.text};
+        color: ${({ isSelected, theme }) => (isSelected ? theme.colors.accent : theme.colors.text)};
     }
 
     input {

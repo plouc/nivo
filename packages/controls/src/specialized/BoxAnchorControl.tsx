@@ -91,7 +91,6 @@ const Dot = styled.circle<{
 const DotOutline = styled.circle<{
     isSelected: boolean
 }>`
-    fill: red;
     fill-opacity: 0;
     stroke-width: 2px;
     stroke: ${({ isSelected, theme }) =>

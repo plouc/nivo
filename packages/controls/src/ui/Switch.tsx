@@ -51,7 +51,7 @@ const Input = styled.input`
         left: 3px;
         width: 12px;
         height: 12px;
-        background-color: ${({ theme }) => theme.colors.cardBackground};
+        background-color: ${({ theme }) => theme.colors.panelBackground};
         border-radius: 6px;
         transform: translate3d(0, 0, 0);
         transition: transform 120ms;

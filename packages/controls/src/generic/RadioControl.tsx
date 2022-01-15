@@ -8,20 +8,21 @@ export const RadioControl = <Value extends string | number = string>({
     choices,
     columns,
     value,
-    onChange,
+    onChange: _onChange,
     context = { path: [] },
 }: RadioControlProps<Value>) => {
-    const handleUpdate = useCallback(event => onChange?.(event.target.value), [onChange])
+    const onChange = useCallback(
+        (value: Value) => {
+            console.log('YAY')
+            _onChange?.(value)
+        },
+        [_onChange]
+    )
 
     return (
         <ControlContainer name={name} description={description}>
             <Header name={name} context={context} />
-            <Radio<Value>
-                options={choices}
-                columns={columns}
-                value={value}
-                onChange={handleUpdate}
-            />
+            <Radio<Value> options={choices} columns={columns} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

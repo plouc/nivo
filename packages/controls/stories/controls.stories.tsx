@@ -1,100 +1,73 @@
 import { storiesOf } from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
 // @ts-ignore
-import { useControl, Control } from '../src'
-import { useMemo } from 'react'
+import { useControl, ControlPanel, Control, darkTheme, lightTheme } from '../src'
+import { useMemo, useState } from 'react'
 
 const stories = storiesOf('Controls', module)
 
-const theme = {
-    colors: {
-        cardBackground: '#2f3333',
-        text: '#b6c4c4',
-        textLight: '#727a7a',
-        inputBackground: '#1e2121',
-        border: '#1e2121',
-        borderLight: '#1e2121',
-        accent: '#4c9d9d',
-    },
-}
-
-const genericControls = [
-    {
-        name: 'enabled',
-        type: 'switch',
-        help: 'Enable/Disable the feature.',
-    },
-    {
-        name: 'size',
-        type: 'range',
-        help: 'Control the size of the element.',
-        min: 0,
-        max: 100,
-        unit: 'px',
-    },
-    {
-        name: 'layout',
-        type: 'radio',
-        choices: [
-            { value: 'horizontal', label: 'Horizontal' },
-            { value: 'vertical', label: 'Vertical' },
-        ],
-    },
-    {
-        name: 'label',
-        type: 'text',
-        help: 'Define the label of the legend.',
-    },
-    {
-        name: 'number_radio',
-        type: 'radio',
-        columns: 3,
-        choices: [
-            { value: 1, label: 'One' },
-            { value: 2, label: 'Two' },
-            { value: 3, label: 'Three' },
-        ],
-    },
-]
-
-const specializedControls = [
-    {
-        name: 'angle',
-        type: 'angle',
-    },
-    {
-        name: 'anchor',
-        type: 'box_anchor',
-    },
-    {
-        name: 'lineWidth',
-        type: 'line_width',
-    },
-]
-
-const colorControls = [
-    {
-        name: 'color',
-        type: 'color',
-    },
-    {
-        name: 'opacity',
-        type: 'opacity',
-    },
-]
-
-stories.add('Range', () => {
+const Demo = ({
+    theme,
+    setTheme,
+    accentColor,
+    setAccentColor,
+}: {
+    theme: string
+    setTheme: (theme: string) => void
+    accentColor: string
+    setAccentColor: (color: string) => void
+}) => {
     const generics = useControl({
         name: 'Generics',
         type: 'object',
         value: {
+            theme,
             enabled: true,
             size: 12,
-            layout: 'horizontal',
             label: 'Hello world',
             number_radio: 3,
         },
-        props: genericControls,
+        props: [
+            {
+                name: 'enabled',
+                type: 'switch',
+                help: 'Enable/Disable the feature.',
+            },
+            {
+                name: 'size',
+                type: 'range',
+                help: 'Control the size of the element.',
+                min: 0,
+                max: 100,
+                unit: 'px',
+            },
+            {
+                name: 'theme',
+                type: 'radio',
+                choices: [
+                    { value: 'dark', label: 'Dark' },
+                    { value: 'light', label: 'Light' },
+                ],
+            },
+            {
+                name: 'label',
+                type: 'text',
+                help: 'Define the label of the legend.',
+            },
+            {
+                name: 'number_radio',
+                type: 'radio',
+                columns: 3,
+                choices: [
+                    { value: 1, label: 'One' },
+                    { value: 2, label: 'Two' },
+                    { value: 3, label: 'Three' },
+                ],
+            },
+        ],
+        onChange: value => {
+            setTheme(value.theme)
+        },
     })
 
     const specialized = useControl({
@@ -105,17 +78,42 @@ stories.add('Range', () => {
             anchor: 'center',
             lineWidth: 2,
         },
-        props: specializedControls,
+        props: [
+            {
+                name: 'angle',
+                type: 'angle',
+            },
+            {
+                name: 'anchor',
+                type: 'box_anchor',
+            },
+            {
+                name: 'lineWidth',
+                type: 'line_width',
+            },
+        ],
     })
 
     const colors = useControl({
         name: 'Colors',
         type: 'object',
         value: {
-            color: '#d7ae44',
+            accentColor,
             opacity: 0.35,
         },
-        props: colorControls,
+        props: [
+            {
+                name: 'accentColor',
+                type: 'color',
+            },
+            {
+                name: 'opacity',
+                type: 'opacity',
+            },
+        ],
+        onChange: value => {
+            setAccentColor(value.accentColor)
+        },
     })
 
     const mergedValue = useMemo(
@@ -128,21 +126,47 @@ stories.add('Range', () => {
     )
 
     return (
+        <Container>
+            <ControlPanel>
+                <Control control={generics} />
+            </ControlPanel>
+            <ControlPanel>
+                <Control control={specialized} />
+            </ControlPanel>
+            <ControlPanel>
+                <Control control={colors} />
+            </ControlPanel>
+            <div>
+                <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
+            </div>
+        </Container>
+    )
+}
+
+stories.add('Range', () => {
+    const [themeId, setThemeId] = useState('dark')
+    const [accentColor, setAccentColor] = useState(darkTheme.colors.accent)
+
+    const theme = useMemo(() => {
+        const _theme = themeId === 'dark' ? darkTheme : lightTheme
+
+        return {
+            ..._theme,
+            colors: {
+                ..._theme.colors,
+                accent: accentColor,
+            },
+        }
+    }, [themeId, accentColor])
+
+    return (
         <ThemeProvider theme={theme}>
-            <Container>
-                <div>
-                    <Control control={generics} />
-                </div>
-                <div>
-                    <Control control={specialized} />
-                </div>
-                <div>
-                    <Control control={colors} />
-                </div>
-                <div>
-                    <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
-                </div>
-            </Container>
+            <Demo
+                theme={themeId}
+                setTheme={setThemeId}
+                accentColor={accentColor}
+                setAccentColor={setAccentColor}
+            />
         </ThemeProvider>
     )
 })
@@ -151,4 +175,8 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 280px);
     grid-column-gap: 16px;
+    padding: 32px;
+    align-items: flex-start;
+    background: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
 `

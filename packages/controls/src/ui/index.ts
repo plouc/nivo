@@ -1,4 +1,5 @@
 export * from './ControlContainer'
+export * from './ControlPanel'
 export * from './Header'
 export * from './Help'
 export * from './Radio'

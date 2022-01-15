@@ -57,7 +57,6 @@ export const ControlContainer = ({
 const Container = styled.div<{ isPropertySupported: boolean }>`
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
     padding: 9px 9px;
-    background-color: ${({ theme }) => theme.colors.cardBackground};
 
     &:last-child {
         border-bottom-width: 0;

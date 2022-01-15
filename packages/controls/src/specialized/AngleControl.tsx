@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import styled from 'styled-components'
 import { AngleControlProps } from '../types'
-import { ControlContainer, Header, Help, TextInput, Slider } from '../ui'
+import { ControlContainer, Header, TextInput, Slider } from '../ui'
 
 const size = 36
 const center = size / 2
@@ -9,7 +9,6 @@ const markerSize = 6
 
 export const AngleControl = ({
     name,
-    help,
     value,
     start = 0,
     min = 0,
@@ -67,19 +66,6 @@ const TopContainer = styled.div`
 
     & > *:nth-child(3) {
         margin-left: 9px;
-    }
-`
-
-const BottomContainer = styled.div`
-    display: flex;
-    align-items: center;
-
-    & svg {
-        margin-right: 9px;
-    }
-
-    & input {
-        flex: 1;
     }
 `
 

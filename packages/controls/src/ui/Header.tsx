@@ -66,7 +66,6 @@ const Label = styled.label`
     display: inline-block;
     white-space: nowrap;
     font-weight: 600;
-    color: ${({ theme }) => theme.colors.text};
 `
 
 const LabelParentPath = styled.span`
