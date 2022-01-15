@@ -9,6 +9,7 @@ const markerSize = 6
 
 export const AngleControl = ({
     name,
+    icon,
     value,
     start = 0,
     min = 0,
@@ -36,7 +37,7 @@ export const AngleControl = ({
                         </g>
                     </g>
                 </svg>
-                <Header name={name} context={context} />
+                <Header name={name} icon={icon} context={context} />
                 <TextInput
                     name={name}
                     value={value}

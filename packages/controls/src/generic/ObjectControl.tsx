@@ -37,6 +37,7 @@ const ObjectControlNestedControl = <Obj extends Record<string, unknown>>({
 
 export const ObjectControl = <Value extends Record<string, unknown>>({
     name,
+    icon,
     description,
     props,
     value,
@@ -46,7 +47,7 @@ export const ObjectControl = <Value extends Record<string, unknown>>({
     return (
         <>
             <ControlContainer name={name} description={description}>
-                <Header name={name} context={context} />
+                <Header name={name} icon={icon} context={context} />
             </ControlContainer>
             {props.map(control => (
                 <ObjectControlNestedControl

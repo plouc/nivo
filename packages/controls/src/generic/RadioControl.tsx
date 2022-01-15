@@ -4,6 +4,7 @@ import { RadioControlProps } from '../types'
 
 export const RadioControl = <Value extends string | number = string>({
     name,
+    icon,
     description,
     choices,
     columns,
@@ -21,7 +22,7 @@ export const RadioControl = <Value extends string | number = string>({
 
     return (
         <ControlContainer name={name} description={description}>
-            <Header name={name} context={context} />
+            <Header name={name} icon={icon} context={context} />
             <Radio<Value> options={choices} columns={columns} value={value} onChange={onChange} />
         </ControlContainer>
     )

@@ -5,6 +5,7 @@ import { TextControlProps } from '../types'
 
 export const TextControl = ({
     name,
+    icon,
     description,
     disabled,
     value,
@@ -15,7 +16,7 @@ export const TextControl = ({
 
     return (
         <ControlContainer name={name} description={description}>
-            <Header name={name} context={context} />
+            <Header name={name} icon={icon} context={context} />
             <Container>
                 <TextInput
                     name={name}

@@ -7,6 +7,7 @@ const size = 24
 
 export const LineWidthControl = ({
     name,
+    icon,
     value,
     onChange,
     step = 1,
@@ -32,7 +33,7 @@ export const LineWidthControl = ({
                         strokeWidth={value}
                     />
                 </svg>
-                <Header name={name} context={context} />
+                <Header name={name} icon={icon} context={context} />
                 <TextInput value={value} onChange={handleChange} unit="px" isNumber={true} />
             </TopContainer>
             <Slider

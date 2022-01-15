@@ -7,6 +7,7 @@ import isBoolean from 'lodash/isBoolean'
 import isFunction from 'lodash/isFunction'
 import styled from 'styled-components'
 import { ControlContext } from '../types'
+import { IconType, Icon } from './Icon'
 
 const getDefaultValue = (value: any) => {
     if (isPlainObject(value)) {
@@ -36,10 +37,11 @@ const getDefaultValue = (value: any) => {
 
 type HeaderProps = {
     name: string
+    icon?: IconType | ReactNode
     context: ControlContext
 }
 
-export const Header = ({ name, context }: HeaderProps) => {
+export const Header = ({ name, icon, context }: HeaderProps) => {
     let label: ReactNode = name
     if (context.path.length > 0) {
         label = (
@@ -52,6 +54,7 @@ export const Header = ({ name, context }: HeaderProps) => {
 
     return (
         <Container>
+            {icon && <Icon type={icon} />}
             <Label htmlFor={name}>{label}</Label>
         </Container>
     )
@@ -63,7 +66,8 @@ const Container = styled.div`
 `
 
 const Label = styled.label`
-    display: inline-block;
+    display: flex;
+    align-items: center;
     white-space: nowrap;
     font-weight: 600;
 `

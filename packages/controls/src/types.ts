@@ -1,3 +1,6 @@
+import { ReactNode } from 'react'
+import { IconType } from './ui'
+
 export type Unit = 'px' | '°' | 'ms'
 
 export type ControlContext = {
@@ -6,6 +9,7 @@ export type ControlContext = {
 
 export type CommonControlProps<Value> = {
     name: string
+    icon?: IconType | ReactNode
     help?: string
     description?: string
     context?: ControlContext

@@ -7,6 +7,7 @@ const size = 24
 
 export const OpacityControl = ({
     name,
+    icon,
     value,
     onChange,
     context = { path: [] },
@@ -42,7 +43,7 @@ export const OpacityControl = ({
                         fillOpacity={value}
                     />
                 </svg>
-                <Header name={name} context={context} />
+                <Header name={name} icon={icon} context={context} />
                 <TextInput value={value} onChange={handleChange} isNumber={true} />
             </TopContainer>
             <Slider

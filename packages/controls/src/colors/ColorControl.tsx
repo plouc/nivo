@@ -5,6 +5,7 @@ import { ControlContainer, Header } from '../ui'
 
 export const ColorControl = ({
     name,
+    icon,
     value,
     context = { path: [] },
     onChange,
@@ -20,7 +21,7 @@ export const ColorControl = ({
         <ControlContainer name={name}>
             <Container>
                 <Heading>
-                    <Header name={name} context={context} />
+                    <Header name={name} icon={icon} context={context} />
                     <Value>{value}</Value>
                 </Heading>
                 <input type="color" id={name} onChange={handleChange} value={value} />

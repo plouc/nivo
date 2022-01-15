@@ -20,6 +20,7 @@ const Demo = ({
     const generics = useControl({
         name: 'Generics',
         type: 'object',
+        icon: 'sliders',
         value: {
             theme,
             enabled: true,
@@ -52,6 +53,7 @@ const Demo = ({
             {
                 name: 'label',
                 type: 'text',
+                icon: 'type',
                 help: 'Define the label of the legend.',
             },
             {
@@ -73,6 +75,7 @@ const Demo = ({
     const specialized = useControl({
         name: 'Specialized',
         type: 'object',
+        icon: 'hash',
         value: {
             angle: 180,
             anchor: 'center',
@@ -97,6 +100,7 @@ const Demo = ({
     const colors = useControl({
         name: 'Colors',
         type: 'object',
+        icon: 'image',
         value: {
             accentColor,
             opacity: 0.35,

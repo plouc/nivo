@@ -4,6 +4,7 @@ import { SwitchControlProps } from '../types'
 
 export const SwitchControl = ({
     name,
+    icon,
     description,
     value,
     onChange,
@@ -12,7 +13,7 @@ export const SwitchControl = ({
     return (
         <ControlContainer name={name} description={description}>
             <TopContainer>
-                <Header name={name} context={context} />
+                <Header name={name} icon={icon} context={context} />
                 <Switch name={name} value={value} onChange={onChange} />
             </TopContainer>
         </ControlContainer>
