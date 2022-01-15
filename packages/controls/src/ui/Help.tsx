@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import dedent from 'dedent-js'
-import { Markdown } from './Markdown'
 
 interface HelpProps {
     children?: string | undefined
@@ -9,11 +7,7 @@ interface HelpProps {
 export const Help = ({ children }: HelpProps) => {
     if (!children) return null
 
-    return (
-        <Container>
-            <Markdown source={dedent(children)} />
-        </Container>
-    )
+    return <Container>{children}</Container>
 }
 
 export const Container = styled.div`

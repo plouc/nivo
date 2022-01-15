@@ -10,6 +10,8 @@ export const LineWidthControl = ({
     icon,
     value,
     onChange,
+    min = 0,
+    max = 20,
     step = 1,
     context = { path: [] },
 }: LineWidthControlProps) => {
@@ -40,8 +42,8 @@ export const LineWidthControl = ({
                 type="range"
                 value={value}
                 onChange={handleChange}
-                min={0}
-                max={20}
+                min={min}
+                max={max}
                 step={step}
             />
         </ControlContainer>

@@ -63,6 +63,8 @@ export type OpacityControlProps = CommonControlProps<number> & {
 
 export type LineWidthControlProps = CommonControlProps<number> & {
     type: 'line_width'
+    min?: number
+    max?: number
     step?: number
 }
 

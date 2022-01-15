@@ -1,7 +1,14 @@
 import { storiesOf } from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
 // @ts-ignore
-import { useControl, ControlPanel, Control, darkTheme, lightTheme } from '../src'
+import {
+    useControl,
+    ControlPanel,
+    TabbedControlPanel,
+    Control,
+    darkTheme,
+    lightTheme,
+} from '../src'
 import { useMemo, useState } from 'react'
 
 const stories = storiesOf('Controls', module)
@@ -131,15 +138,25 @@ const Demo = ({
 
     return (
         <Container>
-            <ControlPanel>
-                <Control control={generics} />
-            </ControlPanel>
-            <ControlPanel>
-                <Control control={specialized} />
-            </ControlPanel>
-            <ControlPanel>
-                <Control control={colors} />
-            </ControlPanel>
+            <TabbedControlPanel
+                tabs={[
+                    {
+                        name: 'Generics',
+                        controls: [generics],
+                    },
+                    {
+                        name: 'Specialized',
+                        controls: [specialized],
+                    },
+                    {
+                        name: 'Colors',
+                        controls: [colors],
+                    },
+                ]}
+            />
+            <ControlPanel controls={[generics]} />
+            <ControlPanel controls={[specialized]} />
+            <ControlPanel controls={[colors]} />
             <div>
                 <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
             </div>
@@ -177,7 +194,7 @@ stories.add('Range', () => {
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: repeat(4, 280px);
+    grid-template-columns: repeat(5, 280px);
     grid-column-gap: 16px;
     padding: 32px;
     align-items: flex-start;

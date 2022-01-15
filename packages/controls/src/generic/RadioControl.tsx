@@ -14,7 +14,6 @@ export const RadioControl = <Value extends string | number = string>({
 }: RadioControlProps<Value>) => {
     const onChange = useCallback(
         (value: Value) => {
-            console.log('YAY')
             _onChange?.(value)
         },
         [_onChange]

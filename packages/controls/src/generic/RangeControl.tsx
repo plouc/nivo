@@ -8,7 +8,7 @@ export const RangeControl = ({
     description,
     min,
     max,
-    step,
+    step = 1,
     unit,
     value,
     onChange,
