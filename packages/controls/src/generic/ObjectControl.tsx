@@ -12,16 +12,16 @@ const ObjectControlNestedControl = <Obj extends Record<string, unknown>>({
     objectValue: Obj
     onChange?: (value: Obj) => void
 }) => {
-    const controlName = control.name
-    const value = objectValue[controlName]
+    const controlId = control.id
+    const value = objectValue[controlId]
     const onChange = useCallback(
         (value: any) => {
             _onChange?.({
                 ...objectValue,
-                [controlName]: value,
+                [controlId]: value,
             })
         },
-        [objectValue]
+        [objectValue, controlId]
     )
 
     const boundControl = useMemo(() => {
@@ -36,7 +36,8 @@ const ObjectControlNestedControl = <Obj extends Record<string, unknown>>({
 }
 
 export const ObjectControl = <Value extends Record<string, unknown>>({
-    name,
+    id,
+    label,
     icon,
     description,
     props,
@@ -46,12 +47,12 @@ export const ObjectControl = <Value extends Record<string, unknown>>({
 }: ObjectControlProps<Value>) => {
     return (
         <>
-            <ControlContainer name={name} description={description}>
-                <Label name={name} icon={icon} context={context} />
+            <ControlContainer id={id} description={description}>
+                <Label id={id} label={label} icon={icon} context={context} />
             </ControlContainer>
             {props.map(control => (
                 <ObjectControlNestedControl
-                    key={control.name}
+                    key={control.id}
                     control={control}
                     objectValue={value}
                     onChange={onChange}

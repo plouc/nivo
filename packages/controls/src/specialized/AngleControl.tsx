@@ -8,7 +8,8 @@ const center = size / 2
 const markerSize = 6
 
 export const AngleControl = ({
-    name,
+    id,
+    label,
     icon,
     value,
     start = 0,
@@ -25,7 +26,7 @@ export const AngleControl = ({
     )
 
     return (
-        <ControlContainer name={name}>
+        <ControlContainer id={id}>
             <TopContainer>
                 <svg width={size} height={size}>
                     <Circle cx={center} cy={center} r={center - markerSize / 2} />
@@ -37,14 +38,8 @@ export const AngleControl = ({
                         </g>
                     </g>
                 </svg>
-                <Label name={name} icon={icon} context={context} />
-                <TextInput
-                    name={name}
-                    value={value}
-                    onChange={handleChange}
-                    unit="°"
-                    isNumber={true}
-                />
+                <Label id={id} label={label} icon={icon} context={context} />
+                <TextInput id={id} value={value} onChange={handleChange} unit="°" isNumber={true} />
             </TopContainer>
             <Slider type="range" value={value} onChange={handleChange} min={min} max={max} />
         </ControlContainer>

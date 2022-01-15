@@ -7,7 +7,7 @@ describe('AngleControl', () => {
     it('should render an angle control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <AngleControl name="angle" type="angle" value={90} />
+                <AngleControl id="angle" type="angle" value={90} />
             </ThemeProvider>
         )
 
@@ -29,7 +29,7 @@ describe('AngleControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <AngleControl name="angle" type="angle" value={90} onChange={onChange} />
+                <AngleControl id="angle" type="angle" value={90} onChange={onChange} />
             </ThemeProvider>
         )
 
@@ -45,7 +45,7 @@ describe('AngleControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <AngleControl name="angle" type="angle" value={90} onChange={onChange} />
+                <AngleControl id="angle" type="angle" value={90} onChange={onChange} />
             </ThemeProvider>
         )
 

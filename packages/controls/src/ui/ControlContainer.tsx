@@ -1,44 +1,23 @@
 import { useState, useCallback, PropsWithChildren } from 'react'
-// import intersection from 'lodash/intersection'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
-// import { Flavor } from '../../../types'
 import { Description } from './Description'
-// import { PropertyFlavors } from './PropertyFlavors'
-// import { Cell } from './styled'
 
 interface ControlProps {
-    name: string
+    id: string
     description?: string
-    // flavors: Flavor[]
-    // currentFlavor: Flavor
-    // supportedFlavors?: Flavor[]
 }
 
 export const ControlContainer = ({
-    name,
+    id,
     description,
-    // flavors,
-    // currentFlavor,
-    // supportedFlavors,
     children,
 }: PropsWithChildren<ControlProps>) => {
     const [showDescription, setShowDescription] = useState(false)
     const toggle = useCallback(() => setShowDescription(flag => !flag), [setShowDescription])
 
-    let isPropertySupported = true
-    // let showFlavors = false
-    // if (Array.isArray(supportedFlavors)) {
-    //     if (intersection(flavors, supportedFlavors).length < flavors.length) {
-    //         showFlavors = true
-    //     }
-    //     if (!supportedFlavors.includes(currentFlavor)) {
-    //         isPropertySupported = false
-    //     }
-    // }
-
     return (
-        <Container id={name} isPropertySupported={isPropertySupported}>
+        <Container id={id}>
             {description !== undefined && (
                 <Toggle onClick={toggle}>
                     {showDescription && <MdKeyboardArrowDown size={18} />}
@@ -54,7 +33,7 @@ export const ControlContainer = ({
     )
 }
 
-const Container = styled.div<{ isPropertySupported: boolean }>`
+const Container = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
     padding: 9px;
 

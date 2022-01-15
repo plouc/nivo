@@ -6,7 +6,8 @@ import { ControlContainer, Label, TextInput, Slider } from '../ui'
 const size = 24
 
 export const LineWidthControl = ({
-    name,
+    id,
+    label,
     icon,
     value,
     onChange,
@@ -23,7 +24,7 @@ export const LineWidthControl = ({
     )
 
     return (
-        <ControlContainer name={name}>
+        <ControlContainer id={id}>
             <TopContainer>
                 <svg width={size} height={size}>
                     <Line y1={size / 2} x2={size} y2={size / 2} />
@@ -35,8 +36,14 @@ export const LineWidthControl = ({
                         strokeWidth={value}
                     />
                 </svg>
-                <Label name={name} icon={icon} context={context} />
-                <TextInput value={value} onChange={handleChange} unit="px" isNumber={true} />
+                <Label id={id} label={label} icon={icon} context={context} />
+                <TextInput
+                    id={id}
+                    value={value}
+                    onChange={handleChange}
+                    unit="px"
+                    isNumber={true}
+                />
             </TopContainer>
             <Slider
                 type="range"

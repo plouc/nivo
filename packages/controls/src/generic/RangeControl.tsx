@@ -4,7 +4,8 @@ import { RangeControlProps } from '../types'
 import { ControlContainer, Label, TextInput, Slider } from '../ui'
 
 export const RangeControl = ({
-    name,
+    id,
+    label,
     description,
     min,
     max,
@@ -17,11 +18,11 @@ export const RangeControl = ({
     const handleChange = useCallback(event => onChange?.(Number(event.target.value)), [onChange])
 
     return (
-        <ControlContainer name={name} description={description}>
+        <ControlContainer id={id} description={description}>
             <TopContainer>
-                <Label name={name} context={context} />
+                <Label id={id} label={label} context={context} />
                 <TextInput
-                    name={name}
+                    id={id}
                     value={value}
                     unit={unit}
                     isNumber={true}

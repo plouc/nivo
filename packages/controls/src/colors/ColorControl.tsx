@@ -4,7 +4,8 @@ import { ColorControlProps } from '../types'
 import { ControlContainer, Label } from '../ui'
 
 export const ColorControl = ({
-    name,
+    id,
+    label,
     icon,
     value,
     context = { path: [] },
@@ -18,13 +19,13 @@ export const ColorControl = ({
     )
 
     return (
-        <ControlContainer name={name}>
+        <ControlContainer id={id}>
             <Container>
                 <Heading>
-                    <Label name={name} icon={icon} context={context} />
+                    <Label id={id} label={label} icon={icon} context={context} />
                     <Value>{value}</Value>
                 </Heading>
-                <input type="color" id={name} onChange={handleChange} value={value} />
+                <input type="color" id={id} onChange={handleChange} value={value} />
             </Container>
         </ControlContainer>
     )

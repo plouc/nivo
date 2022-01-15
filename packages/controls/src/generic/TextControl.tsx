@@ -4,7 +4,8 @@ import { TextControlProps } from '../types'
 import { ControlContainer, Label, TextInput } from '../ui'
 
 export const TextControl = ({
-    name,
+    id,
+    label,
     icon,
     description,
     disabled,
@@ -15,11 +16,11 @@ export const TextControl = ({
     const handleUpdate = useCallback(event => onChange?.(event.target.value), [onChange])
 
     return (
-        <ControlContainer name={name} description={description}>
-            <Label name={name} icon={icon} context={context} />
+        <ControlContainer id={id} description={description}>
+            <Label id={id} label={label} icon={icon} context={context} />
             <Container>
                 <TextInput
-                    name={name}
+                    id={id}
                     type="text"
                     value={value}
                     onChange={handleUpdate}

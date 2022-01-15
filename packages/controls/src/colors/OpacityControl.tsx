@@ -6,7 +6,8 @@ import { ControlContainer, Label, TextInput, Slider } from '../ui'
 const size = 24
 
 export const OpacityControl = ({
-    name,
+    id,
+    label,
     icon,
     value,
     onChange,
@@ -21,7 +22,7 @@ export const OpacityControl = ({
     )
 
     return (
-        <ControlContainer name={name}>
+        <ControlContainer id={id}>
             <TopContainer>
                 <svg width={size} height={size}>
                     <defs>
@@ -43,8 +44,8 @@ export const OpacityControl = ({
                         fillOpacity={value}
                     />
                 </svg>
-                <Label name={name} icon={icon} context={context} />
-                <TextInput value={value} onChange={handleChange} isNumber={true} />
+                <Label id={id} label={label} icon={icon} context={context} />
+                <TextInput id={id} value={value} onChange={handleChange} isNumber={true} />
             </TopContainer>
             <Slider
                 type="range"

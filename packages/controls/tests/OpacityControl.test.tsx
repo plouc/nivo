@@ -7,7 +7,7 @@ describe('OpacityControl', () => {
     it('should render an opacity control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <OpacityControl name="opacity" type="opacity" value={0.5} />
+                <OpacityControl id="opacity" type="opacity" value={0.5} />
             </ThemeProvider>
         )
 
@@ -29,7 +29,7 @@ describe('OpacityControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <OpacityControl name="opacity" type="opacity" value={0.5} onChange={onChange} />
+                <OpacityControl id="opacity" type="opacity" value={0.5} onChange={onChange} />
             </ThemeProvider>
         )
 
@@ -45,7 +45,7 @@ describe('OpacityControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <OpacityControl name="opacity" type="opacity" value={0.5} onChange={onChange} />
+                <OpacityControl id="opacity" type="opacity" value={0.5} onChange={onChange} />
             </ThemeProvider>
         )
 

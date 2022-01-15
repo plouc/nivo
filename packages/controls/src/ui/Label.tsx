@@ -4,18 +4,19 @@ import { ControlContext } from '../types'
 import { IconType, Icon } from './Icon'
 
 type LabelProps = {
-    name: string
+    id: string
+    label?: string
     icon?: IconType | ReactNode
     context: ControlContext
 }
 
-export const Label = ({ name, icon, context }: LabelProps) => {
-    let label: ReactNode = name
+export const Label = ({ id, label: _label, icon, context }: LabelProps) => {
+    let label: ReactNode = _label || id
     if (context.path.length > 0) {
         label = (
             <>
                 <LabelParentPath>{context.path.join('.')}.</LabelParentPath>
-                {name}
+                {label}
             </>
         )
     }
@@ -23,7 +24,7 @@ export const Label = ({ name, icon, context }: LabelProps) => {
     return (
         <Container>
             {icon && <Icon type={icon} />}
-            <HtmlLabel htmlFor={name}>{label}</HtmlLabel>
+            <HtmlLabel htmlFor={id}>{label}</HtmlLabel>
         </Container>
     )
 }

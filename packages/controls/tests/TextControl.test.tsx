@@ -7,7 +7,7 @@ describe('TextControl', () => {
     it('should render a text control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <TextControl name="text" type="text" value="test" />
+                <TextControl id="text" type="text" value="test" />
             </ThemeProvider>
         )
 
@@ -20,7 +20,7 @@ describe('TextControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <TextControl name="text" type="text" value="test" onChange={onChange} />
+                <TextControl id="text" type="text" value="test" onChange={onChange} />
             </ThemeProvider>
         )
 

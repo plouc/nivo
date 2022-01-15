@@ -20,17 +20,18 @@ const anchors: [BoxAnchor, number, number][] = [
 ]
 
 export const BoxAnchorControl = ({
-    name,
+    id,
+    label,
     icon,
     value,
     onChange,
     context = { path: [] },
 }: BoxAnchorControlProps) => {
     return (
-        <ControlContainer name={name}>
+        <ControlContainer id={id}>
             <Container>
                 <Heading>
-                    <Label name={name} icon={icon} context={context} />
+                    <Label id={id} label={label} icon={icon} context={context} />
                     <Value>{value}</Value>
                 </Heading>
                 <svg width={boxWidth + boxPadding * 2} height={boxHeight + boxPadding * 2}>

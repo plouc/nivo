@@ -7,7 +7,7 @@ describe('LineWidthControl', () => {
     it('should render a line width control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <LineWidthControl name="line_width" type="line_width" value={2} />
+                <LineWidthControl id="line_width" type="line_width" value={2} />
             </ThemeProvider>
         )
 
@@ -29,7 +29,7 @@ describe('LineWidthControl', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
                 <LineWidthControl
-                    name="line_width"
+                    id="line_width"
                     type="line_width"
                     min={10}
                     max={50}
@@ -50,12 +50,7 @@ describe('LineWidthControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <LineWidthControl
-                    name="line_width"
-                    type="line_width"
-                    value={2}
-                    onChange={onChange}
-                />
+                <LineWidthControl id="line_width" type="line_width" value={2} onChange={onChange} />
             </ThemeProvider>
         )
 
@@ -71,12 +66,7 @@ describe('LineWidthControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <LineWidthControl
-                    name="line_width"
-                    type="line_width"
-                    value={2}
-                    onChange={onChange}
-                />
+                <LineWidthControl id="line_width" type="line_width" value={2} onChange={onChange} />
             </ThemeProvider>
         )
 

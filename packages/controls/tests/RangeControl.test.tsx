@@ -7,7 +7,7 @@ describe('RangeControl', () => {
     it('should render a range control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <RangeControl name="range" type="range" min={0} max={10} value={5} />
+                <RangeControl id="range" type="range" min={0} max={10} value={5} />
             </ThemeProvider>
         )
 
@@ -27,7 +27,7 @@ describe('RangeControl', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
                 <RangeControl
-                    name="range"
+                    id="range"
                     type="range"
                     min={0}
                     max={10}
@@ -50,7 +50,7 @@ describe('RangeControl', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
                 <RangeControl
-                    name="range"
+                    id="range"
                     type="range"
                     min={0}
                     max={10}

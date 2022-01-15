@@ -3,7 +3,8 @@ import { ControlContainer, Label, Switch } from '../ui'
 import { SwitchControlProps } from '../types'
 
 export const SwitchControl = ({
-    name,
+    id,
+    label,
     icon,
     description,
     value,
@@ -11,10 +12,10 @@ export const SwitchControl = ({
     context = { path: [] },
 }: SwitchControlProps) => {
     return (
-        <ControlContainer name={name} description={description}>
+        <ControlContainer id={id} description={description}>
             <TopContainer>
-                <Label name={name} icon={icon} context={context} />
-                <Switch name={name} value={value} onChange={onChange} />
+                <Label id={id} label={label} icon={icon} context={context} />
+                <Switch id={id} label={label} value={value} onChange={onChange} />
             </TopContainer>
         </ControlContainer>
     )

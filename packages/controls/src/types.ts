@@ -8,7 +8,9 @@ export type ControlContext = {
 }
 
 export type CommonControlProps<Value> = {
-    name: string
+    id: string
+    // can be used to override `id` for label
+    label?: string
     icon?: IconType | ReactNode
     help?: string
     description?: string
@@ -101,8 +103,8 @@ export type ControlProps<Value = any> =
 
 type NestObjectControlProps<Prop extends ControlProps, Obj extends Record<string, any>> = Omit<
     Prop,
-    'name' | 'value' | 'onChange'
-> & { name: Extract<keyof Obj, string> }
+    'id' | 'value' | 'onChange'
+> & { id: Extract<keyof Obj, string> }
 export type ObjectNestedControlProps<Obj extends Record<string, any>, Value = any> =
     | NestObjectControlProps<AngleControlProps, Obj>
     | NestObjectControlProps<BoxAnchorControlProps, Obj>

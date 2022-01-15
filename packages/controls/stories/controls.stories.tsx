@@ -1,14 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
 // @ts-ignore
-import {
-    useControl,
-    ControlPanel,
-    TabbedControlPanel,
-    Control,
-    darkTheme,
-    lightTheme,
-} from '../src'
+import { useControl, ControlPanel, TabbedControlPanel, darkTheme, lightTheme } from '../src'
 import { useMemo, useState } from 'react'
 
 const stories = storiesOf('Controls', module)
@@ -25,7 +18,8 @@ const Demo = ({
     setAccentColor: (color: string) => void
 }) => {
     const generics = useControl({
-        name: 'Generics',
+        id: 'generics',
+        label: 'Generics',
         type: 'object',
         icon: 'sliders',
         value: {
@@ -37,12 +31,12 @@ const Demo = ({
         },
         props: [
             {
-                name: 'enabled',
+                id: 'enabled',
                 type: 'switch',
                 help: 'Enable/Disable the feature.',
             },
             {
-                name: 'size',
+                id: 'size',
                 type: 'range',
                 help: 'Control the size of the element.',
                 min: 0,
@@ -50,7 +44,7 @@ const Demo = ({
                 unit: 'px',
             },
             {
-                name: 'theme',
+                id: 'theme',
                 type: 'radio',
                 choices: [
                     { value: 'dark', label: 'Dark' },
@@ -58,13 +52,13 @@ const Demo = ({
                 ],
             },
             {
-                name: 'label',
+                id: 'label',
                 type: 'text',
                 icon: 'type',
                 help: 'Define the label of the legend.',
             },
             {
-                name: 'number_radio',
+                id: 'number_radio',
                 type: 'radio',
                 columns: 3,
                 choices: [
@@ -80,7 +74,8 @@ const Demo = ({
     })
 
     const specialized = useControl({
-        name: 'Specialized',
+        id: 'specialized',
+        label: 'Specialized',
         type: 'object',
         icon: 'hash',
         value: {
@@ -90,22 +85,23 @@ const Demo = ({
         },
         props: [
             {
-                name: 'angle',
+                id: 'angle',
                 type: 'angle',
             },
             {
-                name: 'anchor',
+                id: 'anchor',
                 type: 'box_anchor',
             },
             {
-                name: 'lineWidth',
+                id: 'lineWidth',
                 type: 'line_width',
             },
         ],
     })
 
     const colors = useControl({
-        name: 'Colors',
+        id: 'colors',
+        label: 'Colors',
         type: 'object',
         icon: 'image',
         value: {
@@ -114,11 +110,11 @@ const Demo = ({
         },
         props: [
             {
-                name: 'accentColor',
+                id: 'accentColor',
                 type: 'color',
             },
             {
-                name: 'opacity',
+                id: 'opacity',
                 type: 'opacity',
             },
         ],

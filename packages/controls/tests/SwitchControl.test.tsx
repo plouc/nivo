@@ -7,7 +7,7 @@ describe('SwitchControl', () => {
     it('should render a range control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <SwitchControl name="switch" type="switch" value={true} />
+                <SwitchControl id="switch" type="switch" value={true} />
             </ThemeProvider>
         )
 
@@ -20,7 +20,7 @@ describe('SwitchControl', () => {
         const onChange = jest.fn()
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <SwitchControl name="switch" type="switch" value={true} onChange={onChange} />
+                <SwitchControl id="switch" type="switch" value={true} onChange={onChange} />
             </ThemeProvider>
         )
 
