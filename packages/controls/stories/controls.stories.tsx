@@ -1,8 +1,15 @@
 import { useMemo } from 'react'
 import { storiesOf } from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
-// @ts-ignore
-import { useControl, ControlPanel, TabbedControlPanel, darkTheme, lightTheme, yellowTheme } from '../src'
+import {
+    useControl,
+    ControlPanel,
+    TabbedControlPanel,
+    darkTheme,
+    // lightTheme,
+    // yellowTheme,
+    // @ts-ignore
+} from '../src'
 
 const stories = storiesOf('Controls', module)
 
@@ -94,6 +101,7 @@ stories.add('Range', () => {
         value: {
             accentColor: '#FF0000',
             opacity: 0.35,
+            ordinalColors: 'nivo',
         },
         props: [
             {
@@ -103,6 +111,10 @@ stories.add('Range', () => {
             {
                 id: 'opacity',
                 type: 'opacity',
+            },
+            {
+                id: 'ordinalColors',
+                type: 'ordinal_colors',
             },
         ],
     })
@@ -119,29 +131,29 @@ stories.add('Range', () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <Container>
-            <TabbedControlPanel
-                tabs={[
-                    {
-                        name: 'Generics',
-                        controls: [generics],
-                    },
-                    {
-                        name: 'Specialized',
-                        controls: [specialized],
-                    },
-                    {
-                        name: 'Colors',
-                        controls: [colors],
-                    },
-                ]}
-            />
-            <ControlPanel controls={[generics]} />
-            <ControlPanel controls={[specialized]} />
-            <ControlPanel controls={[colors]} />
-            <div>
-                <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
-            </div>
-        </Container>
+                <TabbedControlPanel
+                    tabs={[
+                        {
+                            name: 'Generics',
+                            controls: [generics],
+                        },
+                        {
+                            name: 'Specialized',
+                            controls: [specialized],
+                        },
+                        {
+                            name: 'Colors',
+                            controls: [colors],
+                        },
+                    ]}
+                />
+                <ControlPanel controls={[generics]} />
+                <ControlPanel controls={[specialized]} />
+                <ControlPanel controls={[colors]} />
+                <div>
+                    <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
+                </div>
+            </Container>
         </ThemeProvider>
     )
 })

@@ -18,7 +18,13 @@ export const RangeControl = ({
         <ControlContainer id={id} description={description}>
             <TopContainer>
                 <Label id={id} label={label} inputType="range" context={context} />
-                <TextInput<number> id={id} value={value} unit={unit} isNumber={true} onChange={onChange} />
+                <TextInput<number>
+                    id={id}
+                    value={value}
+                    unit={unit}
+                    isNumber={true}
+                    onChange={onChange}
+                />
             </TopContainer>
             <Slider id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
         </ControlContainer>

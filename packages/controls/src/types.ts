@@ -91,6 +91,10 @@ export type ColorControlProps = CommonControlProps<number> & {
     type: 'color'
 }
 
+export type OrdinalColorsControlProps = CommonControlProps<string> & {
+    type: 'ordinal_colors'
+}
+
 export type ControlProps<Value = any> =
     | AngleControlProps
     | BoxAnchorControlProps
@@ -98,6 +102,7 @@ export type ControlProps<Value = any> =
     | LineWidthControlProps
     | ObjectControlProps<Extract<Value, Record<string, any>>>
     | OpacityControlProps
+    | OrdinalColorsControlProps
     | RadioControlProps<Extract<Value, string | number>>
     | RangeControlProps
     | SwitchControlProps
@@ -114,6 +119,7 @@ export type ObjectNestedControlProps<Obj extends Record<string, any>, Value = an
     | NestObjectControlProps<LineWidthControlProps, Obj>
     | NestObjectControlProps<ObjectControlProps<Extract<Value, Record<string, any>>>, Obj>
     | NestObjectControlProps<OpacityControlProps, Obj>
+    | NestObjectControlProps<OrdinalColorsControlProps, Obj>
     | NestObjectControlProps<RadioControlProps<Extract<Value, string | number>>, Obj>
     | NestObjectControlProps<RangeControlProps, Obj>
     | NestObjectControlProps<SwitchControlProps, Obj>

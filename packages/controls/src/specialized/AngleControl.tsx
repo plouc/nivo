@@ -31,7 +31,13 @@ export const AngleControl = ({
                     </g>
                 </svg>
                 <Label id={id} label={label} inputType="range" icon={icon} context={context} />
-                <TextInput<number> id={id} value={value} onChange={onChange} unit="°" isNumber={true} />
+                <TextInput<number>
+                    id={id}
+                    value={value}
+                    onChange={onChange}
+                    unit="°"
+                    isNumber={true}
+                />
             </TopContainer>
             <Slider id={id} min={min} max={max} value={value} onChange={onChange} />
         </ControlContainer>
