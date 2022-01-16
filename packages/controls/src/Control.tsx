@@ -1,12 +1,15 @@
 import { ControlProps } from './types'
 import { ObjectControl, RadioControl, RangeControl, SwitchControl, TextControl } from './generic'
 import { AngleControl, BoxAnchorControl, LineWidthControl } from './specialized'
-import { OpacityControl, ColorControl, OrdinalColorsControl } from './colors'
+import { OpacityControl, ColorControl, OrdinalColorsControl, BlendModeControl } from './colors'
 
 export const Control = <Props extends ControlProps = any>({ control }: { control: Props }) => {
     switch (control.type) {
         case 'angle':
             return <AngleControl {...control} />
+
+        case 'blend_mode':
+            return <BlendModeControl {...control} />
 
         case 'box_anchor':
             return <BoxAnchorControl {...control} />

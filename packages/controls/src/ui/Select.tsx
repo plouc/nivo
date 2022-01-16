@@ -67,12 +67,6 @@ export const Select = <Option extends any = unknown, IsMulti extends boolean = b
                     boxShadow,
                 }
             },
-            valueContainer: (provided: CSSObjectWithLabel) => {
-                return {
-                    ...provided,
-                    padding: '6px 6px',
-                }
-            },
             singleValue: (
                 provided: CSSObjectWithLabel,
                 state: SingleValueProps<Option, IsMulti, GroupBase<Option>>

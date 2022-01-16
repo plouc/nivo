@@ -57,12 +57,11 @@ const InputLabel = styled.label.attrs<{
 `
 
 const Input = styled.input`
-    visibility: hidden;
+    opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     appearance: none;
-    opacity: 0.4;
     width: 24px;
     height: 100%;
     cursor: pointer;

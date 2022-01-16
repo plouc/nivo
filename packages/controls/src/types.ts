@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { CssMixBlendMode } from '@nivo/core'
 import { IconType } from './ui'
 
 export type Unit = 'px' | '°' | 'ms'
@@ -95,8 +96,13 @@ export type OrdinalColorsControlProps = CommonControlProps<string> & {
     type: 'ordinal_colors'
 }
 
+export type BlendModeControlProps = CommonControlProps<CssMixBlendMode> & {
+    type: 'blend_mode'
+}
+
 export type ControlProps<Value = any> =
     | AngleControlProps
+    | BlendModeControlProps
     | BoxAnchorControlProps
     | ColorControlProps
     | LineWidthControlProps
@@ -114,6 +120,7 @@ type NestObjectControlProps<Prop extends ControlProps, Obj extends Record<string
 > & { id: Extract<keyof Obj, string> }
 export type ObjectNestedControlProps<Obj extends Record<string, any>, Value = any> =
     | NestObjectControlProps<AngleControlProps, Obj>
+    | NestObjectControlProps<BlendModeControlProps, Obj>
     | NestObjectControlProps<BoxAnchorControlProps, Obj>
     | NestObjectControlProps<ColorControlProps, Obj>
     | NestObjectControlProps<LineWidthControlProps, Obj>

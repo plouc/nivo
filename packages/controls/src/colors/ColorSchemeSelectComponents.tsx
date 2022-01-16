@@ -17,7 +17,9 @@ export const ColorSchemeSingleValueComponent = (
     props: SingleValueProps<ColorSchemeOption, false, GroupBase<ColorSchemeOption>>
 ) => (
     <components.SingleValue {...props}>
-        <ColorSchemeSelectItem {...props.data} />
+        <SingleValueContainer>
+            <ColorSchemeSelectItem {...props.data} />
+        </SingleValueContainer>
     </components.SingleValue>
 )
 
@@ -32,6 +34,10 @@ export const ColorSchemeOptionComponent = (
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+`
+
+const SingleValueContainer = styled.div`
+    padding: 3px 0 6px;
 `
 
 const Label = styled.span`

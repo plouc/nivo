@@ -102,6 +102,7 @@ stories.add('Range', () => {
             accentColor: '#483c14',
             opacity: 0.35,
             ordinalColors: 'nivo',
+            blendMode: 'normal',
         },
         props: [
             {
@@ -115,6 +116,10 @@ stories.add('Range', () => {
             {
                 id: 'ordinalColors',
                 type: 'ordinal_colors',
+            },
+            {
+                id: 'blendMode',
+                type: 'blend_mode',
             },
         ],
     })
