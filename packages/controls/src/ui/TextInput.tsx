@@ -12,13 +12,23 @@ type TextInputProps<Value extends string | number> = {
     disabled?: boolean
 }
 
-export const TextInput = <Value extends string | number = string>({ id, unit, isNumber = false, value, onChange: _onChange, disabled = false }: TextInputProps<Value>) => {
+export const TextInput = <Value extends string | number = string>({
+    id,
+    unit,
+    isNumber = false,
+    value,
+    onChange: _onChange,
+    disabled = false,
+}: TextInputProps<Value>) => {
     const hasUnit = !!unit
 
-    const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        if (isNumber) _onChange?.(Number(event.target.value) as Value)
-        else _onChange?.(event.target.value as Value)
-    }, [_onChange, isNumber])
+    const onChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            if (isNumber) _onChange?.(Number(event.target.value) as Value)
+            else _onChange?.(event.target.value as Value)
+        },
+        [_onChange, isNumber]
+    )
 
     return (
         <Container>
