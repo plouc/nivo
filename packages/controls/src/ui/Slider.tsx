@@ -70,7 +70,7 @@ const activeThumbStyle = css`
 
 export const Input = styled.input`
     height: 18px;
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
     width: 100%;
     background: none;

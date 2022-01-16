@@ -99,7 +99,7 @@ stories.add('Range', () => {
         type: 'object',
         icon: 'image',
         value: {
-            accentColor: '#FF0000',
+            accentColor: '#483c14',
             opacity: 0.35,
             ordinalColors: 'nivo',
         },

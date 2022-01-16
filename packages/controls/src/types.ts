@@ -87,7 +87,7 @@ export type BoxAnchorControlProps = CommonControlProps<BoxAnchor> & {
     type: 'box_anchor'
 }
 
-export type ColorControlProps = CommonControlProps<number> & {
+export type ColorControlProps = CommonControlProps<string> & {
     type: 'color'
 }
 

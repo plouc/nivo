@@ -1,3 +1,4 @@
+export * from './ColorInput'
 export * from './ControlContainer'
 export * from './ControlPanel'
 export * from './Help'

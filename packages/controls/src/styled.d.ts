@@ -18,5 +18,9 @@ declare module 'styled-components' {
         shadows: {
             panel: string
         }
+        borderRadius: {
+            panel: number
+            input: number
+        }
     }
 }

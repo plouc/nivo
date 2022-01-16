@@ -17,4 +17,8 @@ export const lightTheme: DefaultTheme = {
     shadows: {
         panel: '0 1px 1px 1px rgba(0, 0, 0, .03), 0 6px 9px rgba(0, 0, 0, .03)',
     },
+    borderRadius: {
+        panel: 3,
+        input: 3,
+    },
 }

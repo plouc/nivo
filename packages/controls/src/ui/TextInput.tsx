@@ -74,7 +74,7 @@ const InputElement = styled.input<{
     font-size: 12px;
     padding: 0 7px;
     padding-right: ${({ $hasUnit }) => ($hasUnit ? 26 : 7)}px;
-    border-radius: 2px;
+    border-radius: ${({ theme }) => theme.borderRadius.input}px;
     background: ${({ theme }) => theme.colors.inputBackground};
     border: 1px solid ${({ theme }) => theme.colors.border};
     cursor: pointer;
