@@ -1,29 +1,19 @@
+import { useMemo } from 'react'
 import { storiesOf } from '@storybook/react'
 import styled, { ThemeProvider } from 'styled-components'
 // @ts-ignore
-import { useControl, ControlPanel, TabbedControlPanel, darkTheme, lightTheme } from '../src'
-import { useMemo, useState } from 'react'
+import { useControl, ControlPanel, TabbedControlPanel, darkTheme, lightTheme, yellowTheme } from '../src'
 
 const stories = storiesOf('Controls', module)
 
-const Demo = ({
-    theme,
-    setTheme,
-    accentColor,
-    setAccentColor,
-}: {
-    theme: string
-    setTheme: (theme: string) => void
-    accentColor: string
-    setAccentColor: (color: string) => void
-}) => {
+stories.add('Range', () => {
     const generics = useControl({
         id: 'generics',
         label: 'Generics',
         type: 'object',
         icon: 'sliders',
         value: {
-            theme,
+            theme: 'dark',
             enabled: true,
             size: 12,
             label: 'Hello world',
@@ -68,9 +58,6 @@ const Demo = ({
                 ],
             },
         ],
-        onChange: value => {
-            setTheme(value.theme)
-        },
     })
 
     const specialized = useControl({
@@ -105,7 +92,7 @@ const Demo = ({
         type: 'object',
         icon: 'image',
         value: {
-            accentColor,
+            accentColor: '#FF0000',
             opacity: 0.35,
         },
         props: [
@@ -118,9 +105,6 @@ const Demo = ({
                 type: 'opacity',
             },
         ],
-        onChange: value => {
-            setAccentColor(value.accentColor)
-        },
     })
 
     const mergedValue = useMemo(
@@ -133,7 +117,8 @@ const Demo = ({
     )
 
     return (
-        <Container>
+        <ThemeProvider theme={darkTheme}>
+            <Container>
             <TabbedControlPanel
                 tabs={[
                     {
@@ -157,33 +142,6 @@ const Demo = ({
                 <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
             </div>
         </Container>
-    )
-}
-
-stories.add('Range', () => {
-    const [themeId, setThemeId] = useState('dark')
-    const [accentColor, setAccentColor] = useState(darkTheme.colors.accent)
-
-    const theme = useMemo(() => {
-        const _theme = themeId === 'dark' ? darkTheme : lightTheme
-
-        return {
-            ..._theme,
-            colors: {
-                ..._theme.colors,
-                accent: accentColor,
-            },
-        }
-    }, [themeId, accentColor])
-
-    return (
-        <ThemeProvider theme={theme}>
-            <Demo
-                theme={themeId}
-                setTheme={setThemeId}
-                accentColor={accentColor}
-                setAccentColor={setAccentColor}
-            />
         </ThemeProvider>
     )
 })

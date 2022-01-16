@@ -50,6 +50,7 @@ const trackStyle = css`
 const activeTrackStyle = css`
     height: 18px;
     top: 0;
+    background: ${({ theme }) => theme.colors.borderLight};
 `
 
 const thumbStyle = css`

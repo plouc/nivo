@@ -32,7 +32,7 @@ export const TabbedControlPanel = ({ tabs }: TabbedControlPanelProps) => {
             {currentTab && (
                 <>
                     {currentTab.controls.map(control => (
-                        <Control key={control.name} control={control} />
+                        <Control key={control.id} control={control} />
                     ))}
                 </>
             )}
@@ -71,7 +71,7 @@ const TabContainer = styled.div<{
 }>`
     flex-shrink: 0;
     display: flex;
-    padding: 9px;
+    padding: 9px 12px;
     white-space: nowrap;
     cursor: pointer;
     background-color: ${({ isCurrent, theme }) =>

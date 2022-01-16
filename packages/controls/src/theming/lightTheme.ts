@@ -12,7 +12,7 @@ export const lightTheme: DefaultTheme = {
         border: '#d6dbdc',
         borderLight: '#eeeeee',
 
-        accent: '#e25d47',
+        accent: '#2270bd',
     },
     shadows: {
         panel: '0 1px 1px 1px rgba(0, 0, 0, .03), 0 6px 9px rgba(0, 0, 0, .03)',

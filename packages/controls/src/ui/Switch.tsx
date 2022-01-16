@@ -45,7 +45,7 @@ const Input = styled.input`
         padding: 2px;
         width: 36px;
         height: 18px;
-        background-color: ${({ theme }) => theme.colors.inputBackground};
+        background-color: ${({ theme }) => theme.colors.border};
         border-radius: 9px;
         transition: border-color 120ms, background-color 120ms;
     }

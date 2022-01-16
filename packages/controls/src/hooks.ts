@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react'
 import { ControlProps } from './types'
 
 export const useControl = <Props extends ControlProps = any>({
-    name,
-    help,
     value: _value,
     onChange: _onChange,
     context = { path: [] },
@@ -20,8 +18,6 @@ export const useControl = <Props extends ControlProps = any>({
     )
 
     return {
-        name,
-        help,
         value,
         onChange,
         context,

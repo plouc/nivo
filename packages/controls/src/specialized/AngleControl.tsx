@@ -4,7 +4,7 @@ import { ControlContainer, Label, TextInput, Slider } from '../ui'
 
 const size = 36
 const center = size / 2
-const markerSize = 6
+const markerSize = 5
 
 export const AngleControl = ({
     id,
@@ -25,7 +25,7 @@ export const AngleControl = ({
                     <g transform={`translate(${center},${center})`}>
                         <g transform={`rotate(${start + value})`}>
                             <Line y2={-size / 2 + markerSize / 2} />
-                            <Marker r={markerSize / 4} />
+                            <Marker r={markerSize / 2} />
                             <Marker cy={-size / 2 + markerSize / 2} r={markerSize / 2} />
                         </g>
                     </g>
@@ -58,13 +58,14 @@ const TopContainer = styled.div`
 `
 
 const Circle = styled.circle`
-    fill: ${({ theme }) => theme.colors.background};
+    fill: ${({ theme }) => theme.colors.inputBackground};
     stroke-width: 1px;
     stroke: ${({ theme }) => theme.colors.border};
 `
 
 const Line = styled.line`
     stroke: ${({ theme }) => theme.colors.accent};
+    stroke-width: 1;
 `
 
 const Marker = styled.circle`

@@ -9,7 +9,7 @@ interface ControlPanelProps {
 export const ControlPanel = ({ controls }: ControlPanelProps) => (
     <Panel>
         {controls.map(control => (
-            <Control key={control.name} control={control} />
+            <Control key={control.id} control={control} />
         ))}
     </Panel>
 )

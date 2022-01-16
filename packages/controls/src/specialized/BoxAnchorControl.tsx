@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { BoxAnchorControlProps, BoxAnchor } from '../types'
 import { ControlContainer, Label } from '../ui'
 
-const boxWidth = 80
-const boxHeight = 50
+const boxWidth = 46
+const boxHeight = 46
 const boxPadding = 10
 const outlineRadius = 8
 
