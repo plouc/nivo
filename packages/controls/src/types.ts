@@ -3,6 +3,8 @@ import { IconType } from './ui'
 
 export type Unit = 'px' | '°' | 'ms'
 
+export type InputType = 'text' | 'checkbox' | 'range' | 'color'
+
 export type ControlContext = {
     path: string[]
 }

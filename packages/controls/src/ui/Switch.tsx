@@ -1,19 +1,26 @@
 import { memo, useCallback } from 'react'
 import styled from 'styled-components'
+import { generateInputId } from '../helpers'
 
 interface SwitchProps {
-    name: string
+    id: string
+    label?: string
     value: boolean
     onChange?: (value: boolean) => void
 }
 
-export const Switch = memo(({ name, value, onChange }: SwitchProps) => {
+export const Switch = memo(({ id, value, onChange }: SwitchProps) => {
     const handleChange = useCallback(event => onChange?.(event.target.checked), [onChange])
 
     return (
         <Wrapper>
-            <Input id={`${name}.switch`} type="checkbox" checked={value} onChange={handleChange} />
-            <label htmlFor={`${name}.switch`} />
+            <Input
+                id={generateInputId(id, 'checkbox')}
+                type="checkbox"
+                checked={value}
+                onChange={handleChange}
+            />
+            <label htmlFor={generateInputId(id, 'checkbox')} />
         </Wrapper>
     )
 })

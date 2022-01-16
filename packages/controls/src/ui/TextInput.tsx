@@ -1,22 +1,40 @@
-import { memo, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import { Unit } from '../types'
+import { generateInputId } from '../helpers'
+import { ChangeEvent, useCallback } from 'react'
 
-type TextInputProps = {
+type TextInputProps<Value extends string | number> = {
+    id: string
     isNumber?: boolean
     unit?: Unit
-} & InputHTMLAttributes<HTMLInputElement>
+    value: Value
+    onChange?: (value: Value) => void
+    disabled?: boolean
+}
 
-export const TextInput = memo(({ unit, isNumber = false, ...props }: TextInputProps) => {
+export const TextInput = <Value extends string | number = string>({ id, unit, isNumber = false, value, onChange: _onChange, disabled = false }: TextInputProps<Value>) => {
     const hasUnit = !!unit
+
+    const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        if (isNumber) _onChange?.(Number(event.target.value) as Value)
+        else _onChange?.(event.target.value as Value)
+    }, [_onChange, isNumber])
 
     return (
         <Container>
-            <InputElement type="text" hasUnit={hasUnit} isNumber={isNumber} {...props} />
+            <InputElement
+                type="text"
+                id={generateInputId(id, 'text')}
+                $hasUnit={hasUnit}
+                $isNumber={isNumber}
+                value={value}
+                disabled={disabled}
+                onChange={onChange}
+            />
             {hasUnit && <UnitContainer>{unit}</UnitContainer>}
         </Container>
     )
-})
+}
 
 const Container = styled.div`
     position: relative;
@@ -38,21 +56,21 @@ const UnitContainer = styled.span`
 `
 
 const InputElement = styled.input<{
-    hasUnit: boolean
-    isNumber: boolean
+    $hasUnit: boolean
+    $isNumber: boolean
 }>`
     height: 100%;
     width: 100%;
     font-size: 12px;
     padding: 0 7px;
-    padding-right: ${({ hasUnit }) => (hasUnit ? 26 : 7)}px;
+    padding-right: ${({ $hasUnit }) => ($hasUnit ? 26 : 7)}px;
     border-radius: 2px;
     background: ${({ theme }) => theme.colors.inputBackground};
     border: 1px solid ${({ theme }) => theme.colors.border};
     cursor: pointer;
     color: ${({ theme }) => theme.colors.text};
     font-weight: 600;
-    text-align: ${({ isNumber }) => (isNumber ? 'right' : 'left')};
+    text-align: ${({ $isNumber }) => ($isNumber ? 'right' : 'left')};
 
     &:focus {
         outline: 0;

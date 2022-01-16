@@ -1,16 +1,18 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import { ControlContext } from '../types'
+import { ControlContext, InputType } from '../types'
 import { IconType, Icon } from './Icon'
+import { generateInputId } from '../helpers'
 
 type LabelProps = {
     id: string
     label?: string
+    inputType?: InputType
     icon?: IconType | ReactNode
     context: ControlContext
 }
 
-export const Label = ({ id, label: _label, icon, context }: LabelProps) => {
+export const Label = ({ id, label: _label, inputType, icon, context }: LabelProps) => {
     let label: ReactNode = _label || id
     if (context.path.length > 0) {
         label = (
@@ -21,10 +23,12 @@ export const Label = ({ id, label: _label, icon, context }: LabelProps) => {
         )
     }
 
+    const htmlFor = inputType ? generateInputId(id, inputType) : undefined
+
     return (
         <Container>
             {icon && <Icon type={icon} />}
-            <HtmlLabel htmlFor={id}>{label}</HtmlLabel>
+            <HtmlLabel htmlFor={htmlFor}>{label}</HtmlLabel>
         </Container>
     )
 }

@@ -14,8 +14,8 @@ export const SwitchControl = ({
     return (
         <ControlContainer id={id} description={description}>
             <TopContainer>
-                <Label id={id} label={label} icon={icon} context={context} />
-                <Switch id={id} label={label} value={value} onChange={onChange} />
+                <Label id={id} label={label} inputType="checkbox" icon={icon} context={context} />
+                <Switch id={id} value={value} onChange={onChange} />
             </TopContainer>
         </ControlContainer>
     )

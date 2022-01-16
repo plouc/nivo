@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import styled from 'styled-components'
 import { RangeControlProps } from '../types'
 import { ControlContainer, Label, TextInput, Slider } from '../ui'
@@ -15,28 +14,13 @@ export const RangeControl = ({
     onChange,
     context = { path: [] },
 }: RangeControlProps) => {
-    const handleChange = useCallback(event => onChange?.(Number(event.target.value)), [onChange])
-
     return (
         <ControlContainer id={id} description={description}>
             <TopContainer>
-                <Label id={id} label={label} context={context} />
-                <TextInput
-                    id={id}
-                    value={value}
-                    unit={unit}
-                    isNumber={true}
-                    onChange={handleChange}
-                />
+                <Label id={id} label={label} inputType="range" context={context} />
+                <TextInput<number> id={id} value={value} unit={unit} isNumber={true} onChange={onChange} />
             </TopContainer>
-            <Slider
-                type="range"
-                min={min}
-                max={max}
-                step={step}
-                value={value}
-                onChange={handleChange}
-            />
+            <Slider id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

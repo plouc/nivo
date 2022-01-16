@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import styled from 'styled-components'
 import { AngleControlProps } from '../types'
 import { ControlContainer, Label, TextInput, Slider } from '../ui'
@@ -18,13 +17,6 @@ export const AngleControl = ({
     onChange,
     context = { path: [] },
 }: AngleControlProps) => {
-    const handleChange = useCallback(
-        event => {
-            onChange?.(Number(event.target.value))
-        },
-        [onChange]
-    )
-
     return (
         <ControlContainer id={id}>
             <TopContainer>
@@ -38,10 +30,10 @@ export const AngleControl = ({
                         </g>
                     </g>
                 </svg>
-                <Label id={id} label={label} icon={icon} context={context} />
-                <TextInput id={id} value={value} onChange={handleChange} unit="°" isNumber={true} />
+                <Label id={id} label={label} inputType="range" icon={icon} context={context} />
+                <TextInput<number> id={id} value={value} onChange={onChange} unit="°" isNumber={true} />
             </TopContainer>
-            <Slider type="range" value={value} onChange={handleChange} min={min} max={max} />
+            <Slider id={id} min={min} max={max} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

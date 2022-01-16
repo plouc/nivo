@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import styled from 'styled-components'
 import { ColorControlProps } from '../types'
 import { ControlContainer, Label } from '../ui'
+import { generateInputId } from '../helpers'
 
 export const ColorControl = ({
     id,
@@ -22,10 +23,15 @@ export const ColorControl = ({
         <ControlContainer id={id}>
             <Container>
                 <Heading>
-                    <Label id={id} label={label} icon={icon} context={context} />
+                    <Label id={id} label={label} inputType="color" icon={icon} context={context} />
                     <Value>{value}</Value>
                 </Heading>
-                <input type="color" id={id} onChange={handleChange} value={value} />
+                <input
+                    type="color"
+                    id={generateInputId(id, 'color')}
+                    onChange={handleChange}
+                    value={value}
+                />
             </Container>
         </ControlContainer>
     )

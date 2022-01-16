@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import styled from 'styled-components'
 import { LineWidthControlProps } from '../types'
 import { ControlContainer, Label, TextInput, Slider } from '../ui'
@@ -16,13 +15,6 @@ export const LineWidthControl = ({
     step = 1,
     context = { path: [] },
 }: LineWidthControlProps) => {
-    const handleChange = useCallback(
-        event => {
-            onChange?.(Number(event.target.value))
-        },
-        [onChange]
-    )
-
     return (
         <ControlContainer id={id}>
             <TopContainer>
@@ -36,23 +28,16 @@ export const LineWidthControl = ({
                         strokeWidth={value}
                     />
                 </svg>
-                <Label id={id} label={label} icon={icon} context={context} />
-                <TextInput
+                <Label id={id} label={label} inputType="range" icon={icon} context={context} />
+                <TextInput<number>
                     id={id}
                     value={value}
-                    onChange={handleChange}
+                    onChange={onChange}
                     unit="px"
                     isNumber={true}
                 />
             </TopContainer>
-            <Slider
-                type="range"
-                value={value}
-                onChange={handleChange}
-                min={min}
-                max={max}
-                step={step}
-            />
+            <Slider id={id} value={value} onChange={onChange} min={min} max={max} step={step} />
         </ControlContainer>
     )
 }

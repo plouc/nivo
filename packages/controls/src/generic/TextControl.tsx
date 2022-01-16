@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import styled from 'styled-components'
 import { TextControlProps } from '../types'
 import { ControlContainer, Label, TextInput } from '../ui'
@@ -13,19 +12,11 @@ export const TextControl = ({
     onChange,
     context = { path: [] },
 }: TextControlProps) => {
-    const handleUpdate = useCallback(event => onChange?.(event.target.value), [onChange])
-
     return (
         <ControlContainer id={id} description={description}>
-            <Label id={id} label={label} icon={icon} context={context} />
+            <Label id={id} inputType="text" label={label} icon={icon} context={context} />
             <Container>
-                <TextInput
-                    id={id}
-                    type="text"
-                    value={value}
-                    onChange={handleUpdate}
-                    disabled={disabled}
-                />
+                <TextInput id={id} value={value} onChange={onChange} disabled={disabled} />
             </Container>
         </ControlContainer>
     )

@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { OpacityControlProps } from '../types'
 import { ControlContainer, Label, TextInput, Slider } from '../ui'
@@ -14,12 +13,6 @@ export const OpacityControl = ({
     context = { path: [] },
 }: OpacityControlProps) => {
     const theme = useTheme()
-    const handleChange = useCallback(
-        event => {
-            onChange?.(Number(event.target.value))
-        },
-        [onChange]
-    )
 
     return (
         <ControlContainer id={id}>
@@ -44,17 +37,10 @@ export const OpacityControl = ({
                         fillOpacity={value}
                     />
                 </svg>
-                <Label id={id} label={label} icon={icon} context={context} />
-                <TextInput id={id} value={value} onChange={handleChange} isNumber={true} />
+                <Label id={id} label={label} inputType="range" icon={icon} context={context} />
+                <TextInput<number> id={id} value={value} onChange={onChange} isNumber={true} />
             </TopContainer>
-            <Slider
-                type="range"
-                value={value}
-                onChange={handleChange}
-                min={0}
-                max={1}
-                step={0.05}
-            />
+            <Slider id={id} min={0} max={1} step={0.05} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }
