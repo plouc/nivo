@@ -2,7 +2,7 @@ import { useTheme } from 'styled-components'
 import { OpacityControlProps } from '../types'
 import {
     ControlContainer,
-    Controlheader,
+    ControlHeader,
     LabelWithPreview,
     TextInput,
     Slider,
@@ -24,7 +24,7 @@ export const OpacityControl = ({
 
     return (
         <ControlContainer id={id} isSingleRow={false}>
-            <Controlheader>
+            <ControlHeader>
                 <LabelWithPreview
                     id={id}
                     label={label}
@@ -55,7 +55,7 @@ export const OpacityControl = ({
                 </LabelWithPreview>
                 <XGapSpacer />
                 <TextInput<number> id={id} value={value} onChange={onChange} isNumber={true} />
-            </Controlheader>
+            </ControlHeader>
             <YGapSpacer />
             <Slider id={id} min={0} max={1} step={0.05} value={value} onChange={onChange} />
         </ControlContainer>

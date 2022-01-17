@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import { RadioControlProps } from '../types'
+import { RadioControlProps, SupportedValues } from '../types'
 import { ControlContainer, Label, Radio, YGapSpacer } from '../ui'
 
-export const RadioControl = <Value extends string | number = string>({
+export const RadioControl = <Value extends SupportedValues<'radio'> = string>({
     id,
     label,
     icon,

@@ -1,6 +1,6 @@
 export * from './ColorInput'
 export * from './ControlContainer'
-export * from './Controlheader'
+export * from './ControlHeader'
 export * from './ControlPanel'
 export * from './Help'
 export * from './Icon'

@@ -1,9 +1,13 @@
-import { ControlProps } from './types'
+import { AllSupportedValues, ControlProps, ExtractValue } from './types'
 import { ObjectControl, RadioControl, RangeControl, SwitchControl, TextControl } from './generic'
-import { AngleControl, BoxAnchorControl, LineWidthControl } from './specialized'
+import { AngleControl, BoxAnchorControl, LineWidthControl, MarginControl } from './specialized'
 import { OpacityControl, ColorControl, OrdinalColorsControl, BlendModeControl } from './colors'
 
-export const Control = <Props extends ControlProps = any>({ control }: { control: Props }) => {
+export const Control = <Value extends AllSupportedValues = AllSupportedValues>({
+    control,
+}: {
+    control: ControlProps<Value>
+}) => {
     switch (control.type) {
         case 'angle':
             return <AngleControl {...control} />
@@ -20,8 +24,11 @@ export const Control = <Props extends ControlProps = any>({ control }: { control
         case 'line_width':
             return <LineWidthControl {...control} />
 
+        case 'margin':
+            return <MarginControl {...control} />
+
         case 'object':
-            return <ObjectControl {...control} />
+            return <ObjectControl<ExtractValue<Value, 'object'>> {...control} />
 
         case 'opacity':
             return <OpacityControl {...control} />
@@ -30,7 +37,7 @@ export const Control = <Props extends ControlProps = any>({ control }: { control
             return <OrdinalColorsControl {...control} />
 
         case 'radio':
-            return <RadioControl {...control} />
+            return <RadioControl<ExtractValue<Value, 'radio'>> {...control} />
 
         case 'range':
             return <RangeControl {...control} />

@@ -1,7 +1,7 @@
 import { RangeControlProps } from '../types'
 import {
     ControlContainer,
-    Controlheader,
+    ControlHeader,
     Label,
     TextInput,
     Slider,
@@ -23,7 +23,7 @@ export const RangeControl = ({
 }: RangeControlProps) => {
     return (
         <ControlContainer id={id} description={description} isSingleRow={false}>
-            <Controlheader>
+            <ControlHeader>
                 <Label id={id} label={label} inputType="range" context={context} />
                 <XGapSpacer />
                 <TextInput<number>
@@ -33,7 +33,7 @@ export const RangeControl = ({
                     isNumber={true}
                     onChange={onChange}
                 />
-            </Controlheader>
+            </ControlHeader>
             <YGapSpacer />
             <Slider id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
         </ControlContainer>

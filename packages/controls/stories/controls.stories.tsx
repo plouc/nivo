@@ -6,26 +6,36 @@ import {
     ControlPanel,
     TabbedControlPanel,
     darkTheme,
-    lightTheme,
-    yellowTheme,
+    // lightTheme,
+    // yellowTheme,
     // @ts-ignore
 } from '../src'
 
 const stories = storiesOf('Controls', module)
 
 stories.add('Range', () => {
-    const generics = useControl({
-        id: 'generics',
-        label: 'Generics',
-        type: 'object',
-        icon: 'sliders',
-        value: {
+    useControl({
+        id: 'angle',
+        type: 'angle',
+        value: 12,
+    })
+
+    const genericsInitial = useMemo(
+        () => ({
             theme: 'dark',
             enabled: true,
             size: 12,
             label: 'Hello world',
             number_radio: 3,
-        },
+        }),
+        []
+    )
+    const generics = useControl<'object', typeof genericsInitial>({
+        id: 'generics',
+        label: 'Generics',
+        type: 'object',
+        icon: 'sliders',
+        value: genericsInitial,
         props: [
             {
                 id: 'enabled',
@@ -59,24 +69,34 @@ stories.add('Range', () => {
                 type: 'radio',
                 columns: 3,
                 choices: [
-                    { value: 1, label: 'One' },
-                    { value: 2, label: 'Two' },
-                    { value: 3, label: 'Three' },
+                    // { value: 1, label: 'One' },
+                    // { value: 2, label: 'Two' },
+                    // { value: 3, label: 'Three' },
                 ],
             },
         ],
     })
 
-    const specialized = useControl({
+    const specializedInitial = useMemo(
+        () => ({
+            angle: 180,
+            anchor: 'center' as const,
+            lineWidth: 2,
+            margin: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+            },
+        }),
+        []
+    )
+    const specialized = useControl<'object', typeof specializedInitial>({
         id: 'specialized',
         label: 'Specialized',
         type: 'object',
         icon: 'hash',
-        value: {
-            angle: 180,
-            anchor: 'center',
-            lineWidth: 2,
-        },
+        value: specializedInitial,
         props: [
             {
                 id: 'angle',
@@ -90,28 +110,35 @@ stories.add('Range', () => {
                 id: 'lineWidth',
                 type: 'line_width',
             },
+            {
+                id: 'margin',
+                type: 'margin',
+            },
         ],
     })
 
-    const colors = useControl({
+    const colorsInitial = useMemo(
+        () => ({
+            accentColor: '#483c14',
+            opacity: 0.35,
+            ordinalColors: 'nivo',
+            blendMode: 'normal' as const,
+            nested: {
+                opacity: 1,
+            },
+        }),
+        []
+    )
+    const colors = useControl<'object', typeof colorsInitial>({
         id: 'colors',
         label: 'Colors',
         type: 'object',
         icon: 'image',
-        value: {
-            accentColor: '#483c14',
-            opacity: 0.35,
-            ordinalColors: 'nivo',
-            blendMode: 'normal',
-        },
+        value: colorsInitial,
         props: [
             {
                 id: 'accentColor',
                 type: 'color',
-            },
-            {
-                id: 'opacity',
-                type: 'opacity',
             },
             {
                 id: 'ordinalColors',
@@ -120,6 +147,16 @@ stories.add('Range', () => {
             {
                 id: 'blendMode',
                 type: 'blend_mode',
+            },
+            {
+                id: 'nested',
+                type: 'object',
+                props: [
+                    {
+                        id: 'opaciy',
+                        type: 'text',
+                    },
+                ],
             },
         ],
     })
@@ -134,7 +171,7 @@ stories.add('Range', () => {
     )
 
     return (
-        <ThemeProvider theme={yellowTheme}>
+        <ThemeProvider theme={darkTheme}>
             <Container>
                 <TabbedControlPanel
                     tabs={[

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { LineWidthControlProps } from '../types'
 import {
     ControlContainer,
-    Controlheader,
+    ControlHeader,
     LabelWithPreview,
     TextInput,
     Slider,
@@ -25,7 +25,7 @@ export const LineWidthControl = ({
 }: LineWidthControlProps) => {
     return (
         <ControlContainer id={id} isSingleRow={false}>
-            <Controlheader>
+            <ControlHeader>
                 <LabelWithPreview
                     id={id}
                     label={label}
@@ -52,7 +52,7 @@ export const LineWidthControl = ({
                     unit="px"
                     isNumber={true}
                 />
-            </Controlheader>
+            </ControlHeader>
             <YGapSpacer />
             <Slider id={id} value={value} onChange={onChange} min={min} max={max} step={step} />
         </ControlContainer>
