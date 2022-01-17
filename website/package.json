@@ -12,6 +12,7 @@
     "@nivo/chord": "0.79.1",
     "@nivo/circle-packing": "0.79.1",
     "@nivo/colors": "0.79.1",
+    "@nivo/controls": "0.79.1",
     "@nivo/core": "0.79.0",
     "@nivo/funnel": "0.79.1",
     "@nivo/generators": "0.79.0",
@@ -53,7 +54,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
     "react-markdown": "^7.1.1",
-    "react-select": "^4.3.1",
+    "react-select": "^5.2.2",
     "styled-components": "^5.3.3"
   },
   "scripts": {

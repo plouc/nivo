@@ -7,7 +7,7 @@ import {
 } from '@nivo/colors'
 import { Card } from '../../styled'
 
-const ColorsRanges = () => (
+export const ColorsRanges = () => (
     <Card className="guide__table">
         <table>
             <tbody>
@@ -78,5 +78,3 @@ const ColorsRanges = () => (
         </table>
     </Card>
 )
-
-export default ColorsRanges

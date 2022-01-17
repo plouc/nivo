@@ -4,7 +4,7 @@ import { DescriptionBlock } from '../../styled'
 import { Markdown } from '../../Markdown'
 import { Highlight } from '../../Highlight'
 
-const ColorsColor = () => (
+export const ColorsColor = () => (
     <DescriptionBlock>
         <h2>Single color property</h2>
         <Markdown
@@ -113,5 +113,3 @@ const ColorsColor = () => (
         />
     </DescriptionBlock>
 )
-
-export default ColorsColor

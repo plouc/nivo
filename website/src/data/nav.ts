@@ -285,12 +285,16 @@ export const guides = [
         path: '/guides/colors/',
     },
     {
-        label: 'Legends',
-        path: '/guides/legends/',
+        label: 'Controls',
+        path: '/guides/controls/',
     },
     {
         label: 'Gradients',
         path: '/guides/gradients/',
+    },
+    {
+        label: 'Legends',
+        path: '/guides/legends/',
     },
     {
         label: 'Patterns',

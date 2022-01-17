@@ -6,7 +6,7 @@ import { ResponsiveTreeMap } from '@nivo/treemap'
 import { generateCountriesData } from '@nivo/generators'
 import { FullWidthBanner } from '../../styled'
 
-const ColorsIllustrations = () => {
+export const ColorsIllustrations = () => {
     const theme = useTheme()
 
     return (
@@ -77,5 +77,3 @@ const ColorsIllustrations = () => {
         </FullWidthBanner>
     )
 }
-
-export default ColorsIllustrations
