@@ -13,6 +13,7 @@ import ReactSelect, {
  * Extends `react-select` default component with styles
  * derived from our custom `styled-components` theme.
  */
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export const Select = <Option extends any = unknown, IsMulti extends boolean = boolean>(
     props: Props<Option, IsMulti>
 ) => {

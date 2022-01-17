@@ -69,9 +69,9 @@ stories.add('Range', () => {
                 type: 'radio',
                 columns: 3,
                 choices: [
-                    // { value: 1, label: 'One' },
-                    // { value: 2, label: 'Two' },
-                    // { value: 3, label: 'Three' },
+                    { value: 1, label: 'One' },
+                    { value: 2, label: 'Two' },
+                    { value: 3, label: 'Three' },
                 ],
             },
         ],
