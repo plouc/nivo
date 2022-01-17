@@ -172,23 +172,40 @@ type ObjectKeysForValue<Obj extends Record<string, any>, T extends AllSupportedV
 >
 
 type NestObjectControlProps<
-    Props extends ControlProps,
-    Obj extends SupportedValues<'object'>
-> = Omit<Props, 'id' | 'value' | 'onChange'> & {
-    id: ObjectKeysForValue<Obj, SupportedValues<Props['type']>>
+    Type extends ControlType,
+    Obj extends SupportedValues<'object'>,
+    Id extends ObjectKeysForValue<Obj, AllSupportedValues>
+> = Omit<ControlPropsByType<Type, Obj[Id]>, 'id' | 'value' | 'onChange'> & {
+    id: Id
 }
 
 export type ObjectNestedControlProps<Obj extends SupportedValues<'object'>> =
-    | NestObjectControlProps<AngleControlProps, Obj>
-    | NestObjectControlProps<BlendModeControlProps, Obj>
-    | NestObjectControlProps<BoxAnchorControlProps, Obj>
-    | NestObjectControlProps<ColorControlProps, Obj>
-    | NestObjectControlProps<LineWidthControlProps, Obj>
-    | NestObjectControlProps<MarginControlProps, Obj>
-    | NestObjectControlProps<ObjectControlProps, Obj>
-    | NestObjectControlProps<OpacityControlProps, Obj>
-    | NestObjectControlProps<OrdinalColorsControlProps, Obj>
-    | NestObjectControlProps<RadioControlProps, Obj>
-    | NestObjectControlProps<RangeControlProps, Obj>
-    | NestObjectControlProps<SwitchControlProps, Obj>
-    | NestObjectControlProps<TextControlProps, Obj>
+    | NestObjectControlProps<'angle', Obj, ObjectKeysForValue<Obj, SupportedValues<'angle'>>>
+    | NestObjectControlProps<
+          'blend_mode',
+          Obj,
+          ObjectKeysForValue<Obj, SupportedValues<'blend_mode'>>
+      >
+    | NestObjectControlProps<
+          'box_anchor',
+          Obj,
+          ObjectKeysForValue<Obj, SupportedValues<'box_anchor'>>
+      >
+    | NestObjectControlProps<'color', Obj, ObjectKeysForValue<Obj, SupportedValues<'color'>>>
+    | NestObjectControlProps<
+          'line_width',
+          Obj,
+          ObjectKeysForValue<Obj, SupportedValues<'line_width'>>
+      >
+    | NestObjectControlProps<'margin', Obj, ObjectKeysForValue<Obj, SupportedValues<'margin'>>>
+    | NestObjectControlProps<'object', Obj, ObjectKeysForValue<Obj, SupportedValues<'object'>>>
+    | NestObjectControlProps<'opacity', Obj, ObjectKeysForValue<Obj, SupportedValues<'opacity'>>>
+    | NestObjectControlProps<
+          'ordinal_colors',
+          Obj,
+          ObjectKeysForValue<Obj, SupportedValues<'ordinal_colors'>>
+      >
+    | NestObjectControlProps<'radio', Obj, ObjectKeysForValue<Obj, SupportedValues<'radio'>>>
+    | NestObjectControlProps<'range', Obj, ObjectKeysForValue<Obj, SupportedValues<'range'>>>
+    | NestObjectControlProps<'switch', Obj, ObjectKeysForValue<Obj, SupportedValues<'switch'>>>
+    | NestObjectControlProps<'text', Obj, ObjectKeysForValue<Obj, SupportedValues<'text'>>>

@@ -32,7 +32,7 @@ const ObjectControlNestedControl = <
                 [controlId]: value,
             })
         },
-        [objectValue, controlId]
+        [_onChange, objectValue, controlId]
     )
 
     const boundControl = useMemo(() => {

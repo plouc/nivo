@@ -153,8 +153,8 @@ stories.add('Range', () => {
                 type: 'object',
                 props: [
                     {
-                        id: 'opaciy',
-                        type: 'text',
+                        id: 'opacity',
+                        type: 'opacity',
                     },
                 ],
             },
