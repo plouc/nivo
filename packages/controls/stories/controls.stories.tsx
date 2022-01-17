@@ -41,6 +41,9 @@ stories.add('Range', () => {
                 id: 'enabled',
                 type: 'switch',
                 help: 'Enable/Disable the feature.',
+                onChange: value => {
+                    console.log('change in nested prop', value)
+                },
             },
             {
                 id: 'size',

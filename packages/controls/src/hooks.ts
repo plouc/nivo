@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ControlPropsByType, ControlType, SupportedValues } from './types'
+import { defaultContext } from './defaults'
 
 export const useControl = <
     Type extends ControlType,
@@ -7,25 +8,21 @@ export const useControl = <
 >({
     type,
     value: initialValue,
-    onChange: _onChange,
+    onChange,
+    context = defaultContext,
     ...rest
-}: ControlPropsByType<Type, Value>) => {
+}: Omit<ControlPropsByType<Type, Value>, 'setValue'>) => {
     const [value, setValue] = useState<Value>(initialValue as Value)
 
-    const onChange = useCallback(
-        (newValue: Value) => {
-            setValue(newValue)
-            ;(_onChange as (value: Value) => void)?.(newValue)
-        },
-        [setValue, _onChange]
-    )
+    useEffect(() => {
+        ;(onChange as (value: Value) => void)?.(value)
+    }, [onChange, value])
 
     return {
         ...rest,
         type,
         value,
-        onChange,
-    } as unknown as Omit<ControlPropsByType<Type, Value>, 'onChange'> & {
-        onChange: NonNullable<ControlPropsByType<Type, Value>['onChange']>
-    }
+        setValue,
+        context,
+    } as unknown as ControlPropsByType<Type, Value>
 }

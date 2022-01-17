@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import {
     // @ts-ignore
     blendModes,
@@ -12,12 +12,12 @@ type BlendModeOption = {
     value: CssMixBlendMode
 }
 
-export const BlendModeControl = ({
+const NoMemoBlendModeControl = ({
     id,
     label,
     icon,
     value: _value,
-    onChange: _onChange,
+    setValue,
     context = { path: [] },
 }: BlendModeControlProps) => {
     const options: BlendModeOption[] = useMemo(
@@ -32,9 +32,9 @@ export const BlendModeControl = ({
     const value = options.find(option => option.value === _value)
     const onChange = useCallback(
         (option: BlendModeOption | null) => {
-            if (option !== null) _onChange?.(option.value)
+            if (option !== null) setValue?.(option.value)
         },
-        [_onChange]
+        [setValue]
     )
 
     return (
@@ -45,3 +45,5 @@ export const BlendModeControl = ({
         </ControlContainer>
     )
 }
+
+export const BlendModeControl = memo(NoMemoBlendModeControl) as typeof NoMemoBlendModeControl

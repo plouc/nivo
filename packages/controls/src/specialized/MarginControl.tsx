@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { Margin, MarginControlProps } from '../types'
 import {
@@ -10,28 +10,29 @@ import {
     TextInput,
     XGapSpacer,
 } from '../ui'
+import { defaultContext } from '../defaults'
 
 type Side = keyof Margin
 
-export const MarginControl = ({
+const NoMemoMarginControl = ({
     id,
     label,
     icon,
     min = 0,
     max = 200,
     value,
-    onChange: _onChange,
-    context = { path: [] },
+    setValue,
+    context = defaultContext,
 }: MarginControlProps) => {
     const [side, setSide] = useState<Side>('top')
     const onChange = useCallback(
         (sideValue: number) => {
-            _onChange?.({
-                ...value,
+            setValue(previous => ({
+                ...previous,
                 [side]: sideValue,
-            })
+            }))
         },
-        [value, side, _onChange]
+        [setValue, side]
     )
 
     return (
@@ -85,6 +86,8 @@ export const MarginControl = ({
         </ControlContainer>
     )
 }
+
+export const MarginControl = memo(NoMemoMarginControl) as typeof NoMemoMarginControl
 
 const Illustration = ({ side, setSide }: { side: Side; setSide: (side: Side) => void }) => {
     return (

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { RangeControlProps } from '../types'
 import {
     ControlContainer,
@@ -8,8 +9,9 @@ import {
     XGapSpacer,
     YGapSpacer,
 } from '../ui'
+import { defaultContext } from '../defaults'
 
-export const RangeControl = ({
+const NoMemoRangeControl = ({
     id,
     label,
     description,
@@ -18,8 +20,8 @@ export const RangeControl = ({
     step = 1,
     unit,
     value,
-    onChange,
-    context = { path: [] },
+    setValue,
+    context = defaultContext,
 }: RangeControlProps) => {
     return (
         <ControlContainer id={id} description={description} isSingleRow={false}>
@@ -31,11 +33,13 @@ export const RangeControl = ({
                     value={value}
                     unit={unit}
                     isNumber={true}
-                    onChange={onChange}
+                    onChange={setValue}
                 />
             </ControlHeader>
             <YGapSpacer />
-            <Slider id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
+            <Slider id={id} min={min} max={max} step={step} value={value} onChange={setValue} />
         </ControlContainer>
     )
 }
+
+export const RangeControl = memo(NoMemoRangeControl) as typeof NoMemoRangeControl

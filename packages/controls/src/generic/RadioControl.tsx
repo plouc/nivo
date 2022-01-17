@@ -1,8 +1,9 @@
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { RadioControlProps, SupportedValues } from '../types'
 import { ControlContainer, Label, Radio, YGapSpacer } from '../ui'
+import { defaultContext } from '../defaults'
 
-export const RadioControl = <Value extends SupportedValues<'radio'> = string>({
+const NoMemoRadioControl = <Value extends SupportedValues<'radio'> = string>({
     id,
     label,
     icon,
@@ -10,14 +11,14 @@ export const RadioControl = <Value extends SupportedValues<'radio'> = string>({
     choices,
     columns,
     value,
-    onChange: _onChange,
-    context = { path: [] },
+    setValue,
+    context = defaultContext,
 }: RadioControlProps<Value>) => {
     const onChange = useCallback(
         (value: Value) => {
-            _onChange?.(value)
+            setValue(value)
         },
-        [_onChange]
+        [setValue]
     )
 
     return (
@@ -28,3 +29,5 @@ export const RadioControl = <Value extends SupportedValues<'radio'> = string>({
         </ControlContainer>
     )
 }
+
+export const RadioControl = memo(NoMemoRadioControl) as typeof NoMemoRadioControl

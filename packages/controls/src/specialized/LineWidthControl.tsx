@@ -9,19 +9,21 @@ import {
     XGapSpacer,
     YGapSpacer,
 } from '../ui'
+import { defaultContext } from '../defaults'
+import { memo } from 'react'
 
 const size = 24
 
-export const LineWidthControl = ({
+const NoMemoLineWidthControl = ({
     id,
     label,
     icon,
     value,
-    onChange,
+    setValue,
     min = 0,
     max = 20,
     step = 1,
-    context = { path: [] },
+    context = defaultContext,
 }: LineWidthControlProps) => {
     return (
         <ControlContainer id={id} isSingleRow={false}>
@@ -48,16 +50,18 @@ export const LineWidthControl = ({
                 <TextInput<number>
                     id={id}
                     value={value}
-                    onChange={onChange}
+                    onChange={setValue}
                     unit="px"
                     isNumber={true}
                 />
             </ControlHeader>
             <YGapSpacer />
-            <Slider id={id} value={value} onChange={onChange} min={min} max={max} step={step} />
+            <Slider id={id} value={value} onChange={setValue} min={min} max={max} step={step} />
         </ControlContainer>
     )
 }
+
+export const LineWidthControl = memo(NoMemoLineWidthControl) as typeof NoMemoLineWidthControl
 
 const Line = styled.line`
     stroke: ${({ theme }) => theme.colors.border};

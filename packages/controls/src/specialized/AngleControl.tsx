@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import styled from 'styled-components'
 import { AngleControlProps } from '../types'
 import {
@@ -8,12 +9,13 @@ import {
     XGapSpacer,
     YGapSpacer,
 } from '../ui'
+import { defaultContext } from '../defaults'
 
 const size = 36
 const center = size / 2
 const markerSize = 5
 
-export const AngleControl = ({
+const NoMemoAngleControl = ({
     id,
     label,
     icon,
@@ -21,8 +23,8 @@ export const AngleControl = ({
     start = 0,
     min = 0,
     max = 360,
-    onChange,
-    context = { path: [] },
+    setValue,
+    context = defaultContext,
 }: AngleControlProps) => {
     return (
         <ControlContainer id={id} isSingleRow={false}>
@@ -49,16 +51,18 @@ export const AngleControl = ({
                 <TextInput<number>
                     id={id}
                     value={value}
-                    onChange={onChange}
+                    onChange={setValue}
                     unit="°"
                     isNumber={true}
                 />
             </TopContainer>
             <YGapSpacer />
-            <Slider id={id} min={min} max={max} value={value} onChange={onChange} />
+            <Slider id={id} min={min} max={max} value={value} onChange={setValue} />
         </ControlContainer>
     )
 }
+
+export const AngleControl = memo(NoMemoAngleControl) as typeof NoMemoAngleControl
 
 const TopContainer = styled.div`
     display: flex;

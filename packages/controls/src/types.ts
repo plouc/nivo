@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, Dispatch, SetStateAction } from 'react'
 import { CssMixBlendMode } from '@nivo/core'
 import { IconType } from './ui'
 
@@ -28,6 +28,8 @@ export type SupportedValueByType = {
 
 export type AllSupportedValues = SupportedValueByType[keyof SupportedValueByType]
 
+export type SetValue<Value extends AllSupportedValues> = Dispatch<SetStateAction<Value>>
+
 export interface CommonControlProps<Value extends AllSupportedValues> {
     id: string
     // can be used to override `id` for label
@@ -37,6 +39,7 @@ export interface CommonControlProps<Value extends AllSupportedValues> {
     description?: string
     context?: ControlContext
     value: Value
+    setValue: SetValue<Value>
     onChange?: (value: Value) => void
 }
 
@@ -175,7 +178,7 @@ type NestObjectControlProps<
     Type extends ControlType,
     Obj extends SupportedValues<'object'>,
     Id extends ObjectKeysForValue<Obj, AllSupportedValues>
-> = Omit<ControlPropsByType<Type, Obj[Id]>, 'id' | 'value' | 'onChange'> & {
+> = Omit<ControlPropsByType<Type, Obj[Id]>, 'id' | 'value' | 'setValue'> & {
     id: Id
 }
 

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useTheme } from 'styled-components'
 import { OpacityControlProps } from '../types'
 import {
@@ -12,12 +13,12 @@ import {
 
 const size = 24
 
-export const OpacityControl = ({
+const NoMemoOpacityControl = ({
     id,
     label,
     icon,
     value,
-    onChange,
+    setValue,
     context = { path: [] },
 }: OpacityControlProps) => {
     const theme = useTheme()
@@ -54,10 +55,12 @@ export const OpacityControl = ({
                     </svg>
                 </LabelWithPreview>
                 <XGapSpacer />
-                <TextInput<number> id={id} value={value} onChange={onChange} isNumber={true} />
+                <TextInput<number> id={id} value={value} onChange={setValue} isNumber={true} />
             </ControlHeader>
             <YGapSpacer />
-            <Slider id={id} min={0} max={1} step={0.05} value={value} onChange={onChange} />
+            <Slider id={id} min={0} max={1} step={0.05} value={value} onChange={setValue} />
         </ControlContainer>
     )
 }
+
+export const OpacityControl = memo(NoMemoOpacityControl) as typeof NoMemoOpacityControl

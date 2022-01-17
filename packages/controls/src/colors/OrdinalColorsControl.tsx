@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { OrdinalColorsControlProps } from '../types'
 import { ControlContainer, Label, Select, YGapSpacer } from '../ui'
 import { useOrdinalColorSchemes, ColorSchemeOption } from './helpers'
@@ -7,19 +7,19 @@ import {
     ColorSchemeOptionComponent,
 } from './ColorSchemeSelectComponents'
 
-export const OrdinalColorsControl = ({
+const NoMemoOrdinalColorsControl = ({
     id,
     label,
     icon,
     value: _value,
-    onChange: _onChange,
+    setValue,
     context = { path: [] },
 }: OrdinalColorsControlProps) => {
     const onChange = useCallback(
         (option: ColorSchemeOption | null) => {
-            if (option !== null) _onChange?.(option.value)
+            if (option !== null) setValue(option.value)
         },
-        [_onChange]
+        [setValue]
     )
 
     const colorSchemes = useOrdinalColorSchemes()
@@ -41,3 +41,7 @@ export const OrdinalColorsControl = ({
         </ControlContainer>
     )
 }
+
+export const OrdinalColorsControl = memo(
+    NoMemoOrdinalColorsControl
+) as typeof NoMemoOrdinalColorsControl

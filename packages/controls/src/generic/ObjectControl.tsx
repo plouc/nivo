@@ -1,14 +1,16 @@
+import { memo, useCallback, useMemo } from 'react'
 import {
     AllSupportedValues,
     ControlPropsByType,
     ControlType,
     ObjectControlProps,
     ObjectNestedControlProps,
+    SetValue,
     SupportedValues,
 } from '../types'
-import { useCallback, useMemo } from 'react'
 import { ControlContainer, Label } from '../ui'
 import { Control } from '../Control'
+import { defaultContext } from '../defaults'
 
 const ObjectControlNestedControl = <
     Obj extends Record<string, any>,
@@ -17,44 +19,50 @@ const ObjectControlNestedControl = <
 >({
     control,
     objectValue,
-    onChange: _onChange,
+    setValue: _setValue,
 }: {
     control: ObjectNestedControlProps<Obj>
     objectValue: Obj
-    onChange?: (value: Obj) => void
+    setValue: SetValue<Obj>
 }) => {
     const controlId = control.id
     const value = objectValue[controlId]
-    const onChange = useCallback(
-        (value: Value) => {
-            _onChange?.({
-                ...objectValue,
-                [controlId]: value,
+
+    const setValue = useCallback(
+        (_newValue: Value | ((previous: Value) => Value)) => {
+            _setValue(previous => {
+                const newValue =
+                    typeof _newValue === 'function' ? _newValue(previous[controlId]) : _newValue
+
+                return {
+                    ...previous,
+                    [controlId]: newValue,
+                }
             })
         },
-        [_onChange, objectValue, controlId]
+        [_setValue, controlId]
     )
 
     const boundControl = useMemo(() => {
         return {
             ...control,
             value,
-            onChange,
+            setValue,
         } as unknown as ControlPropsByType<Type, Value>
-    }, [control, value, onChange])
+    }, [control, value, setValue])
 
     return <Control<Value> control={boundControl} />
 }
 
-export const ObjectControl = <Obj extends SupportedValues<'object'> = Record<string, any>>({
+const NoMemoObjectControl = <Obj extends SupportedValues<'object'> = Record<string, any>>({
     id,
     label,
     icon,
     description,
     props,
     value,
-    onChange,
-    context = { path: [] },
+    setValue,
+    context = defaultContext,
 }: ObjectControlProps<Obj>) => {
     return (
         <>
@@ -67,10 +75,12 @@ export const ObjectControl = <Obj extends SupportedValues<'object'> = Record<str
                         key={control.id}
                         control={control}
                         objectValue={value}
-                        onChange={onChange}
+                        setValue={setValue}
                     />
                 )
             })}
         </>
     )
 }
+
+export const ObjectControl = memo(NoMemoObjectControl) as typeof NoMemoObjectControl

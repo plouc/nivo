@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { BoxAnchorControlProps, BoxAnchor } from '../types'
 import { ControlContainer, Label, XGapSpacer } from '../ui'
+import { defaultContext } from '../defaults'
+import { memo } from 'react'
 
 const boxWidth = 46
 const boxHeight = 46
@@ -19,13 +21,13 @@ const anchors: [BoxAnchor, number, number][] = [
     ['left', 0, boxHeight / 2],
 ]
 
-export const BoxAnchorControl = ({
+const NoMemoBoxAnchorControl = ({
     id,
     label,
     icon,
     value,
-    onChange,
-    context = { path: [] },
+    setValue,
+    context = defaultContext,
 }: BoxAnchorControlProps) => {
     return (
         <ControlContainer id={id} isSingleRow>
@@ -50,7 +52,7 @@ export const BoxAnchorControl = ({
                                         cursor: 'pointer',
                                     }}
                                     onClick={() => {
-                                        onChange?.(anchor[0])
+                                        setValue(anchor[0])
                                     }}
                                 />
                             </g>
@@ -61,6 +63,8 @@ export const BoxAnchorControl = ({
         </ControlContainer>
     )
 }
+
+export const BoxAnchorControl = memo(NoMemoBoxAnchorControl) as typeof NoMemoBoxAnchorControl
 
 const Heading = styled.div`
     display: flex;
