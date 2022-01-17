@@ -47,7 +47,7 @@ export const ObjectControl = <Value extends Record<string, unknown>>({
 }: ObjectControlProps<Value>) => {
     return (
         <>
-            <ControlContainer id={id} description={description}>
+            <ControlContainer id={id} description={description} isSingleRow>
                 <Label id={id} label={label} icon={icon} context={context} />
             </ControlContainer>
             {props.map(control => (

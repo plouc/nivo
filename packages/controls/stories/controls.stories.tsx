@@ -6,8 +6,8 @@ import {
     ControlPanel,
     TabbedControlPanel,
     darkTheme,
-    // lightTheme,
-    // yellowTheme,
+    lightTheme,
+    yellowTheme,
     // @ts-ignore
 } from '../src'
 
@@ -134,7 +134,7 @@ stories.add('Range', () => {
     )
 
     return (
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={yellowTheme}>
             <Container>
                 <TabbedControlPanel
                     tabs={[

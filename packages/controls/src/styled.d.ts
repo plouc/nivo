@@ -15,6 +15,12 @@ declare module 'styled-components' {
 
             accent: string
         }
+        spacing: {
+            controlPaddingX: number
+            controlGapX: number
+            controlPaddingY: number
+            controlGapY: number
+        }
         shadows: {
             panel: string
         }

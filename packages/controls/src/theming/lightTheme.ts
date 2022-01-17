@@ -14,6 +14,12 @@ export const lightTheme: DefaultTheme = {
 
         accent: '#2270bd',
     },
+    spacing: {
+        controlPaddingX: 12,
+        controlGapX: 9,
+        controlPaddingY: 9,
+        controlGapY: 12,
+    },
     shadows: {
         panel: '0 1px 1px 1px rgba(0, 0, 0, .03), 0 6px 9px rgba(0, 0, 0, .03)',
     },

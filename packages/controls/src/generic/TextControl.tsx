@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextControlProps } from '../types'
-import { ControlContainer, Label, TextInput } from '../ui'
+import { ControlContainer, Label, TextInput, YGapSpacer } from '../ui'
 
 export const TextControl = ({
     id,
@@ -13,8 +13,9 @@ export const TextControl = ({
     context = { path: [] },
 }: TextControlProps) => {
     return (
-        <ControlContainer id={id} description={description}>
+        <ControlContainer id={id} description={description} isSingleRow={false}>
             <Label id={id} inputType="text" label={label} icon={icon} context={context} />
+            <YGapSpacer />
             <Container>
                 <TextInput id={id} value={value} onChange={onChange} disabled={disabled} />
             </Container>
@@ -23,8 +24,6 @@ export const TextControl = ({
 }
 
 const Container = styled.div`
-    margin-top: 6px;
-
     & > div {
         width: 100%;
     }

@@ -5,11 +5,13 @@ import { Description } from './Description'
 
 interface ControlProps {
     id: string
+    isSingleRow: boolean
     description?: string
 }
 
 export const ControlContainer = ({
     id,
+    isSingleRow,
     description,
     children,
 }: PropsWithChildren<ControlProps>) => {
@@ -17,7 +19,7 @@ export const ControlContainer = ({
     const toggle = useCallback(() => setShowDescription(flag => !flag), [setShowDescription])
 
     return (
-        <Container id={id}>
+        <Container id={id} $isSingleRow={isSingleRow}>
             {description !== undefined && (
                 <Toggle onClick={toggle}>
                     {showDescription && <MdKeyboardArrowDown size={18} />}
@@ -33,11 +35,16 @@ export const ControlContainer = ({
     )
 }
 
-const Container = styled.div`
+const Container = styled.div<{
+    $isSingleRow: boolean
+}>`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${({ $isSingleRow }) => ($isSingleRow ? 'row' : 'column')};
+    justify-content: ${({ $isSingleRow }) => ($isSingleRow ? 'space-between' : 'flex-start')};
+    align-items: ${({ $isSingleRow }) => ($isSingleRow ? 'center' : 'stretch')};
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
-    padding: 9px;
+    padding: ${({ theme }) => theme.spacing.controlPaddingY}px
+        ${({ theme }) => theme.spacing.controlPaddingX}px;
 
     &:last-child {
         border-bottom-width: 0;

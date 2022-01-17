@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 import { LineWidthControlProps } from '../types'
-import { ControlContainer, Label, TextInput, Slider } from '../ui'
+import {
+    ControlContainer,
+    Controlheader,
+    LabelWithPreview,
+    TextInput,
+    Slider,
+    XGapSpacer,
+    YGapSpacer,
+} from '../ui'
 
 const size = 24
 
@@ -16,19 +24,27 @@ export const LineWidthControl = ({
     context = { path: [] },
 }: LineWidthControlProps) => {
     return (
-        <ControlContainer id={id}>
-            <TopContainer>
-                <svg width={size} height={size}>
-                    <Line y1={size / 2} x2={size} y2={size / 2} />
-                    <Marker
-                        x1={size * 0.2}
-                        y1={size / 2}
-                        x2={size * 0.8}
-                        y2={size / 2}
-                        strokeWidth={value}
-                    />
-                </svg>
-                <Label id={id} label={label} inputType="range" icon={icon} context={context} />
+        <ControlContainer id={id} isSingleRow={false}>
+            <Controlheader>
+                <LabelWithPreview
+                    id={id}
+                    label={label}
+                    inputType="range"
+                    icon={icon}
+                    context={context}
+                >
+                    <svg width={size} height={size}>
+                        <Line y1={size / 2} x2={size} y2={size / 2} />
+                        <Marker
+                            x1={size * 0.2}
+                            y1={size / 2}
+                            x2={size * 0.8}
+                            y2={size / 2}
+                            strokeWidth={value}
+                        />
+                    </svg>
+                </LabelWithPreview>
+                <XGapSpacer />
                 <TextInput<number>
                     id={id}
                     value={value}
@@ -36,30 +52,12 @@ export const LineWidthControl = ({
                     unit="px"
                     isNumber={true}
                 />
-            </TopContainer>
+            </Controlheader>
+            <YGapSpacer />
             <Slider id={id} value={value} onChange={onChange} min={min} max={max} step={step} />
         </ControlContainer>
     )
 }
-
-const TopContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 6px;
-
-    & > *:nth-child(1) {
-        margin-right: 9px;
-    }
-
-    & > *:nth-child(2) {
-        flex: 1;
-    }
-
-    & > *:nth-child(3) {
-        margin-left: 9px;
-    }
-`
 
 const Line = styled.line`
     stroke: ${({ theme }) => theme.colors.border};

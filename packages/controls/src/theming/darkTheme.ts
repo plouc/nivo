@@ -14,6 +14,12 @@ export const darkTheme: DefaultTheme = {
 
         accent: '#4c9d9d',
     },
+    spacing: {
+        controlPaddingX: 12,
+        controlGapX: 9,
+        controlPaddingY: 9,
+        controlGapY: 7,
+    },
     shadows: {
         panel: '0 1px 1px 1px rgba(0, 0, 0, .25), 0 6px 9px rgba(0, 0, 0, .15)',
     },

@@ -71,7 +71,8 @@ const TabContainer = styled.div<{
 }>`
     flex-shrink: 0;
     display: flex;
-    padding: 9px 12px;
+    padding: ${({ theme }) => theme.spacing.controlPaddingY}px
+        ${({ theme }) => theme.spacing.controlPaddingX}px;
     white-space: nowrap;
     cursor: pointer;
     background-color: ${({ isCurrent, theme }) =>

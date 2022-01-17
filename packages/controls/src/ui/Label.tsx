@@ -4,7 +4,7 @@ import { ControlContext, InputType } from '../types'
 import { IconType, Icon } from './Icon'
 import { generateInputId } from '../helpers'
 
-type LabelProps = {
+export type LabelProps = {
     id: string
     label?: string
     inputType?: InputType

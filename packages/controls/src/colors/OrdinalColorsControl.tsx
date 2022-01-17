@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
-import styled from 'styled-components'
 import { OrdinalColorsControlProps } from '../types'
-import { ControlContainer, Label, Select } from '../ui'
+import { ControlContainer, Label, Select, YGapSpacer } from '../ui'
 import { useOrdinalColorSchemes, ColorSchemeOption } from './helpers'
 import {
     ColorSchemeSingleValueComponent,
@@ -27,23 +26,18 @@ export const OrdinalColorsControl = ({
     const value = colorSchemes.find(option => option.value === _value)
 
     return (
-        <ControlContainer id={id}>
+        <ControlContainer id={id} isSingleRow={false}>
             <Label id={id} label={label} inputType="color" icon={icon} context={context} />
-            <Container>
-                <Select<ColorSchemeOption, false>
-                    options={colorSchemes}
-                    onChange={onChange}
-                    value={value}
-                    components={{
-                        SingleValue: ColorSchemeSingleValueComponent,
-                        Option: ColorSchemeOptionComponent,
-                    }}
-                />
-            </Container>
+            <YGapSpacer />
+            <Select<ColorSchemeOption, false>
+                options={colorSchemes}
+                onChange={onChange}
+                value={value}
+                components={{
+                    SingleValue: ColorSchemeSingleValueComponent,
+                    Option: ColorSchemeOptionComponent,
+                }}
+            />
         </ControlContainer>
     )
 }
-
-const Container = styled.div`
-    margin-top: 6px;
-`

@@ -45,7 +45,6 @@ export const Radio = <Value extends string | number = string>({
 const Container = styled.div<{
     columns: number
 }>`
-    margin-top: 6px;
     display: grid;
     align-items: center;
     grid-template-columns: repeat(${({ columns }) => columns}, 1fr);

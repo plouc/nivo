@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { RadioControlProps } from '../types'
-import { ControlContainer, Label, Radio } from '../ui'
+import { ControlContainer, Label, Radio, YGapSpacer } from '../ui'
 
 export const RadioControl = <Value extends string | number = string>({
     id,
@@ -21,8 +21,9 @@ export const RadioControl = <Value extends string | number = string>({
     )
 
     return (
-        <ControlContainer id={id} description={description}>
+        <ControlContainer id={id} description={description} isSingleRow={false}>
             <Label id={id} label={label} icon={icon} context={context} />
+            <YGapSpacer />
             <Radio<Value> options={choices} columns={columns} value={value} onChange={onChange} />
         </ControlContainer>
     )

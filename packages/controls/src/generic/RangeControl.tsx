@@ -1,6 +1,13 @@
-import styled from 'styled-components'
 import { RangeControlProps } from '../types'
-import { ControlContainer, Label, TextInput, Slider } from '../ui'
+import {
+    ControlContainer,
+    Controlheader,
+    Label,
+    TextInput,
+    Slider,
+    XGapSpacer,
+    YGapSpacer,
+} from '../ui'
 
 export const RangeControl = ({
     id,
@@ -15,9 +22,10 @@ export const RangeControl = ({
     context = { path: [] },
 }: RangeControlProps) => {
     return (
-        <ControlContainer id={id} description={description}>
-            <TopContainer>
+        <ControlContainer id={id} description={description} isSingleRow={false}>
+            <Controlheader>
                 <Label id={id} label={label} inputType="range" context={context} />
+                <XGapSpacer />
                 <TextInput<number>
                     id={id}
                     value={value}
@@ -25,15 +33,9 @@ export const RangeControl = ({
                     isNumber={true}
                     onChange={onChange}
                 />
-            </TopContainer>
+            </Controlheader>
+            <YGapSpacer />
             <Slider id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }
-
-const TopContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 6px;
-`

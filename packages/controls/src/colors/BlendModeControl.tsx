@@ -1,12 +1,11 @@
 import { useCallback, useMemo } from 'react'
-import styled from 'styled-components'
 import {
     // @ts-ignore
     blendModes,
     CssMixBlendMode,
 } from '@nivo/core'
 import { BlendModeControlProps } from '../types'
-import { ControlContainer, Label, Select } from '../ui'
+import { ControlContainer, Label, Select, YGapSpacer } from '../ui'
 
 type BlendModeOption = {
     label: string
@@ -39,19 +38,10 @@ export const BlendModeControl = ({
     )
 
     return (
-        <ControlContainer id={id}>
+        <ControlContainer id={id} isSingleRow={false}>
             <Label id={id} label={label} icon={icon} context={context} />
-            <Container>
-                <Select<BlendModeOption, false>
-                    options={options}
-                    onChange={onChange}
-                    value={value}
-                />
-            </Container>
+            <YGapSpacer />
+            <Select<BlendModeOption, false> options={options} onChange={onChange} value={value} />
         </ControlContainer>
     )
 }
-
-const Container = styled.div`
-    margin-top: 6px;
-`
