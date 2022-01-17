@@ -6,32 +6,32 @@ const xDomain: VoronoiDomain = [0, 100]
 const yDomain: VoronoiDomain = [0, 100]
 
 const props = {
-  enableCells: true,
-  enableLinks: true,
-  enablePoints: true,
+    enableCells: true,
+    enableLinks: true,
+    enablePoints: true,
 
-  cellLineColor: '#c6432d',
-  cellLineWidth: 2,
+    cellLineColor: '#c6432d',
+    cellLineWidth: 2,
 
-  linkLineColor: '#cccccc',
-  linkLineWidth: 1,
+    linkLineColor: '#cccccc',
+    linkLineWidth: 1,
 
-  pointColor: '#c6432d',
-  pointSize: 6,
+    pointColor: '#c6432d',
+    pointSize: 6,
 
-  xDomain,
-  yDomain,
+    xDomain,
+    yDomain,
 }
 
 const generateData = () =>
-  range(0, 100).map((id) => ({
-    id,
-    x: Math.random() * xDomain[1],
-    y: Math.random() * yDomain[1],
-  }))
+    range(0, 100).map(id => ({
+        id,
+        x: Math.random() * xDomain[1],
+        y: Math.random() * yDomain[1],
+    }))
 
 export function Voronoi() {
-  const [data] = useChart(generateData)
+    const [data] = useChart(generateData)
 
-  return <ResponsiveVoronoi data={data} {...props} />
+    return <ResponsiveVoronoi data={data} {...props} />
 }

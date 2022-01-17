@@ -3,16 +3,16 @@ import { countries } from '../data'
 import { useChart } from '../hooks'
 
 const props = {
-  borderWidth: 0.5,
-  features: countries.features,
+    borderWidth: 0.5,
+    features: countries.features,
 }
 
 export function GeoMap() {
-  const [, flavor] = useChart()
+    const [, flavor] = useChart()
 
-  if (flavor === 'canvas') {
-    return <ResponsiveGeoMapCanvas {...props} />
-  }
+    if (flavor === 'canvas') {
+        return <ResponsiveGeoMapCanvas {...props} />
+    }
 
-  return <ResponsiveGeoMap {...props} />
+    return <ResponsiveGeoMap {...props} />
 }
