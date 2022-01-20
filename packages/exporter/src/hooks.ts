@@ -1,10 +1,14 @@
 import { useCallback, useRef, MutableRefObject } from 'react'
 import { getSvgElement, exportSvgToSvg, exportSvgToImage } from './export'
 
-export const useSvgExporter = (name: string, format = 'png', dpr = 2): [
+export const useSvgExporter = (
+    name: string,
+    format = 'png',
+    dpr = 2
+): [
     ref: MutableRefObject<HTMLElement | null>,
     exportToSvg: () => void,
-    exportToImage: () => void,
+    exportToImage: () => void
 ] => {
     const ref = useRef<HTMLElement | null>(null)
 
