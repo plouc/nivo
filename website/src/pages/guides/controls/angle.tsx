@@ -18,6 +18,24 @@ const props = [
         type: 'number',
         required: true,
     },
+    {
+        name: 'start',
+        type: 'number',
+        required: false,
+        defaultValue: 0,
+    },
+    {
+        name: 'min',
+        type: 'number',
+        required: false,
+        defaultValue: 0,
+    },
+    {
+        name: 'max',
+        type: 'number',
+        required: false,
+        defaultValue: 360,
+    },
 ]
 
 export default () => {
