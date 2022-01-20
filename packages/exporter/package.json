@@ -1,0 +1,29 @@
+{
+  "name": "@nivo/exporter",
+  "version": "0.79.1",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/exporter"
+  },
+  "main": "./dist/nivo-exporter.cjs.js",
+  "module": "./dist/nivo-exporter.es.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "peerDependencies": {
+    "react": ">= 16.14.0 < 18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

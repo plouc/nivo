@@ -16,6 +16,8 @@
         { "path": "./packages/voronoi" },
 
         // Utility packages
+        { "path": "./packages/controls" },
+        { "path": "./packages/exporter" },
         { "path": "./packages/generators" },
         { "path": "./packages/recompose" },
 
