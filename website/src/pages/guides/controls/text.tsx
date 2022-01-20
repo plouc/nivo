@@ -1,22 +1,25 @@
 import React from 'react'
-import Layout from '../../../components/Layout'
-import PageContent from '../../../components/PageContent'
-import { Seo } from '../../../components/Seo'
-import { ControlsNav } from '../../../components/guides/controls'
+import { ControlPageTemplate } from '../../../components/guides/controls'
+
+const config = {
+    id: 'Text',
+    type: 'text',
+    value: 'Hi there!',
+}
+
+const props = [
+    {
+        name: 'type',
+        type: `'text'`,
+        required: true,
+    },
+    {
+        name: 'value',
+        type: 'string',
+        required: true,
+    },
+]
 
 export default () => {
-    return (
-        <Layout>
-            <Seo
-                title="TextControl"
-                description="Easily add controls to your nivo charts."
-            />
-            <PageContent>
-                <div className="guide__header">
-                    <h1>TextControl</h1>
-                </div>
-            </PageContent>
-            <ControlsNav/>
-        </Layout>
-    )
+    return <ControlPageTemplate name="TextControl" config={config} props={props} />
 }

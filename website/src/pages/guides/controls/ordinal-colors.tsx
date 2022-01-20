@@ -1,22 +1,25 @@
 import React from 'react'
-import Layout from '../../../components/Layout'
-import PageContent from '../../../components/PageContent'
-import { Seo } from '../../../components/Seo'
-import { ControlsNav } from '../../../components/guides/controls'
+import { ControlPageTemplate } from '../../../components/guides/controls'
+
+const config = {
+    id: 'Ordinal Colors',
+    type: 'ordinal_colors',
+    value: 'nivo',
+}
+
+const props = [
+    {
+        name: 'type',
+        type: `'ordinal_colors'`,
+        required: true,
+    },
+    {
+        name: 'value',
+        type: 'SchemeId',
+        required: true,
+    },
+]
 
 export default () => {
-    return (
-        <Layout>
-            <Seo
-                title="OrdinalColorsControl"
-                description="Easily add controls to your nivo charts."
-            />
-            <PageContent>
-                <div className="guide__header">
-                    <h1>OrdinalColorsControl</h1>
-                </div>
-            </PageContent>
-            <ControlsNav/>
-        </Layout>
-    )
+    return <ControlPageTemplate name="OrdinalColorsControl" config={config} props={props} />
 }

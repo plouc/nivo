@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
-import {ColorsIllustrations, ColorsRanges, ColorsColor} from '../../components/guides/colors'
+import { ColorsIllustrations, ColorsRanges, ColorsColor } from '../../components/guides/colors'
 import { DescriptionBlock } from '../../components/styled'
 
 const Colors = () => (

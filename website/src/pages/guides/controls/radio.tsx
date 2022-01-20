@@ -1,32 +1,31 @@
 import React from 'react'
-import { useControl, RadioControl, ControlPanel } from '@nivo/controls'
-import Layout from '../../../components/Layout'
-import PageContent from '../../../components/PageContent'
-import { Seo } from '../../../components/Seo'
-import { ControlsNav } from '../../../components/guides/controls'
+import { ControlPageTemplate } from '../../../components/guides/controls'
+
+const config = {
+    id: 'Radio',
+    type: 'radio',
+    value: 'option_a',
+    columns: 3,
+    choices: [
+        { label: 'Option A', value: 'option_a' },
+        { label: 'Option B', value: 'option_b' },
+        { label: 'Option C', value: 'option_c' },
+    ],
+}
+
+const props = [
+    {
+        name: 'type',
+        type: `'radio'`,
+        required: true,
+    },
+    {
+        name: 'value',
+        type: 'string | number',
+        required: true,
+    },
+]
 
 export default () => {
-    const control = useControl({
-        id: 'Radio',
-        type: 'radio',
-        value: 'option_a',
-    })
-
-    return (
-        <Layout>
-            <Seo
-                title="RadioControl"
-                description="Easily add controls to your nivo charts."
-            />
-            <PageContent>
-                <div className="guide__header">
-                    <h1>RadioControl</h1>
-                </div>
-            </PageContent>
-            <PageContent>
-                <ControlPanel controls={[control]}/>
-            </PageContent>
-            <ControlsNav/>
-        </Layout>
-    )
+    return <ControlPageTemplate name="RadioControl" config={config} props={props} />
 }

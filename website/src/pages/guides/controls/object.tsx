@@ -1,22 +1,12 @@
 import React from 'react'
-import Layout from '../../../components/Layout'
-import PageContent from '../../../components/PageContent'
-import { Seo } from '../../../components/Seo'
-import { ControlsNav } from '../../../components/guides/controls'
+import { ControlPageTemplate } from '../../../components/guides/controls'
 
 export default () => {
-    return (
-        <Layout>
-            <Seo
-                title="ObjectControl"
-                description="Easily add controls to your nivo charts."
-            />
-            <PageContent>
-                <div className="guide__header">
-                    <h1>ObjectControl</h1>
-                </div>
-            </PageContent>
-            <ControlsNav/>
-        </Layout>
-    )
+    const config = {
+        id: 'Color',
+        type: 'color',
+        value: '#d33d1c',
+    }
+
+    return <ControlPageTemplate name="ObjectControl" config={config} />
 }

@@ -1,22 +1,25 @@
 import React from 'react'
-import Layout from '../../../components/Layout'
-import PageContent from '../../../components/PageContent'
-import { Seo } from '../../../components/Seo'
-import { ControlsNav } from '../../../components/guides/controls'
+import { ControlPageTemplate } from '../../../components/guides/controls'
+
+const config = {
+    id: 'Switch',
+    type: 'switch',
+    value: true,
+}
+
+const props = [
+    {
+        name: 'type',
+        type: `'switch'`,
+        required: true,
+    },
+    {
+        name: 'value',
+        type: 'boolean',
+        required: true,
+    },
+]
 
 export default () => {
-    return (
-        <Layout>
-            <Seo
-                title="SwitchControl"
-                description="Easily add controls to your nivo charts."
-            />
-            <PageContent>
-                <div className="guide__header">
-                    <h1>SwitchControl</h1>
-                </div>
-            </PageContent>
-            <ControlsNav/>
-        </Layout>
-    )
+    return <ControlPageTemplate name="SwitchControl" config={config} props={props} />
 }

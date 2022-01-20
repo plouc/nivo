@@ -1,22 +1,30 @@
 import React from 'react'
-import Layout from '../../../components/Layout'
-import PageContent from '../../../components/PageContent'
-import { Seo } from '../../../components/Seo'
-import { ControlsNav } from '../../../components/guides/controls'
+import { ControlPageTemplate } from '../../../components/guides/controls'
+
+const config = {
+    id: 'Margin',
+    type: 'margin',
+    value: {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
+    },
+}
+
+const props = [
+    {
+        name: 'type',
+        type: `'margin'`,
+        required: true,
+    },
+    {
+        name: 'value',
+        type: 'Margin',
+        required: true,
+    },
+]
 
 export default () => {
-    return (
-        <Layout>
-            <Seo
-                title="MarginControl"
-                description="Easily add controls to your nivo charts."
-            />
-            <PageContent>
-                <div className="guide__header">
-                    <h1>MarginControl</h1>
-                </div>
-            </PageContent>
-            <ControlsNav/>
-        </Layout>
-    )
+    return <ControlPageTemplate name="MarginControl" config={config} props={props} />
 }

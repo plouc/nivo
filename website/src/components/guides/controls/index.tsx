@@ -1,1 +1,2 @@
-export * from './ControlsNav'
+export * from './ControlPageTemplate'
+export * from './ControlsLayout'
