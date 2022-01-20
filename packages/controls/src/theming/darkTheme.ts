@@ -12,7 +12,7 @@ export const darkTheme: DefaultTheme = {
         border: '#1e2121',
         borderLight: '#222525',
 
-        accent: '#4c9d9d',
+        accent: '#3c91e8',
     },
     spacing: {
         controlPaddingX: 12,

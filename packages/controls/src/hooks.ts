@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ControlPropsByType, ControlType, SupportedValues } from './types'
+import { ControlPropsByType, ControlType, SupportedValues, DistributiveOmit } from './types'
 import { defaultContext } from './defaults'
 
 export const useControl = <
@@ -11,7 +11,10 @@ export const useControl = <
     onChange,
     context = defaultContext,
     ...rest
-}: Omit<ControlPropsByType<Type, Value>, 'setValue'>) => {
+}: DistributiveOmit<ControlPropsByType<Type, Value>, 'setValue'>): ControlPropsByType<
+    Type,
+    Value
+> => {
     const [value, setValue] = useState<Value>(initialValue as Value)
 
     useEffect(() => {

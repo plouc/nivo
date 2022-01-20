@@ -173,10 +173,13 @@ stories.add('Range', () => {
         [generics.value, specialized.value, colors.value]
     )
 
+    const theme = darkTheme
+
     return (
         <ThemeProvider theme={darkTheme}>
             <Container>
                 <TabbedControlPanel
+                    theme={theme}
                     tabs={[
                         {
                             name: 'Generics',
@@ -192,9 +195,9 @@ stories.add('Range', () => {
                         },
                     ]}
                 />
-                <ControlPanel controls={[generics]} />
-                <ControlPanel controls={[specialized]} />
-                <ControlPanel controls={[colors]} />
+                <ControlPanel controls={[generics]} theme={theme} />
+                <ControlPanel controls={[specialized]} theme={theme} />
+                <ControlPanel controls={[colors]} theme={theme} />
                 <div>
                     <pre>{JSON.stringify(mergedValue, null, '  ')}</pre>
                 </div>

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import styled from 'styled-components'
+import styled, { ThemeProvider, DefaultTheme } from 'styled-components'
 import { Panel } from './Panel'
 import { ControlProps } from '../types'
 import { Control } from '../Control'
@@ -11,32 +11,35 @@ interface TabbedControlsTab {
 
 interface TabbedControlPanelProps {
     tabs: TabbedControlsTab[]
+    theme: DefaultTheme
 }
 
-export const TabbedControlPanel = ({ tabs }: TabbedControlPanelProps) => {
+export const TabbedControlPanel = ({ tabs, theme }: TabbedControlPanelProps) => {
     const [tabId, setTabId] = useState(tabs[0].name)
     const currentTab = useMemo(() => tabs.find(({ name }) => name === tabId), [tabs, tabId])
 
     return (
-        <Panel>
-            <TabsContainer>
-                {tabs.map(tab => (
-                    <Tab
-                        key={tab.name}
-                        tab={tab}
-                        isCurrent={tab.name === tabId}
-                        setTab={setTabId}
-                    />
-                ))}
-            </TabsContainer>
-            {currentTab && (
-                <>
-                    {currentTab.controls.map(control => (
-                        <Control key={control.id} control={control} />
+        <ThemeProvider theme={theme}>
+            <Panel>
+                <TabsContainer>
+                    {tabs.map(tab => (
+                        <Tab
+                            key={tab.name}
+                            tab={tab}
+                            isCurrent={tab.name === tabId}
+                            setTab={setTabId}
+                        />
                     ))}
-                </>
-            )}
-        </Panel>
+                </TabsContainer>
+                {currentTab && (
+                    <>
+                        {currentTab.controls.map(control => (
+                            <Control key={control.id} control={control} />
+                        ))}
+                    </>
+                )}
+            </Panel>
+        </ThemeProvider>
     )
 }
 

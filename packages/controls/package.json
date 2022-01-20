@@ -21,15 +21,15 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
+    "react-icons": "^4.3.1",
+    "react-select": "^5.2.2"
+  },
+  "peerDependencies": {
     "@nivo/colors": "0.79.1",
     "@nivo/core": "0.79.0",
     "@types/styled-components": "^5.1.18",
-    "react-icons": "^4.3.1",
-    "react-select": "^5.2.2",
+    "react": ">= 16.14.0 < 18.0.0",
     "styled-components": "^5.3.3"
-  },
-  "peerDependencies": {
-    "react": ">= 16.14.0 < 18.0.0"
   },
   "publishConfig": {
     "access": "public"

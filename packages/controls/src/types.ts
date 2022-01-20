@@ -212,3 +212,5 @@ export type ObjectNestedControlProps<Obj extends SupportedValues<'object'>> =
     | NestObjectControlProps<'range', Obj, ObjectKeysForValue<Obj, SupportedValues<'range'>>>
     | NestObjectControlProps<'switch', Obj, ObjectKeysForValue<Obj, SupportedValues<'switch'>>>
     | NestObjectControlProps<'text', Obj, ObjectKeysForValue<Obj, SupportedValues<'text'>>>
+
+export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never

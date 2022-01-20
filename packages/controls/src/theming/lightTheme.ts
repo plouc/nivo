@@ -12,7 +12,7 @@ export const lightTheme: DefaultTheme = {
         border: '#d6dbdc',
         borderLight: '#eeeeee',
 
-        accent: '#2270bd',
+        accent: '#e25d47',
     },
     spacing: {
         controlPaddingX: 12,
