@@ -21,18 +21,18 @@ const NoMemoMarginControl = ({
     min = 0,
     max = 200,
     value,
-    setValue,
+    onChange: _onChange,
     context = defaultContext,
 }: MarginControlProps) => {
     const [side, setSide] = useState<Side>('top')
     const onChange = useCallback(
         (sideValue: number) => {
-            setValue(previous => ({
-                ...previous,
+            _onChange({
+                ...value,
                 [side]: sideValue,
-            }))
+            })
         },
-        [setValue, side]
+        [value, onchange, side]
     )
 
     return (

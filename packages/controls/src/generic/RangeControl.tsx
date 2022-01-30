@@ -20,7 +20,7 @@ const NoMemoRangeControl = ({
     step = 1,
     unit,
     value,
-    setValue,
+    onChange,
     context = defaultContext,
 }: RangeControlProps) => {
     return (
@@ -33,11 +33,11 @@ const NoMemoRangeControl = ({
                     value={value}
                     unit={unit}
                     isNumber={true}
-                    onChange={setValue}
+                    onChange={onChange}
                 />
             </ControlHeader>
             <YGapSpacer />
-            <Slider id={id} min={min} max={max} step={step} value={value} onChange={setValue} />
+            <Slider id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

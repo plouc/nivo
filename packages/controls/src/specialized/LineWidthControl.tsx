@@ -19,7 +19,7 @@ const NoMemoLineWidthControl = ({
     label,
     icon,
     value,
-    setValue,
+    onChange,
     min = 0,
     max = 20,
     step = 1,
@@ -50,13 +50,13 @@ const NoMemoLineWidthControl = ({
                 <TextInput<number>
                     id={id}
                     value={value}
-                    onChange={setValue}
+                    onChange={onChange}
                     unit="px"
                     isNumber={true}
                 />
             </ControlHeader>
             <YGapSpacer />
-            <Slider id={id} value={value} onChange={setValue} min={min} max={max} step={step} />
+            <Slider id={id} value={value} onChange={onChange} min={min} max={max} step={step} />
         </ControlContainer>
     )
 }

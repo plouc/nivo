@@ -7,7 +7,7 @@ describe('TextControl', () => {
     it('should render a text control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <TextControl id="text" type="text" value="test" />
+                <TextControl id="text" type="text" value="test" onChange={() => {}} />
             </ThemeProvider>
         )
 

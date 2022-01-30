@@ -4,10 +4,10 @@ import { ThemeProvider } from 'styled-components'
 import { SwitchControl, darkTheme } from '../src'
 
 describe('SwitchControl', () => {
-    it('should render a range control', () => {
+    it('should render a switch control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <SwitchControl id="switch" type="switch" value={true} />
+                <SwitchControl id="switch" type="switch" value={true} onChange={() => {}} />
             </ThemeProvider>
         )
 

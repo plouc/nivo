@@ -5,7 +5,7 @@ import { ChangeEvent, useCallback } from 'react'
 type ColorInputProps = {
     id: string
     value: string
-    onChange?: (color: string) => void
+    onChange: (color: string) => void
     disabled?: boolean
 }
 
@@ -17,7 +17,7 @@ export const ColorInput = ({
 }: ColorInputProps) => {
     const onChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            _onChange?.(event.target.value)
+            _onChange(event.target.value)
         },
         [_onChange]
     )

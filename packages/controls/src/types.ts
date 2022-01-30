@@ -39,8 +39,7 @@ export interface CommonControlProps<Value extends AllSupportedValues> {
     description?: string
     context?: ControlContext
     value: Value
-    setValue: SetValue<Value>
-    onChange?: (value: Value) => void
+    onChange: (value: Value) => void
 }
 
 export interface RadioControlProps<Value extends SupportedValues<'radio'> = string>

@@ -12,14 +12,14 @@ const NoMemoOrdinalColorsControl = ({
     label,
     icon,
     value: _value,
-    setValue,
+    onChange: _onChange,
     context = { path: [] },
 }: OrdinalColorsControlProps) => {
     const onChange = useCallback(
         (option: ColorSchemeOption | null) => {
-            if (option !== null) setValue(option.value)
+            if (option !== null) _onChange(option.value)
         },
-        [setValue]
+        [_onChange]
     )
 
     const colorSchemes = useOrdinalColorSchemes()

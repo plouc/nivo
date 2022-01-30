@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { ControlPropsByType, ControlType, SupportedValues, DistributiveOmit } from './types'
 import { defaultContext } from './defaults'
 
@@ -7,7 +6,7 @@ export const useControl = <
     Value extends SupportedValues<Type> = SupportedValues<Type>
 >({
     type,
-    value: initialValue,
+    value,
     onChange,
     context = defaultContext,
     ...rest
@@ -15,17 +14,11 @@ export const useControl = <
     Type,
     Value
 > => {
-    const [value, setValue] = useState<Value>(initialValue as Value)
-
-    useEffect(() => {
-        ;(onChange as (value: Value) => void)?.(value)
-    }, [onChange, value])
-
     return {
         ...rest,
         type,
         value,
-        setValue,
+        onChange,
         context,
     } as unknown as ControlPropsByType<Type, Value>
 }

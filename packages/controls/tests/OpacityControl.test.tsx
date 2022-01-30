@@ -7,7 +7,7 @@ describe('OpacityControl', () => {
     it('should render an opacity control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <OpacityControl id="opacity" type="opacity" value={0.5} />
+                <OpacityControl id="opacity" type="opacity" value={0.5} onChange={() => {}} />
             </ThemeProvider>
         )
 

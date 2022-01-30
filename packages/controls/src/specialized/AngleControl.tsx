@@ -23,7 +23,7 @@ const NoMemoAngleControl = ({
     start = 0,
     min = 0,
     max = 360,
-    setValue,
+    onChange,
     context = defaultContext,
 }: AngleControlProps) => {
     return (
@@ -51,13 +51,13 @@ const NoMemoAngleControl = ({
                 <TextInput<number>
                     id={id}
                     value={value}
-                    onChange={setValue}
+                    onChange={onChange}
                     unit="°"
                     isNumber={true}
                 />
             </TopContainer>
             <YGapSpacer />
-            <Slider id={id} min={min} max={max} value={value} onChange={setValue} />
+            <Slider id={id} min={min} max={max} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

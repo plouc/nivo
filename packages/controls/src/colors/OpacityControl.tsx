@@ -18,7 +18,7 @@ const NoMemoOpacityControl = ({
     label,
     icon,
     value,
-    setValue,
+    onChange,
     context = { path: [] },
 }: OpacityControlProps) => {
     const theme = useTheme()
@@ -55,10 +55,10 @@ const NoMemoOpacityControl = ({
                     </svg>
                 </LabelWithPreview>
                 <XGapSpacer />
-                <TextInput<number> id={id} value={value} onChange={setValue} isNumber={true} />
+                <TextInput<number> id={id} value={value} onChange={onChange} isNumber={true} />
             </ControlHeader>
             <YGapSpacer />
-            <Slider id={id} min={0} max={1} step={0.05} value={value} onChange={setValue} />
+            <Slider id={id} min={0} max={1} step={0.05} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

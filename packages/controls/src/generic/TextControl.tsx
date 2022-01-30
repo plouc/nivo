@@ -11,7 +11,7 @@ const NoMemoTextControl = ({
     description,
     disabled,
     value,
-    setValue,
+    onChange,
     context = defaultContext,
 }: TextControlProps) => {
     return (
@@ -19,7 +19,7 @@ const NoMemoTextControl = ({
             <Label id={id} inputType="text" label={label} icon={icon} context={context} />
             <YGapSpacer />
             <Container>
-                <TextInput id={id} value={value} onChange={setValue} disabled={disabled} />
+                <TextInput id={id} value={value} onChange={onChange} disabled={disabled} />
             </Container>
         </ControlContainer>
     )

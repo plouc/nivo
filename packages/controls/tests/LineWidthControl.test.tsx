@@ -7,7 +7,7 @@ describe('LineWidthControl', () => {
     it('should render a line width control', () => {
         const wrapper = mount(
             <ThemeProvider theme={darkTheme}>
-                <LineWidthControl id="line_width" type="line_width" value={2} />
+                <LineWidthControl id="line_width" type="line_width" value={2} onChange={() => {}} />
             </ThemeProvider>
         )
 
@@ -35,6 +35,7 @@ describe('LineWidthControl', () => {
                     max={50}
                     step={5}
                     value={15}
+                    onChange={() => {}}
                 />
             </ThemeProvider>
         )

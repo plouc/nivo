@@ -9,14 +9,14 @@ const NoMemoSwitchControl = ({
     icon,
     description,
     value,
-    setValue,
+    onChange,
     context = defaultContext,
 }: SwitchControlProps) => {
     return (
         <ControlContainer id={id} description={description} isSingleRow>
             <Label id={id} label={label} inputType="checkbox" icon={icon} context={context} />
             <XGapSpacer />
-            <Switch id={id} value={value} onChange={setValue} />
+            <Switch id={id} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

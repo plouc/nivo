@@ -17,7 +17,7 @@ const NoMemoBlendModeControl = ({
     label,
     icon,
     value: _value,
-    setValue,
+    onChange: _onChange,
     context = { path: [] },
 }: BlendModeControlProps) => {
     const options: BlendModeOption[] = useMemo(
@@ -32,9 +32,9 @@ const NoMemoBlendModeControl = ({
     const value = options.find(option => option.value === _value)
     const onChange = useCallback(
         (option: BlendModeOption | null) => {
-            if (option !== null) setValue?.(option.value)
+            if (option !== null) _onChange(option.value)
         },
-        [setValue]
+        [_onChange]
     )
 
     return (

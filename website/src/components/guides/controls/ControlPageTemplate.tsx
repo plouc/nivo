@@ -24,7 +24,12 @@ export const ControlPageTemplate = ({ name, config, props = [] }: ControlPageTem
 
     const [tab, setTab] = useState<'code' | 'config'>('config')
 
-    const control = useControl(config)
+    const [value, setValue] = useState<any>(config.value)
+    const control = useControl({
+        ...config,
+        value,
+        onChange: setValue,
+    })
 
     const configCode = useMemo(
         () =>
@@ -57,12 +62,15 @@ export const ControlPageTemplate = ({ name, config, props = [] }: ControlPageTem
                         <Highlight
                             language="tsx"
                             code={dedent`
+                        import { useState } from 'react'
                         import { useControl, ControlPanel, ${themeName} } from '@nivo/controls'
                         
                         const ComponentWith${name} = () => {
+                            const [value, setValue] = useState(${config.value})
+
                             ${configCode}
                             
-                            console.log(control.value)
+                            console.log(value)
                             // > ${valueString}
                             
                             return (

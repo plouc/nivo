@@ -8,13 +8,13 @@ interface SliderProps {
     max: number
     step?: number
     value: number
-    onChange?: (value: number) => void
+    onChange: (value: number) => void
 }
 
 export const Slider = ({ id, min, max, step, value, onChange: _onChange }: SliderProps) => {
     const onChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            _onChange?.(Number(event.target.value))
+            _onChange(Number(event.target.value))
         },
         [_onChange]
     )

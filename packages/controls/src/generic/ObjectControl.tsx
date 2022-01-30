@@ -5,7 +5,6 @@ import {
     ControlType,
     ObjectControlProps,
     ObjectNestedControlProps,
-    SetValue,
     SupportedValues,
 } from '../types'
 import { ControlContainer, Label } from '../ui'
@@ -19,37 +18,32 @@ const ObjectControlNestedControl = <
 >({
     control,
     objectValue,
-    setValue: _setValue,
+    onChange: _onChange,
 }: {
     control: ObjectNestedControlProps<Obj>
     objectValue: Obj
-    setValue: SetValue<Obj>
+    onChange: (value: Obj) => void
 }) => {
     const controlId = control.id
     const value = objectValue[controlId]
 
-    const setValue = useCallback(
-        (_newValue: Value | ((previous: Value) => Value)) => {
-            _setValue(previous => {
-                const newValue =
-                    typeof _newValue === 'function' ? _newValue(previous[controlId]) : _newValue
-
-                return {
-                    ...previous,
-                    [controlId]: newValue,
-                }
+    const onChange = useCallback(
+        (newValue: Value) => {
+            _onChange({
+                ...objectValue,
+                [controlId]: newValue,
             })
         },
-        [_setValue, controlId]
+        [objectValue, _onChange, controlId]
     )
 
     const boundControl = useMemo(() => {
         return {
             ...control,
             value,
-            setValue,
+            onChange,
         } as unknown as ControlPropsByType<Type, Value>
-    }, [control, value, setValue])
+    }, [control, value, onChange])
 
     return <Control<Value> control={boundControl} />
 }
@@ -61,7 +55,7 @@ const NoMemoObjectControl = <Obj extends SupportedValues<'object'> = Record<stri
     description,
     props,
     value,
-    setValue,
+    onChange,
     context = defaultContext,
 }: ObjectControlProps<Obj>) => {
     return (
@@ -75,7 +69,7 @@ const NoMemoObjectControl = <Obj extends SupportedValues<'object'> = Record<stri
                         key={control.id}
                         control={control}
                         objectValue={value}
-                        setValue={setValue}
+                        onChange={onChange}
                     />
                 )
             })}

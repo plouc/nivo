@@ -26,7 +26,7 @@ const NoMemoBoxAnchorControl = ({
     label,
     icon,
     value,
-    setValue,
+    onChange,
     context = defaultContext,
 }: BoxAnchorControlProps) => {
     return (
@@ -43,16 +43,20 @@ const NoMemoBoxAnchorControl = ({
                         const isSelected = value === anchor[0]
 
                         return (
-                            <g key={anchor[0]} transform={`translate(${anchor[1]},${anchor[2]})`}>
-                                <Dot isSelected={isSelected} r={isSelected ? 3 : 2} />
+                            <g
+                                key={anchor[0]}
+                                data-testid={`anchor.${anchor[0]}`}
+                                transform={`translate(${anchor[1]},${anchor[2]})`}
+                                onClick={() => {
+                                    onChange(anchor[0])
+                                }}
+                            >
+                                <Dot $isSelected={isSelected} r={isSelected ? 3 : 2} />
                                 <DotOutline
-                                    isSelected={isSelected}
+                                    $isSelected={isSelected}
                                     r={outlineRadius}
                                     style={{
                                         cursor: 'pointer',
-                                    }}
-                                    onClick={() => {
-                                        setValue(anchor[0])
                                     }}
                                 />
                             </g>
@@ -79,19 +83,19 @@ const Rect = styled.rect`
 `
 
 const Dot = styled.circle<{
-    isSelected: boolean
+    $isSelected: boolean
 }>`
-    fill: ${({ isSelected, theme }) => (isSelected ? theme.colors.accent : theme.colors.border)};
+    fill: ${({ $isSelected, theme }) => ($isSelected ? theme.colors.accent : theme.colors.border)};
 `
 
 const DotOutline = styled.circle<{
-    isSelected: boolean
+    $isSelected: boolean
 }>`
     fill-opacity: 0;
     stroke-width: 2px;
-    stroke: ${({ isSelected, theme }) =>
-        isSelected ? theme.colors.accent : theme.colors.textLight};
-    stroke-opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
+    stroke: ${({ $isSelected, theme }) =>
+        $isSelected ? theme.colors.accent : theme.colors.textLight};
+    stroke-opacity: ${({ $isSelected }) => ($isSelected ? 1 : 0)};
 
     &:hover {
         stroke-opacity: 1;

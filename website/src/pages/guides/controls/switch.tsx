@@ -20,6 +20,8 @@ const props = [
     },
 ]
 
-export default () => {
+const SwitchControlPage = () => {
     return <ControlPageTemplate name="SwitchControl" config={config} props={props} />
 }
+
+export default SwitchControlPage

@@ -7,14 +7,14 @@ const NoMemoColorControl = ({
     label,
     icon,
     value,
-    setValue,
+    onChange,
     context = { path: [] },
 }: ColorControlProps) => {
     return (
         <ControlContainer id={id} isSingleRow>
             <Label id={id} label={label} inputType="color" icon={icon} context={context} />
             <XGapSpacer />
-            <ColorInput id={id} value={value} onChange={setValue} />
+            <ColorInput id={id} value={value} onChange={onChange} />
         </ControlContainer>
     )
 }

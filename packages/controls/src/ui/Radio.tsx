@@ -20,7 +20,7 @@ export const Radio = <Value extends string | number = string>({
     const isNumber = typeof value === 'number'
     const handleChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            onChange?.((isNumber ? Number(event.target.value) : event.target.value) as Value)
+            onChange((isNumber ? Number(event.target.value) : event.target.value) as Value)
         },
         [isNumber, onChange]
     )

@@ -1,14 +1,14 @@
+import { ChangeEvent, useCallback } from 'react'
 import styled from 'styled-components'
 import { Unit } from '../types'
 import { generateInputId } from '../helpers'
-import { ChangeEvent, useCallback } from 'react'
 
 type TextInputProps<Value extends string | number> = {
     id: string
     isNumber?: boolean
     unit?: Unit
     value: Value
-    onChange?: (value: Value) => void
+    onChange: (value: Value) => void
     disabled?: boolean
 }
 
@@ -24,8 +24,8 @@ export const TextInput = <Value extends string | number = string>({
 
     const onChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            if (isNumber) _onChange?.(Number(event.target.value) as Value)
-            else _onChange?.(event.target.value as Value)
+            if (isNumber) _onChange(Number(event.target.value) as Value)
+            else _onChange(event.target.value as Value)
         },
         [_onChange, isNumber]
     )
