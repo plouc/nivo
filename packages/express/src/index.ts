@@ -38,7 +38,7 @@ nivo.get('/r/:id', (req, res) => {
 
     const config = storage.get(req.params.id)
     if (!config) {
-        return res.status(404).send(`no chart found for id "${id}"`)
+        return res.set('Content-Type', 'text/plain').status(404).send(`no chart found for id "${id}"`)
     }
 
     // @ts-ignore
