@@ -59,7 +59,7 @@ DotsItem.propTypes = {
 
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
-    labelYOffset: PropTypes.number.isRequired,
+    labelYOffset: PropTypes.number,
 }
 
 export default memo(DotsItem)
