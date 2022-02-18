@@ -104,7 +104,7 @@ Object {
   "textBaseline": "alphabetic",
   "ticks": Array [
     Object {
-      "key": 0,
+      "key": "0",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -114,7 +114,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 50,
+      "key": "50",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -124,7 +124,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 100,
+      "key": "100",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -134,7 +134,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 150,
+      "key": "150",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -144,7 +144,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 200,
+      "key": "200",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -154,7 +154,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 250,
+      "key": "250",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -164,7 +164,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 300,
+      "key": "300",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -174,7 +174,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 350,
+      "key": "350",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -184,7 +184,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 400,
+      "key": "400",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -194,7 +194,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 450,
+      "key": "450",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -204,7 +204,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 500,
+      "key": "500",
       "lineX": 0,
       "lineY": NaN,
       "textX": 0,
@@ -223,7 +223,7 @@ Object {
   "textBaseline": "central",
   "ticks": Array [
     Object {
-      "key": 0,
+      "key": "0",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -233,7 +233,7 @@ Object {
       "y": 0,
     },
     Object {
-      "key": 50,
+      "key": "50",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -243,7 +243,7 @@ Object {
       "y": 10,
     },
     Object {
-      "key": 100,
+      "key": "100",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -253,7 +253,7 @@ Object {
       "y": 20,
     },
     Object {
-      "key": 150,
+      "key": "150",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -263,7 +263,7 @@ Object {
       "y": 30,
     },
     Object {
-      "key": 200,
+      "key": "200",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -273,7 +273,7 @@ Object {
       "y": 40,
     },
     Object {
-      "key": 250,
+      "key": "250",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -283,7 +283,7 @@ Object {
       "y": 50,
     },
     Object {
-      "key": 300,
+      "key": "300",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -293,7 +293,7 @@ Object {
       "y": 60,
     },
     Object {
-      "key": 350,
+      "key": "350",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -303,7 +303,7 @@ Object {
       "y": 70,
     },
     Object {
-      "key": 400,
+      "key": "400",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -313,7 +313,7 @@ Object {
       "y": 80,
     },
     Object {
-      "key": 450,
+      "key": "450",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
@@ -323,7 +323,7 @@ Object {
       "y": 90,
     },
     Object {
-      "key": 500,
+      "key": "500",
       "lineX": NaN,
       "lineY": 0,
       "textX": NaN,
