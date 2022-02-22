@@ -3,8 +3,8 @@ import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } 
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
-import PointTooltip from './PointTooltip'
-import SliceTooltip from './SliceTooltip'
+import { PointTooltip } from './PointTooltip'
+import { SliceTooltip } from './SliceTooltip'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(
@@ -182,7 +182,7 @@ const commonDefaultProps = {
 
     isInteractive: true,
     tooltip: PointTooltip,
-    enableSlices: false,
+    enableSlices: false as const,
     debugSlices: false,
     sliceTooltip: SliceTooltip,
     debugMesh: false,

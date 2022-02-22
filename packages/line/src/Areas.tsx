@@ -1,9 +1,21 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig, CssMixBlendMode } from '@nivo/core'
+import { AreaGenerator, LineDatum } from './types'
 
-const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
+const AreaPath = ({
+    blendMode,
+    opacity,
+    color,
+    fill,
+    path,
+}: {
+    blendMode: CssMixBlendMode
+    opacity: number
+    color: string
+    fill?: string
+    path: string
+}) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const animatedPath = useAnimatedPath(path)
@@ -17,24 +29,26 @@ const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
         <animated.path
             d={animatedPath}
             fill={fill ? fill : animatedProps.color}
-            fillOpacity={areaOpacity}
+            fillOpacity={opacity}
             strokeWidth={0}
             style={{
-                mixBlendMode: areaBlendMode,
+                mixBlendMode: blendMode,
             }}
         />
     )
 }
 
-AreaPath.propTypes = {
-    areaBlendMode: blendModePropType.isRequired,
-    areaOpacity: PropTypes.number.isRequired,
-    color: PropTypes.string,
-    fill: PropTypes.string,
-    path: PropTypes.string.isRequired,
-}
-
-const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+const NonMemoizedAreas = <Datum extends LineDatum>({
+    areaGenerator,
+    areaOpacity,
+    areaBlendMode,
+    lines,
+}: {
+    areaGenerator: AreaGenerator<Datum>
+    areaOpacity: number
+    areaBlendMode: CssMixBlendMode
+    lines: any[]
+}) => {
     const computedLines = lines.slice(0).reverse()
 
     return (
@@ -43,18 +57,13 @@ const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
                 <AreaPath
                     key={line.id}
                     path={areaGenerator(line.data.map(d => d.position))}
-                    {...{ areaOpacity, areaBlendMode, ...line }}
+                    opacity={areaOpacity}
+                    blendMode={areaBlendMode}
+                    {...line}
                 />
             ))}
         </g>
     )
 }
 
-Areas.propTypes = {
-    areaGenerator: PropTypes.func.isRequired,
-    areaOpacity: PropTypes.number.isRequired,
-    areaBlendMode: blendModePropType.isRequired,
-    lines: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
-
-export default memo(Areas)
+export const Areas = memo(NonMemoizedAreas) as typeof NonMemoizedAreas

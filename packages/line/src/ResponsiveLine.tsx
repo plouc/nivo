@@ -1,10 +1,16 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import Line from './Line'
+import { DefaultLineDatum, LineDatum, LineSvgProps } from './types'
+import { Line } from './Line'
 
-const ResponsiveLine = props => (
+export const ResponsiveLine = <
+    Datum extends LineDatum = DefaultLineDatum,
+    ExtraProps extends object = Record<string, never>
+>(
+    props: Omit<LineSvgProps<Datum, ExtraProps>, 'height' | 'width'>
+) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <Line width={width} height={height} {...props} />}
+        {({ width, height }) => (
+            <Line<Datum, ExtraProps> width={width} height={height} {...props} />
+        )}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveLine

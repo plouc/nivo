@@ -1,9 +1,12 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useTheme } from '@nivo/core'
 import { Chip, TableTooltip } from '@nivo/tooltip'
+import { LineDatum, SliceTooltipProps } from './types'
 
-const SliceTooltip = ({ slice, axis }) => {
+const NonMemoizedSliceTooltip = <Datum extends LineDatum>({
+    slice,
+    axis,
+}: SliceTooltipProps<Datum>) => {
     const theme = useTheme()
     const otherAxis = axis === 'x' ? 'y' : 'x'
 
@@ -20,9 +23,4 @@ const SliceTooltip = ({ slice, axis }) => {
     )
 }
 
-SliceTooltip.propTypes = {
-    slice: PropTypes.object.isRequired,
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-}
-
-export default memo(SliceTooltip)
+export const SliceTooltip = memo(NonMemoizedSliceTooltip) as typeof NonMemoizedSliceTooltip

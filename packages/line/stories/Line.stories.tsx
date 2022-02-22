@@ -8,7 +8,7 @@ import { Defs, linearGradientDef } from '@nivo/core'
 import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
-import { Line } from '../src'
+import { Line, CurveInterpolation } from '../src'
 
 const data = generateDrinkStats(18)
 const commonProperties = {
@@ -17,10 +17,16 @@ const commonProperties = {
     margin: { top: 20, right: 20, bottom: 60, left: 80 },
     data,
     animate: true,
-    enableSlices: 'x',
+    enableSlices: 'x' as const,
 }
 
-const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter']
+const curveOptions: CurveInterpolation[] = [
+    'linear',
+    'monotoneX',
+    'step',
+    'stepBefore',
+    'stepAfter',
+]
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     <g>
@@ -177,7 +183,10 @@ stories.add('time scale', () => (
 ))
 
 stories.add('time scale milliseconds precision', () => (
-    <Line
+    <Line<{
+        x: string
+        y: number
+    }>
         {...commonProperties}
         data={[
             {

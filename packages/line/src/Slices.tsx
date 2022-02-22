@@ -1,41 +1,35 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
-import SlicesItem from './SlicesItem'
+import { LineCommonProps, LineDatum, SliceDatum } from './types'
+import { SlicesItem } from './SlicesItem'
 
-const Slices = ({ slices, axis, debug, height, tooltip, current, setCurrent }) => {
-    return slices.map(slice => (
-        <SlicesItem
-            key={slice.id}
-            slice={slice}
-            axis={axis}
-            debug={debug}
-            height={height}
-            tooltip={tooltip}
-            setCurrent={setCurrent}
-            isCurrent={current !== null && current.id === slice.id}
-        />
-    ))
-}
+const NonMemoizedSlices = <Datum extends LineDatum>({
+    slices,
+    axis,
+    debug,
+    tooltip,
+    current,
+    setCurrent,
+}: {
+    slices: SliceDatum<Datum>[]
+    axis: Exclude<LineCommonProps<Datum>['enableSlices'], false>
+    debug: boolean
+    tooltip: LineCommonProps<Datum>['sliceTooltip']
+    current: SliceDatum<Datum> | null
+    setCurrent: (slice: SliceDatum<Datum> | null) => void
+}) => (
+    <>
+        {slices.map(slice => (
+            <SlicesItem<Datum>
+                key={slice.id}
+                slice={slice}
+                axis={axis}
+                debug={debug}
+                tooltip={tooltip}
+                setCurrent={setCurrent}
+                isCurrent={current !== null && current.id === slice.id}
+            />
+        ))}
+    </>
+)
 
-Slices.propTypes = {
-    slices: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([
-                PropTypes.number,
-                PropTypes.string,
-                PropTypes.instanceOf(Date),
-            ]).isRequired,
-            x: PropTypes.number.isRequired,
-            y: PropTypes.number.isRequired,
-            points: PropTypes.arrayOf(PropTypes.object).isRequired,
-        })
-    ).isRequired,
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    debug: PropTypes.bool.isRequired,
-    height: PropTypes.number.isRequired,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    current: PropTypes.object,
-    setCurrent: PropTypes.func.isRequired,
-}
-
-export default memo(Slices)
+export const Slices = memo(NonMemoizedSlices) as typeof NonMemoizedSlices

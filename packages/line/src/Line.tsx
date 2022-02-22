@@ -1,9 +1,10 @@
-import { Fragment, useState } from 'react'
+import { Fragment, ReactNode, useState } from 'react'
 import {
-    bindDefs,
-    withContainer,
+    Container,
     useDimensions,
     useTheme,
+    // @ts-ignore
+    bindDefs,
     SvgWrapper,
     CartesianMarkers,
 } from '@nivo/core'
@@ -11,82 +12,88 @@ import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Crosshair } from '@nivo/tooltip'
+import { DefaultLineDatum, LineDatum, LineLayerId, LineSvgProps } from './types'
+import { svgDefaultProps } from './defaults'
 import { useLine } from './hooks'
-import { LinePropTypes, LineDefaultProps } from './props'
-import Areas from './Areas'
-import Lines from './Lines'
-import Slices from './Slices'
-import Points from './Points'
-import Mesh from './Mesh'
+import { Areas } from './Areas'
+import { Lines } from './Lines'
+import { Slices } from './Slices'
+import { Points } from './Points'
+import { Mesh } from './Mesh'
 
-const Line = props => {
+type InnerLineProps<Datum extends LineDatum, ExtraProps extends object> = Omit<
+    LineSvgProps<Datum, ExtraProps>,
+    'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
+>
+
+const InnerLine = <Datum extends LineDatum, ExtraProps extends object>(
+    props: InnerLineProps<Datum, ExtraProps>
+) => {
     const {
         data,
-        xScale: xScaleSpec,
+        xScale: xScaleSpec = svgDefaultProps.xScale,
         xFormat,
-        yScale: yScaleSpec,
+        yScale: yScaleSpec = svgDefaultProps.yScale,
         yFormat,
-        layers,
-        curve,
-        areaBaselineValue,
+        layers = svgDefaultProps.layers,
 
-        colors,
+        colors = svgDefaultProps.colors,
 
         margin: partialMargin,
         width,
         height,
 
-        axisTop,
-        axisRight,
-        axisBottom,
-        axisLeft,
-        enableGridX,
-        enableGridY,
+        enableGridX = svgDefaultProps.enableGridX,
         gridXValues,
+        enableGridY = svgDefaultProps.enableGridY,
         gridYValues,
+        axisTop = svgDefaultProps.axisTop,
+        axisRight = svgDefaultProps.axisRight,
+        axisBottom = svgDefaultProps.axisBottom,
+        axisLeft = svgDefaultProps.axisLeft,
 
-        lineWidth,
-        enableArea,
-        areaOpacity,
-        areaBlendMode,
+        curve = svgDefaultProps.curve,
+        lineWidth = svgDefaultProps.lineWidth,
+        enableArea = svgDefaultProps.enableArea,
+        areaBaselineValue = svgDefaultProps.areaBaselineValue,
+        areaOpacity = svgDefaultProps.areaOpacity,
+        areaBlendMode = svgDefaultProps.areaBlendMode,
 
-        enablePoints,
+        enablePoints = svgDefaultProps.enablePoints,
         pointSymbol,
-        pointSize,
+        pointSize = svgDefaultProps.pointSize,
         pointColor,
-        pointBorderWidth,
+        pointBorderWidth = svgDefaultProps.pointBorderWidth,
         pointBorderColor,
-        enablePointLabel,
+        enablePointLabel = svgDefaultProps.enablePointLabel,
         pointLabel,
         pointLabelYOffset,
 
-        defs,
-        fill,
+        defs = svgDefaultProps.defs,
+        fill = svgDefaultProps.fill,
 
-        markers,
+        markers = svgDefaultProps.markers,
 
-        legends,
+        legends = svgDefaultProps.legends,
 
-        isInteractive,
-
-        useMesh,
-        debugMesh,
-
+        isInteractive = svgDefaultProps.isInteractive,
+        useMesh = svgDefaultProps.useMesh,
+        debugMesh = svgDefaultProps.debugMesh,
+        enableSlices = svgDefaultProps.enableSlices,
+        debugSlices = svgDefaultProps.debugSlices,
+        sliceTooltip = svgDefaultProps.sliceTooltip,
+        enableCrosshair = svgDefaultProps.enableCrosshair,
+        crosshairType = svgDefaultProps.crosshairType,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
-
-        tooltip,
-
-        enableSlices,
-        debugSlices,
-        sliceTooltip,
-
-        enableCrosshair,
-        crosshairType,
+        tooltip = svgDefaultProps.tooltip,
 
         role,
+        ariaLabel,
+        ariaLabelledBy,
+        ariaDescribedBy,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -104,8 +111,12 @@ const Line = props => {
         xScale,
         yScale,
         slices,
+        currentSlice,
+        setCurrentSlice,
         points,
-    } = useLine({
+        currentPoint,
+        setCurrentPoint,
+    } = useLine<Datum>({
         data,
         xScale: xScaleSpec,
         xFormat,
@@ -121,15 +132,31 @@ const Line = props => {
         enableSlices,
     })
 
+    series.forEach(serie => {
+        console.log(serie)
+        serie.data.forEach(datum => {
+            console.log(datum)
+        })
+    })
+
     const theme = useTheme()
-    const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
 
-    const [currentPoint, setCurrentPoint] = useState(null)
-    const [currentSlice, setCurrentSlice] = useState(null)
+    const layerById: Record<LineLayerId, ReactNode> = {
+        grid: null,
+        markers: null,
+        axes: null,
+        areas: null,
+        crosshair: null,
+        lines: null,
+        slices: null,
+        points: null,
+        mesh: null,
+        legends: null,
+    }
 
-    const layerById = {
-        grid: (
+    if (layers.includes('grid')) {
+        layerById.grid = (
             <Grid
                 key="grid"
                 theme={theme}
@@ -140,8 +167,11 @@ const Line = props => {
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
-        ),
-        markers: (
+        )
+    }
+
+    if (markers.length > 0 && layers.includes('markers')) {
+        layerById.markers = (
             <CartesianMarkers
                 key="markers"
                 markers={markers}
@@ -151,8 +181,11 @@ const Line = props => {
                 yScale={yScale}
                 theme={theme}
             />
-        ),
-        axes: (
+        )
+    }
+
+    if (layers.includes('axes')) {
+        layerById.axes = (
             <Axes
                 key="axes"
                 xScale={xScale}
@@ -165,33 +198,12 @@ const Line = props => {
                 bottom={axisBottom}
                 left={axisLeft}
             />
-        ),
-        areas: null,
-        lines: (
-            <Lines key="lines" lines={series} lineGenerator={lineGenerator} lineWidth={lineWidth} />
-        ),
-        slices: null,
-        points: null,
-        crosshair: null,
-        mesh: null,
-        legends: legends.map((legend, i) => (
-            <BoxLegendSvg
-                key={`legend.${i}`}
-                {...legend}
-                containerWidth={innerWidth}
-                containerHeight={innerHeight}
-                data={legend.data || legendData}
-                theme={theme}
-                toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
-            />
-        )),
+        )
     }
 
-    const boundDefs = bindDefs(defs, series, fill)
-
-    if (enableArea) {
+    if (layers.includes('areas') && enableArea) {
         layerById.areas = (
-            <Areas
+            <Areas<Datum>
                 key="areas"
                 areaGenerator={areaGenerator}
                 areaOpacity={areaOpacity}
@@ -201,14 +213,24 @@ const Line = props => {
         )
     }
 
-    if (isInteractive && enableSlices !== false) {
+    if (layers.includes('lines')) {
+        layerById.lines = (
+            <Lines<Datum>
+                key="lines"
+                lines={series}
+                lineGenerator={lineGenerator}
+                lineWidth={lineWidth}
+            />
+        )
+    }
+
+    if (isInteractive && enableSlices && layers.includes('slices')) {
         layerById.slices = (
             <Slices
                 key="slices"
-                slices={slices}
+                slices={slices!}
                 axis={enableSlices}
                 debug={debugSlices}
-                height={innerHeight}
                 tooltip={sliceTooltip}
                 current={currentSlice}
                 setCurrent={setCurrentSlice}
@@ -216,14 +238,13 @@ const Line = props => {
         )
     }
 
-    if (enablePoints) {
+    if (enablePoints && layers.includes('points')) {
         layerById.points = (
-            <Points
+            <Points<Datum>
                 key="points"
                 points={points}
                 symbol={pointSymbol}
                 size={pointSize}
-                color={getPointColor}
                 borderWidth={pointBorderWidth}
                 borderColor={getPointBorderColor}
                 enableLabel={enablePointLabel}
@@ -233,9 +254,50 @@ const Line = props => {
         )
     }
 
+    if (isInteractive && useMesh && !enableSlices && layers.includes('mesh')) {
+        layerById.mesh = (
+            <Mesh<Datum>
+                key="mesh"
+                points={points}
+                width={innerWidth}
+                height={innerHeight}
+                margin={margin}
+                setCurrent={setCurrentPoint}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
+                debug={debugMesh}
+            />
+        )
+    }
+
+    if (layers.includes('legends') && legends.length > 0) {
+        layerById.legends = (
+            <Fragment key="legends">
+                {legends.map((legend, legendIndex) => (
+                    <BoxLegendSvg
+                        key={`legend.${legendIndex}`}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legend.data || legendData}
+                        theme={theme}
+                        toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
+                    />
+                ))}
+            </Fragment>
+        )
+    }
+
+    const ___layerById = {}
+
+    const boundDefs = bindDefs(defs, series, fill)
+
     if (isInteractive && enableCrosshair) {
         if (currentPoint !== null) {
-            layerById.crosshair = (
+            ___layerById.crosshair = (
                 <Crosshair
                     key="crosshair"
                     width={innerWidth}
@@ -247,7 +309,7 @@ const Line = props => {
             )
         }
         if (currentSlice !== null) {
-            layerById.crosshair = (
+            ___layerById.crosshair = (
                 <Crosshair
                     key="crosshair"
                     width={innerWidth}
@@ -260,26 +322,6 @@ const Line = props => {
         }
     }
 
-    if (isInteractive && useMesh && enableSlices === false) {
-        layerById.mesh = (
-            <Mesh
-                key="mesh"
-                points={points}
-                width={innerWidth}
-                height={innerHeight}
-                margin={margin}
-                current={currentPoint}
-                setCurrent={setCurrentPoint}
-                onMouseEnter={onMouseEnter}
-                onMouseMove={onMouseMove}
-                onMouseLeave={onMouseLeave}
-                onClick={onClick}
-                tooltip={tooltip}
-                debug={debugMesh}
-            />
-        )
-    }
-
     return (
         <SvgWrapper
             defs={boundDefs}
@@ -287,11 +329,14 @@ const Line = props => {
             height={outerHeight}
             margin={margin}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
         >
-            {layers.map((layer, i) => {
+            {layers.map((layer, layerIndex) => {
                 if (typeof layer === 'function') {
                     return (
-                        <Fragment key={i}>
+                        <Fragment key={layerIndex}>
                             {layer({
                                 ...props,
                                 innerWidth,
@@ -312,13 +357,32 @@ const Line = props => {
                     )
                 }
 
-                return layerById[layer]
+                return layerById?.[layer] ?? null
             })}
         </SvgWrapper>
     )
 }
 
-Line.propTypes = LinePropTypes
-Line.defaultProps = LineDefaultProps
-
-export default withContainer(Line)
+export const Line = <
+    Datum extends LineDatum = DefaultLineDatum,
+    ExtraProps extends object = Record<string, never>
+>({
+    isInteractive = svgDefaultProps.isInteractive,
+    animate = svgDefaultProps.animate,
+    motionConfig = svgDefaultProps.motionConfig,
+    theme,
+    renderWrapper,
+    ...otherProps
+}: LineSvgProps<Datum, ExtraProps>) => (
+    <Container
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
+    >
+        <InnerLine<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)

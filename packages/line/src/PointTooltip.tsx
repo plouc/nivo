@@ -1,24 +1,24 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
+import { LineDatum, LinePointDatum } from './types'
 
-const LinePointTooltip = ({ point }) => {
-    return (
-        <BasicTooltip
-            id={
-                <span>
-                    x: <strong>{point.data.xFormatted}</strong>, y:{' '}
-                    <strong>{point.data.yFormatted}</strong>
-                </span>
-            }
-            enableChip={true}
-            color={point.serieColor}
-        />
-    )
+interface LinePointTooltipProps<Datum extends LineDatum> {
+    point: LinePointDatum<Datum>
 }
 
-LinePointTooltip.propTypes = {
-    point: PropTypes.object.isRequired,
-}
+const NonMemoizedPointTooltip = <Datum extends LineDatum>({
+    point,
+}: LinePointTooltipProps<Datum>) => (
+    <BasicTooltip
+        id={
+            <span>
+                x: <strong>{point.data.xFormatted}</strong>, y:{' '}
+                <strong>{point.data.yFormatted}</strong>
+            </span>
+        }
+        enableChip={true}
+        color={point.serieColor}
+    />
+)
 
-export default memo(LinePointTooltip)
+export const PointTooltip = memo(NonMemoizedPointTooltip) as typeof NonMemoizedPointTooltip

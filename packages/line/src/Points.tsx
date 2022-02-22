@@ -1,8 +1,24 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
+import { LinePointDatum, LineDatum } from './types'
 
-const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
+const NonMemoizedPoints = <Datum extends LineDatum>({
+    points,
+    symbol,
+    size,
+    borderWidth,
+    enableLabel,
+    label,
+    labelYOffset,
+}: {
+    points: LinePointDatum<Datum>[]
+    symbol: any
+    size: number
+    borderWidth: number
+    enableLabel: boolean
+    label: any
+    labelYOffset: number
+}) => {
     const theme = useTheme()
     const getLabel = getLabelGenerator(label)
 
@@ -46,6 +62,7 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
     )
 }
 
+/*
 Points.propTypes = {
     points: PropTypes.arrayOf(PropTypes.object),
     symbol: PropTypes.func,
@@ -57,5 +74,6 @@ Points.propTypes = {
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelYOffset: PropTypes.number,
 }
+*/
 
-export default memo(Points)
+export const Points = memo(NonMemoizedPoints) as typeof NonMemoizedPoints
