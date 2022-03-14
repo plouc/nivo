@@ -1,18 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import PropTypes from 'prop-types'
 import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
-import PointTooltip from './PointTooltip'
-import SliceTooltip from './SliceTooltip'
+import { PointTooltip } from './PointTooltip'
+import { SliceTooltip } from './SliceTooltip'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(
@@ -190,7 +182,7 @@ const commonDefaultProps = {
 
     isInteractive: true,
     tooltip: PointTooltip,
-    enableSlices: false,
+    enableSlices: false as const,
     debugSlices: false,
     sliceTooltip: SliceTooltip,
     debugMesh: false,

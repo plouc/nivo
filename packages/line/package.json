@@ -21,11 +21,12 @@
   ],
   "main": "./dist/nivo-line.cjs.js",
   "module": "./dist/nivo-line.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/annotations": "0.79.1",

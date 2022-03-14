@@ -1,17 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { createElement, memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
+import { LinePointDatum, LineDatum, LineCommonProps } from './types'
 
-const Mesh = ({
+const NonMemoizedMesh = <Datum extends LineDatum>({
     points,
     width,
     height,
@@ -23,6 +16,18 @@ const Mesh = ({
     onClick,
     tooltip,
     debug,
+}: {
+    points: LinePointDatum<Datum>[]
+    width: number
+    height: number
+    margin: Margin
+    setCurrent: (point: LinePointDatum<Datum> | null) => void
+    onMouseEnter?: LineCommonProps<Datum>['onMouseEnter']
+    onMouseMove?: LineCommonProps<Datum>['onMouseMove']
+    onMouseLeave?: LineCommonProps<Datum>['onMouseLeave']
+    onClick?: LineCommonProps<Datum>['onClick']
+    tooltip: LineCommonProps<Datum>['tooltip']
+    debug: LineCommonProps<Datum>['debugMesh']
 }) => {
     const { showTooltipAt, hideTooltip } = useTooltip()
 
@@ -82,18 +87,4 @@ const Mesh = ({
     )
 }
 
-Mesh.propTypes = {
-    points: PropTypes.arrayOf(PropTypes.object).isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: PropTypes.object.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    debug: PropTypes.bool.isRequired,
-}
-
-export default memo(Mesh)
+export const Mesh = memo(NonMemoizedMesh) as typeof NonMemoizedMesh

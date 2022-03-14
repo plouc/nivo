@@ -1,16 +1,22 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { createElement, memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
+import { LineCommonProps, LineDatum, SliceAxis, SliceDatum } from './types'
 
-const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
+const NonMemoizedSlicesItem = <Datum extends LineDatum>({
+    slice,
+    axis,
+    debug,
+    tooltip,
+    isCurrent,
+    setCurrent,
+}: {
+    slice: SliceDatum<Datum>
+    axis: SliceAxis
+    debug: boolean
+    tooltip: LineCommonProps<Datum>['sliceTooltip']
+    isCurrent: boolean
+    setCurrent: (slice: SliceDatum<Datum> | null) => void
+}) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
@@ -51,14 +57,4 @@ const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
     )
 }
 
-SlicesItem.propTypes = {
-    slice: PropTypes.object.isRequired,
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    debug: PropTypes.bool.isRequired,
-    height: PropTypes.number.isRequired,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    isCurrent: PropTypes.bool.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-}
-
-export default memo(SlicesItem)
+export const SlicesItem = memo(NonMemoizedSlicesItem) as typeof NonMemoizedSlicesItem
