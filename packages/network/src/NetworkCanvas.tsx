@@ -246,7 +246,11 @@ export const NetworkCanvas = forwardRef(
         ref: ForwardedRef<HTMLCanvasElement>
     ) => (
         <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-            <InnerNetworkCanvas<Node, Link> isInteractive={isInteractive} {...otherProps} canvasRef={ref} />
+            <InnerNetworkCanvas<Node, Link>
+                isInteractive={isInteractive}
+                {...otherProps}
+                canvasRef={ref}
+            />
         </Container>
     )
 )
