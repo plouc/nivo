@@ -13,7 +13,15 @@ export const ResponsiveNetworkCanvas = forwardRef(function ResponsiveBarCanvas<
     return (
         <ResponsiveWrapper>
             {({ width, height }) => (
-                <NetworkCanvas<Node, Link> width={width} height={height} {...props} ref={ref} />
+                <NetworkCanvas
+                    width={width}
+                    height={height}
+                    {...(props as Omit<
+                        NetworkCanvasProps<InputNode, InputLink>,
+                        'height' | 'width'
+                    >)}
+                    ref={ref}
+                />
             )}
         </ResponsiveWrapper>
     )
