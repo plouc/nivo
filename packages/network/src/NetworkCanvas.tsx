@@ -1,4 +1,13 @@
-import { useCallback, useRef, useEffect, createElement, MouseEvent, useMemo } from 'react'
+import {
+    ForwardedRef,
+    forwardRef,
+    useCallback,
+    useRef,
+    useEffect,
+    createElement,
+    MouseEvent,
+    useMemo,
+} from 'react'
 import { getDistance, getRelativeCursor, Container, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { useComputedAnnotations, renderAnnotationsToCanvas } from '@nivo/annotations'
@@ -17,7 +26,9 @@ import {
 type InnerNetworkCanvasProps<Node extends InputNode, Link extends InputLink> = Omit<
     NetworkCanvasProps<Node, Link>,
     'renderWrapper' | 'theme'
->
+> & {
+    canvasRef: ForwardedRef<HTMLCanvasElement>
+}
 
 const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
     width,
@@ -56,6 +67,7 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
     defaultActiveNodeIds = canvasDefaultProps.defaultActiveNodeIds,
     nodeTooltip = canvasDefaultProps.nodeTooltip as NodeTooltip<Node>,
     onClick,
+    canvasRef,
 }: InnerNetworkCanvasProps<Node, Link>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -202,7 +214,10 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={canvas => {
+                canvasEl.current = canvas
+                if (canvasRef && 'current' in canvasRef) canvasRef.current = canvas
+            }}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -218,18 +233,20 @@ const InnerNetworkCanvas = <Node extends InputNode, Link extends InputLink>({
     )
 }
 
-export const NetworkCanvas = <
-    Node extends InputNode = InputNode,
-    Link extends InputLink = InputLink
->({
-    theme,
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: NetworkCanvasProps<Node, Link>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerNetworkCanvas<Node, Link> isInteractive={isInteractive} {...otherProps} />
-    </Container>
+export const NetworkCanvas = forwardRef(
+    <Node extends InputNode = InputNode, Link extends InputLink = InputLink>(
+        {
+            theme,
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
+            renderWrapper,
+            ...otherProps
+        }: NetworkCanvasProps<Node, Link>,
+        ref: ForwardedRef<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+            <InnerNetworkCanvas<Node, Link> isInteractive={isInteractive} {...otherProps} canvasRef={ref} />
+        </Container>
+    )
 )
