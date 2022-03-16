@@ -1,9 +1,10 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { ScatterPlotCanvas } from './ScatterPlotCanvas'
-import { ScatterPlotCanvasProps, ScatterPlotDatum } from './types'
 import { ForwardedRef, forwardRef } from 'react'
 
-export const ResponsiveScatterPlotCanvas = forwardRef(function ResponsiveBarCanvas<
+import { ScatterPlotCanvas } from './ScatterPlotCanvas'
+import { ScatterPlotCanvasProps, ScatterPlotDatum } from './types'
+
+export const ResponsiveScatterPlotCanvas = forwardRef(function ResponsiveScatterPlotCanvas<
     RawDatum extends ScatterPlotDatum
 >(
     props: Omit<ScatterPlotCanvasProps<RawDatum>, 'width' | 'height'>,
