@@ -6,6 +6,7 @@ import {
     useEffect,
     useMemo,
     useRef,
+    useState,
 } from 'react'
 import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'

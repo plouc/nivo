@@ -12,7 +12,7 @@ export const ResponsiveScatterPlotCanvas = forwardRef(function ResponsiveBarCanv
     return (
         <ResponsiveWrapper>
             {({ width, height }) => (
-                <ScatterPlotCanvas<RawDatum>
+                <ScatterPlotCanvas
                     width={width}
                     height={height}
                     {...(props as Omit<
