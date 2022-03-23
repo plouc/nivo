@@ -49,8 +49,6 @@ export const bindDefs = (
 ) => {
     let boundDefs = []
 
-    console.log('[defs] bindDefs begins')
-
     // will hold generated variation ids,
     // to avoid generating multiple identical defs
     const generatedIds = {}

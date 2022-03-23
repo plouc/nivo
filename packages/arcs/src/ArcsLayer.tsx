@@ -40,8 +40,6 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
 
-    console.log('[defs] ArcsLayer data', data)
-
     const { transition, interpolate } = useArcsTransition<
         Datum,
         {
@@ -72,7 +70,6 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
             {transition((transitionProps, datum) => {
-                console.log(`[defs] creating ArcShape ${datum.id}`, transitionProps, datum)
                 return createElement(Arc, {
                     key: datum.id,
                     datum,

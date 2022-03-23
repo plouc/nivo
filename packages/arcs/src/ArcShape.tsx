@@ -51,8 +51,6 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
         [onMouseLeave, datum]
     )
 
-    console.log(`[defs] ArcShape fill for ${datum.id}`, datum)
-
     return (
         <animated.path
             d={style.path}

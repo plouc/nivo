@@ -229,14 +229,10 @@ const InnerRadialBar = <D extends RadialBarDatum>({
         )
     }
 
-    console.log('[defs] calling bindDefs', defs, bindDefs)
-
     const boundDefs = bindDefs(defs, bars, fill, {
         dataKey: 'data',
         targetKey: 'fill',
     })
-
-    console.log('[defs] boundDefs', boundDefs)
 
     return (
         <SvgWrapper
