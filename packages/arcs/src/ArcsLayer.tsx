@@ -40,27 +40,33 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
 
+    console.log('[defs] ArcsLayer data', data)
+
     const { transition, interpolate } = useArcsTransition<
         Datum,
         {
             opacity: number
             color: string
+            fill?: string
             borderColor: string
         }
     >(data, transitionMode, {
         enter: datum => ({
             opacity: 0,
             color: datum.color,
+            fill: datum.fill,
             borderColor: getBorderColor(datum),
         }),
         update: datum => ({
             opacity: 1,
             color: datum.color,
+            fill: datum.fill,
             borderColor: getBorderColor(datum),
         }),
         leave: datum => ({
             opacity: 0,
             color: datum.color,
+            fill: datum.fill,
             borderColor: getBorderColor(datum),
         }),
     })
@@ -70,12 +76,14 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
             {transition((transitionProps, datum) => {
+                console.log(`[defs] creating ArcShape ${datum.id}`, transitionProps, datum)
                 return createElement(Arc, {
                     key: datum.id,
                     datum,
                     style: {
                         ...transitionProps,
                         borderWidth,
+                        fill: ((datum as any).data as DatumWithArcAndColor)?.fill,
                         path: interpolate(
                             transitionProps.startAngle,
                             transitionProps.endAngle,

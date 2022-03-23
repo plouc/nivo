@@ -39,6 +39,31 @@ export const commonDefaultProps = {
 
     legends: [],
 
+    defs: [
+    {
+        id: 'lines',
+        type: 'patternLines',
+        background: 'rgba(0, 0, 0, 0)',
+        color: 'inherit',
+        rotation: -45,
+        lineWidth: 4,
+        spacing: 8
+    }
+    ],
+
+    fill: [
+    {
+        match: {
+            // id: 'Online.Fruits'
+            x: 'Fruits'
+        },
+        id: 'lines'
+    }
+    ],
+
+    // defs: [],
+    // fill: [],
+
     animate: true,
     motionConfig: 'gentle' as const,
     transitionMode: 'centerRadius' as const,

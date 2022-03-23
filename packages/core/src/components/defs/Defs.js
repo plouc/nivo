@@ -17,13 +17,23 @@ export const defsMapping = {
 }
 
 const Defs = ({ defs: definitions }) => {
+    console.log('[defs] Defs constructor')
+    console.log('[defs] defs', definitions)
+
     if (!definitions || definitions.length < 1) return null
+
+    console.log('[defs] has defs')
 
     return (
         <defs aria-hidden={true}>
             {definitions.map(({ type, ...def }) => {
-                if (defsMapping[type])
-                    return createElement(defsMapping[type], { key: def.id, ...def })
+                if (defsMapping[type]) {
+                    const elem = createElement(defsMapping[type], { key: def.id, ...def })
+                    console.log('[defs] def mapping:', type, def, defsMapping[type], elem)
+                    return elem
+                }
+
+                console.log('[defs] found no mapping')
 
                 return null
             })}
