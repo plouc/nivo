@@ -58,7 +58,8 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
         <animated.path
             d={style.path}
             opacity={style.opacity}
-            fill={datum.fill || style.fill || style.color}
+            fill={datum.fill || style.color}
+            // fill={datum.fill || style.fill || style.color}
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             onClick={onClick ? handleClick : undefined}

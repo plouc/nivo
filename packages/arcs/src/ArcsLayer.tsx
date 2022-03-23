@@ -47,26 +47,26 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
         {
             opacity: number
             color: string
-            fill?: string
+            // fill?: string
             borderColor: string
         }
     >(data, transitionMode, {
         enter: datum => ({
             opacity: 0,
             color: datum.color,
-            fill: datum.fill,
+            // fill: datum.fill,
             borderColor: getBorderColor(datum),
         }),
         update: datum => ({
             opacity: 1,
             color: datum.color,
-            fill: datum.fill,
+            // fill: datum.fill,
             borderColor: getBorderColor(datum),
         }),
         leave: datum => ({
             opacity: 0,
             color: datum.color,
-            fill: datum.fill,
+            // fill: datum.fill,
             borderColor: getBorderColor(datum),
         }),
     })
@@ -83,7 +83,7 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
                     style: {
                         ...transitionProps,
                         borderWidth,
-                        fill: ((datum as any).data as DatumWithArcAndColor)?.fill,
+                        // fill: ((datum as any).data as DatumWithArcAndColor)?.fill,
                         path: interpolate(
                             transitionProps.startAngle,
                             transitionProps.endAngle,

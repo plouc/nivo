@@ -233,7 +233,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
 
     const boundDefs = bindDefs(defs, bars, fill, {
         dataKey: 'data',
-        targetKey: 'data.fill',
+        targetKey: 'fill',
     })
 
     console.log('[defs] boundDefs', boundDefs)
