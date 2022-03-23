@@ -65,7 +65,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     role,
     ariaLabel,
     ariaLabelledBy,
-    ariaDescribedBy
+    ariaDescribedBy,
 }: InnerRadialBarProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,

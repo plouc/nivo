@@ -13,7 +13,6 @@ export interface ArcShapeProps<Datum extends DatumWithArcAndColor> {
     style: {
         opacity: SpringValue<number>
         color: SpringValue<string>
-        fill?: string,
         borderWidth: number
         borderColor: SpringValue<string>
         path: Interpolation<string>
@@ -52,14 +51,13 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
         [onMouseLeave, datum]
     )
 
-    console.log(`[defs] ArcShape fill for ${datum.id}`, style.fill)
+    console.log(`[defs] ArcShape fill for ${datum.id}`, datum)
 
     return (
         <animated.path
             d={style.path}
             opacity={style.opacity}
             fill={datum.fill || style.color}
-            // fill={datum.fill || style.fill || style.color}
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             onClick={onClick ? handleClick : undefined}

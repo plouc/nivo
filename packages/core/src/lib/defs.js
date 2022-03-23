@@ -141,5 +141,3 @@ export const bindDefs = (
 
     return boundDefs
 }
-
-export const newBindDefs = bindDefs
