@@ -245,6 +245,32 @@ const demoPhases: {
             enableLabels: true,
         },
     },
+    {
+        description: 'Patterned Fill',
+        props: {
+            ...commonProperties,
+            defs: [
+                {
+                    id: 'lines',
+                    type: 'patternLines',
+                    background: 'rgba(0, 0, 0, 0)',
+                    color: 'inherit',
+                    rotation: -45,
+                    lineWidth: 4,
+                    spacing: 8
+                }
+            ],
+            fill: [
+                {
+                    match: {
+                        // id: 'Online.Fruits'
+                        x: 'Fruits'
+                    },
+                    id: 'lines'
+                }
+            ],
+        },
+    },
 ]
 
 const demoTheme: Theme = {
