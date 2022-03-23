@@ -5,7 +5,7 @@ import {
     SvgWrapper,
     clampArc,
     // @ts-ignore
-    bindDefs
+    bindDefs,
 } from '@nivo/core'
 
 import { ArcLabelsLayer } from '@nivo/arcs'

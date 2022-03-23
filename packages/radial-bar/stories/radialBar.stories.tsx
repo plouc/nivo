@@ -257,17 +257,17 @@ const demoPhases: {
                     color: 'inherit',
                     rotation: -45,
                     lineWidth: 4,
-                    spacing: 8
-                }
+                    spacing: 8,
+                },
             ],
             fill: [
                 {
                     match: {
                         // id: 'Online.Fruits'
-                        x: 'Fruits'
+                        x: 'Fruits',
                     },
-                    id: 'lines'
-                }
+                    id: 'lines',
+                },
             ],
         },
     },

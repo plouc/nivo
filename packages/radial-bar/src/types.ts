@@ -6,7 +6,7 @@ import {
     ModernMotionProps,
     PropertyAccessor,
     ValueFormat,
-    SvgDefsAndFill
+    SvgDefsAndFill,
 } from '@nivo/core'
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
