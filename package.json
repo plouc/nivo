@@ -66,9 +66,9 @@
     "prop-types": "^15.7.2",
     "puppeteer": "^0.13.0",
     "raf": "^3.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-test-renderer": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-test-renderer": "^18.0.0",
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "^2.61.1",
     "rollup-plugin-cleanup": "^3.2.1",
@@ -83,8 +83,8 @@
   "resolutions": {
     "@types/react": "^17.0.11",
     "@types/eslint": "7.29.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
   },
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
