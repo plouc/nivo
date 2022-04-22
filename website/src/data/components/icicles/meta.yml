@@ -22,10 +22,14 @@ Icicles:
       link: icicles--custom-tooltip
     - label: with enter and leave actions
       link: icicles--enter-leave-check-actions
+    - label: with wheel and contextmenu actions
+      link: icicles--wheel-contextmenu-check-actions
     - label: with patterns and gradients
       link: icicles--patterns-gradients
     - label: drill down to children
       link: icicles--children-drill-down
+    - label: with different direction
+      link: icicles--change-direction
   description: |
     The responsive alternative of this component is
     `ResponsiveIcicles`.

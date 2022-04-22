@@ -33,6 +33,9 @@ export const iciclesMapping = {
         enableRectLabels: Joi.boolean(),
         rectLabel: Joi.string(),
         rectLabelsTextColor: inheritedColor,
+        rectLabelsOffset: Joi.number(),
+        rectLabelsSkipLength: Joi.number().min(0),
+        rectLabelsSkipPercentage: Joi.number().min(0).max(100),
     }),
     runtimeProps: ['width', 'height', 'colors'],
     defaults: {

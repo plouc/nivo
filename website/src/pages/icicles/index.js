@@ -48,6 +48,9 @@ const initialProperties = {
     tooltip: null,
     'showcase pattern usage': false,
     direction: 'bottom',
+    rectLabelsSkipLength: defaultProps.rectLabelsSkipLength,
+    rectLabelsSkipPercentage: defaultProps.rectLabelsSkipPercentage,
+    rectLabelsOffset: defaultProps.rectLabelsOffset,
 }
 
 const Icicles = () => {
@@ -55,6 +58,7 @@ const Icicles = () => {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
+    // TODO: change with icicles capture
     } = useStaticQuery(graphql`
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {

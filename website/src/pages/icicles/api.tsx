@@ -14,9 +14,10 @@ const IciclesApi = () => {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
+    // TODO: change with icicles capture
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/icicles.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -55,7 +56,7 @@ const IciclesApi = () => {
                     valueFormat: { format: '', enabled: false },
                     cornerRadius: 2,
                     borderWidth: 1,
-                    borderColor: 'white',
+                    borderColor: '#fff',
                     colors: { scheme: 'nivo' },
                     colorBy: 'id',
                     inheritColorFromParent: true,
@@ -68,6 +69,9 @@ const IciclesApi = () => {
                         from: 'color',
                         modifiers: [['darker', 1.4]],
                     },
+                    rectLabelsSkipLength: 0,
+                    rectLabelsSkipPercentage: 0,
+                    rectLabelsOffset: 1,
                 }}
             />
         </>

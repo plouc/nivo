@@ -14,7 +14,7 @@ export const interpolateRectCenter =
         to(
             [x0Value, y0Value, widthValue, heightValue],
             (x0, y0, width, height) =>
-                `translate(${Math.abs(baseOffsetLeft - (x0 + width / 2) * offset)}, ${Math.abs(
+                `translate(${Math.abs(baseOffsetLeft - (x0 + width / 2))}, ${Math.abs(
                     baseOffsetTop - (y0 + height / 2) * offset
                 )})`
         )

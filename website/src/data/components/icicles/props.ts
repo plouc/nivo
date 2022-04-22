@@ -122,7 +122,7 @@ const props: ChartProperty[] = [
     }),
     {
         key: 'colorBy',
-        help: `Define the property to use to assign a color to arcs.`,
+        help: `Define the property to use to assign a color to rects.`,
         flavors: allFlavors,
         description: `
             When using \`id\`, each node will get a new color,
@@ -172,7 +172,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'borderColor',
-        help: 'Defines how to compute arcs color.',
+        help: 'Defines how to compute rects border color.',
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
@@ -225,6 +225,63 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'rectLabelsOffset',
+        help: `
+            Define the ratio offset when centering a label.
+            The offset affects the vertical postion.
+        `,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.rectLabelsOffset,
+        group: 'Rect labels',
+        control: {
+            type: 'range',
+            min: 0.5,
+            max: 2,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'rectLabelsSkipLength',
+        help: `
+            Skip label if corresponding rect's length is lower than provided value.
+            "Length" is determined by width when direction is top or bottom,
+            and by height when direction is left or right.
+        `,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.rectLabelsSkipLength,
+        group: 'Rect labels',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 900,
+            step: 1,
+        },
+    },
+    {
+        key: 'rectLabelsSkipPercentage',
+        help: `
+            Skip label if corresponding rect's relative size is lower than provided value.
+            The size is relative to the root node considered as 100%.
+            This value is a percentage.
+        `,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.rectLabelsSkipPercentage,
+        group: 'Rect labels',
+        control: {
+            type: 'range',
+            min: 0,
+            max: 100,
+            step: 1,
+        },
+    },
+    {
         key: 'rectLabelsTextColor',
         help: 'Defines how to compute rect label text color.',
         flavors: allFlavors,
@@ -252,6 +309,8 @@ const props: ChartProperty[] = [
             \`\`\`
             {
                 nodes:  ComputedDatum<RawDatum>[]
+                baseOffsetLeft: number
+                baseOffsetTop:  number
             }
             \`\`\`
         `,
@@ -310,6 +369,58 @@ const props: ChartProperty[] = [
         help: 'onClick handler',
         description: `
             onClick handler, will receive node data as first argument
+            & event as second one. The node data has the following shape:
+
+            \`\`\`
+            {
+                id:         string | number,
+                value:      number,
+                depth:      number,
+                color:      string,
+                name:       string
+                loc:        number
+                percentage: number
+                // the parent datum
+                ancestor:   object
+            }
+            \`\`\`
+        `,
+    },
+    {
+        key: 'onWheel',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'onWheel handler',
+        description: `
+            onWheel handler, will receive node data as first argument
+            & event as second one. The node data has the following shape:
+
+            \`\`\`
+            {
+                id:         string | number,
+                value:      number,
+                depth:      number,
+                color:      string,
+                name:       string
+                loc:        number
+                percentage: number
+                // the parent datum
+                ancestor:   object
+            }
+            \`\`\`
+        `,
+    },
+    {
+        key: 'onContextMenu',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'onContextMenu handler',
+        description: `
+            onContextMenu handler, will receive node data as first argument
             & event as second one. The node data has the following shape:
 
             \`\`\`
