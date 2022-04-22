@@ -10,7 +10,7 @@ import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
 import { generateLibTree } from '@nivo/generators'
 import { colorSchemes } from '@nivo/colors'
 // @ts-ignore
-import { Icicles, IciclesComputedDatum } from '../src'
+import { Icicles, IciclesComputedDatum, IciclesDirection } from '../src'
 
 interface RawDatum {
     name: string
@@ -91,6 +91,14 @@ stories.add('enter/leave (check actions)', () => (
         {...commonProperties}
         onMouseEnter={action('onMouseEnter')}
         onMouseLeave={action('onMouseLeave')}
+    />
+))
+
+stories.add('wheel/contextmenu (check actions)', () => (
+    <Icicles<RawDatum>
+        {...commonProperties}
+        onWheel={action('onWheel')}
+        onContextMenu={action('onContextMenu')}
     />
 ))
 
@@ -208,3 +216,20 @@ stories.add(
         },
     }
 )
+
+stories.add('change direction', () => (
+    <Icicles<RawDatum>
+        {...commonProperties}
+        direction={select<IciclesDirection>(
+            'direction',
+            ['top', 'right', 'bottom', 'left'],
+            'bottom'
+        )}
+        animate={boolean('animate', true)}
+        motionConfig={select(
+            'motion config',
+            ['default', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'],
+            'gentle'
+        )}
+    />
+))

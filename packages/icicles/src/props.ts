@@ -1,17 +1,16 @@
-import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { IciclesTooltip } from './IciclesTooltip'
-import { IciclesDirection, IciclesLayerId } from './types'
+import { IciclesSvgProps } from './types'
 
-export const defaultProps = {
+const _defaultProps: Partial<IciclesSvgProps<unknown>> = {
     id: 'id',
     value: 'value',
-    layers: ['rect', 'rectLabels'] as IciclesLayerId[],
-    colors: { scheme: 'nivo' } as unknown as OrdinalColorScaleConfig,
-    colorBy: 'id' as const,
+    layers: ['rects', 'rectLabels'],
+    colors: { scheme: 'nivo' },
+    colorBy: 'id',
     inheritColorFromParent: true,
     childColor: { from: 'color' },
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: { from: 'color', modifiers: [['darker', 0.6]] },
     enableRectLabels: false,
     rectLabel: 'formattedValue',
     rectLabelsTextColor: { theme: 'labels.text.fill' },
@@ -22,5 +21,10 @@ export const defaultProps = {
     fill: [],
     tooltip: IciclesTooltip,
     role: 'img',
-    direction: 'bottom' as IciclesDirection,
+    direction: 'bottom',
+    rectLabelsSkipLength: 0,
+    rectLabelsSkipPercentage: 0,
+    rectLabelsOffset: 1,
 }
+
+export const defaultProps = _defaultProps as IciclesSvgProps<unknown>

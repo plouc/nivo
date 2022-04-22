@@ -1,6 +1,7 @@
-import { InheritedColorConfig } from '@nivo/colors'
+import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
+import { useTheme } from '@nivo/core'
 import { createElement } from 'react'
-import { RectMouseHandler, RectShape, RectShapeProps } from './RectShape'
+import { RectMouseHandler, RectShape, RectShapeProps, RectWheelHandler } from './RectShape'
 import { DatumWithRectAndColor } from './types'
 import { useRectsTransition } from './useRectsTransition'
 
@@ -8,7 +9,7 @@ export type RectComponent<TDatum extends DatumWithRectAndColor> = (
     props: RectShapeProps<TDatum>
 ) => JSX.Element
 
-interface RectsLayerProps<TDatum extends DatumWithRectAndColor> {
+export interface RectsLayerProps<TDatum extends DatumWithRectAndColor> {
     borderColor: InheritedColorConfig<TDatum>
     borderWidth: number
     component?: RectComponent<TDatum>
@@ -17,42 +18,47 @@ interface RectsLayerProps<TDatum extends DatumWithRectAndColor> {
     onMouseEnter?: RectMouseHandler<TDatum>
     onMouseLeave?: RectMouseHandler<TDatum>
     onMouseMove?: RectMouseHandler<TDatum>
+    onWheel?: RectWheelHandler<TDatum>
+    onContextMenu?: RectMouseHandler<TDatum>
 }
 
 export const RectsLayer = <TDatum extends DatumWithRectAndColor>({
-    // borderColor,
     onMouseMove,
     onMouseLeave,
     onMouseEnter,
     onClick,
+    onWheel,
+    onContextMenu,
     borderWidth,
     data,
+    borderColor,
     component = RectShape,
 }: RectsLayerProps<TDatum>) => {
-    // const theme = useTheme();
-    // const getBorderColor = useInheritedColor<TDatum>(borderColor, theme);
+    const theme = useTheme()
+    const getBorderColor = useInheritedColor<TDatum>(borderColor, theme)
 
-    const { transition } = useRectsTransition<
+    const { transition, interpolate } = useRectsTransition<
         TDatum,
-        { borderColor: string; color: string; opacity: number }
+        {
+            borderColor: string
+            color: string
+            opacity: number
+        }
     >(data, {
         enter: datum => ({
             opacity: 0,
             color: datum.color,
-            // borderColor: getBorderColor(datum),
-            borderColor: '#ccc',
+            borderColor: getBorderColor(datum),
         }),
         update: datum => ({
             opacity: 1,
             color: datum.color,
-            // borderColor: getBorderColor(datum),
-            borderColor: '#ccc',
+            borderColor: getBorderColor(datum),
         }),
         leave: datum => ({
             opacity: 0,
             color: datum.color,
-            // borderColor: getBorderColor(datum),
-            borderColor: '#ccc',
+            borderColor: getBorderColor(datum),
         }),
     })
 
@@ -67,7 +73,10 @@ export const RectsLayer = <TDatum extends DatumWithRectAndColor>({
                     style: {
                         ...transitionProps,
                         borderWidth,
-                        transform: datum.rect.transform,
+                        transform: interpolate(
+                            transitionProps.transformX,
+                            transitionProps.transformY
+                        ),
                         width: datum.rect.width,
                         height: datum.rect.height,
                     },
@@ -75,6 +84,8 @@ export const RectsLayer = <TDatum extends DatumWithRectAndColor>({
                     onMouseEnter,
                     onMouseMove,
                     onMouseLeave,
+                    onWheel,
+                    onContextMenu,
                 })
             })}
         </g>

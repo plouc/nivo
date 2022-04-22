@@ -1,5 +1,5 @@
 import { useTheme } from '@nivo/core'
-import { animated, SpringValue } from '@react-spring/web'
+import { animated, Interpolation, SpringValue } from '@react-spring/web'
 import { CSSProperties } from 'react'
 import { DatumWithRectAndColor } from '../types'
 
@@ -13,6 +13,7 @@ export interface RectLabelProps<TDatum extends DatumWithRectAndColor> {
     style: {
         progress: SpringValue<number>
         textColor: string
+        transform: Interpolation<string>
     }
 }
 
@@ -23,7 +24,7 @@ export const RectLabel = <TDatum extends DatumWithRectAndColor>({
     const theme = useTheme()
 
     return (
-        <animated.g opacity={style.progress} style={staticStyle}>
+        <animated.g transform={style.transform} opacity={style.progress} style={staticStyle}>
             <animated.text
                 textAnchor="middle"
                 dominantBaseline="central"

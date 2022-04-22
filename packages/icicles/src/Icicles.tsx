@@ -1,17 +1,17 @@
 import { InheritedColorConfig } from '@nivo/colors'
 import {
-    // @ts-ignore
+    // @ts-ignore -- internal function
     bindDefs,
     Container,
     SvgWrapper,
     useDimensions,
 } from '@nivo/core'
-import { Fragment, ReactNode, createElement } from 'react'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { Rects } from './Rects'
 import { useIcicles, useIciclesLayerContext } from './hooks'
 import { RectLabelsLayer } from '@nivo/rects'
 import { defaultProps } from './props'
-import { IciclesSvgProps, IciclesLayerId, IciclesComputedDatum } from './types'
+import { IciclesSvgProps, IciclesLayerId, ComputedDatum } from './types'
 
 type InnerIciclesProps<RawDatum> = Partial<
     Omit<
@@ -30,7 +30,7 @@ const InnerIcicles = <RawDatum,>({
     colors = defaultProps.colors,
     colorBy = defaultProps.colorBy,
     inheritColorFromParent = defaultProps.inheritColorFromParent,
-    childColor = defaultProps.childColor as InheritedColorConfig<IciclesComputedDatum<RawDatum>>,
+    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor,
     margin: partialMargin,
@@ -45,15 +45,20 @@ const InnerIcicles = <RawDatum,>({
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
+    onWheel,
+    onContextMenu,
     tooltip = defaultProps.tooltip,
     role = defaultProps.role,
     rectLabel = defaultProps.rectLabel,
     rectLabelsComponent,
+    rectLabelsSkipLength = defaultProps.rectLabelsSkipLength,
+    rectLabelsSkipPercentage = defaultProps.rectLabelsSkipPercentage,
     direction = defaultProps.direction,
+    rectLabelsOffset = defaultProps.rectLabelsOffset,
 }: InnerIciclesProps<RawDatum>) => {
     const { margin, outerHeight, outerWidth } = useDimensions(width, height, partialMargin)
 
-    const { nodes } = useIcicles({
+    const { nodes, baseOffsetLeft, baseOffsetTop } = useIcicles({
         data,
         id,
         value,
@@ -62,8 +67,8 @@ const InnerIcicles = <RawDatum,>({
         colorBy,
         inheritColorFromParent,
         childColor,
-        height,
-        width,
+        height: outerHeight,
+        width: outerWidth,
         direction,
     })
 
@@ -91,24 +96,43 @@ const InnerIcicles = <RawDatum,>({
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onMouseMove={onMouseMove}
+                onWheel={onWheel}
+                onContextMenu={onContextMenu}
             />
         )
     }
 
+    const filteredData = useMemo(
+        () =>
+            nodes.filter(datum => {
+                return (
+                    datum.rect.percentage >= rectLabelsSkipPercentage &&
+                    datum.rect[['left', 'right'].includes(direction) ? 'height' : 'width'] >=
+                        rectLabelsSkipLength
+                )
+            }),
+        [nodes, rectLabelsSkipPercentage, rectLabelsSkipLength, direction]
+    )
+
     if (enableRectLabels && layers.includes('rectLabels')) {
         layerById.rectLabels = (
-            <RectLabelsLayer<IciclesComputedDatum<RawDatum>>
+            <RectLabelsLayer<ComputedDatum<RawDatum>>
                 key="rectLabels"
-                data={nodes}
+                data={filteredData}
                 label={rectLabel}
                 textColor={rectLabelsTextColor}
                 component={rectLabelsComponent}
+                offset={rectLabelsOffset}
+                baseOffsetLeft={baseOffsetLeft}
+                baseOffsetTop={baseOffsetTop}
             />
         )
     }
 
     const layerContext = useIciclesLayerContext<RawDatum>({
         nodes,
+        baseOffsetLeft,
+        baseOffsetTop,
     })
 
     return (

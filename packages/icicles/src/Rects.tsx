@@ -2,17 +2,19 @@ import { useTooltip } from '@nivo/tooltip'
 import { createElement, useMemo } from 'react'
 import * as React from 'react'
 import { RectsLayer } from '@nivo/rects'
-import { IciclesCommonProps, IciclesComputedDatum, IciclesMouseHandlers } from './types'
+import { IciclesCommonProps, ComputedDatum, MouseHandlers } from './types'
 
-interface RectsProps<RawDatum> {
+export interface RectsProps<RawDatum> {
     borderColor: IciclesCommonProps<RawDatum>['borderColor']
     borderWidth: IciclesCommonProps<RawDatum>['borderWidth']
-    data: IciclesComputedDatum<RawDatum>[]
+    data: ComputedDatum<RawDatum>[]
     isInteractive: IciclesCommonProps<RawDatum>['isInteractive']
-    onClick?: IciclesMouseHandlers<RawDatum>['onClick']
-    onMouseEnter?: IciclesMouseHandlers<RawDatum>['onMouseEnter']
-    onMouseLeave?: IciclesMouseHandlers<RawDatum>['onMouseLeave']
-    onMouseMove?: IciclesMouseHandlers<RawDatum>['onMouseMove']
+    onClick?: MouseHandlers<RawDatum>['onClick']
+    onMouseEnter?: MouseHandlers<RawDatum>['onMouseEnter']
+    onMouseLeave?: MouseHandlers<RawDatum>['onMouseLeave']
+    onMouseMove?: MouseHandlers<RawDatum>['onMouseMove']
+    onWheel?: MouseHandlers<RawDatum>['onWheel']
+    onContextMenu?: MouseHandlers<RawDatum>['onContextMenu']
     tooltip: IciclesCommonProps<RawDatum>['tooltip']
 }
 
@@ -25,6 +27,8 @@ export const Rects = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onWheel,
+    onContextMenu,
     tooltip,
 }: RectsProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -32,7 +36,7 @@ export const Rects = <RawDatum,>({
     const handleClick = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: IciclesComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
             onClick?.(datum, event)
         }
     }, [isInteractive, onClick])
@@ -40,7 +44,7 @@ export const Rects = <RawDatum,>({
     const handleMouseEnter = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: IciclesComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseEnter?.(datum, event)
         }
@@ -49,7 +53,7 @@ export const Rects = <RawDatum,>({
     const handleMouseMove = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: IciclesComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseMove?.(datum, event)
         }
@@ -58,14 +62,30 @@ export const Rects = <RawDatum,>({
     const handleMouseLeave = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: IciclesComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
             hideTooltip()
             onMouseLeave?.(datum, event)
         }
     }, [isInteractive, hideTooltip, onMouseLeave])
 
+    const handleWheel = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (datum: ComputedDatum<RawDatum>, event: React.WheelEvent<SVGRectElement>) => {
+            onWheel?.(datum, event)
+        }
+    }, [isInteractive, onWheel])
+
+    const handleContextMenu = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
+            onContextMenu?.(datum, event)
+        }
+    }, [isInteractive, onContextMenu])
+
     return (
-        <RectsLayer<IciclesComputedDatum<RawDatum>>
+        <RectsLayer<ComputedDatum<RawDatum>>
             data={data}
             borderWidth={borderWidth}
             borderColor={borderColor}
@@ -73,6 +93,8 @@ export const Rects = <RawDatum,>({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onWheel={handleWheel}
+            onContextMenu={handleContextMenu}
         />
     )
 }
