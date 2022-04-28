@@ -97,7 +97,7 @@ declare module '@nivo/line' {
         }
     }
 
-    export type AccessorFunc = (datum: Point['data']) => string
+    export type AccessorFunc = (datum: Point['data'], point: Point) => string
 
     export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
 
