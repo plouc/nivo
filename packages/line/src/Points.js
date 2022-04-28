@@ -26,7 +26,7 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
             datum: point.data,
             fill: point.color,
             stroke: point.borderColor,
-            label: enableLabel ? getLabel(point.data) : null,
+            label: enableLabel ? getLabel(point.data, point) : null,
         }
 
         return mappedPoint
