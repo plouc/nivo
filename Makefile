@@ -119,7 +119,7 @@ lint: ##@0 run eslint & tslint
 
 package-lint-%: ##@1 packages run eslint on package
 	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
-	@yarn eslint ./packages/${*}/{src,tests}
+	@yarn eslint ./packages/${*}/{src,tests}/**/*.{js,ts,tsx}
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
