@@ -8,8 +8,8 @@ const to = new Date(2019, 11, 31)
 const data = generateDayCounts(from, to)
 
 const commonProps = {
-    width: 1500,
-    height: 1560,
+    width: 1400,
+    height: 1400,
     margin: {
         top: 50,
         right: 10,
@@ -34,6 +34,25 @@ const CustomTooltip = data => {
 }
 
 stories.add('custom tooltip', () => <CalendarCanvas tooltip={CustomTooltip} {...commonProps} />)
+
+const shortWeekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+stories.add('labeling weekdays', () => (
+    <CalendarCanvas
+        {...commonProps}
+        yearLegendPosition={'before'}
+        weekdayLegend={day => shortWeekdays[day]}
+        weekdayTicks={[0, 1, 2, 3, 4, 5, 6]}
+        weekdayLegendPosition={'after'}
+        weekdayLegendOffset={10}
+        margin={{
+            top: 50,
+            right: 50,
+            bottom: 10,
+            left: 50,
+        }}
+        tooltip={CustomTooltip}
+    />
+))
 
 stories.add('spacing', () => (
     <CalendarCanvas {...commonProps} daySpacing={5} monthSpacing={50} dayBorderWidth={2} />

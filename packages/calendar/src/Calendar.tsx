@@ -3,10 +3,17 @@ import { Container, SvgWrapper, useTheme, useDimensions, useValueFormatter } fro
 import { BoxLegendSvg } from '@nivo/legends'
 import { CalendarYearLegends } from './CalendarYearLegends'
 import { CalendarMonthPath } from './CalendarMonthPath'
-import { CalendarMonthLegends } from './CalendarMonthLegends'
+import { CalendarMonthLegends, CalendarWeekdayLegends } from './CalendarLegends'
 import { CalendarDay } from './CalendarDay'
-import { calendarDefaultProps } from './props'
-import { useMonthLegends, useYearLegends, useCalendarLayout, useDays, useColorScale } from './hooks'
+import { calendarDefaultProps, timeRangeDefaultProps } from './props'
+import {
+    useMonthLegends,
+    useYearLegends,
+    useCalendarLayout,
+    useDays,
+    useColorScale,
+    useWeekdayLegends,
+} from './hooks'
 
 const InnerCalendar = ({
     margin: partialMargin,
@@ -42,6 +49,11 @@ const InnerCalendar = ({
     dayBorderWidth = calendarDefaultProps.dayBorderWidth,
     daySpacing = calendarDefaultProps.daySpacing,
 
+    weekdayLegend = timeRangeDefaultProps.weekdayLegend,
+    weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
+    weekdayLegendPosition = timeRangeDefaultProps.weekdayLegendPosition,
+    weekdayTicks = calendarDefaultProps.weekdayTicks,
+
     isInteractive = calendarDefaultProps.isInteractive,
     tooltip = calendarDefaultProps.tooltip,
     onClick,
@@ -58,7 +70,15 @@ const InnerCalendar = ({
         height,
         partialMargin
     )
-    const { months, years, ...rest } = useCalendarLayout({
+    const colorScaleFn = useColorScale({
+        data,
+        minValue,
+        maxValue,
+        colors,
+        colorScale,
+    })
+
+    const { months, years, weekdays, ...rest } = useCalendarLayout({
         width: innerWidth,
         height: innerHeight,
         from,
@@ -68,19 +88,36 @@ const InnerCalendar = ({
         monthSpacing,
         daySpacing,
         align,
+        weekdayTicks,
     })
-    const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
+    const days = useDays({
+        days: rest.days,
+        data,
+        colorScale: colorScaleFn,
+        emptyColor,
+    })
+
     const monthLegends = useMonthLegends({
         months,
         direction,
         monthLegendPosition,
         monthLegendOffset,
     })
-    const yearLegends = useYearLegends({ years, direction, yearLegendPosition, yearLegendOffset })
-    const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
+    const weekdayLegends = useWeekdayLegends({
+        weekdays,
+        direction,
+        weekdayLegendPosition,
+        weekdayLegendOffset,
+    })
+    const yearLegends = useYearLegends({
+        years,
+        direction,
+        yearLegendPosition,
+        yearLegendOffset,
+    })
+
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
-
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {days.map(d => (
@@ -89,7 +126,7 @@ const InnerCalendar = ({
                     data={d}
                     x={d.x}
                     y={d.y}
-                    size={d.size}
+                    size={d.width}
                     color={d.color}
                     borderWidth={dayBorderWidth}
                     borderColor={dayBorderColor}
@@ -112,6 +149,12 @@ const InnerCalendar = ({
             ))}
             <CalendarMonthLegends months={monthLegends} legend={monthLegend} theme={theme} />
             <CalendarYearLegends years={yearLegends} legend={yearLegend} theme={theme} />
+            <CalendarWeekdayLegends
+                weekdays={weekdayLegends}
+                legend={weekdayLegend}
+                theme={theme}
+            />
+
             {legends.map((legend, i) => {
                 const legendData = colorScaleFn.ticks(legend.itemCount).map(value => ({
                     id: value,

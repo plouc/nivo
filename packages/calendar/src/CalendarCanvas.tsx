@@ -11,8 +11,15 @@ import {
     useValueFormatter,
 } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { calendarCanvasDefaultProps } from './props'
-import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
+import { calendarCanvasDefaultProps, calendarDefaultProps, timeRangeDefaultProps } from './props'
+import {
+    useCalendarLayout,
+    useColorScale,
+    useMonthLegends,
+    useYearLegends,
+    useDays,
+    useWeekdayLegends,
+} from './hooks'
 import { useTooltip } from '@nivo/tooltip'
 import { CalendarCanvasProps } from './types'
 
@@ -20,7 +27,8 @@ const findDayUnderCursor = (
     event: React.MouseEvent,
     canvasEl: HTMLCanvasElement,
     days: ReturnType<typeof useDays>,
-    size: number,
+    width: number,
+    height: number,
     dayBorderWidth: number,
     margin: Required<Box>
 ) => {
@@ -31,8 +39,8 @@ const findDayUnderCursor = (
             isCursorInRect(
                 day.x + margin.left - dayBorderWidth / 2,
                 day.y + margin.top - dayBorderWidth / 2,
-                size + dayBorderWidth,
-                size + dayBorderWidth,
+                width + dayBorderWidth,
+                height + dayBorderWidth,
                 x,
                 y
             )
@@ -74,6 +82,11 @@ const InnerCalendarCanvas = memo(
         dayBorderWidth = calendarCanvasDefaultProps.dayBorderWidth,
         daySpacing = calendarCanvasDefaultProps.daySpacing,
 
+        weekdayLegend = timeRangeDefaultProps.weekdayLegend,
+        weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
+        weekdayLegendPosition = timeRangeDefaultProps.weekdayLegendPosition,
+        weekdayTicks = calendarDefaultProps.weekdayTicks,
+
         isInteractive = calendarCanvasDefaultProps.isInteractive,
         tooltip = calendarCanvasDefaultProps.tooltip,
         onClick,
@@ -89,7 +102,7 @@ const InnerCalendarCanvas = memo(
             height,
             partialMargin
         )
-        const { months, years, ...rest } = useCalendarLayout({
+        const { months, years, weekdays, ...rest } = useCalendarLayout({
             width: innerWidth,
             height: innerHeight,
             from,
@@ -99,6 +112,7 @@ const InnerCalendarCanvas = memo(
             monthSpacing,
             daySpacing,
             align,
+            weekdayTicks,
         })
         const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
         const monthLegends = useMonthLegends({
@@ -106,6 +120,12 @@ const InnerCalendarCanvas = memo(
             direction,
             monthLegendPosition,
             monthLegendOffset,
+        })
+        const weekdayLegends = useWeekdayLegends({
+            weekdays,
+            direction,
+            weekdayLegendPosition,
+            weekdayLegendOffset,
         })
         const yearLegends = useYearLegends({
             years,
@@ -147,7 +167,7 @@ const InnerCalendarCanvas = memo(
                 }
 
                 ctx.beginPath()
-                ctx.rect(day.x, day.y, day.size, day.size)
+                ctx.rect(day.x, day.y, day.width, day.height)
                 ctx.fill()
 
                 if (dayBorderWidth > 0) {
@@ -167,7 +187,14 @@ const InnerCalendarCanvas = memo(
                 ctx.fillText(String(monthLegend(month.year, month.month, month.date)), 0, 0)
                 ctx.restore()
             })
-
+            weekdayLegends.forEach(weekday => {
+                ctx.save()
+                ctx.translate(weekday.x, weekday.y)
+                ctx.rotate(degreesToRadians(weekday.rotation))
+                ctx.textAlign = 'start'
+                ctx.fillText(String(weekdayLegend(weekday.day)), 0, 0)
+                ctx.restore()
+            })
             yearLegends.forEach(year => {
                 ctx.save()
                 ctx.translate(year.x, year.y)
@@ -207,6 +234,8 @@ const InnerCalendarCanvas = memo(
             yearLegends,
             monthLegend,
             monthLegends,
+            weekdayLegend,
+            weekdayLegends,
             legends,
             theme,
             formatLegend,
@@ -221,7 +250,8 @@ const InnerCalendarCanvas = memo(
                     event,
                     canvasEl.current,
                     days,
-                    days[0].size,
+                    days[0].width,
+                    days[0].height,
                     dayBorderWidth,
                     margin
                 )
@@ -277,7 +307,8 @@ const InnerCalendarCanvas = memo(
                     event,
                     canvasEl.current,
                     days,
-                    days[0].size,
+                    days[0].width,
+                    days[0].height,
                     daySpacing,
                     margin
                 )

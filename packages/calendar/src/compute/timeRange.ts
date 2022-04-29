@@ -1,22 +1,13 @@
-import { timeWeek, timeDays, timeDay } from 'd3-time'
+import { timeDay, timeDays, timeWeek } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
-import { DateOrString } from '../types'
+import { Month, DateOrString, TimeRangeSvgProps } from '../types'
 import { isDate } from 'lodash'
-
-// Interfaces
-interface ComputeBaseProps {
-    direction: 'horizontal' | 'vertical'
-}
-
-interface ComputeBaseSpaceProps {
-    daySpacing: number
-    offset: number
-}
-
-interface ComputeBaseDimensionProps {
-    cellWidth: number
-    cellHeight: number
-}
+import {
+    ComputeBaseProps,
+    ComputeBaseSpaceProps,
+    ComputeBaseDimensionProps,
+    computeWeekdays,
+} from './common'
 
 interface ComputeCellSize extends ComputeBaseProps, ComputeBaseSpaceProps {
     totalDays: number
@@ -29,50 +20,18 @@ interface ComputeCellPositions
     extends ComputeBaseProps,
         ComputeBaseSpaceProps,
         ComputeBaseDimensionProps {
-    from?: DateOrString
-    to?: DateOrString
-    data: {
-        date: Date
-        day: string
-        value: number
-    }[]
-    colorScale: (value: number) => string
-    emptyColor: string
-}
-
-interface ComputeWeekdays
-    extends Omit<ComputeBaseProps, 'daysInRange'>,
-        Omit<ComputeBaseSpaceProps, 'offset'>,
-        ComputeBaseDimensionProps {
-    ticks?: number[]
-    arrayOfWeekdays?: string[]
+    from: Date
+    to: Date
 }
 
 interface Day {
-    coordinates: {
-        x: number
-        y: number
-    }
+    x: number
+    y: number
     firstWeek: number
     month: number
     year: number
     date: Date
-    color: string
     day: string
-    value?: number
-}
-
-interface Month {
-    date: Date
-    bbox: {
-        x: number
-        y: number
-        width: number
-        height: number
-    }
-    firstWeek: number
-    month: number
-    year: number
 }
 
 interface ComputeMonths
@@ -99,10 +58,9 @@ const dayFormat = timeFormat('%Y-%m-%d')
  * Compute day cell size according to
  * current context.
  */
-export const computeCellSize = ({
+export const computeTimeRangeCellSize = ({
     direction,
     daySpacing,
-    offset,
     square,
     totalDays,
     width,
@@ -111,14 +69,12 @@ export const computeCellSize = ({
     const daysInRange = 7
     let rows
     let columns
-    let widthRest = width
-    let heightRest = height
+    const widthRest = width
+    const heightRest = height
     if (direction === 'horizontal') {
-        widthRest -= offset
         rows = daysInRange
         columns = Math.ceil(totalDays / daysInRange)
     } else {
-        heightRest -= offset
         columns = daysInRange
         rows = Math.ceil(totalDays / daysInRange)
     }
@@ -163,107 +119,40 @@ function computeGrid({
 
 export const computeCellPositions = ({
     direction,
-    colorScale,
-    emptyColor,
     from,
     to,
-    data,
     cellWidth,
     cellHeight,
     daySpacing,
-    offset,
 }: ComputeCellPositions) => {
-    let x = daySpacing
-    let y = daySpacing
+    const x = daySpacing
+    const y = daySpacing
 
-    if (direction === 'horizontal') {
-        x += offset
-    } else {
-        y += offset
-    }
-
-    // we need to determine whether we need to add days to move to correct position
-    const start = from ? from : data[0].date
-    const end = to ? to : data[data.length - 1].date
-    const startDate = isDate(start) ? start : new Date(start)
-    const endDate = isDate(end) ? end : new Date(end)
-    const dateRange = timeDays(startDate, endDate).map(dayDate => {
+    const dateRange = timeDays(from, to).map(dayDate => {
         return {
             date: dayDate,
             day: dayFormat(dayDate),
         }
     })
 
-    const dataWithCellPosition = dateRange.map(day => {
-        const dayData = data.find(item => item.day === day.day)
-
+    return dateRange.map(day => {
         const { currentColumn, currentRow, firstWeek, year, month, date } = computeGrid({
-            startDate,
+            startDate: from,
             date: day.date,
             direction,
         })
-
-        const coordinates = {
+        return {
             x: x + daySpacing * currentColumn + cellWidth * currentColumn,
             y: y + daySpacing * currentRow + cellHeight * currentRow,
-        }
-
-        if (!dayData) {
-            return {
-                ...day,
-                coordinates,
-                firstWeek,
-                month,
-                year,
-                date,
-                color: emptyColor,
-                width: cellWidth,
-                height: cellHeight,
-            }
-        }
-
-        return {
-            ...dayData,
-            coordinates,
-            firstWeek,
-            month,
-            year,
             date,
-            color: colorScale(dayData.value),
+            firstWeek,
+            year,
+            month,
+            day: day.day,
             width: cellWidth,
             height: cellHeight,
         }
     })
-
-    return dataWithCellPosition
-}
-
-export const computeWeekdays = ({
-    cellHeight,
-    cellWidth,
-    direction,
-    daySpacing,
-    ticks = [1, 3, 5],
-    arrayOfWeekdays = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ],
-}: ComputeWeekdays) => {
-    const sizes = {
-        width: cellWidth + daySpacing,
-        height: cellHeight + daySpacing,
-    }
-    return ticks.map(day => ({
-        value: arrayOfWeekdays[day],
-        rotation: direction === 'horizontal' ? 0 : -90,
-        y: direction === 'horizontal' ? sizes.height * (day + 1) - sizes.height / 3 : 0,
-        x: direction === 'horizontal' ? 0 : sizes.width * (day + 1) - sizes.width / 3,
-    }))
 }
 
 export const computeMonthLegends = ({
@@ -281,40 +170,46 @@ export const computeMonthLegends = ({
         weeks: [],
     }
 
+    // assumes data is sorted
     return days.reduce((acc, day) => {
         if (acc.weeks.length === day.firstWeek) {
             acc.weeks.push(day)
 
             const key = `${day.year}-${day.month}`
+            const bbox = { x: 0, y: 0, width: 0, height: 0 }
+            if (direction === 'horizontal') {
+                bbox.x = day.x - daySpacing
+                bbox.y = Math.min(daySpacing, day.y)
+                bbox.height = 7 * (cellHeight + daySpacing)
+                bbox.width = cellWidth + daySpacing * 2
+            } else {
+                bbox.x = Math.min(daySpacing, day.x)
+                bbox.y = day.y - daySpacing
+                bbox.height = cellHeight + daySpacing * 2
+                bbox.width = 7 * (cellWidth + daySpacing)
+            }
 
             if (!Object.keys(acc.months).includes(key)) {
-                const bbox = { x: 0, y: 0, width: 0, height: 0 }
-
-                if (direction === 'horizontal') {
-                    bbox.x = day.coordinates.x - daySpacing
-                    bbox.height = cellHeight + daySpacing
-                    bbox.width = cellWidth + daySpacing * 2
-                } else {
-                    bbox.y = day.coordinates.y - daySpacing
-                    bbox.height = cellHeight + daySpacing * 2
-                    bbox.width = cellWidth + daySpacing * 2
-                }
-
                 acc.months[key] = {
                     date: day.date,
                     bbox,
-                    firstWeek: day.firstWeek,
-                    month: 0,
-                    year: 0,
+                    month: day.month,
+                    year: day.year,
+                    path: '',
                 }
             } else {
-                // enhance width/height
+                // update the existing bounding box (make wider or taller)
+                const acc_bbox = acc.months[key].bbox
+                acc_bbox.x = Math.min(acc_bbox.x, bbox.x)
+                acc_bbox.y = Math.min(acc_bbox.y, bbox.y)
                 if (direction === 'horizontal') {
-                    acc.months[key].bbox.width =
-                        (day.firstWeek - acc.months[key].firstWeek) * (cellWidth + daySpacing)
+                    if (bbox.x + bbox.width > acc_bbox.x + acc_bbox.width) {
+                        acc_bbox.width = bbox.x + bbox.width - acc_bbox.x
+                    }
                 } else {
-                    acc.months[key].bbox.height =
-                        (day.firstWeek - acc.months[key].firstWeek) * (cellHeight + daySpacing)
+                    if (bbox.y + bbox.height > acc_bbox.y + acc_bbox.height) {
+                        acc_bbox.height = bbox.y + bbox.height - acc_bbox.y
+                    }
                 }
             }
         }
@@ -323,19 +218,99 @@ export const computeMonthLegends = ({
 }
 
 export const computeTotalDays = ({ from, to, data }: ComputeTotalDays) => {
-    let startDate
-    let endDate
+    let startDate = new Date()
+    let endDate = new Date()
     if (from) {
         startDate = isDate(from) ? from : new Date(from)
     } else {
-        startDate = data[0].date
+        if (data.length) {
+            startDate = data[0].date
+        }
     }
 
     if (from && to) {
         endDate = isDate(to) ? to : new Date(to)
     } else {
-        endDate = data[data.length - 1].date
+        if (data.length) {
+            endDate = data[data.length - 1].date
+        }
     }
 
-    return startDate.getDay() + timeDay.count(startDate, endDate)
+    return {
+        startDate,
+        endDate,
+        totalDays: startDate.getDay() + timeDay.count(startDate, endDate),
+    }
+}
+
+export const computeTimeRangeLayout = ({
+    width,
+    height,
+    square,
+    totalDays,
+    from,
+    to,
+    direction,
+    daySpacing,
+    weekdayTicks,
+}: Pick<
+    Required<TimeRangeSvgProps>,
+    | 'square'
+    | 'width'
+    | 'height'
+    | 'totalDays'
+    | 'from'
+    | 'to'
+    | 'direction'
+    | 'daySpacing'
+    | 'weekdayTicks'
+>) => {
+    const { rows, columns, cellHeight, cellWidth } = computeTimeRangeCellSize({
+        square,
+        totalDays,
+        width,
+        height,
+        daySpacing,
+        direction,
+    })
+    const days = computeCellPositions({
+        cellHeight,
+        cellWidth,
+        from,
+        to,
+        direction,
+        daySpacing,
+    })
+    const months = Object.values(
+        computeMonthLegends({
+            daySpacing,
+            direction,
+            cellHeight,
+            cellWidth,
+            days,
+        }).months
+    )
+    const weekdays = computeWeekdays({
+        bbox: {
+            x: 0,
+            y: 0,
+            width: columns * (cellWidth + daySpacing),
+            height: rows * (cellHeight + daySpacing),
+        },
+        direction,
+        cellHeight,
+        cellWidth,
+        daySpacing,
+        ticks: weekdayTicks,
+    })
+
+    return {
+        months,
+        weekdays,
+        days,
+        cellWidth,
+        cellHeight,
+        originX: 0,
+        originY: 0,
+    }
 }

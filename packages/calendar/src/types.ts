@@ -12,8 +12,14 @@ export type Month = {
     year: number
     month: number
 }
+export type Weekday = {
+    path: string
+    bbox: BBox
+    day: number
+}
 
 export type MonthLegend = Omit<Month, 'path'> & Legend
+export type WeekdayLegend = Omit<Weekday, 'path'> & Legend
 
 export type Year = {
     year: number
@@ -30,8 +36,8 @@ export type CalendarDatum = {
 }
 
 export type CalendarData = {
-    from: DateOrString
-    to: DateOrString
+    from: Date
+    to: Date
     data: CalendarDatum[]
 }
 
@@ -66,6 +72,12 @@ export type CalendarMonthLegendsProps = {
     theme: CompleteTheme
 }
 
+export type CalendarWeekdayLegendsProps = {
+    legend: (day: number) => string | number
+    weekdays: WeekdayLegend[]
+    theme: CompleteTheme
+}
+
 export type CalendarTooltipProps = {
     value: string
     day: string
@@ -90,7 +102,8 @@ export type Datum = {
     day: string
     value: number
     color: string
-    size: number
+    width: number
+    height: number
     x: number
     y: number
 }
@@ -142,6 +155,11 @@ export type CommonCalendarProps = {
     dayBorderColor: string
     emptyColor: string
 
+    weekdayLegend: (day: number) => string | number
+    weekdayLegendOffset: number
+    weekdayLegendPosition: 'before' | 'after'
+    weekdayTicks: number[]
+
     valueFormat: ValueFormat<number>
     legendFormat: ValueFormat<number>
 
@@ -175,14 +193,9 @@ export type CalendarCanvasProps = Dimensions &
     >
 
 export type TimeRangeDayData = (Omit<CalendarDatum, 'value'> | CalendarDatum) & {
-    coordinates: {
-        x: number
-        y: number
-    }
+    x: number
+    y: number
     date: Date
-    firstWeek: number
-    month: number
-    year: number
     color: string
     width: number
     height: number
@@ -192,9 +205,11 @@ export type TimeRangeTooltipProps = Omit<TimeRangeDayData, 'date' | 'value'> & {
     value: string
 }
 
-export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial<
-        Omit<CalendarData, 'data'>
-    > &
+export type TimeRangeSvgProps = Dimensions & {
+    data: CalendarDatum[]
+    totalDays: number
+    square: boolean
+} & Partial<Omit<CalendarData, 'data'>> &
     Partial<
         Omit<
             CommonCalendarProps,
@@ -210,8 +225,6 @@ export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial
                 dayRadius: number
                 square: boolean
                 role: string
-                weekdayLegendOffset: number
-                weekdayTicks: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>
             }
     >
 

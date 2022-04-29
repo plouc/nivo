@@ -1,13 +1,14 @@
 import { useMemo } from 'react'
 import { ScaleQuantize, scaleQuantize } from 'd3-scale'
+import { computeDomain, computeCalendarLayout } from './compute/calendar'
+import { bindDaysData } from './compute/common'
 import {
-    computeDomain,
     computeYearLegendPositions,
     computeMonthLegendPositions,
-    bindDaysData,
-    computeLayout,
-} from './compute/calendar'
-import { BBox, CalendarSvgProps, ColorScale, Year } from './types'
+    computeWeekdayLegendPositions,
+} from './compute/legends'
+import { computeTimeRangeLayout } from './compute/timeRange'
+import { BBox, CalendarSvgProps, TimeRangeSvgProps, ColorScale, Year } from './types'
 
 export const useCalendarLayout = ({
     width,
@@ -19,6 +20,7 @@ export const useCalendarLayout = ({
     monthSpacing,
     daySpacing,
     align,
+    weekdayTicks,
 }: Pick<
     Required<CalendarSvgProps>,
     | 'width'
@@ -30,10 +32,11 @@ export const useCalendarLayout = ({
     | 'monthSpacing'
     | 'daySpacing'
     | 'align'
+    | 'weekdayTicks'
 >) =>
     useMemo(
         () =>
-            computeLayout({
+            computeCalendarLayout({
                 width,
                 height,
                 from,
@@ -43,8 +46,58 @@ export const useCalendarLayout = ({
                 monthSpacing,
                 daySpacing,
                 align,
+                weekdayTicks,
             }),
-        [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align]
+        [
+            width,
+            height,
+            from,
+            to,
+            direction,
+            yearSpacing,
+            monthSpacing,
+            daySpacing,
+            align,
+            weekdayTicks,
+        ]
+    )
+
+export const useTimeRangeLayout = ({
+    square,
+    width,
+    height,
+    totalDays,
+    from,
+    to,
+    direction,
+    daySpacing,
+    weekdayTicks,
+}: Pick<
+    Required<TimeRangeSvgProps>,
+    | 'square'
+    | 'width'
+    | 'height'
+    | 'totalDays'
+    | 'from'
+    | 'to'
+    | 'direction'
+    | 'daySpacing'
+    | 'weekdayTicks'
+>) =>
+    useMemo(
+        () =>
+            computeTimeRangeLayout({
+                square,
+                width,
+                height,
+                totalDays,
+                from,
+                to,
+                direction,
+                daySpacing,
+                weekdayTicks,
+            }),
+        [square, width, height, from, to, totalDays, direction, daySpacing, weekdayTicks]
     )
 
 export const useColorScale = ({
@@ -104,6 +157,28 @@ export const useMonthLegends = <Month extends { bbox: BBox }>({
                 offset: monthLegendOffset,
             }),
         [months, direction, monthLegendPosition, monthLegendOffset]
+    )
+
+export const useWeekdayLegends = <Weekday extends { bbox: BBox }>({
+    weekdays,
+    direction,
+    weekdayLegendPosition,
+    weekdayLegendOffset,
+}: {
+    weekdays: Weekday[]
+    direction: 'horizontal' | 'vertical'
+    weekdayLegendPosition: 'before' | 'after'
+    weekdayLegendOffset: number
+}) =>
+    useMemo(
+        () =>
+            computeWeekdayLegendPositions({
+                weekdays,
+                direction,
+                position: weekdayLegendPosition,
+                offset: weekdayLegendOffset,
+            }),
+        [weekdays, direction, weekdayLegendPosition, weekdayLegendOffset]
     )
 
 export const useDays = ({

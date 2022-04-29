@@ -2,8 +2,8 @@ import { isDate, memoize, range } from 'lodash'
 import { alignBox } from '@nivo/core'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
-import { ScaleQuantize } from 'd3-scale'
-import { BBox, CalendarSvgProps, ColorScale, Datum, Year } from '../types'
+import { BBox, CalendarSvgProps, Datum } from '../types'
+import { computeWeekdays } from './common'
 
 /**
  * Compute min/max values.
@@ -23,7 +23,7 @@ export const computeDomain = (
 /**
  * Compute day cell size according to current context.
  */
-const computeCellSize = ({
+const computeCalendarCellSize = ({
     width,
     height,
     direction,
@@ -218,7 +218,7 @@ const dayFormat = timeFormat('%Y-%m-%d')
 /**
  * Compute base layout, without caring about the current data.
  */
-export const computeLayout = ({
+export const computeCalendarLayout = ({
     width,
     height,
     from,
@@ -228,6 +228,7 @@ export const computeLayout = ({
     monthSpacing,
     daySpacing,
     align,
+    weekdayTicks,
 }: Pick<
     Required<CalendarSvgProps>,
     | 'align'
@@ -239,6 +240,7 @@ export const computeLayout = ({
     | 'yearSpacing'
     | 'monthSpacing'
     | 'daySpacing'
+    | 'weekdayTicks'
 >) => {
     const fromDate = isDate(from) ? from : new Date(from)
     const toDate = isDate(to) ? to : new Date(to)
@@ -251,7 +253,7 @@ export const computeLayout = ({
             )
         ) + 1
 
-    const cellSize = computeCellSize({
+    const cellSize = computeCalendarCellSize({
         width,
         height,
         direction,
@@ -266,8 +268,9 @@ export const computeLayout = ({
     const yearsSize =
         (cellSize + daySpacing) * 7 * yearRange.length + yearSpacing * (yearRange.length - 1)
 
-    const calendarWidth = direction === 'horizontal' ? monthsSize : yearsSize
-    const calendarHeight = direction === 'horizontal' ? yearsSize : monthsSize
+    const horizontal = direction === 'horizontal'
+    const calendarWidth = horizontal ? monthsSize : yearsSize
+    const calendarHeight = horizontal ? yearsSize : monthsSize
     const [originX, originY] = alignBox(
         {
             x: 0,
@@ -285,7 +288,7 @@ export const computeLayout = ({
     )
 
     let cellPosition: ReturnType<typeof cellPositionHorizontal>
-    if (direction === 'horizontal') {
+    if (horizontal) {
         cellPosition = cellPositionHorizontal(cellSize, yearSpacing, monthSpacing, daySpacing)
     } else {
         cellPosition = cellPositionVertical(cellSize, yearSpacing, monthSpacing, daySpacing)
@@ -320,6 +323,8 @@ export const computeLayout = ({
                 return {
                     date: dayDate,
                     day: dayFormat(dayDate),
+                    width: cellSize,
+                    height: cellSize,
                     size: cellSize,
                     ...cellPosition(originX, originY, dayDate, i),
                 }
@@ -356,111 +361,29 @@ export const computeLayout = ({
         })
     })
 
-    return { years, months, days, cellSize, calendarWidth, calendarHeight, originX, originY }
-}
+    // each year should get a separate set of weekday labels
+    const weekdays = years
+        .map(year =>
+            computeWeekdays({
+                bbox: year.bbox,
+                direction,
+                cellHeight: cellSize,
+                cellWidth: cellSize,
+                daySpacing,
+                ticks: weekdayTicks,
+            })
+        )
+        .flat()
 
-/**
- * Bind current data to computed day cells.
- */
-export const bindDaysData = ({
-    days,
-    data,
-    colorScale,
-    emptyColor,
-}: Pick<Required<CalendarSvgProps>, 'data' | 'emptyColor'> & {
-    colorScale: ScaleQuantize<string> | ColorScale
-    days: Array<Omit<Datum, 'color' | 'data' | 'value'>>
-}) => {
-    return days.map(day => {
-        const dayData = data.find(item => item.day === day.day)
-
-        if (!dayData) {
-            return { ...day, color: emptyColor }
-        }
-
-        return {
-            ...day,
-            color: colorScale(dayData.value),
-            data: dayData,
-            value: dayData.value,
-        }
-    })
-}
-
-export const computeYearLegendPositions = ({
-    years,
-    direction,
-    position,
-    offset,
-}: Pick<Required<CalendarSvgProps>, 'direction'> & {
-    offset: number
-    position: 'before' | 'after'
-    years: Year[]
-}) => {
-    return years.map(year => {
-        let x = 0
-        let y = 0
-        let rotation = 0
-        if (direction === 'horizontal' && position === 'before') {
-            x = year.bbox.x - offset
-            y = year.bbox.y + year.bbox.height / 2
-            rotation = -90
-        } else if (direction === 'horizontal' && position === 'after') {
-            x = year.bbox.x + year.bbox.width + offset
-            y = year.bbox.y + year.bbox.height / 2
-            rotation = -90
-        } else if (direction === 'vertical' && position === 'before') {
-            x = year.bbox.x + year.bbox.width / 2
-            y = year.bbox.y - offset
-        } else {
-            x = year.bbox.x + year.bbox.width / 2
-            y = year.bbox.y + year.bbox.height + offset
-        }
-
-        return {
-            ...year,
-            x,
-            y,
-            rotation,
-        }
-    })
-}
-
-export const computeMonthLegendPositions = <Month extends { bbox: BBox }>({
-    months,
-    direction,
-    position,
-    offset,
-}: Pick<Required<CalendarSvgProps>, 'direction'> & {
-    offset: number
-    position: 'before' | 'after'
-    months: Month[]
-}) => {
-    return months.map(month => {
-        let x = 0
-        let y = 0
-        let rotation = 0
-        if (direction === 'horizontal' && position === 'before') {
-            x = month.bbox.x + month.bbox.width / 2
-            y = month.bbox.y - offset
-        } else if (direction === 'horizontal' && position === 'after') {
-            x = month.bbox.x + month.bbox.width / 2
-            y = month.bbox.y + month.bbox.height + offset
-        } else if (direction === 'vertical' && position === 'before') {
-            x = month.bbox.x - offset
-            y = month.bbox.y + month.bbox.height / 2
-            rotation = -90
-        } else {
-            x = month.bbox.x + month.bbox.width + offset
-            y = month.bbox.y + month.bbox.height / 2
-            rotation = -90
-        }
-
-        return {
-            ...month,
-            x,
-            y,
-            rotation,
-        }
-    })
+    return {
+        years,
+        months,
+        weekdays,
+        days,
+        cellSize,
+        calendarWidth,
+        calendarHeight,
+        originX,
+        originY,
+    }
 }

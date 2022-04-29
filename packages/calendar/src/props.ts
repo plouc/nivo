@@ -3,6 +3,15 @@ import { CalendarLegendProps } from './types'
 import { CalendarTooltip } from './CalendarTooltip'
 
 const monthLabelFormat = timeFormat('%b')
+const arrayOfWeekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+]
 
 const commonDefaultProps = {
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'] as string[],
@@ -30,6 +39,11 @@ const commonDefaultProps = {
     dayBorderWidth: 1,
     dayBorderColor: '#000',
 
+    weekdayLegend: (day: number) => arrayOfWeekdays[day],
+    weekdayLegendPosition: 'before',
+    weekdayLegendOffset: 75,
+    weekdayTicks: [] as number[],
+
     isInteractive: true,
 
     legends: [] as CalendarLegendProps[],
@@ -51,5 +65,5 @@ export const timeRangeDefaultProps = {
     dayBorderColor: '#fff',
     dayRadius: 0,
     square: true,
-    weekdayLegendOffset: 75,
+    weekdayTicks: [1, 3, 5] as number[],
 } as const

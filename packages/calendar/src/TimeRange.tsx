@@ -1,16 +1,16 @@
 import { useMemo } from 'react'
 import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
+import { computeTotalDays } from './compute/timeRange'
 import {
-    computeWeekdays,
-    computeCellSize,
-    computeCellPositions,
-    computeMonthLegends,
-    computeTotalDays,
-} from './compute/timeRange'
-import { useMonthLegends, useColorScale } from './hooks'
+    useMonthLegends,
+    useWeekdayLegends,
+    useColorScale,
+    useTimeRangeLayout,
+    useDays,
+} from './hooks'
 import { TimeRangeDay } from './TimeRangeDay'
-import { CalendarMonthLegends } from './CalendarMonthLegends'
+import { CalendarMonthLegends, CalendarWeekdayLegends } from './CalendarLegends'
 import { TimeRangeSvgProps } from './types'
 import { timeRangeDefaultProps } from './props'
 
@@ -36,8 +36,10 @@ const InnerTimeRange = ({
     monthLegendOffset = timeRangeDefaultProps.monthLegendOffset,
     monthLegendPosition = timeRangeDefaultProps.monthLegendPosition,
 
+    weekdayLegend = timeRangeDefaultProps.weekdayLegend,
     weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
-    weekdayTicks,
+    weekdayLegendPosition = timeRangeDefaultProps.weekdayLegendPosition,
+    weekdayTicks = timeRangeDefaultProps.weekdayTicks,
 
     dayBorderColor = timeRangeDefaultProps.dayBorderColor,
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
@@ -54,6 +56,7 @@ const InnerTimeRange = ({
     legends = timeRangeDefaultProps.legends,
     role = timeRangeDefaultProps.role,
 }: TimeRangeSvgProps) => {
+    const theme = useTheme()
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -68,56 +71,31 @@ const InnerTimeRange = ({
         [_data]
     )
 
-    const theme = useTheme()
-    const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
+    const colorScaleFn = useColorScale({
+        data,
+        minValue,
+        maxValue,
+        colors,
+        colorScale,
+    })
 
-    const totalDays = computeTotalDays({
+    const { startDate, endDate, totalDays } = computeTotalDays({
         from,
         to,
         data,
     })
-
-    const { cellHeight, cellWidth } = computeCellSize({
+    const { months, weekdays, ...rest } = useTimeRangeLayout({
         square,
-        offset: weekdayLegendOffset,
-        totalDays: totalDays,
         width: innerWidth,
         height: innerHeight,
-        daySpacing,
-        direction,
-    })
-
-    const days = computeCellPositions({
-        offset: weekdayLegendOffset,
-        colorScale: colorScaleFn,
-        emptyColor,
-        cellHeight,
-        cellWidth,
-        from,
-        to,
-        data,
+        totalDays,
+        from: startDate,
+        to: endDate,
         direction,
         daySpacing,
+        weekdayTicks,
     })
-
-    // map the days and reduce the month
-    const months = Object.values(
-        computeMonthLegends({
-            daySpacing,
-            direction,
-            cellHeight,
-            cellWidth,
-            days,
-        }).months
-    )
-
-    const weekdayLegends = computeWeekdays({
-        direction,
-        cellHeight,
-        cellWidth,
-        daySpacing,
-        ticks: weekdayTicks,
-    })
+    const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
 
     const monthLegends = useMonthLegends({
         months,
@@ -125,33 +103,29 @@ const InnerTimeRange = ({
         monthLegendPosition,
         monthLegendOffset,
     })
+    const weekdayLegends = useWeekdayLegends({
+        weekdays,
+        direction,
+        weekdayLegendPosition,
+        weekdayLegendOffset,
+    })
 
     const formatValue = useValueFormatter(valueFormat)
     const formatLegend = useValueFormatter(legendFormat)
 
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
-            {weekdayLegends.map(legend => (
-                <text
-                    key={legend.value}
-                    transform={`translate(${legend.x},${legend.y}) rotate(${legend.rotation})`}
-                    textAnchor="left"
-                    style={theme.labels.text}
-                >
-                    {legend.value}
-                </text>
-            ))}
             {days.map(d => {
                 return (
                     <TimeRangeDay
                         key={d.date.toString()}
                         data={d}
-                        x={d.coordinates.x}
+                        x={d.x}
                         rx={dayRadius}
-                        y={d.coordinates.y}
+                        y={d.y}
                         ry={dayRadius}
-                        width={cellWidth}
-                        height={cellHeight}
+                        width={d.width}
+                        height={d.height}
                         color={d.color}
                         borderWidth={dayBorderWidth}
                         borderColor={dayBorderColor}
@@ -166,6 +140,11 @@ const InnerTimeRange = ({
                 )
             })}
             <CalendarMonthLegends months={monthLegends} legend={monthLegend} theme={theme} />
+            <CalendarWeekdayLegends
+                weekdays={weekdayLegends}
+                legend={weekdayLegend}
+                theme={theme}
+            />
 
             {legends.map((legend, i) => {
                 const legendData = colorScaleFn.ticks(legend.itemCount).map(value => ({

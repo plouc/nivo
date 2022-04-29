@@ -84,3 +84,28 @@ stories.add('custom legend formater', () => (
         ]}
     />
 ))
+
+const from2 = new Date(2018, 0, 1)
+const to2 = new Date(2019, 11, 31)
+const data2 = generateDayCounts(from2, to2)
+stories.add('labeling weekdays', () => (
+    <Calendar
+        {...commonProps}
+        from={from2}
+        to={to2}
+        data={data2}
+        margin={{
+            top: 50,
+            right: 80,
+            bottom: 10,
+            left: 50,
+        }}
+        monthLegendPosition={'before'}
+        monthLegendOffset={6}
+        weekdayTicks={[0, 1, 2, 3, 4, 5, 6]}
+        weekdayLegendPosition={'after'}
+        weekdayLegendOffset={10}
+        yearLegendPosition={'before'}
+        yearLegendOffset={10}
+    />
+))
