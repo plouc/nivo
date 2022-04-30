@@ -90,6 +90,8 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     // second argument passed to the formatter is the key
     valueFormat: ValueFormat<number, string>
 
+    angle: number
+
     layers: (RadarLayerId | RadarCustomLayer<D>)[]
 
     margin: Box

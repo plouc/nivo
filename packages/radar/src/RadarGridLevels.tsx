@@ -29,20 +29,26 @@ const RadarGridLevelCircular = memo(({ radius }: RadarGridLevelCircularProps) =>
 
 interface RadarGridLevelLinearProps {
     radius: number
+    angle: number
     angleStep: number
     dataLength: number
 }
 
-const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelLinearProps) => {
+const RadarGridLevelLinear = ({
+    radius,
+    angle,
+    angleStep,
+    dataLength,
+}: RadarGridLevelLinearProps) => {
     const theme = useTheme()
 
     const radarLineGenerator = useMemo(
         () =>
             lineRadial<number>()
-                .angle(i => i * angleStep)
+                .angle(i => angle + i * angleStep)
                 .radius(radius)
                 .curve(curveLinearClosed),
-        [angleStep, radius]
+        [angle, angleStep, radius]
     )
 
     const points = Array.from({ length: dataLength }, (_, i) => i)
@@ -60,6 +66,7 @@ const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelL
 interface RadarGridLevelsProps<D extends Record<string, unknown>> {
     shape: RadarCommonProps<D>['gridShape']
     radius: number
+    angle: number
     angleStep: number
     dataLength: number
 }

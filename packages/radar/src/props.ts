@@ -7,6 +7,8 @@ export const svgDefaultProps = {
 
     maxValue: 'auto' as const,
 
+    angle: 0,
+
     curve: 'linearClosed' as const,
 
     borderWidth: 2,

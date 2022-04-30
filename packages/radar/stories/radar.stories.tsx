@@ -14,7 +14,7 @@ export default {
 const commonProperties = {
     width: 900,
     height: 500,
-    margin: { top: 60, right: 80, bottom: 20, left: 80 },
+    margin: { top: 60, right: 80, bottom: 30, left: 80 },
     ...generateWinesTastes(),
     indexBy: 'taste',
     animate: true,
@@ -195,3 +195,5 @@ export const WithPatterns = () => (
         ]}
     />
 )
+
+export const WithAngle = () => <Radar {...commonProperties} angle={36} />

@@ -10,6 +10,7 @@ interface RadarDotsProps<D extends Record<string, unknown>> {
     radiusScale: ScaleLinear<number, number>
     getIndex: (d: D) => string
     colorByKey: RadarColorMapping
+    angle: number
     angleStep: number
     symbol?: RadarCommonProps<D>['dotSymbol']
     size: number
@@ -28,6 +29,7 @@ export const RadarDots = <D extends Record<string, unknown>>({
     getIndex,
     colorByKey,
     radiusScale,
+    angle,
     angleStep,
     symbol,
     size = 6,
@@ -66,7 +68,7 @@ export const RadarDots = <D extends Record<string, unknown>>({
                             fill: fillColor(pointData),
                             stroke: strokeColor(pointData),
                             ...positionFromAngle(
-                                angleStep * i - Math.PI / 2,
+                                angle + angleStep * i - Math.PI / 2,
                                 radiusScale(datum[key] as number)
                             ),
                         },
@@ -86,6 +88,7 @@ export const RadarDots = <D extends Record<string, unknown>>({
             formatValue,
             fillColor,
             strokeColor,
+            angle,
             angleStep,
             radiusScale,
         ]
