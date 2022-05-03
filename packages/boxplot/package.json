@@ -1,0 +1,57 @@
+{
+  "name": "@nivo/boxplot",
+  "version": "0.79.1",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "contributors": [
+    "Tomasz Konopka <tokonopka@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/boxplot"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "boxplot",
+    "statistics",
+    "stats"
+  ],
+  "main": "./dist/nivo-boxplot.cjs.js",
+  "module": "./dist/nivo-boxplot.es.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "dependencies": {
+    "@nivo/annotations": "0.79.1",
+    "@nivo/axes": "0.79.0",
+    "@nivo/colors": "0.79.1",
+    "@nivo/legends": "0.79.1",
+    "@nivo/scales": "0.79.0",
+    "@nivo/tooltip": "0.79.0",
+    "@react-spring/web": "9.3.1",
+    "d3-scale": "^3.2.3",
+    "d3-shape": "^1.2.2"
+  },
+  "devDependencies": {
+    "@nivo/core": "0.79.0"
+  },
+  "peerDependencies": {
+    "@nivo/core": "0.79.0",
+    "react": ">= 16.14.0 < 18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
