@@ -8,4 +8,3 @@
 ## Boxplot
 
 [documentation](http://nivo.rocks/boxplot/)
-
