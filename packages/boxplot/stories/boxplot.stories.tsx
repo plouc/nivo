@@ -2,7 +2,8 @@ import { Meta } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 import { generateBoxPlotData } from '@nivo/generators'
 // @ts-ignore
-import {BoxPlot, ResponsiveBoxPlot} from '../src'
+import { BoxPlot, ResponsiveBoxPlot } from '../src'
+import { action } from '@storybook/addon-actions'
 
 export default {
     component: BoxPlot,
@@ -12,8 +13,8 @@ export default {
 
 const simpleProps = {
     width: 320,
-    height: 480,
-    margin: { top: 60, right: 110, bottom: 80, left: 80 },
+    height: 420,
+    margin: { top: 40, right: 110, bottom: 40, left: 80 },
     data: generateBoxPlotData([
         { group: 'Alpha', mu: 5, sd: 1, n: 20 },
         { group: 'Beta', mu: 7, sd: 1.4, n: 20 },
@@ -40,8 +41,8 @@ const simpleProps = {
 
 const commonProps = {
     width: 640,
-    height: 480,
-    margin: { top: 60, right: 110, bottom: 60, left: 80 },
+    height: 420,
+    margin: { top: 40, right: 110, bottom: 60, left: 80 },
     data: generateBoxPlotData([
         { group: 'Alpha', subgroup: 'A', mu: 5, sd: 1, n: 20 },
         { group: 'Alpha', subgroup: 'B', mu: 6, sd: 1, n: 20 },
@@ -63,17 +64,17 @@ const commonProps = {
 export const Default = () => {
     return (
         <div>
-            <p style={{ maxWidth: 400 }}>
+            <BoxPlot
+                data={simpleProps.data}
+                height={420}
+                width={320}
+                margin={{ top: 40, right: 110, bottom: 40, left: 80 }}
+            />
+            <p style={{ maxWidth: 640 }}>
                 The BoxPlot component expects input as a list of raw data objects. The component
                 computes summary statistics using quantiles, and then draws a chart based on the
                 summary statistics.
             </p>
-            <BoxPlot
-                data={simpleProps.data}
-                height={480}
-                width={320}
-                margin={{ top: 60, right: 110, bottom: 80, left: 80 }}
-            />
         </div>
     )
 }
@@ -123,6 +124,7 @@ export const GroupedVertical = () => (
     />
 )
 
+const subGroupNames = { A: 'cases', B: 'controls' }
 export const GroupedHorizontal = () => (
     <BoxPlot
         {...commonProps}
@@ -132,13 +134,14 @@ export const GroupedHorizontal = () => (
         margin={{ top: 60, right: 20, bottom: 160, left: 80 }}
         enableGridY={true}
         enableGridX={true}
+        legendLabel={datum => subGroupNames[datum.subGroup]}
         legends={[
             {
                 anchor: 'bottom',
                 dataFrom: 'subGroups',
                 direction: 'row',
                 itemHeight: 20,
-                itemWidth: 80,
+                itemWidth: 120,
                 translateY: 80,
                 translateX: 0,
             },
@@ -190,27 +193,7 @@ export const ColorsAndFills = () => (
     />
 )
 
-export const CustomFill = () => (
-    <BoxPlot
-        {...simpleProps}
-        layout={'vertical'}
-        colorBy={'group'}
-        groups={['Alpha', 'Beta', 'Gamma']}
-        defs={[
-
-        ]}
-        fill={[
-            {
-                match: {
-                    group: 'Gamma',
-                },
-                id: 'lines',
-            },
-        ]}
-    />
-)
-
-export const WithAxisLabels = () => (
+export const AxisLabels = () => (
     <BoxPlot
         {...simpleProps}
         layout={'horizontal'}
@@ -237,6 +220,44 @@ export const WithAxisLabels = () => (
         }}
     />
 )
+
+export const LogScale = () => {
+    // transform existing data by exponentiation
+    const transformedData = simpleProps.data.map(d => {
+        const result = { ...d }
+        result.value = Math.pow(10, (d.value - 6) * 0.5)
+        return result
+    })
+    // manually construct positions of major tick marks
+    const min = transformedData.reduce((acc, d) => Math.min(acc, d.value), Infinity)
+    const max = transformedData.reduce((acc, d) => Math.max(acc, d.value), -Infinity)
+    const logMin = Math.floor(Math.log10(min))
+    const logMax = Math.ceil(Math.log10(max))
+    const numValues = Math.round(logMax - logMin + 1)
+    const logValues = Array(numValues)
+        .fill(0)
+        .map((_, i) => i + logMin)
+    return (
+        <BoxPlot
+            {...simpleProps}
+            data={transformedData}
+            colorBy={'group'}
+            enableGridY={true}
+            enableGridX={false}
+            valueScale={{ type: 'log' }}
+            quantiles={[0.01, 0.25, 0.5, 0.75, 0.99]}
+            gridYValues={logValues.map(v => Math.pow(10, v))}
+            minValue={Math.pow(10, logMin)}
+            maxValue={Math.pow(10, logMax)}
+            axisLeft={{
+                tickSize: 5,
+                tickValues: logValues.map(v => Math.pow(10, v)),
+                tickPadding: 5,
+                tickRotation: 0,
+            }}
+        />
+    )
+}
 
 export const GroupsWithoutData = () => (
     <BoxPlot
@@ -361,16 +382,10 @@ export const PreComputed = () => {
     const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
     return (
         <div>
-            <p style={{ maxWidth: 400 }}>
-                The chart below is drawn using pre-computed summary statistics. The
-                pre-computed representation requires: minimum value, maximum value, values
-                representing whiskers, values representing box bounds, median, mean, and the number
-                of data points (n).
-            </p>
             <BoxPlot
                 width={320}
-                height={480}
-                margin={{ top: 60, right: 110, bottom: 80, left: 80 }}
+                height={420}
+                margin={{ top: 40, right: 110, bottom: 40, left: 80 }}
                 enableLabel={false}
                 subGroups={[]}
                 padding={0.6}
@@ -395,24 +410,40 @@ export const PreComputed = () => {
                     },
                 ]}
             />
+            <p style={{ maxWidth: 640 }}>
+                This chart is drawn using pre-computed summary statistics. The pre-computed
+                representation requires: minimum value, maximum value, values representing whiskers,
+                values representing box bounds, median, mean, and the number of data points (n).
+            </p>
         </div>
     )
 }
 
-const Wrapper = props => <div {...props} style={{ height: '480px', width: '320px' }} />
+export const MouseEvents = () => (
+    <div>
+        <BoxPlot
+            {...commonProps}
+            animate={false}
+            layout="vertical"
+            onClick={action('onClick')}
+            onMouseEnter={action('onMouseEnter')}
+            onMouseLeave={action('onMouseLeave')}
+        />
+        <p style={{ maxWidth: 640 }}>This chart handles mouse events - check 'Actions'.</p>
+    </div>
+)
 
+const Wrapper = props => <div {...props} style={{ height: '480px', width: '320px' }} />
 export const Responsive = () => {
     return (
         <div>
-            <p>
-              The chart below takes its size from its parent container.
-            </p>
             <Wrapper>
                 <ResponsiveBoxPlot
                     data={simpleProps.data}
-                    margin={{ top: 60, right: 110, bottom: 80, left: 80 }}
+                    margin={{ top: 40, right: 110, bottom: 40, left: 80 }}
                 />
             </Wrapper>
+            <p>This chart takes its size from its parent container.</p>
         </div>
     )
 }
