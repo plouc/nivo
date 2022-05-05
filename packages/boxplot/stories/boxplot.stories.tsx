@@ -431,9 +431,9 @@ export const CustomGroups = () => (
     <div>
         <BoxPlotCustomGroupsAndLayers />
         <p style={{ maxWidth: 640 }}>
-            A color function assigns the same color to several of the boxes.
-            Another function generates custom legend labels. The legend displays
-            as many labels as there are distinct colors.
+            A color function assigns the same color to several of the boxes. Another function
+            generates custom legend labels. The legend displays as many labels as there are distinct
+            colors.
         </p>
         <p style={{ maxWidth: 640 }}>
             A custom layer provides a background for a subset of the boxes.
