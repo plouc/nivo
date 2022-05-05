@@ -141,32 +141,17 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
         getTooltipLabel,
     })
 
-    const legendGroupData = useMemo(() => {
-        if (!groups) return [] as BoxPlotSummary[]
-        return groups.map(group => {
-            const boxPlot = boxPlots.find(boxPlot => boxPlot.data.group === group)
-            return { id: group, color: boxPlot?.color, ...boxPlot?.data } as BoxPlotSummary
-        })
-    }, [groups, boxPlots])
-    const legendSubGroupData = useMemo(() => {
-        if (!subGroups) return [] as BoxPlotSummary[]
-        return subGroups.map(subGroup => {
-            const boxPlot = boxPlots.find(boxPlot => boxPlot.data.subGroup === subGroup)
-            return { id: subGroup, color: boxPlot?.color, ...boxPlot?.data } as BoxPlotSummary
-        })
-    }, [subGroups, boxPlots])
-
     const legendsData: [BoxPlotLegendProps, LegendData[]][] = useMemo(
         () =>
             legends.map(legend => {
                 const data = getLegendData({
-                    data: legend.dataFrom === 'groups' ? legendGroupData : legendSubGroupData,
+                    boxPlots,
                     legendLabel,
                     ...legend,
                 })
                 return [legend, data]
             }),
-        [legends, legendGroupData, legendSubGroupData, legendLabel]
+        [legends, boxPlots, legendLabel]
     )
 
     return {

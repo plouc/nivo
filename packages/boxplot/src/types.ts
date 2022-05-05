@@ -68,7 +68,7 @@ export type LegendData = {
 }
 
 export interface BoxPlotLegendProps extends LegendProps {
-    dataFrom: 'groups' | 'subGroups'
+    dataFrom: 'groups' | 'subGroups' | ((boxPlot: BoxPlotSummary) => string)
 }
 
 export type LabelFormatter = (label: string | number) => string | number

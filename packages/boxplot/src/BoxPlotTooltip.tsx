@@ -16,8 +16,7 @@ export const BoxPlotSummaryTooltip = memo<BoxPlotSummaryTooltipProps>(
 
         const quantiles = formatted.quantiles.map((q, i) => (
             <div key={'quantile.' + i}>
-                <strong>{q * 100}%: </strong>
-                {formatted.values[i]}
+                {q * 100}%: <strong>{formatted.values[i]}</strong>
             </div>
         ))
         return (
@@ -29,32 +28,27 @@ export const BoxPlotSummaryTooltip = memo<BoxPlotSummaryTooltipProps>(
                     </div>
                 </div>
                 <br />
-                <div>
-                    <div>
-                        <strong>n: </strong>
-                        {formatted.n}
-                    </div>
-                </div>
-                <br />
-                <div>
-                    <div>Values</div>
-                    <div>
-                        <strong>mean: </strong>
-                        {formatted.mean}
-                    </div>
-                    <div>
-                        <strong>min: </strong>
-                        {formatted.extrema[0]}
-                    </div>
-                    <div>
-                        <strong>max: </strong>
-                        {formatted.extrema[1]}
-                    </div>
-                </div>
-                <br />
-                <div>
-                    <div>Quantiles</div>
-                    {quantiles}
+                <div style={{ display: 'flex' }}>
+                    <span style={{ marginRight: '2rem' }}>
+                        <div>
+                            n: <strong>{formatted.n}</strong>
+                        </div>
+                        <br />
+                        <div>Values</div>
+                        <div>
+                            mean: <strong>{formatted.mean}</strong>
+                        </div>
+                        <div>
+                            min: <strong>{formatted.extrema[0]}</strong>
+                        </div>
+                        <div>
+                            max: <strong>{formatted.extrema[1]}</strong>
+                        </div>
+                    </span>
+                    <span>
+                        <div>Quantiles</div>
+                        {quantiles}
+                    </span>
                 </div>
             </div>
         )
