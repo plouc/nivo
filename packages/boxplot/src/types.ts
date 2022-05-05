@@ -79,7 +79,12 @@ export type BoxPlotLayerId = 'grid' | 'axes' | 'boxPlots' | 'markers' | 'legends
 export interface BoxPlotCustomLayerProps<RawDatum>
     extends Pick<
             BoxPlotCommonProps<RawDatum>,
-            'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
+            | 'borderRadius'
+            | 'borderWidth'
+            | 'isInteractive'
+            | 'tooltip'
+            | 'padding'
+            | 'innerPadding'
         >,
         Dimensions,
         BoxPlotHandlers<SVGRectElement> {
