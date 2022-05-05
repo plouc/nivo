@@ -359,6 +359,25 @@ export const MarkersAndAnnotations = () => (
                 size: 10,
             },
         ]}
+        legends={[
+            {
+                anchor: 'top-right',
+                dataFrom: 'subGroups',
+                direction: 'column',
+                itemHeight: 20,
+                itemWidth: 80,
+                translateY: 0,
+                translateX: 100,
+            },
+        ]}
+        axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Arbitrary units (a.u.)',
+            legendPosition: 'middle',
+            legendOffset: -50,
+        }}
     />
 )
 
