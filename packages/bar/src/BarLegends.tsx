@@ -8,22 +8,19 @@ interface BarLegendsProps {
     toggleSerie: (id: string | number) => void
 }
 
-export const BarLegends = ({ width, height, legends, toggleSerie }: BarLegendsProps) => {
-    console.log('BarLegends: ' + JSON.stringify(legends))
-    return (
-        <>
-            {legends.map(([legend, data], i) => (
-                <BoxLegendSvg
-                    key={i}
-                    {...legend}
-                    containerWidth={width}
-                    containerHeight={height}
-                    data={legend.data ?? data}
-                    toggleSerie={
-                        legend.toggleSerie && legend.dataFrom === 'keys' ? toggleSerie : undefined
-                    }
-                />
-            ))}
-        </>
-    )
-}
+export const BarLegends = ({ width, height, legends, toggleSerie }: BarLegendsProps) => (
+    <>
+        {legends.map(([legend, data], i) => (
+            <BoxLegendSvg
+                key={i}
+                {...legend}
+                containerWidth={width}
+                containerHeight={height}
+                data={legend.data ?? data}
+                toggleSerie={
+                    legend.toggleSerie && legend.dataFrom === 'keys' ? toggleSerie : undefined
+                }
+            />
+        ))}
+    </>
+)
