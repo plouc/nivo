@@ -28,7 +28,7 @@ export const stratifyData = <RawDatum extends BoxPlotDatum>({
     const nGroups = Math.max(1, groups ? groups.length : 1)
     const nSubGroups = Math.max(1, subGroups ? subGroups.length : 1)
     const n = nGroups * nSubGroups
-    const result = Array.from(Array(n), () => <RawDatum[]>[])
+    const result = Array.from(Array(n), () => [] as RawDatum[])
     data.map((d: RawDatum) => {
         const groupIndex = getGroup ? Number(groupsMap[getGroup(d)]) : 0
         const subGroupIndex = getSubGroup ? Number(subGroupsMap[getSubGroup(d)] ?? 0) : 0

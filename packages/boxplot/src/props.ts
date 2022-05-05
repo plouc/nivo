@@ -2,6 +2,7 @@ import { BoxPlotItem } from './BoxPlotItem'
 import { BoxPlotTooltip, BoxPlotTooltipLabel } from './BoxPlotTooltip'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { ScaleBandSpec, ScaleSpec } from '@nivo/scales'
+import { ComputedBoxPlotSummary } from './types'
 
 export const defaultProps = {
     value: 'value',
@@ -35,18 +36,18 @@ export const defaultProps = {
 
     borderRadius: 0,
     borderWidth: 0,
-    borderColor: { from: 'color' } as InheritedColorConfig<any>,
+    borderColor: { from: 'color' } as InheritedColorConfig<ComputedBoxPlotSummary>,
 
     medianWidth: 3,
     medianColor: {
         from: 'color',
         modifiers: [['darker', 2.0]],
-    } as InheritedColorConfig<any>,
+    } as InheritedColorConfig<ComputedBoxPlotSummary>,
 
     whiskerWidth: 2,
     whiskerColor: {
         from: 'color',
-    } as InheritedColorConfig<any>,
+    } as InheritedColorConfig<ComputedBoxPlotSummary>,
     whiskerEndWidth: 0,
 
     isInteractive: true,

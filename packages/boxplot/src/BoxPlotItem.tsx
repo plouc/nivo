@@ -1,5 +1,5 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
-import { animated, to } from '@react-spring/web'
+import { animated, SpringValue, to } from '@react-spring/web'
 import { useTooltip } from '@nivo/tooltip'
 import { BoxPlotDatum, BoxPlotItemProps, BoxPlotSummary } from './types'
 
@@ -15,7 +15,7 @@ const BoxPlotItemWhiskers = ({
     coordinates: Pick<BoxPlotSummary, 'values'>
     layout: 'vertical' | 'horizontal'
     whiskerWidth: number
-    whiskerColor: any
+    whiskerColor: string | SpringValue<string>
     whiskerEndWidth: number
 }) => {
     const whiskerEndGap = ((1 - whiskerEndWidth) * bandwidth) / 2
@@ -117,7 +117,7 @@ const BoxPlotItemMedian = ({
     coordinates: Pick<BoxPlotSummary, 'values'>
     layout: 'vertical' | 'horizontal'
     medianWidth: number
-    medianColor: any
+    medianColor: string | SpringValue<string>
 }) => {
     const median = coordinates.values[2]
     if (layout === 'vertical') {

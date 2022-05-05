@@ -102,7 +102,6 @@ it('allows subgroups', () => {
         <BoxPlot
             width={500}
             height={300}
-            enableLabel={false}
             subGroupBy="type"
             data={[
                 { group: 'A', type: 't1', value: 10 },
@@ -161,4 +160,71 @@ it('accepts data in pre-summarized format', () => {
     expect(boxPlotA.width).toBeGreaterThan(1)
     expect(boxPlotB.width).toBeGreaterThan(boxPlotA.width)
     expect(boxPlotB.height).toBe(boxPlotA.height)
+})
+
+it('creates custom grouped legends', () => {
+    const customLabel = d => {
+        if (d.group === 'B') return 'Group B'
+        return 'Control'
+    }
+    const wrapper = mount(
+        <BoxPlot
+            width={500}
+            height={300}
+            layout={'horizontal'}
+            groups={['A', 'B', 'C']}
+            subGroups={[]}
+            data={[
+                {
+                    group: 'A',
+                    subGroup: '',
+                    quantiles: [0.1, 0.25, 0.5, 0.75, 1.0],
+                    values: [1.5, 2, 2.5, 3, 3.5],
+                    extrema: [1, 5],
+                    mean: 4.5,
+                    n: 12,
+                },
+                {
+                    group: 'B',
+                    subGroup: '',
+                    quantiles: [0.1, 0.25, 0.5, 0.75, 0.9],
+                    values: [2.5, 3, 3.5, 5, 5.5],
+                    extrema: [2, 7],
+                    mean: 3.9,
+                    n: 24,
+                },
+                {
+                    group: 'C',
+                    subGroup: '',
+                    quantiles: [0.1, 0.25, 0.5, 0.75, 0.9],
+                    values: [2.5, 3, 3.5, 5, 5.5],
+                    extrema: [2, 7],
+                    mean: 3.9,
+                    n: 24,
+                },
+            ]}
+            legendLabel={customLabel}
+            legends={[
+                {
+                    anchor: 'bottom-right',
+                    dataFrom: customLabel,
+                    direction: 'column',
+                    itemWidth: 80,
+                    itemHeight: 20,
+                },
+            ]}
+            animate={false}
+        />
+    )
+    // there should be a component with legends
+    const legend = wrapper.find('BoxPlotLegends')
+    expect(legend).toHaveLength(1)
+    // there should be two <text> elements for 'Control' and 'Group B'
+    const legendText = legend.find('text')
+    expect(legendText).toHaveLength(2)
+    // the data has three groups ['A', 'B', 'C'] and the custom label
+    // should translate those groups to ['Control', 'Group B', 'Control']
+    // so the legend text fields should be 'Control' and 'Group B'
+    expect(legendText.at(0).text()).toBe('Control')
+    expect(legendText.at(1).text()).toBe('Group B')
 })
