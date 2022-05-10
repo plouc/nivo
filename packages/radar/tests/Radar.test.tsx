@@ -46,6 +46,23 @@ it('should render a basic radar chart', () => {
     expect(layer1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
 })
 
+describe('layout', () => {
+    it('should support global rotation', () => {
+        const wrapperA = mount(<Radar<TestDatum> {...baseProps} rotation={90} />)
+        const wrapperB = mount(<Radar<TestDatum> {...baseProps} rotation={-90} />)
+        // the two first labels in the two components should have the same text content
+        const labelA0 = wrapperA.find('RadarGridLabels').at(0)
+        const labelB0 = wrapperB.find('RadarGridLabels').at(0)
+        // but positions should be opposite each other on the x axis, equal position on y axis
+        const getPos = (transformString: string) =>
+            transformString.replace('translate(', '').replace(')', '').split(', ')
+        const posA0 = getPos(labelA0.find('g').first().prop('transform') as string)
+        const posB0 = getPos(labelB0.find('g').first().prop('transform') as string)
+        expect(Number(posB0[0])).toBeCloseTo(-Number(posA0[0]), 4)
+        expect(Number(posB0[1])).toBeCloseTo(Number(posA0[1]), 4)
+    })
+})
+
 describe('data', () => {
     it('should support value formatting', () => {
         const wrapper = mount(
