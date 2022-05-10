@@ -29,24 +29,24 @@ const baseLegend: LegendProps = {
     itemHeight: 24,
 }
 
+it('should render a basic radar chart', () => {
+    const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
+
+    const layers = wrapper.find('RadarLayer')
+    expect(layers).toHaveLength(2)
+
+    const layer0 = layers.at(0)
+    expect(layer0.prop('item')).toBe('A')
+    const layer0path = layer0.find('path')
+    expect(layer0path.prop('fill')).toBe('rgba(232, 193, 160, 1)')
+
+    const layer1 = layers.at(1)
+    expect(layer1.prop('item')).toBe('B')
+    const layer1path = layer1.find('path')
+    expect(layer1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
+})
+
 describe('layout', () => {
-    it('should render a basic radar chart', () => {
-        const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
-
-        const layers = wrapper.find('RadarLayer')
-        expect(layers).toHaveLength(2)
-
-        const layer0 = layers.at(0)
-        expect(layer0.prop('item')).toBe('A')
-        const layer0path = layer0.find('path')
-        expect(layer0path.prop('fill')).toBe('rgba(232, 193, 160, 1)')
-
-        const layer1 = layers.at(1)
-        expect(layer1.prop('item')).toBe('B')
-        const layer1path = layer1.find('path')
-        expect(layer1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
-    })
-
     it('should support global rotation', () => {
         const wrapperA = mount(<Radar<TestDatum> {...baseProps} rotation={90} />)
         const wrapperB = mount(<Radar<TestDatum> {...baseProps} rotation={-90} />)
