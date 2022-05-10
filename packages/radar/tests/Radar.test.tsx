@@ -29,21 +29,38 @@ const baseLegend: LegendProps = {
     itemHeight: 24,
 }
 
-it('should render a basic radar chart', () => {
-    const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
+describe('layout', () => {
+    it('should render a basic radar chart', () => {
+        const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
 
-    const layers = wrapper.find('RadarLayer')
-    expect(layers).toHaveLength(2)
+        const layers = wrapper.find('RadarLayer')
+        expect(layers).toHaveLength(2)
 
-    const layer0 = layers.at(0)
-    expect(layer0.prop('item')).toBe('A')
-    const layer0path = layer0.find('path')
-    expect(layer0path.prop('fill')).toBe('rgba(232, 193, 160, 1)')
+        const layer0 = layers.at(0)
+        expect(layer0.prop('item')).toBe('A')
+        const layer0path = layer0.find('path')
+        expect(layer0path.prop('fill')).toBe('rgba(232, 193, 160, 1)')
 
-    const layer1 = layers.at(1)
-    expect(layer1.prop('item')).toBe('B')
-    const layer1path = layer1.find('path')
-    expect(layer1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
+        const layer1 = layers.at(1)
+        expect(layer1.prop('item')).toBe('B')
+        const layer1path = layer1.find('path')
+        expect(layer1path.prop('fill')).toBe('rgba(244, 117, 96, 1)')
+    })
+
+    it('should support global rotation', () => {
+        const wrapperA = mount(<Radar<TestDatum> {...baseProps} rotation={90} />)
+        const wrapperB = mount(<Radar<TestDatum> {...baseProps} rotation={-90} />)
+        // the two first labels in the two components should have the same text content
+        const labelA0 = wrapperA.find('RadarGridLabels').at(0)
+        const labelB0 = wrapperB.find('RadarGridLabels').at(0)
+        // but positions should be opposite each other on the x axis, equal position on y axis
+        const getPos = (transformString: string) =>
+            transformString.replace('translate(', '').replace(')', '').split(', ')
+        const posA0 = getPos(labelA0.find('g').first().prop('transform') as string)
+        const posB0 = getPos(labelB0.find('g').first().prop('transform') as string)
+        expect(Number(posB0[0])).toBeCloseTo(-Number(posA0[0]), 4)
+        expect(Number(posB0[1])).toBeCloseTo(Number(posA0[1]), 4)
+    })
 })
 
 describe('data', () => {

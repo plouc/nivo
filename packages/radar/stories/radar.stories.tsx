@@ -196,4 +196,4 @@ export const WithPatterns = () => (
     />
 )
 
-export const WithAngle = () => <Radar {...commonProperties} angle={36} />
+export const WithRotation = () => <Radar {...commonProperties} rotation={36} />

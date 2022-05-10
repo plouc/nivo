@@ -9,7 +9,7 @@ interface RadarGridProps<D extends Record<string, unknown>> {
     shape: RadarCommonProps<D>['gridShape']
     radius: number
     levels: number
-    angle: number
+    rotation: number
     angleStep: number
     label: GridLabelComponent
     labelOffset: number
@@ -20,7 +20,7 @@ export const RadarGrid = <D extends Record<string, unknown>>({
     levels,
     shape,
     radius,
-    angle,
+    rotation,
     angleStep,
     label,
     labelOffset,
@@ -32,10 +32,10 @@ export const RadarGrid = <D extends Record<string, unknown>>({
                 .map((_, i) => (radius / levels) * (i + 1))
                 .reverse(),
             angles: Array.from({ length: indices.length }).map(
-                (_, i) => angle + i * angleStep - Math.PI / 2
+                (_, i) => rotation + i * angleStep - Math.PI / 2
             ),
         }
-    }, [indices, levels, radius, angle, angleStep])
+    }, [indices, levels, radius, rotation, angleStep])
 
     return (
         <>
@@ -57,7 +57,7 @@ export const RadarGrid = <D extends Record<string, unknown>>({
                     key={`level.${i}`}
                     shape={shape}
                     radius={radius}
-                    angle={angle}
+                    rotation={rotation}
                     angleStep={angleStep}
                     dataLength={indices.length}
                 />

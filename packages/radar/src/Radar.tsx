@@ -1,5 +1,5 @@
 import { ReactNode, Fragment, createElement } from 'react'
-import { Container, useDimensions, SvgWrapper, degreesToRadians } from '@nivo/core'
+import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { RadarLayer } from './RadarLayer'
 import { RadarGrid } from './RadarGrid'
@@ -19,7 +19,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     keys,
     indexBy,
     layers = svgDefaultProps.layers,
-    angle: angleDegrees = svgDefaultProps.angle,
+    rotation: rotationDegrees = svgDefaultProps.rotation,
     maxValue = svgDefaultProps.maxValue,
     valueFormat,
     curve = svgDefaultProps.curve,
@@ -60,7 +60,6 @@ const InnerRadar = <D extends Record<string, unknown>>({
         partialMargin
     )
 
-    const angle = degreesToRadians(angleDegrees)
     const {
         getIndex,
         indices,
@@ -68,6 +67,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         colorByKey,
         fillByKey,
         boundDefs,
+        rotation,
         radius,
         radiusScale,
         centerX,
@@ -80,6 +80,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         data,
         keys,
         indexBy,
+        rotationDegrees,
         maxValue,
         valueFormat,
         curve,
@@ -106,7 +107,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     levels={gridLevels}
                     shape={gridShape}
                     radius={radius}
-                    angle={angle}
+                    rotation={rotation}
                     angleStep={angleStep}
                     indices={indices}
                     label={gridLabel}
@@ -127,7 +128,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         colorByKey={colorByKey}
                         fillByKey={fillByKey}
                         radiusScale={radiusScale}
-                        angle={angle}
+                        rotation={rotation}
                         angleStep={angleStep}
                         curveFactory={curveFactory}
                         borderWidth={borderWidth}
@@ -150,7 +151,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     formatValue={formatValue}
                     colorByKey={colorByKey}
                     radius={radius}
-                    angle={angle}
+                    rotation={rotation}
                     angleStep={angleStep}
                     tooltip={sliceTooltip}
                 />
@@ -166,7 +167,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     keys={keys}
                     getIndex={getIndex}
                     radiusScale={radiusScale}
-                    angle={angle}
+                    rotation={rotation}
                     angleStep={angleStep}
                     symbol={dotSymbol}
                     size={dotSize}

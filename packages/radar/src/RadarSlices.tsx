@@ -9,7 +9,7 @@ interface RadarSlicesProps<D extends Record<string, unknown>> {
     formatValue: (value: number, context: string) => string
     colorByKey: RadarColorMapping
     radius: number
-    angle: number
+    rotation: number
     angleStep: number
     tooltip: RadarCommonProps<D>['sliceTooltip']
 }
@@ -21,14 +21,14 @@ export const RadarSlices = <D extends Record<string, unknown>>({
     formatValue,
     colorByKey,
     radius,
-    angle,
+    rotation,
     angleStep,
     tooltip,
 }: RadarSlicesProps<D>) => {
     const arc = d3Arc<{ startAngle: number; endAngle: number }>().outerRadius(radius).innerRadius(0)
 
     const halfAngleStep = angleStep * 0.5
-    let rootStartAngle = angle - halfAngleStep
+    let rootStartAngle = rotation - halfAngleStep
 
     return (
         <>

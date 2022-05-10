@@ -7,6 +7,7 @@ import {
     usePropertyAccessor,
     useValueFormatter,
 } from '@nivo/core'
+import { degreesToRadians } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
 import {
@@ -22,6 +23,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     data,
     keys,
     indexBy,
+    rotationDegrees,
     maxValue,
     valueFormat,
     curve,
@@ -35,6 +37,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
     indexBy: RadarDataProps<D>['indexBy']
+    rotationDegrees: RadarCommonProps<D>['rotation']
     maxValue: RadarCommonProps<D>['maxValue']
     valueFormat?: RadarCommonProps<D>['valueFormat']
     curve: RadarCommonProps<D>['curve']
@@ -48,6 +51,7 @@ export const useRadar = <D extends Record<string, unknown>>({
     const getIndex = usePropertyAccessor<D, string>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
     const formatValue = useValueFormatter<number, string>(valueFormat)
+    const rotation = degreesToRadians(rotationDegrees)
 
     const getColor = useOrdinalColorScale<{ key: string; index: number }>(colors, 'key')
     const colorByKey: RadarColorMapping = useMemo(
@@ -133,6 +137,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         colorByKey,
         fillByKey,
         boundDefs,
+        rotation,
         radius,
         radiusScale,
         centerX,
