@@ -289,10 +289,10 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
     BarHandlers<RawDatum, HTMLCanvasElement> &
     Dimensions &
     Partial<{
-        axisBottom: CanvasAxisProps<any>
-        axisLeft: CanvasAxisProps<any>
-        axisRight: CanvasAxisProps<any>
-        axisTop: CanvasAxisProps<any>
+        axisBottom: CanvasAxisProps<any> | null
+        axisLeft: CanvasAxisProps<any> | null
+        axisRight: CanvasAxisProps<any> | null
+        axisTop: CanvasAxisProps<any> | null
 
         renderBar: (context: CanvasRenderingContext2D, props: RenderBarProps<RawDatum>) => void
 
