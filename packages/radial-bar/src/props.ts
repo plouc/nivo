@@ -39,6 +39,9 @@ export const commonDefaultProps = {
 
     legends: [],
 
+    defs: [],
+    fill: [],
+
     animate: true,
     motionConfig: 'gentle' as const,
     transitionMode: 'centerRadius' as const,

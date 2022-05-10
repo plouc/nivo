@@ -1,5 +1,13 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions, SvgWrapper, clampArc } from '@nivo/core'
+import {
+    Container,
+    useDimensions,
+    SvgWrapper,
+    clampArc,
+    // @ts-ignore
+    bindDefs,
+} from '@nivo/core'
+
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { BoxLegendSvg } from '@nivo/legends'
 import { PolarGrid, RadialAxis, CircularAxis } from '@nivo/polar-axes'
@@ -37,6 +45,8 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     circularAxisInner = svgDefaultProps.circularAxisInner,
     circularAxisOuter = svgDefaultProps.circularAxisOuter,
     colors = svgDefaultProps.colors,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
     enableLabels = svgDefaultProps.enableLabels,
@@ -219,11 +229,17 @@ const InnerRadialBar = <D extends RadialBarDatum>({
         )
     }
 
+    const boundDefs = bindDefs(defs, bars, fill, {
+        dataKey: 'data',
+        targetKey: 'fill',
+    })
+
     return (
         <SvgWrapper
             width={outerWidth}
             height={outerHeight}
             margin={margin}
+            defs={boundDefs}
             role={role}
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
