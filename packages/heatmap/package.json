@@ -33,7 +33,7 @@
     "@nivo/axes": "0.79.0",
     "@nivo/colors": "0.79.1",
     "@nivo/tooltip": "0.79.0",
-    "@react-spring/web": "9.3.1",
+    "@react-spring/web": "9.4.5",
     "d3-scale": "^3.2.3"
   },
   "devDependencies": {
