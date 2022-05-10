@@ -1,8 +1,8 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import omit from 'lodash/omit'
 import { Meta } from '@storybook/react'
 // @ts-ignore
-import { ScatterPlotCanvas, ResponsiveScatterPlotCanvas, ScatterPlotNodeData } from '../src'
+import { ResponsiveScatterPlotCanvas, ScatterPlotCanvas, ScatterPlotNodeData } from '../src'
 
 export default {
     component: ScatterPlotCanvas,
@@ -403,3 +403,42 @@ export const CustomTooltip = () => (
         )}
     />
 )
+
+export const CustomCanvasRef = () => {
+    const ref = useRef(undefined)
+
+    const download = ref => {
+        const canvas = ref.current
+        const link = document.createElement('a')
+        link.download = 'test.png'
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+    }
+
+    return (
+        <>
+            <ScatterPlotCanvas<SampleDatum>
+                {...commonProps}
+                ref={ref}
+                tooltip={({ node }) => (
+                    <div
+                        style={{
+                            color: node.color,
+                            background: '#333',
+                            padding: '12px 16px',
+                        }}
+                    >
+                        <strong>
+                            {node.id} ({node.serieId})
+                        </strong>
+                        <br />
+                        {`x: ${node.formattedX}`}
+                        <br />
+                        {`y: ${node.formattedY}`}
+                    </div>
+                )}
+            />
+            <button onClick={() => download(ref)}>Download PNG</button>
+        </>
+    )
+}

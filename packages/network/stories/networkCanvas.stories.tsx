@@ -9,6 +9,7 @@ import {
     NodeTooltipProps,
     // @ts-ignore
 } from '../src'
+import { useRef } from 'react'
 
 export default {
     component: NetworkCanvas,
@@ -70,3 +71,22 @@ export const CustomNodeRenderer = () => (
 export const OnClickHandler = () => (
     <NetworkCanvas<Node, Link> {...commonProperties} onClick={action('onClick')} />
 )
+
+export const CustomCanvasRef = () => {
+    const ref = useRef(undefined)
+
+    const download = ref => {
+        const canvas = ref.current
+        const link = document.createElement('a')
+        link.download = 'test.png'
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+    }
+
+    return (
+        <>
+            <NetworkCanvas<Node, Link> {...commonProperties} ref={ref} />
+            <button onClick={() => download(ref)}>Download PNG</button>
+        </>
+    )
+}
