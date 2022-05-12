@@ -111,35 +111,59 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
     })
 
     const nSubGroups = Math.max(1, subGroups ? subGroups.length : 1)
-    const dataSummary = dataStratified.map((stratum: RawDatum[], index) =>
-        summarizeDistributions({
-            data: stratum,
-            getValue,
-            groups,
-            subGroups,
-            groupIndex: Math.floor(index / nSubGroups),
-            subGroupIndex: index % nSubGroups,
-            quantiles,
-        })
+    const dataSummary = useMemo(
+        () =>
+            dataStratified.map((stratum: RawDatum[], index) =>
+                summarizeDistributions({
+                    data: stratum,
+                    getValue,
+                    groups,
+                    subGroups,
+                    groupIndex: Math.floor(index / nSubGroups),
+                    subGroupIndex: index % nSubGroups,
+                    quantiles,
+                })
+            ),
+        [dataStratified, getValue, groups, subGroups, nSubGroups, quantiles]
     )
 
-    const { boxPlots, xScale, yScale } = generateBoxPlots({
-        layout,
-        data: dataSummary.filter(stratum => stratum.n > 0),
-        groups,
-        subGroups,
-        formatValue,
-        minValue,
-        maxValue,
-        width,
-        height,
-        getColor,
-        padding,
-        innerPadding,
-        valueScale,
-        indexScale,
-        getTooltipLabel,
-    })
+    const { boxPlots, xScale, yScale } = useMemo(
+        () =>
+            generateBoxPlots({
+                layout,
+                data: dataSummary.filter(stratum => stratum.n > 0),
+                groups,
+                subGroups,
+                formatValue,
+                minValue,
+                maxValue,
+                width,
+                height,
+                getColor,
+                padding,
+                innerPadding,
+                valueScale,
+                indexScale,
+                getTooltipLabel,
+            }),
+        [
+            layout,
+            dataSummary,
+            groups,
+            subGroups,
+            formatValue,
+            minValue,
+            maxValue,
+            width,
+            height,
+            getColor,
+            padding,
+            innerPadding,
+            valueScale,
+            indexScale,
+            getTooltipLabel,
+        ]
+    )
 
     const legendsData: [BoxPlotLegendProps, LegendData[]][] = useMemo(
         () =>

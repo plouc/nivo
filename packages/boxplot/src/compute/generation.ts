@@ -48,11 +48,11 @@ const generateVerticalBoxPlots = (
                 values: datum.values.map(v => yScale(v) ?? 0),
             },
             formatted: {
-                n: datum.n,
+                n: String(datum.n),
                 mean: formatValue(datum.mean),
                 extrema: datum.extrema.map(formatValue),
                 values: datum.values.map(formatValue),
-                quantiles: datum.quantiles,
+                quantiles: datum.quantiles.map(v => String(100 * v)),
             },
             x: x,
             y: y,

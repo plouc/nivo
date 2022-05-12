@@ -27,17 +27,17 @@ export interface BoxPlotSummary {
     groupIndex: number
     subGroupIndex: number
     n: number
-    extrema: number[]
-    quantiles: number[]
-    values: number[]
+    extrema: [number, number]
+    quantiles: [number, number, number, number, number]
+    values: [number, number, number, number, number]
     mean: number
 }
 
 export interface BoxPlotSummaryFormatted {
-    n: number
-    extrema: string[]
-    quantiles: number[]
-    values: string[]
+    n: string
+    extrema: [string, string]
+    quantiles: [string, string, string, string, string]
+    values: [string, string, string, string, string]
     mean: string
 }
 

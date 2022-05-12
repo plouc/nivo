@@ -16,25 +16,21 @@ export const BoxPlotSummaryTooltip = memo<BoxPlotSummaryTooltipProps>(
 
         const quantiles = formatted.quantiles.map((q, i) => (
             <div key={'quantile.' + i}>
-                {q * 100}%: <strong>{formatted.values[i]}</strong>
+                {q}%: <strong>{formatted.values[i]}</strong>
             </div>
         ))
         return (
             <div style={theme.tooltip.container}>
-                <div>
-                    <div style={theme.tooltip.basic}>
-                        {enableChip && <Chip color={color ?? ''} style={theme.tooltip.chip} />}
-                        {label}
-                    </div>
+                <div style={theme.tooltip.basic}>
+                    {enableChip && <Chip color={color ?? ''} style={theme.tooltip.chip} />}
+                    {label}
                 </div>
-                <br />
-                <div style={{ display: 'flex' }}>
-                    <span style={{ marginRight: '2rem' }}>
+                <div style={{ display: 'flex', marginTop: '1rem' }}>
+                    <div style={{ marginRight: '2rem' }}>
                         <div>
                             n: <strong>{formatted.n}</strong>
                         </div>
-                        <br />
-                        <div>Values</div>
+                        <div style={{ marginTop: '1rem' }}>Values</div>
                         <div>
                             mean: <strong>{formatted.mean}</strong>
                         </div>
@@ -44,11 +40,11 @@ export const BoxPlotSummaryTooltip = memo<BoxPlotSummaryTooltipProps>(
                         <div>
                             max: <strong>{formatted.extrema[1]}</strong>
                         </div>
-                    </span>
-                    <span>
+                    </div>
+                    <div>
                         <div>Quantiles</div>
                         {quantiles}
-                    </span>
+                    </div>
                 </div>
             </div>
         )
