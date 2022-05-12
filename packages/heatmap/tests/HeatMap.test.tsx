@@ -1,4 +1,4 @@
-import { mount } from 'enzyme'
+import { mount, ReactWrapper } from 'enzyme'
 import { Globals, SpringValue } from '@react-spring/web'
 import { Axes, Grid } from '@nivo/axes'
 import { Annotation } from '@nivo/annotations'
@@ -237,6 +237,77 @@ describe('size variation', () => {
                 })
             })
         })
+    })
+})
+
+describe('color scales', () => {
+    const customColors = ['#4444ff', '#ffffff', '#44aa44']
+    const customRGBA = ['rgba(68, 68, 255, 1)', 'rgba(255, 255, 255, 1)', 'rgba(68, 170, 68, 1)']
+    const dataB = baseProps.data.slice(1, 2)
+
+    const getBCells = (wrapper: ReactWrapper) => ({
+        X: wrapper.find(`g[data-testid='cell.B.X']`).find('rect'),
+        Y: wrapper.find(`g[data-testid='cell.B.Y']`).find('rect'),
+        Z: wrapper.find(`g[data-testid='cell.B.Z']`).find('rect'),
+    })
+
+    it('allows a quantized color scheme with custom colors', () => {
+        // use data with three values, quantized colors with 2 levels
+        const wrapper = mount(
+            <HeatMap
+                {...baseProps}
+                data={dataB}
+                colors={{ type: 'quantize', colors: [customColors[0], customColors[2]] }}
+            />
+        )
+        // the B series has three cells with values 3, 2, 1
+        // the extreme values should get the extreme colors
+        const cells = getBCells(wrapper)
+        expect(cells.X.exists()).toBeTruthy()
+        expect(cells.X.prop('fill')).toBe(customRGBA[2])
+        expect(cells.Z.exists()).toBeTruthy()
+        expect(cells.Z.prop('fill')).toBe(customRGBA[0])
+        // the middle value should have one of the extreme colors
+        expect(cells.Y.exists()).toBeTruthy()
+        expect(cells.Y.prop('fill')).toBe(customRGBA[2])
+    })
+
+    it('allows a sequential color scheme with custom colors', () => {
+        const wrapper = mount(
+            <HeatMap
+                {...baseProps}
+                data={dataB}
+                colors={{ type: 'sequential', colors: customColors }}
+            />
+        )
+        // the B series has three cells with values 3, 2, 1
+        // the sequential scheme should only use the first two colors in customColors
+        const cells = getBCells(wrapper)
+        // the X value is high, should get second custom color
+        expect(cells.X.prop('fill')).toBe(customRGBA[1])
+        // the Z value is low, should get the first custom color
+        expect(cells.Z.prop('fill')).toBe(customRGBA[0])
+        // the Y value is intermediate, so should get a different color
+        expect(cells.Y.prop('fill')).toBe('rgba(162, 162, 255, 1)')
+    })
+
+    it('allows a diverging color scheme with custom colors', () => {
+        const wrapper = mount(
+            <HeatMap
+                {...baseProps}
+                data={dataB}
+                colors={{ type: 'diverging', colors: customColors }}
+            />
+        )
+        // the B series has three cells with values 3, 2, 1
+        // the diverging scheme should give each cell a color from the customColors
+        const cells = getBCells(wrapper)
+        // the X value is high, should get last custom color
+        expect(cells.X.prop('fill')).toBe(customRGBA[2])
+        // the Z value is low, should get the first custom color
+        expect(cells.Z.prop('fill')).toBe(customRGBA[0])
+        // the Y value is intermediate, so should get middle color
+        expect(cells.Y.prop('fill')).toBe(customRGBA[1])
     })
 })
 
