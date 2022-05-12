@@ -18,19 +18,22 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
      * We reverse the `points` array so that points from the lower lines in stacked lines
      * graph are drawn on top. See https://github.com/plouc/nivo/issues/1051.
      */
-    const mappedPoints = points.slice(0).reverse().map(point => {
-        const mappedPoint = {
-            id: point.id,
-            x: point.x,
-            y: point.y,
-            datum: point.data,
-            fill: point.color,
-            stroke: point.borderColor,
-            label: enableLabel ? getLabel(point.data) : null,
-        }
+    const mappedPoints = points
+        .slice(0)
+        .reverse()
+        .map(point => {
+            const mappedPoint = {
+                id: point.id,
+                x: point.x,
+                y: point.y,
+                datum: point.data,
+                fill: point.color,
+                stroke: point.borderColor,
+                label: enableLabel ? getLabel(point.data) : null,
+            }
 
-        return mappedPoint
-    })
+            return mappedPoint
+        })
 
     return (
         <g>

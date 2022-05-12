@@ -19,6 +19,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     keys,
     indexBy,
     layers = svgDefaultProps.layers,
+    rotation: rotationDegrees = svgDefaultProps.rotation,
     maxValue = svgDefaultProps.maxValue,
     valueFormat,
     curve = svgDefaultProps.curve,
@@ -66,6 +67,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         colorByKey,
         fillByKey,
         boundDefs,
+        rotation,
         radius,
         radiusScale,
         centerX,
@@ -78,6 +80,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
         data,
         keys,
         indexBy,
+        rotationDegrees,
         maxValue,
         valueFormat,
         curve,
@@ -104,6 +107,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     levels={gridLevels}
                     shape={gridShape}
                     radius={radius}
+                    rotation={rotation}
                     angleStep={angleStep}
                     indices={indices}
                     label={gridLabel}
@@ -124,6 +128,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         colorByKey={colorByKey}
                         fillByKey={fillByKey}
                         radiusScale={radiusScale}
+                        rotation={rotation}
                         angleStep={angleStep}
                         curveFactory={curveFactory}
                         borderWidth={borderWidth}
@@ -146,6 +151,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     formatValue={formatValue}
                     colorByKey={colorByKey}
                     radius={radius}
+                    rotation={rotation}
                     angleStep={angleStep}
                     tooltip={sliceTooltip}
                 />
@@ -161,6 +167,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     keys={keys}
                     getIndex={getIndex}
                     radiusScale={radiusScale}
+                    rotation={rotation}
                     angleStep={angleStep}
                     symbol={dotSymbol}
                     size={dotSize}

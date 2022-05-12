@@ -12,6 +12,7 @@ interface RadarLayerProps<D extends Record<string, unknown>> {
     colorByKey: Record<string | number, string>
     fillByKey: Record<string, string | null>
     radiusScale: ScaleLinear<number, number>
+    rotation: number
     angleStep: number
     curveFactory: CurveFactory
     borderWidth: RadarCommonProps<D>['borderWidth']
@@ -26,6 +27,7 @@ export const RadarLayer = <D extends Record<string, unknown>>({
     colorByKey,
     fillByKey,
     radiusScale,
+    rotation,
     angleStep,
     curveFactory,
     borderWidth,
@@ -39,9 +41,9 @@ export const RadarLayer = <D extends Record<string, unknown>>({
     const lineGenerator = useMemo(() => {
         return lineRadial<number>()
             .radius(d => radiusScale(d))
-            .angle((_, i) => i * angleStep)
+            .angle((_, i) => rotation + i * angleStep)
             .curve(curveFactory)
-    }, [radiusScale, angleStep, curveFactory])
+    }, [radiusScale, rotation, angleStep, curveFactory])
 
     const { animate, config: springConfig } = useMotionConfig()
     const animatedPath = useAnimatedPath(lineGenerator(data.map(d => d[key] as number)) as string)
