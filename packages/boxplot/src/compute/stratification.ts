@@ -28,15 +28,16 @@ export const stratifyData = <RawDatum extends BoxPlotDatum>({
     const nGroups = Math.max(1, groups ? groups.length : 1)
     const nSubGroups = Math.max(1, subGroups ? subGroups.length : 1)
     const n = nGroups * nSubGroups
-    const result = Array.from(Array(n), () => [] as RawDatum[])
-    data.map((d: RawDatum) => {
+    const result = Array(n)
+        .fill([])
+        .map(() => Array<RawDatum>())
+    data.forEach((d: RawDatum) => {
         const groupIndex = getGroup ? Number(groupsMap[getGroup(d)]) : 0
         const subGroupIndex = getSubGroup ? Number(subGroupsMap[getSubGroup(d)] ?? 0) : 0
         const index = groupIndex * nSubGroups + subGroupIndex
         if (index >= 0) {
             result[index].push(d)
         }
-        return null
     })
     return result
 }
@@ -75,7 +76,7 @@ export const summarizeDistributions = <RawDatum extends BoxPlotDatum>({
     // accept precomputed summary representations if they have all the required keys
     const preComputedKeys = ['values', 'extrema', 'mean', 'quantiles', 'group', 'subGroup', 'n']
     if (data.length === 1) {
-        const isPrecomputed = preComputedKeys.reduce((acc, k) => acc && k in data[0], true)
+        const isPrecomputed = preComputedKeys.every(k => k in data[0])
         if (isPrecomputed) {
             return {
                 groupIndex: groupIndex,

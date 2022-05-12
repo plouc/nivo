@@ -73,10 +73,3 @@ export const svgDefaultProps = {
     role: 'img',
     isFocusable: false,
 }
-
-export const canvasDefaultProps = {
-    ...defaultProps,
-    layers: ['grid', 'axes', 'boxPlots', 'legends'],
-
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
-}

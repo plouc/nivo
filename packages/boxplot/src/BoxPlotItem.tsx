@@ -164,7 +164,6 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
     ariaLabelledBy,
     ariaDescribedBy,
 }: BoxPlotItemProps<RawDatum>) => {
-    //const theme = useTheme()
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const renderTooltip = useMemo(() => () => createElement(tooltip, boxPlot), [tooltip, boxPlot])
 
