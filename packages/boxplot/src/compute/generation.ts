@@ -3,7 +3,7 @@ import { Scale, ScaleBand, computeScale, ScaleSpec, ScaleBandSpec } from '@nivo/
 import { BoxPlotSummary, ComputedBoxPlotSummary } from '../types'
 import { getIndexScale } from './common'
 
-type Params<XScaleInput, YScaleInput> = {
+type Params = {
     data: BoxPlotSummary[]
     formatValue: (value: number) => string
     getColor: OrdinalColorScale<BoxPlotSummary>
@@ -11,41 +11,62 @@ type Params<XScaleInput, YScaleInput> = {
     innerPadding: number
     groups: string[]
     subGroups: string[]
-    xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
-    yScale: YScaleInput extends string ? ScaleBand<YScaleInput> : Scale<YScaleInput, number>
+    indexScale: ScaleBand<string>
+    valueScale: Scale<number, number>
+    bandwidth: number
+    layout: 'vertical' | 'horizontal'
 }
 
-const generateVerticalBoxPlots = (
-    {
-        data,
-        getColor,
-        getTooltipLabel,
-        innerPadding = 0,
-        groups,
-        xScale,
-        yScale,
-        formatValue,
-    }: Params<string, number>,
-    bandwidth: number
-): ComputedBoxPlotSummary[] => {
+const generateComputedBoxPlotSummaries = ({
+    data,
+    getColor,
+    getTooltipLabel,
+    innerPadding = 0,
+    groups,
+    indexScale,
+    valueScale,
+    formatValue,
+    bandwidth,
+    layout,
+}: Params): ComputedBoxPlotSummary[] => {
+    if (bandwidth === 0) {
+        return Array<ComputedBoxPlotSummary>()
+    }
+    const vertical = layout === 'vertical'
     return data.map(datum => {
         const { group, subGroup, groupIndex, subGroupIndex } = datum
-        const x =
-            (xScale(groups[groupIndex]) ?? 0) +
+        const indexCoordinate =
+            (indexScale(groups[groupIndex]) ?? 0) +
             bandwidth * subGroupIndex +
             innerPadding * subGroupIndex
-        const y = yScale(datum.values[3]) ?? 0
-        const height = (yScale(datum.values[1]) ?? 0) - (yScale(datum.values[3]) ?? 0)
         const key = `${groupIndex}.${subGroupIndex}`
+        const height = Math.abs(
+            (valueScale(datum.values[3]) ?? 0) - (valueScale(datum.values[1]) ?? 0)
+        )
+        // top-left x/y of rectangle and width/height depend on the layout
+        // (the conditional inside the loop is not ideal, but typical loops will be short)
+        const position = vertical
+            ? {
+                  x: indexCoordinate,
+                  y: valueScale(datum.values[3]) ?? 0,
+                  width: bandwidth,
+                  height: height,
+              }
+            : {
+                  x: valueScale(datum.values[1]) ?? 0,
+                  y: indexCoordinate,
+                  width: height,
+                  height: bandwidth,
+              }
         return {
             key,
             group,
             subGroup,
             data: datum,
             coordinates: {
-                mean: yScale(datum.mean) ?? 0,
-                extrema: datum.extrema.map(v => yScale(v) ?? 0),
-                values: datum.values.map(v => yScale(v) ?? 0),
+                mean: valueScale(datum.mean) ?? 0,
+                extrema: datum.extrema.map(v => valueScale(v) ?? 0),
+                values: datum.values.map(v => valueScale(v) ?? 0),
             },
             formatted: {
                 n: String(datum.n),
@@ -54,59 +75,7 @@ const generateVerticalBoxPlots = (
                 values: datum.values.map(formatValue),
                 quantiles: datum.quantiles.map(v => String(100 * v)),
             },
-            x: x,
-            y: y,
-            width: bandwidth,
-            height,
-            color: getColor(datum),
-            label: getTooltipLabel(datum),
-        } as ComputedBoxPlotSummary
-    })
-}
-
-const generateHorizontalBoxPlots = (
-    {
-        data,
-        getColor,
-        getTooltipLabel,
-        innerPadding = 0,
-        groups,
-        xScale,
-        yScale,
-        formatValue,
-    }: Params<number, string>,
-    bandwidth: number
-): ComputedBoxPlotSummary[] => {
-    return data.map(datum => {
-        const { group, subGroup, groupIndex, subGroupIndex } = datum
-        const x = xScale(datum.values[1]) ?? 0
-        const y =
-            (yScale(groups[groupIndex]) ?? 0) +
-            bandwidth * subGroupIndex +
-            innerPadding * subGroupIndex
-        const width = (xScale(datum.values[3]) ?? 0) - (xScale(datum.values[1]) ?? 0)
-        const key = `${groupIndex}.${subGroupIndex}`
-        return {
-            key,
-            group,
-            subGroup,
-            data: datum,
-            coordinates: {
-                mean: xScale(datum.mean) ?? 0,
-                extrema: datum.extrema.map(v => xScale(v) ?? 0),
-                values: datum.values.map(v => xScale(v) ?? 0),
-            },
-            formatted: {
-                n: datum.n,
-                mean: formatValue(datum.mean),
-                extrema: datum.extrema.map(formatValue),
-                quantiles: datum.quantiles,
-                values: datum.values.map(formatValue),
-            },
-            x: x,
-            y: y,
-            width,
-            height: bandwidth,
+            ...position,
             color: getColor(datum),
             label: getTooltipLabel(datum),
         } as ComputedBoxPlotSummary
@@ -126,7 +95,7 @@ export const generateBoxPlots = ({
     getColor,
     padding,
     innerPadding,
-    valueScale,
+    valueScale: valueScaleConfig,
     indexScale: indexScaleConfig,
     getTooltipLabel,
 }: {
@@ -150,24 +119,25 @@ export const generateBoxPlots = ({
         layout === 'vertical' ? (['y', 'x', width] as const) : (['x', 'y', height] as const)
     const indexScale = getIndexScale(groups ?? [], padding, indexScaleConfig, size, otherAxis)
 
-    const scaleSpec = {
+    const valueScaleSpec = {
         max: maxValue,
         min: minValue,
-        ...valueScale,
+        ...valueScaleConfig,
     }
 
     const values = data.map((datum: BoxPlotSummary) => datum.values).flat()
     const min = values.reduce((acc: number, value: number) => Math.min(acc, value), Infinity)
     const max = values.reduce((acc: number, value: number) => Math.max(acc, value), -Infinity)
 
-    const scale = computeScale(
-        scaleSpec as any,
+    const valueScale = computeScale(
+        valueScaleSpec as any,
         { all: [min, max], min, max },
         axis === 'x' ? width : height,
         axis
     )
 
-    const [xScale, yScale] = layout === 'vertical' ? [indexScale, scale] : [scale, indexScale]
+    const [xScale, yScale] =
+        layout === 'vertical' ? [indexScale, valueScale] : [valueScale, indexScale]
 
     const nSubGroups = Math.max(1, subGroups ? subGroups.length : 1)
     const bandwidth = (indexScale.bandwidth() - innerPadding * (nSubGroups - 1)) / nSubGroups
@@ -179,16 +149,13 @@ export const generateBoxPlots = ({
         subGroups,
         getTooltipLabel,
         innerPadding,
-        xScale,
-        yScale,
+        indexScale,
+        valueScale,
         formatValue,
-    } as Params<any, any>
-    const boxPlots: ComputedBoxPlotSummary[] =
-        bandwidth > 0
-            ? layout === 'vertical'
-                ? generateVerticalBoxPlots(params, bandwidth)
-                : generateHorizontalBoxPlots(params, bandwidth)
-            : []
+        bandwidth,
+        layout,
+    } as Params
+    const boxPlots = generateComputedBoxPlotSummaries(params)
 
     return { xScale, yScale, boxPlots }
 }
