@@ -93,7 +93,6 @@ export const BoxPlotCustomGroupsAndLayers = () => {
             legends={[
                 {
                     anchor: 'bottom-right',
-                    dataFrom: customGroupLabel,
                     direction: 'column',
                     itemHeight: 20,
                     itemWidth: 80,

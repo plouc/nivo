@@ -41,10 +41,6 @@ export interface BoxPlotSummaryFormatted {
     mean: string
 }
 
-export interface DataProps<BoxPlotSummary> {
-    data: BoxPlotSummary[]
-}
-
 export type ComputedBoxPlotSummary = {
     key: string
     group: string
@@ -61,14 +57,14 @@ export type ComputedBoxPlotSummary = {
     label: string
 }
 
+export interface DataProps<BoxPlotSummary> {
+    data: BoxPlotSummary[]
+}
+
 export type LegendData = {
     id: string | number
     label: string | number
     color: string
-}
-
-export interface BoxPlotLegendProps extends LegendProps {
-    dataFrom: 'groups' | 'subGroups' | ((boxPlot: BoxPlotSummary) => string)
 }
 
 export type LabelFormatter = (label: string | number) => string | number
@@ -208,7 +204,7 @@ export type BoxPlotCommonProps<RawDatum> = {
     theme: Theme
 
     annotations: AnnotationMatcher<ComputedBoxPlotSummary>[]
-    legends: BoxPlotLegendProps[]
+    legends: LegendProps[]
 
     renderWrapper?: boolean
 }

@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 import { generateBoxPlotData } from '@nivo/generators'
-// @ts-ignore
 import { BoxPlot, ResponsiveBoxPlot } from '../src'
 import { action } from '@storybook/addon-actions'
 import { BoxPlotCustomGroupsAndLayers } from './BoxPlotCustomGroupsAndLayers'
@@ -69,6 +68,8 @@ const commonProps = {
     padding: 0.2,
 }
 
+const Comment = ({ children }) => <p style={{ maxWidth: 640 }}>{children}</p>
+
 export const Default = () => {
     return (
         <div>
@@ -78,11 +79,11 @@ export const Default = () => {
                 width={320}
                 margin={{ top: 40, right: 110, bottom: 40, left: 80 }}
             />
-            <p style={{ maxWidth: 640 }}>
+            <Comment>
                 The BoxPlot component expects input as a list of raw data objects. The component
                 computes summary statistics using quantiles, and then draws a chart based on the
                 summary statistics.
-            </p>
+            </Comment>
         </div>
     )
 }
@@ -121,7 +122,6 @@ export const Horizontal = () => (
         legends={[
             {
                 anchor: 'bottom',
-                dataFrom: 'groups',
                 direction: 'row',
                 itemHeight: 20,
                 itemWidth: 80,
@@ -157,7 +157,6 @@ export const GroupedVertical = () => (
         legends={[
             {
                 anchor: 'bottom-right',
-                dataFrom: 'subGroups',
                 direction: 'column',
                 itemHeight: 20,
                 itemWidth: 80,
@@ -184,7 +183,6 @@ export const GroupedHorizontal = () => (
         legends={[
             {
                 anchor: 'bottom',
-                dataFrom: 'subGroups',
                 direction: 'row',
                 itemHeight: 20,
                 itemWidth: 120,
@@ -300,7 +298,6 @@ export const SubGroupsWithoutData = () => (
         legends={[
             {
                 anchor: 'right',
-                dataFrom: 'subGroups',
                 direction: 'column',
                 itemHeight: 20,
                 itemWidth: 80,
@@ -317,11 +314,11 @@ export const CustomQuantiles = () => (
             <BoxPlot {...simpleProps} quantiles={[0.1, 0.25, 0.5, 0.75, 0.9]} layout={'vertical'} />
             <BoxPlot {...simpleProps} quantiles={[0, 0.25, 0.5, 0.75, 1.0]} layout={'vertical'} />
         </div>
-        <p style={{ maxWidth: 640 }}>
+        <Comment>
             These charts display the same data. On the left, whiskers represent [10%-90%] quantiles
             (default). On the right, whiskers instead show [min-max] intervals.
-        </p>
-        <p>(Hover on the boxes and compare the data summaries).</p>
+        </Comment>
+        <Comment>(Hover on the boxes and compare the data summaries).</Comment>
     </div>
 )
 
@@ -362,7 +359,6 @@ export const MarkersAndAnnotations = () => (
         legends={[
             {
                 anchor: 'top-right',
-                dataFrom: 'subGroups',
                 direction: 'column',
                 itemHeight: 20,
                 itemWidth: 80,
@@ -430,14 +426,12 @@ export const Themed = () => (
 export const CustomGroups = () => (
     <div>
         <BoxPlotCustomGroupsAndLayers />
-        <p style={{ maxWidth: 640 }}>
+        <Comment>
             A color function assigns the same color to several of the boxes. Another function
             generates custom legend labels. The legend displays as many labels as there are distinct
             colors.
-        </p>
-        <p style={{ maxWidth: 640 }}>
-            A custom layer provides a background for a subset of the boxes.
-        </p>
+        </Comment>
+        <Comment>A custom layer provides a background for a subset of the boxes.</Comment>
     </div>
 )
 
@@ -473,11 +467,11 @@ export const PreComputed = () => {
                     },
                 ]}
             />
-            <p style={{ maxWidth: 640 }}>
+            <Comment>
                 This chart uses pre-computed summary statistics. The pre-computed representation
                 requires: minimum value, maximum value, values representing whiskers, values
                 representing box bounds, median, mean, and the number of data points (n).
-            </p>
+            </Comment>
         </div>
     )
 }
@@ -492,7 +486,7 @@ export const MouseEvents = () => (
             onMouseEnter={action('onMouseEnter')}
             onMouseLeave={action('onMouseLeave')}
         />
-        <p style={{ maxWidth: 640 }}>This chart handles mouse events - check 'Actions'.</p>
+        <Comment>This chart handles mouse events - check 'Actions'.</Comment>
     </div>
 )
 
@@ -506,7 +500,7 @@ export const Responsive = () => {
                     margin={{ top: 40, right: 110, bottom: 40, left: 80 }}
                 />
             </Wrapper>
-            <p>This chart takes its size from its parent container.</p>
+            <Comment>This chart takes its size from its parent container.</Comment>
         </div>
     )
 }

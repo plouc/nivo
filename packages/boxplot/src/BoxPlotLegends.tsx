@@ -1,10 +1,10 @@
-import { BoxLegendSvg } from '@nivo/legends'
-import { BoxPlotLegendProps, LegendData } from './types'
+import { BoxLegendSvg, LegendProps } from '@nivo/legends'
+import { LegendData } from './types'
 
 interface BoxPlotLegendsProps {
     width: number
     height: number
-    legends: [BoxPlotLegendProps, LegendData[]][]
+    legends: [LegendProps, LegendData[]][]
 }
 
 export const BoxPlotLegends = ({ width, height, legends }: BoxPlotLegendsProps) => (

@@ -1,35 +1,25 @@
-import {
-    BoxPlotDatum,
-    BoxPlotLegendProps,
-    BoxPlotSvgProps,
-    ComputedBoxPlotSummary,
-    LegendData,
-} from '../types'
+import { BoxPlotDatum, BoxPlotCommonProps, ComputedBoxPlotSummary, LegendData } from '../types'
 import { getPropertyAccessor } from '@nivo/core'
 import { uniqBy } from 'lodash'
 
 export const getLegendData = <RawDatum extends BoxPlotDatum>({
     boxPlots,
     dataFrom,
-    direction,
     legendLabel,
 }: {
     boxPlots: ComputedBoxPlotSummary[]
-    dataFrom: BoxPlotLegendProps['dataFrom']
-    direction: string
-    legendLabel: BoxPlotSvgProps<RawDatum>['legendLabel']
+    dataFrom: BoxPlotCommonProps<RawDatum>['colorBy']
+    legendLabel: BoxPlotCommonProps<RawDatum>['legendLabel']
 }) => {
-    const legendFrom = dataFrom === 'subGroups' ? 'subGroup' : 'group'
-    const getLegendLabel = getPropertyAccessor(legendLabel ?? legendFrom)
-    const getFromId = typeof dataFrom === 'function' ? dataFrom : getPropertyAccessor(legendFrom)
+    const getLegendLabel = getPropertyAccessor(legendLabel ?? dataFrom)
     return uniqBy(
         boxPlots.map(
             boxPlot =>
+                // id & label are redundant below, but needed for ts in @nivo/legends
                 ({
-                    id: getFromId(boxPlot.data),
-                    color: boxPlot?.color,
-                    direction,
+                    id: getLegendLabel(boxPlot?.data),
                     label: getLegendLabel(boxPlot?.data),
+                    color: boxPlot?.color,
                 } as LegendData)
         ),
         ({ id }) => id
