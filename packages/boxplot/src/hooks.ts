@@ -6,6 +6,7 @@ import {
     BoxPlotDatum,
     BoxPlotSummary,
     ComputedBoxPlotSummary,
+    DataProps,
     LegendData,
 } from './types'
 import { defaultProps } from './props'
@@ -25,14 +26,6 @@ export const useLevels = <RawDatum extends BoxPlotDatum>(
 }
 
 export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
-    tooltipLabel = defaultProps.tooltipLabel,
-    valueFormat = defaultProps.valueFormat,
-    colors = defaultProps.colors,
-    colorBy = defaultProps.colorBy,
-    borderColor,
-    medianColor,
-    whiskerColor,
-    layout = defaultProps.layout,
     data,
     value = defaultProps.value,
     groupBy = defaultProps.groupBy,
@@ -40,42 +33,50 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
     subGroupBy = defaultProps.subGroupBy,
     subGroups = defaultProps.subGroups,
     quantiles = defaultProps.quantiles,
-    minValue = defaultProps.minValue,
-    maxValue = defaultProps.maxValue,
     width,
     height,
-    padding = defaultProps.padding,
-    innerPadding = defaultProps.innerPadding,
+    layout = defaultProps.layout,
+    minValue = defaultProps.minValue,
+    maxValue = defaultProps.maxValue,
     valueScale = defaultProps.valueScale,
     indexScale = defaultProps.indexScale,
-    legends = defaultProps.legends,
+    padding = defaultProps.padding,
+    innerPadding = defaultProps.innerPadding,
+    colorBy = defaultProps.colorBy,
+    colors = defaultProps.colors,
+    borderColor,
+    medianColor,
+    whiskerColor,
     legendLabel,
+    tooltipLabel = defaultProps.tooltipLabel,
+    valueFormat = defaultProps.valueFormat,
+    legends = defaultProps.legends,
 }: {
-    tooltipLabel?: BoxPlotCommonProps<RawDatum>['tooltipLabel']
-    valueFormat?: BoxPlotCommonProps<RawDatum>['valueFormat']
-    colors: BoxPlotCommonProps<RawDatum>['colors']
-    colorBy: BoxPlotCommonProps<RawDatum>['colorBy']
-    borderColor: BoxPlotCommonProps<RawDatum>['borderColor']
-    medianColor: BoxPlotCommonProps<RawDatum>['medianColor']
-    whiskerColor: BoxPlotCommonProps<RawDatum>['whiskerColor']
-    layout?: BoxPlotCommonProps<RawDatum>['layout']
-    data: RawDatum[]
+    data: DataProps<RawDatum>['data']
     value?: BoxPlotCommonProps<RawDatum>['value']
     groupBy?: BoxPlotCommonProps<RawDatum>['groupBy']
     groups?: BoxPlotCommonProps<RawDatum>['groups']
     subGroupBy?: BoxPlotCommonProps<RawDatum>['subGroupBy']
     subGroups?: BoxPlotCommonProps<RawDatum>['subGroups']
     quantiles?: BoxPlotCommonProps<RawDatum>['quantiles']
-    minValue?: BoxPlotCommonProps<RawDatum>['minValue']
-    maxValue?: BoxPlotCommonProps<RawDatum>['maxValue']
     width: number
     height: number
-    padding?: BoxPlotCommonProps<RawDatum>['padding']
-    innerPadding?: BoxPlotCommonProps<RawDatum>['innerPadding']
+    layout?: BoxPlotCommonProps<RawDatum>['layout']
+    minValue?: BoxPlotCommonProps<RawDatum>['minValue']
+    maxValue?: BoxPlotCommonProps<RawDatum>['maxValue']
     valueScale?: BoxPlotCommonProps<RawDatum>['valueScale']
     indexScale?: BoxPlotCommonProps<RawDatum>['indexScale']
-    legends?: BoxPlotCommonProps<RawDatum>['legends']
+    padding?: BoxPlotCommonProps<RawDatum>['padding']
+    innerPadding?: BoxPlotCommonProps<RawDatum>['innerPadding']
+    colorBy: BoxPlotCommonProps<RawDatum>['colorBy']
+    colors: BoxPlotCommonProps<RawDatum>['colors']
+    borderColor: BoxPlotCommonProps<RawDatum>['borderColor']
+    medianColor: BoxPlotCommonProps<RawDatum>['medianColor']
+    whiskerColor: BoxPlotCommonProps<RawDatum>['whiskerColor']
     legendLabel?: BoxPlotCommonProps<RawDatum>['legendLabel']
+    tooltipLabel?: BoxPlotCommonProps<RawDatum>['tooltipLabel']
+    valueFormat?: BoxPlotCommonProps<RawDatum>['valueFormat']
+    legends?: BoxPlotCommonProps<RawDatum>['legends']
 }) => {
     // ensure that groups and subGroups are defined
     groups = useLevels(groups, data, groupBy)
