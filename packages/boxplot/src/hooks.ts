@@ -7,10 +7,10 @@ import {
     BoxPlotSummary,
     ComputedBoxPlotSummary,
     LegendData,
-    BoxPlotLegendProps,
 } from './types'
 import { defaultProps } from './props'
 import { generateBoxPlots, getLegendData, stratifyData, summarizeDistributions } from './compute'
+import { LegendProps } from '@nivo/legends'
 
 export const useLevels = <RawDatum extends BoxPlotDatum>(
     levels: string[] | null,
@@ -53,8 +53,8 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
 }: {
     tooltipLabel?: BoxPlotCommonProps<RawDatum>['tooltipLabel']
     valueFormat?: BoxPlotCommonProps<RawDatum>['valueFormat']
-    colors?: BoxPlotCommonProps<RawDatum>['colors']
-    colorBy?: BoxPlotCommonProps<RawDatum>['colorBy']
+    colors: BoxPlotCommonProps<RawDatum>['colors']
+    colorBy: BoxPlotCommonProps<RawDatum>['colorBy']
     borderColor: BoxPlotCommonProps<RawDatum>['borderColor']
     medianColor: BoxPlotCommonProps<RawDatum>['medianColor']
     whiskerColor: BoxPlotCommonProps<RawDatum>['whiskerColor']
@@ -165,17 +165,17 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
         ]
     )
 
-    const legendsData: [BoxPlotLegendProps, LegendData[]][] = useMemo(
+    const legendsData: [LegendProps, LegendData[]][] = useMemo(
         () =>
             legends.map(legend => {
                 const data = getLegendData({
                     boxPlots,
+                    dataFrom: colorBy,
                     legendLabel,
-                    ...legend,
                 })
                 return [legend, data]
             }),
-        [legends, boxPlots, legendLabel]
+        [legends, boxPlots, colorBy, legendLabel]
     )
 
     return {

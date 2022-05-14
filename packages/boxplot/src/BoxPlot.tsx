@@ -62,8 +62,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     layers = svgDefaultProps.layers as BoxPlotLayer<RawDatum>[],
     boxPlotComponent = svgDefaultProps.boxPlotComponent,
 
-    colorBy,
-    colors,
+    colorBy = svgDefaultProps.colorBy,
+    colors = svgDefaultProps.colors,
     defs = svgDefaultProps.defs,
     fill,
     borderRadius = svgDefaultProps.borderRadius,
@@ -163,9 +163,9 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             medianColor: getMedianColor(boxPlot) as string,
             whiskerColor: getWhiskerColor(boxPlot) as string,
             color: boxPlot.color,
+            width: boxPlot.width,
             height: 0,
             transform: `translate(${boxPlot.x}, ${boxPlot.y + boxPlot.height})`,
-            width: boxPlot.width,
             ...(layout === 'vertical'
                 ? {}
                 : {
@@ -179,27 +179,27 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             medianColor: getMedianColor(boxPlot) as string,
             whiskerColor: getWhiskerColor(boxPlot) as string,
             color: boxPlot.color,
+            width: boxPlot.width,
             height: boxPlot.height,
             transform: `translate(${boxPlot.x}, ${boxPlot.y})`,
-            width: boxPlot.width,
         }),
         update: boxPlot => ({
             borderColor: getBorderColor(boxPlot) as string,
             medianColor: getMedianColor(boxPlot) as string,
             whiskerColor: getWhiskerColor(boxPlot) as string,
             color: boxPlot.color,
+            width: boxPlot.width,
             height: boxPlot.height,
             transform: `translate(${boxPlot.x}, ${boxPlot.y})`,
-            width: boxPlot.width,
         }),
         leave: boxPlot => ({
             borderColor: getBorderColor(boxPlot) as string,
             medianColor: getMedianColor(boxPlot) as string,
             whiskerColor: getWhiskerColor(boxPlot) as string,
             color: boxPlot.color,
+            width: boxPlot.width,
             height: 0,
             transform: `translate(${boxPlot.x}, ${boxPlot.y + boxPlot.height})`,
-            width: boxPlot.width,
             ...(layout === 'vertical'
                 ? {}
                 : {
