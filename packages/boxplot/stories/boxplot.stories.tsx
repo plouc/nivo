@@ -435,6 +435,32 @@ export const CustomGroups = () => (
     </div>
 )
 
+export const CustomLegend = () => (
+    <div>
+        <BoxPlot
+            {...simpleProps}
+            legends={[
+                {
+                    anchor: 'right',
+                    direction: 'column',
+                    itemHeight: 20,
+                    itemWidth: 80,
+                    translateY: 0,
+                    translateX: 100,
+                    data: [
+                        { id: 'A', label: 'Custom', color: '#faa6ff' },
+                        { id: 'B', label: 'Legend', color: '#30bced' },
+                    ],
+                },
+            ]}
+        />
+        <Comment>
+            This chart uses a custom-made legend. All the labels and colors are specified
+            independently of the data.
+        </Comment>
+    </div>
+)
+
 export const PreComputed = () => {
     const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
     return (
