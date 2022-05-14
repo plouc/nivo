@@ -57,8 +57,9 @@ export type ComputedBoxPlotSummary = {
     label: string
 }
 
-export interface DataProps<BoxPlotSummary> {
-    data: BoxPlotSummary[]
+// determines the format for the input data accepted by the <BoxPlot> component
+export interface DataProps<RawDatum> {
+    data: RawDatum[]
 }
 
 export type LegendData = {
@@ -209,11 +210,9 @@ export type BoxPlotCommonProps<RawDatum> = {
     renderWrapper?: boolean
 }
 
-export type BoxPlotSvgProps<RawDatum extends BoxPlotDatum> = Partial<
-    BoxPlotCommonProps<RawDatum>
-> & {
-    data: RawDatum[]
-} & BoxPlotHandlers<SVGRectElement> &
+export type BoxPlotSvgProps<RawDatum extends BoxPlotDatum> = Partial<BoxPlotCommonProps<RawDatum>> &
+    DataProps<RawDatum> &
+    BoxPlotHandlers<SVGRectElement> &
     SvgDefsAndFill<ComputedBoxPlotSummary> &
     Dimensions &
     ModernMotionProps &
