@@ -276,12 +276,28 @@ export const LogScale = () => {
 }
 
 export const GroupsWithoutData = () => (
-    <BoxPlot
-        {...simpleProps}
-        data={simpleProps.data.filter(datum => datum.group != 'Beta')}
-        layout={'vertical'}
-        colorBy={'group'}
-    />
+    <div>
+        <div style={{ display: 'flex' }}>
+            <BoxPlot
+                {...simpleProps}
+                data={simpleProps.data}
+                layout={'vertical'}
+                colorBy={'group'}
+            />
+            <BoxPlot
+                {...simpleProps}
+                data={simpleProps.data.filter(datum => datum.group != 'Beta')}
+                layout={'vertical'}
+                colorBy={'group'}
+            />
+        </div>
+        <Comment>
+            The first chart shows three groups in three different colors. The second chart is
+            configured to show the same three groups, but it is passed a subset data for just two
+            out of the three groups. It automatically uses the same color scheme for the three
+            groups.
+        </Comment>
+    </div>
 )
 
 export const SubGroupsWithoutData = () => (
