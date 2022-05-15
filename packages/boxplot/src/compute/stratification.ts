@@ -56,7 +56,14 @@ const getMean = (values: number[]) => {
     return sum / values.length
 }
 
-export const summarizeDistributions = <RawDatum extends BoxPlotDatum>({
+const isPrecomputedDistribution = <RawDatum>(
+    datum: RawDatum | Omit<BoxPlotSummary, 'groupIndex' | 'subGroupIndex'>
+): datum is Omit<BoxPlotSummary, 'groupIndex' | 'subGroupIndex'> => {
+    const preComputedKeys = ['values', 'extrema', 'mean', 'quantiles', 'group', 'subGroup', 'n']
+    return preComputedKeys.every(k => k in datum)
+}
+
+export const summarizeDistribution = <RawDatum extends BoxPlotDatum>({
     data,
     getValue,
     groups,
@@ -73,19 +80,15 @@ export const summarizeDistributions = <RawDatum extends BoxPlotDatum>({
     subGroupIndex: number
     quantiles: number[]
 }) => {
-    // accept precomputed summary representations if they have all the required keys
-    const preComputedKeys = ['values', 'extrema', 'mean', 'quantiles', 'group', 'subGroup', 'n']
-    if (data.length === 1) {
-        const isPrecomputed = preComputedKeys.every(k => k in data[0])
-        if (isPrecomputed) {
-            return {
-                groupIndex: groupIndex,
-                subGroupIndex: subGroupIndex,
-                ...data[0],
-            } as unknown as BoxPlotSummary
-        }
+    // accept a precomputed summary representation if it has all the required keys
+    if (data.length === 1 && isPrecomputedDistribution(data[0])) {
+        return {
+            groupIndex: groupIndex,
+            subGroupIndex: subGroupIndex,
+            ...data[0],
+        } as BoxPlotSummary
     }
-    // compute the summary representations using quantiles
+    // compute the summary representation from raw data using quantiles
     const values = data.map(v => Number(getValue(v))) as number[]
     values.sort((a, b) => a - b)
     return {
