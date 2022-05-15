@@ -10,7 +10,7 @@ import {
     LegendData,
 } from './types'
 import { defaultProps } from './props'
-import { generateBoxPlots, getLegendData, stratifyData, summarizeDistributions } from './compute'
+import { generateBoxPlots, getLegendData, stratifyData, summarizeDistribution } from './compute'
 import { LegendProps } from '@nivo/legends'
 
 export const useLevels = <RawDatum extends BoxPlotDatum>(
@@ -115,7 +115,7 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
     const dataSummary = useMemo(
         () =>
             dataStratified.map((stratum: RawDatum[], index) =>
-                summarizeDistributions({
+                summarizeDistribution({
                     data: stratum,
                     getValue,
                     groups,
