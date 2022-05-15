@@ -278,8 +278,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={xScale as any}
-                yScale={yScale as any}
+                xScale={xScale}
+                yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop}
@@ -311,8 +311,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? (xScale as any) : null}
-                yScale={enableGridY ? (yScale as any) : null}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
