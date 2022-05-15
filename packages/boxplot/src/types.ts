@@ -210,7 +210,7 @@ export type BoxPlotCommonProps<RawDatum> = {
 
     colorBy: 'group' | 'subGroup'
     colors: OrdinalColorScaleConfig<BoxPlotSummary>
-    theme: Theme
+    theme: Theme & { translation: BoxPlotDatum }
 
     annotations: AnnotationMatcher<ComputedBoxPlotSummary>[]
     legends: LegendProps[]
