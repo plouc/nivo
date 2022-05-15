@@ -1,7 +1,7 @@
 import { BoxPlotSummaryFormatted, BoxPlotTooltipProps, BoxPlotSummary } from './types'
 import { Chip } from '@nivo/tooltip'
 import { memo } from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme, CompleteTheme } from '@nivo/core'
 
 interface BoxPlotSummaryTooltipProps {
     label: string
@@ -10,9 +10,37 @@ interface BoxPlotSummaryTooltipProps {
     enableChip?: boolean
 }
 
+interface Translation {
+    [key: string]: number | string
+}
+
+export const defaultTranslation = {
+    n: 'n',
+    mean: 'mean',
+    min: 'min',
+    max: 'max',
+    Summary: 'Summary',
+    Quantiles: 'Quantiles',
+}
+
+type ExtendedTheme = CompleteTheme & {
+    translation: Translation
+}
+
+const hasTranslation = (theme: CompleteTheme | ExtendedTheme): theme is ExtendedTheme => {
+    return 'translation' in theme
+}
+
 export const BoxPlotSummaryTooltip = memo<BoxPlotSummaryTooltipProps>(
     ({ label, formatted, enableChip = false, color }) => {
         const theme = useTheme()
+        let translation = defaultTranslation
+        if (hasTranslation(theme)) {
+            translation = {
+                ...defaultTranslation,
+                ...theme.translation,
+            }
+        }
 
         const quantiles = formatted.quantiles.map((q, i) => (
             <div key={'quantile.' + i}>
@@ -28,21 +56,21 @@ export const BoxPlotSummaryTooltip = memo<BoxPlotSummaryTooltipProps>(
                 <div style={{ display: 'flex', marginTop: '1rem' }}>
                     <div style={{ marginRight: '2rem' }}>
                         <div>
-                            n: <strong>{formatted.n}</strong>
+                            {translation.n}: <strong>{formatted.n}</strong>
                         </div>
-                        <div style={{ marginTop: '1rem' }}>Values</div>
+                        <div style={{ marginTop: '1rem' }}>{translation.Summary}</div>
                         <div>
-                            mean: <strong>{formatted.mean}</strong>
-                        </div>
-                        <div>
-                            min: <strong>{formatted.extrema[0]}</strong>
+                            {translation.mean}: <strong>{formatted.mean}</strong>
                         </div>
                         <div>
-                            max: <strong>{formatted.extrema[1]}</strong>
+                            {translation.min}: <strong>{formatted.extrema[0]}</strong>
+                        </div>
+                        <div>
+                            {translation.max}: <strong>{formatted.extrema[1]}</strong>
                         </div>
                     </div>
                     <div>
-                        <div>Quantiles</div>
+                        <div>{translation.Quantiles}</div>
                         {quantiles}
                     </div>
                 </div>

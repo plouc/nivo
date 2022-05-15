@@ -532,6 +532,27 @@ export const MouseEvents = () => (
     </div>
 )
 
+export const Translations = () => (
+    <div>
+        <BoxPlot
+            {...simpleProps}
+            theme={{
+                translation: {
+                    n: 'n',
+                    Summary: 'Résumé',
+                    mean: 'moyenne',
+                    min: 'min',
+                    max: 'max',
+                    Quantiles: 'Quantiles',
+                },
+            }}
+        />
+        <Comment>
+            The tooltips are presented in French. (Hover the mouse over the boxplots).
+        </Comment>
+    </div>
+)
+
 const Wrapper = props => <div {...props} style={{ height: '480px', width: '320px' }} />
 export const Responsive = () => {
     return (
