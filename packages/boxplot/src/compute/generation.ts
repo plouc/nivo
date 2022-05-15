@@ -1,5 +1,14 @@
 import { OrdinalColorScale } from '@nivo/colors'
-import { Scale, ScaleBand, computeScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
+import {
+    Scale,
+    ScaleBand,
+    computeScale,
+    ScaleBandSpec,
+    ScaleLinearSpec,
+    ScaleLogSpec,
+    ScaleSymlogSpec,
+    ScaleTimeSpec,
+} from '@nivo/scales'
 import { BoxPlotSummary, ComputedBoxPlotSummary } from '../types'
 import { getIndexScale } from './common'
 
@@ -111,7 +120,7 @@ export const generateBoxPlots = ({
     getColor: OrdinalColorScale<BoxPlotSummary>
     padding: number
     innerPadding: number
-    valueScale: ScaleSpec
+    valueScale: ScaleLinearSpec | ScaleLogSpec | ScaleSymlogSpec | ScaleTimeSpec
     indexScale: ScaleBandSpec
     getTooltipLabel: (datum: BoxPlotSummary) => string
 }) => {
@@ -130,7 +139,7 @@ export const generateBoxPlots = ({
     const max = values.reduce((acc: number, value: number) => Math.max(acc, value), -Infinity)
 
     const valueScale = computeScale(
-        valueScaleSpec as any,
+        valueScaleSpec as ScaleLinearSpec | ScaleLogSpec | ScaleSymlogSpec | ScaleTimeSpec,
         { all: [min, max], min, max },
         axis === 'x' ? width : height,
         axis

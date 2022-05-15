@@ -13,6 +13,7 @@ import {
 import { BoxPlotAnnotations } from './BoxPlotAnnotations'
 import { BoxPlotLegends } from './BoxPlotLegends'
 import {
+    BoxPlotCustomLayerProps,
     BoxPlotDatum,
     BoxPlotLayer,
     BoxPlotLayerId,
@@ -47,8 +48,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     valueScale,
     indexScale,
 
-    padding,
-    innerPadding,
+    padding = svgDefaultProps.padding,
+    innerPadding = svgDefaultProps.innerPadding,
 
     axisTop,
     axisRight,
@@ -342,19 +343,43 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         )
     }
 
-    const layerContext: any = useMemo(
+    const layerContext: BoxPlotCustomLayerProps<RawDatum> = useMemo(
         () => ({
             ...commonProps,
             margin,
-            innerWidth,
-            innerHeight,
             width,
             height,
+            innerWidth,
+            innerHeight,
+            padding,
+            innerPadding,
             boxPlots,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            tooltip,
+            getTooltipLabel,
             xScale,
             yScale,
         }),
-        [commonProps, margin, innerWidth, innerHeight, width, height, boxPlots, xScale, yScale]
+        [
+            commonProps,
+            margin,
+            width,
+            height,
+            innerWidth,
+            innerHeight,
+            padding,
+            innerPadding,
+            boxPlots,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            tooltip,
+            getTooltipLabel,
+            xScale,
+            yScale,
+        ]
     )
 
     return (

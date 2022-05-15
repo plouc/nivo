@@ -14,7 +14,7 @@ import {
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { ScaleSpec, ScaleBandSpec, Scale } from '@nivo/scales'
+import { ScaleBandSpec, Scale, ScaleLinearSpec, ScaleLogSpec, ScaleSymlogSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
 export interface BoxPlotDatum {
@@ -78,21 +78,22 @@ export interface BoxPlotCustomLayerProps<RawDatum>
             BoxPlotCommonProps<RawDatum>,
             | 'borderRadius'
             | 'borderWidth'
+            | 'medianWidth'
+            | 'whiskerWidth'
+            | 'whiskerEndWidth'
             | 'isInteractive'
-            | 'tooltip'
             | 'padding'
             | 'innerPadding'
         >,
         Dimensions,
         BoxPlotHandlers<SVGRectElement> {
-    boxPlot: ComputedBoxPlotSummary[]
-    legendData: BoxPlotSummary
+    boxPlots: ComputedBoxPlotSummary[]
 
     margin: Margin
     innerWidth: number
     innerHeight: number
 
-    getTooltipLabel: (datum: ComputedBoxPlotSummary) => string | number
+    getTooltipLabel: (datum: BoxPlotSummary) => string | number
 
     xScale: Scale<any, any>
     yScale: Scale<any, any>
@@ -173,7 +174,7 @@ export type BoxPlotCommonProps<RawDatum> = {
     innerPadding: number
     padding: number
 
-    valueScale: ScaleSpec
+    valueScale: ScaleLinearSpec | ScaleLogSpec | ScaleSymlogSpec
     indexScale: ScaleBandSpec
 
     enableGridX: boolean

@@ -1,7 +1,7 @@
 import { BoxPlotItem } from './BoxPlotItem'
 import { BoxPlotTooltip, BoxPlotTooltipLabel } from './BoxPlotTooltip'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { ScaleBandSpec, ScaleSpec } from '@nivo/scales'
+import { ScaleBandSpec, ScaleLinearSpec } from '@nivo/scales'
 import { ComputedBoxPlotSummary } from './types'
 
 export const defaultProps = {
@@ -18,7 +18,7 @@ export const defaultProps = {
     minValue: 'auto' as const,
     maxValue: 'auto' as const,
 
-    valueScale: { type: 'linear' } as ScaleSpec,
+    valueScale: { type: 'linear' } as ScaleLinearSpec,
     indexScale: { type: 'band', round: true } as ScaleBandSpec,
 
     padding: 0.1,
