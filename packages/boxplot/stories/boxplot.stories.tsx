@@ -115,8 +115,6 @@ export const Horizontal = () => (
         {...simpleProps}
         {...simplePropsHorizontal}
         colorBy={'group'}
-        width={simpleProps.height * 1.2}
-        height={simpleProps.width * 1.2}
         enableGridY={true}
         enableGridX={true}
         legends={[
@@ -150,7 +148,7 @@ export const Horizontal = () => (
 export const GroupedVertical = () => (
     <BoxPlot
         {...commonProps}
-        animate={false}
+        animate={true}
         layout="vertical"
         padding={0.3}
         innerPadding={2}
@@ -339,7 +337,7 @@ export const CustomQuantiles = () => (
 )
 
 export const WhiskerEnds = () => (
-    <BoxPlot {...simpleProps} {...simplePropsHorizontal} whiskerEndWidth={0.5} />
+    <BoxPlot {...simpleProps} {...simplePropsHorizontal} whiskerEndSize={0.5} />
 )
 
 export const MarkersAndAnnotations = () => (

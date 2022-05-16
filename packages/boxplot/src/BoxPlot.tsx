@@ -74,7 +74,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     medianColor = svgDefaultProps.medianColor,
     whiskerWidth = svgDefaultProps.whiskerWidth,
     whiskerColor = svgDefaultProps.whiskerColor,
-    whiskerEndWidth = svgDefaultProps.whiskerEndWidth,
+    whiskerEndSize = svgDefaultProps.whiskerEndSize,
 
     markers = svgDefaultProps.markers,
 
@@ -219,7 +219,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             borderWidth,
             medianWidth,
             whiskerWidth,
-            whiskerEndWidth,
+            whiskerEndSize,
             padding,
             innerPadding,
             isInteractive,
@@ -238,7 +238,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             borderWidth,
             medianWidth,
             whiskerWidth,
-            whiskerEndWidth,
+            whiskerEndSize,
             padding,
             innerPadding,
             isInteractive,
