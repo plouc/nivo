@@ -14,12 +14,13 @@ import {
 import { AxisProps, GridValues } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { ScaleLinear, ScalePoint } from '@nivo/scales'
 
 export type StreamLayerId = 'grid' | 'axes' | 'layers' | 'dots' | 'slices' | 'legends'
 
 export interface StreamCustomLayerProps {
-    xScale: any
-    yScale: any
+    xScale: ScalePoint<number>
+    yScale: ScaleLinear<number>
     layers: StreamLayerData[]
     slices: StreamSliceData[]
 }
