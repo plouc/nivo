@@ -87,7 +87,7 @@ export interface BoxPlotCustomLayerProps<RawDatum>
             | 'borderWidth'
             | 'medianWidth'
             | 'whiskerWidth'
-            | 'whiskerEndWidth'
+            | 'whiskerEndSize'
             | 'isInteractive'
             | 'padding'
             | 'innerPadding'
@@ -118,7 +118,7 @@ export interface BoxPlotItemProps<RawDatum extends BoxPlotDatum>
             | 'borderWidth'
             | 'medianWidth'
             | 'whiskerWidth'
-            | 'whiskerEndWidth'
+            | 'whiskerEndSize'
             | 'isInteractive'
             | 'tooltip'
         >,
@@ -197,7 +197,7 @@ export type BoxPlotCommonProps<RawDatum> = {
     medianWidth: number
     whiskerColor: InheritedColorConfig<ComputedBoxPlotSummary>
     whiskerWidth: number
-    whiskerEndWidth: number
+    whiskerEndSize: number
 
     isInteractive: boolean
 

@@ -1,148 +1,101 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { animated, SpringValue, to } from '@react-spring/web'
 import { useTooltip } from '@nivo/tooltip'
-import { BoxPlotDatum, BoxPlotItemProps, BoxPlotSummary } from './types'
+import { BoxPlotDatum, BoxPlotItemProps, ComputedBoxPlotSummary } from './types'
 
-const BoxPlotItemWhiskers = ({
-    bandwidth,
-    coordinates,
+type LineCoordinates = {
+    x1: number
+    y1: number
+    x2: number
+    y2: number
+}
+
+const computeLineCoordinates = <RawDatum extends BoxPlotDatum>({
+    boxPlot,
     layout,
-    whiskerColor,
-    whiskerWidth,
-    whiskerEndWidth,
+    whiskerEndSize,
 }: {
-    bandwidth: number
-    coordinates: Pick<BoxPlotSummary, 'values'>
-    layout: 'vertical' | 'horizontal'
-    whiskerWidth: number
-    whiskerColor: string | SpringValue<string>
-    whiskerEndWidth: number
+    boxPlot: ComputedBoxPlotSummary
+    layout: BoxPlotItemProps<RawDatum>['layout']
+    whiskerEndSize: BoxPlotItemProps<RawDatum>['whiskerEndSize']
 }) => {
-    const whiskerEndGap = ((1 - whiskerEndWidth) * bandwidth) / 2
-    if (layout === 'vertical') {
-        const y = coordinates.values[3]
-        return (
-            <>
-                <animated.line
-                    x1={to(bandwidth / 2, value => Math.max(value, 0))}
-                    x2={to(bandwidth / 2, value => Math.max(value, 0))}
-                    y1={to(0, v => v)}
-                    y2={to(coordinates.values[4] - y, value => value)}
-                    strokeWidth={whiskerWidth}
-                    stroke={whiskerColor}
-                />
-                <animated.line
-                    x1={to(bandwidth / 2, value => Math.max(value, 0))}
-                    x2={to(bandwidth / 2, value => Math.max(value, 0))}
-                    y1={to(coordinates.values[1] - y, v => v)}
-                    y2={to(coordinates.values[0] - y, v => v)}
-                    strokeWidth={whiskerWidth}
-                    stroke={whiskerColor}
-                />
-                {whiskerEndWidth > 0 ? (
-                    <>
-                        <animated.line
-                            x1={to(whiskerEndGap, value => Math.max(value, 0))}
-                            x2={to(bandwidth - whiskerEndGap, value => Math.max(value, 0))}
-                            y1={to(coordinates.values[0] - y, v => v)}
-                            y2={to(coordinates.values[0] - y, v => v)}
-                            strokeWidth={whiskerWidth}
-                            stroke={whiskerColor}
-                        />
-                        <animated.line
-                            x1={to(whiskerEndGap, value => Math.max(value, 0))}
-                            x2={to(bandwidth - whiskerEndGap, value => Math.max(value, 0))}
-                            y1={to(coordinates.values[4] - y, v => v)}
-                            y2={to(coordinates.values[4] - y, v => v)}
-                            strokeWidth={whiskerWidth}
-                            stroke={whiskerColor}
-                        />
-                    </>
-                ) : null}
-            </>
-        )
-    } else {
-        const x = coordinates.values[1]
-        return (
-            <>
-                <animated.line
-                    y1={to(bandwidth / 2, value => Math.max(value, 0))}
-                    y2={to(bandwidth / 2, value => Math.max(value, 0))}
-                    x1={to(0, v => v)}
-                    x2={to(coordinates.values[0] - x, value => value)}
-                    strokeWidth={whiskerWidth}
-                    stroke={whiskerColor}
-                />
-                <animated.line
-                    y1={to(bandwidth / 2, value => Math.max(value, 0))}
-                    y2={to(bandwidth / 2, value => Math.max(value, 0))}
-                    x1={to(coordinates.values[3] - x, v => v)}
-                    x2={to(coordinates.values[4] - x, v => v)}
-                    strokeWidth={whiskerWidth}
-                    stroke={whiskerColor}
-                />
-                {whiskerEndWidth > 0 ? (
-                    <>
-                        <animated.line
-                            y1={to(whiskerEndGap, value => Math.max(value, 0))}
-                            y2={to(bandwidth - whiskerEndGap, value => Math.max(value, 0))}
-                            x1={to(coordinates.values[0] - x, v => v)}
-                            x2={to(coordinates.values[0] - x, v => v)}
-                            strokeWidth={whiskerWidth}
-                            stroke={whiskerColor}
-                        />
-                        <animated.line
-                            y1={to(whiskerEndGap, value => Math.max(value, 0))}
-                            y2={to(bandwidth - whiskerEndGap, value => Math.max(value, 0))}
-                            x1={to(coordinates.values[4] - x, v => v)}
-                            x2={to(coordinates.values[4] - x, v => v)}
-                            strokeWidth={whiskerWidth}
-                            stroke={whiskerColor}
-                        />
-                    </>
-                ) : null}
-            </>
-        )
+    const vertical = layout === 'vertical'
+    const bandwidth = vertical ? boxPlot.width : boxPlot.height
+    const hb = bandwidth / 2
+    const coords = boxPlot.coordinates.values
+    const end1 = ((1 - whiskerEndSize) * bandwidth) / 2
+    const end2 = bandwidth - end1
+
+    // median
+    const medianCoordinates = vertical
+        ? { x1: 0, x2: bandwidth, y1: coords[2] - coords[3], y2: coords[2] - coords[3] }
+        : { x1: coords[3] - coords[2], x2: coords[3] - coords[2], y1: 0, y2: bandwidth }
+    // main whiskers orthogonal to the box
+    const topWhiskerCoordinates = vertical
+        ? { x1: hb, x2: hb, y1: 0, y2: coords[4] - coords[3] }
+        : { x1: coords[3] - coords[1], x2: coords[4] - coords[1], y1: hb, y2: hb }
+    const bottomWhiskerCoordinates = vertical
+        ? { x1: hb, x2: hb, y1: coords[1] - coords[3], y2: coords[0] - coords[3] }
+        : { x1: 0, x2: coords[0] - coords[1], y1: hb, y2: hb }
+    // caps at the end of the main whiskers
+    const topWhiskerEndCoordinates = vertical
+        ? whiskerEndSize > 0
+            ? { x1: end1, x2: end2, y1: coords[4] - coords[3], y2: coords[4] - coords[3] }
+            : null
+        : whiskerEndSize > 0
+        ? { x1: coords[4] - coords[1], x2: coords[4] - coords[1], y1: end1, y2: end2 }
+        : null
+    const bottomWhiskerEndCoordinates = vertical
+        ? whiskerEndSize > 0
+            ? { x1: end1, x2: end2, y1: coords[0] - coords[3], y2: coords[0] - coords[3] }
+            : null
+        : whiskerEndSize > 0
+        ? { x1: coords[0] - coords[1], x2: coords[0] - coords[1], y1: end1, y2: end2 }
+        : null
+
+    return {
+        medianCoordinates,
+        topWhiskerCoordinates,
+        topWhiskerEndCoordinates,
+        bottomWhiskerCoordinates,
+        bottomWhiskerEndCoordinates,
     }
 }
 
-const BoxPlotItemMedian = ({
-    bandwidth,
-    coordinates,
-    layout,
-    medianWidth,
-    medianColor,
+const BoxPlotItemWhisker = ({
+    whiskerCoordinates,
+    whiskerEndCoordinates,
+    thickness,
+    color,
 }: {
-    bandwidth: number
-    coordinates: Pick<BoxPlotSummary, 'values'>
-    layout: 'vertical' | 'horizontal'
-    medianWidth: number
-    medianColor: string | SpringValue<string>
+    whiskerCoordinates: LineCoordinates
+    whiskerEndCoordinates: LineCoordinates | null
+    thickness: number
+    color: string | SpringValue<string>
 }) => {
-    const median = coordinates.values[2]
-    if (layout === 'vertical') {
-        return (
+    const interpolator = (v: number) => v
+    return (
+        <>
             <animated.line
-                x1={to(0, value => Math.max(value, 0))}
-                x2={to(bandwidth, value => Math.max(value, 0))}
-                y1={to(median - coordinates.values[3], value => value)}
-                y2={to(median - coordinates.values[3], value => value)}
-                strokeWidth={medianWidth}
-                stroke={medianColor}
+                x1={to(whiskerCoordinates.x1, interpolator)}
+                x2={to(whiskerCoordinates.x2, interpolator)}
+                y1={to(whiskerCoordinates.y1, interpolator)}
+                y2={to(whiskerCoordinates.y2, interpolator)}
+                strokeWidth={thickness}
+                stroke={color}
             />
-        )
-    } else {
-        return (
-            <animated.line
-                y1={to(0, value => Math.max(value, 0))}
-                y2={to(bandwidth, value => Math.max(value, 0))}
-                x1={to(coordinates.values[3] - median, value => value)}
-                x2={to(coordinates.values[3] - median, value => value)}
-                strokeWidth={medianWidth}
-                stroke={medianColor}
-            />
-        )
-    }
+            {whiskerEndCoordinates ? (
+                <animated.line
+                    x1={to(whiskerEndCoordinates.x1, interpolator)}
+                    x2={to(whiskerEndCoordinates.x2, interpolator)}
+                    y1={to(whiskerEndCoordinates.y1, interpolator)}
+                    y2={to(whiskerEndCoordinates.y2, interpolator)}
+                    strokeWidth={thickness}
+                    stroke={color}
+                />
+            ) : null}
+        </>
+    )
 }
 
 export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
@@ -153,7 +106,7 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
     borderWidth,
     medianWidth,
     whiskerWidth,
-    whiskerEndWidth,
+    whiskerEndSize,
     isInteractive,
     onClick,
     onMouseEnter,
@@ -195,9 +148,16 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
         hideTooltip()
     }, [hideTooltip])
 
-    const bandwidth = layout === 'vertical' ? boxPlot.width : boxPlot.height
+    const {
+        medianCoordinates,
+        topWhiskerCoordinates,
+        topWhiskerEndCoordinates,
+        bottomWhiskerCoordinates,
+        bottomWhiskerEndCoordinates,
+    } = computeLineCoordinates({ boxPlot, layout, whiskerEndSize })
 
-    // draw two whiskers, the box, and median line
+    // draw the box, two whiskers with end lines, and median line
+    const interpolator = (v: number) => v
     return (
         <animated.g
             transform={transform}
@@ -212,29 +172,34 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
             aria-labelledby={ariaLabelledBy ? ariaLabelledBy(boxPlot) : undefined}
             aria-describedby={ariaDescribedBy ? ariaDescribedBy(boxPlot) : undefined}
         >
-            <BoxPlotItemWhiskers
-                bandwidth={bandwidth}
-                coordinates={boxPlot.coordinates}
-                layout={layout}
-                whiskerWidth={whiskerWidth}
-                whiskerColor={whiskerColor}
-                whiskerEndWidth={whiskerEndWidth}
-            />
             <animated.rect
-                width={to(width, value => Math.max(value, 0))}
-                height={to(height, value => Math.max(value, 0))}
+                width={to(width, interpolator)}
+                height={to(height, interpolator)}
                 rx={borderRadius}
                 ry={borderRadius}
                 fill={boxPlot.fill ?? color}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
             />
-            <BoxPlotItemMedian
-                bandwidth={bandwidth}
-                layout={layout}
-                coordinates={boxPlot.coordinates}
-                medianWidth={medianWidth}
-                medianColor={medianColor}
+            <BoxPlotItemWhisker
+                whiskerCoordinates={topWhiskerCoordinates}
+                whiskerEndCoordinates={topWhiskerEndCoordinates}
+                color={whiskerColor}
+                thickness={whiskerWidth}
+            />
+            <BoxPlotItemWhisker
+                whiskerCoordinates={bottomWhiskerCoordinates}
+                whiskerEndCoordinates={bottomWhiskerEndCoordinates}
+                color={whiskerColor}
+                thickness={whiskerWidth}
+            />
+            <animated.line
+                x1={to(medianCoordinates.x1, interpolator)}
+                x2={to(medianCoordinates.x2, interpolator)}
+                y1={to(medianCoordinates.y1, interpolator)}
+                y2={to(medianCoordinates.y2, interpolator)}
+                strokeWidth={medianWidth}
+                stroke={medianColor}
             />
         </animated.g>
     )

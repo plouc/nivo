@@ -48,7 +48,7 @@ export const defaultProps = {
     whiskerColor: {
         from: 'color',
     } as InheritedColorConfig<ComputedBoxPlotSummary>,
-    whiskerEndWidth: 0,
+    whiskerEndSize: 0,
 
     isInteractive: true,
     tooltip: BoxPlotTooltip,
