@@ -334,7 +334,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         layerById.markers = (
             <CartesianMarkers<number | string, number>
                 key="markers"
-                markers={markers as any[]}
+                markers={markers}
                 width={innerWidth}
                 height={innerHeight}
                 xScale={xScale as (v: number | string) => number}

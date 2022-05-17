@@ -232,7 +232,7 @@ export type BoxPlotSvgProps<RawDatum extends BoxPlotDatum> = Partial<BoxPlotComm
 
         boxPlotComponent: React.FC<BoxPlotItemProps<RawDatum>>
 
-        markers: CartesianMarkerProps[]
+        markers: CartesianMarkerProps<number | string>[]
 
         layers: BoxPlotLayer<RawDatum>[]
 
