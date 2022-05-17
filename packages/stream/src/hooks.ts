@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { area, stack as d3Stack } from 'd3-shape'
-import { scaleLinear, scalePoint } from 'd3-scale'
 import {
     useTheme,
     usePropertyAccessor,
@@ -22,6 +21,7 @@ import {
     StreamSliceData,
 } from './types'
 import { defaultProps } from './props'
+import { createLinearScale, createPointScale } from '@nivo/scales'
 
 export const useStream = <RawDatum extends StreamDatum>({
     width,
@@ -95,13 +95,18 @@ export const useStream = <RawDatum extends StreamDatum>({
         const minValue = Math.min(...allMin)
         const maxValue = Math.max(...allMax)
 
-        return [
-            layers,
-            scalePoint<number>()
-                .domain(Array.from({ length: data.length }, (_, i) => i))
-                .range([0, width]),
-            scaleLinear().domain([minValue, maxValue]).range([height, 0]),
-        ]
+        const xScale = createPointScale(
+            { type: 'point' },
+            { all: Array.from({ length: data.length }, (_, i) => i), min: 0, max: data.length },
+            width
+        )
+        const yScale = createLinearScale(
+            { type: 'linear' },
+            { all: [minValue, maxValue], min: minValue, max: maxValue },
+            height,
+            'y'
+        )
+        return [layers, xScale, yScale]
     }, [stack, data, width, height])
 
     const theme = useTheme()

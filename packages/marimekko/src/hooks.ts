@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { get } from 'lodash'
 import { stack as d3Stack, Stack, Series } from 'd3-shape'
-import { ScaleLinear, scaleLinear } from 'd3-scale'
 import { useValueFormatter, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
+import { createLinearScale, ScaleLinear } from '@nivo/scales'
 import {
     NormalizedDatum,
     ComputedDatum,
@@ -84,11 +84,11 @@ export const useDimensionsScale = (
     layout: Layout
 ) =>
     useMemo(() => {
-        if (layout === 'vertical') {
-            return scaleLinear().domain([max, min]).range([0, height])
-        }
-
-        return scaleLinear().domain([min, max]).range([0, width])
+        const scaleData = { all: [min, max], min, max }
+        const size = layout === 'vertical' ? height : width
+        const axis = layout === 'vertical' ? 'y' : 'x'
+        // here 'axis' determines whether the domain should be reversed or not
+        return createLinearScale({ type: 'linear', min, max }, scaleData, size, axis)
     }, [min, max, width, height, layout])
 
 export const useNormalizedData = <RawDatum>(
@@ -136,18 +136,11 @@ export const useThicknessScale = <RawDatum>({
 }) =>
     useMemo(() => {
         const totalValue = data.reduce((acc, datum) => acc + datum.value, 0)
-
-        const thicknessScale = scaleLinear().domain([0, totalValue])
-
+        const scaleData = { all: [0, totalValue], min: 0, max: totalValue }
         const totalPadding = 2 * outerPadding + (data.length - 1) * innerPadding
-
-        if (layout === 'vertical') {
-            thicknessScale.range([0, width - totalPadding])
-        } else {
-            thicknessScale.range([0, height - totalPadding])
-        }
-
-        return thicknessScale
+        const size = layout === 'vertical' ? width - totalPadding : height - totalPadding
+        // here 'axis' means that the scale will be going forward, i.e. not reversed
+        return createLinearScale({ type: 'linear' }, scaleData, size, 'x')
     }, [data, width, height, layout])
 
 export const useComputedData = <RawDatum>({
@@ -166,8 +159,8 @@ export const useComputedData = <RawDatum>({
     stacked: Series<RawDatum, string>[]
     dimensionIds: string[]
     valueFormat: DataProps<RawDatum>['valueFormat']
-    thicknessScale: ScaleLinear<number, number>
-    dimensionsScale: ScaleLinear<number, number>
+    thicknessScale: ScaleLinear<number>
+    dimensionsScale: ScaleLinear<number>
     colors: CommonProps<RawDatum>['colors']
     layout: Layout
     outerPadding: number
@@ -368,8 +361,8 @@ export const useLayerContext = <RawDatum>({
 }: {
     data: ComputedDatum<RawDatum>[]
     bars: BarDatum<RawDatum>[]
-    thicknessScale: ScaleLinear<number, number>
-    dimensionsScale: ScaleLinear<number, number>
+    thicknessScale: ScaleLinear<number>
+    dimensionsScale: ScaleLinear<number>
 }): CustomLayerProps<RawDatum> =>
     useMemo(
         () => ({

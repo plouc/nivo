@@ -1,4 +1,10 @@
-import { BarCanvasLayer, BarCanvasProps, BarDatum, ComputedBarDatum } from './types'
+import {
+    BarCanvasCustomLayerProps,
+    BarCanvasLayer,
+    BarCanvasProps,
+    BarDatum,
+    ComputedBarDatum,
+} from './types'
 import {
     Container,
     Margin,
@@ -130,10 +136,10 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         }
     },
 
-    enableLabel,
+    enableLabel = canvasDefaultProps.enableLabel,
     label,
-    labelSkipWidth,
-    labelSkipHeight,
+    labelSkipWidth = canvasDefaultProps.labelSkipWidth,
+    labelSkipHeight = canvasDefaultProps.labelSkipHeight,
     labelTextColor,
 
     colorBy,
@@ -231,48 +237,51 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     })
 
     // We use `any` here until we can figure out the best way to type xScale/yScale
-    const layerContext: any = useMemo(
+    const layerContext: BarCanvasCustomLayerProps<RawDatum> = useMemo(
         () => ({
             borderRadius,
             borderWidth,
-            enableLabel,
             isInteractive,
+            isFocusable: false,
             labelSkipWidth,
             labelSkipHeight,
+            margin,
+            width,
+            height,
+            innerWidth,
+            innerHeight,
+            bars,
+            legendData: legendsWithData,
+            enableLabel,
+            xScale,
+            yScale,
+            tooltip,
+            getTooltipLabel,
             onClick,
             onMouseEnter,
             onMouseLeave,
-            getTooltipLabel,
-            tooltip,
-            margin,
-            innerWidth,
-            innerHeight,
-            width,
-            height,
-            bars,
-            xScale,
-            yScale,
         }),
         [
             borderRadius,
             borderWidth,
-            enableLabel,
-            getTooltipLabel,
-            height,
-            innerHeight,
-            innerWidth,
             isInteractive,
-            labelSkipHeight,
             labelSkipWidth,
+            labelSkipHeight,
             margin,
-            onClick,
-            onMouseEnter,
-            onMouseLeave,
+            width,
+            height,
+            innerWidth,
+            innerHeight,
             bars,
+            legendsWithData,
+            enableLabel,
             xScale,
             yScale,
             tooltip,
-            width,
+            getTooltipLabel,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
         ]
     )
 
@@ -301,7 +310,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                         renderGridLinesToCanvas<string | number>(ctx, {
                             width,
                             height,
-                            scale: xScale as any,
+                            scale: xScale,
                             axis: 'x',
                             values: gridXValues,
                         })
@@ -311,7 +320,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                         renderGridLinesToCanvas<string | number>(ctx, {
                             width,
                             height,
-                            scale: yScale as any,
+                            scale: yScale,
                             axis: 'y',
                             values: gridYValues,
                         })
@@ -319,8 +328,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 }
             } else if (layer === 'axes') {
                 renderAxesToCanvas(ctx, {
-                    xScale: xScale as any,
-                    yScale: yScale as any,
+                    xScale: xScale,
+                    yScale: yScale,
                     width: innerWidth,
                     height: innerHeight,
                     top: axisTop,

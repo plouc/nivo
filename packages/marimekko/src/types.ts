@@ -6,7 +6,7 @@ import {
     stackOffsetSilhouette,
     stackOffsetWiggle,
 } from 'd3-shape'
-import { ScaleLinear } from 'd3-scale'
+import { ScaleLinear } from '@nivo/scales'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
@@ -70,8 +70,8 @@ export type LayerId = 'grid' | 'axes' | 'bars' | 'legends'
 export interface CustomLayerProps<RawDatum> {
     data: ComputedDatum<RawDatum>[]
     bars: BarDatum<RawDatum>[]
-    thicknessScale: ScaleLinear<number, number>
-    dimensionsScale: ScaleLinear<number, number>
+    thicknessScale: ScaleLinear<number>
+    dimensionsScale: ScaleLinear<number>
 }
 
 export type CustomLayer<RawDatum> = React.FC<CustomLayerProps<RawDatum>>

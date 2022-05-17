@@ -128,7 +128,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                     renderGridLinesToCanvas<RawDatum['x']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: xScale as any,
+                        scale: xScale,
                         axis: 'x',
                         values: gridXValues,
                     })
@@ -137,7 +137,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                     renderGridLinesToCanvas<RawDatum['y']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: yScale as any,
+                        scale: yScale,
                         axis: 'y',
                         values: gridYValues,
                     })
@@ -148,8 +148,8 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                 })
             } else if (layer === 'axes') {
                 renderAxesToCanvas<RawDatum['x'], RawDatum['y']>(ctx, {
-                    xScale: xScale as any,
-                    yScale: yScale as any,
+                    xScale: xScale,
+                    yScale: yScale,
                     width: innerWidth,
                     height: innerHeight,
                     top: axisTop as CanvasAxisProps<RawDatum['x']>,
