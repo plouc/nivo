@@ -367,7 +367,6 @@ export const MarkersAndAnnotations = () => (
                 noteTextOffset: 0,
                 noteWidth: 0,
                 note: 'an annotation',
-                size: 10,
             },
         ]}
         legends={[
