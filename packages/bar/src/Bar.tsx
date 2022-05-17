@@ -1,6 +1,13 @@
 import { Axes, Grid } from '@nivo/axes'
 import { BarAnnotations } from './BarAnnotations'
-import { BarDatum, BarLayer, BarLayerId, BarSvgProps, ComputedBarDatumWithValue } from './types'
+import {
+    BarCustomLayerProps,
+    BarDatum,
+    BarLayer,
+    BarLayerId,
+    BarSvgProps,
+    ComputedBarDatumWithValue,
+} from './types'
 import { BarLegends } from './BarLegends'
 import {
     CartesianMarkers,
@@ -54,10 +61,10 @@ const InnerBar = <RawDatum extends BarDatum>({
     layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
 
-    enableLabel,
+    enableLabel = svgDefaultProps.enableLabel,
     label,
-    labelSkipWidth,
-    labelSkipHeight,
+    labelSkipWidth = svgDefaultProps.labelSkipWidth,
+    labelSkipHeight = svgDefaultProps.labelSkipHeight,
     labelTextColor,
 
     markers = svgDefaultProps.markers,
@@ -287,8 +294,8 @@ const InnerBar = <RawDatum extends BarDatum>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={xScale as any}
-                yScale={yScale as any}
+                xScale={xScale}
+                yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop}
@@ -321,8 +328,8 @@ const InnerBar = <RawDatum extends BarDatum>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? (xScale as any) : null}
-                yScale={enableGridY ? (yScale as any) : null}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
@@ -354,20 +361,43 @@ const InnerBar = <RawDatum extends BarDatum>({
         )
     }
 
-    // We use `any` here until we can figure out the best way to type xScale/yScale
-    const layerContext: any = useMemo(
+    const layerContext: BarCustomLayerProps<RawDatum> = useMemo(
         () => ({
             ...commonProps,
             margin,
-            innerWidth,
-            innerHeight,
             width,
             height,
+            innerWidth,
+            innerHeight,
             bars,
+            legendData: legendsWithData,
+            enableLabel,
             xScale,
             yScale,
+            tooltip,
+            getTooltipLabel,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
         }),
-        [commonProps, margin, innerWidth, innerHeight, width, height, bars, xScale, yScale]
+        [
+            commonProps,
+            margin,
+            width,
+            height,
+            innerWidth,
+            innerHeight,
+            bars,
+            legendsWithData,
+            enableLabel,
+            xScale,
+            yScale,
+            tooltip,
+            getTooltipLabel,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+        ]
     )
 
     return (
