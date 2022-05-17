@@ -1,19 +1,23 @@
 import { Annotation, useAnnotations } from '@nivo/annotations'
-import { BoxPlotAnnotationsProps } from './types'
+import { BoxPlotAnnotationsProps, ComputedBoxPlotSummary } from './types'
+
+const getPosition = (boxPlot: ComputedBoxPlotSummary) => ({
+    x: boxPlot.x + boxPlot.width / 2,
+    y: boxPlot.y + boxPlot.height / 2,
+})
+
+const getDimensions = ({ width, height }: { width: number; height: number }) => ({
+    width,
+    height,
+    size: Math.max(width, height),
+})
 
 export const BoxPlotAnnotations = ({ boxPlots, annotations }: BoxPlotAnnotationsProps) => {
     const boundAnnotations = useAnnotations({
         data: boxPlots,
         annotations,
-        getPosition: boxPlot => ({
-            x: boxPlot.x + boxPlot.width / 2,
-            y: boxPlot.y + boxPlot.height / 2,
-        }),
-        getDimensions: ({ height, width }) => ({
-            width,
-            height,
-            size: Math.max(width, height),
-        }),
+        getPosition,
+        getDimensions,
     })
 
     return (
