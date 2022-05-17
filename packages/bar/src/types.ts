@@ -14,7 +14,7 @@ import {
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Scale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
+import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
 export interface BarDatum {
@@ -97,7 +97,7 @@ export type ValueFormatter = (value: number) => string | number
 
 export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations'
 
-export interface BarCustomLayerProps<RawDatum>
+interface BarCustomLayerBaseProps<RawDatum>
     extends Pick<
             BarCommonProps<RawDatum>,
             | 'borderRadius'
@@ -108,24 +108,33 @@ export interface BarCustomLayerProps<RawDatum>
             | 'labelSkipWidth'
             | 'tooltip'
         >,
-        Dimensions,
-        BarHandlers<RawDatum, SVGRectElement> {
+        Dimensions {
     bars: ComputedBarDatum<RawDatum>[]
-    legendData: BarsWithHidden<RawDatum>
+    legendData: [BarLegendProps, LegendData[]][]
 
     margin: Margin
     innerWidth: number
     innerHeight: number
 
+    isFocusable: boolean
+
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
 
-    xScale: Scale<any, any>
-    yScale: Scale<any, any>
+    xScale: AnyScale
+    yScale: AnyScale
 }
+
+export interface BarCustomLayerProps<RawDatum>
+    extends BarCustomLayerBaseProps<RawDatum>,
+        BarHandlers<RawDatum, SVGRectElement> {}
+
+export interface BarCanvasCustomLayerProps<RawDatum>
+    extends BarCustomLayerBaseProps<RawDatum>,
+        BarHandlers<RawDatum, HTMLCanvasElement> {}
 
 export type BarCanvasCustomLayer<RawDatum> = (
     context: CanvasRenderingContext2D,
-    props: BarCustomLayerProps<RawDatum>
+    props: BarCanvasCustomLayerProps<RawDatum>
 ) => void
 export type BarCustomLayer<RawDatum> = React.FC<BarCustomLayerProps<RawDatum>>
 

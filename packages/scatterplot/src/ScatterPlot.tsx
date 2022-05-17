@@ -102,8 +102,8 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? (xScale as any) : null}
-                yScale={enableGridY ? (yScale as any) : null}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
@@ -114,8 +114,8 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={xScale as any}
-                yScale={yScale as any}
+                xScale={xScale}
+                yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop}
