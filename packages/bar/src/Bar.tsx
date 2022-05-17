@@ -19,7 +19,7 @@ import {
     useMotionConfig,
 } from '@nivo/core'
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { defaultProps, svgDefaultProps } from './props'
+import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
 import { useBar } from './hooks'
 
@@ -61,10 +61,10 @@ const InnerBar = <RawDatum extends BarDatum>({
     layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
 
-    enableLabel = defaultProps.enableLabel,
+    enableLabel = svgDefaultProps.enableLabel,
     label,
-    labelSkipWidth = defaultProps.labelSkipWidth,
-    labelSkipHeight = defaultProps.labelSkipHeight,
+    labelSkipWidth = svgDefaultProps.labelSkipWidth,
+    labelSkipHeight = svgDefaultProps.labelSkipHeight,
     labelTextColor,
 
     markers = svgDefaultProps.markers,

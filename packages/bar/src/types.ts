@@ -118,6 +118,8 @@ interface BarCustomLayerBaseProps<RawDatum>
 
     isFocusable: boolean
 
+    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
+
     xScale: AnyScale
     yScale: AnyScale
 }
