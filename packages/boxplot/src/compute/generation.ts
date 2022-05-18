@@ -43,6 +43,72 @@ const generateComputedBoxPlotSummaries = ({
     }
     const vertical = layout === 'vertical'
     return data.map(datum => {
+        const { group, subGroup, groupIndex, subGroupIndex, values } = datum
+        const indexCoordinate =
+            (indexScale(groups[groupIndex]) ?? 0) +
+            bandwidth * subGroupIndex +
+            innerPadding * subGroupIndex
+        const key = `${groupIndex}.${subGroupIndex}`
+        const coords = values.map(valueScale).map(v => v ?? 0)
+        const intervals = [0, 1, 2, 3].map(i => Math.abs(coords[i + 1] - coords[i]) ?? 0)
+        // top-left of rectangle and width/height depend on the layout
+        // (this conditional inside the loop is not ideal, but typical loops will be short)
+        const position = vertical
+            ? {
+                  x: indexCoordinate,
+                  y: valueScale(datum.values[3]) ?? 0,
+                  width: bandwidth,
+                  height: intervals[1] + intervals[2],
+              }
+            : {
+                  x: valueScale(datum.values[1]) ?? 0,
+                  y: indexCoordinate,
+                  width: intervals[1] + intervals[2],
+                  height: bandwidth,
+              }
+        return {
+            key,
+            group,
+            subGroup,
+            data: datum,
+            formatted: {
+                n: String(datum.n),
+                mean: formatValue(datum.mean),
+                extrema: datum.extrema.map(formatValue),
+                values: datum.values.map(formatValue),
+                quantiles: datum.quantiles.map(v => String(100 * v)),
+            },
+            ...position,
+            coordinates: {
+                index: indexCoordinate,
+                values: values.map(v => valueScale(v) ?? 0),
+            },
+            bandwidth,
+            color: getColor(datum),
+            label: getTooltipLabel(datum),
+            layout,
+        } as ComputedBoxPlotSummary
+    })
+}
+
+/**
+const generateComputedBoxPlotSummaries = ({
+    data,
+    getColor,
+    getTooltipLabel,
+    innerPadding = 0,
+    groups,
+    indexScale,
+    valueScale,
+    formatValue,
+    bandwidth,
+    layout,
+}: Params): ComputedBoxPlotSummary[] => {
+    if (bandwidth === 0) {
+        return Array<ComputedBoxPlotSummary>()
+    }
+    const vertical = layout === 'vertical'
+    return data.map(datum => {
         const { group, subGroup, groupIndex, subGroupIndex } = datum
         const indexCoordinate =
             (indexScale(groups[groupIndex]) ?? 0) +
@@ -90,6 +156,7 @@ const generateComputedBoxPlotSummaries = ({
         } as ComputedBoxPlotSummary
     })
 }
+**/
 
 export const generateBoxPlots = ({
     data,

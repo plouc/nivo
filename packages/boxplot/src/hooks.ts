@@ -1,9 +1,11 @@
 import { useMemo } from 'react'
+import { SpringConfig, useTransition } from '@react-spring/web'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { PropertyAccessor, usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
 import {
     BoxPlotCommonProps,
     BoxPlotDatum,
+    BoxPlotItemProps,
     BoxPlotSummary,
     ComputedBoxPlotSummary,
     DataProps,
@@ -191,4 +193,68 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
         getWhiskerColor,
         legendsData,
     }
+}
+
+export const useBoxPlotTransition = ({
+    boxPlots,
+    getBorderColor,
+    getMedianColor,
+    getWhiskerColor,
+    animate,
+    springConfig,
+}: {
+    boxPlots: ComputedBoxPlotSummary[]
+    getBorderColor: (d: ComputedBoxPlotSummary) => string
+    getMedianColor: (d: ComputedBoxPlotSummary) => string
+    getWhiskerColor: (d: ComputedBoxPlotSummary) => string
+    animate: boolean
+    springConfig: SpringConfig
+}) => {
+    // I couldn't get Spring to work with arrays, so this uses valueDistance0, valueDistance1, etc.
+    const getTransitionProps = (boxPlot: ComputedBoxPlotSummary) => ({
+        borderColor: getBorderColor(boxPlot) as string,
+        medianColor: getMedianColor(boxPlot) as string,
+        whiskerColor: getWhiskerColor(boxPlot) as string,
+        color: boxPlot.color,
+        // coordinates are computed as if to be drawn in vertical mode
+        valueInterval: Math.abs(boxPlot.coordinates.values[3] - boxPlot.coordinates.values[1]),
+        valueDistance0: boxPlot.coordinates.values[0] - boxPlot.coordinates.values[2],
+        valueDistance1: boxPlot.coordinates.values[1] - boxPlot.coordinates.values[2],
+        valueDistance3: boxPlot.coordinates.values[3] - boxPlot.coordinates.values[2],
+        valueDistance4: boxPlot.coordinates.values[4] - boxPlot.coordinates.values[2],
+        // translate to the midpoint of the median line
+        transform:
+            boxPlot.layout === 'vertical'
+                ? `translate(${boxPlot.x + boxPlot.width / 2}, ${boxPlot.coordinates.values[2]})`
+                : `translate(${boxPlot.coordinates.values[2]}, ${
+                      boxPlot.y + boxPlot.height / 2
+                  }) rotate(-90)`,
+    })
+
+    return useTransition<ComputedBoxPlotSummary, BoxPlotItemProps<BoxPlotDatum>['animatedProps']>(
+        boxPlots,
+        {
+            keys: boxPlot => boxPlot.key,
+            from: boxPlot => ({
+                ...getTransitionProps(boxPlot),
+                valueInterval: 0,
+                valueDistance0: 0,
+                valueDistance1: 0,
+                valueDistance3: 0,
+                valueDistance4: 0,
+            }),
+            enter: boxPlot => ({ ...getTransitionProps(boxPlot) }),
+            update: boxPlot => ({ ...getTransitionProps(boxPlot) }),
+            leave: boxPlot => ({
+                ...getTransitionProps(boxPlot),
+                valueInterval: 0,
+                valueDistance0: 0,
+                valueDistance1: 0,
+                valueDistance3: 0,
+                valueDistance4: 0,
+            }),
+            config: springConfig,
+            immediate: !animate,
+        }
+    )
 }
