@@ -461,8 +461,8 @@ export const CustomLegend = () => (
                     translateY: 0,
                     translateX: 100,
                     data: [
-                        { id: 'A', label: 'Custom', color: '#faa6ff' },
-                        { id: 'B', label: 'Legend', color: '#30bced' },
+                        { id: 'A', label: 'Look', color: '#faa6ff' },
+                        { id: 'B', label: "I'm custom", color: '#30bced' },
                     ],
                 },
             ]}
