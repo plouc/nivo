@@ -1,5 +1,4 @@
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { useTransition } from '@react-spring/web'
 import { Axes, Grid } from '@nivo/axes'
 import {
     CartesianMarkers,
@@ -18,10 +17,9 @@ import {
     BoxPlotLayer,
     BoxPlotLayerId,
     BoxPlotSvgProps,
-    ComputedBoxPlotSummary,
 } from './types'
 import { svgDefaultProps } from './props'
-import { useBoxPlot } from './hooks'
+import { useBoxPlot, useBoxPlotTransition } from './hooks'
 
 type InnerBoxPlotProps<RawDatum extends BoxPlotDatum> = Omit<
     BoxPlotSvgProps<RawDatum>,
@@ -145,72 +143,13 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         legends,
     })
 
-    const transition = useTransition<
-        ComputedBoxPlotSummary,
-        {
-            borderColor: string
-            medianColor: string
-            whiskerColor: string
-            color: string
-            height: number
-            opacity: number
-            transform: string
-            width: number
-        }
-    >(boxPlots, {
-        keys: boxPlot => boxPlot.key,
-        from: boxPlot => ({
-            borderColor: getBorderColor(boxPlot) as string,
-            medianColor: getMedianColor(boxPlot) as string,
-            whiskerColor: getWhiskerColor(boxPlot) as string,
-            color: boxPlot.color,
-            width: boxPlot.width,
-            height: 0,
-            transform: `translate(${boxPlot.x}, ${boxPlot.y + boxPlot.height})`,
-            ...(layout === 'vertical'
-                ? {}
-                : {
-                      height: boxPlot.height,
-                      transform: `translate(${boxPlot.x}, ${boxPlot.y})`,
-                      width: 0,
-                  }),
-        }),
-        enter: boxPlot => ({
-            borderColor: getBorderColor(boxPlot) as string,
-            medianColor: getMedianColor(boxPlot) as string,
-            whiskerColor: getWhiskerColor(boxPlot) as string,
-            color: boxPlot.color,
-            width: boxPlot.width,
-            height: boxPlot.height,
-            transform: `translate(${boxPlot.x}, ${boxPlot.y})`,
-        }),
-        update: boxPlot => ({
-            borderColor: getBorderColor(boxPlot) as string,
-            medianColor: getMedianColor(boxPlot) as string,
-            whiskerColor: getWhiskerColor(boxPlot) as string,
-            color: boxPlot.color,
-            width: boxPlot.width,
-            height: boxPlot.height,
-            transform: `translate(${boxPlot.x}, ${boxPlot.y})`,
-        }),
-        leave: boxPlot => ({
-            borderColor: getBorderColor(boxPlot) as string,
-            medianColor: getMedianColor(boxPlot) as string,
-            whiskerColor: getWhiskerColor(boxPlot) as string,
-            color: boxPlot.color,
-            width: boxPlot.width,
-            height: 0,
-            transform: `translate(${boxPlot.x}, ${boxPlot.y + boxPlot.height})`,
-            ...(layout === 'vertical'
-                ? {}
-                : {
-                      height: boxPlot.height,
-                      transform: `translate(${boxPlot.x}, ${boxPlot.y})`,
-                      width: 0,
-                  }),
-        }),
-        config: springConfig,
-        immediate: !animate,
+    const transition = useBoxPlotTransition({
+        boxPlots,
+        getBorderColor,
+        getMedianColor,
+        getWhiskerColor,
+        animate,
+        springConfig,
     })
 
     const commonProps = useMemo(
@@ -293,12 +232,12 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     if (layers.includes('boxPlots')) {
         layerById.boxPlots = (
             <Fragment key="boxPlots">
-                {transition((style, boxPlot) =>
+                {transition((animatedProps, boxPlot) =>
                     createElement(boxPlotComponent, {
                         ...commonProps,
                         boxPlot,
                         layout,
-                        style,
+                        animatedProps,
                     })
                 )}
             </Fragment>
@@ -346,6 +285,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     const layerContext: BoxPlotCustomLayerProps<RawDatum> = useMemo(
         () => ({
             ...commonProps,
+            layout,
             margin,
             width,
             height,
@@ -364,6 +304,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         }),
         [
             commonProps,
+            layout,
             margin,
             width,
             height,

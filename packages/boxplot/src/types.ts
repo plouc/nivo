@@ -53,15 +53,23 @@ export type ComputedBoxPlotSummary = {
     group: string
     subGroup: string
     data: BoxPlotSummary
-    coordinates: Pick<BoxPlotSummary, 'mean' | 'extrema' | 'values'>
     formatted: BoxPlotSummaryFormatted
+    // (x, y) are the top-left corner of the boxplot rectangle
     x: number
     y: number
+    // sizes of the boxplot rectangle
     width: number
     height: number
+    // coordinates for boxplot features
+    coordinates: {
+        index: number
+        values: [number, number, number, number, number]
+    }
+    bandwidth: number
     color: string
     fill?: string
     label: string
+    layout: 'horizontal' | 'vertical'
 }
 
 // determines the format for the input data accepted by the <BoxPlot> component
@@ -83,6 +91,7 @@ export type BoxPlotLayerId = 'grid' | 'axes' | 'boxPlots' | 'markers' | 'legends
 export interface BoxPlotCustomLayerProps<RawDatum>
     extends Pick<
             BoxPlotCommonProps<RawDatum>,
+            | 'layout'
             | 'borderRadius'
             | 'borderWidth'
             | 'medianWidth'
@@ -124,17 +133,21 @@ export interface BoxPlotItemProps<RawDatum extends BoxPlotDatum>
         >,
         BoxPlotHandlers<SVGRectElement> {
     boxPlot: ComputedBoxPlotSummary
-    style: SpringValues<{
+    animatedProps: SpringValues<{
         color: string
         borderColor: string
         medianColor: string
         whiskerColor: string
-        height: number
         opacity: number
         transform: string
-        width: number
+        // valueInterval is the size of the inter-quartile range
+        valueInterval: number
+        // valueDistance are distances from median to box ends and whisker ends
+        valueDistance0: number
+        valueDistance1: number
+        valueDistance3: number
+        valueDistance4: number
     }>
-
     isFocusable: boolean
     ariaLabel?: BoxPlotSvgProps<RawDatum>['boxPlotAriaLabel']
     ariaLabelledBy?: BoxPlotSvgProps<RawDatum>['boxPlotAriaLabelledBy']
