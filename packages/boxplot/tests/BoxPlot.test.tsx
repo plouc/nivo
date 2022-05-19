@@ -1,6 +1,15 @@
 import { mount } from 'enzyme'
 import { BoxPlot, BoxPlotDatum, BoxPlotItemProps, BoxPlotTooltipProps } from '../src'
 import { BoxPlotCustomLayerProps, ComputedBoxPlotSummary } from '../dist/types'
+import { Globals, SpringValue } from '@react-spring/web'
+
+// beforeAll and afterAll - required to test spring values that change via animations
+beforeAll(() => {
+    Globals.assign({ skipAnimation: true })
+})
+afterAll(() => {
+    Globals.assign({ skipAnimation: false })
+})
 
 // data with three groups
 const dataGroups = [
@@ -181,7 +190,7 @@ describe('layout', () => {
         const legendText = legends.find('text')
         expect(legendText).toHaveLength(4)
         const expectedText = ['A', 'B', 'Another', 'Legend']
-        expectedText.map((text, i) => {
+        expectedText.forEach((text, i) => {
             expect(legendText.at(i).text()).toBe(text)
         })
     })
@@ -471,6 +480,49 @@ describe('interactivity', () => {
         expect(divText).toContain('Replaced 1')
         expect(divText).toContain('Replaced 2')
         expect(divText).not.toContain('Replaced 3')
+    })
+
+    it('supports setting opacity for active group and subgroup', () => {
+        const wrapper = mount(
+            <BoxPlot
+                {...minimalProps}
+                data={dataSubGroups}
+                subGroupBy="type"
+                opacity={0.8}
+                activeOpacity={1}
+                inactiveOpacity={0.2}
+            />
+        )
+        const ids = ['boxplot.0.0', 'boxplot.0.1', 'boxplot.1.0', 'boxplot.1.1']
+        ids.forEach(id => {
+            const item = wrapper.find(`g[data-key='${id}']`).parent()
+            expect(item.prop<SpringValue<number>>('opacity').get()).toEqual(0.8)
+        })
+        // mouse on group Alpha, type B -> expect group Beta, type A to be inactive
+        wrapper.find("g[data-key='boxplot.0.1']").simulate('mouseenter')
+        let expectedInactive = 'boxplot.1.0'
+        ids.forEach(id => {
+            const item = wrapper.find(`g[data-key='${id}']`).parent()
+            const opacity = item.prop('opacity').get()
+            if (id === expectedInactive) {
+                expect(opacity).toEqual(0.2)
+            } else {
+                expect(opacity).toEqual(1)
+            }
+        })
+        // mouse to group Beta, type A -> expect group Alpha, type B to be inactive
+        wrapper.find("g[data-key='boxplot.0.1']").simulate('mouseleave')
+        wrapper.find("g[data-key='boxplot.1.0']").simulate('mouseenter')
+        expectedInactive = 'boxplot.0.1'
+        ids.forEach(id => {
+            const item = wrapper.find(`g[data-key='${id}']`).parent()
+            const opacity = item.prop('opacity').get()
+            if (id === expectedInactive) {
+                expect(opacity).toEqual(0.2)
+            } else {
+                expect(opacity).toEqual(1)
+            }
+        })
     })
 })
 

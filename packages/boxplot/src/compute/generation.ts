@@ -1,4 +1,3 @@
-import { OrdinalColorScale } from '@nivo/colors'
 import {
     Scale,
     ScaleBand,
@@ -15,7 +14,6 @@ import { getIndexScale } from './common'
 type Params = {
     data: BoxPlotSummary[]
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<BoxPlotSummary>
     getTooltipLabel: (datum: BoxPlotSummary) => string
     innerPadding: number
     groups: string[]
@@ -28,7 +26,6 @@ type Params = {
 
 const generateComputedBoxPlotSummaries = ({
     data,
-    getColor,
     getTooltipLabel,
     innerPadding = 0,
     groups,
@@ -84,79 +81,11 @@ const generateComputedBoxPlotSummaries = ({
                 values: values.map(v => valueScale(v) ?? 0),
             },
             bandwidth,
-            color: getColor(datum),
             label: getTooltipLabel(datum),
             layout,
         } as ComputedBoxPlotSummary
     })
 }
-
-/**
-const generateComputedBoxPlotSummaries = ({
-    data,
-    getColor,
-    getTooltipLabel,
-    innerPadding = 0,
-    groups,
-    indexScale,
-    valueScale,
-    formatValue,
-    bandwidth,
-    layout,
-}: Params): ComputedBoxPlotSummary[] => {
-    if (bandwidth === 0) {
-        return Array<ComputedBoxPlotSummary>()
-    }
-    const vertical = layout === 'vertical'
-    return data.map(datum => {
-        const { group, subGroup, groupIndex, subGroupIndex } = datum
-        const indexCoordinate =
-            (indexScale(groups[groupIndex]) ?? 0) +
-            bandwidth * subGroupIndex +
-            innerPadding * subGroupIndex
-        const key = `${groupIndex}.${subGroupIndex}`
-        const height = Math.abs(
-            (valueScale(datum.values[3]) ?? 0) - (valueScale(datum.values[1]) ?? 0)
-        )
-        // top-left x/y of rectangle and width/height depend on the layout
-        // (the conditional inside the loop is not ideal, but typical loops will be short)
-        const position = vertical
-            ? {
-                  x: indexCoordinate,
-                  y: valueScale(datum.values[3]) ?? 0,
-                  width: bandwidth,
-                  height: height,
-              }
-            : {
-                  x: valueScale(datum.values[1]) ?? 0,
-                  y: indexCoordinate,
-                  width: height,
-                  height: bandwidth,
-              }
-        return {
-            key,
-            group,
-            subGroup,
-            data: datum,
-            coordinates: {
-                mean: valueScale(datum.mean) ?? 0,
-                extrema: datum.extrema.map(v => valueScale(v) ?? 0),
-                values: datum.values.map(v => valueScale(v) ?? 0),
-            },
-            formatted: {
-                n: String(datum.n),
-                mean: formatValue(datum.mean),
-                extrema: datum.extrema.map(formatValue),
-                values: datum.values.map(formatValue),
-                quantiles: datum.quantiles.map(v => String(100 * v)),
-            },
-            ...position,
-            color: getColor(datum),
-            label: getTooltipLabel(datum),
-        } as ComputedBoxPlotSummary
-    })
-}
-**/
 
 export const generateBoxPlots = ({
     data,
@@ -168,7 +97,6 @@ export const generateBoxPlots = ({
     maxValue,
     width,
     height,
-    getColor,
     padding,
     innerPadding,
     valueScale: valueScaleConfig,
@@ -184,7 +112,6 @@ export const generateBoxPlots = ({
     maxValue: 'auto' | number
     width: number
     height: number
-    getColor: OrdinalColorScale<BoxPlotSummary>
     padding: number
     innerPadding: number
     valueScale: ScaleLinearSpec | ScaleLogSpec | ScaleSymlogSpec | ScaleTimeSpec
@@ -220,7 +147,6 @@ export const generateBoxPlots = ({
 
     const params = {
         data,
-        getColor,
         groups,
         subGroups,
         getTooltipLabel,

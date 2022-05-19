@@ -28,26 +28,30 @@ type InnerBoxPlotProps<RawDatum extends BoxPlotDatum> = Omit<
 
 const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     data,
-    value,
-    groupBy,
-    groups,
-    subGroupBy,
-    subGroups,
-    quantiles,
+    value = svgDefaultProps.value,
+    groupBy = svgDefaultProps.groupBy,
+    groups = svgDefaultProps.groups,
+    subGroupBy = svgDefaultProps.subGroupBy,
+    subGroups = svgDefaultProps.subGroups,
+    quantiles = svgDefaultProps.quantiles,
 
     margin: partialMargin,
     width,
     height,
 
     layout = svgDefaultProps.layout,
-    minValue,
-    maxValue,
+    minValue = svgDefaultProps.minValue,
+    maxValue = svgDefaultProps.maxValue,
 
-    valueScale,
-    indexScale,
+    valueScale = svgDefaultProps.valueScale,
+    indexScale = svgDefaultProps.indexScale,
 
     padding = svgDefaultProps.padding,
     innerPadding = svgDefaultProps.innerPadding,
+
+    opacity = svgDefaultProps.opacity,
+    activeOpacity = svgDefaultProps.activeOpacity,
+    inactiveOpacity = svgDefaultProps.inactiveOpacity,
 
     axisTop,
     axisRight,
@@ -77,7 +81,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     markers = svgDefaultProps.markers,
 
     legendLabel,
-    tooltipLabel,
+    tooltipLabel = svgDefaultProps.tooltipLabel,
 
     valueFormat,
 
@@ -115,6 +119,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         getMedianColor,
         getWhiskerColor,
         legendsData,
+        activeItem,
+        setActiveItem,
     } = useBoxPlot<RawDatum>({
         data,
         value,
@@ -134,6 +140,9 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
         innerPadding,
         colorBy,
         colors,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
         borderColor,
         medianColor,
         whiskerColor,
@@ -171,6 +180,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             ariaLabel: boxPlotAriaLabel,
             ariaLabelledBy: boxPlotAriaLabelledBy,
             ariaDescribedBy: boxPlotAriaDescribedBy,
+            activeItem,
+            setActiveItem,
         }),
         [
             borderRadius,
@@ -190,6 +201,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             boxPlotAriaLabel,
             boxPlotAriaLabelledBy,
             boxPlotAriaDescribedBy,
+            activeItem,
+            setActiveItem,
         ]
     )
 

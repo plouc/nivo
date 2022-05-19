@@ -48,6 +48,7 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
         medianColor,
         whiskerColor,
         color,
+        opacity,
         transform,
         valueInterval,
         valueDistance0,
@@ -64,6 +65,7 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
     onClick,
     onMouseEnter,
     onMouseLeave,
+    setActiveItem,
     tooltip,
     isFocusable,
     ariaLabel,
@@ -91,15 +93,17 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
         (event: MouseEvent<SVGRectElement>) => {
             onMouseEnter?.(boxPlot, event)
             showTooltipFromEvent(renderTooltip(), event)
+            setActiveItem(boxPlot)
         },
-        [boxPlot, onMouseEnter, showTooltipFromEvent, renderTooltip]
+        [boxPlot, onMouseEnter, showTooltipFromEvent, renderTooltip, setActiveItem]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
             onMouseLeave?.(boxPlot, event)
             hideTooltip()
+            setActiveItem(null)
         },
-        [boxPlot, hideTooltip, onMouseLeave]
+        [boxPlot, hideTooltip, onMouseLeave, setActiveItem]
     )
     const handleBlur = useCallback(() => {
         hideTooltip()
@@ -107,7 +111,9 @@ export const BoxPlotItem = <RawDatum extends BoxPlotDatum>({
 
     return (
         <animated.g
+            data-key={`boxplot.${boxPlot.key}`}
             transform={transform}
+            opacity={opacity}
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}
             onMouseMove={isInteractive ? handleTooltip : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}

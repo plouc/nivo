@@ -48,7 +48,7 @@ export interface BoxPlotSummaryFormatted {
     mean: string
 }
 
-export type ComputedBoxPlotSummary = {
+export interface ComputedBoxPlotSummary {
     key: string
     group: string
     subGroup: string
@@ -66,10 +66,13 @@ export type ComputedBoxPlotSummary = {
         values: [number, number, number, number, number]
     }
     bandwidth: number
-    color: string
-    fill?: string
     label: string
     layout: 'horizontal' | 'vertical'
+    // styling is optional
+    // (this allows objects to be defined with just data, and styled later)
+    color?: string
+    opacity?: number
+    fill?: string
 }
 
 // determines the format for the input data accepted by the <BoxPlot> component
@@ -149,6 +152,7 @@ export interface BoxPlotItemProps<RawDatum extends BoxPlotDatum>
         valueDistance4: number
     }>
     isFocusable: boolean
+    setActiveItem: (datum: ComputedBoxPlotSummary | null) => void
     ariaLabel?: BoxPlotSvgProps<RawDatum>['boxPlotAriaLabel']
     ariaLabelledBy?: BoxPlotSvgProps<RawDatum>['boxPlotAriaLabelledBy']
     ariaDescribedBy?: BoxPlotSvgProps<RawDatum>['boxPlotAriaDescribedBy']
@@ -191,8 +195,12 @@ export type BoxPlotCommonProps<RawDatum> = {
     minValue: 'auto' | number
 
     margin?: Box
-    innerPadding: number
     padding: number
+    innerPadding: number
+
+    opacity: number
+    activeOpacity: number
+    inactiveOpacity: number
 
     valueScale: ScaleLinearSpec | ScaleLogSpec | ScaleSymlogSpec | ScaleTimeSpec
     indexScale: ScaleBandSpec
