@@ -24,6 +24,10 @@ export const defaultProps = {
     padding: 0.1,
     innerPadding: 6,
 
+    opacity: 1,
+    activeOpacity: 1,
+    inactiveOpacity: 0.25,
+
     axisBottom: {},
     axisLeft: {},
     enableGridX: false,

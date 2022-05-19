@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { SpringConfig, useTransition } from '@react-spring/web'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { PropertyAccessor, usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
@@ -29,57 +29,65 @@ export const useLevels = <RawDatum extends BoxPlotDatum>(
 
 export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
     data,
-    value = defaultProps.value,
-    groupBy = defaultProps.groupBy,
+    value,
+    groupBy,
     groups = defaultProps.groups,
     subGroupBy = defaultProps.subGroupBy,
     subGroups = defaultProps.subGroups,
     quantiles = defaultProps.quantiles,
     width,
     height,
-    layout = defaultProps.layout,
-    minValue = defaultProps.minValue,
-    maxValue = defaultProps.maxValue,
+    layout,
+    minValue,
+    maxValue,
     valueScale = defaultProps.valueScale,
     indexScale = defaultProps.indexScale,
     padding = defaultProps.padding,
     innerPadding = defaultProps.innerPadding,
     colorBy = defaultProps.colorBy,
     colors = defaultProps.colors,
+    opacity,
+    activeOpacity,
+    inactiveOpacity,
     borderColor,
     medianColor,
     whiskerColor,
     legendLabel,
-    tooltipLabel = defaultProps.tooltipLabel,
+    tooltipLabel,
     valueFormat = defaultProps.valueFormat,
     legends = defaultProps.legends,
 }: {
     data: DataProps<RawDatum>['data']
-    value?: BoxPlotCommonProps<RawDatum>['value']
-    groupBy?: BoxPlotCommonProps<RawDatum>['groupBy']
-    groups?: BoxPlotCommonProps<RawDatum>['groups']
-    subGroupBy?: BoxPlotCommonProps<RawDatum>['subGroupBy']
-    subGroups?: BoxPlotCommonProps<RawDatum>['subGroups']
-    quantiles?: BoxPlotCommonProps<RawDatum>['quantiles']
     width: number
     height: number
-    layout?: BoxPlotCommonProps<RawDatum>['layout']
-    minValue?: BoxPlotCommonProps<RawDatum>['minValue']
-    maxValue?: BoxPlotCommonProps<RawDatum>['maxValue']
-    valueScale?: BoxPlotCommonProps<RawDatum>['valueScale']
-    indexScale?: BoxPlotCommonProps<RawDatum>['indexScale']
-    padding?: BoxPlotCommonProps<RawDatum>['padding']
-    innerPadding?: BoxPlotCommonProps<RawDatum>['innerPadding']
-    colorBy: BoxPlotCommonProps<RawDatum>['colorBy']
-    colors: BoxPlotCommonProps<RawDatum>['colors']
-    borderColor: BoxPlotCommonProps<RawDatum>['borderColor']
-    medianColor: BoxPlotCommonProps<RawDatum>['medianColor']
-    whiskerColor: BoxPlotCommonProps<RawDatum>['whiskerColor']
-    legendLabel?: BoxPlotCommonProps<RawDatum>['legendLabel']
-    tooltipLabel?: BoxPlotCommonProps<RawDatum>['tooltipLabel']
-    valueFormat?: BoxPlotCommonProps<RawDatum>['valueFormat']
-    legends?: BoxPlotCommonProps<RawDatum>['legends']
-}) => {
+} & Pick<
+    BoxPlotCommonProps<RawDatum>,
+    | 'value'
+    | 'groupBy'
+    | 'groups'
+    | 'subGroupBy'
+    | 'subGroups'
+    | 'quantiles'
+    | 'layout'
+    | 'minValue'
+    | 'maxValue'
+    | 'valueScale'
+    | 'indexScale'
+    | 'padding'
+    | 'innerPadding'
+    | 'colorBy'
+    | 'colors'
+    | 'opacity'
+    | 'activeOpacity'
+    | 'inactiveOpacity'
+    | 'borderColor'
+    | 'medianColor'
+    | 'whiskerColor'
+    | 'legendLabel'
+    | 'tooltipLabel'
+    | 'valueFormat'
+    | 'legends'
+>) => {
     // ensure that groups and subGroups are defined
     groups = useLevels(groups, data, groupBy)
     subGroups = useLevels(subGroups, data, subGroupBy)
@@ -130,7 +138,11 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
         [dataStratified, getValue, groups, subGroups, nSubGroups, quantiles]
     )
 
-    const { boxPlots, xScale, yScale } = useMemo(
+    const {
+        boxPlots: unStyledBoxPlots,
+        xScale,
+        yScale,
+    } = useMemo(
         () =>
             generateBoxPlots({
                 layout,
@@ -142,7 +154,6 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
                 maxValue,
                 width,
                 height,
-                getColor,
                 padding,
                 innerPadding,
                 valueScale,
@@ -159,12 +170,47 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
             maxValue,
             width,
             height,
-            getColor,
             padding,
             innerPadding,
             valueScale,
             indexScale,
             getTooltipLabel,
+        ]
+    )
+
+    const [activeItem, setActiveItem] = useState<ComputedBoxPlotSummary | null>(null)
+    const activeKeys = useMemo(() => {
+        if (!activeItem) return []
+        const activeGroup = activeItem.group
+        const activeSubGroup = activeItem.subGroup
+        return unStyledBoxPlots
+            .filter(boxPlot => activeGroup === boxPlot.group || activeSubGroup === boxPlot.subGroup)
+            .map(boxPlot => boxPlot.key)
+    }, [unStyledBoxPlots, activeItem])
+
+    const boxPlots: ComputedBoxPlotSummary[] = useMemo(
+        () =>
+            unStyledBoxPlots.map(boxPlot => {
+                let computedOpacity = activeKeys.includes(boxPlot.key)
+                    ? activeOpacity
+                    : inactiveOpacity
+                if (!activeItem) {
+                    computedOpacity = opacity
+                }
+                return {
+                    ...boxPlot,
+                    color: getColor(boxPlot.data),
+                    opacity: computedOpacity,
+                }
+            }),
+        [
+            unStyledBoxPlots,
+            activeItem,
+            activeKeys,
+            opacity,
+            activeOpacity,
+            inactiveOpacity,
+            getColor,
         ]
     )
 
@@ -192,6 +238,8 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
         getMedianColor,
         getWhiskerColor,
         legendsData,
+        activeItem,
+        setActiveItem,
     }
 }
 
@@ -210,13 +258,12 @@ export const useBoxPlotTransition = ({
     animate: boolean
     springConfig: SpringConfig
 }) => {
-    // I couldn't get Spring to work with arrays, so this uses valueDistance0, valueDistance1, etc.
     const getTransitionProps = (boxPlot: ComputedBoxPlotSummary) => ({
         borderColor: getBorderColor(boxPlot) as string,
         medianColor: getMedianColor(boxPlot) as string,
         whiskerColor: getWhiskerColor(boxPlot) as string,
         color: boxPlot.color,
-        // coordinates are computed as if to be drawn in vertical mode
+        opacity: boxPlot.opacity,
         valueInterval: Math.abs(boxPlot.coordinates.values[3] - boxPlot.coordinates.values[1]),
         valueDistance0: boxPlot.coordinates.values[0] - boxPlot.coordinates.values[2],
         valueDistance1: boxPlot.coordinates.values[1] - boxPlot.coordinates.values[2],
