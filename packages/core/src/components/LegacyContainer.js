@@ -14,7 +14,7 @@ import {
     useTooltipHandlers,
     Tooltip,
 } from '@nivo/tooltip'
-import noop from '../lib/noop'
+import { noop } from '../lib/noop'
 import { ThemeProvider } from '../theming'
 import { MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'

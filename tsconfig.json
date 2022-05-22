@@ -19,5 +19,11 @@
     "composite": true,
     "declarationMap": true
   },
-  "include": ["./packages/*/index.d.ts"]
+  "include": [
+    "./packages/*/index.d.ts",
+    "./packages/*/src/*.ts",
+    "./packages/*/src/*.tsx",
+    "./packages/*/src/**/*.ts",
+    "./packages/*/src/**/*.tsx"
+  ]
 }

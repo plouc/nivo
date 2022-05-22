@@ -1,0 +1,21 @@
+import {
+    ScaleOrdinal as D3ScaleOrdinal,
+    ScaleSequential as D3ScaleSequential,
+} from 'd3-scale'
+
+export interface ColorScaleOrdinal<Input, Output> extends D3ScaleOrdinal<Input, Output> {
+    type: 'ordinal'
+}
+
+export interface ColorScaleSequential<Output> extends D3ScaleSequential<Output> {
+    type: 'sequential'
+}
+
+export interface ColorScaleTypeToColorScale<Input, Output> {
+    ordinal: ColorScaleOrdinal<Input, Output>
+    sequential: ColorScaleSequential<Output>
+}
+
+export type ColorScale<Input, Output> = ColorScaleTypeToColorScale<Input, Output>[keyof ColorScaleTypeToColorScale<Input, Output>]
+
+export type AnyColorScale = ColorScale<any, any>

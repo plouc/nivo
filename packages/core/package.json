@@ -17,7 +17,8 @@
     "README.md",
     "LICENSE.md",
     "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/recompose": "0.79.0",

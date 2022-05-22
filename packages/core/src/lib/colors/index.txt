@@ -1,0 +1,63 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+import isArray from 'lodash/isArray'
+import isString from 'lodash/isString'
+import { scaleOrdinal, scaleSequential } from 'd3-scale'
+import {ColorScaleOrdinal, ColorScaleSequential} from "./types";
+import {AnyScale} from "@nivo/scales";
+import { colorSchemes }from './ordinalScale'
+import {colorInterpolators} from "@nivo/colors";
+
+
+export const nivoCategoricalColors = () => getColorScale("nivo")
+
+const isColorSchemeId = (id: string | string[]): id is keyof typeof colorSchemes => {
+    if (isString(id)) {
+        return id in colorSchemes
+    }
+    return false
+}
+const isColorInterpolatorId = (id: string | string[]): id is keyof typeof colorInterpolators => {
+    if (isString(id)) {
+        return id in colorInterpolators
+    }
+    return false
+}
+
+export const getColorScale = (
+    colors: keyof typeof colorSchemes | keyof typeof colorInterpolators | string[] | string,
+    dataScale?: AnyScale
+) => {
+    if (isColorSchemeId(colors)) {
+        const scheme = colorSchemes[colors]
+        const scale = scaleOrdinal(scheme) as ColorScaleOrdinal<string, string>
+        scale.type = 'ordinal'
+        return scale
+    }
+    if (dataScale !== undefined && isColorInterpolatorId(colors)) {
+        const interpolator = colorInterpolators[colors]
+        const scale = scaleSequential(interpolator).domain(dataScale.domain()) as ColorScaleSequential<string>
+        scale.type = 'sequential'
+        return scale
+    }
+    if (isArray(colors)) {
+        const scale = scaleOrdinal(colors) as ColorScaleOrdinal<string, string>
+        scale.type = 'ordinal'
+        return scale
+    }
+    if (isString(colors)) {
+        const scale = scaleOrdinal([colors]) as ColorScaleOrdinal<string, string>
+        scale.type = 'ordinal'
+        return scale
+    }
+    throw new Error('invalid color spec')
+}
+
+export * from './quantize'
+export * from './types'
