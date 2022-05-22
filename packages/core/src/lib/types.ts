@@ -19,4 +19,9 @@ export type EngineToTextProps = {
     canvas: TextProps
 }
 
+export type MatchPredicate = '*' | ((d: Object) => boolean) | Object
 
+export type RuleSpec = {
+    id: string
+    match: MatchPredicate
+}

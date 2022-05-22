@@ -4,12 +4,15 @@ import pick from 'lodash/pick'
 import isEqual from 'lodash/isEqual'
 import get from 'lodash/get'
 import set from 'lodash/set'
-import { gradientTypes, patternTypes } from '../components/defs'
-import {ReactNode} from "react";
-const gradientKeys = Object.keys(gradientTypes)
-const patternKeys = Object.keys(patternTypes)
-
-type boolfun = (d: any) => boolean
+import {
+    DefSpec,
+    GradientSpec,
+    PatternSpec,
+    isDefSpec,
+    isPatternSpec,
+    isGradientSpec,
+} from '../components/defs'
+import { MatchPredicate, RuleSpec } from './types'
 
 /**
  * Check a node matches given def predicate.
@@ -19,7 +22,11 @@ type boolfun = (d: any) => boolean
  * @param {string}                 [dataKey] - Optional path to access node data
  * @returns {boolean}
  */
-export const isMatchingDef = (predicate: string | boolfun | Object, node: Object, dataKey?: string): boolean => {
+export const isMatchingDef = (
+    predicate: MatchPredicate,
+    node: Object,
+    dataKey?: string
+): boolean => {
     if (predicate === '*') {
         return true
     } else if (isFunction(predicate)) {
@@ -31,120 +38,131 @@ export const isMatchingDef = (predicate: string | boolfun | Object, node: Object
     return false
 }
 
+// Note: this function can have side effects on the prop 'node'
+const bindPattern = (
+    def: PatternSpec,
+    node: Object,
+    colorKey: string,
+    targetKey: string,
+    id: string
+): null | PatternSpec => {
+    if (def.background === 'inherit' || def.color === 'inherit') {
+        const nodeColor = get(node, colorKey)
+        let background = def.background
+        let color = def.color
+
+        let inheritedId = id
+        if (def.background === 'inherit') {
+            inheritedId = `${inheritedId}.bg.${nodeColor}`
+            background = nodeColor
+        }
+        if (def.color === 'inherit') {
+            inheritedId = `${inheritedId}.fg.${nodeColor}`
+            color = nodeColor
+        }
+
+        set(node, targetKey, `url(#${inheritedId})`)
+        return {
+            ...def,
+            id: inheritedId,
+            background,
+            color,
+        }
+    } else {
+        // do not generate new def as there's no inheritance involved
+        set(node, targetKey, `url(#${id})`)
+    }
+    return null
+}
+
+// Note: this function can have side effects on the prop 'node'
+const bindGradient = (
+    def: GradientSpec,
+    node: Object,
+    colorKey: string,
+    targetKey: string,
+    id: string
+): null | GradientSpec => {
+    const allColors = def.colors.map(({ color }) => color)
+
+    if (allColors.includes('inherit')) {
+        const nodeColor = get(node, colorKey)
+        let inheritedId = id
+        const inheritedDef = {
+            ...def,
+            colors: def.colors.map((colorStop, i) => {
+                if (colorStop.color !== 'inherit') return colorStop
+
+                inheritedId = `${inheritedId}.${i}.${nodeColor}`
+
+                return {
+                    ...colorStop,
+                    color: colorStop.color === 'inherit' ? nodeColor : colorStop.color,
+                }
+            }),
+        }
+        inheritedDef.id = inheritedId
+        set(node, targetKey, `url(#${inheritedId})`)
+        return inheritedDef
+    } else {
+        // do not generate new def as there's no inheritance involved
+        set(node, targetKey, `url(#${id})`)
+    }
+
+    return null
+}
+
 /**
- * Compute SVG defs.
+ * Apply SVG defs on a set of nodes, and return the defs that have been applied
  *
- * @param {Array.<Object>} defs               - Base SVG defs configs
- * @param {Array.<Object>} nodes              - Data nodes to apply defs on
- * @param {Array.<Object>} rules              - Rules used to conditionally apply defs on data nodes
- * @param {string}         [dataKey]          - Path to node data, used for rule object query based predicate
- * @param {string}         [colorKey='color'] - Node color path, required when inheritance is involved
- * @param {string}         [targetKey='fill'] - Node target property to apply def ID on
- * @returns {Array}
+ * Note: this function can have side effects on items in the array 'nodes'
  */
 export const bindDefs = (
-    defs: Object[],
-    nodes: ReactNode[],
-    rules: Object[],
+    defs: DefSpec[],
+    nodes: Object[],
+    rules: RuleSpec[],
     {
         dataKey,
         colorKey = 'color',
         targetKey = 'fill',
     }: {
-        dataKey?: string,
-        colorKey?: string,
+        dataKey?: string
+        colorKey?: string
         targetKey?: string
     } = {}
-) => {
-    let boundDefs: Object[] = []
+): DefSpec[] => {
+    let boundDefs: DefSpec[] = []
 
     // will hold generated variation ids,
     // to avoid generating multiple identical defs
-    const generatedIds = {}
+    const generatedIds = new Set()
 
     if (defs.length && nodes.length) {
         // first, add base defs
         boundDefs = [...defs]
 
-        nodes.forEach(node => {
-            for (let i = 0; i < rules.length; i++) {
-                const { id, match } = rules[i]
-                if (isMatchingDef(match, node, dataKey)) {
-                    const def = defs.find(({ id: defId }) => defId === id)
-                    if (def) {
-                        if (patternKeys.includes(def.type)) {
-                            if (def.background === 'inherit' || def.color === 'inherit') {
-                                const nodeColor = get(node, colorKey)
-                                let background = def.background
-                                let color = def.color
+        // find node-rule combinations
+        const hits = nodes
+            .map(node => {
+                return [node, rules.findIndex(({ match }) => isMatchingDef(match, node, dataKey))]
+            })
+            .filter(([_, i]) => i >= 0)
 
-                                let inheritedId = id
-                                if (def.background === 'inherit') {
-                                    inheritedId = `${inheritedId}.bg.${nodeColor}`
-                                    background = nodeColor
-                                }
-                                if (def.color === 'inherit') {
-                                    inheritedId = `${inheritedId}.fg.${nodeColor}`
-                                    color = nodeColor
-                                }
-
-                                set(node, targetKey, `url(#${inheritedId})`)
-                                if (!generatedIds[inheritedId]) {
-                                    boundDefs.push({
-                                        ...def,
-                                        id: inheritedId,
-                                        background,
-                                        color,
-                                    })
-                                    generatedIds[inheritedId] = 1
-                                }
-                            } else {
-                                // do not generate new def as there's no inheritance involved
-                                set(node, targetKey, `url(#${id})`)
-                            }
-                        } else if (gradientKeys.includes(def.type)) {
-                            const allColors = def.colors.map(({ color }) => color)
-
-                            if (allColors.includes('inherit')) {
-                                const nodeColor = get(node, colorKey)
-
-                                let inheritedId = id
-                                const inheritedDef = {
-                                    ...def,
-                                    colors: def.colors.map((colorStop, i) => {
-                                        if (colorStop.color !== 'inherit') return colorStop
-
-                                        inheritedId = `${inheritedId}.${i}.${nodeColor}`
-
-                                        return {
-                                            ...colorStop,
-                                            color:
-                                                colorStop.color === 'inherit'
-                                                    ? nodeColor
-                                                    : colorStop.color,
-                                        }
-                                    }),
-                                }
-                                inheritedDef.id = inheritedId
-
-                                set(node, targetKey, `url(#${inheritedId})`)
-                                if (!generatedIds[inheritedId]) {
-                                    boundDefs.push(inheritedDef)
-                                    generatedIds[inheritedId] = 1
-                                }
-                            } else {
-                                // do not generate new def as there's no inheritance involved
-                                set(node, targetKey, `url(#${id})`)
-                            }
-                        }
-                    }
-
-                    // break loop on first match
-                    break
-                }
+        // apply defs (this loop modifies nodes, boundDefs, generatedIds)
+        hits.forEach(([node, index]) => {
+            const id = rules[Number(index)].id
+            const def = defs.find(({ id: defId }) => defId === id)
+            let boundDef: DefSpec | null = null
+            if (isPatternSpec(def)) {
+                boundDef = bindPattern(def, node, colorKey, targetKey, id)
+            } else if (isGradientSpec(def)) {
+                boundDef = bindGradient(def, node, colorKey, targetKey, id)
+            }
+            if (isDefSpec(boundDef) && !generatedIds.has(boundDef.id)) {
+                boundDefs.push(boundDef)
+                generatedIds.add(boundDef.id)
             }
         })
     }
-
     return boundDefs
 }

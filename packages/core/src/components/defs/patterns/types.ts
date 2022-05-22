@@ -1,7 +1,3 @@
-import { PatternDots } from './PatternDots'
-import { PatternLines } from './PatternLines'
-import { PatternSquares } from './PatternSquares'
-
 export interface PatternDotsProps {
     id: string
     color: string
@@ -41,8 +37,10 @@ export interface PatternSquaresSpec extends PatternSquaresProps {
     type: 'patternSquares'
 }
 
-export const patternTypes = {
-    patternDots: PatternDots,
-    patternLines: PatternLines,
-    patternSquares: PatternSquares,
+export type PatternTypeToSpec = {
+    patternDots: PatternDotsSpec
+    patternLines: PatternLinesSpec
+    patternSquares: PatternSquaresSpec
 }
+
+export type PatternSpec = PatternTypeToSpec[keyof PatternTypeToSpec]

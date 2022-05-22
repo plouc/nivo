@@ -5,5 +5,5 @@ export const defaultMotionProps = {
     config: {
         tension: 170,
         friction: 26,
-    }
+    },
 }

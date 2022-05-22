@@ -23,7 +23,7 @@ export const DotsItem = memo(
 
         const { animate, config: springConfig } = useMotionConfig()
         const animatedProps = useSpring({
-            transform: 'translate('+x+','+y+')',
+            transform: 'translate(' + x + ',' + y + ')',
             config: springConfig,
             immediate: !animate,
         })

@@ -7,13 +7,28 @@
  * file that was distributed with this source code.
  */
 import { createElement, memo } from 'react'
-import { DefsProps } from './types'
-import { patternTypes } from './patterns'
-import { gradientTypes } from './gradients'
+import { DefSpec, DefsProps } from './types'
+import { PatternSpec, patternTypes } from './patterns'
+import { GradientSpec, gradientTypes } from './gradients'
 
 export const defsMapping = {
     ...gradientTypes,
     ...patternTypes,
+}
+
+export const isGradientSpec = (def: DefSpec | null | undefined): def is GradientSpec => {
+    if (!def) return false
+    return def.type in gradientTypes
+}
+
+export const isPatternSpec = (def: DefSpec | null | undefined): def is PatternSpec => {
+    if (!def) return false
+    return def.type in patternTypes
+}
+
+export const isDefSpec = (def: DefSpec | null | undefined): def is DefSpec => {
+    if (!def) return false
+    return true
 }
 
 export const Defs = memo(({ defs: definitions }: DefsProps) => {

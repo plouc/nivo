@@ -13,3 +13,9 @@ export interface LinearGradientProps {
 export interface LinearGradientSpec extends LinearGradientProps {
     type: 'linearGradient'
 }
+
+export type GradientTypeToSpec = {
+    linearGradient: LinearGradientSpec
+}
+
+export type GradientSpec = GradientTypeToSpec[keyof GradientTypeToSpec]

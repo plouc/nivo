@@ -17,7 +17,7 @@ export type MotionContextConfig = {
     stiffness: number
     damping: number
     config: Partial<MotionConfig>
-    [key: string]: any;
+    [key: string]: any
 }
 
 export type MotionContextProps = {

@@ -9,7 +9,7 @@
 import { createContext, useMemo } from 'react'
 import { isString } from 'lodash'
 import { config as presets } from '@react-spring/web'
-import {MotionConfig, MotionContextConfig, MotionProviderProps} from './types'
+import { MotionConfig, MotionContextConfig, MotionProviderProps } from './types'
 import { defaultMotionProps } from './props'
 
 export const MotionContext = createContext<MotionContextConfig>(defaultMotionProps)

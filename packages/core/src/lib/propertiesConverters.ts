@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 const isStr = (x?: string | Object): x is string => {
     return isString(x)
 }
-const isFun = (x?: string | ((d: Object) => string)): x is ((d: Object) => string) => {
+const isFun = (x?: string | ((d: Object) => string)): x is (d: Object) => string => {
     return isFunction(x)
 }
 

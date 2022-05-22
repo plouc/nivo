@@ -1,14 +1,8 @@
-import { gradientTypes } from './gradients'
-import { patternTypes } from './patterns'
+import { GradientSpec } from './gradients'
+import { PatternSpec } from './patterns'
 
-export const defsTypes = [...Object.keys(gradientTypes), ...Object.keys(patternTypes)]
-console.log('defsTypes: ' + defsTypes)
-
-export type DefType = {
-    id: string
-    type: typeof defsTypes[number]
-}
+export type DefSpec = GradientSpec | PatternSpec
 
 export interface DefsProps {
-    defs: DefType[]
+    defs: DefSpec[]
 }
