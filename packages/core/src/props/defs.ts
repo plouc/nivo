@@ -1,3 +1,5 @@
+/**
+
 import PropTypes from 'prop-types'
 
 export const defsPropTypes = {
@@ -14,3 +16,4 @@ export const defsPropTypes = {
         })
     ).isRequired,
 }
+**/
