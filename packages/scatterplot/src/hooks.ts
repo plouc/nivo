@@ -1,14 +1,17 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useValueFormatter, usePropertyAccessor } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
+import { LegendProps } from '@nivo/legends'
 import { useAnnotations } from '@nivo/annotations'
 import { computePoints, getNodeSizeGenerator } from './compute'
 import {
     ScatterPlotCommonProps,
     ScatterPlotDataProps,
     ScatterPlotDatum,
+    ScatterPlotLegendDatum,
     ScatterPlotNodeData,
+    ScatterPlotRawSerie,
 } from './types'
 
 const useNodeSize = <RawDatum extends ScatterPlotDatum>(
@@ -25,7 +28,10 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
     height,
     nodeId,
     nodeSize,
+    initialHiddenIds,
     colors,
+    legends,
+    legendLabel,
 }: {
     data: ScatterPlotDataProps<RawDatum>['data']
     xScaleSpec: ScatterPlotCommonProps<RawDatum>['xScale']
@@ -36,18 +42,28 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
     height: number
     nodeId: ScatterPlotCommonProps<RawDatum>['nodeId']
     nodeSize: ScatterPlotCommonProps<RawDatum>['nodeSize']
+    initialHiddenIds: ScatterPlotCommonProps<RawDatum>['initialHiddenIds']
     colors: ScatterPlotCommonProps<RawDatum>['colors']
+    legends: ScatterPlotCommonProps<RawDatum>['legends']
+    legendLabel: ScatterPlotCommonProps<RawDatum>['legendLabel']
 }) => {
+    const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
+    const toggleSerie = useCallback(id => {
+        setHiddenIds(state =>
+            state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
+        )
+    }, [])
+
     const { series, xScale, yScale } = useMemo(
         () =>
             computeXYScalesForSeries<{ id: string | number }, RawDatum>(
-                data,
+                data.filter(serie => !hiddenIds.includes(String(serie.id))),
                 xScaleSpec,
                 yScaleSpec,
                 width,
                 height
             ),
-        [data, xScaleSpec, yScaleSpec, width, height]
+        [data, hiddenIds, xScaleSpec, yScaleSpec, width, height]
     )
 
     const formatX = useValueFormatter(xFormat)
@@ -61,6 +77,9 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
     const getNodeSize = useNodeSize<RawDatum>(nodeSize)
 
     const getColor = useOrdinalColorScale(colors, 'serieId')
+    const getLegendLabel = usePropertyAccessor<ScatterPlotRawSerie<RawDatum>, string>(
+        legendLabel ?? 'id'
+    )
 
     const nodes: ScatterPlotNodeData<RawDatum>[] = useMemo(
         () =>
@@ -72,21 +91,39 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
         [rawNodes, getNodeSize, getColor]
     )
 
-    const legendData = useMemo(
+    const legendData: ScatterPlotLegendDatum[] = useMemo(
         () =>
-            series.map(serie => ({
-                id: serie.id,
-                label: serie.id,
-                color: getColor({ serieId: serie.id }),
-            })),
-        [series, getColor]
+            data.map(d => {
+                const hidden = hiddenIds.includes(String(d.id))
+                return {
+                    id: d.id,
+                    label: getLegendLabel(d),
+                    color: hidden ? '#000' : getColor({ serieId: d.id }),
+                    hidden: hidden,
+                }
+            }),
+        [data, hiddenIds, getLegendLabel, getColor]
+    )
+
+    const legendsData: [LegendProps, ScatterPlotLegendDatum[]][] = useMemo(
+        () =>
+            legends.map(legend => {
+                legend.data = legend.data?.map(d => {
+                    const hidden = hiddenIds.includes(String(d.id))
+                    const color = hidden ? '#000' : getColor({ serieId: d.id })
+                    return { ...d, color, hidden }
+                })
+                return [legend, legendData]
+            }),
+        [legends, hiddenIds, legendData, getColor]
     )
 
     return {
         xScale,
         yScale,
         nodes,
-        legendData,
+        legendsData,
+        toggleSerie,
     }
 }
 

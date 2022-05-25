@@ -663,6 +663,99 @@ describe('annotations', () => {
     })
 })
 
+describe('legends', () => {
+    // dataset with multiple series
+    const seriesA: TestDatum[] = sampleData.map(d => ({ ...d, y: 0 * d.x }))
+    const seriesB = seriesA.map(d => ({ ...d, y: 1 * d.x }))
+    const seriesC = seriesA.map(d => ({ ...d, y: 2 * d.x }))
+    const seriesD = seriesA.map(d => ({ ...d, y: 3 * d.x }))
+    const multipleSeriesData = [
+        { id: 'A', data: seriesA },
+        { id: 'B', data: seriesB },
+        { id: 'C', data: seriesC },
+        { id: 'D', data: seriesD },
+    ]
+
+    it('generates a default legend', () => {
+        const wrapper = mount(
+            <ScatterPlot<TestDatum>
+                {...baseProps}
+                data={multipleSeriesData}
+                legends={[
+                    {
+                        anchor: 'bottom',
+                        direction: 'row',
+                        itemHeight: 20,
+                        itemWidth: 80,
+                        translateY: 70,
+                    },
+                ]}
+            />
+        )
+        const legend = wrapper.find('ScatterPlotLegends')
+        expect(legend).toHaveLength(1)
+        const labels = legend.find('text')
+        expect(labels).toHaveLength(4)
+    })
+
+    it('generates a custom legend', () => {
+        const customLabels = ['Alpha', 'Beta', 'Gamma', 'Delta']
+        const wrapper = mount(
+            <ScatterPlot<TestDatum>
+                {...baseProps}
+                data={multipleSeriesData}
+                legends={[
+                    {
+                        anchor: 'bottom',
+                        direction: 'row',
+                        itemHeight: 20,
+                        itemWidth: 80,
+                        translateY: 70,
+                        data: [
+                            {
+                                id: 'A',
+                                label: customLabels[0],
+                                color: '#990000',
+                            },
+                            {
+                                id: 'B',
+                                label: customLabels[1],
+                                color: '#ff0000',
+                            },
+                        ],
+                    },
+                    {
+                        anchor: 'bottom',
+                        direction: 'row',
+                        itemHeight: 20,
+                        itemWidth: 80,
+                        translateY: 90,
+                        data: [
+                            {
+                                id: 'C',
+                                label: customLabels[2],
+                                color: '#000099',
+                            },
+                            {
+                                id: 'D',
+                                label: customLabels[3],
+                                color: '#0000ff',
+                            },
+                        ],
+                    },
+                ]}
+            />
+        )
+        const legend = wrapper.find('ScatterPlotLegends')
+        expect(legend).toHaveLength(1)
+        const labels = legend.find('text')
+        expect(labels).toHaveLength(4)
+        labels.forEach((label, i) => {
+            expect(label.text()).toBe(customLabels[i])
+        })
+    })
+})
+
 describe('accessibility', () => {
     it('should forward root aria properties to the SVG element', () => {
         const wrapper = mount(

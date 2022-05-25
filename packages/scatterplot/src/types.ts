@@ -108,11 +108,27 @@ export interface ScatterPlotNodeDynamicSizeSpec {
 
 export type ScatterPlotMouseHandler<RawDatum extends ScatterPlotDatum> = (
     node: ScatterPlotNodeData<RawDatum>,
-    event: MouseEvent<any>
+    event: MouseEvent
 ) => void
 
 export interface ScatterPlotDataProps<RawDatum extends ScatterPlotDatum> {
     data: ScatterPlotRawSerie<RawDatum>[]
+}
+
+// TO DO - replace this by a type from @nivo/legends
+export type ScatterPlotLegendDatum = {
+    id: string | number
+    label: string
+    hidden: boolean
+    color: string
+}
+
+// TO DO - replace this by an interface from @nivo/legends
+export interface ScatterPlotLegendsProps {
+    width: number
+    height: number
+    legends: [LegendProps, ScatterPlotLegendDatum[]][]
+    toggleSerie: (id: string | number) => void
 }
 
 export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
@@ -137,6 +153,7 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
         | ScatterPlotNodeDynamicSizeSpec
         | PropertyAccessor<Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>, number>
     renderWrapper?: boolean
+    initialHiddenIds: string[]
     isInteractive: boolean
     useMesh: boolean
     debugMesh: boolean
@@ -147,6 +164,9 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     tooltip: ScatterPlotTooltip<RawDatum>
     annotations: AnnotationMatcher<ScatterPlotNodeData<RawDatum>>[]
     legends: LegendProps[]
+    legendLabel?:
+        | PropertyAccessor<ScatterPlotRawSerie<RawDatum>, string>
+        | ((serie: ScatterPlotRawSerie<RawDatum>) => string)
     role: string
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
