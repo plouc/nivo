@@ -715,12 +715,10 @@ describe('legends', () => {
                             {
                                 id: 'A',
                                 label: customLabels[0],
-                                color: '#990000',
                             },
                             {
                                 id: 'B',
                                 label: customLabels[1],
-                                color: '#ff0000',
                             },
                         ],
                     },
@@ -734,12 +732,10 @@ describe('legends', () => {
                             {
                                 id: 'C',
                                 label: customLabels[2],
-                                color: '#000099',
                             },
                             {
                                 id: 'D',
                                 label: customLabels[3],
-                                color: '#0000ff',
                             },
                         ],
                     },

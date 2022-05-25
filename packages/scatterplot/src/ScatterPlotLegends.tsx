@@ -14,7 +14,7 @@ export const ScatterPlotLegends = ({
                 {...legend}
                 containerWidth={width}
                 containerHeight={height}
-                data={legend.data ?? data}
+                data={data}
                 toggleSerie={legend.toggleSerie && toggleSerie}
             />
         ))}

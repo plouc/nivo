@@ -108,12 +108,16 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
     const legendsData: [LegendProps, ScatterPlotLegendDatum[]][] = useMemo(
         () =>
             legends.map(legend => {
-                legend.data = legend.data?.map(d => {
-                    const hidden = hiddenIds.includes(String(d.id))
-                    const color = hidden ? '#000' : getColor({ serieId: d.id })
-                    return { ...d, color, hidden }
-                })
-                return [legend, legendData]
+                // for legend items, prefer to use provided array of items
+                // otherwise fallback to displaying info for all series from legendData
+                const computedData = legend.data
+                    ? legend.data.map(d => {
+                          const hidden = hiddenIds.includes(String(d.id))
+                          const color = hidden ? '#000' : getColor({ serieId: d.id }) ?? d.color
+                          return { id: d.id, label: String(d.label), color, hidden }
+                      })
+                    : legendData
+                return [legend, computedData]
             }),
         [legends, hiddenIds, legendData, getColor]
     )

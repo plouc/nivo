@@ -224,17 +224,14 @@ export const MultiLineLegend = () => {
                         {
                             id: 'girls low',
                             label: 'Low A',
-                            color: serieColors['girls low'],
                         },
                         {
                             id: 'girls med',
                             label: 'Med A',
-                            color: serieColors['girls med'],
                         },
                         {
                             id: 'girls high',
                             label: 'High A',
-                            color: serieColors['girls high'],
                         },
                     ],
                 },
@@ -250,17 +247,20 @@ export const MultiLineLegend = () => {
                         {
                             id: 'boys low',
                             label: 'Low B',
-                            color: serieColors['boys low'],
                         },
                         {
                             id: 'boys med',
                             label: 'Med B',
-                            color: serieColors['boys med'],
                         },
                         {
                             id: 'boys high',
                             label: 'High B',
-                            color: serieColors['boys high'],
+                            color: '#0000dd', // this should be over-ruled by the colors function
+                        },
+                        {
+                            id: 'another',
+                            label: 'Another label',
+                            color: '#dd0000', // this will be displayed as provided
                         },
                     ],
                 },
