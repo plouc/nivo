@@ -130,7 +130,6 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
             />
         )
     }
-    //console.log("nodes: "+JSON.stringify(nodes))
 
     if (layers.includes('nodes')) {
         layerById.nodes = (

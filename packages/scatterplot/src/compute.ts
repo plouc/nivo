@@ -3,13 +3,16 @@ import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import { scaleLinear } from 'd3-scale'
-import { ComputedSerie } from '@nivo/scales'
+import { computeXYScalesForSeries, ScaleSpec } from '@nivo/scales'
 import {
     ScatterPlotCommonProps,
+    ScatterPlotDataProps,
     ScatterPlotDatum,
     ScatterPlotNodeData,
     ScatterPlotNodeDynamicSizeSpec,
+    ScatterPlotRawNodeData,
 } from './types'
+import { OrdinalColorScale } from '@nivo/colors'
 
 const isDynamicSizeSpec = <RawDatum extends ScatterPlotDatum>(
     size: ScatterPlotCommonProps<RawDatum>['nodeSize']
@@ -48,40 +51,80 @@ export const getNodeSizeGenerator = <RawDatum extends ScatterPlotDatum>(
     throw new Error('nodeSize is invalid, it should be either a function, a number or an object')
 }
 
-export const computePoints = <RawDatum extends ScatterPlotDatum>({
-    series,
+export const computeRawSeriesPoints = <RawDatum extends ScatterPlotDatum>({
+    data,
+    xScaleSpec,
+    yScaleSpec,
+    width,
+    height,
     formatX,
     formatY,
     getNodeId,
 }: {
-    series: ComputedSerie<{ id: string | number }, RawDatum>[]
+    data: ScatterPlotDataProps<RawDatum>['data']
+    xScaleSpec: ScaleSpec
+    yScaleSpec: ScaleSpec
+    width: number
+    height: number
     formatX: (value: RawDatum['x']) => string | number
     formatY: (value: RawDatum['x']) => string | number
-    getNodeId: (d: Omit<ScatterPlotNodeData<RawDatum>, 'id' | 'size' | 'color'>) => string
-}): Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[] => {
-    const points: Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>[] = []
-
-    series.forEach(serie => {
-        serie.data.forEach((d, serieIndex) => {
-            const point: Omit<ScatterPlotNodeData<RawDatum>, 'id' | 'size' | 'color'> = {
-                index: points.length,
-                serieIndex,
-                serieId: serie.id,
-                x: d.position.x as number,
-                xValue: d.data.x,
-                formattedX: formatX(d.data.x),
-                y: d.position.y as number,
-                yValue: d.data.y,
-                formattedY: formatY(d.data.y),
-                data: d.data,
-            }
-
-            points.push({
-                ...point,
-                id: getNodeId(point),
+    getNodeId: (d: Omit<ScatterPlotRawNodeData<RawDatum>, 'id'>) => string
+}) => {
+    const { series, xScale, yScale } = computeXYScalesForSeries<{ id: string | number }, RawDatum>(
+        data,
+        xScaleSpec,
+        yScaleSpec,
+        width,
+        height
+    )
+    let offset = 0 // allows giving each data point a unique index
+    const rawSeriesNodes: ScatterPlotRawNodeData<RawDatum>[][] = series
+        .filter(serie => serie.data.length > 0)
+        .map((serie, serieIndex) => {
+            const points = serie.data.map((d, i) => {
+                const point: Omit<ScatterPlotRawNodeData<RawDatum>, 'id'> = {
+                    index: offset + i,
+                    serieIndex,
+                    serieId: serie.id,
+                    x: d.position.x as number,
+                    xValue: d.data.x,
+                    formattedX: formatX(d.data.x),
+                    y: d.position.y as number,
+                    yValue: d.data.y,
+                    formattedY: formatY(d.data.y),
+                    data: d.data,
+                }
+                return {
+                    ...point,
+                    id: getNodeId(point),
+                }
             })
+            offset = offset + points.length
+            return points
         })
-    })
 
-    return points
+    return { rawSeriesNodes, xScale, yScale }
+}
+
+export const computeStyledPoints = <RawDatum extends ScatterPlotDatum>({
+    rawSeriesNodes,
+    hiddenIds,
+    getColor,
+    getNodeSize,
+}: {
+    rawSeriesNodes: ScatterPlotRawNodeData<RawDatum>[][]
+    hiddenIds: string[]
+    getColor: OrdinalColorScale<{ serieId: string | number }>
+    getNodeSize: (datum: ScatterPlotRawNodeData<RawDatum>) => number
+}): ScatterPlotNodeData<RawDatum>[][] => {
+    return rawSeriesNodes
+        .filter(rawNodes => !hiddenIds.includes(String(rawNodes[0].serieId)))
+        .map(rawNodes => {
+            const color = getColor({ serieId: rawNodes[0].serieId })
+            return rawNodes.map(rawNode => ({
+                ...rawNode,
+                color,
+                size: getNodeSize(rawNode),
+            }))
+        })
 }

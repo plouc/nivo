@@ -29,7 +29,7 @@ export type ScatterPlotRawSerie<RawDatum extends ScatterPlotDatum> = {
     data: RawDatum[]
 }
 
-export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
+export interface ScatterPlotRawNodeData<RawDatum extends ScatterPlotDatum> {
     // absolute index, relative to all points in all series
     index: number
     // relative index, in a specific serie
@@ -44,9 +44,13 @@ export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
     y: number
     yValue: RawDatum['y']
     formattedY: string | number
+    data: RawDatum
+}
+
+export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum>
+    extends ScatterPlotRawNodeData<RawDatum> {
     size: number
     color: string
-    data: RawDatum
 }
 
 export interface ScatterPlotNodeProps<RawDatum extends ScatterPlotDatum> {
@@ -119,8 +123,8 @@ export interface ScatterPlotDataProps<RawDatum extends ScatterPlotDatum> {
 export type ScatterPlotLegendDatum = {
     id: string | number
     label: string
-    hidden: boolean
     color: string
+    hidden?: boolean
 }
 
 // TO DO - replace this by an interface from @nivo/legends
