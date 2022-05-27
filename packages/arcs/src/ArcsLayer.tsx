@@ -5,6 +5,7 @@ import { DatumWithArcAndColor, ArcGenerator } from './types'
 import { useArcsTransition } from './useArcsTransition'
 import { ArcTransitionMode } from './arcTransitionMode'
 import { ArcMouseHandler, ArcShape, ArcShapeProps } from './ArcShape'
+import { useFilteredDataBySkipAngle } from './utils'
 
 export type ArcComponent<Datum extends DatumWithArcAndColor> = (
     props: ArcShapeProps<Datum>
@@ -22,6 +23,7 @@ interface ArcsLayerProps<Datum extends DatumWithArcAndColor> {
     onMouseLeave?: ArcMouseHandler<Datum>
     transitionMode: ArcTransitionMode
     component?: ArcComponent<Datum>
+    skipAngle?: number
 }
 
 export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
@@ -36,10 +38,12 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     onMouseLeave,
     transitionMode,
     component = ArcShape,
+    skipAngle = 1e-7,
 }: ArcsLayerProps<Datum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
 
+    const filteredData = useFilteredDataBySkipAngle(data, skipAngle)
     const { transition, interpolate } = useArcsTransition<
         Datum,
         {
@@ -47,7 +51,7 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
             color: string
             borderColor: string
         }
-    >(data, transitionMode, {
+    >(filteredData, transitionMode, {
         enter: datum => ({
             opacity: 0,
             color: datum.color,

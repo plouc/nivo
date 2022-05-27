@@ -249,6 +249,32 @@ describe('Pie', () => {
             expect(arc.prop('datum').arc.innerRadius).toEqual(200)
             expect(arc.prop('datum').arc.outerRadius).toEqual(400)
         })
+
+        it('should skip rendering very small slices', () => {
+            const data = JSON.parse(JSON.stringify(sampleData))
+            data.push({
+                id: 'small',
+                value: 1e-9,
+                color: '#000000',
+            })
+            const wrapper = mount(
+                <Pie
+                    width={800}
+                    height={400}
+                    data={data}
+                    arcLinkLabelsSkipAngle={1e-6}
+                    arcLabelsSkipAngle={1e-6}
+                    animate={false}
+                />
+            )
+            // there should be a path for each slice, but not for the very small slice
+            const paths = wrapper.find('Arcs').find('path')
+            expect(paths).toHaveLength(data.length - 1)
+            // there should be a label and numeric value label for each slice,
+            // but not for the very small slice
+            const labels = wrapper.find('text')
+            expect(labels).toHaveLength(2 * (data.length - 1))
+        })
     })
 
     describe('colors', () => {

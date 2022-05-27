@@ -183,6 +183,22 @@ describe('Sunburst', () => {
             expect(layer.exists()).toBeTruthy()
             expect(layer.prop('arcGenerator').cornerRadius()()).toEqual(3)
         })
+
+        it('should skip rendering very small arcs', () => {
+            const smallChild = {
+                id: 'small',
+                value: 1e-9,
+                color: '#ffdd00',
+            }
+            const sampleDataWithSmallChild = JSON.parse(JSON.stringify(sampleData))
+            sampleDataWithSmallChild.children.push(smallChild)
+            const wrapper = mount(
+                <Sunburst width={400} height={400} data={sampleDataWithSmallChild} />
+            )
+            const paths = wrapper.find('Arcs').find('path')
+            expect(paths.exists()).toBeTruthy()
+            expect(paths).toHaveLength(5)
+        })
     })
 
     describe('colors', () => {
@@ -641,6 +657,27 @@ describe('Sunburst', () => {
             expect(customLayer.prop('centerY')).toEqual(200)
             expect(customLayer.prop('arcGenerator')).toBeDefined()
             expect(customLayer.prop('radius')).toEqual(200)
+        })
+
+        it('should provide layer info about all children, including small ones', () => {
+            const smallChild = {
+                id: 'small',
+                value: 1e-9,
+                color: '#ffdd00',
+            }
+            const sampleDataWithSmallChild = JSON.parse(JSON.stringify(sampleData))
+            sampleDataWithSmallChild.children.push(smallChild)
+            const CustomLayer = () => null
+            const wrapper = mount(
+                <Sunburst
+                    width={400}
+                    height={400}
+                    data={sampleDataWithSmallChild}
+                    layers={['arcs', 'arcLabels', CustomLayer]}
+                />
+            )
+            const customLayer = wrapper.find(CustomLayer)
+            expect(customLayer.prop('nodes')).toHaveLength(6)
         })
     })
 })
