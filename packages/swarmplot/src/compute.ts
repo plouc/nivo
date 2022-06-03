@@ -84,8 +84,6 @@ export const computeValueScale = <RawDatum>({
     const min = Math.min(...(values as number[]))
     const max = Math.max(...(values as number[]))
 
-    // the value scale can map raw values to coordinate in a linear or nonlinear manner
-    // but here
     return computeScale(
         scale,
         { all: values, min, max },
