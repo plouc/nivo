@@ -4,7 +4,6 @@ import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 import { useTooltip } from '@nivo/tooltip'
-import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import {
     computeValueScale,
     computeOrdinalScale,
@@ -20,6 +19,8 @@ import {
     SizeSpec,
     SwarmPlotCustomLayerProps,
     MouseHandlers,
+    SwarmPlotValueScale,
+    SwarmPlotValueScaleSpec,
 } from './types'
 import { LegendProps } from '@nivo/legends'
 
@@ -35,7 +36,7 @@ export const useValueScale = <RawDatum>({
     height: number
     axis: 'x' | 'y'
     getValue: (datum: RawDatum) => number | Date
-    scale: ScaleLinearSpec | ScaleTimeSpec
+    scale: SwarmPlotValueScaleSpec
     data: RawDatum[]
 }) =>
     useMemo(
@@ -80,7 +81,7 @@ export const useForces = <RawDatum>({
     forceStrength,
 }: {
     axis: 'x' | 'y'
-    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
+    valueScale: SwarmPlotValueScale
     ordinalScale: ScaleOrdinal<string, number>
     spacing: number
     forceStrength: number
@@ -327,10 +328,7 @@ export const useSwarmPlotAnnotations = <RawDatum>(
 
 export const useSwarmPlotLayerContext = <
     RawDatum,
-    Scale extends
-        | ScaleLinear<number>
-        | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number, never>
+    Scale extends SwarmPlotValueScale | ScaleOrdinal<string, number, never>
 >({
     nodes,
     xScale,

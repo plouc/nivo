@@ -5,24 +5,18 @@ import uniqBy from 'lodash/uniqBy'
 import get from 'lodash/get'
 import { scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide, ForceX, ForceY } from 'd3-force'
-import {
-    computeScale,
-    createDateNormalizer,
-    generateSeriesAxis,
-    ScaleLinear,
-    ScaleLinearSpec,
-    ScaleTime,
-    ScaleTimeSpec,
-} from '@nivo/scales'
+import { computeScale, createDateNormalizer, generateSeriesAxis } from '@nivo/scales'
 import {
     ComputedDatum,
     PreSimulationDatum,
     SizeSpec,
     SimulationForces,
     SwarmPlotLegendData,
+    SwarmPlotValueScaleSpec,
+    SwarmPlotValueScale,
 } from './types'
 
-const getParsedValue = (scaleSpec: ScaleLinearSpec | ScaleTimeSpec) => {
+const getParsedValue = (scaleSpec: SwarmPlotValueScaleSpec) => {
     if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
         return createDateNormalizer(scaleSpec) as <T>(value: T) => T
     }
@@ -73,9 +67,9 @@ export const computeValueScale = <RawDatum>({
     height: number
     axis: 'x' | 'y'
     getValue: (datum: RawDatum) => number | Date
-    scale: ScaleLinearSpec | ScaleTimeSpec
+    scale: SwarmPlotValueScaleSpec
     data: RawDatum[]
-}) => {
+}): SwarmPlotValueScale => {
     const values = data.map(getValue)
 
     if (scale.type === 'time') {
@@ -84,20 +78,20 @@ export const computeValueScale = <RawDatum>({
         ]
         const axes = generateSeriesAxis(series, axis, scale)
 
-        return computeScale(scale, axes, axis === 'x' ? width : height, axis) as ScaleTime<
-            Date | string
-        >
+        return computeScale(scale, axes, axis === 'x' ? width : height, axis) as SwarmPlotValueScale
     }
 
     const min = Math.min(...(values as number[]))
     const max = Math.max(...(values as number[]))
 
+    // the value scale can map raw values to coordinate in a linear or nonlinear manner
+    // but here
     return computeScale(
         scale,
         { all: values, min, max },
         axis === 'x' ? width : height,
         axis
-    ) as ScaleLinear<number>
+    ) as SwarmPlotValueScale
 }
 
 export const getSizeGenerator = <RawDatum>(size: SizeSpec<RawDatum>) => {
@@ -147,7 +141,7 @@ export const computeForces = <RawDatum>({
     forceStrength,
 }: {
     axis: 'x' | 'y'
-    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
+    valueScale: SwarmPlotValueScale
     ordinalScale: ScaleOrdinal<string, number>
     spacing: number
     forceStrength: number
@@ -190,13 +184,13 @@ export const computeNodes = <RawDatum>({
     getId: (datum: RawDatum) => string
     layout: 'vertical' | 'horizontal'
     getValue: (datum: RawDatum) => number | Date
-    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
+    valueScale: SwarmPlotValueScale
     getGroup: (datum: RawDatum) => string
     ordinalScale: ScaleOrdinal<string, number>
     getSize: (datum: RawDatum) => number
     forces: SimulationForces<RawDatum>
     simulationIterations: number
-    valueScaleConfig: ScaleLinearSpec | ScaleTimeSpec
+    valueScaleConfig: SwarmPlotValueScaleSpec
 }) => {
     const config = {
         horizontal: ['x', 'y'],

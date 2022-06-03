@@ -64,10 +64,12 @@ stories.add('using annotations', () => (
 
 stories.add('using log scale', () => {
     // ensure that dataset has price as a non-negative value
-    const data = commonProps.data.map(datum => ({
-        ...datum,
-        price: Math.max(1, datum.price),
-    })).filter(datum => datum.group != "group G")
+    const data = commonProps.data
+        .map(datum => ({
+            ...datum,
+            price: Math.max(1, datum.price),
+        }))
+        .filter(datum => datum.group != 'group G')
     return (
         <SwarmPlotCanvas
             {...commonProps}
@@ -80,7 +82,7 @@ stories.add('using log scale', () => {
             }}
             size={7}
             borderWidth={0.5}
-            borderColor={"#222222"}
+            borderColor={'#222222'}
             enableGridY={true}
             axisTop={null}
             axisRight={null}

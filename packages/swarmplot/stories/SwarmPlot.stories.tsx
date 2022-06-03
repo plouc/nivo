@@ -3,7 +3,6 @@ import { generateSwarmPlotData } from '@nivo/generators'
 import { SwarmPlot } from '../src'
 import { SwarmPlotExtraLayers } from './SwarmPlotExtraLayers'
 import { SwarmPlotCustomCircle } from './SwarmPlotCustomCircle'
-import { select } from '@storybook/addon-knobs'
 
 const commonProps = {
     width: 700,
@@ -141,6 +140,11 @@ stories.add('using log scale', () => {
         ...datum,
         price: Math.max(1, datum.price),
     }))
+    const customLegendLabels: { [key: string]: string } = {
+        'group A': 'A',
+        'group B': 'B',
+        'group C': 'C',
+    }
     return (
         <SwarmPlot
             {...commonProps}
@@ -166,17 +170,18 @@ stories.add('using log scale', () => {
                 tickSize: 10,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'groups',
+                legend: '',
                 legendPosition: 'middle',
                 legendOffset: -76,
             }}
             layout="horizontal"
+            legendLabel={datum => customLegendLabels[datum.group as string]}
             legends={[
                 {
                     anchor: 'bottom',
                     direction: 'row',
                     itemHeight: 20,
-                    itemWidth: 80,
+                    itemWidth: 60,
                     translateY: 50,
                 },
             ]}
