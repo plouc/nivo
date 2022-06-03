@@ -150,6 +150,7 @@ stories.add('using log scale', () => {
             valueScale={{
                 type: 'log' as const,
             }}
+            size={8}
             axisBottom={null}
             axisRight={null}
             axisTop={{

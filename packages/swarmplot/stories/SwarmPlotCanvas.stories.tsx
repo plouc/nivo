@@ -67,22 +67,25 @@ stories.add('using log scale', () => {
     const data = commonProps.data.map(datum => ({
         ...datum,
         price: Math.max(1, datum.price),
-    }))
+    })).filter(datum => datum.group != "group G")
     return (
         <SwarmPlotCanvas
             {...commonProps}
-            data={data}
             margin={{ top: 40, right: 120, bottom: 60, left: 100 }}
+            data={data}
+            groups={['group A', 'group B', 'group C', 'group D', 'group E', 'group F']}
             value="price"
             valueScale={{
                 type: 'log' as const,
             }}
-            size={6}
+            size={7}
+            borderWidth={0.5}
+            borderColor={"#222222"}
             enableGridY={true}
             axisTop={null}
             axisRight={null}
             axisLeft={{
-                tickSize: 10,
+                tickSize: 5,
                 tickValues: [1, 10, 100, 1000],
                 tickPadding: 5,
                 tickRotation: 0,
@@ -91,10 +94,10 @@ stories.add('using log scale', () => {
                 legendOffset: -50,
             }}
             axisBottom={{
-                tickSize: 10,
+                tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'groups',
+                legend: '',
                 legendPosition: 'middle',
                 legendOffset: 40,
             }}
