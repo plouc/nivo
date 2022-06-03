@@ -178,11 +178,30 @@ stories.add('using log scale', () => {
             legendLabel={datum => customLegendLabels[datum.group as string]}
             legends={[
                 {
-                    anchor: 'bottom',
+                    anchor: 'bottom-left',
                     direction: 'row',
                     itemHeight: 20,
                     itemWidth: 60,
                     translateY: 50,
+                },
+                {
+                    anchor: 'bottom-right',
+                    direction: 'row',
+                    itemHeight: 20,
+                    itemWidth: 80,
+                    translateY: 50,
+                    data: [
+                        {
+                            id: 'A',
+                            label: 'custom',
+                            color: '#000000',
+                        },
+                        {
+                            id: 'B',
+                            label: 'legends',
+                            color: '#888888',
+                        },
+                    ],
                 },
             ]}
         />

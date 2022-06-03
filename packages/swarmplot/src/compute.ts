@@ -220,7 +220,7 @@ export const computeNodes = <RawDatum>({
     }
 }
 
-export const getLegendData = <RawDatum>({
+export const getBaseLegendData = <RawDatum>({
     nodes,
     getLegendLabel,
 }: {

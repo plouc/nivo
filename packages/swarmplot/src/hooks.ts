@@ -8,7 +8,7 @@ import {
     computeValueScale,
     computeOrdinalScale,
     getSizeGenerator,
-    getLegendData,
+    getBaseLegendData,
     computeForces,
     computeNodes,
 } from './compute'
@@ -221,7 +221,8 @@ export const useSwarmPlot = <RawDatum>({
     const legendsData: [LegendProps, SwarmPlotLegendData[]][] = useMemo(
         () =>
             legends.map(legend => {
-                const data = getLegendData({
+                if (legend.data) return [legend, legend.data as SwarmPlotLegendData[]]
+                const data = getBaseLegendData({
                     nodes: augmentedNodes,
                     getLegendLabel,
                 })
