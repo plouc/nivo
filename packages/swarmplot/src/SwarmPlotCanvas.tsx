@@ -1,4 +1,4 @@
-import { createElement, useCallback, useEffect, useRef, useState } from 'react'
+import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as React from 'react'
 import isNumber from 'lodash/isNumber'
 import { Container, getRelativeCursor, isCursorInRect, useDimensions, useTheme } from '@nivo/core'
@@ -130,7 +130,8 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     })
 
     const getBorderColor = useInheritedColor(borderColor, theme)
-    const getBorderWidth = () => 1
+    // memoize getBorderWidth to provide a stable object for the rendering
+    const getBorderWidth = useMemo(() => () => 1, [])
 
     useEffect(() => {
         if (!canvasEl.current) return
