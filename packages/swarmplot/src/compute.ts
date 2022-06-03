@@ -1,6 +1,7 @@
 import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
+import uniqBy from 'lodash/uniqBy'
 import get from 'lodash/get'
 import { scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide, ForceX, ForceY } from 'd3-force'
@@ -13,7 +14,13 @@ import {
     ScaleTime,
     ScaleTimeSpec,
 } from '@nivo/scales'
-import { ComputedDatum, PreSimulationDatum, SizeSpec, SimulationForces } from './types'
+import {
+    ComputedDatum,
+    PreSimulationDatum,
+    SizeSpec,
+    SimulationForces,
+    SwarmPlotLegendData,
+} from './types'
 
 const getParsedValue = (scaleSpec: ScaleLinearSpec | ScaleTimeSpec) => {
     if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
@@ -219,4 +226,22 @@ export const computeNodes = <RawDatum>({
         [`${config[layout][1]}Scale`]: ordinalScale,
         nodes: simulation.nodes() as ComputedDatum<RawDatum>[],
     }
+}
+
+export const getLegendData = <RawDatum>({
+    nodes,
+    getLegendLabel,
+}: {
+    nodes: ComputedDatum<RawDatum>[]
+    getLegendLabel: (datum: RawDatum) => string
+}) => {
+    const nodeData = nodes.map(
+        node =>
+            ({
+                id: node.group,
+                label: getLegendLabel(node.data),
+                color: node?.color,
+            } as SwarmPlotLegendData)
+    )
+    return uniqBy(nodeData, ({ id }) => id)
 }

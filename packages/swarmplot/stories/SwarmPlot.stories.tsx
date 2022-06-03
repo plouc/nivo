@@ -3,6 +3,7 @@ import { generateSwarmPlotData } from '@nivo/generators'
 import { SwarmPlot } from '../src'
 import { SwarmPlotExtraLayers } from './SwarmPlotExtraLayers'
 import { SwarmPlotCustomCircle } from './SwarmPlotCustomCircle'
+import { select } from '@storybook/addon-knobs'
 
 const commonProps = {
     width: 700,
@@ -133,3 +134,51 @@ stories.add('using time scale', () => (
         layout="horizontal"
     />
 ))
+
+stories.add('using log scale', () => {
+    // ensure that dataset has price as a non-negative value
+    const data = commonProps.data.map(datum => ({
+        ...datum,
+        price: Math.max(1, datum.price),
+    }))
+    return (
+        <SwarmPlot
+            {...commonProps}
+            data={data}
+            margin={{ top: 60, right: 40, bottom: 100, left: 100 }}
+            value="price"
+            valueScale={{
+                type: 'log' as const,
+            }}
+            axisBottom={null}
+            axisRight={null}
+            axisTop={{
+                tickSize: 10,
+                tickValues: [1, 10, 100, 1000],
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'price',
+                legendPosition: 'middle',
+                legendOffset: -46,
+            }}
+            axisLeft={{
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'groups',
+                legendPosition: 'middle',
+                legendOffset: -76,
+            }}
+            layout="horizontal"
+            legends={[
+                {
+                    anchor: 'bottom',
+                    direction: 'row',
+                    itemHeight: 20,
+                    itemWidth: 80,
+                    translateY: 50,
+                },
+            ]}
+        />
+    )
+})

@@ -4,9 +4,17 @@ import { ForceX, ForceY, ForceCollide } from 'd3-force'
 import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
-import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@nivo/scales'
+import {
+    ScaleLinear,
+    ScaleLinearSpec,
+    ScaleLog,
+    ScaleTime,
+    ScaleTimeSpec,
+    TicksSpec,
+} from '@nivo/scales'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { ScaleOrdinal } from 'd3-scale'
+import { LegendProps } from '@nivo/legends'
 
 export interface ComputedDatum<RawDatum> {
     id: string
@@ -33,12 +41,13 @@ export type SimulationForces<RawDatum> = {
     collision: ForceCollide<PreSimulationDatum<RawDatum>>
 }
 
-export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'mesh'
+export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'mesh' | 'legends'
 
 export interface SwarmPlotCustomLayerProps<
     RawDatum,
     Scale extends
         | ScaleLinear<number>
+        | ScaleLog
         | ScaleTime<string | Date>
         | ScaleOrdinal<string, number> = ScaleLinear<number>
 > {
@@ -56,6 +65,7 @@ export type SwarmPlotCustomLayer<
     RawDatum,
     Scale extends
         | ScaleLinear<number>
+        | ScaleLog
         | ScaleTime<string | Date>
         | ScaleOrdinal<string, number> = ScaleLinear<number>
 > = React.FC<SwarmPlotCustomLayerProps<RawDatum, Scale>>
@@ -64,6 +74,7 @@ export type SwarmPlotLayer<
     RawDatum,
     Scale extends
         | ScaleLinear<number>
+        | ScaleLog
         | ScaleTime<string | Date>
         | ScaleOrdinal<string, number> = ScaleLinear<number>
 > = SwarmPlotLayerId | SwarmPlotCustomLayer<RawDatum, Scale>
@@ -89,6 +100,13 @@ export type MouseHandlers<RawDatum> = {
     onMouseEnter?: MouseHandler<RawDatum>
     onMouseMove?: MouseHandler<RawDatum>
     onMouseLeave?: MouseHandler<RawDatum>
+}
+
+// replace in future by a type from @nivo/legends
+export type SwarmPlotLegendData = {
+    id: string | number
+    label: string | number
+    color: string
 }
 
 export type SwarmPlotCommonProps<RawDatum> = {
@@ -126,6 +144,8 @@ export type SwarmPlotCommonProps<RawDatum> = {
         RawDatum,
         ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
     >[]
+    legendLabel?: PropertyAccessor<RawDatum, string>
+    legends: LegendProps[]
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string

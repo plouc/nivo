@@ -61,3 +61,53 @@ stories.add('using annotations', () => (
         ]}
     />
 ))
+
+stories.add('using log scale', () => {
+    // ensure that dataset has price as a non-negative value
+    const data = commonProps.data.map(datum => ({
+        ...datum,
+        price: Math.max(1, datum.price),
+    }))
+    return (
+        <SwarmPlotCanvas
+            {...commonProps}
+            data={data}
+            margin={{ top: 40, right: 120, bottom: 60, left: 100 }}
+            value="price"
+            valueScale={{
+                type: 'log' as const,
+            }}
+            size={6}
+            enableGridY={true}
+            axisTop={null}
+            axisRight={null}
+            axisLeft={{
+                tickSize: 10,
+                tickValues: [1, 10, 100, 1000],
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'price',
+                legendPosition: 'middle',
+                legendOffset: -50,
+            }}
+            axisBottom={{
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'groups',
+                legendPosition: 'middle',
+                legendOffset: 40,
+            }}
+            legends={[
+                {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    itemHeight: 20,
+                    itemWidth: 80,
+                    translateY: 0,
+                    translateX: 100,
+                },
+            ]}
+        />
+    )
+})

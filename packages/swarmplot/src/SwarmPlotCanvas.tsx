@@ -10,6 +10,7 @@ import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from
 import { ComputedDatum, SwarmPlotCanvasProps } from './types'
 import { defaultProps } from './props'
 import { useSwarmPlot } from './hooks'
+import { renderLegendToCanvas } from '@nivo/legends'
 
 export const renderCircleDefault = <RawDatum,>(
     ctx: CanvasRenderingContext2D,
@@ -78,6 +79,8 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     axisRight = defaultProps.axisRight,
     axisBottom = defaultProps.axisBottom,
     axisLeft = defaultProps.axisLeft,
+    legendLabel,
+    legends = defaultProps.legends,
     isInteractive,
     onMouseMove,
     onClick,
@@ -95,7 +98,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
         partialMargin
     )
 
-    const { nodes, ...scales } = useSwarmPlot<RawDatum>({
+    const { nodes, legendsData, ...scales } = useSwarmPlot<RawDatum>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -113,6 +116,8 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
         colorBy,
         forceStrength,
         simulationIterations,
+        legendLabel,
+        legends,
     })
 
     const { xScale, yScale } = scales as Record<'xScale' | 'yScale', AnyScale>
@@ -203,6 +208,18 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
                     renderVoronoiCellToCanvas(ctx, voronoi, currentNode.index)
                 }
             }
+
+            if (layer === 'legends') {
+                legendsData.forEach(([legend, data]) => {
+                    renderLegendToCanvas(ctx, {
+                        ...legend,
+                        data,
+                        containerWidth: innerWidth,
+                        containerHeight: innerHeight,
+                        theme,
+                    })
+                })
+            }
         })
     }, [
         canvasEl,
@@ -231,6 +248,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
         renderCircle,
         getBorderWidth,
         getBorderColor,
+        legendsData,
     ])
 
     const getNodeFromMouseEvent = useCallback(
