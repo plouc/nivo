@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ScaleDiverging, ScaleQuantize, ScaleSequential, scaleLinear } from 'd3-scale'
+import { scaleLinear } from 'd3-scale'
 import {
     SequentialColorScaleConfig,
     SequentialColorScaleValues,
@@ -15,6 +15,7 @@ import {
     QuantizeColorScaleValues,
     getQuantizeColorScale,
 } from './quantizeColorScale'
+import { AnyContinuousColorScale } from './types'
 
 export type ContinuousColorScaleConfig =
     | SequentialColorScaleConfig
@@ -63,7 +64,7 @@ export const useContinuousColorScale = (
 ) => useMemo(() => getContinuousColorScale(config, values), [config, values])
 
 export const computeContinuousColorScaleColorStops = (
-    scale: ScaleSequential<string> | ScaleDiverging<string> | ScaleQuantize<string>,
+    scale: AnyContinuousColorScale,
     steps = 16
 ) => {
     const domain = scale.domain()
@@ -104,9 +105,11 @@ export const computeContinuousColorScaleColorStops = (
         colorStopsScale.domain([0, 0.5, 1])
     }
 
-    return ((colorStopsScale as any).ticks(steps) as number[]).map((value: number) => ({
-        key: `${value}`,
-        offset: value,
-        stopColor: `${colorStopsScale(value)}`,
-    }))
+    return ((colorStopsScale as AnyContinuousColorScale).ticks(steps) as number[]).map(
+        (value: number) => ({
+            key: `${value}`,
+            offset: value,
+            stopColor: `${colorStopsScale(value)}`,
+        })
+    )
 }

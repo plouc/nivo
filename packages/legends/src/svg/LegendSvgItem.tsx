@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react'
 import * as React from 'react'
 import { useTheme } from '@nivo/core'
-import { LegendSvgItemProps } from '../types'
+import { LegendDatum, LegendSvgItemProps } from '../types'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
+import { SymbolInvertedTriangle } from './symbols/SymbolInvertedTriangle'
+import { useInheritedColor } from '@nivo/colors'
 
 type Style = Partial<{
     itemBackground: string
@@ -19,6 +21,7 @@ const symbolByShape = {
     diamond: SymbolDiamond,
     square: SymbolSquare,
     triangle: SymbolTriangle,
+    invertedTriangle: SymbolInvertedTriangle,
 }
 
 export const LegendSvgItem = ({
@@ -48,6 +51,11 @@ export const LegendSvgItem = ({
 }: LegendSvgItemProps) => {
     const [style, setStyle] = useState<Style>({})
     const theme = useTheme()
+
+    const getBorderColor = useInheritedColor<LegendDatum>(
+        style.symbolBorderColor ?? symbolBorderColor,
+        theme
+    )
 
     const handleMouseEnter = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {
@@ -86,10 +94,11 @@ export const LegendSvgItem = ({
         [onMouseLeave, data, effects]
     )
 
+    const itemSize = style.symbolSize ?? symbolSize
     const { symbolX, symbolY, labelX, labelY, labelAnchor, labelAlignment } = computeItemLayout({
         direction,
         justify,
-        symbolSize: style.symbolSize ?? symbolSize,
+        symbolSize: itemSize,
         symbolSpacing,
         width,
         height,
@@ -124,12 +133,12 @@ export const LegendSvgItem = ({
             />
             {React.createElement(SymbolShape, {
                 id: data.id,
-                x: symbolX,
-                y: symbolY,
-                size: style.symbolSize ?? symbolSize,
+                x: symbolX + itemSize / 2,
+                y: symbolY + itemSize / 2,
+                size: itemSize,
                 fill: data.fill ?? data.color ?? 'black',
                 borderWidth: style.symbolBorderWidth ?? symbolBorderWidth,
-                borderColor: style.symbolBorderColor ?? symbolBorderColor,
+                borderColor: getBorderColor(data),
                 ...(data.hidden ? theme.legends.hidden.symbol : undefined),
             })}
             <text

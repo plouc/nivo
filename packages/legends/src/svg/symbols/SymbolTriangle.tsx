@@ -13,10 +13,10 @@ export const SymbolTriangle = ({
         <g transform={`translate(${x},${y})`}>
             <path
                 d={`
-                M${size / 2} 0
-                L${size} ${size}
-                L0 ${size}
-                L${size / 2} 0
+                M0 ${-size / 2}
+                L${size / 2} ${size / 2}
+                L${-size / 2} ${size / 2}
+                L0 ${-size / 2}
             `}
                 fill={fill}
                 opacity={opacity}

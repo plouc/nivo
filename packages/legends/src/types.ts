@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { ScaleDiverging, ScaleQuantize, ScaleSequential } from 'd3-scale'
 import { CompleteTheme, ValueFormat } from '@nivo/core'
 import { SymbolProps } from './svg/symbols/types'
+import { AnyContinuousColorScale } from '@nivo/colors'
 
 /**
  * This can be used to add effect on legends on interaction.
@@ -18,7 +18,7 @@ type EffectProps = {
     }>
 }
 
-type SymbolShape = 'circle' | 'diamond' | 'square' | 'triangle'
+type SymbolShape = 'circle' | 'diamond' | 'square' | 'triangle' | 'invertedTriangle'
 
 type BoxLegendSymbolProps = Partial<{
     symbolShape: SymbolShape | React.FC<SymbolProps>
@@ -31,9 +31,9 @@ type BoxLegendSymbolProps = Partial<{
 type InteractivityProps = Partial<
     Record<
         'onClick' | 'onMouseEnter' | 'onMouseLeave',
-        (datum: Datum, event: React.MouseEvent<SVGRectElement>) => void
+        (datum: LegendDatum, event: React.MouseEvent<SVGRectElement>) => void
     > & {
-        toggleSerie: (id: Datum['id']) => void
+        toggleSerie: (id: LegendDatum['id']) => void
     }
 >
 
@@ -56,7 +56,7 @@ export type LegendItemDirection =
     | 'top-to-bottom'
     | 'bottom-to-top'
 
-export type Datum = {
+export type LegendDatum = {
     id: string | number
     label: string | number
     hidden?: boolean
@@ -65,7 +65,7 @@ export type Datum = {
 }
 
 type CommonLegendProps = {
-    data?: Datum[]
+    data?: LegendDatum[]
     direction: LegendDirection
     padding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
     justify?: boolean
@@ -109,7 +109,7 @@ export type LegendSvgProps = {
     InteractivityProps
 
 export type LegendSvgItemProps = {
-    data: Datum
+    data: LegendDatum
 
     x: number
     y: number
@@ -150,7 +150,7 @@ export type LegendCanvasProps = {
     >
 
 export interface ContinuousColorsLegendProps {
-    scale: ScaleSequential<string> | ScaleDiverging<string> | ScaleQuantize<string>
+    scale: AnyContinuousColorScale
     ticks?: number | number[]
     length?: number
     thickness?: number

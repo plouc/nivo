@@ -12,8 +12,8 @@ export const SymbolCircle = ({
     return (
         <circle
             r={size / 2}
-            cx={x + size / 2}
-            cy={y + size / 2}
+            cx={x}
+            cy={y}
             fill={fill}
             opacity={opacity}
             strokeWidth={borderWidth}

@@ -1,6 +1,6 @@
 import { scaleLinear } from 'd3-scale'
 import { getValueFormatter } from '@nivo/core'
-import { computeContinuousColorScaleColorStops } from '@nivo/colors'
+import { AnyContinuousColorScale, computeContinuousColorScaleColorStops } from '@nivo/colors'
 import {
     BoxLegendSvgProps,
     ContinuousColorsLegendProps,
@@ -240,7 +240,7 @@ export const computeContinuousColorsLegend = ({
         values = [domain[0], ...scale.thresholds(), domain[1]]
     } else {
         // sequential, diverging
-        values = Array.isArray(ticks) ? ticks : (scale as any).ticks(ticks)
+        values = Array.isArray(ticks) ? ticks : (scale as AnyContinuousColorScale).ticks(ticks)
     }
 
     const colorStops = computeContinuousColorScaleColorStops(scale, 32)

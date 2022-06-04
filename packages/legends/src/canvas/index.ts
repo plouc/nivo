@@ -4,9 +4,9 @@ import {
     computePositionFromAnchor,
     computeItemLayout,
     computeContinuousColorsLegend,
-} from './compute'
-import { AnchoredContinuousColorsLegendProps, LegendCanvasProps } from './types'
-import { continuousColorsLegendDefaults } from './defaults'
+} from '../compute'
+import { AnchoredContinuousColorsLegendProps, LegendCanvasProps } from '../types'
+import { continuousColorsLegendDefaults } from '../defaults'
 
 const textAlignMapping = {
     start: 'left',

@@ -1,3 +1,4 @@
+export * from './types'
 export * from './continuousColorScale'
 export * from './divergingColorScale'
 export * from './ordinalColorScale'
