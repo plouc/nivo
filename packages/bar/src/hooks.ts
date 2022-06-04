@@ -6,11 +6,11 @@ import {
     BarCommonProps,
     BarDatum,
     ComputedBarDatumWithValue,
-    LegendData,
     BarLegendProps,
 } from './types'
 import { defaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
+import { LegendDatum } from '@nivo/legends'
 
 export const useBar = <RawDatum extends BarDatum>({
     indexBy = defaultProps.indexBy,
@@ -149,7 +149,7 @@ export const useBar = <RawDatum extends BarDatum>({
         [hiddenIds, keys, bars]
     )
 
-    const legendsWithData: [BarLegendProps, LegendData[]][] = useMemo(
+    const legendsWithData: [BarLegendProps, LegendDatum[]][] = useMemo(
         () =>
             legends.map(legend => {
                 const data = getLegendData({
