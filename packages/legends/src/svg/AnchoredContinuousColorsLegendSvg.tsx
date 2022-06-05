@@ -1,4 +1,4 @@
-import { AnchoredContinuousColorsLegendProps } from '../types'
+import { LegendContainerProps, ContinuousColorsLegendProps } from '../types'
 import { computePositionFromAnchor } from '../compute'
 import { continuousColorsLegendDefaults } from '../defaults'
 import { ContinuousColorsLegendSvg } from './ContinuousColorsLegendSvg'
@@ -13,7 +13,7 @@ export const AnchoredContinuousColorsLegendSvg = ({
     thickness = continuousColorsLegendDefaults.thickness,
     direction = continuousColorsLegendDefaults.direction,
     ...legendProps
-}: AnchoredContinuousColorsLegendProps) => {
+}: LegendContainerProps & ContinuousColorsLegendProps) => {
     let width: number
     let height: number
     if (direction === 'row') {

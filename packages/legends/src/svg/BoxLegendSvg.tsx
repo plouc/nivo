@@ -1,17 +1,18 @@
-import { LegendSvg } from './LegendSvg'
-import { BoxLegendSvgProps } from '../types'
-import { computeDimensions, computePositionFromAnchor } from '../compute'
+import { BoxLegendProps, SymbolShapeSvg } from '../types'
+import { computeDimensions, computePositionFromAnchor, getLegendTitleDatum } from '../compute'
+import { BoxLegendSvgItem } from './BoxLegendSvgItem'
 
 export const BoxLegendSvg = ({
-    data,
-
     containerWidth,
     containerHeight,
     translateX = 0,
     translateY = 0,
     anchor,
+
+    data,
+    title,
     direction,
-    padding = 0,
+    padding: _padding = 0,
     justify,
 
     itemsSpacing = 0,
@@ -22,7 +23,7 @@ export const BoxLegendSvg = ({
     itemBackground,
     itemOpacity,
 
-    symbolShape,
+    symbolShape = 'square',
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
@@ -31,17 +32,17 @@ export const BoxLegendSvg = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
-    toggleSerie,
+    toggleSerie: _toggleSerie,
 
     effects,
-}: BoxLegendSvgProps) => {
-    const { width, height } = computeDimensions({
-        itemCount: data.length,
+}: BoxLegendProps) => {
+    const { width, height, padding } = computeDimensions({
+        itemCount: data.length + Number(title !== undefined),
         itemsSpacing,
         itemWidth,
         itemHeight,
         direction,
-        padding,
+        padding: _padding,
     })
 
     const { x, y } = computePositionFromAnchor({
@@ -54,31 +55,39 @@ export const BoxLegendSvg = ({
         height,
     })
 
+    const xStep = direction === 'row' ? itemWidth + itemsSpacing : 0
+    const yStep = direction === 'column' ? itemHeight + itemsSpacing : 0
+
+    const allData = title ? [getLegendTitleDatum(title)].concat(data) : data
+    const toggleSerie = typeof _toggleSerie === 'boolean' ? undefined : _toggleSerie
+
     return (
-        <LegendSvg
-            data={data}
-            x={x}
-            y={y}
-            direction={direction}
-            padding={padding}
-            justify={justify}
-            effects={effects}
-            itemsSpacing={itemsSpacing}
-            itemWidth={itemWidth}
-            itemHeight={itemHeight}
-            itemDirection={itemDirection}
-            itemTextColor={itemTextColor}
-            itemBackground={itemBackground}
-            itemOpacity={itemOpacity}
-            symbolShape={symbolShape}
-            symbolSize={symbolSize}
-            symbolSpacing={symbolSpacing}
-            symbolBorderWidth={symbolBorderWidth}
-            symbolBorderColor={symbolBorderColor}
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            toggleSerie={typeof toggleSerie === 'boolean' ? undefined : toggleSerie}
-        />
+        <g transform={`translate(${x},${y})`}>
+            {allData.map((data, i) => (
+                <BoxLegendSvgItem
+                    key={i}
+                    data={data}
+                    x={i * xStep + padding.left}
+                    y={i * yStep + padding.top}
+                    width={itemWidth}
+                    height={itemHeight}
+                    direction={itemDirection}
+                    justify={justify}
+                    effects={effects}
+                    textColor={itemTextColor}
+                    background={itemBackground}
+                    opacity={itemOpacity}
+                    symbolShape={symbolShape as SymbolShapeSvg}
+                    symbolSize={symbolSize}
+                    symbolSpacing={symbolSpacing}
+                    symbolBorderWidth={symbolBorderWidth}
+                    symbolBorderColor={symbolBorderColor}
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    toggleSerie={toggleSerie}
+                />
+            ))}
+        </g>
     )
 }

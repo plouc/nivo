@@ -13,7 +13,7 @@ import {
     ValueFormat,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendDatum, LegendProps } from '@nivo/legends'
+import { LegendDatum, BoxLegendSpec } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
@@ -81,11 +81,6 @@ export type LegendLabelDatum<RawDatum> = Partial<ComputedDatum<RawDatum>> & {
     hidden: boolean
 }
 
-// TO DO - investigate if this is this really necessary
-export interface BarLegendProps extends LegendProps {
-    dataFrom: 'indexes' | 'keys'
-}
-
 export type LabelFormatter = (label: string | number) => string | number
 export type ValueFormatter = (value: number) => string | number
 
@@ -104,7 +99,7 @@ interface BarCustomLayerBaseProps<RawDatum>
         >,
         Dimensions {
     bars: ComputedBarDatum<RawDatum>[]
-    legendData: [BarLegendProps, LegendDatum[]][]
+    legendData: [BoxLegendSpec, LegendDatum[]][]
 
     margin: Margin
     innerWidth: number
@@ -248,7 +243,7 @@ export type BarCommonProps<RawDatum> = {
     theme: Theme
 
     annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
-    legends: BarLegendProps[]
+    legends: BoxLegendSpec[]
 
     renderWrapper?: boolean
 

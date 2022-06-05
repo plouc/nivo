@@ -54,7 +54,6 @@ stories.add('custom layer', () => {
             legends={[
                 {
                     anchor: 'bottom',
-                    dataFrom: 'keys',
                     direction: 'row',
                     itemHeight: 20,
                     itemWidth: 110,
@@ -109,7 +108,6 @@ stories.add('custom tooltip', () => (
         legends={[
             {
                 anchor: 'bottom',
-                dataFrom: 'keys',
                 direction: 'row',
                 itemHeight: 20,
                 itemWidth: 110,

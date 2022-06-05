@@ -9,7 +9,7 @@
 import { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
 import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
+import { renderBoxLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { ChoroplethCanvasDefaultProps, ChoroplethCanvasPropTypes } from './props'
 import { useGeoMap, useChoropleth } from './hooks'
@@ -118,7 +118,7 @@ const ChoroplethCanvas = memo(
                     })
                 } else if (layer === 'legends') {
                     legends.forEach(legend => {
-                        renderLegendToCanvas(ctx, {
+                        renderBoxLegendToCanvas(ctx, {
                             ...legend,
                             data: legendData,
                             containerWidth: width,

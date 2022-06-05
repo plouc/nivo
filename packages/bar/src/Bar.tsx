@@ -121,7 +121,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         getLabelColor,
         shouldRenderBarLabel,
         toggleSerie,
-        legendsWithData,
+        legendData,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -342,7 +342,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                legends={legendsWithData}
+                legends={legendData}
                 toggleSerie={toggleSerie}
             />
         )
@@ -370,7 +370,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             innerWidth,
             innerHeight,
             bars,
-            legendData: legendsWithData,
+            legendData,
             enableLabel,
             xScale,
             yScale,
@@ -388,7 +388,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             innerWidth,
             innerHeight,
             bars,
-            legendsWithData,
+            legendData,
             enableLabel,
             xScale,
             yScale,

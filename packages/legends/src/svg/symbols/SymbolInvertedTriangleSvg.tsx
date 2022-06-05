@@ -1,6 +1,6 @@
-import { SymbolProps } from './types'
+import { SymbolProps } from '../../types'
 
-export const SymbolTriangle = ({
+export const SymbolInvertedTriangleSvg = ({
     x,
     y,
     size,
@@ -13,10 +13,10 @@ export const SymbolTriangle = ({
         <g transform={`translate(${x},${y})`}>
             <path
                 d={`
-                M0 ${-size / 2}
-                L${size / 2} ${size / 2}
-                L${-size / 2} ${size / 2}
-                L0 ${-size / 2}
+                M0 ${size / 2}
+                L${size / 2} ${-size / 2}
+                L${-size / 2} ${-size / 2}
+                L0 ${size / 2}
             `}
                 fill={fill}
                 opacity={opacity}

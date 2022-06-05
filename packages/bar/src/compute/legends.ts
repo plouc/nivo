@@ -1,12 +1,12 @@
-import { BarDatum, BarLegendProps, BarSvgProps, BarsWithHidden, LegendLabelDatum } from '../types'
+import { BarDatum, BarSvgProps, BarsWithHidden, LegendLabelDatum } from '../types'
 import { getPropertyAccessor } from '@nivo/core'
 import { uniqBy } from 'lodash'
-import { LegendDatum } from '@nivo/legends'
+import { BoxLegendProps, BoxLegendSpec, LegendDatum } from '@nivo/legends'
 
 export const getLegendDataForKeys = <RawDatum extends BarDatum>(
     bars: BarsWithHidden<RawDatum>,
     layout: NonNullable<BarSvgProps<RawDatum>['layout']>,
-    direction: BarLegendProps['direction'],
+    direction: BoxLegendSpec['direction'],
     groupMode: NonNullable<BarSvgProps<RawDatum>['groupMode']>,
     reverse: boolean,
     getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
@@ -66,17 +66,14 @@ export const getLegendData = <RawDatum extends BarDatum>({
     reverse,
 }: Pick<Required<BarSvgProps<RawDatum>>, 'layout' | 'groupMode' | 'reverse'> & {
     bars: BarsWithHidden<RawDatum>
-    direction: BarLegendProps['direction']
-    from: BarLegendProps['dataFrom']
+    direction: BoxLegendProps['direction']
+    from: 'id' | 'indexValue'
     legendLabel: BarSvgProps<RawDatum>['legendLabel']
 }) => {
-    const getLegendLabel = getPropertyAccessor(
-        legendLabel ?? (from === 'indexes' ? 'indexValue' : 'id')
-    )
+    const getLegendLabel = getPropertyAccessor(legendLabel ?? from)
 
-    if (from === 'indexes') {
+    if (from === 'indexValue') {
         return getLegendDataForIndexes(bars, layout, getLegendLabel)
     }
-
     return getLegendDataForKeys(bars, layout, direction, groupMode, reverse, getLegendLabel)
 }

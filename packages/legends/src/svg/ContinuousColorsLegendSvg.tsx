@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { useTheme } from '@nivo/core'
 import { computeContinuousColorsLegend } from '../compute'
-import { ContinuousColorsLegendProps } from '../types'
+import { ContinuousColorsLegendSpec } from '../types'
 import { continuousColorsLegendDefaults } from '../defaults'
 
 export const ContinuousColorsLegendSvg = ({
@@ -18,7 +18,7 @@ export const ContinuousColorsLegendSvg = ({
     title,
     titleAlign = continuousColorsLegendDefaults.titleAlign,
     titleOffset = continuousColorsLegendDefaults.titleOffset,
-}: ContinuousColorsLegendProps) => {
+}: ContinuousColorsLegendSpec) => {
     const {
         width,
         height,

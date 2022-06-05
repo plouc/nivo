@@ -1,10 +1,9 @@
-import { BoxLegendSvg, LegendDatum } from '@nivo/legends'
-import { BarLegendProps } from './types'
+import { BoxLegendSvg, BoxLegendSpec, LegendDatum } from '@nivo/legends'
 
 interface BarLegendsProps {
     width: number
     height: number
-    legends: [BarLegendProps, LegendDatum[]][]
+    legends: [BoxLegendSpec, LegendDatum[]][]
     toggleSerie: (id: string | number) => void
 }
 
@@ -16,10 +15,8 @@ export const BarLegends = ({ width, height, legends, toggleSerie }: BarLegendsPr
                 {...legend}
                 containerWidth={width}
                 containerHeight={height}
-                data={legend.data ?? data}
-                toggleSerie={
-                    legend.toggleSerie && legend.dataFrom === 'keys' ? toggleSerie : undefined
-                }
+                data={data}
+                toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
             />
         ))}
     </>

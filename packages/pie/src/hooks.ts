@@ -303,7 +303,7 @@ export const usePieFromBox = <RawDatum>({
             innerRadius,
             debug: boundingBox,
         }
-    }, [width, height, innerRadiusRatio, startAngle, endAngle, fit, cornerRadius])
+    }, [width, height, innerRadiusRatio, startAngle, endAngle, fit])
 
     const pieArcs = usePieArcs({
         data,

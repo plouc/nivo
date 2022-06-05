@@ -1,11 +1,7 @@
 import * as React from 'react'
 import { CompleteTheme, ValueFormat } from '@nivo/core'
-import { SymbolProps } from './svg/symbols/types'
 import { AnyContinuousColorScale } from '@nivo/colors'
 
-/**
- * This can be used to add effect on legends on interaction.
- */
 type EffectProps = {
     on: 'hover'
     style: Partial<{
@@ -18,10 +14,26 @@ type EffectProps = {
     }>
 }
 
-type SymbolShape = 'circle' | 'diamond' | 'square' | 'triangle' | 'invertedTriangle'
+export type SymbolShape = 'circle' | 'diamond' | 'square' | 'triangle' | 'invertedTriangle'
 
-type BoxLegendSymbolProps = Partial<{
-    symbolShape: SymbolShape | React.FC<SymbolProps>
+export type SymbolProps = {
+    id: string | number
+    x: number
+    y: number
+    size: number
+    fill: string
+    opacity?: number
+    borderWidth?: number
+    borderColor?: string
+}
+
+export type SymbolShapeSvg = SymbolShape | React.FC<SymbolProps>
+export type SymbolShapeCanvas =
+    | SymbolShape
+    | ((ctx: CanvasRenderingContext2D, props: SymbolProps) => void)
+
+export type LegendSymbolProps = Partial<{
+    symbolShape: SymbolShapeSvg | SymbolShapeCanvas
     symbolSize: number
     symbolSpacing: number
     symbolBorderWidth: number
@@ -37,6 +49,17 @@ type InteractivityProps = Partial<
     }
 >
 
+export type LegendContainerProps = {
+    containerWidth: number
+    containerHeight: number
+}
+
+export type LegendPositionProps = {
+    anchor: LegendAnchor
+    translateX?: number
+    translateY?: number
+}
+
 export type LegendAnchor =
     | 'top'
     | 'top-right'
@@ -47,6 +70,10 @@ export type LegendAnchor =
     | 'left'
     | 'top-left'
     | 'center'
+
+export type ThemeProps = {
+    theme: CompleteTheme
+}
 
 export type LegendDirection = 'column' | 'row'
 
@@ -59,6 +86,7 @@ export type LegendItemDirection =
 export type LegendDatum = {
     id: string | number
     label: string | number
+    symbol?: null | SymbolShape
     hidden?: boolean
     color?: string
     fill?: string
@@ -69,6 +97,8 @@ type CommonLegendProps = {
     direction: LegendDirection
     padding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
     justify?: boolean
+
+    title?: string
 
     itemWidth: number
     itemHeight: number
@@ -81,34 +111,22 @@ type CommonLegendProps = {
     effects?: EffectProps[]
 }
 
-export type LegendProps = {
-    translateX?: number
-    translateY?: number
-    anchor: LegendAnchor
-    toggleSerie?: boolean
-} & CommonLegendProps &
-    BoxLegendSymbolProps &
-    Omit<InteractivityProps, 'toggleSerie'>
+// intended for user-facing APIs across nivo packages
+export type BoxLegendSpec = LegendPositionProps &
+    CommonLegendProps &
+    LegendSymbolProps &
+    Omit<InteractivityProps, 'toggleSerie'> & {
+        toggleSerie?: boolean
+    }
 
-export type BoxLegendSvgProps = {
-    containerWidth: number
-    containerHeight: number
-} & Omit<LegendProps, 'toggleSerie'> &
-    Required<Pick<LegendProps, 'data'>> &
-    Omit<InteractivityProps, 'toggleSerie'> &
-    Partial<{
-        toggleSerie: boolean | InteractivityProps['toggleSerie']
-    }>
+// intended for props passed to the legend-rendering function
+export type BoxLegendProps = Omit<BoxLegendSpec, 'toggleSerie'> &
+    LegendContainerProps & {
+        data: LegendDatum[]
+        toggleSerie?: (id: LegendDatum['id']) => void
+    }
 
-export type LegendSvgProps = {
-    x: number
-    y: number
-} & CommonLegendProps &
-    Required<Pick<CommonLegendProps, 'data'>> &
-    BoxLegendSymbolProps &
-    InteractivityProps
-
-export type LegendSvgItemProps = {
+export type BoxLegendItemProps = {
     data: LegendDatum
 
     x: number
@@ -122,34 +140,10 @@ export type LegendSvgItemProps = {
 
     direction?: LegendItemDirection
 } & Pick<CommonLegendProps, 'justify' | 'effects'> &
-    BoxLegendSymbolProps &
+    LegendSymbolProps &
     InteractivityProps
 
-export type LegendCanvasProps = {
-    containerWidth: number
-    containerHeight: number
-    translateX?: number
-    translateY?: number
-    anchor: LegendAnchor
-
-    symbolSize?: number
-    symbolSpacing?: number
-
-    theme: CompleteTheme
-} & Required<Pick<CommonLegendProps, 'data'>> &
-    Pick<
-        CommonLegendProps,
-        | 'direction'
-        | 'padding'
-        | 'justify'
-        | 'itemsSpacing'
-        | 'itemWidth'
-        | 'itemHeight'
-        | 'itemDirection'
-        | 'itemTextColor'
-    >
-
-export interface ContinuousColorsLegendProps {
+export type ContinuousColorsLegendSpec = {
     scale: AnyContinuousColorScale
     ticks?: number | number[]
     length?: number
@@ -167,10 +161,5 @@ export interface ContinuousColorsLegendProps {
     titleOffset?: number
 }
 
-export type AnchoredContinuousColorsLegendProps = ContinuousColorsLegendProps & {
-    anchor: LegendAnchor
-    translateX?: number
-    translateY?: number
-    containerWidth: number
-    containerHeight: number
-}
+// intended for user-facing APIs across nivo packages
+export type ContinuousColorsLegendProps = LegendPositionProps & ContinuousColorsLegendSpec

@@ -2,7 +2,7 @@ import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 // @ts-ignore
 import { ThemeProvider } from '@nivo/core'
-import { LegendSvgItem } from '../../src'
+import { BoxLegendSvgItem } from '../../src'
 import * as shapes from '../../src/svg/symbols'
 
 const commonProps = {
@@ -21,7 +21,7 @@ const directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-t
 
 const LegendSvgItemWithTheme = props => (
     <ThemeProvider>
-        <LegendSvgItem {...props} />
+        <BoxLegendSvgItem {...props} />
     </ThemeProvider>
 )
 
@@ -53,7 +53,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolCircle)).toHaveLength(1)
+        expect(wrapper.find(shapes.SymbolCircleSvg)).toHaveLength(1)
     })
 
     it('should support diamond shape', () => {
@@ -63,7 +63,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolDiamond)).toHaveLength(1)
+        expect(wrapper.find(shapes.SymbolDiamondSvg)).toHaveLength(1)
     })
 
     it('should support square shape', () => {
@@ -73,7 +73,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolSquare)).toHaveLength(1)
+        expect(wrapper.find(shapes.SymbolSquareSvg)).toHaveLength(1)
     })
 
     it('should support triangle shape', () => {
@@ -83,7 +83,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolTriangle)).toHaveLength(1)
+        expect(wrapper.find(shapes.SymbolTriangleSvg)).toHaveLength(1)
     })
 
     it('should support custom shape', () => {

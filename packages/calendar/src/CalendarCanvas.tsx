@@ -10,7 +10,7 @@ import {
     useTheme,
     useValueFormatter,
 } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
+import { renderBoxLegendToCanvas } from '@nivo/legends'
 import { calendarCanvasDefaultProps } from './props'
 import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
 import { useTooltip } from '@nivo/tooltip'
@@ -183,7 +183,7 @@ const InnerCalendarCanvas = memo(
                     color: colorScaleFn(value),
                 }))
 
-                renderLegendToCanvas(ctx, {
+                renderBoxLegendToCanvas(ctx, {
                     ...legend,
                     data: legendData,
                     containerWidth: innerWidth,

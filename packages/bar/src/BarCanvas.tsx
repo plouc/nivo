@@ -29,7 +29,7 @@ import {
     useComputedAnnotations,
 } from '@nivo/annotations'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderLegendToCanvas } from '@nivo/legends'
+import { renderBoxLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useBar } from './hooks'
 
@@ -186,7 +186,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         getBorderColor,
         getLabelColor,
         shouldRenderBarLabel,
-        legendsWithData,
+        legendData,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -251,7 +251,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             innerWidth,
             innerHeight,
             bars,
-            legendData: legendsWithData,
+            legendData,
             enableLabel,
             xScale,
             yScale,
@@ -273,7 +273,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             innerWidth,
             innerHeight,
             bars,
-            legendsWithData,
+            legendData,
             enableLabel,
             xScale,
             yScale,
@@ -351,8 +351,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                     })
                 })
             } else if (layer === 'legends') {
-                legendsWithData.forEach(([legend, data]) => {
-                    renderLegendToCanvas(ctx, {
+                legendData.forEach(([legend, data]) => {
+                    renderBoxLegendToCanvas(ctx, {
                         ...legend,
                         data,
                         containerWidth: innerWidth,
@@ -391,7 +391,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         layerContext,
         layers,
         layout,
-        legendsWithData,
+        legendData,
         margin.left,
         margin.top,
         outerHeight,

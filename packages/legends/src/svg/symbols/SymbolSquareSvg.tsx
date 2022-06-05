@@ -1,6 +1,6 @@
-import { SymbolProps } from './types'
+import { SymbolProps } from '../../types'
 
-export const SymbolCircle = ({
+export const SymbolSquareSvg = ({
     x,
     y,
     size,
@@ -10,14 +10,15 @@ export const SymbolCircle = ({
     borderColor = 'transparent',
 }: SymbolProps) => {
     return (
-        <circle
-            r={size / 2}
-            cx={x}
-            cy={y}
+        <rect
+            x={x - size / 2}
+            y={y - size / 2}
             fill={fill}
             opacity={opacity}
             strokeWidth={borderWidth}
             stroke={borderColor}
+            width={size}
+            height={size}
             style={{
                 pointerEvents: 'none',
             }}

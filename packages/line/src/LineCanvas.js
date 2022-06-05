@@ -15,7 +15,7 @@ import {
     isCursorInRect,
 } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderLegendToCanvas } from '@nivo/legends'
+import { renderBoxLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { LineCanvasPropTypes, LineCanvasDefaultProps } from './props'
@@ -230,7 +230,7 @@ const LineCanvas = ({
                     .reverse()
 
                 legends.forEach(legend => {
-                    renderLegendToCanvas(ctx, {
+                    renderBoxLegendToCanvas(ctx, {
                         ...legend,
                         data: legend.data || legendData,
                         containerWidth: innerWidth,

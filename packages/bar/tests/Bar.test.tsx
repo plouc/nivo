@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
+import { BoxLegendSvg, BoxLegendSvgItem } from '@nivo/legends'
 // @ts-ignore
 import { Bar, BarDatum, BarItemProps, ComputedDatum } from '../src'
 
@@ -257,9 +257,9 @@ it(`should reverse legend items if chart layout is vertical`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find(BoxLegendSvg)).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find(BoxLegendSvgItem)
     expect(legendItems).toHaveLength(2)
     expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
     expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
@@ -290,9 +290,9 @@ it(`should not reverse legend items if chart layout is vertical reversed`, () =>
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find(BoxLegendSvg)).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find(BoxLegendSvgItem)
     expect(legendItems).toHaveLength(2)
     expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
     expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
@@ -322,9 +322,9 @@ it(`should not reverse legend items if chart layout is horizontal`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find(BoxLegendSvg)).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find(BoxLegendSvgItem)
     expect(legendItems).toHaveLength(2)
     expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')
     expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
@@ -355,9 +355,9 @@ it(`should reverse legend items if chart layout is horizontal reversed`, () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find(BoxLegendSvg)).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find(BoxLegendSvgItem)
     expect(legendItems).toHaveLength(2)
     expect(legendItems.at(0).prop<ComputedDatum<IdValue>>('data').id).toEqual('B')
     expect(legendItems.at(1).prop<ComputedDatum<IdValue>>('data').id).toEqual('A')

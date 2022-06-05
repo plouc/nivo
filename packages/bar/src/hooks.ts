@@ -1,16 +1,11 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { usePropertyAccessor, useTheme, useValueFormatter, Margin } from '@nivo/core'
-import {
-    DataProps,
-    BarCommonProps,
-    BarDatum,
-    ComputedBarDatumWithValue,
-    BarLegendProps,
-} from './types'
+import { DataProps, BarCommonProps, BarDatum, ComputedBarDatumWithValue } from './types'
 import { defaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
-import { LegendDatum } from '@nivo/legends'
+import { LegendDatum, BoxLegendSpec } from '@nivo/legends'
+import { uniqBy } from 'lodash'
 
 export const useBar = <RawDatum extends BarDatum>({
     indexBy = defaultProps.indexBy,
@@ -139,32 +134,33 @@ export const useBar = <RawDatum extends BarDatum>({
         [enableLabel, labelSkipWidth, labelSkipHeight]
     )
 
-    const legendData = useMemo(
-        () =>
-            keys.map(key => {
+    // calculate an array with as many elements as there should be items in the legend
+    const legendBaseData = useMemo(() => {
+        if (colorBy === 'id') {
+            return keys.map(key => {
                 const bar = bars.find(bar => bar.data.id === key)
-
                 return { ...bar, data: { id: key, ...bar?.data, hidden: hiddenIds.includes(key) } }
-            }),
-        [hiddenIds, keys, bars]
-    )
+            })
+        }
+        return uniqBy(bars, ({ data }) => data.indexValue)
+    }, [hiddenIds, keys, bars, colorBy])
 
-    const legendsWithData: [BarLegendProps, LegendDatum[]][] = useMemo(
+    const legendData: [BoxLegendSpec, LegendDatum[]][] = useMemo(
         () =>
             legends.map(legend => {
                 const data = getLegendData({
-                    bars: legend.dataFrom === 'keys' ? legendData : bars,
+                    bars: legendBaseData,
                     direction: legend.direction,
-                    from: legend.dataFrom,
+                    from: colorBy,
                     groupMode,
                     layout,
                     legendLabel,
                     reverse,
                 })
 
-                return [legend, data]
+                return [legend, legend.data ?? data]
             }),
-        [legends, legendData, bars, groupMode, layout, legendLabel, reverse]
+        [legends, legendBaseData, colorBy, groupMode, layout, legendLabel, reverse]
     )
 
     return {
@@ -182,6 +178,6 @@ export const useBar = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         hiddenIds,
         toggleSerie,
-        legendsWithData,
+        legendData,
     }
 }

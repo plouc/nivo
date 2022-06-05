@@ -7,7 +7,7 @@ import {
     ArcLinkLabelsLayer,
     ArcLinkLabelComponent as ArcLinkLabel,
 } from '@nivo/arcs'
-import { LegendSvgItem, SymbolSquare } from '@nivo/legends'
+import { BoxLegendSvgItem, SymbolSquareSvg } from '@nivo/legends'
 // @ts-ignore
 import { Pie } from '../src/index'
 
@@ -542,13 +542,15 @@ describe('Pie', () => {
                 />
             )
 
-            const legendItems = wrapper.find(LegendSvgItem)
+            const legendItems = wrapper.find(BoxLegendSvgItem)
             expect(legendItems).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
                 const legendItem = legendItems.at(index)
                 expect(legendItem.text()).toEqual(datum.id)
-                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(datum.color)
+                expect(legendItem.find(SymbolSquareSvg).find('rect').prop('fill')).toEqual(
+                    datum.color
+                )
             })
         })
 
@@ -575,13 +577,15 @@ describe('Pie', () => {
                 />
             )
 
-            const legendItems = wrapper.find(LegendSvgItem)
+            const legendItems = wrapper.find(BoxLegendSvgItem)
             expect(legendItems).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
                 const legendItem = legendItems.at(index)
                 expect(legendItem.text()).toEqual(`${datum.id}.${index}`)
-                expect(legendItem.find(SymbolSquare).find('rect').prop('fill')).toEqual(datum.color)
+                expect(legendItem.find(SymbolSquareSvg).find('rect').prop('fill')).toEqual(
+                    datum.color
+                )
             })
         })
 
@@ -604,7 +608,7 @@ describe('Pie', () => {
                 />
             )
 
-            const legendItems = wrapper.find(LegendSvgItem)
+            const legendItems = wrapper.find(BoxLegendSvgItem)
             const shapes = wrapper.find(ArcShape)
 
             expect(shapes.at(0).prop('style').opacity).toMatchInlineSnapshot(`1`)

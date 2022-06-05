@@ -2,9 +2,10 @@ import { scaleLinear } from 'd3-scale'
 import { getValueFormatter } from '@nivo/core'
 import { AnyContinuousColorScale, computeContinuousColorScaleColorStops } from '@nivo/colors'
 import {
-    BoxLegendSvgProps,
-    ContinuousColorsLegendProps,
+    BoxLegendProps,
+    ContinuousColorsLegendSpec,
     LegendAnchor,
+    LegendDatum,
     LegendItemDirection,
 } from './types'
 import { continuousColorsLegendDefaults } from './defaults'
@@ -19,6 +20,12 @@ const zeroPadding = {
     left: 0,
 }
 
+export const getLegendTitleDatum = (title: undefined | string): LegendDatum => ({
+    id: '' + title,
+    label: '' + title,
+    symbol: null,
+})
+
 export const computeDimensions = ({
     direction,
     itemsSpacing,
@@ -26,7 +33,7 @@ export const computeDimensions = ({
     itemCount,
     itemWidth,
     itemHeight,
-}: Pick<BoxLegendSvgProps, 'direction' | 'padding'> &
+}: Pick<BoxLegendProps, 'direction' | 'padding'> &
     Record<'itemsSpacing' | 'itemCount' | 'itemWidth' | 'itemHeight', number>) => {
     if (typeof _padding !== 'number' && !isObject(_padding)) {
         throw new Error('Invalid property padding, must be one of: number, object')
@@ -221,7 +228,7 @@ export const computeContinuousColorsLegend = ({
     title,
     titleAlign = continuousColorsLegendDefaults.titleAlign,
     titleOffset = continuousColorsLegendDefaults.titleOffset,
-}: ContinuousColorsLegendProps) => {
+}: ContinuousColorsLegendSpec) => {
     // left to right for `row`, bottom to top for `column`
     const domain = direction === 'column' ? [...scale.domain()].reverse() : scale.domain()
 

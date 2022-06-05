@@ -1,10 +1,15 @@
 import { useState, useCallback } from 'react'
 import * as React from 'react'
 import { useTheme } from '@nivo/core'
-import { LegendDatum, LegendSvgItemProps } from '../types'
+import { BoxLegendItemProps, LegendDatum, SymbolShapeSvg } from '../types'
 import { computeItemLayout } from '../compute'
-import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
-import { SymbolInvertedTriangle } from './symbols/SymbolInvertedTriangle'
+import {
+    SymbolCircleSvg,
+    SymbolDiamondSvg,
+    SymbolSquareSvg,
+    SymbolTriangleSvg,
+    SymbolInvertedTriangleSvg,
+} from './symbols'
 import { useInheritedColor } from '@nivo/colors'
 
 type Style = Partial<{
@@ -17,14 +22,18 @@ type Style = Partial<{
 }>
 
 const symbolByShape = {
-    circle: SymbolCircle,
-    diamond: SymbolDiamond,
-    square: SymbolSquare,
-    triangle: SymbolTriangle,
-    invertedTriangle: SymbolInvertedTriangle,
+    circle: SymbolCircleSvg,
+    diamond: SymbolDiamondSvg,
+    square: SymbolSquareSvg,
+    triangle: SymbolTriangleSvg,
+    invertedTriangle: SymbolInvertedTriangleSvg,
 }
 
-export const LegendSvgItem = ({
+type BoxLegendSvgItemProps = Omit<BoxLegendItemProps, 'symbolShape'> & {
+    symbolShape: SymbolShapeSvg
+}
+
+export const BoxLegendSvgItem = ({
     x,
     y,
     width,
@@ -48,7 +57,7 @@ export const LegendSvgItem = ({
     toggleSerie,
 
     effects,
-}: LegendSvgItemProps) => {
+}: BoxLegendSvgItemProps) => {
     const [style, setStyle] = useState<Style>({})
     const theme = useTheme()
 
@@ -104,11 +113,12 @@ export const LegendSvgItem = ({
         height,
     })
 
-    const isInteractive = [onClick, onMouseEnter, onMouseLeave, toggleSerie].some(
-        handler => handler !== undefined
-    )
+    const isInteractive =
+        data.symbol !== null &&
+        [onClick, onMouseEnter, onMouseLeave, toggleSerie].some(handler => handler !== undefined)
 
-    const SymbolShape = typeof symbolShape === 'function' ? symbolShape : symbolByShape[symbolShape]
+    const symbol = data.symbol ?? symbolShape
+    const SymbolComponent = typeof symbol === 'function' ? symbol : symbolByShape[symbol]
 
     return (
         <g
@@ -131,16 +141,18 @@ export const LegendSvgItem = ({
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             />
-            {React.createElement(SymbolShape, {
-                id: data.id,
-                x: symbolX + itemSize / 2,
-                y: symbolY + itemSize / 2,
-                size: itemSize,
-                fill: data.fill ?? data.color ?? 'black',
-                borderWidth: style.symbolBorderWidth ?? symbolBorderWidth,
-                borderColor: getBorderColor(data),
-                ...(data.hidden ? theme.legends.hidden.symbol : undefined),
-            })}
+            {data.symbol !== null
+                ? React.createElement(SymbolComponent, {
+                      id: data.id,
+                      x: symbolX + itemSize / 2,
+                      y: symbolY + itemSize / 2,
+                      size: itemSize,
+                      fill: data.fill ?? data.color ?? 'black',
+                      borderWidth: style.symbolBorderWidth ?? symbolBorderWidth,
+                      borderColor: getBorderColor(data),
+                      ...(data.hidden ? theme.legends.hidden.symbol : undefined),
+                  })
+                : null}
             <text
                 textAnchor={labelAnchor}
                 style={{
@@ -151,7 +163,7 @@ export const LegendSvgItem = ({
                     userSelect: 'none',
                     ...(data.hidden ? theme.legends.hidden.text : undefined),
                 }}
-                x={labelX}
+                x={data.symbol === null ? symbolX : labelX}
                 y={labelY}
             >
                 {data.label}

@@ -16,7 +16,7 @@ import {
     ArcLinkLabelsProps,
 } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 
 export type DatumId = string | number
 
@@ -110,7 +110,7 @@ export type CommonPieProps<RawDatum> = {
     isInteractive: boolean
     tooltip: React.FC<PieTooltipProps<RawDatum>>
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     role: string
     renderWrapper: boolean

@@ -10,7 +10,7 @@ import { Component } from 'react'
 import range from 'lodash/range'
 import { setDisplayName } from '@nivo/recompose'
 import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
+import { renderBoxLegendToCanvas } from '@nivo/legends'
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
 import WaffleCellTooltip from './WaffleCellTooltip'
@@ -107,7 +107,7 @@ class WaffleCanvas extends Component {
         })
 
         legends.forEach(legend => {
-            renderLegendToCanvas(this.ctx, {
+            renderBoxLegendToCanvas(this.ctx, {
                 ...legend,
                 data: legendData,
                 containerWidth: width,

@@ -397,7 +397,6 @@ stories.add('initial hidden ids', () => (
         legends={[
             {
                 anchor: 'bottom',
-                dataFrom: select('legend.dataFrom', ['indexes', 'keys'], 'keys'),
                 direction: 'row',
                 itemHeight: 20,
                 itemWidth: 80,
@@ -409,7 +408,6 @@ stories.add('initial hidden ids', () => (
 ))
 
 stories.add('legends correct with different layout modes', () => {
-    const dataFrom = select('legend.dataFrom', ['keys', 'indexes'], 'indexes')
     const direction = select('legend.direction', ['column', 'row'], 'column')
     const layout = select('layout', ['horizontal', 'vertical'], 'horizontal')
 
@@ -439,10 +437,9 @@ stories.add('legends correct with different layout modes', () => {
                           }
                         : {
                               anchor: 'bottom',
-                              itemWidth: dataFrom === 'keys' ? 80 : 40,
+                              itemWidth: 80,
                               translateY: 50,
                           }),
-                    dataFrom,
                     direction,
                     itemHeight: 20,
                     symbolSize: 20,
@@ -459,7 +456,6 @@ stories.add('custom legend labels', () => (
         legends={[
             {
                 anchor: 'bottom-right',
-                dataFrom: 'keys',
                 direction: 'column',
                 itemHeight: 20,
                 itemWidth: 110,

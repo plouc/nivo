@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
+import { BoxLegendSvg, BoxLegendSvgItem } from '@nivo/legends'
 import Waffle from '../src/Waffle'
 import WaffleCell from '../src/WaffleCell'
 
@@ -67,9 +67,9 @@ it('should support legends', () => {
         />
     )
 
-    expect(wrapper.find(LegendSvg)).toHaveLength(1)
+    expect(wrapper.find(BoxLegendSvg)).toHaveLength(1)
 
-    const legendItems = wrapper.find(LegendSvgItem)
+    const legendItems = wrapper.find(BoxLegendSvgItem)
     expect(legendItems).toHaveLength(3)
     expect(legendItems.at(0).prop('data')).toEqual({
         id: 'one',
@@ -124,5 +124,5 @@ it('should allow to hide specific ids', () => {
     expect(oneCells).toHaveLength(0)
     expect(twoCells.length).toBeGreaterThan(0)
 
-    expect(wrapper.find(LegendSvgItem)).toHaveLength(2)
+    expect(wrapper.find(BoxLegendSvgItem)).toHaveLength(2)
 })
