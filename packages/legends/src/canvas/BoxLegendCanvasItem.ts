@@ -1,5 +1,5 @@
 import { computeItemLayout } from '../compute'
-import { BoxLegendItemProps, SymbolShapeCanvas, ThemeProps } from '../types'
+import { BoxLegendItemProps, LegendDatum, SymbolShapeCanvas, ThemeProps } from '../types'
 import {
     renderSymbolCircleToCanvas,
     renderSymbolDiamondToCanvas,
@@ -7,23 +7,13 @@ import {
     renderSymbolInvertedTriangleToCanvas,
     renderSymbolSquareToCanvas,
 } from './symbols'
+import { getInheritedColorGenerator } from '@nivo/colors'
 
 const textAlignMapping = {
     start: 'left',
     middle: 'center',
     end: 'right',
 } as const
-
-/**
-type Style = Partial<{
-    itemBackground: string
-    itemOpacity: number
-    itemTextColor: string
-    symbolBorderColor: string
-    symbolBorderWidth: number
-    symbolSize: number
-}>
-**/
 
 const symbolByShape = {
     circle: renderSymbolCircleToCanvas,
@@ -37,9 +27,6 @@ type BoxLegendCanvasItemProps = Omit<
     BoxLegendItemProps,
     | 'background'
     | 'opacity'
-    | 'symbolShape'
-    | 'symbolBorderWidth'
-    | 'symbolBorderColor'
     | 'onClick'
     | 'onMouseEnter'
     | 'onMouseLeave'
@@ -65,6 +52,8 @@ export const renderBoxLegendItemToCanvas = (
         symbolShape = 'square',
         symbolSize = 16,
         symbolSpacing = 8,
+        symbolBorderWidth,
+        symbolBorderColor = 'transparent',
 
         theme,
     }: BoxLegendCanvasItemProps & ThemeProps
@@ -80,13 +69,11 @@ export const renderBoxLegendItemToCanvas = (
         height,
     })
 
-    //const getBorderColor = useInheritedColor<LegendDatum>(
-    //    style.symbolBorderColor ?? symbolBorderColor,
-    //    theme
-    //)
+    const getBorderColor = getInheritedColorGenerator<LegendDatum>(symbolBorderColor, theme)
     const symbol = (data.symbol as SymbolShapeCanvas) ?? symbolShape
     const symbolFunction = typeof symbol === 'function' ? symbol : symbolByShape[symbol]
 
+    ctx.save()
     if (data.symbol !== null) {
         symbolFunction(ctx, {
             id: data.id,
@@ -94,6 +81,8 @@ export const renderBoxLegendItemToCanvas = (
             y: y + symbolY + itemSize / 2,
             size: itemSize,
             fill: data.color ?? data.fill ?? '#000000',
+            borderWidth: symbolBorderWidth,
+            borderColor: getBorderColor(data),
         })
     }
 
@@ -104,4 +93,5 @@ export const renderBoxLegendItemToCanvas = (
     }
     ctx.fillStyle = textColor ?? theme.legends.text.fill ?? 'black'
     ctx.fillText(String(data.label), x + (data.symbol === null ? symbolX : labelX), y + labelY)
+    ctx.restore()
 }

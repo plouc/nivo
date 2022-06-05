@@ -2,13 +2,10 @@ import { computeDimensions, computePositionFromAnchor, getLegendTitleDatum } fro
 import { BoxLegendProps, SymbolShapeCanvas, ThemeProps } from '../types'
 import { renderBoxLegendItemToCanvas } from './BoxLegendCanvasItem'
 
-// intended for use across nivo packages
 export type BoxLegendCanvasProps = Omit<
     BoxLegendProps,
     | 'itemBackground'
     | 'itemOpacity'
-    | 'symbolBorderWidth'
-    | 'symbolBorderColor'
     | 'effects'
     | 'onClick'
     | 'onMouseEnter'
@@ -42,6 +39,8 @@ export const renderBoxLegendToCanvas = (
         symbolShape = 'square',
         symbolSize = 16,
         symbolSpacing = 8,
+        symbolBorderColor,
+        symbolBorderWidth,
 
         theme,
     }: BoxLegendCanvasProps & ThemeProps
@@ -85,6 +84,8 @@ export const renderBoxLegendToCanvas = (
             symbolSize,
             symbolSpacing,
             symbolShape: symbolShape as SymbolShapeCanvas,
+            symbolBorderWidth,
+            symbolBorderColor,
             theme,
         })
     })

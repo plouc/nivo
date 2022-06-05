@@ -14,6 +14,7 @@
 - renamed `renderLegendToCanvas` to `renderBoxLegendToCanvas`. This is for consistency with `renderContinuousColorLegendToCanvas` which includes the legend type in the name of the render function.
 - distinguished between `BoxLegendSpec` (used by users to ask for legends with certain features) and `BoxLegendProps` (props for the rendering function). These two have different optional statuses (e.g. for data) and types for interactivity elements like `toggleSerie`. (The use of toggleSerie as a user-facing setting and as a function for internal book-keeping is legacy) 
 - renamed symbols to include suffixes `Svg` or `Canvas`
+- added support for inherited color for borders for canvas symbols  
 
 ## `@nivo/colors`
  
@@ -23,6 +24,11 @@
 
 - replaced type `LegendData` specific to bar package by type `LegendDatum` from legends package
 - simplified the legend spec to remove the custom `dataFrom` property. It seemed redundant with existing `colorBy` and was therefore unnecessary. Removing this property means that the bar package can use `BoxLegendSpec` straight from the legends package.
+
+
+## `@nivo/line`
+
+- added support for custom point function through prop `pointSymbol`
 
 
 ## misc other packages

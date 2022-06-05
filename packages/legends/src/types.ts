@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { CompleteTheme, ValueFormat } from '@nivo/core'
-import { AnyContinuousColorScale } from '@nivo/colors'
+import { AnyContinuousColorScale, InheritedColorConfig } from '@nivo/colors'
 
 type EffectProps = {
     on: 'hover'
@@ -37,7 +37,7 @@ export type LegendSymbolProps = Partial<{
     symbolSize: number
     symbolSpacing: number
     symbolBorderWidth: number
-    symbolBorderColor: string
+    symbolBorderColor: InheritedColorConfig<LegendDatum>
 }>
 
 type InteractivityProps = Partial<

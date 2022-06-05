@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import * as time from 'd3-time'
@@ -43,7 +35,7 @@ const data = [
     },
 ]
 
-const CustomSymbol = ({ x, y, size, color, fill, borderWidth, borderColor }) => {
+const CustomSymbolSvg = ({ x, y, size, color, fill, borderWidth, borderColor }) => {
     return (
         <g>
             <circle
@@ -67,6 +59,27 @@ const CustomSymbol = ({ x, y, size, color, fill, borderWidth, borderColor }) => 
     )
 }
 
+const CustomSymbolCanvas = (
+    ctx,
+    { x, y, size, fill, opacity = 1, borderWidth = 0, borderColor }
+) => {
+    ctx.save()
+    ctx.globalAlpha = opacity
+    ctx.lineWidth = borderWidth
+    // outer circle
+    ctx.beginPath()
+    ctx.arc(x, y, size / 2, 0, 2 * Math.PI)
+    ctx.strokeStyle = borderColor ?? fill ?? 'black'
+    ctx.closePath()
+    ctx.stroke()
+    // inner circle
+    ctx.beginPath()
+    ctx.arc(x, y, size / 4, 0, 2 * Math.PI)
+    ctx.fillStyle = fill ?? 'black'
+    ctx.fill()
+    ctx.restore()
+}
+
 const legendWithCustomSymbols = {
     anchor: 'bottom-left',
     direction: 'column',
@@ -79,7 +92,7 @@ const legendWithCustomSymbols = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-    symbolShape: CustomSymbol,
+    symbolShape: CustomSymbolSvg,
     data: [
         {
             id: 'A',
@@ -155,73 +168,7 @@ stories.add('svg custom legends', () => (
         }}
         curve={'monotoneX'}
         enablePointLabel={true}
-        pointSymbol={CustomSymbol}
-        pointSize={16}
-        pointBorderWidth={1}
-        pointBorderColor={{
-            from: 'color',
-            modifiers: [['darker', 0.3]],
-        }}
-        useMesh={true}
-        enableSlices={false}
-        legends={[
-            {
-                ...legendWithCustomSymbols,
-                anchor: 'bottom-right',
-                translateX: 120,
-                title: 'Custom symbols',
-            },
-            {
-                ...legendWithCustomSymbols,
-                anchor: 'bottom-right',
-                translateX: 240,
-                symbolBorderColor: '#444444',
-                title: 'Custom symbol (gray border)',
-            },
-            {
-                ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 120,
-                symbolBorderWidth: 0,
-                title: 'No border',
-            },
-            {
-                ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 240,
-                symbolBorderWidth: 1,
-                symbolBorderColor: '#444444',
-                title: 'Gray border',
-            },
-            {
-                ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 360,
-                symbolBorderWidth: 2,
-                symbolBorderColor: {
-                    from: 'color',
-                    modifiers: [['darker', 0.3]],
-                },
-                title: 'Color border',
-            },
-        ]}
-    />
-))
-
-stories.add('canvas custom legends', () => (
-    <LineCanvas
-        {...commonProperties}
-        margin={{ top: 20, right: 460, bottom: 60, left: 80 }}
-        data={data}
-        xcurve="monotoneX"
-        xScale={{
-            type: 'linear',
-            min: 0,
-            max: 'auto',
-        }}
-        curve={'monotoneX'}
-        enablePointLabel={true}
-        pointSymbol={CustomSymbol}
+        pointSymbol={CustomSymbolSvg}
         pointSize={16}
         pointBorderWidth={1}
         pointBorderColor={{
@@ -248,7 +195,75 @@ stories.add('canvas custom legends', () => (
                 ...legendWithDifferentSymbols,
                 anchor: 'top-right',
                 translateX: 120,
-                symbolShape: 'invertedTriangle',
+                symbolBorderWidth: 0,
+                title: 'No border',
+            },
+            {
+                ...legendWithDifferentSymbols,
+                anchor: 'top-right',
+                translateX: 240,
+                symbolBorderWidth: 1,
+                symbolBorderColor: '#444444',
+                title: 'Gray border',
+            },
+            {
+                ...legendWithDifferentSymbols,
+                anchor: 'top-right',
+                translateX: 360,
+                symbolBorderWidth: 1,
+                symbolBorderColor: {
+                    from: 'color',
+                    modifiers: [['darker', 0.3]],
+                },
+                title: 'Color border',
+            },
+        ]}
+    />
+))
+
+stories.add('canvas custom legends', () => (
+    <LineCanvas
+        {...commonProperties}
+        margin={{ top: 20, right: 460, bottom: 60, left: 80 }}
+        data={data}
+        xcurve="monotoneX"
+        xScale={{
+            type: 'linear',
+            min: 0,
+            max: 'auto',
+        }}
+        curve={'monotoneX'}
+        enablePointLabel={true}
+        pointSymbol={CustomSymbolCanvas}
+        pointSize={16}
+        pointBorderWidth={1}
+        pointBorderColor={{
+            from: 'color',
+            modifiers: [['darker', 0.3]],
+        }}
+        useMesh={true}
+        enableSlices={false}
+        legends={[
+            {
+                ...legendWithCustomSymbols,
+                anchor: 'bottom-right',
+                translateX: 120,
+                title: 'Custom symbols',
+                symbolShape: CustomSymbolCanvas,
+            },
+            {
+                ...legendWithCustomSymbols,
+                anchor: 'bottom-right',
+                translateX: 240,
+                symbolBorderColor: '#444444',
+                title: 'Custom symbols (gray border)',
+                symbolShape: CustomSymbolCanvas,
+            },
+            {
+                ...legendWithDifferentSymbols,
+                anchor: 'top-right',
+                translateX: 120,
+                symbolShape: 'circle',
                 symbolBorderWidth: 0,
                 title: 'No border',
             },
@@ -266,7 +281,7 @@ stories.add('canvas custom legends', () => (
                 anchor: 'top-right',
                 translateX: 360,
                 symbolShape: 'triangle',
-                symbolBorderWidth: 2,
+                symbolBorderWidth: 1,
                 symbolBorderColor: {
                     from: 'color',
                     modifiers: [['darker', 0.3]],

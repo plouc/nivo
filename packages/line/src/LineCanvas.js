@@ -15,7 +15,7 @@ import {
     isCursorInRect,
 } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderBoxLegendToCanvas } from '@nivo/legends'
+import { renderBoxLegendToCanvas, renderSymbolCircleToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { LineCanvasPropTypes, LineCanvasDefaultProps } from './props'
@@ -44,6 +44,7 @@ const LineCanvas = ({
     areaOpacity,
 
     enablePoints,
+    pointSymbol = renderSymbolCircleToCanvas,
     pointSize,
     pointColor,
     pointBorderWidth,
@@ -200,16 +201,14 @@ const LineCanvas = ({
 
             if (layer === 'points' && enablePoints === true && pointSize > 0) {
                 points.forEach(point => {
-                    ctx.fillStyle = point.color
-                    ctx.beginPath()
-                    ctx.arc(point.x, point.y, pointSize / 2, 0, 2 * Math.PI)
-                    ctx.fill()
-
-                    if (pointBorderWidth > 0) {
-                        ctx.strokeStyle = point.borderColor
-                        ctx.lineWidth = pointBorderWidth
-                        ctx.stroke()
-                    }
+                    pointSymbol(ctx, {
+                        x: point.x,
+                        y: point.y,
+                        size: pointSize,
+                        fill: point.color,
+                        borderWidth: pointBorderWidth ?? 0,
+                        borderColor: point.borderColor,
+                    })
                 })
             }
 
