@@ -63,48 +63,4 @@ export const renderSizeLegendToCanvas = (
 
         theme,
     })
-
-    /**
-    const allData = title ? [getLegendTitleDatum(title)].concat(data) : data
-
-    const { width, height, itemCoordinates } = computeDimensions({
-        itemWidth,
-        itemHeight,
-        itemsSpacing,
-        direction,
-        padding,
-        data: allData,
-    })
-    const { x, y } = computePositionFromAnchor({
-        anchor,
-        translateX,
-        translateY,
-        containerWidth,
-        containerHeight,
-        width,
-        height,
-    })
-
-    ctx.save()
-    ctx.translate(x, y)
-    allData.forEach((data, i) => {
-        renderBoxLegendItemToCanvas(ctx, {
-            data,
-            x: itemCoordinates[i][0],
-            y: itemCoordinates[i][1],
-            width: itemWidth,
-            height: itemHeight,
-            direction: itemDirection,
-            justify,
-            textColor: itemTextColor,
-            symbolSize,
-            symbolSpacing,
-            symbolShape: symbolShape as SymbolShapeCanvas,
-            symbolBorderWidth,
-            symbolBorderColor,
-            theme,
-        })
-    })
-    ctx.restore()
-     **/
 }
