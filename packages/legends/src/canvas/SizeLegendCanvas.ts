@@ -1,8 +1,7 @@
-import { ThemeProps, SizeLegendProps, SymbolShapeCanvas } from '../types'
-import { computeDimensions, computePositionFromAnchor, getLegendTitleDatum } from '../compute'
-import { renderBoxLegendItemToCanvas } from './BoxLegendCanvasItem'
+import { ThemeProps, SizeLegendProps } from '../types'
+import { renderBoxLegendToCanvas } from './BoxLegendCanvas'
 
-// TO DO - implement an interface that takes a scale, then re-use code from BoxLegendCanvas
+// TO DO - implement an interface that takes a scale
 export const renderSizeLegendToCanvas = (
     ctx: CanvasRenderingContext2D,
     {
@@ -35,6 +34,37 @@ export const renderSizeLegendToCanvas = (
         theme,
     }: SizeLegendProps & ThemeProps
 ) => {
+    renderBoxLegendToCanvas(ctx, {
+        containerWidth,
+        containerHeight,
+        anchor,
+        translateX,
+        translateY,
+
+        data,
+        title,
+        direction,
+        padding,
+        justify,
+
+        // items
+        itemsSpacing,
+        itemWidth,
+        itemHeight,
+        itemDirection,
+        itemTextColor,
+
+        // symbol
+        symbolShape,
+        symbolSize,
+        symbolSpacing,
+        symbolBorderColor,
+        symbolBorderWidth,
+
+        theme,
+    })
+
+    /**
     const allData = title ? [getLegendTitleDatum(title)].concat(data) : data
 
     const { width, height, itemCoordinates } = computeDimensions({
@@ -76,4 +106,5 @@ export const renderSizeLegendToCanvas = (
         })
     })
     ctx.restore()
+     **/
 }

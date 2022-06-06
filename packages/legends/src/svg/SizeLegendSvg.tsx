@@ -1,8 +1,7 @@
-import { SizeLegendProps, SymbolShapeSvg } from '../types'
-import { computeDimensions, computePositionFromAnchor, getLegendTitleDatum } from '../compute'
-import { BoxLegendSvgItem } from './BoxLegendSvgItem'
+import { SizeLegendProps } from '../types'
+import { BoxLegendSvg } from './BoxLegendSvg'
 
-// TO DO - implement an interface that takes a scale, then re-use code from BoxLegendSvg
+// TO DO - implement an interface that takes a scale
 export const SizeLegendSvg = ({
     containerWidth,
     containerHeight,
@@ -30,50 +29,33 @@ export const SizeLegendSvg = ({
     symbolBorderWidth,
     symbolBorderColor,
 }: SizeLegendProps) => {
-    const allData = title ? [getLegendTitleDatum(title)].concat(data) : data
-
-    const { width, height, itemCoordinates } = computeDimensions({
-        itemsSpacing,
-        itemWidth,
-        itemHeight,
-        direction,
-        padding,
-        data: allData,
-    })
-    const { x, y } = computePositionFromAnchor({
+    return BoxLegendSvg({
+        containerWidth,
+        containerHeight,
         anchor,
         translateX,
         translateY,
-        containerWidth,
-        containerHeight,
-        width,
-        height,
-    })
 
-    return (
-        <g transform={`translate(${x}, ${y})`}>
-            {allData.map((data, i) => (
-                <BoxLegendSvgItem
-                    key={i}
-                    data={data}
-                    x={itemCoordinates[i][0]}
-                    y={itemCoordinates[i][1]}
-                    width={itemWidth}
-                    height={itemHeight}
-                    direction={itemDirection}
-                    justify={justify}
-                    effects={[]}
-                    textColor={itemTextColor}
-                    background={itemBackground}
-                    opacity={itemOpacity}
-                    symbolShape={symbolShape as SymbolShapeSvg}
-                    symbolSize={symbolSize}
-                    symbolSpacing={symbolSpacing}
-                    symbolBorderWidth={symbolBorderWidth}
-                    symbolBorderColor={symbolBorderColor}
-                    toggleSerie={undefined}
-                />
-            ))}
-        </g>
-    )
+        data,
+        title,
+        direction,
+        padding,
+        justify,
+
+        itemsSpacing,
+        itemWidth,
+        itemHeight,
+        itemDirection,
+        itemTextColor,
+        itemBackground,
+        itemOpacity,
+
+        symbolShape,
+        symbolSize,
+        symbolSpacing,
+        symbolBorderWidth,
+        symbolBorderColor,
+
+        toggleSerie: undefined,
+    })
 }
