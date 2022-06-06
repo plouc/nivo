@@ -11,7 +11,7 @@ import {
 } from '@nivo/core'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
-import { AnchoredContinuousColorsLegendProps } from '@nivo/legends'
+import { ContinuousColorsLegendProps } from '@nivo/legends'
 import { AnnotationMatcher } from '@nivo/annotations'
 
 export interface HeatMapDatum {
@@ -151,10 +151,7 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
     >
     labelTextColor: InheritedColorConfig<Omit<ComputedCell<Datum>, 'labelTextColor'>>
 
-    legends: Omit<
-        AnchoredContinuousColorsLegendProps,
-        'scale' | 'containerWidth' | 'containerHeight'
-    >[]
+    legends: Omit<ContinuousColorsLegendProps, 'scale'>[]
 
     annotations: AnnotationMatcher<ComputedCell<Datum>>[]
 

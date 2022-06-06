@@ -1,7 +1,7 @@
 import { ReactNode, Fragment, createElement, useMemo } from 'react'
 import { SvgWrapper, Container, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
-import { AnchoredContinuousColorsLegendSvg } from '@nivo/legends'
+import { ContinuousColorsLegendSvg } from '@nivo/legends'
 import {
     DefaultHeatMapDatum,
     HeatMapDatum,
@@ -178,7 +178,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         layerById.legends = (
             <Fragment key="legends">
                 {legends.map((legend, index) => (
-                    <AnchoredContinuousColorsLegendSvg
+                    <ContinuousColorsLegendSvg
                         {...legend}
                         key={index}
                         containerWidth={innerWidth}

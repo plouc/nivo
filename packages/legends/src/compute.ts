@@ -1,9 +1,9 @@
 import { scaleLinear } from 'd3-scale'
 import { getValueFormatter } from '@nivo/core'
-import { AnyContinuousColorScale, computeContinuousColorScaleColorStops } from '@nivo/colors'
+import { computeContinuousColorScaleColorStops } from '@nivo/colors'
 import {
     BoxLegendProps,
-    ContinuousColorsLegendSpec,
+    ContinuousColorsLegendInnerSpec,
     LegendAnchor,
     LegendDatum,
     LegendItemDirection,
@@ -228,7 +228,7 @@ export const computeContinuousColorsLegend = ({
     title,
     titleAlign = continuousColorsLegendDefaults.titleAlign,
     titleOffset = continuousColorsLegendDefaults.titleOffset,
-}: ContinuousColorsLegendSpec) => {
+}: ContinuousColorsLegendInnerSpec) => {
     // left to right for `row`, bottom to top for `column`
     const domain = direction === 'column' ? [...scale.domain()].reverse() : scale.domain()
 
@@ -247,7 +247,11 @@ export const computeContinuousColorsLegend = ({
         values = [domain[0], ...scale.thresholds(), domain[1]]
     } else {
         // sequential, diverging
-        values = Array.isArray(ticks) ? ticks : (scale as AnyContinuousColorScale).ticks(ticks)
+        // typescript definitions for ScaleSequential and ScaleDiverging claim that those objects
+        // do not have a ticks() property. However, the actual objects produced by d3-scale do
+        // have it. Suppress ts checks here until the discrepancy is resolved.
+        // @ts-ignore
+        values = Array.isArray(ticks) ? ticks : scale.ticks(ticks)
     }
 
     const colorStops = computeContinuousColorScaleColorStops(scale, 32)

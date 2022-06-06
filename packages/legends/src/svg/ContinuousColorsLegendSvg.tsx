@@ -1,15 +1,20 @@
 import { Fragment } from 'react'
 import { useTheme } from '@nivo/core'
-import { computeContinuousColorsLegend } from '../compute'
-import { ContinuousColorsLegendSpec } from '../types'
+import { ContinuousColorsLegendProps } from '../types'
+import { computeContinuousColorsLegend, computePositionFromAnchor } from '../compute'
 import { continuousColorsLegendDefaults } from '../defaults'
 
 export const ContinuousColorsLegendSvg = ({
-    scale,
-    ticks,
+    containerWidth,
+    containerHeight,
+    anchor,
+    translateX = 0,
+    translateY = 0,
     length = continuousColorsLegendDefaults.length,
     thickness = continuousColorsLegendDefaults.thickness,
     direction = continuousColorsLegendDefaults.direction,
+    scale,
+    ticks,
     tickPosition = continuousColorsLegendDefaults.tickPosition,
     tickSize = continuousColorsLegendDefaults.tickSize,
     tickSpacing = continuousColorsLegendDefaults.tickSpacing,
@@ -18,7 +23,9 @@ export const ContinuousColorsLegendSvg = ({
     title,
     titleAlign = continuousColorsLegendDefaults.titleAlign,
     titleOffset = continuousColorsLegendDefaults.titleOffset,
-}: ContinuousColorsLegendSpec) => {
+}: ContinuousColorsLegendProps) => {
+    const theme = useTheme()
+
     const {
         width,
         height,
@@ -50,14 +57,22 @@ export const ContinuousColorsLegendSvg = ({
         titleOffset,
     })
 
-    const theme = useTheme()
+    const { x, y } = computePositionFromAnchor({
+        anchor,
+        translateX,
+        translateY,
+        containerWidth,
+        containerHeight,
+        width,
+        height,
+    })
 
     const id = `ContinuousColorsLegendSvgGradient.${direction}.${colorStops
         .map(stop => stop.offset)
         .join('_')}`
 
     return (
-        <g>
+        <g transform={`translate(${x}, ${y})`}>
             <defs>
                 <linearGradient
                     id={id}

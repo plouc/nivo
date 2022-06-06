@@ -105,6 +105,10 @@ export const computeContinuousColorScaleColorStops = (
         colorStopsScale.domain([0, 0.5, 1])
     }
 
+    // typescript definitions for ScaleSequential and ScaleDiverging claim that those objects
+    // do not have a ticks() property. However, the actual objects produced by d3-scale do
+    // have it. Suppress ts checks here until the discrepancy is resolved.
+    // @ts-ignore
     return ((colorStopsScale as AnyContinuousColorScale).ticks(steps) as number[]).map(
         (value: number) => ({
             key: `${value}`,

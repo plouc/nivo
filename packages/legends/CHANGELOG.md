@@ -15,10 +15,14 @@
 - distinguished between `BoxLegendSpec` (used by users to ask for legends with certain features) and `BoxLegendProps` (props for the rendering function). These two have different optional statuses (e.g. for data) and types for interactivity elements like `toggleSerie`. (The use of toggleSerie as a user-facing setting and as a function for internal book-keeping is legacy) 
 - renamed symbols to include suffixes `Svg` or `Canvas`
 - added support for inherited color for borders for canvas symbols  
+- merged `AnchoredContinuousColorLegendSvg` and `ContinuousColorLegendSvg`. This removes one files and removes some redundant code that computed width/height of the continuous scale.
+
 
 ## `@nivo/colors`
  
 - added types `AnyContinuousColorScale` and `AnyColorScale`.
+- added `@ts-ignore` before a calculation of ticks; there seem to be an inconsistency between the ts definitions and the actual functionality of objects produced by d3-scale.
+
 
 ## `@nivo/bar`
 

@@ -1,5 +1,4 @@
 export * from './symbols'
-export * from './AnchoredContinuousColorsLegendSvg'
 export * from './BoxLegendSvg'
 export * from './ContinuousColorsLegendSvg'
 export * from './BoxLegendSvgItem'

@@ -143,7 +143,7 @@ export type BoxLegendItemProps = {
     LegendSymbolProps &
     InteractivityProps
 
-export type ContinuousColorsLegendSpec = {
+export type ContinuousColorsLegendInnerSpec = {
     scale: AnyContinuousColorScale
     ticks?: number | number[]
     length?: number
@@ -162,4 +162,7 @@ export type ContinuousColorsLegendSpec = {
 }
 
 // intended for user-facing APIs across nivo packages
-export type ContinuousColorsLegendProps = LegendPositionProps & ContinuousColorsLegendSpec
+export type ContinuousColorsLegendSpec = LegendPositionProps & ContinuousColorsLegendInnerSpec
+
+// intended for props passed to the legend-rendering function
+export type ContinuousColorsLegendProps = LegendContainerProps & ContinuousColorsLegendSpec
