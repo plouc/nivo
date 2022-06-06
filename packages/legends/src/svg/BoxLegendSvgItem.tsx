@@ -146,7 +146,7 @@ export const BoxLegendSvgItem = ({
                       id: data.id,
                       x: symbolX + itemSize / 2,
                       y: symbolY + itemSize / 2,
-                      size: itemSize,
+                      size: data.size ?? itemSize,
                       fill: data.fill ?? data.color ?? 'black',
                       borderWidth: style.symbolBorderWidth ?? symbolBorderWidth,
                       borderColor: getBorderColor(data),

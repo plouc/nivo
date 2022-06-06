@@ -79,7 +79,7 @@ export const renderBoxLegendItemToCanvas = (
             id: data.id,
             x: x + symbolX + itemSize / 2,
             y: y + symbolY + itemSize / 2,
-            size: itemSize,
+            size: data.size ?? itemSize,
             fill: data.color ?? data.fill ?? '#000000',
             borderWidth: symbolBorderWidth,
             borderColor: getBorderColor(data),

@@ -13,7 +13,7 @@ import {
     ValueFormat,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendDatum, BoxLegendSpec } from '@nivo/legends'
+import { LegendData, BoxLegendSpec } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
@@ -99,7 +99,7 @@ interface BarCustomLayerBaseProps<RawDatum>
         >,
         Dimensions {
     bars: ComputedBarDatum<RawDatum>[]
-    legendData: [BoxLegendSpec, LegendDatum[]][]
+    legendData: [BoxLegendSpec, LegendData][]
 
     margin: Margin
     innerWidth: number

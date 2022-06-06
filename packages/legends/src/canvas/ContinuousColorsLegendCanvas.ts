@@ -1,6 +1,6 @@
 import { degreesToRadians } from '@nivo/core'
 import { computePositionFromAnchor, computeContinuousColorsLegend } from '../compute'
-import { LegendContainerProps, ContinuousColorsLegendProps, ThemeProps } from '../types'
+import { ContinuousColorsLegendProps, ThemeProps } from '../types'
 import { continuousColorsLegendDefaults } from '../defaults'
 
 export const renderContinuousColorLegendToCanvas = (
@@ -26,7 +26,7 @@ export const renderContinuousColorLegendToCanvas = (
         titleOffset = continuousColorsLegendDefaults.titleOffset,
 
         theme,
-    }: LegendContainerProps & ContinuousColorsLegendProps & ThemeProps
+    }: ContinuousColorsLegendProps & ThemeProps
 ) => {
     const {
         width,

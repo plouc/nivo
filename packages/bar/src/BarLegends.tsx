@@ -1,9 +1,9 @@
-import { BoxLegendSvg, BoxLegendSpec, LegendDatum } from '@nivo/legends'
+import { BoxLegendSvg, BoxLegendSpec, LegendData } from '@nivo/legends'
 
 interface BarLegendsProps {
     width: number
     height: number
-    legends: [BoxLegendSpec, LegendDatum[]][]
+    legends: [BoxLegendSpec, LegendData][]
     toggleSerie: (id: string | number) => void
 }
 

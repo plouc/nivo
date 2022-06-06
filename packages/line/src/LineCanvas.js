@@ -133,6 +133,7 @@ const LineCanvas = ({
                     areaGenerator,
                     currentPoint,
                     setCurrentPoint,
+                    theme,
                 })
             }
 

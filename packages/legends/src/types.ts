@@ -2,6 +2,36 @@ import * as React from 'react'
 import { CompleteTheme, ValueFormat } from '@nivo/core'
 import { AnyContinuousColorScale, InheritedColorConfig } from '@nivo/colors'
 
+export type LegendContainerProps = {
+    containerWidth: number
+    containerHeight: number
+}
+
+export type LegendAnchor =
+    | 'top'
+    | 'top-right'
+    | 'right'
+    | 'bottom-right'
+    | 'bottom'
+    | 'bottom-left'
+    | 'left'
+    | 'top-left'
+    | 'center'
+
+export type LegendPositionProps = {
+    anchor: LegendAnchor
+    translateX?: number
+    translateY?: number
+}
+
+export type LegendDirection = 'column' | 'row'
+
+export type ThemeProps = {
+    theme: CompleteTheme
+}
+
+/** Box Legends **/
+
 type EffectProps = {
     on: 'hover'
     style: Partial<{
@@ -49,34 +79,6 @@ type InteractivityProps = Partial<
     }
 >
 
-export type LegendContainerProps = {
-    containerWidth: number
-    containerHeight: number
-}
-
-export type LegendPositionProps = {
-    anchor: LegendAnchor
-    translateX?: number
-    translateY?: number
-}
-
-export type LegendAnchor =
-    | 'top'
-    | 'top-right'
-    | 'right'
-    | 'bottom-right'
-    | 'bottom'
-    | 'bottom-left'
-    | 'left'
-    | 'top-left'
-    | 'center'
-
-export type ThemeProps = {
-    theme: CompleteTheme
-}
-
-export type LegendDirection = 'column' | 'row'
-
 export type LegendItemDirection =
     | 'left-to-right'
     | 'right-to-left'
@@ -90,10 +92,12 @@ export type LegendDatum = {
     hidden?: boolean
     color?: string
     fill?: string
+    size?: number
 }
+export type LegendData = LegendDatum[]
 
 type CommonLegendProps = {
-    data?: LegendDatum[]
+    data?: LegendData
     direction: LegendDirection
     padding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
     justify?: boolean
@@ -122,7 +126,7 @@ export type BoxLegendSpec = LegendPositionProps &
 // intended for props passed to the legend-rendering function
 export type BoxLegendProps = Omit<BoxLegendSpec, 'toggleSerie'> &
     LegendContainerProps & {
-        data: LegendDatum[]
+        data: LegendData
         toggleSerie?: (id: LegendDatum['id']) => void
     }
 
@@ -142,6 +146,9 @@ export type BoxLegendItemProps = {
 } & Pick<CommonLegendProps, 'justify' | 'effects'> &
     LegendSymbolProps &
     InteractivityProps
+
+/** Continuous Colors **/
+// legends with a box with continuous color shading, ticks, and tick labels
 
 export type ContinuousColorsLegendInnerSpec = {
     scale: AnyContinuousColorScale
@@ -166,3 +173,21 @@ export type ContinuousColorsLegendSpec = LegendPositionProps & ContinuousColorsL
 
 // intended for props passed to the legend-rendering function
 export type ContinuousColorsLegendProps = LegendContainerProps & ContinuousColorsLegendSpec
+
+/** Size legends (like a box legend, but with symbols of varying sizes) **/
+
+export type SizeLegendInnerSpec = Omit<CommonLegendProps, 'effects'> &
+    LegendSymbolProps & {
+        scale: AnyContinuousColorScale
+        ticks?: number | number[]
+        tickFormat?: ValueFormat<number>
+    }
+
+// intended for user-facing APIs across nivo packages
+export type SizeLegendSpec = LegendPositionProps & SizeLegendInnerSpec
+
+// intended for props passed to the legend-rendering function
+export type SizeLegendProps = LegendContainerProps &
+    SizeLegendSpec & {
+        data: LegendData
+    }

@@ -1,26 +1,16 @@
+import { ThemeProps, SizeLegendProps, SymbolShapeCanvas } from '../types'
 import { computeDimensions, computePositionFromAnchor, getLegendTitleDatum } from '../compute'
-import { BoxLegendProps, SymbolShapeCanvas, ThemeProps } from '../types'
 import { renderBoxLegendItemToCanvas } from './BoxLegendCanvasItem'
 
-export type BoxLegendCanvasProps = Omit<
-    BoxLegendProps,
-    | 'itemBackground'
-    | 'itemOpacity'
-    | 'effects'
-    | 'onClick'
-    | 'onMouseEnter'
-    | 'onMouseLeave'
-    | 'toggleSerie'
->
-
-export const renderBoxLegendToCanvas = (
+// TO DO - implement an interface that takes a scale, then re-use code from BoxLegendCanvas
+export const renderSizeLegendToCanvas = (
     ctx: CanvasRenderingContext2D,
     {
         containerWidth,
         containerHeight,
+        anchor,
         translateX = 0,
         translateY = 0,
-        anchor,
 
         data,
         title,
@@ -36,14 +26,14 @@ export const renderBoxLegendToCanvas = (
         itemTextColor,
 
         // symbol
-        symbolShape = 'square',
+        symbolShape = 'circle',
         symbolSize = 16,
         symbolSpacing = 8,
         symbolBorderColor,
         symbolBorderWidth,
 
         theme,
-    }: BoxLegendCanvasProps & ThemeProps
+    }: SizeLegendProps & ThemeProps
 ) => {
     const allData = title ? [getLegendTitleDatum(title)].concat(data) : data
 

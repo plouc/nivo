@@ -1,13 +1,14 @@
-import { BoxLegendProps, SymbolShapeSvg } from '../types'
+import { SizeLegendProps, SymbolShapeSvg } from '../types'
 import { computeDimensions, computePositionFromAnchor, getLegendTitleDatum } from '../compute'
 import { BoxLegendSvgItem } from './BoxLegendSvgItem'
 
-export const BoxLegendSvg = ({
+// TO DO - implement an interface that takes a scale, then re-use code from BoxLegendSvg
+export const SizeLegendSvg = ({
     containerWidth,
     containerHeight,
+    anchor,
     translateX = 0,
     translateY = 0,
-    anchor,
 
     data,
     title,
@@ -23,19 +24,12 @@ export const BoxLegendSvg = ({
     itemBackground,
     itemOpacity,
 
-    symbolShape = 'square',
-    symbolSize,
+    symbolShape = 'circle',
+    symbolSize = 10, // here used to allocate space, actual symbol size will be variable
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
-
-    onClick,
-    onMouseEnter,
-    onMouseLeave,
-    toggleSerie: _toggleSerie,
-
-    effects,
-}: BoxLegendProps) => {
+}: SizeLegendProps) => {
     const allData = title ? [getLegendTitleDatum(title)].concat(data) : data
 
     const { width, height, itemCoordinates } = computeDimensions({
@@ -56,10 +50,8 @@ export const BoxLegendSvg = ({
         height,
     })
 
-    const toggleSerie = typeof _toggleSerie === 'boolean' ? undefined : _toggleSerie
-
     return (
-        <g transform={`translate(${x},${y})`}>
+        <g transform={`translate(${x}, ${y})`}>
             {allData.map((data, i) => (
                 <BoxLegendSvgItem
                     key={i}
@@ -70,7 +62,7 @@ export const BoxLegendSvg = ({
                     height={itemHeight}
                     direction={itemDirection}
                     justify={justify}
-                    effects={effects}
+                    effects={[]}
                     textColor={itemTextColor}
                     background={itemBackground}
                     opacity={itemOpacity}
@@ -79,10 +71,7 @@ export const BoxLegendSvg = ({
                     symbolSpacing={symbolSpacing}
                     symbolBorderWidth={symbolBorderWidth}
                     symbolBorderColor={symbolBorderColor}
-                    onClick={onClick}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    toggleSerie={toggleSerie}
+                    toggleSerie={undefined}
                 />
             ))}
         </g>

@@ -6,6 +6,7 @@ import {
     ContinuousColorsLegendInnerSpec,
     LegendAnchor,
     LegendDatum,
+    LegendData,
     LegendItemDirection,
 } from './types'
 import { continuousColorsLegendDefaults } from './defaults'
@@ -30,11 +31,11 @@ export const computeDimensions = ({
     direction,
     itemsSpacing,
     padding: _padding,
-    itemCount,
     itemWidth,
     itemHeight,
+    data,
 }: Pick<BoxLegendProps, 'direction' | 'padding'> &
-    Record<'itemsSpacing' | 'itemCount' | 'itemWidth' | 'itemHeight', number>) => {
+    Record<'itemsSpacing' | 'itemWidth' | 'itemHeight', number> & { data: LegendData }) => {
     if (typeof _padding !== 'number' && !isObject(_padding)) {
         throw new Error('Invalid property padding, must be one of: number, object')
     }
@@ -52,18 +53,37 @@ export const computeDimensions = ({
                   ..._padding,
               }
 
-    const horizontalPadding = padding.left + padding.right
-    const verticalPadding = padding.top + padding.bottom
-    let width = itemWidth + horizontalPadding
-    let height = itemHeight + verticalPadding
-    const spacing = (itemCount - 1) * itemsSpacing
+    // basic distance between adjacent items
+    const baseStep = direction === 'row' ? itemWidth + itemsSpacing : itemHeight + itemsSpacing
+    // compare i-th item to (i-1)-th item
+    // calculate additional spacing to accommodate large symbols
+    const baseSpacing = direction === 'row' ? itemWidth : itemHeight
+    const additionalSpacing = data.slice(1).map((datum, i) => {
+        const interDistance = (datum.size ?? 0) + (data[i].size ?? 0)
+        return Math.max(0, interDistance / 2 - baseSpacing)
+    })
+    const lastDatumSize = data[data.length - 1]?.size ?? 0
+    additionalSpacing.push(Math.max(0, lastDatumSize / 2 - baseSpacing / 2))
+
+    let x = padding.left
+    let y = padding.top
+    const itemCoordinates = Array<[number, number]>()
     if (direction === 'row') {
-        width = itemWidth * itemCount + spacing + horizontalPadding
-    } else if (direction === 'column') {
-        height = itemHeight * itemCount + spacing + verticalPadding
+        additionalSpacing.forEach(v => {
+            itemCoordinates.push([x, y])
+            x += baseStep + v
+        })
+    } else {
+        additionalSpacing.forEach(v => {
+            itemCoordinates.push([x, y])
+            y += baseStep + v
+        })
     }
 
-    return { width, height, padding }
+    const width = x + padding.right + (direction === 'column' ? itemWidth : 0)
+    const height = y + padding.bottom + (direction === 'row' ? itemHeight : 0)
+
+    return { width, height, padding, itemCoordinates }
 }
 
 export const computePositionFromAnchor = ({

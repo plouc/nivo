@@ -4,7 +4,7 @@ import { usePropertyAccessor, useTheme, useValueFormatter, Margin } from '@nivo/
 import { DataProps, BarCommonProps, BarDatum, ComputedBarDatumWithValue } from './types'
 import { defaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
-import { LegendDatum, BoxLegendSpec } from '@nivo/legends'
+import { LegendData, BoxLegendSpec } from '@nivo/legends'
 import { uniqBy } from 'lodash'
 
 export const useBar = <RawDatum extends BarDatum>({
@@ -145,7 +145,7 @@ export const useBar = <RawDatum extends BarDatum>({
         return uniqBy(bars, ({ data }) => data.indexValue)
     }, [hiddenIds, keys, bars, colorBy])
 
-    const legendData: [BoxLegendSpec, LegendDatum[]][] = useMemo(
+    const legendData: [BoxLegendSpec, LegendData][] = useMemo(
         () =>
             legends.map(legend => {
                 const data = getLegendData({
