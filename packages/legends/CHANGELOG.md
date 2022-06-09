@@ -12,6 +12,7 @@
 - renamed `LegendSvgItem` to `BoxLegendSvgItem` because those items are only relevant to Box legends (i.e. not ContinuousColors legends)
 - trimmed the number of exported elements from the 'svg' and 'canvas' directories
 - renamed `renderLegendToCanvas` to `renderBoxLegendToCanvas`. This is for consistency with `renderContinuousColorLegendToCanvas` which includes the legend type in the name of the render function.
+- removed `LegendProps` as a type to be used by other nivo packages, use `BoxLegendSpec` instead.
 - distinguished between `BoxLegendSpec` (used by users to ask for legends with certain features) and `BoxLegendProps` (props for the rendering function). These two have different optional statuses (e.g. for data) and types for interactivity elements like `toggleSerie`. (The use of toggleSerie as a user-facing setting and as a function for internal book-keeping is legacy) 
 - renamed symbols to include suffixes `Svg` or `Canvas`
 - added support for inherited color for borders for canvas symbols  
@@ -33,7 +34,7 @@
 ## `@nivo/line`
 
 - added support for custom point function through prop `pointSymbol`
-
+- changed the signature of the custom layer function from `layer({ ctx, ...props })` to `layer(ctx, { ...props })`. This is for consistency with ScatterPlot.
 
 ## misc other packages
 

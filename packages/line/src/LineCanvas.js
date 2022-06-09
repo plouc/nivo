@@ -120,8 +120,7 @@ const LineCanvas = ({
 
         layers.forEach(layer => {
             if (typeof layer === 'function') {
-                layer({
-                    ctx,
+                layer(ctx, {
                     innerWidth,
                     innerHeight,
                     series,

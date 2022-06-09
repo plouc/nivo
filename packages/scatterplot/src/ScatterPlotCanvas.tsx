@@ -101,8 +101,9 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             innerHeight,
             outerWidth,
             outerHeight,
+            theme,
         }),
-        [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight]
+        [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight, theme]
     )
 
     useEffect(() => {
@@ -203,6 +204,8 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         nodes,
         enableGridX,
         enableGridY,
+        gridXValues,
+        gridYValues,
         axisTop,
         axisRight,
         axisBottom,
@@ -225,7 +228,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
             return nodes[nodeIndex]
         },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+        [canvasEl, nodes, margin, innerWidth, innerHeight, delaunay]
     )
 
     const handleMouseHover = useCallback(

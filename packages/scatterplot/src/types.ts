@@ -13,7 +13,7 @@ import {
 import { AnyScale, ScaleSpec } from '@nivo/scales'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, GridValues } from '@nivo/axes'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 import { AnnotationMatcher } from '@nivo/annotations'
 
 // the types supported for x/y values
@@ -91,6 +91,7 @@ export interface ScatterPlotLayerProps<RawDatum extends ScatterPlotDatum> {
     innerHeight: number
     outerWidth: number
     outerHeight: number
+    theme: Theme
 }
 export type ScatterPlotCustomSvgLayer<RawDatum extends ScatterPlotDatum> = FunctionComponent<
     ScatterPlotLayerProps<RawDatum>
@@ -146,7 +147,7 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     onClick: ScatterPlotMouseHandler<RawDatum>
     tooltip: ScatterPlotTooltip<RawDatum>
     annotations: AnnotationMatcher<ScatterPlotNodeData<RawDatum>>[]
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
     role: string
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']

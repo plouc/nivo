@@ -1,5 +1,5 @@
 import { createElement, Fragment, ReactNode, useMemo } from 'react'
-import { SvgWrapper, Container, useDimensions, CartesianMarkers } from '@nivo/core'
+import { SvgWrapper, Container, useDimensions, useTheme, CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { useScatterPlot } from './hooks'
@@ -58,6 +58,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
         height,
         partialMargin
     )
+    const theme = useTheme()
 
     const { xScale, yScale, nodes, legendData } = useScatterPlot<RawDatum>({
         data,
@@ -82,8 +83,9 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
             innerHeight,
             outerWidth,
             outerHeight,
+            theme,
         }),
-        [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight]
+        [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight, theme]
     )
 
     const layerById: Record<ScatterPlotLayerId, ReactNode> = {
@@ -191,6 +193,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
                 containerWidth={innerWidth}
                 containerHeight={innerHeight}
                 data={legendData}
+                toggleSerie={undefined}
             />
         ))
     }

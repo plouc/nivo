@@ -1,37 +1,36 @@
-import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
-import * as time from 'd3-time'
-import { Line, LineCanvas } from '../src'
-import { SizeLegendSvg, renderSizeLegendToCanvas } from '@nivo/legends'
+import { Meta } from '@storybook/react'
+import { ScatterPlot, ScatterPlotCanvas } from '../src'
+import {
+    SizeLegendSvg,
+    renderSizeLegendToCanvas,
+    BoxLegendSvg,
+    renderBoxLegendToCanvas,
+} from '@nivo/legends'
+
+export default {
+    component: ScatterPlot,
+    title: 'CustomLegends',
+} as Meta
 
 const commonProperties = {
     width: 900,
     height: 400,
-    margin: { top: 20, right: 20, bottom: 60, left: 80 },
+    margin: { top: 20, right: 500, bottom: 60, left: 80 },
     animate: true,
     enableSlices: 'x',
+    useMesh: true,
 }
+
 const data = [
     {
         id: 'A',
         data: [
-            { x: 0.5, y: 7 },
-            { x: 1.0, y: 5 },
-            { x: 2.0, y: 11 },
-            { x: 3.5, y: 9 },
-            { x: 4.5, y: 12 },
-            { x: 7.0, y: 16 },
-        ],
-    },
-    {
-        id: 'B',
-        data: [
-            { x: 0.0, y: 14 },
-            { x: 1.5, y: 14 },
-            { x: 2.5, y: 15 },
-            { x: 5.0, y: 11 },
-            { x: 6.0, y: 10 },
-            { x: 7.5, y: 12 },
+            { x: 0.5, y: 5 },
+            { x: 1.0, y: 3 },
+            { x: 2.0, y: 9 },
+            { x: 3.5, y: 7 },
+            { x: 4.5, y: 10 },
+            { x: 7.0, y: 14 },
         ],
     },
 ]
@@ -81,13 +80,16 @@ const CustomSymbolCanvas = (
     ctx.restore()
 }
 
+const nivoColors = ['#e8c1a0', '#f47560', '#f1e15b', '#e8a838', '#61cdbb', '#97e3d5']
+
+// custom legends specifications
 const legendWithCustomSymbols = {
-    anchor: 'bottom-left',
+    anchor: 'top-right',
     direction: 'column',
-    translateX: 110,
+    translateX: 120,
     itemWidth: 80,
-    itemHeight: 24,
-    symbolSize: 18,
+    itemHeight: 26,
+    symbolSize: 20,
     symbolBorderWidth: 1,
     symbolBorderColor: {
         from: 'color',
@@ -98,12 +100,27 @@ const legendWithCustomSymbols = {
         {
             id: 'A',
             label: 'Alpha',
-            color: '#e8c1a0',
+            color: nivoColors[0],
         },
         {
             id: 'B',
             label: 'Beta',
-            color: '#f47560',
+            color: nivoColors[1],
+        },
+        {
+            id: 'C',
+            label: 'Gamma',
+            color: nivoColors[2],
+        },
+        {
+            id: 'D',
+            label: 'Delta',
+            color: nivoColors[3],
+        },
+        {
+            id: 'E',
+            label: 'Epsilon',
+            color: nivoColors[4],
         },
     ],
 }
@@ -111,7 +128,7 @@ const legendWithDifferentSymbols = {
     anchor: 'top-right',
     direction: 'column',
     translateY: 0,
-    translateX: 110,
+    translateX: 120,
     itemWidth: 80,
     itemHeight: 22,
     symbolSize: 16,
@@ -122,41 +139,40 @@ const legendWithDifferentSymbols = {
         {
             id: 'A',
             label: 'Alpha',
-            color: '#e8c1a0',
+            color: nivoColors[0],
             symbol: 'circle',
         },
         {
             id: 'B',
             label: 'Beta',
-            color: '#f47560',
+            color: nivoColors[1],
             symbol: 'square',
         },
         {
             id: 'C',
             label: 'Gamma',
-            color: '#f1e15b',
+            color: nivoColors[2],
             symbol: 'triangle',
         },
         {
             id: 'D',
             label: 'Delta',
-            color: '#e8a838',
+            color: nivoColors[3],
             symbol: 'invertedTriangle',
         },
         {
             id: 'E',
             label: 'Epsilon',
-            color: '#61cdbb',
+            color: nivoColors[4],
             symbol: 'diamond',
         },
     ],
 }
-
-const legendWithDifferentSizes = {
+const legendWithNumericSizes = {
     anchor: 'bottom-right',
     direction: 'column',
     translateY: 0,
-    translateX: 110,
+    translateX: 120,
     itemsSpacing: 6,
     itemWidth: 80,
     itemHeight: 22,
@@ -181,14 +197,14 @@ const legendWithDifferentSizes = {
             size: 3 * Math.sqrt(20),
         },
         {
-            id: 'B',
+            id: 'C',
             label: 80,
             color: '#dddddd',
             symbol: 'circle',
             size: 3 * Math.sqrt(80),
         },
         {
-            id: 'B',
+            id: 'D',
             label: 320,
             color: '#dddddd',
             symbol: 'circle',
@@ -196,8 +212,68 @@ const legendWithDifferentSizes = {
         },
     ],
 }
+const legendWithDiscreteSizes = {
+    anchor: 'bottom-right',
+    direction: 'column',
+    translateY: 0,
+    translateX: 480,
+    itemsSpacing: 6,
+    itemWidth: 80,
+    itemHeight: 22,
+    symbolSize: 16,
+    symbolSpacing: 24,
+    symbolBorderWidth: 1,
+    symbolBorderColor: '#222222',
+    symbolShape: 'square',
+    data: [
+        {
+            id: 'A',
+            label: 'small',
+            color: '#bbbbbb',
+            symbol: 'square',
+            size: 2 * Math.sqrt(5),
+        },
+        {
+            id: 'B',
+            label: 'medium',
+            color: '#bbbbbb',
+            symbol: 'square',
+            size: 2 * Math.sqrt(50),
+        },
+        {
+            id: 'C',
+            label: 'large',
+            color: '#bbbbbb',
+            symbol: 'square',
+            size: 2 * Math.sqrt(500),
+        },
+    ],
+}
 
-// custom layer that displays a size legend
+// custom layers that display a box legend
+const customBoxLegendSvg = legendSpec => {
+    return props => {
+        return (
+            <BoxLegendSvg
+                {...legendSpec}
+                containerWidth={props.innerWidth}
+                containerHeight={props.innerHeight}
+            />
+        )
+    }
+}
+const customBoxLegendCanvas = legendSpec => {
+    return (ctx, { theme, ...props }) => {
+        renderBoxLegendToCanvas(ctx, {
+            ...legendSpec,
+            containerWidth: props.innerWidth,
+            containerHeight: props.innerHeight,
+            theme,
+        })
+    }
+}
+
+// custom layers that displays a size legend
 const customSizeLegendSvg = legendSpec => {
     return props => {
         return (
@@ -210,7 +286,7 @@ const customSizeLegendSvg = legendSpec => {
     }
 }
 const customSizeLegendCanvas = legendSpec => {
-    return ({ ctx, theme, ...props }) => {
+    return (ctx, { theme, ...props }) => {
         renderSizeLegendToCanvas(ctx, {
             ...legendSpec,
             containerWidth: props.innerWidth,
@@ -220,85 +296,34 @@ const customSizeLegendCanvas = legendSpec => {
     }
 }
 
-const stories = storiesOf('Line', module)
-
-stories.addDecorator(withKnobs)
-
-stories.add('svg custom legends', () => (
-    <Line
+export const SvgLegends = () => (
+    <ScatterPlot
         {...commonProperties}
-        margin={{ top: 20, right: 460, bottom: 60, left: 80 }}
         data={data}
-        xcurve="monotoneX"
-        xScale={{
-            type: 'linear',
-            min: 0,
-            max: 'auto',
-        }}
-        curve={'monotoneX'}
-        enablePointLabel={true}
-        pointSymbol={CustomSymbolSvg}
-        pointSize={16}
-        pointBorderWidth={1}
-        pointBorderColor={{
-            from: 'color',
-            modifiers: [['darker', 0.3]],
-        }}
-        useMesh={true}
-        enableSlices={false}
         layers={[
             'grid',
             'axes',
-            'markers',
-            'lines',
-            'points',
-            'crosshair',
+            'nodes',
             'mesh',
             'legends',
-            customSizeLegendSvg({
-                ...legendWithDifferentSizes,
-                title: 'Size',
-                symbolSpacing: 28,
-                itemWidth: 80,
-                itemHeight: 16,
-                direction: 'column',
-                translateX: 110,
-            }),
-            customSizeLegendSvg({
-                ...legendWithDifferentSizes,
-                title: 'Size:',
-                itemWidth: 16,
-                symbolSpacing: 28,
-                itemHeight: 16,
-                direction: 'row',
-                translateX: 300,
-                translateY: -38,
-                itemDirection: 'top-to-bottom',
-                symbolBorderWidth: 0,
-            }),
-        ]}
-        legends={[
-            {
+            customBoxLegendSvg({
                 ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 110,
+                translateX: 120,
                 symbolShape: 'circle',
                 symbolBorderWidth: 0,
                 title: 'No border',
-            },
-            {
+            }),
+            customBoxLegendSvg({
                 ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 220,
+                translateX: 240,
                 symbolShape: 'diamond',
                 symbolBorderWidth: 1,
                 symbolBorderColor: '#444444',
                 title: 'Gray border',
-            },
-            {
+            }),
+            customBoxLegendSvg({
                 ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 330,
+                translateX: 360,
                 symbolShape: 'triangle',
                 symbolBorderWidth: 1,
                 symbolBorderColor: {
@@ -306,108 +331,107 @@ stories.add('svg custom legends', () => (
                     modifiers: [['darker', 0.3]],
                 },
                 title: 'Color border',
-            },
-            {
+            }),
+            customBoxLegendSvg({
                 ...legendWithCustomSymbols,
-                anchor: 'top-right',
-                translateX: 440,
+                translateX: 480,
                 title: 'Custom symbols',
                 symbolShape: CustomSymbolSvg,
-            },
-        ]}
-    />
-))
-
-stories.add('canvas custom legends', () => (
-    <LineCanvas
-        {...commonProperties}
-        margin={{ top: 20, right: 460, bottom: 60, left: 80 }}
-        data={data}
-        xcurve="monotoneX"
-        xScale={{
-            type: 'linear',
-            min: 0,
-            max: 'auto',
-        }}
-        curve={'monotoneX'}
-        enablePointLabel={true}
-        pointSymbol={CustomSymbolCanvas}
-        pointSize={16}
-        pointBorderWidth={1}
-        pointBorderColor={{
-            from: 'color',
-            modifiers: [['darker', 0.3]],
-        }}
-        useMesh={true}
-        enableSlices={false}
-        layers={[
-            'grid',
-            'axes',
-            'markers',
-            'lines',
-            'points',
-            'crosshair',
-            'mesh',
-            'legends',
-            customSizeLegendCanvas({
-                ...legendWithDifferentSizes,
+            }),
+            customSizeLegendSvg({
+                ...legendWithNumericSizes,
                 title: 'Size',
                 symbolSpacing: 28,
                 itemWidth: 80,
                 itemHeight: 16,
                 direction: 'column',
-                translateX: 110,
+                translateX: 120,
+            }),
+            customSizeLegendSvg({
+                ...legendWithNumericSizes,
+                title: 'Size:',
+                itemWidth: 16,
+                symbolSpacing: 28,
+                itemHeight: 16,
+                direction: 'row',
+                translateX: 330,
+                translateY: -38,
+                itemDirection: 'top-to-bottom',
+                symbolBorderWidth: 0,
+            }),
+            customSizeLegendSvg({
+                ...legendWithDiscreteSizes,
+            }),
+        ]}
+    />
+)
+
+export const CanvasLegends = () => (
+    <ScatterPlotCanvas
+        {...commonProperties}
+        data={data}
+        layers={[
+            'grid',
+            'axes',
+            'nodes',
+            'mesh',
+            'legends',
+            customBoxLegendCanvas({
+                ...legendWithDifferentSymbols,
+                translateX: 120,
+                symbolShape: 'circle',
+                symbolBorderWidth: 0,
+                title: 'No border',
+            }),
+            customBoxLegendCanvas({
+                ...legendWithDifferentSymbols,
+                translateX: 240,
+                symbolShape: 'diamond',
+                symbolBorderWidth: 1,
+                symbolBorderColor: '#444444',
+                title: 'Gray border',
+            }),
+            customBoxLegendCanvas({
+                ...legendWithDifferentSymbols,
+                translateX: 360,
+                symbolShape: 'triangle',
+                symbolBorderWidth: 1,
+                symbolBorderColor: {
+                    from: 'color',
+                    modifiers: [['darker', 0.3]],
+                },
+                title: 'Color border',
+            }),
+            customBoxLegendCanvas({
+                ...legendWithCustomSymbols,
+                translateX: 480,
+                title: 'Custom symbols',
+                symbolShape: CustomSymbolCanvas,
             }),
             customSizeLegendCanvas({
-                ...legendWithDifferentSizes,
+                ...legendWithNumericSizes,
+                title: 'Size',
+                symbolSpacing: 28,
+                itemWidth: 80,
+                itemHeight: 16,
+                direction: 'column',
+                translateX: 120,
+            }),
+            customSizeLegendCanvas({
+                ...legendWithNumericSizes,
                 title: 'Size:',
                 itemWidth: 16,
                 symbolSpacing: 36,
                 itemHeight: 16,
                 direction: 'row',
-                translateX: 300,
+                translateX: 330,
                 translateY: -38,
                 itemDirection: 'top-to-bottom',
                 symbolBorderWidth: 0,
             }),
-        ]}
-        legends={[
-            {
-                ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 110,
-                symbolShape: 'circle',
-                symbolBorderWidth: 0,
-                title: 'No border',
-            },
-            {
-                ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 220,
-                symbolShape: 'diamond',
-                symbolBorderWidth: 1,
-                symbolBorderColor: '#444444',
-                title: 'Gray border',
-            },
-            {
-                ...legendWithDifferentSymbols,
-                anchor: 'top-right',
-                translateX: 330,
-                symbolShape: 'triangle',
-                symbolBorderWidth: 1,
-                symbolBorderColor: {
-                    from: 'color',
-                    modifiers: [['darker', 0.3]],
-                },
-                title: 'Color border',
-            },
-            {
-                ...legendWithCustomSymbols,
-                anchor: 'top-right',
-                translateX: 440,
-                title: 'Custom symbols',
-                symbolShape: CustomSymbolCanvas,
-            },
+            customSizeLegendCanvas({
+                ...legendWithDiscreteSizes,
+            }),
         ]}
     />
-))
+)
