@@ -53,7 +53,7 @@ const CustomSymbolSvg = ({ x, y, size, color, fill, borderWidth, borderColor }) 
                 strokeWidth={borderWidth}
                 stroke={borderColor ?? color ?? fill}
                 fill={color ?? fill}
-                fillOpacity={0.35}
+                fillOpacity={0.65}
             />
         </g>
     )
@@ -86,7 +86,8 @@ const nivoColors = ['#e8c1a0', '#f47560', '#f1e15b', '#e8a838', '#61cdbb', '#97e
 const legendWithCustomSymbols = {
     anchor: 'top-right',
     direction: 'column',
-    translateX: 120,
+    translateX: 480,
+    translateY: -2,
     itemWidth: 80,
     itemHeight: 26,
     symbolSize: 20,
@@ -95,6 +96,7 @@ const legendWithCustomSymbols = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
+    title: 'Custom symbols',
     symbolShape: CustomSymbolSvg,
     data: [
         {
@@ -305,18 +307,15 @@ export const SvgLegends = () => (
             'axes',
             'nodes',
             'mesh',
-            'legends',
             customBoxLegendSvg({
                 ...legendWithDifferentSymbols,
                 translateX: 120,
-                symbolShape: 'circle',
                 symbolBorderWidth: 0,
                 title: 'No border',
             }),
             customBoxLegendSvg({
                 ...legendWithDifferentSymbols,
                 translateX: 240,
-                symbolShape: 'diamond',
                 symbolBorderWidth: 1,
                 symbolBorderColor: '#444444',
                 title: 'Gray border',
@@ -324,7 +323,6 @@ export const SvgLegends = () => (
             customBoxLegendSvg({
                 ...legendWithDifferentSymbols,
                 translateX: 360,
-                symbolShape: 'triangle',
                 symbolBorderWidth: 1,
                 symbolBorderColor: {
                     from: 'color',
@@ -334,8 +332,6 @@ export const SvgLegends = () => (
             }),
             customBoxLegendSvg({
                 ...legendWithCustomSymbols,
-                translateX: 480,
-                title: 'Custom symbols',
                 symbolShape: CustomSymbolSvg,
             }),
             customSizeLegendSvg({
@@ -375,18 +371,15 @@ export const CanvasLegends = () => (
             'axes',
             'nodes',
             'mesh',
-            'legends',
             customBoxLegendCanvas({
                 ...legendWithDifferentSymbols,
                 translateX: 120,
-                symbolShape: 'circle',
                 symbolBorderWidth: 0,
                 title: 'No border',
             }),
             customBoxLegendCanvas({
                 ...legendWithDifferentSymbols,
                 translateX: 240,
-                symbolShape: 'diamond',
                 symbolBorderWidth: 1,
                 symbolBorderColor: '#444444',
                 title: 'Gray border',
@@ -394,7 +387,6 @@ export const CanvasLegends = () => (
             customBoxLegendCanvas({
                 ...legendWithDifferentSymbols,
                 translateX: 360,
-                symbolShape: 'triangle',
                 symbolBorderWidth: 1,
                 symbolBorderColor: {
                     from: 'color',
@@ -404,8 +396,6 @@ export const CanvasLegends = () => (
             }),
             customBoxLegendCanvas({
                 ...legendWithCustomSymbols,
-                translateX: 480,
-                title: 'Custom symbols',
                 symbolShape: CustomSymbolCanvas,
             }),
             customSizeLegendCanvas({

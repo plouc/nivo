@@ -148,7 +148,7 @@ export type BoxLegendItemProps = {
     InteractivityProps
 
 /** Continuous Colors **/
-// legends with a box with continuous color shading, ticks, and tick labels
+// legends with continuous color shading, ticks, and tick labels
 
 export type ContinuousColorsLegendInnerSpec = {
     scale: AnyContinuousColorScale
