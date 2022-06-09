@@ -13,7 +13,7 @@ import {
 } from '@nivo/core'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 import { ScaleLinear, ScalePoint } from '@nivo/scales'
 
 export type StreamLayerId = 'grid' | 'axes' | 'layers' | 'dots' | 'slices' | 'legends'
@@ -131,7 +131,7 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     enableStackTooltip: boolean
     stackTooltip: StackTooltip
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     renderWrapper: boolean
 

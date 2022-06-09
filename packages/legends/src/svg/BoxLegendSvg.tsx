@@ -32,7 +32,7 @@ export const BoxLegendSvg = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
-    toggleSerie: _toggleSerie,
+    toggleSerie,
 
     effects,
 }: BoxLegendProps) => {
@@ -55,8 +55,6 @@ export const BoxLegendSvg = ({
         width,
         height,
     })
-
-    const toggleSerie = typeof _toggleSerie === 'boolean' ? undefined : _toggleSerie
 
     return (
         <g transform={`translate(${x},${y})`}>
@@ -82,7 +80,7 @@ export const BoxLegendSvg = ({
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                    toggleSerie={toggleSerie}
+                    toggleSerie={typeof toggleSerie === 'function' ? toggleSerie : undefined}
                 />
             ))}
         </g>

@@ -13,7 +13,7 @@ import {
     SvgDefsAndFill,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 import { ScaleLinear } from 'd3-scale'
 
 export interface RadarDataProps<D extends Record<string, unknown>> {
@@ -126,7 +126,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
 
     renderWrapper: boolean
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     role: string
     ariaLabel: AriaAttributes['aria-label']
@@ -145,5 +145,3 @@ export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarComm
     Dimensions &
     ModernMotionProps &
     SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
-
-export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>

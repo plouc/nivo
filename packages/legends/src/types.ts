@@ -127,7 +127,7 @@ export type BoxLegendSpec = LegendPositionProps &
 export type BoxLegendProps = Omit<BoxLegendSpec, 'toggleSerie'> &
     LegendContainerProps & {
         data: LegendData
-        toggleSerie?: (id: LegendDatum['id']) => void
+        toggleSerie?: boolean | InteractivityProps['toggleSerie']
     }
 
 export type BoxLegendItemProps = {

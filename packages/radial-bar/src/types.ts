@@ -10,7 +10,7 @@ import {
 } from '@nivo/core'
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 import { ScaleLinear, ScaleBand } from '@nivo/scales'
 import { RadialAxisConfig, CircularAxisConfig } from '@nivo/polar-axes'
 
@@ -107,7 +107,7 @@ export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
     onMouseMove: (bar: ComputedBar<D>, event: MouseEvent) => void
     onMouseLeave: (bar: ComputedBar<D>, event: MouseEvent) => void
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     renderWrapper: boolean
 

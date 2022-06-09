@@ -1,5 +1,5 @@
 import { Box, BoxAlign, CompleteTheme, Dimensions, Theme, ValueFormat } from '@nivo/core'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 
 export type BBox = Record<'x' | 'y' | 'height' | 'width', number>
 
@@ -45,7 +45,7 @@ export type CalendarDayData = {
     y: number
 }
 
-export type CalendarLegendProps = LegendProps & {
+export type CalendarLegendProps = BoxLegendSpec & {
     itemCount: number
 }
 

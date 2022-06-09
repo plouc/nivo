@@ -11,7 +11,7 @@ import {
     ValueFormat,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 
 export type LayerId = 'ribbons' | 'arcs' | 'labels' | 'legends'
 export interface CustomLayerProps {
@@ -142,7 +142,7 @@ export type ChordCommonProps = {
 
     isInteractive: boolean
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     renderWrapper: boolean
 

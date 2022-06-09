@@ -10,7 +10,7 @@ import { ScaleLinear } from '@nivo/scales'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -140,7 +140,7 @@ export type CommonProps<RawDatum> = {
     isInteractive: boolean
     tooltip: BarTooltipType<RawDatum>
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     role: string
 }

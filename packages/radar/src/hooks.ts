@@ -16,7 +16,6 @@ import {
     RadarDataProps,
     RadarCustomLayerProps,
     RadarSvgProps,
-    BoundLegendProps,
 } from './types'
 
 export const useRadar = <D extends Record<string, unknown>>({
@@ -118,7 +117,7 @@ export const useRadar = <D extends Record<string, unknown>>({
         [keys, colorByKey]
     )
 
-    const boundLegends: BoundLegendProps[] = useMemo(
+    const boundLegends = useMemo(
         () =>
             legends.map(({ data: customData, ...legend }) => {
                 const boundData = customData?.map(cd => {

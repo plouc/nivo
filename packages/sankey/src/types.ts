@@ -10,7 +10,7 @@ import {
     ValueFormat,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { BoxLegendSpec } from '@nivo/legends'
 
 export interface SankeyRawNode {
     id: string
@@ -146,7 +146,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     nodeTooltip: FunctionComponent<{ node: SankeyNodeDatum<N, L> }>
     linkTooltip: FunctionComponent<{ link: SankeyLinkDatum<N, L> }>
 
-    legends: LegendProps[]
+    legends: BoxLegendSpec[]
 
     renderWrapper: boolean
 
