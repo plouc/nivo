@@ -10,7 +10,11 @@ import {
     ValueFormat,
 } from '@nivo/core'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
-import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
+import {
+    InheritedColorConfig,
+    ContinuousColorScaleConfig,
+    AnyContinuousColorScale,
+} from '@nivo/colors'
 import { ContinuousColorsLegendProps } from '@nivo/legends'
 import { AnnotationMatcher } from '@nivo/annotations'
 
@@ -71,6 +75,13 @@ export interface SizeVariationConfig {
 
 export type LayerId = 'grid' | 'axes' | 'cells' | 'legends' | 'annotations'
 export interface CustomLayerProps<Datum extends HeatMapDatum> {
+    margin: Box
+    innerWidth: number
+    innerHeight: number
+    outerWidth: number
+    outerHeight: number
+    scale: AnyContinuousColorScale
+    theme: Theme
     cells: ComputedCell<Datum>[]
     activeCell: ComputedCell<Datum> | null
     setActiveCell: (cell: ComputedCell<Datum> | null) => void

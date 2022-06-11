@@ -271,8 +271,9 @@ export const computeContinuousColorsLegend = ({
         // do not have a ticks() property. However, the actual objects produced by d3-scale do
         // have it. Suppress ts checks here until the discrepancy is resolved.
         // @ts-ignore
-        values = Array.isArray(ticks) ? ticks : scale.ticks(ticks)
+        values = scale.ticks(ticks)
     }
+    values = Array.isArray(ticks) ? ticks : values
 
     const colorStops = computeContinuousColorScaleColorStops(scale, 32)
 

@@ -1,5 +1,5 @@
 import { ReactNode, Fragment, createElement, useMemo } from 'react'
-import { SvgWrapper, Container, useDimensions } from '@nivo/core'
+import { SvgWrapper, Container, useDimensions, useTheme } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { ContinuousColorsLegendSvg } from '@nivo/legends'
 import {
@@ -14,6 +14,7 @@ import { useHeatMap } from './hooks'
 import { svgDefaultProps } from './defaults'
 import { HeatMapCells } from './HeatMapCells'
 import { HeatMapCellAnnotations } from './HeatMapCellAnnotations'
+import { AnyContinuousColorScale } from '@nivo/colors'
 
 type InnerHeatMapProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
     HeatMapSvgProps<Datum, ExtraProps>,
@@ -67,6 +68,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     ariaLabelledBy,
     ariaDescribedBy,
 }: InnerHeatMapProps<Datum, ExtraProps>) => {
+    const theme = useTheme()
     const {
         margin: _margin,
         innerWidth: _innerWidth,
@@ -200,11 +202,32 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
         )
     }
 
-    const customLayerProps: CustomLayerProps<Datum> = {
-        cells,
-        activeCell,
-        setActiveCell,
-    }
+    const customLayerProps: CustomLayerProps<Datum> = useMemo(
+        () => ({
+            margin,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
+            cells,
+            activeCell,
+            setActiveCell,
+            scale: colorScale as AnyContinuousColorScale,
+            theme,
+        }),
+        [
+            margin,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
+            cells,
+            activeCell,
+            setActiveCell,
+            colorScale,
+            theme,
+        ]
+    )
 
     return (
         <SvgWrapper

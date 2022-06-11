@@ -16,6 +16,7 @@ import {
     CellShape,
     CustomLayerProps,
 } from './types'
+import { AnyContinuousColorScale } from '@nivo/colors'
 
 type InnerNetworkCanvasProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
     HeatMapCanvasProps<Datum, ExtraProps>,
@@ -134,11 +135,29 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 
     const customLayerProps: CustomLayerProps<Datum> = useMemo(
         () => ({
+            margin,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
             cells,
             activeCell,
             setActiveCell,
+            scale: colorScale as AnyContinuousColorScale,
+            theme,
         }),
-        [cells, activeCell, setActiveCell]
+        [
+            margin,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
+            cells,
+            activeCell,
+            setActiveCell,
+            colorScale,
+            theme,
+        ]
     )
 
     useEffect(() => {

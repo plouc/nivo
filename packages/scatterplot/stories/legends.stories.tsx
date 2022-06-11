@@ -9,7 +9,7 @@ import {
 
 export default {
     component: ScatterPlot,
-    title: 'CustomLegends',
+    title: 'Custom Legends',
 } as Meta
 
 const commonProperties = {
@@ -298,7 +298,7 @@ const customSizeLegendCanvas = legendSpec => {
     }
 }
 
-export const SvgLegends = () => (
+export const SvgBoxLegends = () => (
     <ScatterPlot
         {...commonProperties}
         data={data}
@@ -362,7 +362,7 @@ export const SvgLegends = () => (
     />
 )
 
-export const CanvasLegends = () => (
+export const CanvasBoxLegends = () => (
     <ScatterPlotCanvas
         {...commonProperties}
         data={data}
