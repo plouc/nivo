@@ -20,13 +20,7 @@ export const normalizeAngle = (angle: number) => {
 
 /**
  * Ensure the absolute difference between start and end angles
- * is at most given length.
- *
- * @param startAngle - in degrees
- * @param endAngle   - in degrees
- * @param length     - in degrees
- *
- * @returns {[number, number]}
+ * is at most given length. All angles should be in degrees.
  */
 export const clampArc = (startAngle: number, endAngle: number, length = 360) => {
     let clampedEndAngle = endAngle

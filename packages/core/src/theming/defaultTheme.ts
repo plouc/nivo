@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export const defaultTheme = {
+import { CompleteTheme } from './types'
+
+export const defaultTheme: CompleteTheme = {
     background: 'transparent',
     fontFamily: 'sans-serif',
     fontSize: 11,
@@ -68,6 +70,8 @@ export const defaultTheme = {
     markers: {
         lineColor: '#000000',
         lineStrokeWidth: 1,
+        textColor: '#333333',
+        fontSize: 11,
         text: {},
     },
     dots: {
@@ -108,6 +112,7 @@ export const defaultTheme = {
     },
     annotations: {
         text: {
+            fill: '#333333',
             fontSize: 13,
             outlineWidth: 2,
             outlineColor: '#ffffff',

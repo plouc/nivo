@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { PatternSquaresProps, PatternSquaresSpec } from './types'
+import { PatternDotsProps, PatternSquaresSpec } from './types'
 
 export const PatternSquares = memo(
-    ({ id, background, color, size, padding, stagger }: PatternSquaresProps) => {
+    ({ id, background, color, size, padding, stagger }: PatternDotsProps) => {
         let fullSize = size + padding
         const halfPadding = padding / 2
         if (stagger === true) {
@@ -26,7 +26,6 @@ export const PatternSquares = memo(
         )
     }
 )
-//PatternSquares.displayName = 'PatternSquares'
 
 export const patternSquaresDef = (id: string, options = {}) =>
     ({

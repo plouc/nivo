@@ -6,27 +6,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useRef } from 'react'
-import PropTypes from 'prop-types'
+import { CSSProperties, useRef } from 'react'
 import { TooltipProvider, Tooltip } from '@nivo/tooltip'
-import { ThemeProvider } from '../theming'
-import { MotionConfigProvider } from '../motion'
+import { defaultTheme, ThemeProvider } from '../theming'
+import { defaultMotionProps, MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
+import { ContainerProps } from './types'
 
 const containerStyle = {
     position: 'relative',
-}
+} as CSSProperties
 
 export const Container = ({
     children,
-    theme,
+    theme = defaultTheme,
     renderWrapper = true,
     isInteractive = true,
-    animate,
-    motionStiffness,
-    motionDamping,
-    motionConfig,
-}) => {
+    animate = true,
+    motionStiffness = defaultMotionProps['stiffness'],
+    motionDamping = defaultMotionProps['damping'],
+    motionConfig = defaultMotionProps['config'],
+}: ContainerProps) => {
     const container = useRef(null)
 
     return (
@@ -51,16 +51,3 @@ export const Container = ({
         </ThemeProvider>
     )
 }
-
-Container.propTypes = {
-    children: PropTypes.element.isRequired,
-    isInteractive: PropTypes.bool,
-    renderWrapper: PropTypes.bool,
-    theme: PropTypes.object,
-    animate: PropTypes.bool,
-    motionStiffness: PropTypes.number,
-    motionDamping: PropTypes.number,
-    motionConfig: PropTypes.string,
-}
-
-export default Container

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import {
     // order
     stackOrderAscending,
@@ -23,10 +22,9 @@ export const stackOrderPropMapping = {
 }
 
 export const stackOrderPropKeys = Object.keys(stackOrderPropMapping)
+export type StackOrder = keyof typeof stackOrderPropMapping
 
-export const stackOrderPropType = PropTypes.oneOf(stackOrderPropKeys)
-
-export const stackOrderFromProp = prop => stackOrderPropMapping[prop]
+export const stackOrderFromProp = (prop: StackOrder) => stackOrderPropMapping[prop]
 
 export const stackOffsetPropMapping = {
     expand: stackOffsetExpand,
@@ -37,7 +35,6 @@ export const stackOffsetPropMapping = {
 }
 
 export const stackOffsetPropKeys = Object.keys(stackOffsetPropMapping)
+export type StackOffset = keyof typeof stackOffsetPropMapping
 
-export const stackOffsetPropType = PropTypes.oneOf(stackOffsetPropKeys)
-
-export const stackOffsetFromProp = prop => stackOffsetPropMapping[prop]
+export const stackOffsetFromProp = (prop: StackOffset) => stackOffsetPropMapping[prop]

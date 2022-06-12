@@ -3,10 +3,8 @@ type ScaleInput = number | string | Date
 export interface CartesianMarkerProps {
     axis: 'x' | 'y'
     value: number | string | Date
-    //lineStyle: PropTypes.object
-    lineStyle: any
-    //textStyle: PropTypes.object
-    textStyle: any
+    lineStyle: Record<string, unknown>
+    textStyle: Record<string, unknown>
 
     legend: string
     legendPosition:

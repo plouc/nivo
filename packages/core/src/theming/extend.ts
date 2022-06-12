@@ -9,6 +9,7 @@
 import merge from 'lodash/merge'
 import get from 'lodash/get'
 import set from 'lodash/set'
+import { CompleteTheme, Theme } from './types'
 
 const fontProps = [
     'axis.ticks.text',
@@ -23,7 +24,10 @@ const fontProps = [
     'annotations.text',
 ]
 
-export const extendDefaultTheme = (defaultTheme, customTheme) => {
+export const extendDefaultTheme = (
+    defaultTheme: CompleteTheme,
+    customTheme: Theme
+): CompleteTheme => {
     const theme = merge({}, defaultTheme, customTheme)
 
     fontProps.forEach(prop => {
@@ -38,5 +42,5 @@ export const extendDefaultTheme = (defaultTheme, customTheme) => {
         }
     })
 
-    return theme
+    return theme as CompleteTheme
 }

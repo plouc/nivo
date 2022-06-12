@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import PropTypes from 'prop-types'
 import { useMeasure } from '../hooks'
+import { ResponsiveWrapperProps } from './types'
 
-const ResponsiveWrapper = ({ children }) => {
+export const ResponsiveWrapper = ({ children }: ResponsiveWrapperProps) => {
     const [measureRef, bounds] = useMeasure()
     const shouldRender = bounds.width > 0 && bounds.height > 0
 
@@ -19,9 +19,3 @@ const ResponsiveWrapper = ({ children }) => {
         </div>
     )
 }
-
-ResponsiveWrapper.propTypes = {
-    children: PropTypes.func.isRequired,
-}
-
-export default ResponsiveWrapper

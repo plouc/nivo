@@ -1,13 +1,6 @@
 import { positionFromAngle, radiansToDegrees } from './utils'
 import { textPropsByEngine } from '../bridge'
 
-/**
- * @param {number} radius
- * @param {number} angle          angle (radians)
- * @param {number} [rotation=0]   label rotation (degrees)
- * @param {string} [engine='svg'] one of: 'svg', 'canvas'
- * @return {{ x: number, y: number, rotate: number, align: string, baseline: string }}
- */
 export const getPolarLabelProps = (
     radius: number,
     angle: number,

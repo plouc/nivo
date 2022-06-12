@@ -14,17 +14,10 @@ import {
 } from '../components/defs'
 import { MatchPredicate, RuleSpec } from './types'
 
-/**
- * Check a node matches given def predicate.
- *
- * @param {string|Function|Object} predicate
- * @param {Object}                 node
- * @param {string}                 [dataKey] - Optional path to access node data
- * @returns {boolean}
- */
+/** Check a node matches given def predicate. */
 export const isMatchingDef = (
     predicate: MatchPredicate,
-    node: Object,
+    node: Record<string, unknown>,
     dataKey?: string
 ): boolean => {
     if (predicate === '*') {
@@ -41,13 +34,13 @@ export const isMatchingDef = (
 // Note: this function can have side effects on the prop 'node'
 const bindPattern = (
     def: PatternSpec,
-    node: Object,
+    node: Record<string, unknown>,
     colorKey: string,
     targetKey: string,
     id: string
 ): null | PatternSpec => {
     if (def.background === 'inherit' || def.color === 'inherit') {
-        const nodeColor = get(node, colorKey)
+        const nodeColor = String(get(node, colorKey))
         let background = def.background
         let color = def.color
 
@@ -78,7 +71,7 @@ const bindPattern = (
 // Note: this function can have side effects on the prop 'node'
 const bindGradient = (
     def: GradientSpec,
-    node: Object,
+    node: Record<string, unknown>,
     colorKey: string,
     targetKey: string,
     id: string
@@ -86,7 +79,7 @@ const bindGradient = (
     const allColors = def.colors.map(({ color }) => color)
 
     if (allColors.includes('inherit')) {
-        const nodeColor = get(node, colorKey)
+        const nodeColor = String(get(node, colorKey))
         let inheritedId = id
         const inheritedDef = {
             ...def,
@@ -119,7 +112,7 @@ const bindGradient = (
  */
 export const bindDefs = (
     defs: DefSpec[],
-    nodes: Object[],
+    nodes: Record<string, unknown>[],
     rules: RuleSpec[],
     {
         dataKey,
@@ -154,9 +147,21 @@ export const bindDefs = (
             const def = defs.find(({ id: defId }) => defId === id)
             let boundDef: DefSpec | null = null
             if (isPatternSpec(def)) {
-                boundDef = bindPattern(def, node, colorKey, targetKey, id)
+                boundDef = bindPattern(
+                    def,
+                    node as Record<string, unknown>,
+                    colorKey,
+                    targetKey,
+                    id
+                )
             } else if (isGradientSpec(def)) {
-                boundDef = bindGradient(def, node, colorKey, targetKey, id)
+                boundDef = bindGradient(
+                    def,
+                    node as Record<string, unknown>,
+                    colorKey,
+                    targetKey,
+                    id
+                )
             }
             if (isDefSpec(boundDef) && !generatedIds.has(boundDef.id)) {
                 boundDefs.push(boundDef)

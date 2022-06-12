@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types'
 import { Defs } from './defs'
 import { useTheme } from '../theming'
+import { SvgWrapperProps } from './types'
 
-const SvgWrapper = ({
+export const SvgWrapper = ({
     width,
     height,
     margin,
@@ -13,7 +13,7 @@ const SvgWrapper = ({
     ariaLabelledBy,
     ariaDescribedBy,
     isFocusable,
-}) => {
+}: SvgWrapperProps) => {
     const theme = useTheme()
 
     return (
@@ -34,21 +34,3 @@ const SvgWrapper = ({
         </svg>
     )
 }
-
-SvgWrapper.propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: PropTypes.shape({
-        top: PropTypes.number.isRequired,
-        left: PropTypes.number.isRequired,
-    }).isRequired,
-    defs: PropTypes.array,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-    role: PropTypes.string,
-    isFocusable: PropTypes.bool,
-    ariaLabel: PropTypes.string,
-    ariaLabelledBy: PropTypes.string,
-    ariaDescribedBy: PropTypes.string,
-}
-
-export default SvgWrapper

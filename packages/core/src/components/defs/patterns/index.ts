@@ -10,9 +10,11 @@ import { PatternDots } from './PatternDots'
 import { PatternLines } from './PatternLines'
 import { PatternSquares } from './PatternSquares'
 
-export const patternTypes = {
-    patternDots: PatternDots,
+export const linePatternTypes = {
     patternLines: PatternLines,
+}
+export const dotPatternTypes = {
+    patternDots: PatternDots,
     patternSquares: PatternSquares,
 }
 

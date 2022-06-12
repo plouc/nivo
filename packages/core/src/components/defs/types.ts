@@ -1,7 +1,7 @@
 import { GradientSpec } from './gradients'
-import { PatternSpec } from './patterns'
+import { DotPatternSpec, LinePatternSpec } from './patterns'
 
-export type DefSpec = GradientSpec | PatternSpec
+export type DefSpec = GradientSpec | DotPatternSpec | LinePatternSpec
 
 export interface DefsProps {
     defs: DefSpec[]

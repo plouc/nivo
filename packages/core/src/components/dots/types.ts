@@ -8,10 +8,8 @@ export interface DotsItemSymbolProps {
 export interface DotsItemProps extends DotsItemSymbolProps {
     x: number
     y: number
-    //datum: PropTypes.object.isRequired,
-    datum: any
+    datum: Record<string, unknown>
 
-    //symbol: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     symbol: any
 
     label: string | number

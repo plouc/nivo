@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-import without from 'lodash/without'
 import {
     curveBasis,
     curveBasisClosed,
@@ -21,7 +19,7 @@ import {
     curveStepBefore,
 } from 'd3-shape'
 
-export const curvePropMapping = {
+export const CurveInterpolators = {
     basis: curveBasis,
     basisClosed: curveBasisClosed,
     basisOpen: curveBasisOpen,
@@ -42,51 +40,38 @@ export const curvePropMapping = {
     stepBefore: curveStepBefore,
 }
 
-export const curvePropKeys = Object.keys(curvePropMapping)
+export const curveInterpolatorIds = Object.keys(CurveInterpolators)
+export type CurveInterpolatorId = keyof typeof CurveInterpolators
 
-export const curvePropType = PropTypes.oneOf(curvePropKeys)
-
-export const closedCurvePropKeys = curvePropKeys.filter(c => c.endsWith('Closed'))
-
-// Safe curves to be used with d3 area shape generator
-export const areaCurvePropKeys = without(
-    curvePropKeys,
-    'bundle',
+export const closedCurveInterpolatorIds = [
     'basisClosed',
-    'basisOpen',
     'cardinalClosed',
-    'cardinalOpen',
     'catmullRomClosed',
-    'catmullRomOpen',
-    'linearClosed'
-)
+    'linearClosed',
+] as const
+export type ClosedCurveInterpolatorId = typeof closedCurveInterpolatorIds
 
-// Safe curves to be used with d3 line shape generator
-export const lineCurvePropKeys = without(
-    curvePropKeys,
-    'bundle',
-    'basisClosed',
-    'basisOpen',
-    'cardinalClosed',
-    'cardinalOpen',
-    'catmullRomClosed',
-    'catmullRomOpen',
-    'linearClosed'
-)
+// Safe curves to be used with d3 line and area generators
+export const lineCurveInterpolatorIds = [
+    'basis',
+    'cardinal',
+    'catmullRom',
+    'linear',
+    'monotoneX',
+    'monotoneY',
+    'natural',
+    'step',
+    'stepAfter',
+    'stepBefore',
+] as const
+export type AreaCurveInterpolatorId = typeof lineCurveInterpolatorIds
+export type LineCurveInterpolatorId = typeof lineCurveInterpolatorIds
 
-export const lineCurvePropType = PropTypes.oneOf(lineCurvePropKeys)
-
-/**
- * Returns curve interpolator from given identifier.
- *
- * @param {string} id - Curve interpolator identifier
- * @return {Function}
- */
-export const curveFromProp = id => {
-    const curveInterpolator = curvePropMapping[id]
+/** get curve interpolator from given identifier. */
+export const curveFromProp = (id: CurveInterpolatorId) => {
+    const curveInterpolator = CurveInterpolators[id]
     if (!curveInterpolator) {
         throw new TypeError(`'${id}', is not a valid curve interpolator identifier.`)
     }
-
-    return curvePropMapping[id]
+    return curveInterpolator
 }
