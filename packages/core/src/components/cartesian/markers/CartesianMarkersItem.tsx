@@ -10,8 +10,9 @@ import { memo } from 'react'
 import { useTheme } from '../../../theming'
 import { CartesianMarkerProps, CartesianMarkersItemProps } from './types'
 import { defaultCartesianMarkersItemProps } from './props'
+import { DatumValue } from '../../../types'
 
-const computeLabel = ({
+const computeLabel = <Value extends DatumValue>({
     axis,
     width,
     height,
@@ -20,7 +21,7 @@ const computeLabel = ({
     legendOffsetY,
     legendOrientation,
 }: Pick<
-    CartesianMarkerProps,
+    CartesianMarkerProps<Value>,
     'axis' | 'legendPosition' | 'legendOffsetX' | 'legendOffsetY' | 'legendOrientation'
 > & {
     width: number
@@ -124,7 +125,7 @@ const computeLabel = ({
 }
 
 export const CartesianMarkersItem = memo(
-    ({
+    <X extends DatumValue = DatumValue, Y extends DatumValue = DatumValue>({
         width,
         height,
         axis,
@@ -137,7 +138,7 @@ export const CartesianMarkersItem = memo(
         legendOffsetX = defaultCartesianMarkersItemProps['legendOffsetX'],
         legendOffsetY = defaultCartesianMarkersItemProps['legendOffsetY'],
         legendOrientation = defaultCartesianMarkersItemProps['legendOrientation'],
-    }: CartesianMarkersItemProps) => {
+    }: CartesianMarkersItemProps<X, Y>) => {
         const theme = useTheme()
 
         let x = 0

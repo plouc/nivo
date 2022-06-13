@@ -1,9 +1,9 @@
-import { PropsWithChildren, MutableRefObject } from 'react'
+import { PropsWithChildren, RefObject } from 'react'
 import { TooltipActionsContext, TooltipStateContext } from './context'
 import { useTooltipHandlers } from './hooks'
 
 interface TooltipProviderProps {
-    container: MutableRefObject<HTMLDivElement>
+    container: RefObject<HTMLDivElement>
 }
 
 export const TooltipProvider = ({

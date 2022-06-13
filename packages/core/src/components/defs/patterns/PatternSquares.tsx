@@ -2,7 +2,14 @@ import { memo } from 'react'
 import { PatternDotsProps, PatternSquaresSpec } from './types'
 
 export const PatternSquares = memo(
-    ({ id, background, color, size, padding, stagger }: PatternDotsProps) => {
+    ({
+        id,
+        background = '#000000',
+        color = '#000000',
+        size = 0,
+        padding = 0,
+        stagger = false,
+    }: PatternDotsProps) => {
         let fullSize = size + padding
         const halfPadding = padding / 2
         if (stagger === true) {

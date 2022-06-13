@@ -41,7 +41,7 @@ export const CurveInterpolators = {
 }
 
 export const curveInterpolatorIds = Object.keys(CurveInterpolators)
-export type CurveInterpolatorId = keyof typeof CurveInterpolators
+export type CurveFactoryId = keyof typeof CurveInterpolators
 
 export const closedCurveInterpolatorIds = [
     'basisClosed',
@@ -49,7 +49,7 @@ export const closedCurveInterpolatorIds = [
     'catmullRomClosed',
     'linearClosed',
 ] as const
-export type ClosedCurveInterpolatorId = typeof closedCurveInterpolatorIds
+export type ClosedCurveFactoryId = typeof closedCurveInterpolatorIds[number]
 
 // Safe curves to be used with d3 line and area generators
 export const lineCurveInterpolatorIds = [
@@ -64,11 +64,11 @@ export const lineCurveInterpolatorIds = [
     'stepAfter',
     'stepBefore',
 ] as const
-export type AreaCurveInterpolatorId = typeof lineCurveInterpolatorIds
-export type LineCurveInterpolatorId = typeof lineCurveInterpolatorIds
+export type AreaCurveFactoryId = typeof lineCurveInterpolatorIds[number]
+export type LineCurveFactoryId = typeof lineCurveInterpolatorIds[number]
 
 /** get curve interpolator from given identifier. */
-export const curveFromProp = (id: CurveInterpolatorId) => {
+export const curveFromProp = (id: CurveFactoryId) => {
     const curveInterpolator = CurveInterpolators[id]
     if (!curveInterpolator) {
         throw new TypeError(`'${id}', is not a valid curve interpolator identifier.`)

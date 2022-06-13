@@ -1,4 +1,4 @@
-import { StackOrder, StackOffset, AreaCurve } from '@nivo/core'
+import { StackOrder, StackOffset, AreaCurveFactoryId } from '@nivo/core'
 import { StreamCommonProps, StreamLayerId } from './types'
 import { StreamDotsItem } from './StreamDotsItem'
 import { LayerTooltip } from './LayerTooltip'
@@ -9,7 +9,7 @@ export const defaultProps = {
 
     order: 'none' as StackOrder,
     offsetType: 'wiggle' as StackOffset,
-    curve: 'catmullRom' as AreaCurve,
+    curve: 'catmullRom' as AreaCurveFactoryId,
 
     axisBottom: {},
     axisLeft: {},
@@ -51,7 +51,7 @@ export const svgDefaultProps = {
     fill: [],
 
     animate: true,
-    motionConfig: 'default',
+    motionConfig: 'default' as const,
 
     role: 'img',
     isFocusable: false,

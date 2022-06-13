@@ -1,11 +1,5 @@
 import { Fragment, useMemo, ReactNode, createElement } from 'react'
-import {
-    // @ts-ignore
-    bindDefs,
-    useDimensions,
-    SvgWrapper,
-    Container,
-} from '@nivo/core'
+import { bindDefs, useDimensions, SvgWrapper, Container } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { useAreaBump } from './hooks'
 import { Area } from './Area'
@@ -126,7 +120,7 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
     })
 
     const boundDefs = useMemo(
-        () => bindDefs(defs, series, fill, { targetKey: 'fill' }),
+        () => bindDefs(defs ?? [], series, fill, { targetKey: 'fill' }),
         [defs, series, fill]
     )
 

@@ -38,7 +38,7 @@ export interface PieArc extends Arc {
     padAngle: number
 }
 
-export interface ComputedDatum<RawDatum> {
+export type ComputedDatum<RawDatum> = {
     id: DatumId
     label: DatumId
     value: number

@@ -15,9 +15,9 @@ import {
 import { MatchPredicate, RuleSpec } from './types'
 
 /** Check a node matches given def predicate. */
-export const isMatchingDef = (
-    predicate: MatchPredicate,
-    node: Record<string, unknown>,
+export const isMatchingDef = <T extends Record<string, unknown> = Record<string, unknown>>(
+    predicate: MatchPredicate<T>,
+    node: T,
     dataKey?: string
 ): boolean => {
     if (predicate === '*') {
@@ -110,10 +110,10 @@ const bindGradient = (
  *
  * Note: this function can have side effects on items in the array 'nodes'
  */
-export const bindDefs = (
+export const bindDefs = <T extends Record<string, unknown> = Record<string, unknown>>(
     defs: DefSpec[],
-    nodes: Record<string, unknown>[],
-    rules: RuleSpec[],
+    nodes: T[],
+    rules: RuleSpec<T>[],
     {
         dataKey,
         colorKey = 'color',

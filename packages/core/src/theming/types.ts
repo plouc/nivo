@@ -52,7 +52,7 @@ export type CompleteTheme = {
         lineColor: string
         lineStrokeWidth: number
         textColor: string
-        fontSize: string | number | 0
+        fontSize: string | 0
         text: Partial<CSSProperties>
     }
     dots: {

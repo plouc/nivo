@@ -19,9 +19,24 @@ export type EngineToTextProps = {
     canvas: TextProps
 }
 
-export type MatchPredicate = '*' | ((d: Object) => boolean) | Object
+export type MatchPredicate<T> = '*' | ((d: T) => boolean) | Record<string, unknown>
 
-export type RuleSpec = {
+export type RuleSpec<T> = {
     id: string
-    match: MatchPredicate
+    match: MatchPredicate<T>
 }
+
+export type NumberDatum = number | { valueOf(): number }
+
+export type DatumPropertyAccessor<Datum, Value> = (datum: Datum) => Value
+
+export type PropertyAccessor<Datum, Value> =
+    // path to use with `lodash.get()`
+    | string
+    // explicit accessor function
+    | DatumPropertyAccessor<Datum, Value>
+
+// this is very similar to the PropertyAccessor, but provided for backward compatibility
+export type ValueFormat<Value> =
+    | string // d3 formatter
+    | ((value: Value) => string)

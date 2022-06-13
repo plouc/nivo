@@ -27,7 +27,7 @@ export const Container = ({
     motionDamping = defaultMotionProps['damping'],
     motionConfig = defaultMotionProps['config'],
 }: ContainerProps) => {
-    const container = useRef(null)
+    const container = useRef<HTMLDivElement | null>(null)
 
     return (
         <ThemeProvider theme={theme}>

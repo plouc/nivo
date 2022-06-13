@@ -36,7 +36,7 @@ export interface NormalizedDatum<RawDatum> {
     data: RawDatum
 }
 
-export interface DimensionDatum<RawDatum> {
+export type DimensionDatum<RawDatum> = {
     id: string
     value: number
     formattedValue: string | number
@@ -56,7 +56,7 @@ export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
     dimensions: DimensionDatum<RawDatum>[]
 }
 
-export interface BarDatum<RawDatum> extends DimensionDatum<RawDatum> {
+export type BarDatum<RawDatum> = DimensionDatum<RawDatum> & {
     key: string
     fill?: string
     borderColor: string

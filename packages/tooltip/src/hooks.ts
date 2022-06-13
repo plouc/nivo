@@ -1,4 +1,4 @@
-import { useState, useContext, useCallback, MutableRefObject, MouseEvent, useMemo } from 'react'
+import { useState, useContext, useCallback, RefObject, MouseEvent, useMemo } from 'react'
 import {
     TooltipActionsContext,
     TooltipActionsContextData,
@@ -8,7 +8,7 @@ import {
 } from './context'
 import { TooltipAnchor } from './types'
 
-export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) => {
+export const useTooltipHandlers = (container: RefObject<HTMLDivElement>) => {
     const [state, setState] = useState<TooltipStateContextData>(hiddenTooltipState)
 
     const showTooltipAt: TooltipActionsContextData['showTooltipAt'] = useCallback(
@@ -25,7 +25,9 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
 
     const showTooltipFromEvent: TooltipActionsContextData['showTooltipFromEvent'] = useCallback(
         (content: JSX.Element, event: MouseEvent, anchor: TooltipAnchor = 'top') => {
-            const bounds = container.current.getBoundingClientRect()
+            const bounds = container.current
+                ? container.current.getBoundingClientRect()
+                : { left: 0, top: 0, width: 0 }
             const x = event.clientX - bounds.left
             const y = event.clientY - bounds.top
 

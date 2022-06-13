@@ -31,7 +31,7 @@ export const Mesh = <Datum,>({
     onClick,
     debug,
 }: MeshProps<Datum>) => {
-    const elementRef = useRef<SVGGElement>(null)
+    const elementRef = useRef<SVGGElement | null>(null)
     const [currentIndex, setCurrentIndex] = useState<number | null>(null)
 
     const { delaunay, voronoi } = useVoronoiMesh({
@@ -62,7 +62,7 @@ export const Mesh = <Datum,>({
 
             return [index, index !== undefined ? nodes[index] : null] as [number, Datum | null]
         },
-        [elementRef, delaunay]
+        [elementRef, delaunay, nodes]
     )
 
     const handleMouseEnter = useCallback(

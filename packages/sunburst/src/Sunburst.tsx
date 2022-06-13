@@ -1,11 +1,5 @@
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import {
-    // @ts-ignore
-    bindDefs,
-    Container,
-    SvgWrapper,
-    useDimensions,
-} from '@nivo/core'
+import { bindDefs, Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { defaultProps } from './props'
 import { useSunburst, useSunburstLayerContext } from './hooks'
@@ -79,6 +73,7 @@ const InnerSunburst = <RawDatum,>({
         childColor,
     })
 
+    // @ts-ignore - not sure why ts gives messages here...
     const boundDefs = bindDefs(defs, nodes, fill, {
         dataKey: '.',
         colorKey: 'color',

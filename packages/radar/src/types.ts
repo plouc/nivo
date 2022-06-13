@@ -87,8 +87,7 @@ export type RadarColorMapping = Record<string, string>
 
 export interface RadarCommonProps<D extends Record<string, unknown>> {
     maxValue: number | 'auto'
-    // second argument passed to the formatter is the key
-    valueFormat: ValueFormat<number, string>
+    valueFormat: ValueFormat<number>
 
     rotation: number
 

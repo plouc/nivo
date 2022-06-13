@@ -10,7 +10,7 @@ import {
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 
-export interface ComputedDatum<RawDatum> {
+export type ComputedDatum<RawDatum> = {
     id: string
     // contain own id plus all ancestor ids
     path: string[]

@@ -5,9 +5,7 @@ import {
     usePropertyAccessor,
     useValueFormatter,
     useCurveInterpolation,
-    // @ts-ignore
     stackOrderFromProp,
-    // @ts-ignore
     stackOffsetFromProp,
 } from '@nivo/core'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -63,6 +61,7 @@ export const useStream = <RawDatum extends StreamDatum>({
                 .x(({ x }) => x)
                 .y0(({ y1 }) => y1)
                 .y1(({ y2 }) => y2)
+                // @ts-ignore
                 .curve(areaCurveFactory),
         [areaCurveFactory]
     )

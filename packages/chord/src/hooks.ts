@@ -1,9 +1,5 @@
 import { useMemo, useState } from 'react'
-import {
-    useValueFormatter,
-    // @ts-ignore
-    getLabelGenerator,
-} from '@nivo/core'
+import { useValueFormatter, getLabelGenerator } from '@nivo/core'
 import { OrdinalColorScale, useOrdinalColorScale } from '@nivo/colors'
 import { computeChordLayout, computeChordGenerators, computeChordArcsAndRibbons } from './compute'
 import { ArcDatum, ChordCommonProps, ChordDataProps, CustomLayerProps, RibbonDatum } from './types'

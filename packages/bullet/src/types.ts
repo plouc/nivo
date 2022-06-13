@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
+import { Box, Dimensions, Theme, ModernMotionProps } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 import { ScaleLinear } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
@@ -61,16 +61,16 @@ export type CommonBulletProps = Dimensions & {
     rangeBorderColor: InheritedColorConfig<ComputedRangeDatum>
     rangeBorderWidth: number
     rangeComponent: React.ComponentType<BulletRectsItemProps>
-    rangeColors: Colors
+    rangeColors: string[] | string
 
     measureBorderColor: InheritedColorConfig<ComputedRangeDatum>
     measureBorderWidth: number
     measureComponent: React.ComponentType<BulletRectsItemProps>
-    measureColors: Colors
+    measureColors: string[] | string
     measureSize: number
 
     markerComponent: React.ComponentType<BulletMarkersItemProps>
-    markerColors: Colors
+    markerColors: string[] | string
     markerSize: number
 
     axisPosition: 'before' | 'after'

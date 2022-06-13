@@ -1,11 +1,6 @@
 import { useMemo } from 'react'
 import { useTransition, to, SpringValue } from '@react-spring/web'
-import {
-    // @ts-ignore
-    midAngle,
-    positionFromAngle,
-    useMotionConfig,
-} from '@nivo/core'
+import { midAngle, positionFromAngle, useMotionConfig } from '@nivo/core'
 import { Arc, DatumWithArc, Point } from './types'
 import { filterDataBySkipAngle } from './utils'
 import { ArcTransitionMode, TransitionExtra, useArcTransitionMode } from './arcTransitionMode'

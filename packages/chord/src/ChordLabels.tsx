@@ -28,7 +28,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
         () =>
             arcs.map(arc => {
                 const angle = midAngle(arc)
-                const textProps = getPolarLabelProps(radius, angle, rotation)
+                const textProps = getPolarLabelProps(radius, angle, rotation, 'svg')
 
                 return {
                     id: arc.id,

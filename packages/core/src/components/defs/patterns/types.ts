@@ -1,18 +1,18 @@
 export interface PatternDotsProps {
     id: string
-    color: string
-    background: string
-    size: number
-    padding: number
-    stagger: boolean
+    color?: string
+    background?: string
+    size?: number
+    padding?: number
+    stagger?: boolean
 }
 export interface PatternLinesProps {
     id: string
-    color: string
-    background: string
-    spacing: number
-    rotation: number
-    lineWidth: number
+    color?: string
+    background?: string
+    spacing?: number
+    rotation?: number
+    lineWidth?: number
 }
 
 export interface PatternDotsSpec extends PatternDotsProps {

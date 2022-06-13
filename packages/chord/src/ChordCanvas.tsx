@@ -204,14 +204,19 @@ const InnerChordCanvas = ({
 
                 arcs.forEach(arc => {
                     const angle = midAngle(arc)
-                    const props = getPolarLabelProps(radius + labelOffset, angle, labelRotation)
+                    const props = getPolarLabelProps(
+                        radius + labelOffset,
+                        angle,
+                        labelRotation,
+                        'canvas'
+                    )
 
                     ctx.save()
                     ctx.translate(props.x, props.y)
                     ctx.rotate(degreesToRadians(props.rotate))
 
-                    ctx.textAlign = props.align
-                    ctx.textBaseline = props.baseline
+                    ctx.textAlign = props.align as CanvasTextAlign
+                    ctx.textBaseline = props.baseline as CanvasTextBaseline
                     ctx.fillStyle = getLabelTextColor(arc)
                     ctx.fillText(arc.label, 0, 0)
 

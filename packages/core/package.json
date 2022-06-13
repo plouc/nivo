@@ -11,18 +11,24 @@
     "url": "https://github.com/plouc/nivo.git",
     "directory": "packages/core"
   },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts"
+  ],
   "main": "./dist/nivo-core.cjs.js",
   "module": "./dist/nivo-core.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/",
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/recompose": "0.79.0",
-    "@react-spring/web": "9.4.5",
+    "@react-spring/web": "^9.4.5",
     "d3-color": "^2.0.0",
     "d3-format": "^1.4.4",
     "d3-interpolate": "^2.0.1",
@@ -34,6 +40,7 @@
   },
   "devDependencies": {
     "@nivo/tooltip": "0.79.0",
+    "@types/d3-interpolate": "^2.0.2",
     "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {

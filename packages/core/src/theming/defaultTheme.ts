@@ -71,7 +71,7 @@ export const defaultTheme: CompleteTheme = {
         lineColor: '#000000',
         lineStrokeWidth: 1,
         textColor: '#333333',
-        fontSize: 11,
+        fontSize: '11',
         text: {},
     },
     dots: {

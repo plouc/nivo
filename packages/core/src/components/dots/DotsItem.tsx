@@ -6,19 +6,18 @@ import { DotsItemSymbol } from './DotsItemSymbol'
 import { DotsItemProps } from './types'
 
 export const DotsItem = memo(
-    ({
+    <Datum extends Record<string, unknown>>({
         x,
         y,
         symbol = DotsItemSymbol,
         size,
-        datum,
         color,
         borderWidth,
         borderColor,
         label,
         labelTextAnchor = 'middle',
         labelYOffset = -12,
-    }: DotsItemProps) => {
+    }: DotsItemProps<Datum>) => {
         const theme = useTheme()
 
         const { animate, config: springConfig } = useMotionConfig()
@@ -33,7 +32,6 @@ export const DotsItem = memo(
                 {createElement(symbol, {
                     size,
                     color,
-                    datum,
                     borderWidth,
                     borderColor,
                 })}

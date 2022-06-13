@@ -36,7 +36,7 @@ export interface ChildrenDatum<RawDatum> {
     children?: Array<RawDatum & ChildrenDatum<RawDatum>>
 }
 
-export interface ComputedDatum<RawDatum> {
+export type ComputedDatum<RawDatum> = {
     id: DatumId
     // contain own id plus all ancestor ids
     path: DatumId[]

@@ -2,7 +2,7 @@
     "files": [],
     "references": [
         // Core first because everything needs it
-        // { "path": "./packages/core" },
+        { "path": "./packages/core" },
 
         // Shared next because charts need them
         { "path": "./packages/annotations" },
@@ -17,7 +17,7 @@
 
         // Utility packages
         { "path": "./packages/generators" },
-        { "path": "./packages/recompose" },
+        // { "path": "./packages/recompose" },
 
         // Charts now
         { "path": "./packages/bar" },
@@ -41,7 +41,7 @@
         { "path": "./packages/treemap" },
 
         // Static rendering and express middleware
-        { "path": "./packages/static" },
-        { "path": "./packages/express" }
+        // { "path": "./packages/static" },
+        // { "path": "./packages/express" }
     ]
 }

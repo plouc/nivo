@@ -5,11 +5,11 @@ import { PatternLinesProps, PatternLinesSpec } from './types'
 export const PatternLines = memo(
     ({
         id,
-        spacing: _spacing,
-        rotation: _rotation,
-        background,
-        color,
-        lineWidth,
+        spacing: _spacing = 0,
+        rotation: _rotation = 0,
+        background = '#000000',
+        color = '#000000',
+        lineWidth = 1,
     }: PatternLinesProps) => {
         let rotation = Math.round(_rotation) % 360
         const spacing = Math.abs(_spacing)
@@ -66,7 +66,6 @@ export const PatternLines = memo(
         )
     }
 )
-//PatternLines.displayName = 'PatternLines'
 
 export const patternLinesDef = (id: string, options = {}) =>
     ({

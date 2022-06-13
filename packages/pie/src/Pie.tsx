@@ -1,11 +1,5 @@
 import { ReactNode, Fragment, createElement } from 'react'
-import {
-    // @ts-ignore
-    bindDefs,
-    useDimensions,
-    Container,
-    SvgWrapper,
-} from '@nivo/core'
+import { bindDefs, useDimensions, Container, SvgWrapper } from '@nivo/core'
 import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
 import { InheritedColorConfig } from '@nivo/colors'
 import PieLegends from './PieLegends'

@@ -58,7 +58,7 @@ export const svgDefaultProps = {
     fill: [],
 
     animate: true,
-    motionConfig: 'default',
+    motionConfig: 'default' as const,
 
     role: 'img',
     isFocusable: false,

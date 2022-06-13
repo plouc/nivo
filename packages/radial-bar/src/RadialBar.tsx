@@ -1,12 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import {
-    Container,
-    useDimensions,
-    SvgWrapper,
-    clampArc,
-    // @ts-ignore
-    bindDefs,
-} from '@nivo/core'
+import { Container, useDimensions, SvgWrapper, clampArc, bindDefs } from '@nivo/core'
 
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -229,6 +222,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
         )
     }
 
+    // @ts-ignore
     const boundDefs = bindDefs(defs, bars, fill, {
         dataKey: 'data',
         targetKey: 'fill',

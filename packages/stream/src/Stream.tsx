@@ -1,11 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import {
-    Container,
-    SvgWrapper,
-    useDimensions,
-    // @ts-ignore
-    bindDefs,
-} from '@nivo/core'
+import { Container, SvgWrapper, useDimensions, bindDefs } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { StreamLayers } from './StreamLayers'

@@ -47,10 +47,10 @@ export interface AreaBumpAreaPoint {
 
 export type AreaBumpAreaGenerator = Area<AreaBumpAreaPoint>
 
-export interface AreaBumpComputedSerie<
+export type AreaBumpComputedSerie<
     Datum extends AreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps
-> {
+> = {
     id: string
     data: AreaBumpSerie<Datum, ExtraProps>
     points: AreaBumpPoint<Datum>[]

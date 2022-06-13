@@ -1,8 +1,8 @@
-type ScaleInput = number | string | Date
+import { DatumValue } from '../../../types'
 
-export interface CartesianMarkerProps {
+export interface CartesianMarkerProps<Value extends DatumValue = DatumValue> {
     axis: 'x' | 'y'
-    value: number | string | Date
+    value: Value
     lineStyle: Record<string, unknown>
     textStyle: Record<string, unknown>
 
@@ -21,16 +21,23 @@ export interface CartesianMarkerProps {
     legendOrientation: 'horizontal' | 'vertical'
 }
 
-export interface CartesianMarkersProps {
+// Note the name here has 'Markers' with an 's'
+export interface CartesianMarkersProps<
+    X extends DatumValue = DatumValue,
+    Y extends DatumValue = DatumValue
+> {
     width: number
     height: number
-    xScale: (v: ScaleInput) => number
-    yScale: (v: ScaleInput) => number
-    markers: CartesianMarkerProps[]
+    xScale: (v: X) => number
+    yScale: (v: Y) => number
+    markers: CartesianMarkerProps<X | Y>[]
 }
 
-export interface CartesianMarkersItemProps extends CartesianMarkerProps {
+export interface CartesianMarkersItemProps<
+    X extends DatumValue = DatumValue,
+    Y extends DatumValue = DatumValue
+> extends CartesianMarkerProps<X | Y> {
     width: number
     height: number
-    scale: (v: ScaleInput) => number
+    scale: (v: X | Y) => number
 }

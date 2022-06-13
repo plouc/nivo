@@ -125,7 +125,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     })
 
     const getBorderColor = useInheritedColor(borderColor, theme)
-    const getBorderWidth = () => 1
+    const getBorderWidth = useCallback(() => 1, [])
 
     useEffect(() => {
         if (!canvasEl.current) return

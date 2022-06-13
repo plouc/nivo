@@ -2,7 +2,14 @@ import { memo } from 'react'
 import { PatternDotsProps, PatternDotsSpec } from './types'
 
 export const PatternDots = memo(
-    ({ id, background, color, size, padding, stagger }: PatternDotsProps) => {
+    ({
+        id,
+        background = '#000000',
+        color = '#000000',
+        size = 0,
+        padding = 0,
+        stagger = false,
+    }: PatternDotsProps) => {
         let fullSize = size + padding
         const radius = size / 2
         const halfPadding = padding / 2
@@ -31,7 +38,6 @@ export const PatternDots = memo(
         )
     }
 )
-//PatternDots.displayName = 'PatternDots'
 
 export const patternDotsDef = (id: string, options = {}) =>
     ({

@@ -1,14 +1,14 @@
-import { AriaAttributes, ReactNode } from 'react'
+import { AriaAttributes, ComponentType, ReactElement, ReactNode } from 'react'
 import { DefsProps } from './defs'
 import { Theme } from '../theming'
-import { Margin } from '../props'
+import { Margin } from '../types'
 import { MotionContextProps } from '../motion'
 
 export interface SvgWrapperProps extends DefsProps {
     width: number
     height: number
     margin: Margin
-    children?: ReactNode | undefined
+    children?: ReactNode
     role?: string
     isFocusable?: boolean
     ariaLabel?: AriaAttributes['aria-label']
@@ -34,5 +34,9 @@ export interface ContainerProps {
 export interface ConditionalWrapperProps {
     children: ReactNode
     condition: boolean
-    wrapper: (children: JSX.Element) => JSX.Element
+    wrapper: ReactElement<HTMLDivElement>
 }
+
+export type ExtractProps<TComponent> = TComponent extends ComponentType<infer TProps>
+    ? TProps
+    : never

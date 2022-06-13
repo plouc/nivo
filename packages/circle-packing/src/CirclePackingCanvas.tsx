@@ -164,7 +164,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
                 hideTooltip()
             }
         },
-        [getNodeFromMouseEvent, showTooltipFromEvent, tooltip, hideTooltip]
+        [getNodeFromMouseEvent, onMouseMove, showTooltipFromEvent, tooltip, hideTooltip]
     )
 
     const handleMouseLeave = useCallback(() => {

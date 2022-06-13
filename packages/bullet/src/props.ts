@@ -1,6 +1,6 @@
 import { BulletMarkersItem } from './BulletMarkersItem'
 import { BulletRectsItem } from './BulletRectsItem'
-import { motionDefaultProps, defaultMargin } from '@nivo/core'
+import { defaultMotionProps, defaultMargin } from '@nivo/core'
 import { BulletTooltip } from './BulletTooltip'
 
 export const defaultProps = {
@@ -30,8 +30,8 @@ export const defaultProps = {
     markerSize: 0.6,
     isInteractive: true,
     tooltip: BulletTooltip,
-    animate: motionDefaultProps.animate,
-    motionConfig: motionDefaultProps.config,
+    animate: defaultMotionProps.animate,
+    motionConfig: defaultMotionProps.config,
     margin: defaultMargin,
     role: 'img',
 } as const
