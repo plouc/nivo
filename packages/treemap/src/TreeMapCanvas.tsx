@@ -1,4 +1,4 @@
-import { createElement, useCallback, useEffect, useRef } from 'react'
+import { createElement, useCallback, useEffect, useRef, MouseEvent } from 'react'
 import {
     degreesToRadians,
     getRelativeCursor,
@@ -160,7 +160,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -181,7 +181,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
     }, [hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)

@@ -41,7 +41,7 @@ const AxisTick = <Value extends ScaleValue>({
                 transform={animatedProps.textTransform}
                 style={theme.axis.ticks.text}
             >
-                {value}
+                {value as string}
             </animated.text>
         </animated.g>
     )

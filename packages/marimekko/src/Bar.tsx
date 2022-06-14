@@ -31,7 +31,7 @@ export const Bar = <RawDatum,>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const showTooltip = useCallback(
-        event => showTooltipFromEvent(createElement(tooltip, { bar }), event),
+        (event: MouseEvent) => showTooltipFromEvent(createElement(tooltip, { bar }), event),
         [showTooltipFromEvent, tooltip, bar]
     )
 

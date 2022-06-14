@@ -1,4 +1,4 @@
-import { memo, useRef, useState, useEffect, useCallback } from 'react'
+import { memo, useRef, useState, useEffect, useCallback, MouseEvent } from 'react'
 import * as React from 'react'
 import {
     Box,
@@ -17,7 +17,7 @@ import { useTooltip } from '@nivo/tooltip'
 import { CalendarCanvasProps } from './types'
 
 const findDayUnderCursor = (
-    event: React.MouseEvent,
+    event: MouseEvent,
     canvasEl: HTMLCanvasElement,
     days: ReturnType<typeof useDays>,
     size: number,
@@ -214,7 +214,7 @@ const InnerCalendarCanvas = memo(
         ])
 
         const handleMouseHover = useCallback(
-            event => {
+            (event: MouseEvent<HTMLCanvasElement>) => {
                 if (!canvasEl.current) return
 
                 const data = findDayUnderCursor(
@@ -270,7 +270,7 @@ const InnerCalendarCanvas = memo(
         }, [setCurrentDay, hideTooltip])
 
         const handleClick = useCallback(
-            event => {
+            (event: MouseEvent<HTMLCanvasElement>) => {
                 if (!onClick || !canvasEl.current) return
 
                 const data = findDayUnderCursor(

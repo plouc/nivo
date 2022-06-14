@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, createElement, useMemo } from 'react'
+import { useEffect, useRef, useCallback, createElement, useMemo, MouseEvent } from 'react'
 import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
@@ -246,7 +246,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -288,7 +288,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     }, [setActiveCell, hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (activeCell === null) return
 
             onClick?.(activeCell, event)

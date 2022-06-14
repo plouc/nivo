@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import { Axis, AxisTick } from '@nivo/axes'
 import { Annotation } from '@nivo/annotations'
-// @ts-ignore
 import { CartesianMarkersItem } from '@nivo/core'
 // @ts-ignore
 import { ScatterPlot, ScatterPlotNodeData } from '../src'

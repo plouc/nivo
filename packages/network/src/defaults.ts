@@ -50,12 +50,8 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    nodeComponent: NetworkNode as NonNullable<
-        NetworkSvgProps<InputNode, InputLink>['nodeComponent']
-    >,
-    linkComponent: NetworkLink as NonNullable<
-        NetworkSvgProps<InputNode, InputLink>['linkComponent']
-    >,
+    nodeComponent: NetworkNode,
+    linkComponent: NetworkLink,
     linkBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode, InputLink>['linkBlendMode']>,
 }
 
