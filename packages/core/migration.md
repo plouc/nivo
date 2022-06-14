@@ -1,15 +1,30 @@
-# migration of the `@nivo/core` to typescript and upgrade to React 18
+# migration of the `@nivo/core` to typescript and (partial) upgrade to React 18
 
-## Broad overview
+## Summary
 
-- migrated entire `@nivo/core` package to typescript
-- moved non-typescript packages from `packages` to `non-typescript`.
-  - `@nivo/recompose` is no longer needed and can be removed
-  - `@nivo/line` and `@nivo/waffle` can be re-instated once they are migrated to typescript
-  - `@nivo/express` and `@nivo/static` - these should be re-instated at some point
-- updated dependencies to React 18.1  
+Addresses #1219, #884 
+
+### Summary
+
+- migrated `@nivo/core` to typescript
+- moved '@nivo/recompose' from `packages` to `deprecated`. 
+- disabled tests for non-typescript packages (affects `@nivo/line` and `@nivo/waffle`). These packages are currently non-functioning.
+- updated dependencies to React 18.1
 - upgraded storybook to 6.5.9 to gain React 18 support
 - adjusted all packages to use the new `@nivo/core` and pass build/lint errors introduced during the upgrades
+- further details are described in file `packages/core/migration.md`
+
+### Checks
+
+- passes `make init` (building all packages from scratch)
+- passes `make packages-lint`
+- passes `make packates-test` (but non-typescript tests are disabled)
+- runs `make storybook` and produces working charts (but non-typescript charts don't work)
+
+### Open issues/questions
+
+- compatibility with website
+- storybook reports a warning about ReactDOM.render. It seems that despite having React 18 available, the pages run as if in React 17 mode. So compatibility with React 18 is unclear.
 
 
 ## Changes in `packages/core/src`
@@ -80,9 +95,14 @@
 - removed dependency on `prop-types`
 - added a dev dependency on `@types/d3-interpolate`
 
+### `mirgation.js`
+
+- added file `migration.js`. This is based on a file `index.d.ts` which defined typescript files by-hand all in one place. The `mirgation.js` file reproduces the content and includes comments that point to the implementations that replace each piece. This file should be removed once the migration is complete.
+
+
 ## Changes in `packages`
 
-### `@nivo/recompase`
+### `@nivo/recompose`
 
 - moved out of the `packages` directory into `non-typescript`
 
@@ -93,10 +113,17 @@
 
 ### `@nivo/bullet`
 
-- moved some color-related functions from `@nivo/core` to `@nivo/bullet`. These should be eliminated in favor of utilites from @nivo/colors.
+- moved some color-related functions from `@nivo/core` to `@nivo/bullet`. These should be eliminated in favor of utilities from @nivo/colors.
 
 ### Other packages
 
 - changed default motion props on all packages. Previously, the `motionConfig` prop was simply set as a string, but now this needs to be an id from a collection of presets. In practice, this involves changing `motionConfig: 'default'` to `motionConfig: 'default' as const`.
 - changed default `blendMode` in some packages. For the same reason as for motionConfig, the `blendMode` prop should be defined as an id from a collection of allowed options.
-- changed some interfaces to types across various packages. This is because `bindDef` requires to act on `Record<string, unknown>` objects. This seems to work when the typings are defining using `type` but not `interface`.
+- changed some interfaces to types across various packages. This is because `bindDef` acts on `Record<string, unknown>` objects. This seems to work when the typings are defined using `type` but not `interface`.
+- added `React.MouseEvent` types to several packages to resolve errors that appear when upgrading to React 18. 
+
+## Changes in repo root `package.json`
+
+- upgraded React to 18.1
+- uprgaded storybook to 6.5.9
+

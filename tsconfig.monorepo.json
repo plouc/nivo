@@ -41,7 +41,7 @@
         { "path": "./packages/treemap" },
 
         // Static rendering and express middleware
-        // { "path": "./packages/static" },
-        // { "path": "./packages/express" }
+        { "path": "./packages/static" },
+        { "path": "./packages/express" }
     ]
 }

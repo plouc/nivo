@@ -3744,74 +3744,12 @@
     unixify "^1.0.0"
     yargs "^16.0.0"
 
-"@nivo/express@0.79.1":
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/@nivo/express/-/express-0.79.1.tgz#f05b17a209ae59700bc9f2226c536b280c66b56b"
-  integrity sha512-Y6CA008KNfwQTnnefXy+TmC99D59n/S67YzzXvP1rze9HqDat7GJiFN7PWYPF91edw7OPJJdVX5LO2L3L4mJoQ==
-  dependencies:
-    "@nivo/static" "0.79.1"
-    "@types/express" "^4.17.13"
-    "@types/uuid" "^8.3.3"
-    express "^4.17.1"
-    joi "^17.5.0"
-    lodash "^4.17.21"
-    uuid "^3.1.0"
-
-"@nivo/line@0.79.1":
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.79.1.tgz#58c9711b491a7602903c2c41dda5f3fe9a2971cb"
-  integrity sha512-V+2wY5TGpWiWBcb2LDtNsO79Ix93QtSq1HAdEIsjYtwFT/ekoCUA/OorIjRVUVzyf27vjjlbhmNNKrqIsYQR1Q==
-  dependencies:
-    "@nivo/annotations" "0.79.1"
-    "@nivo/axes" "0.79.0"
-    "@nivo/colors" "0.79.1"
-    "@nivo/legends" "0.79.1"
-    "@nivo/scales" "0.79.0"
-    "@nivo/tooltip" "0.79.0"
-    "@nivo/voronoi" "0.79.0"
-    "@react-spring/web" "9.3.1"
-    d3-shape "^1.3.5"
-
 "@nivo/recompose@0.79.0":
   version "0.79.0"
   resolved "https://registry.yarnpkg.com/@nivo/recompose/-/recompose-0.79.0.tgz#c0c54ecabb2300ce672f3c3199f74629df33cc08"
   integrity sha512-2GFnOHfA2jzTOA5mdKMwJ6myCRGoXQQbQvFFQ7B/+hnHfU/yrOVpiGt6TPAn3qReC4dyDYrzy1hr9UeQh677ig==
   dependencies:
     react-lifecycles-compat "^3.0.4"
-
-"@nivo/static@0.79.1":
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/@nivo/static/-/static-0.79.1.tgz#bea4707f653a49165fd27059a3b96447177c60d3"
-  integrity sha512-fhiL0KmrkketN2+LYQgPR5JYIPwxKU76cFD5ZBnL+zEIuwDj/AwXbj2jrn794NF3NGa+i0n77tBIKERDZbGUHw==
-  dependencies:
-    "@nivo/bar" "0.79.1"
-    "@nivo/calendar" "0.79.1"
-    "@nivo/chord" "0.79.1"
-    "@nivo/circle-packing" "0.79.1"
-    "@nivo/core" "0.79.0"
-    "@nivo/generators" "0.79.0"
-    "@nivo/heatmap" "0.79.1"
-    "@nivo/legends" "0.79.1"
-    "@nivo/line" "0.79.1"
-    "@nivo/pie" "0.79.1"
-    "@nivo/radar" "0.79.1"
-    "@nivo/sankey" "0.79.1"
-    "@nivo/sunburst" "0.79.1"
-    "@nivo/treemap" "0.79.1"
-    joi "^17.5.0"
-    lodash "^4.17.21"
-
-"@nivo/waffle@0.79.1":
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/@nivo/waffle/-/waffle-0.79.1.tgz#55f4f029eab93db455b914f1734a4237a80dbb26"
-  integrity sha512-PqImdloIhKT4KWXvCVoioHftHqqhoYuVAdCcxl6nrhviO8GHRFaa+IGe/FwHPsy/0UrMKjLZjgqVVJPR31SQ+g==
-  dependencies:
-    "@nivo/colors" "0.79.1"
-    "@nivo/legends" "0.79.1"
-    "@nivo/recompose" "0.79.0"
-    "@nivo/tooltip" "0.79.0"
-    lodash "^4.17.21"
-    react-motion "^0.5.2"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -4087,7 +4025,7 @@
   resolved "https://registry.yarnpkg.com/@react-spring/types/-/types-9.4.5.tgz#9c71e5ff866b5484a7ef3db822bf6c10e77bdd8c"
   integrity sha512-mpRIamoHwql0ogxEUh9yr4TP0xU5CWyZxVQeccGkHHF8kPMErtDXJlxyo0lj+telRF35XNihtPTWoflqtyARmg==
 
-"@react-spring/web@9.3.1", "@react-spring/web@9.4.5", "@react-spring/web@^9.4.5":
+"@react-spring/web@9.4.5", "@react-spring/web@^9.4.5":
   version "9.4.5"
   resolved "https://registry.yarnpkg.com/@react-spring/web/-/web-9.4.5.tgz#b92f05b87cdc0963a59ee149e677dcaff09f680e"
   integrity sha512-NGAkOtKmOzDEctL7MzRlQGv24sRce++0xAY7KlcxmeVkR7LRSGkoXHaIfm9ObzxPMcPHQYQhf3+X9jepIFNHQA==
