@@ -73,7 +73,7 @@ const InnerSunburst = <RawDatum,>({
         childColor,
     })
 
-    // @ts-ignore - not sure why ts gives messages here...
+    // @ts-ignore
     const boundDefs = bindDefs(defs, nodes, fill, {
         dataKey: '.',
         colorKey: 'color',
