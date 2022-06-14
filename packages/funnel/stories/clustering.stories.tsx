@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { startCase, sum, random } from 'lodash'
 import { randomNormal } from 'd3-random'
 import { Meta } from '@storybook/react'
-import { ResponsiveWaffle } from '@nivo/waffle'
+//import { ResponsiveWaffle } from '@nivo/waffle'
 import { ResponsiveBar } from '@nivo/bar'
 // @ts-ignore
 import { ResponsiveFunnel, Funnel } from '../src'
@@ -204,6 +204,10 @@ const dataByYear = Array.from({ length: 6 }).map((_, index) => {
         data: generateData(),
     }
 })
+
+const ResponsiveWaffle = props => (
+    <div style={{ color: '#f0f0f0', fontSize: '8' }}>Replace this with a waffle chart.</div>
+)
 
 const Sample = () => {
     const [yearIndex, setYearIndex] = useState(0)

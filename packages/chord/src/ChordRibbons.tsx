@@ -1,11 +1,6 @@
 import { memo } from 'react'
 import { useTransition } from '@react-spring/web'
-import {
-    useTheme,
-    // @ts-ignore
-    midAngle,
-    useMotionConfig,
-} from '@nivo/core'
+import { useTheme, midAngle, useMotionConfig } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { ChordRibbon } from './ChordRibbon'
 import {

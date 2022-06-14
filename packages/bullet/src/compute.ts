@@ -1,13 +1,11 @@
 import { BulletItemProps, BulletRectsProps, ComputedRangeDatum } from './types'
-// @ts-ignore
-import { getColorScale } from '@nivo/core'
 
 type ComputeRect = Pick<BulletRectsProps, 'layout' | 'reverse' | 'scale' | 'height'>
 
 export const stackValues = (
     values: number[],
     scale: BulletItemProps['scale'],
-    colorScale: ReturnType<getColorScale>,
+    colorScale: any,
     type: 'range' | 'measures',
     useAverage = false
 ) => {

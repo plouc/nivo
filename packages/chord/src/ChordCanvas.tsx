@@ -2,9 +2,7 @@ import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react
 import {
     useDimensions,
     useTheme,
-    // @ts-ignore
     midAngle,
-    // @ts-ignore
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,

@@ -1,4 +1,4 @@
-import { getQuantizeColorScale, useQuantizeColorScale } from '../src/scales/quantizeColorScale'
+import { getQuantizeColorScale } from '../src/scales/quantizeColorScale'
 
 describe('QuantizeColorScale', () => {
     it('should accept d3 colors key', () => {
