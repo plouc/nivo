@@ -1,12 +1,6 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
-import {
-    // @ts-ignore
-    bindDefs,
-    useCurveInterpolation,
-    usePropertyAccessor,
-    useValueFormatter,
-} from '@nivo/core'
+import { bindDefs, useCurveInterpolation, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { degreesToRadians } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { svgDefaultProps } from './props'
@@ -31,8 +25,8 @@ export const useRadar = <D extends Record<string, unknown>>({
     height,
     colors = svgDefaultProps.colors,
     legends,
-    defs,
-    fill,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
 }: {
     data: RadarDataProps<D>['data']
     keys: RadarDataProps<D>['keys']
@@ -50,7 +44,7 @@ export const useRadar = <D extends Record<string, unknown>>({
 }) => {
     const getIndex = usePropertyAccessor<D, string>(indexBy)
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
-    const formatValue = useValueFormatter<number, string>(valueFormat)
+    const formatValue = useValueFormatter<number>(valueFormat)
     const rotation = degreesToRadians(rotationDegrees)
 
     const getColor = useOrdinalColorScale<{ key: string; index: number }>(colors, 'key')

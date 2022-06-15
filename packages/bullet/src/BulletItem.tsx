@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { Axis } from '@nivo/axes'
-// @ts-ignore
-import { getColorScale, useMotionConfig, useTheme } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useMotionConfig, useTheme } from '@nivo/core'
+import { useTooltip } from '@nivo/core'
 import { stackValues } from './compute'
 import { BulletMarkers } from './BulletMarkers'
 import { BulletRects } from './BulletRects'
+import { getColorScale } from './colors'
 import { BulletItemProps } from './types'
 
 export const BulletItem = ({
@@ -55,7 +55,7 @@ export const BulletItem = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const computedRanges = useMemo(() => {
-        const rangeColorScale = getColorScale(rangeColors, scale, true)
+        const rangeColorScale = getColorScale(rangeColors, scale)
 
         return stackValues(ranges, scale, rangeColorScale, 'range')
     }, [rangeColors, ranges, scale])
@@ -73,6 +73,7 @@ export const BulletItem = ({
             value: marker,
             index,
             color: markerColorScale(
+                // @ts-ignore
                 markerColorScale.type === 'sequential' ? marker : index
             ) as string,
         }))

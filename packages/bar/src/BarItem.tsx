@@ -1,7 +1,6 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { animated, to } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useTheme, useTooltip } from '@nivo/core'
 import { BarDatum, BarItemProps } from './types'
 
 export const BarItem = <RawDatum extends BarDatum>({

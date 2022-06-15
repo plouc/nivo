@@ -304,11 +304,12 @@ describe('Bullet', () => {
         it('should render a tooltip when hovering a range', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} />)
 
-            expect(wrapper.find('TooltipWrapper').exists()).toBeFalsy()
+            expect(wrapper.find('BulletTooltip').exists()).toBeFalsy()
 
             wrapper.find('BulletRectsItem').at(0).simulate('mouseenter')
-
-            const tooltip = wrapper.find('TooltipWrapper')
+            console.log(wrapper.debug())
+            const tooltip = wrapper.find('BulletTooltip')
+            console.log(tooltip.debug())
 
             expect(tooltip.exists()).toBeTruthy()
             expect(tooltip.text()).toEqual('0 to 10')
@@ -317,11 +318,11 @@ describe('Bullet', () => {
         it('should render a tooltip when hovering a measure', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} />)
 
-            expect(wrapper.find('TooltipWrapper').exists()).toBeFalsy()
+            expect(wrapper.find('BulletTooltip').exists()).toBeFalsy()
 
             wrapper.find('BulletRectsItem').at(3).simulate('mouseenter')
 
-            const tooltip = wrapper.find('TooltipWrapper')
+            const tooltip = wrapper.find('BulletTooltip')
 
             expect(tooltip.exists()).toBeTruthy()
             expect(tooltip.text()).toEqual('30')
@@ -330,11 +331,11 @@ describe('Bullet', () => {
         it('should render a tooltip when hovering a marker', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} />)
 
-            expect(wrapper.find('TooltipWrapper').exists()).toBeFalsy()
+            expect(wrapper.find('BulletTooltip').exists()).toBeFalsy()
 
             wrapper.find('BulletMarkersItem').at(0).simulate('mouseenter')
 
-            const tooltip = wrapper.find('TooltipWrapper')
+            const tooltip = wrapper.find('BulletTooltip')
 
             expect(tooltip.exists()).toBeTruthy()
             expect(tooltip.text()).toEqual('20')

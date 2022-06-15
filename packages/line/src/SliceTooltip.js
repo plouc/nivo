@@ -8,8 +8,7 @@
  */
 import { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme } from '@nivo/core'
-import { Chip, TableTooltip } from '@nivo/tooltip'
+import { useTheme, Chip, TableTooltip } from '@nivo/core'
 
 const SliceTooltip = ({ slice, axis }) => {
     const theme = useTheme()

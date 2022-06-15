@@ -1,5 +1,5 @@
-import { createElement, memo, useCallback } from 'react'
-import { useTooltip } from '@nivo/tooltip'
+import { createElement, memo, useCallback, MouseEvent } from 'react'
+import { useTooltip } from '@nivo/core'
 import { TimeRangeDayProps } from './types'
 
 export const TimeRangeDay = memo(
@@ -25,7 +25,7 @@ export const TimeRangeDay = memo(
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useCallback(
-            event => {
+            (event: MouseEvent<SVGRectElement>) => {
                 if (!('value' in data)) {
                     return
                 }
@@ -40,7 +40,7 @@ export const TimeRangeDay = memo(
             [showTooltipFromEvent, tooltip, data, onMouseEnter, formatValue]
         )
         const handleMouseMove = useCallback(
-            event => {
+            (event: MouseEvent<SVGRectElement>) => {
                 if (!('value' in data)) {
                     return
                 }
@@ -55,7 +55,7 @@ export const TimeRangeDay = memo(
             [showTooltipFromEvent, tooltip, data, onMouseMove, formatValue]
         )
         const handleMouseLeave = useCallback(
-            event => {
+            (event: MouseEvent<SVGRectElement>) => {
                 if (!('value' in data)) {
                     return
                 }
@@ -65,7 +65,10 @@ export const TimeRangeDay = memo(
             },
             [hideTooltip, data, onMouseLeave]
         )
-        const handleClick = useCallback(event => onClick?.(data, event), [data, onClick])
+        const handleClick = useCallback(
+            (event: MouseEvent<SVGRectElement>) => onClick?.(data, event),
+            [data, onClick]
+        )
 
         return (
             <rect

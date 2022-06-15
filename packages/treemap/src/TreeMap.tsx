@@ -1,11 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import {
-    SvgWrapper,
-    Container,
-    useDimensions,
-    // @ts-ignore
-    bindDefs,
-} from '@nivo/core'
+import { SvgWrapper, Container, useDimensions, bindDefs } from '@nivo/core'
 import { useTreeMap, useCustomLayerProps } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
 import {

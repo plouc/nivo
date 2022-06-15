@@ -1,8 +1,7 @@
-import { createElement, useMemo, useCallback, useState } from 'react'
+import { createElement, useMemo, useCallback, useState, MouseEvent } from 'react'
 import { line as d3Line, curveBasis, curveLinear } from 'd3-shape'
-import { useTheme } from '@nivo/core'
+import { useTheme, useTooltip } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
 import {
     BumpInterpolation,
     BumpCommonProps,
@@ -327,7 +326,7 @@ export const useBumpSerieHandlers = <
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             setActiveSerieIds([serie.id])
             onMouseEnter && onMouseEnter(serie, event)
@@ -336,7 +335,7 @@ export const useBumpSerieHandlers = <
     )
 
     const handleMouseMove = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             onMouseMove && onMouseMove(serie, event)
         },
@@ -344,7 +343,7 @@ export const useBumpSerieHandlers = <
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             hideTooltip()
             setActiveSerieIds([])
             onMouseLeave && onMouseLeave(serie, event)
@@ -353,7 +352,7 @@ export const useBumpSerieHandlers = <
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             onClick && onClick(serie, event)
         },
         [serie, onClick]

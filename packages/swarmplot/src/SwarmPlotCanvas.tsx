@@ -1,11 +1,17 @@
 import { createElement, useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
 import isNumber from 'lodash/isNumber'
-import { Container, getRelativeCursor, isCursorInRect, useDimensions, useTheme } from '@nivo/core'
+import {
+    Container,
+    getRelativeCursor,
+    isCursorInRect,
+    useDimensions,
+    useTheme,
+    useTooltip,
+} from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'
 import { AnyScale } from '@nivo/scales'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { ComputedDatum, SwarmPlotCanvasProps } from './types'
 import { defaultProps } from './props'
@@ -125,7 +131,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     })
 
     const getBorderColor = useInheritedColor(borderColor, theme)
-    const getBorderWidth = () => 1
+    const getBorderWidth = useCallback(() => 1, [])
 
     useEffect(() => {
         if (!canvasEl.current) return

@@ -59,7 +59,7 @@ export const svgDefaultProps = {
     role: 'img',
     useMesh: true,
     animate: true,
-    motionConfig: 'default',
+    motionConfig: 'default' as const,
 }
 
 export const canvasDefaultProps = {

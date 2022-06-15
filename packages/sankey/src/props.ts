@@ -61,5 +61,5 @@ export const svgDefaultProps = {
     role: 'img',
 
     animate: true,
-    motionConfig: 'gentle',
+    motionConfig: 'gentle' as const,
 }

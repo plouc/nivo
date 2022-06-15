@@ -15,7 +15,7 @@ export type NumericValue = { valueOf(): number }
 export type StringValue = { toString(): string }
 export type ScaleValue = NumericValue | StringValue | Date
 
-export interface ScaleTypeToSpec {
+export type ScaleTypeToSpec = {
     linear: ScaleLinearSpec
     log: ScaleLogSpec
     symlog: ScaleSymlogSpec

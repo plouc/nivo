@@ -1,6 +1,5 @@
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
-// @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
 import { ScaleValue, AnyScale, TicksSpec, getScaleTicks, centerScale } from '@nivo/scales'
 import { Point, ValueFormatter, Line } from './types'
@@ -36,8 +35,8 @@ export const computeCartesianTicks = <Value extends ScaleValue>({
 
     const isRTL = typeof document === 'object' ? document.dir === 'rtl' : false
     let translate: (value: Value) => Point
-    let textAlign: CanvasTextAlign = textProps.align.center
-    let textBaseline: CanvasTextBaseline = textProps.baseline.center
+    let textAlign = textProps.align.center
+    let textBaseline = textProps.baseline.center
 
     if (axis === 'x') {
         translate = d => ({ x: position(d) ?? 0, y: 0 })

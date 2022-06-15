@@ -20,7 +20,7 @@ export const defaultProps = {
     arcLabelsSkipAngle: 0,
     arcLabelsTextColor: { theme: 'labels.text.fill' },
     animate: true,
-    motionConfig: 'gentle',
+    motionConfig: 'gentle' as const,
     transitionMode: 'innerRadius' as ArcTransitionMode,
     isInteractive: true,
     defs: [],

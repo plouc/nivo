@@ -7,12 +7,19 @@ import {
     useMemo,
     useRef,
     useState,
+    MouseEvent,
 } from 'react'
-import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import {
+    Container,
+    useDimensions,
+    useTheme,
+    getRelativeCursor,
+    isCursorInRect,
+    useTooltip,
+} from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
 import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { canvasDefaultProps, svgDefaultProps } from './props'
 import { useScatterPlot, useScatterPlotAnnotations } from './hooks'
@@ -218,7 +225,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const getNodeFromMouseEvent = useCallback(
-        event => {
+        (event: MouseEvent) => {
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
@@ -229,7 +236,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             const node = getNodeFromMouseEvent(event)
             setCurrentNode(node)
 
@@ -262,7 +269,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent) => {
             hideTooltip()
             setCurrentNode(null)
             currentNode && onMouseLeave && onMouseLeave(currentNode, event)
@@ -271,7 +278,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (onClick) {
                 const node = getNodeFromMouseEvent(event)
                 node && onClick(node, event)

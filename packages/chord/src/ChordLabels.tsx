@@ -1,12 +1,6 @@
 import { memo, useMemo } from 'react'
 import { useTransition, animated, to } from '@react-spring/web'
-import {
-    // @ts-ignore
-    midAngle,
-    // @ts-ignore
-    getPolarLabelProps,
-    useTheme,
-} from '@nivo/core'
+import { midAngle, getPolarLabelProps, useTheme } from '@nivo/core'
 import { useMotionConfig } from '@nivo/core'
 import { ArcDatum, ChordCommonProps } from './types'
 import { useInheritedColor } from '@nivo/colors'
@@ -28,7 +22,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
         () =>
             arcs.map(arc => {
                 const angle = midAngle(arc)
-                const textProps = getPolarLabelProps(radius, angle, rotation)
+                const textProps = getPolarLabelProps(radius, angle, rotation, 'svg')
 
                 return {
                     id: arc.id,

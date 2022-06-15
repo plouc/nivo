@@ -141,7 +141,7 @@ export const useThicknessScale = <RawDatum>({
         const size = layout === 'vertical' ? width - totalPadding : height - totalPadding
         // here 'axis' means that the scale will be going forward, i.e. not reversed
         return createLinearScale({ type: 'linear' }, scaleData, size, 'x')
-    }, [data, width, height, layout])
+    }, [data, width, height, layout, innerPadding, outerPadding])
 
 export const useComputedData = <RawDatum>({
     data,

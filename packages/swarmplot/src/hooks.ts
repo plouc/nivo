@@ -1,9 +1,8 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, MouseEvent } from 'react'
 import { ScaleOrdinal } from 'd3-scale'
-import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter, useTooltip } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
-import { useTooltip } from '@nivo/tooltip'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import {
     computeValueScale,
@@ -236,7 +235,7 @@ export const useNodeMouseHandlers = <RawDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const mouseEnterHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             showTooltipFromEvent(tooltip(node), event)
@@ -246,7 +245,7 @@ export const useNodeMouseHandlers = <RawDatum>({
     )
 
     const mouseMoveHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             showTooltipFromEvent(tooltip(node), event)
@@ -256,7 +255,7 @@ export const useNodeMouseHandlers = <RawDatum>({
     )
 
     const mouseLeaveHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             hideTooltip()
@@ -266,7 +265,7 @@ export const useNodeMouseHandlers = <RawDatum>({
     )
 
     const clickHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             onClick?.(node, event)

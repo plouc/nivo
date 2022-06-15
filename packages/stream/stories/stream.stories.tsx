@@ -2,8 +2,7 @@ import range from 'lodash/range'
 import random from 'lodash/random'
 import { Meta } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
-// @ts-ignore
-import { areaCurvePropKeys } from '@nivo/core'
+import { lineCurveInterpolatorIds } from '@nivo/core'
 // @ts-ignore
 import { Stream } from '../src'
 
@@ -76,7 +75,7 @@ export const fullHeight = () => (
     <Stream
         {...commonProperties}
         offsetType="expand"
-        curve={select('curve', areaCurvePropKeys, 'catmullRom')}
+        curve={select('curve', lineCurveInterpolatorIds, 'catmullRom')}
     />
 )
 
@@ -85,7 +84,7 @@ export const regularStackedChart = () => (
         {...commonProperties}
         offsetType="none"
         axisLeft={{}}
-        curve={select('curve', areaCurvePropKeys, 'catmullRom')}
+        curve={select('curve', lineCurveInterpolatorIds, 'catmullRom')}
     />
 )
 

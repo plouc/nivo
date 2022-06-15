@@ -1,7 +1,6 @@
 import { createElement, useCallback, useMemo, MouseEvent } from 'react'
 import { useTransition } from '@react-spring/web'
-import { useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useMotionConfig, useTooltip } from '@nivo/core'
 import { InputNode, ComputedNode, NodeAnimatedProps, NetworkSvgProps, InputLink } from './types'
 
 interface NetworkNodesProps<Node extends InputNode, Link extends InputLink> {

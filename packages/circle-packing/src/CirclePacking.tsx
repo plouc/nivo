@@ -1,11 +1,5 @@
 import { createElement, Fragment, ReactNode, useMemo } from 'react'
-import {
-    // @ts-ignore
-    bindDefs,
-    useDimensions,
-    Container,
-    SvgWrapper,
-} from '@nivo/core'
+import { bindDefs, useDimensions, Container, SvgWrapper } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './types'
 import { useCirclePacking, useCirclePackingZoom, useCirclePackingLayerContext } from './hooks'

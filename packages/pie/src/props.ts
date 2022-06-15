@@ -52,7 +52,7 @@ export const defaultProps = {
     isInteractive: true,
 
     animate: true,
-    motionConfig: 'gentle',
+    motionConfig: 'gentle' as const,
     transitionMode: 'innerRadius' as ArcTransitionMode,
 
     tooltip: PieTooltip,

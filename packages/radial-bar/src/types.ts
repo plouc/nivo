@@ -14,7 +14,7 @@ import { LegendProps } from '@nivo/legends'
 import { ScaleLinear, ScaleBand } from '@nivo/scales'
 import { RadialAxisConfig, CircularAxisConfig } from '@nivo/polar-axes'
 
-export interface RadialBarDatum {
+export type RadialBarDatum = {
     x: string
     y: number
 }
@@ -24,7 +24,7 @@ export interface RadialBarSerie<D extends RadialBarDatum = RadialBarDatum> {
     data: D[]
 }
 
-export interface ComputedBar<D extends RadialBarDatum = RadialBarDatum> {
+export type ComputedBar<D extends RadialBarDatum = RadialBarDatum> = {
     id: string
     data: D
     groupId: string

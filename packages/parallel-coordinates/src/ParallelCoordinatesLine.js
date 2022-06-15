@@ -9,8 +9,7 @@
 import { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useAnimatedPath, useMotionConfig, useTooltip } from '@nivo/core'
 import ParallelCoordinatesLineTooltip from './ParallelCoordinatesLineTooltip'
 
 const ParallelCoordinatesLine = ({

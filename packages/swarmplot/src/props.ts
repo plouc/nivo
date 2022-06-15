@@ -29,7 +29,7 @@ export const defaultProps = {
     debugMesh: false,
     tooltip: SwarmPlotTooltip,
     animate: true,
-    motionConfig: 'gentle',
+    motionConfig: 'gentle' as const,
     annotations: [],
     role: 'img',
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,

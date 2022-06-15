@@ -130,6 +130,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                         radiusScale={radiusScale}
                         rotation={rotation}
                         angleStep={angleStep}
+                        // @ts-ignore - not sure why the types complain here
                         curveFactory={curveFactory}
                         borderWidth={borderWidth}
                         borderColor={borderColor}

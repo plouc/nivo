@@ -18,7 +18,7 @@ export interface DefaultTreeMapDatum {
     children?: DefaultTreeMapDatum[]
 }
 
-export interface ComputedNode<Datum extends object> {
+export type ComputedNode<Datum extends object> = {
     id: string
     path: string
     pathComponents: string[]

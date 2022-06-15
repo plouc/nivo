@@ -1,5 +1,5 @@
-import { createElement, useCallback, useState } from 'react'
-import { useTooltip } from '@nivo/tooltip'
+import { createElement, useCallback, useState, MouseEvent } from 'react'
+import { useTooltip } from '@nivo/core'
 import { StreamCommonProps, StreamDatum, StreamSliceData } from './types'
 
 interface StreamSlicesItemProps<RawDatum extends StreamDatum> {
@@ -17,7 +17,7 @@ export const StreamSlicesItem = <RawDatum extends StreamDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             setIsHover(true)
             showTooltipFromEvent(createElement(tooltip, { slice }), event, 'left')
         },

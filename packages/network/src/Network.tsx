@@ -35,9 +35,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
 
     layers = svgDefaultProps.layers,
 
-    nodeComponent = svgDefaultProps.nodeComponent as NonNullable<
-        NetworkSvgProps<Node, Link>['nodeComponent']
-    >,
+    nodeComponent = svgDefaultProps.nodeComponent,
     nodeSize = svgDefaultProps.nodeSize,
     activeNodeSize = svgDefaultProps.activeNodeSize,
     inactiveNodeSize = svgDefaultProps.inactiveNodeSize,
@@ -45,9 +43,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
     nodeBorderColor = svgDefaultProps.nodeBorderColor,
 
-    linkComponent = svgDefaultProps.linkComponent as NonNullable<
-        NetworkSvgProps<Node, Link>['linkComponent']
-    >,
+    linkComponent = svgDefaultProps.linkComponent,
     linkThickness = svgDefaultProps.linkThickness,
     linkColor = svgDefaultProps.linkColor,
     linkBlendMode = svgDefaultProps.linkBlendMode,

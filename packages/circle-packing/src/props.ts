@@ -32,7 +32,7 @@ export const defaultProps = {
     isInteractive: true,
     tooltip: CirclePackingTooltip,
     animate: true,
-    motionConfig: 'gentle',
+    motionConfig: 'gentle' as const,
     role: 'img',
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

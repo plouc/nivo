@@ -1,5 +1,4 @@
-// @ts-ignore
-import { MotionConfigProvider } from '@nivo/core'
+import { defaultMotionProps } from '@nivo/core'
 import { FunnelLayerId } from './types'
 
 export const svgDefaultProps = {
@@ -34,6 +33,6 @@ export const svgDefaultProps = {
 
     role: 'img',
 
-    animate: MotionConfigProvider.defaultProps.animate,
-    motionConfig: MotionConfigProvider.defaultProps.config,
+    animate: defaultMotionProps.animate,
+    motionConfig: defaultMotionProps.config,
 }

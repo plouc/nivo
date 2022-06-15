@@ -1,11 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import {
-    // @ts-ignore
-    bindDefs,
-    Container,
-    SvgWrapper,
-    useDimensions,
-} from '@nivo/core'
+import { bindDefs, Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'

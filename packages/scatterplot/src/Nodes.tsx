@@ -1,13 +1,12 @@
 import { useTransition } from '@react-spring/web'
-import { CssMixBlendMode, useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { CssMixBlendMode, useMotionConfig, useTooltip } from '@nivo/core'
 import {
     ScatterPlotCommonProps,
     ScatterPlotDatum,
     ScatterPlotNode,
     ScatterPlotNodeData,
 } from './types'
-import { createElement, useCallback } from 'react'
+import { createElement, useCallback, MouseEvent } from 'react'
 
 interface NodesProps<RawDatum extends ScatterPlotDatum> {
     nodes: ScatterPlotNodeData<RawDatum>[]
@@ -72,27 +71,30 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseEnter = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseEnter?.(node, event)
         },
         [tooltip, showTooltipFromEvent, onMouseEnter]
     )
     const handleMouseMove = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseMove?.(node, event)
         },
         [tooltip, showTooltipFromEvent, onMouseMove]
     )
     const handleMouseLeave = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave?.(node, event)
         },
         [hideTooltip, onMouseLeave]
     )
-    const handleClick = useCallback((node, event) => onClick?.(node, event), [onClick])
+    const handleClick = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onClick?.(node, event),
+        [onClick]
+    )
 
     return (
         <>

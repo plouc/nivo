@@ -2,7 +2,7 @@
     "files": [],
     "references": [
         // Core first because everything needs it
-        // { "path": "./packages/core" },
+        { "path": "./packages/core" },
 
         // Shared next because charts need them
         { "path": "./packages/annotations" },
@@ -10,14 +10,14 @@
         { "path": "./packages/axes" },
         { "path": "./packages/colors" },
         { "path": "./packages/legends" },
-        { "path": "./packages/tooltip" },
+        // { "path": "./packages/tooltip" },
         { "path": "./packages/arcs" },
         { "path": "./packages/polar-axes" },
         { "path": "./packages/voronoi" },
 
         // Utility packages
         { "path": "./packages/generators" },
-        { "path": "./packages/recompose" },
+        // { "path": "./packages/recompose" },
 
         // Charts now
         { "path": "./packages/bar" },

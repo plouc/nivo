@@ -1,7 +1,6 @@
-import { createElement, useCallback } from 'react'
+import { createElement, useCallback, MouseEvent } from 'react'
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useAnimatedPath, useMotionConfig, useTooltip } from '@nivo/core'
 import { SankeyLinkGradient } from './SankeyLinkGradient'
 import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyLinkDatum } from './types'
 
@@ -46,7 +45,7 @@ export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent) => {
             setCurrent(link)
             showTooltipFromEvent(createElement(tooltip, { link }), event, 'left')
         },
@@ -54,7 +53,7 @@ export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
     )
 
     const handleMouseMove = useCallback(
-        event => {
+        (event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { link }), event, 'left')
         },
         [showTooltipFromEvent, link, tooltip]
@@ -66,7 +65,7 @@ export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
     }, [setCurrent, hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             onClick?.(link, event)
         },
         [onClick, link]

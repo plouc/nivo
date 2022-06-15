@@ -7,7 +7,7 @@ import {
     PropertyAccessor,
     StackOrder,
     StackOffset,
-    AreaCurve,
+    AreaCurveFactoryId,
     SvgDefsAndFill,
     ValueFormat,
 } from '@nivo/core'
@@ -37,7 +37,7 @@ export type StackFunc<RawDatum extends StreamDatum> = (data: RawDatum[]) => {
     data: RawDatum
 }[][]
 
-export interface StreamLayerData {
+export type StreamLayerData = {
     id: string | number
     label: string | number
     color: string
@@ -97,7 +97,7 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     stack: StackFunc<RawDatum>
     order: StackOrder
     offsetType: StackOffset
-    curve: AreaCurve
+    curve: AreaCurveFactoryId
 
     layers: StreamLayer[]
 

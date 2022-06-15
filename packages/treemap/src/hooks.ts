@@ -8,9 +8,14 @@ import {
     HierarchyNode,
     HierarchyRectangularNode,
 } from 'd3-hierarchy'
-import { useTheme, useValueFormatter, PropertyAccessor, usePropertyAccessor } from '@nivo/core'
+import {
+    useTheme,
+    useValueFormatter,
+    PropertyAccessor,
+    usePropertyAccessor,
+    useTooltip,
+} from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
 import { commonDefaultProps } from './defaults'
 import {
     DefaultTreeMapDatum,
@@ -288,14 +293,14 @@ export const useInteractiveTreeMapNodes = <Datum extends object>(
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const showTooltip = useCallback(
-        (node, event) => {
+        (node: ComputedNode<Datum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event, 'left')
         },
         [showTooltipFromEvent, tooltip]
     )
 
     const handleMouseEnter = useCallback(
-        (node, event) => {
+        (node: ComputedNode<Datum>, event: MouseEvent) => {
             showTooltip(node, event)
             onMouseEnter?.(node, event)
         },
@@ -303,7 +308,7 @@ export const useInteractiveTreeMapNodes = <Datum extends object>(
     )
 
     const handleMouseMove = useCallback(
-        (node, event) => {
+        (node: ComputedNode<Datum>, event: MouseEvent) => {
             showTooltip(node, event)
             onMouseMove?.(node, event)
         },
@@ -311,7 +316,7 @@ export const useInteractiveTreeMapNodes = <Datum extends object>(
     )
 
     const handleMouseLeave = useCallback(
-        (node, event) => {
+        (node: ComputedNode<Datum>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave?.(node, event)
         },
@@ -319,7 +324,7 @@ export const useInteractiveTreeMapNodes = <Datum extends object>(
     )
 
     const handleClick = useCallback(
-        (node, event) => {
+        (node: ComputedNode<Datum>, event: MouseEvent) => {
             onClick?.(node, event)
         },
         [onClick]

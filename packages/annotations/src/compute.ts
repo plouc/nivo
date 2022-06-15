@@ -1,10 +1,5 @@
 import { filter, isNumber, omit } from 'lodash'
-import {
-    radiansToDegrees,
-    absoluteAngleDegrees,
-    degreesToRadians,
-    positionFromAngle,
-} from '@nivo/core'
+import { radiansToDegrees, normalizeAngle, degreesToRadians, positionFromAngle } from '@nivo/core'
 import { defaultProps } from './props'
 import {
     AnnotationPositionGetter,
@@ -84,7 +79,7 @@ export const getLinkAngle = (
 ) => {
     const angle = Math.atan2(targetY - sourceY, targetX - sourceX)
 
-    return absoluteAngleDegrees(radiansToDegrees(angle))
+    return normalizeAngle(radiansToDegrees(angle))
 }
 
 export const computeAnnotation = <Datum>(

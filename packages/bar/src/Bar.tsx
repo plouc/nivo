@@ -13,7 +13,6 @@ import {
     CartesianMarkers,
     Container,
     SvgWrapper,
-    // @ts-ignore
     bindDefs,
     useDimensions,
     useMotionConfig,

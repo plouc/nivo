@@ -2,19 +2,17 @@ import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react
 import {
     useDimensions,
     useTheme,
-    // @ts-ignore
     midAngle,
-    // @ts-ignore
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,
     Margin,
     Container,
+    useTooltip,
 } from '@nivo/core'
 import { findArcUnderCursor } from '@nivo/arcs'
 import { useInheritedColor } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
 import { useChord, useChordSelection, useCustomLayerProps } from './hooks'
 import { ArcDatum, ChordCanvasProps } from './types'
 import { canvasDefaultProps } from './defaults'
@@ -204,14 +202,19 @@ const InnerChordCanvas = ({
 
                 arcs.forEach(arc => {
                     const angle = midAngle(arc)
-                    const props = getPolarLabelProps(radius + labelOffset, angle, labelRotation)
+                    const props = getPolarLabelProps(
+                        radius + labelOffset,
+                        angle,
+                        labelRotation,
+                        'canvas'
+                    )
 
                     ctx.save()
                     ctx.translate(props.x, props.y)
                     ctx.rotate(degreesToRadians(props.rotate))
 
-                    ctx.textAlign = props.align
-                    ctx.textBaseline = props.baseline
+                    ctx.textAlign = props.align as CanvasTextAlign
+                    ctx.textBaseline = props.baseline as CanvasTextBaseline
                     ctx.fillStyle = getLabelTextColor(arc)
                     ctx.fillText(arc.label, 0, 0)
 
@@ -281,7 +284,7 @@ const InnerChordCanvas = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (canvasEl.current === null) return
 
             const arc = getArcFromMouseEvent({
@@ -333,7 +336,7 @@ const InnerChordCanvas = ({
     }, [setCurrentArc, hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (canvasEl.current === null || !onArcClick) return
 
             const arc = getArcFromMouseEvent({

@@ -1,4 +1,4 @@
-import { getLabelGenerator } from '../../src/lib/propertiesConverters'
+import { getLabelGenerator } from '../../src/lib/properties'
 
 describe('getLabelGenerator()', () => {
     it(`should handle simple value access`, () => {

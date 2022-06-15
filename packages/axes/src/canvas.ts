@@ -57,8 +57,8 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
     ctx.save()
     ctx.translate(x, y)
 
-    ctx.textAlign = textAlign
-    ctx.textBaseline = textBaseline
+    ctx.textAlign = textAlign as CanvasTextAlign
+    ctx.textBaseline = textBaseline as CanvasTextBaseline
     ctx.font = `${theme.axis.ticks.text.fontWeight ? `${theme.axis.ticks.text.fontWeight} ` : ''}${
         theme.axis.ticks.text.fontSize
     }px ${theme.axis.ticks.text.fontFamily}`
