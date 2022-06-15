@@ -1,25 +1,25 @@
-# migration of the `@nivo/core` to typescript and (partial) upgrade to React 18
+# migration of `@nivo/core` to typescript and (partial) upgrade to React 18
 
 ## Summary
 
-Addresses #1219, #884 
+Addresses #1219, #884 (partially)
 
 ### Summary
 
 - migrated `@nivo/core` to typescript
-- moved '@nivo/recompose' from `packages` to `deprecated`.
-- merged '@nivo/tooltip' into '@nivo/core'. They had mutual peer dependencies, and I couldn't get them to build separately.
-- disabled stories and tests for non-typescript packages (affects `@nivo/line` and `@nivo/waffle`). These packages are currently non-functioning.
+- moved `@nivo/recompose` from `packages` to `deprecated`.
+- merged `@nivo/tooltip` into `@nivo/core`. They had mutual peer dependencies, and I couldn't get them to build separately.
+- disabled stories and tests for non-typescript packages (affects `line` and `waffle`, also `geo` and `parallel-coordinates`). These packages are non-functioning in this branch.
 - updated dependencies to React 18.1
 - upgraded storybook to 6.5.9 to gain React 18 support
-- adjusted all packages to use the new `@nivo/core` and pass build/lint errors introduced during the upgrades
+- adjusted all packages to use the new `@nivo/core` and pass build/lint/test
 - further details are described in file `packages/core/migration.md`
 
 ### Checks
 
 - passes `make init` (building all packages from scratch)
 - passes `make packages-lint`
-- passes `make packates-test` (but non-typescript tests are disabled)
+- passes `make packages-test` (but non-typescript tests are disabled)
 - runs `make storybook` and produces working charts (but non-typescript charts are disabled)
 
 ### Open issues/questions
