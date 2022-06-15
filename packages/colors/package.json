@@ -30,8 +30,7 @@
     "@nivo/core": "0.79.0",
     "@types/d3-color": "^2.0.0",
     "@types/d3-scale-chromatic": "^2.0.0",
-    "@types/lodash": "^4.14.170",
-    "@types/react-motion": "^0.0.29"
+    "@types/lodash": "^4.14.170"
   },
   "peerDependencies": {
     "@nivo/core": "0.79.0",

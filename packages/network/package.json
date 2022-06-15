@@ -33,7 +33,6 @@
   "dependencies": {
     "@nivo/annotations": "0.79.1",
     "@nivo/colors": "0.79.1",
-    "@nivo/tooltip": "0.79.0",
     "@react-spring/web": "9.4.5",
     "d3-force": "^2.0.1"
   },

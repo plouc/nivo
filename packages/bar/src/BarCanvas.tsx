@@ -12,6 +12,7 @@ import {
     isCursorInRect,
     useDimensions,
     useTheme,
+    useTooltip,
 } from '@nivo/core'
 import {
     ForwardedRef,
@@ -30,7 +31,6 @@ import {
 } from '@nivo/annotations'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
 import { useBar } from './hooks'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<

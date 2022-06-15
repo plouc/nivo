@@ -1,6 +1,6 @@
 import { createElement, memo, useMemo, MouseEvent } from 'react'
 import { SpringValues, animated } from '@react-spring/web'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/core'
 import {
     ChordCommonProps,
     ChordSvgProps,

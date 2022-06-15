@@ -1,6 +1,5 @@
 import { useTransition } from '@react-spring/web'
-import { CssMixBlendMode, useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { CssMixBlendMode, useMotionConfig, useTooltip } from '@nivo/core'
 import {
     ScatterPlotCommonProps,
     ScatterPlotDatum,

@@ -1,7 +1,6 @@
-import { createElement, useMemo } from 'react'
-import * as React from 'react'
+import { createElement, useMemo, MouseEvent } from 'react'
 import { ArcGenerator, ArcsLayer } from '@nivo/arcs'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/core'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface ArcsProps<RawDatum> {
@@ -40,7 +39,7 @@ export const Arcs = <RawDatum,>({
     const handleClick = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: MouseEvent<SVGPathElement>) => {
             onClick?.(datum, event)
         }
     }, [isInteractive, onClick])
@@ -48,7 +47,7 @@ export const Arcs = <RawDatum,>({
     const handleMouseEnter = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
             setActiveId(datum.id)
             onMouseEnter?.(datum, event)
@@ -58,7 +57,7 @@ export const Arcs = <RawDatum,>({
     const handleMouseMove = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
             onMouseMove?.(datum, event)
         }
@@ -67,7 +66,7 @@ export const Arcs = <RawDatum,>({
     const handleMouseLeave = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
+        return (datum: ComputedDatum<RawDatum>, event: MouseEvent<SVGPathElement>) => {
             hideTooltip()
             setActiveId(null)
             onMouseLeave?.(datum, event)

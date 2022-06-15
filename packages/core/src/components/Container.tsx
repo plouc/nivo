@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 import { CSSProperties, useRef } from 'react'
-import { TooltipProvider, Tooltip } from '@nivo/tooltip'
 import { defaultTheme, ThemeProvider } from '../theming'
 import { defaultMotionProps, MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
 import { ContainerProps } from './types'
+import { Tooltip, TooltipProvider } from './tooltip'
 
 const containerStyle = {
     position: 'relative',

@@ -1,8 +1,7 @@
 import { createElement, useMemo, useCallback, useState, MouseEvent } from 'react'
 import { line as d3Line, curveBasis, curveLinear } from 'd3-shape'
-import { useTheme } from '@nivo/core'
+import { useTheme, useTooltip } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
 import {
     BumpInterpolation,
     BumpCommonProps,

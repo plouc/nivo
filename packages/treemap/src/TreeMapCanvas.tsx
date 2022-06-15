@@ -7,8 +7,8 @@ import {
     useDimensions,
     useTheme,
     Margin,
+    useTooltip,
 } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
 import { useTreeMap } from './hooks'
 import { ComputedNode, DefaultTreeMapDatum, TreeMapCanvasProps, TreeMapCommonProps } from './types'
 import { canvasDefaultProps } from './defaults'

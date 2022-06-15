@@ -30,7 +30,6 @@
   ],
   "dependencies": {
     "@nivo/legends": "0.79.1",
-    "@nivo/tooltip": "0.79.0",
     "d3-scale": "^3.2.3",
     "d3-time": "^1.0.10",
     "d3-time-format": "^3.0.0",

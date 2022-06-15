@@ -1,9 +1,8 @@
 import { createElement, useEffect, useMemo, useRef } from 'react'
 import * as React from 'react'
-import { getRelativeCursor, useDimensions, useTheme, Container } from '@nivo/core'
+import { getRelativeCursor, useDimensions, useTheme, Container, useTooltip } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
 import {
     Arc,
     findArcUnderCursor,

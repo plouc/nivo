@@ -9,11 +9,17 @@ import {
     useState,
     MouseEvent,
 } from 'react'
-import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import {
+    Container,
+    useDimensions,
+    useTheme,
+    getRelativeCursor,
+    isCursorInRect,
+    useTooltip,
+} from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
 import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { canvasDefaultProps, svgDefaultProps } from './props'
 import { useScatterPlot, useScatterPlotAnnotations } from './hooks'

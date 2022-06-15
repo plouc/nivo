@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react'
 import { generateChordData } from '@nivo/generators'
-import { TableTooltip, BasicTooltip, Chip } from '@nivo/tooltip'
+import { TableTooltip, BasicTooltip, Chip } from '@nivo/core'
 // @ts-ignore
 import { Chord, ArcDatum, ArcTooltipComponentProps, RibbonTooltipComponentProps } from '../src'
 

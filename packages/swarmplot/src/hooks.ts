@@ -1,9 +1,8 @@
 import { useCallback, useMemo, MouseEvent } from 'react'
 import { ScaleOrdinal } from 'd3-scale'
-import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter, useTooltip } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
-import { useTooltip } from '@nivo/tooltip'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import {
     computeValueScale,

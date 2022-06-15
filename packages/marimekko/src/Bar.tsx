@@ -1,6 +1,6 @@
 import { createElement, MouseEvent, useCallback } from 'react'
 import { animated, SpringValues, to } from '@react-spring/web'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/core'
 import { BarDatum, CommonProps, MouseEventHandlers } from './types'
 
 interface BarProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {

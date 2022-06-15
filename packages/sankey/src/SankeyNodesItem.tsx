@@ -1,7 +1,6 @@
 import { createElement, useCallback, MouseEvent } from 'react'
 import { useSpring, animated } from '@react-spring/web'
-import { useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useMotionConfig, useTooltip } from '@nivo/core'
 import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyNodeDatum } from './types'
 
 interface SankeyNodesItemProps<N extends DefaultNode, L extends DefaultLink> {

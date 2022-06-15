@@ -1,5 +1,5 @@
 import { createElement, useCallback, MouseEvent } from 'react'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/core'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { ScatterPlotCommonProps, ScatterPlotDatum, ScatterPlotNodeData } from './types'
 

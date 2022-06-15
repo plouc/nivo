@@ -31,7 +31,6 @@
   "dependencies": {
     "@nivo/arcs": "0.79.1",
     "@nivo/colors": "0.79.1",
-    "@nivo/tooltip": "0.79.0",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.21"
   },

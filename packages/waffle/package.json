@@ -31,7 +31,6 @@
     "@nivo/colors": "0.79.1",
     "@nivo/legends": "0.79.1",
     "@nivo/recompose": "0.79.0",
-    "@nivo/tooltip": "0.79.0",
     "lodash": "^4.17.21",
     "react-motion": "^0.5.2"
   },

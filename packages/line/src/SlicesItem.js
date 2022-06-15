@@ -8,7 +8,7 @@
  */
 import { createElement, memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/core'
 
 const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()

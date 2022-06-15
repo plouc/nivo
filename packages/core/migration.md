@@ -7,8 +7,9 @@ Addresses #1219, #884
 ### Summary
 
 - migrated `@nivo/core` to typescript
-- moved '@nivo/recompose' from `packages` to `deprecated`. 
-- disabled tests for non-typescript packages (affects `@nivo/line` and `@nivo/waffle`). These packages are currently non-functioning.
+- moved '@nivo/recompose' from `packages` to `deprecated`.
+- merged '@nivo/tooltip' into '@nivo/core'. They had mutual peer dependencies, and I couldn't get them to build separately.
+- disabled stories and tests for non-typescript packages (affects `@nivo/line` and `@nivo/waffle`). These packages are currently non-functioning.
 - updated dependencies to React 18.1
 - upgraded storybook to 6.5.9 to gain React 18 support
 - adjusted all packages to use the new `@nivo/core` and pass build/lint errors introduced during the upgrades
@@ -19,7 +20,7 @@ Addresses #1219, #884
 - passes `make init` (building all packages from scratch)
 - passes `make packages-lint`
 - passes `make packates-test` (but non-typescript tests are disabled)
-- runs `make storybook` and produces working charts (but non-typescript charts don't work)
+- runs `make storybook` and produces working charts (but non-typescript charts are disabled)
 
 ### Open issues/questions
 
@@ -106,14 +107,17 @@ Addresses #1219, #884
 
 - moved out of the `packages` directory into `non-typescript`
 
-### Non-typescript packages
+### `@nivo/tooltip`
 
-- moved `@nivo/line` out of `packages` into `non-typescript`. It should be re-instated when they migrate to typescript.
-- move `@nivo/waffle` out of `packages` into `non-typescript`. (same reasoning as above)
+- incorporated content of `@nivo/tooltip` into `@nivo/core`. These two packages depended on each other. I couldn't get them to build from scratch, so I merged them. 
 
 ### `@nivo/bullet`
 
 - moved some color-related functions from `@nivo/core` to `@nivo/bullet`. These should be eliminated in favor of utilities from @nivo/colors.
+
+### `@nivo/color`
+
+- removed dependency on `react-motion`. It is not needed.
 
 ### Other packages
 
@@ -125,5 +129,5 @@ Addresses #1219, #884
 ## Changes in repo root `package.json`
 
 - upgraded React to 18.1
-- uprgaded storybook to 6.5.9
+- upgraded storybook to 6.5.9
 

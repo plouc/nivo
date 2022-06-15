@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@nivo/core'
 import { TooltipProps } from './types'
 
 const NonMemoizedTreeMapNodeTooltip = <Datum extends object>({ node }: TooltipProps<Datum>) => (
