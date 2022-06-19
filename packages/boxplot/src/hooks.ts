@@ -282,6 +282,7 @@ export const useBoxPlotTransition = ({
         boxPlots,
         {
             keys: boxPlot => boxPlot.key,
+            initial: animate ? undefined : null, // required for ssr
             from: boxPlot => ({
                 ...getTransitionProps(boxPlot),
                 valueInterval: 0,
