@@ -12,6 +12,14 @@ export * from './detect'
 export const getRelativeCursor = (el, event) => {
     const { clientX, clientY } = event
     const bounds = el.getBoundingClientRect()
+    const box = el.getBBox()
 
-    return [clientX - bounds.left, clientY - bounds.top]
+    // In a normal situation mouse enter / mouse leave events
+    // capture the position ok. But when the chart is inside a scaled
+    // element with a CSS transform like: `transform: scale(2);`
+    // tooltip are not positioned ok.
+    // Comparing original width `box.width` agains scaled width give us the
+    // scaling factor to calculate ok mouse position
+    const scaling = box.width === bounds.width ? 1 : box.width / bounds.width
+    return [(clientX - bounds.left) * scaling, (clientY - bounds.top) * scaling]
 }

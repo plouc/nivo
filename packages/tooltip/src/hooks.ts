@@ -26,8 +26,17 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
     const showTooltipFromEvent: TooltipActionsContextData['showTooltipFromEvent'] = useCallback(
         (content: JSX.Element, event: MouseEvent, anchor: TooltipAnchor = 'top') => {
             const bounds = container.current.getBoundingClientRect()
-            const x = event.clientX - bounds.left
-            const y = event.clientY - bounds.top
+            const offsetWidth = container.current.offsetWidth
+            // In a normal situation mouse enter / mouse leave events
+            // capture the position ok. But when the chart is inside a scaled
+            // element with a CSS transform like: `transform: scale(2);`
+            // tooltip are not positioned ok.
+            // Comparing original width `offsetWidth` agains scaled
+            // width give us the scaling factor to calculate
+            // ok mouse position
+            const scaling = offsetWidth === bounds.width ? 1 : offsetWidth / bounds.width
+            const x = (event.clientX - bounds.left) * scaling
+            const y = (event.clientY - bounds.top) * scaling
 
             if (anchor === 'left' || anchor === 'right') {
                 if (x < bounds.width / 2) anchor = 'right'

@@ -32,7 +32,7 @@ export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
     isInteractive,
     onClick,
 }: SankeyLinksItemProps<N, L>) => {
-    const linkId = `${link.source.id}.${link.target.id}`
+    const linkId = `${link.source.id}.${link.target.id}.${link.index}`
 
     const { animate, config: springConfig } = useMotionConfig()
     const animatedPath = useAnimatedPath(path)
