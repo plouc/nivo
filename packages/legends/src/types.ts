@@ -121,6 +121,7 @@ export type LegendSvgItemProps = {
     opacity?: number
 
     direction?: LegendItemDirection
+    isTooltip?: boolean
 } & Pick<CommonLegendProps, 'justify' | 'effects'> &
     BoxLegendSymbolProps &
     InteractivityProps

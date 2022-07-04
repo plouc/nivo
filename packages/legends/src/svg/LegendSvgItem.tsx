@@ -45,6 +45,7 @@ export const LegendSvgItem = ({
     toggleSerie,
 
     effects,
+    isTooltip,
 }: LegendSvgItemProps) => {
     const [style, setStyle] = useState<Style>({})
     const theme = useTheme()
@@ -62,10 +63,13 @@ export const LegendSvgItem = ({
                 )
                 setStyle(style)
             }
+            if (isTooltip) {
+                // displayTooltip()
+            }
 
             onMouseEnter?.(data, event)
         },
-        [onMouseEnter, data, effects]
+        [effects, isTooltip, onMouseEnter, data]
     )
     const handleMouseLeave = useCallback(
         (event: React.MouseEvent<SVGRectElement>) => {

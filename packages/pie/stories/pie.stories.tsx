@@ -43,7 +43,7 @@ const stories = storiesOf('Pie', module)
 stories.addDecorator(withKnobs)
 
 stories.add('default', () => (
-    <Pie {...commonProperties} legends={boolean('legends', false) ? legends : []} />
+    <Pie {...commonProperties} legends={boolean('legends', true) ? legends : []} />
 ))
 
 stories.add('donut', () => <Pie {...commonProperties} innerRadius={0.6} />)

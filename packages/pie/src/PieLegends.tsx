@@ -16,18 +16,22 @@ const PieLegends = <RawDatum,>({
     data,
     toggleSerie,
 }: PieLegendsProps<RawDatum>) => {
+    console.log('PieLegend')
     return (
         <>
-            {legends.map((legend, i) => (
-                <BoxLegendSvg
-                    key={i}
-                    {...legend}
-                    containerWidth={width}
-                    containerHeight={height}
-                    data={legend.data ?? data}
-                    toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
-                />
-            ))}
+            {legends.map((legend, i) => {
+                console.log('legend', legend)
+                return (
+                    <BoxLegendSvg
+                        key={i} // pas bo
+                        {...legend}
+                        containerWidth={width}
+                        containerHeight={height}
+                        data={legend.data ?? data}
+                        toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
+                    />
+                )
+            })}
         </>
     )
 }
