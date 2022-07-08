@@ -5,7 +5,7 @@ type ChartMetaFlavors = {
     path: string
 }[]
 
-declare module '*area-bump/meta.yml' {
+declare module '*/area-bump/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         AreaBump: ChartMeta
@@ -14,7 +14,7 @@ declare module '*area-bump/meta.yml' {
     export default meta
 }
 
-declare module '*bar/meta.yml' {
+declare module '*/bar/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Bar: ChartMeta
@@ -24,7 +24,7 @@ declare module '*bar/meta.yml' {
     export default meta
 }
 
-declare module '*bullet/meta.yml' {
+declare module '*/bullet/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Bullet: ChartMeta
@@ -33,7 +33,7 @@ declare module '*bullet/meta.yml' {
     export default meta
 }
 
-declare module '*bump/meta.yml' {
+declare module '*/bump/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Bump: ChartMeta
@@ -42,7 +42,7 @@ declare module '*bump/meta.yml' {
     export default meta
 }
 
-declare module '*calendar/meta.yml' {
+declare module '*/calendar/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Calendar: ChartMeta
@@ -52,7 +52,7 @@ declare module '*calendar/meta.yml' {
     export default meta
 }
 
-declare module '*calendar/meta.yml' {
+declare module '*/calendar/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Calendar: ChartMeta
@@ -62,7 +62,7 @@ declare module '*calendar/meta.yml' {
     export default meta
 }
 
-declare module '*chord/meta.yml' {
+declare module '*/chord/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Chord: ChartMeta
@@ -72,7 +72,7 @@ declare module '*chord/meta.yml' {
     export default meta
 }
 
-declare module '*choropleth/meta.yml' {
+declare module '*/choropleth/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Choropleth: ChartMeta
@@ -82,7 +82,7 @@ declare module '*choropleth/meta.yml' {
     export default meta
 }
 
-declare module '*circle-packing/meta.yml' {
+declare module '*/circle-packing/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         CirclePacking: ChartMeta
@@ -93,7 +93,7 @@ declare module '*circle-packing/meta.yml' {
     export default meta
 }
 
-declare module '*funnel/meta.yml' {
+declare module '*/funnel/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Funnel: ChartMeta
@@ -102,7 +102,16 @@ declare module '*funnel/meta.yml' {
     export default meta
 }
 
-declare module '*heatmap/meta.yml' {
+declare module '*/geomap/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        GeoMap: ChartMeta
+    }
+
+    export default meta
+}
+
+declare module '*/heatmap/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         HeatMap: ChartMeta
@@ -112,7 +121,16 @@ declare module '*heatmap/meta.yml' {
     export default meta
 }
 
-declare module '*line/meta.yml' {
+declare module '*/icicles/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        Icicles: ChartMeta
+    }
+
+    export default meta
+}
+
+declare module '*/line/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Line: ChartMeta
@@ -122,7 +140,7 @@ declare module '*line/meta.yml' {
     export default meta
 }
 
-declare module '*marimekko/meta.yml' {
+declare module '*/marimekko/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Marimekko: ChartMeta
@@ -131,7 +149,7 @@ declare module '*marimekko/meta.yml' {
     export default meta
 }
 
-declare module '*network/meta.yml' {
+declare module '*/network/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Network: ChartMeta
@@ -141,7 +159,7 @@ declare module '*network/meta.yml' {
     export default meta
 }
 
-declare module '*parallel-coordinates/meta.yml' {
+declare module '*/parallel-coordinates/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         ParallelCoordinates: ChartMeta
@@ -151,7 +169,7 @@ declare module '*parallel-coordinates/meta.yml' {
     export default meta
 }
 
-declare module '*pie/meta.yml' {
+declare module '*/pie/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Pie: ChartMeta
@@ -161,7 +179,7 @@ declare module '*pie/meta.yml' {
     export default meta
 }
 
-declare module '*radar/meta.yml' {
+declare module '*/radar/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Radar: ChartMeta
@@ -170,7 +188,7 @@ declare module '*radar/meta.yml' {
     export default meta
 }
 
-declare module '*radial-bar/meta.yml' {
+declare module '*/radial-bar/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         RadialBar: ChartMeta
@@ -179,7 +197,7 @@ declare module '*radial-bar/meta.yml' {
     export default meta
 }
 
-declare module '*sankey/meta.yml' {
+declare module '*/sankey/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Sankey: ChartMeta
@@ -188,7 +206,7 @@ declare module '*sankey/meta.yml' {
     export default meta
 }
 
-declare module '*scatterplot/meta.yml' {
+declare module '*/scatterplot/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         ScatterPlot: ChartMeta
@@ -198,7 +216,7 @@ declare module '*scatterplot/meta.yml' {
     export default meta
 }
 
-declare module '*stream/meta.yml' {
+declare module '*/stream/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Stream: ChartMeta
@@ -207,7 +225,7 @@ declare module '*stream/meta.yml' {
     export default meta
 }
 
-declare module '*sunburst/meta.yml' {
+declare module '*/sunburst/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Sunburst: ChartMeta
@@ -216,7 +234,7 @@ declare module '*sunburst/meta.yml' {
     export default meta
 }
 
-declare module '*swarmplot/meta.yml' {
+declare module '*/swarmplot/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         SwarmPlot: ChartMeta
@@ -226,7 +244,7 @@ declare module '*swarmplot/meta.yml' {
     export default meta
 }
 
-declare module '*time-range/meta.yml' {
+declare module '*/time-range/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         TimeRange: ChartMeta
@@ -235,7 +253,7 @@ declare module '*time-range/meta.yml' {
     export default meta
 }
 
-declare module '*treemap/meta.yml' {
+declare module '*/treemap/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         TreeMap: ChartMeta
@@ -246,7 +264,7 @@ declare module '*treemap/meta.yml' {
     export default meta
 }
 
-declare module '*voronoi/meta.yml' {
+declare module '*/voronoi/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Voronoi: ChartMeta
@@ -255,7 +273,7 @@ declare module '*voronoi/meta.yml' {
     export default meta
 }
 
-declare module '*waffle/meta.yml' {
+declare module '*/waffle/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Waffle: ChartMeta

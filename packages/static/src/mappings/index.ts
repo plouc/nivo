@@ -9,6 +9,7 @@ import { pieMapping } from './pie'
 import { radarMapping } from './radar'
 import { sankeyMapping } from './sankey'
 import { sunburstMapping } from './sunburst'
+import { iciclesMapping } from './icicles'
 import { treemapMapping } from './treemap'
 
 export const chartsMapping = {
@@ -17,6 +18,7 @@ export const chartsMapping = {
     calendar: calendarMapping,
     chord: chordMapping,
     heatmap: heatmapMapping,
+    icicles: iciclesMapping,
     line: lineMapping,
     pie: pieMapping,
     radar: radarMapping,

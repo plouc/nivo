@@ -3,45 +3,111 @@
     "references": [
         // Core first because everything needs it
         // { "path": "./packages/core" },
-
         // Shared next because charts need them
-        { "path": "./packages/annotations" },
-        { "path": "./packages/scales" },
-        { "path": "./packages/axes" },
-        { "path": "./packages/colors" },
-        { "path": "./packages/legends" },
-        { "path": "./packages/tooltip" },
-        { "path": "./packages/arcs" },
-        { "path": "./packages/polar-axes" },
-        { "path": "./packages/voronoi" },
-
+        {
+            "path": "./packages/annotations"
+        },
+        {
+            "path": "./packages/scales"
+        },
+        {
+            "path": "./packages/axes"
+        },
+        {
+            "path": "./packages/colors"
+        },
+        {
+            "path": "./packages/legends"
+        },
+        {
+            "path": "./packages/tooltip"
+        },
+        {
+            "path": "./packages/arcs"
+        },
+        {
+            "path": "./packages/rects"
+        },
+        {
+            "path": "./packages/polar-axes"
+        },
+        {
+            "path": "./packages/voronoi"
+        },
         // Utility packages
-        { "path": "./packages/generators" },
-        { "path": "./packages/recompose" },
-
+        {
+            "path": "./packages/generators"
+        },
+        {
+            "path": "./packages/recompose"
+        },
         // Charts now
-        { "path": "./packages/bar" },
-        { "path": "./packages/bullet" },
-        { "path": "./packages/bump" },
-        { "path": "./packages/calendar" },
-        { "path": "./packages/chord" },
-        { "path": "./packages/circle-packing" },
-        { "path": "./packages/funnel" },
-        { "path": "./packages/heatmap" },
-        { "path": "./packages/marimekko" },
-        { "path": "./packages/network" },
-        { "path": "./packages/pie" },
-        { "path": "./packages/radar" },
-        { "path": "./packages/radial-bar" },
-        { "path": "./packages/sankey" },
-        { "path": "./packages/scatterplot" },
-        { "path": "./packages/sunburst" },
-        { "path": "./packages/stream" },
-        { "path": "./packages/swarmplot" },
-        { "path": "./packages/treemap" },
-
+        {
+            "path": "./packages/bar"
+        },
+        {
+            "path": "./packages/bullet"
+        },
+        {
+            "path": "./packages/bump"
+        },
+        {
+            "path": "./packages/calendar"
+        },
+        {
+            "path": "./packages/chord"
+        },
+        {
+            "path": "./packages/circle-packing"
+        },
+        {
+            "path": "./packages/funnel"
+        },
+        {
+            "path": "./packages/heatmap"
+        },
+        {
+            "path": "./packages/icicles"
+        },
+        {
+            "path": "./packages/marimekko"
+        },
+        {
+            "path": "./packages/network"
+        },
+        {
+            "path": "./packages/pie"
+        },
+        {
+            "path": "./packages/radar"
+        },
+        {
+            "path": "./packages/radial-bar"
+        },
+        {
+            "path": "./packages/sankey"
+        },
+        {
+            "path": "./packages/scatterplot"
+        },
+        {
+            "path": "./packages/sunburst"
+        },
+        {
+            "path": "./packages/stream"
+        },
+        {
+            "path": "./packages/swarmplot"
+        },
+        {
+            "path": "./packages/treemap"
+        },
         // Static rendering and express middleware
-        { "path": "./packages/static" },
-        { "path": "./packages/express" }
+        {
+            "path": "./packages/static"
+        },
+        {
+            "path": "./packages/express"
+        }
     ]
 }

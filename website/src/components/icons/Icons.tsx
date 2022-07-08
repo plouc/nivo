@@ -24,6 +24,7 @@ import { SankeyIcon } from './SankeyIcon'
 import { ScatterPlotIcon } from './ScatterPlotIcon'
 import { StreamIcon } from './StreamIcon'
 import { SunburstIcon } from './SunburstIcon'
+import { IciclesIcon } from './IciclesIcon'
 import { SwarmPlotIcon } from './SwarmPlotIcon'
 import { TimeRangeIcon } from './TimeRangeIcon'
 import { TreeMapIcon } from './TreeMapIcon'
@@ -87,6 +88,7 @@ export const Icons = () => (
         <ScatterPlotIcon />
         <StreamIcon />
         <SunburstIcon />
+        <IciclesIcon />
         <SwarmPlotIcon />
         <TimeRangeIcon />
         <TreeMapIcon />

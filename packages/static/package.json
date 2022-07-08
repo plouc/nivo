@@ -34,6 +34,7 @@
     "@nivo/radar": "0.79.1",
     "@nivo/sankey": "0.79.1",
     "@nivo/sunburst": "0.79.1",
+    "@nivo/icicles": "0.79.1",
     "@nivo/treemap": "0.79.1",
     "joi": "^17.5.0",
     "lodash": "^4.17.21"

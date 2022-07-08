@@ -10,6 +10,7 @@ import funnel from './components/funnel/meta.yml'
 import geomap from './components/geomap/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
 import line from './components/line/meta.yml'
+import icicles from './components/icicles/meta.yml'
 import marimekko from './components/marimekko/meta.yml'
 import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
@@ -126,6 +127,15 @@ export const components: ChartNavData[] = [
         flavors: {
             svg: true,
             canvas: true,
+            api: true,
+        },
+    },
+    {
+        name: 'Icicles',
+        id: 'icicles',
+        tags: icicles.Icicles.tags,
+        flavors: {
+            svg: true,
             api: true,
         },
     },
