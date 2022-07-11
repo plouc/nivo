@@ -1,5 +1,6 @@
 import React from 'react'
 import omit from 'lodash/omit'
+import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
@@ -44,6 +45,28 @@ const initialProperties = {
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
+
+    defs: [
+        patternDotsDef('dots', {
+            background: 'inherit',
+            color: '#38bcb2',
+            size: 4,
+            padding: 1,
+            stagger: true,
+        }),
+        patternLinesDef('lines', {
+            background: 'inherit',
+            color: '#eed312',
+            rotation: -45,
+            lineWidth: 6,
+            spacing: 10,
+        }),
+      ],
+
+      fill:[
+        { match: { id: 'CAN' }, id: 'dots' },
+        { match: { id: 'CHN' }, id: 'lines' },
+      ],
 
     legends: [
         {
