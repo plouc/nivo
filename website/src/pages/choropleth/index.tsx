@@ -1,6 +1,6 @@
 import React from 'react'
 import omit from 'lodash/omit'
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
+import { patternDotsDef, patternLinesDef, linearGradientDef } from '@nivo/core'
 import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
@@ -61,11 +61,16 @@ const initialProperties = {
             lineWidth: 6,
             spacing: 10,
         }),
+        linearGradientDef('gradient', [
+            { offset: 0, color: '#000' },
+            { offset: 100, color: 'inherit' },
+        ])
       ],
 
       fill:[
         { match: { id: 'CAN' }, id: 'dots' },
         { match: { id: 'CHN' }, id: 'lines' },
+        { match: { id: 'ATA' }, id: 'gradient' },
       ],
 
     legends: [
