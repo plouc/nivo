@@ -64,14 +64,14 @@ const initialProperties = {
         linearGradientDef('gradient', [
             { offset: 0, color: '#000' },
             { offset: 100, color: 'inherit' },
-        ])
-      ],
+        ]),
+    ],
 
-      fill:[
+    fill: [
         { match: { id: 'CAN' }, id: 'dots' },
         { match: { id: 'CHN' }, id: 'lines' },
         { match: { id: 'ATA' }, id: 'gradient' },
-      ],
+    ],
 
     legends: [
         {

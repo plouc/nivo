@@ -44,10 +44,8 @@ const Choropleth = memo(
         onClick,
         tooltip: Tooltip,
         role,
-
         defs = ChoroplethDefaultProps.defs,
-        fill = ChoroplethDefaultProps.fill
-
+        fill = ChoroplethDefaultProps.fill,
     }) => {
         const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
         const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({

@@ -106,7 +106,7 @@ const commonDefaultProps = {
     legends: [],
 
     fill: [],
-    defs: []
+    defs: [],
 }
 
 export const GeoMapDefaultProps = {
