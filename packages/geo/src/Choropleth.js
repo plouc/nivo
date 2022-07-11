@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { memo, Fragment, useCallback } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions, useTheme, bindDefs } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { ChoroplethPropTypes, ChoroplethDefaultProps } from './props'
@@ -44,6 +44,10 @@ const Choropleth = memo(
         onClick,
         tooltip: Tooltip,
         role,
+
+        defs = ChoroplethDefaultProps.defs,
+        fill = ChoroplethDefaultProps.fill
+
     }) => {
         const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
         const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({
@@ -70,6 +74,11 @@ const Choropleth = memo(
         })
 
         const theme = useTheme()
+
+        const boundDefs = bindDefs(defs, boundFeatures, fill, {
+            dataKey: 'data',
+            targetKey: 'fill',
+        })
 
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
         const handleClick = useCallback(
@@ -101,6 +110,7 @@ const Choropleth = memo(
                 height={outerHeight}
                 margin={margin}
                 theme={theme}
+                defs={boundDefs}
                 role={role}
             >
                 {layers.map((layer, i) => {
