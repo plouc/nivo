@@ -330,8 +330,7 @@ export const useBumpSerieHandlers = <
         event => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             onMouseEnter && onMouseEnter(serie, event)
-            if(!event.defaultPrevented)
-                setActiveSerieIds([serie.id])
+            if (!event.defaultPrevented) setActiveSerieIds([serie.id])
         },
         [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds, tooltip]
     )
@@ -348,8 +347,7 @@ export const useBumpSerieHandlers = <
         event => {
             hideTooltip()
             onMouseLeave && onMouseLeave(serie, event)
-            if(!event.defaultPrevented)
-                setActiveSerieIds([])
+            if (!event.defaultPrevented) setActiveSerieIds([])
         },
         [serie, onMouseLeave, hideTooltip, setActiveSerieIds]
     )
