@@ -9,7 +9,6 @@ import { generateLibTree } from '@nivo/generators'
 import { colorSchemes } from '@nivo/colors'
 // @ts-ignore
 import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '../src'
-import React from 'react'
 
 interface RawDatum {
     name: string
