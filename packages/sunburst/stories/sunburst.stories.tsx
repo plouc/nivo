@@ -9,6 +9,7 @@ import { generateLibTree } from '@nivo/generators'
 import { colorSchemes } from '@nivo/colors'
 // @ts-ignore
 import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '../src'
+import React from 'react'
 
 interface RawDatum {
     name: string
@@ -201,25 +202,104 @@ stories.add(
     }
 )
 
-const CenteredMetric = ({ nodes, centerX, centerY }: SunburstCustomLayerProps<RawDatum>) => {
-    const total = nodes.reduce((total, datum) => total + datum.value, 0)
-
+stories.add('adding a metric in the center using a custom layer', () => {
+    const CenteredMetric = ({ nodes, centerX, centerY }: SunburstCustomLayerProps<RawDatum>) => {
+        const total = nodes.reduce((total, datum) => total + datum.value, 0)
+        return (
+            <text
+                x={centerX}
+                y={centerY}
+                textAnchor="middle"
+                dominantBaseline="central"
+                style={{
+                    fontSize: '42px',
+                    fontWeight: 600,
+                }}
+            >
+                {Number.parseFloat(`${total}`).toExponential(2)}
+            </text>
+        )
+    }
     return (
-        <text
-            x={centerX}
-            y={centerY}
-            textAnchor="middle"
-            dominantBaseline="central"
-            style={{
-                fontSize: '42px',
-                fontWeight: 600,
-            }}
-        >
-            {Number.parseFloat(`${total}`).toExponential(2)}
-        </text>
+        <Sunburst<RawDatum> {...commonProperties} layers={['arcs', 'arcLabels', CenteredMetric]} />
     )
-}
+})
 
-stories.add('adding a metric in the center using a custom layer', () => (
-    <Sunburst<RawDatum> {...commonProperties} layers={['arcs', 'arcLabels', CenteredMetric]} />
-))
+stories.add('radial labels using custom layer', () => {
+    function CustomArcLabels(ctx) {
+        const arcLabelSkip = 10
+        return (
+            <g>
+                {ctx.nodes.map(node => {
+                    console.log(ctx, node, node.data.name)
+                    const nodeArc = node.arc
+                    const startAngle = (nodeArc.startAngle * 180) / Math.PI
+                    let endAngle = (nodeArc.endAngle * 180) / Math.PI
+
+                    if (endAngle - startAngle < arcLabelSkip) return <></>
+                    if (startAngle === 0 && endAngle === 360) endAngle = 90
+
+                    const radius = (nodeArc.innerRadius + nodeArc.outerRadius) / 2
+                    let dName = describeArc(ctx.centerX, ctx.centerY, radius, startAngle, endAngle)
+
+                    const avgAngle = (startAngle + endAngle) / 2
+                    if (avgAngle > 90 && avgAngle < 270) {
+                        dName = describeArc(
+                            ctx.centerX,
+                            ctx.centerY,
+                            radius,
+                            endAngle,
+                            startAngle,
+                            true
+                        )
+                    }
+
+                    return (
+                        <g pointerEvents={'none'} key={node.data.name}>
+                            <path fill="transparent" id={node.data.name} d={dName} />
+                            <text textAnchor="middle">
+                                <textPath startOffset={'50%'} href={`#${node.data.name}`}>
+                                    {node.data.name}
+                                </textPath>
+                            </text>
+                        </g>
+                    )
+                })}
+            </g>
+        )
+    }
+
+    function describeArc(x, y, radius, startAngle, endAngle, invert = false) {
+        const start = polarToCartesian(x, y, radius, startAngle)
+        const end = polarToCartesian(x, y, radius, endAngle)
+
+        const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
+
+        const d = [
+            'M',
+            start.x,
+            start.y,
+            'A',
+            radius,
+            radius,
+            0,
+            largeArcFlag,
+            invert ? 0 : 1,
+            end.x,
+            end.y,
+        ].join(' ')
+
+        return d
+    }
+
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0
+
+        return {
+            x: centerX + radius * Math.cos(angleInRadians),
+            y: centerY + radius * Math.sin(angleInRadians),
+        }
+    }
+
+    return <Sunburst<RawDatum> {...commonProperties} layers={['arcs', CustomArcLabels]} />
+})
