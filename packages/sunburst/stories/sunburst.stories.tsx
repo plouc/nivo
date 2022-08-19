@@ -236,7 +236,7 @@ stories.add('radial labels using custom layer', () => {
                     let endAngle = (nodeArc.endAngle * 180) / Math.PI
 
                     if (endAngle - startAngle < arcLabelSkip) return <></>
-                    if (startAngle === 0 && endAngle === 360) endAngle = 90
+                    if (startAngle === 0 && endAngle > 359) endAngle = 90
 
                     const radius = (nodeArc.innerRadius + nodeArc.outerRadius) / 2
                     let dName = describeArc(ctx.centerX, ctx.centerY, radius, startAngle, endAngle)
@@ -272,7 +272,7 @@ stories.add('radial labels using custom layer', () => {
         const start = polarToCartesian(x, y, radius, startAngle)
         const end = polarToCartesian(x, y, radius, endAngle)
 
-        const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
+        const largeArcFlag = Math.abs(endAngle - startAngle) <= 180 ? '0' : '1'
 
         const d = [
             'M',
