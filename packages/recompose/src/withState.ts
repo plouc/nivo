@@ -1,4 +1,4 @@
-import { createFactory, Component } from 'react'
+import { createElement, Component } from 'react'
 import { setDisplayName } from './setDisplayName'
 import { InferableComponentEnhancerWithProps, Mapper } from './types'
 import { wrapDisplayName } from './wrapDisplayName'
@@ -17,7 +17,7 @@ export const withState =
         TOuter
     > =>
     (BaseComponent: any): any => {
-        const factory = createFactory(BaseComponent)
+        const factory = (props: any) => createElement(BaseComponent, props)
         class WithState extends Component {
             state = {
                 stateValue:

@@ -1,4 +1,4 @@
-import { Component, createFactory } from 'react'
+import { Component, createElement } from 'react'
 import { polyfill } from 'react-lifecycles-compat'
 import { setDisplayName } from './setDisplayName'
 import { shallowEqual } from './shallowEqual'
@@ -12,7 +12,7 @@ export const withPropsOnChange =
         propsMapper: Mapper<TOuter, TInner>
     ): InferableComponentEnhancerWithProps<TInner & TOuter, TOuter> =>
     (BaseComponent: any): any => {
-        const factory = createFactory(BaseComponent)
+        const factory = (props: any) => createElement(BaseComponent, props)
         const shouldMap =
             typeof shouldMapOrKeys === 'function'
                 ? shouldMapOrKeys
