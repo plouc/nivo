@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-waffle",
-  "version": "0.69.2",
+  "version": "0.69.3",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -28,10 +28,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.69.2",
-    "@bitbloom/nivo-core": "^0.69.2",
-    "@bitbloom/nivo-legends": "^0.69.2",
-    "@bitbloom/nivo-tooltip": "^0.69.2",
+    "@bitbloom/nivo-colors": "^0.69.3",
+    "@bitbloom/nivo-core": "^0.69.3",
+    "@bitbloom/nivo-legends": "^0.69.3",
+    "@bitbloom/nivo-tooltip": "^0.69.3",
     "lodash.partial": "^4.2.1",
     "lodash.range": "^3.2.0",
     "react-motion": "^0.5.2"
