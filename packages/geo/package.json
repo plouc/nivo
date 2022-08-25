@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-geo",
-  "version": "0.69.3",
+  "version": "0.69.4",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,10 +29,10 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.69.3",
-    "@bitbloom/nivo-core": "^0.69.3",
-    "@bitbloom/nivo-legends": "^0.69.3",
-    "@bitbloom/nivo-tooltip": "^0.69.3",
+    "@bitbloom/nivo-colors": "^0.69.4",
+    "@bitbloom/nivo-core": "^0.69.4",
+    "@bitbloom/nivo-legends": "^0.69.4",
+    "@bitbloom/nivo-tooltip": "^0.69.4",
     "d3-format": "^1.4.4",
     "d3-geo": "^1.11.3",
     "lodash": "^4.17.11"
