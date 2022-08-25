@@ -1,4 +1,4 @@
-import { Component, createFactory } from 'react'
+import { Component, createElement } from 'react'
 import { polyfill } from 'react-lifecycles-compat'
 import { setDisplayName } from './setDisplayName'
 import { shallowEqual } from './shallowEqual'
@@ -10,7 +10,7 @@ export const withPropsOnChange = <TInner, TOuter extends Record<string, unknown>
     shouldMapOrKeys: string[] | PredicateDiff<TOuter>,
     propsMapper: Mapper<TOuter, TInner>
 ): InferableComponentEnhancerWithProps<TInner & TOuter, TOuter> => (BaseComponent: any): any => {
-    const factory = createFactory(BaseComponent)
+    const factory = (props: any) => createElement(BaseComponent, props)
     const shouldMap =
         typeof shouldMapOrKeys === 'function'
             ? shouldMapOrKeys
@@ -37,7 +37,6 @@ export const withPropsOnChange = <TInner, TOuter extends Record<string, unknown>
         }
 
         render() {
-            // @ts-expect-error due to how factory is typed
             return factory({
                 ...this.props,
                 ...this.state.computedProps,

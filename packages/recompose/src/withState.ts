@@ -1,4 +1,4 @@
-import { createFactory, Component } from 'react'
+import { createElement, Component } from 'react'
 import { setDisplayName } from './setDisplayName'
 import { InferableComponentEnhancerWithProps, Mapper } from './types'
 import { wrapDisplayName } from './wrapDisplayName'
@@ -21,7 +21,7 @@ export const withState = <
     StateProps<TState, TStateName, TStateUpdaterName>,
     TOuter
 > => (BaseComponent: any): any => {
-    const factory = createFactory(BaseComponent)
+    const factory = (props: any) => createElement(BaseComponent, props)
     class WithState extends Component {
         state = {
             stateValue:
@@ -40,7 +40,6 @@ export const withState = <
             )
 
         render() {
-            // @ts-expect-error due to how factory is typed
             return factory({
                 ...this.props,
                 [stateName]: this.state.stateValue,
