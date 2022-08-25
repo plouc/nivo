@@ -3,6 +3,7 @@ import { Dimensions, Box, MotionProps, ColorProps, Theme } from '@bitbloom/nivo-
 import { AxisProps } from '@bitbloom/nivo-axes'
 import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 import { BasicTooltipProps } from '@bitbloom/nivo-tooltip'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
 declare module '@bitbloom/nivo-heatmap' {
     export interface HeatMapDatum {
@@ -47,6 +48,7 @@ declare module '@bitbloom/nivo-heatmap' {
 
             enableLabels: boolean
             labelTextColor: InheritedColorConfig<HeatMapDatumWithColor>
+            legends?: LegendProps
 
             isInteractive: boolean
             hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
