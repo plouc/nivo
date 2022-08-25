@@ -15,7 +15,6 @@ export const shouldUpdate = <TProps extends Record<string, unknown>>(
         }
 
         render() {
-            // @ts-expect-error not type-able
             return factory(this.props)
         }
     }
