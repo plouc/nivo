@@ -1,7 +1,7 @@
 {
   "name": "@nivo/legends",
   "description": "legend components for nivo dataviz library",
-  "version": "0.79.1",
+  "version": "0.80.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,12 +22,12 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "devDependencies": {
-    "@nivo/colors": "0.79.1",
-    "@nivo/core": "0.79.0",
+    "@nivo/colors": "0.80.0",
+    "@nivo/core": "0.80.0",
     "d3-scale": "^3.2.3"
   },
   "peerDependencies": {
-    "@nivo/core": "0.79.0",
+    "@nivo/core": "0.80.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 19.0.0"
   },

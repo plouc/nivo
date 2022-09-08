@@ -1,6 +1,6 @@
 {
   "name": "@nivo/annotations",
-  "version": "0.79.1",
+  "version": "0.80.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -28,15 +28,15 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/colors": "0.79.1",
+    "@nivo/colors": "0.80.0",
     "@react-spring/web": "9.4.5",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "0.79.0"
+    "@nivo/core": "0.80.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.79.0",
+    "@nivo/core": "0.80.0",
     "react": ">= 16.14.0 < 19.0.0"
   },
   "publishConfig": {
