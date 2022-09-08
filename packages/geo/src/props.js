@@ -104,6 +104,9 @@ const commonDefaultProps = {
 
     layers: ['graticule', 'features'],
     legends: [],
+
+    fill: [],
+    defs: [],
 }
 
 export const GeoMapDefaultProps = {

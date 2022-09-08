@@ -24,7 +24,7 @@ const GeoMapFeature = memo(
         return (
             <path
                 key={feature.id}
-                fill={fillColor}
+                fill={feature?.fill ?? fillColor}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
                 strokeLinejoin="bevel"
