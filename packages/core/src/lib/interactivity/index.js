@@ -9,17 +9,39 @@
 
 export * from './detect'
 
+/**
+ * Get the position of the cursor (from `event`) relative
+ * to its container (`el`).
+ *
+ * In a normal situation mouse enter/leave events
+ * capture the position ok. But when the chart is inside a scaled
+ * element with a CSS transform like: `transform: scale(2);`
+ * tooltip are not positioned ok.
+ *
+ * Comparing original width `box.width` against the scaled width
+ * give us the scaling factor to calculate the proper mouse position.
+ */
 export const getRelativeCursor = (el, event) => {
     const { clientX, clientY } = event
-    const bounds = el.getBoundingClientRect()
-    const box = el.getBBox()
+    // Get the dimensions of the element, in case it has
+    // been scaled using a transform for example, we get
+    // the scaled dimensions, not the original ones.
+    const currentBox = el.getBoundingClientRect()
 
-    // In a normal situation mouse enter / mouse leave events
-    // capture the position ok. But when the chart is inside a scaled
-    // element with a CSS transform like: `transform: scale(2);`
-    // tooltip are not positioned ok.
-    // Comparing original width `box.width` agains scaled width give us the
-    // scaling factor to calculate ok mouse position
-    const scaling = box.width === bounds.width ? 1 : box.width / bounds.width
-    return [(clientX - bounds.left) * scaling, (clientY - bounds.top) * scaling]
+    // Original dimensions, necessary to compute `scaleFactor`.
+    let originalBox
+    if (el.getBBox !== undefined) {
+        // For SVG elements.
+        originalBox = el.getBBox()
+    } else {
+        // Other elements.
+        originalBox = {
+            width: el.offsetWidth,
+            height: el.offsetHeight,
+        }
+    }
+
+    const scaleFactor =
+        originalBox.width === currentBox.width ? 1 : originalBox.width / currentBox.width
+    return [(clientX - currentBox.left) * scaleFactor, (clientY - currentBox.top) * scaleFactor]
 }
