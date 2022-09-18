@@ -148,3 +148,53 @@ describe('curve interpolation', () => {
         })
     }
 })
+
+describe('mouse events on slices', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+    ]
+    const baseProps = {
+        width: 500,
+        height: 300,
+        data: data,
+        animate: false,
+        enableSlices: 'x',
+    }
+
+    it('should call onMouseEnter', () => {
+        const onMouseEnter = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseEnter={onMouseEnter} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('mouseenter')
+        expect(onMouseEnter).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onMouseMove', () => {
+        const onMouseMove = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseMove={onMouseMove} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('mousemove')
+        expect(onMouseMove).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onMouseLeave', () => {
+        const onMouseLeave = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseLeave={onMouseLeave} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('mouseleave')
+        expect(onMouseLeave).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick', () => {
+        const onClick = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onClick={onClick} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('click')
+        expect(onClick).toHaveBeenCalledTimes(1)
+    })
+})
