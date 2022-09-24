@@ -46,7 +46,6 @@ export default {
     },
     axisBottom: {
         enable: true,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -56,7 +55,6 @@ export default {
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
