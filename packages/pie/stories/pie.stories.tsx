@@ -97,7 +97,7 @@ stories.add(
             It's also possible to pass a function if you want to handle more advanced computation:
 
             \`\`\`
-            colors={(datum) => datum.color }}
+            colors={(datum) => datum.color}
             \`\`\`
         `,
         },
