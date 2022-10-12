@@ -95,13 +95,14 @@ const Axis = <Value extends ScaleValue>({
 
     const { animate, config: springConfig } = useMotionConfig()
 
-    const animatedProps = useSpring({
-        transform: `translate(${x},${y})`,
-        lineX2: axis === 'x' ? length : 0,
-        lineY2: axis === 'x' ? 0 : length,
-        config: springConfig,
-        immediate: !animate,
-    })
+    const animatedProps =
+        useSpring({
+            transform: `translate(${x},${y})`,
+            lineX2: axis === 'x' ? length : 0,
+            lineY2: axis === 'x' ? 0 : length,
+            config: springConfig,
+            immediate: !animate,
+        }) || {}
 
     const transition = useTransition<
         typeof ticks[0],
