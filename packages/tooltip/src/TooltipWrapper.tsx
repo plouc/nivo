@@ -79,7 +79,7 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
         const style = {
             ...tooltipStyle,
             ...theme.tooltip,
-            transform: animatedProps.transform ?? translate(x, y),
+            transform: animatedProps?.transform ?? translate(x, y),
         }
 
         return (
