@@ -25,7 +25,7 @@ forOwn(chartsMapping, ({ schema }, type: ChartType) => {
 
         storage.set(id, {
             type,
-            props,
+            props: props.value,
             url,
         })
 
