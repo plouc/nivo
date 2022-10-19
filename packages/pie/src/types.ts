@@ -109,6 +109,7 @@ export type CommonPieProps<RawDatum> = {
     // interactivity
     isInteractive: boolean
     tooltip: React.FC<PieTooltipProps<RawDatum>>
+    forceActiveId: DatumId | undefined
 
     legends: LegendProps[]
 

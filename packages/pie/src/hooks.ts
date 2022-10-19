@@ -177,6 +177,7 @@ export const usePie = <RawDatum>({
     cornerRadius = defaultProps.cornerRadius,
     activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
+    forceActiveId
 }: Pick<
     Partial<CompletePieSvgProps<RawDatum>>,
     | 'startAngle'
@@ -186,6 +187,7 @@ export const usePie = <RawDatum>({
     | 'cornerRadius'
     | 'activeInnerRadiusOffset'
     | 'activeOuterRadiusOffset'
+    | 'forceActiveId'
 > & {
     data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
     radius: number
@@ -201,7 +203,7 @@ export const usePie = <RawDatum>({
         outerRadius: radius,
         padAngle,
         sortByValue,
-        activeId,
+        activeId: forceActiveId || activeId,
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
         hiddenIds,
@@ -239,6 +241,7 @@ export const usePieFromBox = <RawDatum>({
     fit = defaultProps.fit,
     activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
+    forceActiveId
 }: Pick<
     CompletePieSvgProps<RawDatum>,
     | 'width'
@@ -252,6 +255,7 @@ export const usePieFromBox = <RawDatum>({
     | 'fit'
     | 'activeInnerRadiusOffset'
     | 'activeOuterRadiusOffset'
+    | 'forceActiveId'
 > & {
     data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
 }) => {
@@ -313,7 +317,7 @@ export const usePieFromBox = <RawDatum>({
         outerRadius: computedProps.radius,
         padAngle,
         sortByValue,
-        activeId,
+        activeId: forceActiveId || activeId,
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
         hiddenIds,

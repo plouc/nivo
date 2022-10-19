@@ -67,6 +67,7 @@ const InnerPieCanvas = <RawDatum,>({
     onClick,
     onMouseMove,
     tooltip = defaultProps.tooltip,
+    forceActiveId,
 
     legends = defaultProps.legends,
 }: PieCanvasProps<RawDatum>) => {
@@ -101,6 +102,7 @@ const InnerPieCanvas = <RawDatum,>({
             cornerRadius,
             activeInnerRadiusOffset,
             activeOuterRadiusOffset,
+            forceActiveId
         })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)

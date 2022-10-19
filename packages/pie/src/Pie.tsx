@@ -74,6 +74,7 @@ const InnerPie = <RawDatum,>({
     onMouseMove,
     onMouseLeave,
     tooltip = defaultProps.tooltip,
+    forceActiveId,
 
     transitionMode = defaultProps.transitionMode,
 
@@ -117,6 +118,7 @@ const InnerPie = <RawDatum,>({
         cornerRadius,
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
+        forceActiveId
     })
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)
