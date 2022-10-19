@@ -14,7 +14,7 @@ export const Tooltip = () => {
     }
 
     return (
-        <TooltipWrapper position={state.position} anchor={state.anchor}>
+        <TooltipWrapper position={state.position} anchor={state.anchor} outer={state.outer}>
             {state.content}
         </TooltipWrapper>
     )
