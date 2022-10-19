@@ -62,15 +62,16 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
             const x0 = -outer.left;
             const y0 = -outer.top;
 
-            // not sure why but have to adjust by twice scrollbar width
-            const outerWidth = outer.width + 32;
+            // the tooltip is constrained by the window not its container
+            const constrainingWidth = document.documentElement.clientWidth
+            const constrainingHeight = document.documentElement.clientHeight
 
-            if (outer.width > 0 && x > outerWidth - bounds.width + x0){
-                x = outerWidth - bounds.width + x0
+            if (constrainingWidth > 0 && x > constrainingWidth - bounds.width + x0) {
+                x = constrainingWidth - bounds.width + x0
             }
 
-            if (outer.height > 0 && y > outer.height - bounds.height){
-                y = outer.height - bounds.height
+            if (constrainingHeight > 0 && y > constrainingHeight - bounds.height + y0) {
+                y = constrainingHeight - bounds.height + y0
             }
 
             x = Math.max(x, x0)
