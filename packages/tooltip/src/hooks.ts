@@ -13,11 +13,13 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
 
     const showTooltipAt: TooltipActionsContextData['showTooltipAt'] = useCallback(
         (content: JSX.Element, [x, y]: [number, number], anchor: TooltipAnchor = 'top') => {
+            const bounds = container.current.getBoundingClientRect()
             setState({
                 isVisible: true,
                 position: [x, y],
                 anchor,
                 content,
+                outer: bounds
             })
         },
         [setState]
@@ -39,6 +41,7 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
                 position: [x, y],
                 anchor,
                 content,
+                outer: bounds
             })
         },
         [container, setState]
