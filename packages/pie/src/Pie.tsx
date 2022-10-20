@@ -118,7 +118,7 @@ const InnerPie = <RawDatum,>({
         cornerRadius,
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
-        forceActiveId
+        forceActiveId,
     })
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)

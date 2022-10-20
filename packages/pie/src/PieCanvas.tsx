@@ -102,7 +102,7 @@ const InnerPieCanvas = <RawDatum,>({
             cornerRadius,
             activeInnerRadiusOffset,
             activeOuterRadiusOffset,
-            forceActiveId
+            forceActiveId,
         })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
