@@ -24,6 +24,14 @@ export interface TooltipStateContextDataVisible {
     position: [number, number]
     content: JSX.Element
     anchor: TooltipAnchor
+    outer: Rectangle
+}
+
+export interface Rectangle {
+    left: number
+    top: number
+    height: number
+    width: number
 }
 
 export interface TooltipStateContextDataHidden {

@@ -23,10 +23,11 @@ const translate = (x: number, y: number) => `translate(${x}px, ${y}px)`
 interface TooltipWrapperProps {
     position: TooltipStateContextDataVisible['position']
     anchor: TooltipStateContextDataVisible['anchor']
+    outer: TooltipStateContextDataVisible['outer']
 }
 
 export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
-    ({ position, anchor, children }) => {
+    ({ position, anchor, children, outer }) => {
         const theme = useTheme()
         const { animate, config: springConfig } = useMotionConfig()
         const [measureRef, bounds] = useMeasure()
@@ -56,6 +57,25 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
                 x -= bounds.width / 2
                 y -= bounds.height / 2
             }
+
+            // when scrolled, outer.left becomes negative by the scroll offset, so this is the minimum value visible
+            const x0 = -outer.left;
+            const y0 = -outer.top;
+
+            // the tooltip is constrained by the window not its container
+            const constrainingWidth = document.documentElement.clientWidth
+            const constrainingHeight = document.documentElement.clientHeight
+
+            if (constrainingWidth > 0 && x > constrainingWidth - bounds.width + x0) {
+                x = constrainingWidth - bounds.width + x0
+            }
+
+            if (constrainingHeight > 0 && y > constrainingHeight - bounds.height + y0) {
+                y = constrainingHeight - bounds.height + y0
+            }
+
+            x = Math.max(x, x0)
+            y = Math.max(y, y0)
 
             to = {
                 transform: translate(x, y),
