@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-swarmplot",
-  "version": "0.69.5",
+  "version": "0.69.6",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,14 +24,14 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-annotations": "^0.69.5",
-    "@bitbloom/nivo-axes": "^0.69.5",
-    "@bitbloom/nivo-colors": "^0.69.5",
-    "@bitbloom/nivo-core": "^0.69.5",
-    "@bitbloom/nivo-legends": "^0.69.5",
-    "@bitbloom/nivo-scales": "^0.69.4",
-    "@bitbloom/nivo-tooltip": "^0.69.5",
-    "@bitbloom/nivo-voronoi": "^0.69.5",
+    "@bitbloom/nivo-annotations": "^0.69.6",
+    "@bitbloom/nivo-axes": "^0.69.6",
+    "@bitbloom/nivo-colors": "^0.69.6",
+    "@bitbloom/nivo-core": "^0.69.6",
+    "@bitbloom/nivo-legends": "^0.69.6",
+    "@bitbloom/nivo-scales": "^0.69.6",
+    "@bitbloom/nivo-tooltip": "^0.69.6",
+    "@bitbloom/nivo-voronoi": "^0.69.6",
     "d3-force": "^2.0.1",
     "d3-scale": "^3.0.0",
     "lodash": "^4.17.11",
