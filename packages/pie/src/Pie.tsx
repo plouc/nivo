@@ -104,6 +104,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
         innerRadius,
         setActiveId,
         toggleSerie,
+        activeId
     } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
@@ -132,6 +133,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
         layerById.arcLinkLabels = (
             <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
                 key="arcLinkLabels"
+                activeId={activeId}
                 center={[centerX, centerY]}
                 data={dataWithArc}
                 label={arcLinkLabel}
