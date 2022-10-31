@@ -310,6 +310,7 @@ export const usePieFromBox = <RawDatum>({
         dataWithArc,
         arcGenerator,
         setActiveId,
+        activeId,
         ...computedProps,
     }
 }

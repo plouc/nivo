@@ -154,6 +154,22 @@ stories.add('formatted values', () => (
     />
 ))
 
+function generateManyValues(count: number) {
+    const result: { id: string, value: string }[] = []
+    for (let i = 0; i < count; ++i) {
+        result.push({ id: `item${i}`, value: Math.floor(50 + Math.random() * 100).toFixed(0) })
+    }
+    return result
+}
+
+stories.add('many values', () => (
+    <Pie
+        {...commonProperties}
+        sliceLabelsRadiusOffset={0.7}
+        data={generateManyValues(240)}
+    />
+))
+
 stories.add('custom tooltip', () => (
     <Pie
         {...commonProperties}
