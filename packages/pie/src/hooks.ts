@@ -88,7 +88,7 @@ export const usePieArcs = <RawDatum>({
     outerRadius: number
     padAngle: number
     sortByValue: boolean
-    activeId: null | DatumId
+    activeId: undefined | DatumId
     activeInnerRadiusOffset: number
     activeOuterRadiusOffset: number
 }): Omit<ComputedDatum<RawDatum>, 'fill'>[] => {
@@ -183,7 +183,7 @@ export const usePie = <RawDatum>({
     radius: number
     innerRadius: number
 }) => {
-    const [activeId, setActiveId] = useState<DatumId | null>(null)
+    const [activeId, setActiveId] = useState<DatumId | undefined>(undefined)
     const dataWithArc = usePieArcs({
         data,
         startAngle,
@@ -239,7 +239,7 @@ export const usePieFromBox = <RawDatum>({
 > & {
     data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
 }) => {
-    const [activeId, setActiveId] = useState<string | number | null>(null)
+    const [activeId, setActiveId] = useState<string | number | undefined>(undefined)
     const computedProps = useMemo(() => {
         let radius = Math.min(width, height) / 2
         let innerRadius = radius * Math.min(innerRadiusRatio, 1)

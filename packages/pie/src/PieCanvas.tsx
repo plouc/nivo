@@ -95,6 +95,7 @@ const InnerPieCanvas = <RawDatum,>({
         radius,
         innerRadius,
         setActiveId,
+        activeId
     } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
@@ -173,7 +174,8 @@ const InnerPieCanvas = <RawDatum,>({
                 ctx,
                 arcLinkLabels,
                 theme,
-                arcLinkLabelsThickness
+                arcLinkLabelsThickness,
+                activeId
             )
         }
 
@@ -254,7 +256,7 @@ const InnerPieCanvas = <RawDatum,>({
             setActiveId(datum.id)
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
         } else {
-            setActiveId(null)
+            setActiveId(undefined)
             hideTooltip()
         }
     }
