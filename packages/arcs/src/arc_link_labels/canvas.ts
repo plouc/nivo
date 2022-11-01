@@ -59,7 +59,9 @@ export const drawCanvasArcLinkLabels = <Datum extends DatumWithArcAndColor>(
         }
     })
 
-    labels.forEach(label => {
+    const quarters = quarterLabels(labels)
+
+    quarters.forEach(label => {
         const bounds = dimensions[label.data.id]
 
         if (label.data.id !== activeId &&
@@ -86,3 +88,32 @@ export const drawCanvasArcLinkLabels = <Datum extends DatumWithArcAndColor>(
 
     ctx.globalAlpha = 1
 }
+
+/**
+ * Sorts the labels so that each quarter is processed from the middle out, meaning that the top 
+ * and bottom labels on each side always appear, otherwise there tends to be a large looking gap.
+ * @param labels labels
+ * @returns labels sorted by quarter
+ */
+function quarterLabels<Datum extends DatumWithArcAndColor>(labels: ArcLinkLabel<Datum>[]) {
+    let result: ArcLinkLabel<Datum>[] = []
+
+    function labelIsInQuarter(label: ArcLinkLabel<Datum>, quarter: number) {
+        const angle = (label.data.arc.startAngle + label.data.arc.endAngle) / 2
+        return (Math.floor(angle / (Math.PI / 2)) + 4) % 4 === quarter
+    }
+
+    for (let quarter = 0; quarter < 4; ++quarter) {
+        const labelsInQuarter = labels.filter(label => labelIsInQuarter(label, quarter))
+
+        if (0 === quarter % 2) {
+            labelsInQuarter.sort((a, b) => a.data.arc.startAngle - b.data.arc.startAngle)
+        } else {
+            labelsInQuarter.sort((a, b) => b.data.arc.startAngle - a.data.arc.startAngle)
+        }
+        result = result.concat(labelsInQuarter)
+    }
+
+    return result
+}
+
