@@ -1,5 +1,4 @@
-import { createElement, useEffect, useMemo, useRef } from 'react'
-import * as React from 'react'
+import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import { getRelativeCursor, useDimensions, useTheme, Container } from '@bitbloom/nivo-core'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { useInheritedColor, InheritedColorConfig } from '@bitbloom/nivo-colors'
@@ -87,8 +86,16 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius, setActiveId } =
-        usePieFromBox<RawDatum>({
+    const {
+        dataWithArc,
+        arcGenerator,
+        centerX,
+        centerY,
+        radius,
+        innerRadius,
+        setActiveId,
+        activeId
+    } = usePieFromBox<RawDatum>({
             data: normalizedData,
             width: innerWidth,
             height: innerHeight,
@@ -166,7 +173,8 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
                 ctx,
                 arcLinkLabels,
                 theme,
-                arcLinkLabelsThickness
+                arcLinkLabelsThickness,
+                activeId
             )
         }
 
@@ -247,7 +255,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
             setActiveId(datum.id)
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
         } else {
-            setActiveId(null)
+            setActiveId(undefined)
             hideTooltip()
         }
     }

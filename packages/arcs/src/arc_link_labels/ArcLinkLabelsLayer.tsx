@@ -1,4 +1,4 @@
-import { createElement, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { usePropertyAccessor } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
 import { useArcLinkLabelsTransition } from './useArcLinkLabelsTransition'
@@ -12,7 +12,7 @@ export type ArcLinkLabelComponent<Datum extends DatumWithArcAndColor> = (
 interface ArcLinkLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     center: [number, number]
     data: Datum[]
-    activeId?: string
+    activeId?: string | number
     label: ArcLinkLabelsProps<Datum>['arcLinkLabel']
     skipAngle: ArcLinkLabelsProps<Datum>['arcLinkLabelsSkipAngle']
     offset: ArcLinkLabelsProps<Datum>['arcLinkLabelsOffset']
@@ -23,6 +23,17 @@ interface ArcLinkLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     textColor: ArcLinkLabelsProps<Datum>['arcLinkLabelsTextColor']
     linkColor: ArcLinkLabelsProps<Datum>['arcLinkLabelsColor']
     component?: ArcLinkLabelComponent<Datum>
+}
+
+interface ClipType {
+    /** dimensions for each label to clip */
+    dimensions: { [key: string]: DOMRect }
+    /** rectangles already rendered which should be avoided */
+    avoid?: DOMRect[]
+    /** number of dimensions required before can perform clipping */
+    dimsRequired: number
+    /** id of active label, which is always shown */
+    activeId?: string | number
 }
 
 export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
@@ -40,10 +51,12 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
     linkColor,
     component = ArcLinkLabel,
 }: ArcLinkLabelsLayerProps<Datum>) => {
-    const getLabel = usePropertyAccessor<Datum, string>(labelAccessor)
-
-    const { transition, interpolateLink, interpolateTextAnchor, interpolateTextPosition } =
-        useArcLinkLabelsTransition<Datum>({
+    const {
+        transition,
+        interpolateLink,
+        interpolateTextAnchor,
+        interpolateTextPosition,
+    } = useArcLinkLabelsTransition<Datum>({
             data,
             skipAngle,
             offset,
@@ -54,7 +67,7 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
             textColor,
         })
 
-    const [clip, setClip] = useState<{ dimensions: { [key: string]: DOMRect }, active?: DOMRect[], dimsRequired: number, activeId?: string }>({
+    const [clip, setClip] = useState<ClipType>({
         dimensions: {},
         dimsRequired: data.length,
         activeId
@@ -62,9 +75,22 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
 
     if (clip.activeId !== activeId) {
         // clears cached label dimensions if active label changes
+        const dimensions = { ...clip.dimensions }
+        let dimsRequired = 0
+
+        if (clip.activeId) {
+            delete dimensions[clip.activeId]
+            ++dimsRequired
+        }
+
+        if (activeId) {
+            delete dimensions[activeId]
+            ++dimsRequired
+        }
+
         setClip({
-            dimensions: {},
-            dimsRequired: data.length,
+            dimensions,
+            dimsRequired,
             activeId
         })
     }
@@ -90,12 +116,25 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
 
 function intersects(a: DOMRect, b?: DOMRect): boolean {
     if (!b) return false
-    const inset = 0 // allow small amount of overlap of bounds as usually won't obscure text
-    if (a.left > b.right - inset) return false
-    if (a.top > b.bottom - inset) return false
-    if (a.right < b.left + inset) return false
-    if (a.bottom < b.top + inset) return false
+    if (a.left > b.right) return false
+    if (a.top > b.bottom) return false
+    if (a.right < b.left) return false
+    if (a.bottom < b.top) return false
     return true
+}
+
+interface ArcLinkLabelItemProps<Datum extends DatumWithArcAndColor> {
+    clip: ClipType
+    setClip: (clip: ClipType) => void
+    activeId?: string | number
+    component: any
+    label: ArcLinkLabelsProps<Datum>['arcLinkLabel']
+    strokeWidth: number
+    transitionProps: any
+    datum: Datum
+    interpolateLink: any
+    interpolateTextAnchor: any
+    interpolateTextPosition: any
 }
 
 function ArcLinkLabelItem<Datum extends DatumWithArcAndColor>({
@@ -110,7 +149,7 @@ function ArcLinkLabelItem<Datum extends DatumWithArcAndColor>({
     interpolateLink,
     interpolateTextAnchor,
     interpolateTextPosition,
-}: any) {
+}: ArcLinkLabelItemProps<Datum>) {
     const getLabel = usePropertyAccessor<Datum, string>(label)
     const Label: ArcLinkLabelComponent<Datum> = component
     const dimensions = clip.dimensions[datum.id]
@@ -123,21 +162,21 @@ function ArcLinkLabelItem<Datum extends DatumWithArcAndColor>({
             clip.dimensions[datum.id] = domNode.getBoundingClientRect()
             if (!hasDims) {
                 --clip.dimsRequired
-                if (clip.dimsRequired === 0) setClip({ ...clip, active: [] })
+                if (clip.dimsRequired === 0) setClip({ ...clip, avoid: [] })
             }
         }
-    }, [setClip])
+    }, [setClip, activeId])
 
     let clipped = true
 
-    if (dimensions && clip.active) {
+    if (dimensions && clip.avoid) {
         if (datum.id == activeId ||
-            !clip.active.reduce((found: boolean, rect: DOMRect) => found || intersects(dimensions, rect), false)) {
+            !clip.avoid.reduce((found: boolean, rect: DOMRect) => found || intersects(dimensions, rect), false)) {
             clipped = false
-            clip.active.push(dimensions)
+            clip.avoid.push(dimensions)
         }
     } else if (!dimensions) {
-        clip.dimensions[datum.id] = null
+        delete clip.dimensions[datum.id]
     }
 
     const opacity = clipped ? 0.05 : (activeId && datum.id !== activeId ? 0.5 : 1)

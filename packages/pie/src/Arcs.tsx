@@ -15,7 +15,7 @@ interface ArcsProps<RawDatum> {
     onMouseEnter?: CompletePieSvgProps<RawDatum>['onMouseEnter']
     onMouseMove?: CompletePieSvgProps<RawDatum>['onMouseMove']
     onMouseLeave?: CompletePieSvgProps<RawDatum>['onMouseLeave']
-    setActiveId: (id: null | string | number) => void
+    setActiveId: (id: undefined | string | number) => void
     tooltip: CompletePieSvgProps<RawDatum>['tooltip']
     transitionMode: CompletePieSvgProps<RawDatum>['transitionMode']
 }
@@ -69,7 +69,7 @@ export const Arcs = <RawDatum,>({
 
         return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
             hideTooltip()
-            setActiveId(null)
+            setActiveId(undefined)
             onMouseLeave?.(datum, event)
         }
     }, [isInteractive, hideTooltip, setActiveId, onMouseLeave])
