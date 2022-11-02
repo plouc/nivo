@@ -82,7 +82,8 @@
     "make:init": "make init",
     "prepublishOnly": "yarn release:prepare",
     "release:prepare": "node scripts/bump-peer-deps.js",
-    "version": "yarn release:prepare"
+    "version": "yarn release:prepare",
+    "storybook": "start-storybook -p 9001"
   },
   "workspaces": [
     "packages/*",
