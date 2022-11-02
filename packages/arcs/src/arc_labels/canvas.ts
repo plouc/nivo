@@ -1,15 +1,7 @@
 import { CompleteTheme } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
+import { intersects } from '../utils'
 import { ArcLabel } from './useArcLabels'
-
-function intersects(a: DOMRect, b?: DOMRect): boolean {
-    if (!b) return false
-    if (a.left > b.right) return false
-    if (a.top > b.bottom) return false
-    if (a.right < b.left) return false
-    if (a.bottom < b.top) return false
-    return true
-}
 
 export const drawCanvasArcLabels = <Datum extends DatumWithArcAndColor>(
     ctx: CanvasRenderingContext2D,

@@ -4,6 +4,7 @@ import { DatumWithArcAndColor } from '../types'
 import { useArcLinkLabelsTransition } from './useArcLinkLabelsTransition'
 import { ArcLinkLabelsProps } from './props'
 import { ArcLinkLabel, ArcLinkLabelProps } from './ArcLinkLabel'
+import { intersects } from '../utils'
 
 export type ArcLinkLabelComponent<Datum extends DatumWithArcAndColor> = (
     props: ArcLinkLabelProps<Datum>
@@ -112,15 +113,6 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
                 interpolateTextPosition={interpolateTextPosition} />))}
         </g>
     )
-}
-
-function intersects(a: DOMRect, b?: DOMRect): boolean {
-    if (!b) return false
-    if (a.left > b.right) return false
-    if (a.top > b.bottom) return false
-    if (a.right < b.left) return false
-    if (a.bottom < b.top) return false
-    return true
 }
 
 interface ArcLinkLabelItemProps<Datum extends DatumWithArcAndColor> {

@@ -83,3 +83,18 @@ export const generateSvgArc = (
         svgEllipticalArcCommand(radius, largeArcFlag, 0, end.x, end.y),
     ].join(' ')
 }
+
+/**
+ * Test whether two rectangles intersect.
+ * @param a a rectangle
+ * @param b another rectangle
+ * @returns true if they intersect
+ */
+export function intersects(a: DOMRect, b?: DOMRect): boolean {
+    if (!b) return false
+    if (a.left > b.right) return false
+    if (a.top > b.bottom) return false
+    if (a.right < b.left) return false
+    if (a.bottom < b.top) return false
+    return true
+}
