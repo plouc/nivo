@@ -33,3 +33,18 @@ export const useFilteredDataBySkipAngle = <Datum extends DatumWithArc>(
     data: Datum[],
     skipAngle: number
 ) => useMemo(() => filterDataBySkipAngle(data, skipAngle), [data, skipAngle])
+
+/**
+ * Test whether two rectangles intersect.
+ * @param a a rectangle
+ * @param b another rectangle
+ * @returns true if they intersect
+ */
+export function intersects(a: DOMRect, b?: DOMRect): boolean {
+    if (!b) return false
+    if (a.left > b.right) return false
+    if (a.top > b.bottom) return false
+    if (a.right < b.left) return false
+    if (a.bottom < b.top) return false
+    return true
+}

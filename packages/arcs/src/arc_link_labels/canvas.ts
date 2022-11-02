@@ -4,18 +4,10 @@ import {
     CompleteTheme,
 } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
+import { intersects } from '../utils'
 import { ArcLinkLabel } from './types'
 
 type DatumId = string | number
-
-function intersects(a: DOMRect, b?: DOMRect): boolean {
-    if (!b) return false
-    if (a.left > b.right) return false
-    if (a.top > b.bottom) return false
-    if (a.right < b.left) return false
-    if (a.bottom < b.top) return false
-    return true
-}
 
 export const drawCanvasArcLinkLabels = <Datum extends DatumWithArcAndColor>(
     ctx: CanvasRenderingContext2D,
@@ -116,4 +108,3 @@ function quarterLabels<Datum extends DatumWithArcAndColor>(labels: ArcLinkLabel<
 
     return result
 }
-
