@@ -26,6 +26,13 @@ interface TooltipWrapperProps {
     outer: TooltipStateContextDataVisible['outer']
 }
 
+function findTooltipClipContainer(element: HTMLElement | null): HTMLElement | null {
+    for (let ancestor = element; ; ancestor = ancestor.parentElement) {
+        if (!ancestor) return null
+        if (ancestor.classList.contains('tooltip-clip')) return ancestor
+    }
+}
+
 export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
     ({ position, anchor, children, outer }) => {
         const theme = useTheme()
@@ -58,24 +65,29 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
                 y -= bounds.height / 2
             }
 
-            // when scrolled, outer.left becomes negative by the scroll offset, so this is the minimum value visible
-            const x0 = -outer.left;
-            const y0 = -outer.top;
+            // find the component which is constraining the tooltip
+            const clipContainer = findTooltipClipContainer(measureRef.current)
 
-            // the tooltip is constrained by the window not its container
-            const constrainingWidth = document.documentElement.clientWidth
-            const constrainingHeight = document.documentElement.clientHeight
+            if (clipContainer) {
+                const overflowBounds = clipContainer.getBoundingClientRect()
 
-            if (constrainingWidth > 0 && x > constrainingWidth - bounds.width + x0) {
-                x = constrainingWidth - bounds.width + x0
+                // when scrolled, outer.left becomes negative by the scroll offset, so this is the minimum value visible
+                const x0 = overflowBounds.left - outer.left
+                const y0 = overflowBounds.top - outer.top
+                const constrainingWidth = overflowBounds.width
+                const constrainingHeight = overflowBounds.height
+
+                if (constrainingWidth > 0 && x > constrainingWidth - bounds.width + x0) {
+                    x = constrainingWidth - bounds.width + x0
+                }
+
+                if (constrainingHeight > 0 && y > constrainingHeight - bounds.height + y0) {
+                    y = constrainingHeight - bounds.height + y0
+                }
+
+                x = Math.max(x, x0)
+                y = Math.max(y, y0)
             }
-
-            if (constrainingHeight > 0 && y > constrainingHeight - bounds.height + y0) {
-                y = constrainingHeight - bounds.height + y0
-            }
-
-            x = Math.max(x, x0)
-            y = Math.max(y, y0)
 
             to = {
                 transform: translate(x, y),
@@ -92,7 +104,7 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
             transform: string
         }>({
             to,
-            config: springConfig,
+            config: { ...springConfig, clamp: true },
             immediate: !animate || immediate,
         })
 

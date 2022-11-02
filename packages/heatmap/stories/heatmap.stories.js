@@ -138,3 +138,87 @@ stories.add('custom tooltip', () => (
         }}
     />
 ))
+
+stories.add('large tooltip', () => (
+    <div style={{ backgroundColor: 'pink', overflow: 'hidden' }} className='tooltip-clip'>
+        <div
+            style={{ overflow: 'auto', position: 'relative', backgroundColor: 'greenyellow' }}
+            className='tooltip-clip'
+        >
+            <div
+                style={{
+                    display: 'inline-block',
+                    float: 'right',
+                    backgroundColor: 'skyblue',
+                    overflow: 'hidden',
+                    width: '100%',
+                }}
+            >
+                <HeatMap
+                    {...commonProperties}
+                    tooltip={({ xKey, yKey, value, color }) => (
+                        <strong style={{ color }}>
+                            ⭐-------------------------------- {xKey} / {yKey}: {value}{' '}
+                            --------------------------------⭐
+                        </strong>
+                    )}
+                    theme={{
+                        tooltip: {
+                            container: {
+                                background: 'gray',
+                            },
+                        },
+                    }}
+                />
+            </div>
+        </div>
+        <div
+            style={{ overflow: 'auto', position: 'relative', backgroundColor: 'greenyellow' }}
+            className='tooltip-clip'
+        >
+            <div style={{ width: '200vw' }}>
+                <div
+                    style={{
+                        position: 'relative',
+                        marginLeft: '40vw',
+                        marginRight: '40vw',
+                        backgroundColor: 'skyblue',
+                    }}
+                >
+                    <HeatMap
+                        {...commonProperties}
+                        tooltip={({ xKey, yKey, value, color }) => (
+                            <strong style={{ color }}>
+                                ⭐-------------------------------- {xKey} / {yKey}: {value}{' '}
+                                --------------------------------⭐
+                            </strong>
+                        )}
+                        theme={{
+                            tooltip: {
+                                container: {
+                                    background: 'gray',
+                                },
+                            },
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+        <HeatMap
+            {...commonProperties}
+            tooltip={({ xKey, yKey, value, color }) => (
+                <strong style={{ color }}>
+                    ⭐-------------------------------- {xKey} / {yKey}: {value}{' '}
+                    --------------------------------⭐
+                </strong>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: 'gray',
+                    },
+                },
+            }}
+        />
+    </div>
+))
