@@ -102,6 +102,7 @@ const InnerPie = <RawDatum,>({
         radius,
         innerRadius,
         setActiveId,
+        activeId
     } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
@@ -130,6 +131,7 @@ const InnerPie = <RawDatum,>({
         layerById.arcLinkLabels = (
             <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
                 key="arcLinkLabels"
+                activeId={activeId}
                 center={[centerX, centerY]}
                 data={dataWithArc}
                 label={arcLinkLabel}

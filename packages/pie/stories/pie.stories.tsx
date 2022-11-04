@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { animated } from 'react-spring'
 import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
-import { Pie } from '../src'
+import { Pie, PieCanvas } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -151,6 +151,34 @@ stories.add('formatted values', () => (
                 minimumFractionDigits: 2,
             })} ₽`
         }
+    />
+))
+
+function generateManyValues(count: number) {
+    const result: { id: string, value: string }[] = []
+    for (let i = 0; i < count; ++i) {
+        result.push({ id: `item${i}`, value: Math.floor(50 + Math.random() * 100).toFixed(0) })
+    }
+    return result
+}
+
+stories.add('many values (SVG)', () => (
+    <Pie
+        {...commonProperties}
+        width={900}
+        height={900}
+        sliceLabelsRadiusOffset={0.7}
+        data={generateManyValues(240)}
+    />
+))
+
+stories.add('many values (Canvas)', () => (
+    <PieCanvas
+        {...commonProperties}
+        width={900}
+        height={900}
+        sliceLabelsRadiusOffset={0.7}
+        data={generateManyValues(240)}
     />
 ))
 
