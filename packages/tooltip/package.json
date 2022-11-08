@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-tooltip",
-  "version": "0.69.6",
+  "version": "0.69.8",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,10 +24,10 @@
     "react-spring": "9.1.2"
   },
   "devDependencies": {
-    "@bitbloom/nivo-core": "^0.69.6"
+    "@bitbloom/nivo-core": "^0.69.8"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "^0.69.6"
+    "@bitbloom/nivo-core": "^0.69.8"
   },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
