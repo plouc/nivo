@@ -16,7 +16,7 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

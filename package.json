@@ -101,7 +101,7 @@
     "website"
   ],
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^6.4.9"
