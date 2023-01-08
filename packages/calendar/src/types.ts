@@ -66,6 +66,17 @@ export type CalendarMonthLegendsProps = {
     theme: CompleteTheme
 }
 
+export type CalendarWeekdayLegendsProps = {
+    legend: (weekdayIndex: number) => string | number
+    weekdays: {
+        value: string;
+        rotation: number;
+        y: number;
+        x: number;
+    }[];
+    theme: CompleteTheme
+}
+
 export type CalendarTooltipProps = {
     value: string
     day: string
@@ -212,6 +223,7 @@ export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial
                 role: string
                 weekdayLegendOffset: number
                 weekdayTicks: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>
+                weekdayLegend: (weekdayIndex: number) => string | number
             }
     >
 

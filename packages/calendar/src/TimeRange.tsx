@@ -11,6 +11,7 @@ import {
 import { useMonthLegends, useColorScale } from './hooks'
 import { TimeRangeDay } from './TimeRangeDay'
 import { CalendarMonthLegends } from './CalendarMonthLegends'
+import { CalendarWeekdayLegends } from "./CalendarWeekdayLegends"
 import { TimeRangeSvgProps } from './types'
 import { timeRangeDefaultProps } from './props'
 
@@ -36,6 +37,7 @@ const InnerTimeRange = ({
     monthLegendOffset = timeRangeDefaultProps.monthLegendOffset,
     monthLegendPosition = timeRangeDefaultProps.monthLegendPosition,
 
+    weekdayLegend = timeRangeDefaultProps.weekdayLegend,
     weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
     weekdayTicks,
 
@@ -131,16 +133,7 @@ const InnerTimeRange = ({
 
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
-            {weekdayLegends.map(legend => (
-                <text
-                    key={legend.value}
-                    transform={`translate(${legend.x},${legend.y}) rotate(${legend.rotation})`}
-                    textAnchor="left"
-                    style={theme.labels.text}
-                >
-                    {legend.value}
-                </text>
-            ))}
+            <CalendarWeekdayLegends weekdays={weekdayLegends} legend={weekdayLegend} theme={theme} />
             {days.map(d => {
                 return (
                     <TimeRangeDay
