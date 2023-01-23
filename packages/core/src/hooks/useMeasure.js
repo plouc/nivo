@@ -11,10 +11,9 @@ export const useMeasure = () => {
     })
 
     const [observer] = useState(() => {
-        // Check if window is defined (so if in the browser or in node.js).
-        const isBrowser = typeof window !== 'undefined'
-        if (!isBrowser) return null
-
+        // Check if ResizeObserver is defined in current env (could be browser, node.js, jsdom etc.).
+        if (typeof ResizeObserver === 'undefined') return null        
+        
         return new ResizeObserver(([entry]) => setBounds(entry.contentRect))
     })
 
