@@ -70,23 +70,14 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
 
             if (clipContainer) {
                 const overflowBounds = clipContainer.getBoundingClientRect()
-
                 // when scrolled, outer.left becomes negative by the scroll offset, so this is the minimum value visible
                 const x0 = overflowBounds.left - outer.left
-                const y0 = overflowBounds.top - outer.top
                 const constrainingWidth = overflowBounds.width
-                const constrainingHeight = overflowBounds.height
-
                 if (constrainingWidth > 0 && x > constrainingWidth - bounds.width + x0) {
                     x = constrainingWidth - bounds.width + x0
                 }
 
-                if (constrainingHeight > 0 && y > constrainingHeight - bounds.height + y0) {
-                    y = constrainingHeight - bounds.height + y0
-                }
-
                 x = Math.max(x, x0)
-                y = Math.max(y, y0)
             }
 
             to = {
