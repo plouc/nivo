@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-core",
-  "version": "0.69.8",
+  "version": "0.69.9",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -34,10 +34,10 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@bitbloom/nivo-tooltip": "^0.69.8"
+    "@bitbloom/nivo-tooltip": "^0.69.9"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-tooltip": "^0.69.8",
+    "@bitbloom/nivo-tooltip": "^0.69.9",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
