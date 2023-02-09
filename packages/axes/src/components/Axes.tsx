@@ -36,7 +36,7 @@ export const Axes = memo(
                     if (!axis) return null
 
                     const isXAxis = position === 'top' || position === 'bottom'
-                    const ticksPosition =
+                    const ticksPosition = axis.ticksPosition ? axis.ticksPosition :
                         position === 'top' || position === 'left' ? 'before' : 'after'
 
                     return (
