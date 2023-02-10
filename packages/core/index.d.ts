@@ -61,7 +61,7 @@ declare module '@nivo/core' {
         }
         background: string
         fontFamily: string
-        fontSize: number
+        fontSize: string | number
         textColor: string
         axis: {
             domain: {
