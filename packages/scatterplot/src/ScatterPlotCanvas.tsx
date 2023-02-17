@@ -174,7 +174,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                 legends.forEach(legend => {
                     renderLegendToCanvas(ctx, {
                         ...legend,
-                        data: legendData,
+                        data: legend.data || legendData,
                         containerWidth: innerWidth,
                         containerHeight: innerHeight,
                         theme,
