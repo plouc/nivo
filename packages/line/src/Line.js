@@ -84,6 +84,7 @@ const Line = props => {
         onMouseMove,
         onMouseLeave,
         onClick,
+        onSliceClick,
 
         tooltip,
 
@@ -220,6 +221,7 @@ const Line = props => {
                 tooltip={sliceTooltip}
                 current={currentSlice}
                 setCurrent={setCurrentSlice}
+                onSliceClick={onSliceClick}
             />
         )
     }

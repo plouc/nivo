@@ -101,23 +101,27 @@ declare module '@nivo/line' {
 
     export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
 
+    export type SliceMouseHandler = (slice: Slice, event: React.MouseEvent) => void
+
     export interface PointTooltipProps {
         point: Point
     }
     export type PointTooltip = React.FunctionComponent<PointTooltipProps>
 
+    export type Slice = {
+        id: DatumValue
+        height: number
+        width: number
+        x0: number
+        x: number
+        y0: number
+        y: number
+        points: Point[]
+    }
+
     export interface SliceTooltipProps {
         axis: 'x' | 'y'
-        slice: {
-            id: DatumValue
-            height: number
-            width: number
-            x0: number
-            x: number
-            y0: number
-            y: number
-            points: Point[]
-        }
+        slice: Slice
     }
     export type SliceTooltip = React.FunctionComponent<SliceTooltipProps>
 
@@ -186,6 +190,7 @@ declare module '@nivo/line' {
         onMouseMove?: PointMouseHandler
         onMouseLeave?: PointMouseHandler
         onClick?: PointMouseHandler
+        onSliceClick?: SliceMouseHandler
 
         debugMesh?: boolean
 
