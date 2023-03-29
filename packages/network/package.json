@@ -1,50 +1,50 @@
 {
-  "name": "@nivo/network",
-  "version": "0.80.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/network"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "graph",
-    "directed-layout",
-    "network"
-  ],
-  "main": "./dist/nivo-network.cjs.js",
-  "module": "./dist/nivo-network.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/annotations": "0.80.0",
-    "@nivo/colors": "0.80.0",
-    "@nivo/tooltip": "0.80.0",
-    "@react-spring/web": "9.4.5",
-    "d3-force": "^2.0.1"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.80.0"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.80.0",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/network",
+    "version": "0.80.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/network"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "graph",
+        "directed-layout",
+        "network"
+    ],
+    "main": "./dist/nivo-network.cjs.js",
+    "module": "./dist/nivo-network.es.js",
+    "typings": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/annotations": "0.80.0",
+        "@nivo/colors": "0.80.0",
+        "@nivo/tooltip": "0.80.0",
+        "@react-spring/web": "^9.4.5",
+        "d3-force": "^2.0.1"
+    },
+    "devDependencies": {
+        "@nivo/core": "0.80.0"
+    },
+    "peerDependencies": {
+        "@nivo/core": "0.80.0",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

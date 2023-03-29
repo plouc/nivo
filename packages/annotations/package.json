@@ -1,45 +1,45 @@
 {
-  "name": "@nivo/annotations",
-  "version": "0.80.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/annotations"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "charts",
-    "annotations"
-  ],
-  "main": "./dist/nivo-annotations.cjs.js",
-  "module": "./dist/nivo-annotations.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/colors": "0.80.0",
-    "@react-spring/web": "9.4.5",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.80.0"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.80.0",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/annotations",
+    "version": "0.80.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/annotations"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "charts",
+        "annotations"
+    ],
+    "main": "./dist/nivo-annotations.cjs.js",
+    "module": "./dist/nivo-annotations.es.js",
+    "typings": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/colors": "0.80.0",
+        "@react-spring/web": "^9.4.5",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@nivo/core": "0.80.0"
+    },
+    "peerDependencies": {
+        "@nivo/core": "0.80.0",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }
