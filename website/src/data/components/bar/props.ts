@@ -506,16 +506,16 @@ const props: ChartProperty[] = [
             shouldRemove: true,
             getItemTitle: (index: number, legend: any) =>
                 `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
-            svgDefaultProps: {
+            defaults: {
                 dataFrom: 'keys',
-                anchor: 'top-left',
+                anchor: 'top-right',
                 direction: 'column',
                 justify: false,
-                translateX: 0,
+                translateX: 120,
                 translateY: 0,
                 itemWidth: 100,
                 itemHeight: 20,
-                itemsSpacing: 0,
+                itemsSpacing: 2,
                 symbolSize: 20,
                 itemDirection: 'left-to-right',
                 onClick: (data: any) => {
