@@ -1,51 +1,51 @@
 {
-    "name": "@nivo/bump",
-    "version": "0.80.0",
-    "license": "MIT",
-    "author": {
-        "name": "Raphaël Benitte",
-        "url": "https://github.com/plouc"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
-        "directory": "packages/bump"
-    },
-    "keywords": [
-        "nivo",
-        "dataviz",
-        "react",
-        "d3",
-        "charts",
-        "bump-chart",
-        "area-bump-chart"
-    ],
-    "main": "./dist/nivo-bump.cjs.js",
-    "module": "./dist/nivo-bump.es.js",
-    "typings": "./dist/types/index.d.ts",
-    "files": [
-        "README.md",
-        "LICENSE.md",
-        "dist/",
-        "!dist/tsconfig.tsbuildinfo"
-    ],
-    "dependencies": {
-        "@nivo/axes": "0.80.0",
-        "@nivo/colors": "0.80.0",
-        "@nivo/legends": "0.80.0",
-        "@nivo/scales": "0.80.0",
-        "@nivo/tooltip": "0.80.0",
-        "@react-spring/web": "^9.4.5",
-        "d3-shape": "^1.3.5"
-    },
-    "devDependencies": {
-        "@nivo/core": "0.80.0"
-    },
-    "peerDependencies": {
-        "@nivo/core": "0.80.0",
-        "react": ">= 16.14.0 < 19.0.0"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@nivo/bump",
+  "version": "0.80.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/bump"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "bump-chart",
+    "area-bump-chart"
+  ],
+  "main": "./dist/nivo-bump.cjs.js",
+  "module": "./dist/nivo-bump.es.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "dependencies": {
+    "@nivo/axes": "0.80.0",
+    "@nivo/colors": "0.80.0",
+    "@nivo/legends": "0.80.0",
+    "@nivo/scales": "0.80.0",
+    "@nivo/tooltip": "0.80.0",
+    "@react-spring/web": "9.4.5 || ^9.7.2",
+    "d3-shape": "^1.3.5"
+  },
+  "devDependencies": {
+    "@nivo/core": "0.80.0"
+  },
+  "peerDependencies": {
+    "@nivo/core": "0.80.0",
+    "react": ">= 16.14.0 < 19.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -1,49 +1,49 @@
 {
-    "name": "@nivo/circle-packing",
-    "version": "0.80.0",
-    "license": "MIT",
-    "author": {
-        "name": "Raphaël Benitte",
-        "url": "https://github.com/plouc"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
-        "directory": "packages/circle-packing"
-    },
-    "keywords": [
-        "nivo",
-        "dataviz",
-        "react",
-        "d3",
-        "charts",
-        "circle-packing"
-    ],
-    "main": "./dist/nivo-circle-packing.cjs.js",
-    "module": "./dist/nivo-circle-packing.es.js",
-    "typings": "./dist/types/index.d.ts",
-    "files": [
-        "README.md",
-        "LICENSE.md",
-        "dist/",
-        "!dist/tsconfig.tsbuildinfo"
-    ],
-    "dependencies": {
-        "@nivo/colors": "0.80.0",
-        "@nivo/tooltip": "0.80.0",
-        "@react-spring/web": "^9.4.5",
-        "d3-hierarchy": "^1.1.8",
-        "lodash": "^4.17.21"
-    },
-    "devDependencies": {
-        "@nivo/core": "0.80.0",
-        "@types/d3-hierarchy": "^1.1.7"
-    },
-    "peerDependencies": {
-        "@nivo/core": "0.80.0",
-        "react": ">= 16.14.0 < 19.0.0"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@nivo/circle-packing",
+  "version": "0.80.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/circle-packing"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "circle-packing"
+  ],
+  "main": "./dist/nivo-circle-packing.cjs.js",
+  "module": "./dist/nivo-circle-packing.es.js",
+  "typings": "./dist/types/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
+  ],
+  "dependencies": {
+    "@nivo/colors": "0.80.0",
+    "@nivo/tooltip": "0.80.0",
+    "@react-spring/web": "9.4.5 || ^9.7.2",
+    "d3-hierarchy": "^1.1.8",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@nivo/core": "0.80.0",
+    "@types/d3-hierarchy": "^1.1.7"
+  },
+  "peerDependencies": {
+    "@nivo/core": "0.80.0",
+    "react": ">= 16.14.0 < 19.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
