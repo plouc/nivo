@@ -1,4 +1,14 @@
-import { timeWeek, timeDays, timeDay } from 'd3-time'
+import {
+    timeDays,
+    timeDay,
+    timeMonday,
+    timeTuesday,
+    timeWednesday,
+    timeThursday,
+    timeFriday,
+    timeSaturday,
+    timeSunday,
+} from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { DateOrString } from '../types'
 import { isDate } from 'lodash'
@@ -38,6 +48,7 @@ interface ComputeCellPositions
     }[]
     colorScale: (value: number) => string
     emptyColor: string
+    firstDayOfWeek: number
 }
 
 interface ComputeWeekdays
@@ -46,6 +57,7 @@ interface ComputeWeekdays
         ComputeBaseDimensionProps {
     ticks?: number[]
     arrayOfWeekdays?: string[]
+    firstDayOfWeek: number
 }
 
 interface Day {
@@ -135,16 +147,58 @@ export const computeCellSize = ({
     }
 }
 
+export const getDayIndex = (date: Date, firstDayOfWeek = 0) => {
+    const days = [0, 1, 2, 3, 4, 5, 6]
+    const day = date.getDay()
+    const offsetDay = day - firstDayOfWeek
+    const [dayIndex] = days.slice(offsetDay)
+    return dayIndex
+}
+
+const getTimeInterval = (firstDayOfWeek = 0) => {
+    switch (firstDayOfWeek) {
+        case 0:
+        default:
+            return timeSunday
+        case 1:
+            return timeMonday
+        case 2:
+            return timeTuesday
+        case 3:
+            return timeWednesday
+        case 4:
+            return timeThursday
+        case 5:
+            return timeFriday
+        case 6:
+            return timeSaturday
+    }
+}
+
+function shiftArray<T>(arr: T[], x: number): T[] {
+    if (!arr.length || !x) return arr
+
+    for (let i = 0; i < x; i++) {
+        const shifted = arr.shift() as T
+        arr.push(shifted)
+    }
+
+    return arr
+}
+
 function computeGrid({
     startDate,
     date,
     direction,
+    firstDayOfWeek,
 }: {
     startDate: Date
     date: Date
     direction: 'horizontal' | 'vertical'
+    firstDayOfWeek: number
 }) {
-    const firstWeek = timeWeek.count(startDate, date)
+    const timeInterval = getTimeInterval(firstDayOfWeek)
+    const firstWeek = timeInterval.count(startDate, date)
     const month = date.getMonth()
     const year = date.getFullYear()
 
@@ -152,9 +206,9 @@ function computeGrid({
     let currentRow = 0
     if (direction === 'horizontal') {
         currentColumn = firstWeek
-        currentRow = date.getDay()
+        currentRow = getDayIndex(date, firstDayOfWeek)
     } else {
-        currentColumn = date.getDay()
+        currentColumn = getDayIndex(date, firstDayOfWeek)
         currentRow = firstWeek
     }
 
@@ -172,6 +226,7 @@ export const computeCellPositions = ({
     cellHeight,
     daySpacing,
     offset,
+    firstDayOfWeek,
 }: ComputeCellPositions) => {
     let x = daySpacing
     let y = daySpacing
@@ -201,6 +256,7 @@ export const computeCellPositions = ({
             startDate,
             date: day.date,
             direction,
+            firstDayOfWeek,
         })
 
         const coordinates = {
@@ -244,15 +300,11 @@ export const computeWeekdays = ({
     direction,
     daySpacing,
     ticks = [1, 3, 5],
-    arrayOfWeekdays = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ],
+    firstDayOfWeek,
+    arrayOfWeekdays = shiftArray(
+        ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        firstDayOfWeek || 0
+    ),
 }: ComputeWeekdays) => {
     const sizes = {
         width: cellWidth + daySpacing,
