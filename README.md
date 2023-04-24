@@ -11,7 +11,7 @@
 it's built on top of d3.
 
 Several libraries already exist for React d3 integration,
-but just a few provide server side rendering ability and fully declarative charts.
+but just a few provide server side rendering ability and fully declarative chart.
 
 ## Installation
 
