@@ -10,7 +10,7 @@ import {
     timeSunday,
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
-import { DateOrString } from '../types'
+import { DateOrString, Weekday } from '../types'
 import { isDate } from 'lodash'
 
 // Interfaces
@@ -48,7 +48,7 @@ interface ComputeCellPositions
     }[]
     colorScale: (value: number) => string
     emptyColor: string
-    firstDayOfWeek: number
+    firstWeekday: Weekday
 }
 
 interface ComputeWeekdays
@@ -57,7 +57,7 @@ interface ComputeWeekdays
         ComputeBaseDimensionProps {
     ticks?: number[]
     arrayOfWeekdays?: string[]
-    firstDayOfWeek: number
+    firstWeekday: Weekday
 }
 
 interface Day {
@@ -147,32 +147,24 @@ export const computeCellSize = ({
     }
 }
 
-export const getDayIndex = (date: Date, firstDayOfWeek = 0) => {
+export const getDayIndex = (date: Date, firstWeekday: Weekday) => {
     const days = [0, 1, 2, 3, 4, 5, 6]
     const day = date.getDay()
-    const offsetDay = day - firstDayOfWeek
+    const offsetDay = day - firstWeekday
     const [dayIndex] = days.slice(offsetDay)
     return dayIndex
 }
 
-const getTimeInterval = (firstDayOfWeek = 0) => {
-    switch (firstDayOfWeek) {
-        case 0:
-        default:
-            return timeSunday
-        case 1:
-            return timeMonday
-        case 2:
-            return timeTuesday
-        case 3:
-            return timeWednesday
-        case 4:
-            return timeThursday
-        case 5:
-            return timeFriday
-        case 6:
-            return timeSaturday
-    }
+const getTimeInterval = (firstWeekday: Weekday) => {
+    return [
+        timeSunday,
+        timeMonday,
+        timeTuesday,
+        timeWednesday,
+        timeThursday,
+        timeFriday,
+        timeSaturday,
+    ][firstWeekday]
 }
 
 function shiftArray<T>(arr: T[], x: number): T[] {
@@ -190,14 +182,14 @@ function computeGrid({
     startDate,
     date,
     direction,
-    firstDayOfWeek,
+    firstWeekday,
 }: {
     startDate: Date
     date: Date
     direction: 'horizontal' | 'vertical'
-    firstDayOfWeek: number
+    firstWeekday: Weekday
 }) {
-    const timeInterval = getTimeInterval(firstDayOfWeek)
+    const timeInterval = getTimeInterval(firstWeekday)
     const firstWeek = timeInterval.count(startDate, date)
     const month = date.getMonth()
     const year = date.getFullYear()
@@ -206,9 +198,9 @@ function computeGrid({
     let currentRow = 0
     if (direction === 'horizontal') {
         currentColumn = firstWeek
-        currentRow = getDayIndex(date, firstDayOfWeek)
+        currentRow = getDayIndex(date, firstWeekday)
     } else {
-        currentColumn = getDayIndex(date, firstDayOfWeek)
+        currentColumn = getDayIndex(date, firstWeekday)
         currentRow = firstWeek
     }
 
@@ -226,7 +218,7 @@ export const computeCellPositions = ({
     cellHeight,
     daySpacing,
     offset,
-    firstDayOfWeek,
+    firstWeekday,
 }: ComputeCellPositions) => {
     let x = daySpacing
     let y = daySpacing
@@ -256,7 +248,7 @@ export const computeCellPositions = ({
             startDate,
             date: day.date,
             direction,
-            firstDayOfWeek,
+            firstWeekday,
         })
 
         const coordinates = {
@@ -300,10 +292,10 @@ export const computeWeekdays = ({
     direction,
     daySpacing,
     ticks = [1, 3, 5],
-    firstDayOfWeek,
+    firstWeekday,
     arrayOfWeekdays = shiftArray(
         ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        firstDayOfWeek || 0
+        firstWeekday
     ),
 }: ComputeWeekdays) => {
     const sizes = {
@@ -334,7 +326,7 @@ export const computeMonthLegends = ({
     }
 
     return days.reduce((acc, day) => {
-        if (acc.weeks.length === day.firstWeek) {
+        if (acc.weeks.length === day.firstWeek || (!acc.weeks.length && day.firstWeek === 1)) {
             acc.weeks.push(day)
 
             const key = `${day.year}-${day.month}`

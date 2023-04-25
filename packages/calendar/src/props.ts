@@ -1,5 +1,5 @@
 import { timeFormat } from 'd3-time-format'
-import { CalendarLegendProps } from './types'
+import { CalendarLegendProps, Weekday } from './types'
 import { CalendarTooltip } from './CalendarTooltip'
 
 const monthLabelFormat = timeFormat('%b')
@@ -52,5 +52,5 @@ export const timeRangeDefaultProps = {
     dayRadius: 0,
     square: true,
     weekdayLegendOffset: 75,
-    firstDayOfWeek: 0,
+    firstWeekday: Weekday.Sunday,
 } as const
