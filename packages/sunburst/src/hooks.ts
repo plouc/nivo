@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
+import { scaleRadial as d3ScaleRadial } from 'd3-scale'
 import cloneDeep from 'lodash/cloneDeep'
 import sortBy from 'lodash/sortBy'
 import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
@@ -21,6 +22,8 @@ export const useSunburst = <RawDatum>({
     valueFormat,
     radius,
     cornerRadius = defaultProps.cornerRadius,
+    innerRadius = defaultProps.innerRadius,
+    renderRootNode = defaultProps.renderRootNode,
     colors = defaultProps.colors,
     colorBy = defaultProps.colorBy,
     inheritColorFromParent = defaultProps.inheritColorFromParent,
@@ -32,6 +35,8 @@ export const useSunburst = <RawDatum>({
     valueFormat?: DataProps<RawDatum>['valueFormat']
     radius: number
     cornerRadius?: SunburstCommonProps<RawDatum>['cornerRadius']
+    innerRadius?: SunburstCommonProps<RawDatum>['innerRadius']
+    renderRootNode?: SunburstCommonProps<RawDatum>['renderRootNode']
     colors?: SunburstCommonProps<RawDatum>['colors']
     colorBy?: SunburstCommonProps<RawDatum>['colorBy']
     inheritColorFromParent?: SunburstCommonProps<RawDatum>['inheritColorFromParent']
@@ -58,7 +63,9 @@ export const useSunburst = <RawDatum>({
 
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])
         // exclude root node
-        const descendants = partition(hierarchy).descendants().slice(1)
+        const descendants = renderRootNode
+            ? partition(hierarchy).descendants()
+            : partition(hierarchy).descendants().slice(1)
 
         const total = hierarchy.value ?? 0
 
@@ -67,6 +74,12 @@ export const useSunburst = <RawDatum>({
         // which has already been computed, because parent nodes
         // are going to be computed first
         const sortedNodes = sortBy(descendants, 'depth')
+
+        const innerRadiusOffset = radius * Math.min(innerRadius, 1)
+
+        const maxDepth = Math.max(...sortedNodes.map(n => n.depth))
+
+        const scale = d3ScaleRadial().domain([0, maxDepth]).range([innerRadiusOffset, radius])
 
         return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
             const id = getId(descendant.data)
@@ -82,8 +95,12 @@ export const useSunburst = <RawDatum>({
             const arc: Arc = {
                 startAngle: descendant.x0,
                 endAngle: descendant.x1,
-                innerRadius: Math.sqrt(descendant.y0),
-                outerRadius: Math.sqrt(descendant.y1),
+                innerRadius:
+                    renderRootNode && descendant.depth === 0 ? 0 : scale(descendant.depth - 1),
+                outerRadius:
+                    renderRootNode && descendant.depth === 0
+                        ? innerRadius
+                        : scale(descendant.depth),
             }
 
             let parent: ComputedDatum<RawDatum> | undefined
@@ -125,6 +142,8 @@ export const useSunburst = <RawDatum>({
         getColor,
         inheritColorFromParent,
         getChildColor,
+        innerRadius,
+        renderRootNode,
     ])
 
     const arcGenerator = useArcGenerator({ cornerRadius })
