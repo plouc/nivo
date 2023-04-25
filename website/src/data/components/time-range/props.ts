@@ -1,4 +1,4 @@
-import { timeRangeDefaultProps as defaults } from '@nivo/calendar'
+import { Weekday, timeRangeDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, getLegendsProps, groupProperties } from '../../../lib/componentProperties'
 import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
@@ -214,6 +214,22 @@ const props: ChartProperty[] = [
             5 = Friday\n
             6 = Saturday\n
         `,
+    },
+    {
+        key: 'firstWeekday',
+        help: 'define the first weekday: Weekday.Sunday (default), Weekday.Monday, etc.',
+        flavors: allFlavors,
+        type: 'Weekday',
+        required: false,
+        defaultValue: defaults.firstWeekday,
+        group: 'Weekday',
+        control: {
+            type: 'radio',
+            choices: [
+                { label: 'Sunday', value: String(Weekday.Sunday) },
+                { label: 'Monday', value: String(Weekday.Monday) },
+            ],
+        },
     },
     // Days
     {

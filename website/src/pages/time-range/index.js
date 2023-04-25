@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveTimeRange, timeRangeDefaultProps } from '@nivo/calendar'
+import { ResponsiveTimeRange, timeRangeDefaultProps, Weekday } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/time-range/meta.yml'
@@ -36,6 +36,8 @@ const initialProperties = {
     monthLegendOffset: 10,
 
     weekdayLegendOffset: 75,
+    // String for radio to display active option.
+    firstWeekday: String(Weekday.Sunday),
 
     square: true,
     dayRadius: 0,
