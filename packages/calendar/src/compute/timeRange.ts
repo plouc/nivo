@@ -147,10 +147,24 @@ export const computeCellSize = ({
     }
 }
 
+export const ARRAY_OF_WEEKDAYS = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+]
+
+export function getFirstWeekdayIndex(weekday: Weekday) {
+    return ARRAY_OF_WEEKDAYS.findIndex(item => item.toLowerCase() === weekday)
+}
+
 export const getDayIndex = (date: Date, firstWeekday: Weekday) => {
     const days = [0, 1, 2, 3, 4, 5, 6]
     const day = date.getDay()
-    const offsetDay = day - firstWeekday
+    const offsetDay = day - getFirstWeekdayIndex(firstWeekday)
     const [dayIndex] = days.slice(offsetDay)
     return dayIndex
 }
@@ -164,7 +178,7 @@ const getTimeInterval = (firstWeekday: Weekday) => {
         timeThursday,
         timeFriday,
         timeSaturday,
-    ][firstWeekday]
+    ][getFirstWeekdayIndex(firstWeekday)]
 }
 
 function shiftArray<T>(arr: T[], x: number): T[] {
@@ -293,10 +307,7 @@ export const computeWeekdays = ({
     daySpacing,
     ticks = [1, 3, 5],
     firstWeekday,
-    arrayOfWeekdays = shiftArray(
-        ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        firstWeekday
-    ),
+    arrayOfWeekdays = shiftArray(ARRAY_OF_WEEKDAYS, getFirstWeekdayIndex(firstWeekday)),
 }: ComputeWeekdays) => {
     const sizes = {
         width: cellWidth + daySpacing,

@@ -192,15 +192,14 @@ export type TimeRangeTooltipProps = Omit<TimeRangeDayData, 'date' | 'value'> & {
     value: string
 }
 
-export enum Weekday {
-    Sunday,
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-}
+export type Weekday =
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday'
 
 export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial<
         Omit<CalendarData, 'data'>
