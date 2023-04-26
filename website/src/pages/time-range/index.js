@@ -36,7 +36,6 @@ const initialProperties = {
     monthLegendOffset: 10,
 
     weekdayLegendOffset: 75,
-    // String for radio to display active option.
     firstWeekday: 'sunday',
 
     square: true,
