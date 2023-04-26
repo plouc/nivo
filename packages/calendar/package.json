@@ -1,6 +1,6 @@
 {
   "name": "@nivo/calendar",
-  "version": "0.80.0",
+  "version": "0.81.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,18 +29,18 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/legends": "0.80.0",
-    "@nivo/tooltip": "0.80.0",
+    "@nivo/legends": "0.81.0",
+    "@nivo/tooltip": "0.81.0",
     "d3-scale": "^3.2.3",
     "d3-time": "^1.0.10",
     "d3-time-format": "^3.0.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "0.80.0"
+    "@nivo/core": "0.81.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.80.0",
+    "@nivo/core": "0.81.0",
     "react": ">= 16.14.0 < 19.0.0"
   },
   "publishConfig": {
