@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Container } from './styled'
 import { AreaBumpIcon } from './AreaBumpIcon'
 import { BarIcon } from './BarIcon'
+import { BoxPlotIcon } from './BoxPlotIcon'
 import { BulletIcon } from './BulletIcon'
 import { BumpIcon } from './BumpIcon'
 import { CalendarIcon } from './CalendarIcon'
@@ -63,6 +64,7 @@ export const Icons = () => (
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <BoxPlotIcon />
         <AreaBumpIcon />
         <BarIcon />
         <BulletIcon />
