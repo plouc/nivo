@@ -40,19 +40,16 @@ const getChartUrl = (chart, flavor) => {
 
     return `${Path.join(...chunks)}/?capture=1`
 }
-const getChartIconFilePath = (chart, variant) => Path.join(
-    websiteIconsDir,
-    `${chart}-${variant}.png`
-)
-const getHomeDemoFilePath = (id) => Path.join(websiteHomeDemosDir, `${id}.png`)
-const getPageUrl = (path) => {
-    return `${Path.join(config.get('baseUrl'), path)}/?capture=1`
-}
-const getPageFilePath = (id) => Path.join(websitePagesDir, `${id}.png`)
+const getChartIconFilePath = (chart, variant) =>
+    Path.join(websiteIconsDir, `${chart}-${variant}.png`)
+const getHomeDemoFilePath = id => Path.join(websiteHomeDemosDir, `${id}.png`)
+const getPageUrl = path => `${Path.join(config.get('baseUrl'), path)}/?capture=1`
+const getPageFilePath = id => Path.join(websitePagesDir, `${id}.png`)
 
-const delay = (time) => new Promise((resolve) => {
-    setTimeout(resolve, time)
-})
+const delay = time =>
+    new Promise(resolve => {
+        setTimeout(resolve, time)
+    })
 
 const captureChart = async (page, { pkg, chart, flavor, theme }) => {
     const url = getChartUrl(chart, flavor)
@@ -100,7 +97,7 @@ const captureCharts = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: true,
         })
         const page = await browser.newPage()
 
@@ -131,15 +128,11 @@ const captureIcons = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: false,
         })
         const page = await browser.newPage()
         await page.setViewport(VIEWPORT.icons)
-        await page.goto(`${Path.join(
-            config.get('baseUrl'),
-            'internal',
-            'icons'
-        )}/`)
+        await page.goto(`${Path.join(config.get('baseUrl'), 'internal', 'icons')}/?capture=1`)
 
         for (let icon of icons) {
             console.log(chalk`{yellow Capturing {white ${icon}} chart icons}`)
@@ -186,15 +179,11 @@ const captureHomeDemos = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: true,
         })
         const page = await browser.newPage()
         await page.setViewport(VIEWPORT.homeDemos)
-        await page.goto(`${Path.join(
-            config.get('baseUrl'),
-            'internal',
-            'home-demos'
-        )}/?capture=1`)
+        await page.goto(`${Path.join(config.get('baseUrl'), 'internal', 'home-demos')}/?capture=1`)
 
         for (let demo of demos) {
             console.log(chalk`{yellow Capturing {white ${demo.id}} demo}`)
@@ -239,7 +228,7 @@ const capturePages = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: true,
         })
         const page = await browser.newPage()
 
@@ -287,10 +276,10 @@ const capturePages = async () => {
 
 
 const run = async () => {
-    await capturePages()
+    // await capturePages()
     // await captureHomeDemos()
     // await captureCharts()
-    // await captureIcons()
+    await captureIcons()
 }
 
 run()
