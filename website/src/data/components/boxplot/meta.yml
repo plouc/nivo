@@ -1,0 +1,34 @@
+flavors:
+  - flavor: svg
+    path: /boxplot/
+
+BoxPlot:
+  package: '@nivo/boxplot'
+  tags: []
+  stories: []
+  #  - label: Using markers
+  #    link: bar--with-marker
+  #  - label: Stacked diverging bar chart
+  #    link: bar--diverging-stacked
+  #  - label: Grouped diverging bar chart
+  #    link: bar--diverging-grouped
+  #  - label: Custom bar element
+  #    link: bar--custom-bar-item
+  #  - label: Formatting values
+  #    link: bar--with-formatted-values
+  #  - label: Using custom tooltip
+  #    link: bar--custom-tooltip
+  #  - label: Custom axis ticks
+  #    link: bar--custom-axis-ticks
+  #  - label: With symlog scale
+  #    link: bar--with-symlog-scale
+  #  - label: Race bar chart
+  #    link: bar--race-chart
+  #  - label: Initial hidden ids
+  #    link: bar--initial-hidden-ids
+  #  - label: Using custom label for legends
+  #    link: bar--custom-legend-labels
+  #  - label: Using annotations
+  #    link: bar--with-annotations
+  description: |
+    BoxPlot description.

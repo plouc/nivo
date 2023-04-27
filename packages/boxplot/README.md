@@ -2,8 +2,8 @@
 
 # `@nivo/boxplot`
 
-[![version](https://img.shields.io/npm/v/@nivo/boxplot?style=for-the-badge)](https://www.npmjs.com/package/@nivo/bar)
-[![downloads](https://img.shields.io/npm/dm/@nivo/boxplot?style=for-the-badge)](https://www.npmjs.com/package/@nivo/bar)
+[![version](https://img.shields.io/npm/v/@nivo/boxplot?style=for-the-badge)](https://www.npmjs.com/package/@nivo/boxplot)
+[![downloads](https://img.shields.io/npm/dm/@nivo/boxplot?style=for-the-badge)](https://www.npmjs.com/package/@nivo/boxplot)
 
 ## Boxplot
 
