@@ -40,19 +40,19 @@ export const components: ChartNavData[] = [
     {
         name: 'Bar',
         id: 'bar',
-        tags: boxplot.BoxPlot.tags,
-        flavors: {
-            svg: true,
-        },
-    },
-    {
-        name: 'BoxPlot',
-        id: 'boxplot',
         tags: bar.Bar.tags,
         flavors: {
             svg: true,
             canvas: true,
             api: true,
+        },
+    },
+    {
+        name: 'BoxPlot',
+        id: 'boxplot',
+        tags: boxplot.BoxPlot.tags,
+        flavors: {
+            svg: true,
         },
     },
     {
