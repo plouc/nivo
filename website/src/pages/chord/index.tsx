@@ -139,7 +139,6 @@ const Chord = () => {
                             })
                         }}
                         onRibbonClick={ribbon => {
-                            console.log(ribbon)
                             logAction({
                                 type: 'click',
                                 label: `[ribbon] ${ribbon.source.label} (${ribbon.source.formattedValue}) → ${ribbon.target.label} (${ribbon.target.formattedValue})`,
