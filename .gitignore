@@ -19,9 +19,7 @@ build
 # Local Netlify folder
 .netlify
 
-#
-# Yarn
-#
+# yarn 2 - not using zero-installs
 .pnp.*
 .yarn/*
 !.yarn/patches
