@@ -1354,7 +1354,7 @@ importers:
         specifier: workspace:*
         version: link:../tooltip
       '@types/d3-hierarchy':
-        specifier: ^1.1.7
+        specifier: ^1.1.8
         version: 1.1.8
       d3-hierarchy:
         specifier: ^1.1.8
@@ -1396,6 +1396,12 @@ importers:
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@17.0.2)(react@17.0.2)
+      '@types/d3-force':
+        specifier: ^2.1.0
+        version: 2.1.4
+      '@types/d3-scale':
+        specifier: ^3.2.3
+        version: 3.3.2
       d3-force:
         specifier: ^2.0.1
         version: 2.1.1
@@ -1412,12 +1418,6 @@ importers:
       '@nivo/core':
         specifier: workspace:*
         version: link:../core
-      '@types/d3-force':
-        specifier: ^2.1.0
-        version: 2.1.4
-      '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
 
   packages/tooltip:
     dependencies:
@@ -1440,6 +1440,9 @@ importers:
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@17.0.2)(react@17.0.2)
+      '@types/d3-hierarchy':
+        specifier: ^1.1.8
+        version: 1.1.8
       d3-hierarchy:
         specifier: ^1.1.8
         version: 1.1.9
@@ -8381,6 +8384,7 @@ packages:
 
   /@types/d3-force@2.1.4:
     resolution: {integrity: sha512-1XVRc2QbeUSL1FRVE53Irdz7jY+drTwESHIMVirCwkAAMB/yVC8ezAfx/1Alq0t0uOnphoyhRle1ht5CuPgSJQ==}
+    dev: false
 
   /@types/d3-format@1.4.2:
     resolution: {integrity: sha512-WeGCHAs7PHdZYq6lwl/+jsl+Nfc1J2W1kNcMeIMYzQsT6mtBDBgtJ/rcdjZ0k0rVIvqEZqhhuD5TK/v3P2gFHQ==}

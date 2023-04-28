@@ -33,7 +33,7 @@
     "@nivo/colors": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "d3-hierarchy": "^1.1.8",
-    "@types/d3-hierarchy": "^1.1.7",
+    "@types/d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
