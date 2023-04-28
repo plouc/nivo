@@ -22,7 +22,7 @@
   ],
   "main": "./dist/nivo-swarmplot.cjs.js",
   "module": "./dist/nivo-swarmplot.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -39,17 +39,17 @@
     "@nivo/voronoi": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2",
     "d3-force": "^2.0.1",
-    "d3-scale": "^3.2.3",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*",
     "@types/d3-force": "^2.1.0",
-    "@types/d3-scale": "^3.2.3"
+    "d3-scale": "^3.2.3",
+    "@types/d3-scale": "^3.2.3",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
     "react": ">= 16.14.0 < 19.0.0"
+  },
+  "devDependencies": {
+    "@nivo/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
