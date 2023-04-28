@@ -58,7 +58,7 @@ const chartProps: BoxPlotSvgProps<any> = {
     ],
     medianWidth: 2,
     whiskerWidth: 3,
-    whiskerEndSize: .6,
+    whiskerEndSize: 0.6,
     borderRadius: 2,
     isInteractive: false,
     animate: false,
