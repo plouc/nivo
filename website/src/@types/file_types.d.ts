@@ -24,6 +24,15 @@ declare module '*bar/meta.yml' {
     export default meta
 }
 
+declare module '*boxplot/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        BoxPlot: ChartMeta
+    }
+
+    export default meta
+}
+
 declare module '*bullet/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
