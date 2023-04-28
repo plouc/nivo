@@ -29,17 +29,17 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
-    "@nivo/axes": "0.81.0",
-    "@nivo/colors": "0.81.0",
-    "@nivo/legends": "0.81.0",
-    "@nivo/tooltip": "0.81.0",
+    "@nivo/axes": "workspace:*",
+    "@nivo/colors": "workspace:*",
+    "@nivo/legends": "workspace:*",
+    "@nivo/tooltip": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2"
   },
   "devDependencies": {
-    "@nivo/core": "0.81.0"
+    "@nivo/core": "workspace:*"
   },
   "peerDependencies": {
-    "@nivo/core": "0.81.0",
+    "@nivo/core": "workspace:*",
     "react": ">= 16.14.0 < 19.0.0"
   },
   "publishConfig": {
