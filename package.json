@@ -95,15 +95,11 @@
     "build": "echo 'nothing to do, please use make for available commands'",
     "heroku-postbuild": "make packages-build && cd api && yarn build"
   },
-  "workspaces": [
-    "packages/*",
-    "api",
-    "website"
-  ],
   "engines": {
-    "node": "16.x"
+    "node": ">= 16"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^6.4.9"
-  }
+  },
+  "packageManager": "pnpm@8.3.1"
 }

@@ -43,8 +43,8 @@ help: ##prints help
 #
 ########################################################################################################################
 
-bootstrap: ##@0 global lerna bootstrap
-	@yarn lerna bootstrap
+bootstrap: ##@0 global bootstrap
+	@yarn
 
 init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all

@@ -20,7 +20,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/recompose": "0.81.0",
+    "@nivo/recompose": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2",
     "d3-color": "^3.1.0",
     "d3-format": "^1.4.4",
@@ -32,11 +32,11 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/tooltip": "0.81.0",
+    "@nivo/tooltip": "workspace:*",
     "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {
-    "@nivo/tooltip": "0.81.0",
+    "@nivo/tooltip": "workspace:*",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 19.0.0"
   },
