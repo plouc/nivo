@@ -43,13 +43,12 @@ help: ##prints help
 #
 ########################################################################################################################
 
-bootstrap: ##@0 global bootstrap
-	@pnpm
+install: ##@0 global install
+	@pnpm install
 
 init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
-	@pnpm install
-	@$(MAKE) bootstrap
+	@$(MAKE) install
 	@$(MAKE) packages-build
 
 fmt: ##@0 global format code using prettier (js, css, md)
@@ -180,7 +179,7 @@ package-types-%: ##@1 packages build a package types
 package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@-rm -rf ./packages/${*}/dist/nivo-${*}*
-	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
+	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.mjs
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
@@ -201,11 +200,9 @@ package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
 	@rm -rf ./packages/${*}/cjs
 	@rm -rf ./packages/${*}/umd
-	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.js -w
+	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.mjs -w
 
-package-dev-%: ##@1 packages setup package for development, link to website, run watcher
-	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
-	@cd packages/${*} && pnpm link
+package-dev-%: ##@1 packages setup package for development
 	@$(MAKE) package-watch-${*}
 
 ########################################################################################################################
