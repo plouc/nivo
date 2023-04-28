@@ -1493,11 +1493,14 @@ importers:
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
+      '@types/prop-types':
+        specifier: ^15.7.2
+        version: 15.7.4
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
       prop-types:
-        specifier: '>= 15.5.10 < 16.0.0'
+        specifier: ^15.7.2
         version: 15.7.2
       react:
         specifier: '>= 16.14.0 < 19.0.0'

@@ -21,6 +21,7 @@
   ],
   "main": "./dist/nivo-waffle.cjs.js",
   "module": "./dist/nivo-waffle.es.js",
+  "types": "./index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -33,14 +34,15 @@
     "@nivo/recompose": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "lodash": "^4.17.21",
-    "react-motion": "^0.5.2"
+    "react-motion": "^0.5.2",
+    "@types/prop-types": "^15.7.2",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@nivo/core": "workspace:*"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.14.0 < 19.0.0"
   },
   "publishConfig": {
