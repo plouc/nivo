@@ -52,4 +52,5 @@ export const timeRangeDefaultProps = {
     dayRadius: 0,
     square: true,
     weekdayLegendOffset: 75,
+    firstWeekday: 'sunday',
 } as const

@@ -36,6 +36,7 @@ const initialProperties = {
     monthLegendOffset: 10,
 
     weekdayLegendOffset: 75,
+    firstWeekday: 'sunday',
 
     square: true,
     dayRadius: 0,

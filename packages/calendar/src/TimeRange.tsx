@@ -53,6 +53,8 @@ const InnerTimeRange = ({
 
     legends = timeRangeDefaultProps.legends,
     role = timeRangeDefaultProps.role,
+
+    firstWeekday = timeRangeDefaultProps.firstWeekday,
 }: TimeRangeSvgProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -98,6 +100,7 @@ const InnerTimeRange = ({
         data,
         direction,
         daySpacing,
+        firstWeekday,
     })
 
     // map the days and reduce the month
@@ -117,6 +120,7 @@ const InnerTimeRange = ({
         cellWidth,
         daySpacing,
         ticks: weekdayTicks,
+        firstWeekday,
     })
 
     const monthLegends = useMonthLegends({

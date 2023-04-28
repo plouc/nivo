@@ -215,6 +215,22 @@ const props: ChartProperty[] = [
             6 = Saturday\n
         `,
     },
+    {
+        key: 'firstWeekday',
+        help: `define the first weekday: 'sunday', 'monday', etc.`,
+        flavors: allFlavors,
+        type: 'Weekday',
+        required: false,
+        defaultValue: defaults.firstWeekday,
+        group: 'Weekday',
+        control: {
+            type: 'radio',
+            choices: [
+                { label: `'sunday'`, value: 'sunday' },
+                { label: `'monday'`, value: 'monday' },
+            ],
+        },
+    },
     // Days
     {
         key: 'square',

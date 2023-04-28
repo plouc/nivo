@@ -192,6 +192,15 @@ export type TimeRangeTooltipProps = Omit<TimeRangeDayData, 'date' | 'value'> & {
     value: string
 }
 
+export type Weekday =
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday'
+
 export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial<
         Omit<CalendarData, 'data'>
     > &
@@ -212,6 +221,7 @@ export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial
                 role: string
                 weekdayLegendOffset: number
                 weekdayTicks: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>
+                firstWeekday: Weekday
             }
     >
 
