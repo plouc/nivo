@@ -21,7 +21,7 @@
   ],
   "main": "./dist/nivo-circle-packing.cjs.js",
   "module": "./dist/nivo-circle-packing.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -33,6 +33,7 @@
     "@nivo/tooltip": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2",
     "d3-hierarchy": "^1.1.8",
+    "@types/d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

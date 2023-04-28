@@ -45,7 +45,7 @@
   "devDependencies": {
     "@nivo/core": "workspace:*",
     "@types/d3-force": "^2.1.0",
-    "@types/d3-scale": "^3.2.2"
+    "@types/d3-scale": "^3.2.3"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",

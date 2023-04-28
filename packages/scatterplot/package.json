@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@nivo/core": "workspace:*",
-    "@types/d3-scale": "^3.2.2",
+    "@types/d3-scale": "^3.2.3",
     "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {

@@ -21,7 +21,7 @@
   ],
   "main": "./dist/nivo-heatmap.cjs.js",
   "module": "./dist/nivo-heatmap.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -33,16 +33,18 @@
     "@nivo/axes": "workspace:*",
     "@nivo/colors": "workspace:*",
     "@nivo/legends": "workspace:*",
+    "@nivo/scales": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2",
-    "d3-scale": "^3.2.3"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*"
+    "d3-scale": "^3.2.3",
+    "@types/d3-scale": "^3.2.3"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
     "react": ">= 16.14.0 < 19.0.0"
+  },
+  "devDependencies": {
+    "@nivo/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
