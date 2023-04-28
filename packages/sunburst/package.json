@@ -21,7 +21,7 @@
   ],
   "main": "./dist/nivo-sunburst.cjs.js",
   "module": "./dist/nivo-sunburst.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -33,15 +33,15 @@
     "@nivo/colors": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "d3-hierarchy": "^1.1.8",
+    "@types/d3-hierarchy": "^1.1.7",
     "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*",
-    "@types/d3-hierarchy": "^1.1.7"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
     "react": ">= 16.14.0 < 19.0.0"
+  },
+  "devDependencies": {
+    "@nivo/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
