@@ -89,11 +89,11 @@
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
     "make:init": "make init",
-    "prepublishOnly": "yarn release:prepare",
-    "release:prepare": "node scripts/bump-peer-deps.js && yarn changelog",
-    "version": "yarn release:prepare",
+    "prepublishOnly": "pnpm release:prepare",
+    "release:prepare": "node scripts/bump-peer-deps.js && pnpm changelog",
+    "version": "pnpm release:prepare",
     "build": "echo 'nothing to do, please use make for available commands'",
-    "heroku-postbuild": "make packages-build && cd api && yarn build"
+    "heroku-postbuild": "make packages-build && cd api && pnpm build"
   },
   "engines": {
     "node": ">= 16"
