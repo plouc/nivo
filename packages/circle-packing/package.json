@@ -37,8 +37,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nivo/core": "workspace:*",
-    "@types/d3-hierarchy": "^1.1.7"
+    "@nivo/core": "workspace:*"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
