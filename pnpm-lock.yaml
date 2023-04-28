@@ -1353,6 +1353,9 @@ importers:
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
+      '@types/d3-hierarchy':
+        specifier: ^1.1.7
+        version: 1.1.8
       d3-hierarchy:
         specifier: ^1.1.8
         version: 1.1.9
@@ -1366,9 +1369,6 @@ importers:
       '@nivo/core':
         specifier: workspace:*
         version: link:../core
-      '@types/d3-hierarchy':
-        specifier: ^1.1.7
-        version: 1.1.8
 
   packages/swarmplot:
     dependencies:
@@ -8388,6 +8388,7 @@ packages:
 
   /@types/d3-hierarchy@1.1.8:
     resolution: {integrity: sha512-AbStKxNyWiMDQPGDguG2Kuhlq1Sv539pZSxYbx4UZeYkutpPwXCcgyiRrlV4YH64nIOsKx7XVnOMy9O7rJsXkg==}
+    dev: false
 
   /@types/d3-path@1.0.9:
     resolution: {integrity: sha512-NaIeSIBiFgSC6IGUBjZWcscUJEq7vpVu7KthHN8eieTV9d9MqkSOZLH4chq1PmcKy06PNe3axLeKmRIyxJ+PZQ==}
