@@ -1,15 +1,18 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useValueFormatter, usePropertyAccessor } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
-import { computeXYScalesForSeries } from '@nivo/scales'
 import { useAnnotations } from '@nivo/annotations'
-import { computePoints, getNodeSizeGenerator } from './compute'
+import { LegendProps } from '@nivo/legends'
+import { computeRawSeriesPoints, computeStyledPoints, getNodeSizeGenerator } from './compute'
 import {
     ScatterPlotCommonProps,
     ScatterPlotDataProps,
     ScatterPlotDatum,
+    ScatterPlotLegendDatum,
     ScatterPlotNodeData,
+    ScatterPlotRawSerie,
 } from './types'
+import { computeLegendData, getBaseLegendData } from './legends'
 
 const useNodeSize = <RawDatum extends ScatterPlotDatum>(
     size: ScatterPlotCommonProps<RawDatum>['nodeSize']
@@ -25,7 +28,10 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
     height,
     nodeId,
     nodeSize,
+    initialHiddenIds,
     colors,
+    legends,
+    legendLabel,
 }: {
     data: ScatterPlotDataProps<RawDatum>['data']
     xScaleSpec: ScatterPlotCommonProps<RawDatum>['xScale']
@@ -36,57 +42,72 @@ export const useScatterPlot = <RawDatum extends ScatterPlotDatum>({
     height: number
     nodeId: ScatterPlotCommonProps<RawDatum>['nodeId']
     nodeSize: ScatterPlotCommonProps<RawDatum>['nodeSize']
+    initialHiddenIds: ScatterPlotCommonProps<RawDatum>['initialHiddenIds']
     colors: ScatterPlotCommonProps<RawDatum>['colors']
+    legends: ScatterPlotCommonProps<RawDatum>['legends']
+    legendLabel: ScatterPlotCommonProps<RawDatum>['legendLabel']
 }) => {
-    const { series, xScale, yScale } = useMemo(
-        () =>
-            computeXYScalesForSeries<{ id: string | number }, RawDatum>(
-                data,
-                xScaleSpec,
-                yScaleSpec,
-                width,
-                height
-            ),
-        [data, xScaleSpec, yScaleSpec, width, height]
-    )
+    const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
+    const toggleSerie = useCallback(id => {
+        setHiddenIds(state =>
+            state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
+        )
+    }, [])
 
     const formatX = useValueFormatter(xFormat)
     const formatY = useValueFormatter(yFormat)
     const getNodeId = usePropertyAccessor(nodeId)
-    const rawNodes = useMemo(
-        () => computePoints<RawDatum>({ series, formatX, formatY, getNodeId }),
-        [series, formatX, formatY, getNodeId]
+    const getNodeSize = useNodeSize<RawDatum>(nodeSize)
+    const getColor = useOrdinalColorScale(colors, 'serieId')
+    const getLegendLabel = usePropertyAccessor<ScatterPlotRawSerie<RawDatum>, string>(
+        legendLabel ?? 'id'
     )
 
-    const getNodeSize = useNodeSize<RawDatum>(nodeSize)
-
-    const getColor = useOrdinalColorScale(colors, 'serieId')
+    const { rawSeriesNodes, xScale, yScale } = useMemo(
+        () =>
+            computeRawSeriesPoints<RawDatum>({
+                data,
+                xScaleSpec,
+                yScaleSpec,
+                width,
+                height,
+                formatX,
+                formatY,
+                getNodeId,
+            }),
+        [data, xScaleSpec, yScaleSpec, width, height, formatX, formatY, getNodeId]
+    )
 
     const nodes: ScatterPlotNodeData<RawDatum>[] = useMemo(
         () =>
-            rawNodes.map(rawNode => ({
-                ...rawNode,
-                size: getNodeSize(rawNode),
-                color: getColor({ serieId: rawNode.serieId }),
-            })),
-        [rawNodes, getNodeSize, getColor]
+            computeStyledPoints<RawDatum>({
+                rawSeriesNodes,
+                hiddenIds,
+                getNodeSize,
+                getColor,
+            }).flat(),
+        [rawSeriesNodes, hiddenIds, getNodeSize, getColor]
     )
 
-    const legendData = useMemo(
+    const baseLegendData: ScatterPlotLegendDatum[] = useMemo(
+        () => getBaseLegendData({ data, getLegendLabel, getColor }),
+        [data, getLegendLabel, getColor]
+    )
+    const legendsData: [LegendProps, ScatterPlotLegendDatum[]][] = useMemo(
         () =>
-            series.map(serie => ({
-                id: serie.id,
-                label: serie.id,
-                color: getColor({ serieId: serie.id }),
-            })),
-        [series, getColor]
+            legends.map(legend => [
+                legend,
+                computeLegendData({ legend, baseLegendData, hiddenIds, getColor }),
+            ]),
+        [legends, baseLegendData, hiddenIds, getColor]
     )
 
     return {
         xScale,
         yScale,
         nodes,
-        legendData,
+        legendsData,
+        toggleSerie,
     }
 }
 

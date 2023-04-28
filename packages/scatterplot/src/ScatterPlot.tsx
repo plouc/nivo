@@ -1,13 +1,13 @@
 import { createElement, Fragment, ReactNode, useMemo } from 'react'
 import { SvgWrapper, Container, useDimensions, CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
-import { BoxLegendSvg } from '@nivo/legends'
 import { useScatterPlot } from './hooks'
 import { svgDefaultProps } from './props'
 import { ScatterPlotAnnotations } from './ScatterPlotAnnotations'
 import { Nodes } from './Nodes'
 import { Mesh } from './Mesh'
 import { ScatterPlotDatum, ScatterPlotLayerId, ScatterPlotSvgProps } from './types'
+import { ScatterPlotLegends } from './ScatterPlotLegends'
 
 type InnerScatterPlotProps<RawDatum extends ScatterPlotDatum> = Omit<
     ScatterPlotSvgProps<RawDatum>,
@@ -39,6 +39,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     axisLeft = svgDefaultProps.axisLeft,
     annotations = svgDefaultProps.annotations,
     isInteractive = svgDefaultProps.isInteractive,
+    initialHiddenIds = [],
     useMesh = svgDefaultProps.useMesh,
     debugMesh = svgDefaultProps.debugMesh,
     onMouseEnter,
@@ -48,6 +49,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     tooltip = svgDefaultProps.tooltip,
     markers = svgDefaultProps.markers,
     legends = svgDefaultProps.legends,
+    legendLabel,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -59,7 +61,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
         partialMargin
     )
 
-    const { xScale, yScale, nodes, legendData } = useScatterPlot<RawDatum>({
+    const { xScale, yScale, nodes, legendsData, toggleSerie } = useScatterPlot<RawDatum>({
         data,
         xScaleSpec,
         xFormat,
@@ -69,7 +71,10 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
         height: innerHeight,
         nodeId,
         nodeSize,
+        initialHiddenIds,
         colors,
+        legends,
+        legendLabel,
     })
 
     const customLayerProps = useMemo(
@@ -184,15 +189,15 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     }
 
     if (layers.includes('legends')) {
-        layerById.legends = legends.map((legend, i) => (
-            <BoxLegendSvg
-                key={i}
-                {...legend}
-                containerWidth={innerWidth}
-                containerHeight={innerHeight}
-                data={legendData}
+        layerById.legends = (
+            <ScatterPlotLegends
+                key="legends"
+                width={innerWidth}
+                height={innerHeight}
+                legends={legendsData}
+                toggleSerie={toggleSerie}
             />
-        ))
+        )
     }
 
     return (

@@ -57,6 +57,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     onClick,
     tooltip = canvasDefaultProps.tooltip,
     legends = canvasDefaultProps.legends,
+    legendLabel,
     canvasRef,
 }: InnerScatterPlotCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
@@ -69,7 +70,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         partialMargin
     )
 
-    const { xScale, yScale, nodes, legendData } = useScatterPlot<RawDatum>({
+    const { xScale, yScale, nodes, legendsData } = useScatterPlot<RawDatum>({
         data,
         xScaleSpec,
         xFormat,
@@ -79,7 +80,10 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         height: innerHeight,
         nodeId,
         nodeSize,
+        initialHiddenIds: Array<string>(),
         colors,
+        legends,
+        legendLabel,
     })
 
     const boundAnnotations = useScatterPlotAnnotations<RawDatum>(nodes, annotations)
@@ -111,7 +115,8 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')!
+        const ctx = canvasEl.current.getContext('2d')
+        if (!ctx) return
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -163,22 +168,22 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                     renderNode(ctx, node)
                 })
             } else if (layer === 'mesh') {
-                if (debugMesh) {
-                    renderVoronoiToCanvas(ctx, voronoi!)
+                if (debugMesh && voronoi) {
+                    renderVoronoiToCanvas(ctx, voronoi)
                     if (currentNode) {
-                        renderVoronoiCellToCanvas(ctx, voronoi!, currentNode.index)
+                        renderVoronoiCellToCanvas(ctx, voronoi, currentNode.index)
                     }
                 }
             } else if (layer === 'legends') {
-                legends.forEach(legend => {
+                legendsData.forEach(([legend, data]) =>
                     renderLegendToCanvas(ctx, {
                         ...legend,
-                        data: legendData,
+                        data: legend.data ?? data,
                         containerWidth: innerWidth,
                         containerHeight: innerHeight,
                         theme,
                     })
-                })
+                )
             } else if (typeof layer === 'function') {
                 layer(ctx, customLayerProps)
             } else {
@@ -203,12 +208,14 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         nodes,
         enableGridX,
         enableGridY,
+        gridXValues,
+        gridYValues,
         axisTop,
         axisRight,
         axisBottom,
         axisLeft,
         legends,
-        legendData,
+        legendsData,
         debugMesh,
         voronoi,
         currentNode,
@@ -219,13 +226,14 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
 
     const getNodeFromMouseEvent = useCallback(
         event => {
-            const [x, y] = getRelativeCursor(canvasEl.current!, event)
+            if (!canvasEl.current) return null
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
             const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
             return nodes[nodeIndex]
         },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+        [nodes, canvasEl, margin, innerWidth, innerHeight, delaunay]
     )
 
     const handleMouseHover = useCallback(

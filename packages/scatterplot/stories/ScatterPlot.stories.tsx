@@ -143,7 +143,7 @@ const sampleData = [
 const commonProps = {
     width: 900,
     height: 500,
-    margin: { top: 24, right: 24, bottom: 80, left: 80 },
+    margin: { top: 24, right: 24, bottom: 110, left: 80 },
     nodeSize: 10,
     blendMode: 'multiply' as const,
     xFormat: (x: number) => `week ${x}`,
@@ -172,9 +172,102 @@ export const Default = () => <ScatterPlot<SampleDatum> {...commonProps} data={[s
 
 export const mutlipleSeries = () => <ScatterPlot<SampleDatum> {...commonProps} />
 
-export const alternativeColors = () => (
-    <ScatterPlot<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
-)
+export const alternativeColors = () => {
+    const customLabel = (obj: { id: string | number }) => {
+        const parts = String(obj.id).split(' ')
+        return parts[0] + ' (' + parts[1] + ')'
+    }
+    return (
+        <ScatterPlot<SampleDatum>
+            {...commonProps}
+            colors={{ scheme: 'category10' }}
+            legendLabel={customLabel}
+            legends={[
+                {
+                    anchor: 'bottom-left',
+                    direction: 'row',
+                    itemHeight: 18,
+                    itemWidth: 130,
+                    translateY: 60,
+                    toggleSerie: true,
+                    symbolShape: 'circle' as const,
+                },
+            ]}
+        />
+    )
+}
+
+export const MultiLineLegend = () => {
+    const serieColors: { [key: string]: string } = {
+        'girls low': '#e8c1a0',
+        'girls med': '#f47560',
+        'girls high': '#f1e15b',
+        'boys low': '#e8a838',
+        'boys med': '#61cdbb',
+        'boys high': '#97e3d5',
+    }
+    return (
+        <ScatterPlot<SampleDatum>
+            {...commonProps}
+            colors={d => serieColors[d.serieId as string]}
+            initialHiddenIds={['girls med', 'boys med']}
+            legends={[
+                {
+                    anchor: 'bottom-left',
+                    direction: 'row',
+                    itemHeight: 18,
+                    itemWidth: 100,
+                    translateY: 70,
+                    toggleSerie: true,
+                    symbolShape: 'circle' as const,
+                    data: [
+                        {
+                            id: 'girls low',
+                            label: 'Low A',
+                        },
+                        {
+                            id: 'girls med',
+                            label: 'Med A',
+                        },
+                        {
+                            id: 'girls high',
+                            label: 'High A',
+                        },
+                    ],
+                },
+                {
+                    anchor: 'bottom-left',
+                    direction: 'row',
+                    itemHeight: 18,
+                    itemWidth: 100,
+                    translateY: 94,
+                    toggleSerie: true,
+                    symbolShape: 'circle' as const,
+                    data: [
+                        {
+                            id: 'boys low',
+                            label: 'Low B',
+                        },
+                        {
+                            id: 'boys med',
+                            label: 'Med B',
+                        },
+                        {
+                            id: 'boys high',
+                            label: 'High B',
+                            color: '#0000dd', // this should be over-ruled by the colors function
+                        },
+                        {
+                            id: 'another',
+                            label: 'Another label',
+                            color: '#dd0000', // this will be displayed as provided
+                        },
+                    ],
+                },
+            ]}
+        />
+    )
+}
 
 export const usingTimeScales = () => (
     <ScatterPlot<{ x: string; y: number }>

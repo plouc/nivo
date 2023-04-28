@@ -29,7 +29,7 @@ export type ScatterPlotRawSerie<RawDatum extends ScatterPlotDatum> = {
     data: RawDatum[]
 }
 
-export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
+export interface ScatterPlotRawNodeData<RawDatum extends ScatterPlotDatum> {
     // absolute index, relative to all points in all series
     index: number
     // relative index, in a specific serie
@@ -44,9 +44,13 @@ export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum> {
     y: number
     yValue: RawDatum['y']
     formattedY: string | number
+    data: RawDatum
+}
+
+export interface ScatterPlotNodeData<RawDatum extends ScatterPlotDatum>
+    extends ScatterPlotRawNodeData<RawDatum> {
     size: number
     color: string
-    data: RawDatum
 }
 
 export interface ScatterPlotNodeProps<RawDatum extends ScatterPlotDatum> {
@@ -108,11 +112,27 @@ export interface ScatterPlotNodeDynamicSizeSpec {
 
 export type ScatterPlotMouseHandler<RawDatum extends ScatterPlotDatum> = (
     node: ScatterPlotNodeData<RawDatum>,
-    event: MouseEvent<any>
+    event: MouseEvent
 ) => void
 
 export interface ScatterPlotDataProps<RawDatum extends ScatterPlotDatum> {
     data: ScatterPlotRawSerie<RawDatum>[]
+}
+
+// TO DO - replace this by a type from @nivo/legends
+export type ScatterPlotLegendDatum = {
+    id: string | number
+    label: string
+    color: string
+    hidden?: boolean
+}
+
+// TO DO - replace this by an interface from @nivo/legends
+export interface ScatterPlotLegendsProps {
+    width: number
+    height: number
+    legends: [LegendProps, ScatterPlotLegendDatum[]][]
+    toggleSerie: (id: string | number) => void
 }
 
 export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
@@ -137,6 +157,7 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
         | ScatterPlotNodeDynamicSizeSpec
         | PropertyAccessor<Omit<ScatterPlotNodeData<RawDatum>, 'size' | 'color'>, number>
     renderWrapper?: boolean
+    initialHiddenIds: string[]
     isInteractive: boolean
     useMesh: boolean
     debugMesh: boolean
@@ -147,6 +168,9 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     tooltip: ScatterPlotTooltip<RawDatum>
     annotations: AnnotationMatcher<ScatterPlotNodeData<RawDatum>>[]
     legends: LegendProps[]
+    legendLabel?:
+        | PropertyAccessor<ScatterPlotRawSerie<RawDatum>, string>
+        | ((serie: ScatterPlotRawSerie<RawDatum>) => string)
     role: string
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
