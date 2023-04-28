@@ -20,7 +20,7 @@
   ],
   "main": "./dist/nivo-arcs.cjs.js",
   "module": "./dist/nivo-arcs.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",

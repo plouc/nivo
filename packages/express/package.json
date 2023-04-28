@@ -13,7 +13,7 @@
   },
   "main": "./dist/nivo-express.cjs.js",
   "module": "./dist/nivo-express.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",

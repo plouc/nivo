@@ -30,7 +30,9 @@
   "dependencies": {
     "@nivo/colors": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "@types/prop-types": "^15.7.2",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@nivo/core": "workspace:*"

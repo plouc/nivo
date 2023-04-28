@@ -13,7 +13,7 @@
   },
   "main": "./dist/nivo-tooltip.cjs.js",
   "module": "./dist/nivo-tooltip.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -23,10 +23,10 @@
   "dependencies": {
     "@react-spring/web": "9.4.5 || ^9.7.2"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "@nivo/core": "workspace:*"
   },
-  "peerDependencies": {
+  "devDependencies": {
     "@nivo/core": "workspace:*"
   },
   "publishConfig": {

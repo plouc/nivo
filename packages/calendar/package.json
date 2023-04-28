@@ -21,7 +21,7 @@
   ],
   "main": "./dist/nivo-calendar.cjs.js",
   "module": "./dist/nivo-calendar.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -32,16 +32,19 @@
     "@nivo/legends": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "d3-scale": "^3.2.3",
+    "@types/d3-scale": "^3.2.3",
     "d3-time": "^1.0.10",
+    "@types/d3-time": "^1.0.10",
     "d3-time-format": "^3.0.0",
+    "@types/d3-time-format": "^3.0.0",
     "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
     "react": ">= 16.14.0 < 19.0.0"
+  },
+  "devDependencies": {
+    "@nivo/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

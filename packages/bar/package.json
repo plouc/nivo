@@ -21,7 +21,7 @@
   ],
   "main": "./dist/nivo-bar.cjs.js",
   "module": "./dist/nivo-bar.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -37,15 +37,17 @@
     "@nivo/tooltip": "workspace:*",
     "@react-spring/web": "9.4.5 || ^9.7.2",
     "d3-scale": "^3.2.3",
+    "@types/d3-scale": "^3.2.3",
     "d3-shape": "^1.3.5",
+    "@types/d3-shape": "^2.0.0",
     "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",
     "react": ">= 16.14.0 < 19.0.0"
+  },
+  "devDependencies": {
+    "@nivo/core": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
