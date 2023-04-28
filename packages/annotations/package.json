@@ -20,7 +20,7 @@
   ],
   "main": "./dist/nivo-annotations.cjs.js",
   "module": "./dist/nivo-annotations.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
