@@ -13,6 +13,7 @@
   },
   "main": "./dist/nivo-core.cjs.js",
   "module": "./dist/nivo-core.es.js",
+  "types": "./index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
