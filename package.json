@@ -105,5 +105,6 @@
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^6.4.9"
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }
