@@ -21,7 +21,7 @@
   ],
   "main": "./dist/nivo-radial-bar.cjs.js",
   "module": "./dist/nivo-radial-bar.es.js",
-  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
