@@ -4,21 +4,25 @@ import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 import { useTooltip } from '@nivo/tooltip'
-import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec } from '@nivo/scales'
 import {
     computeValueScale,
     computeOrdinalScale,
     getSizeGenerator,
+    getBaseLegendData,
     computeForces,
     computeNodes,
 } from './compute'
 import {
     SwarmPlotCommonProps,
+    SwarmPlotLegendData,
     ComputedDatum,
     SizeSpec,
     SwarmPlotCustomLayerProps,
     MouseHandlers,
+    SwarmPlotValueScale,
+    SwarmPlotValueScaleSpec,
 } from './types'
+import { LegendProps } from '@nivo/legends'
 
 export const useValueScale = <RawDatum>({
     width,
@@ -32,7 +36,7 @@ export const useValueScale = <RawDatum>({
     height: number
     axis: 'x' | 'y'
     getValue: (datum: RawDatum) => number | Date
-    scale: ScaleLinearSpec | ScaleTimeSpec
+    scale: SwarmPlotValueScaleSpec
     data: RawDatum[]
 }) =>
     useMemo(
@@ -77,7 +81,7 @@ export const useForces = <RawDatum>({
     forceStrength,
 }: {
     axis: 'x' | 'y'
-    valueScale: ScaleLinear<number> | ScaleTime<string | Date>
+    valueScale: SwarmPlotValueScale
     ordinalScale: ScaleOrdinal<string, number>
     spacing: number
     forceStrength: number
@@ -112,6 +116,8 @@ export const useSwarmPlot = <RawDatum>({
     simulationIterations,
     colors,
     colorBy,
+    legendLabel,
+    legends,
 }: {
     data: RawDatum[]
     width: number
@@ -130,6 +136,8 @@ export const useSwarmPlot = <RawDatum>({
     simulationIterations: SwarmPlotCommonProps<RawDatum>['simulationIterations']
     colors: SwarmPlotCommonProps<RawDatum>['colors']
     colorBy: SwarmPlotCommonProps<RawDatum>['colorBy']
+    legendLabel: SwarmPlotCommonProps<RawDatum>['legendLabel']
+    legends: SwarmPlotCommonProps<RawDatum>['legends']
 }) => {
     const axis = layout === 'horizontal' ? 'x' : 'y'
 
@@ -143,6 +151,7 @@ export const useSwarmPlot = <RawDatum>({
         colors,
         getColorId
     )
+    const getLegendLabel = usePropertyAccessor<RawDatum, string>(legendLabel ?? groupBy)
 
     const valueScale = useValueScale({
         width,
@@ -209,11 +218,25 @@ export const useSwarmPlot = <RawDatum>({
         [nodes, formatValue, getColor]
     )
 
+    const legendsData: [LegendProps, SwarmPlotLegendData[]][] = useMemo(
+        () =>
+            legends.map(legend => {
+                if (legend.data) return [legend, legend.data as SwarmPlotLegendData[]]
+                const data = getBaseLegendData({
+                    nodes: augmentedNodes,
+                    getLegendLabel,
+                })
+                return [legend, data]
+            }),
+        [legends, augmentedNodes, getLegendLabel]
+    )
+
     return {
         nodes: augmentedNodes,
         xScale,
         yScale,
         getColor,
+        legendsData,
     }
 }
 
@@ -306,10 +329,7 @@ export const useSwarmPlotAnnotations = <RawDatum>(
 
 export const useSwarmPlotLayerContext = <
     RawDatum,
-    Scale extends
-        | ScaleLinear<number>
-        | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number, never>
+    Scale extends SwarmPlotValueScale | ScaleOrdinal<string, number, never>
 >({
     nodes,
     xScale,

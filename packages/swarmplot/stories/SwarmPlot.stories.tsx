@@ -133,3 +133,77 @@ stories.add('using time scale', () => (
         layout="horizontal"
     />
 ))
+
+stories.add('using log scale', () => {
+    // ensure that dataset has price as a non-negative value
+    const data = commonProps.data.map(datum => ({
+        ...datum,
+        price: Math.max(1, datum.price),
+    }))
+    const customLegendLabels: { [key: string]: string } = {
+        'group A': 'A',
+        'group B': 'B',
+        'group C': 'C',
+    }
+    return (
+        <SwarmPlot
+            {...commonProps}
+            data={data}
+            margin={{ top: 60, right: 40, bottom: 100, left: 100 }}
+            value="price"
+            valueScale={{
+                type: 'log' as const,
+            }}
+            size={8}
+            axisBottom={null}
+            axisRight={null}
+            axisTop={{
+                tickSize: 10,
+                tickValues: [1, 10, 100, 1000],
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: 'price',
+                legendPosition: 'middle',
+                legendOffset: -46,
+            }}
+            axisLeft={{
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
+                legend: '',
+                legendPosition: 'middle',
+                legendOffset: -76,
+            }}
+            layout="horizontal"
+            legendLabel={datum => customLegendLabels[datum.group as string]}
+            legends={[
+                {
+                    anchor: 'bottom-left',
+                    direction: 'row',
+                    itemHeight: 20,
+                    itemWidth: 60,
+                    translateY: 50,
+                },
+                {
+                    anchor: 'bottom-right',
+                    direction: 'row',
+                    itemHeight: 20,
+                    itemWidth: 80,
+                    translateY: 50,
+                    data: [
+                        {
+                            id: 'A',
+                            label: 'custom',
+                            color: '#000000',
+                        },
+                        {
+                            id: 'B',
+                            label: 'legends',
+                            color: '#888888',
+                        },
+                    ],
+                },
+            ]}
+        />
+    )
+})

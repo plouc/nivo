@@ -10,6 +10,7 @@ import { useSwarmPlot, useSwarmPlotLayerContext, useNodeMouseHandlers } from './
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
 import { SwarmPlotAnnotations } from './SwarmPlotAnnotations'
+import { SwarmPlotLegends } from './SwarmPlotLegends'
 
 type InnerSwarmPlotProps<RawDatum> = Partial<
     Omit<
@@ -52,6 +53,8 @@ const InnerSwarmPlot = <RawDatum,>({
     axisRight = defaultProps.axisRight,
     axisBottom = defaultProps.axisBottom,
     axisLeft = defaultProps.axisLeft,
+    legendLabel,
+    legends = defaultProps.legends,
     isInteractive,
     onMouseEnter,
     onMouseMove,
@@ -67,7 +70,7 @@ const InnerSwarmPlot = <RawDatum,>({
         partialMargin
     )
 
-    const { nodes, ...props } = useSwarmPlot<RawDatum>({
+    const { nodes, legendsData, ...props } = useSwarmPlot<RawDatum>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -85,6 +88,8 @@ const InnerSwarmPlot = <RawDatum,>({
         colorBy,
         forceStrength,
         simulationIterations,
+        legendLabel,
+        legends,
     })
 
     const xScale = props.xScale as Exclude<typeof props.xScale, ComputedDatum<RawDatum>[]>
@@ -105,6 +110,7 @@ const InnerSwarmPlot = <RawDatum,>({
         circles: null,
         annotations: null,
         mesh: null,
+        legends: null,
     }
 
     if (layers.includes('grid')) {
@@ -161,6 +167,17 @@ const InnerSwarmPlot = <RawDatum,>({
                 key="annotations"
                 nodes={nodes}
                 annotations={annotations}
+            />
+        )
+    }
+
+    if (layers.includes('legends')) {
+        layerById.legends = (
+            <SwarmPlotLegends
+                key="legends"
+                width={innerWidth}
+                height={innerHeight}
+                legends={legendsData}
             />
         )
     }

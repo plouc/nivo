@@ -4,9 +4,18 @@ import { ForceX, ForceY, ForceCollide } from 'd3-force'
 import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
-import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@nivo/scales'
+import {
+    ScaleLinear,
+    ScaleLinearSpec,
+    ScaleLog,
+    ScaleLogSpec,
+    ScaleTime,
+    ScaleTimeSpec,
+    TicksSpec,
+} from '@nivo/scales'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { ScaleOrdinal } from 'd3-scale'
+import { LegendProps } from '@nivo/legends'
 
 export interface ComputedDatum<RawDatum> {
     id: string
@@ -33,14 +42,11 @@ export type SimulationForces<RawDatum> = {
     collision: ForceCollide<PreSimulationDatum<RawDatum>>
 }
 
-export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'mesh'
+export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'mesh' | 'legends'
 
 export interface SwarmPlotCustomLayerProps<
     RawDatum,
-    Scale extends
-        | ScaleLinear<number>
-        | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+    Scale extends SwarmPlotValueScale | ScaleOrdinal<string, number>
 > {
     nodes: ComputedDatum<RawDatum>[]
     xScale: Scale
@@ -54,18 +60,12 @@ export interface SwarmPlotCustomLayerProps<
 
 export type SwarmPlotCustomLayer<
     RawDatum,
-    Scale extends
-        | ScaleLinear<number>
-        | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+    Scale extends SwarmPlotValueScale | ScaleOrdinal<string, number>
 > = React.FC<SwarmPlotCustomLayerProps<RawDatum, Scale>>
 
 export type SwarmPlotLayer<
     RawDatum,
-    Scale extends
-        | ScaleLinear<number>
-        | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+    Scale extends SwarmPlotValueScale | ScaleOrdinal<string, number>
 > = SwarmPlotLayerId | SwarmPlotCustomLayer<RawDatum, Scale>
 
 export type SizeSpec<RawDatum> =
@@ -91,6 +91,17 @@ export type MouseHandlers<RawDatum> = {
     onMouseLeave?: MouseHandler<RawDatum>
 }
 
+// replace in future by a type from @nivo/legends
+export type SwarmPlotLegendData = {
+    id: string | number
+    label: string | number
+    color: string
+}
+
+export type SwarmPlotValueScaleSpec = ScaleLinearSpec | ScaleTimeSpec | ScaleLogSpec
+
+export type SwarmPlotValueScale = ScaleLinear<number> | ScaleTime<Date | string> | ScaleLog
+
 export type SwarmPlotCommonProps<RawDatum> = {
     data: RawDatum[]
     width: number
@@ -99,7 +110,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
     groups: string[]
     id: PropertyAccessor<RawDatum, string>
     value: PropertyAccessor<RawDatum, number | Date>
-    valueScale: ScaleLinearSpec | ScaleTimeSpec
+    valueScale: SwarmPlotValueScaleSpec
     valueFormat: ValueFormat<number | Date>
     groupBy: PropertyAccessor<RawDatum, string>
     size: SizeSpec<RawDatum>
@@ -122,10 +133,9 @@ export type SwarmPlotCommonProps<RawDatum> = {
     debugMesh: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
     annotations: AnnotationMatcher<ComputedDatum<RawDatum>>[]
-    layers: SwarmPlotLayer<
-        RawDatum,
-        ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
-    >[]
+    layers: SwarmPlotLayer<RawDatum, SwarmPlotValueScale | ScaleOrdinal<string, number>>[]
+    legendLabel?: PropertyAccessor<RawDatum, string>
+    legends: LegendProps[]
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string
