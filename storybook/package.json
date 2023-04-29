@@ -25,6 +25,7 @@
     "@nivo/funnel": "workspace:*",
     "@nivo/generators": "workspace:*",
     "@nivo/heatmap": "workspace:*",
+    "@nivo/line": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "@nivo/waffle": "workspace:*",
     "@babel/preset-env": "^7.21.5",
