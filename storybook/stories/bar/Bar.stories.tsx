@@ -1,13 +1,21 @@
+import type { Meta, StoryObj } from '@storybook/react'
 import { useState, useEffect } from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs'
+// import {action} from '@storybook/addon-actions'
+// import {withKnobs, boolean, select} from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
-// @ts-ignore
-import { Bar, BarDatum } from '../src'
+import { Bar, BarDatum } from '@nivo/bar'
 import { AxisTickProps } from '@nivo/axes'
+
+const meta: Meta<typeof Bar> = {
+    title: 'Bar',
+    component: Bar,
+    tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof Bar>
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
@@ -23,47 +31,53 @@ const commonProps = {
     labelSkipHeight: 16,
 }
 
-const stories = storiesOf('Bar', module)
+export const Stacked: Story = {
+    render: () => <Bar {...commonProps} />,
+}
 
-stories.addDecorator(withKnobs)
+export const StackedHorizontal: Story = {
+    render: () => (
+        <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />
+    ),
+}
 
-stories.add('stacked', () => <Bar {...commonProps} />)
+export const Grouped: Story = {
+    render: () => <Bar {...commonProps} groupMode="grouped" />,
+}
 
-stories.add('stacked horizontal', () => (
-    <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />
-))
+export const GroupedHorizontal: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            groupMode="grouped"
+            layout="horizontal"
+            enableGridY={false}
+            enableGridX={true}
+        />
+    ),
+}
 
-stories.add('grouped', () => <Bar {...commonProps} groupMode="grouped" />)
+export const WithMarker: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            padding={0.4}
+            markers={[
+                {
+                    axis: 'y',
+                    value: 300,
+                    lineStyle: { stroke: 'rgba(0, 0, 0, .35)', strokeWidth: 2 },
+                    legend: 'y marker at 300',
+                    legendOrientation: 'vertical',
+                },
+            ]}
+        />
+    ),
+}
 
-stories.add('grouped horizontal', () => (
-    <Bar
-        {...commonProps}
-        groupMode="grouped"
-        layout="horizontal"
-        enableGridY={false}
-        enableGridX={true}
-    />
-))
-
-stories.add('with marker', () => (
-    <Bar
-        {...commonProps}
-        padding={0.4}
-        markers={[
-            {
-                axis: 'y',
-                value: 300,
-                lineStyle: { stroke: 'rgba(0, 0, 0, .35)', strokeWidth: 2 },
-                legend: 'y marker at 300',
-                legendOrientation: 'vertical',
-            },
-        ]}
-    />
-))
-
-stories.add('using custom color', () => (
-    <Bar {...commonProps} colors={({ id, data }) => String(data[`${id}Color`])} />
-))
+export const UsingCustomColor: Story = {
+    render: () => <Bar {...commonProps} colors={({ id, data }) => String(data[`${id}Color`])} />,
+}
 
 const divergingData = range(9).map(i => {
     let gain = random(0, 100)
@@ -131,78 +145,86 @@ const divergingCommonProps = {
     ],
 }
 
-stories.add('diverging stacked', () => (
-    <Bar
-        {...divergingCommonProps}
-        keys={['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$']}
-        padding={0.4}
-        colors={['#97e3d5', '#61cdbb', '#f47560', '#e25c3b']}
-        valueFormat={v => `${v}%`}
-    />
-))
+export const DivergingStacked: Story = {
+    render: () => (
+        <Bar
+            {...divergingCommonProps}
+            keys={['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$']}
+            padding={0.4}
+            colors={['#97e3d5', '#61cdbb', '#f47560', '#e25c3b']}
+            valueFormat={v => `${v}%`}
+        />
+    ),
+}
 
-stories.add('diverging grouped', () => (
-    <Bar
-        {...divergingCommonProps}
-        keys={['gained > 100$', 'gained <= 100$', 'lost <= 100$', 'lost > 100$']}
-        groupMode="grouped"
-        padding={0.1}
-        colors={['#61cdbb', '#97e3d5', '#f47560', '#e25c3b']}
-        innerPadding={1}
-    />
-))
+export const DivergingGrouped: Story = {
+    render: () => (
+        <Bar
+            {...divergingCommonProps}
+            keys={['gained > 100$', 'gained <= 100$', 'lost <= 100$', 'lost > 100$']}
+            groupMode="grouped"
+            padding={0.1}
+            colors={['#61cdbb', '#97e3d5', '#f47560', '#e25c3b']}
+            innerPadding={1}
+        />
+    ),
+}
 
 const CustomBarComponent = ({ bar: { x, y, width, height, color } }) => (
     <circle cx={x + width / 2} cy={y + height / 2} r={Math.min(width, height) / 2} fill={color} />
 )
 
-stories.add('custom bar item', () => (
-    <Bar {...commonProps} innerPadding={4} barComponent={CustomBarComponent} />
-))
+export const CustomBarItem: Story = {
+    render: () => <Bar {...commonProps} innerPadding={4} barComponent={CustomBarComponent} />,
+}
 
-stories.add('with formatted values', () => (
-    <Bar
-        {...commonProps}
-        axisLeft={{
-            format: value =>
+export const WithFormattedValues: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            axisLeft={{
+                format: value =>
+                    `${Number(value).toLocaleString('ru-RU', {
+                        minimumFractionDigits: 2,
+                    })} ₽`,
+            }}
+            valueFormat={value =>
                 `${Number(value).toLocaleString('ru-RU', {
                     minimumFractionDigits: 2,
-                })} ₽`,
-        }}
-        valueFormat={value =>
-            `${Number(value).toLocaleString('ru-RU', {
-                minimumFractionDigits: 2,
-            })} ₽`
-        }
-    />
-))
+                })} ₽`
+            }
+        />
+    ),
+}
 
-stories.add('custom tooltip', () => (
-    <Bar
-        {...commonProps}
-        axisLeft={{
-            format: value =>
-                Number(value).toLocaleString('ru-RU', {
-                    minimumFractionDigits: 2,
-                }),
-        }}
-        tooltip={({ id, value, color }) => (
-            <div
-                style={{
-                    padding: 12,
-                    color,
-                    background: '#222222',
-                }}
-            >
-                <span>Look, I'm custom :)</span>
-                <br />
-                <strong>
-                    {id}: {value}
-                </strong>
-            </div>
-        )}
-    />
-))
+export const CustomTooltip: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            axisLeft={{
+                format: value =>
+                    Number(value).toLocaleString('ru-RU', {
+                        minimumFractionDigits: 2,
+                    }),
+            }}
+            tooltip={({ id, value, color }) => (
+                <div
+                    style={{
+                        padding: 12,
+                        color,
+                        background: '#222222',
+                    }}
+                >
+                    <span>Look, I'm custom :)</span>
+                    <br />
+                    <strong>
+                        {id}: {value}
+                    </strong>
+                </div>
+            )}
+        />
+    ),
+}
 
 const CustomTick = (tick: AxisTickProps<string>) => {
     const theme = useTheme()
@@ -227,9 +249,16 @@ const CustomTick = (tick: AxisTickProps<string>) => {
     )
 }
 
-stories.add(
-    'custom axis ticks',
-    () => (
+export const CustomAxisTicks: Story = {
+    // 'You can customize rendering of axis ticks using the corresponding axis `renderTick` property.',
+    parameters: {
+        docs: {
+            description: {
+                story: 'Another description on the story, overriding the comments',
+            },
+        },
+    },
+    render: () => (
         <Bar
             {...commonProps}
             animate={false}
@@ -239,33 +268,33 @@ stories.add(
             }}
         />
     ),
-    {
-        info: {
-            text: 'You can customize rendering of axis ticks using the corresponding axis `renderTick` property.',
-        },
-    }
-)
+}
 
-stories.add('enter/leave (check actions)', () => (
-    <Bar
-        {...commonProps}
-        onMouseEnter={action('onMouseEnter')}
-        onMouseLeave={action('onMouseLeave')}
-    />
-))
+export const EnterLeaveEvents: Story = {
+    // 'enter/leave (check actions)'
+    render: () => (
+        <Bar
+            {...commonProps}
+            //onMouseEnter={action('onMouseEnter')}
+            // onMouseLeave={action('onMouseLeave')}
+        />
+    ),
+}
 
-stories.add('with symlog scale', () => (
-    <Bar
-        {...commonProps}
-        data={[
-            { country: 'A', population: 100 },
-            { country: 'B', population: 50000 },
-            { country: 'C', population: 15000 },
-        ]}
-        keys={['population']}
-        valueScale={{ type: select('scale', ['symlog', 'linear'], 'symlog') }}
-    />
-))
+export const WithSymlogScale: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            data={[
+                { country: 'A', population: 100 },
+                { country: 'B', population: 50000 },
+                { country: 'C', population: 15000 },
+            ]}
+            keys={['population']}
+            valueScale={{ type: 'symlog' }}
+        />
+    ),
+}
 
 const DataGenerator = (initialIndex, initialState) => {
     let index = initialIndex
@@ -330,6 +359,10 @@ const BarComponent = ({ bar, borderColor }) => {
         </g>
     )
 }
+
+/*
+stories.addDecorator(withKnobs)
+
 
 const dataGenerator = DataGenerator(1900, [
     { id: 'Tokyo', value: 10000000 },
@@ -488,3 +521,4 @@ stories.add('with annotations', () => (
         ]}
     />
 ))
+*/

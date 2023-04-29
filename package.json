@@ -23,14 +23,6 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.1",
-    "@storybook/addon-actions": "^6.0.26",
-    "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-knobs": "^6.4.0",
-    "@storybook/addon-links": "^6.4.9",
-    "@storybook/addon-storysource": "^6.4.9",
-    "@storybook/addons": "^6.4.9",
-    "@storybook/react": "^6.4.9",
-    "@storybook/theming": "^6.4.9",
     "@types/enzyme": "^3.10.10",
     "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.170",
@@ -50,7 +42,6 @@
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^7.0.0",
-    "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
@@ -73,7 +64,6 @@
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "^3.21.0",
     "rollup-plugin-cleanup": "^3.2.1",
-    "rollup-plugin-prettier": "^2.2.0",
     "rollup-plugin-size": "^0.3.1",
     "rollup-plugin-strip-banner": "^3.0.0",
     "rollup-plugin-visualizer": "^5.5.2",
@@ -97,9 +87,6 @@
   },
   "engines": {
     "node": ">= 16"
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "^6.4.9"
   },
   "packageManager": "pnpm@8.3.1"
 }
