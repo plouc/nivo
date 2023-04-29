@@ -1544,6 +1544,9 @@ importers:
       '@nivo/radial-bar':
         specifier: workspace:*
         version: link:../packages/radial-bar
+      '@nivo/sankey':
+        specifier: workspace:*
+        version: link:../packages/sankey
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
@@ -1577,12 +1580,18 @@ importers:
       '@types/d3-random':
         specifier: ^1.1.3
         version: 1.1.3
+      '@types/d3-sankey':
+        specifier: ^0.11.2
+        version: 0.11.2
       '@types/d3-scale':
         specifier: ^3.2.3
         version: 3.3.2
       d3-random:
         specifier: ^1.1.2
         version: 1.1.2
+      d3-sankey:
+        specifier: ^0.12.3
+        version: 0.12.3
       d3-scale:
         specifier: ^3.2.3
         version: 3.3.0
@@ -7921,7 +7930,6 @@ packages:
 
   /@types/d3-path@1.0.9:
     resolution: {integrity: sha512-NaIeSIBiFgSC6IGUBjZWcscUJEq7vpVu7KthHN8eieTV9d9MqkSOZLH4chq1PmcKy06PNe3axLeKmRIyxJ+PZQ==}
-    dev: false
 
   /@types/d3-path@2.0.1:
     resolution: {integrity: sha512-6K8LaFlztlhZO7mwsZg7ClRsdLg3FJRzIIi6SZXDWmmSJc2x8dd2VkESbLXdk3p8cuvz71f36S0y8Zv2AxqvQw==}
@@ -7933,7 +7941,6 @@ packages:
     resolution: {integrity: sha512-U6SrTWUERSlOhnpSrgvMX64WblX1AxX6nEjI2t3mLK2USpQrnbwYYK+AS9SwiE7wgYmOsSSKoSdr8aoKBH0HgQ==}
     dependencies:
       '@types/d3-shape': 1.3.8
-    dev: false
 
   /@types/d3-scale-chromatic@2.0.1:
     resolution: {integrity: sha512-3EuZlbPu+pvclZcb1DhlymTWT2W+lYsRKBjvkH2ojDbCWDYavifqu1vYX9WGzlPgCgcS4Alhk1+zapXbGEGylQ==}
@@ -7948,7 +7955,6 @@ packages:
     resolution: {integrity: sha512-gqfnMz6Fd5H6GOLYixOZP/xlrMtJms9BaS+6oWxTKHNqPGZ93BkWWupQSCYm6YHqx6h9wjRupuJb90bun6ZaYg==}
     dependencies:
       '@types/d3-path': 1.0.9
-    dev: false
 
   /@types/d3-shape@2.1.3:
     resolution: {integrity: sha512-HAhCel3wP93kh4/rq+7atLdybcESZ5bRHDEZUojClyZWsRuEMo3A52NGYJSh48SxfxEU6RZIVbZL2YFZ2OAlzQ==}
@@ -11803,7 +11809,6 @@ packages:
 
   /d3-path@1.0.9:
     resolution: {integrity: sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg==}
-    dev: false
 
   /d3-quadtree@2.0.0:
     resolution: {integrity: sha512-b0Ed2t1UUalJpc3qXzKi+cPGxeXRr4KU9YSlocN74aTzp6R/Ud43t79yLLqxHRWZfsvWXmbDWPpoENK1K539xw==}
@@ -11817,7 +11822,6 @@ packages:
     dependencies:
       d3-array: 2.12.1
       d3-shape: 1.3.7
-    dev: false
 
   /d3-scale-chromatic@2.0.0:
     resolution: {integrity: sha512-LLqy7dJSL8yDy7NRmf6xSlsFZ6zYvJ4BcWFE4zBrOPnQERv9zj24ohnXKRbyi9YHnYV+HN1oEO3iFK971/gkzA==}
@@ -11839,7 +11843,6 @@ packages:
     resolution: {integrity: sha512-EUkvKjqPFUAZyOlhY5gzCxCeI0Aep04LwIRpsZ/mLFelJiUfnK56jo5JMDSE7yyP2kLSb6LtF+S5chMk7uqPqw==}
     dependencies:
       d3-path: 1.0.9
-    dev: false
 
   /d3-time-format@3.0.0:
     resolution: {integrity: sha512-UXJh6EKsHBTjopVqZBhFysQcoXSv/5yLONZvkQ5Kk3qbwiUYkdX17Xa1PT6U1ZWXGGfB1ey5L8dKMlFq2DO0Ag==}
