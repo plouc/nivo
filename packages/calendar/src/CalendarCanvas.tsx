@@ -1,4 +1,4 @@
-import { memo, useRef, useState, useEffect, useCallback } from 'react'
+import { memo, useRef, useState, useEffect, useCallback, MouseEvent } from 'react'
 import * as React from 'react'
 import {
     Box,
@@ -214,7 +214,7 @@ const InnerCalendarCanvas = memo(
         ])
 
         const handleMouseHover = useCallback(
-            event => {
+            (event: MouseEvent<HTMLCanvasElement>) => {
                 if (!canvasEl.current) return
 
                 const data = findDayUnderCursor(
@@ -270,7 +270,7 @@ const InnerCalendarCanvas = memo(
         }, [setCurrentDay, hideTooltip])
 
         const handleClick = useCallback(
-            event => {
+            (event: MouseEvent<HTMLCanvasElement>) => {
                 if (!onClick || !canvasEl.current) return
 
                 const data = findDayUnderCursor(
