@@ -1,8 +1,17 @@
+import type { Meta, StoryObj } from '@storybook/react'
 import { Component } from 'react'
-import { storiesOf } from '@storybook/react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { Waffle } from '../src'
-import CustomTooltip from './CustomTooltip'
+import { Waffle } from '@nivo/waffle'
+import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
+
+const meta: Meta<typeof Waffle> = {
+    title: 'Waffle',
+    component: Waffle,
+    tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof Waffle>
 
 const total = 200
 const data = [
@@ -28,45 +37,60 @@ const commonProps = {
     columns: 18,
 }
 
-const stories = storiesOf('Waffle', module)
+export const Basic: Story = {
+    render: () => <Waffle {...commonProps} />,
+}
 
-stories.add('default', () => <Waffle {...commonProps} />)
+export const Colors: Story = {
+    render: () => <Waffle {...commonProps} colors={{ scheme: 'category10' }} />,
+}
 
-stories.add('colors', () => <Waffle {...commonProps} colors={{ scheme: 'category10' }} />)
+export const UsingDataColor: Story = {
+    render: () => <Waffle {...commonProps} colors={{ datum: 'color' }} />,
+}
 
-stories.add('using data color', () => <Waffle {...commonProps} colors={{ datum: 'color' }} />)
+export const Patterns: Story = {
+    render: () => (
+        <Waffle
+            {...commonProps}
+            defs={[
+                patternDotsDef('dots', {
+                    background: 'inherit',
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    size: 4,
+                    padding: 1,
+                    stagger: true,
+                }),
+                patternLinesDef('lines', {
+                    background: 'inherit',
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    rotation: -45,
+                    lineWidth: 6,
+                    spacing: 10,
+                }),
+            ]}
+            fill={[
+                { match: { id: 'men' }, id: 'dots' },
+                { match: { id: 'women' }, id: 'lines' },
+            ]}
+        />
+    ),
+}
 
-stories.add('patterns', () => (
-    <Waffle
-        {...commonProps}
-        defs={[
-            patternDotsDef('dots', {
-                background: 'inherit',
-                color: 'rgba(255, 255, 255, 0.3)',
-                size: 4,
-                padding: 1,
-                stagger: true,
-            }),
-            patternLinesDef('lines', {
-                background: 'inherit',
-                color: 'rgba(255, 255, 255, 0.3)',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10,
-            }),
-        ]}
-        fill={[
-            { match: { id: 'men' }, id: 'dots' },
-            { match: { id: 'women' }, id: 'lines' },
-        ]}
-    />
-))
+export const FillDirection: Story = {
+    render: () => (
+        <Waffle
+            {...commonProps}
+            width={900}
+            height={400}
+            fillDirection="left"
+            rows={18}
+            columns={24}
+        />
+    ),
+}
 
-stories.add('fill direction', () => (
-    <Waffle {...commonProps} width={900} height={400} fillDirection="left" rows={18} columns={24} />
-))
-
-const CustomCell = ({
+const CustomCellComponent = ({
     position,
     size,
     x,
@@ -97,21 +121,25 @@ const CustomCell = ({
         }}
     />
 )
-stories.add('custom cell', () => <Waffle {...commonProps} cellComponent={CustomCell} />)
+export const CustomCell: Story = {
+    render: () => <Waffle {...commonProps} cellComponent={CustomCellComponent} />,
+}
 
-stories.add('custom tooltip', () => (
-    <Waffle
-        {...commonProps}
-        theme={{
-            tooltip: {
-                container: {
-                    background: '#333',
+export const CustomTooltip: Story = {
+    render: () => (
+        <Waffle
+            {...commonProps}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: '#333',
+                    },
                 },
-            },
-        }}
-        tooltip={CustomTooltip}
-    />
-))
+            }}
+            tooltip={CustomTooltipComponent}
+        />
+    ),
+}
 
 class WaffleLegendToggle extends Component {
     state = {
@@ -166,4 +194,6 @@ class WaffleLegendToggle extends Component {
     }
 }
 
-stories.add('legend toggle', () => <WaffleLegendToggle />)
+export const LegendToggle: Story = {
+    render: () => <WaffleLegendToggle />,
+}
