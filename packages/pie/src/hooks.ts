@@ -9,11 +9,14 @@ import {
 } from '@nivo/core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { defaultProps } from './props'
-import { CompletePieSvgProps, ComputedDatum, DatumId, PieArc, PieCustomLayerProps } from './types'
-
-interface MayHaveLabel {
-    label?: string | number
-}
+import {
+    MayHaveLabel,
+    CompletePieSvgProps,
+    ComputedDatum,
+    DatumId,
+    PieArc,
+    PieCustomLayerProps,
+} from './types'
 
 /**
  * Format data so that we get a consistent data structure.
