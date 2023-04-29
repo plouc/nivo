@@ -27,6 +27,7 @@
     "@nivo/heatmap": "workspace:*",
     "@nivo/line": "workspace:*",
     "@nivo/marimekko": "workspace:*",
+    "@nivo/network": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "@nivo/waffle": "workspace:*",
     "@babel/preset-env": "^7.21.5",

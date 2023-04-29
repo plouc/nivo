@@ -216,7 +216,7 @@ export const DownloadTheChart: Story = {
         const handleDownload = useCallback(() => {
             const canvas = ref.current
             const link = document.createElement('a')
-            link.download = 'chart.png'
+            link.download = 'nivo-line.png'
             link.href = canvas.toDataURL('image/png')
             link.click()
         })
