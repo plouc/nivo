@@ -1,8 +1,16 @@
+import type { Meta, StoryObj } from '@storybook/react'
 import { Fragment } from 'react'
 import { random } from 'lodash'
-import { storiesOf } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs'
-import { Marimekko, Layout } from '../src'
+import { Marimekko, Layout } from '@nivo/marimekko'
+
+const meta: Meta<typeof Marimekko> = {
+    title: 'Marimekko',
+    component: Marimekko,
+    tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof Marimekko>
 
 const getRandomValue = () => random(0, 32)
 
@@ -50,64 +58,66 @@ const commonProps = {
     ],
 }
 
-const stories = storiesOf('Marimekko', module)
+export const Basic: Story = {
+    render: () => <Marimekko {...commonProps} data={generateData()} />,
+}
 
-stories.addDecorator(withKnobs)
+export const UsingArraysForData: Story = {
+    render: () => {
+        type RawDatum = [string, number, number, number, number]
 
-stories.add('default', () => <Marimekko {...commonProps} data={generateData()} />)
+        const data: RawDatum[] = [
+            ['A', 42, 9, 3, 31],
+            ['B', 21, 13, 21, 9],
+            ['C', 34, 7, 12, 32],
+        ]
 
-stories.add('using arrays for data', () => {
-    type RawDatum = [string, number, number, number, number]
+        return (
+            <Marimekko<RawDatum>
+                {...commonProps}
+                data={data}
+                id={0}
+                value={1}
+                dimensions={[
+                    {
+                        id: 'cool stuff',
+                        value: 2,
+                    },
+                    {
+                        id: 'not cool stuff',
+                        value: 3,
+                    },
+                    {
+                        id: 'YABAI!',
+                        value: 4,
+                    },
+                ]}
+            />
+        )
+    },
+}
 
-    const data: RawDatum[] = [
-        ['A', 42, 9, 3, 31],
-        ['B', 21, 13, 21, 9],
-        ['C', 34, 7, 12, 32],
-    ]
+export const Diverging: Story = {
+    render: () => {
+        const data = generateData()
+        data.forEach(datum => {
+            datum.disagree *= -1
+            datum.stronglyDisagree *= -1
+        })
 
-    return (
-        <Marimekko<RawDatum>
-            {...commonProps}
-            data={data}
-            id={0}
-            value={1}
-            dimensions={[
-                {
-                    id: 'cool stuff',
-                    value: 2,
-                },
-                {
-                    id: 'not cool stuff',
-                    value: 3,
-                },
-                {
-                    id: 'YABAI!',
-                    value: 4,
-                },
-            ]}
-        />
-    )
-})
-
-stories.add('diverging', () => {
-    const data = generateData()
-    data.forEach(datum => {
-        datum.disagree *= -1
-        datum.stronglyDisagree *= -1
-    })
-
-    return (
-        <Marimekko
-            {...commonProps}
-            data={data}
-            layout="horizontal"
-            offset="diverging"
-            axisBottom={{
-                format: (v: number) => Math.abs(v),
-            }}
-        />
-    )
-})
+        return (
+            <Marimekko
+                {...commonProps}
+                data={data}
+                layout="horizontal"
+                offset="diverging"
+                axisBottom={{
+                    format: (v: number) => Math.abs(v),
+                }}
+            />
+        )
+    },
+}
 
 const ShadowsLayer = ({ data }) => (
     <>
@@ -147,8 +157,8 @@ const StatementsLayer = ({ data }) => (
     </>
 )
 
-stories.add('custom layers', () => {
-    return (
+export const CustomLayers: Story = {
+    render: () => (
         <Marimekko
             {...commonProps}
             height={700}
@@ -161,5 +171,5 @@ stories.add('custom layers', () => {
             axisLeft={undefined}
             axisBottom={undefined}
         />
-    )
-})
+    ),
+}
