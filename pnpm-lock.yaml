@@ -1562,6 +1562,9 @@ importers:
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
+      '@nivo/treemap':
+        specifier: workspace:*
+        version: link:../packages/treemap
       '@nivo/waffle':
         specifier: workspace:*
         version: link:../packages/waffle
