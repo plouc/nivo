@@ -3,7 +3,7 @@ import { Theme } from '@nivo/core'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { usePie } from '@nivo/pie'
-import { SwarmPlot, CircleProps, SwarmPlotCustomLayerProps } from '../src'
+import { SwarmPlot, CircleProps, SwarmPlotCustomLayerProps } from '@nivo/swarmplot'
 
 type SwarmPlotDatum = ReturnType<typeof generateSwarmPlotData>['data'][number]
 

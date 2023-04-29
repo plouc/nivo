@@ -1,13 +1,12 @@
 import { useMemo, useState } from 'react'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { PatternLines } from '@nivo/core'
-import { SwarmPlot, SwarmPlotCustomLayerProps } from '../src'
+import { SwarmPlot, SwarmPlotCustomLayerProps } from '@nivo/swarmplot'
 
 const BackgroundLayer = ({ xScale, innerHeight }: SwarmPlotCustomLayerProps<unknown>) => (
     <>
         <defs>
             <PatternLines
-                // @ts-ignore
                 id="linesPattern"
                 spacing={10}
                 rotation={-45}

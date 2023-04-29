@@ -4,7 +4,6 @@ import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
 import { generateLibTree } from '@nivo/generators'
 import { colorSchemes } from '@nivo/colors'
 import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '@nivo/sunburst'
-import { a } from '@react-spring/web'
 
 const meta: Meta<typeof Sunburst> = {
     title: 'Sunburst',

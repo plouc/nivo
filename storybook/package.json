@@ -35,6 +35,7 @@
     "@nivo/scatterplot": "workspace:*",
     "@nivo/stream": "workspace:*",
     "@nivo/sunburst": "workspace:*",
+    "@nivo/swarmplot": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "@nivo/waffle": "workspace:*",
     "@babel/preset-env": "^7.21.5",
