@@ -27,7 +27,7 @@ export interface ScaleTypeToSpec {
 export type ScaleType = keyof ScaleTypeToSpec
 export type ScaleSpec = ScaleTypeToSpec[keyof ScaleTypeToSpec]
 
-export interface ScaleTypeToScale<Input, Output> {
+export interface ScaleTypeToScale<Input extends StringValue, Output> {
     linear: ScaleLinear<Output>
     log: ScaleLog
     symlog: ScaleSymlog
@@ -36,7 +36,7 @@ export interface ScaleTypeToScale<Input, Output> {
     time: ScaleTime<Input>
 }
 
-export type Scale<Input, Output> = ScaleTypeToScale<Input, Output>[keyof ScaleTypeToScale<
+export type Scale<Input extends StringValue, Output> = ScaleTypeToScale<Input, Output>[keyof ScaleTypeToScale<
     Input,
     Output
 >]
