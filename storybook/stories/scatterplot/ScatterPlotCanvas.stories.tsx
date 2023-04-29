@@ -1,13 +1,23 @@
+import type { Meta, StoryObj } from '@storybook/react'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import omit from 'lodash/omit'
-import { Meta } from '@storybook/react'
-// @ts-ignore
-import { ResponsiveScatterPlotCanvas, ScatterPlotCanvas, ScatterPlotNodeData } from '../src'
+import {
+    ResponsiveScatterPlotCanvas,
+    ScatterPlotCanvas,
+    ScatterPlotNodeData,
+} from '@nivo/scatterplot'
 
-export default {
-    component: ScatterPlotCanvas,
+const meta: Meta<typeof ScatterPlotCanvas> = {
     title: 'ScatterPlotCanvas',
-} as Meta
+    component: ScatterPlotCanvas,
+    tags: ['autodocs'],
+    argTypes: { onClick: { action: 'clicked' } },
+    onMouseEnter: { action: 'mouseenter' },
+    onMouseLeave: { action: 'mouseleave' },
+}
+
+export default meta
+type Story = StoryObj<typeof ScatterPlotCanvas>
 
 type SampleDatum = {
     id: number
@@ -158,126 +168,140 @@ const commonProps = {
     ],
 }
 
-export const Default = () => (
-    <ScatterPlotCanvas<SampleDatum> {...commonProps} data={[sampleData[1]]} />
-)
+export const Basic: Story = {
+    render: () => <ScatterPlotCanvas<SampleDatum> {...commonProps} data={[sampleData[1]]} />,
+}
 
-export const MultipleSeries = () => <ScatterPlotCanvas<SampleDatum> {...commonProps} />
+export const MultipleSeries: Story = {
+    render: () => <ScatterPlotCanvas<SampleDatum> {...commonProps} />,
+}
 
-export const AlternativeColors = () => (
-    <ScatterPlotCanvas<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
-)
+export const AlternativeColors: Story = {
+    render: () => (
+        <ScatterPlotCanvas<SampleDatum> {...commonProps} colors={{ scheme: 'category10' }} />
+    ),
+}
 
-export const UsingTimeScales = () => (
-    <ScatterPlotCanvas<{ x: string; y: number }>
-        {...commonProps}
-        data={[
-            {
-                id: 'apples',
-                data: [
-                    { x: '2018-01-01', y: 7 },
-                    { x: '2018-01-02', y: 5 },
-                    { x: '2018-01-03', y: 11 },
-                    { x: '2018-01-04', y: 9 },
-                    { x: '2018-01-05', y: 12 },
-                    { x: '2018-01-06', y: 16 },
-                    { x: '2018-01-07', y: 13 },
-                    { x: '2018-01-08', y: 13 },
-                ],
-            },
-            {
-                id: 'oranges',
-                data: [
-                    { x: '2018-01-04', y: 14 },
-                    { x: '2018-01-05', y: 14 },
-                    { x: '2018-01-06', y: 15 },
-                    { x: '2018-01-07', y: 11 },
-                    { x: '2018-01-08', y: 10 },
-                    { x: '2018-01-09', y: 12 },
-                    { x: '2018-01-10', y: 9 },
-                    { x: '2018-01-11', y: 7 },
-                ],
-            },
-        ]}
-        xScale={{
-            type: 'time',
-            format: '%Y-%m-%d',
-            precision: 'day',
-        }}
-        axisBottom={{
-            format: '%b %d',
-        }}
-    />
-)
+export const UsingTimeScales: Story = {
+    render: () => (
+        <ScatterPlotCanvas<{ x: string; y: number }>
+            {...commonProps}
+            data={[
+                {
+                    id: 'apples',
+                    data: [
+                        { x: '2018-01-01', y: 7 },
+                        { x: '2018-01-02', y: 5 },
+                        { x: '2018-01-03', y: 11 },
+                        { x: '2018-01-04', y: 9 },
+                        { x: '2018-01-05', y: 12 },
+                        { x: '2018-01-06', y: 16 },
+                        { x: '2018-01-07', y: 13 },
+                        { x: '2018-01-08', y: 13 },
+                    ],
+                },
+                {
+                    id: 'oranges',
+                    data: [
+                        { x: '2018-01-04', y: 14 },
+                        { x: '2018-01-05', y: 14 },
+                        { x: '2018-01-06', y: 15 },
+                        { x: '2018-01-07', y: 11 },
+                        { x: '2018-01-08', y: 10 },
+                        { x: '2018-01-09', y: 12 },
+                        { x: '2018-01-10', y: 9 },
+                        { x: '2018-01-11', y: 7 },
+                    ],
+                },
+            ]}
+            xScale={{
+                type: 'time',
+                format: '%Y-%m-%d',
+                precision: 'day',
+            }}
+            axisBottom={{
+                format: '%b %d',
+            }}
+        />
+    ),
+}
 
-export const UsingLogarithmicScales = () => (
-    <ScatterPlotCanvas
-        {...commonProps}
-        data={[
-            {
-                id: 'apples',
-                data: [
-                    { x: 10, y: 2 },
-                    { x: 220, y: 4 },
-                    { x: 1000, y: 8 },
-                    { x: 10000, y: 16 },
-                    { x: 100000, y: 32 },
-                    { x: 1000000, y: 64 },
-                ],
-            },
-        ]}
-        xScale={{
-            type: 'log',
-            base: 10,
-        }}
-        yScale={{
-            type: 'log',
-            base: 2,
-        }}
-        axisBottom={{
-            tickValues: [10, 100, 1000, 1000, 10000, 100000, 1000000, 10000000],
-        }}
-        axisLeft={{
-            tickValues: [2, 4, 8, 16, 32, 64],
-        }}
-    />
-)
+export const UsingLogarithmicScales: Story = {
+    render: () => (
+        <ScatterPlotCanvas
+            {...commonProps}
+            data={[
+                {
+                    id: 'apples',
+                    data: [
+                        { x: 10, y: 2 },
+                        { x: 220, y: 4 },
+                        { x: 1000, y: 8 },
+                        { x: 10000, y: 16 },
+                        { x: 100000, y: 32 },
+                        { x: 1000000, y: 64 },
+                    ],
+                },
+            ]}
+            xScale={{
+                type: 'log',
+                base: 10,
+            }}
+            yScale={{
+                type: 'log',
+                base: 2,
+            }}
+            axisBottom={{
+                tickValues: [10, 100, 1000, 1000, 10000, 100000, 1000000, 10000000],
+            }}
+            axisLeft={{
+                tickValues: [2, 4, 8, 16, 32, 64],
+            }}
+        />
+    ),
+}
 
-export const UsingSymmetricLogarithmicScales = () => (
-    <ScatterPlotCanvas
-        {...commonProps}
-        data={[
-            {
-                id: 'apples',
-                data: [
-                    { x: 1, y: 1 },
-                    { x: 2, y: 3 },
-                    { x: 4, y: 32 },
-                    { x: 5, y: 8 },
-                    { x: 2, y: 38 },
-                    { x: 3, y: 45 },
-                ],
-            },
-        ]}
-        xScale={{
-            type: 'linear',
-        }}
-        xFormat={undefined}
-        yScale={{
-            type: 'symlog',
-        }}
-        yFormat={undefined}
-        axisBottom={{
-            tickValues: [0, 1, 2, 3, 4, 5],
-        }}
-    />
-)
+export const UsingSymmetricLogarithmicScales: Story = {
+    render: () => (
+        <ScatterPlotCanvas
+            {...commonProps}
+            data={[
+                {
+                    id: 'apples',
+                    data: [
+                        { x: 1, y: 1 },
+                        { x: 2, y: 3 },
+                        { x: 4, y: 32 },
+                        { x: 5, y: 8 },
+                        { x: 2, y: 38 },
+                        { x: 3, y: 45 },
+                    ],
+                },
+            ]}
+            xScale={{
+                type: 'linear',
+            }}
+            xFormat={undefined}
+            yScale={{
+                type: 'symlog',
+            }}
+            yFormat={undefined}
+            axisBottom={{
+                tickValues: [0, 1, 2, 3, 4, 5],
+            }}
+        />
+    ),
+}
 
-export const SymbolSize = () => <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={24} />
+export const SymbolSize: Story = {
+    render: () => <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={24} />,
+}
 
-export const VaryingSymbolSize = () => (
-    <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={d => d.xValue + d.yValue * 2} />
-)
+export const VaryingSymbolSize: Story = {
+    render: () => (
+        <ScatterPlotCanvas<SampleDatum> {...commonProps} nodeSize={d => d.xValue + d.yValue * 2} />
+    ),
+}
 
 const SyncCharts = () => {
     const [nodeId, setNodeId] = useState(null)
@@ -335,50 +359,46 @@ const SyncCharts = () => {
     )
 }
 
-export const SynchronizingCharts = () => <SyncCharts />
-SynchronizingCharts.story = {
-    parameters: {
-        info: {
-            text: `
-                You can synchronize several charts using mouse handlers.
-                This example wraps 2 scatterplots in a parent component and
-                store current symbol id in a state which is then used to
-                determine symbol size, using \`onMouseMove\`, \`onMouseLeave\`
-                and a custom function for \`nodeSize\`.
-                
-                Note that \`debugMesh\` is enabled on this example
-                hence the extra red lines displayed on the chart.
-                
-                The parent component hooks should look like this:
-                
-                \`\`\`
-                const [nodeId, setNodeId] = useState(null)
-                const handleMouseMove = useCallback((node) => setNodeId(node.id), [setNodeId])
-                const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
-                const getNodeSize = useMemo(
-                    () => node => {
-                        if (nodeId !== null && nodeId === node.id) return 46
-                        return 8
-                    },
-                    [nodeId]
-                )        
-                \`\`\`
-                
-                and the two scatterplots share those properties:
-                
-                \`\`\`
-                <ResponsiveScatterPlotCanvas
-                    {/* other required props */}
-                    nodeSize={getNodeSize}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                />
-                \`\`\`
-                
-                This approach can also be used to synchronize another chart type.
-            `,
-        },
-    },
+/**
+ * You can synchronize several charts using mouse handlers.
+ * This example wraps 2 scatterplots in a parent component and
+ * store current symbol id in a state which is then used to
+ * determine symbol size, using `onMouseMove`, `onMouseLeave`
+ * and a custom function for `nodeSize`.
+ *
+ * Note that `debugMesh` is enabled on this example
+ * hence the extra red lines displayed on the chart.
+ *
+ * The parent component hooks should look like this:
+ *
+ * ```
+ * const [nodeId, setNodeId] = useState(null)
+ * const handleMouseMove = useCallback((node) => setNodeId(node.id), [setNodeId])
+ * const handleMouseLeave = useCallback(() => setNodeId(null), [setNodeId])
+ * const getNodeSize = useMemo(
+ *     () => node => {
+ *         if (nodeId !== null && nodeId === node.id) return 46
+ *         return 8
+ *     },
+ *     [nodeId]
+ * )
+ * ```
+ *
+ * and the two scatterplots share those properties:
+ *
+ * ```
+ * <ResponsiveScatterPlotCanvas
+ *     // other required props
+ *     nodeSize={getNodeSize}
+ *     onMouseMove={handleMouseMove}
+ *     onMouseLeave={handleMouseLeave}
+ * />
+ * ```
+ *
+ * This approach can also be used to synchronize another chart type.
+ */
+export const SynchronizingCharts: Story = {
+    render: () => <SyncCharts />,
 }
 
 export const CustomTooltip = () => (

@@ -102,8 +102,10 @@ const CustomMeasureComponent = ({
     />
 )
 
+/**
+ * You can customize measures using the \`measureComponent\` property.
+ */
 export const CustomMeasure: Story = {
-    // You can customize measures using the \`measureComponent\` property.
     render: () => <Bullet {...commonProps} measureComponent={CustomMeasureComponent} />,
 }
 
@@ -136,8 +138,10 @@ const CustomMarkerComponent = ({
     </g>
 )
 
+/**
+ * You can customize markers using the \`markerComponent\` property.
+ */
 export const CustomMarker: Story = {
-    // You can customize markers using the \`markerComponent\` property.
     render: () => (
         <Bullet {...commonProps} markerSize={1} markerComponent={CustomMarkerComponent} />
     ),
