@@ -1,4 +1,4 @@
-const CustomTooltip = node => (
+export const CustomTooltip = node => (
     <div
         style={{
             color: node.color,
@@ -25,5 +25,3 @@ const CustomTooltip = node => (
         <span>{node.color}</span>
     </div>
 )
-
-export default CustomTooltip
