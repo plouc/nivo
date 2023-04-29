@@ -15,7 +15,7 @@ export const createBandScale = <Input extends StringValue>(
     return castBandScale<Input>(scale)
 }
 
-export const castBandScale = <Input>(scale: D3ScaleBand<Input>) => {
+export const castBandScale = <Input extends StringValue>(scale: D3ScaleBand<Input>) => {
     const typedScale = scale as ScaleBand<Input>
     typedScale.type = 'band'
 
