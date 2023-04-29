@@ -2,10 +2,9 @@ import { useEffect, useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { startCase, sum, random } from 'lodash'
 import { randomNormal } from 'd3-random'
-import { Meta } from '@storybook/react'
 import { ResponsiveWaffle } from '@nivo/waffle'
 import { ResponsiveBar } from '@nivo/bar'
-import { ResponsiveFunnel, Funnel } from '@nivo/funnel'
+import { ResponsiveFunnel } from '@nivo/funnel'
 
 const steps = ['sent', 'viewed', 'clicked', 'add_to_card', 'purchased']
 const baseValue = 100000
