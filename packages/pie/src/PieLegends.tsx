@@ -18,7 +18,7 @@ const PieLegends = <RawDatum,>({
 }: PieLegendsProps<RawDatum>) => {
     return (
         <>
-            {legends.map((legend, i) => (
+            {legends.map((legend, i: number) => (
                 <BoxLegendSvg
                     key={i}
                     {...legend}
