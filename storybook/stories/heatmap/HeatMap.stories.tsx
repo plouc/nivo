@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-// import { select } from '@storybook/addon-knobs'
 import { ContinuousColorScaleConfig } from '@nivo/colors'
 import { HeatMap, ComputedCell } from '@nivo/heatmap'
 import { sampleData } from './data'

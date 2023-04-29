@@ -1526,6 +1526,9 @@ importers:
       '@nivo/heatmap':
         specifier: workspace:*
         version: link:../packages/heatmap
+      '@nivo/line':
+        specifier: workspace:*
+        version: link:../packages/line
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
