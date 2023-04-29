@@ -1,9 +1,16 @@
+import type { Meta, StoryObj } from '@storybook/react'
 import { useState, useEffect } from 'react'
-import { storiesOf } from '@storybook/react'
 import { line, curveLinearClosed } from 'd3-shape'
-import { Voronoi, VoronoiCustomLayerProps } from '../src'
+import { Voronoi, VoronoiCustomLayerProps } from '@nivo/voronoi'
 
-const stories = storiesOf('Voronoi', module)
+const meta: Meta<typeof Voronoi> = {
+    title: 'Voronoi',
+    component: Voronoi,
+    tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof Voronoi>
 
 const lineGenerator = line<[number, number]>().curve(curveLinearClosed)
 
@@ -150,7 +157,7 @@ const Layer = ({ points, voronoi }: VoronoiCustomLayerProps) => {
 
 const randColor = () => '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
 
-const Nekoronoi = () => {
+const NekoronoiComponent = () => {
     const [data, setData] = useState([
         {
             id: 'cat_00',
@@ -235,4 +242,6 @@ const Nekoronoi = () => {
     )
 }
 
-stories.add('nekoronoi', () => <Nekoronoi />)
+export const Nekoronoi: Story = {
+    render: () => <NekoronoiComponent />,
+}
