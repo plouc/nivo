@@ -19,7 +19,7 @@ const meta: Meta<typeof LineCanvas> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Line>
+type Story = StoryObj<typeof LineCanvas>
 
 const data = generateDrinkStats(32)
 const commonProperties = {
