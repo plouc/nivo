@@ -1,5 +1,4 @@
-// @ts-ignore
-import { ComputedCell } from '../src'
+import { ComputedCell } from '@nivo/heatmap'
 
 export const CustomTooltip = ({ cell }: { cell: ComputedCell<any> }) => {
     return (

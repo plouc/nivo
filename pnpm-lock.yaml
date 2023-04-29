@@ -1511,6 +1511,9 @@ importers:
       '@nivo/circle-packing':
         specifier: workspace:*
         version: link:../packages/circle-packing
+      '@nivo/colors':
+        specifier: workspace:*
+        version: link:../packages/colors
       '@nivo/core':
         specifier: workspace:*
         version: link:../packages/core
@@ -1520,6 +1523,9 @@ importers:
       '@nivo/generators':
         specifier: workspace:*
         version: link:../packages/generators
+      '@nivo/heatmap':
+        specifier: workspace:*
+        version: link:../packages/heatmap
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
