@@ -1,4 +1,4 @@
-import { useCallback, createElement } from 'react'
+import { useCallback, createElement, MouseEvent } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { InheritedColorConfigCustomFunction } from '@nivo/colors'
@@ -24,7 +24,7 @@ export const StreamLayer = <RawDatum extends StreamDatum>({
 }: StreamLayerProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { layer }), event, 'left')
         },
         [showTooltipFromEvent, layer]
