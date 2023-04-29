@@ -1,7 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState, useEffect } from 'react'
-// import {action} from '@storybook/addon-actions'
-// import {withKnobs, boolean, select} from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
@@ -12,6 +9,10 @@ const meta: Meta<typeof Bar> = {
     title: 'Bar',
     component: Bar,
     tags: ['autodocs'],
+    argTypes: {
+        onMouseEnter: { action: 'mouseenter' },
+        onMouseLeave: { action: 'mouseleave' },
+    },
 }
 
 export default meta
@@ -249,8 +250,10 @@ const CustomTick = (tick: AxisTickProps<string>) => {
     )
 }
 
+/**
+ * You can customize rendering of axis ticks using the corresponding axis `renderTick` property.
+ */
 export const CustomAxisTicks: Story = {
-    // 'You can customize rendering of axis ticks using the corresponding axis `renderTick` property.',
     parameters: {
         docs: {
             description: {
@@ -271,13 +274,8 @@ export const CustomAxisTicks: Story = {
 }
 
 export const EnterLeaveEvents: Story = {
-    // 'enter/leave (check actions)'
-    render: () => (
-        <Bar
-            {...commonProps}
-            //onMouseEnter={action('onMouseEnter')}
-            // onMouseLeave={action('onMouseLeave')}
-        />
+    render: args => (
+        <Bar {...commonProps} onMouseEnter={args.onMouseEnter} onMouseLeave={args.onMouseLeave} />
     ),
 }
 

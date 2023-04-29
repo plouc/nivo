@@ -182,14 +182,16 @@ const HeatMapWithColor = ({ colorConfig }: { colorConfig: string }) => {
     )
 }
 
+/**
+ * Use the controls to toggle between heatmap variants with different colors.
+ * All the variants use named color schemes, and add fine-tuning.
+ *
+ *  - sequential (full_domain): sequential scale that covers all values in the heatmap
+ *  - sequential (restricted domain): sequential scale that covers only a part of the values in the heatmap
+ *  - diverging at 0.5: three color scale with the middle color placed the middle of the domain
+ *  - diverging at 0.33: three color scale with the middle color at the 33th percentile of the domain
+ */
 export const ColorScales: Story = {
-    // Use the controls to toggle between heatmap variants with different colors.
-    // All the variants use named color schemes, and add fine-tuning.
-    //
-    //  - sequential (full_domain): sequential scale that covers all values in the heatmap
-    //  - sequential (restricted domain): sequential scale that covers only a part of the values in the heatmap
-    //  - diverging at 0.5: three color scale with the middle color placed the middle of the domain
-    //  - diverging at 0.33: three color scale with the middle color at the 33th percentile of the domain
     argTypes: {
         colors: {
             control: 'select',
@@ -207,14 +209,16 @@ export const ColorScales: Story = {
     render: args => <HeatMapWithColor colorConfig={args.colors} />,
 }
 
+/**
+ * Use the controls to toggle between heatmap variants with different colors.
+ * All the variants use color scales with custom colors (specified via rgb strings).
+ *
+ *  - custom sequential: two-color scale with custom colors
+ *  - custom diverging at 0.5: three-color scale with custom colors
+ *  - custom diverging at 0.33: three-color scale with custom colors, with the middle color at the 33 percentile of the domain
+ *  - custom interpolator: multi-color scale prepared using a custom interpolator function
+ */
 export const CustomColorScales: Story = {
-    // Use the controls to toggle between heatmap variants with different colors.
-    // All the variants use color scales with custom colors (specified via rgb strings).
-    //
-    //  - custom sequential: two-color scale with custom colors
-    //  - custom diverging at 0.5: three-color scale with custom colors
-    //  - custom diverging at 0.33: three-color scale with custom colors, with the middle color at the 33 percentile of the domain
-    //  - custom interpolator: multi-color scale prepared using a custom interpolator function
     argTypes: {
         colors: {
             control: 'select',

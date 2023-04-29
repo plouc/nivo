@@ -99,21 +99,23 @@ export const CustomArcLinkLabel: Story = {
     ),
 }
 
+/**
+ * It is possible to use colors coming from the provided dataset instead of using
+ * a color scheme, to do so, you should pass:
+ *
+ * ```
+ * colors={{ datum: 'data.color' }}
+ * ```
+ *
+ * given that each data point you pass has a `color` property.
+ *
+ * It's also possible to pass a function if you want to handle more advanced computation:
+ *
+ * ```
+ * colors={(datum) => datum.color}
+ * ```
+ */
 export const UsingColorsFromData: Story = {
-    // It is possible to use colors coming from the provided dataset instead of using
-    // a color scheme, to do so, you should pass:
-    //
-    // ```
-    // colors={{ datum: 'data.color' }}
-    // ```
-    //
-    // given that each data point you pass has a `color` property.
-    //
-    // It's also possible to pass a function if you want to handle more advanced computation:
-    //
-    // ```
-    // colors={(datum) => datum.color}
-    // ```
     render: () => <Pie {...commonProperties} colors={{ datum: 'data.color' }} />,
 }
 

@@ -70,10 +70,12 @@ const commonProps = {
     padding: 0.2,
 }
 
+/**
+ * The BoxPlot component expects input as a list of raw data objects. The component
+ * computes summary statistics using quantiles, and then draws a chart based on the
+ * summary statistics.
+ */
 export const Basic: Story = {
-    // The BoxPlot component expects input as a list of raw data objects. The component
-    // computes summary statistics using quantiles, and then draws a chart based on the
-    // summary statistics.
     render: () => (
         <BoxPlot
             data={simpleProps.data}
@@ -282,11 +284,13 @@ export const LogScale: Story = {
     },
 }
 
+/**
+ * The first chart shows three groups in three different colors. The second chart is
+ * configured to show the same three groups, but it is passed a subset data for just two
+ * out of the three groups. It automatically uses the same color scheme for the three
+ * groups.
+ */
 export const GroupsWithoutData: Story = {
-    // The first chart shows three groups in three different colors. The second chart is
-    // configured to show the same three groups, but it is passed a subset data for just two
-    // out of the three groups. It automatically uses the same color scheme for the three
-    // groups.
     render: () => (
         <div style={{ display: 'flex' }}>
             <BoxPlot
@@ -331,11 +335,13 @@ export const SubGroupsWithoutData: Story = {
     ),
 }
 
+/**
+ * These charts display the same data. On the left, whiskers represent [10%-90%]
+ * quantiles
+ * (default). On the right, whiskers instead show [min-max] intervals.
+ * (Hover on the boxes and compare the data summaries).
+ */
 export const CustomQuantiles: Story = {
-    // These charts display the same data. On the left, whiskers represent [10%-90%]
-    // quantiles
-    // (default). On the right, whiskers instead show [min-max] intervals.
-    // (Hover on the boxes and compare the data summaries).
     render: () => (
         <div style={{ display: 'flex' }}>
             <BoxPlot {...simpleProps} quantiles={[0.1, 0.25, 0.5, 0.75, 0.9]} layout={'vertical'} />
@@ -448,17 +454,21 @@ export const Themed: Story = {
     ),
 }
 
+/**
+ * A color function assigns the same color to several of the boxes. Another function
+ * generates custom legend labels. The legend displays as many labels as there are distinct
+ * colors.
+ * A custom layer provides a background for a subset of the boxes.
+ */
 export const CustomGroups: Story = {
-    // A color function assigns the same color to several of the boxes. Another function
-    // generates custom legend labels. The legend displays as many labels as there are distinct
-    // colors.
-    // A custom layer provides a background for a subset of the boxes.
     render: () => <BoxPlotCustomGroupsAndLayers />,
 }
 
+/**
+ * This chart uses a custom-made legend. All the labels and colors are specified
+ * independently of the data.
+ */
 export const CustomLegend: Story = {
-    // This chart uses a custom-made legend. All the labels and colors are specified
-    // independently of the data.
     render: () => (
         <BoxPlot
             {...simpleProps}
@@ -480,10 +490,12 @@ export const CustomLegend: Story = {
     ),
 }
 
+/**
+ * This chart uses pre-computed summary statistics. The pre-computed representation
+ * requires: minimum value, maximum value, values representing whiskers, values
+ * representing box bounds, median, mean, and the number of data points (n).
+ */
 export const PreComputed: Story = {
-    // This chart uses pre-computed summary statistics. The pre-computed representation
-    // requires: minimum value, maximum value, values representing whiskers, values
-    // representing box bounds, median, mean, and the number of data points (n).
     render: () => {
         const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
         return (
@@ -519,8 +531,10 @@ export const PreComputed: Story = {
     },
 }
 
+/**
+ * This chart handles mouse events - check 'Actions'.
+ */
 export const MouseEvents: Story = {
-    // This chart handles mouse events - check 'Actions'.
     render: () => (
         <BoxPlot
             {...commonProps}
@@ -533,8 +547,10 @@ export const MouseEvents: Story = {
     ),
 }
 
+/**
+ * The tooltips are presented in French. (Hover the mouse over the boxplots).
+ */
 export const Translations: Story = {
-    // The tooltips are presented in French. (Hover the mouse over the boxplots).
     render: () => (
         <BoxPlot
             {...simpleProps}
@@ -552,8 +568,10 @@ export const Translations: Story = {
     ),
 }
 
+/**
+ * This chart takes its size from its parent container.
+ */
 export const Responsive: Story = {
-    // This chart takes its size from its parent container.
     render: () => {
         return (
             <div style={{ height: '480px', width: '320px' }}>

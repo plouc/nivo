@@ -50,9 +50,11 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     </g>
 )
 
+/**
+ * You can stack lines using the \`yScale.stacked\` property.
+ * Please note that stacking is only supported for linear scales.
+ */
 export const StackedLines: Story = {
-    // You can stack lines using the \`yScale.stacked\` property.
-    // Please note that stacking is only supported for linear scales.
     render: args => (
         <Line
             {...commonProperties}
@@ -65,13 +67,15 @@ export const StackedLines: Story = {
     ),
 }
 
+/**
+ * By default, \`xScale\` is a point scale, but you can switch to linear using
+ * the \`xScale.type\` property. It supports irregular intervals while \`point\`
+ * scale doesn't.
+ *
+ * If you want missing datums to appear as holes instead of connecting defined ones,
+ * you should set their y value to \`null\`.
+ */
 export const LinearScale: Story = {
-    // By default, \`xScale\` is a point scale, but you can switch to linear using
-    // the \`xScale.type\` property. It supports irregular intervals while \`point\`
-    // scale doesn't.
-    //
-    // If you want missing datums to appear as holes instead of connecting defined ones,
-    // you should set their y value to \`null\`.
     render: () => (
         <Line
             {...commonProperties}
@@ -553,8 +557,10 @@ export const AddingMarkers: Story = {
     ),
 }
 
+/**
+ * You can skip portions of the lines by setting y value to \`null\`.
+ */
 export const HolesInData: Story = {
-    // You can skip portions of the lines by setting y value to \`null\`.
     render: args => (
         <Line
             {...commonProperties}
@@ -583,10 +589,12 @@ export const HolesInData: Story = {
     ),
 }
 
+/**
+ * Please note that when using stacked y scale with variable length/data holes,
+ * if one of the y value is \`null\` all subsequent values will be skipped
+ * as we cannot properly compute the sum.
+ */
 export const DifferentSeriesLength: Story = {
-    // Please note that when using stacked y scale with variable length/data holes,
-    // if one of the y value is \`null\` all subsequent values will be skipped
-    // as we cannot properly compute the sum.
     render: () => (
         <Line
             {...commonProperties}
@@ -753,10 +761,12 @@ export const NonLinearValues: Story = {
     ),
 }
 
+/**
+ * You can have two different line styles for a line if you split it into
+ * two data set, one containing positive values and negative values filled with \`null\`
+ * and the other having only negative values and positive ones replaced by \`null\`.
+ */
 export const HighlightingNegativeValues: Story = {
-    // You can have two different line styles for a line if you split it into
-    // two data set, one containing positive values and negative values filled with \`null\`
-    // and the other having only negative values and positive ones replaced by \`null\`.
     render: args => (
         <Line
             {...commonProperties}
@@ -945,8 +955,10 @@ const AreaLayer = ({ series, xScale, yScale, innerHeight }) => {
     )
 }
 
+/**
+ * You can use the layers property to add extra layers to the line chart.
+ */
 export const CustomLayers: Story = {
-    // You can use the layers property to add extra layers to the line chart.
     args: {
         curve: 'linear',
     },
@@ -1027,8 +1039,10 @@ const DashedLine = ({ series, lineGenerator, xScale, yScale }) => {
     ))
 }
 
+/**
+ * You can customize line styles using the 'layers' property and implement your own line rendering.
+ */
 export const CustomLineStyle: Story = {
-    // You can customize line styles using the 'layers' property and implement your own line rendering.
     render: () => (
         <Line
             {...commonProperties}

@@ -3,7 +3,7 @@
 *.log*
 node_modules
 coverage
-/storybook-static
+storybook/storybook-static
 
 package-lock.json
 
