@@ -5,13 +5,7 @@ import { randomNormal } from 'd3-random'
 import { Meta } from '@storybook/react'
 import { ResponsiveWaffle } from '@nivo/waffle'
 import { ResponsiveBar } from '@nivo/bar'
-// @ts-ignore
-import { ResponsiveFunnel, Funnel } from '../src'
-
-export default {
-    component: Funnel,
-    title: 'Funnel',
-} as Meta
+import { ResponsiveFunnel, Funnel } from '@nivo/funnel'
 
 const steps = ['sent', 'viewed', 'clicked', 'add_to_card', 'purchased']
 const baseValue = 100000
@@ -205,7 +199,7 @@ const dataByYear = Array.from({ length: 6 }).map((_, index) => {
     }
 })
 
-const Sample = () => {
+export const FunnelWithClustering = () => {
     const [yearIndex, setYearIndex] = useState(0)
     const currentYear = dataByYear[yearIndex]
 
@@ -337,5 +331,3 @@ const Sample = () => {
         </>
     )
 }
-
-export const SubClustering = () => <Sample />

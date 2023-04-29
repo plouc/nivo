@@ -1,7 +1,15 @@
-import { withKnobs } from '@storybook/addon-knobs'
-import { storiesOf } from '@storybook/react'
-// @ts-ignore
-import { ResponsiveFunnel } from '../src'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Funnel } from '@nivo/funnel'
+import { FunnelWithClustering } from './Clustering'
+
+const meta: Meta<typeof Funnel> = {
+    title: 'Funnel',
+    component: Funnel,
+    tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof Funnel>
 
 const commonProps = {
     data: [
@@ -36,14 +44,12 @@ const commonProps = {
     motionConfig: 'wobbly',
 }
 
-const stories = storiesOf('Funnel', module)
-
-stories.addDecorator(withKnobs)
-
-stories.add('custom tooltip', () => (
-    <div style={{ width: 900, height: 300 }}>
-        <ResponsiveFunnel
+export const CustomTooltip: Story = {
+    render: () => (
+        <Funnel
             {...commonProps}
+            width={900}
+            height={300}
             direction={'horizontal'}
             tooltip={({ part }) => (
                 <div
@@ -61,5 +67,9 @@ stories.add('custom tooltip', () => (
                 </div>
             )}
         />
-    </div>
-))
+    ),
+}
+
+export const CombiningWithOtherCharts: Story = {
+    render: () => <FunnelWithClustering />,
+}
