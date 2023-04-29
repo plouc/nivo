@@ -25,6 +25,7 @@
     "@nivo/calendar": "workspace:*",
     "@nivo/chord": "workspace:*",
     "@nivo/circle-packing": "workspace:*",
+    "@nivo/colors": "workspace:*",
     "@nivo/core": "workspace:*",
     "@nivo/generators": "workspace:*",
     "@nivo/heatmap": "workspace:*",

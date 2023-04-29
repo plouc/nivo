@@ -1231,6 +1231,9 @@ importers:
       '@nivo/circle-packing':
         specifier: workspace:*
         version: link:../circle-packing
+      '@nivo/colors':
+        specifier: workspace:*
+        version: link:../colors
       '@nivo/core':
         specifier: workspace:*
         version: link:../core
