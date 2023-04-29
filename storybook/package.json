@@ -37,6 +37,7 @@
     "@nivo/sunburst": "workspace:*",
     "@nivo/swarmplot": "workspace:*",
     "@nivo/tooltip": "workspace:*",
+    "@nivo/treemap": "workspace:*",
     "@nivo/waffle": "workspace:*",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.18.6",
