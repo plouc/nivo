@@ -1532,6 +1532,9 @@ importers:
       '@nivo/marimekko':
         specifier: workspace:*
         version: link:../packages/marimekko
+      '@nivo/network':
+        specifier: workspace:*
+        version: link:../packages/network
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip

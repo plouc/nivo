@@ -1,21 +1,16 @@
-import { Meta } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
-import { withKnobs } from '@storybook/addon-knobs'
+import type { Meta, StoryObj } from '@storybook/react'
 import { generateNetworkData } from '@nivo/generators'
-import {
-    Network,
-    NodeProps,
-    LinkProps,
-    NodeTooltipProps,
-    NetworkSvgProps,
-    // @ts-ignore
-} from '../src'
+import { Network, NodeProps, LinkProps, NodeTooltipProps, NetworkSvgProps } from '@nivo/network'
 
-export default {
-    component: Network,
+const meta: Meta<typeof Network> = {
     title: 'Network',
-    decorators: [withKnobs],
-} as Meta
+    component: Network,
+    tags: ['autodocs'],
+    argTypes: { onClick: { action: 'clicked' } },
+}
+
+export default meta
+type Story = StoryObj<typeof Network>
 
 const data = generateNetworkData()
 
@@ -32,7 +27,9 @@ const commonProperties: NetworkSvgProps<Node, Link> = {
     linkDistance: link => link.distance * 1.3,
 }
 
-export const Default = () => <Network<Node, Link> {...commonProperties} />
+export const Basic: Story = {
+    render: () => <Network<Node, Link> {...commonProperties} />,
+}
 
 const CustomNodeTooltipComponent = ({ node }: NodeTooltipProps<Node>) => (
     <div
@@ -50,9 +47,11 @@ const CustomNodeTooltipComponent = ({ node }: NodeTooltipProps<Node>) => (
     </div>
 )
 
-export const CustomNodeTooltip = () => (
-    <Network<Node, Link> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
-)
+export const CustomNodeTooltip: Story = {
+    render: () => (
+        <Network<Node, Link> {...commonProperties} nodeTooltip={CustomNodeTooltipComponent} />
+    ),
+}
 
 const CustomNodeComponent = ({ node }: NodeProps<Node>) => (
     <g transform={`translate(${node.x - 12},${node.y - 18})`}>
@@ -61,9 +60,9 @@ const CustomNodeComponent = ({ node }: NodeProps<Node>) => (
     </g>
 )
 
-export const CustomNode = () => (
-    <Network<Node, Link> {...commonProperties} nodeComponent={CustomNodeComponent} />
-)
+export const CustomNode: Story = {
+    render: () => <Network<Node, Link> {...commonProperties} nodeComponent={CustomNodeComponent} />,
+}
 
 const CustomLinkComponent = ({ link }: LinkProps<Node, Link>) => (
     <line
@@ -78,14 +77,16 @@ const CustomLinkComponent = ({ link }: LinkProps<Node, Link>) => (
     />
 )
 
-export const CustomLink = () => (
-    <Network<Node, Link>
-        {...commonProperties}
-        linkThickness={link => 2 + link.target.data.height * 2}
-        linkComponent={CustomLinkComponent}
-    />
-)
+export const CustomLink: Story = {
+    render: () => (
+        <Network<Node, Link>
+            {...commonProperties}
+            linkThickness={link => 2 + link.target.data.height * 2}
+            linkComponent={CustomLinkComponent}
+        />
+    ),
+}
 
-export const OnClickHandler = () => (
-    <Network<Node, Link> {...commonProperties} onClick={action('onClick')} />
-)
+export const OnClickHandler: Story = {
+    render: args => <Network<Node, Link> {...commonProperties} onClick={args.onClick} />,
+}
