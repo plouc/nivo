@@ -8,6 +8,11 @@ const meta: Meta<typeof BoxPlot> = {
     title: 'BoxPlot',
     component: BoxPlot,
     tags: ['autodocs'],
+    argTypes: {
+        onClick: { action: 'clicked' },
+        onMouseEnter: { action: 'mouseenter' },
+        onMouseLeave: { action: 'mouseleave' },
+    },
 }
 
 export default meta
@@ -535,14 +540,14 @@ export const PreComputed: Story = {
  * This chart handles mouse events - check 'Actions'.
  */
 export const MouseEvents: Story = {
-    render: () => (
+    render: args => (
         <BoxPlot
             {...commonProps}
             animate={false}
             layout="vertical"
-            // onClick={action('onClick')}
-            // onMouseEnter={action('onMouseEnter')}
-            // onMouseLeave={action('onMouseLeave')}
+            onClick={args.onClick}
+            onMouseEnter={args.onMouseEnter}
+            onMouseLeave={args.onMouseLeave}
         />
     ),
 }
