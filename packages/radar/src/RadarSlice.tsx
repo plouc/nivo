@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, createElement } from 'react'
+import { useMemo, useState, useCallback, createElement, MouseEvent } from 'react'
 import { Arc } from 'd3-shape'
 import { positionFromAngle, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -47,7 +47,7 @@ export const RadarSlice = <D extends Record<string, unknown>>({
     }, [datum, keys, formatValue, colorByKey])
 
     const showItemTooltip = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             setIsHover(true)
             showTooltipFromEvent(
                 createElement(tooltip, {

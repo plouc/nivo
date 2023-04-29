@@ -7,7 +7,7 @@ import {
     useMemo,
     useRef,
     useState,
-    MouseEvent
+    MouseEvent,
 } from 'react'
 import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
