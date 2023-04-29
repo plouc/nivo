@@ -1505,6 +1505,9 @@ importers:
       '@nivo/calendar':
         specifier: workspace:*
         version: link:../packages/calendar
+      '@nivo/chord':
+        specifier: workspace:*
+        version: link:../packages/chord
       '@nivo/core':
         specifier: workspace:*
         version: link:../packages/core
