@@ -20,6 +20,7 @@
     "@nivo/bump": "workspace:*",
     "@nivo/calendar": "workspace:*",
     "@nivo/chord": "workspace:*",
+    "@nivo/circle-packing": "workspace:*",
     "@nivo/generators": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "@babel/preset-env": "^7.21.5",
