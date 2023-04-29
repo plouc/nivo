@@ -1,16 +1,22 @@
+import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useMemo, useState } from 'react'
-import { Meta } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs'
 import { Theme } from '@nivo/core'
 import { categoricalColorSchemes } from '@nivo/colors'
-// @ts-ignore
-import { RadialBar, RadialBarSvgProps, RadialBarCustomLayerProps, svgDefaultProps } from '../src'
+import {
+    RadialBar,
+    RadialBarSvgProps,
+    RadialBarCustomLayerProps,
+    svgDefaultProps,
+} from '@nivo/radial-bar'
 
-export default {
-    component: RadialBar,
+const meta: Meta<typeof RadialBar> = {
     title: 'RadialBar',
-    decorators: [withKnobs],
-} as Meta
+    component: RadialBar,
+    tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof RadialBar>
 
 const simpleData: RadialBarSvgProps['data'] = [
     {
@@ -129,7 +135,7 @@ const commonProperties: RadialBarSvgProps = {
     data: multipleCategoriesData,
 }
 
-export const Default = () => <RadialBar {...commonProperties} />
+export const Basic: Story = { render: () => <RadialBar {...commonProperties} /> }
 
 const CustomLayer = ({ center }: RadialBarCustomLayerProps) => {
     return (
@@ -342,4 +348,4 @@ const RadialBarDemo = () => {
     )
 }
 
-export const Demo = () => <RadialBarDemo />
+export const Demo: Story = { render: () => <RadialBarDemo /> }

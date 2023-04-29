@@ -30,6 +30,7 @@
     "@nivo/network": "workspace:*",
     "@nivo/pie": "workspace:*",
     "@nivo/radar": "workspace:*",
+    "@nivo/radial-bar": "workspace:*",
     "@nivo/tooltip": "workspace:*",
     "@nivo/waffle": "workspace:*",
     "@babel/preset-env": "^7.21.5",
