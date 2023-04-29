@@ -36,10 +36,10 @@ export interface ScaleTypeToScale<Input extends StringValue, Output> {
     time: ScaleTime<Input>
 }
 
-export type Scale<Input extends StringValue, Output> = ScaleTypeToScale<Input, Output>[keyof ScaleTypeToScale<
+export type Scale<Input extends StringValue, Output> = ScaleTypeToScale<
     Input,
     Output
->]
+>[keyof ScaleTypeToScale<Input, Output>]
 
 export type ScaleLinearSpec = {
     type: 'linear'

@@ -21,6 +21,7 @@
     "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
+    "@nivo/arcs": "workspace:*",
     "@nivo/bar": "workspace:*",
     "@nivo/calendar": "workspace:*",
     "@nivo/chord": "workspace:*",

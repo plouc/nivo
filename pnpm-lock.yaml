@@ -1219,6 +1219,9 @@ importers:
 
   packages/static:
     dependencies:
+      '@nivo/arcs':
+        specifier: workspace:*
+        version: link:../arcs
       '@nivo/bar':
         specifier: workspace:*
         version: link:../bar
