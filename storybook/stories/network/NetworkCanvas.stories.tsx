@@ -69,7 +69,7 @@ export const CustomNodeRenderer: Story = {
 }
 
 export const OnClickHandler: Story = {
-    render: (args) => <NetworkCanvas<Node, Link> {...commonProperties} onClick={args.onClick} />,
+    render: args => <NetworkCanvas<Node, Link> {...commonProperties} onClick={args.onClick} />,
 }
 
 export const CustomCanvasRef: Story = {
