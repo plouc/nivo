@@ -14,13 +14,13 @@
 
 ## Requirements
 
-- **Node.js**
-- **yarn**
+- **Node.js >= 16**
+- **pnpm**
 - **Make** (you also have the option to run the commands manually though)
 
 ## Setup
 
-Nivo is structured into multiple packages handled by [lerna](https://lerna.js.org/).
+Nivo is structured into multiple packages thanks to workspaces.
 In order to install all the required dependencies and to establish links between
 the various packages, please execute the following:
 
@@ -41,8 +41,14 @@ The storybook development mode can be started via:
 make storybook
 ```
 
-The storybook uses the src code of each package, thus you don't have to build
-to see your changes.
+Stories are located in a different folder: `storybook/stories/` so you should also
+run the package in dev mode:
+
+```
+make pkg-dev-bar
+```
+
+Where `bar` is the name of the package.
 
 ### Demo/Doc website
 
@@ -56,28 +62,28 @@ of a package, you'll have to rebuild it to see the changes.
 
 To automate this process, you can start a watcher on the package you're working
 on, for example if you want to make some change on the `@nivo/bar` package,
-you should run `make package-dev-bar` and then start the website `make website`,
+you should run `make pkg-dev-bar` and then start the website `make website`,
 this way each change you make will trigger a build and will be (almost :))
 immediately visible on the website.
 
 You can also build the packages without running a watcher, you have two options:
 
- 1. Rebuild all the packages via `make packages-build` or…
- 2. Rebuild only a specific package, for example `make package-build-bar` for `@nivo/bar` package
+ 1. Rebuild all the packages via `make pkgs-build` or…
+ 2. Rebuild only a specific package, for example `make pkg-build-bar` for `@nivo/bar` package
 
 ### Testing
 
 To run unit tests on all packages, run the following command:
 
 ```
-make packages-test
+make pkgs-test
 ```
 
 If you only made modifications on a specific package,
 you can use the scoped form to speed up the process:
 
 ```
-make package-test-bar
+make pkg-test-bar
 ```
 
 where `bar` is the name of the targeted nivo package.
@@ -99,14 +105,14 @@ eslint is only enabled on packages for now, if you want to run eslint
 against all packages, please run:
 
 ```
-make packages-lint
+make pkgs-lint
 ```
 
 If you only made modifications on a specific package,
 you can use the scoped form to speed up the process:
 
 ```
-make package-lint-bar
+make pkg-lint-bar
 ```
 
 where `bar` is the name of the targeted nivo package.
@@ -129,7 +135,7 @@ make website
 Then run the corresponding script:
 
 ```
-make packages-screenshots
+make pkgs-screenshots
 ```
 
 ## Website
