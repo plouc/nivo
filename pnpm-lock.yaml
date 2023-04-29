@@ -1541,6 +1541,9 @@ importers:
       '@nivo/radar':
         specifier: workspace:*
         version: link:../packages/radar
+      '@nivo/radial-bar':
+        specifier: workspace:*
+        version: link:../packages/radial-bar
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
