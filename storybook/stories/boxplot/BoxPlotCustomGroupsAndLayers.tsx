@@ -1,8 +1,9 @@
-import { BoxPlot, BoxPlotCustomLayerProps } from '../src'
+import { BoxPlot, BoxPlotCustomLayerProps } from '@nivo/boxplot'
 
 const q5 = [0.1, 0.25, 0.5, 0.75, 0.9]
 
-const addUniformNoise = (values, scale) => values.map(v => v + (Math.random() - 0.5) * scale)
+const addUniformNoise = (values: number[], scale: number) =>
+    values.map(v => v + (Math.random() - 0.5) * scale)
 
 // prepare a dataset summary with many groups, some of which meant to be colored the same
 const dataCustomGroups = [

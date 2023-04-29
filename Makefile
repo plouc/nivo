@@ -53,21 +53,25 @@ init: ##@0 global cleanup/install/bootstrap
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@pnpm prettier --color --write \
-		"packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
+		"packages/*/{src,tests}/**/*.{js,ts,tsx}" \
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,ts,tsx,css}" \
 		"api/**/*.{js,ts,tsx}" \
+		"storybook/.storybook/*.{js,ts,tsx}" \
+		"storybook/stories/**/*.{js,ts,tsx}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@pnpm prettier --color --list-different \
-        "packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
+        "packages/*/{src,tests}/**/*.{js,ts,tsx}" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,ts,tsx,css}" \
 		"api/**/*.{js,ts,tsx}" \
+		"storybook/.storybook/*.{js,ts,tsx}" \
+		"storybook/stories/**/*.{js,ts,tsx}" \
         "README.md"
 
 test: ##@0 global run all checks/tests (packages, website)
@@ -241,11 +245,11 @@ website-sprites: ##@2 website build sprite sheet
 ########################################################################################################################
 
 storybook: ##@3 storybook start storybook in dev mode on port 6006
-	@pnpm start-storybook -p 6006
+	@pnpm --filter storybook dev
 
 storybook-build: ##@3 storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
-	@pnpm build-storybook
+	@pnpm --filter storybook build
 
 storybook-deploy: ##@3 storybook build and deploy storybook
 	@$(MAKE) storybook-build
