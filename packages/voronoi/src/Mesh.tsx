@@ -1,10 +1,9 @@
-import { useRef, useState, useCallback, useMemo } from 'react'
-import * as React from 'react'
+import { useRef, useState, useCallback, useMemo, MouseEvent } from 'react'
 import { getRelativeCursor } from '@nivo/core'
 import { useVoronoiMesh } from './hooks'
 import { XYAccessor } from './computeMesh'
 
-type MouseHandler<Datum> = (datum: Datum, event: React.MouseEvent) => void
+type MouseHandler<Datum> = (datum: Datum, event: MouseEvent) => void
 
 interface MeshProps<Datum> {
     nodes: Datum[]
@@ -52,7 +51,7 @@ export const Mesh = <Datum,>({
     }, [debug, voronoi])
 
     const getIndexAndNodeFromEvent = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             if (!elementRef.current) {
                 return [null, null]
             }
@@ -66,7 +65,7 @@ export const Mesh = <Datum,>({
     )
 
     const handleMouseEnter = useCallback(
-        (event: React.MouseEvent) => {
+        (event: MouseEvent<SVGRectElement>) => {
             const [index, node] = getIndexAndNodeFromEvent(event)
             setCurrentIndex(index)
             if (node) {
@@ -77,7 +76,7 @@ export const Mesh = <Datum,>({
     )
 
     const handleMouseMove = useCallback(
-        (event: React.MouseEvent) => {
+        (event: MouseEvent<SVGRectElement>) => {
             const [index, node] = getIndexAndNodeFromEvent(event)
             setCurrentIndex(index)
             if (node) {
@@ -88,7 +87,7 @@ export const Mesh = <Datum,>({
     )
 
     const handleMouseLeave = useCallback(
-        (event: React.MouseEvent) => {
+        (event: MouseEvent<SVGRectElement>) => {
             setCurrentIndex(null)
             if (onMouseLeave) {
                 let previousNode: Datum | undefined = undefined
@@ -102,7 +101,7 @@ export const Mesh = <Datum,>({
     )
 
     const handleClick = useCallback(
-        (event: React.MouseEvent) => {
+        (event: MouseEvent<SVGRectElement>) => {
             const [index, node] = getIndexAndNodeFromEvent(event)
             setCurrentIndex(index)
             if (node) {
