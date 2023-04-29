@@ -10,11 +10,11 @@ import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
 import { InheritedColorConfig } from '@nivo/colors'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
-import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
+import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId, MayHaveLabel } from './types'
 import { defaultProps } from './props'
 import { Arcs } from './Arcs'
 
-const InnerPie = <RawDatum,>({
+const InnerPie = <RawDatum extends MayHaveLabel>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -230,7 +230,7 @@ const InnerPie = <RawDatum,>({
     )
 }
 
-export const Pie = <RawDatum,>({
+export const Pie = <RawDatum extends MayHaveLabel>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,

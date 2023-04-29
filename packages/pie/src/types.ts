@@ -28,6 +28,10 @@ export interface DefaultRawDatum {
     value: number
 }
 
+export interface MayHaveLabel {
+    label?: string | number
+}
+
 export interface PieArc extends Arc {
     index: number
     // middle angle in radians
