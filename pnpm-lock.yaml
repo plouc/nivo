@@ -1550,6 +1550,9 @@ importers:
       '@nivo/scatterplot':
         specifier: workspace:*
         version: link:../packages/scatterplot
+      '@nivo/stream':
+        specifier: workspace:*
+        version: link:../packages/stream
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
