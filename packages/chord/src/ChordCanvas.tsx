@@ -281,7 +281,7 @@ const InnerChordCanvas = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null) return
 
             const arc = getArcFromMouseEvent({
@@ -333,7 +333,7 @@ const InnerChordCanvas = ({
     }, [setCurrentArc, hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null || !onArcClick) return
 
             const arc = getArcFromMouseEvent({
