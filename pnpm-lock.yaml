@@ -1535,6 +1535,9 @@ importers:
       '@nivo/network':
         specifier: workspace:*
         version: link:../packages/network
+      '@nivo/pie':
+        specifier: workspace:*
+        version: link:../packages/pie
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
