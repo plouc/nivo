@@ -1,6 +1,6 @@
+import { useCallback, MouseEvent } from 'react'
 import { animated } from '@react-spring/web'
 import { ScatterPlotDatum, ScatterPlotNodeProps } from './types'
-import { useCallback } from 'react'
 
 const interpolateRadius = (size: number) => size / 2
 
@@ -14,10 +14,22 @@ export const Node = <RawDatum extends ScatterPlotDatum>({
     onMouseLeave,
     onClick,
 }: ScatterPlotNodeProps<RawDatum>) => {
-    const handleMouseEnter = useCallback(event => onMouseEnter?.(node, event), [node, onMouseEnter])
-    const handleMouseMove = useCallback(event => onMouseMove?.(node, event), [node, onMouseMove])
-    const handleMouseLeave = useCallback(event => onMouseLeave?.(node, event), [node, onMouseLeave])
-    const handleClick = useCallback(event => onClick?.(node, event), [node, onClick])
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onMouseEnter?.(node, event),
+        [node, onMouseEnter]
+    )
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onMouseMove?.(node, event),
+        [node, onMouseMove]
+    )
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onMouseLeave?.(node, event),
+        [node, onMouseLeave]
+    )
+    const handleClick = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onClick?.(node, event),
+        [node, onClick]
+    )
 
     return (
         <animated.circle

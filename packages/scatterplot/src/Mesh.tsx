@@ -1,4 +1,4 @@
-import { createElement, useCallback } from 'react'
+import { createElement, useCallback, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { ScatterPlotCommonProps, ScatterPlotDatum, ScatterPlotNodeData } from './types'
@@ -29,7 +29,7 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        (node: ScatterPlotNodeData<RawDatum>, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseEnter && onMouseEnter(node, event)
         },
@@ -37,7 +37,7 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseMove = useCallback(
-        (node: ScatterPlotNodeData<RawDatum>, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseMove && onMouseMove(node, event)
         },
@@ -45,7 +45,7 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseLeave = useCallback(
-        (node: ScatterPlotNodeData<RawDatum>, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave && onMouseLeave(node, event)
         },
@@ -53,7 +53,7 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleClick = useCallback(
-        (node: ScatterPlotNodeData<RawDatum>, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             onClick && onClick(node, event)
         },
         [onClick]

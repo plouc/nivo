@@ -7,6 +7,7 @@ import {
     useMemo,
     useRef,
     useState,
+    MouseEvent
 } from 'react'
 import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
@@ -218,7 +219,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const getNodeFromMouseEvent = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
@@ -229,7 +230,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             const node = getNodeFromMouseEvent(event)
             setCurrentNode(node)
 
@@ -262,7 +263,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             hideTooltip()
             setCurrentNode(null)
             currentNode && onMouseLeave && onMouseLeave(currentNode, event)
@@ -271,7 +272,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (onClick) {
                 const node = getNodeFromMouseEvent(event)
                 node && onClick(node, event)
