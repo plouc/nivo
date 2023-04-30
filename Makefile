@@ -183,7 +183,7 @@ pkg-build-%: pkg-types-% ##@1 packages build a package
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.mjs
 
 pkgs-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
-	@node scripts/capture.js
+	@node scripts/capture.mjs
 
 pkgs-publish: ##@1 packages publish all packages
 	@$(MAKE) pkgs-build

@@ -1,9 +1,9 @@
-const Path = require('path')
-const fs = require('fs/promises')
-const puppeteer = require('puppeteer')
-const chalk = require('chalk')
-const _ = require('lodash')
-const config = require('@ekino/config')
+import Path from 'path'
+import fs from 'fs/promises'
+import puppeteer from 'puppeteer'
+import chalk from 'chalk-template'
+import _ from 'lodash'
+import config from '@ekino/config'
 
 const HEADLESS = false // 'new'
 const DEFAULT_FLAVOR = 'svg'
