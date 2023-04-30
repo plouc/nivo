@@ -69,7 +69,7 @@
     "@types/d3-format": "^1.4.1"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 gatsby build",
     "start": "gatsby develop",
     "serve": "gatsby serve"
   },
