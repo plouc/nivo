@@ -180,7 +180,7 @@ const captureHomeDemos = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true,
+            headless: HEADLESS,
         })
         const page = await browser.newPage()
         await page.setViewport(VIEWPORT.homeDemos)
