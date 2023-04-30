@@ -2,7 +2,7 @@ MAKEFLAGS += --no-print-directory
 
 SOURCES = packages
 
-.PHONY: help bootstrap init pkgs-build pkgs-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
+.PHONY: help bootstrap init pkgs-build pkgs-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all e2e-open
 
 ########################################################################################################################
 #
@@ -39,7 +39,7 @@ help: ##prints help
 
 ########################################################################################################################
 #
-# GLOBAL
+# 0. GLOBAL
 #
 ########################################################################################################################
 
@@ -60,6 +60,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"api/**/*.{js,ts,tsx}" \
 		"storybook/.storybook/*.{js,ts,tsx}" \
 		"storybook/stories/**/*.{js,ts,tsx}" \
+		"cypress/src/**/*.{js,ts,tsx}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
@@ -72,6 +73,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 		"api/**/*.{js,ts,tsx}" \
 		"storybook/.storybook/*.{js,ts,tsx}" \
 		"storybook/stories/**/*.{js,ts,tsx}" \
+		"cypress/src/**/*.{js,ts,tsx}" \
         "README.md"
 
 test: ##@0 global run all checks/tests (packages, website)
@@ -79,7 +81,7 @@ test: ##@0 global run all checks/tests (packages, website)
 	@$(MAKE) lint
 	@$(MAKE) pkgs-test
 
-vercel-build: ##@0 Build the website and storybook to vercel
+vercel-build: ##@0 global Build the website and storybook to vercel
 	@$(MAKE) website-build
 	@$(MAKE) storybook-build
 	@cp -a storybook/storybook-static website/public/storybook
@@ -107,7 +109,7 @@ endef
 
 ########################################################################################################################
 #
-# PACKAGES
+# 1. PACKAGES
 #
 ########################################################################################################################
 
@@ -199,7 +201,7 @@ pkg-dev-%: ##@1 packages build package (es flavor) on change, eg. `package-watch
 
 ########################################################################################################################
 #
-# WEBSITE
+# 2. WEBSITE
 #
 ########################################################################################################################
 
@@ -236,7 +238,7 @@ website-sprites: ##@2 website build sprite sheet
 
 ########################################################################################################################
 #
-# STORYBOOK
+# 3. STORYBOOK
 #
 ########################################################################################################################
 
@@ -253,9 +255,20 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@pnpm gh-pages -d storybook/storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
 
+
 ########################################################################################################################
 #
-# API
+# 4. End-to-end tests
+#
+########################################################################################################################
+
+end-to-end-open: ##@4 end-to-end open cypress
+	@pnpm --filter nivo-e2e open
+
+
+########################################################################################################################
+#
+# 5. API
 #
 ########################################################################################################################
 
@@ -270,5 +283,5 @@ api: ##@5 API run API in regular mode (no watcher)
 api-lint: ##@5 API run eslint on the API code
 	@pnpm eslint ./api/src
 
-api-deploy: ##@5 Deploy API on heroku
+api-deploy: ##@5 API Deploy API on heroku
 	git subtree push --prefix api heroku master
