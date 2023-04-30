@@ -28,7 +28,7 @@ export const chartsMapping = {
 type ExtractProps<T> = T extends FunctionComponent<infer P> ? P : never
 
 export type ChartType = keyof typeof chartsMapping
-export type ChartComponent<T extends ChartType> = typeof chartsMapping[T]['component']
+export type ChartComponent<T extends ChartType> = (typeof chartsMapping)[T]['component']
 export type ChartProps<T extends ChartType> = ExtractProps<ChartComponent<T>>
 
 export * from './bar'

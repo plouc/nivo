@@ -104,7 +104,7 @@ const Axis = <Value extends ScaleValue>({
     })
 
     const transition = useTransition<
-        typeof ticks[0],
+        (typeof ticks)[0],
         { opacity: number; transform: string; textTransform: string }
     >(ticks, {
         keys: tick => tick.key,

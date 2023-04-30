@@ -80,7 +80,7 @@ export const CircularAxis = ({
     const outerRadius = type === 'inner' ? radius - tickSize : radius + tickSize
     const textRadius = type === 'inner' ? outerRadius - tickPadding : outerRadius + tickPadding
 
-    const transition = useTransition<typeof ticks[0], CircularAxisTickAnimatedProps>(ticks, {
+    const transition = useTransition<(typeof ticks)[0], CircularAxisTickAnimatedProps>(ticks, {
         keys: tick => tick.key,
         initial: tick => ({
             ...getLinePositions(tick.angle, radius, outerRadius),

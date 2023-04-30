@@ -5,7 +5,7 @@ import { CodeBlock } from '../../CodeBlock'
 import { ApiPreview } from './ApiPreview'
 
 const tabs = ['preview', 'body', 'data'] as const
-type Tab = typeof tabs[number]
+type Tab = (typeof tabs)[number]
 
 interface ApiTabsProps<Data, Body> {
     chartClass: string

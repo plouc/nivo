@@ -45,7 +45,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
     )
 
     const transition = useTransition<
-        typeof labels[number],
+        (typeof labels)[number],
         {
             x: number
             y: number
