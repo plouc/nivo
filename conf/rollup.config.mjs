@@ -53,7 +53,7 @@ const commonPlugins = [
         modulesOnly: true,
     }),
     babel(babelConfig),
-    !isWatching && terser(),
+    // !isWatching && terser(),
     cleanup()
 ]
 

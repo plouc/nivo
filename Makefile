@@ -79,15 +79,10 @@ test: ##@0 global run all checks/tests (packages, website)
 	@$(MAKE) lint
 	@$(MAKE) pkgs-test
 
-deploy-all: ##@0 global deploy website & storybook
-	@$(MAKE) website-deploy
-	@$(MAKE) storybook-deploy
-
-netlify-build: ##@0 Build the website and storybook to netlify
-	@$(MAKE) init
+vercel-build: ##@0 Build the website and storybook to vercel
 	@$(MAKE) website-build
-	@$(MAKE) website-build
-	@cp -a storybook-static website/public/storybook
+	@$(MAKE) storybook-build
+	@cp -a storybook/storybook-static website/public/storybook
 
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
 	@rm -rf node_modules
