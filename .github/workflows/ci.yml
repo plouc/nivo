@@ -13,26 +13,35 @@ jobs:
       matrix:
         node-version: ['18']
     steps:
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@v3
-
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-
       - run: pnpm install
       - run: make pkgs-build
       - run: make pkgs-lint
       - run: make pkgs-test
-
       # Make sure that we can build the website
       - run: make website-build
-
       # Make sure that we can build storybook
       - run: make storybook-build
+
+  end-to-end-tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: make init
+          start: pnpm --filter nivo-e2e build
