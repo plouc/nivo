@@ -40,7 +40,7 @@
     "@types/styled-components": "^5.1.18",
     "babel-plugin-styled-components": "^2.0.2",
     "dedent-js": "^1.0.1",
-    "gatsby": "^4.4.0",
+    "gatsby": "^4.25.6",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-image": "^2.4.0",
     "gatsby-plugin-manifest": "^4.4.0",
@@ -74,6 +74,6 @@
     "serve": "gatsby serve"
   },
   "engines": {
-    "node": "16.x"
+    "node": ">=16"
   }
 }
