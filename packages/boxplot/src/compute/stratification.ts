@@ -60,7 +60,7 @@ const isPrecomputedDistribution = <RawDatum>(
     datum: RawDatum | Omit<BoxPlotSummary, 'groupIndex' | 'subGroupIndex'>
 ): datum is Omit<BoxPlotSummary, 'groupIndex' | 'subGroupIndex'> => {
     const preComputedKeys = ['values', 'extrema', 'mean', 'quantiles', 'group', 'subGroup', 'n']
-    return preComputedKeys.every(k => k in datum)
+    return preComputedKeys.every(k => k in (datum as object))
 }
 
 export const summarizeDistribution = <RawDatum extends BoxPlotDatum>({

@@ -9,6 +9,7 @@ export const mapProps =
     ): InferableComponentEnhancerWithProps<TInner, TOuter> =>
     (BaseComponent: any): any => {
         const factory = createFactory(BaseComponent)
+        // @ts-ignore
         const MapProps = (props: any) => factory(propsMapper(props))
         if (process.env.NODE_ENV !== 'production') {
             return setDisplayName(wrapDisplayName(BaseComponent, 'mapProps'))(MapProps)

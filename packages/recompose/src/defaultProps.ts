@@ -11,6 +11,7 @@ export const defaultProps =
         const DefaultProps = (ownerProps: any) => factory(ownerProps)
         DefaultProps.defaultProps = props
         if (process.env.NODE_ENV !== 'production') {
+            // @ts-ignore
             return setDisplayName(wrapDisplayName(BaseComponent, 'defaultProps'))(DefaultProps)
         }
         return DefaultProps

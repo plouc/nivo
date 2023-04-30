@@ -359,9 +359,6 @@ const BarComponent = ({ bar, borderColor }) => {
 }
 
 /*
-stories.addDecorator(withKnobs)
-
-
 const dataGenerator = DataGenerator(1900, [
     { id: 'Tokyo', value: 10000000 },
     { id: 'Osaka', value: 9000000 },
