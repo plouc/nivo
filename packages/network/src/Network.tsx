@@ -35,7 +35,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
 
     layers = svgDefaultProps.layers,
 
-    nodeComponent = svgDefaultProps.nodeComponent as NonNullable<
+    nodeComponent = svgDefaultProps.nodeComponent as unknown as NonNullable<
         NetworkSvgProps<Node, Link>['nodeComponent']
     >,
     nodeSize = svgDefaultProps.nodeSize,
