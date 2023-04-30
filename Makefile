@@ -161,9 +161,10 @@ pkgs-types: ##@1 packages build all package types
 
 pkgs-build: pkgs-types ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
+	# Using exit code 255 in case of error as it'll make xargs stop immediately.
 	@find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
-        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{}'
+        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
 
 pkg-types-%: ##@1 packages build a package types
 	@if [ -f "./packages/${*}/tsconfig.json" ]; \
