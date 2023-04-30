@@ -1,17 +1,17 @@
 import React from 'react'
-import HighlightBase, { defaultProps, Language } from 'prism-react-renderer'
+import { Highlight as HighlightBase } from 'prism-react-renderer'
 import { useTheme } from 'styled-components'
 
 interface HighlightProps {
     code: string
-    language: Language
+    language: string
 }
 
 export const Highlight = ({ code, language }: HighlightProps) => {
     const theme = useTheme()
 
     return (
-        <HighlightBase {...defaultProps} theme={theme.highlight} code={code} language={language}>
+        <HighlightBase theme={theme.highlight} code={code} language={language}>
             {({ style, tokens, getLineProps, getTokenProps }) => (
                 <pre
                     style={{
