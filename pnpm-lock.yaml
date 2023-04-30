@@ -1496,6 +1496,9 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.21.5
         version: 7.21.5(@babel/core@7.21.4)
+      '@nivo/axes':
+        specifier: workspace:*
+        version: link:../packages/axes
       '@nivo/bar':
         specifier: workspace:*
         version: link:../packages/bar

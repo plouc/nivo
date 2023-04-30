@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@nivo/axes": "workspace:*",
     "@nivo/core": "workspace:*",
     "@nivo/bar": "workspace:*",
     "@nivo/boxplot": "workspace:*",
