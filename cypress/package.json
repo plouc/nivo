@@ -1,0 +1,65 @@
+{
+  "name": "nivo-e2e",
+  "version": "0.81.0",
+  "private": true,
+  "description": "nivo end-to-end tests",
+  "dependencies": {
+    "@nivo/arcs": "workspace:*",
+    "@nivo/axes": "workspace:*",
+    "@nivo/bar": "workspace:*",
+    "@nivo/boxplot": "workspace:*",
+    "@nivo/bullet": "workspace:*",
+    "@nivo/bump": "workspace:*",
+    "@nivo/calendar": "workspace:*",
+    "@nivo/chord": "workspace:*",
+    "@nivo/circle-packing": "workspace:*",
+    "@nivo/colors": "workspace:*",
+    "@nivo/core": "workspace:*",
+    "@nivo/funnel": "workspace:*",
+    "@nivo/generators": "workspace:*",
+    "@nivo/geo": "workspace:*",
+    "@nivo/heatmap": "workspace:*",
+    "@nivo/legends": "workspace:*",
+    "@nivo/line": "workspace:*",
+    "@nivo/marimekko": "workspace:*",
+    "@nivo/network": "workspace:*",
+    "@nivo/parallel-coordinates": "workspace:*",
+    "@nivo/pie": "workspace:*",
+    "@nivo/radar": "workspace:*",
+    "@nivo/radial-bar": "workspace:*",
+    "@nivo/sankey": "workspace:*",
+    "@nivo/scales": "workspace:*",
+    "@nivo/scatterplot": "workspace:*",
+    "@nivo/stream": "workspace:*",
+    "@nivo/sunburst": "workspace:*",
+    "@nivo/swarmplot": "workspace:*",
+    "@nivo/treemap": "workspace:*",
+    "@nivo/voronoi": "workspace:*",
+    "@nivo/waffle": "workspace:*"
+  },
+  "scripts": {
+    "open": "cypress open"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "cypress": "^12.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^4.9.5",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
