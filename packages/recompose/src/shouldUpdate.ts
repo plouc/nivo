@@ -17,7 +17,6 @@ export const shouldUpdate =
             }
 
             render() {
-                // @ts-expect-error not type-able
                 return factory(this.props)
             }
         }

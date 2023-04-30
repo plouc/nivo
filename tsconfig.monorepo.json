@@ -17,9 +17,7 @@
 
         // Utility packages
         { "path": "./packages/generators" },
-        // Disabled for now, as we want to get rid of this dependency
-        // https://github.com/plouc/nivo/issues/884
-        // { "path": "./packages/recompose" },
+        { "path": "./packages/recompose" },
 
         // Charts now
         { "path": "./packages/bar" },

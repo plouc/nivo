@@ -37,7 +37,6 @@ export const withState =
                 )
 
             render() {
-                // @ts-expect-error due to how factory is typed
                 return factory({
                     ...this.props,
                     [stateName]: this.state.stateValue,

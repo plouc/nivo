@@ -42,7 +42,6 @@ export const withPropsOnChange =
             }
 
             render() {
-                // @ts-expect-error due to how factory is typed
                 return factory({
                     ...this.props,
                     ...this.state.computedProps,
