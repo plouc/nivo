@@ -72,7 +72,7 @@ export const useBar = <RawDatum extends BarDatum>({
     legendLabel?: BarCommonProps<RawDatum>['legendLabel']
 }) => {
     const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
-    const toggleSerie = useCallback(id => {
+    const toggleSerie = useCallback((id: string | number) => {
         setHiddenIds(state =>
             state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
         )

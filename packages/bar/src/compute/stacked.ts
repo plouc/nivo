@@ -179,7 +179,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     getIndex: (datum: RawDatum) => string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
     margin: Margin
-    hiddenIds?: string[]
+    hiddenIds?: (string | number)[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
     const stackedData = stack<RawDatum, string>().keys(keys).offset(stackOffsetDiverging)(

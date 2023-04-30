@@ -27,16 +27,16 @@ export interface ScaleTypeToSpec {
 export type ScaleType = keyof ScaleTypeToSpec
 export type ScaleSpec = ScaleTypeToSpec[keyof ScaleTypeToSpec]
 
-export interface ScaleTypeToScale<Input extends StringValue, Output> {
-    linear: ScaleLinear<Output>
-    log: ScaleLog
-    symlog: ScaleSymlog
-    point: ScalePoint<Input>
-    band: ScaleBand<Input>
-    time: ScaleTime<Input>
+export interface ScaleTypeToScale<Input, Output> {
+    linear: Input extends NumericValue ? ScaleLinear<Output> : never
+    log: Input extends NumericValue ? ScaleLog : never
+    symlog: Input extends NumericValue ? ScaleSymlog : never
+    point: Input extends StringValue ? ScalePoint<Input> : never
+    band: Input extends StringValue ? ScaleBand<Input> : never
+    time: Input extends (StringValue | Date) ? ScaleTime<Input> : never
 }
 
-export type Scale<Input extends StringValue, Output> = ScaleTypeToScale<
+export type Scale<Input, Output> = ScaleTypeToScale<
     Input,
     Output
 >[keyof ScaleTypeToScale<Input, Output>]
