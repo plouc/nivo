@@ -17,6 +17,8 @@
 
         // Utility packages
         { "path": "./packages/generators" },
+        // Disabled for now, as we want to get rid of this dependency
+        // https://github.com/plouc/nivo/issues/884
         // { "path": "./packages/recompose" },
 
         // Charts now
@@ -41,7 +43,10 @@
         { "path": "./packages/treemap" },
 
         // Static rendering and express middleware
-        { "path": "./packages/static" },
-        { "path": "./packages/express" }
+        // The following packages need to be fixed, but for now we assume
+        // that it's more important to get all the charts working.
+        // The errors we get are all due to TS2742, probably because we moved to pnpm.
+        // { "path": "./packages/static" },
+        // { "path": "./packages/express" }
     ]
 }
