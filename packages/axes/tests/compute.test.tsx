@@ -1,12 +1,13 @@
 import { scaleLinear, scaleOrdinal, scalePoint, scaleBand } from 'd3-scale'
+import { castLinearScale, castBandScale, castPointScale } from '@nivo/scales'
 // @ts-ignore
 import { computeCartesianTicks } from '../src/compute'
 
 describe('computeCartesianTicks()', () => {
     const ordinalScale = scaleOrdinal([0, 10, 20, 30]).domain(['A', 'B', 'C', 'D'])
-    const pointScale = scalePoint().domain(['E', 'F', 'G', 'H']).range([0, 300])
-    const bandScale = scaleBand().domain(['I', 'J', 'K', 'L']).rangeRound([0, 400])
-    const linearScale = scaleLinear().domain([0, 500]).range([0, 100])
+    const pointScale = castPointScale(scalePoint().domain(['E', 'F', 'G', 'H']).range([0, 300]))
+    const bandScale = castBandScale(scaleBand().domain(['I', 'J', 'K', 'L']).rangeRound([0, 400]))
+    const linearScale = castLinearScale(scaleLinear().domain([0, 500]).range([0, 100]), false)
 
     describe('from linear scale', () => {
         it('should compute ticks for x axis', () => {
@@ -14,6 +15,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: linearScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -23,6 +28,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: linearScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -33,6 +42,10 @@ describe('computeCartesianTicks()', () => {
                 scale: linearScale,
                 tickValues,
                 axis: 'x',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
             })
             expect(axis.ticks.map(({ value }) => value)).toEqual(tickValues)
         })
@@ -42,6 +55,10 @@ describe('computeCartesianTicks()', () => {
                 scale: linearScale,
                 tickValues: 1,
                 axis: 'y',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
             })
             expect(axis.ticks.length).toBe(2)
         })
@@ -53,6 +70,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: ordinalScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -62,6 +83,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: ordinalScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -73,6 +98,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: pointScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -82,6 +111,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: pointScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -92,6 +125,10 @@ describe('computeCartesianTicks()', () => {
             const ticks = computeCartesianTicks({
                 scale: bandScale,
                 axis: 'x',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
             })
             expect(ticks.ticks[0].x).toBe(50)
         })
@@ -101,6 +138,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: bandScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -110,6 +151,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: bandScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -122,6 +167,10 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'y',
                     engine: 'canvas',
+                    ticksPosition: 'before',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textAlign
             ).toBe('right')
             expect(
@@ -130,6 +179,9 @@ describe('computeCartesianTicks()', () => {
                     axis: 'y',
                     ticksPosition: 'after',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textAlign
             ).toBe('left')
             expect(
@@ -137,6 +189,9 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'x',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textAlign
             ).toBe('center')
         })
@@ -147,6 +202,9 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'x',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textBaseline
             ).toBe('bottom')
             expect(
@@ -154,6 +212,9 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'y',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textBaseline
             ).toBe('middle')
         })
