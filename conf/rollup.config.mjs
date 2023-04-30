@@ -16,7 +16,6 @@ const babelConfig = {
     exclude: /node_modules/,
     babelHelpers: 'bundled',
     comments: false,
-    plugins: ['lodash'],
 }
 
 const externals = [
