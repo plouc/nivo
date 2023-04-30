@@ -163,7 +163,7 @@ pkgs-build: pkgs-types ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
 	@find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
-        | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
+        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{}'
 
 pkg-types-%: ##@1 packages build a package types
 	@if [ -f "./packages/${*}/tsconfig.json" ]; \
