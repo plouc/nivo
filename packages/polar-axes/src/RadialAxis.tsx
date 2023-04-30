@@ -88,7 +88,7 @@ export const RadialAxis = ({
         config: springConfig,
     })
 
-    const transition = useTransition<typeof ticks[0], RadialAxisTickAnimatedProps>(ticks, {
+    const transition = useTransition<(typeof ticks)[0], RadialAxisTickAnimatedProps>(ticks, {
         keys: tick => tick.key,
         initial: tick => ({
             y: tick.position,

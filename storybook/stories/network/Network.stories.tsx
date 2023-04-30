@@ -14,8 +14,8 @@ type Story = StoryObj<typeof Network>
 
 const data = generateNetworkData()
 
-type Node = typeof data['nodes'][number]
-type Link = typeof data['links'][number]
+type Node = (typeof data)['nodes'][number]
+type Link = (typeof data)['links'][number]
 
 const commonProperties: NetworkSvgProps<Node, Link> = {
     data,

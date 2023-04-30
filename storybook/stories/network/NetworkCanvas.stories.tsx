@@ -15,8 +15,8 @@ type Story = StoryObj<typeof NetworkCanvas>
 
 const data = generateNetworkData()
 
-type Node = typeof data['nodes'][number]
-type Link = typeof data['links'][number]
+type Node = (typeof data)['nodes'][number]
+type Link = (typeof data)['links'][number]
 
 const commonProperties: NetworkCanvasProps<Node, Link> = {
     data,
