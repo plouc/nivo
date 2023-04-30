@@ -5,6 +5,7 @@ const chalk = require('chalk')
 const _ = require('lodash')
 const config = require('@ekino/config')
 
+const HEADLESS = false // 'new'
 const DEFAULT_FLAVOR = 'svg'
 const CHART_SELECTOR = '#chart'
 const VIEWPORT = {
@@ -65,11 +66,11 @@ const captureChart = async (page, { pkg, chart, flavor, theme }) => {
     if (theme !== undefined) {
         console.log(chalk`{dim changing theme to: ${theme}}`)
         const themeSelector = `#${theme}Theme`
-        await page.waitFor(themeSelector)
+        await page.waitForSelector(themeSelector)
         await page.click(themeSelector)
     }
 
-    await page.waitFor(CHART_SELECTOR)
+    await page.waitForSelector(CHART_SELECTOR)
     const element = await page.$(CHART_SELECTOR)
     if (element === null) {
         throw new Error(`Unable to find element matching selector: ${CHART_SELECTOR} (url: ${url})`)
@@ -100,7 +101,7 @@ const captureCharts = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: HEADLESS,
         })
         const page = await browser.newPage()
 
@@ -131,7 +132,7 @@ const captureIcons = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: HEADLESS,
         })
         const page = await browser.newPage()
         await page.setViewport(VIEWPORT.icons)
@@ -147,7 +148,7 @@ const captureIcons = async () => {
                 const selector = `#${icon}-${_.camelCase(variant)}`
                 console.log(chalk`{dim variant: ${variant}, selector: ${selector}}`)
 
-                await page.waitFor(selector)
+                await page.waitForSelector(selector)
                 const element = await page.$(selector)
                 if (element === null) {
                     throw new Error(`Unable to find element matching selector: ${selector}`)
@@ -186,7 +187,7 @@ const captureHomeDemos = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: HEADLESS,
         })
         const page = await browser.newPage()
         await page.setViewport(VIEWPORT.homeDemos)
@@ -201,7 +202,7 @@ const captureHomeDemos = async () => {
             const selector = `#${demo.id}`
             console.log(chalk`{dim selector: ${selector}}`)
 
-            await page.waitFor(selector)
+            await page.waitForSelector(selector)
             const element = await page.$(selector)
             if (element === null) {
                 throw new Error(`Unable to find element matching selector: ${selector}`)
@@ -239,7 +240,7 @@ const capturePages = async () => {
 
     try {
         const browser = await puppeteer.launch({
-            headless: true
+            headless: HEADLESS,
         })
         const page = await browser.newPage()
 
@@ -255,7 +256,7 @@ const capturePages = async () => {
             })
             await page.goto(url)
 
-            await page.waitFor(selector)
+            await page.waitForSelector(selector)
             const element = await page.$(selector)
             if (element === null) {
                 throw new Error(`Unable to find element matching selector: ${selector} (url: ${url})`)
@@ -285,12 +286,11 @@ const capturePages = async () => {
     }
 }
 
-
 const run = async () => {
     await capturePages()
-    // await captureHomeDemos()
-    // await captureCharts()
-    // await captureIcons()
+    await captureHomeDemos()
+    await captureCharts()
+    await captureIcons()
 }
 
 run()
