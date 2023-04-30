@@ -37,7 +37,9 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@nivo/core": "workspace:*"
+    "@nivo/core": "workspace:*",
+    "d3-scale": "^3.2.3",
+    "@types/d3-scale": "^3.2.3"
   },
   "peerDependencies": {
     "@nivo/core": "workspace:*",

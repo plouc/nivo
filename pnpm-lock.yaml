@@ -285,6 +285,12 @@ importers:
       '@nivo/core':
         specifier: workspace:*
         version: link:../core
+      '@types/d3-scale':
+        specifier: ^3.2.3
+        version: 3.3.2
+      d3-scale:
+        specifier: ^3.2.3
+        version: 3.3.0
 
   packages/bar:
     dependencies:
