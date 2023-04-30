@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
-import { Bar, BarDatum } from '@nivo/bar'
+import { Bar, BarDatum, BarItemProps } from '@nivo/bar'
 import { AxisTickProps } from '@nivo/axes'
 
 const meta: Meta<typeof Bar> = {
@@ -171,7 +171,7 @@ export const DivergingGrouped: Story = {
     ),
 }
 
-const CustomBarComponent = ({ bar: { x, y, width, height, color } }) => (
+const CustomBarComponent = ({ bar: { x, y, width, height, color } }: BarItemProps<any>) => (
     <circle cx={x + width / 2} cy={y + height / 2} r={Math.min(width, height) / 2} fill={color} />
 )
 
