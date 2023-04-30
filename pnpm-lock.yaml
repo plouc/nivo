@@ -1650,6 +1650,9 @@ importers:
       '@nivo/bar':
         specifier: workspace:*
         version: link:../packages/bar
+      '@nivo/boxplot':
+        specifier: workspace:*
+        version: link:../packages/boxplot
       '@nivo/bullet':
         specifier: workspace:*
         version: link:../packages/bullet

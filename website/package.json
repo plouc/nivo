@@ -7,6 +7,7 @@
     "@nivo/arcs": "workspace:*",
     "@nivo/axes": "workspace:*",
     "@nivo/bar": "workspace:*",
+    "@nivo/boxplot": "workspace:*",
     "@nivo/bullet": "workspace:*",
     "@nivo/bump": "workspace:*",
     "@nivo/calendar": "workspace:*",
