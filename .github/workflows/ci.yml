@@ -30,3 +30,9 @@ jobs:
       - run: make pkgs-build
       - run: make pkgs-lint
       - run: make pkgs-test
+
+      # Make sure that we can build the website
+      - run: make website-build
+
+      # Make sure that we can build storybook
+      - run: make storybook-build
