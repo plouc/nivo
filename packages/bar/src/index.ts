@@ -1,5 +1,6 @@
 export * from './Bar'
 export * from './BarItem'
+export * from './BarTooltip'
 export * from './BarCanvas'
 export * from './ResponsiveBar'
 export * from './ResponsiveBarCanvas'
