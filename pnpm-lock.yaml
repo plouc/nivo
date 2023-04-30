@@ -2,6 +2,7 @@ lockfileVersion: '6.0'
 
 overrides:
   '@types/react': ^18.2.0
+  '@types/react-dom': ^18.2.0
   '@types/eslint': 7.29.0
   react: 18.2.0
   react-dom: 18.2.0
@@ -41,8 +42,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       '@types/react-dom':
-        specifier: ^17.0.11
-        version: 17.0.11
+        specifier: ^18.2.0
+        version: 18.2.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.59.1
         version: 5.59.1(@typescript-eslint/parser@5.59.1)(eslint@8.39.0)(typescript@4.9.5)
@@ -8266,8 +8267,8 @@ packages:
       '@types/react': 18.2.0
     dev: false
 
-  /@types/react-dom@17.0.11:
-    resolution: {integrity: sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==}
+  /@types/react-dom@18.2.0:
+    resolution: {integrity: sha512-8yQrvS6sMpSwIovhPOwfyNf2Wz6v/B62LFSVYQ85+Rq3tLsBIG7rP5geMxaijTUxSkrO6RzN/IRuIAADYQsleA==}
     dependencies:
       '@types/react': 18.2.0
     dev: false
