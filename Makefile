@@ -256,7 +256,7 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 	@$(MAKE) storybook-build
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
-	@pnpm gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
+	@pnpm gh-pages -d storybook/storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
 
 ########################################################################################################################
 #
