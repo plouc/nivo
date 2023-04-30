@@ -258,7 +258,7 @@ export type BarCommonProps<RawDatum> = {
 
     renderWrapper?: boolean
 
-    initialHiddenIds: string[]
+    initialHiddenIds: (string | number)[]
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
