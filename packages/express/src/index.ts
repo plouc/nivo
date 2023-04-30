@@ -5,7 +5,7 @@ import { chartsMapping, ChartType, renderChart, samples } from '@nivo/static'
 import { validate } from './validation'
 import * as storage from './memory-storage'
 
-export const nivo = Router()
+export const nivo: Router = Router()
 
 nivo.get('/', (req, res) => {
     res.status(200).json({

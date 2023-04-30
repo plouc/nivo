@@ -43,10 +43,7 @@
         { "path": "./packages/treemap" },
 
         // Static rendering and express middleware
-        // The following packages need to be fixed, but for now we assume
-        // that it's more important to get all the charts working.
-        // The errors we get are all due to TS2742, probably because we moved to pnpm.
-        // { "path": "./packages/static" },
-        // { "path": "./packages/express" }
+        { "path": "./packages/static" },
+        { "path": "./packages/express" }
     ]
 }

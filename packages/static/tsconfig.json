@@ -3,7 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist/types",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "paths": {
+      "@nivo/arcs": ["../arcs"]
+    }
   },
   "include": ["src/**/*"]
 }
