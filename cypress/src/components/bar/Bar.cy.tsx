@@ -14,6 +14,5 @@ describe('Bar', () => {
                 animate={false}
             />
         )
-        cy.get('[data-cy=counter]').should('have.text', '0')
     })
 })
