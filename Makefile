@@ -152,27 +152,28 @@ pkgs-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
+pkgs-build: pkgs-types ##@1 packages build all packages
+	@echo "${YELLOW}Building all packages${RESET}"
+	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
+	@export SKIP_TYPES=TRUE;find ./packages -type d -maxdepth 1 ! -path ./packages \
+        | sed 's|^./packages/||' \
+        | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
+
 pkgs-types: ##@1 packages build all package types
 	@echo "${YELLOW}Building TypeScript types for all packages${RESET}"
 	@pnpm tsc -b ./tsconfig.monorepo.json
 
-pkgs-build: pkgs-types ##@1 packages build all packages
-	@echo "${YELLOW}Building all packages${RESET}"
-	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
-	@find ./packages -type d -maxdepth 1 ! -path ./packages \
-        | sed 's|^./packages/||' \
-        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
-
-pkg-types-%: ##@1 packages build a package types
-	@if [ -f "./packages/${*}/tsconfig.json" ]; \
+pkg-types-%: ##@1 packages generate types for a specific package
+	@if [ "$${SKIP_TYPES}" != "TRUE" ]; \
     then \
-        echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
-        rm -rf ./packages/${*}/dist/types; \
-        rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
-        pnpm tsc -b ./packages/${*}; \
-    else \
-        echo "${YELLOW}Package ${WHITE}@nivo/${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
-    fi;
+        if [ -f "./packages/${*}/tsconfig.json" ]; \
+		then \
+			echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
+			rm -rf ./packages/${*}/dist/types; \
+			rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
+			pnpm tsc -b ./packages/${*}; \
+        fi \
+	fi;
 
 pkg-build-%: pkg-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
