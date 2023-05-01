@@ -1,61 +1,61 @@
 {
-  "name": "@nivo/boxplot",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "contributors": [
-    "Tomasz Konopka <tokonopka@gmail.com>"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/boxplot"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "boxplot",
-    "statistics",
-    "stats"
-  ],
-  "main": "./dist/nivo-boxplot.cjs.js",
-  "module": "./dist/nivo-boxplot.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/annotations": "workspace:*",
-    "@nivo/axes": "workspace:*",
-    "@nivo/colors": "workspace:*",
-    "@nivo/legends": "workspace:*",
-    "@nivo/scales": "workspace:*",
-    "@nivo/tooltip": "workspace:*",
-    "@react-spring/web": "9.4.5 || ^9.7.2",
-    "d3-scale": "^3.2.3",
-    "@types/d3-scale": "^3.2.3",
-    "d3-shape": "^1.3.5",
-    "@types/d3-shape": "^2.0.0",
-    "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "@nivo/core": "workspace:*",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*",
-    "@nivo/generators": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/boxplot",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "contributors": [
+        "Tomasz Konopka <tokonopka@gmail.com>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/boxplot"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "boxplot",
+        "statistics",
+        "stats"
+    ],
+    "main": "./dist/nivo-boxplot.cjs.js",
+    "module": "./dist/nivo-boxplot.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/annotations": "workspace:*",
+        "@nivo/axes": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/legends": "workspace:*",
+        "@nivo/scales": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-scale": "^3.2.3",
+        "@types/d3-shape": "^2.0.0",
+        "d3-scale": "^3.2.3",
+        "d3-shape": "^1.3.5",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "@nivo/core": "workspace:*",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "devDependencies": {
+        "@nivo/core": "workspace:*",
+        "@nivo/generators": "workspace:*"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

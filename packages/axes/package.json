@@ -1,51 +1,51 @@
 {
-  "name": "@nivo/axes",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/axes"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "axes"
-  ],
-  "main": "./dist/nivo-axes.cjs.js",
-  "module": "./dist/nivo-axes.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/scales": "workspace:*",
-    "@react-spring/web": "9.4.5 || ^9.7.2",
-    "d3-format": "^1.4.4",
-    "@types/d3-format": "^1.4.1",
-    "d3-time-format": "^3.0.0",
-    "@types/d3-time-format": "^2.3.1",
-    "@types/prop-types": "^15.7.2",
-    "prop-types": "^15.7.2"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*",
-    "d3-scale": "^3.2.3",
-    "@types/d3-scale": "^3.2.3"
-  },
-  "peerDependencies": {
-    "@nivo/core": "workspace:*",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/axes",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/axes"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "axes"
+    ],
+    "main": "./dist/nivo-axes.cjs.js",
+    "module": "./dist/nivo-axes.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/scales": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-format": "^1.4.1",
+        "@types/d3-time-format": "^2.3.1",
+        "@types/prop-types": "^15.7.2",
+        "d3-format": "^1.4.4",
+        "d3-time-format": "^3.0.0",
+        "prop-types": "^15.7.2"
+    },
+    "devDependencies": {
+        "@nivo/core": "workspace:*",
+        "@types/d3-scale": "^3.2.3",
+        "d3-scale": "^3.2.3"
+    },
+    "peerDependencies": {
+        "@nivo/core": "workspace:*",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

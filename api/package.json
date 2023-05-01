@@ -1,49 +1,49 @@
 {
-  "name": "@nivo/api",
-  "version": "0.81.0",
-  "private": true,
-  "description": "Rendering API for nivo dataviz React/d3 components",
-  "main": "src/app.js",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
+    "name": "@nivo/api",
+    "version": "0.82.0",
+    "private": true,
+    "description": "Rendering API for nivo dataviz React/d3 components",
+    "main": "src/app.js",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
+        }
+    ],
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "engineStrict": true,
+    "engines": {
+        "node": ">=16"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    },
+    "dependencies": {
+        "@nivo/express": "workspace:*",
+        "@types/body-parser": "^1.19.2",
+        "@types/cors": "^2.8.12",
+        "@types/express": "^4.17.13",
+        "@types/node": "^16.11.12",
+        "body-parser": "^1.17.2",
+        "compression": "^1.7.0",
+        "cors": "2.8.5",
+        "express": "4.17.3",
+        "express-winston": "4.2.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.4",
+        "winston": "3.3.3"
+    },
+    "scripts": {
+        "start": "yarn build && node app.js",
+        "dev": "nodemon app.ts",
+        "build": "tsc"
+    },
+    "publishConfig": {
+        "access": "public"
     }
-  ],
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "engineStrict": true,
-  "engines": {
-    "node": ">=16"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
-  },
-  "dependencies": {
-    "@nivo/express": "workspace:*",
-    "@types/body-parser": "^1.19.2",
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/node": "^16.11.12",
-    "body-parser": "^1.17.2",
-    "compression": "^1.7.0",
-    "cors": "2.8.5",
-    "express": "4.17.3",
-    "express-winston": "4.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.4",
-    "winston": "3.3.3"
-  },
-  "scripts": {
-    "start": "yarn build && node app.js",
-    "dev": "nodemon app.ts",
-    "build": "tsc"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
 }

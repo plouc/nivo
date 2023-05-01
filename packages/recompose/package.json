@@ -1,40 +1,40 @@
 {
-  "name": "@nivo/recompose",
-  "version": "0.81.0",
-  "keywords": [
-    "nivo",
-    "react",
-    "recompose"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/recompose"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "main": "./dist/nivo-recompose.cjs.js",
-  "module": "./dist/nivo-recompose.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "react-lifecycles-compat": "^3.0.4",
-    "@types/react-lifecycles-compat": "^3.0.1",
-    "@types/prop-types": "^15.7.2",
-    "prop-types": "^15.7.2"
-  },
-  "peerDependencies": {
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/recompose",
+    "version": "0.82.0",
+    "keywords": [
+        "nivo",
+        "react",
+        "recompose"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/recompose"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "main": "./dist/nivo-recompose.cjs.js",
+    "module": "./dist/nivo-recompose.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@types/prop-types": "^15.7.2",
+        "@types/react-lifecycles-compat": "^3.0.1",
+        "prop-types": "^15.7.2",
+        "react-lifecycles-compat": "^3.0.4"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

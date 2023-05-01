@@ -1,49 +1,49 @@
 {
-  "name": "@nivo/sunburst",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/sunburst"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "sunburst-chart"
-  ],
-  "main": "./dist/nivo-sunburst.cjs.js",
-  "module": "./dist/nivo-sunburst.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/arcs": "workspace:*",
-    "@nivo/colors": "workspace:*",
-    "@nivo/tooltip": "workspace:*",
-    "d3-hierarchy": "^1.1.8",
-    "@types/d3-hierarchy": "^1.1.8",
-    "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "@nivo/core": "workspace:*",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/sunburst",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/sunburst"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "sunburst-chart"
+    ],
+    "main": "./dist/nivo-sunburst.cjs.js",
+    "module": "./dist/nivo-sunburst.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/arcs": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@types/d3-hierarchy": "^1.1.8",
+        "d3-hierarchy": "^1.1.8",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "@nivo/core": "workspace:*",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "devDependencies": {
+        "@nivo/core": "workspace:*"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

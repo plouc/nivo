@@ -1,51 +1,51 @@
 {
-  "name": "@nivo/radar",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/radar"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "radar-chart"
-  ],
-  "main": "./dist/nivo-radar.cjs.js",
-  "module": "./dist/nivo-radar.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/colors": "workspace:*",
-    "@nivo/legends": "workspace:*",
-    "@nivo/tooltip": "workspace:*",
-    "@react-spring/web": "9.4.5 || ^9.7.2",
-    "d3-scale": "^3.2.3",
-    "@types/d3-scale": "^3.2.3",
-    "d3-shape": "^1.3.5",
-    "@types/d3-shape": "^2.0.0"
-  },
-  "peerDependencies": {
-    "@nivo/core": "workspace:*",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/radar",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/radar"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "radar-chart"
+    ],
+    "main": "./dist/nivo-radar.cjs.js",
+    "module": "./dist/nivo-radar.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/colors": "workspace:*",
+        "@nivo/legends": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-scale": "^3.2.3",
+        "@types/d3-shape": "^2.0.0",
+        "d3-scale": "^3.2.3",
+        "d3-shape": "^1.3.5"
+    },
+    "peerDependencies": {
+        "@nivo/core": "workspace:*",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "devDependencies": {
+        "@nivo/core": "workspace:*"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

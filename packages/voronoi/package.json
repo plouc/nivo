@@ -1,47 +1,47 @@
 {
-  "name": "@nivo/voronoi",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/voronoi"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "voronoi"
-  ],
-  "main": "./dist/nivo-voronoi.cjs.js",
-  "module": "./dist/nivo-voronoi.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "d3-delaunay": "^5.3.0",
-    "@types/d3-delaunay": "^5.3.0",
-    "d3-scale": "^3.2.3",
-    "@types/d3-scale": "^3.2.3"
-  },
-  "devDependencies": {
-    "@nivo/core": "workspace:*"
-  },
-  "peerDependencies": {
-    "@nivo/core": "workspace:*",
-    "react": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/voronoi",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/voronoi"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "voronoi"
+    ],
+    "main": "./dist/nivo-voronoi.cjs.js",
+    "module": "./dist/nivo-voronoi.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@types/d3-delaunay": "^5.3.0",
+        "@types/d3-scale": "^3.2.3",
+        "d3-delaunay": "^5.3.0",
+        "d3-scale": "^3.2.3"
+    },
+    "devDependencies": {
+        "@nivo/core": "workspace:*"
+    },
+    "peerDependencies": {
+        "@nivo/core": "workspace:*",
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

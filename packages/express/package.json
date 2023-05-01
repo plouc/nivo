@@ -1,39 +1,39 @@
 {
-  "name": "@nivo/express",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/express"
-  },
-  "main": "./dist/nivo-express.cjs.js",
-  "module": "./dist/nivo-express.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/static": "workspace:*",
-    "@types/express": "^4.17.13",
-    "@types/uuid": "^8.3.3",
-    "express": "^4.17.1",
-    "joi": "^17.5.0",
-    "lodash": "^4.17.21",
-    "uuid": "^3.1.0"
-  },
-  "peerDependencies": {
-    "react": ">= 16.14.0 < 19.0.0",
-    "react-dom": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/express",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/express"
+    },
+    "main": "./dist/nivo-express.cjs.js",
+    "module": "./dist/nivo-express.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/static": "workspace:*",
+        "@types/express": "^4.17.13",
+        "@types/uuid": "^8.3.3",
+        "express": "^4.17.1",
+        "joi": "^17.5.0",
+        "lodash": "^4.17.21",
+        "uuid": "^3.1.0"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0",
+        "react-dom": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

@@ -1,50 +1,50 @@
 {
-  "name": "@nivo/static",
-  "version": "0.81.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/static"
-  },
-  "main": "./dist/nivo-static.cjs.js",
-  "module": "./dist/nivo-static.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/arcs": "workspace:*",
-    "@nivo/bar": "workspace:*",
-    "@nivo/calendar": "workspace:*",
-    "@nivo/chord": "workspace:*",
-    "@nivo/circle-packing": "workspace:*",
-    "@nivo/colors": "workspace:*",
-    "@nivo/core": "workspace:*",
-    "@nivo/generators": "workspace:*",
-    "@nivo/heatmap": "workspace:*",
-    "@nivo/legends": "workspace:*",
-    "@nivo/line": "workspace:*",
-    "@nivo/pie": "workspace:*",
-    "@nivo/radar": "workspace:*",
-    "@nivo/sankey": "workspace:*",
-    "@nivo/sunburst": "workspace:*",
-    "@nivo/treemap": "workspace:*",
-    "joi": "^17.5.0",
-    "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "react": ">= 16.14.0 < 19.0.0",
-    "react-dom": ">= 16.14.0 < 19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/static",
+    "version": "0.82.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/static"
+    },
+    "main": "./dist/nivo-static.cjs.js",
+    "module": "./dist/nivo-static.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/arcs": "workspace:*",
+        "@nivo/bar": "workspace:*",
+        "@nivo/calendar": "workspace:*",
+        "@nivo/chord": "workspace:*",
+        "@nivo/circle-packing": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/generators": "workspace:*",
+        "@nivo/heatmap": "workspace:*",
+        "@nivo/legends": "workspace:*",
+        "@nivo/line": "workspace:*",
+        "@nivo/pie": "workspace:*",
+        "@nivo/radar": "workspace:*",
+        "@nivo/sankey": "workspace:*",
+        "@nivo/sunburst": "workspace:*",
+        "@nivo/treemap": "workspace:*",
+        "joi": "^17.5.0",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0",
+        "react-dom": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }
