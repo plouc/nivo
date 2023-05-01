@@ -43,6 +43,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          command-prefix: pnpm exec
-          build: make init
+          build: touch pnpm-lock.yaml && make init
           start: pnpm --filter nivo-e2e build
