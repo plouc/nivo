@@ -48,4 +48,4 @@ jobs:
           install: false
           component: true
           build: make init
-          start: pnpm --filter nivo-e2e build
+          command: make end-to-end-test
