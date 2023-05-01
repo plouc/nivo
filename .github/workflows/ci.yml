@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['18']
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,13 +16,15 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      - name: Setup Node ${{ matrix.node-version }}
+          run_install: false
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '18'
           cache: 'pnpm'
       - run: pnpm install
-      - run: make pkgs-build
+      - name: Build nivo packages
+        run: make pkgs-build
       - run: make pkgs-lint
       - run: make pkgs-test
       # Make sure that we can build the website
@@ -42,8 +41,15 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      - name: Install & build nivo packages
-        run: make init
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - run: pnpm install
+      - name: Build nivo packages
+        run: make pkgs-build
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
