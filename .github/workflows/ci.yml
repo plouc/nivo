@@ -15,7 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 8
       - name: Setup Node ${{ matrix.node-version }}
@@ -37,12 +38,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 8
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
+          working-directory: cypress
           component: true
           build: touch pnpm-lock.yaml && make init
           start: pnpm --filter nivo-e2e build
