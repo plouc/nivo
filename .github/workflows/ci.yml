@@ -47,15 +47,15 @@ jobs:
         with:
           node-version: '18'
           cache: 'pnpm'
-      - run: pnpm install
+      - name: Cypress install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
       - name: Build nivo packages
         run: make pkgs-build
-      - name: Build nivo packages
-        run: make pkgs-build
-      - run: make end-to-end-test
-      # - name: Cypress run
-      #   uses: cypress-io/github-action@v5
-      #   with:
-      #     install: false
-      #     component: true
-      #     command: make end-to-end-test
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          component: true
+          command: make end-to-end-test
