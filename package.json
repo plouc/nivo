@@ -75,6 +75,7 @@
     "react-dom": "18.2.0"
   },
   "scripts": {
+    "make:init": "make init",
     "build": "echo 'nothing to do, please use make for available commands'",
     "heroku-postbuild": "make pkgs-build && cd api && pnpm build"
   },
