@@ -42,10 +42,11 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
+      - name: Install & build nivo packages
+        run: make init
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
           install: false
           component: true
-          build: make init
           command: make end-to-end-test
