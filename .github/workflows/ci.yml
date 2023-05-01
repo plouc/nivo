@@ -50,9 +50,12 @@ jobs:
       - run: pnpm install
       - name: Build nivo packages
         run: make pkgs-build
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          install: false
-          component: true
-          command: make end-to-end-test
+      - name: Build nivo packages
+        run: make pkgs-build
+      - run: make end-to-end-test
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v5
+      #   with:
+      #     install: false
+      #     component: true
+      #     command: make end-to-end-test
