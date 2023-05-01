@@ -266,6 +266,9 @@ end-to-end-open: ##@4 end-to-end open cypress
 end-to-end-build: ##@4 end-to-end build
 	@pnpm --filter nivo-e2e build
 
+end-to-end-test: ##@4 end-to-end build
+	@pnpm --filter nivo-e2e test
+
 
 ########################################################################################################################
 #
