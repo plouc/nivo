@@ -180,6 +180,15 @@ pkg-build-%: pkg-types-% ##@1 packages build a package
 pkgs-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.mjs
 
+pkgs-publish-dry-run: ##@1 packages dry run for packages publication
+	@$(MAKE) pkgs-build
+	@pnpm lerna publish \
+        --exact \
+        --no-git-tag-version \
+        --no-push \
+        --registry "http://localhost:4873" \
+        --loglevel verbose
+
 pkgs-publish: ##@1 packages publish all packages
 	@$(MAKE) pkgs-build
 

@@ -8,7 +8,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import terser from "@rollup/plugin-terser"
 
 const pkg = process.env.PACKAGE
-const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
+const isWatching = process.env.ROLLUP_WATCH === 'true'
 
 const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx']
 const babelConfig = {
@@ -53,7 +53,7 @@ const commonPlugins = [
         modulesOnly: true,
     }),
     babel(babelConfig),
-    // !isWatching && terser(),
+    !isWatching && terser(),
     cleanup()
 ]
 
