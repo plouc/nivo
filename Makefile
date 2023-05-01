@@ -261,13 +261,10 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 ########################################################################################################################
 
 end-to-end-open: ##@4 end-to-end open cypress
-	@pnpm --filter nivo-e2e open
-
-end-to-end-build: ##@4 end-to-end build
-	@pnpm --filter nivo-e2e build
+	pnpm --filter nivo-e2e open
 
 end-to-end-test: ##@4 end-to-end build
-	@pnpm --filter nivo-e2e test
+	pnpm --filter nivo-e2e test
 
 
 ########################################################################################################################

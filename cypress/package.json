@@ -38,10 +38,6 @@
     "@nivo/waffle": "workspace:*"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "cra:test": "react-scripts test",
-    "eject": "react-scripts eject",
     "open": "cypress open",
     "test": "cypress run --component"
   },
