@@ -4,6 +4,6 @@
     "api"
   ],
   "version": "0.81.0",
-  "npmClient": "yarn",
+  "npmClient": "pnpm",
   "useWorkspaces": true
 }

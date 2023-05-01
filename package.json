@@ -47,7 +47,7 @@
     "gh-pages": "^5.0.0",
     "jest": "^27.4.5",
     "jsdom": "^21.1.1",
-    "lerna": "^3.22.1",
+    "lerna": "^6.6.1",
     "lodash": "^4.17.21",
     "prettier": "^2.8.8",
     "prop-types": "^15.7.2",
@@ -77,8 +77,8 @@
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
     "make:init": "make init",
-    "prepublishOnly": "pnpm release:prepare",
-    "release:prepare": "node scripts/bump-peer-deps.js && pnpm changelog",
+    "disabled:prepublishOnly": "pnpm release:prepare",
+    "disabled:release:prepare": "node scripts/bump-peer-deps.js && pnpm changelog",
     "version": "pnpm release:prepare",
     "build": "echo 'nothing to do, please use make for available commands'",
     "heroku-postbuild": "make packages-build && cd api && pnpm build"
