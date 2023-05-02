@@ -67,23 +67,17 @@ export const getCellsPolygons = <RawDatum extends Datum>(
     cells: DataCell<RawDatum>[],
     cellSize: number
 ) => {
-    // Sort cells by x and y coordinates.
+    // 1. Sort cells by x and y coordinates.
     const sortedCells = [...cells].sort((a, b) => {
         if (a.y !== b.y) return a.y - b.y
         return a.x - b.x
     })
 
-    const polygons: ReturnType<typeof perpendicularPolygon>[] = []
-
-    let currentBoundingBox: BoundingBox | undefined = undefined
-    let currentPolygon: ReturnType<typeof perpendicularPolygon> | undefined = undefined
-
-    const rows = []
-    let currentY = undefined
+    // 2. Compute a box for each row.
+    const rows: BoundingBox[] = []
     let currentBox: BoundingBox | undefined = undefined
     for (const cell of sortedCells) {
         if (currentBox === undefined || cell.y !== currentBox.top) {
-            rows.push('ROW')
             currentBox = {
                 top: cell.y,
                 right: cell.x + cellSize,
@@ -91,65 +85,51 @@ export const getCellsPolygons = <RawDatum extends Datum>(
                 left: cell.x,
             }
             rows.push(currentBox)
-        }
-    }
-
-    console.log('ROWS', rows)
-
-    for (const cell of sortedCells) {
-        const top = cell.y
-        const right = cell.x + cellSize
-        const bottom = cell.y + cellSize
-        const left = cell.x
-
-        if (currentBoundingBox === undefined) {
-            currentBoundingBox = { top, right, bottom, left }
-
-            currentPolygon = perpendicularPolygon()
-            polygons.push(currentPolygon)
         } else {
-            if (top === currentBoundingBox.top) {
-                // Same row, keep extending right edge.
-                currentBoundingBox.right = right
-            } else {
-                // New row, create a new box.
-                const newBoundingBox: BoundingBox = { top, right, bottom, left }
-
-                if (!isAdjacentBoundingBox(newBoundingBox, currentBoundingBox)) {
-                    console.log('NOT ADJACENT!')
-                    console.log('currentPolygon', currentPolygon.debug())
-
-                    currentPolygon = perpendicularPolygon()
-                    currentPolygon.addRight([right, top], [right, bottom])
-                    currentPolygon.addLeft([left, bottom], [left, top])
-
-                    polygons.push(currentPolygon)
-                } else {
-                    currentPolygon!.addRight(
-                        [currentBoundingBox.right, currentBoundingBox.top],
-                        [currentBoundingBox.right, currentBoundingBox.bottom]
-                    )
-                    currentPolygon!.addLeft(
-                        [currentBoundingBox.left, currentBoundingBox.bottom],
-                        [currentBoundingBox.left, currentBoundingBox.top]
-                    )
-                }
-
-                currentBoundingBox = newBoundingBox
-            }
+            currentBox.right = cell.x + cellSize
         }
     }
 
-    if (currentBoundingBox !== undefined) {
-        currentPolygon!.addRight(
-            [currentBoundingBox.right, currentBoundingBox.top],
-            [currentBoundingBox.right, currentBoundingBox.bottom]
-        )
-        currentPolygon!.addLeft(
-            [currentBoundingBox.left, currentBoundingBox.bottom],
-            [currentBoundingBox.left, currentBoundingBox.top]
-        )
-    }
+    // 3. Compute polygons for each group of adjacent rows.
+    const polygons: ReturnType<typeof perpendicularPolygon>[] = []
+    let currentPolygon: ReturnType<typeof perpendicularPolygon> | undefined = undefined
+    rows.forEach((row, index) => {
+        const previousBox: BoundingBox | undefined = index > 0 ? rows[index - 1] : undefined
+        if (previousBox === undefined || !isAdjacentBoundingBox(row, previousBox)) {
+            currentPolygon = perpendicularPolygon()
+            currentPolygon.addLeft([row.left, row.top])
+            currentPolygon.addRight([row.right, row.top])
+
+            polygons.push(currentPolygon)
+        }
+
+        if (previousBox !== undefined && row.left !== previousBox.left) {
+            currentPolygon!.addLeft([row.left, row.top])
+        }
+        if (previousBox !== undefined && row.right !== previousBox.right) {
+            currentPolygon!.addRight([row.right, row.top])
+        }
+
+        currentPolygon!.addLeft([row.left, row.bottom])
+        currentPolygon!.addRight([row.right, row.bottom])
+    })
 
     return polygons.map(polygon => polygon())
+}
+
+/**
+ * Assumes that cells ares sorted by group.
+ */
+export const findPolygons = <RawDatum extends Datum>(grid: DataCell<RawDatum>[], size: number) => {
+    const grouped = grid.reduce((acc, cell) => {
+        ;(acc[cell.data.id] = acc[cell.data.id] || []).push(cell)
+        return acc
+    }, {} as Record<string | number, DataCell<RawDatum>[]>)
+
+    const polygons: Partial<Record<RawDatum['id'], Vertex[][]>> = {}
+    for (const [group, cells] of Object.entries(grouped)) {
+        polygons[group as RawDatum['id']] = getCellsPolygons<RawDatum>(cells, size)
+    }
+
+    return polygons
 }

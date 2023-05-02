@@ -1,12 +1,12 @@
 import { animated } from '@react-spring/web'
 import { Datum, CellComponentProps } from './types'
 
-export const WaffleCell = <RawDatum extends Datum>({
+export const WaffleCell = <D extends Datum>({
     cell,
     animatedProps,
     borderWidth,
     testIdPrefix,
-}: CellComponentProps<Datum>) => {
+}: CellComponentProps<D>) => {
     return (
         <animated.rect
             x={animatedProps.x}
@@ -19,7 +19,7 @@ export const WaffleCell = <RawDatum extends Datum>({
             fill={animatedProps.fill}
             // stroke={getBorderColor(cell)}
             strokeWidth={borderWidth}
-            data-test-id={testIdPrefix ? `${testIdPrefix}${cell.key}` : undefined}
+            data-test-id={testIdPrefix ? `${testIdPrefix}.cell_${cell.key}` : undefined}
         />
     )
 }

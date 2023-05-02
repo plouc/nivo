@@ -1,44 +1,12 @@
-import { createElement, useCallback, MouseEvent } from 'react'
 import { animated } from '@react-spring/web'
-import { useTooltip } from '@nivo/tooltip'
-import { Datum, HtmlCellComponentProps, isDataCell } from './types'
+import { Datum, CellComponentProps } from './types'
 
-export const WaffleCellHtml = <RawDatum extends Datum>({
+export const WaffleCellHtml = <D extends Datum>({
     cell,
     animatedProps,
     borderWidth,
-    tooltip,
     testIdPrefix,
-}: HtmlCellComponentProps<RawDatum>) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleMouseEnter = useCallback(
-        (event: MouseEvent<HTMLDivElement>) => {
-            if (isDataCell(cell)) {
-                showTooltipFromEvent(createElement(tooltip, { cell }), event, 'top')
-            }
-        },
-        [cell, showTooltipFromEvent]
-    )
-
-    const handleMouseMove = useCallback(
-        (event: MouseEvent<HTMLDivElement>) => {
-            if (isDataCell(cell)) {
-                showTooltipFromEvent(createElement(tooltip, { cell }), event, 'top')
-            }
-        },
-        [cell, showTooltipFromEvent]
-    )
-
-    const handleMouseLeave = useCallback(
-        (_event: MouseEvent<HTMLDivElement>) => {
-            if (isDataCell(cell)) {
-                hideTooltip()
-            }
-        },
-        [cell, hideTooltip]
-    )
-
+}: CellComponentProps<D>) => {
     return (
         <animated.div
             style={{
@@ -54,9 +22,6 @@ export const WaffleCellHtml = <RawDatum extends Datum>({
                 borderWidth: `${borderWidth}px`,
                 // borderColor,
             }}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
             data-test-id={testIdPrefix ? `${testIdPrefix}${cell.key}` : undefined}
         />
     )
