@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { Component } from 'react'
 import range from 'lodash/range'
 import { setDisplayName } from '@nivo/recompose'
@@ -13,7 +5,7 @@ import { isCursorInRect, getRelativeCursor, LegacyContainer } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
-import WaffleCellTooltip from './WaffleCellTooltip'
+import { WaffleCellTooltip } from './WaffleCellTooltip'
 
 const findCellUnderCursor = (cells, cellSize, origin, margin, x, y) =>
     cells.find(cell =>
