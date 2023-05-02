@@ -1,11 +1,16 @@
+import { BasicTooltip } from '@nivo/tooltip'
+import { Datum, TooltipProps } from './types'
+
+export const WaffleCellTooltip = <RawDatum extends Datum>({ cell }: TooltipProps<RawDatum>) => (
+    <BasicTooltip
+        id={cell.data.label}
+        value={cell.data.formattedValue}
+        enableChip={true}
+        color={cell.data.color}
+    />
+)
+
 /*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
 
@@ -53,3 +58,4 @@ WaffleCellTooltip.propTypes = {
 }
 
 export default WaffleCellTooltip
+*/

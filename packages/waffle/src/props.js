@@ -1,17 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import PropTypes from 'prop-types'
 import { defsPropTypes, noop } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
-import WaffleCell from './WaffleCell'
-import WaffleCellHtml from './WaffleCellHtml'
+import { WaffleCell } from './WaffleCell'
+import { WaffleCellHtml } from './WaffleCellHtml'
 
 const commonPropTypes = {
     total: PropTypes.number.isRequired,

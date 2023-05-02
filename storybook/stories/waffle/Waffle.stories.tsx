@@ -1,13 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { useCallback, useState } from 'react'
 import { Component } from 'react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { Waffle } from '@nivo/waffle'
+import { Waffle, WaffleHtml } from '@nivo/waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
 const meta: Meta<typeof Waffle> = {
     title: 'Waffle',
     component: Waffle,
     tags: ['autodocs'],
+    argTypes: {
+        fillDirection: {
+            control: 'select',
+            options: ['top', 'right', 'bottom', 'left'],
+        },
+    },
+    args: {
+        fillDirection: 'bottom',
+    },
 }
 
 export default meta
@@ -38,21 +48,149 @@ const commonProps = {
 }
 
 export const Basic: Story = {
-    render: () => <Waffle {...commonProps} />,
+    render: args => <Waffle {...commonProps} fillDirection={args.fillDirection} />,
+}
+
+const generateData = () => [
+    {
+        id: 'men',
+        label: 'men',
+        value: Math.round(Math.random() * 100),
+        color: '#468df3',
+    },
+    {
+        id: 'women',
+        label: 'women',
+        value: Math.round(Math.random() * 100),
+        color: '#a053f0',
+    },
+]
+
+const leftIssue = {
+    fillDirection: 'right',
+    data: [
+        {
+            id: 'men',
+            label: 'men',
+            value: 78,
+            color: '#468df3',
+        },
+        {
+            id: 'women',
+            label: 'women',
+            value: 31,
+            color: '#a053f0',
+        },
+    ],
+}
+
+export const Demo: Story = {
+    argTypes: {
+        columns: {
+            control: 'number',
+        },
+    },
+    args: {
+        columns: commonProps.columns,
+    },
+    render: args => {
+        const [data, setData] = useState(() => generateData())
+        const gen = useCallback(() => {
+            setData(generateData())
+        }, [setData])
+
+        // console.log(JSON.stringify(data, null, '  '))
+
+        return (
+            <div>
+                <button onClick={gen}>YAY</button>
+                <Waffle
+                    {...commonProps}
+                    fillDirection={args.fillDirection}
+                    data={data}
+                    {...leftIssue}
+                    // columns={args.columns}
+                    columns={4}
+                    rows={6}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10,
+                    }}
+                    padding={0}
+                    motionConfig="wobbly"
+                    testIdPrefix="waffle_"
+                />
+            </div>
+        )
+    },
+}
+
+export const DemoHtml: Story = {
+    argTypes: {
+        columns: {
+            control: 'number',
+        },
+    },
+    args: {
+        columns: commonProps.columns,
+    },
+    render: args => {
+        const [data, setData] = useState(() => generateData())
+        const gen = useCallback(() => {
+            setData(generateData())
+        }, [setData])
+
+        // console.log(JSON.stringify(data, null, '  '))
+
+        return (
+            <div>
+                <button onClick={gen}>YAY</button>
+                <WaffleHtml
+                    {...commonProps}
+                    fillDirection={args.fillDirection}
+                    data={data}
+                    {...leftIssue}
+                    // columns={args.columns}
+                    columns={4}
+                    rows={6}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10,
+                    }}
+                    padding={0}
+                    motionConfig="wobbly"
+                    testIdPrefix="waffle_"
+                />
+            </div>
+        )
+    },
 }
 
 export const Colors: Story = {
-    render: () => <Waffle {...commonProps} colors={{ scheme: 'category10' }} />,
+    render: args => (
+        <Waffle
+            {...commonProps}
+            fillDirection={args.fillDirection}
+            colors={{ scheme: 'category10' }}
+        />
+    ),
 }
 
 export const UsingDataColor: Story = {
-    render: () => <Waffle {...commonProps} colors={{ datum: 'color' }} />,
+    render: args => (
+        <Waffle {...commonProps} fillDirection={args.fillDirection} colors={{ datum: 'color' }} />
+    ),
 }
 
 export const Patterns: Story = {
-    render: () => (
+    render: args => (
         <Waffle
             {...commonProps}
+            fillDirection={args.fillDirection}
             defs={[
                 patternDotsDef('dots', {
                     background: 'inherit',
@@ -78,12 +216,15 @@ export const Patterns: Story = {
 }
 
 export const FillDirection: Story = {
-    render: () => (
+    args: {
+        fillDirection: 'left',
+    },
+    render: args => (
         <Waffle
             {...commonProps}
             width={900}
             height={400}
-            fillDirection="left"
+            fillDirection={args.fillDirection}
             rows={18}
             columns={24}
         />
@@ -122,13 +263,20 @@ const CustomCellComponent = ({
     />
 )
 export const CustomCell: Story = {
-    render: () => <Waffle {...commonProps} cellComponent={CustomCellComponent} />,
+    render: args => (
+        <Waffle
+            {...commonProps}
+            fillDirection={args.fillDirection}
+            cellComponent={CustomCellComponent}
+        />
+    ),
 }
 
 export const CustomTooltip: Story = {
-    render: () => (
+    render: args => (
         <Waffle
             {...commonProps}
+            fillDirection={args.fillDirection}
             theme={{
                 tooltip: {
                     container: {

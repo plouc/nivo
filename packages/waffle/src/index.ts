@@ -1,0 +1,7 @@
+export * from './Waffle'
+export * from './ResponsiveWaffle'
+export * from './WaffleHtml'
+export * from './ResponsiveWaffleHtml'
+export { default as WaffleCanvas } from './WaffleCanvas'
+export { default as ResponsiveWaffleCanvas } from './ResponsiveWaffleCanvas'
+export * from './props'

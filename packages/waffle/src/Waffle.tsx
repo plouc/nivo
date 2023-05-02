@@ -1,51 +1,151 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { createElement, Component, Fragment } from 'react'
-import partial from 'lodash/partial'
-import { TransitionMotion, spring } from 'react-motion'
-import { setDisplayName } from '@nivo/recompose'
-import { LegacyContainer, SvgWrapper } from '@nivo/core'
+import { createElement, Fragment, ReactNode } from 'react'
+import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import { WafflePropTypes } from './props'
-import enhance from './enhance'
-import { applyDataToGrid } from './compute'
-import WaffleCellTooltip from './WaffleCellTooltip'
+import { Datum, DefaultRawDatum, SvgProps, LayerId, TooltipComponent } from './types'
+import { svgDefaultProps } from './defaults'
+import { useWaffle } from './hooks'
+import { WaffleCells } from './WaffleCells'
 
-export class Waffle extends Component {
-    static propTypes = WafflePropTypes
+type InnerWaffleProps<RawDatum extends Datum> = Omit<
+    SvgProps<RawDatum>,
+    'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
+>
 
-    handleCellHover = (showTooltip, cell, event) => {
-        const { setCurrentCell, theme, tooltipFormat, tooltip } = this.props
+const InnerWaffle = <RawDatum extends Datum>({
+    width,
+    height,
+    margin: partialMargin,
+    data,
+    valueFormat,
+    total,
+    rows,
+    columns,
+    fillDirection = svgDefaultProps.fillDirection,
+    padding = svgDefaultProps.padding,
+    layers = svgDefaultProps.layers,
+    cellComponent = svgDefaultProps.cellComponent,
+    colors = svgDefaultProps.colors as OrdinalColorScaleConfig<RawDatum>,
+    emptyColor = svgDefaultProps.emptyColor,
+    // emptyOpacity = defaultProps.emptyOpacity,
+    borderWidth = svgDefaultProps.borderWidth,
+    borderColor = svgDefaultProps.borderColor,
+    // defs = defaultProps.defs,
+    // fill = defaultProps.fill,
+    isInteractive = svgDefaultProps.isInteractive,
+    tooltip = svgDefaultProps.tooltip as TooltipComponent<RawDatum>,
+    legends = svgDefaultProps.legends,
+    role = svgDefaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    testIdPrefix,
+}: InnerWaffleProps<RawDatum>) => {
+    const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-        setCurrentCell(cell)
+    const { grid, computedData, legendData, getBorderColor } = useWaffle<RawDatum>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        valueFormat,
+        total,
+        rows,
+        columns,
+        fillDirection,
+        padding,
+        colors,
+        emptyColor,
+        borderColor,
+    })
 
-        if (!cell.data) return
+    const layerById: Record<LayerId, ReactNode> = {
+        cells: null,
+        legends: null,
+    }
 
-        showTooltip(
-            <WaffleCellTooltip
-                position={cell.position}
-                row={cell.row}
-                column={cell.column}
-                color={cell.color}
-                data={cell.data}
-                theme={theme}
-                tooltipFormat={tooltipFormat}
-                tooltip={tooltip}
-            />,
-            event
+    if (layers.includes('cells')) {
+        layerById.cells = (
+            <WaffleCells<RawDatum>
+                key="cells"
+                cells={grid.cells}
+                computedData={computedData}
+                cellComponent={cellComponent}
+                cellSize={grid.cellSize}
+                origin={grid.origin}
+                borderWidth={borderWidth}
+                getBorderColor={getBorderColor}
+                testIdPrefix={testIdPrefix}
+            />
         )
     }
 
-    handleCellLeave = hideTooltip => {
-        this.props.setCurrentCell(null)
-        hideTooltip()
+    if (layers.includes('legends')) {
+        layerById.legends = (
+            <g key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={width}
+                        containerHeight={height}
+                        data={legendData}
+                    />
+                ))}
+            </g>
+        )
     }
+
+    return (
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            //defs={boundDefs}
+            role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
+        >
+            {layers.map((layer, i) => {
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer)}</Fragment>
+                }
+
+                return layerById?.[layer] ?? null
+            })}
+        </SvgWrapper>
+    )
+}
+
+export const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
+    isInteractive = svgDefaultProps.isInteractive,
+    animate = svgDefaultProps.animate,
+    motionConfig = svgDefaultProps.motionConfig,
+    theme,
+    renderWrapper,
+    ...otherProps
+}: SvgProps<RawDatum>) => (
+    <Container
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
+    >
+        <InnerWaffle<RawDatum> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)
+
+/*
+export class Waffle extends Component {
+    static propTypes = WafflePropTypes
+
 
     render() {
         const {
@@ -211,7 +311,4 @@ export class Waffle extends Component {
         )
     }
 }
-
-Waffle.displayName = 'Waffle'
-
-export default setDisplayName(Waffle.displayName)(enhance(Waffle))
+*/
