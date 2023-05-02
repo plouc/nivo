@@ -3,7 +3,6 @@ import { Container, useDimensions } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import {
     Datum,
-    DefaultRawDatum,
     CellComponent,
     HtmlProps,
     TooltipComponent,
@@ -132,7 +131,7 @@ const InnerWaffleHtml = <D extends Datum>({
     )
 }
 
-export const WaffleHtml = <D extends Datum = DefaultRawDatum>({
+export const WaffleHtml = <D extends Datum = Datum>({
     isInteractive = htmlDefaultProps.isInteractive,
     animate = htmlDefaultProps.animate,
     motionConfig = htmlDefaultProps.motionConfig,
