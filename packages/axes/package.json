@@ -1,6 +1,6 @@
 {
     "name": "@nivo/axes",
-    "version": "0.82.0",
+    "version": "0.82.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -42,7 +42,7 @@
         "d3-scale": "^3.2.3"
     },
     "peerDependencies": {
-        "@nivo/core": "workspace:*",
+        "@nivo/core": "0.82.1",
         "react": ">= 16.14.0 < 19.0.0"
     },
     "publishConfig": {
