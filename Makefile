@@ -181,11 +181,12 @@ pkgs-screenshots: ##@1 packages generate screenshots for packages readme (websit
 	@node scripts/capture.mjs
 
 pkgs-publish-dry-run: ##@1 packages dry run for packages publication
-	@$(MAKE) pkgs-build
+	#@$(MAKE) pkgs-build
 	@pnpm lerna publish \
         --exact \
         --no-git-tag-version \
         --no-push \
+        --force-publish \
         --registry "http://localhost:4873" \
         --loglevel verbose
 
