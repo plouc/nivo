@@ -13,12 +13,6 @@ export interface Datum {
     value: number
 }
 
-export interface DefaultRawDatum extends Datum {
-    id: string
-    label: string
-    value: number
-}
-
 export interface ComputedDatum<D> extends Datum {
     data: D
     formattedValue: string
@@ -132,7 +126,7 @@ export interface CustomLayerProps<D extends Datum> {
 
 export type SvgLayer<D extends Datum> = LayerId | FunctionComponent<CustomLayerProps<D>>
 
-export type SvgProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
+export type SvgProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     SvgDefsAndFill<ComputedDatum<D>> &
@@ -147,7 +141,7 @@ export type HtmlLayerId = Exclude<LayerId, 'legends'>
 
 export type HtmlLayer<D extends Datum> = HtmlLayerId | FunctionComponent<CustomLayerProps<D>>
 
-export type HtmlProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
+export type HtmlProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     Partial<MouseHandlers<D, HTMLElement>> & {
@@ -156,7 +150,7 @@ export type HtmlProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
         cellComponent?: CellComponent<D>
     }
 
-export type CanvasProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
+export type CanvasProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     Partial<Omit<MouseHandlers<D, HTMLCanvasElement>, 'onMouseEnter' | 'onMouseLeave'>> & {

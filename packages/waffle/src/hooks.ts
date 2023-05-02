@@ -13,7 +13,6 @@ import {
     CommonProps,
     ComputedDatum,
     Datum,
-    DefaultRawDatum,
     DataProps,
     FillDirection,
     EmptyCell,
@@ -155,7 +154,7 @@ export const mergeCellsData = <RawDatum extends Datum>(
     return cellsCopy
 }
 
-export const useWaffle = <D extends Datum = DefaultRawDatum>({
+export const useWaffle = <D extends Datum = Datum>({
     width,
     height,
     data,

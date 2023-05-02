@@ -14,7 +14,7 @@ import {
     CanvasProps,
     ComputedDatum,
     Datum,
-    DefaultRawDatum, isDataCell,
+    isDataCell,
     // LayerId,
     TooltipComponent,
     Cell,
@@ -176,7 +176,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     )
 }
 
-export const WaffleCanvas = <D extends Datum = DefaultRawDatum>({
+export const WaffleCanvas = <D extends Datum = Datum>({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,
     animate = canvasDefaultProps.animate,
