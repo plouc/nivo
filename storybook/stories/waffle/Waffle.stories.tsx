@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useCallback, useState } from 'react'
 import { Component } from 'react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { Waffle, WaffleHtml } from '@nivo/waffle'
+import { Waffle, WaffleHtml, WaffleCanvas } from '@nivo/waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
 const meta: Meta<typeof Waffle> = {
@@ -108,9 +108,9 @@ export const Demo: Story = {
                     {...commonProps}
                     fillDirection={args.fillDirection}
                     data={data}
-                    {...leftIssue}
-                    // columns={args.columns}
-                    columns={4}
+                    // {...leftIssue}
+                    columns={args.columns}
+                    columns={5}
                     rows={6}
                     margin={{
                         top: 10,
@@ -119,8 +119,8 @@ export const Demo: Story = {
                         left: 10,
                     }}
                     padding={0}
-                    motionConfig="wobbly"
-                    testIdPrefix="waffle_"
+                    motionConfig="gentle"
+                    testIdPrefix="waffle"
                 />
             </div>
         )
@@ -163,7 +163,47 @@ export const DemoHtml: Story = {
                     }}
                     padding={0}
                     motionConfig="wobbly"
-                    testIdPrefix="waffle_"
+                    testIdPrefix="waffle"
+                />
+            </div>
+        )
+    },
+}
+
+export const DemoCanvas: Story = {
+    argTypes: {
+        columns: {
+            control: 'number',
+        },
+    },
+    args: {
+        columns: commonProps.columns,
+    },
+    render: args => {
+        const [data, setData] = useState(() => generateData())
+        const gen = useCallback(() => {
+            setData(generateData())
+        }, [setData])
+
+        // console.log(JSON.stringify(data, null, '  '))
+
+        return (
+            <div>
+                <button onClick={gen}>YAY</button>
+                <WaffleCanvas
+                    {...commonProps}
+                    fillDirection={args.fillDirection}
+                    data={data}
+                    columns={args.columns}
+                    rows={6}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10,
+                    }}
+                    padding={0}
+                    motionConfig="wobbly"
                 />
             </div>
         )

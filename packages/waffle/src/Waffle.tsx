@@ -1,18 +1,19 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Datum, DefaultRawDatum, SvgProps, LayerId, TooltipComponent } from './types'
+import { Datum, DefaultRawDatum, SvgProps, LayerId, TooltipComponent, ComputedDatum } from './types'
 import { svgDefaultProps } from './defaults'
 import { useWaffle } from './hooks'
 import { WaffleCells } from './WaffleCells'
+import { WaffleAreas } from './WaffleAreas'
 
-type InnerWaffleProps<RawDatum extends Datum> = Omit<
-    SvgProps<RawDatum>,
+type InnerWaffleProps<D extends Datum> = Omit<
+    SvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerWaffle = <RawDatum extends Datum>({
+const InnerWaffle = <D extends Datum>({
     width,
     height,
     margin: partialMargin,
@@ -23,31 +24,35 @@ const InnerWaffle = <RawDatum extends Datum>({
     columns,
     fillDirection = svgDefaultProps.fillDirection,
     padding = svgDefaultProps.padding,
-    layers = svgDefaultProps.layers,
+    layers = svgDefaultProps.layers as LayerId[],
     cellComponent = svgDefaultProps.cellComponent,
-    colors = svgDefaultProps.colors as OrdinalColorScaleConfig<RawDatum>,
+    colors = svgDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = svgDefaultProps.emptyColor,
     // emptyOpacity = defaultProps.emptyOpacity,
     borderWidth = svgDefaultProps.borderWidth,
-    borderColor = svgDefaultProps.borderColor,
+    borderColor = svgDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     // defs = defaultProps.defs,
     // fill = defaultProps.fill,
     isInteractive = svgDefaultProps.isInteractive,
-    tooltip = svgDefaultProps.tooltip as TooltipComponent<RawDatum>,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip = svgDefaultProps.tooltip as TooltipComponent<D>,
     legends = svgDefaultProps.legends,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
     testIdPrefix,
-}: InnerWaffleProps<RawDatum>) => {
+}: InnerWaffleProps<D>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const { grid, computedData, legendData, getBorderColor } = useWaffle<RawDatum>({
+    const { cells, cellSize, legendData, computedData } = useWaffle<D>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -64,20 +69,34 @@ const InnerWaffle = <RawDatum extends Datum>({
 
     const layerById: Record<LayerId, ReactNode> = {
         cells: null,
+        areas: null,
         legends: null,
     }
 
     if (layers.includes('cells')) {
         layerById.cells = (
-            <WaffleCells<RawDatum>
+            <WaffleCells<D>
                 key="cells"
-                cells={grid.cells}
-                computedData={computedData}
+                cells={cells}
                 cellComponent={cellComponent}
-                cellSize={grid.cellSize}
-                origin={grid.origin}
+                cellSize={cellSize}
                 borderWidth={borderWidth}
-                getBorderColor={getBorderColor}
+                testIdPrefix={testIdPrefix}
+            />
+        )
+    }
+
+    if (layers.includes('areas')) {
+        layerById.areas = (
+            <WaffleAreas<D>
+                key="areas"
+                data={computedData}
+                isInteractive={isInteractive}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
                 testIdPrefix={testIdPrefix}
             />
         )
@@ -121,14 +140,14 @@ const InnerWaffle = <RawDatum extends Datum>({
     )
 }
 
-export const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
+export const Waffle = <D extends Datum = DefaultRawDatum>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: SvgProps<RawDatum>) => (
+}: SvgProps<D>) => (
     <Container
         {...{
             animate,
@@ -138,177 +157,6 @@ export const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
             theme,
         }}
     >
-        <InnerWaffle<RawDatum> isInteractive={isInteractive} {...otherProps} />
+        <InnerWaffle<D> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
-
-/*
-export class Waffle extends Component {
-    static propTypes = WafflePropTypes
-
-
-    render() {
-        const {
-            hiddenIds,
-
-            // dimensions
-            margin,
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-
-            // styling
-            cellComponent,
-            emptyColor,
-            emptyOpacity,
-            borderWidth,
-            getBorderColor,
-            theme,
-            defs,
-
-            // motion
-            animate,
-            motionStiffness,
-            motionDamping,
-
-            // interactivity
-            isInteractive,
-            onClick,
-
-            // computed
-            cells,
-            cellSize,
-            origin,
-            computedData,
-            legendData,
-
-            legends,
-            role,
-        } = this.props
-
-        cells.forEach(cell => {
-            cell.color = emptyColor
-        })
-
-        return (
-            <LegacyContainer
-                isInteractive={isInteractive}
-                theme={theme}
-                animate={animate}
-                motionDamping={motionDamping}
-                motionStiffness={motionStiffness}
-            >
-                {({ showTooltip, hideTooltip }) => {
-                    const onHover = partial(this.handleCellHover, showTooltip)
-                    const onLeave = partial(this.handleCellLeave, hideTooltip)
-
-                    let cellsRender
-                    if (animate === true) {
-                        const springConfig = {
-                            stiffness: motionStiffness,
-                            damping: motionDamping,
-                        }
-
-                        cellsRender = (
-                            <TransitionMotion
-                                styles={computedData.map(datum => ({
-                                    key: datum.id,
-                                    data: datum,
-                                    style: {
-                                        startAt: spring(datum.startAt, springConfig),
-                                        endAt: spring(datum.endAt, springConfig),
-                                    },
-                                }))}
-                            >
-                                {interpolatedStyles => {
-                                    const computedCells = applyDataToGrid(
-                                        cells,
-                                        interpolatedStyles.map(s => ({
-                                            ...s.data,
-                                            startAt: Math.round(s.style.startAt),
-                                            endAt: Math.round(s.style.endAt),
-                                        })),
-                                        hiddenIds
-                                    )
-
-                                    return (
-                                        <Fragment>
-                                            {computedCells.map(cell =>
-                                                createElement(cellComponent, {
-                                                    key: cell.position,
-                                                    position: cell.position,
-                                                    size: cellSize,
-                                                    x: cell.x,
-                                                    y: cell.y,
-                                                    color: cell.color,
-                                                    fill: cell.data && cell.data.fill,
-                                                    opacity: cell.data ? 1 : emptyOpacity,
-                                                    borderWidth,
-                                                    borderColor: getBorderColor(cell),
-                                                    data: cell.data,
-                                                    onHover: partial(onHover, cell),
-                                                    onLeave,
-                                                    onClick,
-                                                })
-                                            )}
-                                        </Fragment>
-                                    )
-                                }}
-                            </TransitionMotion>
-                        )
-                    } else {
-                        const computedCells = applyDataToGrid(cells, computedData, hiddenIds)
-
-                        cellsRender = (
-                            <Fragment>
-                                {computedCells.map(cell =>
-                                    createElement(cellComponent, {
-                                        key: cell.position,
-                                        position: cell.position,
-                                        size: cellSize,
-                                        x: cell.x,
-                                        y: cell.y,
-                                        color: cell.color,
-                                        fill: cell.data && cell.data.fill,
-                                        opacity: cell.data ? 1 : emptyOpacity,
-                                        borderWidth,
-                                        borderColor: getBorderColor(cell),
-                                        data: cell.data,
-                                        onHover: partial(onHover, cell),
-                                        onLeave,
-                                        onClick,
-                                    })
-                                )}
-                            </Fragment>
-                        )
-                    }
-
-                    return (
-                        <SvgWrapper
-                            width={outerWidth}
-                            height={outerHeight}
-                            margin={margin}
-                            defs={defs}
-                            theme={theme}
-                            role={role}
-                        >
-                            <g transform={`translate(${origin.x}, ${origin.y})`}>{cellsRender}</g>
-                            {legends.map((legend, i) => (
-                                <BoxLegendSvg
-                                    key={i}
-                                    {...legend}
-                                    containerWidth={width}
-                                    containerHeight={height}
-                                    data={legendData}
-                                    theme={theme}
-                                />
-                            ))}
-                        </SvgWrapper>
-                    )
-                }}
-            </LegacyContainer>
-        )
-    }
-}
-*/

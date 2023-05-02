@@ -1,18 +1,16 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { SpringValues } from '@react-spring/web'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { Vertex } from './polygons'
 
 export type DatumId = string | number
-export type DatumLabel = string | number
-export type DatumValue = number
-export type DatumFormattedValue = string | number
 
 export interface Datum {
-    id: DatumId
-    label: DatumLabel
-    value: DatumValue
+    id: string
+    label: string | number
+    value: number
 }
 
 export interface DefaultRawDatum extends Datum {
@@ -21,18 +19,18 @@ export interface DefaultRawDatum extends Datum {
     value: number
 }
 
-export type ValueFormatter = (value: number) => DatumFormattedValue
-
-export interface ComputedDatum<RawDatum> extends Datum {
-    formattedValue: DatumFormattedValue
+export interface ComputedDatum<D> extends Datum {
+    data: D
+    formattedValue: string
     groupIndex: number
     // Index of the starting cell
     startAt: number
     // Index of the ending cell
     endAt: number
+    polygons: Vertex[][]
     color: string
+    borderColor: string
     fill?: string
-    data: RawDatum
 }
 
 // Used for cells without data, considered empty.
@@ -46,20 +44,18 @@ export interface EmptyCell {
     color: string
 }
 
-// Used for cells having data, non-empty.
-export interface DataCell<RawDatum extends Datum> extends EmptyCell {
-    data: ComputedDatum<RawDatum>
+// Used for cells having data.
+export interface DataCell<D extends Datum> extends EmptyCell {
+    data: ComputedDatum<D>
 }
 
-export type Cell<RawDatum extends Datum> = EmptyCell | DataCell<RawDatum>
+export type Cell<D extends Datum> = EmptyCell | DataCell<D>
 
-export const isDataCell = <RawDatum extends Datum>(
-    cell: Cell<RawDatum>
-): cell is DataCell<RawDatum> => {
-    return (cell as DataCell<RawDatum>).data !== undefined
+export const isDataCell = <D extends Datum>(cell: Cell<D>): cell is DataCell<D> => {
+    return (cell as DataCell<D>).data !== undefined
 }
 
-export interface CellAnimatedProps {
+export type CellAnimatedProps = {
     x: number
     y: number
     size: number
@@ -71,116 +67,99 @@ export interface CellAnimatedProps {
  * you should use an SVG element from `@react-spring/web`, for example
  * `animated.rect`.
  */
-export interface CellComponentProps<RawDatum extends Datum> {
-    cell: Cell<RawDatum>
+export interface CellComponentProps<D extends Datum> {
+    cell: Cell<D>
     animatedProps: SpringValues<CellAnimatedProps>
     borderWidth: number
     testIdPrefix?: string
 }
-export type CellComponent<RawDatum extends Datum> = FunctionComponent<CellComponentProps<RawDatum>>
-
-export interface HtmlCellComponentProps<RawDatum extends Datum>
-    extends CellComponentProps<RawDatum> {
-    tooltip: TooltipComponent<RawDatum>
-}
-export type HtmlCellComponent<RawDatum extends Datum> = FunctionComponent<
-    HtmlCellComponentProps<RawDatum>
->
+export type CellComponent<D extends Datum> = FunctionComponent<CellComponentProps<D>>
 
 export type FillDirection = 'top' | 'right' | 'bottom' | 'left'
 
 // All those props are required
-export interface DataProps<RawDatum extends Datum> {
-    data: RawDatum[]
+export interface DataProps<D extends Datum> {
+    data: D[]
     total: number
     rows: number
     columns: number
 }
 
-export interface TooltipProps<RawDatum extends Datum> {
-    cell: DataCell<RawDatum>
+export interface TooltipProps<D extends Datum> {
+    data: ComputedDatum<D>
 }
-export type TooltipComponent<RawDatum extends Datum> = FunctionComponent<TooltipProps<RawDatum>>
+export type TooltipComponent<D extends Datum> = FunctionComponent<TooltipProps<D>>
 
 // Most of those props are optional for the public API,
 // but required internally, using defaults.
-export interface CommonProps<RawDatum extends Datum> {
+export interface CommonProps<D extends Datum> extends ModernMotionProps {
     margin: Box
-    valueFormat?: string | ValueFormatter
+    valueFormat?: ValueFormat<D['value']>
     fillDirection: FillDirection
     padding: number
     theme: Theme
-    colors: OrdinalColorScaleConfig<RawDatum>
+    colors: OrdinalColorScaleConfig<D>
     emptyColor: string
     emptyOpacity: number
     borderWidth: number
-    borderColor: InheritedColorConfig<Cell<RawDatum>>
+    borderColor: InheritedColorConfig<ComputedDatum<D>>
     isInteractive: boolean
-    tooltip: TooltipComponent<RawDatum>
+    tooltip: TooltipComponent<D>
     role: string
     renderWrapper: boolean
+    ariaLabel: AriaAttributes['aria-label']
+    ariaLabelledBy: AriaAttributes['aria-labelledby']
+    ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type MouseHandler<RawDatum extends Datum, ElementType = HTMLCanvasElement> = (
-    cell: Cell<RawDatum>,
-    event: MouseEvent<ElementType>
+export type MouseHandler<D extends Datum, E extends Element> = (
+    data: ComputedDatum<D>,
+    event: MouseEvent<E>
 ) => void
 
-interface MouseHandlers<RawDatum extends Datum, ElementType = HTMLCanvasElement> {
-    onClick?: MouseHandler<RawDatum, ElementType>
-    onMouseEnter?: MouseHandler<RawDatum, ElementType>
-    onMouseMove?: MouseHandler<RawDatum, ElementType>
-    onMouseLeave?: MouseHandler<RawDatum, ElementType>
+export interface MouseHandlers<D extends Datum, E extends Element> {
+    onClick: MouseHandler<D, E>
+    onMouseEnter: MouseHandler<D, E>
+    onMouseMove: MouseHandler<D, E>
+    onMouseLeave: MouseHandler<D, E>
 }
 
-export type LayerId = 'cells' | 'legends'
+export type LayerId = 'cells' | 'areas' | 'legends'
 
-export interface CustomLayerProps<RawDatum extends Datum> {
-    yay?: RawDatum
+export interface CustomLayerProps<D extends Datum> {
+    yay?: D
 }
 
-export type SvgLayer<RawDatum extends Datum> =
-    | LayerId
-    | FunctionComponent<CustomLayerProps<RawDatum>>
+export type SvgLayer<D extends Datum> = LayerId | FunctionComponent<CustomLayerProps<D>>
 
-export type SvgProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
+export type SvgProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
     Dimensions &
-    Partial<CommonProps<RawDatum>> &
-    ModernMotionProps &
-    SvgDefsAndFill<ComputedDatum<RawDatum>> &
-    MouseHandlers<RawDatum> & {
-        layers?: SvgLayer<RawDatum>[]
+    Partial<CommonProps<D>> &
+    SvgDefsAndFill<ComputedDatum<D>> &
+    Partial<MouseHandlers<D, SVGGeometryElement>> & {
+        layers?: SvgLayer<D>[]
         legends?: LegendProps[]
-        ariaLabel?: AriaAttributes['aria-label']
-        ariaLabelledBy?: AriaAttributes['aria-labelledby']
-        ariaDescribedBy?: AriaAttributes['aria-describedby']
         testIdPrefix?: string
-        cellComponent?: CellComponent<RawDatum>
+        cellComponent?: CellComponent<D>
     }
 
 export type HtmlLayerId = Exclude<LayerId, 'legends'>
 
-export type HtmlLayer<RawDatum extends Datum> =
-    | HtmlLayerId
-    | FunctionComponent<CustomLayerProps<RawDatum>>
+export type HtmlLayer<D extends Datum> = HtmlLayerId | FunctionComponent<CustomLayerProps<D>>
 
-export type HtmlProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
+export type HtmlProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
     Dimensions &
-    Partial<CommonProps<RawDatum>> &
-    ModernMotionProps &
-    MouseHandlers<RawDatum> & {
-        layers?: HtmlLayer<RawDatum>[]
-        ariaLabel?: AriaAttributes['aria-label']
-        ariaLabelledBy?: AriaAttributes['aria-labelledby']
-        ariaDescribedBy?: AriaAttributes['aria-describedby']
+    Partial<CommonProps<D>> &
+    Partial<MouseHandlers<D, HTMLElement>> & {
+        layers?: HtmlLayer<D>[]
         testIdPrefix?: string
-        cellComponent?: HtmlCellComponent<RawDatum>
+        cellComponent?: CellComponent<D>
     }
 
-export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
+export type CanvasProps<D extends Datum = DefaultRawDatum> = DataProps<D> &
     Dimensions &
-    Partial<CommonProps<RawDatum>> & {
+    Partial<CommonProps<D>> &
+    Partial<Omit<MouseHandlers<D, HTMLCanvasElement>, 'onMouseEnter' | 'onMouseLeave'>> & {
         legends?: LegendProps[]
-    } & {
         pixelRatio?: number
-    } & Omit<MouseHandlers<RawDatum>, 'onMouseEnter' | 'onMouseLeave'>
+    }

@@ -1,12 +1,12 @@
 import { BasicTooltip } from '@nivo/tooltip'
 import { Datum, TooltipProps } from './types'
 
-export const WaffleCellTooltip = <RawDatum extends Datum>({ cell }: TooltipProps<RawDatum>) => (
+export const WaffleTooltip = <RawDatum extends Datum>({ data }: TooltipProps<RawDatum>) => (
     <BasicTooltip
-        id={cell.data.label}
-        value={cell.data.formattedValue}
+        id={data.label}
+        value={data.formattedValue}
         enableChip={true}
-        color={cell.data.color}
+        color={data.color}
     />
 )
 

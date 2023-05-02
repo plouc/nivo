@@ -1,7 +1,14 @@
-import { useMemo } from 'react'
+import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { range } from 'lodash'
+import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import { useTheme, useValueFormatter } from '@nivo/core'
-import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
+import {
+    InheritedColorConfig,
+    OrdinalColorScaleConfig,
+    useInheritedColor,
+    useOrdinalColorScale,
+} from '@nivo/colors'
 import {
     CommonProps,
     ComputedDatum,
@@ -13,37 +20,11 @@ import {
     Cell,
     DataCell,
     isDataCell,
+    MouseHandlers,
+    TooltipComponent,
 } from './types'
 import { commonDefaultProps } from './defaults'
-import { getCellsPolygons, Vertex } from './march'
-
-/**
- * Assumes that squares ares sorted by group.
- */
-const findPolygons = <RawDatum extends Datum>(grid: DataCell<RawDatum>[], size: number) => {
-    // Sort the squares by group
-    // grid.sort((a, b) => a.group - b.group)
-
-    const grouped = grid.reduce((acc, cell) => {
-        ;(acc[cell.data.id] = acc[cell.data.id] || []).push(cell)
-        return acc
-    }, {} as Record<string | number, DataCell<RawDatum>[]>)
-
-    const polygons: {
-        id: string | number
-        polygons: Vertex[][]
-    }[] = []
-
-    for (const [group, cells] of Object.entries(grouped)) {
-        console.log(group)
-        polygons.push({
-            id: group,
-            polygons: getCellsPolygons<RawDatum>(cells, size),
-        })
-    }
-
-    return polygons
-}
+import { findPolygons } from './polygons'
 
 /**
  * Computes optimal cell size according to dimensions/layout/padding.
@@ -66,7 +47,7 @@ export const computeCellSize = (
  * Computes empty cells according to dimensions/layout/padding.
  * At this stage the cells aren't bound to any data.
  */
-export const computeGridTemplate = (
+export const computeGrid = (
     width: number,
     height: number,
     rows: number,
@@ -76,6 +57,10 @@ export const computeGridTemplate = (
     emptyColor: string
 ) => {
     const cellSize = computeCellSize(width, height, rows, columns, padding)
+    const origin = {
+        x: (width - (cellSize * columns + padding * (columns - 1))) / 2,
+        y: (height - (cellSize * rows + padding * (rows - 1))) / 2,
+    }
 
     const cells: EmptyCell[] = []
     switch (fillDirection) {
@@ -87,8 +72,8 @@ export const computeGridTemplate = (
                         position: row * columns + column,
                         row,
                         column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
+                        x: origin.x + column * (cellSize + padding),
+                        y: origin.y + row * (cellSize + padding),
                         color: emptyColor,
                     })
                 })
@@ -103,8 +88,8 @@ export const computeGridTemplate = (
                         position: row * columns + column,
                         row,
                         column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
+                        x: origin.x + column * (cellSize + padding),
+                        y: origin.y + row * (cellSize + padding),
                         color: emptyColor,
                     })
                 })
@@ -119,8 +104,8 @@ export const computeGridTemplate = (
                         position: row * columns + column,
                         row,
                         column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
+                        x: origin.x + column * (cellSize + padding),
+                        y: origin.y + row * (cellSize + padding),
                         color: emptyColor,
                     })
                 })
@@ -135,8 +120,8 @@ export const computeGridTemplate = (
                         position: row * columns + column,
                         row,
                         column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
+                        x: origin.x + column * (cellSize + padding),
+                        y: origin.y + row * (cellSize + padding),
                         color: emptyColor,
                     })
                 })
@@ -147,15 +132,30 @@ export const computeGridTemplate = (
             throw new Error(`Invalid fill direction provided: ${fillDirection}`)
     }
 
-    const origin = {
-        x: (width - (cellSize * columns + padding * (columns - 1))) / 2,
-        y: (height - (cellSize * rows + padding * (rows - 1))) / 2,
-    }
-
-    return { cells, cellSize, origin }
+    return { cells, cellSize }
 }
 
-export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
+export const mergeCellsData = <RawDatum extends Datum>(
+    cells: EmptyCell[],
+    data: ComputedDatum<RawDatum>[]
+) => {
+    const cellsCopy: Cell<RawDatum>[] = cells.map(cell => ({ ...cell }))
+
+    data.forEach(datum => {
+        range(datum.startAt, datum.endAt).forEach(position => {
+            const cell = cellsCopy[position]
+            if (cell !== undefined) {
+                const cellWithData = cell as DataCell<RawDatum>
+                cellWithData.data = datum
+                cellWithData.color = datum.color
+            }
+        })
+    }, [])
+
+    return cellsCopy
+}
+
+export const useWaffle = <D extends Datum = DefaultRawDatum>({
     width,
     height,
     data,
@@ -165,35 +165,32 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
     columns,
     fillDirection = commonDefaultProps.fillDirection,
     padding = commonDefaultProps.padding,
-    colors = commonDefaultProps.colors,
+    colors = commonDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = commonDefaultProps.emptyColor,
-    borderColor = commonDefaultProps.borderColor,
+    borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
 }: Pick<
-    CommonProps<RawDatum>,
+    CommonProps<D>,
     'valueFormat' | 'fillDirection' | 'padding' | 'colors' | 'emptyColor' | 'borderColor'
 > &
-    DataProps<RawDatum> & {
+    DataProps<D> & {
         width: number
         height: number
     }) => {
-    const formatValue = useValueFormatter(valueFormat as any)
+    const formatValue = useValueFormatter(valueFormat)
 
-    const getColor = useOrdinalColorScale<RawDatum>(colors, 'id')
+    const getColor = useOrdinalColorScale<D>(colors, 'id')
     const theme = useTheme()
-    const getBorderColor = useInheritedColor<Cell<RawDatum>>(borderColor, theme)
+    const getBorderColor = useInheritedColor(borderColor, theme)
 
     const unit = total / (rows * columns)
 
-    const grid = useMemo(
-        () => computeGridTemplate(width, height, rows, columns, fillDirection, padding, emptyColor),
-        [width, height, rows, columns, fillDirection, padding, emptyColor]
-    )
-
-    const computedData: Array<ComputedDatum<RawDatum>> = useMemo(() => {
+    const computedData: Array<ComputedDatum<D>> = useMemo(() => {
         let currentPosition = 0
 
         return data.map((datum, groupIndex) => {
-            const enhancedDatum: ComputedDatum<RawDatum> = {
+            const color = getColor(datum)
+
+            const enhancedDatum: ComputedDatum<D> = {
                 id: datum.id,
                 label: datum.label,
                 value: datum.value,
@@ -201,9 +198,14 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
                 groupIndex,
                 startAt: currentPosition,
                 endAt: currentPosition + Math.round(datum.value / unit),
-                color: getColor(datum),
+                color,
+                // Temporary, it's re-computed later as the inherited color
+                // needs the computed data.
+                borderColor: color,
                 data: datum,
+                polygons: [],
             }
+            enhancedDatum.borderColor = getBorderColor(enhancedDatum)
 
             currentPosition = enhancedDatum.endAt
 
@@ -231,9 +233,26 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
                 endAt: currentPosition,
                 color: getColor(datum),
             }
-             */
+            */
         })
-    }, [data, formatValue, getColor, unit])
+    }, [data, unit, formatValue, getColor, getBorderColor])
+
+    const grid = useMemo(
+        () => computeGrid(width, height, rows, columns, fillDirection, padding, emptyColor),
+        [width, height, rows, columns, fillDirection, padding, emptyColor]
+    )
+
+    const cells = useMemo(
+        () => mergeCellsData(grid.cells, computedData),
+        [grid.cells, computedData]
+    )
+
+    const polygons = findPolygons(cells.filter(isDataCell), grid.cellSize)
+    computedData.forEach(datum => {
+        if (datum.id in polygons) {
+            datum.polygons = polygons[datum.id as D['id']]!
+        }
+    })
 
     const legendData = useMemo(
         () =>
@@ -247,43 +266,59 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
     )
 
     return {
-        grid,
+        cells,
+        cellSize: grid.cellSize,
         computedData,
         legendData,
         getBorderColor,
     }
 }
 
-export const mergeCellsData = <RawDatum extends Datum>(
-    cells: EmptyCell[],
-    data: ComputedDatum<RawDatum>[]
+export const useAreaPathGenerator = () => useMemo(() => d3Line().curve(curveLinearClosed), [])
+
+export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
+    data: ComputedDatum<D>,
+    { onMouseEnter, onMouseMove, onMouseLeave, onClick }: Partial<MouseHandlers<D, E>>,
+    tooltip: TooltipComponent<D>
 ) => {
-    const cellsCopy: Cell<RawDatum>[] = cells.map(cell => ({ ...cell }))
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    data.forEach(datum => {
-        range(datum.startAt, datum.endAt).forEach(position => {
-            const cell = cellsCopy[position]
-            if (cell !== undefined) {
-                const cellWithData = cell as DataCell<RawDatum>
-                cellWithData.data = datum
-                cellWithData.color = datum.color
-            }
-        })
-    }, [])
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent<E>) => {
+            showTooltipFromEvent(createElement(tooltip, { data }), event)
+            onMouseEnter?.(data, event)
+        },
+        [showTooltipFromEvent, data, onMouseEnter]
+    )
 
-    return cellsCopy
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<E>) => {
+            showTooltipFromEvent(createElement(tooltip, { data }), event)
+            onMouseMove?.(data, event)
+        },
+        [showTooltipFromEvent, data, onMouseMove]
+    )
+
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent<E>) => {
+            hideTooltip()
+            onMouseLeave?.(data, event)
+        },
+        [hideTooltip, data, onMouseLeave]
+    )
+
+    const handleClick = useCallback(
+        (event: MouseEvent<E>) => {
+            hideTooltip()
+            onClick?.(data, event)
+        },
+        [hideTooltip, data, onClick]
+    )
+
+    return {
+        handleMouseEnter,
+        handleMouseMove,
+        handleMouseLeave,
+        handleClick,
+    }
 }
-
-export const useMergeCellsData = <RawDatum extends Datum = DefaultRawDatum>(
-    cells: EmptyCell[],
-    data: ComputedDatum<RawDatum>[],
-    cellSize: number
-) =>
-    useMemo(() => {
-        const mergedCells = mergeCellsData(cells, data)
-
-        return {
-            cells: mergedCells,
-            polygons: findPolygons<RawDatum>(mergedCells.filter(isDataCell), cellSize),
-        }
-    }, [cells, data])

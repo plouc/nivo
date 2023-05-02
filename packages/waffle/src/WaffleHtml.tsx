@@ -1,24 +1,26 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions } from '@nivo/core'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import {
     Datum,
     DefaultRawDatum,
-    HtmlCellComponent,
+    CellComponent,
     HtmlProps,
-    LayerId,
     TooltipComponent,
+    HtmlLayerId,
+    ComputedDatum,
 } from './types'
 import { htmlDefaultProps } from './defaults'
 import { useWaffle } from './hooks'
 import { WaffleCellsHtml } from './WaffleCellsHtml'
+import { WaffleAreasHtml } from './WaffleAreasHtml'
 
-type InnerWaffleHtmlProps<RawDatum extends Datum> = Omit<
-    HtmlProps<RawDatum>,
+type InnerWaffleHtmlProps<D extends Datum> = Omit<
+    HtmlProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerWaffleHtml = <RawDatum extends Datum>({
+const InnerWaffleHtml = <D extends Datum>({
     width,
     height,
     margin: partialMargin,
@@ -29,30 +31,34 @@ const InnerWaffleHtml = <RawDatum extends Datum>({
     columns,
     fillDirection = htmlDefaultProps.fillDirection,
     padding = htmlDefaultProps.padding,
-    layers = htmlDefaultProps.layers,
-    cellComponent = htmlDefaultProps.cellComponent as unknown as HtmlCellComponent<RawDatum>,
-    colors = htmlDefaultProps.colors as OrdinalColorScaleConfig<RawDatum>,
+    layers = htmlDefaultProps.layers as HtmlLayerId[],
+    cellComponent = htmlDefaultProps.cellComponent as unknown as CellComponent<D>,
+    colors = htmlDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = htmlDefaultProps.emptyColor,
     // emptyOpacity = defaultProps.emptyOpacity,
     borderWidth = htmlDefaultProps.borderWidth,
-    borderColor = htmlDefaultProps.borderColor,
+    borderColor = htmlDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     // defs = defaultProps.defs,
     // fill = defaultProps.fill,
     isInteractive = htmlDefaultProps.isInteractive,
-    tooltip = htmlDefaultProps.tooltip as TooltipComponent<RawDatum>,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip = htmlDefaultProps.tooltip as TooltipComponent<D>,
     role = htmlDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
     testIdPrefix,
-}: InnerWaffleHtmlProps<RawDatum>) => {
+}: InnerWaffleHtmlProps<D>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const { grid, computedData, getBorderColor } = useWaffle<RawDatum>({
+    const { cells, cellSize, computedData } = useWaffle<D>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -67,24 +73,36 @@ const InnerWaffleHtml = <RawDatum extends Datum>({
         borderColor,
     })
 
-    const layerById: Record<LayerId, ReactNode> = {
+    const layerById: Record<HtmlLayerId, ReactNode> = {
         cells: null,
-        legends: null,
+        areas: null,
     }
 
     if (layers.includes('cells')) {
         layerById.cells = (
-            <WaffleCellsHtml<RawDatum>
+            <WaffleCellsHtml<D>
                 key="cells"
-                cells={grid.cells}
-                computedData={computedData}
+                cells={cells}
                 cellComponent={cellComponent}
-                cellSize={grid.cellSize}
+                cellSize={cellSize}
                 margin={margin}
-                origin={grid.origin}
                 borderWidth={borderWidth}
-                getBorderColor={getBorderColor}
+                testIdPrefix={testIdPrefix}
+            />
+        )
+    }
+
+    if (layers.includes('areas')) {
+        layerById.areas = (
+            <WaffleAreasHtml<D>
+                key="areas"
+                data={computedData}
+                margin={margin}
                 isInteractive={isInteractive}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
                 tooltip={tooltip}
                 testIdPrefix={testIdPrefix}
             />
@@ -114,14 +132,14 @@ const InnerWaffleHtml = <RawDatum extends Datum>({
     )
 }
 
-export const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
+export const WaffleHtml = <D extends Datum = DefaultRawDatum>({
     isInteractive = htmlDefaultProps.isInteractive,
     animate = htmlDefaultProps.animate,
     motionConfig = htmlDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: HtmlProps<RawDatum>) => (
+}: HtmlProps<D>) => (
     <Container
         {...{
             animate,
@@ -131,6 +149,6 @@ export const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
             theme,
         }}
     >
-        <InnerWaffleHtml<RawDatum> isInteractive={isInteractive} {...otherProps} />
+        <InnerWaffleHtml<D> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

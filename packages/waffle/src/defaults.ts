@@ -1,7 +1,7 @@
-import { CommonProps, DefaultRawDatum } from './types'
+import { CommonProps, DefaultRawDatum, HtmlLayer, SvgLayer } from './types'
 import { WaffleCell } from './WaffleCell'
 import { WaffleCellHtml } from './WaffleCellHtml'
-import { WaffleCellTooltip } from './WaffleCellTooltip'
+import { WaffleTooltip } from './WaffleTooltip'
 
 export const commonDefaultProps: Omit<
     CommonProps<DefaultRawDatum>,
@@ -28,31 +28,33 @@ export const commonDefaultProps: Omit<
     borderColor: { from: 'color', modifiers: [['darker', 1]] },
 
     isInteractive: true,
-    tooltip: WaffleCellTooltip,
+    tooltip: WaffleTooltip,
 
     role: 'img',
+
+    animate: true,
+    motionConfig: 'gentle',
 }
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    layers: ['cells' as const, 'legends' as const],
+    layers: ['cells', 'areas', 'legends'] as SvgLayer<DefaultRawDatum>[],
     cellComponent: WaffleCell,
     defs: [],
     fill: [],
     legends: [],
-    animate: true,
-    motionConfig: 'gentle',
 }
 
 export const htmlDefaultProps = {
     ...commonDefaultProps,
-    layers: ['cells' as const],
+    layers: ['cells', 'areas'] as HtmlLayer<DefaultRawDatum>[],
     cellComponent: WaffleCellHtml,
     defs: [],
     fill: [],
     legends: [],
-    animate: true,
-    motionConfig: 'gentle',
 }
 
-// pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+export const canvasDefaultProps = {
+    ...commonDefaultProps,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+}
