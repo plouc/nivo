@@ -142,7 +142,7 @@ pkg-watch-test-%: ##@1 packages run tests for a package and watch for changes
 
 pkgs-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
+	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --workerThreads --rootDir . ./packages/*/tests
 
 pkgs-watch-test: ##@1 packages run tests for all packages and watch for changes
 	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"

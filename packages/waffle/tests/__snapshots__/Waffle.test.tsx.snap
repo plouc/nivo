@@ -3,7 +3,7 @@
 exports[`should render a basic waffle chart in SVG 1`] = `
 <div
   style={
-    Object {
+    {
       "position": "relative",
     }
   }
@@ -844,7 +844,7 @@ exports[`should render a basic waffle chart in SVG 1`] = `
 exports[`should support bottom fill mode 1`] = `
 <div
   style={
-    Object {
+    {
       "position": "relative",
     }
   }
@@ -1685,7 +1685,7 @@ exports[`should support bottom fill mode 1`] = `
 exports[`should support left fill mode 1`] = `
 <div
   style={
-    Object {
+    {
       "position": "relative",
     }
   }
@@ -2607,7 +2607,7 @@ exports[`should support left fill mode 1`] = `
 exports[`should support right fill mode 1`] = `
 <div
   style={
-    Object {
+    {
       "position": "relative",
     }
   }
@@ -3529,7 +3529,7 @@ exports[`should support right fill mode 1`] = `
 exports[`should support top fill mode 1`] = `
 <div
   style={
-    Object {
+    {
       "position": "relative",
     }
   }
