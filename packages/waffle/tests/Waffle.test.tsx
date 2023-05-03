@@ -42,41 +42,80 @@ describe('<Waffle />', () => {
         })
     }
 
-    it('should support legends', () => {
-        const data = [
-            { id: 'one', label: 'one', value: 10 },
-            { id: 'two', label: 'two', value: 20 },
-            { id: 'three', label: 'three', value: 30 },
-        ]
-        const legends: LegendProps[] = [
-            {
-                anchor: 'top-left',
-                direction: 'column',
-                itemWidth: 100,
-                itemHeight: 20,
-            },
-        ]
-        const component = create(
-            <Waffle
-                width={400}
-                height={400}
-                rows={10}
-                columns={10}
-                total={100}
-                colors={['red', 'green', 'blue']}
-                data={data}
-                legends={legends}
-            />
-        ).root
+    describe('legends', () => {
+        it('should support legends', () => {
+            const data = [
+                { id: 'one', label: 'one', value: 10 },
+                { id: 'two', label: 'two', value: 20 },
+                { id: 'three', label: 'three', value: 30 },
+            ]
+            const legends: LegendProps[] = [
+                {
+                    anchor: 'top-left',
+                    direction: 'column',
+                    itemWidth: 100,
+                    itemHeight: 20,
+                },
+            ]
+            const component = create(
+                <Waffle
+                    width={400}
+                    height={400}
+                    rows={10}
+                    columns={10}
+                    total={100}
+                    data={data}
+                    legends={legends}
+                    fillDirection="bottom"
+                />
+            ).root
 
-        const legend = component.findByType(LegendSvg)
+            const legend = component.findByType(LegendSvg)
 
-        const legendItems = legend.findAllByType(LegendSvgItem)
-        expect(legendItems).toHaveLength(3)
+            const legendItems = legend.findAllByType(LegendSvgItem)
+            expect(legendItems).toHaveLength(3)
 
-        expect(legendItems[0].props.data.id).toEqual('one')
-        expect(legendItems[1].props.data.id).toEqual('two')
-        expect(legendItems[2].props.data.id).toEqual('three')
+            expect(legendItems[0].props.data.id).toEqual('three')
+            expect(legendItems[1].props.data.id).toEqual('two')
+            expect(legendItems[2].props.data.id).toEqual('one')
+        })
+
+        it('should adjust the legends order according to fillDirection', () => {
+            const data = [
+                { id: 'one', label: 'one', value: 10 },
+                { id: 'two', label: 'two', value: 20 },
+                { id: 'three', label: 'three', value: 30 },
+            ]
+            const legends: LegendProps[] = [
+                {
+                    anchor: 'top-left',
+                    direction: 'column',
+                    itemWidth: 100,
+                    itemHeight: 20,
+                },
+            ]
+            const component = create(
+                <Waffle
+                    width={400}
+                    height={400}
+                    rows={10}
+                    columns={10}
+                    total={100}
+                    data={data}
+                    legends={legends}
+                    fillDirection="top"
+                />
+            ).root
+
+            const legend = component.findByType(LegendSvg)
+
+            const legendItems = legend.findAllByType(LegendSvgItem)
+            expect(legendItems).toHaveLength(3)
+
+            expect(legendItems[0].props.data.id).toEqual('one')
+            expect(legendItems[1].props.data.id).toEqual('two')
+            expect(legendItems[2].props.data.id).toEqual('three')
+        })
     })
 
     it('should allow to hide specific ids', () => {
