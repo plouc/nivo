@@ -70,6 +70,7 @@ export interface LegendDatum<D extends Datum = Datum> {
  */
 export interface CellComponentProps<D extends Datum> {
     cell: Cell<D>
+    cellSize: number
     animatedProps: SpringValues<CellAnimatedProps>
     borderWidth: number
     testIdPrefix?: string

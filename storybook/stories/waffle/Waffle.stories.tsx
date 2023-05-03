@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useCallback, useMemo, useState } from 'react'
-import { Component } from 'react'
+import { useCallback, useMemo, useState, Component } from 'react'
+import { symbol, symbols, symbolWye } from 'd3-shape'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
+import { Waffle, WaffleHtml, WaffleCanvas, LegendDatum, CellComponentProps } from '@nivo/waffle'
 import { nivoTheme } from '../nivo-theme'
-import { Waffle, WaffleHtml, WaffleCanvas, LegendDatum } from '@nivo/waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
 const meta: Meta<typeof Waffle> = {
@@ -25,7 +25,15 @@ export default meta
 type Story = StoryObj<typeof Waffle>
 
 const total = 200
-const data = [
+
+interface Datum {
+    id: string
+    label: string
+    value: number
+    color: string
+}
+
+const data: Datum[] = [
     {
         id: 'men',
         label: 'men',
@@ -46,6 +54,7 @@ const commonProps = {
     data,
     rows: 24,
     columns: 18,
+    padding: 2,
     theme: nivoTheme,
 }
 
@@ -68,24 +77,6 @@ const generateData = () => [
     },
 ]
 
-const leftIssue = {
-    fillDirection: 'right',
-    data: [
-        {
-            id: 'men',
-            label: 'men',
-            value: 78,
-            color: '#468df3',
-        },
-        {
-            id: 'women',
-            label: 'women',
-            value: 31,
-            color: '#a053f0',
-        },
-    ],
-}
-
 export const Demo: Story = {
     argTypes: {
         columns: {
@@ -106,7 +97,7 @@ export const Demo: Story = {
         return (
             <div>
                 <button onClick={gen}>Roll the dice</button>
-                <Waffle
+                <Waffle<Datum>
                     {...commonProps}
                     fillDirection={args.fillDirection}
                     data={data}
@@ -124,6 +115,79 @@ export const Demo: Story = {
                     motionConfig="gentle"
                     testIdPrefix="waffle"
                 />
+            </div>
+        )
+    },
+}
+
+/**
+ * With the `forwardLegendData` property, it is possible to get the computed legends
+ * from the chart to render the legend outside the chart using plain HTML for example,
+ * rather than being limited to SVG.
+ */
+export const CustomLegend: Story = {
+    render: args => {
+        const [legends, setLegends] = useState<LegendDatum<Datum>[]>([])
+
+        const formatValue = useCallback((value: number) => `${value} peolpe`, [])
+
+        return (
+            <div>
+                <WaffleHtml<Datum>
+                    {...commonProps}
+                    width={400}
+                    height={300}
+                    fillDirection={args.fillDirection}
+                    data={data}
+                    columns={16}
+                    rows={20}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10,
+                    }}
+                    padding={0}
+                    valueFormat={formatValue}
+                    forwardLegendData={setLegends}
+                    motionConfig="wobbly"
+                    testIdPrefix="waffle"
+                />
+                <div>
+                    <table className="Table">
+                        <thead>
+                            <tr>
+                                <th>Color</th>
+                                <th>ID</th>
+                                <th>Value</th>
+                                <th>Formatted Value</th>
+                                <th>Label</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {legends.map(legend => {
+                                return (
+                                    <tr key={legend.id}>
+                                        <td>
+                                            <span
+                                                className="Chip"
+                                                style={{ backgroundColor: legend.color }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <em>{legend.id}</em>
+                                        </td>
+                                        <td>
+                                            <em>{legend.data.value}</em>
+                                        </td>
+                                        <td>{legend.data.formattedValue}</td>
+                                        <td>{legend.label}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     },
@@ -249,16 +313,6 @@ export const DemoCanvas: Story = {
     },
 }
 
-export const Colors: Story = {
-    render: args => (
-        <Waffle
-            {...commonProps}
-            fillDirection={args.fillDirection}
-            colors={{ scheme: 'category10' }}
-        />
-    ),
-}
-
 export const UsingDataColor: Story = {
     render: args => (
         <Waffle {...commonProps} fillDirection={args.fillDirection} colors={{ datum: 'color' }} />
@@ -294,57 +348,23 @@ export const Patterns: Story = {
     ),
 }
 
-export const FillDirection: Story = {
-    args: {
-        fillDirection: 'left',
-    },
-    render: args => (
-        <Waffle
-            {...commonProps}
-            width={900}
-            height={400}
-            fillDirection={args.fillDirection}
-            rows={18}
-            columns={24}
+const CustomCellComponent = ({ cell, cellSize }: CellComponentProps<Datum>) => {
+    return (
+        <path
+            transform={`translate(${cell.x + cellSize / 2},${cell.y + cellSize / 2})`}
+            d={`${symbol().type(symbolWye).size(340)()}`}
+            fill={cell.color}
         />
-    ),
+    )
 }
 
-const CustomCellComponent = ({
-    position,
-    size,
-    x,
-    y,
-    color,
-    fill,
-    opacity,
-    borderWidth,
-    borderColor,
-    data,
-    onHover,
-    onLeave,
-    onClick,
-}) => (
-    <circle
-        r={size / 2}
-        cx={x + size / 2}
-        cy={y + size / 2}
-        fill={fill || color}
-        strokeWidth={borderWidth}
-        stroke={borderColor}
-        opacity={opacity}
-        onMouseEnter={onHover}
-        onMouseMove={onHover}
-        onMouseLeave={onLeave}
-        onClick={event => {
-            onClick({ position, color, x, y, data }, event)
-        }}
-    />
-)
 export const CustomCell: Story = {
     render: args => (
         <Waffle
             {...commonProps}
+            columns={12}
+            rows={16}
+            padding={0}
             fillDirection={args.fillDirection}
             cellComponent={CustomCellComponent}
         />
@@ -356,13 +376,6 @@ export const CustomTooltip: Story = {
         <Waffle
             {...commonProps}
             fillDirection={args.fillDirection}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
-                },
-            }}
             tooltip={CustomTooltipComponent}
         />
     ),

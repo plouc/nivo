@@ -9,7 +9,13 @@ flavors:
 Waffle:
   package: '@nivo/waffle'
   tags: []
-  stories: []
+  stories:
+    - label: Implementing a custom cell
+      link: waffle--custom-cell
+    - label: Implementing a custom legend
+      link: waffle--custom-legend
+    - label: Implementing a custom tooltip
+      link: waffle--custom-tooltip
   description: |
     A waffle component. You can fully customize it using the `cellComponent`
     property to define your own cell component, if you wish to do so

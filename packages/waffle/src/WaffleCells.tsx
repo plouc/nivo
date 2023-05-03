@@ -49,6 +49,7 @@ export const WaffleCells = <D extends Datum>({
                 return createElement(cellComponent, {
                     key: cell.key,
                     cell,
+                    cellSize,
                     animatedProps,
                     borderWidth,
                     testIdPrefix,
