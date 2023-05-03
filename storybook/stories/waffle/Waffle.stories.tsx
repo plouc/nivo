@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useCallback, useState } from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import { Component } from 'react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { Waffle, WaffleHtml, WaffleCanvas } from '@nivo/waffle'
+import { Waffle, WaffleHtml, WaffleCanvas, LegendDatum } from '@nivo/waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
 const meta: Meta<typeof Waffle> = {
@@ -142,7 +142,13 @@ export const DemoHtml: Story = {
             setData(generateData())
         }, [setData])
 
+        const [legends, setLegends] = useState<LegendDatum[]>([])
+
         // console.log(JSON.stringify(data, null, '  '))
+
+        console.log({ legends })
+
+        const formatValue = useCallback((value: number) => `${value} peolpe`, [])
 
         return (
             <div>
@@ -162,9 +168,37 @@ export const DemoHtml: Story = {
                         left: 10,
                     }}
                     padding={0}
+                    valueFormat={formatValue}
+                    forwardLegendData={setLegends}
                     motionConfig="wobbly"
                     testIdPrefix="waffle"
                 />
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Color</th>
+                                <th>ID</th>
+                                <th>Label</th>
+                                <th>Value</th>
+                                <th>Formatted Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {legends.map(legend => {
+                                return (
+                                    <tr key={legend.id}>
+                                        <th>{legend.color}</th>
+                                        <th>{legend.id}</th>
+                                        <th>{legend.label}</th>
+                                        <th>{legend.data.value}</th>
+                                        <th>{legend.data.formattedValue}</th>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     },

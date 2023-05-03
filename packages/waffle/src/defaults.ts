@@ -13,6 +13,7 @@ export const commonDefaultProps: Omit<
     | 'onMouseMove'
     | 'onMouseLeave'
     | 'onClick'
+    | 'forwardLegendData'
     | 'renderWrapper'
     | 'ariaLabel'
     | 'ariaLabelledBy'

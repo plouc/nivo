@@ -58,6 +58,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     onMouseMove,
     onClick,
     tooltip = canvasDefaultProps.tooltip as TooltipComponent<D>,
+    forwardLegendData,
     // legends = canvasDefaultProps.legends,
     role = canvasDefaultProps.role,
     ariaLabel,
@@ -87,6 +88,7 @@ const InnerWaffleCanvas = <D extends Datum>({
         colors,
         emptyColor,
         borderColor,
+        forwardLegendData,
     })
 
     const theme = useTheme()

@@ -1,4 +1,4 @@
-import { createElement, MouseEvent, useCallback, useMemo } from 'react'
+import {createElement, MouseEvent, useCallback, useEffect, useMemo} from 'react'
 import { range } from 'lodash'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import { useTheme, useValueFormatter } from '@nivo/core'
@@ -20,7 +20,7 @@ import {
     DataCell,
     isDataCell,
     MouseHandlers,
-    TooltipComponent,
+    TooltipComponent, LegendDatum,
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { findPolygons } from './polygons'
@@ -168,6 +168,7 @@ export const useWaffle = <D extends Datum = Datum>({
     colors = commonDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = commonDefaultProps.emptyColor,
     borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
+    forwardLegendData,
 }: Pick<
     CommonProps<D>,
     | 'hiddenIds'
@@ -181,6 +182,7 @@ export const useWaffle = <D extends Datum = Datum>({
     DataProps<D> & {
         width: number
         height: number
+        forwardLegendData?: CommonProps<D>['forwardLegendData']
     }) => {
     const formatValue = useValueFormatter(valueFormat)
 
@@ -242,16 +244,24 @@ export const useWaffle = <D extends Datum = Datum>({
         }
     })
 
-    const legendData = useMemo(
+    const legendData: LegendDatum<D>[] = useMemo(
         () =>
             computedData.map(datum => ({
                 id: datum.id,
                 label: datum.id,
                 color: datum.color,
-                // fill: datum.fill,
+                // fill: datum.fill,,
+                data: datum,
             })),
         [computedData]
     )
+
+    // Forward the legends data if `forwardLegendData` is defined.
+    useEffect(() => {
+        if (typeof forwardLegendData === 'function') {
+            forwardLegendData(legendData)
+        }
+    }, [forwardLegendData, legendData])
 
     return {
         cells,
