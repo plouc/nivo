@@ -1,6 +1,6 @@
 import { Bar } from '@nivo/bar'
 
-describe('Bar', () => {
+describe('<Bar />', () => {
     it('should render a bar chart', () => {
         cy.mount(
             <Bar
