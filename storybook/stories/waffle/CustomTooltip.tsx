@@ -1,4 +1,4 @@
-import {Datum, TooltipProps} from '@nivo/waffle'
+import { Datum, TooltipProps } from '@nivo/waffle'
 
 export const CustomTooltip = ({ data }: TooltipProps<Datum>) => (
     <div

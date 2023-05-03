@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import {useCallback, useMemo, useState} from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Component } from 'react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { nivoTheme } from '../nivo-theme'
@@ -175,20 +175,29 @@ export const DemoHtml: Story = {
                             <tr>
                                 <th>Color</th>
                                 <th>ID</th>
-                                <th>Label</th>
                                 <th>Value</th>
                                 <th>Formatted Value</th>
+                                <th>Label</th>
                             </tr>
                         </thead>
                         <tbody>
                             {legends.map(legend => {
                                 return (
                                     <tr key={legend.id}>
-                                        <td><span className="Chip" style={{ backgroundColor: legend.color}}/></td>
-                                        <td><strong>{legend.id}</strong></td>
-                                        <td>{legend.label}</td>
-                                        <td><strong>{legend.data.value}</strong></td>
+                                        <td>
+                                            <span
+                                                className="Chip"
+                                                style={{ backgroundColor: legend.color }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <em>{legend.id}</em>
+                                        </td>
+                                        <td>
+                                            <em>{legend.data.value}</em>
+                                        </td>
                                         <td>{legend.data.formattedValue}</td>
+                                        <td>{legend.label}</td>
                                     </tr>
                                 )
                             })}

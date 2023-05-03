@@ -1,10 +1,13 @@
 const path = require('path')
 
-module.exports = {
+const config = {
     verbose: true,
-    testEnvironment: 'jsdom',
+    testEnvironment: 'jest-environment-jsdom',
+    reporters: [['default', { summaryThreshold: 3 }]],
     setupFiles: [path.resolve(path.join(__dirname, 'jest.setup.js'))],
     transformIgnorePatterns: [
         "<rootDir>/node_modules/(?!d3)/"
     ],
 }
+
+module.exports = config

@@ -13,6 +13,15 @@ svg text {
     box-sizing: border-box;
 }
 
+code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+em {
+    font-weight: 600;
+    font-style: normal;
+}
+
 .ContainerCenter {
     display: flex;
     justify-content: center;

@@ -1,4 +1,4 @@
-import {createElement, MouseEvent, useCallback, useEffect, useMemo} from 'react'
+import { createElement, MouseEvent, useCallback, useEffect, useMemo } from 'react'
 import { range } from 'lodash'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import { useTheme, useValueFormatter } from '@nivo/core'
@@ -20,7 +20,8 @@ import {
     DataCell,
     isDataCell,
     MouseHandlers,
-    TooltipComponent, LegendDatum,
+    TooltipComponent,
+    LegendDatum,
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { findPolygons } from './polygons'

@@ -46,7 +46,7 @@ describe('Bullet', () => {
                     .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
-                Array [
+                [
                   "0",
                   "5",
                   "10",
@@ -71,7 +71,7 @@ describe('Bullet', () => {
                     .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
-                Array [
+                [
                   "0",
                   "10",
                   "20",
@@ -98,7 +98,7 @@ describe('Bullet', () => {
                     .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
-                Array [
+                [
                   "0",
                   "5",
                   "10",
@@ -136,7 +136,7 @@ describe('Bullet', () => {
                     .find(AxisTick)
                     .map(tick => tick.text())
             ).toMatchInlineSnapshot(`
-                Array [
+                [
                   "10",
                   "20",
                   "30",
@@ -384,11 +384,11 @@ describe('Bullet', () => {
             const { animatedProps: _animatedProps, ...props } = customRange.at(0).props()
 
             expect(props).toMatchInlineSnapshot(`
-                Object {
+                {
                   "borderColor": "rgb(65, 125, 224)",
                   "borderWidth": 0,
                   "color": "rgba(65, 125, 224, 1)",
-                  "data": Object {
+                  "data": {
                     "color": "rgb(65, 125, 224)",
                     "index": 0,
                     "v0": 0,
@@ -423,11 +423,11 @@ describe('Bullet', () => {
             const { animatedProps: _animatedProps, ...props } = customMeasure.at(0).props()
 
             expect(props).toMatchInlineSnapshot(`
-                Object {
+                {
                   "borderColor": "rgb(173, 10, 129)",
                   "borderWidth": 0,
                   "color": "rgba(173, 10, 129, 1)",
-                  "data": Object {
+                  "data": {
                     "color": "rgb(173, 10, 129)",
                     "index": 0,
                     "v0": 0,
@@ -457,9 +457,9 @@ describe('Bullet', () => {
             const { animatedProps: _animatedProps, ...props } = customMarker.at(0).props()
 
             expect(props).toMatchInlineSnapshot(`
-                Object {
+                {
                   "color": "rgb(243, 105, 163)",
-                  "data": Object {
+                  "data": {
                     "color": "rgb(243, 105, 163)",
                     "index": 0,
                     "value": 20,

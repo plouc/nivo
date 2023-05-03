@@ -79,38 +79,38 @@ it('should allow grouped mode', () => {
     })
 
     expect(props).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "height": 10,
             "width": 72.5,
             "x": 17,
             "y": 290,
           },
-          Object {
+          {
             "height": 20,
             "width": 72.5,
             "x": 178,
             "y": 280,
           },
-          Object {
+          {
             "height": 30,
             "width": 72.5,
             "x": 339,
             "y": 270,
           },
-          Object {
+          {
             "height": 100,
             "width": 72.5,
             "x": 89.5,
             "y": 200,
           },
-          Object {
+          {
             "height": 200,
             "width": 72.5,
             "x": 250.5,
             "y": 100,
           },
-          Object {
+          {
             "height": 300,
             "width": 72.5,
             "x": 411.5,
@@ -147,20 +147,20 @@ it('should allow horizontal layout', () => {
     })
 
     expect(props).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "height": 86,
             "width": 167,
             "x": 0,
             "y": 203,
           },
-          Object {
+          {
             "height": 86,
             "width": 333,
             "x": 0,
             "y": 107,
           },
-          Object {
+          {
             "height": 86,
             "width": 500,
             "x": 0,
@@ -199,38 +199,38 @@ it('should allow grouped horizontal layout', () => {
     })
 
     expect(props).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "height": 43,
             "width": 17,
             "x": 0,
             "y": 203,
           },
-          Object {
+          {
             "height": 43,
             "width": 33,
             "x": 0,
             "y": 107,
           },
-          Object {
+          {
             "height": 43,
             "width": 50,
             "x": 0,
             "y": 11,
           },
-          Object {
+          {
             "height": 43,
             "width": 167,
             "x": 0,
             "y": 246,
           },
-          Object {
+          {
             "height": 43,
             "width": 333,
             "x": 0,
             "y": 150,
           },
-          Object {
+          {
             "height": 43,
             "width": 500,
             "x": 0,

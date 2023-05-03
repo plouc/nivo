@@ -1,3 +1,7 @@
+const { TextEncoder, TextDecoder } = require('util')
+
+Object.assign(global, { TextDecoder, TextEncoder })
+
 global.ResizeObserver = require('resize-observer-polyfill')
 
 const { configure } = require('enzyme')
