@@ -14,6 +14,7 @@
         { "path": "./packages/arcs" },
         { "path": "./packages/polar-axes" },
         { "path": "./packages/voronoi" },
+        { "path": "./packages/grid" },
 
         // Utility packages
         { "path": "./packages/generators" },
