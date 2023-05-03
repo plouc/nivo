@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import {useCallback, useMemo, useState} from 'react'
 import { Component } from 'react'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
+import { nivoTheme } from '../nivo-theme'
 import { Waffle, WaffleHtml, WaffleCanvas, LegendDatum } from '@nivo/waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
@@ -45,6 +46,7 @@ const commonProps = {
     data,
     rows: 24,
     columns: 18,
+    theme: nivoTheme,
 }
 
 export const Basic: Story = {
@@ -103,7 +105,7 @@ export const Demo: Story = {
 
         return (
             <div>
-                <button onClick={gen}>YAY</button>
+                <button onClick={gen}>Roll the dice</button>
                 <Waffle
                     {...commonProps}
                     fillDirection={args.fillDirection}
@@ -144,22 +146,16 @@ export const DemoHtml: Story = {
 
         const [legends, setLegends] = useState<LegendDatum[]>([])
 
-        // console.log(JSON.stringify(data, null, '  '))
-
-        console.log({ legends })
-
         const formatValue = useCallback((value: number) => `${value} peolpe`, [])
 
         return (
             <div>
-                <button onClick={gen}>YAY</button>
+                <button onClick={gen}>Roll the dice</button>
                 <WaffleHtml
                     {...commonProps}
                     fillDirection={args.fillDirection}
                     data={data}
-                    {...leftIssue}
-                    // columns={args.columns}
-                    columns={4}
+                    columns={args.columns}
                     rows={6}
                     margin={{
                         top: 10,
@@ -174,7 +170,7 @@ export const DemoHtml: Story = {
                     testIdPrefix="waffle"
                 />
                 <div>
-                    <table>
+                    <table className="Table">
                         <thead>
                             <tr>
                                 <th>Color</th>
@@ -188,11 +184,11 @@ export const DemoHtml: Story = {
                             {legends.map(legend => {
                                 return (
                                     <tr key={legend.id}>
-                                        <th>{legend.color}</th>
-                                        <th>{legend.id}</th>
-                                        <th>{legend.label}</th>
-                                        <th>{legend.data.value}</th>
-                                        <th>{legend.data.formattedValue}</th>
+                                        <td><span className="Chip" style={{ backgroundColor: legend.color}}/></td>
+                                        <td><strong>{legend.id}</strong></td>
+                                        <td>{legend.label}</td>
+                                        <td><strong>{legend.data.value}</strong></td>
+                                        <td>{legend.data.formattedValue}</td>
                                     </tr>
                                 )
                             })}
@@ -223,7 +219,7 @@ export const DemoCanvas: Story = {
 
         return (
             <div>
-                <button onClick={gen}>YAY</button>
+                <button onClick={gen}>Roll the dice</button>
                 <WaffleCanvas
                     {...commonProps}
                     fillDirection={args.fillDirection}
