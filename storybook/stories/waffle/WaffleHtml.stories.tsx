@@ -54,20 +54,6 @@ export const UsingDataColor: Story = {
     ),
 }
 
-export const FillDirection: Story = {
-    render: args => (
-        <WaffleHtml
-            {...commonProps}
-            width={900}
-            height={400}
-            fillDirection="left"
-            rows={18}
-            columns={24}
-            onClick={args.onClick}
-        />
-    ),
-}
-
 export const CustomTooltip: Story = {
     render: args => (
         <WaffleHtml {...commonProps} tooltip={CustomTooltipComponent} onClick={args.onClick} />

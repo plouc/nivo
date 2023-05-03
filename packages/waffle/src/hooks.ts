@@ -245,17 +245,24 @@ export const useWaffle = <D extends Datum = Datum>({
         }
     })
 
-    const legendData: LegendDatum<D>[] = useMemo(
-        () =>
-            computedData.map(datum => ({
-                id: datum.id,
-                label: datum.label,
-                color: datum.color,
-                // fill: datum.fill,,
-                data: datum,
-            })),
-        [computedData]
-    )
+    const legendData: LegendDatum<D>[] = useMemo(() => {
+        const _legendData = computedData.map(datum => ({
+            id: datum.id,
+            label: datum.label,
+            color: datum.color,
+            // fill: datum.fill,,
+            data: datum,
+        }))
+
+        console.log('fillDirection', fillDirection)
+
+        if (['right', 'bottom'].includes(fillDirection)) {
+            console.log('REVERSING')
+            _legendData.reverse()
+        }
+
+        return _legendData
+    }, [computedData, fillDirection])
 
     // Forward the legends data if `forwardLegendData` is defined.
     useEffect(() => {
