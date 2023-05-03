@@ -414,7 +414,7 @@ const props: ChartProperty[] = [
         type: '(target: SankeyNodeDatum | SankeyLinkDatum, event) => void',
         required: false,
     },
-    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    ...motionProperties(['svg'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

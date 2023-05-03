@@ -1,29 +1,26 @@
 import React from 'react'
-import { ResponsiveWaffle, svgDefaultProps } from '@nivo/waffle'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveWaffle, svgDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => [
     {
-        id: 'men',
-        label: 'men',
+        id: 'cats',
+        label: 'Cats',
         value: Math.random() * 33,
-        color: '#468df3',
     },
     {
-        id: 'women',
-        label: 'women',
+        id: 'dogs',
+        label: 'Dogs',
         value: Math.random() * 33,
-        color: '#ba72ff',
     },
     {
-        id: 'children',
-        label: 'children',
+        id: 'rabbits',
+        label: 'Rabits',
         value: Math.random() * 33,
-        color: '#a1cfff',
     },
 ]
 
@@ -52,13 +49,11 @@ const initialProperties = {
         modifiers: [['darker', 0.3]],
     },
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 11,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
+    motionStagger: 2,
 
     isInteractive: true,
-    'custom tooltip example': false,
-    tooltip: null,
 
     legends: [
         {
@@ -130,18 +125,12 @@ const Waffle = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={node => {
-                            let label
-                            if (node.data.value !== undefined) {
-                                label = `${node.data.label}: ${node.data.value} (position: ${node.position})`
-                            } else {
-                                label = `empty at position: ${node.position}`
-                            }
+                        onClick={(datum: ComputedDatum<Datum>) => {
                             logAction({
                                 type: 'click',
-                                label: `[cell] ${label}`,
-                                color: node.color,
-                                data: node,
+                                label: `[datum] ${datum.label}`,
+                                color: datum.color,
+                                data: datum,
                             })
                         }}
                     />

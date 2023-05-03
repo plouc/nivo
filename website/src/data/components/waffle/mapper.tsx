@@ -1,6 +1,5 @@
 import React from 'react'
 import { settingsMapper } from '../../../lib/settings'
-import CustomTooltip from './CustomTooltip'
 
 const CustomSvgCell = ({
     position,
@@ -81,13 +80,6 @@ export default settingsMapper(
             }
             return undefined
         },
-        tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return undefined
-
-            return CustomTooltip
-        },
     },
-    {
-        exclude: ['custom tooltip example'],
-    }
+    {}
 )

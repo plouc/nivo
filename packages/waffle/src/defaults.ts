@@ -22,7 +22,7 @@ export const commonDefaultProps: Omit<
     hiddenIds: [],
 
     fillDirection: 'bottom',
-    padding: 1,
+    padding: 0,
 
     colors: { scheme: 'nivo' },
     emptyColor: '#cccccc',
@@ -46,6 +46,7 @@ export const svgDefaultProps = {
     defs: [],
     fill: [],
     legends: [],
+    motionStagger: 0,
 }
 
 export const htmlDefaultProps = {
@@ -55,6 +56,7 @@ export const htmlDefaultProps = {
     defs: [],
     fill: [],
     legends: [],
+    motionStagger: 0,
 }
 
 export const canvasDefaultProps = {

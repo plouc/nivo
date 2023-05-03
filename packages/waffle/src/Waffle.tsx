@@ -32,8 +32,8 @@ const InnerWaffle = <D extends Datum>({
     // emptyOpacity = defaultProps.emptyOpacity,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
-    // defs = defaultProps.defs,
-    // fill = defaultProps.fill,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
     isInteractive = svgDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
@@ -42,6 +42,7 @@ const InnerWaffle = <D extends Datum>({
     tooltip = svgDefaultProps.tooltip as TooltipComponent<D>,
     forwardLegendData,
     legends = svgDefaultProps.legends,
+    motionStagger = svgDefaultProps.motionStagger,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -85,6 +86,7 @@ const InnerWaffle = <D extends Datum>({
                 cellComponent={cellComponent}
                 cellSize={cellSize}
                 borderWidth={borderWidth}
+                motionStagger={motionStagger}
                 testIdPrefix={testIdPrefix}
             />
         )

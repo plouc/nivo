@@ -387,7 +387,7 @@ const props: ChartProperty[] = [
         help: 'Override default slice tooltip.',
         flavors: ['svg'],
     },
-    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    ...motionProperties(['svg'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

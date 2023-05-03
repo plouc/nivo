@@ -157,7 +157,7 @@ pkgs-build: pkgs-types ##@1 packages build all packages
         | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
 
 pkgs-types: ##@1 packages build all package types
-	@pnpm tsc -b ./tsconfig.monorepo.json
+	@pnpm tsc --build ./tsconfig.monorepo.json
 
 pkg-types-%: ##@1 packages generate types for a specific package
 	@if [ "$${SKIP_TYPES}" != "TRUE" ]; \
@@ -167,7 +167,7 @@ pkg-types-%: ##@1 packages generate types for a specific package
 			echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
 			rm -rf ./packages/${*}/dist/types; \
 			rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
-			pnpm tsc -b ./packages/${*}; \
+			pnpm tsc --build ./packages/${*}; \
         fi \
 	fi;
 

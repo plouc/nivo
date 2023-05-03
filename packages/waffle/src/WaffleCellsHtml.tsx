@@ -9,6 +9,7 @@ interface WaffleCellsHtmlProps<D extends Datum> {
     cellSize: number
     margin: Margin
     borderWidth: number
+    motionStagger: number
     testIdPrefix: HtmlProps<D>['testIdPrefix']
 }
 
@@ -26,6 +27,7 @@ export const WaffleCellsHtml = <D extends Datum>({
     cellComponent,
     cellSize,
     borderWidth,
+    motionStagger,
     testIdPrefix,
     margin,
 }: WaffleCellsHtmlProps<D>) => {
@@ -38,7 +40,7 @@ export const WaffleCellsHtml = <D extends Datum>({
         enter: getProps,
         update: getProps,
         // leave: getEndingAnimatedNodeProps,
-        trail: animate ? 20 : undefined,
+        trail: animate ? motionStagger : undefined,
         config: springConfig,
         immediate: !animate,
     })

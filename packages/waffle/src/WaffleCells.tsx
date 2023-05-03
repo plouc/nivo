@@ -8,6 +8,7 @@ interface WaffleCellsProps<D extends Datum> {
     cellComponent: CellComponent<D>
     cellSize: number
     borderWidth: number
+    motionStagger: number
     testIdPrefix: SvgProps<D>['testIdPrefix']
 }
 
@@ -25,6 +26,7 @@ export const WaffleCells = <D extends Datum>({
     cellComponent,
     cellSize,
     borderWidth,
+    motionStagger,
     testIdPrefix,
 }: WaffleCellsProps<D>) => {
     const { animate, config: springConfig } = useMotionConfig()
@@ -36,7 +38,7 @@ export const WaffleCells = <D extends Datum>({
         enter: getProps,
         update: getProps,
         // // leave: getEndingAnimatedNodeProps,
-        trail: animate ? 20 : undefined,
+        trail: animate ? motionStagger : undefined,
         config: springConfig,
         immediate: !animate,
     })

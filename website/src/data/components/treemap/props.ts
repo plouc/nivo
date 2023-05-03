@@ -349,7 +349,7 @@ const props: ChartProperty[] = [
         flavors: ['svg', 'html', 'canvas'],
     },
     ...commonAccessibilityProps(allFlavors),
-    ...motionProperties(['svg', 'html', 'canvas'], defaults, 'react-spring'),
+    ...motionProperties(['svg', 'html', 'canvas'], defaults),
 ]
 
 export const groups = groupProperties(props)
