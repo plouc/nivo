@@ -1,6 +1,6 @@
 import { Line } from 'd3-shape'
+import { Vertex } from '@nivo/grid'
 import { ComputedDatum, Datum, HtmlProps } from './types'
-import { Vertex } from './polygons'
 import { useAreaMouseHandlers } from './hooks'
 
 interface WaffleAreaHtmlProps<D extends Datum> {

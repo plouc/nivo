@@ -3,7 +3,7 @@ import { SpringValues } from '@react-spring/web'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Vertex } from './polygons'
+import { Vertex } from '@nivo/grid'
 
 export type DatumId = string | number
 
