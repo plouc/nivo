@@ -6,6 +6,9 @@ const meta: Meta<typeof WaffleHtml> = {
     title: 'WaffleHtml',
     component: WaffleHtml,
     tags: ['autodocs'],
+    argTypes: {
+        onClick: { action: 'click' },
+    },
 }
 
 export default meta
@@ -36,19 +39,23 @@ const commonProps = {
 }
 
 export const Basic: Story = {
-    render: () => <WaffleHtml {...commonProps} />,
+    render: args => <WaffleHtml {...commonProps} onClick={args.onClick} />,
 }
 
 export const Colors: Story = {
-    render: () => <WaffleHtml {...commonProps} colors={{ scheme: 'category10' }} />,
+    render: args => (
+        <WaffleHtml {...commonProps} colors={{ scheme: 'category10' }} onClick={args.onClick} />
+    ),
 }
 
 export const UsingDataColor: Story = {
-    render: () => <WaffleHtml {...commonProps} colors={{ datum: 'color' }} />,
+    render: args => (
+        <WaffleHtml {...commonProps} colors={{ datum: 'color' }} onClick={args.onClick} />
+    ),
 }
 
 export const FillDirection: Story = {
-    render: () => (
+    render: args => (
         <WaffleHtml
             {...commonProps}
             width={900}
@@ -56,63 +63,13 @@ export const FillDirection: Story = {
             fillDirection="left"
             rows={18}
             columns={24}
+            onClick={args.onClick}
         />
     ),
 }
 
-const CustomCellComponent = ({
-    position,
-    size,
-    x,
-    y,
-    color,
-    opacity,
-    borderWidth,
-    borderColor,
-    data,
-    onHover,
-    onLeave,
-    onClick,
-}) => (
-    <div
-        style={{
-            borderRadius: `${size / 2}px 0 ${size / 2}px 0`,
-            position: 'absolute',
-            top: y,
-            left: x,
-            width: size,
-            height: size,
-            background: color,
-            opacity,
-            boxSizing: 'content-box',
-            borderStyle: 'solid',
-            borderWidth: `${borderWidth}px`,
-            borderColor,
-        }}
-        onMouseEnter={onHover}
-        onMouseMove={onHover}
-        onMouseLeave={onLeave}
-        onClick={event => {
-            onClick({ position, color, x, y, data }, event)
-        }}
-    />
-)
-export const CustomCell: Story = {
-    render: () => <WaffleHtml {...commonProps} cellComponent={CustomCellComponent} />,
-}
-
 export const CustomTooltip: Story = {
-    render: () => (
-        <WaffleHtml
-            {...commonProps}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
-                },
-            }}
-            tooltip={CustomTooltipComponent}
-        />
+    render: args => (
+        <WaffleHtml {...commonProps} tooltip={CustomTooltipComponent} onClick={args.onClick} />
     ),
 }

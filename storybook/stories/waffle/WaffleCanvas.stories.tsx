@@ -6,6 +6,16 @@ const meta: Meta<typeof WaffleCanvas> = {
     title: 'WaffleCanvas',
     component: WaffleCanvas,
     tags: ['autodocs'],
+    argTypes: {
+        onClick: { action: 'click' },
+        fillDirection: {
+            control: 'select',
+            options: ['top', 'right', 'bottom', 'left'],
+        },
+    },
+    args: {
+        fillDirection: 'bottom',
+    },
 }
 
 export default meta
@@ -33,45 +43,33 @@ const commonProps = {
     data,
     rows: 48,
     columns: 36,
+    padding: 1,
 }
 
 export const Basic: Story = {
-    render: () => <WaffleCanvas {...commonProps} />,
-}
-
-export const Colors: Story = {
-    render: () => <WaffleCanvas {...commonProps} colors={{ scheme: 'category10' }} />,
+    render: args => (
+        <WaffleCanvas {...commonProps} fillDirection={args.fillDirection} onClick={args.onClick} />
+    ),
 }
 
 export const UsingDataColor: Story = {
-    render: () => <WaffleCanvas {...commonProps} colorBy={{ datum: 'color' }} />,
-}
-
-export const FillDirection: Story = {
-    render: () => (
+    render: args => (
         <WaffleCanvas
             {...commonProps}
-            width={900}
-            height={400}
-            fillDirection="left"
-            rows={36}
-            columns={48}
+            colors={{ datum: 'color' }}
+            fillDirection={args.fillDirection}
+            onClick={args.onClick}
         />
     ),
 }
 
 export const CustomTooltip: Story = {
-    render: () => (
+    render: args => (
         <WaffleCanvas
             {...commonProps}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
-                },
-            }}
             tooltip={CustomTooltipComponent}
+            fillDirection={args.fillDirection}
+            onClick={args.onClick}
         />
     ),
 }

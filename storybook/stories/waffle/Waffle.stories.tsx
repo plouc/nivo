@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useCallback, useMemo, useState, Component } from 'react'
-import { symbol, symbols, symbolWye } from 'd3-shape'
+import { useCallback, useState, Component } from 'react'
+import { symbol, symbolWye } from 'd3-shape'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { Waffle, WaffleHtml, WaffleCanvas, LegendDatum, CellComponentProps } from '@nivo/waffle'
+import { Waffle, WaffleHtml, LegendDatum, CellComponentProps } from '@nivo/waffle'
 import { nivoTheme } from '../nivo-theme'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
@@ -11,6 +11,7 @@ const meta: Meta<typeof Waffle> = {
     component: Waffle,
     tags: ['autodocs'],
     argTypes: {
+        onClick: { action: 'click' },
         fillDirection: {
             control: 'select',
             options: ['top', 'right', 'bottom', 'left'],
@@ -59,65 +60,9 @@ const commonProps = {
 }
 
 export const Basic: Story = {
-    render: args => <Waffle {...commonProps} fillDirection={args.fillDirection} />,
-}
-
-const generateData = () => [
-    {
-        id: 'men',
-        label: 'men',
-        value: Math.round(Math.random() * 100),
-        color: '#468df3',
-    },
-    {
-        id: 'women',
-        label: 'women',
-        value: Math.round(Math.random() * 100),
-        color: '#a053f0',
-    },
-]
-
-export const Demo: Story = {
-    argTypes: {
-        columns: {
-            control: 'number',
-        },
-    },
-    args: {
-        columns: commonProps.columns,
-    },
-    render: args => {
-        const [data, setData] = useState(() => generateData())
-        const gen = useCallback(() => {
-            setData(generateData())
-        }, [setData])
-
-        // console.log(JSON.stringify(data, null, '  '))
-
-        return (
-            <div>
-                <button onClick={gen}>Roll the dice</button>
-                <Waffle<Datum>
-                    {...commonProps}
-                    fillDirection={args.fillDirection}
-                    data={data}
-                    // {...leftIssue}
-                    columns={args.columns}
-                    columns={5}
-                    rows={6}
-                    margin={{
-                        top: 10,
-                        right: 10,
-                        bottom: 10,
-                        left: 10,
-                    }}
-                    padding={0}
-                    motionConfig="gentle"
-                    testIdPrefix="waffle"
-                />
-            </div>
-        )
-    },
+    render: args => (
+        <Waffle {...commonProps} fillDirection={args.fillDirection} onClick={args.onClick} />
+    ),
 }
 
 /**
@@ -133,7 +78,7 @@ export const CustomLegend: Story = {
 
         return (
             <div>
-                <WaffleHtml<Datum>
+                <WaffleHtml
                     {...commonProps}
                     width={400}
                     height={300}
@@ -141,15 +86,16 @@ export const CustomLegend: Story = {
                     data={data}
                     columns={16}
                     rows={20}
+                    padding={1}
                     margin={{
                         top: 10,
                         right: 10,
                         bottom: 10,
                         left: 10,
                     }}
-                    padding={0}
                     valueFormat={formatValue}
                     forwardLegendData={setLegends}
+                    onClick={args.onClick}
                     motionConfig="wobbly"
                     testIdPrefix="waffle"
                 />
@@ -188,126 +134,6 @@ export const CustomLegend: Story = {
                         </tbody>
                     </table>
                 </div>
-            </div>
-        )
-    },
-}
-
-export const DemoHtml: Story = {
-    argTypes: {
-        columns: {
-            control: 'number',
-        },
-    },
-    args: {
-        columns: commonProps.columns,
-    },
-    render: args => {
-        const [data, setData] = useState(() => generateData())
-        const gen = useCallback(() => {
-            setData(generateData())
-        }, [setData])
-
-        const [legends, setLegends] = useState<LegendDatum[]>([])
-
-        const formatValue = useCallback((value: number) => `${value} peolpe`, [])
-
-        return (
-            <div>
-                <button onClick={gen}>Roll the dice</button>
-                <WaffleHtml
-                    {...commonProps}
-                    fillDirection={args.fillDirection}
-                    data={data}
-                    columns={args.columns}
-                    rows={6}
-                    margin={{
-                        top: 10,
-                        right: 10,
-                        bottom: 10,
-                        left: 10,
-                    }}
-                    padding={0}
-                    valueFormat={formatValue}
-                    forwardLegendData={setLegends}
-                    motionConfig="wobbly"
-                    testIdPrefix="waffle"
-                />
-                <div>
-                    <table className="Table">
-                        <thead>
-                            <tr>
-                                <th>Color</th>
-                                <th>ID</th>
-                                <th>Value</th>
-                                <th>Formatted Value</th>
-                                <th>Label</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {legends.map(legend => {
-                                return (
-                                    <tr key={legend.id}>
-                                        <td>
-                                            <span
-                                                className="Chip"
-                                                style={{ backgroundColor: legend.color }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <em>{legend.id}</em>
-                                        </td>
-                                        <td>
-                                            <em>{legend.data.value}</em>
-                                        </td>
-                                        <td>{legend.data.formattedValue}</td>
-                                        <td>{legend.label}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        )
-    },
-}
-
-export const DemoCanvas: Story = {
-    argTypes: {
-        columns: {
-            control: 'number',
-        },
-    },
-    args: {
-        columns: commonProps.columns,
-    },
-    render: args => {
-        const [data, setData] = useState(() => generateData())
-        const gen = useCallback(() => {
-            setData(generateData())
-        }, [setData])
-
-        // console.log(JSON.stringify(data, null, '  '))
-
-        return (
-            <div>
-                <button onClick={gen}>Roll the dice</button>
-                <WaffleCanvas
-                    {...commonProps}
-                    fillDirection={args.fillDirection}
-                    data={data}
-                    columns={args.columns}
-                    rows={6}
-                    margin={{
-                        top: 10,
-                        right: 10,
-                        bottom: 10,
-                        left: 10,
-                    }}
-                    padding={0}
-                    motionConfig="wobbly"
-                />
             </div>
         )
     },
@@ -315,7 +141,13 @@ export const DemoCanvas: Story = {
 
 export const UsingDataColor: Story = {
     render: args => (
-        <Waffle {...commonProps} fillDirection={args.fillDirection} colors={{ datum: 'color' }} />
+        <Waffle
+            {...commonProps}
+            fillDirection={args.fillDirection}
+            colors={{ datum: 'color' }}
+            onClick={args.onClick}
+            testIdPrefix="waffle"
+        />
     ),
 }
 
@@ -344,6 +176,8 @@ export const Patterns: Story = {
                 { match: { id: 'men' }, id: 'dots' },
                 { match: { id: 'women' }, id: 'lines' },
             ]}
+            onClick={args.onClick}
+            testIdPrefix="waffle"
         />
     ),
 }
@@ -367,6 +201,8 @@ export const CustomCell: Story = {
             padding={0}
             fillDirection={args.fillDirection}
             cellComponent={CustomCellComponent}
+            onClick={args.onClick}
+            testIdPrefix="waffle"
         />
     ),
 }
@@ -375,8 +211,9 @@ export const CustomTooltip: Story = {
     render: args => (
         <Waffle
             {...commonProps}
-            fillDirection={args.fillDirection}
             tooltip={CustomTooltipComponent}
+            onClick={args.onClick}
+            testIdPrefix="waffle"
         />
     ),
 }
