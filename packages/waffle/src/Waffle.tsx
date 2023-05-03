@@ -40,6 +40,7 @@ const InnerWaffle = <D extends Datum>({
     onMouseLeave,
     onClick,
     tooltip = svgDefaultProps.tooltip as TooltipComponent<D>,
+    forwardLegendData,
     legends = svgDefaultProps.legends,
     role = svgDefaultProps.role,
     ariaLabel,
@@ -67,6 +68,7 @@ const InnerWaffle = <D extends Datum>({
         colors,
         emptyColor,
         borderColor,
+        forwardLegendData,
     })
 
     const layerById: Record<LayerId, ReactNode> = {

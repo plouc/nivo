@@ -46,6 +46,7 @@ const InnerWaffleHtml = <D extends Datum>({
     onMouseLeave,
     onClick,
     tooltip = htmlDefaultProps.tooltip as TooltipComponent<D>,
+    forwardLegendData,
     role = htmlDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -72,6 +73,7 @@ const InnerWaffleHtml = <D extends Datum>({
         colors,
         emptyColor,
         borderColor,
+        forwardLegendData,
     })
 
     const layerById: Record<HtmlLayerId, ReactNode> = {

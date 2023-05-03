@@ -1,27 +1,27 @@
-export const CustomTooltip = node => (
+import {Datum, TooltipProps} from '@nivo/waffle'
+
+export const CustomTooltip = ({ data }: TooltipProps<Datum>) => (
     <div
         style={{
-            color: node.color,
+            backgroundColor: '#eeeeee',
+            padding: '12px',
+            borderRadius: '3px',
+            color: data.color,
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gridColumnGap: '12px',
+            boxShadow: '2px 5px 5px #00000033',
         }}
     >
         <span style={{ fontWeight: 600 }}>label</span>
-        <span>{node.label}</span>
+        <span>{data.label}</span>
         <span style={{ fontWeight: 600 }}>id</span>
-        <span>{node.id}</span>
+        <span>{data.id}</span>
         <span style={{ fontWeight: 600 }}>value</span>
-        <span>{node.value}</span>
-        <span style={{ fontWeight: 600 }}>position</span>
-        <span>{node.position}</span>
+        <span>{data.value}</span>
         <span style={{ fontWeight: 600 }}>groupIndex</span>
-        <span>{node.groupIndex}</span>
-        <span style={{ fontWeight: 600 }}>row</span>
-        <span>{node.row}</span>
-        <span style={{ fontWeight: 600 }}>column</span>
-        <span>{node.column}</span>
+        <span>{data.groupIndex}</span>
         <span style={{ fontWeight: 600 }}>color</span>
-        <span>{node.color}</span>
+        <span>{data.color}</span>
     </div>
 )

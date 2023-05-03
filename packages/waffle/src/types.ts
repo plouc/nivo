@@ -56,6 +56,13 @@ export type CellAnimatedProps = {
     fill: string
 }
 
+export interface LegendDatum<D extends Datum = Datum> {
+    id: D['id']
+    label: D['label']
+    color: string
+    data: ComputedDatum<D>
+}
+
 /**
  * When using a custom cell component, if you want to preserve transitions,
  * you should use an SVG element from `@react-spring/web`, for example
@@ -100,6 +107,7 @@ export interface CommonProps<D extends Datum> extends ModernMotionProps {
     borderColor: InheritedColorConfig<ComputedDatum<D>>
     isInteractive: boolean
     tooltip: TooltipComponent<D>
+    forwardLegendData: (data: LegendDatum<D>[]) => void
     role: string
     renderWrapper: boolean
     ariaLabel: AriaAttributes['aria-label']
