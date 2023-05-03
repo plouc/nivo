@@ -18,6 +18,8 @@ export const commonDefaultProps: Omit<
     | 'ariaLabelledBy'
     | 'ariaDescribedBy'
 > = {
+    hiddenIds: [],
+
     fillDirection: 'bottom',
     padding: 1,
 

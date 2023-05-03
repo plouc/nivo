@@ -1,4 +1,4 @@
-import { computeCellSize, computeGrid } from '../src/compute'
+import { computeCellSize, computeGrid } from '../src/hooks'
 
 describe('computeCellSize', () => {
     it('should compute cell size according to given parameters', () => {

@@ -1,8 +1,9 @@
-import renderer from 'react-test-renderer'
-import WaffleHtml from '../src/Waffle'
+import { create } from 'react-test-renderer'
+// @ts-ignore
+import { WaffleHtml, FillDirection } from '../src'
 
 it('should render a basic waffle chart in HTML', () => {
-    const component = renderer.create(
+    const component = create(
         <WaffleHtml
             width={400}
             height={400}
@@ -13,14 +14,14 @@ it('should render a basic waffle chart in HTML', () => {
         />
     )
 
-    let tree = component.toJSON()
+    const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
 })
 
-const fillModes = ['top', 'right', 'bottom', 'left']
+const fillModes: FillDirection[] = ['top', 'right', 'bottom', 'left']
 for (const fillMode of fillModes) {
     it(`should support ${fillMode} fill mode`, () => {
-        const component = renderer.create(
+        const component = create(
             <WaffleHtml
                 width={400}
                 height={400}
@@ -32,7 +33,7 @@ for (const fillMode of fillModes) {
             />
         )
 
-        let tree = component.toJSON()
+        const tree = component.toJSON()
         expect(tree).toMatchSnapshot()
     })
 }

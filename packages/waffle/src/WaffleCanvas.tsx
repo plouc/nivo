@@ -1,11 +1,11 @@
-import {createElement, MouseEvent, useCallback, useEffect, useRef} from 'react'
+import { createElement, MouseEvent, useCallback, useEffect, useRef } from 'react'
 import {
     isCursorInRect,
     getRelativeCursor,
     Container,
     useDimensions,
     useTheme,
-    Margin
+    Margin,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
@@ -22,16 +22,15 @@ import {
 import { canvasDefaultProps } from './defaults'
 import { useWaffle } from './hooks'
 
-const findCellUnderCursor = <D extends Datum>(cells: Cell<D>[], cellSize: number, margin: Margin, x: number, y: number) =>
+const findCellUnderCursor = <D extends Datum>(
+    cells: Cell<D>[],
+    cellSize: number,
+    margin: Margin,
+    x: number,
+    y: number
+) =>
     cells.find(cell =>
-        isCursorInRect(
-            margin.left + cell.x,
-            margin.top + cell.y,
-            cellSize,
-            cellSize,
-            x,
-            y
-        )
+        isCursorInRect(margin.left + cell.x, margin.top + cell.y, cellSize, cellSize, x, y)
     )
 
 type InnerWaffleCanvasProps<D extends Datum> = Omit<CanvasProps<D>, 'renderWrapper' | 'theme'>
@@ -46,6 +45,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     rows,
     columns,
     fillDirection = canvasDefaultProps.fillDirection,
+    hiddenIds = canvasDefaultProps.hiddenIds,
     padding = canvasDefaultProps.padding,
     // layers = svgDefaultProps.layers as LayerId[],
     // cellComponent = svgDefaultProps.cellComponent,
@@ -77,6 +77,7 @@ const InnerWaffleCanvas = <D extends Datum>({
         width: innerWidth,
         height: innerHeight,
         data,
+        hiddenIds,
         valueFormat,
         total,
         rows,

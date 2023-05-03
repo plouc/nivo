@@ -87,6 +87,7 @@ export type TooltipComponent<D extends Datum> = FunctionComponent<TooltipProps<D
 // Most of those props are optional for the public API,
 // but required internally, using defaults.
 export interface CommonProps<D extends Datum> extends ModernMotionProps {
+    hiddenIds: D['id'][]
     margin: Box
     valueFormat?: ValueFormat<D['value']>
     fillDirection: FillDirection

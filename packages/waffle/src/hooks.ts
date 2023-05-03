@@ -131,7 +131,7 @@ export const computeGrid = (
             throw new Error(`Invalid fill direction provided: ${fillDirection}`)
     }
 
-    return { cells, cellSize }
+    return { cells, cellSize, origin }
 }
 
 export const mergeCellsData = <RawDatum extends Datum>(
@@ -158,6 +158,7 @@ export const useWaffle = <D extends Datum = Datum>({
     width,
     height,
     data,
+    hiddenIds,
     valueFormat,
     total,
     rows,
@@ -169,7 +170,13 @@ export const useWaffle = <D extends Datum = Datum>({
     borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
 }: Pick<
     CommonProps<D>,
-    'valueFormat' | 'fillDirection' | 'padding' | 'colors' | 'emptyColor' | 'borderColor'
+    | 'hiddenIds'
+    | 'valueFormat'
+    | 'fillDirection'
+    | 'padding'
+    | 'colors'
+    | 'emptyColor'
+    | 'borderColor'
 > &
     DataProps<D> & {
         width: number
@@ -186,7 +193,11 @@ export const useWaffle = <D extends Datum = Datum>({
     const computedData: Array<ComputedDatum<D>> = useMemo(() => {
         let currentPosition = 0
 
-        return data.map((datum, groupIndex) => {
+        const enhancedData: ComputedDatum<D>[] = []
+
+        data.forEach((datum, groupIndex) => {
+            if (hiddenIds.includes(datum.id)) return false
+
             const color = getColor(datum)
 
             const enhancedDatum: ComputedDatum<D> = {
@@ -208,33 +219,11 @@ export const useWaffle = <D extends Datum = Datum>({
 
             currentPosition = enhancedDatum.endAt
 
-            return enhancedDatum
-
-            /*
-            if (!hiddenIds.includes(datum.id)) {
-                const enhancedDatum = {
-                    ...datum,
-                    groupIndex,
-                    startAt: currentPosition,
-                    endAt: currentPosition + Math.round(datum.value / unit),
-                    color: getColor(datum),
-                }
-
-                currentPosition = enhancedDatum.endAt
-
-                return enhancedDatum
-            }
-
-            return {
-                ...datum,
-                groupIndex,
-                startAt: currentPosition,
-                endAt: currentPosition,
-                color: getColor(datum),
-            }
-            */
+            enhancedData.push(enhancedDatum)
         })
-    }, [data, unit, formatValue, getColor, getBorderColor])
+
+        return enhancedData
+    }, [data, hiddenIds, unit, formatValue, getColor, getBorderColor])
 
     const grid = useMemo(
         () => computeGrid(width, height, rows, columns, fillDirection, padding, emptyColor),
