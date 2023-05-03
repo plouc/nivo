@@ -390,7 +390,7 @@ const props: ChartProperty[] = [
         `,
         flavors: ['svg'],
     },
-    ...motionProperties(['svg'], defaults, 'react-spring'),
+    ...motionProperties(['svg'], defaults),
 ]
 
 export const groups = groupProperties(props)

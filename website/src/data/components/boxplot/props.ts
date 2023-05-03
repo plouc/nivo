@@ -437,7 +437,7 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    ...motionProperties(['svg'], svgDefaultProps),
     ...commonAccessibilityProps(['svg']),
     {
         key: 'isFocusable',

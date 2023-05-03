@@ -444,7 +444,7 @@ const props: ChartProperty[] = [
             \`\`\`
         `,
     },
-    ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg'], defaultProps),
 ]
 
 export const groups = groupProperties(props)

@@ -78,9 +78,10 @@ const initialProperties = {
         modifiers: [['darker', 0.3]],
     },
 
+    animate: canvasDefaultProps.animate,
+    motionConfig: canvasDefaultProps.motionConfig,
+
     isInteractive: true,
-    'custom tooltip example': false,
-    tooltip: null,
 
     legends: [
         {

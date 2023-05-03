@@ -249,7 +249,7 @@ export const useWaffle = <D extends Datum = Datum>({
         () =>
             computedData.map(datum => ({
                 id: datum.id,
-                label: datum.id,
+                label: datum.label,
                 color: datum.color,
                 // fill: datum.fill,,
                 data: datum,

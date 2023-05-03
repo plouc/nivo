@@ -571,7 +571,7 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg'], defaultProps),
     {
         key: 'transitionMode',
         flavors: ['svg'],

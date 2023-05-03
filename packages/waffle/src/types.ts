@@ -142,8 +142,9 @@ export type SvgProps<D extends Datum = Datum> = DataProps<D> &
     Partial<MouseHandlers<D, SVGGeometryElement>> & {
         layers?: SvgLayer<D>[]
         legends?: LegendProps[]
-        testIdPrefix?: string
         cellComponent?: CellComponent<D>
+        motionStagger: number
+        testIdPrefix?: string
     }
 
 export type HtmlLayerId = Exclude<LayerId, 'legends'>
@@ -155,8 +156,9 @@ export type HtmlProps<D extends Datum = Datum> = DataProps<D> &
     Partial<CommonProps<D>> &
     Partial<MouseHandlers<D, HTMLElement>> & {
         layers?: HtmlLayer<D>[]
-        testIdPrefix?: string
         cellComponent?: CellComponent<D>
+        motionStagger: number
+        testIdPrefix?: string
     }
 
 export type CanvasProps<D extends Datum = Datum> = DataProps<D> &

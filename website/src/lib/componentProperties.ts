@@ -44,12 +44,8 @@ export const defsProperties = (group: string, flavors: Flavor[]): ChartProperty[
     },
 ]
 
-export const motionProperties = (
-    flavors: Flavor[],
-    defaults: any,
-    type: 'react-spring' | 'react-motion' = 'react-motion'
-): ChartProperty[] => {
-    const props: ChartProperty[] = [
+export const motionProperties = (flavors: Flavor[], defaults: any): ChartProperty[] => {
+    return [
         {
             key: 'animate',
             flavors,
@@ -60,46 +56,7 @@ export const motionProperties = (
             control: { type: 'switch' },
             group: 'Motion',
         },
-    ]
-
-    if (type === 'react-motion') {
-        props.push({
-            key: 'motionStiffness',
-            flavors,
-            help: 'Motion stiffness.',
-            type: 'number',
-            required: false,
-            defaultValue:
-                defaults.motionStiffness !== undefined
-                    ? defaults.motionStiffness
-                    : defaultMotionStiffness,
-            group: 'Motion',
-            control: {
-                type: 'range',
-                min: 0,
-                max: 300,
-                step: 5,
-            },
-        })
-        props.push({
-            key: 'motionDamping',
-            flavors,
-            help: 'Motion damping.',
-            type: 'number',
-            required: false,
-            defaultValue:
-                defaults.motionDamping !== undefined
-                    ? defaults.motionDamping
-                    : defaultMotionDamping,
-            group: 'Motion',
-            control: {
-                type: 'range',
-                min: 0,
-                max: 40,
-            },
-        })
-    } else if (type === 'react-spring') {
-        props.push({
+        {
             key: 'motionConfig',
             flavors,
             help: 'Motion config for react-spring, either a preset or a custom configuration.',
@@ -108,10 +65,8 @@ export const motionProperties = (
             defaultValue: defaults.motionConfig,
             control: { type: 'motionConfig' },
             group: 'Motion',
-        })
-    }
-
-    return props
+        },
+    ]
 }
 
 export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>[] => [

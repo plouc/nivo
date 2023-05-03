@@ -199,7 +199,7 @@ const props: ChartProperty[] = [
         control: { type: 'opacity' },
         group: 'Style',
     },
-    ...motionProperties(['svg'], defaults, 'react-spring'),
+    ...motionProperties(['svg'], defaults),
 ]
 
 export const groups = groupProperties(props)

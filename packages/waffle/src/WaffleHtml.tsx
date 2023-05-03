@@ -47,6 +47,7 @@ const InnerWaffleHtml = <D extends Datum>({
     onClick,
     tooltip = htmlDefaultProps.tooltip as TooltipComponent<D>,
     forwardLegendData,
+    motionStagger = htmlDefaultProps.motionStagger,
     role = htmlDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -90,6 +91,7 @@ const InnerWaffleHtml = <D extends Datum>({
                 cellSize={cellSize}
                 margin={margin}
                 borderWidth={borderWidth}
+                motionStagger={motionStagger}
                 testIdPrefix={testIdPrefix}
             />
         )

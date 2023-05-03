@@ -451,7 +451,7 @@ const props: ChartProperty[] = [
         },
     },
     ...commonAccessibilityProps(allFlavors),
-    ...motionProperties(allFlavors, svgDefaultProps, 'react-spring'),
+    ...motionProperties(allFlavors, svgDefaultProps),
     {
         key: 'transitionMode',
         flavors: allFlavors,

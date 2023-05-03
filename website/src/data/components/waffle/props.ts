@@ -105,7 +105,8 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'number',
         help: 'Padding between each cell.',
-        required: true,
+        required: false,
+        defaultValue: defaults.padding,
         flavors: allFlavors,
         control: {
             type: 'range',
@@ -115,7 +116,7 @@ const props: ChartProperty[] = [
         },
     },
     ...chartDimensions(allFlavors),
-    themeProperty(['svg', 'html', 'canvas']),
+    themeProperty(allFlavors),
     {
         key: 'cellComponent',
         flavors: ['svg', 'html'],
@@ -172,59 +173,76 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Method to compute cell border color.',
         defaultValue: defaults.borderColor,
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
         control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
     isInteractive({
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
         defaultValue: defaults.isInteractive,
     }),
     {
+        key: 'onMouseEnter',
+        group: 'Interactivity',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'html'],
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        flavors: allFlavors,
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'html'],
+    },
+    {
         key: 'onClick',
         group: 'Interactivity',
-        type: 'Function',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
         required: false,
-        help: 'onClick handler, it receives clicked node data and style plus mouse event.',
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'tooltip',
         group: 'Interactivity',
-        type: 'Function',
+        type: 'TooltipComponent',
         required: false,
         help: 'Custom tooltip component',
         flavors: allFlavors,
         description: `
-            A function allowing complete tooltip customisation,
-            it must return a valid HTML element and will
-            receive the following data:
-            \`\`\`
-            {
-                id:         {string|number},
-                value:      number,
-                label:      {string|number},
-                color:      string,
-                position:   number,
-                row:        number,
-                column:     number,
-                groupIndex: number,
-                startAt:    number,
-                endAt:      number,
-            }
-            \`\`\`
-            You can customize the tooltip style
-            using the \`theme.tooltip\` object.
+            Override the default tooltip, please look at
+            the TypeScript definition for \`TooltipComponent\`
+            from the package.
         `,
     },
     {
-        key: 'custom tooltip example',
-        group: 'Interactivity',
-        type: 'boolean',
+        key: 'forwardLegendData',
+        group: 'Legends',
+        type: '(data: LegendDatum<D>[]) => void',
         required: false,
-        control: { type: 'switch' },
-        help: 'Showcase custom tooltip.',
         flavors: allFlavors,
+        help: 'Can be used to get the computed legend data.',
+        description: `
+            This property allows you to implement custom
+            legends, bypassing the limitations of SVG/Canvas.
+            
+            For example you could have a state in the parent component,
+            and then pass the setter.
+            
+            Please be very careful when using this property though,
+            you could end up with an infinite loop if the properties
+            defining the data don't have a stable reference.
+            
+            For example, using a non static/memoized function for \`valueFormat\`
+            would lead to such issue.
+        `,
     },
     {
         key: 'legends',
@@ -266,7 +284,21 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    ...motionProperties(allFlavors, defaults),
+    {
+        key: 'motionStagger',
+        group: 'Motion',
+        type: 'number',
+        help: 'Staggered animation for the cells if > 0.',
+        defaultValue: 0,
+        required: false,
+        flavors: ['svg', 'html'],
+        control: {
+            type: 'range',
+            min: 0,
+            max: 100,
+        },
+    },
 ]
 
 export const groups = groupProperties(props)

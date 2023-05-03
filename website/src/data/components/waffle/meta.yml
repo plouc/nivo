@@ -11,14 +11,14 @@ Waffle:
   tags: []
   stories: []
   description: |
-    A waffle component. You can fully customize it using `cellComponent`
+    A waffle component. You can fully customize it using the `cellComponent`
     property to define your own cell component, if you wish to do so
     you should have a look at
-    [native SVG component](https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCell.js)
+    [native SVG component](https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCell.tsx)
     for available properties.
 
     You can also see more example usages in
-    [the storybook](storybook:waffle--default).
+    [storybook](storybook:waffle--docs).
 
     The responsive alternative of this component is `ResponsiveWaffle`,
     it also offers other implementations, see
@@ -37,11 +37,11 @@ WaffleHtml:
 
     You can fully customize it using `cellComponent` property to define
     your own cell component, if you wish to do so you should have a look at
-    [native HTML component](href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCellHtml.js)
+    [native HTML component](href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCellHtml.tsx)
     for available properties.
 
     You can also see more example usages in
-    [the storybook](storybook:wafflehtml--default).
+    [storybook](storybook:wafflehtml--docs).
 
     The responsive alternative of this component is
     `ResponsiveWaffleHtml`, it also offers other implementations,
@@ -58,7 +58,7 @@ WaffleCanvas:
     however you'll lose the isomorphic ability and transitions.
 
     You can also see more example usages in
-    [the storybook](storybook:wafflecanvas--default).
+    [storybook](storybook:wafflecanvas--docs).
 
     The responsive alternative of this component is
     `ResponsiveWaffleCanvas`, it also offers other implementations,
