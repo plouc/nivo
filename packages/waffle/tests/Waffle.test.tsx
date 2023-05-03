@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
+import { LegendSvg, LegendSvgItem, LegendProps } from '@nivo/legends'
 // @ts-ignore
 import { Waffle, FillDirection } from '../src'
 import { WaffleCell } from '../src/WaffleCell'
@@ -43,13 +43,13 @@ describe('<Waffle />', () => {
         })
     }
 
-    xit('should support legends', () => {
+    it('should support legends', () => {
         const data = [
             { id: 'one', label: 'one', value: 10 },
             { id: 'two', label: 'two', value: 20 },
-            { id: 'tree', label: 'tree', value: 30 },
+            { id: 'three', label: 'three', value: 30 },
         ]
-        const legends = [
+        const legends: LegendProps[] = [
             {
                 anchor: 'top-left',
                 direction: 'column',
@@ -57,7 +57,7 @@ describe('<Waffle />', () => {
                 itemHeight: 20,
             },
         ]
-        const wrapper = mount(
+        const component = create(
             <Waffle
                 width={400}
                 height={400}
@@ -68,27 +68,16 @@ describe('<Waffle />', () => {
                 data={data}
                 legends={legends}
             />
-        )
+        ).root
 
-        expect(wrapper.find(LegendSvg)).toHaveLength(1)
+        const legend = component.findByType(LegendSvg)
 
-        const legendItems = wrapper.find(LegendSvgItem)
+        const legendItems = legend.findAllByType(LegendSvgItem)
         expect(legendItems).toHaveLength(3)
-        expect(legendItems.at(0).prop('data')).toEqual({
-            id: 'one',
-            label: 'one',
-            color: 'red',
-        })
-        expect(legendItems.at(1).prop('data')).toEqual({
-            id: 'two',
-            label: 'two',
-            color: 'green',
-        })
-        expect(legendItems.at(2).prop('data')).toEqual({
-            id: 'tree',
-            label: 'tree',
-            color: 'blue',
-        })
+
+        expect(legendItems[0].props.data.id).toEqual('one')
+        expect(legendItems[1].props.data.id).toEqual('two')
+        expect(legendItems[2].props.data.id).toEqual('three')
     })
 
     it('should allow to hide specific ids', () => {
