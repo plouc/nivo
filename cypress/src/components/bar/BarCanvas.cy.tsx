@@ -1,6 +1,6 @@
 import { BarCanvas } from '@nivo/bar'
 
-describe('BarCanvas', () => {
+describe('<BarCanvas />', () => {
     it('should render a bar chart', () => {
         cy.mount(
             <BarCanvas

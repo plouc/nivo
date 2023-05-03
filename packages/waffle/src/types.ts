@@ -143,7 +143,7 @@ export type SvgProps<D extends Datum = Datum> = DataProps<D> &
         layers?: SvgLayer<D>[]
         legends?: LegendProps[]
         cellComponent?: CellComponent<D>
-        motionStagger: number
+        motionStagger?: number
         testIdPrefix?: string
     }
 
@@ -157,7 +157,7 @@ export type HtmlProps<D extends Datum = Datum> = DataProps<D> &
     Partial<MouseHandlers<D, HTMLElement>> & {
         layers?: HtmlLayer<D>[]
         cellComponent?: CellComponent<D>
-        motionStagger: number
+        motionStagger?: number
         testIdPrefix?: string
     }
 
