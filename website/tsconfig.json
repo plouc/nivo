@@ -20,6 +20,6 @@
     "noFallthroughCasesInSwitch": true,
     "typeRoots": ["node_modules/@types/", "./src/@types/"],
     "strict": true,
-    "baseUrl": "./"
+    "baseUrl": "."
   }
 }

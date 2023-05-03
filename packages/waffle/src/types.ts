@@ -13,7 +13,7 @@ export interface Datum {
     value: number
 }
 
-export interface ComputedDatum<D> extends Datum {
+export interface ComputedDatum<D extends Datum> extends Datum {
     data: D
     formattedValue: string
     groupIndex: number

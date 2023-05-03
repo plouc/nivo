@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveWaffle, WaffleDefaultProps } from '@nivo/waffle'
+import { ResponsiveWaffle, svgDefaultProps } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
@@ -115,7 +115,7 @@ const Waffle = () => {
             properties={groups}
             propertiesMapper={mapper}
             initialProperties={initialProperties}
-            defaultProperties={WaffleDefaultProps}
+            defaultProperties={svgDefaultProps}
             codePropertiesMapper={properties => ({
                 ...properties,
                 cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,

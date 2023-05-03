@@ -1,5 +1,4 @@
-// @ts-ignore
-import { WaffleDefaultProps } from '@nivo/waffle'
+import { commonDefaultProps } from '@nivo/waffle'
 import {
     themeProperty,
     motionProperties,
@@ -12,7 +11,7 @@ import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'html', 'canvas']
 
-const defaults = WaffleDefaultProps
+const defaults = commonDefaultProps
 
 const props: ChartProperty[] = [
     {

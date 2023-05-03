@@ -1,10 +1,10 @@
 import React from 'react'
-import { ResponsiveWaffleHtml, WaffleDefaultProps } from '@nivo/waffle'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveWaffleHtml, htmlDefaultProps } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => [
     {
@@ -86,7 +86,7 @@ const WaffleHtml = () => {
             properties={groups}
             propertiesMapper={mapper}
             initialProperties={initialProperties}
-            defaultProperties={WaffleDefaultProps}
+            defaultProperties={htmlDefaultProps}
             codePropertiesMapper={properties => ({
                 ...properties,
                 cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
