@@ -6,7 +6,7 @@ import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
 
-const generateData = () => [
+const generateData = (): Datum[] => [
     {
         id: 'cats',
         label: 'Cats',
@@ -69,8 +69,8 @@ const initialProperties = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: data => {
-                alert(JSON.stringify(data, null, '    '))
+            onClick: (datum: ComputedDatum<Datum>) => {
+                alert(JSON.stringify(datum, null, '    '))
             },
             effects: [
                 {

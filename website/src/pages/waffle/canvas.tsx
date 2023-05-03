@@ -1,53 +1,46 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveWaffleCanvas, canvasDefaultProps, ComputedDatum } from '@nivo/waffle'
+import { ResponsiveWaffleCanvas, canvasDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
 
-const generateData = () => [
+const generateData = (): Datum[] => [
     {
         id: 'car',
         label: 'car',
         value: Math.random() * 20,
-        color: '#eaafaf',
     },
     {
         id: 'walk',
         label: 'walk',
         value: Math.random() * 20,
-        color: '#a2738c',
     },
     {
         id: 'scooter',
         label: 'scooter',
         value: Math.random() * 20,
-        color: '#645c84',
     },
     {
         id: 'bicycle',
         label: 'bicycle',
         value: Math.random() * 20,
-        color: '#427996',
     },
     {
         id: 'e-bicycle',
         label: 'e-bicycle',
         value: Math.random() * 20,
-        color: '#42291c',
     },
     {
         id: 'moto',
         label: 'moto',
         value: Math.random() * 20,
-        color: '#3f5468',
     },
     {
         id: 'other',
         label: 'other',
         value: Math.random() * 20,
-        color: '#b8e4c9',
     },
 ]
 
@@ -97,8 +90,8 @@ const initialProperties = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: data => {
-                alert(JSON.stringify(data, null, '    '))
+            onClick: (datum: ComputedDatum<Datum>) => {
+                alert(JSON.stringify(datum, null, '    '))
             },
             effects: [
                 {
@@ -153,18 +146,12 @@ const WaffleCanvas = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={(data: ComputedDatum) => {
-                            let label
-                            if (data.data.value !== undefined) {
-                                label = `${data.data.label}: ${data.data.value} (position: ${data.position})`
-                            } else {
-                                label = `empty at position: ${data.position}`
-                            }
+                        onClick={(datum: ComputedDatum<Datum>) => {
                             logAction({
                                 type: 'click',
-                                label: `[cell] ${label}`,
-                                color: data.color,
-                                data: data,
+                                label: `[datum] ${datum.label}`,
+                                color: datum.color,
+                                data: datum,
                             })
                         }}
                     />
