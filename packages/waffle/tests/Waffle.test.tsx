@@ -1,5 +1,4 @@
 import { create } from 'react-test-renderer'
-import { mount } from 'enzyme'
 import { LegendSvg, LegendSvgItem, LegendProps } from '@nivo/legends'
 // @ts-ignore
 import { Waffle, FillDirection } from '../src'
