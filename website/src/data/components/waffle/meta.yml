@@ -36,7 +36,9 @@ WaffleHtml:
   tags: 
     - html
     - isomorphic
-  stories: []
+  stories:
+    - label: Implementing a custom tooltip
+      link: wafflehtml--custom-tooltip
   description: |
     A variation around the [Waffle](self:/waffle) component,
     using HTML elements.
@@ -58,6 +60,9 @@ WaffleCanvas:
   package: '@nivo/waffle'
   tags:
     - canvas
+  stories:
+    - label: Implementing a custom tooltip
+      link: wafflecanvas--custom-tooltip
   description: |
     A variation around the [Waffle](self:/waffle) component.
     Well suited for large data sets as it does not impact DOM tree depth,
