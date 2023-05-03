@@ -97,12 +97,10 @@ clean-all: ##@0 global uninstall node modules, remove transpiled code & lock fil
 
 define clean-source-lib
 	rm -rf $(1)/*/cjs
-	rm -rf $(1)/*/umd
 endef
 
 define clean-source-all
 	rm -rf $(1)/*/cjs
-	rm -rf $(1)/*/umd
 	rm -rf $(1)/*/node_modules
 	rm -rf $(1)/*/package-lock.json
 endef

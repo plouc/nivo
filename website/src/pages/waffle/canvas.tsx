@@ -1,10 +1,10 @@
 import React from 'react'
-import { ResponsiveWaffleCanvas, WaffleDefaultProps } from '@nivo/waffle'
+import { graphql, useStaticQuery } from 'gatsby'
+import { ResponsiveWaffleCanvas, canvasDefaultProps, ComputedDatum } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => [
     {
@@ -137,7 +137,7 @@ const WaffleCanvas = () => {
             properties={groups}
             propertiesMapper={mapper}
             initialProperties={initialProperties}
-            defaultProperties={WaffleDefaultProps}
+            defaultProperties={canvasDefaultProps}
             codePropertiesMapper={properties => ({
                 ...properties,
                 cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
@@ -152,18 +152,18 @@ const WaffleCanvas = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={node => {
+                        onClick={(data: ComputedDatum) => {
                             let label
-                            if (node.data.value !== undefined) {
-                                label = `${node.data.label}: ${node.data.value} (position: ${node.position})`
+                            if (data.data.value !== undefined) {
+                                label = `${data.data.label}: ${data.data.value} (position: ${data.position})`
                             } else {
-                                label = `empty at position: ${node.position}`
+                                label = `empty at position: ${data.position}`
                             }
                             logAction({
                                 type: 'click',
                                 label: `[cell] ${label}`,
-                                color: node.color,
-                                data: node,
+                                color: data.color,
+                                data: data,
                             })
                         }}
                     />
