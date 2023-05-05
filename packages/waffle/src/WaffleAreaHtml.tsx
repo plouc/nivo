@@ -1,18 +1,18 @@
 import { Line } from 'd3-shape'
 import { Vertex } from '@nivo/grid'
-import { ComputedDatum, Datum, HtmlProps } from './types'
+import { ComputedDatum, Datum, WaffleHtmlProps } from './types'
 import { useAreaMouseHandlers } from './hooks'
 
 interface WaffleAreaHtmlProps<D extends Datum> {
     data: ComputedDatum<D>
     pathGenerator: Line<Vertex>
-    isInteractive: Exclude<HtmlProps<D>['isInteractive'], undefined>
-    onMouseEnter: HtmlProps<D>['onMouseEnter']
-    onMouseMove: HtmlProps<D>['onMouseMove']
-    onMouseLeave: HtmlProps<D>['onMouseLeave']
-    onClick: HtmlProps<D>['onClick']
-    tooltip: Exclude<HtmlProps<D>['tooltip'], undefined>
-    testIdPrefix: HtmlProps<D>['testIdPrefix']
+    isInteractive: Exclude<WaffleHtmlProps<D>['isInteractive'], undefined>
+    onMouseEnter: WaffleHtmlProps<D>['onMouseEnter']
+    onMouseMove: WaffleHtmlProps<D>['onMouseMove']
+    onMouseLeave: WaffleHtmlProps<D>['onMouseLeave']
+    onClick: WaffleHtmlProps<D>['onClick']
+    tooltip: Exclude<WaffleHtmlProps<D>['tooltip'], undefined>
+    testIdPrefix: WaffleHtmlProps<D>['testIdPrefix']
 }
 
 export const WaffleAreaHtml = <D extends Datum>({
@@ -49,8 +49,7 @@ export const WaffleAreaHtml = <D extends Datum>({
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        backgroundColor: '#ff0000',
-                        opacity: 0,
+                        backgroundColor: 'transparent',
                         clipPath: `path('${pathGenerator(polygon)}')`,
                     }}
                     onMouseEnter={isInteractive ? handleMouseEnter : undefined}

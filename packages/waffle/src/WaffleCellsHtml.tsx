@@ -1,38 +1,38 @@
 import { createElement } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig, Margin } from '@nivo/core'
-import { Cell, Datum, CellAnimatedProps, CellComponent, HtmlProps } from './types'
+import { Cell, Datum, CellAnimatedProps, CellComponent, WaffleHtmlProps } from './types'
 
 interface WaffleCellsHtmlProps<D extends Datum> {
     cells: Cell<D>[]
     cellComponent: CellComponent<D>
-    cellSize: number
+    padding: number
     margin: Margin
     borderWidth: number
     motionStagger: number
-    testIdPrefix: HtmlProps<D>['testIdPrefix']
+    testIdPrefix: WaffleHtmlProps<D>['testIdPrefix']
 }
 
 const getAnimatedCellProps =
-    <D extends Datum>(size: number) =>
+    <D extends Datum>(padding: number) =>
     (cell: Cell<D>): CellAnimatedProps => ({
-        x: cell.x,
-        y: cell.y,
+        x: cell.x + padding / 2,
+        y: cell.y + padding / 2,
         fill: cell.color,
-        size,
+        size: cell.width - padding,
     })
 
 export const WaffleCellsHtml = <D extends Datum>({
     cells,
     cellComponent,
-    cellSize,
+    padding,
     borderWidth,
     motionStagger,
     testIdPrefix,
     margin,
 }: WaffleCellsHtmlProps<D>) => {
     const { animate, config: springConfig } = useMotionConfig()
-    const getProps = getAnimatedCellProps<D>(cellSize)
+    const getProps = getAnimatedCellProps<D>(padding)
     const transition = useTransition<Cell<D>, CellAnimatedProps>(cells, {
         keys: cell => cell.key,
         initial: getProps,
@@ -57,7 +57,7 @@ export const WaffleCellsHtml = <D extends Datum>({
                 return createElement(cellComponent, {
                     key: cell.key,
                     cell,
-                    cellSize,
+                    padding,
                     animatedProps,
                     borderWidth,
                     testIdPrefix,

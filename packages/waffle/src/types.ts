@@ -3,7 +3,7 @@ import { SpringValues } from '@react-spring/web'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Vertex } from '@nivo/grid'
+import { Vertex, GridCell, GridFillDirection } from '@nivo/grid'
 
 export type DatumId = string | number
 
@@ -28,13 +28,7 @@ export interface ComputedDatum<D extends Datum> extends Datum {
 }
 
 // Used for cells without data, considered empty.
-export interface EmptyCell {
-    key: string
-    position: number
-    row: number
-    column: number
-    x: number
-    y: number
+export interface EmptyCell extends GridCell {
     color: string
 }
 
@@ -70,14 +64,12 @@ export interface LegendDatum<D extends Datum = Datum> {
  */
 export interface CellComponentProps<D extends Datum> {
     cell: Cell<D>
-    cellSize: number
+    padding: number
     animatedProps: SpringValues<CellAnimatedProps>
     borderWidth: number
     testIdPrefix?: string
 }
 export type CellComponent<D extends Datum> = FunctionComponent<CellComponentProps<D>>
-
-export type FillDirection = 'top' | 'right' | 'bottom' | 'left'
 
 // All those props are required
 export interface DataProps<D extends Datum> {
@@ -98,7 +90,7 @@ export interface CommonProps<D extends Datum> extends ModernMotionProps {
     hiddenIds: D['id'][]
     margin: Box
     valueFormat?: ValueFormat<D['value']>
-    fillDirection: FillDirection
+    fillDirection: GridFillDirection
     padding: number
     theme: Theme
     colors: OrdinalColorScaleConfig<D>
@@ -134,14 +126,14 @@ export interface CustomLayerProps<D extends Datum> {
     yay?: D
 }
 
-export type SvgLayer<D extends Datum> = LayerId | FunctionComponent<CustomLayerProps<D>>
+export type WaffleSvgLayer<D extends Datum> = LayerId | FunctionComponent<CustomLayerProps<D>>
 
-export type SvgProps<D extends Datum = Datum> = DataProps<D> &
+export type WaffleSvgProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     SvgDefsAndFill<ComputedDatum<D>> &
     Partial<MouseHandlers<D, SVGGeometryElement>> & {
-        layers?: SvgLayer<D>[]
+        layers?: WaffleSvgLayer<D>[]
         legends?: LegendProps[]
         cellComponent?: CellComponent<D>
         motionStagger?: number
@@ -150,13 +142,13 @@ export type SvgProps<D extends Datum = Datum> = DataProps<D> &
 
 export type HtmlLayerId = Exclude<LayerId, 'legends'>
 
-export type HtmlLayer<D extends Datum> = HtmlLayerId | FunctionComponent<CustomLayerProps<D>>
+export type WaffleHtmlLayer<D extends Datum> = HtmlLayerId | FunctionComponent<CustomLayerProps<D>>
 
-export type HtmlProps<D extends Datum = Datum> = DataProps<D> &
+export type WaffleHtmlProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     Partial<MouseHandlers<D, HTMLElement>> & {
-        layers?: HtmlLayer<D>[]
+        layers?: WaffleHtmlLayer<D>[]
         cellComponent?: CellComponent<D>
         motionStagger?: number
         testIdPrefix?: string

@@ -1,4 +1,4 @@
-import { commonDefaultProps } from '@nivo/waffle'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/waffle'
 import {
     themeProperty,
     motionProperties,
@@ -87,16 +87,37 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string',
         required: false,
-        help: `How to fill the waffle.`,
+        help: "How to fill the grid, it's also going to affect the transitions if `motionStagger > 0`.",
+        description: `
+            \`\`\`
+            │   top             │   right           │
+            │                   │                   │
+            │   8 ─── 7 ─── 6   │ → 0  ╭─ 3  ╭─ 6   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   5 ─── 4 ─── 3   │   1  │  4  │  7   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   2 ─── 1 ─── 0   │   2 ─╯  5 ─╯  8   │
+            │               ↑   │                   │
+            ├───────────────────┼───────────────────┤
+            │   bottom          │   left            │
+            │   ↓               │                   │
+            │   0 ─── 1 ─── 2   │   8  ╭─ 5  ╭─ 2   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   3 ─── 4 ─── 5   │   5  │  4  │  1   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   6 ─── 7 ─── 8   │   6 ─╯  3 ─╯  0 ← │
+            │                   │                   │
+            \`\`\`
+        `,
         flavors: allFlavors,
         defaultValue: defaults.fillDirection,
         control: {
             type: 'choices',
             choices: [
-                { label: 'top', value: 'top' },
-                { label: 'right', value: 'right' },
-                { label: 'bottom', value: 'bottom' },
-                { label: 'left', value: 'left' },
+                { label: '↑ top', value: 'top' },
+                { label: '→ right', value: 'right' },
+                { label: '↓ bottom', value: 'bottom' },
+                { label: '← left', value: 'left' },
             ],
         },
     },
@@ -117,21 +138,6 @@ const props: ChartProperty[] = [
     },
     ...chartDimensions(allFlavors),
     themeProperty(allFlavors),
-    {
-        key: 'cellComponent',
-        flavors: ['svg', 'html'],
-        help: 'Override default cell component.',
-        type: 'Function',
-        required: false,
-        group: 'Style',
-        control: {
-            type: 'choices',
-            choices: ['default', 'Custom(props) => (…)'].map(key => ({
-                label: key,
-                value: key,
-            })),
-        },
-    },
     ordinalColors({
         flavors: allFlavors,
         defaultValue: defaults.colors,
@@ -177,6 +183,22 @@ const props: ChartProperty[] = [
         control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
+    {
+        key: 'layers',
+        type: `('nodes' | CustomSvgLayer | CustomHtmlLayer | CustomCanvasLayer)[]`,
+        group: 'Customization',
+        help: 'Define layers, please use the appropriate variant for custom layers.',
+        defaultValue: svgDefaultProps.layers,
+        flavors: allFlavors,
+    },
+    {
+        key: 'cellComponent',
+        flavors: ['svg', 'html'],
+        help: 'Override default cell component.',
+        type: 'CellComponent<D extends Datum>',
+        required: false,
+        group: 'Customization',
+    },
     isInteractive({
         flavors: allFlavors,
         defaultValue: defaults.isInteractive,
@@ -290,6 +312,12 @@ const props: ChartProperty[] = [
         group: 'Motion',
         type: 'number',
         help: 'Staggered animation for the cells if > 0.',
+        description: `
+            You might want to adjust this value according to the number
+            of cells you have, more cells: lower value/delay, less cells: higher value/delay.
+            
+            Otherwise it might take a while before cells get updated. 
+        `,
         defaultValue: 0,
         required: false,
         flavors: ['svg', 'html'],

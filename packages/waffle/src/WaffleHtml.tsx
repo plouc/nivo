@@ -4,7 +4,7 @@ import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import {
     Datum,
     CellComponent,
-    HtmlProps,
+    WaffleHtmlProps,
     TooltipComponent,
     HtmlLayerId,
     ComputedDatum,
@@ -15,7 +15,7 @@ import { WaffleCellsHtml } from './WaffleCellsHtml'
 import { WaffleAreasHtml } from './WaffleAreasHtml'
 
 type InnerWaffleHtmlProps<D extends Datum> = Omit<
-    HtmlProps<D>,
+    WaffleHtmlProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
@@ -60,7 +60,7 @@ const InnerWaffleHtml = <D extends Datum>({
         partialMargin
     )
 
-    const { cells, cellSize, computedData } = useWaffle<D>({
+    const { cells, computedData } = useWaffle<D>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -70,7 +70,6 @@ const InnerWaffleHtml = <D extends Datum>({
         rows,
         columns,
         fillDirection,
-        padding,
         colors,
         emptyColor,
         borderColor,
@@ -88,7 +87,7 @@ const InnerWaffleHtml = <D extends Datum>({
                 key="cells"
                 cells={cells}
                 cellComponent={cellComponent}
-                cellSize={cellSize}
+                padding={padding}
                 margin={margin}
                 borderWidth={borderWidth}
                 motionStagger={motionStagger}
@@ -144,7 +143,7 @@ export const WaffleHtml = <D extends Datum = Datum>({
     theme,
     renderWrapper,
     ...otherProps
-}: HtmlProps<D>) => (
+}: WaffleHtmlProps<D>) => (
     <Container
         {...{
             animate,

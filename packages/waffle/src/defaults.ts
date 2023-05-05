@@ -1,4 +1,4 @@
-import { CommonProps, Datum, HtmlLayer, SvgLayer } from './types'
+import { CommonProps, Datum, WaffleHtmlLayer, WaffleSvgLayer } from './types'
 import { WaffleCell } from './WaffleCell'
 import { WaffleCellHtml } from './WaffleCellHtml'
 import { WaffleTooltip } from './WaffleTooltip'
@@ -41,7 +41,7 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    layers: ['cells', 'areas', 'legends'] as SvgLayer<Datum>[],
+    layers: ['cells', 'areas', 'legends'] as WaffleSvgLayer<Datum>[],
     cellComponent: WaffleCell,
     defs: [],
     fill: [],
@@ -51,7 +51,7 @@ export const svgDefaultProps = {
 
 export const htmlDefaultProps = {
     ...commonDefaultProps,
-    layers: ['cells', 'areas'] as HtmlLayer<Datum>[],
+    layers: ['cells', 'areas'] as WaffleHtmlLayer<Datum>[],
     cellComponent: WaffleCellHtml,
     defs: [],
     fill: [],

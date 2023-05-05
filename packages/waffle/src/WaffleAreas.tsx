@@ -1,15 +1,15 @@
-import { ComputedDatum, Datum, SvgProps } from './types'
+import { ComputedDatum, Datum, WaffleSvgProps } from './types'
 import { useAreaPathGenerator } from './hooks'
 import { WaffleArea } from './WaffleArea'
 
 interface WaffleAreasProps<D extends Datum> {
     data: ComputedDatum<D>[]
-    isInteractive: Exclude<SvgProps<D>['isInteractive'], undefined>
-    onMouseEnter: SvgProps<D>['onMouseEnter']
-    onMouseMove: SvgProps<D>['onMouseMove']
-    onMouseLeave: SvgProps<D>['onMouseLeave']
-    onClick: SvgProps<D>['onClick']
-    tooltip: Exclude<SvgProps<D>['tooltip'], undefined>
+    isInteractive: Exclude<WaffleSvgProps<D>['isInteractive'], undefined>
+    onMouseEnter: WaffleSvgProps<D>['onMouseEnter']
+    onMouseMove: WaffleSvgProps<D>['onMouseMove']
+    onMouseLeave: WaffleSvgProps<D>['onMouseLeave']
+    onClick: WaffleSvgProps<D>['onClick']
+    tooltip: Exclude<WaffleSvgProps<D>['tooltip'], undefined>
     testIdPrefix?: string
 }
 

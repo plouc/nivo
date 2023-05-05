@@ -39,7 +39,6 @@ const initialProperties = {
         left: 10,
     },
 
-    cellComponent: 'default',
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     colors: { scheme: 'set2' },
