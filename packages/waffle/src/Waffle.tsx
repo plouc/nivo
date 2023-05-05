@@ -2,14 +2,14 @@ import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Datum, SvgProps, LayerId, ComputedDatum, TooltipComponent } from './types'
+import { Datum, WaffleSvgProps, LayerId, ComputedDatum, TooltipComponent } from './types'
 import { svgDefaultProps } from './defaults'
 import { useWaffle } from './hooks'
 import { WaffleCells } from './WaffleCells'
 import { WaffleAreas } from './WaffleAreas'
 
 type InnerWaffleProps<D extends Datum> = Omit<
-    SvgProps<D>,
+    WaffleSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
@@ -55,7 +55,7 @@ const InnerWaffle = <D extends Datum>({
         partialMargin
     )
 
-    const { cells, cellSize, legendData, computedData } = useWaffle<D>({
+    const { cells, legendData, computedData } = useWaffle<D>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -65,7 +65,6 @@ const InnerWaffle = <D extends Datum>({
         rows,
         columns,
         fillDirection,
-        padding,
         colors,
         emptyColor,
         borderColor,
@@ -84,7 +83,7 @@ const InnerWaffle = <D extends Datum>({
                 key="cells"
                 cells={cells}
                 cellComponent={cellComponent}
-                cellSize={cellSize}
+                padding={padding}
                 borderWidth={borderWidth}
                 motionStagger={motionStagger}
                 testIdPrefix={testIdPrefix}
@@ -153,7 +152,7 @@ export const Waffle = <D extends Datum = Datum>({
     theme,
     renderWrapper,
     ...otherProps
-}: SvgProps<D>) => (
+}: WaffleSvgProps<D>) => (
     <Container
         {...{
             animate,

@@ -1,4 +1,4 @@
-import { createElement, MouseEvent, useCallback, useEffect, useMemo } from 'react'
+import { createElement, MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react'
 import { range } from 'lodash'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import { useTheme, useValueFormatter } from '@nivo/core'
@@ -9,12 +9,12 @@ import {
     useInheritedColor,
     useOrdinalColorScale,
 } from '@nivo/colors'
+import { generateGrid, GridCell, GridFillDirection, Vertex, getCellsPolygons } from '@nivo/grid'
 import {
     CommonProps,
     ComputedDatum,
     Datum,
     DataProps,
-    FillDirection,
     EmptyCell,
     Cell,
     DataCell,
@@ -24,24 +24,6 @@ import {
     LegendDatum,
 } from './types'
 import { commonDefaultProps } from './defaults'
-import { findPolygons } from './polygons'
-
-/**
- * Computes optimal cell size according to dimensions/layout/padding.
- * Each cell is a square.
- */
-export const computeCellSize = (
-    width: number,
-    height: number,
-    rows: number,
-    columns: number,
-    padding: number
-) => {
-    const sizeX = (width - (columns - 1) * padding) / columns
-    const sizeY = (height - (rows - 1) * padding) / rows
-
-    return Math.min(sizeX, sizeY)
-}
 
 /**
  * Computes empty cells according to dimensions/layout/padding.
@@ -52,87 +34,31 @@ export const computeGrid = (
     height: number,
     rows: number,
     columns: number,
-    fillDirection: FillDirection,
-    padding: number,
+    fillDirection: GridFillDirection,
     emptyColor: string
 ) => {
-    const cellSize = computeCellSize(width, height, rows, columns, padding)
-    const origin = {
-        x: (width - (cellSize * columns + padding * (columns - 1))) / 2,
-        y: (height - (cellSize * rows + padding * (rows - 1))) / 2,
-    }
+    const extend = (cell: GridCell, origin: [number, number]) => ({
+        ...cell,
+        x: origin[0] + cell.x,
+        y: origin[1] + cell.y,
+        color: emptyColor,
+    })
 
-    const cells: EmptyCell[] = []
-    switch (fillDirection) {
-        case 'top':
-            Array.from({ length: rows }, (_, row) => {
-                return range(columns).forEach(column => {
-                    cells.push({
-                        key: `${row}.${column}`,
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: origin.x + column * (cellSize + padding),
-                        y: origin.y + row * (cellSize + padding),
-                        color: emptyColor,
-                    })
-                })
-            })
-            break
+    // We do not apply the padding at this stage so that we can
+    // easily compute the polygon surrounding each "area"
+    // (all cells belonging to a specific datum), because they
+    // need to touch.
+    const { cells } = generateGrid<EmptyCell>({
+        width,
+        height,
+        rows,
+        columns,
+        fillDirection,
+        square: true,
+        extend,
+    })
 
-        case 'bottom':
-            range(rows - 1, -1).forEach(row => {
-                range(columns).forEach(column => {
-                    cells.push({
-                        key: `${row}.${column}`,
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: origin.x + column * (cellSize + padding),
-                        y: origin.y + row * (cellSize + padding),
-                        color: emptyColor,
-                    })
-                })
-            })
-            break
-
-        case 'left':
-            range(columns).forEach(column => {
-                range(rows).forEach(row => {
-                    cells.push({
-                        key: `${row}.${column}`,
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: origin.x + column * (cellSize + padding),
-                        y: origin.y + row * (cellSize + padding),
-                        color: emptyColor,
-                    })
-                })
-            })
-            break
-
-        case 'right':
-            range(columns - 1, -1).forEach(column => {
-                range(rows - 1, -1).forEach(row => {
-                    cells.push({
-                        key: `${row}.${column}`,
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: origin.x + column * (cellSize + padding),
-                        y: origin.y + row * (cellSize + padding),
-                        color: emptyColor,
-                    })
-                })
-            })
-            break
-
-        default:
-            throw new Error(`Invalid fill direction provided: ${fillDirection}`)
-    }
-
-    return { cells, cellSize, origin }
+    return cells
 }
 
 export const mergeCellsData = <RawDatum extends Datum>(
@@ -155,6 +81,23 @@ export const mergeCellsData = <RawDatum extends Datum>(
     return cellsCopy
 }
 
+/**
+ * Assumes that cells ares sorted by group.
+ */
+const findPolygons = <D extends Datum>(grid: DataCell<D>[]) => {
+    const grouped = grid.reduce((acc, cell) => {
+        ;(acc[cell.data.id] = acc[cell.data.id] || []).push(cell)
+        return acc
+    }, {} as Record<string | number, DataCell<D>[]>)
+
+    const polygons: Partial<Record<D['id'], Vertex[][]>> = {}
+    for (const [group, cells] of Object.entries(grouped)) {
+        polygons[group as D['id']] = getCellsPolygons(cells)
+    }
+
+    return polygons
+}
+
 export const useWaffle = <D extends Datum = Datum>({
     width,
     height,
@@ -165,20 +108,13 @@ export const useWaffle = <D extends Datum = Datum>({
     rows,
     columns,
     fillDirection = commonDefaultProps.fillDirection,
-    padding = commonDefaultProps.padding,
     colors = commonDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = commonDefaultProps.emptyColor,
     borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     forwardLegendData,
 }: Pick<
     CommonProps<D>,
-    | 'hiddenIds'
-    | 'valueFormat'
-    | 'fillDirection'
-    | 'padding'
-    | 'colors'
-    | 'emptyColor'
-    | 'borderColor'
+    'hiddenIds' | 'valueFormat' | 'fillDirection' | 'colors' | 'emptyColor' | 'borderColor'
 > &
     DataProps<D> & {
         width: number
@@ -228,17 +164,17 @@ export const useWaffle = <D extends Datum = Datum>({
         return enhancedData
     }, [data, hiddenIds, unit, formatValue, getColor, getBorderColor])
 
-    const grid = useMemo(
-        () => computeGrid(width, height, rows, columns, fillDirection, padding, emptyColor),
-        [width, height, rows, columns, fillDirection, padding, emptyColor]
+    const emptyCells = useMemo(
+        () => computeGrid(width, height, rows, columns, fillDirection, emptyColor),
+        [width, height, rows, columns, fillDirection, emptyColor]
     )
 
     const cells = useMemo(
-        () => mergeCellsData(grid.cells, computedData),
-        [grid.cells, computedData]
+        () => mergeCellsData(emptyCells, computedData),
+        [emptyCells, computedData]
     )
 
-    const polygons = findPolygons(cells.filter(isDataCell), grid.cellSize)
+    const polygons = useMemo(() => findPolygons(cells.filter(isDataCell)), [cells])
     computedData.forEach(datum => {
         if (datum.id in polygons) {
             datum.polygons = polygons[datum.id as D['id']]!
@@ -254,32 +190,35 @@ export const useWaffle = <D extends Datum = Datum>({
             data: datum,
         }))
 
-        console.log('fillDirection', fillDirection)
-
-        if (['right', 'bottom'].includes(fillDirection)) {
-            console.log('REVERSING')
+        // Adjust the legend items order according to `fillDirection`
+        // so that it's more natural to read.
+        if (['top', 'left'].includes(fillDirection)) {
             _legendData.reverse()
         }
 
         return _legendData
     }, [computedData, fillDirection])
 
+    const forwardLegendDataRef = useRef(forwardLegendData)
+
     // Forward the legends data if `forwardLegendData` is defined.
     useEffect(() => {
-        if (typeof forwardLegendData === 'function') {
-            forwardLegendData(legendData)
-        }
-    }, [forwardLegendData, legendData])
+        if (typeof forwardLegendDataRef.current !== 'function') return
+        forwardLegendDataRef.current(legendData)
+    }, [forwardLegendDataRef, legendData])
 
     return {
         cells,
-        cellSize: grid.cellSize,
         computedData,
         legendData,
         getBorderColor,
     }
 }
 
+/**
+ * This D3 path generator is used to compute the polygons
+ * surrounding each group of cells attached to the same datum.
+ */
 export const useAreaPathGenerator = () => useMemo(() => d3Line().curve(curveLinearClosed), [])
 
 export const useAreaMouseHandlers = <D extends Datum, E extends Element>(

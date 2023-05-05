@@ -1,18 +1,18 @@
 import { Margin } from '@nivo/core'
-import { ComputedDatum, Datum, HtmlProps } from './types'
+import { ComputedDatum, Datum, WaffleHtmlProps } from './types'
 import { useAreaPathGenerator } from './hooks'
 import { WaffleAreaHtml } from './WaffleAreaHtml'
 
 interface WaffleAreasHtmlProps<D extends Datum> {
     data: ComputedDatum<D>[]
     margin: Margin
-    isInteractive: Exclude<HtmlProps<D>['isInteractive'], undefined>
-    onMouseEnter: HtmlProps<D>['onMouseEnter']
-    onMouseMove: HtmlProps<D>['onMouseMove']
-    onMouseLeave: HtmlProps<D>['onMouseLeave']
-    onClick: HtmlProps<D>['onClick']
-    tooltip: Exclude<HtmlProps<D>['tooltip'], undefined>
-    testIdPrefix: HtmlProps<D>['testIdPrefix']
+    isInteractive: Exclude<WaffleHtmlProps<D>['isInteractive'], undefined>
+    onMouseEnter: WaffleHtmlProps<D>['onMouseEnter']
+    onMouseMove: WaffleHtmlProps<D>['onMouseMove']
+    onMouseLeave: WaffleHtmlProps<D>['onMouseLeave']
+    onClick: WaffleHtmlProps<D>['onClick']
+    tooltip: Exclude<WaffleHtmlProps<D>['tooltip'], undefined>
+    testIdPrefix: WaffleHtmlProps<D>['testIdPrefix']
 }
 
 export const WaffleAreasHtml = <D extends Datum>({

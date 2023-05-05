@@ -39,7 +39,6 @@ const initialProperties = {
         left: 120,
     },
 
-    cellComponent: 'default',
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     colors: { scheme: 'nivo' },

@@ -66,7 +66,7 @@ describe('<Waffle />', () => {
                     total={100}
                     data={data}
                     legends={legends}
-                    fillDirection="bottom"
+                    fillDirection="top"
                 />
             ).root
 
@@ -103,7 +103,7 @@ describe('<Waffle />', () => {
                     total={100}
                     data={data}
                     legends={legends}
-                    fillDirection="top"
+                    fillDirection="bottom"
                 />
             ).root
 

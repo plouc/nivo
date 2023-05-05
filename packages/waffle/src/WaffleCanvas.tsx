@@ -24,13 +24,12 @@ import { useWaffle } from './hooks'
 
 const findCellUnderCursor = <D extends Datum>(
     cells: Cell<D>[],
-    cellSize: number,
     margin: Margin,
     x: number,
     y: number
 ) =>
     cells.find(cell =>
-        isCursorInRect(margin.left + cell.x, margin.top + cell.y, cellSize, cellSize, x, y)
+        isCursorInRect(margin.left + cell.x, margin.top + cell.y, cell.width, cell.height, x, y)
     )
 
 type InnerWaffleCanvasProps<D extends Datum> = Omit<CanvasProps<D>, 'renderWrapper' | 'theme'>
@@ -74,7 +73,7 @@ const InnerWaffleCanvas = <D extends Datum>({
         partialMargin
     )
 
-    const { cells, cellSize, legendData } = useWaffle<D>({
+    const { cells, legendData } = useWaffle<D>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -84,7 +83,6 @@ const InnerWaffleCanvas = <D extends Datum>({
         rows,
         columns,
         fillDirection,
-        padding,
         colors,
         emptyColor,
         borderColor,
@@ -110,12 +108,22 @@ const InnerWaffleCanvas = <D extends Datum>({
 
         cells.forEach(cell => {
             ctx.fillStyle = cell.color
-            ctx.fillRect(cell.x, cell.y, cellSize, cellSize)
+            ctx.fillRect(
+                cell.x + padding / 2,
+                cell.y + padding / 2,
+                cell.width - padding,
+                cell.height - padding
+            )
 
             if (borderWidth > 0) {
                 // ctx.strokeStyle = cell.borderColor
                 ctx.lineWidth = borderWidth
-                ctx.strokeRect(cell.x, cell.y, cellSize, cellSize)
+                ctx.strokeRect(
+                    cell.x + padding / 2,
+                    cell.y + padding / 2,
+                    cell.width - padding,
+                    cell.height - padding
+                )
             }
         })
 
@@ -131,7 +139,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     }, [
         canvasEl,
         cells,
-        cellSize,
+        padding,
         borderWidth,
         theme,
         width,
@@ -148,7 +156,7 @@ const InnerWaffleCanvas = <D extends Datum>({
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
-            const cell = findCellUnderCursor(cells, cellSize, margin, x, y)
+            const cell = findCellUnderCursor(cells, margin, x, y)
 
             if (cell !== undefined && isDataCell(cell)) {
                 showTooltipFromEvent(createElement(tooltip, { data: cell.data }), event, 'top')
@@ -157,7 +165,7 @@ const InnerWaffleCanvas = <D extends Datum>({
                 hideTooltip()
             }
         },
-        [canvasEl, cells, cellSize, margin, showTooltipFromEvent, hideTooltip, tooltip, onMouseMove]
+        [canvasEl, cells, margin, showTooltipFromEvent, hideTooltip, tooltip, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(() => {
@@ -169,14 +177,14 @@ const InnerWaffleCanvas = <D extends Datum>({
             if (!onClick || canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
-            const cell = findCellUnderCursor(cells, cellSize, margin, x, y)
+            const cell = findCellUnderCursor(cells, margin, x, y)
 
             if (cell !== undefined && isDataCell(cell)) {
                 console.log(cell.data)
                 onClick(cell.data, event)
             }
         },
-        [canvasEl, cells, cellSize, margin, onClick]
+        [canvasEl, cells, margin, onClick]
     )
 
     return (
