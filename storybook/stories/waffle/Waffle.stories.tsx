@@ -18,7 +18,7 @@ const meta: Meta<typeof Waffle> = {
         },
     },
     args: {
-        fillDirection: 'bottom',
+        fillDirection: 'top',
     },
 }
 
@@ -182,10 +182,10 @@ export const Patterns: Story = {
     ),
 }
 
-const CustomCellComponent = ({ cell, cellSize }: CellComponentProps<Datum>) => {
+const CustomCellComponent = ({ cell }: CellComponentProps<Datum>) => {
     return (
         <path
-            transform={`translate(${cell.x + cellSize / 2},${cell.y + cellSize / 2})`}
+            transform={`translate(${cell.x + cell.width / 2},${cell.y + cell.height / 2})`}
             d={`${symbol().type(symbolWye).size(340)()}`}
             fill={cell.color}
         />
@@ -212,6 +212,7 @@ export const CustomTooltip: Story = {
         <Waffle
             {...commonProps}
             tooltip={CustomTooltipComponent}
+            fillDirection={args.fillDirection}
             onClick={args.onClick}
             testIdPrefix="waffle"
         />

@@ -36,16 +36,11 @@ const commonProps = {
     data,
     rows: 24,
     columns: 18,
+    padding: 2,
 }
 
 export const Basic: Story = {
     render: args => <WaffleHtml {...commonProps} onClick={args.onClick} />,
-}
-
-export const Colors: Story = {
-    render: args => (
-        <WaffleHtml {...commonProps} colors={{ scheme: 'category10' }} onClick={args.onClick} />
-    ),
 }
 
 export const UsingDataColor: Story = {

@@ -1,5 +1,4 @@
 import { createElement, MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react'
-import { range } from 'lodash'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import { useTheme, useValueFormatter } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -22,6 +21,7 @@ import {
     MouseHandlers,
     TooltipComponent,
     LegendDatum,
+    WaffleSvgProps,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -68,14 +68,14 @@ export const mergeCellsData = <RawDatum extends Datum>(
     const cellsCopy: Cell<RawDatum>[] = cells.map(cell => ({ ...cell }))
 
     data.forEach(datum => {
-        range(datum.startAt, datum.endAt).forEach(position => {
-            const cell = cellsCopy[position]
+        for (let index = datum.startAt; index < datum.endAt; index++) {
+            const cell = cellsCopy[index]
             if (cell !== undefined) {
                 const cellWithData = cell as DataCell<RawDatum>
                 cellWithData.data = datum
                 cellWithData.color = datum.color
             }
-        })
+        }
     }, [])
 
     return cellsCopy
@@ -112,10 +112,14 @@ export const useWaffle = <D extends Datum = Datum>({
     emptyColor = commonDefaultProps.emptyColor,
     borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     forwardLegendData,
+    // `defs` and `fill` are only supported for the SVG implementation
+    // defs = [],
+    // fill = [],
 }: Pick<
     CommonProps<D>,
     'hiddenIds' | 'valueFormat' | 'fillDirection' | 'colors' | 'emptyColor' | 'borderColor'
 > &
+    Pick<WaffleSvgProps<D>, 'defs' | 'fill'> &
     DataProps<D> & {
         width: number
         height: number
@@ -199,9 +203,8 @@ export const useWaffle = <D extends Datum = Datum>({
         return _legendData
     }, [computedData, fillDirection])
 
-    const forwardLegendDataRef = useRef(forwardLegendData)
-
     // Forward the legends data if `forwardLegendData` is defined.
+    const forwardLegendDataRef = useRef(forwardLegendData)
     useEffect(() => {
         if (typeof forwardLegendDataRef.current !== 'function') return
         forwardLegendDataRef.current(legendData)

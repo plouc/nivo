@@ -21,7 +21,7 @@ export const commonDefaultProps: Omit<
 > = {
     hiddenIds: [],
 
-    fillDirection: 'bottom',
+    fillDirection: 'top',
     padding: 0,
 
     colors: { scheme: 'nivo' },
