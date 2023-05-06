@@ -1,48 +1,11 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
+import { generateWaffleData } from '@nivo/generators'
 import { ResponsiveWaffleCanvas, canvasDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
-
-const generateData = (): Datum[] => [
-    {
-        id: 'car',
-        label: 'car',
-        value: Math.random() * 20,
-    },
-    {
-        id: 'walk',
-        label: 'walk',
-        value: Math.random() * 20,
-    },
-    {
-        id: 'scooter',
-        label: 'scooter',
-        value: Math.random() * 20,
-    },
-    {
-        id: 'bicycle',
-        label: 'bicycle',
-        value: Math.random() * 20,
-    },
-    {
-        id: 'e-bicycle',
-        label: 'e-bicycle',
-        value: Math.random() * 20,
-    },
-    {
-        id: 'moto',
-        label: 'moto',
-        value: Math.random() * 20,
-    },
-    {
-        id: 'other',
-        label: 'other',
-        value: Math.random() * 20,
-    },
-]
 
 const initialProperties = {
     pixelRatio:
@@ -105,6 +68,20 @@ const initialProperties = {
         },
     ],
 }
+
+const generateData = () =>
+    generateWaffleData({
+        total: initialProperties.total,
+        groups: [
+            { id: 'car' },
+            { id: 'walk' },
+            { id: 'moped' },
+            { id: 'bicycle' },
+            { id: 'e-bicycle' },
+            { id: 'motorcycle' },
+            { id: 'other' },
+        ],
+    })
 
 const WaffleCanvas = () => {
     const {
