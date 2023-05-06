@@ -22,6 +22,7 @@ import {
     TooltipComponent,
     LegendDatum,
     WaffleSvgProps,
+    CustomLayerProps,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -270,3 +271,16 @@ export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
         handleClick,
     }
 }
+
+/**
+ * Memoize custom layers props.
+ */
+export const useCustomLayerProps = <D extends Datum>({
+    cells,
+}: CustomLayerProps<Datum>): CustomLayerProps<D> =>
+    useMemo(
+        () => ({
+            cells,
+        }),
+        [cells]
+    )

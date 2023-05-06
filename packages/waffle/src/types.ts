@@ -123,7 +123,8 @@ export interface MouseHandlers<D extends Datum, E extends Element> {
 export type LayerId = 'cells' | 'areas' | 'legends'
 
 export interface CustomLayerProps<D extends Datum> {
-    yay?: D
+    cells: Cell<D>[]
+    computedData: ComputedDatum<D>[]
 }
 
 export type WaffleSvgLayer<D extends Datum> = LayerId | FunctionComponent<CustomLayerProps<D>>
