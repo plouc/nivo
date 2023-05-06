@@ -19,6 +19,7 @@
         "charts",
         "waffle-chart"
     ],
+    "sideEffects": false,
     "main": "./dist/nivo-waffle.cjs.js",
     "module": "./dist/nivo-waffle.es.js",
     "types": "./dist/types/index.d.ts",
