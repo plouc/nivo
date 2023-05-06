@@ -112,10 +112,10 @@ export const useWaffle = <D extends Datum = Datum>({
     emptyColor = commonDefaultProps.emptyColor,
     borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     forwardLegendData,
-    // `defs` and `fill` are only supported for the SVG implementation
-    // defs = [],
-    // fill = [],
-}: Pick<
+}: // `defs` and `fill` are only supported for the SVG implementation
+// defs = [],
+// fill = [],
+Pick<
     CommonProps<D>,
     'hiddenIds' | 'valueFormat' | 'fillDirection' | 'colors' | 'emptyColor' | 'borderColor'
 > &
