@@ -10,7 +10,7 @@ import {
     ComputedDatum,
 } from './types'
 import { htmlDefaultProps } from './defaults'
-import { useWaffle } from './hooks'
+import { useCustomLayerProps, useWaffle } from './hooks'
 import { WaffleCellsHtml } from './WaffleCellsHtml'
 import { WaffleAreasHtml } from './WaffleAreasHtml'
 
@@ -113,6 +113,11 @@ const InnerWaffleHtml = <D extends Datum>({
         )
     }
 
+    const customLayerProps = useCustomLayerProps<D>({
+        cells,
+        computedData,
+    })
+
     return (
         <div
             style={{
@@ -127,7 +132,7 @@ const InnerWaffleHtml = <D extends Datum>({
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer)}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null
