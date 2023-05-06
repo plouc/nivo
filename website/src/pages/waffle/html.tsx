@@ -14,6 +14,7 @@ const initialProperties = {
     columns: 14,
     fillDirection: htmlDefaultProps.fillDirection,
     padding: 1,
+    valueFormat: { format: '.2f', enabled: true },
 
     margin: {
         top: 10,

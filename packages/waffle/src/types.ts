@@ -15,6 +15,7 @@ export interface Datum {
 
 export interface ComputedDatum<D extends Datum> extends Datum {
     data: D
+    isHidden: boolean
     formattedValue: string
     groupIndex: number
     // Index of the starting cell

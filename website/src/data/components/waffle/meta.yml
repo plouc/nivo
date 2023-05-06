@@ -16,6 +16,8 @@ Waffle:
       link: waffle--custom-legend
     - label: Implementing a custom tooltip
       link: waffle--custom-tooltip
+    - label: Toggle series using hiddenIds
+      link: waffle--legend-toggle
   description: |
     A waffle component. You can fully customize it using the `cellComponent`
     property to define your own cell component, if you wish to do so

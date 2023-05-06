@@ -268,5 +268,51 @@ class WaffleLegendToggle extends Component {
 }
 
 export const LegendToggle: Story = {
-    render: () => <WaffleLegendToggle />,
+    render: args => {
+        const [hiddenIds, setHiddentIds] = useState<Datum['id'][]>([])
+        const toggleSeries = useCallback(
+            (datum: LegendDatum) => {
+                setHiddentIds(previous => {
+                    if (previous.includes(datum.id)) {
+                        return previous.filter(id => id !== datum.id)
+                    }
+
+                    return [...previous, datum.id]
+                })
+            },
+            [setHiddentIds]
+        )
+
+        return (
+            <Waffle
+                {...commonProps}
+                hiddenIds={hiddenIds}
+                margin={{ top: 40 }}
+                fillDirection={args.fillDirection}
+                motionStagger={2}
+                legends={[
+                    {
+                        anchor: 'top',
+                        direction: 'row',
+                        translateY: -40,
+                        itemsSpacing: 10,
+                        itemWidth: 100,
+                        itemHeight: 20,
+                        symbolSize: 20,
+                        itemTextColor: '#555',
+                        onClick: toggleSeries,
+                        effects: [
+                            {
+                                on: 'hover',
+                                style: {
+                                    itemTextColor: '#000',
+                                    itemBackground: '#eee',
+                                },
+                            },
+                        ],
+                    },
+                ]}
+            />
+        )
+    },
 }
