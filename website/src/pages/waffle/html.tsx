@@ -29,7 +29,7 @@ const initialProperties = {
 
     rows: 18,
     columns: 14,
-    fillDirection: 'bottom',
+    fillDirection: htmlDefaultProps.fillDirection,
     padding: 1,
 
     margin: {

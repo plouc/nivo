@@ -52,7 +52,7 @@ const initialProperties = {
 
     rows: 40,
     columns: 40,
-    fillDirection: 'bottom',
+    fillDirection: canvasDefaultProps.fillDirection,
     padding: 0.5,
 
     margin: {
