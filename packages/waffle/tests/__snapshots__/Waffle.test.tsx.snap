@@ -26,6 +26,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -34,6 +35,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -42,6 +44,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -50,6 +53,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -58,6 +62,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -66,6 +71,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -74,6 +80,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -82,6 +89,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -90,6 +98,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -98,6 +107,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -106,6 +116,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -114,6 +125,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -122,6 +134,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -130,6 +143,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -138,6 +152,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -146,6 +161,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -154,6 +170,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -162,6 +179,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -170,6 +188,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -178,6 +197,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -186,6 +206,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -194,6 +215,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -202,6 +224,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -210,6 +233,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -218,6 +242,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -226,6 +251,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -234,6 +260,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -242,6 +269,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -250,6 +278,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -258,6 +287,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -266,6 +296,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -274,6 +305,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -282,6 +314,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -290,6 +323,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -298,6 +332,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -306,6 +341,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -314,6 +350,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -322,6 +359,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -330,6 +368,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -338,6 +377,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -346,6 +386,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -354,6 +395,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -362,6 +404,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -370,6 +413,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -378,6 +422,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -386,6 +431,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -394,6 +440,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -402,6 +449,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -410,6 +458,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -418,6 +467,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -426,6 +476,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -434,6 +485,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -442,6 +494,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -450,6 +503,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -458,6 +512,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -466,6 +521,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -474,6 +530,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -482,6 +539,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -490,6 +548,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -498,6 +557,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -506,6 +566,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -514,6 +575,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -522,6 +584,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -530,6 +593,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -538,6 +602,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -546,6 +611,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -554,6 +620,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -562,6 +629,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -570,6 +638,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -578,6 +647,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -586,6 +656,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -594,6 +665,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -602,6 +674,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -610,6 +683,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -618,6 +692,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -626,6 +701,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -634,6 +710,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -642,6 +719,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -650,6 +728,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -658,6 +737,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -666,6 +746,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -674,6 +755,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -682,6 +764,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -690,6 +773,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -698,6 +782,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -706,6 +791,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -714,6 +800,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -722,6 +809,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -730,6 +818,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -738,6 +827,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -746,6 +836,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -754,6 +845,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -762,6 +854,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -770,6 +863,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -778,6 +872,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -786,6 +881,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -794,6 +890,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -802,6 +899,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -810,6 +908,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -818,6 +917,7 @@ exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -867,6 +967,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -875,6 +976,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -883,6 +985,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -891,6 +994,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -899,6 +1003,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -907,6 +1012,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -915,6 +1021,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -923,6 +1030,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -931,6 +1039,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -939,6 +1048,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -947,6 +1057,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -955,6 +1066,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -963,6 +1075,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -971,6 +1084,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -979,6 +1093,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -987,6 +1102,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -995,6 +1111,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1003,6 +1120,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1011,6 +1129,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1019,6 +1138,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1027,6 +1147,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1035,6 +1156,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1043,6 +1165,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1051,6 +1174,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1059,6 +1183,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1067,6 +1192,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1075,6 +1201,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1083,6 +1210,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1091,6 +1219,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1099,6 +1228,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1107,6 +1237,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1115,6 +1246,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1123,6 +1255,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1131,6 +1264,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1139,6 +1273,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1147,6 +1282,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1155,6 +1291,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1163,6 +1300,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1171,6 +1309,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1179,6 +1318,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1187,6 +1327,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1195,6 +1336,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1203,6 +1345,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1211,6 +1354,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1219,6 +1363,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1227,6 +1372,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1235,6 +1381,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1243,6 +1390,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1251,6 +1399,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1259,6 +1408,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1267,6 +1417,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1275,6 +1426,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1283,6 +1435,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1291,6 +1444,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1299,6 +1453,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1307,6 +1462,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1315,6 +1471,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1323,6 +1480,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1331,6 +1489,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1339,6 +1498,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1347,6 +1507,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1355,6 +1516,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1363,6 +1525,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1371,6 +1534,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1379,6 +1543,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1387,6 +1552,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1395,6 +1561,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1403,6 +1570,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1411,6 +1579,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1419,6 +1588,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1427,6 +1597,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1435,6 +1606,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1443,6 +1615,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1451,6 +1624,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1459,6 +1633,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1467,6 +1642,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1475,6 +1651,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1483,6 +1660,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1491,6 +1669,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1499,6 +1678,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1507,6 +1687,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1515,6 +1696,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1523,6 +1705,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1531,6 +1714,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1539,6 +1723,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1547,6 +1732,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1555,6 +1741,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1563,6 +1750,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1571,6 +1759,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1579,6 +1768,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1587,6 +1777,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -1595,6 +1786,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -1603,6 +1795,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -1611,6 +1804,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -1619,6 +1813,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -1627,6 +1822,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -1635,6 +1831,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1643,6 +1840,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1651,6 +1849,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1659,6 +1858,7 @@ exports[`<Waffle /> should support bottom fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1708,6 +1908,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1716,6 +1917,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1724,6 +1926,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1732,6 +1935,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1740,6 +1944,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1748,6 +1953,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1756,6 +1962,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1764,6 +1971,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1772,6 +1980,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1780,6 +1989,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -1788,6 +1998,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1796,6 +2007,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1804,6 +2016,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1812,6 +2025,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1820,6 +2034,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1828,6 +2043,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1836,6 +2052,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1844,6 +2061,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1852,6 +2070,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1860,6 +2079,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -1868,6 +2088,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1876,6 +2097,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1884,6 +2106,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1892,6 +2115,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1900,6 +2124,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1908,6 +2133,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1916,6 +2142,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1924,6 +2151,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1932,6 +2160,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1940,6 +2169,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -1948,6 +2178,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1956,6 +2187,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1964,6 +2196,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1972,6 +2205,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1980,6 +2214,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1988,6 +2223,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -1996,6 +2232,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -2004,6 +2241,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -2012,6 +2250,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -2020,6 +2259,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -2028,6 +2268,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2036,6 +2277,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2044,6 +2286,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2052,6 +2295,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2060,6 +2304,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2068,6 +2313,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2076,6 +2322,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2084,6 +2331,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2092,6 +2340,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2100,6 +2349,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2108,6 +2358,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2116,6 +2367,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2124,6 +2376,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2132,6 +2385,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2140,6 +2394,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2148,6 +2403,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2156,6 +2412,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2164,6 +2421,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2172,6 +2430,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2180,6 +2439,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2188,6 +2448,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2196,6 +2457,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2204,6 +2466,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2212,6 +2475,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2220,6 +2484,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2228,6 +2493,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2236,6 +2502,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2244,6 +2511,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2252,6 +2520,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2260,6 +2529,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2268,6 +2538,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2276,6 +2547,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2284,6 +2556,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2292,6 +2565,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2300,6 +2574,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2308,6 +2583,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2316,6 +2592,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2324,6 +2601,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2332,6 +2610,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2340,6 +2619,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2348,6 +2628,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2356,6 +2637,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2364,6 +2646,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2372,6 +2655,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2380,6 +2664,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2388,6 +2673,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2396,6 +2682,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2404,6 +2691,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2412,6 +2700,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2420,6 +2709,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2428,6 +2718,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2436,6 +2727,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2444,6 +2736,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2452,6 +2745,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2460,6 +2754,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2468,6 +2763,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2476,6 +2772,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2484,6 +2781,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2492,6 +2790,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2500,6 +2799,7 @@ exports[`<Waffle /> should support left fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2549,6 +2849,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2557,6 +2858,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2565,6 +2867,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2573,6 +2876,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2581,6 +2885,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2589,6 +2894,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2597,6 +2903,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2605,6 +2912,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2613,6 +2921,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2621,6 +2930,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -2629,6 +2939,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2637,6 +2948,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2645,6 +2957,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2653,6 +2966,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2661,6 +2975,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2669,6 +2984,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2677,6 +2993,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2685,6 +3002,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2693,6 +3011,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2701,6 +3020,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -2709,6 +3029,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2717,6 +3038,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2725,6 +3047,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2733,6 +3056,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2741,6 +3065,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2749,6 +3074,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2757,6 +3083,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2765,6 +3092,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2773,6 +3101,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2781,6 +3110,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -2789,6 +3119,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2797,6 +3128,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2805,6 +3137,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2813,6 +3146,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2821,6 +3155,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2829,6 +3164,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2837,6 +3173,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2845,6 +3182,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2853,6 +3191,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2861,6 +3200,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -2869,6 +3209,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2877,6 +3218,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2885,6 +3227,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2893,6 +3236,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2901,6 +3245,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2909,6 +3254,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2917,6 +3263,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2925,6 +3272,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2933,6 +3281,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2941,6 +3290,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -2949,6 +3299,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2957,6 +3308,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2965,6 +3317,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2973,6 +3326,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2981,6 +3335,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2989,6 +3344,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -2997,6 +3353,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3005,6 +3362,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3013,6 +3371,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3021,6 +3380,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3029,6 +3389,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3037,6 +3398,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3045,6 +3407,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3053,6 +3416,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3061,6 +3425,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3069,6 +3434,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3077,6 +3443,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3085,6 +3452,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3093,6 +3461,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3101,6 +3470,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3109,6 +3479,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3117,6 +3488,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3125,6 +3497,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3133,6 +3506,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3141,6 +3515,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3149,6 +3524,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3157,6 +3533,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3165,6 +3542,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3173,6 +3551,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3181,6 +3560,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3189,6 +3569,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3197,6 +3578,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3205,6 +3587,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3213,6 +3596,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3221,6 +3605,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3229,6 +3614,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3237,6 +3623,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3245,6 +3632,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3253,6 +3641,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3261,6 +3650,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3269,6 +3659,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3277,6 +3668,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3285,6 +3677,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3293,6 +3686,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3301,6 +3695,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3309,6 +3704,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3317,6 +3713,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3325,6 +3722,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3333,6 +3731,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3341,6 +3740,7 @@ exports[`<Waffle /> should support right fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3390,6 +3790,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3398,6 +3799,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3406,6 +3808,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3414,6 +3817,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3422,6 +3826,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3430,6 +3835,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3438,6 +3844,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3446,6 +3853,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3454,6 +3862,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3462,6 +3871,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(232, 193, 160, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3470,6 +3880,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3478,6 +3889,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3486,6 +3898,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3494,6 +3907,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3502,6 +3916,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3510,6 +3925,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3518,6 +3934,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3526,6 +3943,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3534,6 +3952,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3542,6 +3961,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3550,6 +3970,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3558,6 +3979,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3566,6 +3988,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3574,6 +3997,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3582,6 +4006,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3590,6 +4015,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3598,6 +4024,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3606,6 +4033,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3614,6 +4042,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3622,6 +4051,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3630,6 +4060,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3638,6 +4069,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3646,6 +4078,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3654,6 +4087,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3662,6 +4096,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3670,6 +4105,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3678,6 +4114,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3686,6 +4123,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3694,6 +4132,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3702,6 +4141,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3710,6 +4150,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3718,6 +4159,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3726,6 +4168,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3734,6 +4177,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3742,6 +4186,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3750,6 +4195,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3758,6 +4204,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3766,6 +4213,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3774,6 +4222,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3782,6 +4231,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3790,6 +4240,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3798,6 +4249,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3806,6 +4258,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3814,6 +4267,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3822,6 +4276,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3830,6 +4285,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3838,6 +4294,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3846,6 +4303,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3854,6 +4312,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3862,6 +4321,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3870,6 +4330,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3878,6 +4339,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3886,6 +4348,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3894,6 +4357,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3902,6 +4366,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3910,6 +4375,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3918,6 +4384,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -3926,6 +4393,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -3934,6 +4402,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -3942,6 +4411,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -3950,6 +4420,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -3958,6 +4429,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -3966,6 +4438,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -3974,6 +4447,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -3982,6 +4456,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -3990,6 +4465,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -3998,6 +4474,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -4006,6 +4483,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -4014,6 +4492,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -4022,6 +4501,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -4030,6 +4510,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -4038,6 +4519,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -4046,6 +4528,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -4054,6 +4537,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -4062,6 +4546,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -4070,6 +4555,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -4078,6 +4564,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -4086,6 +4573,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -4094,6 +4582,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -4102,6 +4591,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}
@@ -4110,6 +4600,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={360}
@@ -4118,6 +4609,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={320}
@@ -4126,6 +4618,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={280}
@@ -4134,6 +4627,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={240}
@@ -4142,6 +4636,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={200}
@@ -4150,6 +4645,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={160}
@@ -4158,6 +4654,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={120}
@@ -4166,6 +4663,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={80}
@@ -4174,6 +4672,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={40}
@@ -4182,6 +4681,7 @@ exports[`<Waffle /> should support top fill mode 1`] = `
         <rect
           fill="rgba(204, 204, 204, 1)"
           height={40}
+          opacity={1}
           strokeWidth={0}
           width={40}
           x={0}

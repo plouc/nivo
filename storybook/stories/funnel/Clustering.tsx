@@ -300,9 +300,11 @@ export const FunnelWithClustering = () => {
                                         total={datum.value}
                                         columns={5}
                                         rows={5}
+                                        padding={2}
                                         isInteractive={false}
-                                        motionStiffness={110}
-                                        motionDamping={8}
+                                        motionConfig="wobbly"
+                                        motionStagger={5}
+                                        fillDirection="right"
                                     />
                                 </div>
                                 <div style={{ gridArea: `age${index}` }}>
