@@ -140,18 +140,28 @@ Pick<
         const enhancedData: ComputedDatum<D>[] = []
 
         data.forEach((datum, groupIndex) => {
-            if (hiddenIds.includes(datum.id)) return false
+            // if (hiddenIds.includes(datum.id)) return false
+
+            const isHidden = hiddenIds.includes(datum.id)
+
+            const startAt = currentPosition
+            let endAt = startAt
+            if (!isHidden) {
+                endAt = startAt + Math.round(datum.value / unit)
+            }
+            currentPosition = endAt
 
             const color = getColor(datum)
 
             const enhancedDatum: ComputedDatum<D> = {
                 id: datum.id,
+                isHidden,
                 label: datum.label,
                 value: datum.value,
                 formattedValue: formatValue(datum.value),
                 groupIndex,
-                startAt: currentPosition,
-                endAt: currentPosition + Math.round(datum.value / unit),
+                startAt,
+                endAt,
                 color,
                 // Temporary, it's re-computed later as the inherited color
                 // needs the computed data.
@@ -160,8 +170,6 @@ Pick<
                 polygons: [],
             }
             enhancedDatum.borderColor = getBorderColor(enhancedDatum)
-
-            currentPosition = enhancedDatum.endAt
 
             enhancedData.push(enhancedDatum)
         })

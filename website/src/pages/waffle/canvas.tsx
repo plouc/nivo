@@ -17,6 +17,7 @@ const initialProperties = {
     columns: 40,
     fillDirection: canvasDefaultProps.fillDirection,
     padding: 0.5,
+    valueFormat: { format: '.2f', enabled: true },
 
     margin: {
         top: 10,

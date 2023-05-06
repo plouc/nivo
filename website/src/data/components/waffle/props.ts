@@ -57,6 +57,22 @@ const props: ChartProperty[] = [
     //     defaultValue: defaults.hiddenIds,
     // },
     {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        flavors: allFlavors,
+        type: 'string | (value: number) => string | number',
+        control: { type: 'valueFormat' },
+    },
+    {
         key: 'rows',
         group: 'Base',
         type: 'number',
@@ -135,6 +151,15 @@ const props: ChartProperty[] = [
             min: 0,
             max: 10,
         },
+    },
+    {
+        key: 'hiddenIds',
+        group: 'Base',
+        type: `Datum['id'][]`,
+        help: 'Hide series matching the provided ids.',
+        required: false,
+        defaultValue: defaults.hiddenIds,
+        flavors: allFlavors,
     },
     ...chartDimensions(allFlavors),
     themeProperty(allFlavors),
