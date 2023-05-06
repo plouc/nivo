@@ -12,6 +12,7 @@
         "url": "https://github.com/plouc/nivo.git",
         "directory": "packages/grid"
     },
+    "sideEffects": false,
     "main": "./dist/nivo-grid.cjs.js",
     "module": "./dist/nivo-grid.es.js",
     "types": "./dist/types/index.d.ts",
