@@ -35,114 +35,9 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
             "borderWidth": "0px",
             "boxSizing": "content-box",
             "height": 40,
-            "left": 0,
+            "left": 360,
             "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 0,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(232, 193, 160, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 0,
+            "top": 360,
             "width": 40,
           }
         }
@@ -157,7 +52,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
             "height": 40,
             "left": 320,
             "position": "absolute",
-            "top": 0,
+            "top": 360,
             "width": 40,
           }
         }
@@ -170,7 +65,1447 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
             "borderWidth": "0px",
             "boxSizing": "content-box",
             "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(232, 193, 160, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 360,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
             "left": 360,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 320,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 280,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 240,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 200,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 160,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 120,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 80,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 0,
+            "position": "absolute",
+            "top": 40,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 360,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 320,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 280,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 240,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 200,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 160,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 120,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 80,
+            "position": "absolute",
+            "top": 0,
+            "width": 40,
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "background": "rgba(204, 204, 204, 1)",
+            "borderStyle": "solid",
+            "borderWidth": "0px",
+            "boxSizing": "content-box",
+            "height": 40,
+            "left": 40,
             "position": "absolute",
             "top": 0,
             "width": 40,
@@ -187,1342 +1522,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
             "height": 40,
             "left": 0,
             "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 40,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 80,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 120,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 160,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 200,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 240,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 280,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 320,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 0,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 40,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 80,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 120,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 160,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 200,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 240,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 280,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 320,
-            "position": "absolute",
-            "top": 360,
-            "width": 40,
-          }
-        }
-      />
-      <div
-        style={
-          {
-            "background": "rgba(204, 204, 204, 1)",
-            "borderStyle": "solid",
-            "borderWidth": "0px",
-            "boxSizing": "content-box",
-            "height": 40,
-            "left": 360,
-            "position": "absolute",
-            "top": 360,
+            "top": 0,
             "width": 40,
           }
         }
@@ -1547,7 +1547,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "backgroundColor": "transparent",
-            "clipPath": "path('M400,0L400,40L0,40L0,0Z')",
+            "clipPath": "path('M400,360L400,400L0,400L0,360Z')",
             "height": "100%",
             "left": 0,
             "position": "absolute",
