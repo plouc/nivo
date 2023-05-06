@@ -140,8 +140,6 @@ Pick<
         const enhancedData: ComputedDatum<D>[] = []
 
         data.forEach((datum, groupIndex) => {
-            // if (hiddenIds.includes(datum.id)) return false
-
             const isHidden = hiddenIds.includes(datum.id)
 
             const startAt = currentPosition
@@ -285,10 +283,12 @@ export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
  */
 export const useCustomLayerProps = <D extends Datum>({
     cells,
-}: CustomLayerProps<Datum>): CustomLayerProps<D> =>
+    computedData,
+}: CustomLayerProps<D>): CustomLayerProps<D> =>
     useMemo(
         () => ({
             cells,
+            computedData,
         }),
-        [cells]
+        [cells, computedData]
     )
