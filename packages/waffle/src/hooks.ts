@@ -36,13 +36,15 @@ export const computeGrid = (
     rows: number,
     columns: number,
     fillDirection: GridFillDirection,
-    emptyColor: string
+    emptyColor: string,
+    emptyOpacity: number
 ) => {
-    const extend = (cell: GridCell, origin: [number, number]) => ({
+    const extend = (cell: GridCell, origin: [number, number]): EmptyCell => ({
         ...cell,
         x: origin[0] + cell.x,
         y: origin[1] + cell.y,
         color: emptyColor,
+        opacity: emptyOpacity,
     })
 
     // We do not apply the padding at this stage so that we can
@@ -75,6 +77,7 @@ export const mergeCellsData = <RawDatum extends Datum>(
                 const cellWithData = cell as DataCell<RawDatum>
                 cellWithData.data = datum
                 cellWithData.color = datum.color
+                cellWithData.opacity = 1
             }
         }
     }, [])
@@ -111,6 +114,7 @@ export const useWaffle = <D extends Datum = Datum>({
     fillDirection = commonDefaultProps.fillDirection,
     colors = commonDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = commonDefaultProps.emptyColor,
+    emptyOpacity = commonDefaultProps.emptyOpacity,
     borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     forwardLegendData,
 }: // `defs` and `fill` are only supported for the SVG implementation
@@ -118,7 +122,13 @@ export const useWaffle = <D extends Datum = Datum>({
 // fill = [],
 Pick<
     CommonProps<D>,
-    'hiddenIds' | 'valueFormat' | 'fillDirection' | 'colors' | 'emptyColor' | 'borderColor'
+    | 'hiddenIds'
+    | 'valueFormat'
+    | 'fillDirection'
+    | 'colors'
+    | 'emptyColor'
+    | 'emptyOpacity'
+    | 'borderColor'
 > &
     Pick<WaffleSvgProps<D>, 'defs' | 'fill'> &
     DataProps<D> & {
@@ -176,8 +186,8 @@ Pick<
     }, [data, hiddenIds, unit, formatValue, getColor, getBorderColor])
 
     const emptyCells = useMemo(
-        () => computeGrid(width, height, rows, columns, fillDirection, emptyColor),
-        [width, height, rows, columns, fillDirection, emptyColor]
+        () => computeGrid(width, height, rows, columns, fillDirection, emptyColor, emptyOpacity),
+        [width, height, rows, columns, fillDirection, emptyColor, emptyOpacity]
     )
 
     const cells = useMemo(

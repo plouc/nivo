@@ -50,7 +50,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     // cellComponent = svgDefaultProps.cellComponent,
     colors = canvasDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = canvasDefaultProps.emptyColor,
-    // emptyOpacity = defaultProps.emptyOpacity,
+    emptyOpacity = canvasDefaultProps.emptyOpacity,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor = canvasDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     isInteractive = canvasDefaultProps.isInteractive,
@@ -85,6 +85,7 @@ const InnerWaffleCanvas = <D extends Datum>({
         fillDirection,
         colors,
         emptyColor,
+        emptyOpacity,
         borderColor,
         forwardLegendData,
     })

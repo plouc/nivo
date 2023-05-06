@@ -29,7 +29,7 @@ const InnerWaffle = <D extends Datum>({
     cellComponent = svgDefaultProps.cellComponent,
     colors = svgDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = svgDefaultProps.emptyColor,
-    // emptyOpacity = defaultProps.emptyOpacity,
+    emptyOpacity = svgDefaultProps.emptyOpacity,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     // defs = svgDefaultProps.defs,
@@ -67,6 +67,7 @@ const InnerWaffle = <D extends Datum>({
         fillDirection,
         colors,
         emptyColor,
+        emptyOpacity,
         borderColor,
         forwardLegendData,
     })
