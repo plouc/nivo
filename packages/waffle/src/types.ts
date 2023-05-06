@@ -73,7 +73,7 @@ export type CellComponent<D extends Datum> = FunctionComponent<CellComponentProp
 
 // All those props are required
 export interface DataProps<D extends Datum> {
-    data: D[]
+    data: readonly D[]
     total: number
     rows: number
     columns: number
