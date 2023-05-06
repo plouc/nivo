@@ -1,6 +1,7 @@
 import { createElement, MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react'
+import { useTransition } from '@react-spring/web'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
-import { useTheme, useValueFormatter } from '@nivo/core'
+import { useMotionConfig, useTheme, useValueFormatter } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import {
     InheritedColorConfig,
@@ -23,6 +24,7 @@ import {
     LegendDatum,
     WaffleSvgProps,
     CustomLayerProps,
+    CellAnimatedProps,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -286,6 +288,40 @@ export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
         handleMouseLeave,
         handleClick,
     }
+}
+
+export const useAnimatedCells = <D extends Datum>({
+    cells,
+    padding,
+    motionStagger,
+}: {
+    cells: Cell<D>[]
+    padding: number
+    motionStagger: number
+}) => {
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const getAnimatedProps = useMemo(
+        () =>
+            (cell: Cell<D>): CellAnimatedProps => ({
+                x: cell.x + padding / 2,
+                y: cell.y + padding / 2,
+                fill: cell.color,
+                size: cell.width - padding,
+                opacity: cell.opacity,
+            }),
+        [padding]
+    )
+
+    return useTransition<Cell<D>, CellAnimatedProps>(cells, {
+        keys: cell => cell.key,
+        initial: getAnimatedProps,
+        enter: getAnimatedProps,
+        update: getAnimatedProps,
+        trail: animate ? motionStagger : undefined,
+        config: springConfig,
+        immediate: !animate,
+    })
 }
 
 /**
