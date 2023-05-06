@@ -16,7 +16,7 @@ export const WaffleCellHtml = <D extends Datum>({
                 width: animatedProps.size,
                 height: animatedProps.size,
                 background: animatedProps.fill,
-                // opacity,
+                opacity: animatedProps.opacity,
                 boxSizing: 'content-box',
                 borderStyle: 'solid',
                 borderWidth: `${borderWidth}px`,

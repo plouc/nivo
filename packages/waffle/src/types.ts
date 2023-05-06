@@ -31,6 +31,7 @@ export interface ComputedDatum<D extends Datum> extends Datum {
 // Used for cells without data, considered empty.
 export interface EmptyCell extends GridCell {
     color: string
+    opacity: number
 }
 
 // Used for cells having data.
@@ -49,6 +50,7 @@ export type CellAnimatedProps = {
     y: number
     size: number
     fill: string
+    opacity: number
 }
 
 export interface LegendDatum<D extends Datum = Datum> {

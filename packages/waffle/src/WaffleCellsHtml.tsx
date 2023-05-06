@@ -20,6 +20,7 @@ const getAnimatedCellProps =
         y: cell.y + padding / 2,
         fill: cell.color,
         size: cell.width - padding,
+        opacity: cell.opacity,
     })
 
 export const WaffleCellsHtml = <D extends Datum>({
