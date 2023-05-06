@@ -1,28 +1,11 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
+import { generateWaffleData } from '@nivo/generators'
 import { ResponsiveWaffleHtml, htmlDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
-
-const generateData = () => [
-    {
-        id: 'cats',
-        label: 'Cats',
-        value: Math.random() * 33,
-    },
-    {
-        id: 'dogs',
-        label: 'Dogs',
-        value: Math.random() * 33,
-    },
-    {
-        id: 'rabbits',
-        label: 'Rabits',
-        value: Math.random() * 33,
-    },
-]
 
 const initialProperties = {
     total: 100,
@@ -54,6 +37,25 @@ const initialProperties = {
 
     isInteractive: true,
 }
+
+const generateData = () =>
+    generateWaffleData({
+        total: initialProperties.total,
+        groups: [
+            {
+                id: 'cats',
+                label: 'Cats',
+            },
+            {
+                id: 'dogs',
+                label: 'Dogs',
+            },
+            {
+                id: 'rabbits',
+                label: 'Rabits',
+            },
+        ],
+    })
 
 const WaffleHtml = () => {
     const {
