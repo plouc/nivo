@@ -14,7 +14,7 @@ const meta: Meta<typeof WaffleCanvas> = {
         },
     },
     args: {
-        fillDirection: 'bottom',
+        fillDirection: 'top',
     },
 }
 
