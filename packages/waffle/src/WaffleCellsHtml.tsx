@@ -1,7 +1,7 @@
 import { createElement } from 'react'
-import { useTransition } from '@react-spring/web'
-import { useMotionConfig, Margin } from '@nivo/core'
-import { Cell, Datum, CellAnimatedProps, CellComponent, WaffleHtmlProps } from './types'
+import { Margin } from '@nivo/core'
+import { Cell, Datum, CellComponent, WaffleHtmlProps } from './types'
+import { useAnimatedCells } from './hooks'
 
 interface WaffleCellsHtmlProps<D extends Datum> {
     cells: Cell<D>[]
@@ -13,16 +13,6 @@ interface WaffleCellsHtmlProps<D extends Datum> {
     testIdPrefix: WaffleHtmlProps<D>['testIdPrefix']
 }
 
-const getAnimatedCellProps =
-    <D extends Datum>(padding: number) =>
-    (cell: Cell<D>): CellAnimatedProps => ({
-        x: cell.x + padding / 2,
-        y: cell.y + padding / 2,
-        fill: cell.color,
-        size: cell.width - padding,
-        opacity: cell.opacity,
-    })
-
 export const WaffleCellsHtml = <D extends Datum>({
     cells,
     cellComponent,
@@ -32,18 +22,10 @@ export const WaffleCellsHtml = <D extends Datum>({
     testIdPrefix,
     margin,
 }: WaffleCellsHtmlProps<D>) => {
-    const { animate, config: springConfig } = useMotionConfig()
-    const getProps = getAnimatedCellProps<D>(padding)
-    const transition = useTransition<Cell<D>, CellAnimatedProps>(cells, {
-        keys: cell => cell.key,
-        initial: getProps,
-        // from: getEndingAnimatedNodeProps,
-        enter: getProps,
-        update: getProps,
-        // leave: getEndingAnimatedNodeProps,
-        trail: animate ? motionStagger : undefined,
-        config: springConfig,
-        immediate: !animate,
+    const transition = useAnimatedCells<D>({
+        cells,
+        padding,
+        motionStagger,
     })
 
     return (
