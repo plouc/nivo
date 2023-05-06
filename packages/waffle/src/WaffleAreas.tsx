@@ -27,20 +27,24 @@ export const WaffleAreas = <D extends Datum>({
 
     return (
         <g>
-            {data.map(datum => (
-                <WaffleArea<D>
-                    key={datum.id}
-                    data={datum}
-                    pathGenerator={pathGenerator}
-                    isInteractive={isInteractive}
-                    onMouseEnter={onMouseEnter}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseLeave}
-                    onClick={onClick}
-                    tooltip={tooltip}
-                    testIdPrefix={testIdPrefix}
-                />
-            ))}
+            {data.map(datum => {
+                if (datum.isHidden) return null
+
+                return (
+                    <WaffleArea<D>
+                        key={datum.id}
+                        data={datum}
+                        pathGenerator={pathGenerator}
+                        isInteractive={isInteractive}
+                        onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
+                        onMouseLeave={onMouseLeave}
+                        onClick={onClick}
+                        tooltip={tooltip}
+                        testIdPrefix={testIdPrefix}
+                    />
+                )
+            })}
         </g>
     )
 }
