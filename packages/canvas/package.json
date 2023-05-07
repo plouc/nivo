@@ -1,0 +1,33 @@
+{
+    "name": "@nivo/canvas",
+    "version": "0.82.1",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/canvas"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "canvas"
+    ],
+    "main": "./dist/nivo-canvas.cjs.js",
+    "module": "./dist/nivo-canvas.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "publishConfig": {
+        "access": "public"
+    }
+}
