@@ -7,6 +7,7 @@ import {
     useTheme,
     Margin,
 } from '@nivo/core'
+import { roundedRect } from '@nivo/canvas'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -115,33 +116,16 @@ const InnerWaffleCanvas = <D extends Datum>({
             const cellHeight = cell.height - padding
 
             ctx.beginPath()
-
-            if (borderRadius > 0) {
-                ctx.moveTo(x + borderRadius, y)
-                ctx.lineTo(x + cellWidth - borderRadius, y)
-                ctx.quadraticCurveTo(x + cellWidth, y, x + cellWidth, y + borderRadius)
-                ctx.lineTo(x + cellWidth, y + cellHeight - borderRadius)
-                ctx.quadraticCurveTo(
-                    x + cellWidth,
-                    y + cellHeight,
-                    x + cellWidth - borderRadius,
-                    y + cellHeight
-                )
-                ctx.lineTo(x + borderRadius, y + cellHeight)
-                ctx.quadraticCurveTo(x, y + cellHeight, x, y + cellHeight - borderRadius)
-                ctx.lineTo(x, y + borderRadius)
-                ctx.quadraticCurveTo(x, y, x + borderRadius, y)
-                ctx.closePath()
-            } else {
-                ctx.rect(x, y, cellWidth, cellHeight)
-            }
-
+            roundedRect(ctx, x, y, cellWidth, cellHeight, borderRadius)
             ctx.fill()
 
             if (borderWidth > 0) {
-                // ctx.strokeStyle = cell.borderColor
+                ctx.strokeStyle = cell.borderColor
                 ctx.lineWidth = borderWidth
-                ctx.strokeRect(x, y, cellWidth, cellHeight)
+
+                ctx.beginPath()
+                roundedRect(ctx, x, y, cellWidth, cellHeight, borderRadius)
+                ctx.stroke()
             }
         })
 
@@ -199,7 +183,6 @@ const InnerWaffleCanvas = <D extends Datum>({
             const cell = findCellUnderCursor(cells, margin, x, y)
 
             if (cell !== undefined && isDataCell(cell)) {
-                console.log(cell.data)
                 onClick(cell.data, event)
             }
         },

@@ -261,6 +261,11 @@ Pick<
  */
 export const useAreaPathGenerator = () => useMemo(() => d3Line().curve(curveLinearClosed), [])
 
+/**
+ * Generate event handlers for both the SVG & HTML implementations,
+ * for the canvas implementation, we don't need it because the current
+ * cell is detected using a global event handler attached to the canvas itself.
+ */
 export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
     data: ComputedDatum<D>,
     { onMouseEnter, onMouseMove, onMouseLeave, onClick }: Partial<MouseHandlers<D, E>>,
@@ -308,6 +313,9 @@ export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
     }
 }
 
+/**
+ * Generate cells transitions for the SVG & HTML implementations.
+ */
 export const useAnimatedCells = <D extends Datum>({
     cells,
     padding,

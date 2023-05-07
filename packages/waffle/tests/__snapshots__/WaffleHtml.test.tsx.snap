@@ -31,6 +31,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -48,6 +49,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -65,6 +67,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -82,6 +85,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -99,6 +103,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -116,6 +121,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -133,6 +139,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -150,6 +157,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -167,6 +175,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -184,6 +193,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -201,6 +211,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -218,6 +229,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -235,6 +247,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -252,6 +265,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -269,6 +283,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -286,6 +301,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -303,6 +319,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -320,6 +337,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -337,6 +355,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -354,6 +373,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -371,6 +391,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -388,6 +409,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -405,6 +427,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -422,6 +445,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -439,6 +463,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -456,6 +481,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -473,6 +499,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -490,6 +517,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -507,6 +535,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -524,6 +553,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -541,6 +571,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -558,6 +589,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -575,6 +607,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -592,6 +625,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -609,6 +643,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -626,6 +661,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -643,6 +679,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -660,6 +697,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -677,6 +715,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -694,6 +733,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -711,6 +751,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -728,6 +769,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -745,6 +787,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -762,6 +805,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -779,6 +823,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -796,6 +841,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -813,6 +859,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -830,6 +877,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -847,6 +895,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -864,6 +913,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -881,6 +931,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -898,6 +949,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -915,6 +967,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -932,6 +985,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -949,6 +1003,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -966,6 +1021,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -983,6 +1039,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1000,6 +1057,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1017,6 +1075,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1034,6 +1093,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1051,6 +1111,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1068,6 +1129,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1085,6 +1147,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1102,6 +1165,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1119,6 +1183,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1136,6 +1201,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1153,6 +1219,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1170,6 +1237,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1187,6 +1255,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1204,6 +1273,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1221,6 +1291,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1238,6 +1309,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1255,6 +1327,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1272,6 +1345,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1289,6 +1363,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1306,6 +1381,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1323,6 +1399,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1340,6 +1417,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1357,6 +1435,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1374,6 +1453,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1391,6 +1471,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1408,6 +1489,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1425,6 +1507,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1442,6 +1525,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1459,6 +1543,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1476,6 +1561,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1493,6 +1579,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1510,6 +1597,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1527,6 +1615,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1544,6 +1633,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1561,6 +1651,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1578,6 +1669,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1595,6 +1687,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1612,6 +1705,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1629,6 +1723,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1646,6 +1741,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1663,6 +1759,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1680,6 +1777,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1697,6 +1795,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1714,6 +1813,7 @@ exports[`<WaffleHtml /> should render a basic waffle chart in HTML 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1792,6 +1892,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1809,6 +1910,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1826,6 +1928,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1843,6 +1946,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1860,6 +1964,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1877,6 +1982,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1894,6 +2000,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1911,6 +2018,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1928,6 +2036,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1945,6 +2054,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1962,6 +2072,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1979,6 +2090,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -1996,6 +2108,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2013,6 +2126,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2030,6 +2144,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2047,6 +2162,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2064,6 +2180,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2081,6 +2198,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2098,6 +2216,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2115,6 +2234,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2132,6 +2252,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2149,6 +2270,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2166,6 +2288,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2183,6 +2306,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2200,6 +2324,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2217,6 +2342,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2234,6 +2360,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2251,6 +2378,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2268,6 +2396,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2285,6 +2414,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2302,6 +2432,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2319,6 +2450,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2336,6 +2468,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2353,6 +2486,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2370,6 +2504,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2387,6 +2522,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2404,6 +2540,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2421,6 +2558,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2438,6 +2576,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2455,6 +2594,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2472,6 +2612,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2489,6 +2630,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2506,6 +2648,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2523,6 +2666,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2540,6 +2684,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2557,6 +2702,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2574,6 +2720,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2591,6 +2738,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2608,6 +2756,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2625,6 +2774,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2642,6 +2792,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2659,6 +2810,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2676,6 +2828,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2693,6 +2846,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2710,6 +2864,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2727,6 +2882,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2744,6 +2900,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2761,6 +2918,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2778,6 +2936,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2795,6 +2954,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2812,6 +2972,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2829,6 +2990,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2846,6 +3008,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2863,6 +3026,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2880,6 +3044,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2897,6 +3062,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2914,6 +3080,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2931,6 +3098,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2948,6 +3116,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2965,6 +3134,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2982,6 +3152,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -2999,6 +3170,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3016,6 +3188,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3033,6 +3206,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3050,6 +3224,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3067,6 +3242,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3084,6 +3260,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3101,6 +3278,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3118,6 +3296,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3135,6 +3314,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3152,6 +3332,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3169,6 +3350,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3186,6 +3368,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3203,6 +3386,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3220,6 +3404,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3237,6 +3422,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3254,6 +3440,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3271,6 +3458,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3288,6 +3476,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3305,6 +3494,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3322,6 +3512,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3339,6 +3530,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3356,6 +3548,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3373,6 +3566,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3390,6 +3584,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3407,6 +3602,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3424,6 +3620,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3441,6 +3638,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3458,6 +3656,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3475,6 +3674,7 @@ exports[`<WaffleHtml /> should support bottom fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3553,6 +3753,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3570,6 +3771,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3587,6 +3789,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3604,6 +3807,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3621,6 +3825,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3638,6 +3843,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3655,6 +3861,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3672,6 +3879,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3689,6 +3897,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3706,6 +3915,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3723,6 +3933,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3740,6 +3951,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3757,6 +3969,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3774,6 +3987,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3791,6 +4005,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3808,6 +4023,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3825,6 +4041,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3842,6 +4059,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3859,6 +4077,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3876,6 +4095,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3893,6 +4113,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3910,6 +4131,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3927,6 +4149,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3944,6 +4167,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3961,6 +4185,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3978,6 +4203,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -3995,6 +4221,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4012,6 +4239,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4029,6 +4257,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4046,6 +4275,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4063,6 +4293,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4080,6 +4311,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4097,6 +4329,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4114,6 +4347,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4131,6 +4365,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4148,6 +4383,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4165,6 +4401,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4182,6 +4419,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4199,6 +4437,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4216,6 +4455,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4233,6 +4473,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4250,6 +4491,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4267,6 +4509,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4284,6 +4527,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4301,6 +4545,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4318,6 +4563,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4335,6 +4581,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4352,6 +4599,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4369,6 +4617,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4386,6 +4635,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4403,6 +4653,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4420,6 +4671,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4437,6 +4689,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4454,6 +4707,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4471,6 +4725,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4488,6 +4743,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4505,6 +4761,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4522,6 +4779,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4539,6 +4797,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4556,6 +4815,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4573,6 +4833,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4590,6 +4851,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4607,6 +4869,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4624,6 +4887,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4641,6 +4905,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4658,6 +4923,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4675,6 +4941,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4692,6 +4959,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4709,6 +4977,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4726,6 +4995,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4743,6 +5013,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4760,6 +5031,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4777,6 +5049,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4794,6 +5067,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4811,6 +5085,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4828,6 +5103,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4845,6 +5121,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4862,6 +5139,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4879,6 +5157,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4896,6 +5175,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4913,6 +5193,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4930,6 +5211,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4947,6 +5229,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4964,6 +5247,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4981,6 +5265,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -4998,6 +5283,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5015,6 +5301,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5032,6 +5319,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5049,6 +5337,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5066,6 +5355,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5083,6 +5373,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5100,6 +5391,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5117,6 +5409,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5134,6 +5427,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5151,6 +5445,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5168,6 +5463,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5185,6 +5481,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5202,6 +5499,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5219,6 +5517,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5236,6 +5535,7 @@ exports[`<WaffleHtml /> should support left fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5314,6 +5614,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5331,6 +5632,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5348,6 +5650,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5365,6 +5668,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5382,6 +5686,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5399,6 +5704,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5416,6 +5722,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5433,6 +5740,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5450,6 +5758,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5467,6 +5776,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5484,6 +5794,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5501,6 +5812,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5518,6 +5830,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5535,6 +5848,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5552,6 +5866,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5569,6 +5884,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5586,6 +5902,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5603,6 +5920,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5620,6 +5938,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5637,6 +5956,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5654,6 +5974,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5671,6 +5992,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5688,6 +6010,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5705,6 +6028,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5722,6 +6046,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5739,6 +6064,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5756,6 +6082,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5773,6 +6100,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5790,6 +6118,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5807,6 +6136,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5824,6 +6154,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5841,6 +6172,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5858,6 +6190,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5875,6 +6208,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5892,6 +6226,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5909,6 +6244,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5926,6 +6262,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5943,6 +6280,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5960,6 +6298,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5977,6 +6316,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -5994,6 +6334,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6011,6 +6352,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6028,6 +6370,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6045,6 +6388,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6062,6 +6406,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6079,6 +6424,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6096,6 +6442,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6113,6 +6460,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6130,6 +6478,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6147,6 +6496,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6164,6 +6514,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6181,6 +6532,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6198,6 +6550,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6215,6 +6568,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6232,6 +6586,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6249,6 +6604,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6266,6 +6622,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6283,6 +6640,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6300,6 +6658,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6317,6 +6676,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6334,6 +6694,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6351,6 +6712,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6368,6 +6730,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6385,6 +6748,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6402,6 +6766,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6419,6 +6784,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6436,6 +6802,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6453,6 +6820,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6470,6 +6838,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6487,6 +6856,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6504,6 +6874,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6521,6 +6892,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6538,6 +6910,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6555,6 +6928,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6572,6 +6946,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6589,6 +6964,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6606,6 +6982,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6623,6 +7000,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6640,6 +7018,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6657,6 +7036,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6674,6 +7054,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6691,6 +7072,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6708,6 +7090,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6725,6 +7108,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6742,6 +7126,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6759,6 +7144,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6776,6 +7162,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6793,6 +7180,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6810,6 +7198,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6827,6 +7216,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6844,6 +7234,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6861,6 +7252,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6878,6 +7270,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6895,6 +7288,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6912,6 +7306,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6929,6 +7324,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6946,6 +7342,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6963,6 +7360,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6980,6 +7378,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -6997,6 +7396,7 @@ exports[`<WaffleHtml /> should support right fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7075,6 +7475,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7092,6 +7493,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7109,6 +7511,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7126,6 +7529,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7143,6 +7547,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7160,6 +7565,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7177,6 +7583,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7194,6 +7601,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7211,6 +7619,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7228,6 +7637,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(232, 193, 160, 1)",
+            "borderColor": "rgba(162, 135, 112, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7245,6 +7655,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7262,6 +7673,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7279,6 +7691,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7296,6 +7709,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7313,6 +7727,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7330,6 +7745,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7347,6 +7763,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7364,6 +7781,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7381,6 +7799,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7398,6 +7817,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7415,6 +7835,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7432,6 +7853,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7449,6 +7871,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7466,6 +7889,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7483,6 +7907,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7500,6 +7925,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7517,6 +7943,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7534,6 +7961,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7551,6 +7979,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7568,6 +7997,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7585,6 +8015,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7602,6 +8033,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7619,6 +8051,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7636,6 +8069,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7653,6 +8087,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7670,6 +8105,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7687,6 +8123,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7704,6 +8141,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7721,6 +8159,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7738,6 +8177,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7755,6 +8195,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7772,6 +8213,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7789,6 +8231,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7806,6 +8249,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7823,6 +8267,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7840,6 +8285,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7857,6 +8303,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7874,6 +8321,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7891,6 +8339,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7908,6 +8357,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7925,6 +8375,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7942,6 +8393,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7959,6 +8411,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7976,6 +8429,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -7993,6 +8447,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8010,6 +8465,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8027,6 +8483,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8044,6 +8501,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8061,6 +8519,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8078,6 +8537,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8095,6 +8555,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8112,6 +8573,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8129,6 +8591,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8146,6 +8609,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8163,6 +8627,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8180,6 +8645,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8197,6 +8663,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8214,6 +8681,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8231,6 +8699,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8248,6 +8717,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8265,6 +8735,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8282,6 +8753,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8299,6 +8771,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8316,6 +8789,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8333,6 +8807,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8350,6 +8825,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8367,6 +8843,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8384,6 +8861,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8401,6 +8879,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8418,6 +8897,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8435,6 +8915,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8452,6 +8933,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8469,6 +8951,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8486,6 +8969,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8503,6 +8987,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8520,6 +9005,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8537,6 +9023,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8554,6 +9041,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8571,6 +9059,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8588,6 +9077,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8605,6 +9095,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8622,6 +9113,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8639,6 +9131,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8656,6 +9149,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8673,6 +9167,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8690,6 +9185,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8707,6 +9203,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8724,6 +9221,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8741,6 +9239,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",
@@ -8758,6 +9257,7 @@ exports[`<WaffleHtml /> should support top fill mode 1`] = `
         style={
           {
             "background": "rgba(204, 204, 204, 1)",
+            "borderColor": "rgba(143, 143, 143, 1)",
             "borderRadius": "0px",
             "borderStyle": "solid",
             "borderWidth": "0px",

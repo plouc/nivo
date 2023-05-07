@@ -616,6 +616,8 @@ importers:
         specifier: workspace:*
         version: link:../core
 
+  packages/canvas: {}
+
   packages/chord:
     dependencies:
       '@nivo/arcs':
@@ -1571,6 +1573,9 @@ importers:
 
   packages/waffle:
     dependencies:
+      '@nivo/canvas':
+        specifier: workspace:*
+        version: link:../canvas
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
