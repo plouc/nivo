@@ -91,6 +91,8 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
     direction: FunnelDirection
     interpolation: 'smooth' | 'linear'
     fixedShape: boolean
+    neckHeightRatio: number
+    neckWidthRatio: number
     spacing: number
     shapeBlending: number
 

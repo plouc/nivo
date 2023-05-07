@@ -121,7 +121,9 @@ describe('layout', () => {
         const wrapper = mount(<Funnel {...baseProps} fixedShape={true} />)
 
         const parts = wrapper.find('Part')
-        const slope = (baseProps.height * 0.67) / (baseProps.width * 0.33)
+        const neckSideRatio = (1 - 0.33) / 2
+        const neckSideWidth = Math.round(baseProps.width * neckSideRatio)
+        const slope = (baseProps.height * 0.67) / neckSideWidth
 
         const part0 = parts.at(0)
         expect(part0.prop<FunnelPart>('part').x0).toBe(0)
@@ -132,19 +134,21 @@ describe('layout', () => {
         expect(part0.prop<FunnelPart>('part').height).toBe(300)
 
         const part1 = parts.at(1)
-        expect(part1.prop<FunnelPart>('part').x0).toBe(300 / slope)
-        expect(part1.prop<FunnelPart>('part').x1).toBe(baseProps.width - 300 / slope)
-        expect(part1.prop<FunnelPart>('part').width).toBe(baseProps.width - 2 * (300 / slope))
+        expect(part1.prop<FunnelPart>('part').x0).toBe(Math.round(300 / slope))
+        expect(part1.prop<FunnelPart>('part').x1).toBe(baseProps.width - Math.round(300 / slope))
+        expect(part1.prop<FunnelPart>('part').width).toBe(
+            baseProps.width - 2 * Math.round(300 / slope)
+        )
         expect(part1.prop<FunnelPart>('part').y0).toBe(300)
         expect(part1.prop<FunnelPart>('part').y1).toBe(500)
         expect(part1.prop<FunnelPart>('part').height).toBe(200)
 
         const part2 = parts.at(2)
-        expect(part2.prop<FunnelPart>('part').x0).toBe(baseProps.width * 0.33)
-        expect(part2.prop<FunnelPart>('part').x1).toBe(baseProps.width * 0.67)
-        expect(part2.prop<FunnelPart>('part').width).toBe(
-            baseProps.width * 0.67 - baseProps.width * 0.33
+        expect(part2.prop<FunnelPart>('part').x0).toBe(Math.round(neckSideWidth))
+        expect(part2.prop<FunnelPart>('part').x1).toBe(
+            Math.round(baseProps.width * (1 - neckSideRatio))
         )
+        expect(part2.prop<FunnelPart>('part').width).toBe(baseProps.width - 2 * neckSideWidth)
         expect(part2.prop<FunnelPart>('part').y0).toBe(500)
         expect(part2.prop<FunnelPart>('part').y1).toBe(600)
         expect(part2.prop<FunnelPart>('part').height).toBe(100)

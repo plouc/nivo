@@ -1,7 +1,12 @@
 import { createElement, useMemo, useState, MouseEvent } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
-import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
+import {
+    InheritedColorConfigCustomFunction,
+    OrdinalColorScale,
+    useInheritedColor,
+    useOrdinalColorScale,
+} from '@nivo/colors'
 import { useTheme, useValueFormatter } from '@nivo/core'
 import { useAnnotations } from '@nivo/annotations'
 import { useTooltip, TooltipActionsContextData } from '@nivo/tooltip'
@@ -18,6 +23,7 @@ import {
     FunnelAreaPoint,
     FunnelBorderGenerator,
     Position,
+    FunnelDirection,
 } from './types'
 
 export const computeShapeGenerators = <D extends FunnelDatum>(
@@ -275,6 +281,9 @@ export const useFunnel = <D extends FunnelDatum>({
     width,
     height,
     direction = defaults.direction,
+    fixedShape = defaults.fixedShape,
+    neckWidthRatio = defaults.neckWidthRatio,
+    neckHeightRatio = defaults.neckHeightRatio,
     interpolation = defaults.interpolation,
     spacing = defaults.spacing,
     shapeBlending: rawShapeBlending = defaults.shapeBlending,
@@ -304,6 +313,9 @@ export const useFunnel = <D extends FunnelDatum>({
     width: number
     height: number
     direction?: FunnelCommonProps<D>['direction']
+    fixedShape?: FunnelCommonProps<D>['fixedShape']
+    neckWidthRatio?: FunnelCommonProps<D>['neckWidthRatio']
+    neckHeightRatio?: FunnelCommonProps<D>['neckHeightRatio']
     interpolation?: FunnelCommonProps<D>['interpolation']
     spacing?: FunnelCommonProps<D>['spacing']
     shapeBlending?: FunnelCommonProps<D>['shapeBlending']
@@ -368,185 +380,45 @@ export const useFunnel = <D extends FunnelDatum>({
     const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
 
     const parts: FunnelPart<D>[] = useMemo(() => {
-        const enhancedParts = data.map((datum, index) => {
-            const isCurrent = datum.id === currentPartId
-
-            let partWidth
-            let partHeight
-            let y0, x0
-
-            if (direction === 'vertical') {
-                partWidth = linearScale(datum.value)
-                partHeight = bandScale.bandwidth
-                x0 = paddingBefore + (innerWidth - partWidth) * 0.5
-                y0 = bandScale(index)
-            } else {
-                partWidth = bandScale.bandwidth
-                partHeight = linearScale(datum.value)
-                x0 = bandScale(index)
-                y0 = paddingBefore + (innerHeight - partHeight) * 0.5
-            }
-
-            const x1 = x0 + partWidth
-            const x = x0 + partWidth * 0.5
-            const y1 = y0 + partHeight
-            const y = y0 + partHeight * 0.5
-
-            const part: FunnelPart<D> = {
-                data: datum,
-                width: partWidth,
-                height: partHeight,
-                color: getColor(datum),
+        if (fixedShape) {
+            return computeShapedParts<D>(
+                data,
+                innerWidth,
+                innerHeight,
+                neckHeightRatio,
+                neckWidthRatio,
                 fillOpacity,
-                borderWidth:
-                    isCurrent && currentBorderWidth !== undefined
-                        ? currentBorderWidth
-                        : borderWidth,
                 borderOpacity,
-                formattedValue: formatValue(datum.value),
-                isCurrent,
-                x,
-                x0,
-                x1,
-                y,
-                y0,
-                y1,
-                borderColor: '',
-                labelColor: '',
-                points: [],
-                areaPoints: [],
-                borderPoints: [],
-            }
-
-            part.borderColor = getBorderColor(part)
-            part.labelColor = getLabelColor(part)
-
-            return part
-        })
-
-        const shapeBlending = rawShapeBlending / 2
-
-        enhancedParts.forEach((part, index) => {
-            const nextPart = enhancedParts[index + 1]
-
-            if (direction === 'vertical') {
-                part.points.push({ x: part.x0, y: part.y0 })
-                part.points.push({ x: part.x1, y: part.y0 })
-                if (nextPart) {
-                    part.points.push({ x: nextPart.x1, y: part.y1 })
-                    part.points.push({ x: nextPart.x0, y: part.y1 })
-                } else {
-                    part.points.push({ x: part.points[1].x, y: part.y1 })
-                    part.points.push({ x: part.points[0].x, y: part.y1 })
-                }
-                if (part.isCurrent) {
-                    part.points[0].x -= currentPartSizeExtension
-                    part.points[1].x += currentPartSizeExtension
-                    part.points[2].x += currentPartSizeExtension
-                    part.points[3].x -= currentPartSizeExtension
-                }
-
-                part.areaPoints = [
-                    {
-                        x: 0,
-                        x0: part.points[0].x,
-                        x1: part.points[1].x,
-                        y: part.y0,
-                        y0: 0,
-                        y1: 0,
-                    },
-                ]
-                part.areaPoints.push({
-                    ...part.areaPoints[0],
-                    y: part.y0 + part.height * shapeBlending,
-                })
-                const lastAreaPoint = {
-                    x: 0,
-                    x0: part.points[3].x,
-                    x1: part.points[2].x,
-                    y: part.y1,
-                    y0: 0,
-                    y1: 0,
-                }
-                part.areaPoints.push({
-                    ...lastAreaPoint,
-                    y: part.y1 - part.height * shapeBlending,
-                })
-                part.areaPoints.push(lastAreaPoint)
-                ;[0, 1, 2, 3].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x0,
-                        y: part.areaPoints[index].y,
-                    })
-                })
-                part.borderPoints.push(null)
-                ;[3, 2, 1, 0].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x1,
-                        y: part.areaPoints[index].y,
-                    })
-                })
-            } else {
-                part.points.push({ x: part.x0, y: part.y0 })
-                if (nextPart) {
-                    part.points.push({ x: part.x1, y: nextPart.y0 })
-                    part.points.push({ x: part.x1, y: nextPart.y1 })
-                } else {
-                    part.points.push({ x: part.x1, y: part.y0 })
-                    part.points.push({ x: part.x1, y: part.y1 })
-                }
-                part.points.push({ x: part.x0, y: part.y1 })
-                if (part.isCurrent) {
-                    part.points[0].y -= currentPartSizeExtension
-                    part.points[1].y -= currentPartSizeExtension
-                    part.points[2].y += currentPartSizeExtension
-                    part.points[3].y += currentPartSizeExtension
-                }
-
-                part.areaPoints = [
-                    {
-                        x: part.x0,
-                        x0: 0,
-                        x1: 0,
-                        y: 0,
-                        y0: part.points[0].y,
-                        y1: part.points[3].y,
-                    },
-                ]
-                part.areaPoints.push({
-                    ...part.areaPoints[0],
-                    x: part.x0 + part.width * shapeBlending,
-                })
-                const lastAreaPoint = {
-                    x: part.x1,
-                    x0: 0,
-                    x1: 0,
-                    y: 0,
-                    y0: part.points[1].y,
-                    y1: part.points[2].y,
-                }
-                part.areaPoints.push({
-                    ...lastAreaPoint,
-                    x: part.x1 - part.width * shapeBlending,
-                })
-                part.areaPoints.push(lastAreaPoint)
-                ;[0, 1, 2, 3].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x,
-                        y: part.areaPoints[index].y0,
-                    })
-                })
-                part.borderPoints.push(null)
-                ;[3, 2, 1, 0].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x,
-                        y: part.areaPoints[index].y1,
-                    })
-                })
-            }
-        })
-
-        return enhancedParts
+                currentBorderWidth,
+                currentPartId,
+                currentPartSizeExtension,
+                getColor,
+                getBorderColor,
+                getLabelColor,
+                formatValue
+            )
+        } else {
+            return computeParts<D>(
+                data,
+                direction,
+                innerWidth,
+                innerHeight,
+                paddingBefore,
+                linearScale,
+                bandScale,
+                fillOpacity,
+                borderOpacity,
+                borderWidth,
+                currentBorderWidth,
+                rawShapeBlending,
+                currentPartId,
+                currentPartSizeExtension,
+                getColor,
+                getBorderColor,
+                getLabelColor,
+                formatValue
+            )
+        }
     }, [
         data,
         direction,
@@ -654,159 +526,100 @@ export const useFunnel = <D extends FunnelDatum>({
     }
 }
 
-export const useShapedFunnel = <D extends FunnelDatum>({
-    data,
-    width,
-    height,
-    interpolation = defaults.interpolation,
-    spacing = defaults.spacing,
-    valueFormat,
-    colors = defaults.colors,
-    fillOpacity = defaults.fillOpacity,
-    borderColor = defaults.borderColor,
-    borderOpacity = defaults.borderOpacity,
-    labelColor = defaults.labelColor,
-    enableBeforeSeparators = defaults.enableBeforeSeparators,
-    beforeSeparatorLength = defaults.beforeSeparatorLength,
-    beforeSeparatorOffset = defaults.beforeSeparatorOffset,
-    enableAfterSeparators = defaults.enableAfterSeparators,
-    afterSeparatorLength = defaults.afterSeparatorLength,
-    afterSeparatorOffset = defaults.afterSeparatorOffset,
-    isInteractive = defaults.isInteractive,
-    currentPartSizeExtension = defaults.currentPartSizeExtension,
-    currentBorderWidth,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-    tooltip,
-}: {
-    data: FunnelDataProps<D>['data']
-    width: number
-    height: number
-    interpolation?: FunnelCommonProps<D>['interpolation']
-    fixedShape?: FunnelCommonProps<D>['fixedShape']
-    spacing?: FunnelCommonProps<D>['spacing']
-    valueFormat?: FunnelCommonProps<D>['valueFormat']
-    colors?: FunnelCommonProps<D>['colors']
-    fillOpacity?: FunnelCommonProps<D>['fillOpacity']
-    borderColor?: FunnelCommonProps<D>['borderColor']
-    borderOpacity?: FunnelCommonProps<D>['borderOpacity']
-    labelColor?: FunnelCommonProps<D>['labelColor']
-    enableBeforeSeparators?: FunnelCommonProps<D>['enableBeforeSeparators']
-    beforeSeparatorLength?: FunnelCommonProps<D>['beforeSeparatorLength']
-    beforeSeparatorOffset?: FunnelCommonProps<D>['beforeSeparatorOffset']
-    enableAfterSeparators?: FunnelCommonProps<D>['enableAfterSeparators']
-    afterSeparatorLength?: FunnelCommonProps<D>['afterSeparatorLength']
-    afterSeparatorOffset?: FunnelCommonProps<D>['afterSeparatorOffset']
-    isInteractive?: FunnelCommonProps<D>['isInteractive']
-    currentPartSizeExtension?: FunnelCommonProps<D>['currentPartSizeExtension']
-    currentBorderWidth?: FunnelCommonProps<D>['currentBorderWidth']
-    onMouseEnter?: FunnelCommonProps<D>['onMouseEnter']
-    onMouseMove?: FunnelCommonProps<D>['onMouseMove']
-    onMouseLeave?: FunnelCommonProps<D>['onMouseLeave']
-    onClick?: FunnelCommonProps<D>['onClick']
-    tooltip?: (props: PartTooltipProps<D>) => JSX.Element
-}) => {
-    const theme = useTheme()
-    const getColor = useOrdinalColorScale<D>(colors, 'id')
-    const getBorderColor = useInheritedColor(borderColor, theme)
-    const getLabelColor = useInheritedColor(labelColor, theme)
-    const direction = 'vertical'
+function computeParts<D extends FunnelDatum>(
+    data: FunnelDataProps<D>['data'],
+    direction: FunnelDirection,
+    innerWidth: number,
+    innerHeight: number,
+    paddingBefore: number,
+    linearScale: ScaleLinear<number, number>,
+    bandScale: CustomBandScale,
+    fillOpacity: FunnelCommonProps<D>['fillOpacity'],
+    borderOpacity: FunnelCommonProps<D>['borderOpacity'],
+    borderWidth: FunnelCommonProps<D>['borderWidth'],
+    currentBorderWidth: FunnelCommonProps<D>['currentBorderWidth'] | undefined,
+    rawShapeBlending: FunnelCommonProps<D>['shapeBlending'],
+    currentPartId: string | number | null,
+    currentPartSizeExtension: number,
+    getColor: OrdinalColorScale<D>,
+    getBorderColor:
+        | InheritedColorConfigCustomFunction<FunnelPart<D>>
+        | ((d: FunnelPart<D>) => string),
+    getLabelColor:
+        | InheritedColorConfigCustomFunction<FunnelPart<D>>
+        | ((d: FunnelPart<D>) => string),
+    formatValue: (value: number) => string
+) {
+    const enhancedParts = data.map((datum, index) => {
+        const isCurrent = datum.id === currentPartId
 
-    const formatValue = useValueFormatter<number>(valueFormat)
+        let partWidth
+        let partHeight
+        let y0, x0
 
-    const [areaGenerator, borderGenerator] = useMemo(
-        () => computeShapeGenerators<D>(interpolation, direction),
-        [interpolation]
-    )
+        if (direction === 'vertical') {
+            partWidth = linearScale(datum.value)
+            partHeight = bandScale.bandwidth
+            x0 = paddingBefore + (innerWidth - partWidth) * 0.5
+            y0 = bandScale(index)
+        } else {
+            partWidth = bandScale.bandwidth
+            partHeight = linearScale(datum.value)
+            x0 = bandScale(index)
+            y0 = paddingBefore + (innerHeight - partHeight) * 0.5
+        }
 
-    const paddingBefore = enableBeforeSeparators ? beforeSeparatorLength + beforeSeparatorOffset : 0
-    const paddingAfter = enableAfterSeparators ? afterSeparatorLength + afterSeparatorOffset : 0
-    const innerWidth = width - paddingBefore - paddingAfter
-    const innerHeight = height
+        const x1 = x0 + partWidth
+        const x = x0 + partWidth * 0.5
+        const y1 = y0 + partHeight
+        const y = y0 + partHeight * 0.5
 
-    const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
+        const part: FunnelPart<D> = {
+            data: datum,
+            width: partWidth,
+            height: partHeight,
+            color: getColor(datum),
+            fillOpacity,
+            borderWidth:
+                isCurrent && currentBorderWidth !== undefined ? currentBorderWidth : borderWidth,
+            borderOpacity,
+            formattedValue: formatValue(datum.value),
+            isCurrent,
+            x,
+            x0,
+            x1,
+            y,
+            y0,
+            y1,
+            borderColor: '',
+            labelColor: '',
+            points: [],
+            areaPoints: [],
+            borderPoints: [],
+        }
 
-    const parts: FunnelPart<D>[] = useMemo(() => {
-        let currentHeight = 0
-        const totalValue = data.reduce((acc, datum) => acc + datum.value, 0)
-        const slope = -(innerHeight * 0.67) / (innerWidth * 0.33)
+        part.borderColor = getBorderColor(part)
+        part.labelColor = getLabelColor(part)
 
-        const enhancedParts = data.map(datum => {
-            const isCurrent = datum.id === currentPartId
+        return part
+    })
 
-            const partHeight = (datum.value / totalValue) * innerHeight
-            const y0 = currentHeight
-            const y1 = y0 + partHeight
-            const inBottomThird = y0 > innerHeight * 0.67
-            const x0 = inBottomThird ? innerWidth * 0.33 : -currentHeight / slope
-            const x1 = inBottomThird ? innerWidth * 0.67 : innerWidth - x0
-            const partWidth = x1 - x0
+    const shapeBlending = rawShapeBlending / 2
 
-            const x = innerWidth * 0.5
-            const y = y0 + partHeight * 0.5
-            currentHeight = y1
+    enhancedParts.forEach((part, index) => {
+        const nextPart = enhancedParts[index + 1]
 
-            const part: FunnelPart<D> = {
-                data: datum,
-                width: partWidth,
-                height: partHeight,
-                color: getColor(datum),
-                fillOpacity,
-                borderWidth: isCurrent && currentBorderWidth !== undefined ? currentBorderWidth : 0,
-                borderOpacity,
-                formattedValue: formatValue(datum.value),
-                isCurrent,
-                x,
-                x0,
-                x1,
-                y,
-                y0,
-                y1,
-                borderColor: '',
-                labelColor: '',
-                points: [],
-                areaPoints: [],
-                borderPoints: [],
-            }
-
-            part.borderColor = getBorderColor(part)
-            part.labelColor = getLabelColor(part)
-
-            return part
-        })
-
-        enhancedParts.forEach((part, index) => {
-            const nextPart = enhancedParts[index + 1]
-
+        if (direction === 'vertical') {
             part.points.push({ x: part.x0, y: part.y0 })
             part.points.push({ x: part.x1, y: part.y0 })
             if (nextPart) {
                 part.points.push({ x: nextPart.x1, y: part.y1 })
                 part.points.push({ x: nextPart.x0, y: part.y1 })
             } else {
-                part.points.push({ x: innerWidth * 0.67, y: part.y1 })
-                part.points.push({ x: innerWidth * 0.33, y: part.y1 })
+                part.points.push({ x: part.points[1].x, y: part.y1 })
+                part.points.push({ x: part.points[0].x, y: part.y1 })
             }
-            if (part.y0 < innerHeight * 0.67 && part.y1 > innerHeight * 0.67) {
-                part.points = [
-                    part.points[0],
-                    part.points[1],
-                    { x: innerWidth * 0.67, y: innerHeight * 0.67 },
-                    part.points[2],
-                    part.points[3],
-                    { x: innerWidth * 0.33, y: innerHeight * 0.67 },
-                ]
-            }
-            if (part.isCurrent && part.points.length === 6) {
-                part.points[0].x -= currentPartSizeExtension
-                part.points[1].x += currentPartSizeExtension
-                part.points[2].x += currentPartSizeExtension
-                part.points[3].x += currentPartSizeExtension
-                part.points[4].x -= currentPartSizeExtension
-                part.points[5].x -= currentPartSizeExtension
-            } else if (part.isCurrent && part.points.length === 4) {
+            if (part.isCurrent) {
                 part.points[0].x -= currentPartSizeExtension
                 part.points[1].x += currentPartSizeExtension
                 part.points[2].x += currentPartSizeExtension
@@ -823,157 +636,268 @@ export const useShapedFunnel = <D extends FunnelDatum>({
                     y1: 0,
                 },
             ]
-            if (part.y0 < innerHeight * 0.67 && part.y1 > innerHeight * 0.67) {
-                part.areaPoints.push({
-                    x: 0,
-                    x0: part.points[5].x,
-                    x1: part.points[2].x,
-                    y: innerHeight * 0.67,
-                    y0: 0,
-                    y1: 0,
-                })
-                part.areaPoints.push({
-                    x: 0,
-                    x0: part.points[4].x,
-                    x1: part.points[3].x,
-                    y: part.y1,
-                    y0: 0,
-                    y1: 0,
-                })
-            } else {
-                part.areaPoints.push({
-                    x: 0,
-                    x0: (part.points[0].x + part.points[3].x) / 2,
-                    x1: (part.points[1].x + part.points[2].x) / 2,
-                    y: (part.y0 + part.y1) / 2,
-                    y0: 0,
-                    y1: 0,
-                })
-                part.areaPoints.push({
-                    x: 0,
-                    x0: part.points[3].x,
-                    x1: part.points[2].x,
-                    y: part.y1,
-                    y0: 0,
-                    y1: 0,
-                })
+            part.areaPoints.push({
+                ...part.areaPoints[0],
+                y: part.y0 + part.height * shapeBlending,
+            })
+            const lastAreaPoint = {
+                x: 0,
+                x0: part.points[3].x,
+                x1: part.points[2].x,
+                y: part.y1,
+                y0: 0,
+                y1: 0,
             }
-            ;[0, 1, 2].map(index => {
+            part.areaPoints.push({
+                ...lastAreaPoint,
+                y: part.y1 - part.height * shapeBlending,
+            })
+            part.areaPoints.push(lastAreaPoint)
+            ;[0, 1, 2, 3].map(index => {
                 part.borderPoints.push({
                     x: part.areaPoints[index].x0,
                     y: part.areaPoints[index].y,
                 })
             })
             part.borderPoints.push(null)
-            ;[2, 1, 0].map(index => {
+            ;[3, 2, 1, 0].map(index => {
                 part.borderPoints.push({
                     x: part.areaPoints[index].x1,
                     y: part.areaPoints[index].y,
                 })
             })
+        } else {
+            part.points.push({ x: part.x0, y: part.y0 })
+            if (nextPart) {
+                part.points.push({ x: part.x1, y: nextPart.y0 })
+                part.points.push({ x: part.x1, y: nextPart.y1 })
+            } else {
+                part.points.push({ x: part.x1, y: part.y0 })
+                part.points.push({ x: part.x1, y: part.y1 })
+            }
+            part.points.push({ x: part.x0, y: part.y1 })
+            if (part.isCurrent) {
+                part.points[0].y -= currentPartSizeExtension
+                part.points[1].y -= currentPartSizeExtension
+                part.points[2].y += currentPartSizeExtension
+                part.points[3].y += currentPartSizeExtension
+            }
+
+            part.areaPoints = [
+                {
+                    x: part.x0,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: part.points[0].y,
+                    y1: part.points[3].y,
+                },
+            ]
+            part.areaPoints.push({
+                ...part.areaPoints[0],
+                x: part.x0 + part.width * shapeBlending,
+            })
+            const lastAreaPoint = {
+                x: part.x1,
+                x0: 0,
+                x1: 0,
+                y: 0,
+                y0: part.points[1].y,
+                y1: part.points[2].y,
+            }
+            part.areaPoints.push({
+                ...lastAreaPoint,
+                x: part.x1 - part.width * shapeBlending,
+            })
+            part.areaPoints.push(lastAreaPoint)
+            ;[0, 1, 2, 3].map(index => {
+                part.borderPoints.push({
+                    x: part.areaPoints[index].x,
+                    y: part.areaPoints[index].y0,
+                })
+            })
+            part.borderPoints.push(null)
+            ;[3, 2, 1, 0].map(index => {
+                part.borderPoints.push({
+                    x: part.areaPoints[index].x,
+                    y: part.areaPoints[index].y1,
+                })
+            })
+        }
+    })
+
+    return enhancedParts
+}
+
+function computeShapedParts<D extends FunnelDatum>(
+    data: FunnelDataProps<D>['data'],
+    innerWidth: number,
+    innerHeight: number,
+    neckHeightRatio: number,
+    neckWidthRatio: number,
+    fillOpacity: FunnelCommonProps<D>['fillOpacity'],
+    borderOpacity: FunnelCommonProps<D>['borderOpacity'],
+    currentBorderWidth: FunnelCommonProps<D>['currentBorderWidth'] | undefined,
+    currentPartId: string | number | null,
+    currentPartSizeExtension: number,
+    getColor: OrdinalColorScale<D>,
+    getBorderColor:
+        | InheritedColorConfigCustomFunction<FunnelPart<D>>
+        | ((d: FunnelPart<D>) => string),
+    getLabelColor:
+        | InheritedColorConfigCustomFunction<FunnelPart<D>>
+        | ((d: FunnelPart<D>) => string),
+    formatValue: (value: number) => string
+) {
+    let currentHeight = 0
+    const totalValue = data.reduce((acc, datum) => acc + datum.value, 0)
+    const neckHeight = innerHeight * (1 - neckHeightRatio)
+    const neckSideRatio = (1 - neckWidthRatio) / 2
+    const neckWidthLeft = Math.round(innerWidth * neckSideRatio)
+    const neckWidthRight = Math.round(innerWidth * (1 - neckSideRatio))
+    const slope = neckHeight / neckWidthLeft
+
+    const enhancedParts = data.map(datum => {
+        const isCurrent = datum.id === currentPartId
+
+        const partHeight = (datum.value / totalValue) * innerHeight
+        const y0 = currentHeight
+        const y1 = y0 + partHeight
+        const inBottomThird = y0 > neckHeight
+        const x0 = inBottomThird ? neckWidthLeft : Math.round(currentHeight / slope)
+        const x1 = inBottomThird ? neckWidthRight : innerWidth - x0
+        const partWidth = x1 - x0
+
+        const x = innerWidth * 0.5
+        const y = y0 + partHeight * 0.5
+        currentHeight = y1
+
+        const part: FunnelPart<D> = {
+            data: datum,
+            width: partWidth,
+            height: partHeight,
+            color: getColor(datum),
+            fillOpacity,
+            borderWidth: isCurrent && currentBorderWidth !== undefined ? currentBorderWidth : 0,
+            borderOpacity,
+            formattedValue: formatValue(datum.value),
+            isCurrent,
+            x,
+            x0,
+            x1,
+            y,
+            y0,
+            y1,
+            borderColor: '',
+            labelColor: '',
+            points: [],
+            areaPoints: [],
+            borderPoints: [],
+        }
+
+        part.borderColor = getBorderColor(part)
+        part.labelColor = getLabelColor(part)
+
+        return part
+    })
+
+    enhancedParts.forEach((part, index) => {
+        const nextPart = enhancedParts[index + 1]
+
+        part.points.push({ x: part.x0, y: part.y0 })
+        part.points.push({ x: part.x1, y: part.y0 })
+        if (nextPart) {
+            part.points.push({ x: nextPart.x1, y: part.y1 })
+            part.points.push({ x: nextPart.x0, y: part.y1 })
+        } else {
+            part.points.push({ x: neckWidthRight, y: part.y1 })
+            part.points.push({ x: neckWidthLeft, y: part.y1 })
+        }
+        if (part.y0 < neckHeight && part.y1 > neckHeight) {
+            part.points = [
+                part.points[0],
+                part.points[1],
+                { x: neckWidthRight, y: neckHeight },
+                part.points[2],
+                part.points[3],
+                { x: neckWidthLeft, y: neckHeight },
+            ]
+        }
+        if (part.isCurrent && part.points.length === 6) {
+            part.points[0].x -= currentPartSizeExtension
+            part.points[1].x += currentPartSizeExtension
+            part.points[2].x += currentPartSizeExtension
+            part.points[3].x += currentPartSizeExtension
+            part.points[4].x -= currentPartSizeExtension
+            part.points[5].x -= currentPartSizeExtension
+        } else if (part.isCurrent && part.points.length === 4) {
+            part.points[0].x -= currentPartSizeExtension
+            part.points[1].x += currentPartSizeExtension
+            part.points[2].x += currentPartSizeExtension
+            part.points[3].x -= currentPartSizeExtension
+        }
+
+        part.areaPoints = [
+            {
+                x: 0,
+                x0: part.points[0].x,
+                x1: part.points[1].x,
+                y: part.y0,
+                y0: 0,
+                y1: 0,
+            },
+        ]
+        if (part.y0 < neckHeight && part.y1 > neckHeight) {
+            part.areaPoints.push({
+                x: 0,
+                x0: part.points[5].x,
+                x1: part.points[2].x,
+                y: neckHeight,
+                y0: 0,
+                y1: 0,
+            })
+            part.areaPoints.push({
+                x: 0,
+                x0: part.points[4].x,
+                x1: part.points[3].x,
+                y: part.y1,
+                y0: 0,
+                y1: 0,
+            })
+        } else {
+            part.areaPoints.push({
+                x: 0,
+                x0: (part.points[0].x + part.points[3].x) / 2,
+                x1: (part.points[1].x + part.points[2].x) / 2,
+                y: (part.y0 + part.y1) / 2,
+                y0: 0,
+                y1: 0,
+            })
+            part.areaPoints.push({
+                x: 0,
+                x0: part.points[3].x,
+                x1: part.points[2].x,
+                y: part.y1,
+                y0: 0,
+                y1: 0,
+            })
+        }
+        ;[0, 1, 2].map(index => {
+            part.borderPoints.push({
+                x: part.areaPoints[index].x0,
+                y: part.areaPoints[index].y,
+            })
         })
+        part.borderPoints.push(null)
+        ;[2, 1, 0].map(index => {
+            part.borderPoints.push({
+                x: part.areaPoints[index].x1,
+                y: part.areaPoints[index].y,
+            })
+        })
+    })
 
-        return enhancedParts
-    }, [
-        data,
-        innerWidth,
-        innerHeight,
-        paddingBefore,
-        paddingAfter,
-        getColor,
-        formatValue,
-        getBorderColor,
-        getLabelColor,
-        currentPartId,
-    ])
-
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const partsWithHandlers = useMemo(
-        () =>
-            computePartsHandlers<D>({
-                parts,
-                setCurrentPartId,
-                isInteractive,
-                onMouseEnter,
-                onMouseLeave,
-                onMouseMove,
-                onClick,
-                showTooltipFromEvent,
-                hideTooltip,
-                tooltip,
-            }),
-        [
-            parts,
-            setCurrentPartId,
-            isInteractive,
-            onMouseEnter,
-            onMouseLeave,
-            onMouseMove,
-            onClick,
-            showTooltipFromEvent,
-            hideTooltip,
-            tooltip,
-        ]
-    )
-
-    const [beforeSeparators, afterSeparators] = useMemo(
-        () =>
-            computeSeparators({
-                parts,
-                direction,
-                width,
-                height,
-                spacing,
-                enableBeforeSeparators,
-                beforeSeparatorOffset,
-                enableAfterSeparators,
-                afterSeparatorOffset,
-            }),
-        [
-            parts,
-            width,
-            height,
-            spacing,
-            enableBeforeSeparators,
-            beforeSeparatorOffset,
-            enableAfterSeparators,
-            afterSeparatorOffset,
-        ]
-    )
-
-    const customLayerProps: FunnelCustomLayerProps<D> = useMemo(
-        () => ({
-            width,
-            height,
-            parts: partsWithHandlers,
-            areaGenerator,
-            borderGenerator,
-            beforeSeparators,
-            afterSeparators,
-            setCurrentPartId,
-        }),
-        [
-            width,
-            height,
-            partsWithHandlers,
-            areaGenerator,
-            borderGenerator,
-            beforeSeparators,
-            afterSeparators,
-            setCurrentPartId,
-        ]
-    )
-
-    return {
-        parts: partsWithHandlers,
-        areaGenerator,
-        borderGenerator,
-        beforeSeparators,
-        afterSeparators,
-        setCurrentPartId,
-        currentPartId,
-        customLayerProps,
-    }
+    return enhancedParts
 }
 
 export const useFunnelAnnotations = <D extends FunnelDatum>(
