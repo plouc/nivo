@@ -26,6 +26,7 @@ const initialProperties = {
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     colors: { scheme: 'set2' },
+    borderRadius: 3,
     borderWidth: 0,
     borderColor: {
         from: 'color',

@@ -8,6 +8,7 @@ interface WaffleCellsHtmlProps<D extends Datum> {
     cellComponent: CellComponent<D>
     padding: number
     margin: Margin
+    borderRadius: number
     borderWidth: number
     motionStagger: number
     testIdPrefix: WaffleHtmlProps<D>['testIdPrefix']
@@ -17,6 +18,7 @@ export const WaffleCellsHtml = <D extends Datum>({
     cells,
     cellComponent,
     padding,
+    borderRadius,
     borderWidth,
     motionStagger,
     testIdPrefix,
@@ -42,6 +44,7 @@ export const WaffleCellsHtml = <D extends Datum>({
                     cell,
                     padding,
                     animatedProps,
+                    borderRadius,
                     borderWidth,
                     testIdPrefix,
                 })

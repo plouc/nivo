@@ -47,10 +47,10 @@ const InnerWaffleCanvas = <D extends Datum>({
     hiddenIds = canvasDefaultProps.hiddenIds,
     padding = canvasDefaultProps.padding,
     // layers = svgDefaultProps.layers as LayerId[],
-    // cellComponent = svgDefaultProps.cellComponent,
     colors = canvasDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = canvasDefaultProps.emptyColor,
     emptyOpacity = canvasDefaultProps.emptyOpacity,
+    borderRadius = canvasDefaultProps.borderRadius,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor = canvasDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
     isInteractive = canvasDefaultProps.isInteractive,
@@ -109,22 +109,40 @@ const InnerWaffleCanvas = <D extends Datum>({
 
         cells.forEach(cell => {
             ctx.fillStyle = cell.color
-            ctx.fillRect(
-                cell.x + padding / 2,
-                cell.y + padding / 2,
-                cell.width - padding,
-                cell.height - padding
-            )
+
+            const x = cell.x + padding / 2
+            const y = cell.y + padding / 2
+            const cellWidth = cell.width - padding
+            const cellHeight = cell.height - padding
+
+            ctx.beginPath()
+
+            if (borderRadius > 0) {
+                ctx.moveTo(x + borderRadius, y)
+                ctx.lineTo(x + cellWidth - borderRadius, y)
+                ctx.quadraticCurveTo(x + cellWidth, y, x + cellWidth, y + borderRadius)
+                ctx.lineTo(x + cellWidth, y + cellHeight - borderRadius)
+                ctx.quadraticCurveTo(
+                    x + cellWidth,
+                    y + cellHeight,
+                    x + cellWidth - borderRadius,
+                    y + cellHeight
+                )
+                ctx.lineTo(x + borderRadius, y + cellHeight)
+                ctx.quadraticCurveTo(x, y + cellHeight, x, y + cellHeight - borderRadius)
+                ctx.lineTo(x, y + borderRadius)
+                ctx.quadraticCurveTo(x, y, x + borderRadius, y)
+                ctx.closePath()
+            } else {
+                ctx.rect(x, y, cellWidth, cellHeight)
+            }
+
+            ctx.fill()
 
             if (borderWidth > 0) {
                 // ctx.strokeStyle = cell.borderColor
                 ctx.lineWidth = borderWidth
-                ctx.strokeRect(
-                    cell.x + padding / 2,
-                    cell.y + padding / 2,
-                    cell.width - padding,
-                    cell.height - padding
-                )
+                ctx.strokeRect(x, y, cellWidth, cellHeight)
             }
         })
 
@@ -141,6 +159,7 @@ const InnerWaffleCanvas = <D extends Datum>({
         canvasEl,
         cells,
         padding,
+        borderRadius,
         borderWidth,
         theme,
         width,
