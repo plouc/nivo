@@ -1,7 +1,13 @@
 import { createElement, MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useTransition } from '@react-spring/web'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
-import { useMotionConfig, useTheme, useValueFormatter } from '@nivo/core'
+import {
+    useMotionConfig,
+    useTheme,
+    useValueFormatter,
+    // @ts-ignore
+    bindDefs,
+} from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { OrdinalColorScaleConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { generateGrid, GridCell, GridFillDirection, Vertex, getCellsPolygons } from '@nivo/grid'
@@ -88,6 +94,10 @@ export const mergeCellsData = <RawDatum extends Datum>(
                 cellWithData.color = datum.color
                 cellWithData.opacity = 1
                 cellWithData.borderColor = datum.borderColor
+
+                if (datum.fill) {
+                    cellWithData.fill = datum.fill
+                }
             }
         }
     }, [])
@@ -127,10 +137,10 @@ export const useWaffle = <D extends Datum = Datum>({
     emptyOpacity = commonDefaultProps.emptyOpacity,
     borderColor = commonDefaultProps.borderColor,
     forwardLegendData,
-}: // `defs` and `fill` are only supported for the SVG implementation
-// defs = [],
-// fill = [],
-Pick<
+    // `defs` and `fill` are only supported for the SVG implementation
+    defs = [],
+    fill = [],
+}: Pick<
     CommonProps<D>,
     | 'hiddenIds'
     | 'valueFormat'
@@ -195,6 +205,9 @@ Pick<
         return enhancedData
     }, [data, hiddenIds, unit, formatValue, getColor, getBorderColor])
 
+    // Please note that this also mutates `computedData`.
+    const boundDefs = useMemo(() => bindDefs(defs, computedData, fill), [computedData, defs, fill])
+
     const emptyCells = useMemo(
         () =>
             computeGrid({
@@ -252,6 +265,7 @@ Pick<
         computedData,
         legendData,
         getBorderColor,
+        boundDefs,
     }
 }
 
@@ -332,7 +346,7 @@ export const useAnimatedCells = <D extends Datum>({
             (cell: Cell<D>): CellAnimatedProps => ({
                 x: cell.x + padding / 2,
                 y: cell.y + padding / 2,
-                fill: cell.color,
+                color: cell.color,
                 size: cell.width - padding,
                 opacity: cell.opacity,
                 borderColor: cell.borderColor,
