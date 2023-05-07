@@ -73,3 +73,7 @@ export const CustomTooltip: Story = {
 export const CombiningWithOtherCharts: Story = {
     render: () => <FunnelWithClustering />,
 }
+
+export const Shaped: Story = {
+    render: () => <Funnel {...commonProps} width={900} height={900} fixedShape={true} />,
+}

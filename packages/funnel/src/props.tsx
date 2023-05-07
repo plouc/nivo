@@ -7,6 +7,7 @@ export const svgDefaultProps = {
 
     direction: 'vertical' as const,
     interpolation: 'smooth' as const,
+    fixedShape: false,
     spacing: 0,
     shapeBlending: 0.66,
 
