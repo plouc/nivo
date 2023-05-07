@@ -1,6 +1,6 @@
 {
     "name": "@nivo/waffle",
-    "version": "0.82.1",
+    "version": "0.83.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -35,11 +35,11 @@
         "@nivo/grid": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^2.0.0",
         "@types/prop-types": "^15.7.2",
-        "prop-types": "^15.7.2",
-        "@react-spring/web": "9.4.5 || ^9.7.2",
-        "d3-shape": "^1.3.5"
+        "d3-shape": "^1.3.5",
+        "prop-types": "^15.7.2"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"
