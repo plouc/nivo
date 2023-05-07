@@ -6,7 +6,12 @@ import {
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    ordinalColors,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'html', 'canvas']
@@ -360,6 +365,7 @@ const props: ChartProperty[] = [
             max: 100,
         },
     },
+    ...commonAccessibilityProps(allFlavors),
 ]
 
 export const groups = groupProperties(props)
