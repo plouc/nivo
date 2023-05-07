@@ -159,6 +159,9 @@ pkgs-build: pkgs-types ##@1 packages build all packages
 pkgs-types: ##@1 packages build all package types
 	@pnpm tsc --build ./tsconfig.monorepo.json
 
+pkgs-types-clean: ##@1 packages clean all package types
+	@pnpm tsc --build --clean ./tsconfig.monorepo.json
+
 pkg-types-%: ##@1 packages generate types for a specific package
 	@if [ "$${SKIP_TYPES}" != "TRUE" ]; \
     then \

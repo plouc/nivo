@@ -1,13 +1,6 @@
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import {
-    Theme,
-    Box,
-    ValueFormat,
-    SvgDefsAndFill,
-    ModernMotionProps,
-    PropertyAccessor,
-} from '@nivo/core'
+import { Theme, Box, ValueFormat, SvgDefsAndFill, MotionProps, PropertyAccessor } from '@nivo/core'
 
 export type DatumId = string | number
 
@@ -79,7 +72,7 @@ export type SunburstCommonProps<RawDatum> = {
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
     animate: boolean
-    motionConfig: ModernMotionProps['motionConfig']
+    motionConfig: MotionProps['motionConfig']
 } & ArcLabelsProps<ComputedDatum<RawDatum>>
 
 export type MouseHandler<RawDatum> = (

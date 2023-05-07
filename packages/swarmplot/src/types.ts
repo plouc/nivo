@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
 import { ForceX, ForceY, ForceCollide } from 'd3-force'
-import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
+import { PropertyAccessor, ValueFormat, Theme, MotionProps, Box, Margin } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@nivo/scales'
@@ -127,7 +127,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
         ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
     >[]
     animate: boolean
-    motionConfig: ModernMotionProps['motionConfig']
+    motionConfig: MotionProps['motionConfig']
     role: string
     renderWrapper?: boolean
 }

@@ -4,7 +4,7 @@ import {
     Dimensions,
     Theme,
     SvgDefsAndFill,
-    ModernMotionProps,
+    MotionProps,
     ValueFormat,
     PropertyAccessor,
 } from '@nivo/core'
@@ -139,7 +139,7 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers?: PieLayer<RawDatum>[]
         animate?: boolean
-        motionConfig?: ModernMotionProps['motionConfig']
+        motionConfig?: MotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
     } & PieSvgCustomComponents<RawDatum>
 
@@ -150,7 +150,7 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers: PieLayer<RawDatum>[]
         animate: boolean
-        motionConfig: ModernMotionProps['motionConfig']
+        motionConfig: MotionProps['motionConfig']
         transitionMode: ArcTransitionMode
     } & PieSvgCustomComponents<RawDatum>
 

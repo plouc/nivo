@@ -413,8 +413,6 @@ class RealTimeChartComponent extends Component {
                 enableGridX={true}
                 curve="monotoneX"
                 animate={false}
-                motionStiffness={120}
-                motionDamping={50}
                 isInteractive={false}
                 enableSlices={false}
                 useMesh={true}

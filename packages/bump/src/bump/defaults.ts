@@ -1,4 +1,4 @@
-import { ModernMotionProps } from '@nivo/core'
+import { MotionProps } from '@nivo/core'
 import { LineTooltip } from './LineTooltip'
 import { Point } from './Point'
 import { BumpCommonProps, BumpPointComponent, DefaultBumpDatum } from './types'
@@ -61,7 +61,7 @@ const commonDefaultProps: Omit<
 export const bumpSvgDefaultProps: typeof commonDefaultProps & {
     pointComponent: BumpPointComponent<DefaultBumpDatum, Record<string, unknown>>
     animate: boolean
-    motionConfig: ModernMotionProps['motionConfig']
+    motionConfig: MotionProps['motionConfig']
 } = {
     ...commonDefaultProps,
     pointComponent: Point,

@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { TooltipProvider, Tooltip } from '@nivo/tooltip'
@@ -23,20 +15,13 @@ export const Container = ({
     renderWrapper = true,
     isInteractive = true,
     animate,
-    motionStiffness,
-    motionDamping,
     motionConfig,
 }) => {
     const container = useRef(null)
 
     return (
         <ThemeProvider theme={theme}>
-            <MotionConfigProvider
-                animate={animate}
-                stiffness={motionStiffness}
-                damping={motionDamping}
-                config={motionConfig}
-            >
+            <MotionConfigProvider animate={animate} config={motionConfig}>
                 <TooltipProvider container={container}>
                     {/* we should not render the div element if using the HTTP API */}
                     <ConditionalWrapper
@@ -58,8 +43,6 @@ Container.propTypes = {
     renderWrapper: PropTypes.bool,
     theme: PropTypes.object,
     animate: PropTypes.bool,
-    motionStiffness: PropTypes.number,
-    motionDamping: PropTypes.number,
     motionConfig: PropTypes.string,
 }
 

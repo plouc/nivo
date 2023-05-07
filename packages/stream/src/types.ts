@@ -2,7 +2,7 @@ import { FunctionComponent, AriaAttributes } from 'react'
 import {
     Box,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     Theme,
     PropertyAccessor,
     StackOrder,
@@ -145,4 +145,4 @@ export type StreamSvgProps<RawDatum extends StreamDatum> = Partial<StreamCommonP
     StreamDataProps<RawDatum> &
     SvgDefsAndFill<StreamLayerData> &
     Dimensions &
-    ModernMotionProps
+    MotionProps

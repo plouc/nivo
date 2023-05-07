@@ -7,7 +7,7 @@ import {
     stackOffsetWiggle,
 } from 'd3-shape'
 import { ScaleLinear } from '@nivo/scales'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -160,7 +160,7 @@ export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonProps<RawDatum>> &
-    ModernMotionProps &
+    MotionProps &
     SvgDefsAndFill<BarDatum<RawDatum>> &
     MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers?: Layer<RawDatum>[]

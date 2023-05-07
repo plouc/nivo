@@ -6,7 +6,7 @@ import {
     CartesianMarkerProps,
     Dimensions,
     Margin,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     SvgDefsAndFill,
     Theme,
@@ -244,7 +244,7 @@ export type BoxPlotSvgProps<RawDatum extends BoxPlotDatum> = Partial<BoxPlotComm
     BoxPlotHandlers<SVGRectElement> &
     SvgDefsAndFill<ComputedBoxPlotSummary> &
     Dimensions &
-    ModernMotionProps &
+    MotionProps &
     Partial<{
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null
