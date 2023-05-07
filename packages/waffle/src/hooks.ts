@@ -3,12 +3,7 @@ import { useTransition } from '@react-spring/web'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import { useMotionConfig, useTheme, useValueFormatter } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import {
-    InheritedColorConfig,
-    OrdinalColorScaleConfig,
-    useInheritedColor,
-    useOrdinalColorScale,
-} from '@nivo/colors'
+import { OrdinalColorScaleConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { generateGrid, GridCell, GridFillDirection, Vertex, getCellsPolygons } from '@nivo/grid'
 import {
     CommonProps,
@@ -32,21 +27,33 @@ import { commonDefaultProps } from './defaults'
  * Computes empty cells according to dimensions/layout/padding.
  * At this stage the cells aren't bound to any data.
  */
-export const computeGrid = (
-    width: number,
-    height: number,
-    rows: number,
-    columns: number,
-    fillDirection: GridFillDirection,
-    emptyColor: string,
+export const computeGrid = ({
+    width,
+    height,
+    rows,
+    columns,
+    fillDirection,
+    emptyColor,
+    emptyOpacity,
+    getBorderColor,
+}: {
+    width: number
+    height: number
+    rows: number
+    columns: number
+    fillDirection: GridFillDirection
+    emptyColor: string
     emptyOpacity: number
-) => {
+    getBorderColor: ReturnType<typeof useInheritedColor<{ color: string }>>
+}) => {
+    const borderColor = getBorderColor({ color: emptyColor })
     const extend = (cell: GridCell, origin: [number, number]): EmptyCell => ({
         ...cell,
         x: origin[0] + cell.x,
         y: origin[1] + cell.y,
         color: emptyColor,
         opacity: emptyOpacity,
+        borderColor,
     })
 
     // We do not apply the padding at this stage so that we can
@@ -80,6 +87,7 @@ export const mergeCellsData = <RawDatum extends Datum>(
                 cellWithData.data = datum
                 cellWithData.color = datum.color
                 cellWithData.opacity = 1
+                cellWithData.borderColor = datum.borderColor
             }
         }
     }, [])
@@ -117,7 +125,7 @@ export const useWaffle = <D extends Datum = Datum>({
     colors = commonDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = commonDefaultProps.emptyColor,
     emptyOpacity = commonDefaultProps.emptyOpacity,
-    borderColor = commonDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
+    borderColor = commonDefaultProps.borderColor,
     forwardLegendData,
 }: // `defs` and `fill` are only supported for the SVG implementation
 // defs = [],
@@ -188,8 +196,18 @@ Pick<
     }, [data, hiddenIds, unit, formatValue, getColor, getBorderColor])
 
     const emptyCells = useMemo(
-        () => computeGrid(width, height, rows, columns, fillDirection, emptyColor, emptyOpacity),
-        [width, height, rows, columns, fillDirection, emptyColor, emptyOpacity]
+        () =>
+            computeGrid({
+                width,
+                height,
+                rows,
+                columns,
+                fillDirection,
+                emptyColor,
+                emptyOpacity,
+                getBorderColor,
+            }),
+        [width, height, rows, columns, fillDirection, emptyColor, emptyOpacity, getBorderColor]
     )
 
     const cells = useMemo(
@@ -309,6 +327,7 @@ export const useAnimatedCells = <D extends Datum>({
                 fill: cell.color,
                 size: cell.width - padding,
                 opacity: cell.opacity,
+                borderColor: cell.borderColor,
             }),
         [padding]
     )

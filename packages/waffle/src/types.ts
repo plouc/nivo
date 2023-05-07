@@ -9,7 +9,7 @@ export type DatumId = string | number
 
 export interface Datum {
     id: string
-    label: string | number
+    label: string
     value: number
 }
 
@@ -32,6 +32,7 @@ export interface ComputedDatum<D extends Datum> extends Datum {
 export interface EmptyCell extends GridCell {
     color: string
     opacity: number
+    borderColor: string
 }
 
 // Used for cells having data.
@@ -51,6 +52,7 @@ export type CellAnimatedProps = {
     size: number
     fill: string
     opacity: number
+    borderColor: string
 }
 
 export interface LegendDatum<D extends Datum = Datum> {
@@ -102,7 +104,7 @@ export interface CommonProps<D extends Datum> extends ModernMotionProps {
     emptyOpacity: number
     borderRadius: number
     borderWidth: number
-    borderColor: InheritedColorConfig<ComputedDatum<D>>
+    borderColor: InheritedColorConfig<ComputedDatum<D> | { color: string }>
     isInteractive: boolean
     tooltip: TooltipComponent<D>
     forwardLegendData: (data: LegendDatum<D>[]) => void

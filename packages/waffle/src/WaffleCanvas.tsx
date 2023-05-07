@@ -7,12 +7,11 @@ import {
     useTheme,
     Margin,
 } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { renderLegendToCanvas } from '@nivo/legends'
 import {
     CanvasProps,
-    ComputedDatum,
     Datum,
     isDataCell,
     // LayerId,
@@ -52,7 +51,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     emptyOpacity = canvasDefaultProps.emptyOpacity,
     borderRadius = canvasDefaultProps.borderRadius,
     borderWidth = canvasDefaultProps.borderWidth,
-    borderColor = canvasDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
+    borderColor = canvasDefaultProps.borderColor,
     isInteractive = canvasDefaultProps.isInteractive,
     onMouseMove,
     onClick,
