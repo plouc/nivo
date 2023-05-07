@@ -5,7 +5,7 @@ import {
     Box,
     Theme,
     ValueFormat,
-    ModernMotionProps,
+    MotionProps,
     CssMixBlendMode,
     CartesianMarkerProps,
     PropertyAccessor,
@@ -158,7 +158,7 @@ export type ScatterPlotSvgProps<RawDatum extends ScatterPlotDatum> = Partial<
 > &
     ScatterPlotDataProps<RawDatum> &
     Dimensions &
-    ModernMotionProps & {
+    MotionProps & {
         blendMode?: CssMixBlendMode
         layers?: (ScatterPlotLayerId | ScatterPlotCustomSvgLayer<RawDatum>)[]
         nodeComponent?: ScatterPlotNode<RawDatum>

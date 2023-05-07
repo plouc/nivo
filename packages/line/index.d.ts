@@ -11,7 +11,7 @@ import {
     Dimensions,
     Box,
     Theme,
-    ModernMotionProps,
+    MotionProps,
     CartesianMarkerProps,
     SvgDefsAndFill,
     ValueFormat,
@@ -201,7 +201,7 @@ export interface LineProps {
     legends?: LegendProps[]
 }
 
-export interface LineSvgProps extends LineProps, ModernMotionProps, SvgDefsAndFill<Datum> {
+export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
     enablePointLabel?: boolean
     pointLabel?: string | AccessorFunc
     pointLabelYOffset?: number

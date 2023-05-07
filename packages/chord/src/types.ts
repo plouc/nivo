@@ -5,7 +5,7 @@ import {
     Box,
     Theme,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     CssMixBlendMode,
     PropertyAccessor,
     ValueFormat,
@@ -150,7 +150,7 @@ export type ChordCommonProps = {
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-} & Required<ModernMotionProps>
+} & Required<MotionProps>
 
 export type ChordSvgProps = Partial<ChordCommonProps> &
     ChordDataProps &

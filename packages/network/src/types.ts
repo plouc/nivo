@@ -1,6 +1,6 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { AnimatedProps } from '@react-spring/web'
-import { Box, Theme, Dimensions, ModernMotionProps, CssMixBlendMode } from '@nivo/core'
+import { Box, Theme, Dimensions, MotionProps, CssMixBlendMode } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 import { AnnotationMatcher } from '@nivo/annotations'
 
@@ -171,7 +171,7 @@ export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> =
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-} & Required<ModernMotionProps>
+} & Required<MotionProps>
 
 export type NetworkSvgProps<Node extends InputNode, Link extends InputLink> = Partial<
     NetworkCommonProps<Node, Link>

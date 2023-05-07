@@ -1,6 +1,6 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { SpringValues } from '@react-spring/web'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Vertex, GridCell, GridFillDirection } from '@nivo/grid'
@@ -95,7 +95,7 @@ export type TooltipComponent<D extends Datum> = FunctionComponent<TooltipProps<D
 
 // Most of those props are optional for the public API,
 // but required internally, using defaults.
-export interface CommonProps<D extends Datum> extends ModernMotionProps {
+export interface CommonProps<D extends Datum> extends MotionProps {
     hiddenIds: D['id'][]
     margin: Box
     valueFormat?: ValueFormat<D['value']>

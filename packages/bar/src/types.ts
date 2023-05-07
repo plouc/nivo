@@ -6,7 +6,7 @@ import {
     CartesianMarkerProps,
     Dimensions,
     Margin,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     SvgDefsAndFill,
     Theme,
@@ -266,7 +266,7 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
     BarHandlers<RawDatum, SVGRectElement> &
     SvgDefsAndFill<ComputedBarDatum<RawDatum>> &
     Dimensions &
-    ModernMotionProps &
+    MotionProps &
     Partial<{
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null

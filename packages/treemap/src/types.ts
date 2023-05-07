@@ -6,7 +6,7 @@ import {
     Theme,
     ValueFormat,
     PropertyAccessor,
-    ModernMotionProps,
+    MotionProps,
     SvgDefsAndFill,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig, DatumIdentityAccessor } from '@nivo/colors'
@@ -169,7 +169,7 @@ export type TreeMapCommonProps<Datum extends object> = {
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-} & ModernMotionProps
+} & MotionProps
 
 export type TreeMapSvgProps<Datum extends object> = Partial<TreeMapCommonProps<Datum>> &
     TreeMapDataProps<Datum> &

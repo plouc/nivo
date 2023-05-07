@@ -5,7 +5,7 @@ import {
     Theme,
     CssMixBlendMode,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     ValueFormat,
     ClosedCurveFactoryId,
@@ -143,7 +143,7 @@ export interface RadarSvgFillMatcherDatum<D extends Record<string, unknown>> {
 export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps<D>> &
     RadarDataProps<D> &
     Dimensions &
-    ModernMotionProps &
+    MotionProps &
     SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
 
 export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>

@@ -197,22 +197,12 @@ export function usePartialTheme(theme?: Theme): CompleteTheme
 
 export type MotionProps = Partial<{
     animate: boolean
-    motionDamping: number
-    motionStiffness: number
-}>
-
-export type ModernMotionProps = Partial<{
-    animate: boolean
     motionConfig: string | SpringConfig
 }>
 
 export function useMotionConfig(): {
     animate: boolean
     config: SpringConfig
-    springConfig: {
-        stiffness: number
-        damping: number
-    }
 }
 
 export type SvgFillMatcher<T> = (datum: T) => boolean
@@ -343,13 +333,9 @@ export function Defs(props: DefsProps): JSX.Element
 // ------------------------------------------------------------------------
 
 export const defaultAnimate = true
-export const defaultMotionStiffness = 90
-export const defaultMotionDamping = 15
 
 type MotionDefaultProps = {
     animate: true
-    stiffness: 90
-    damping: 15
     config: 'default'
 }
 export const motionDefaultProps: MotionDefaultProps
@@ -409,8 +395,6 @@ interface ContainerProps {
     renderWrapper?: boolean
     isInteractive?: boolean
     animate?: boolean
-    motionStiffness?: number
-    motionDamping?: number
     motionConfig?: string | SpringConfig
 }
 type ContainerType = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element

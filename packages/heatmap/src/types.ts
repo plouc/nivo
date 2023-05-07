@@ -5,7 +5,7 @@ import {
     Theme,
     CompleteTheme,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
@@ -169,7 +169,7 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-} & Required<ModernMotionProps>
+} & Required<MotionProps>
 
 export type HeatMapSvgProps<Datum extends HeatMapDatum, ExtraProps extends object> = Partial<
     HeatMapCommonProps<Datum>

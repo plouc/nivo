@@ -5,7 +5,7 @@ import {
     Theme,
     CssMixBlendMode,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
@@ -161,4 +161,4 @@ export type SankeySvgProps<N extends DefaultNode, L extends DefaultLink> = Parti
 > &
     SankeyDataProps<N, L> &
     Dimensions &
-    ModernMotionProps
+    MotionProps

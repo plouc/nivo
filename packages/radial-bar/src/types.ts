@@ -3,7 +3,7 @@ import {
     Theme,
     Box,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     ValueFormat,
     SvgDefsAndFill,
@@ -124,5 +124,5 @@ export type RadialBarSvgProps<D extends RadialBarDatum = RadialBarDatum> = Parti
 > &
     RadialBarDataProps<D> &
     Dimensions &
-    ModernMotionProps &
+    MotionProps &
     SvgDefsAndFill<D>
