@@ -108,7 +108,10 @@ const InnerWaffleCanvas = <D extends Datum>({
         ctx.translate(margin.left, margin.top)
 
         cells.forEach(cell => {
+            ctx.save()
+
             ctx.fillStyle = cell.color
+            ctx.globalAlpha = cell.opacity
 
             const x = cell.x + padding / 2
             const y = cell.y + padding / 2
@@ -127,6 +130,8 @@ const InnerWaffleCanvas = <D extends Datum>({
                 roundedRect(ctx, x, y, cellWidth, cellHeight, borderRadius)
                 ctx.stroke()
             }
+
+            ctx.restore()
         })
 
         legends.forEach(legend => {
@@ -222,21 +227,3 @@ export const WaffleCanvas = <D extends Datum = Datum>({
         <InnerWaffleCanvas<D> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
-
-/*
-cells.forEach(cell => {
-    this.ctx.save()
-    this.ctx.globalAlpha = cell.data ? 1 : emptyOpacity
-
-    this.ctx.fillStyle = cell.color
-    this.ctx.fillRect(cell.x + origin.x, cell.y + origin.y, cellSize, cellSize)
-
-    if (borderWidth > 0) {
-        this.ctx.strokeStyle = getBorderColor(cell)
-        this.ctx.lineWidth = borderWidth
-        this.ctx.strokeRect(cell.x + origin.x, cell.y + origin.y, cellSize, cellSize)
-    }
-
-    this.ctx.restore()
-})
-*/
