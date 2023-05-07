@@ -334,6 +334,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
@@ -349,16 +352,15 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/arcs:
     dependencies:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
@@ -371,13 +373,12 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/axes:
     dependencies:
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/scales':
         specifier: workspace:*
         version: link:../scales
@@ -405,16 +406,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
-      '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
-      d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
 
   packages/bar:
     dependencies:
@@ -427,6 +418,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -457,10 +451,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/boxplot:
     dependencies:
@@ -473,6 +463,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -503,13 +496,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
-      '@nivo/generators':
-        specifier: workspace:*
-        version: link:../generators
 
   packages/bullet:
     dependencies:
@@ -519,6 +505,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -534,10 +523,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/bump:
     dependencies:
@@ -547,6 +532,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -574,13 +562,12 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/calendar:
     dependencies:
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -611,10 +598,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/canvas: {}
 
@@ -626,6 +609,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -650,16 +636,15 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/circle-packing:
     dependencies:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -678,13 +663,12 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/colors:
     dependencies:
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@types/d3-color':
         specifier: ^2.0.0
         version: 2.0.3
@@ -715,19 +699,21 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/core:
     dependencies:
       '@nivo/recompose':
         specifier: workspace:*
         version: link:../recompose
+      '@nivo/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/d3-shape':
+        specifier: ^2.0.0
+        version: 2.1.3
       d3-color:
         specifier: ^3.1.0
         version: 3.1.0
@@ -758,13 +744,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/tooltip':
-        specifier: workspace:*
-        version: link:../tooltip
-      '@types/d3-shape':
-        specifier: ^2.0.0
-        version: 2.1.3
 
   packages/express:
     dependencies:
@@ -804,6 +783,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -825,10 +807,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/generators:
     dependencies:
@@ -859,6 +837,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -880,10 +861,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/grid: {}
 
@@ -898,6 +875,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -919,16 +899,15 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/legends:
     dependencies:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@types/d3-scale':
         specifier: ^3.2.3
         version: 3.3.2
@@ -944,10 +923,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/line:
     dependencies:
@@ -960,6 +935,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -984,10 +962,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/marimekko:
     dependencies:
@@ -997,6 +971,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1021,10 +998,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/network:
     dependencies:
@@ -1034,6 +1007,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -1049,10 +1025,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/parallel-coordinates:
     dependencies:
@@ -1062,6 +1034,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -1080,10 +1055,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/pie:
     dependencies:
@@ -1093,6 +1064,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1108,16 +1082,15 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/polar-axes:
     dependencies:
       '@nivo/arcs':
         specifier: workspace:*
         version: link:../arcs
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/scales':
         specifier: workspace:*
         version: link:../scales
@@ -1127,16 +1100,15 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/radar:
     dependencies:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1161,10 +1133,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/radial-bar:
     dependencies:
@@ -1174,6 +1142,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1204,10 +1175,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/recompose:
     dependencies:
@@ -1232,6 +1199,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1259,10 +1229,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/scales:
     dependencies:
@@ -1299,6 +1265,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1332,10 +1301,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/static:
     dependencies:
@@ -1408,6 +1373,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1429,10 +1397,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/sunburst:
     dependencies:
@@ -1442,6 +1406,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -1457,10 +1424,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/swarmplot:
     dependencies:
@@ -1473,6 +1436,9 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
@@ -1506,26 +1472,24 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/tooltip:
     dependencies:
-      '@react-spring/web':
-        specifier: 9.4.5 || ^9.7.2
-        version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
-    devDependencies:
       '@nivo/core':
         specifier: workspace:*
         version: link:../core
+      '@react-spring/web':
+        specifier: 9.4.5 || ^9.7.2
+        version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
 
   packages/treemap:
     dependencies:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -1544,13 +1508,12 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/voronoi:
     dependencies:
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@types/d3-delaunay':
         specifier: ^5.3.0
         version: 5.3.1
@@ -1566,10 +1529,6 @@ importers:
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
-    devDependencies:
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
 
   packages/waffle:
     dependencies:

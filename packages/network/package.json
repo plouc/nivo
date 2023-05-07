@@ -33,17 +33,14 @@
     "dependencies": {
         "@nivo/annotations": "workspace:*",
         "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-force": "^2.1.0",
         "d3-force": "^2.0.1"
     },
     "peerDependencies": {
-        "@nivo/core": "0.82.1",
         "react": ">= 16.14.0 < 19.0.0"
-    },
-    "devDependencies": {
-        "@nivo/core": "workspace:*"
     },
     "publishConfig": {
         "access": "public"
