@@ -383,13 +383,12 @@ export const useFunnel = <D extends FunnelDatum>({
         if (fixedShape) {
             return computeShapedParts<D>(
                 data,
+                direction,
                 innerWidth,
                 innerHeight,
                 neckHeightRatio,
                 neckWidthRatio,
                 fillOpacity,
-                borderOpacity,
-                currentBorderWidth,
                 currentPartId,
                 currentPartSizeExtension,
                 getColor,
@@ -731,13 +730,12 @@ function computeParts<D extends FunnelDatum>(
 
 function computeShapedParts<D extends FunnelDatum>(
     data: FunnelDataProps<D>['data'],
+    direction: FunnelDirection,
     innerWidth: number,
     innerHeight: number,
     neckHeightRatio: number,
     neckWidthRatio: number,
     fillOpacity: FunnelCommonProps<D>['fillOpacity'],
-    borderOpacity: FunnelCommonProps<D>['borderOpacity'],
-    currentBorderWidth: FunnelCommonProps<D>['currentBorderWidth'] | undefined,
     currentPartId: string | number | null,
     currentPartSizeExtension: number,
     getColor: OrdinalColorScale<D>,
@@ -749,28 +747,50 @@ function computeShapedParts<D extends FunnelDatum>(
         | ((d: FunnelPart<D>) => string),
     formatValue: (value: number) => string
 ) {
-    let currentHeight = 0
+    let currentHeight = 0,
+        currentWidth = 0
+    let slope: number, neckHeight: number, beforeNeckDistance: number, afterNeckDistance: number
     const totalValue = data.reduce((acc, datum) => acc + datum.value, 0)
-    const neckHeight = innerHeight * (1 - neckHeightRatio)
-    const neckSideRatio = (1 - neckWidthRatio) / 2
-    const neckWidthLeft = Math.round(innerWidth * neckSideRatio)
-    const neckWidthRight = Math.round(innerWidth * (1 - neckSideRatio))
-    const slope = neckHeight / neckWidthLeft
+    const neckPaddingRatio = (1 - neckWidthRatio) / 2
+    if (direction === 'vertical') {
+        beforeNeckDistance = Math.round(innerWidth * neckPaddingRatio)
+        afterNeckDistance = Math.round(innerWidth * (1 - neckPaddingRatio))
+        neckHeight = innerHeight * (1 - neckHeightRatio)
+        slope = neckHeight / beforeNeckDistance
+    } else {
+        beforeNeckDistance = Math.round(innerHeight * neckPaddingRatio)
+        afterNeckDistance = Math.round(innerHeight * (1 - neckPaddingRatio))
+        neckHeight = innerWidth * (1 - neckHeightRatio)
+        slope = neckHeight / beforeNeckDistance
+    }
 
     const enhancedParts = data.map(datum => {
         const isCurrent = datum.id === currentPartId
 
-        const partHeight = (datum.value / totalValue) * innerHeight
-        const y0 = currentHeight
-        const y1 = y0 + partHeight
-        const inBottomThird = y0 > neckHeight
-        const x0 = inBottomThird ? neckWidthLeft : Math.round(currentHeight / slope)
-        const x1 = inBottomThird ? neckWidthRight : innerWidth - x0
-        const partWidth = x1 - x0
+        let partWidth: number, partHeight: number, x0: number, x1: number, y0: number, y1: number
 
-        const x = innerWidth * 0.5
+        if (direction === 'vertical') {
+            partHeight = (datum.value / totalValue) * innerHeight
+            y0 = currentHeight
+            y1 = y0 + partHeight
+            const inBottomThird = y0 > neckHeight
+            x0 = inBottomThird ? beforeNeckDistance : Math.round(currentHeight / slope)
+            x1 = inBottomThird ? afterNeckDistance : innerWidth - x0
+            partWidth = x1 - x0
+            currentHeight = y1
+        } else {
+            partWidth = (datum.value / totalValue) * innerWidth
+            x0 = currentWidth
+            x1 = x0 + partWidth
+            const inLastThird = x0 > neckHeight
+            y0 = inLastThird ? beforeNeckDistance : Math.round(currentWidth / slope)
+            y1 = inLastThird ? afterNeckDistance : innerHeight - y0
+            partHeight = y1 - y0
+            currentWidth = x1
+        }
+
+        const x = x0 + partWidth * 0.5
         const y = y0 + partHeight * 0.5
-        currentHeight = y1
 
         const part: FunnelPart<D> = {
             data: datum,
@@ -778,8 +798,8 @@ function computeShapedParts<D extends FunnelDatum>(
             height: partHeight,
             color: getColor(datum),
             fillOpacity,
-            borderWidth: isCurrent && currentBorderWidth !== undefined ? currentBorderWidth : 0,
-            borderOpacity,
+            borderWidth: 0,
+            borderOpacity: 0,
             formattedValue: formatValue(datum.value),
             isCurrent,
             x,
@@ -804,97 +824,197 @@ function computeShapedParts<D extends FunnelDatum>(
     enhancedParts.forEach((part, index) => {
         const nextPart = enhancedParts[index + 1]
 
-        part.points.push({ x: part.x0, y: part.y0 })
-        part.points.push({ x: part.x1, y: part.y0 })
-        if (nextPart) {
-            part.points.push({ x: nextPart.x1, y: part.y1 })
-            part.points.push({ x: nextPart.x0, y: part.y1 })
-        } else {
-            part.points.push({ x: neckWidthRight, y: part.y1 })
-            part.points.push({ x: neckWidthLeft, y: part.y1 })
-        }
-        if (part.y0 < neckHeight && part.y1 > neckHeight) {
-            part.points = [
-                part.points[0],
-                part.points[1],
-                { x: neckWidthRight, y: neckHeight },
-                part.points[2],
-                part.points[3],
-                { x: neckWidthLeft, y: neckHeight },
-            ]
-        }
-        if (part.isCurrent && part.points.length === 6) {
-            part.points[0].x -= currentPartSizeExtension
-            part.points[1].x += currentPartSizeExtension
-            part.points[2].x += currentPartSizeExtension
-            part.points[3].x += currentPartSizeExtension
-            part.points[4].x -= currentPartSizeExtension
-            part.points[5].x -= currentPartSizeExtension
-        } else if (part.isCurrent && part.points.length === 4) {
-            part.points[0].x -= currentPartSizeExtension
-            part.points[1].x += currentPartSizeExtension
-            part.points[2].x += currentPartSizeExtension
-            part.points[3].x -= currentPartSizeExtension
-        }
+        if (direction === 'vertical') {
+            part.points.push({ x: part.x0, y: part.y0 })
+            part.points.push({ x: part.x1, y: part.y0 })
+            if (nextPart) {
+                part.points.push({ x: nextPart.x1, y: part.y1 })
+                part.points.push({ x: nextPart.x0, y: part.y1 })
+            } else {
+                part.points.push({ x: afterNeckDistance, y: part.y1 })
+                part.points.push({ x: beforeNeckDistance, y: part.y1 })
+            }
+            if (part.y0 < neckHeight && part.y1 > neckHeight) {
+                part.points = [
+                    part.points[0],
+                    part.points[1],
+                    { x: afterNeckDistance, y: neckHeight },
+                    part.points[2],
+                    part.points[3],
+                    { x: beforeNeckDistance, y: neckHeight },
+                ]
+            }
+            if (part.isCurrent && part.points.length === 6) {
+                part.points[0].x -= currentPartSizeExtension
+                part.points[1].x += currentPartSizeExtension
+                part.points[2].x += currentPartSizeExtension
+                part.points[3].x += currentPartSizeExtension
+                part.points[4].x -= currentPartSizeExtension
+                part.points[5].x -= currentPartSizeExtension
+            } else if (part.isCurrent && part.points.length === 4) {
+                part.points[0].x -= currentPartSizeExtension
+                part.points[1].x += currentPartSizeExtension
+                part.points[2].x += currentPartSizeExtension
+                part.points[3].x -= currentPartSizeExtension
+            }
 
-        part.areaPoints = [
-            {
-                x: 0,
-                x0: part.points[0].x,
-                x1: part.points[1].x,
-                y: part.y0,
-                y0: 0,
-                y1: 0,
-            },
-        ]
-        if (part.y0 < neckHeight && part.y1 > neckHeight) {
-            part.areaPoints.push({
-                x: 0,
-                x0: part.points[5].x,
-                x1: part.points[2].x,
-                y: neckHeight,
-                y0: 0,
-                y1: 0,
+            part.areaPoints = [
+                {
+                    x: 0,
+                    x0: part.points[0].x,
+                    x1: part.points[1].x,
+                    y: part.y0,
+                    y0: 0,
+                    y1: 0,
+                },
+            ]
+            if (part.y0 < neckHeight && part.y1 > neckHeight) {
+                part.areaPoints.push({
+                    x: 0,
+                    x0: part.points[5].x,
+                    x1: part.points[2].x,
+                    y: neckHeight,
+                    y0: 0,
+                    y1: 0,
+                })
+                part.areaPoints.push({
+                    x: 0,
+                    x0: part.points[4].x,
+                    x1: part.points[3].x,
+                    y: part.y1,
+                    y0: 0,
+                    y1: 0,
+                })
+            } else {
+                part.areaPoints.push({
+                    x: 0,
+                    x0: (part.points[0].x + part.points[3].x) / 2,
+                    x1: (part.points[1].x + part.points[2].x) / 2,
+                    y: (part.y0 + part.y1) / 2,
+                    y0: 0,
+                    y1: 0,
+                })
+                part.areaPoints.push({
+                    x: 0,
+                    x0: part.points[3].x,
+                    x1: part.points[2].x,
+                    y: part.y1,
+                    y0: 0,
+                    y1: 0,
+                })
+            }
+            ;[0, 1, 2].map(index => {
+                part.borderPoints.push({
+                    x: part.areaPoints[index].x0,
+                    y: part.areaPoints[index].y,
+                })
             })
-            part.areaPoints.push({
-                x: 0,
-                x0: part.points[4].x,
-                x1: part.points[3].x,
-                y: part.y1,
-                y0: 0,
-                y1: 0,
+            part.borderPoints.push(null)
+            ;[2, 1, 0].map(index => {
+                part.borderPoints.push({
+                    x: part.areaPoints[index].x1,
+                    y: part.areaPoints[index].y,
+                })
             })
         } else {
-            part.areaPoints.push({
-                x: 0,
-                x0: (part.points[0].x + part.points[3].x) / 2,
-                x1: (part.points[1].x + part.points[2].x) / 2,
-                y: (part.y0 + part.y1) / 2,
-                y0: 0,
-                y1: 0,
+            part.points.push({ x: part.x0, y: part.y0 })
+            if (nextPart) {
+                part.points.push({ x: part.x1, y: nextPart.y0 })
+                part.points.push({ x: part.x1, y: nextPart.y1 })
+            } else {
+                part.points.push({ x: part.x1, y: beforeNeckDistance })
+                part.points.push({ x: part.x1, y: afterNeckDistance })
+            }
+            part.points.push({ x: part.x0, y: part.y1 })
+            if (part.x0 < neckHeight && part.x1 > neckHeight) {
+                part.points = [
+                    part.points[0],
+                    { x: neckHeight, y: beforeNeckDistance },
+                    part.points[1],
+                    part.points[2],
+                    { x: neckHeight, y: afterNeckDistance },
+                    part.points[3],
+                ]
+            }
+            if (part.isCurrent && part.points.length === 6) {
+                part.points[0].y -= currentPartSizeExtension
+                part.points[1].y -= currentPartSizeExtension
+                part.points[2].y -= currentPartSizeExtension
+                part.points[3].y += currentPartSizeExtension
+                part.points[4].y += currentPartSizeExtension
+                part.points[5].y += currentPartSizeExtension
+            } else if (part.isCurrent && part.points.length === 4) {
+                part.points[0].y -= currentPartSizeExtension
+                part.points[1].y -= currentPartSizeExtension
+                part.points[2].y += currentPartSizeExtension
+                part.points[3].y += currentPartSizeExtension
+            }
+
+            if (part.x0 < neckHeight && part.x1 > neckHeight) {
+                part.areaPoints.push({
+                    x: part.x0,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: part.points[0].y,
+                    y1: part.points[5].y,
+                })
+                part.areaPoints.push({
+                    x: neckHeight,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: part.points[1].y,
+                    y1: part.points[4].y,
+                })
+                part.areaPoints.push({
+                    x: part.x1,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: part.points[2].y,
+                    y1: part.points[3].y,
+                })
+            } else {
+                part.areaPoints.push({
+                    x: part.x0,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: part.points[0].y,
+                    y1: part.points[3].y,
+                })
+                part.areaPoints.push({
+                    x: (part.x0 + part.x1) / 2,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: (part.points[0].y + part.points[1].y) / 2,
+                    y1: (part.points[2].y + part.points[3].y) / 2,
+                })
+                part.areaPoints.push({
+                    x: part.x1,
+                    x0: 0,
+                    x1: 0,
+                    y: 0,
+                    y0: part.points[1].y,
+                    y1: part.points[2].y,
+                })
+            }
+            ;[0, 1, 2].map(index => {
+                part.borderPoints.push({
+                    x: part.areaPoints[index].x,
+                    y: part.areaPoints[index].y0,
+                })
             })
-            part.areaPoints.push({
-                x: 0,
-                x0: part.points[3].x,
-                x1: part.points[2].x,
-                y: part.y1,
-                y0: 0,
-                y1: 0,
+            part.borderPoints.push(null)
+            ;[2, 1, 0].map(index => {
+                part.borderPoints.push({
+                    x: part.areaPoints[index].x,
+                    y: part.areaPoints[index].y1,
+                })
             })
         }
-        ;[0, 1, 2].map(index => {
-            part.borderPoints.push({
-                x: part.areaPoints[index].x0,
-                y: part.areaPoints[index].y,
-            })
-        })
-        part.borderPoints.push(null)
-        ;[2, 1, 0].map(index => {
-            part.borderPoints.push({
-                x: part.areaPoints[index].x1,
-                y: part.areaPoints[index].y,
-            })
-        })
     })
 
     return enhancedParts
