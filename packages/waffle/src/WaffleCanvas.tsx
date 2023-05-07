@@ -11,14 +11,7 @@ import { roundedRect } from '@nivo/canvas'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { renderLegendToCanvas } from '@nivo/legends'
-import {
-    CanvasProps,
-    Datum,
-    isDataCell,
-    // LayerId,
-    TooltipComponent,
-    Cell,
-} from './types'
+import { CanvasProps, Datum, isDataCell, TooltipComponent, Cell } from './types'
 import { canvasDefaultProps } from './defaults'
 import { useWaffle } from './hooks'
 
@@ -46,7 +39,6 @@ const InnerWaffleCanvas = <D extends Datum>({
     fillDirection = canvasDefaultProps.fillDirection,
     hiddenIds = canvasDefaultProps.hiddenIds,
     padding = canvasDefaultProps.padding,
-    // layers = svgDefaultProps.layers as LayerId[],
     colors = canvasDefaultProps.colors as OrdinalColorScaleConfig<D>,
     emptyColor = canvasDefaultProps.emptyColor,
     emptyOpacity = canvasDefaultProps.emptyOpacity,

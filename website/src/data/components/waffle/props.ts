@@ -227,7 +227,7 @@ const props: ChartProperty[] = [
         group: 'Customization',
         help: 'Define layers, please use the appropriate variant for custom layers.',
         defaultValue: svgDefaultProps.layers,
-        flavors: allFlavors,
+        flavors: ['svg', 'html'],
     },
     {
         key: 'cellComponent',
