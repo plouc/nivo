@@ -24,13 +24,16 @@ export interface ComputedDatum<D extends Datum> extends Datum {
     endAt: number
     polygons: Vertex[][]
     color: string
-    borderColor: string
+    // Used for patterns & gradients
     fill?: string
+    borderColor: string
 }
 
 // Used for cells without data, considered empty.
 export interface EmptyCell extends GridCell {
     color: string
+    // Used for patterns & gradients
+    fill?: string
     opacity: number
     borderColor: string
 }
@@ -50,7 +53,7 @@ export type CellAnimatedProps = {
     x: number
     y: number
     size: number
-    fill: string
+    color: string
     opacity: number
     borderColor: string
 }

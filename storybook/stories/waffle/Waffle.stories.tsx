@@ -152,6 +152,8 @@ export const Patterns: Story = {
         <Waffle
             {...commonProps}
             fillDirection={args.fillDirection}
+            padding={0}
+            borderRadius={0}
             defs={[
                 patternDotsDef('dots', {
                     background: 'inherit',

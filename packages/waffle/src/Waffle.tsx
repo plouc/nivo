@@ -33,8 +33,8 @@ const InnerWaffle = <D extends Datum>({
     borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
-    // defs = svgDefaultProps.defs,
-    // fill = svgDefaultProps.fill,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
     isInteractive = svgDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
@@ -56,7 +56,7 @@ const InnerWaffle = <D extends Datum>({
         partialMargin
     )
 
-    const { cells, legendData, computedData } = useWaffle<D>({
+    const { cells, legendData, computedData, boundDefs } = useWaffle<D>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -71,6 +71,8 @@ const InnerWaffle = <D extends Datum>({
         emptyOpacity,
         borderColor,
         forwardLegendData,
+        defs,
+        fill,
     })
 
     const layerById: Record<LayerId, ReactNode> = {
@@ -136,7 +138,7 @@ const InnerWaffle = <D extends Datum>({
             width={outerWidth}
             height={outerHeight}
             margin={margin}
-            //defs={boundDefs}
+            defs={boundDefs}
             role={role}
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
