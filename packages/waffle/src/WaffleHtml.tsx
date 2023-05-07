@@ -1,14 +1,7 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import {
-    Datum,
-    CellComponent,
-    WaffleHtmlProps,
-    TooltipComponent,
-    HtmlLayerId,
-    ComputedDatum,
-} from './types'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { Datum, CellComponent, WaffleHtmlProps, TooltipComponent, HtmlLayerId } from './types'
 import { htmlDefaultProps } from './defaults'
 import { useCustomLayerProps, useWaffle } from './hooks'
 import { WaffleCellsHtml } from './WaffleCellsHtml'
@@ -38,7 +31,7 @@ const InnerWaffleHtml = <D extends Datum>({
     emptyOpacity = htmlDefaultProps.emptyOpacity,
     borderRadius = htmlDefaultProps.borderRadius,
     borderWidth = htmlDefaultProps.borderWidth,
-    borderColor = htmlDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
+    borderColor = htmlDefaultProps.borderColor,
     isInteractive = htmlDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,

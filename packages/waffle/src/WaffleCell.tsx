@@ -7,20 +7,18 @@ export const WaffleCell = <D extends Datum>({
     borderRadius,
     borderWidth,
     testIdPrefix,
-}: CellComponentProps<D>) => {
-    return (
-        <animated.rect
-            x={animatedProps.x}
-            y={animatedProps.y}
-            width={animatedProps.size}
-            height={animatedProps.size}
-            rx={borderRadius}
-            ry={borderRadius}
-            opacity={animatedProps.opacity}
-            fill={animatedProps.fill}
-            // stroke={getBorderColor(cell)}
-            strokeWidth={borderWidth}
-            data-test-id={testIdPrefix ? `${testIdPrefix}.cell_${cell.key}` : undefined}
-        />
-    )
-}
+}: CellComponentProps<D>) => (
+    <animated.rect
+        x={animatedProps.x}
+        y={animatedProps.y}
+        width={animatedProps.size}
+        height={animatedProps.size}
+        rx={borderRadius}
+        ry={borderRadius}
+        opacity={animatedProps.opacity}
+        fill={animatedProps.fill}
+        stroke={animatedProps.borderColor}
+        strokeWidth={borderWidth}
+        data-test-id={testIdPrefix ? `${testIdPrefix}.cell_${cell.key}` : undefined}
+    />
+)

@@ -1,8 +1,8 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Datum, WaffleSvgProps, LayerId, ComputedDatum, TooltipComponent } from './types'
+import { Datum, WaffleSvgProps, LayerId, TooltipComponent } from './types'
 import { svgDefaultProps } from './defaults'
 import { useWaffle, useCustomLayerProps } from './hooks'
 import { WaffleCells } from './WaffleCells'
@@ -32,7 +32,7 @@ const InnerWaffle = <D extends Datum>({
     emptyOpacity = svgDefaultProps.emptyOpacity,
     borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
-    borderColor = svgDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<D>>,
+    borderColor = svgDefaultProps.borderColor,
     // defs = svgDefaultProps.defs,
     // fill = svgDefaultProps.fill,
     isInteractive = svgDefaultProps.isInteractive,

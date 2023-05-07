@@ -7,24 +7,22 @@ export const WaffleCellHtml = <D extends Datum>({
     borderRadius,
     borderWidth,
     testIdPrefix,
-}: CellComponentProps<D>) => {
-    return (
-        <animated.div
-            style={{
-                position: 'absolute',
-                top: animatedProps.y,
-                left: animatedProps.x,
-                width: animatedProps.size,
-                height: animatedProps.size,
-                background: animatedProps.fill,
-                opacity: animatedProps.opacity,
-                boxSizing: 'content-box',
-                borderStyle: 'solid',
-                borderRadius: `${borderRadius}px`,
-                borderWidth: `${borderWidth}px`,
-                // borderColor,
-            }}
-            data-test-id={testIdPrefix ? `${testIdPrefix}${cell.key}` : undefined}
-        />
-    )
-}
+}: CellComponentProps<D>) => (
+    <animated.div
+        style={{
+            position: 'absolute',
+            top: animatedProps.y,
+            left: animatedProps.x,
+            width: animatedProps.size,
+            height: animatedProps.size,
+            background: animatedProps.fill,
+            opacity: animatedProps.opacity,
+            boxSizing: 'content-box',
+            borderStyle: 'solid',
+            borderRadius: `${borderRadius}px`,
+            borderWidth: `${borderWidth}px`,
+            borderColor: animatedProps.borderColor,
+        }}
+        data-test-id={testIdPrefix ? `${testIdPrefix}${cell.key}` : undefined}
+    />
+)
