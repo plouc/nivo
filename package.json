@@ -78,7 +78,6 @@
   "scripts": {
     "make:init": "make init",
     "build": "echo 'nothing to do, please use make for available commands'",
-    "version": "node scripts/bump-peer-deps.mjs",
     "heroku-postbuild": "make pkgs-build && cd api && pnpm build"
   },
   "engines": {
