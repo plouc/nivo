@@ -69,6 +69,7 @@ export interface CellComponentProps<D extends Datum> {
     cell: Cell<D>
     padding: number
     animatedProps: SpringValues<CellAnimatedProps>
+    borderRadius: number
     borderWidth: number
     testIdPrefix?: string
 }
@@ -99,6 +100,7 @@ export interface CommonProps<D extends Datum> extends ModernMotionProps {
     colors: OrdinalColorScaleConfig<D>
     emptyColor: string
     emptyOpacity: number
+    borderRadius: number
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<D>>
     isInteractive: boolean

@@ -52,6 +52,7 @@ const commonProps = {
     columns: 18,
     padding: 2,
     theme: nivoTheme,
+    borderRadius: 2,
 }
 
 export const Basic: Story = {

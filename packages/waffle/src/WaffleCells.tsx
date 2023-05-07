@@ -6,6 +6,7 @@ interface WaffleCellsProps<D extends Datum> {
     cells: Cell<D>[]
     cellComponent: CellComponent<D>
     padding: number
+    borderRadius: number
     borderWidth: number
     motionStagger: number
     testIdPrefix: WaffleSvgProps<D>['testIdPrefix']
@@ -15,6 +16,7 @@ export const WaffleCells = <D extends Datum>({
     cells,
     cellComponent,
     padding,
+    borderRadius,
     borderWidth,
     motionStagger,
     testIdPrefix,
@@ -33,6 +35,7 @@ export const WaffleCells = <D extends Datum>({
                     cell,
                     padding,
                     animatedProps,
+                    borderRadius,
                     borderWidth,
                     testIdPrefix,
                 })

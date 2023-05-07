@@ -41,21 +41,6 @@ const props: ChartProperty[] = [
         required: true,
         flavors: allFlavors,
     },
-    // {
-    //     key: 'hiddenIds',
-    //     type: 'Array<string | number>',
-    //     help: 'Hide parts of the data by id',
-    //     description: `
-    //         Hide parts of the data by id, this can be used
-    //         to implement toggle. Note that the datum will
-    //         still be visible in legends, if you want
-    //         to completely remove a datum from the data set,
-    //         you'll have to filter the data before passing
-    //         it to the component.
-    //     `,
-    //     required: false,
-    //     defaultValue: defaults.hiddenIds,
-    // },
     {
         key: 'valueFormat',
         group: 'Base',
@@ -156,7 +141,15 @@ const props: ChartProperty[] = [
         key: 'hiddenIds',
         group: 'Base',
         type: `Datum['id'][]`,
-        help: 'Hide series matching the provided ids.',
+        help: 'Hide parts of the data by id',
+        description: `
+             Hide parts of the data by id, this can be used
+             to implement toggle. Note that the datum will
+             still be visible in legends, if you want
+             to completely remove a datum from the data set,
+             you'll have to filter the data before passing
+             it to the component.
+         `,
         required: false,
         defaultValue: defaults.hiddenIds,
         flavors: allFlavors,
@@ -186,6 +179,21 @@ const props: ChartProperty[] = [
         type: 'number',
         flavors: allFlavors,
         control: { type: 'opacity' },
+    },
+    {
+        key: 'borderRadius',
+        help: 'Cells border radius.',
+        type: 'number',
+        flavors: allFlavors,
+        required: false,
+        defaultValue: defaults.borderRadius,
+        group: 'Style',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 10,
+        },
     },
     {
         key: 'borderWidth',

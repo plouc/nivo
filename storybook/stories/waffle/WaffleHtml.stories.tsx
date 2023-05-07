@@ -31,6 +31,7 @@ const commonProps = {
     rows: 24,
     columns: 18,
     padding: 2,
+    borderRadius: 2,
 }
 
 export const Basic: Story = {

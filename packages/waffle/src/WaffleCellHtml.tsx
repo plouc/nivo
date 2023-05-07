@@ -4,6 +4,7 @@ import { Datum, CellComponentProps } from './types'
 export const WaffleCellHtml = <D extends Datum>({
     cell,
     animatedProps,
+    borderRadius,
     borderWidth,
     testIdPrefix,
 }: CellComponentProps<D>) => {
@@ -19,6 +20,7 @@ export const WaffleCellHtml = <D extends Datum>({
                 opacity: animatedProps.opacity,
                 boxSizing: 'content-box',
                 borderStyle: 'solid',
+                borderRadius: `${borderRadius}px`,
                 borderWidth: `${borderWidth}px`,
                 // borderColor,
             }}

@@ -27,6 +27,7 @@ export const commonDefaultProps: Omit<
     colors: { scheme: 'nivo' },
     emptyColor: '#cccccc',
     emptyOpacity: 1,
+    borderRadius: 0,
     borderWidth: 0,
     borderColor: { from: 'color', modifiers: [['darker', 1]] },
 
