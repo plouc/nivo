@@ -8,6 +8,8 @@ export const svgDefaultProps = {
     direction: 'vertical' as const,
     interpolation: 'smooth' as const,
     fixedShape: false,
+    neckHeightRatio: 0.33,
+    neckWidthRatio: 0.33,
     spacing: 0,
     shapeBlending: 0.66,
 

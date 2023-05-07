@@ -1,7 +1,7 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import { SvgWrapper, Container, useDimensions } from '@nivo/core'
 import { svgDefaultProps } from './props'
-import { useFunnel, useShapedFunnel } from './hooks'
+import { useFunnel } from './hooks'
 import { Parts } from './Parts'
 import { PartLabels } from './PartLabels'
 import { Separators } from './Separators'
@@ -19,6 +19,9 @@ const InnerFunnel = <D extends FunnelDatum>({
     height,
     margin: partialMargin,
     direction = svgDefaultProps.direction,
+    fixedShape = svgDefaultProps.fixedShape,
+    neckHeightRatio = svgDefaultProps.neckHeightRatio,
+    neckWidthRatio = svgDefaultProps.neckWidthRatio,
     interpolation = svgDefaultProps.interpolation,
     spacing = svgDefaultProps.spacing,
     shapeBlending = svgDefaultProps.shapeBlending,
@@ -69,6 +72,9 @@ const InnerFunnel = <D extends FunnelDatum>({
         width: innerWidth,
         height: innerHeight,
         direction,
+        fixedShape,
+        neckHeightRatio,
+        neckWidthRatio,
         interpolation,
         spacing,
         shapeBlending,
@@ -154,148 +160,12 @@ const InnerFunnel = <D extends FunnelDatum>({
     )
 }
 
-const InnerShapedFunnel = <D extends FunnelDatum>({
-    data,
-    width,
-    height,
-    margin: partialMargin,
-    interpolation = svgDefaultProps.interpolation,
-    spacing = svgDefaultProps.spacing,
-    valueFormat,
-    colors = svgDefaultProps.colors,
-    fillOpacity = svgDefaultProps.fillOpacity,
-    borderColor = svgDefaultProps.borderColor,
-    borderOpacity = svgDefaultProps.borderOpacity,
-    enableLabel = svgDefaultProps.enableLabel,
-    labelColor = svgDefaultProps.labelColor,
-    enableBeforeSeparators = svgDefaultProps.enableBeforeSeparators,
-    beforeSeparatorLength = svgDefaultProps.beforeSeparatorLength,
-    beforeSeparatorOffset = svgDefaultProps.beforeSeparatorOffset,
-    enableAfterSeparators = svgDefaultProps.enableAfterSeparators,
-    afterSeparatorLength = svgDefaultProps.afterSeparatorLength,
-    afterSeparatorOffset = svgDefaultProps.afterSeparatorOffset,
-    layers = svgDefaultProps.layers,
-    annotations = svgDefaultProps.annotations,
-    isInteractive = svgDefaultProps.isInteractive,
-    currentPartSizeExtension = svgDefaultProps.currentPartSizeExtension,
-    currentBorderWidth,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-    tooltip,
-    role = svgDefaultProps.role,
-    ariaLabel,
-    ariaLabelledBy,
-    ariaDescribedBy,
-}: InnerFunnelProps<D>) => {
-    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
-        width,
-        height,
-        partialMargin
-    )
-
-    const {
-        areaGenerator,
-        borderGenerator,
-        parts,
-        beforeSeparators,
-        afterSeparators,
-        customLayerProps,
-    } = useShapedFunnel<D>({
-        data,
-        width: innerWidth,
-        height: innerHeight,
-        interpolation,
-        spacing,
-        valueFormat,
-        colors,
-        fillOpacity,
-        borderColor,
-        borderOpacity,
-        labelColor,
-        enableBeforeSeparators,
-        beforeSeparatorLength,
-        beforeSeparatorOffset,
-        enableAfterSeparators,
-        afterSeparatorLength,
-        afterSeparatorOffset,
-        isInteractive,
-        currentPartSizeExtension,
-        currentBorderWidth,
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-        tooltip,
-    })
-
-    const layerById: Record<FunnelLayerId, ReactNode> = {
-        separators: null,
-        parts: null,
-        annotations: null,
-        labels: null,
-    }
-
-    if (layers.includes('separators')) {
-        layerById.separators = (
-            <Separators
-                key="separators"
-                beforeSeparators={beforeSeparators}
-                afterSeparators={afterSeparators}
-            />
-        )
-    }
-
-    if (layers.includes('parts')) {
-        layerById.parts = (
-            <Parts<D>
-                key="parts"
-                parts={parts}
-                areaGenerator={areaGenerator}
-                borderGenerator={borderGenerator}
-            />
-        )
-    }
-
-    if (layers?.includes('annotations')) {
-        layerById.annotations = (
-            <FunnelAnnotations<D> key="annotations" parts={parts} annotations={annotations} />
-        )
-    }
-
-    if (layers.includes('labels') && enableLabel) {
-        layerById.labels = <PartLabels<D> key="labels" parts={parts} />
-    }
-
-    return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            role={role}
-            ariaLabel={ariaLabel}
-            ariaLabelledBy={ariaLabelledBy}
-            ariaDescribedBy={ariaDescribedBy}
-        >
-            {layers.map((layer, i) => {
-                if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
-                }
-
-                return layerById?.[layer] ?? null
-            })}
-        </SvgWrapper>
-    )
-}
-
 export const Funnel = <D extends FunnelDatum = FunnelDatum>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
-    fixedShape = svgDefaultProps.fixedShape,
     ...otherProps
 }: FunnelSvgProps<D>) => (
     <Container
@@ -307,10 +177,6 @@ export const Funnel = <D extends FunnelDatum = FunnelDatum>({
             theme,
         }}
     >
-        {fixedShape ? (
-            <InnerShapedFunnel<D> isInteractive={isInteractive} {...otherProps} />
-        ) : (
-            <InnerFunnel<D> isInteractive={isInteractive} {...otherProps} />
-        )}
+        <InnerFunnel<D> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
