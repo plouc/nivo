@@ -33,6 +33,7 @@
         "@nivo/annotations": "workspace:*",
         "@nivo/axes": "workspace:*",
         "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
         "@nivo/tooltip": "workspace:*",
@@ -45,11 +46,7 @@
         "lodash": "^4.17.21"
     },
     "peerDependencies": {
-        "@nivo/core": "0.82.1",
         "react": ">= 16.14.0 < 19.0.0"
-    },
-    "devDependencies": {
-        "@nivo/core": "workspace:*"
     },
     "publishConfig": {
         "access": "public"

@@ -30,6 +30,7 @@
     ],
     "dependencies": {
         "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "d3-format": "^1.4.4",
@@ -38,11 +39,7 @@
         "prop-types": "^15.7.2"
     },
     "peerDependencies": {
-        "@nivo/core": "0.82.1",
         "react": ">= 16.14.0 < 19.0.0"
-    },
-    "devDependencies": {
-        "@nivo/core": "workspace:*"
     },
     "publishConfig": {
         "access": "public"
