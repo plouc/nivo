@@ -14,7 +14,7 @@ export const ParallelCoordinatesLine = <D extends BaseDatum>({
     opacity,
 }: {
     data: ComputedDatum<D>
-    variables: VariableSpec<D>[]
+    variables: readonly VariableSpec<D>[]
     lineGenerator: Line<[number, number]>
     lineWidth: number
     opacity: number

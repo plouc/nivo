@@ -32,8 +32,8 @@ export interface BaseDatum {
 }
 
 interface DataProps<D extends BaseDatum> {
-    data: D[]
-    variables: VariableSpec<D>[]
+    data: readonly D[]
+    variables: readonly VariableSpec<D>[]
 }
 
 export interface ComputedDatum<D extends BaseDatum> {
