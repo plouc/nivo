@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Container, useDimensions, useTheme } from '@nivo/core'
 import { renderAxisToCanvas } from '@nivo/axes'
+import { renderLegendToCanvas } from '@nivo/legends'
 import { useParallelCoordinates } from '../hooks'
 import { BaseDatum, ParallelCoordinatesCanvasProps } from '../types'
 import { canvasDefaultProps } from '../defaults'
@@ -22,6 +23,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     lineOpacity = canvasDefaultProps.lineOpacity,
     lineWidth = canvasDefaultProps.lineWidth,
     axesTicksPosition = canvasDefaultProps.axesTicksPosition,
+    legends = canvasDefaultProps.legends,
     role = canvasDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -36,7 +38,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         partialMargin
     )
 
-    const { variablesScale, variablesWithScale, computedData, lineGenerator } =
+    const { variablesScale, variablesWithScale, computedData, lineGenerator, legendData } =
         useParallelCoordinates<D>({
             width: innerWidth,
             height: innerHeight,
@@ -89,6 +91,16 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
                 theme,
             })
         })
+
+        legends.forEach(legend => {
+            renderLegendToCanvas(ctx, {
+                ...legend,
+                data: legendData,
+                containerWidth: innerWidth,
+                containerHeight: innerHeight,
+                theme,
+            })
+        })
     }, [
         canvasEl,
         outerWidth,
@@ -104,6 +116,8 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         variablesWithScale,
         layout,
         axesTicksPosition,
+        legends,
+        legendData,
         theme,
         pixelRatio,
     ])

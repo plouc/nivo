@@ -1,4 +1,4 @@
-import { CommonProps, BaseDatum } from './types'
+import {CommonProps, BaseDatum, LayerId} from './types'
 
 export const commonDefaultProps: Omit<
     CommonProps<BaseDatum>,
@@ -8,7 +8,7 @@ export const commonDefaultProps: Omit<
     // | 'onMouseMove'
     // | 'onMouseLeave'
     // | 'onClick'
-    // | 'forwardLegendData'
+    | 'forwardLegendData'
     | 'renderWrapper'
     | 'ariaLabel'
     | 'ariaLabelledBy'
@@ -19,13 +19,13 @@ export const commonDefaultProps: Omit<
 
     role: 'img',
 
-    colors: { scheme: 'yellow_orange_red' },
+    colors: { scheme: 'category10' },
     lineWidth: 2,
-    lineOpacity: 0.35,
-
-    layers: ['axes', 'lines'],
+    lineOpacity: 0.5,
 
     axesTicksPosition: 'after',
+
+    legends: [],
 
     animate: true,
     motionConfig: 'gentle',
@@ -35,13 +35,11 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    // layers: ['cells', 'areas', 'legends'] as WaffleSvgLayer<Datum>[],
-    // legends: [],
+    layers: ['axes', 'lines', 'legends'] as LayerId[],
 }
 
 export const canvasDefaultProps = {
     ...commonDefaultProps,
-    // layers
-    // legends: [],
+    layers: ['axes', 'lines', 'legends'] as LayerId[],
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

@@ -1,7 +1,12 @@
 // @ts-ignore
 import { lineCurvePropKeys } from '@nivo/core'
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
-import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    motionProperties,
+    groupProperties,
+    getLegendsProps,
+} from '../../../lib/componentProperties'
 import {
     chartDimensions,
     commonAccessibilityProps,
@@ -180,6 +185,46 @@ const props: ChartProperty[] = [
         defaultValue: defaults.lineOpacity,
         control: { type: 'opacity' },
         group: 'Style',
+    },
+    {
+        key: 'legends',
+        group: 'Legends',
+        type: 'LegendDatum<D>[]',
+        required: false,
+        help: `Optional chart's legends.`,
+        flavors: allFlavors,
+        control: {
+            type: 'array',
+            props: getLegendsProps(allFlavors),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'left',
+                direction: 'column',
+                justify: false,
+                translateX: -100,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 4,
+                symbolSize: 20,
+                itemDirection: 'left-to-right',
+                itemTextColor: '#777',
+                onClick: (data: any) => {
+                    console.log(JSON.stringify(data, null, '    '))
+                },
+                effects: [
+                    {
+                        on: 'hover',
+                        style: {
+                            itemTextColor: '#000',
+                            itemBackground: '#f7fafb',
+                        },
+                    },
+                ],
+            },
+        },
     },
     ...motionProperties(allFlavors, defaults),
     ...commonAccessibilityProps(allFlavors),

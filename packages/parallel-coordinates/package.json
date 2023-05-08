@@ -33,6 +33,7 @@
         "@nivo/axes": "workspace:*",
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
