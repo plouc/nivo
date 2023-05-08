@@ -17,8 +17,8 @@ const computeParallelCoordinatesLayout = <D extends BaseDatum>({
 }: {
     width: number
     height: number
-    data: D[]
-    variables: VariableSpec<D>[]
+    data: readonly D[]
+    variables: readonly VariableSpec<D>[]
     layout: CommonProps<D>['layout']
     getColor: (datum: D) => string
 }) => {
@@ -89,8 +89,8 @@ export const useParallelCoordinates = <D extends BaseDatum>({
 }: {
     width: number
     height: number
-    data: D[]
-    variables: VariableSpec<D>[]
+    data: readonly D[]
+    variables: readonly VariableSpec<D>[]
     layout: CommonProps<D>['layout']
     curve: CommonProps<D>['curve']
     colors: CommonProps<D>['colors']
