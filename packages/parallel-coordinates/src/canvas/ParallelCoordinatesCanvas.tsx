@@ -24,6 +24,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     lineWidth = canvasDefaultProps.lineWidth,
     axesTicksPosition = canvasDefaultProps.axesTicksPosition,
     legends = canvasDefaultProps.legends,
+    layers = canvasDefaultProps.layers,
     role = canvasDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -38,16 +39,22 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         partialMargin
     )
 
-    const { variablesScale, variablesWithScale, computedData, lineGenerator, legendData } =
-        useParallelCoordinates<D>({
-            width: innerWidth,
-            height: innerHeight,
-            data,
-            variables,
-            layout,
-            colors,
-            curve,
-        })
+    const {
+        variablesScale,
+        variablesWithScale,
+        computedData,
+        lineGenerator,
+        legendData,
+        customLayerContext,
+    } = useParallelCoordinates<D>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        variables,
+        layout,
+        colors,
+        curve,
+    })
 
     const theme = useTheme()
 
@@ -66,40 +73,47 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
         ctx.translate(margin.left, margin.top)
 
-        lineGenerator.context(ctx)
-        computedData.forEach(datum => {
-            ctx.save()
-            ctx.globalAlpha = lineOpacity
+        layers.forEach(layer => {
+            if (layer === 'axes') {
+                variablesWithScale.forEach(variable => {
+                    renderAxisToCanvas(ctx, {
+                        axis: layout === 'horizontal' ? 'y' : 'x',
+                        scale: variable.scale,
+                        x: layout === 'horizontal' ? variablesScale(variable.id) : 0,
+                        y: layout === 'horizontal' ? 0 : variablesScale(variable.id),
+                        length: layout === 'horizontal' ? innerHeight : innerWidth,
+                        ticksPosition: axesTicksPosition,
+                        theme,
+                    })
+                })
+            } else if (layer === 'lines') {
+                lineGenerator.context(ctx)
 
-            ctx.beginPath()
-            lineGenerator(datum.points)
-            ctx.strokeStyle = datum.color
-            ctx.lineWidth = lineWidth
-            ctx.stroke()
+                computedData.forEach(datum => {
+                    ctx.save()
+                    ctx.globalAlpha = lineOpacity
 
-            ctx.restore()
-        })
+                    ctx.beginPath()
+                    lineGenerator(datum.points)
+                    ctx.strokeStyle = datum.color
+                    ctx.lineWidth = lineWidth
+                    ctx.stroke()
 
-        variablesWithScale.forEach(variable => {
-            renderAxisToCanvas(ctx, {
-                axis: layout === 'horizontal' ? 'y' : 'x',
-                scale: variable.scale,
-                x: layout === 'horizontal' ? variablesScale(variable.id) : 0,
-                y: layout === 'horizontal' ? 0 : variablesScale(variable.id),
-                length: layout === 'horizontal' ? innerHeight : innerWidth,
-                ticksPosition: axesTicksPosition,
-                theme,
-            })
-        })
-
-        legends.forEach(legend => {
-            renderLegendToCanvas(ctx, {
-                ...legend,
-                data: legendData,
-                containerWidth: innerWidth,
-                containerHeight: innerHeight,
-                theme,
-            })
+                    ctx.restore()
+                })
+            } else if (layer === 'legends') {
+                legends.forEach(legend => {
+                    renderLegendToCanvas(ctx, {
+                        ...legend,
+                        data: legendData,
+                        containerWidth: innerWidth,
+                        containerHeight: innerHeight,
+                        theme,
+                    })
+                })
+            } else if (typeof layer === 'function') {
+                layer(ctx, customLayerContext)
+            }
         })
     }, [
         canvasEl,
@@ -108,6 +122,8 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         innerWidth,
         innerHeight,
         margin,
+        layers,
+        customLayerContext,
         lineGenerator,
         lineOpacity,
         lineWidth,
