@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import merge from 'lodash/merge'
 import { ResponsiveParallelCoordinates, commonDefaultProps } from '@nivo/parallel-coordinates'
 import { generateParallelCoordinatesData } from '@nivo/generators'
@@ -7,7 +8,6 @@ import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
 import variables from '../../data/components/parallel-coordinates/variables'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     variables,
@@ -23,13 +23,12 @@ const initialProperties = {
     colorBy: commonDefaultProps.colorBy,
     strokeWidth: commonDefaultProps.strokeWidth,
     lineOpacity: commonDefaultProps.lineOpacity,
-    axesPlan: commonDefaultProps.axesPlan,
     axesTicksPosition: commonDefaultProps.axesTicksPosition,
     animate: commonDefaultProps.animate,
     motionConfig: commonDefaultProps.motionConfig,
 }
 
-const generateData = () => generateParallelCoordinatesData({ size: 32 })
+const generateData = () => generateParallelCoordinatesData()
 
 const ParallelCoordinates = () => {
     const {

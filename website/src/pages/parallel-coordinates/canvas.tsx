@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import merge from 'lodash/merge'
 import { ResponsiveParallelCoordinatesCanvas, commonDefaultProps } from '@nivo/parallel-coordinates'
 import { generateParallelCoordinatesData } from '@nivo/generators'
@@ -7,7 +8,6 @@ import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
 import variables from '../../data/components/parallel-coordinates/variables'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const lineCount = 320
 
@@ -27,6 +27,8 @@ const initialProperties = {
     lineOpacity: 0.2,
     axesPlan: commonDefaultProps.axesPlan,
     axesTicksPosition: commonDefaultProps.axesTicksPosition,
+    animate: commonDefaultProps.animate,
+    motionConfig: commonDefaultProps.motionConfig,
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }

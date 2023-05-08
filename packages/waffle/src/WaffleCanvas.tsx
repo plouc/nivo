@@ -137,6 +137,9 @@ const InnerWaffleCanvas = <D extends Datum>({
         })
     }, [
         canvasEl,
+        margin,
+        outerWidth,
+        outerHeight,
         cells,
         padding,
         borderRadius,
