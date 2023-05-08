@@ -17,12 +17,6 @@ ParallelCoordinates:
     implementation, see
     [ParallelCoordinatesCanvas](self:/parallel-coordinates/canvas).
 
-    The `@nivo/parallel-coordinates` package also exposes a
-    `ParallelCoordinatesLayout` component which can be used to build
-    your very own chart. You can see how it's used to build the
-    `ParallelCoordinates` component
-    [here](https://github.com/plouc/nivo/blob/master/packages/parallel-coordinates/src/ParallelCoordinates.js).
-
 ParallelCoordinatesCanvas:
   package: '@nivo/parallel-coordinates'
   tags:
