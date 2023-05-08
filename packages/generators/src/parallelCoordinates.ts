@@ -1,37 +1,40 @@
 import random from 'lodash/random'
-import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
+
+interface IdSpec {
+    id: string
+    label?: string
+}
+
+interface VariableSpec {
+    id: string
+    range: [number, number]
+}
 
 type Options = Partial<{
-    size: number
-    keys: Array<{
-        key: string
-        random?: [number, number]
-        shuffle?: string[]
-    }>
+    ids: IdSpec[]
+    variables: VariableSpec[]
 }>
 
 export const generateParallelCoordinatesData = ({
-    size = 26,
-    keys = [
-        { key: 'temp', random: [-10, 40] },
-        { key: 'cost', random: [200, 400000] },
-        { key: 'color', shuffle: ['red', 'yellow', 'green'] },
-        { key: 'target', shuffle: ['A', 'B', 'C', 'D', 'E'] },
-        { key: 'volume', random: [0.2, 7.6] },
+    ids = [{ id: 'A' }, { id: 'B' }, { id: 'C' }, { id: 'D' }, { id: 'E' }],
+    variables = [
+        { id: 'temp', range: [-10, 40] },
+        { id: 'cost', range: [200, 40000] },
+        { id: 'weight', range: [10, 300] },
+        { id: 'volume', range: [0.2, 7.6] },
     ],
 }: Options = {}) => {
     const datumGenerator = () =>
-        keys.reduce((acc, key) => {
-            let value
-            if (key.random !== undefined) {
-                value = random(...key.random)
-            } else if (key.shuffle !== undefined) {
-                value = shuffle(key.shuffle)[0]
-            }
+        variables.reduce((acc, variable) => {
+            const value = random(...variable.range)
 
-            return { ...acc, [key.key]: value }
+            return { ...acc, [variable.id]: value }
         }, {})
 
-    return range(size).map(datumGenerator)
+    return ids.map(id => {
+        return {
+            ...datumGenerator(),
+            ...id,
+        }
+    })
 }

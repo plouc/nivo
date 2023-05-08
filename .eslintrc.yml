@@ -12,6 +12,7 @@ rules:
   '@typescript-eslint/no-empty-interface': 'warn'
   '@typescript-eslint/no-empty-function': 'warn'
   '@typescript-eslint/no-use-before-define': 'warn'
+  '@typescript-eslint/no-non-null-assertion': 'off'
   'no-use-before-define': 'off'
 
 settings:

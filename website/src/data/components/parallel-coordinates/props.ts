@@ -3,7 +3,11 @@ import { lineCurvePropKeys } from '@nivo/core'
 // @ts-ignore
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    commonAccessibilityProps,
+    ordinalColors,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas']
@@ -14,12 +18,21 @@ const props: ChartProperty[] = [
         group: 'Base',
         flavors: allFlavors,
         help: 'Chart data.',
-        type: 'Array<object | Array>',
+        type: 'object[] | Array[]',
+        description: `
+            You can pass either an array of objects or and array of arrays,
+            each item will be a line on the chart.
+            
+            The way you extract the values from each item depends on \`variables\`,
+            that's why the schema is pretty loose.
+            
+            Please note that for each item, there should be a value for each variable.
+        `,
         required: true,
     },
     {
         key: 'variables',
-        type: 'object[]',
+        type: 'VariableSpec<Datum>[]',
         flavors: allFlavors,
         help: 'Variables configuration.',
         description: `
@@ -37,11 +50,11 @@ const props: ChartProperty[] = [
             type: 'array',
             shouldCreate: false,
             shouldRemove: false,
-            getItemTitle: (_index: number, values: any) => `${values.key} (${values.type})`,
+            getItemTitle: (_index: number, values: any) => `${values.id} (${values.value})`,
             props: [
                 {
-                    key: 'key',
-                    help: 'Variable key, used to access to corresponding datum value.',
+                    key: 'id',
+                    help: 'Variable id, unique identifier for this variable.',
                     flavors: allFlavors,
                     type: 'string',
                     required: true,
@@ -51,10 +64,10 @@ const props: ChartProperty[] = [
                     },
                 },
                 {
-                    key: 'type',
-                    help: `Variable type, must be one of: 'linear', 'point'.`,
+                    key: 'value',
+                    help: 'Variable value, used to access to corresponding datum value.',
                     flavors: allFlavors,
-                    type: `'linear' | 'point'`,
+                    type: 'string',
                     required: true,
                     control: {
                         type: 'text',
@@ -63,11 +76,10 @@ const props: ChartProperty[] = [
                 },
                 {
                     key: 'min',
-                    help: 'Min value of linear scale.',
+                    help: 'Min value.',
                     flavors: allFlavors,
                     type: `number | 'auto'`,
                     required: false,
-                    when: ({ type }) => type === 'linear',
                     control: {
                         type: 'switchableRange',
                         disabledValue: 'auto',
@@ -82,7 +94,6 @@ const props: ChartProperty[] = [
                     flavors: allFlavors,
                     type: `number | 'auto'`,
                     required: false,
-                    when: ({ type }) => type === 'linear',
                     control: {
                         type: 'switchableRange',
                         disabledValue: 'auto',
@@ -91,18 +102,6 @@ const props: ChartProperty[] = [
                         max: 100,
                     },
                 },
-                // {
-                //     key: 'padding',
-                //     help: 'Outer padding (0~1).',
-                //     type: `number`,
-                //     controlType: 'range',
-                //     controlOptions: {
-                //         when: ({ type }) => type === 'point',
-                //         min: 0,
-                //         max: 1,
-                //         step: 0.01,
-                //     },
-                // },
             ],
         },
     },
@@ -139,22 +138,6 @@ const props: ChartProperty[] = [
                 label: key,
                 value: key,
             })),
-        },
-    },
-    {
-        key: 'axesPlan',
-        help: `Axes plan.`,
-        flavors: allFlavors,
-        type: `string`,
-        required: false,
-        defaultValue: defaults.axesPlan,
-        group: 'Base',
-        control: {
-            type: 'radio',
-            choices: [
-                { label: 'foreground', value: 'foreground' },
-                { label: 'background', value: 'background' },
-            ],
         },
     },
     {
@@ -199,7 +182,8 @@ const props: ChartProperty[] = [
         control: { type: 'opacity' },
         group: 'Style',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(allFlavors, defaults),
+    ...commonAccessibilityProps(allFlavors),
 ]
 
 export const groups = groupProperties(props)
