@@ -24,6 +24,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     lineWidth = canvasDefaultProps.lineWidth,
     axesTicksPosition = canvasDefaultProps.axesTicksPosition,
     legends = canvasDefaultProps.legends,
+    forwardLegendData,
     layers = canvasDefaultProps.layers,
     role = canvasDefaultProps.role,
     ariaLabel,
@@ -54,6 +55,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         layout,
         colors,
         curve,
+        forwardLegendData,
     })
 
     const theme = useTheme()

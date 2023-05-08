@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useEffect } from 'react'
 import { line } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
 import { curveFromProp } from '@nivo/core'
@@ -93,6 +93,7 @@ export const useParallelCoordinates = <D extends BaseDatum>({
     layout = commonDefaultProps.layout,
     curve = commonDefaultProps.curve,
     colors = commonDefaultProps.colors as OrdinalColorScaleConfig<D>,
+    forwardLegendData,
 }: {
     width: number
     height: number
@@ -101,6 +102,7 @@ export const useParallelCoordinates = <D extends BaseDatum>({
     layout: CommonProps<D>['layout']
     curve: CommonProps<D>['curve']
     colors: CommonProps<D>['colors']
+    forwardLegendData?: CommonProps<D>['forwardLegendData']
 }) => {
     const getColor = useOrdinalColorScale(colors, 'id')
 
@@ -132,6 +134,13 @@ export const useParallelCoordinates = <D extends BaseDatum>({
             })),
         [computedData]
     )
+
+    // Forward the legends data if `forwardLegendData` is defined.
+    const forwardLegendDataRef = useRef(forwardLegendData)
+    useEffect(() => {
+        if (typeof forwardLegendDataRef.current !== 'function') return
+        forwardLegendDataRef.current(legendData)
+    }, [forwardLegendDataRef, legendData])
 
     const customLayerContext: CustomLayerProps<D> = useMemo(
         () => ({

@@ -195,6 +195,25 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
     },
     {
+        key: 'forwardLegendData',
+        group: 'Legends',
+        type: '(data: LegendDatum<D>[]) => void',
+        required: false,
+        flavors: allFlavors,
+        help: 'Can be used to get the computed legend data.',
+        description: `
+            This property allows you to implement custom
+            legends, bypassing the limitations of SVG/Canvas.
+            
+            For example you could have a state in the parent component,
+            and then pass the setter.
+            
+            Please be very careful when using this property though,
+            you could end up with an infinite loop if the properties
+            defining the data don't have a stable reference.
+        `,
+    },
+    {
         key: 'legends',
         group: 'Legends',
         type: 'LegendDatum<D>[]',
