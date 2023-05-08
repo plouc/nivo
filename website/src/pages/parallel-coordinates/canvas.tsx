@@ -23,7 +23,7 @@ const initialProperties = {
     curve: commonDefaultProps.curve,
     colors: commonDefaultProps.colors,
     colorBy: commonDefaultProps.colorBy,
-    strokeWidth: 1,
+    lineWidth: 1,
     lineOpacity: 0.2,
     axesPlan: commonDefaultProps.axesPlan,
     axesTicksPosition: commonDefaultProps.axesTicksPosition,

@@ -1,6 +1,5 @@
 // @ts-ignore
 import { lineCurvePropKeys } from '@nivo/core'
-// @ts-ignore
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
@@ -163,12 +162,12 @@ const props: ChartProperty[] = [
         defaultValue: defaults.colors,
     }),
     {
-        key: 'strokeWidth',
-        help: 'Lines stroke width.',
+        key: 'lineWidth',
+        help: 'Lines width.',
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.strokeWidth,
+        defaultValue: defaults.lineWidth,
         control: { type: 'lineWidth' },
         group: 'Style',
     },
