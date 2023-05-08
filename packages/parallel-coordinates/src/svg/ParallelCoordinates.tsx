@@ -37,22 +37,21 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         partialMargin
     )
 
-    const { variablesScale, variablesWithScale, computedData, lineGenerator, legendData } =
-        useParallelCoordinates<D>({
-            width: innerWidth,
-            height: innerHeight,
-            data,
-            variables,
-            layout,
-            colors,
-            curve,
-        })
-
-    console.log({
+    const {
         variablesScale,
         variablesWithScale,
         computedData,
+        lineGenerator,
         legendData,
+        customLayerContext,
+    } = useParallelCoordinates<D>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        variables,
+        layout,
+        colors,
+        curve,
     })
 
     const layerById: Record<LayerId, ReactNode> = {
@@ -132,7 +131,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, {})}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, customLayerContext)}</Fragment>
                 }
 
                 return layerById?.[layer] ?? null

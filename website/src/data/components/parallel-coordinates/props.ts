@@ -1,6 +1,6 @@
 // @ts-ignore
 import { lineCurvePropKeys } from '@nivo/core'
-import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
+import { commonDefaultProps as defaults, svgDefaultProps } from '@nivo/parallel-coordinates'
 import {
     themeProperty,
     motionProperties,
@@ -185,6 +185,14 @@ const props: ChartProperty[] = [
         defaultValue: defaults.lineOpacity,
         control: { type: 'opacity' },
         group: 'Style',
+    },
+    {
+        key: 'layers',
+        type: `ParallelCoordinatesLayer<D>[] | ParallelCoordinatesCanvasLayer<D>[]`,
+        group: 'Customization',
+        help: 'Define layers, please use the appropriate variant for custom layers.',
+        defaultValue: svgDefaultProps.layers,
+        flavors: allFlavors,
     },
     {
         key: 'legends',

@@ -1,4 +1,5 @@
-import { AriaAttributes } from 'react'
+import { AriaAttributes, FunctionComponent } from 'react'
+import { Line } from 'd3-shape'
 import { Box, Dimensions, MotionProps, LineCurveFactoryId, Theme, ValueFormat } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
@@ -82,21 +83,38 @@ export interface CommonProps<D extends BaseDatum> extends MotionProps {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-type ParallelCoordinatesLayer = LayerId
+export interface CustomLayerProps<D extends BaseDatum> {
+    computedData: readonly ComputedDatum<D>[]
+    variables: readonly VariableSpec<D>[]
+    lineGenerator: Line<[number, number]>
+}
+
+export type ParallelCoordinatesCustomLayer<D extends BaseDatum> = FunctionComponent<
+    CustomLayerProps<D>
+>
+
+type ParallelCoordinatesLayer<D extends BaseDatum> = LayerId | ParallelCoordinatesCustomLayer<D>
 
 export type ParallelCoordinatesProps<D extends BaseDatum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> & {
-        layers?: ParallelCoordinatesLayer[]
+        layers?: ParallelCoordinatesLayer<D>[]
         motionStagger?: number
         testIdPrefix?: string
     }
 
-type ParallelCoordinatesCanvasLayer = LayerId
+export type ParallelCoordinatesCanvasCustomLayer<D extends BaseDatum> = (
+    ctx: CanvasRenderingContext2D,
+    props: CustomLayerProps<D>
+) => void
+
+type ParallelCoordinatesCanvasLayer<D extends BaseDatum> =
+    | LayerId
+    | ParallelCoordinatesCanvasCustomLayer<D>
 
 export type ParallelCoordinatesCanvasProps<D extends BaseDatum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> & {
-        layers: ParallelCoordinatesCanvasLayer[]
+        layers: ParallelCoordinatesCanvasLayer<D>[]
         pixelRatio?: number
     }

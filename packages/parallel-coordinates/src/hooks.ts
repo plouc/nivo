@@ -4,7 +4,14 @@ import { scaleLinear, scalePoint } from 'd3-scale'
 import { curveFromProp } from '@nivo/core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { castPointScale, castLinearScale } from '@nivo/scales'
-import { VariableSpec, CommonProps, ComputedDatum, BaseDatum, LegendDatum } from './types'
+import {
+    VariableSpec,
+    CommonProps,
+    ComputedDatum,
+    BaseDatum,
+    LegendDatum,
+    CustomLayerProps,
+} from './types'
 import { commonDefaultProps } from './defaults'
 
 const computeParallelCoordinatesLayout = <D extends BaseDatum>({
@@ -126,11 +133,21 @@ export const useParallelCoordinates = <D extends BaseDatum>({
         [computedData]
     )
 
+    const customLayerContext: CustomLayerProps<D> = useMemo(
+        () => ({
+            computedData,
+            variables,
+            lineGenerator,
+        }),
+        [computedData, variables, lineGenerator]
+    )
+
     return {
         variablesScale,
         variablesWithScale,
         computedData,
         lineGenerator,
         legendData,
+        customLayerContext,
     }
 }

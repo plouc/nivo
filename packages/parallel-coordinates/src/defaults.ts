@@ -1,4 +1,4 @@
-import {CommonProps, BaseDatum, LayerId} from './types'
+import { CommonProps, BaseDatum, LayerId } from './types'
 
 export const commonDefaultProps: Omit<
     CommonProps<BaseDatum>,
