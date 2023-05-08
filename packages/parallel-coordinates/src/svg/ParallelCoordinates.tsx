@@ -26,6 +26,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
     colors = svgDefaultProps.colors,
     layers = svgDefaultProps.layers,
     legends = svgDefaultProps.legends,
+    forwardLegendData,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -52,6 +53,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         layout,
         colors,
         curve,
+        forwardLegendData,
     })
 
     const layerById: Record<LayerId, ReactNode> = {
