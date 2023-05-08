@@ -4,7 +4,7 @@ import { scaleLinear, scalePoint } from 'd3-scale'
 import { curveFromProp } from '@nivo/core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { castPointScale, castLinearScale } from '@nivo/scales'
-import { VariableSpec, CommonProps, ComputedDatum, BaseDatum } from './types'
+import { VariableSpec, CommonProps, ComputedDatum, BaseDatum, LegendDatum } from './types'
 import { commonDefaultProps } from './defaults'
 
 const computeParallelCoordinatesLayout = <D extends BaseDatum>({
@@ -95,7 +95,7 @@ export const useParallelCoordinates = <D extends BaseDatum>({
     curve: CommonProps<D>['curve']
     colors: CommonProps<D>['colors']
 }) => {
-    const getColor = useOrdinalColorScale(colors, 'index')
+    const getColor = useOrdinalColorScale(colors, 'id')
 
     const lineGenerator = useMemo(
         () => line<[number, number]>().curve(curveFromProp(curve)),
@@ -115,10 +115,22 @@ export const useParallelCoordinates = <D extends BaseDatum>({
         [width, height, data, variables, layout, getColor]
     )
 
+    const legendData: LegendDatum<D>[] = useMemo(
+        () =>
+            computedData.map(datum => ({
+                id: datum.id,
+                label: datum.id,
+                color: datum.color,
+                data: datum,
+            })),
+        [computedData]
+    )
+
     return {
         variablesScale,
         variablesWithScale,
         computedData,
         lineGenerator,
+        legendData,
     }
 }

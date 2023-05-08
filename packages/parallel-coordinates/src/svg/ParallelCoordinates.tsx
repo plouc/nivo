@@ -1,8 +1,10 @@
+import { createElement, Fragment, ReactNode } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { Axis } from '@nivo/axes'
+import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from '../defaults'
 import { useParallelCoordinates } from '../hooks'
-import { ParallelCoordinatesProps, BaseDatum } from '../types'
+import { ParallelCoordinatesProps, BaseDatum, LayerId } from '../types'
 import { ParallelCoordinatesLine } from './ParallelCoordinatesLine'
 
 type InnerParallelCoordinatesProps<D extends BaseDatum> = Omit<
@@ -22,6 +24,8 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
     lineWidth = svgDefaultProps.lineWidth,
     lineOpacity = svgDefaultProps.lineOpacity,
     colors = svgDefaultProps.colors,
+    layers = svgDefaultProps.layers,
+    legends = svgDefaultProps.legends,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -33,7 +37,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         partialMargin
     )
 
-    const { variablesScale, variablesWithScale, computedData, lineGenerator } =
+    const { variablesScale, variablesWithScale, computedData, lineGenerator, legendData } =
         useParallelCoordinates<D>({
             width: innerWidth,
             height: innerHeight,
@@ -48,46 +52,73 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         variablesScale,
         variablesWithScale,
         computedData,
+        legendData,
     })
 
-    const axes = (
-        <>
-            {variablesWithScale.map(variable => (
-                <Axis
-                    key={variable.id}
-                    axis={layout === 'horizontal' ? 'y' : 'x'}
-                    length={layout === 'horizontal' ? innerHeight : innerWidth}
-                    x={layout === 'horizontal' ? variablesScale(variable.id) : 0}
-                    y={layout === 'horizontal' ? 0 : variablesScale(variable.id)}
-                    scale={variable.scale}
-                    ticksPosition={variable.ticksPosition || axesTicksPosition}
-                    tickValues={variable.tickValues}
-                    tickSize={variable.tickSize}
-                    tickPadding={variable.tickPadding}
-                    tickRotation={variable.tickRotation}
-                    format={variable.tickFormat}
-                    legend={variable.label || variable.id}
-                    legendPosition={variable.legendPosition}
-                    legendOffset={variable.legendOffset}
-                />
-            ))}
-        </>
-    )
+    const layerById: Record<LayerId, ReactNode> = {
+        axes: null,
+        lines: null,
+        legends: null,
+    }
 
-    const lines = (
-        <>
-            {computedData.map(datum => (
-                <ParallelCoordinatesLine<D>
-                    key={datum.id}
-                    data={datum}
-                    variables={variables}
-                    lineGenerator={lineGenerator}
-                    lineWidth={lineWidth}
-                    opacity={lineOpacity}
-                />
-            ))}
-        </>
-    )
+    if (layers.includes('axes')) {
+        layerById.axes = (
+            <g key="axes">
+                {variablesWithScale.map(variable => (
+                    <Axis
+                        key={variable.id}
+                        axis={layout === 'horizontal' ? 'y' : 'x'}
+                        length={layout === 'horizontal' ? innerHeight : innerWidth}
+                        x={layout === 'horizontal' ? variablesScale(variable.id) : 0}
+                        y={layout === 'horizontal' ? 0 : variablesScale(variable.id)}
+                        scale={variable.scale}
+                        ticksPosition={variable.ticksPosition || axesTicksPosition}
+                        tickValues={variable.tickValues}
+                        tickSize={variable.tickSize}
+                        tickPadding={variable.tickPadding}
+                        tickRotation={variable.tickRotation}
+                        format={variable.tickFormat}
+                        legend={variable.label || variable.id}
+                        legendPosition={variable.legendPosition}
+                        legendOffset={variable.legendOffset}
+                    />
+                ))}
+            </g>
+        )
+    }
+
+    if (layers.includes('lines')) {
+        layerById.lines = (
+            <g key="lines">
+                {computedData.map(datum => (
+                    <ParallelCoordinatesLine<D>
+                        key={datum.id}
+                        data={datum}
+                        variables={variables}
+                        lineGenerator={lineGenerator}
+                        lineWidth={lineWidth}
+                        opacity={lineOpacity}
+                    />
+                ))}
+            </g>
+        )
+    }
+
+    if (layers.includes('legends')) {
+        layerById.legends = (
+            <g key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legendData}
+                    />
+                ))}
+            </g>
+        )
+    }
 
     return (
         <SvgWrapper
@@ -99,8 +130,13 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
         >
-            {axes}
-            {lines}
+            {layers.map((layer, i) => {
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer, {})}</Fragment>
+                }
+
+                return layerById?.[layer] ?? null
+            })}
         </SvgWrapper>
     )
 }
