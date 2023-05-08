@@ -12,12 +12,14 @@ export const ParallelCoordinatesLine = <D extends BaseDatum>({
     lineGenerator,
     lineWidth,
     opacity,
+    testIdPrefix,
 }: {
     data: ComputedDatum<D>
     variables: readonly VariableSpec<D>[]
     lineGenerator: Line<[number, number]>
     lineWidth: number
     opacity: number
+    testIdPrefix?: string
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseHover = useCallback(
@@ -50,6 +52,7 @@ export const ParallelCoordinatesLine = <D extends BaseDatum>({
             onMouseEnter={handleMouseHover}
             onMouseMove={handleMouseHover}
             onMouseLeave={hideTooltip}
+            data-test-id={testIdPrefix ? `${testIdPrefix}.line_${data.id}` : undefined}
         />
     )
 }

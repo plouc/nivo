@@ -31,6 +31,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    testIdPrefix,
 }: InnerParallelCoordinatesProps<D>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -99,6 +100,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
                         lineGenerator={lineGenerator}
                         lineWidth={lineWidth}
                         opacity={lineOpacity}
+                        testIdPrefix={testIdPrefix}
                     />
                 ))}
             </g>
