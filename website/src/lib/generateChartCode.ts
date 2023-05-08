@@ -80,7 +80,7 @@ export const generateChartCode = (
         properties.push(`${key}=${value}`)
     })
 
-    const install = `// yarn add @nivo/core ${pkg}`
+    const install = `// yarn add ${pkg}`
 
     const imports = [name, ...children.map(([c]) => c)].map(i => `import { ${i} } from '${pkg}'`)
 
@@ -96,7 +96,7 @@ export const generateChartCode = (
         ].join('\n')
     }
 
-    return `// install (please make sure versions match peerDependencies)
+    return `// install (please try to align all versions of your @nivo packages)
 ${install}
 ${imports.join('\n')}
 ${responsiveWarning}
