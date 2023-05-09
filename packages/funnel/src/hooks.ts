@@ -523,9 +523,9 @@ function computeShapedParts<D extends FunnelDatum>(
             partHeight = (datum.value / totalValue) * innerHeight
             y0 = currentHeight
             y1 = y0 + partHeight
-            const inBottomThird = y0 > neckHeight
 
-            partWidth = inBottomThird
+            const inNeck = neckHeightRatio >= 1 || y0 > neckHeight
+            partWidth = inNeck
                 ? neckWidth
                 : innerWidth - 2 * (Math.round((currentHeight / slope) * 10) / 10)
             x0 = paddingBefore + (innerWidth - partWidth) * 0.5
@@ -535,9 +535,9 @@ function computeShapedParts<D extends FunnelDatum>(
             partWidth = (datum.value / totalValue) * innerWidth
             x0 = currentWidth
             x1 = x0 + partWidth
-            const inLastThird = x0 > neckHeight
 
-            partHeight = inLastThird
+            const inNeck = neckHeightRatio >= 1 || x0 > neckHeight
+            partHeight = inNeck
                 ? neckWidth
                 : innerHeight - 2 * (Math.round((currentWidth / slope) * 10) / 10)
             y0 = paddingBefore + (innerHeight - partHeight) * 0.5
