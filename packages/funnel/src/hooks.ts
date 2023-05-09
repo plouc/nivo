@@ -269,263 +269,6 @@ export const computePartsHandlers = <D extends FunnelDatum>({
     })
 }
 
-/**
- * Creates required layout to generate a funnel chart,
- * it uses almost the same parameters as the Funnel component.
- *
- * For purpose/constrains on the parameters, please have a look
- * at the component's props.
- */
-export const useFunnel = <D extends FunnelDatum>({
-    data,
-    width,
-    height,
-    direction = defaults.direction,
-    fixedShape = defaults.fixedShape,
-    neckWidthRatio = defaults.neckWidthRatio,
-    neckHeightRatio = defaults.neckHeightRatio,
-    interpolation = defaults.interpolation,
-    spacing = defaults.spacing,
-    shapeBlending: rawShapeBlending = defaults.shapeBlending,
-    valueFormat,
-    colors = defaults.colors,
-    fillOpacity = defaults.fillOpacity,
-    borderWidth = defaults.borderWidth,
-    borderColor = defaults.borderColor,
-    borderOpacity = defaults.borderOpacity,
-    labelColor = defaults.labelColor,
-    enableBeforeSeparators = defaults.enableBeforeSeparators,
-    beforeSeparatorLength = defaults.beforeSeparatorLength,
-    beforeSeparatorOffset = defaults.beforeSeparatorOffset,
-    enableAfterSeparators = defaults.enableAfterSeparators,
-    afterSeparatorLength = defaults.afterSeparatorLength,
-    afterSeparatorOffset = defaults.afterSeparatorOffset,
-    isInteractive = defaults.isInteractive,
-    currentPartSizeExtension = defaults.currentPartSizeExtension,
-    currentBorderWidth,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-    tooltip,
-}: {
-    data: FunnelDataProps<D>['data']
-    width: number
-    height: number
-    direction?: FunnelCommonProps<D>['direction']
-    fixedShape?: FunnelCommonProps<D>['fixedShape']
-    neckWidthRatio?: FunnelCommonProps<D>['neckWidthRatio']
-    neckHeightRatio?: FunnelCommonProps<D>['neckHeightRatio']
-    interpolation?: FunnelCommonProps<D>['interpolation']
-    spacing?: FunnelCommonProps<D>['spacing']
-    shapeBlending?: FunnelCommonProps<D>['shapeBlending']
-    valueFormat?: FunnelCommonProps<D>['valueFormat']
-    colors?: FunnelCommonProps<D>['colors']
-    fillOpacity?: FunnelCommonProps<D>['fillOpacity']
-    borderWidth?: FunnelCommonProps<D>['borderWidth']
-    borderColor?: FunnelCommonProps<D>['borderColor']
-    borderOpacity?: FunnelCommonProps<D>['borderOpacity']
-    labelColor?: FunnelCommonProps<D>['labelColor']
-    enableBeforeSeparators?: FunnelCommonProps<D>['enableBeforeSeparators']
-    beforeSeparatorLength?: FunnelCommonProps<D>['beforeSeparatorLength']
-    beforeSeparatorOffset?: FunnelCommonProps<D>['beforeSeparatorOffset']
-    enableAfterSeparators?: FunnelCommonProps<D>['enableAfterSeparators']
-    afterSeparatorLength?: FunnelCommonProps<D>['afterSeparatorLength']
-    afterSeparatorOffset?: FunnelCommonProps<D>['afterSeparatorOffset']
-    isInteractive?: FunnelCommonProps<D>['isInteractive']
-    currentPartSizeExtension?: FunnelCommonProps<D>['currentPartSizeExtension']
-    currentBorderWidth?: FunnelCommonProps<D>['currentBorderWidth']
-    onMouseEnter?: FunnelCommonProps<D>['onMouseEnter']
-    onMouseMove?: FunnelCommonProps<D>['onMouseMove']
-    onMouseLeave?: FunnelCommonProps<D>['onMouseLeave']
-    onClick?: FunnelCommonProps<D>['onClick']
-    tooltip?: (props: PartTooltipProps<D>) => JSX.Element
-}) => {
-    const theme = useTheme()
-    const getColor = useOrdinalColorScale<D>(colors, 'id')
-    const getBorderColor = useInheritedColor(borderColor, theme)
-    const getLabelColor = useInheritedColor(labelColor, theme)
-
-    const formatValue = useValueFormatter<number>(valueFormat)
-
-    const [areaGenerator, borderGenerator] = useMemo(
-        () => computeShapeGenerators<D>(interpolation, direction),
-        [interpolation, direction]
-    )
-
-    let innerWidth: number
-    let innerHeight: number
-    const paddingBefore = enableBeforeSeparators ? beforeSeparatorLength + beforeSeparatorOffset : 0
-    const paddingAfter = enableAfterSeparators ? afterSeparatorLength + afterSeparatorOffset : 0
-    if (direction === 'vertical') {
-        innerWidth = width - paddingBefore - paddingAfter
-        innerHeight = height
-    } else {
-        innerWidth = width
-        innerHeight = height - paddingBefore - paddingAfter
-    }
-
-    const [bandScale, linearScale] = useMemo(
-        () =>
-            computeScales<D>({
-                data,
-                direction,
-                width: innerWidth,
-                height: innerHeight,
-                spacing,
-            }),
-        [data, direction, innerWidth, innerHeight, spacing]
-    )
-
-    const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
-
-    const parts: FunnelPart<D>[] = useMemo(() => {
-        if (fixedShape) {
-            return computeShapedParts<D>(
-                data,
-                direction,
-                innerWidth,
-                innerHeight,
-                paddingBefore,
-                neckHeightRatio,
-                neckWidthRatio,
-                fillOpacity,
-                currentPartId,
-                currentPartSizeExtension,
-                getColor,
-                getBorderColor,
-                getLabelColor,
-                formatValue
-            )
-        } else {
-            return computeParts<D>(
-                data,
-                direction,
-                innerWidth,
-                innerHeight,
-                paddingBefore,
-                linearScale,
-                bandScale,
-                fillOpacity,
-                borderOpacity,
-                borderWidth,
-                currentBorderWidth,
-                rawShapeBlending,
-                currentPartId,
-                currentPartSizeExtension,
-                getColor,
-                getBorderColor,
-                getLabelColor,
-                formatValue
-            )
-        }
-    }, [
-        data,
-        direction,
-        linearScale,
-        bandScale,
-        innerWidth,
-        innerHeight,
-        paddingBefore,
-        paddingAfter,
-        rawShapeBlending,
-        getColor,
-        formatValue,
-        getBorderColor,
-        getLabelColor,
-        currentPartId,
-    ])
-
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const partsWithHandlers = useMemo(
-        () =>
-            computePartsHandlers<D>({
-                parts,
-                setCurrentPartId,
-                isInteractive,
-                onMouseEnter,
-                onMouseLeave,
-                onMouseMove,
-                onClick,
-                showTooltipFromEvent,
-                hideTooltip,
-                tooltip,
-            }),
-        [
-            parts,
-            setCurrentPartId,
-            isInteractive,
-            onMouseEnter,
-            onMouseLeave,
-            onMouseMove,
-            onClick,
-            showTooltipFromEvent,
-            hideTooltip,
-            tooltip,
-        ]
-    )
-
-    const [beforeSeparators, afterSeparators] = useMemo(
-        () =>
-            computeSeparators({
-                parts,
-                direction,
-                width,
-                height,
-                spacing,
-                enableBeforeSeparators,
-                beforeSeparatorOffset,
-                enableAfterSeparators,
-                afterSeparatorOffset,
-            }),
-        [
-            parts,
-            direction,
-            width,
-            height,
-            spacing,
-            enableBeforeSeparators,
-            beforeSeparatorOffset,
-            enableAfterSeparators,
-            afterSeparatorOffset,
-        ]
-    )
-
-    const customLayerProps: FunnelCustomLayerProps<D> = useMemo(
-        () => ({
-            width,
-            height,
-            parts: partsWithHandlers,
-            areaGenerator,
-            borderGenerator,
-            beforeSeparators,
-            afterSeparators,
-            setCurrentPartId,
-        }),
-        [
-            width,
-            height,
-            partsWithHandlers,
-            areaGenerator,
-            borderGenerator,
-            beforeSeparators,
-            afterSeparators,
-            setCurrentPartId,
-        ]
-    )
-
-    return {
-        parts: partsWithHandlers,
-        areaGenerator,
-        borderGenerator,
-        beforeSeparators,
-        afterSeparators,
-        setCurrentPartId,
-        currentPartId,
-        customLayerProps,
-    }
-}
-
 function computeParts<D extends FunnelDatum>(
     data: FunnelDataProps<D>['data'],
     direction: FunnelDirection,
@@ -1031,6 +774,264 @@ function computeShapedParts<D extends FunnelDatum>(
     })
 
     return enhancedParts
+}
+
+/**
+ * Creates required layout to generate a funnel chart,
+ * it uses almost the same parameters as the Funnel component.
+ *
+ * For purpose/constrains on the parameters, please have a look
+ * at the component's props.
+ */
+export const useFunnel = <D extends FunnelDatum>({
+    data,
+    width,
+    height,
+    direction = defaults.direction,
+    fixedShape = defaults.fixedShape,
+    neckWidthRatio = defaults.neckWidthRatio,
+    neckHeightRatio = defaults.neckHeightRatio,
+    interpolation = defaults.interpolation,
+    spacing = defaults.spacing,
+    shapeBlending: rawShapeBlending = defaults.shapeBlending,
+    valueFormat,
+    colors = defaults.colors,
+    fillOpacity = defaults.fillOpacity,
+    borderWidth = defaults.borderWidth,
+    borderColor = defaults.borderColor,
+    borderOpacity = defaults.borderOpacity,
+    labelColor = defaults.labelColor,
+    enableBeforeSeparators = defaults.enableBeforeSeparators,
+    beforeSeparatorLength = defaults.beforeSeparatorLength,
+    beforeSeparatorOffset = defaults.beforeSeparatorOffset,
+    enableAfterSeparators = defaults.enableAfterSeparators,
+    afterSeparatorLength = defaults.afterSeparatorLength,
+    afterSeparatorOffset = defaults.afterSeparatorOffset,
+    isInteractive = defaults.isInteractive,
+    currentPartSizeExtension = defaults.currentPartSizeExtension,
+    currentBorderWidth,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip,
+}: {
+    data: FunnelDataProps<D>['data']
+    width: number
+    height: number
+    direction?: FunnelCommonProps<D>['direction']
+    fixedShape?: FunnelCommonProps<D>['fixedShape']
+    neckWidthRatio?: FunnelCommonProps<D>['neckWidthRatio']
+    neckHeightRatio?: FunnelCommonProps<D>['neckHeightRatio']
+    interpolation?: FunnelCommonProps<D>['interpolation']
+    spacing?: FunnelCommonProps<D>['spacing']
+    shapeBlending?: FunnelCommonProps<D>['shapeBlending']
+    valueFormat?: FunnelCommonProps<D>['valueFormat']
+    colors?: FunnelCommonProps<D>['colors']
+    fillOpacity?: FunnelCommonProps<D>['fillOpacity']
+    borderWidth?: FunnelCommonProps<D>['borderWidth']
+    borderColor?: FunnelCommonProps<D>['borderColor']
+    borderOpacity?: FunnelCommonProps<D>['borderOpacity']
+    labelColor?: FunnelCommonProps<D>['labelColor']
+    enableBeforeSeparators?: FunnelCommonProps<D>['enableBeforeSeparators']
+    beforeSeparatorLength?: FunnelCommonProps<D>['beforeSeparatorLength']
+    beforeSeparatorOffset?: FunnelCommonProps<D>['beforeSeparatorOffset']
+    enableAfterSeparators?: FunnelCommonProps<D>['enableAfterSeparators']
+    afterSeparatorLength?: FunnelCommonProps<D>['afterSeparatorLength']
+    afterSeparatorOffset?: FunnelCommonProps<D>['afterSeparatorOffset']
+    isInteractive?: FunnelCommonProps<D>['isInteractive']
+    currentPartSizeExtension?: FunnelCommonProps<D>['currentPartSizeExtension']
+    currentBorderWidth?: FunnelCommonProps<D>['currentBorderWidth']
+    onMouseEnter?: FunnelCommonProps<D>['onMouseEnter']
+    onMouseMove?: FunnelCommonProps<D>['onMouseMove']
+    onMouseLeave?: FunnelCommonProps<D>['onMouseLeave']
+    onClick?: FunnelCommonProps<D>['onClick']
+    tooltip?: (props: PartTooltipProps<D>) => JSX.Element
+}) => {
+    const theme = useTheme()
+    const getColor = useOrdinalColorScale<D>(colors, 'id')
+    const getBorderColor = useInheritedColor(borderColor, theme)
+    const getLabelColor = useInheritedColor(labelColor, theme)
+
+    const formatValue = useValueFormatter<number>(valueFormat)
+
+    const [areaGenerator, borderGenerator] = useMemo(
+        () => computeShapeGenerators<D>(interpolation, direction),
+        [interpolation, direction]
+    )
+
+    let innerWidth: number
+    let innerHeight: number
+    const paddingBefore = enableBeforeSeparators ? beforeSeparatorLength + beforeSeparatorOffset : 0
+    const paddingAfter = enableAfterSeparators ? afterSeparatorLength + afterSeparatorOffset : 0
+    if (direction === 'vertical') {
+        innerWidth = width - paddingBefore - paddingAfter
+        innerHeight = height
+    } else {
+        innerWidth = width
+        innerHeight = height - paddingBefore - paddingAfter
+    }
+
+    const [bandScale, linearScale] = useMemo(
+        () =>
+            computeScales<D>({
+                data,
+                direction,
+                width: innerWidth,
+                height: innerHeight,
+                spacing,
+            }),
+        [data, direction, innerWidth, innerHeight, spacing]
+    )
+
+    const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
+
+    const parts: FunnelPart<D>[] = useMemo(() => {
+        if (fixedShape) {
+            return computeShapedParts<D>(
+                data,
+                direction,
+                innerWidth,
+                innerHeight,
+                paddingBefore,
+                neckHeightRatio,
+                neckWidthRatio,
+                fillOpacity,
+                currentPartId,
+                currentPartSizeExtension,
+                getColor,
+                getBorderColor,
+                getLabelColor,
+                formatValue
+            )
+        } else {
+            return computeParts<D>(
+                data,
+                direction,
+                innerWidth,
+                innerHeight,
+                paddingBefore,
+                linearScale,
+                bandScale,
+                fillOpacity,
+                borderOpacity,
+                borderWidth,
+                currentBorderWidth,
+                rawShapeBlending,
+                currentPartId,
+                currentPartSizeExtension,
+                getColor,
+                getBorderColor,
+                getLabelColor,
+                formatValue
+            )
+        }
+    }, [
+        data,
+        direction,
+        linearScale,
+        bandScale,
+        innerWidth,
+        innerHeight,
+        paddingBefore,
+        paddingAfter,
+        rawShapeBlending,
+        getColor,
+        formatValue,
+        getBorderColor,
+        getLabelColor,
+        currentPartId,
+    ])
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+    const partsWithHandlers = useMemo(
+        () =>
+            computePartsHandlers<D>({
+                parts,
+                setCurrentPartId,
+                isInteractive,
+                onMouseEnter,
+                onMouseLeave,
+                onMouseMove,
+                onClick,
+                showTooltipFromEvent,
+                hideTooltip,
+                tooltip,
+            }),
+        [
+            parts,
+            setCurrentPartId,
+            isInteractive,
+            onMouseEnter,
+            onMouseLeave,
+            onMouseMove,
+            onClick,
+            showTooltipFromEvent,
+            hideTooltip,
+            tooltip,
+        ]
+    )
+
+    const [beforeSeparators, afterSeparators] = useMemo(
+        () =>
+            computeSeparators({
+                parts,
+                direction,
+                width,
+                height,
+                spacing: fixedShape ? 0 : spacing,
+                enableBeforeSeparators,
+                beforeSeparatorOffset,
+                enableAfterSeparators,
+                afterSeparatorOffset,
+            }),
+        [
+            parts,
+            direction,
+            width,
+            height,
+            spacing,
+            fixedShape,
+            enableBeforeSeparators,
+            beforeSeparatorOffset,
+            enableAfterSeparators,
+            afterSeparatorOffset,
+        ]
+    )
+
+    const customLayerProps: FunnelCustomLayerProps<D> = useMemo(
+        () => ({
+            width,
+            height,
+            parts: partsWithHandlers,
+            areaGenerator,
+            borderGenerator,
+            beforeSeparators,
+            afterSeparators,
+            setCurrentPartId,
+        }),
+        [
+            width,
+            height,
+            partsWithHandlers,
+            areaGenerator,
+            borderGenerator,
+            beforeSeparators,
+            afterSeparators,
+            setCurrentPartId,
+        ]
+    )
+
+    return {
+        parts: partsWithHandlers,
+        areaGenerator,
+        borderGenerator,
+        beforeSeparators,
+        afterSeparators,
+        setCurrentPartId,
+        currentPartId,
+        customLayerProps,
+    }
 }
 
 export const useFunnelAnnotations = <D extends FunnelDatum>(
