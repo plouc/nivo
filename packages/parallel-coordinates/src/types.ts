@@ -3,67 +3,114 @@ import { Line } from 'd3-shape'
 import { Box, Dimensions, MotionProps, LineCurveFactoryId, Theme, ValueFormat } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
+import { ScaleLinear } from '@nivo/scales'
 import { LegendProps } from '@nivo/legends'
 
-type KeysForValues<D extends BaseDatum> = {
-    [K in keyof D]: D[K] extends number ? K : never
-}[keyof D]
+type FilterKeys<Datum extends BaseDatum, F> = {
+    [K in keyof Datum]: Datum[K] extends F ? K : never
+}[keyof Datum]
 
-type DatumValues<D extends BaseDatum> = Pick<D, KeysForValues<D>>
+export type DatumValueKeys<Datum extends BaseDatum> = keyof Pick<Datum, FilterKeys<Datum, number>>
+export type DatumGroupKeys<Datum extends BaseDatum> = keyof Pick<
+    Datum,
+    Exclude<FilterKeys<Datum, string>, 'id'>
+>
 
-export interface VariableSpec<D extends BaseDatum> {
+export interface Variable<Datum extends BaseDatum> {
     id: string
-    // Use `id` if not specified.
+    // use `id` if not specified.
     label?: string
-    value: keyof DatumValues<D>
+    value: DatumValueKeys<Datum>
     valueFormat?: ValueFormat<number>
-    min: 'auto' | number
-    max: 'auto' | number
-    ticksPosition: 'before' | 'after'
-    tickValues: AxisProps['tickValues']
-    tickSize: AxisProps['tickSize']
-    tickPadding: AxisProps['tickPadding']
-    tickRotation: AxisProps['tickRotation']
-    tickFormat: AxisProps['format']
-    legendPosition: 'start'
-    legendOffset: number
+    min?: 'auto' | number
+    max?: 'auto' | number
+    ticksPosition?: 'before' | 'after'
+    tickValues?: AxisProps['tickValues']
+    tickSize?: AxisProps['tickSize']
+    tickPadding?: AxisProps['tickPadding']
+    tickRotation?: AxisProps['tickRotation']
+    tickFormat?: AxisProps['format']
+    legendPosition?: 'start'
+    legendOffset?: number
+}
+
+export interface VariableWithScale<Datum extends BaseDatum> extends Variable<Datum> {
+    scale: ScaleLinear<number>
 }
 
 export interface BaseDatum {
     id: string
 }
 
-interface DataProps<D extends BaseDatum> {
-    data: readonly D[]
-    variables: readonly VariableSpec<D>[]
+export interface BaseGroup {
+    id: string
+    // use `id` if not specified.
+    label?: string
 }
 
-export interface ComputedDatum<D extends BaseDatum> {
-    id: D['id']
-    data: D
+export interface Group extends BaseGroup {
+    color: string
+}
+
+export type IfGrouped<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
+    GroupedType,
+    NonGroupedType
+> = GroupBy extends DatumGroupKeys<Datum> ? GroupedType : NonGroupedType
+
+export interface DataProps<Datum extends BaseDatum> {
+    data: readonly Datum[]
+    variables: readonly Variable<Datum>[]
+}
+
+export interface ComputedDatum<Datum extends BaseDatum> {
+    id: string
+    index: number
+    data: Datum
     color: string
     points: [number, number][]
 }
 
-export interface LegendDatum<D extends BaseDatum> {
-    id: D['id']
-    label: D['id']
+export interface ComputedGroupDatum<Datum extends BaseDatum> extends ComputedDatum<Datum> {
+    id: string
+    group: Group
+    data: Datum
     color: string
-    data: ComputedDatum<D>
+    points: [number, number][]
+}
+
+export interface DatumLegend<Datum extends BaseDatum> {
+    id: string
+    label: string
+    color: string
+    data: ComputedDatum<Datum>
+}
+
+export interface GroupLegend {
+    id: string
+    label: string
+    color: string
+    data: Group
 }
 
 export type LayerId = 'axes' | 'lines' | 'legends'
 
 // Most of those props are optional for the public API,
 // but required internally, using defaults.
-export interface CommonProps<D extends BaseDatum> extends MotionProps {
+export interface CommonProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+> extends MotionProps {
+    groupBy: GroupBy
+    groups: IfGrouped<Datum, GroupBy, readonly BaseGroup[], never>
+
     margin: Box
     layout: 'horizontal' | 'vertical'
     curve: LineCurveFactoryId
-    groupBy?: string
 
     theme: Theme
-    colors: OrdinalColorScaleConfig<D>
+    colors: OrdinalColorScaleConfig<IfGrouped<Datum, GroupBy, BaseGroup, Datum>>
     lineWidth: number
     lineOpacity: number
 
@@ -75,7 +122,9 @@ export interface CommonProps<D extends BaseDatum> extends MotionProps {
     renderWrapper: boolean
 
     legends: LegendProps[]
-    forwardLegendData: (data: LegendDatum<D>[]) => void
+    forwardLegendData: (
+        data: IfGrouped<Datum, GroupBy, GroupLegend[], DatumLegend<Datum>[]>
+    ) => void
 
     role: string
     ariaLabel: AriaAttributes['aria-label']
@@ -83,38 +132,42 @@ export interface CommonProps<D extends BaseDatum> extends MotionProps {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export interface CustomLayerProps<D extends BaseDatum> {
-    computedData: readonly ComputedDatum<D>[]
-    variables: readonly VariableSpec<D>[]
+export interface CustomLayerProps<Datum extends BaseDatum> {
+    computedData: readonly ComputedDatum<Datum>[]
+    variables: readonly Variable<Datum>[]
     lineGenerator: Line<[number, number]>
 }
 
-export type ParallelCoordinatesCustomLayer<D extends BaseDatum> = FunctionComponent<
-    CustomLayerProps<D>
+export type ParallelCoordinatesCustomLayer<Datum extends BaseDatum> = FunctionComponent<
+    CustomLayerProps<Datum>
 >
 
-type ParallelCoordinatesLayer<D extends BaseDatum> = LayerId | ParallelCoordinatesCustomLayer<D>
+type ParallelCoordinatesLayer<Datum extends BaseDatum> =
+    | LayerId
+    | ParallelCoordinatesCustomLayer<Datum>
 
-export type ParallelCoordinatesProps<D extends BaseDatum> = DataProps<D> &
+export type ParallelCoordinatesProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> = DataProps<Datum> &
     Dimensions &
-    Partial<CommonProps<D>> & {
-        layers?: ParallelCoordinatesLayer<D>[]
-        motionStagger?: number
+    Partial<CommonProps<Datum, GroupBy>> & {
+        layers?: ParallelCoordinatesLayer<Datum>[]
         testIdPrefix?: string
     }
 
-export type ParallelCoordinatesCanvasCustomLayer<D extends BaseDatum> = (
+export type ParallelCoordinatesCanvasCustomLayer<Datum extends BaseDatum> = (
     ctx: CanvasRenderingContext2D,
-    props: CustomLayerProps<D>
+    props: CustomLayerProps<Datum>
 ) => void
 
-type ParallelCoordinatesCanvasLayer<D extends BaseDatum> =
+type ParallelCoordinatesCanvasLayer<Datum extends BaseDatum> =
     | LayerId
-    | ParallelCoordinatesCanvasCustomLayer<D>
+    | ParallelCoordinatesCanvasCustomLayer<Datum>
 
-export type ParallelCoordinatesCanvasProps<D extends BaseDatum> = DataProps<D> &
+export type ParallelCoordinatesCanvasProps<Datum extends BaseDatum> = DataProps<Datum> &
     Dimensions &
-    Partial<CommonProps<D>> & {
-        layers: ParallelCoordinatesCanvasLayer<D>[]
+    Partial<CommonProps<Datum>> & {
+        layers: ParallelCoordinatesCanvasLayer<Datum>[]
         pixelRatio?: number
     }

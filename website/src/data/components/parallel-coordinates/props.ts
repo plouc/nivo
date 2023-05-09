@@ -22,10 +22,9 @@ const props: ChartProperty[] = [
         group: 'Base',
         flavors: allFlavors,
         help: 'Chart data.',
-        type: 'object[] | Array[]',
+        type: '<Datum>[]',
         description: `
-            You can pass either an array of objects or and array of arrays,
-            each item will be a line on the chart.
+            Each item will be a line on the chart.
             
             The way you extract the values from each item depends on \`variables\`,
             that's why the schema is pretty loose.
@@ -48,7 +47,7 @@ const props: ChartProperty[] = [
             \`point\` variables are suitable for
             discrete values such as gender.
         `,
-        group: 'Variables',
+        group: 'Base',
         required: true,
         control: {
             type: 'array',
@@ -108,6 +107,44 @@ const props: ChartProperty[] = [
                 },
             ],
         },
+    },
+    {
+        key: 'groupBy',
+        group: 'Base',
+        flavors: allFlavors,
+        help: 'Optionally group your data on a given property.',
+        type: 'string',
+        required: false,
+        description: `
+            When grouping is enabled, the lines color will be defined
+            according to the group it belongs to, while in non-grouped
+            mode, each line has its own color by default.
+            
+            This is also going to affect the legend, in grouped mode,
+            the groups are used while in non-grouped mode, each datum
+            has a legend.
+        `,
+    },
+    {
+        key: 'groups',
+        group: 'Base',
+        flavors: allFlavors,
+        help: 'Explicitly specify available groups (only works with `groupBy`).',
+        type: 'BaseGroup[]',
+        required: false,
+        description: `
+            By default, groups are inferred by scanning the data and looking
+            for unique values for the property passed to \`groupBy\`.
+            
+            This approach has some limitations, first, it's hard to guarantee
+            the final order of the groups, which is going to affect the order
+            of the legends.
+            
+            Also, in certain cases, you might want to show groups in the legend
+            while it's not in a certain portion of a dataset.
+            
+            Using this property, you have full control over the order and the values.
+        `,
     },
     {
         key: 'layout',

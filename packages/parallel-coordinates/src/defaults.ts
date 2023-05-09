@@ -2,12 +2,10 @@ import { CommonProps, BaseDatum, LayerId } from './types'
 
 export const commonDefaultProps: Omit<
     CommonProps<BaseDatum>,
+    | 'groupBy'
+    | 'groups'
     | 'margin'
     | 'theme'
-    // | 'onMouseEnter'
-    // | 'onMouseMove'
-    // | 'onMouseLeave'
-    // | 'onClick'
     | 'forwardLegendData'
     | 'renderWrapper'
     | 'ariaLabel'
