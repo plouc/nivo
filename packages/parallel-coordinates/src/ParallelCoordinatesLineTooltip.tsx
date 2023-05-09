@@ -1,9 +1,9 @@
 import { TableTooltip } from '@nivo/tooltip'
-import { BaseDatum, VariableSpec, ComputedDatum } from './types'
+import { BaseDatum, Variable, ComputedDatum } from './types'
 
 interface ParallelCoordinatesLineTooltipProps<D extends BaseDatum> {
     data: ComputedDatum<D>
-    variables: readonly VariableSpec<D>[]
+    variables: readonly Variable<D>[]
 }
 
 export const ParallelCoordinatesLineTooltip = <D extends BaseDatum>({

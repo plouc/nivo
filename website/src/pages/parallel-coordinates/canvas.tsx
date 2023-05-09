@@ -1,7 +1,11 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import merge from 'lodash/merge'
-import { ResponsiveParallelCoordinatesCanvas, commonDefaultProps } from '@nivo/parallel-coordinates'
+import {
+    ResponsiveParallelCoordinatesCanvas,
+    commonDefaultProps,
+    ParallelCoordinatesCanvasProps,
+} from '@nivo/parallel-coordinates'
 import { generateParallelCoordinatesData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/parallel-coordinates/meta.yml'
@@ -9,10 +13,24 @@ import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
 import variables from '../../data/components/parallel-coordinates/variables'
 
-const lineCount = 320
-
-const initialProperties = {
+const initialProperties: Pick<
+    ParallelCoordinatesCanvasProps,
+    | 'variables'
+    | 'groupBy'
+    | 'margin'
+    | 'layout'
+    | 'curve'
+    | 'colors'
+    | 'lineWidth'
+    | 'lineOpacity'
+    | 'axesTicksPosition'
+    | 'legends'
+    | 'animate'
+    | 'motionConfig'
+    | 'pixelRatio'
+> = {
     variables,
+    groupBy: 'group',
     margin: {
         top: 50,
         right: 120,
@@ -20,25 +38,24 @@ const initialProperties = {
         left: 60,
     },
     layout: commonDefaultProps.layout,
-    curve: commonDefaultProps.curve,
-    colors: commonDefaultProps.colors,
-    lineWidth: 1,
-    lineOpacity: 0.2,
-    axesPlan: commonDefaultProps.axesPlan,
+    curve: 'monotoneX',
+    colors: { scheme: 'pink_yellowGreen' },
+    lineWidth: 2,
+    lineOpacity: 0.5,
     axesTicksPosition: commonDefaultProps.axesTicksPosition,
     legends: [
         {
-            anchor: 'bottom-right',
+            anchor: 'right',
             direction: 'column',
             justify: false,
             translateX: 140,
             translateY: 0,
-            itemsSpacing: 2,
+            itemsSpacing: 1,
             itemWidth: 100,
-            itemHeight: 20,
+            itemHeight: 16,
             itemDirection: 'left-to-right',
-            itemOpacity: 0.85,
-            symbolSize: 20,
+            itemOpacity: 1,
+            symbolSize: 16,
         },
     ],
     animate: commonDefaultProps.animate,
@@ -47,7 +64,27 @@ const initialProperties = {
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
 
-const generateData = () => generateParallelCoordinatesData({ size: lineCount })
+const generateData = () =>
+    generateParallelCoordinatesData({
+        ids: [
+            { id: '0' },
+            { id: '1' },
+            { id: '2' },
+            { id: '3' },
+            { id: '4' },
+            { id: '5' },
+            { id: '6' },
+            { id: '7' },
+            { id: '8' },
+            { id: '9' },
+            { id: '10' },
+            { id: '11' },
+            { id: '12' },
+            { id: '13' },
+            { id: '14' },
+        ],
+        groups: ['A', 'B', 'C', 'D', 'E'],
+    })
 
 const ParallelCoordinatesCanvas = () => {
     const {
@@ -78,7 +115,6 @@ const ParallelCoordinatesCanvas = () => {
             defaultProperties={commonDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
-            getDataSize={() => lineCount}
             image={image}
         >
             {(properties, data, theme) => {

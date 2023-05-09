@@ -4,9 +4,9 @@ import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { ParallelCoordinatesLineTooltip } from '../ParallelCoordinatesLineTooltip'
-import { BaseDatum, ComputedDatum, VariableSpec } from '../types'
+import { BaseDatum, ComputedDatum, Variable } from '../types'
 
-export const ParallelCoordinatesLine = <D extends BaseDatum>({
+export const ParallelCoordinatesLine = <Datum extends BaseDatum>({
     data,
     variables,
     lineGenerator,
@@ -14,8 +14,8 @@ export const ParallelCoordinatesLine = <D extends BaseDatum>({
     opacity,
     testIdPrefix,
 }: {
-    data: ComputedDatum<D>
-    variables: readonly VariableSpec<D>[]
+    data: ComputedDatum<Datum>
+    variables: readonly Variable<Datum>[]
     lineGenerator: Line<[number, number]>
     lineWidth: number
     opacity: number
@@ -25,7 +25,7 @@ export const ParallelCoordinatesLine = <D extends BaseDatum>({
     const handleMouseHover = useCallback(
         (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(
-                <ParallelCoordinatesLineTooltip<D> data={data} variables={variables} />,
+                <ParallelCoordinatesLineTooltip<Datum> data={data} variables={variables} />,
                 event
             )
         },

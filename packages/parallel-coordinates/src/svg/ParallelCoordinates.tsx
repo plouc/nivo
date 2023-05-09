@@ -4,17 +4,25 @@ import { Axis } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from '../defaults'
 import { useParallelCoordinates } from '../hooks'
-import { ParallelCoordinatesProps, BaseDatum, LayerId } from '../types'
+import { ParallelCoordinatesProps, BaseDatum, LayerId, DatumGroupKeys } from '../types'
 import { ParallelCoordinatesLine } from './ParallelCoordinatesLine'
 
-type InnerParallelCoordinatesProps<D extends BaseDatum> = Omit<
-    ParallelCoordinatesProps<D>,
+type InnerParallelCoordinatesProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> = Omit<
+    ParallelCoordinatesProps<Datum, GroupBy>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerParallelCoordinates = <D extends BaseDatum>({
+const InnerParallelCoordinates = <
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+>({
     data,
     variables,
+    groupBy,
+    groups,
     width,
     height,
     margin: partialMargin,
@@ -32,7 +40,7 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
     ariaLabelledBy,
     ariaDescribedBy,
     testIdPrefix,
-}: InnerParallelCoordinatesProps<D>) => {
+}: InnerParallelCoordinatesProps<Datum, GroupBy>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -46,11 +54,13 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         lineGenerator,
         legendData,
         customLayerContext,
-    } = useParallelCoordinates<D>({
+    } = useParallelCoordinates<Datum, GroupBy>({
         width: innerWidth,
         height: innerHeight,
         data,
         variables,
+        groupBy,
+        groups,
         layout,
         colors,
         curve,
@@ -93,8 +103,8 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
         layerById.lines = (
             <g key="lines">
                 {computedData.map(datum => (
-                    <ParallelCoordinatesLine<D>
-                        key={datum.id}
+                    <ParallelCoordinatesLine<Datum>
+                        key={`${'group' in datum ? datum.group.id : ''}${datum.id}`}
                         data={datum}
                         variables={variables}
                         lineGenerator={lineGenerator}
@@ -144,14 +154,17 @@ const InnerParallelCoordinates = <D extends BaseDatum>({
     )
 }
 
-export const ParallelCoordinates = <D extends BaseDatum>({
+export const ParallelCoordinates = <
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: ParallelCoordinatesProps<D>) => (
+}: ParallelCoordinatesProps<Datum, GroupBy>) => (
     <Container
         {...{
             animate,
@@ -161,6 +174,6 @@ export const ParallelCoordinates = <D extends BaseDatum>({
             theme,
         }}
     >
-        <InnerParallelCoordinates<D> isInteractive={isInteractive} {...otherProps} />
+        <InnerParallelCoordinates<Datum, GroupBy> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

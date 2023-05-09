@@ -12,11 +12,13 @@ interface VariableSpec {
 
 type Options = Partial<{
     ids: IdSpec[]
+    groups: string[]
     variables: VariableSpec[]
 }>
 
 export const generateParallelCoordinatesData = ({
     ids = [{ id: 'A' }, { id: 'B' }, { id: 'C' }, { id: 'D' }, { id: 'E' }],
+    groups = [],
     variables = [
         { id: 'temp', range: [-10, 40] },
         { id: 'cost', range: [200, 40000] },
@@ -31,10 +33,26 @@ export const generateParallelCoordinatesData = ({
             return { ...acc, [variable.id]: value }
         }, {})
 
-    return ids.map(id => {
-        return {
-            ...datumGenerator(),
-            ...id,
+    if (groups.length === 0) {
+        return ids.map(id => {
+            return {
+                ...datumGenerator(),
+                ...id,
+            }
+        })
+    }
+
+    const data: Record<string, string | number>[] = []
+    for (const group of groups) {
+        for (const id of ids) {
+            data.push({
+                ...datumGenerator(),
+                group,
+                ...id,
+                id: `${group}.${id.id}`,
+            })
         }
-    })
+    }
+
+    return data
 }
