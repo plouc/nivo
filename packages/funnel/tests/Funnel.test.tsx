@@ -122,7 +122,7 @@ describe('layout', () => {
 
         const parts = wrapper.find('Part')
         const neckSideRatio = (1 - 0.33) / 2
-        const neckSideWidth = Math.round(baseProps.width * neckSideRatio)
+        const neckSideWidth = Math.round(baseProps.width * neckSideRatio * 10) / 10
         const slope = (baseProps.height * 0.67) / neckSideWidth
 
         const part0 = parts.at(0)
@@ -144,9 +144,9 @@ describe('layout', () => {
         expect(part1.prop<FunnelPart>('part').height).toBe(200)
 
         const part2 = parts.at(2)
-        expect(part2.prop<FunnelPart>('part').x0).toBe(Math.round(neckSideWidth))
+        expect(part2.prop<FunnelPart>('part').x0).toBe(neckSideWidth)
         expect(part2.prop<FunnelPart>('part').x1).toBe(
-            Math.round(baseProps.width * (1 - neckSideRatio))
+            Math.round(baseProps.width * (1 - neckSideRatio) * 10) / 10
         )
         expect(part2.prop<FunnelPart>('part').width).toBe(baseProps.width - 2 * neckSideWidth)
         expect(part2.prop<FunnelPart>('part').y0).toBe(500)

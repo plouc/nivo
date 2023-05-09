@@ -386,6 +386,7 @@ export const useFunnel = <D extends FunnelDatum>({
                 direction,
                 innerWidth,
                 innerHeight,
+                paddingBefore,
                 neckHeightRatio,
                 neckWidthRatio,
                 fillOpacity,
@@ -733,6 +734,7 @@ function computeShapedParts<D extends FunnelDatum>(
     direction: FunnelDirection,
     innerWidth: number,
     innerHeight: number,
+    paddingBefore: number,
     neckHeightRatio: number,
     neckWidthRatio: number,
     fillOpacity: FunnelCommonProps<D>['fillOpacity'],
@@ -749,19 +751,24 @@ function computeShapedParts<D extends FunnelDatum>(
 ) {
     let currentHeight = 0,
         currentWidth = 0
-    let slope: number, neckHeight: number, beforeNeckDistance: number, afterNeckDistance: number
+    let slope: number,
+        neckHeight: number,
+        beforeNeckDistance: number,
+        afterNeckDistance: number,
+        neckWidth: number
     const totalValue = data.reduce((acc, datum) => acc + datum.value, 0)
-    const neckPaddingRatio = (1 - neckWidthRatio) / 2
     if (direction === 'vertical') {
-        beforeNeckDistance = Math.round(innerWidth * neckPaddingRatio)
-        afterNeckDistance = Math.round(innerWidth * (1 - neckPaddingRatio))
+        neckWidth = innerWidth * neckWidthRatio
+        beforeNeckDistance = paddingBefore + (innerWidth - neckWidth) * 0.5
+        afterNeckDistance = beforeNeckDistance + neckWidth
         neckHeight = innerHeight * (1 - neckHeightRatio)
-        slope = neckHeight / beforeNeckDistance
+        slope = neckHeight / (beforeNeckDistance - paddingBefore)
     } else {
-        beforeNeckDistance = Math.round(innerHeight * neckPaddingRatio)
-        afterNeckDistance = Math.round(innerHeight * (1 - neckPaddingRatio))
+        neckWidth = innerHeight * neckWidthRatio
+        beforeNeckDistance = paddingBefore + (innerHeight - neckWidth) * 0.5
+        afterNeckDistance = beforeNeckDistance + neckWidth
         neckHeight = innerWidth * (1 - neckHeightRatio)
-        slope = neckHeight / beforeNeckDistance
+        slope = neckHeight / (beforeNeckDistance - paddingBefore)
     }
 
     const enhancedParts = data.map(datum => {
@@ -774,18 +781,24 @@ function computeShapedParts<D extends FunnelDatum>(
             y0 = currentHeight
             y1 = y0 + partHeight
             const inBottomThird = y0 > neckHeight
-            x0 = inBottomThird ? beforeNeckDistance : Math.round(currentHeight / slope)
-            x1 = inBottomThird ? afterNeckDistance : innerWidth - x0
-            partWidth = x1 - x0
+
+            partWidth = inBottomThird
+                ? neckWidth
+                : innerWidth - 2 * (Math.round((currentHeight / slope) * 10) / 10)
+            x0 = paddingBefore + (innerWidth - partWidth) * 0.5
+            x1 = x0 + partWidth
             currentHeight = y1
         } else {
             partWidth = (datum.value / totalValue) * innerWidth
             x0 = currentWidth
             x1 = x0 + partWidth
             const inLastThird = x0 > neckHeight
-            y0 = inLastThird ? beforeNeckDistance : Math.round(currentWidth / slope)
-            y1 = inLastThird ? afterNeckDistance : innerHeight - y0
-            partHeight = y1 - y0
+
+            partHeight = inLastThird
+                ? neckWidth
+                : innerHeight - 2 * (Math.round((currentWidth / slope) * 10) / 10)
+            y0 = paddingBefore + (innerHeight - partHeight) * 0.5
+            y1 = y0 + partHeight
             currentWidth = x1
         }
 
