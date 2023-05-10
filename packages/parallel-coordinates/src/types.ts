@@ -73,12 +73,20 @@ export interface ComputedDatum<Datum extends BaseDatum> {
 }
 
 export interface ComputedGroupDatum<Datum extends BaseDatum> extends ComputedDatum<Datum> {
-    id: string
     group: Group
-    data: Datum
-    color: string
-    points: [number, number][]
 }
+
+export interface TooltipProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> {
+    datum: IfGrouped<Datum, GroupBy, ComputedGroupDatum<Datum>, ComputedDatum<Datum>>
+    variables: readonly Variable<Datum>[]
+}
+export type TooltipComponent<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> = FunctionComponent<TooltipProps<Datum, GroupBy>>
 
 export interface DatumLegend<Datum extends BaseDatum> {
     id: string
@@ -117,7 +125,7 @@ export interface CommonProps<
     axesTicksPosition: 'before' | 'after'
 
     isInteractive: boolean
-    // tooltip: TooltipComponent<D>
+    tooltip: TooltipComponent<Datum, GroupBy>
 
     renderWrapper: boolean
 

@@ -1,20 +1,18 @@
 import { TableTooltip } from '@nivo/tooltip'
-import { BaseDatum, Variable, ComputedDatum } from './types'
+import { BaseDatum, TooltipProps, DatumGroupKeys } from './types'
 
-interface ParallelCoordinatesLineTooltipProps<D extends BaseDatum> {
-    data: ComputedDatum<D>
-    variables: readonly Variable<D>[]
-}
-
-export const ParallelCoordinatesLineTooltip = <D extends BaseDatum>({
-    data,
+export const ParallelCoordinatesLineTooltip = <
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+>({
+    datum,
     variables,
-}: ParallelCoordinatesLineTooltipProps<D>) => {
+}: TooltipProps<Datum, GroupBy>) => {
     return (
         <TableTooltip
             rows={variables.map(variable => [
                 variable.label || variable.id,
-                <strong>{data.data[variable.value] as number}</strong>, // eslint-disable-line react/jsx-key
+                <strong>{datum.data[variable.value] as number}</strong>, // eslint-disable-line react/jsx-key
             ])}
         />
     )

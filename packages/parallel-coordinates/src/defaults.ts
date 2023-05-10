@@ -1,4 +1,5 @@
 import { CommonProps, BaseDatum, LayerId } from './types'
+import { ParallelCoordinatesLineTooltip } from './ParallelCoordinatesLineTooltip'
 
 export const commonDefaultProps: Omit<
     CommonProps<BaseDatum>,
@@ -23,12 +24,13 @@ export const commonDefaultProps: Omit<
 
     axesTicksPosition: 'after',
 
+    isInteractive: true,
+    tooltip: ParallelCoordinatesLineTooltip,
+
     legends: [],
 
     animate: true,
     motionConfig: 'gentle',
-
-    isInteractive: true,
 }
 
 export const svgDefaultProps = {
