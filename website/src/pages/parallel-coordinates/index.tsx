@@ -7,10 +7,53 @@ import { ComponentTemplate } from '../../components/components/ComponentTemplate
 import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
-import variables from '../../data/components/parallel-coordinates/variables'
+
+const variables = [
+    {
+        id: 'temp',
+        label: 'temperature',
+        value: 'temp',
+        range: [-10, 40],
+        floating: true,
+        min: 'auto',
+        max: 'auto',
+        ticksPosition: 'before',
+        legendPosition: 'start',
+        legendOffset: 20,
+    },
+    {
+        id: 'cost',
+        value: 'cost',
+        range: [200, 40000],
+        min: 0,
+        max: 'auto',
+        ticksPosition: 'before',
+        legendPosition: 'start',
+        legendOffset: 20,
+    },
+    {
+        id: 'weight',
+        value: 'weight',
+        range: [10, 300],
+        min: 'auto',
+        max: 'auto',
+        legendPosition: 'start',
+        legendOffset: -20,
+    },
+    {
+        id: 'volume',
+        value: 'volume',
+        floating: true,
+        range: [0.2, 7.6],
+        min: 0,
+        max: 'auto',
+        legendPosition: 'start',
+        legendOffset: -20,
+    },
+]
 
 const initialProperties = {
-    variables,
+    variables: variables.map(({ range, ...variable }) => variable),
     margin: {
         top: 50,
         right: 120,
@@ -67,6 +110,7 @@ const generateData = () =>
             { id: 'I' },
             { id: 'J' },
         ],
+        variables,
     })
 
 const ParallelCoordinates = () => {

@@ -32,6 +32,7 @@
         "@nivo/line": "workspace:*",
         "@nivo/marimekko": "workspace:*",
         "@nivo/network": "workspace:*",
+        "@nivo/parallel-coordinates": "workspace:*",
         "@nivo/pie": "workspace:*",
         "@nivo/radar": "workspace:*",
         "@nivo/radial-bar": "workspace:*",
