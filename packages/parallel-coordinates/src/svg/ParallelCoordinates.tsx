@@ -4,7 +4,16 @@ import { Axis } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from '../defaults'
 import { useParallelCoordinates } from '../hooks'
-import { ParallelCoordinatesProps, BaseDatum, LayerId, DatumGroupKeys } from '../types'
+import {
+    ParallelCoordinatesProps,
+    BaseDatum,
+    LayerId,
+    DatumGroupKeys,
+    TooltipComponent,
+    IfGrouped,
+    ComputedGroupDatum,
+    ComputedDatum,
+} from '../types'
 import { ParallelCoordinatesLine } from './ParallelCoordinatesLine'
 
 type InnerParallelCoordinatesProps<
@@ -33,6 +42,7 @@ const InnerParallelCoordinates = <
     lineOpacity = svgDefaultProps.lineOpacity,
     colors = svgDefaultProps.colors,
     layers = svgDefaultProps.layers,
+    tooltip = svgDefaultProps.tooltip as unknown as TooltipComponent<Datum, GroupBy>,
     legends = svgDefaultProps.legends,
     forwardLegendData,
     role = svgDefaultProps.role,
@@ -103,13 +113,21 @@ const InnerParallelCoordinates = <
         layerById.lines = (
             <g key="lines">
                 {computedData.map(datum => (
-                    <ParallelCoordinatesLine<Datum>
+                    <ParallelCoordinatesLine<Datum, GroupBy>
                         key={`${'group' in datum ? datum.group.id : ''}${datum.id}`}
-                        data={datum}
+                        datum={
+                            datum as IfGrouped<
+                                Datum,
+                                GroupBy,
+                                ComputedGroupDatum<Datum>,
+                                ComputedDatum<Datum>
+                            >
+                        }
                         variables={variables}
                         lineGenerator={lineGenerator}
                         lineWidth={lineWidth}
                         opacity={lineOpacity}
+                        tooltip={tooltip}
                         testIdPrefix={testIdPrefix}
                     />
                 ))}

@@ -35,7 +35,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'variables',
-        type: 'VariableSpec<Datum>[]',
+        type: 'Variable<Datum>[]',
         flavors: allFlavors,
         help: 'Variables configuration.',
         description: `
