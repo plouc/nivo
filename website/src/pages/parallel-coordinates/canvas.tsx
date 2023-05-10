@@ -6,12 +6,19 @@ import {
     commonDefaultProps,
     ParallelCoordinatesCanvasProps,
 } from '@nivo/parallel-coordinates'
-import { generateParallelCoordinatesData } from '@nivo/generators'
+import { generateGroupedParallelCoordinatesData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
-import variables from '../../data/components/parallel-coordinates/variables'
+
+const variables = [
+    { id: 'width', value: 'width', min: 0, max: 100, range: [0, 100] },
+    { id: 'height', value: 'height', min: 0, max: 100, range: [0, 100] },
+    { id: 'depth', value: 'depth', min: 0, max: 100, range: [0, 100] },
+    { id: 'weight', value: 'weight', min: 0, max: 1000, range: [0, 1000] },
+    { id: 'price', value: 'price', min: 0, max: 10, range: [0, 10], floating: true },
+]
 
 const initialProperties: Pick<
     ParallelCoordinatesCanvasProps,
@@ -29,17 +36,17 @@ const initialProperties: Pick<
     | 'motionConfig'
     | 'pixelRatio'
 > = {
-    variables,
+    variables: variables.map(({ range, ...variable }) => variable),
     groupBy: 'group',
     margin: {
         top: 50,
-        right: 120,
+        right: 140,
         bottom: 50,
         left: 60,
     },
     layout: commonDefaultProps.layout,
     curve: 'monotoneX',
-    colors: { scheme: 'pink_yellowGreen' },
+    colors: { scheme: 'accent' },
     lineWidth: 2,
     lineOpacity: 0.5,
     axesTicksPosition: commonDefaultProps.axesTicksPosition,
@@ -65,25 +72,29 @@ const initialProperties: Pick<
 }
 
 const generateData = () =>
-    generateParallelCoordinatesData({
+    generateGroupedParallelCoordinatesData({
         ids: [
-            { id: '0' },
-            { id: '1' },
-            { id: '2' },
-            { id: '3' },
-            { id: '4' },
-            { id: '5' },
-            { id: '6' },
-            { id: '7' },
-            { id: '8' },
-            { id: '9' },
-            { id: '10' },
-            { id: '11' },
-            { id: '12' },
-            { id: '13' },
-            { id: '14' },
+            { id: 'A' },
+            { id: 'B' },
+            { id: 'C' },
+            { id: 'D' },
+            { id: 'E' },
+            { id: 'F' },
+            { id: 'G' },
+            { id: 'H' },
+            { id: 'I' },
+            { id: 'J' },
         ],
-        groups: ['A', 'B', 'C', 'D', 'E'],
+        groups: [
+            { id: 'Group 00' },
+            { id: 'Group 01' },
+            { id: 'Group 02' },
+            { id: 'Group 03' },
+            { id: 'Group 04' },
+            { id: 'Group 05' },
+            { id: 'Group 06' },
+        ],
+        variables,
     })
 
 const ParallelCoordinatesCanvas = () => {

@@ -96,12 +96,7 @@ const computeVariablesScales = <Datum extends BaseDatum>({
     const range = layout === 'horizontal' ? [height, 0] : [0, width]
 
     return variables.map(variable => {
-        let allValues: number[] | undefined
-
-        // Only extract values if necessary.
-        if (variable.min === 'auto' || variable.max === 'auto') {
-            allValues = data.map(datum => datum[variable.value] as number)
-        }
+        const allValues: number[] = data.map(datum => datum[variable.value] as number)
 
         const min =
             variable.min !== undefined && variable.min !== 'auto'
@@ -222,7 +217,7 @@ export const useParallelCoordinates = <
 
     const variablesWithScale = useMemo(
         () =>
-            computeVariablesScales({
+            computeVariablesScales<Datum>({
                 width,
                 height,
                 data,

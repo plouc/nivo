@@ -1631,6 +1631,9 @@ importers:
       '@nivo/network':
         specifier: workspace:*
         version: link:../packages/network
+      '@nivo/parallel-coordinates':
+        specifier: workspace:*
+        version: link:../packages/parallel-coordinates
       '@nivo/pie':
         specifier: workspace:*
         version: link:../packages/pie
