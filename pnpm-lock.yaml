@@ -1466,6 +1466,9 @@ importers:
       '@nivo/scales':
         specifier: workspace:*
         version: link:../scales
+      '@nivo/theming':
+        specifier: workspace:*
+        version: link:../theming
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip

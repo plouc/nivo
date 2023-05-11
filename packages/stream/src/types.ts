@@ -3,7 +3,6 @@ import {
     Box,
     Dimensions,
     MotionProps,
-    Theme,
     PropertyAccessor,
     StackOrder,
     StackOffset,
@@ -11,6 +10,7 @@ import {
     SvgDefsAndFill,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -112,7 +112,7 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     enableGridY: boolean
     gridYValues: GridValues<number>
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<StreamLayerData, 'label' | 'color' | 'data'>>
     fillOpacity: number
     borderWidth: number
