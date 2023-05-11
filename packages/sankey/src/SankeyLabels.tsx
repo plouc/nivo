@@ -1,5 +1,6 @@
 import { useSprings, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyNodeDatum } from './types'
 
 interface SankeyLabelsProps<N extends DefaultNode, L extends DefaultLink> {

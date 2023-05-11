@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
 import { cloneDeep } from 'lodash'
 import { sankey as d3Sankey } from 'd3-sankey'
-import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { sankeyAlignmentFromProp } from './props'
 import {
