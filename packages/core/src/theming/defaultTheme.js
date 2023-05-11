@@ -6,11 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * @type ThemeWithoutInheritance
+ */
 export const defaultTheme = {
     background: 'transparent',
-    fontFamily: 'sans-serif',
-    fontSize: 11,
-    textColor: '#333333',
+    text: {
+        fontFamily: 'sans-serif',
+        fontSize: 11,
+        fill: '#333333',
+        outlineWidth: 0,
+        outlineColor: 'transparent',
+    },
     axis: {
         domain: {
             line: {

@@ -10,7 +10,7 @@ import merge from 'lodash/merge'
 import get from 'lodash/get'
 import set from 'lodash/set'
 
-const fontProps = [
+const textProps = [
     'axis.ticks.text',
     'axis.legend.text',
     'legends.title.text',
@@ -23,18 +23,29 @@ const fontProps = [
     'annotations.text',
 ]
 
+/**
+ * @param {ThemeWithoutInheritance} defaultTheme
+ * @param {Theme} customTheme
+ * @returns {CompleteTheme}
+ */
 export const extendDefaultTheme = (defaultTheme, customTheme) => {
     const theme = merge({}, defaultTheme, customTheme)
 
-    fontProps.forEach(prop => {
+    textProps.forEach(prop => {
         if (get(theme, `${prop}.fontFamily`) === undefined) {
-            set(theme, `${prop}.fontFamily`, theme.fontFamily)
+            set(theme, `${prop}.fontFamily`, theme.text.fontFamily)
         }
         if (get(theme, `${prop}.fontSize`) === undefined) {
-            set(theme, `${prop}.fontSize`, theme.fontSize)
+            set(theme, `${prop}.fontSize`, theme.text.fontSize)
         }
         if (get(theme, `${prop}.fill`) === undefined) {
-            set(theme, `${prop}.fill`, theme.textColor)
+            set(theme, `${prop}.fill`, theme.text.fill)
+        }
+        if (get(theme, `${prop}.outlineWidth`) === undefined) {
+            set(theme, `${prop}.outlineWidth`, theme.text.outlineWidth)
+        }
+        if (get(theme, `${prop}.outlineColor`) === undefined) {
+            set(theme, `${prop}.outlineColor`, theme.text.outlineColor)
         }
     })
 

@@ -35,11 +35,11 @@ export const commonDefaultProps: Omit<
 
 export const svgDefaultProps = {
     ...commonDefaultProps,
-    layers: ['axes', 'lines', 'legends'] as LayerId[],
+    layers: ['lines', 'axes', 'legends'] as LayerId[],
 }
 
 export const canvasDefaultProps = {
     ...commonDefaultProps,
-    layers: ['axes', 'lines', 'legends'] as LayerId[],
+    layers: ['lines', 'axes', 'legends'] as LayerId[],
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

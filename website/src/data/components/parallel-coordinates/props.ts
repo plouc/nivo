@@ -225,9 +225,19 @@ const props: ChartProperty[] = [
     },
     {
         key: 'layers',
-        type: `ParallelCoordinatesLayer<D>[] | ParallelCoordinatesCanvasLayer<D>[]`,
+        type: `ParallelCoordinatesLayer<Datum>[] | ParallelCoordinatesCanvasLayer<Datum>[]`,
         group: 'Customization',
         help: 'Define layers, please use the appropriate variant for custom layers.',
+        description: `
+            This property can be useful for example if you want to put the axes
+            behind the lines, in such case, you should pass:
+            
+            \`\`\`
+            layers={['axes', 'lines', 'legends']}
+            \`\`\`
+            
+            You can also use it to add custom layers.
+        `,
         defaultValue: svgDefaultProps.layers,
         flavors: allFlavors,
     },

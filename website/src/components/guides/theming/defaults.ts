@@ -8,6 +8,13 @@ import {
 
 const extendedTheme: CompleteTheme = extendDefaultTheme(baseDefaultTheme)
 
+const textDefaults: CompleteTheme['text'] = {
+    fontSize: extendedTheme.text.fontSize,
+    fill: extendedTheme.text.fill,
+    outlineWidth: extendedTheme.text.outlineWidth,
+    outlineColor: extendedTheme.text.outlineColor,
+}
+
 const axisDefaults: CompleteTheme['axis'] = {
     domain: {
         line: {
@@ -19,6 +26,8 @@ const axisDefaults: CompleteTheme['axis'] = {
         text: {
             fontSize: extendedTheme.axis.legend.text.fontSize,
             fill: extendedTheme.axis.legend.text.fill,
+            outlineWidth: extendedTheme.axis.legend.text.outlineWidth,
+            outlineColor: extendedTheme.axis.legend.text.outlineColor,
         },
     },
     ticks: {
@@ -29,6 +38,8 @@ const axisDefaults: CompleteTheme['axis'] = {
         text: {
             fontSize: extendedTheme.axis.ticks.text.fontSize,
             fill: extendedTheme.axis.ticks.text.fill,
+            outlineWidth: extendedTheme.axis.ticks.text.outlineWidth,
+            outlineColor: extendedTheme.axis.ticks.text.outlineColor,
         },
     },
 }
@@ -45,17 +56,23 @@ const legendsDefaults: CompleteTheme['legends'] = {
         text: {
             fontSize: extendedTheme.legends.title.text.fontSize,
             fill: extendedTheme.legends.title.text.fill,
+            outlineWidth: extendedTheme.legends.title.text.outlineWidth,
+            outlineColor: extendedTheme.legends.title.text.outlineColor,
         },
     },
     text: {
         fontSize: extendedTheme.legends.text.fontSize,
         fill: extendedTheme.legends.text.fill,
+        outlineWidth: extendedTheme.legends.text.outlineWidth,
+        outlineColor: extendedTheme.legends.text.outlineColor,
     },
     ticks: {
         line: {},
         text: {
             fontSize: extendedTheme.legends.ticks.text.fontSize,
             fill: extendedTheme.legends.ticks.text.fill,
+            outlineWidth: extendedTheme.legends.ticks.text.outlineWidth,
+            outlineColor: extendedTheme.legends.ticks.text.outlineColor,
         },
     },
 }
@@ -104,9 +121,8 @@ const tooltipDefaults: CompleteTheme['tooltip'] = {
 }
 
 export const defaultTheme: CompleteTheme = {
-    background: '#ffffff', // defaultTheme.background,
-    textColor: extendedTheme.textColor,
-    fontSize: extendedTheme.fontSize,
+    background: '#ffffff',
+    text: textDefaults,
     axis: axisDefaults,
     grid: gridDefaults,
     legends: legendsDefaults,
