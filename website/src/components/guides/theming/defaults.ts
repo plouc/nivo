@@ -1,21 +1,15 @@
-import {
-    // @ts-ignore
-    defaultTheme as baseDefaultTheme,
-    // @ts-ignore
-    extendDefaultTheme,
-    CompleteTheme,
-} from '@nivo/core'
+import { Theme, defaultTheme as baseDefaultTheme, extendDefaultTheme } from '@nivo/theming'
 
-const extendedTheme: CompleteTheme = extendDefaultTheme(baseDefaultTheme)
+const extendedTheme: Theme = extendDefaultTheme(baseDefaultTheme)
 
-const textDefaults: CompleteTheme['text'] = {
+const textDefaults: Theme['text'] = {
     fontSize: extendedTheme.text.fontSize,
     fill: extendedTheme.text.fill,
     outlineWidth: extendedTheme.text.outlineWidth,
     outlineColor: extendedTheme.text.outlineColor,
 }
 
-const axisDefaults: CompleteTheme['axis'] = {
+const axisDefaults: Theme['axis'] = {
     domain: {
         line: {
             stroke: '#777777', // defaultTheme.axis.domain.line.stroke,
@@ -44,14 +38,14 @@ const axisDefaults: CompleteTheme['axis'] = {
     },
 }
 
-const gridDefaults: CompleteTheme['grid'] = {
+const gridDefaults: Theme['grid'] = {
     line: {
         stroke: extendedTheme.grid.line.stroke,
         strokeWidth: extendedTheme.grid.line.strokeWidth,
     },
 }
 
-const legendsDefaults: CompleteTheme['legends'] = {
+const legendsDefaults: Theme['legends'] = {
     title: {
         text: {
             fontSize: extendedTheme.legends.title.text.fontSize,
@@ -77,7 +71,7 @@ const legendsDefaults: CompleteTheme['legends'] = {
     },
 }
 
-const annotationsDefaults: CompleteTheme['annotations'] = {
+const annotationsDefaults: Theme['annotations'] = {
     text: {
         fontSize: extendedTheme.annotations.text.fontSize,
         fill: extendedTheme.annotations.text.fill,
@@ -107,7 +101,7 @@ const annotationsDefaults: CompleteTheme['annotations'] = {
     },
 }
 
-const tooltipDefaults: CompleteTheme['tooltip'] = {
+const tooltipDefaults: Theme['tooltip'] = {
     container: {
         background: '#ffffff',
         color: extendedTheme.textColor,
@@ -120,7 +114,7 @@ const tooltipDefaults: CompleteTheme['tooltip'] = {
     tableCellValue: {},
 }
 
-export const defaultTheme: CompleteTheme = {
+export const defaultTheme: Theme = {
     background: '#ffffff',
     text: textDefaults,
     axis: axisDefaults,

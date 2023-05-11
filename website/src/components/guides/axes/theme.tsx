@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { Theme } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { useTheme } from 'styled-components'
 
-export const useAxisTheme = (): Theme => {
+export const useAxisTheme = (): PartialTheme => {
     const theme = useTheme()
-    const nivoTheme: Theme = useMemo(() => {
+    const nivoTheme: PartialTheme = useMemo(() => {
         return {
             ...theme.nivo,
             axis: {

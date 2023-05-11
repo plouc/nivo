@@ -1,9 +1,9 @@
 import React from 'react'
 import {
-    ThemeProvider,
     // @ts-ignore
     MotionConfigProvider,
 } from '@nivo/core'
+import { ThemeProvider } from '@nivo/theming'
 import { Axes } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'

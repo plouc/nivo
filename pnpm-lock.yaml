@@ -1928,6 +1928,9 @@ importers:
       '@nivo/swarmplot':
         specifier: workspace:*
         version: link:../packages/swarmplot
+      '@nivo/theming':
+        specifier: workspace:*
+        version: link:../packages/theming
       '@nivo/treemap':
         specifier: workspace:*
         version: link:../packages/treemap

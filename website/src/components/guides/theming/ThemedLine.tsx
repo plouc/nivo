@@ -1,8 +1,8 @@
 import React from 'react'
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ResponsiveLine } from '@nivo/line'
 
-export const ThemedLine = ({ theme }: { theme: CompleteTheme }) => {
+export const ThemedLine = ({ theme }: { theme: Theme }) => {
     return (
         <ResponsiveLine
             margin={{
