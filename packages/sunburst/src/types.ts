@@ -1,6 +1,7 @@
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { Theme, Box, ValueFormat, SvgDefsAndFill, MotionProps, PropertyAccessor } from '@nivo/core'
+import { Box, ValueFormat, SvgDefsAndFill, MotionProps, PropertyAccessor } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 
 export type DatumId = string | number
 
@@ -56,7 +57,7 @@ export type SunburstCommonProps<RawDatum> = {
     height: number
     margin?: Box
     cornerRadius: number
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
     inheritColorFromParent: boolean
