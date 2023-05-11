@@ -8,7 +8,7 @@ const fontSizeProp: ChartProperty = {
     key: 'fontSize',
     group: 'Theme',
     type: 'number',
-    help: 'If unspecified, use the root `fontSize` value',
+    help: 'If unspecified, use the root `text.fontSize` value',
     control: {
         type: 'range',
         min: 6,
@@ -20,7 +20,27 @@ const textColorProp: ChartProperty = {
     key: 'fill',
     group: 'Theme',
     type: 'string',
-    help: 'If unspecified, use the root `textColor` value',
+    help: 'If unspecified, use the root `text.fill` value',
+    control: { type: 'colorPicker' },
+}
+
+const textOutlineWidthProp: ChartProperty = {
+    key: 'outlineWidth',
+    group: 'Theme',
+    type: 'number',
+    help: 'If unspecified, use the root `text.outlineWidth` value',
+    control: {
+        type: 'range',
+        min: 0,
+        max: 6,
+    },
+}
+
+const textOutlineColorProp: ChartProperty = {
+    key: 'outlineColor',
+    group: 'Theme',
+    type: 'string',
+    help: 'If unspecified, use the root `text.outlineColor` value',
     control: { type: 'colorPicker' },
 }
 
@@ -31,7 +51,7 @@ const textProp: ChartProperty = {
     control: {
         type: 'object',
         isOpenedByDefault: OPEN_ALL_BY_DEFAULTS,
-        props: [fontSizeProp, textColorProp],
+        props: [fontSizeProp, textColorProp, textOutlineWidthProp, textOutlineColorProp],
     },
 }
 
@@ -47,18 +67,33 @@ const baseProps: ChartPropertiesGroup = {
             control: { type: 'colorPicker' },
         },
         {
+            key: 'text',
+            name: 'text',
             group: 'Theme',
-            key: 'textColor',
-            name: 'textColor',
-            type: 'string',
-            help: 'Main text color, used as a default value when unspecified in nested properties.',
-        },
-        {
-            group: 'Theme',
-            key: 'fontSize',
-            name: 'fontSize',
-            type: 'number',
-            help: 'Main font size, used as a default value when unspecified in nested properties.',
+            type: 'object',
+            help: 'Default text style.',
+            control: {
+                type: 'object',
+                isOpenedByDefault: true,
+                props: [
+                    {
+                        ...fontSizeProp,
+                        help: 'Main font size, used as a default value when unspecified in nested properties.',
+                    },
+                    {
+                        ...textColorProp,
+                        help: 'Main text color, used as a default value when unspecified in nested properties.',
+                    },
+                    {
+                        ...textOutlineWidthProp,
+                        help: 'Main text outline width, used as a default value when unspecified in nested properties.',
+                    },
+                    {
+                        ...textOutlineColorProp,
+                        help: 'Main text outline color, used as a default value when unspecified in nested properties.',
+                    },
+                ],
+            },
         },
     ],
 }

@@ -53,7 +53,7 @@ const variables = [
 ]
 
 const initialProperties = {
-    variables: variables.map(({ range, ...variable }) => variable),
+    variables: variables.map(({ range, floating, ...variable }) => variable),
     margin: {
         top: 50,
         right: 120,
@@ -148,6 +148,10 @@ const ParallelCoordinates = () => {
                         data={data}
                         {...properties}
                         theme={merge({}, theme, {
+                            text: {
+                                outlineWidth: 2,
+                                outlineColor: theme.background,
+                            },
                             axis: {
                                 ticks: {
                                     line: {

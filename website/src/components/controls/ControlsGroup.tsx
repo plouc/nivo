@@ -114,7 +114,13 @@ const ControlSwitcher = memo(
 
         // every property which has a control should have a value
         if (value === undefined) {
-            throw new Error(`no value defined for property: ${property.name}`)
+            throw new Error(
+                `no value defined for property: ${property.name} (${JSON.stringify(
+                    property,
+                    null,
+                    '  '
+                )}, ${JSON.stringify(context, null, '  ')})`
+            )
         }
 
         switch (controlConfig!.type) {

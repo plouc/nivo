@@ -36,7 +36,7 @@ const initialProperties: Pick<
     | 'motionConfig'
     | 'pixelRatio'
 > = {
-    variables: variables.map(({ range, ...variable }) => variable),
+    variables: variables.map(({ range, floating, ...variable }) => variable),
     groupBy: 'group',
     margin: {
         top: 50,
@@ -134,11 +134,18 @@ const ParallelCoordinatesCanvas = () => {
                         data={data}
                         {...properties}
                         theme={merge({}, theme, {
+                            text: {
+                                outlineWidth: 3,
+                                outlineColor: theme.background,
+                            },
                             axis: {
                                 ticks: {
                                     line: {
                                         strokeWidth: 2,
                                         strokeLinecap: 'square',
+                                    },
+                                    text: {
+                                        fill: theme.labels?.text.fill,
                                     },
                                 },
                                 domain: {
