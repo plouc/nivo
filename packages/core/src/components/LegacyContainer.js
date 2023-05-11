@@ -7,7 +7,7 @@ import {
     Tooltip,
 } from '@nivo/tooltip'
 import noop from '../lib/noop'
-import { ThemeProvider } from '../theming'
+import { ThemeProvider } from '@nivo/theming'
 import { MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
 

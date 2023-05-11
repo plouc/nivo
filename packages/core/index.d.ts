@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
+import { PartialTheme } from '@nivo/theming'
 import { CurveFactory } from 'd3-shape'
 import { ComponentType } from 'react'
 
@@ -44,226 +45,6 @@ export interface ColorProps<T> {
     colors?: Colors
     colorBy?: string | GetColor<T>
 }
-
-/**
- * Required text properties + optional ones.
- */
-export type TextStyle = {
-    fontFamily: Exclude<React.CSSProperties['fontFamily'], undefined>
-    fontSize: Exclude<React.CSSProperties['fontSize'], undefined>
-    fill: string
-    outlineWidth: number
-    outlineColor: string
-} & Partial<React.CSSProperties>
-
-export type CompleteTheme = {
-    background: string
-    text: TextStyle
-    axis: {
-        domain: {
-            line: Partial<React.CSSProperties>
-        }
-        ticks: {
-            line: Partial<React.CSSProperties>
-            text: TextStyle
-        }
-        legend: {
-            text: TextStyle
-        }
-    }
-    grid: {
-        line: Partial<React.CSSProperties>
-    }
-    crosshair: {
-        line: {
-            stroke: string
-            strokeWidth: number
-            strokeOpacity: number
-            strokeDasharray: string
-        }
-    }
-    legends: {
-        hidden: {
-            symbol: Partial<{
-                fill: string
-                opacity: number
-            }>
-            text: TextStyle
-        }
-        title: {
-            text: TextStyle
-        }
-        text: TextStyle
-        ticks: {
-            line: Partial<React.CSSProperties>
-            text: TextStyle
-        }
-    }
-    labels: {
-        text: Partial<React.CSSProperties>
-    }
-    markers: {
-        lineColor: string
-        lineStrokeWidth: number
-        textColor: string
-        fontSize: string | 0
-        text: TextStyle
-    }
-    dots: {
-        text: TextStyle
-    }
-    tooltip: {
-        container: Partial<React.CSSProperties>
-        basic: Partial<React.CSSProperties>
-        chip: Partial<React.CSSProperties>
-        table: Partial<React.CSSProperties>
-        tableCell: Partial<React.CSSProperties>
-        tableCellValue: Partial<React.CSSProperties>
-    }
-    annotations: {
-        text: {
-            fill: string
-            outlineWidth: number
-            outlineColor: string
-            outlineOpacity: number
-        } & Partial<Omit<React.CSSProperties, 'fill'>>
-        link: {
-            stroke: string
-            strokeWidth: number
-            outlineWidth: number
-            outlineColor: string
-            outlineOpacity: number
-        } & Partial<Omit<React.CSSProperties, 'stroke' | 'strokeWidth'>>
-        outline: {
-            stroke: string
-            strokeWidth: number
-            outlineWidth: number
-            outlineColor: string
-            outlineOpacity: number
-        } & Partial<Omit<React.CSSProperties, 'stroke' | 'strokeWidth'>>
-        symbol: {
-            fill: string
-            outlineWidth: number
-            outlineColor: string
-            outlineOpacity: number
-        } & Partial<Omit<React.CSSProperties, 'fill'>>
-    }
-}
-
-/**
- * Required properties without inheritance.
- *
- * The theme supports defining styles at the top level
- * (for text for example), which are then used to populate
- * similar nested properties.
- *
- * For example `text` will be merged with `axis.ticks.text`,
- * we use this approach so that it's simpler to define global styles.
- */
-export type ThemeWithoutInheritance = {
-    background: CompleteTheme['background']
-    text: CompleteTheme['text']
-    axis: {
-        domain: {
-            line: CompleteTheme['axis']['domain']['line']
-        }
-        ticks: {
-            line: CompleteTheme['axis']['ticks']['line']
-            text: Partial<CompleteTheme['axis']['ticks']['text']>
-        }
-        legend: Partial<{
-            text: Partial<CompleteTheme['axis']['legend']['text']>
-        }>
-    }
-    grid: {
-        line: CompleteTheme['grid']['line']
-    }
-    crosshair: {
-        line: CompleteTheme['crosshair']['line']
-    }
-    legends: {
-        hidden: {
-            symbol: CompleteTheme['legends']['hidden']['symbol']
-            text: Partial<CompleteTheme['legends']['hidden']['text']>
-        }
-        title: {
-            text: Partial<CompleteTheme['legends']['title']['text']>
-        }
-        text: Partial<CompleteTheme['legends']['text']>
-        ticks: {
-            line: CompleteTheme['legends']['ticks']['line']
-            text: Partial<CompleteTheme['legends']['ticks']['text']>
-        }
-    }
-    labels: {
-        text: Partial<CompleteTheme['labels']['text']>
-    }
-    markers: Partial<CompleteTheme['markers']>
-    dots: {
-        text: Partial<CompleteTheme['dots']['text']>
-    }
-    tooltip: CompleteTheme['tooltip']
-    annotations: {
-        text: Partial<CompleteTheme['annotations']['text']>
-        link: CompleteTheme['annotations']['link']
-        outline: CompleteTheme['annotations']['outline']
-        symbol: CompleteTheme['annotations']['symbol']
-    }
-}
-
-export type Theme = Partial<{
-    background: CompleteTheme['background']
-    text: Partial<CompleteTheme['text']>
-    axis: Partial<{
-        domain: Partial<{
-            line: Partial<CompleteTheme['axis']['domain']['line']>
-        }>
-        ticks: Partial<{
-            line: Partial<CompleteTheme['axis']['ticks']['line']>
-            text: Partial<CompleteTheme['axis']['ticks']['text']>
-        }>
-        legend: Partial<{
-            text: Partial<CompleteTheme['axis']['legend']['text']>
-        }>
-    }>
-    grid: Partial<{
-        line: Partial<CompleteTheme['grid']['line']>
-    }>
-    crosshair: Partial<{
-        line: Partial<CompleteTheme['crosshair']['line']>
-    }>
-    legends: Partial<{
-        hidden: Partial<{
-            symbol: CompleteTheme['legends']['hidden']['symbol']
-            text: CompleteTheme['legends']['hidden']['text']
-        }>
-        title: Partial<{
-            text: Partial<CompleteTheme['legends']['title']['text']>
-        }>
-        text: Partial<CompleteTheme['legends']['text']>
-        ticks: Partial<{
-            line: Partial<CompleteTheme['legends']['ticks']['line']>
-            text: Partial<CompleteTheme['legends']['ticks']['text']>
-        }>
-    }>
-    labels: Partial<{
-        text: Partial<CompleteTheme['labels']['text']>
-    }>
-    markers: Partial<CompleteTheme['markers']>
-    dots: Partial<{
-        text: Partial<CompleteTheme['dots']['text']>
-    }>
-    tooltip: Partial<CompleteTheme['tooltip']>
-    annotations: Partial<{
-        text: Partial<CompleteTheme['annotations']['text']>
-        link: Partial<CompleteTheme['annotations']['link']>
-        outline: Partial<CompleteTheme['annotations']['outline']>
-        symbol: Partial<CompleteTheme['annotations']['symbol']>
-    }>
-}>
-
-export function useTheme(): CompleteTheme
-export function usePartialTheme(theme?: Theme): CompleteTheme
 
 export type MotionProps = Partial<{
     animate: boolean
@@ -461,7 +242,7 @@ type SvgWrapperType = (
 export const SvgWrapper: SvgWrapperType
 
 interface ContainerProps {
-    theme?: Theme
+    theme?: PartialTheme
     renderWrapper?: boolean
     isInteractive?: boolean
     animate?: boolean
@@ -474,13 +255,6 @@ type ResponsiveWrapperType = (props: {
     children: (dimensions: { width: number; height: number }) => JSX.Element
 }) => JSX.Element
 export const ResponsiveWrapper: ResponsiveWrapperType
-
-interface ThemeProviderProps {
-    theme?: Theme
-}
-
-type ThemeProviderType = (props: React.PropsWithChildren<ThemeProviderProps>) => JSX.Element
-export const ThemeProvider: ThemeProviderType
 
 export function getDistance(x1: number, y1: number, x2: number, y2: number): number
 export function getAngle(x1: number, y1: number, x2: number, y2: number): number

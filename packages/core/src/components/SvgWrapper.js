@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { Defs } from './defs'
-import { useTheme } from '../theming'
+import { useTheme } from '@nivo/theming'
 
 const SvgWrapper = ({
     width,

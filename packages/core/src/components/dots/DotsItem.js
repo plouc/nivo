@@ -1,7 +1,7 @@
 import { createElement, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme } from '../../theming'
+import { useTheme } from '@nivo/theming'
 import { useMotionConfig } from '../../motion'
 import DotsItemSymbol from './DotsItemSymbol'
 
