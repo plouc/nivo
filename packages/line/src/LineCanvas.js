@@ -7,13 +7,8 @@
  * file that was distributed with this source code.
  */
 import { createElement, useRef, useEffect, useState, useCallback, forwardRef } from 'react'
-import {
-    withContainer,
-    useDimensions,
-    useTheme,
-    getRelativeCursor,
-    isCursorInRect,
-} from '@nivo/core'
+import { withContainer, useDimensions, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'

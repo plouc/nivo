@@ -1,12 +1,6 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { AnimatedProps } from '@react-spring/web'
-import {
-    Box,
-    Dimensions,
-    MotionProps,
-    PropertyAccessor,
-    ValueFormat,
-} from '@nivo/core'
+import { Box, Dimensions, MotionProps, PropertyAccessor, ValueFormat } from '@nivo/core'
 import { PartialTheme, Theme } from '@nivo/theming'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
