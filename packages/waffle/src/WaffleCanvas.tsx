@@ -1,12 +1,6 @@
 import { createElement, MouseEvent, useCallback, useEffect, useRef } from 'react'
-import {
-    isCursorInRect,
-    getRelativeCursor,
-    Container,
-    useDimensions,
-    useTheme,
-    Margin,
-} from '@nivo/core'
+import { isCursorInRect, getRelativeCursor, Container, useDimensions, Margin } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { roundedRect } from '@nivo/canvas'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'

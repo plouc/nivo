@@ -3,11 +3,11 @@ import { useTransition } from '@react-spring/web'
 import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import {
     useMotionConfig,
-    useTheme,
     useValueFormatter,
     // @ts-ignore
     bindDefs,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { OrdinalColorScaleConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { generateGrid, GridCell, GridFillDirection, Vertex, getCellsPolygons } from '@nivo/grid'
