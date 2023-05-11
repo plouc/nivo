@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
 import { ForceX, ForceY, ForceCollide } from 'd3-force'
-import { PropertyAccessor, ValueFormat, Theme, MotionProps, Box, Margin } from '@nivo/core'
+import { PropertyAccessor, ValueFormat, MotionProps, Box, Margin } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@nivo/scales'
@@ -108,7 +109,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
     gap: number
     forceStrength: number
     simulationIterations: number
-    theme?: Theme
+    theme?: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color'>>
     colorBy: PropertyAccessor<Omit<ComputedDatum<RawDatum>, 'color'>, string>
     borderWidth: number | ((node: ComputedDatum<RawDatum>) => number)
