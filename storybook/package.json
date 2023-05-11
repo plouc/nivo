@@ -41,6 +41,7 @@
         "@nivo/stream": "workspace:*",
         "@nivo/sunburst": "workspace:*",
         "@nivo/swarmplot": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@nivo/treemap": "workspace:*",
         "@nivo/voronoi": "workspace:*",
