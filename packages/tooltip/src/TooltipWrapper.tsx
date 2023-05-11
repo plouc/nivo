@@ -1,11 +1,11 @@
 import { memo, useRef, PropsWithChildren, CSSProperties } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import {
-    useTheme,
     useMotionConfig,
     // @ts-ignore
     useMeasure,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { TooltipStateContextDataVisible } from './context'
 
 const TOOLTIP_OFFSET = 14
