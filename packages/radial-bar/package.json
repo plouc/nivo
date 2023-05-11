@@ -35,6 +35,7 @@
         "@nivo/legends": "workspace:*",
         "@nivo/polar-axes": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^3.2.3",
