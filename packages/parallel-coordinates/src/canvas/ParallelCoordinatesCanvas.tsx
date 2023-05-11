@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { Container, useDimensions, useTheme } from '@nivo/core'
+import { Container, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAxisToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useParallelCoordinates } from '../hooks'
