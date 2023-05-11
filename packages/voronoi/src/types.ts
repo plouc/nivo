@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Theme, Box } from '@nivo/core'
+import { Box } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { Delaunay, Voronoi } from 'd3-delaunay'
 
 export type VoronoiDatum = {
@@ -34,7 +35,7 @@ export type VoronoiCommonProps = {
     xDomain: VoronoiDomain
     yDomain: VoronoiDomain
     layers: VoronoiLayer[]
-    theme?: Theme
+    theme?: PartialTheme
     enableLinks: boolean
     linkLineWidth: number
     linkLineColor: string

@@ -30,6 +30,7 @@
     ],
     "dependencies": {
         "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@types/d3-delaunay": "^5.3.0",
         "@types/d3-scale": "^3.2.3",
         "d3-delaunay": "^5.3.0",
