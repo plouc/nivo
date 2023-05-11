@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { get } from 'lodash'
 import { stack as d3Stack, Stack, Series } from 'd3-shape'
-import { useValueFormatter, useTheme } from '@nivo/core'
+import { useValueFormatter } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { createLinearScale, ScaleLinear } from '@nivo/scales'
 import {

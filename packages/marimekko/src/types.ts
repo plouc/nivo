@@ -7,7 +7,8 @@ import {
     stackOffsetWiggle,
 } from 'd3-shape'
 import { ScaleLinear } from '@nivo/scales'
-import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -125,7 +126,7 @@ export type CommonProps<RawDatum> = {
 
     // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<DimensionDatum<RawDatum>, 'color' | 'fill'>>
-    theme: Theme
+    theme: PartialTheme
     borderWidth: number
     borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
 
