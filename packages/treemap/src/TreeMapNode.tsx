@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { animated, to } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { NodeProps } from './types'
 import { svgNodeTransform, svgLabelTransform } from './transitions'
 

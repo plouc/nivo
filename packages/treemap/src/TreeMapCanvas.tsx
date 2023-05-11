@@ -5,9 +5,9 @@ import {
     isCursorInRect,
     Container,
     useDimensions,
-    useTheme,
     Margin,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { useTreeMap } from './hooks'
 import { ComputedNode, DefaultTreeMapDatum, TreeMapCanvasProps, TreeMapCommonProps } from './types'
