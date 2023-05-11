@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { ScaleLinear } from 'd3-scale'
-import { useTheme, positionFromAngle, DotsItem, usePropertyAccessor } from '@nivo/core'
+import { positionFromAngle, DotsItem, usePropertyAccessor } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { getInheritedColorGenerator } from '@nivo/colors'
 import { RadarCommonProps, RadarDataProps, PointProps, PointData, RadarColorMapping } from './types'
 

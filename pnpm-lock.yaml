@@ -1184,6 +1184,9 @@ importers:
       '@nivo/legends':
         specifier: workspace:*
         version: link:../legends
+      '@nivo/theming':
+        specifier: workspace:*
+        version: link:../theming
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
