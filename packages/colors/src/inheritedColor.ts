@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { get, isPlainObject } from 'lodash'
 import { rgb, RGBColor } from 'd3-color'
-import { Theme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 
 export type ColorModifierBrightness = ['brighter', number]
 

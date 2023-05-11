@@ -5,8 +5,8 @@ import {
     midAngle,
     // @ts-ignore
     getPolarLabelProps,
-    useTheme,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useMotionConfig } from '@nivo/core'
 import { ArcDatum, ChordCommonProps } from './types'
 import { useInheritedColor } from '@nivo/colors'

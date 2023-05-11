@@ -1,11 +1,11 @@
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLabel } from './useArcLabels'
 
 export const drawCanvasArcLabels = <Datum extends DatumWithArcAndColor>(
     ctx: CanvasRenderingContext2D,
     labels: ArcLabel<Datum>[],
-    theme: CompleteTheme
+    theme: Theme
 ) => {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'

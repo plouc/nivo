@@ -7,9 +7,9 @@ import {
     getRelativeCursor,
     degreesToRadians,
     useDimensions,
-    useTheme,
     useValueFormatter,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { calendarCanvasDefaultProps } from './props'
 import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'

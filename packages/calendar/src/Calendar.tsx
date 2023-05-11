@@ -1,5 +1,6 @@
 import { CalendarSvgProps } from './types'
-import { Container, SvgWrapper, useTheme, useDimensions, useValueFormatter } from '@nivo/core'
+import { Container, SvgWrapper, useDimensions, useValueFormatter } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { BoxLegendSvg } from '@nivo/legends'
 import { CalendarYearLegends } from './CalendarYearLegends'
 import { CalendarMonthPath } from './CalendarMonthPath'

@@ -2,13 +2,12 @@ import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import {
     Box,
-    Theme,
-    CompleteTheme,
     Dimensions,
     MotionProps,
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme, Theme } from '@nivo/theming'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
 import { AnchoredContinuousColorsLegendProps } from '@nivo/legends'
@@ -103,7 +102,7 @@ export interface CellCanvasRendererProps<Datum extends HeatMapDatum> {
     cell: ComputedCell<Datum>
     borderWidth: number
     enableLabels: boolean
-    theme: CompleteTheme
+    theme: Theme
 }
 export type CellCanvasRenderer<Datum extends HeatMapDatum> = (
     ctx: CanvasRenderingContext2D,
@@ -133,7 +132,7 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
     enableGridX: boolean
     enableGridY: boolean
 
-    theme: Theme
+    theme: PartialTheme
     colors:
         | ContinuousColorScaleConfig
         | ((

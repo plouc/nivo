@@ -1,6 +1,6 @@
 import { memo, SVGAttributes } from 'react'
 import { SpringValues, animated } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 
 export const GridLine = memo(
     ({

@@ -24,6 +24,7 @@
     "dependencies": {
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@types/d3-scale": "^3.2.3",
         "@types/prop-types": "^15.7.2",
         "d3-scale": "^3.2.3",

@@ -29,6 +29,7 @@
     "dependencies": {
         "@nivo/core": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-format": "^1.4.1",
         "@types/d3-time-format": "^2.3.1",

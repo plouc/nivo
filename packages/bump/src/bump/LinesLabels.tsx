@@ -1,5 +1,6 @@
 import { useSprings, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig } from '@nivo/colors'
 import { BumpComputedSerie, BumpDatum, BumpLabel, BumpSerieExtraProps } from './types'
 import { useBumpSeriesLabels } from './hooks'

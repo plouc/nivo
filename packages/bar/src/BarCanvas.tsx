@@ -5,14 +5,8 @@ import {
     BarDatum,
     ComputedBarDatum,
 } from './types'
-import {
-    Container,
-    Margin,
-    getRelativeCursor,
-    isCursorInRect,
-    useDimensions,
-    useTheme,
-} from '@nivo/core'
+import { Container, Margin, getRelativeCursor, isCursorInRect, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import {
     ForwardedRef,
     createElement,

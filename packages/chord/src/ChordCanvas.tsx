@@ -1,7 +1,6 @@
 import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import {
     useDimensions,
-    useTheme,
     // @ts-ignore
     midAngle,
     // @ts-ignore
@@ -11,6 +10,7 @@ import {
     Margin,
     Container,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { findArcUnderCursor } from '@nivo/arcs'
 import { useInheritedColor } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'

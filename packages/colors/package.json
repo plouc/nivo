@@ -21,7 +21,7 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@types/d3-color": "^2.0.0",
         "@types/d3-scale": "^3.2.3",
         "@types/d3-scale-chromatic": "^2.0.0",

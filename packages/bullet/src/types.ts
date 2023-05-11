@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, Colors, MotionProps } from '@nivo/core'
+import { Box, Dimensions, Colors, MotionProps } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig } from '@nivo/colors'
 import { ScaleLinear } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
@@ -75,7 +76,7 @@ export type CommonBulletProps = Dimensions & {
 
     axisPosition: 'before' | 'after'
 
-    theme: Theme
+    theme: PartialTheme
 
     isInteractive: boolean
 

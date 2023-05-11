@@ -1,6 +1,6 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { animated, to } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { BarDatum, BarItemProps } from './types'
 

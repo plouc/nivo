@@ -2,13 +2,8 @@ import { useMemo, MouseEvent, MutableRefObject, useCallback } from 'react'
 import { pack as d3Pack, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import cloneDeep from 'lodash/cloneDeep'
 import sortBy from 'lodash/sortBy'
-import {
-    usePropertyAccessor,
-    useValueFormatter,
-    useTheme,
-    getRelativeCursor,
-    getDistance,
-} from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter, getRelativeCursor, getDistance } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     CirclePackingCommonProps,

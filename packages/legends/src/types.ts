@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ScaleDiverging, ScaleQuantize, ScaleSequential } from 'd3-scale'
-import { CompleteTheme, ValueFormat } from '@nivo/core'
+import { ValueFormat } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { SymbolProps } from './svg/symbols/types'
 
 /**
@@ -135,7 +136,7 @@ export type LegendCanvasProps = {
     symbolSize?: number
     symbolSpacing?: number
 
-    theme: CompleteTheme
+    theme: Theme
 } & Required<Pick<CommonLegendProps, 'data'>> &
     Pick<
         CommonLegendProps,

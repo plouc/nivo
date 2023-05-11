@@ -1,6 +1,6 @@
 import { createElement, useMemo, useCallback, useState, MouseEvent } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'

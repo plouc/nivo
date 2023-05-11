@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
+import { Container, SvgWrapper, useValueFormatter, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { BoxLegendSvg } from '@nivo/legends'
 import {
     computeWeekdays,

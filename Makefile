@@ -152,7 +152,8 @@ pkgs-test-cover: ##@1 packages run tests for all packages with code coverage
 
 pkgs-build: pkgs-types ##@1 packages build all packages
 	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
-	@export SKIP_TYPES=TRUE;find ./packages -type d -maxdepth 1 ! -path ./packages \
+	@# Skipping type generation as it's already done via `pkgs-types` in one go.
+	@export SKIP_TYPES=TRUE; find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
         | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
 

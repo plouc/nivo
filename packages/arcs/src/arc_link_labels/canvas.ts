@@ -1,15 +1,13 @@
-import {
-    // @ts-ignore
-    textPropsByEngine,
-    CompleteTheme,
-} from '@nivo/core'
+// @ts-ignore
+import { textPropsByEngine } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLinkLabel } from './types'
 
 export const drawCanvasArcLinkLabels = <Datum extends DatumWithArcAndColor>(
     ctx: CanvasRenderingContext2D,
     labels: ArcLinkLabel<Datum>[],
-    theme: CompleteTheme,
+    theme: Theme,
     strokeWidth: number
 ) => {
     ctx.textBaseline = 'middle'

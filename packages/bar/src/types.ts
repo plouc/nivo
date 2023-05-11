@@ -9,9 +9,9 @@ import {
     MotionProps,
     PropertyAccessor,
     SvgDefsAndFill,
-    Theme,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
@@ -251,7 +251,7 @@ export type BarCommonProps<RawDatum> = {
 
     colorBy: 'id' | 'indexValue'
     colors: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>
-    theme: Theme
+    theme: PartialTheme
 
     annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
     legends: BarLegendProps[]

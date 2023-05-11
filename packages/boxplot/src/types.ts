@@ -9,9 +9,9 @@ import {
     MotionProps,
     PropertyAccessor,
     SvgDefsAndFill,
-    Theme,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import {
@@ -231,7 +231,7 @@ export type BoxPlotCommonProps<RawDatum> = {
 
     colorBy: 'group' | 'subGroup'
     colors: OrdinalColorScaleConfig<BoxPlotSummary>
-    theme: Theme & { translation: BoxPlotDatum }
+    theme: PartialTheme & { translation: BoxPlotDatum }
 
     annotations: AnnotationMatcher<ComputedBoxPlotSummary>[]
     legends: LegendProps[]

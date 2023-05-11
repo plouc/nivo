@@ -1,4 +1,5 @@
-import { CompleteTheme, degreesToRadians } from '@nivo/core'
+import { degreesToRadians } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import {
     computeDimensions,
     computePositionFromAnchor,
@@ -125,7 +126,7 @@ export const renderContinuousColorLegendToCanvas = (
         titleOffset = continuousColorsLegendDefaults.titleOffset,
         theme,
     }: AnchoredContinuousColorsLegendProps & {
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const {

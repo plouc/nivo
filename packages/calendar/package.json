@@ -31,6 +31,7 @@
     "dependencies": {
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@types/d3-scale": "^3.2.3",
         "@types/d3-time": "^1.0.10",

@@ -1,4 +1,5 @@
-import { degreesToRadians, CompleteTheme } from '@nivo/core'
+import { degreesToRadians } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
@@ -40,7 +41,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         legend?: string
         legendPosition?: AxisLegendPosition
         legendOffset?: number
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
@@ -189,7 +190,7 @@ export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
         right?: CanvasAxisProps<Y> | null
         bottom?: CanvasAxisProps<X> | null
         left?: CanvasAxisProps<Y> | null
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const axes = { top, right, bottom, left }
