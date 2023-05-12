@@ -11,6 +11,7 @@ import {
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { calendarCanvasDefaultProps } from './props'
 import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
 import { useTooltip } from '@nivo/tooltip'
@@ -157,14 +158,13 @@ const InnerCalendarCanvas = memo(
 
             ctx.textAlign = 'center'
             ctx.textBaseline = 'middle'
-            ctx.fillStyle = theme.labels.text.fill ?? ''
-            ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+            setCanvasFont(ctx, theme.labels.text)
 
             monthLegends.forEach(month => {
                 ctx.save()
                 ctx.translate(month.x, month.y)
                 ctx.rotate(degreesToRadians(month.rotation))
-                ctx.fillText(String(monthLegend(month.year, month.month, month.date)), 0, 0)
+                drawCanvasText(ctx, theme.labels.text, String(monthLegend(month.year, month.month, month.date)))
                 ctx.restore()
             })
 
@@ -172,7 +172,7 @@ const InnerCalendarCanvas = memo(
                 ctx.save()
                 ctx.translate(year.x, year.y)
                 ctx.rotate(degreesToRadians(year.rotation))
-                ctx.fillText(String(yearLegend(year.year)), 0, 0)
+                drawCanvasText(ctx, theme.labels.text, String(yearLegend(year.year)))
                 ctx.restore()
             })
 
