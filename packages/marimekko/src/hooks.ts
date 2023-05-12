@@ -21,8 +21,8 @@ import {
 
 // d3 stack does not support defining `.keys()` using
 // a mix of keys and custom value accessors, so we're
-// building a map of accessors in any case, we're gonna
-// use it later for `stack.value()`.
+// building a map of accessors in any case, we're going
+// to use it later for `stack.value()`.
 export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['dimensions']) =>
     useMemo(() => {
         const dimensions: Record<string, (datum: RawDatum) => number> = {}
@@ -32,7 +32,7 @@ export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['
             dimensions[dimension.id] =
                 typeof dimension.value === 'function'
                     ? dimension.value
-                    : (datum: RawDatum) => get(datum, dimension.value as string, 0)
+                    : (datum: RawDatum) => get(datum, dimension.value as string, 0) as number
         })
 
         return { dimensionIds, dimensions }
