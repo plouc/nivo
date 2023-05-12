@@ -1,4 +1,4 @@
-import { useSprings, animated } from '@react-spring/web'
+import { useSprings } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { Text } from '@nivo/text'

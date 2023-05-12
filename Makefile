@@ -150,8 +150,7 @@ pkgs-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
-# pkgs-types
-pkgs-build: ##@1 packages build all packages
+pkgs-build: pkgs-types ##@1 packages build all packages
 	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
 	@# Skipping type generation as it's already done via `pkgs-types` in one go.
 	@export SKIP_TYPES=TRUE; find ./packages -type d -maxdepth 1 ! -path ./packages \
