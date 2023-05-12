@@ -1,11 +1,11 @@
 import React from 'react'
 import { Theme } from '@nivo/theming'
-import { ResponsiveBar } from '@nivo/bar'
+import { ResponsiveBarCanvas } from '@nivo/bar'
 import { colorSchemes } from '@nivo/colors'
 
 export const ThemedBar = ({ theme }: { theme: Theme }) => {
     return (
-        <ResponsiveBar
+        <ResponsiveBarCanvas
             margin={{
                 top: 40,
                 right: 20,
@@ -21,7 +21,6 @@ export const ThemedBar = ({ theme }: { theme: Theme }) => {
             ]}
             theme={theme}
             colorBy="indexValue"
-            animate={false}
             enableGridX={true}
             axisBottom={{
                 legend: 'X axis legend',
@@ -36,6 +35,7 @@ export const ThemedBar = ({ theme }: { theme: Theme }) => {
             legends={[
                 {
                     anchor: 'top',
+                    dataFrom: 'indexes',
                     translateY: -28,
                     itemWidth: 40,
                     itemHeight: 12,

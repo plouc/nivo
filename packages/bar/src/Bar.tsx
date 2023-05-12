@@ -38,7 +38,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     height,
 
     groupMode,
-    layout,
+    layout = svgDefaultProps.layout,
     reverse,
     minValue,
     maxValue,

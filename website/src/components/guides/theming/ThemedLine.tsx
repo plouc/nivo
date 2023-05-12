@@ -1,10 +1,10 @@
 import React from 'react'
 import { Theme } from '@nivo/theming'
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveLineCanvas } from '@nivo/line'
 
 export const ThemedLine = ({ theme }: { theme: Theme }) => {
     return (
-        <ResponsiveLine
+        <ResponsiveLineCanvas
             margin={{
                 top: 40,
                 right: 20,
@@ -44,10 +44,8 @@ export const ThemedLine = ({ theme }: { theme: Theme }) => {
                 },
             ]}
             enablePoints
-            enablePointLabel
             pointSize={10}
             theme={theme}
-            animate={false}
             axisBottom={{
                 legend: 'X axis legend',
                 legendPosition: 'middle',

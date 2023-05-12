@@ -56,7 +56,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     height,
 
     groupMode,
-    layout,
+    layout = canvasDefaultProps.layout,
     reverse,
     minValue,
     maxValue,

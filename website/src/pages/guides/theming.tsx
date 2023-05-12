@@ -36,7 +36,7 @@ properties.
 
 const Theming = () => {
     const [theme, setTheme] = useState(defaultTheme)
-    const [mode, setMode] = useState('demo')
+    const [mode, setMode] = useState<'demo' | 'code'>('demo')
 
     return (
         <Layout>
