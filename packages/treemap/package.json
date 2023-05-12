@@ -31,6 +31,7 @@
     "dependencies": {
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",

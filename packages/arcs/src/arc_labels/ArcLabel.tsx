@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react'
 import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { DatumWithArcAndColor } from '../types'
 
 const staticStyle: CSSProperties = {
@@ -25,7 +26,7 @@ export const ArcLabel = <Datum extends DatumWithArcAndColor>({
 
     return (
         <animated.g transform={style.transform} opacity={style.progress} style={staticStyle}>
-            <animated.text
+            <Text
                 textAnchor="middle"
                 dominantBaseline="central"
                 style={{
@@ -34,7 +35,7 @@ export const ArcLabel = <Datum extends DatumWithArcAndColor>({
                 }}
             >
                 {label}
-            </animated.text>
+            </Text>
         </animated.g>
     )
 }

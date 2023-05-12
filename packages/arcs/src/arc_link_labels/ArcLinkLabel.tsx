@@ -1,5 +1,6 @@
-import { useTheme } from '@nivo/theming'
 import { SpringValue, Interpolation, animated } from '@react-spring/web'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { DatumWithArcAndColor } from '../types'
 
 export interface ArcLinkLabelProps<Datum extends DatumWithArcAndColor> {
@@ -30,7 +31,7 @@ export const ArcLinkLabel = <Datum extends DatumWithArcAndColor>({
                 strokeWidth={style.thickness}
                 d={style.path}
             />
-            <animated.text
+            <Text
                 transform={style.textPosition}
                 textAnchor={style.textAnchor}
                 dominantBaseline="central"
@@ -40,7 +41,7 @@ export const ArcLinkLabel = <Datum extends DatumWithArcAndColor>({
                 }}
             >
                 {label}
-            </animated.text>
+            </Text>
         </animated.g>
     )
 }

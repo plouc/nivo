@@ -1,6 +1,7 @@
 import { useSprings, animated } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyNodeDatum } from './types'
 
 interface SankeyLabelsProps<N extends DefaultNode, L extends DefaultLink> {
@@ -98,7 +99,7 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
                 const label = labels[index]
 
                 return (
-                    <animated.text
+                    <Text
                         key={label.id}
                         dominantBaseline="central"
                         textAnchor={label.textAnchor}
@@ -110,7 +111,7 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
                         }}
                     >
                         {label.label}
-                    </animated.text>
+                    </Text>
                 )
             })}
         </>

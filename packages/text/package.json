@@ -1,6 +1,5 @@
 {
-    "name": "@nivo/legends",
-    "description": "legend components for nivo dataviz library",
+    "name": "@nivo/text",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -10,10 +9,11 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/plouc/nivo.git",
-        "directory": "packages/legends"
+        "directory": "packages/text"
     },
-    "main": "./dist/nivo-legends.cjs.js",
-    "module": "./dist/nivo-legends.es.js",
+    "sideEffects": false,
+    "main": "./dist/nivo-text.cjs.js",
+    "module": "./dist/nivo-text.es.js",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -22,14 +22,8 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
-        "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",
-        "@types/d3-scale": "^3.2.3",
-        "@types/prop-types": "^15.7.2",
-        "d3-scale": "^3.2.3",
-        "prop-types": "^15.7.2"
+        "@react-spring/web": "9.4.5 || ^9.7.2"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"

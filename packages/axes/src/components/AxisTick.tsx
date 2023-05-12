@@ -2,6 +2,7 @@ import { useMemo, memo } from 'react'
 import * as React from 'react'
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { ScaleValue } from '@nivo/scales'
 import { AxisTickProps } from '../types'
 
@@ -17,8 +18,6 @@ const AxisTick = <Value extends ScaleValue>({
 }: AxisTickProps<Value>) => {
     const theme = useTheme()
     const lineStyle = theme.axis.ticks.line
-    const textStyle = theme.axis.ticks.text
-
     const value = format?.(_value) ?? _value
 
     const props = useMemo(() => {
@@ -37,27 +36,14 @@ const AxisTick = <Value extends ScaleValue>({
     return (
         <animated.g transform={animatedProps.transform} {...props}>
             <line x1={0} x2={lineX} y1={0} y2={lineY} style={lineStyle} />
-            {textStyle.outlineWidth > 0 && (
-                <animated.text
-                    dominantBaseline={textBaseline}
-                    textAnchor={textAnchor}
-                    transform={animatedProps.textTransform}
-                    style={textStyle}
-                    strokeWidth={textStyle.outlineWidth * 2}
-                    stroke={textStyle.outlineColor}
-                    strokeLinejoin="round"
-                >
-                    {`${value}`}
-                </animated.text>
-            )}
-            <animated.text
+            <Text
                 dominantBaseline={textBaseline}
                 textAnchor={textAnchor}
                 transform={animatedProps.textTransform}
-                style={textStyle}
+                style={theme.axis.ticks.text}
             >
                 {`${value}`}
-            </animated.text>
+            </Text>
         </animated.g>
     )
 }

@@ -1,5 +1,6 @@
 import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { RadialAxisTickProps } from './types'
 
 export const RadialAxisTick = ({
@@ -18,14 +19,14 @@ export const RadialAxisTick = ({
             )}
         >
             <animated.line x2={animatedProps.length} style={theme.axis.ticks.line} />
-            <animated.text
+            <Text
                 dx={animatedProps.textX}
                 textAnchor={textAnchor}
                 dominantBaseline="central"
                 style={theme.axis.ticks.text}
             >
                 {label}
-            </animated.text>
+            </Text>
         </animated.g>
     )
 }

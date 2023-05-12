@@ -2,6 +2,7 @@ import { useSprings, animated } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig } from '@nivo/colors'
+import { Text } from '@nivo/text'
 import { BumpComputedSerie, BumpDatum, BumpLabel, BumpSerieExtraProps } from './types'
 import { useBumpSeriesLabels } from './hooks'
 
@@ -52,7 +53,7 @@ export const LinesLabels = <Datum extends BumpDatum, ExtraProps extends BumpSeri
                 const label = labels[index]
 
                 return (
-                    <animated.text
+                    <Text
                         data-testid={`label.${position}.${label.serie.id}`}
                         key={label.id}
                         x={animatedProps.x}
@@ -66,7 +67,7 @@ export const LinesLabels = <Datum extends BumpDatum, ExtraProps extends BumpSeri
                         }}
                     >
                         {label.label}
-                    </animated.text>
+                    </Text>
                 )
             })}
         </>

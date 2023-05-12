@@ -1,5 +1,6 @@
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { GridLabelProps } from './types'
 
 export const RadarGridLabel = ({ id, anchor, animated: animatedProps }: GridLabelProps) => {
@@ -7,9 +8,9 @@ export const RadarGridLabel = ({ id, anchor, animated: animatedProps }: GridLabe
 
     return (
         <animated.g transform={animatedProps.transform}>
-            <text style={theme.axis.ticks.text} dominantBaseline="central" textAnchor={anchor}>
+            <Text style={theme.axis.ticks.text} dominantBaseline="central" textAnchor={anchor}>
                 {id}
-            </text>
+            </Text>
         </animated.g>
     )
 }

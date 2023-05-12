@@ -1,6 +1,7 @@
 import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { FunnelDatum, FunnelPart } from './types'
 
 interface PartLabelProps<D extends FunnelDatum> {
@@ -20,7 +21,7 @@ export const PartLabel = <D extends FunnelDatum>({ part }: PartLabelProps<D>) =>
 
     return (
         <animated.g transform={animatedProps.transform}>
-            <animated.text
+            <Text
                 textAnchor="middle"
                 dominantBaseline="central"
                 style={{
@@ -30,7 +31,7 @@ export const PartLabel = <D extends FunnelDatum>({ part }: PartLabelProps<D>) =>
                 }}
             >
                 {part.formattedValue}
-            </animated.text>
+            </Text>
         </animated.g>
     )
 }

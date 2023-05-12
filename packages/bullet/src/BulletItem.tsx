@@ -6,6 +6,7 @@ import {
     getColorScale,
     useMotionConfig,
 } from '@nivo/core'
+import { Text } from '@nivo/text'
 import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
@@ -162,15 +163,15 @@ export const BulletItem = ({
     const titleNode = (
         <g transform={`translate(${titleX},${titleY}) rotate(${titleRotation})`}>
             {typeof title === 'string' ? (
-                <text
+                <Text
                     style={{
-                        ...theme?.labels?.text,
+                        ...theme.labels.text,
                         dominantBaseline: 'central',
                         textAnchor: titleAlign,
                     }}
                 >
                     {title}
-                </text>
+                </Text>
             ) : (
                 title
             )}

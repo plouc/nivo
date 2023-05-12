@@ -1,6 +1,7 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { useTooltip } from '@nivo/tooltip'
 import { BarDatum, BarItemProps } from './types'
 
@@ -101,7 +102,7 @@ export const BarItem = <RawDatum extends BarDatum>({
                 onBlur={isInteractive && isFocusable ? handleBlur : undefined}
             />
             {shouldRenderLabel && (
-                <animated.text
+                <Text
                     x={labelX}
                     y={labelY}
                     textAnchor="middle"
@@ -114,7 +115,7 @@ export const BarItem = <RawDatum extends BarDatum>({
                     }}
                 >
                     {label}
-                </animated.text>
+                </Text>
             )}
         </animated.g>
     )

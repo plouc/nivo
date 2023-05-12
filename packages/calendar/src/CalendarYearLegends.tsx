@@ -1,19 +1,20 @@
-import { CalendarYearLegendsProps } from './types'
 import { memo } from 'react'
+import { Text } from '@nivo/text'
+import { CalendarYearLegendsProps } from './types'
 
 export const CalendarYearLegends = memo(({ years, legend, theme }: CalendarYearLegendsProps) => {
     return (
         <>
             {years.map(year => {
                 return (
-                    <text
+                    <Text
                         key={year.year}
                         transform={`translate(${year.x},${year.y}) rotate(${year.rotation})`}
                         textAnchor="middle"
                         style={theme.labels.text}
                     >
                         {legend(year.year)}
-                    </text>
+                    </Text>
                 )
             })}
         </>

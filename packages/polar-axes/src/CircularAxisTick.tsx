@@ -1,5 +1,6 @@
 import { animated } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { CircularAxisTickProps } from './types'
 
 export const CircularAxisTick = ({ label, animated: animatedProps }: CircularAxisTickProps) => {
@@ -14,7 +15,7 @@ export const CircularAxisTick = ({ label, animated: animatedProps }: CircularAxi
                 y2={animatedProps.y2}
                 style={theme.axis.ticks.line}
             />
-            <animated.text
+            <Text
                 dx={animatedProps.textX}
                 dy={animatedProps.textY}
                 dominantBaseline="central"
@@ -22,7 +23,7 @@ export const CircularAxisTick = ({ label, animated: animatedProps }: CircularAxi
                 textAnchor="middle"
             >
                 {label}
-            </animated.text>
+            </Text>
         </animated.g>
     )
 }

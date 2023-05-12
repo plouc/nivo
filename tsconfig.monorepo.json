@@ -6,6 +6,7 @@
 
         // Shared next because charts need them
         { "path": "./packages/theming" },
+        { "path": "./packages/text" },
         { "path": "./packages/canvas" },
         { "path": "./packages/annotations" },
         { "path": "./packages/scales" },

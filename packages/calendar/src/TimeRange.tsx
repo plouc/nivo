@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Container, SvgWrapper, useValueFormatter, useDimensions } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { BoxLegendSvg } from '@nivo/legends'
+import { Text } from '@nivo/text'
 import {
     computeWeekdays,
     computeCellSize,
@@ -137,14 +138,14 @@ const InnerTimeRange = ({
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {weekdayLegends.map(legend => (
-                <text
+                <Text
                     key={legend.value}
                     transform={`translate(${legend.x},${legend.y}) rotate(${legend.rotation})`}
                     textAnchor="left"
                     style={theme.labels.text}
                 >
                     {legend.value}
-                </text>
+                </Text>
             ))}
             {days.map(d => {
                 return (

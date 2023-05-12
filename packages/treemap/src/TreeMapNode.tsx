@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { NodeProps } from './types'
 import { svgNodeTransform, svgLabelTransform } from './transitions'
 
@@ -37,7 +38,7 @@ const NonMemoizedTreeMapNode = <Datum extends object>({
                 onClick={node.onClick}
             />
             {showLabel && (
-                <animated.text
+                <Text
                     data-testid={`label.${node.id}`}
                     textAnchor="middle"
                     dominantBaseline="central"
@@ -54,10 +55,10 @@ const NonMemoizedTreeMapNode = <Datum extends object>({
                     )}
                 >
                     {node.label}
-                </animated.text>
+                </Text>
             )}
             {showParentLabel && (
-                <animated.text
+                <Text
                     data-testid={`parentLabel.${node.id}`}
                     dominantBaseline="central"
                     style={{
@@ -73,7 +74,7 @@ const NonMemoizedTreeMapNode = <Datum extends object>({
                     )}
                 >
                     {node.parentLabel}
-                </animated.text>
+                </Text>
             )}
         </animated.g>
     )

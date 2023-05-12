@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react'
 import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { CellComponentProps, HeatMapDatum } from './types'
 
 const NonMemoizedHeatMapCellRect = <Datum extends HeatMapDatum>({
@@ -52,7 +53,7 @@ const NonMemoizedHeatMapCellRect = <Datum extends HeatMapDatum>({
                 ry={borderRadius}
             />
             {enableLabels && (
-                <animated.text
+                <Text
                     textAnchor="middle"
                     dominantBaseline="central"
                     fill={animatedProps.labelTextColor}
@@ -63,7 +64,7 @@ const NonMemoizedHeatMapCellRect = <Datum extends HeatMapDatum>({
                     }}
                 >
                     {cell.label}
-                </animated.text>
+                </Text>
             )}
         </animated.g>
     )

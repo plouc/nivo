@@ -31,6 +31,7 @@
         "@nivo/arcs": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2"
     },
