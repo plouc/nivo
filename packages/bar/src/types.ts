@@ -11,7 +11,7 @@ import {
     SvgDefsAndFill,
     ValueFormat,
 } from '@nivo/core'
-import { PartialTheme } from '@nivo/theming'
+import { PartialTheme, TextStyle } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
@@ -188,7 +188,7 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     | 'ariaDescribedBy'
 > & {
     borderColor: string
-    labelColor: string
+    labelStyle: TextStyle
 }
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {

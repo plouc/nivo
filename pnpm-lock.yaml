@@ -430,6 +430,9 @@ importers:
       '@nivo/axes':
         specifier: workspace:*
         version: link:../axes
+      '@nivo/canvas':
+        specifier: workspace:*
+        version: link:../canvas
       '@nivo/colors':
         specifier: workspace:*
         version: link:../colors

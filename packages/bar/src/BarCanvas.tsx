@@ -7,6 +7,8 @@ import {
 } from './types'
 import { Container, Margin, getRelativeCursor, isCursorInRect, useDimensions } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
+import { roundedRect } from '@nivo/canvas'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import {
     ForwardedRef,
     createElement,
@@ -86,8 +88,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             borderRadius,
             borderWidth,
             label,
-            labelColor,
             shouldRenderLabel,
+            labelStyle,
         }
     ) => {
         ctx.fillStyle = color
@@ -99,22 +101,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 
         ctx.beginPath()
 
-        if (borderRadius > 0) {
-            const radius = Math.min(borderRadius, height)
-
-            ctx.moveTo(x + radius, y)
-            ctx.lineTo(x + width - radius, y)
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius)
-            ctx.lineTo(x + width, y + height - radius)
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
-            ctx.lineTo(x + radius, y + height)
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius)
-            ctx.lineTo(x, y + radius)
-            ctx.quadraticCurveTo(x, y, x + radius, y)
-            ctx.closePath()
-        } else {
-            ctx.rect(x, y, width, height)
-        }
+        roundedRect(ctx, x, y, width, height, Math.min(borderRadius, height))
 
         ctx.fill()
 
@@ -125,8 +112,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         if (shouldRenderLabel) {
             ctx.textBaseline = 'middle'
             ctx.textAlign = 'center'
-            ctx.fillStyle = labelColor
-            ctx.fillText(label, x + width / 2, y + height / 2)
+            drawCanvasText(ctx, labelStyle, label, x + width / 2, y + height / 2)
         }
     },
 
@@ -333,6 +319,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                     theme,
                 })
             } else if (layer === 'bars') {
+                setCanvasFont(ctx, theme.text)
+
                 barsWithValue.forEach(bar => {
                     renderBar(ctx, {
                         bar,
@@ -340,8 +328,11 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                         borderRadius,
                         borderWidth,
                         label: getLabel(bar.data),
-                        labelColor: getLabelColor(bar) as string,
                         shouldRenderLabel: shouldRenderBarLabel(bar),
+                        labelStyle: {
+                            ...theme.labels.text,
+                            fill: getLabelColor(bar) as string,
+                        },
                     })
                 })
             } else if (layer === 'legends') {
