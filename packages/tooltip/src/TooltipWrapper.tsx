@@ -76,9 +76,12 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
             immediate: !animate || immediate,
         })
 
+        const { basic, chip, container, table, tableCell, tableCellValue, ...defaultStyle } =
+            theme.tooltip
+
         const style = {
             ...tooltipStyle,
-            ...theme.tooltip,
+            ...defaultStyle,
             transform: animatedProps.transform ?? translate(x, y),
         }
 
