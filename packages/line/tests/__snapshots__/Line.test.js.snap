@@ -45,7 +45,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -69,7 +80,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -93,7 +115,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -117,7 +150,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -141,7 +185,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -181,7 +236,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -205,7 +271,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -229,7 +306,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -253,7 +341,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -277,7 +376,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -301,7 +411,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -325,7 +446,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -349,7 +481,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -373,7 +516,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -397,7 +551,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -421,7 +586,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -445,7 +621,18 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -620,7 +807,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -644,7 +842,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -668,7 +877,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -692,7 +912,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -716,7 +947,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -756,7 +998,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -780,7 +1033,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -804,7 +1068,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -828,7 +1103,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -852,7 +1138,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -876,7 +1173,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -900,7 +1208,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -924,7 +1243,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -948,7 +1278,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -972,7 +1313,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -996,7 +1348,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -1020,7 +1383,18 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -1195,7 +1569,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -1219,7 +1604,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -1243,7 +1639,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -1267,7 +1674,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -1291,7 +1709,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -1331,7 +1760,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -1355,7 +1795,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -1379,7 +1830,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -1403,7 +1865,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -1427,7 +1900,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -1451,7 +1935,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -1475,7 +1970,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -1499,7 +2005,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -1523,7 +2040,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -1547,7 +2075,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -1571,7 +2110,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -1595,7 +2145,18 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -1770,7 +2331,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -1794,7 +2366,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -1818,7 +2401,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -1842,7 +2436,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -1866,7 +2471,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -1906,7 +2522,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -1930,7 +2557,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -1954,7 +2592,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -1978,7 +2627,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -2002,7 +2662,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -2026,7 +2697,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -2050,7 +2732,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -2074,7 +2767,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -2098,7 +2802,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -2122,7 +2837,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -2146,7 +2872,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -2170,7 +2907,18 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -2345,7 +3093,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -2369,7 +3128,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -2393,7 +3163,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -2417,7 +3198,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -2441,7 +3233,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -2481,7 +3284,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -2505,7 +3319,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -2529,7 +3354,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -2553,7 +3389,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -2577,7 +3424,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -2601,7 +3459,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -2625,7 +3494,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -2649,7 +3529,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -2673,7 +3564,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -2697,7 +3599,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -2721,7 +3634,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -2745,7 +3669,18 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -2920,7 +3855,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -2944,7 +3890,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -2968,7 +3925,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -2992,7 +3960,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -3016,7 +3995,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -3056,7 +4046,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -3080,7 +4081,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -3104,7 +4116,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -3128,7 +4151,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -3152,7 +4186,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -3176,7 +4221,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -3200,7 +4256,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -3224,7 +4291,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -3248,7 +4326,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -3272,7 +4361,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -3296,7 +4396,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -3320,7 +4431,18 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -3495,7 +4617,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -3519,7 +4652,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -3543,7 +4687,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -3567,7 +4722,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -3591,7 +4757,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -3631,7 +4808,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -3655,7 +4843,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -3679,7 +4878,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -3703,7 +4913,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -3727,7 +4948,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -3751,7 +4983,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -3775,7 +5018,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -3799,7 +5053,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -3823,7 +5088,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -3847,7 +5123,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -3871,7 +5158,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -3895,7 +5193,18 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -4070,7 +5379,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -4094,7 +5414,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -4118,7 +5449,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -4142,7 +5484,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -4166,7 +5519,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -4206,7 +5570,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -4230,7 +5605,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -4254,7 +5640,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -4278,7 +5675,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -4302,7 +5710,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -4326,7 +5745,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -4350,7 +5780,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -4374,7 +5815,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -4398,7 +5850,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -4422,7 +5885,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -4446,7 +5920,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -4470,7 +5955,18 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -4645,7 +6141,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -4669,7 +6176,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -4693,7 +6211,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -4717,7 +6246,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -4741,7 +6281,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -4781,7 +6332,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -4805,7 +6367,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -4829,7 +6402,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -4853,7 +6437,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -4877,7 +6472,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -4901,7 +6507,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -4925,7 +6542,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -4949,7 +6577,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -4973,7 +6612,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -4997,7 +6647,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -5021,7 +6682,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -5045,7 +6717,18 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -5220,7 +6903,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -5244,7 +6938,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -5268,7 +6973,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -5292,7 +7008,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -5316,7 +7043,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -5356,7 +7094,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -5380,7 +7129,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -5404,7 +7164,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -5428,7 +7199,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -5452,7 +7234,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -5476,7 +7269,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -5500,7 +7304,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -5524,7 +7339,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -5548,7 +7374,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -5572,7 +7409,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -5596,7 +7444,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -5620,7 +7479,18 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -5952,7 +7822,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -5976,7 +7857,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -6000,7 +7892,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -6024,7 +7927,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -6048,7 +7962,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -6088,7 +8013,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -6112,7 +8048,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -6136,7 +8083,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -6160,7 +8118,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -6184,7 +8153,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -6208,7 +8188,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -6232,7 +8223,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -6256,7 +8258,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -6280,7 +8293,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -6304,7 +8328,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -6328,7 +8363,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -6352,7 +8398,18 @@ exports[`should render a basic line chart 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
@@ -6684,7 +8741,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -6708,7 +8776,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -6732,7 +8811,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -6756,7 +8846,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -6780,7 +8881,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={5}
           />
-          <text>
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -6820,7 +8932,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             0
           </text>
         </g>
@@ -6844,7 +8967,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             1
           </text>
         </g>
@@ -6868,7 +9002,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             2
           </text>
         </g>
@@ -6892,7 +9037,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             3
           </text>
         </g>
@@ -6916,7 +9072,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             4
           </text>
         </g>
@@ -6940,7 +9107,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             5
           </text>
         </g>
@@ -6964,7 +9142,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             6
           </text>
         </g>
@@ -6988,7 +9177,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             7
           </text>
         </g>
@@ -7012,7 +9212,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             8
           </text>
         </g>
@@ -7036,7 +9247,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             9
           </text>
         </g>
@@ -7060,7 +9282,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             10
           </text>
         </g>
@@ -7084,7 +9317,18 @@ exports[`should support multiple lines 1`] = `
             y1={0}
             y2={0}
           />
-          <text>
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
             11
           </text>
         </g>
