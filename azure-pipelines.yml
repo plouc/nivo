@@ -7,37 +7,23 @@ trigger:
   branches:
     include:
       - master
-      - azure-pipelines
       - refs/tags/*
 
 pool: 'Default'
 
 steps:
-- task: NodeTool@0
+- task: npmAuthenticate@0
   inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
+    workingFile: $(Agent.HomeDirectory)/.npmrc
+- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.HomeDirectory)/.npmrc
 
 - script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'index.js'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: nivo
-  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
-
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    targetFolder: "C:\\Users\\mike\\Documents\\BitBloom\\BitBloom Ltd\\nivo"
-  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+    echo "Create new container"
+    docker run --name nivo -v $(Agent.HomeDirectory)/.npmrc:/tmp/.npmrc -e NPM_CONFIG_USERCONFIG=/tmp/.npmrc -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
+  displayName: 'Build modules on nivo container'
+  condition: succeeded()
+  
+- script: |
+    docker rm -f nivo
+  displayName: 'Remove nivo container'
+  condition: always()

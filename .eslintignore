@@ -3,3 +3,4 @@
 /storybook-static/
 node_modules/
 /packages/recompose/
+src
