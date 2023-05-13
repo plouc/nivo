@@ -2,8 +2,6 @@ MAKEFLAGS += --no-print-directory
 
 SOURCES = packages
 
-.PHONY: help bootstrap init pkgs-build pkgs-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all e2e-open
-
 ########################################################################################################################
 #
 # HELP
@@ -32,6 +30,7 @@ HELP_HELPER = \
     }; \
     print "\n"; }
 
+.PHONY: help
 help: ##prints help
 	@perl -e '$(HELP_HELPER)' $(MAKEFILE_LIST)
 
@@ -43,14 +42,17 @@ help: ##prints help
 #
 ########################################################################################################################
 
+.PHONY: install
 install: ##@0 global install
 	@pnpm install
 
+.PHONY: init
 init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
 	@$(MAKE) install
 	@$(MAKE) pkgs-build
 
+.PHONY: fmt
 fmt: ##@0 global format code using prettier (js, css, md)
 	@pnpm prettier --color --write \
 		"packages/*/{src,tests}/**/*.{js,ts,tsx}" \
@@ -63,6 +65,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"cypress/src/**/*.{js,ts,tsx}" \
 		"README.md"
 
+.PHONY: fmt-check
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@pnpm prettier --color --list-different \
@@ -76,16 +79,19 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 		"cypress/src/**/*.{js,ts,tsx}" \
         "README.md"
 
+.PHONY: test
 test: ##@0 global run all checks/tests (packages, website)
 	@$(MAKE) fmt-check
 	@$(MAKE) lint
 	@$(MAKE) pkgs-test
 
+.PHONY: vercel-build
 vercel-build: ##@0 global Build the website and storybook to vercel
 	@$(MAKE) website-build
 	@$(MAKE) storybook-build
 	@cp -a storybook/storybook-static website/public/storybook
 
+.PHONY: clean-all
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
 	@rm -rf node_modules
 	@rm -rf package-lock.json
@@ -105,6 +111,7 @@ define clean-source-all
 	rm -rf $(1)/*/package-lock.json
 endef
 
+
 ########################################################################################################################
 #
 # 1. PACKAGES
@@ -115,10 +122,12 @@ pkg-lint-%: ##@1 packages run eslint on package
 	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
 	@pnpm eslint ./packages/${*}/{src,tests}/**/*.{js,ts,tsx}
 
+.PHONY: pkgs-lint
 pkgs-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
+.PHONY: pkgs-lint-fix
 pkgs-lint-fix: ##@1 packages run eslint on all packages with a fix option
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
@@ -138,18 +147,22 @@ pkg-update-test-%: ##@1 packages run tests for a package and update its snapshot
 pkg-watch-test-%: ##@1 packages run tests for a package and watch for changes
 	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
 
+.PHONY: pkgs-test
 pkgs-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --workerThreads --rootDir . ./packages/*/tests
 
+.PHONY: pkgs-watch-test
 pkgs-watch-test: ##@1 packages run tests for all packages and watch for changes
 	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
 	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
 
+.PHONY: pkgs-test-cover
 pkgs-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
 	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
+.PHONY: pkgs-build
 pkgs-build: pkgs-types ##@1 packages build all packages
 	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
 	@# Skipping type generation as it's already done via `pkgs-types` in one go.
@@ -157,9 +170,11 @@ pkgs-build: pkgs-types ##@1 packages build all packages
         | sed 's|^./packages/||' \
         | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
 
+.PHONY: pkgs-types
 pkgs-types: ##@1 packages build all package types
 	@pnpm tsc --build ./tsconfig.monorepo.json
 
+.PHONY: pkgs-types-clean
 pkgs-types-clean: ##@1 packages clean all package types
 	@pnpm tsc --build --clean ./tsconfig.monorepo.json
 
@@ -179,9 +194,11 @@ pkg-build-%: pkg-types-% ##@1 packages build a package
 	@-rm -rf ./packages/${*}/dist/nivo-${*}*
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.mjs
 
+.PHONY: pkgs-screenshots
 pkgs-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.mjs
 
+.PHONY: pkgs-publish-dry-run
 pkgs-publish-dry-run: ##@1 packages dry run for packages publication
 	#@$(MAKE) pkgs-build
 	@pnpm lerna publish \
@@ -192,12 +209,14 @@ pkgs-publish-dry-run: ##@1 packages dry run for packages publication
         --registry "http://localhost:4873" \
         --loglevel verbose
 
+.PHONY: pkgs-publish
 pkgs-publish: ##@1 packages publish all packages
 	@$(MAKE) pkgs-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@pnpm lerna publish --exact
 
+.PHONY: pkgs-publish-next
 pkgs-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) pkgs-build
 
@@ -209,42 +228,45 @@ pkg-dev-%: ##@1 packages build package (es flavor) on change, eg. `package-watch
 	@rm -rf ./packages/${*}/cjs
 	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.mjs -w
 
+
 ########################################################################################################################
 #
 # 2. WEBSITE
 #
 ########################################################################################################################
 
+.PHONY: website-deps-up
 website-deps-up: ##@2 website interactive upgrade of website's dependencies
 	@pnpm upgrade-interactive --latest
 
+.PHONY: website
 website: ##@2 website start website in dev mode
 	@echo "${YELLOW}Starting website dev server${RESET}"
 	@cd website && pnpm start
 
+.PHONY: website-build
 website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"
 	@-rm -rf website/.cache
 	@cd website && pnpm build
 
+.PHONY: website-serve
 website-serve: ##@2 website build & serve website
 	@$(MAKE) website-build
 	@cd website && pnpm serve
 
-website-deploy: ##@2 website build & deploy website
-	@$(MAKE) website-build
-
-	@echo "${YELLOW}Deploying website${RESET}"
-	@pnpm gh-pages -d website/public -r git@github.com:plouc/nivo.git -b gh-pages
-
+.PHONY: website-audit
 website-audit: ##@2 website audit website build
 	@cd website && pnpm analyze
 
+.PHONY: website-lint
 website-lint: ##@2 website run eslint on the website code
 	@pnpm eslint ./website/src
 
+.PHONY: website-sprites
 website-sprites: ##@2 website build sprite sheet
 	@glue --img website/src/assets --css website/src/styles website/src/assets/icons
+
 
 ########################################################################################################################
 #
@@ -252,18 +274,14 @@ website-sprites: ##@2 website build sprite sheet
 #
 ########################################################################################################################
 
+.PHONY: storybook
 storybook: ##@3 storybook start storybook in dev mode on port 6006
 	@pnpm --filter storybook dev
 
+.PHONY: storybook-build
 storybook-build: ##@3 storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
 	@pnpm --filter storybook build
-
-storybook-deploy: ##@3 storybook build and deploy storybook
-	@$(MAKE) storybook-build
-
-	@echo "${YELLOW}Deploying storybook${RESET}"
-	@pnpm gh-pages -d storybook/storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
 
 
 ########################################################################################################################
@@ -272,9 +290,11 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 #
 ########################################################################################################################
 
+.PHONY: end-to-end-open
 end-to-end-open: ##@4 end-to-end open cypress
 	pnpm --filter nivo-e2e open
 
+.PHONY: end-to-end-test
 end-to-end-test: ##@4 end-to-end build
 	pnpm --filter nivo-e2e test
 
@@ -285,16 +305,20 @@ end-to-end-test: ##@4 end-to-end build
 #
 ########################################################################################################################
 
+.PHONY: api-dev
 api-dev: ##@5 API run API in dev mode (watcher)
 	@echo "${YELLOW}Starting API in dev mode${RESET}"
 	@cd api && pnpm dev
 
+.PHONY: api
 api: ##@5 API run API in regular mode (no watcher)
 	@echo "${YELLOW}Starting API${RESET}"
 	@cd api && pnpm start
 
+.PHONY: api-lint
 api-lint: ##@5 API run eslint on the API code
 	@pnpm eslint ./api/src
 
+.PHONY: api-deploy
 api-deploy: ##@5 API Deploy API on heroku
 	git subtree push --prefix api heroku master
