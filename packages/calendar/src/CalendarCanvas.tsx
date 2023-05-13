@@ -164,7 +164,11 @@ const InnerCalendarCanvas = memo(
                 ctx.save()
                 ctx.translate(month.x, month.y)
                 ctx.rotate(degreesToRadians(month.rotation))
-                drawCanvasText(ctx, theme.labels.text, String(monthLegend(month.year, month.month, month.date)))
+                drawCanvasText(
+                    ctx,
+                    theme.labels.text,
+                    String(monthLegend(month.year, month.month, month.date))
+                )
                 ctx.restore()
             })
 
