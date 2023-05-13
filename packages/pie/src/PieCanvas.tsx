@@ -1,5 +1,4 @@
-import { createElement, useEffect, useMemo, useRef } from 'react'
-import * as React from 'react'
+import { createElement, useEffect, useMemo, useRef, MouseEvent } from 'react'
 import { getRelativeCursor, useDimensions, Container } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -219,7 +218,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         [dataWithArc]
     )
 
-    const getArcFromMouse = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const getArcFromMouse = (event: MouseEvent<HTMLCanvasElement>) => {
         if (!canvasEl.current) return null
 
         const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -241,7 +240,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const handleMouseHover = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const handleMouseHover = (event: MouseEvent<HTMLCanvasElement>) => {
         const datum = getArcFromMouse(event)
         if (datum) {
             onMouseMove?.(datum, event)
@@ -257,7 +256,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         hideTooltip()
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const handleClick = (event: MouseEvent<HTMLCanvasElement>) => {
         if (!onClick) return
 
         const arc = getArcFromMouse(event)

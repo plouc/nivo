@@ -28,7 +28,7 @@ directions.forEach(direction => {
         const component = create(<LegendSvgItemWithTheme {...commonProps} direction={direction} />)
 
         const tree = component.toJSON()
-        // expect(tree).toMatchSnapshot()
+        expect(tree).toMatchSnapshot()
     })
 
     it(`should support ${direction} direction justified`, () => {
@@ -37,7 +37,7 @@ directions.forEach(direction => {
         )
 
         const tree = component.toJSON()
-        // expect(tree).toMatchSnapshot()
+        expect(tree).toMatchSnapshot()
     })
 })
 

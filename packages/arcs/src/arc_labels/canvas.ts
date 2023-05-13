@@ -1,4 +1,5 @@
 import { Theme } from '@nivo/theming'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLabel } from './useArcLabels'
 
@@ -7,12 +8,20 @@ export const drawCanvasArcLabels = <Datum extends DatumWithArcAndColor>(
     labels: ArcLabel<Datum>[],
     theme: Theme
 ) => {
+    setCanvasFont(ctx, theme.labels.text)
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
     labels.forEach(label => {
-        ctx.fillStyle = label.textColor
-        ctx.fillText(`${label.label}`, label.x, label.y)
+        drawCanvasText(
+            ctx,
+            {
+                ...theme.labels.text,
+                fill: label.textColor,
+            },
+            String(label.label),
+            label.x,
+            label.y
+        )
     })
 }

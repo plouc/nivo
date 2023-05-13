@@ -1,6 +1,7 @@
 // @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
 import { Theme } from '@nivo/theming'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLinkLabel } from './types'
 
@@ -11,12 +12,21 @@ export const drawCanvasArcLinkLabels = <Datum extends DatumWithArcAndColor>(
     strokeWidth: number
 ) => {
     ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+    setCanvasFont(ctx, theme.labels.text)
 
     labels.forEach(label => {
         ctx.fillStyle = label.textColor
         ctx.textAlign = textPropsByEngine.canvas.align[label.textAnchor]
-        ctx.fillText(`${label.label}`, label.x, label.y)
+        drawCanvasText(
+            ctx,
+            {
+                ...theme.labels.text,
+                fill: label.textColor,
+            },
+            String(label.label),
+            label.x,
+            label.y
+        )
 
         ctx.beginPath()
         ctx.strokeStyle = label.linkColor

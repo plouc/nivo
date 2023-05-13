@@ -50,6 +50,10 @@ const lightTheme: DefaultTheme = {
 
     nivo: {
         background: '#ffffff',
+        text: {
+            outlineWidth: 2,
+            outlineColor: '#e7de44',
+        },
         axis: {
             domain: {
                 line: {

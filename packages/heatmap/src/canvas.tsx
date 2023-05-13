@@ -1,3 +1,4 @@
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { CellCanvasRendererProps, HeatMapDatum } from './types'
 
 export const renderRect = <Datum extends HeatMapDatum>(
@@ -24,13 +25,19 @@ export const renderRect = <Datum extends HeatMapDatum>(
     }
 
     if (enableLabels) {
-        ctx.fillStyle = labelTextColor
-        ctx.font = `${theme.labels.text.fontWeight ? `${theme.labels.text.fontWeight} ` : ''}${
-            theme.labels.text.fontSize
-        }px ${theme.labels.text.fontFamily}`
+        setCanvasFont(ctx, theme.labels.text)
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.fillText(label, x, y)
+        drawCanvasText(
+            ctx,
+            {
+                ...theme.labels.text,
+                fill: labelTextColor,
+            },
+            label,
+            x,
+            y
+        )
     }
 
     ctx.restore()
@@ -65,13 +72,19 @@ export const renderCircle = <Datum extends HeatMapDatum>(
     }
 
     if (enableLabels) {
-        ctx.fillStyle = labelTextColor
-        ctx.font = `${theme.labels.text.fontWeight ? `${theme.labels.text.fontWeight} ` : ''}${
-            theme.labels.text.fontSize
-        }px ${theme.labels.text.fontFamily}`
+        setCanvasFont(ctx, theme.labels.text)
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.fillText(label, x, y)
+        drawCanvasText(
+            ctx,
+            {
+                ...theme.labels.text,
+                fill: labelTextColor,
+            },
+            label,
+            x,
+            y
+        )
     }
 
     ctx.restore()

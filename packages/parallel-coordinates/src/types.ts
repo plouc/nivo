@@ -174,9 +174,12 @@ type ParallelCoordinatesCanvasLayer<Datum extends BaseDatum> =
     | LayerId
     | ParallelCoordinatesCanvasCustomLayer<Datum>
 
-export type ParallelCoordinatesCanvasProps<Datum extends BaseDatum> = DataProps<Datum> &
+export type ParallelCoordinatesCanvasProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> = DataProps<Datum> &
     Dimensions &
-    Partial<CommonProps<Datum>> & {
+    Partial<CommonProps<Datum, GroupBy>> & {
         layers: ParallelCoordinatesCanvasLayer<Datum>[]
         pixelRatio?: number
     }

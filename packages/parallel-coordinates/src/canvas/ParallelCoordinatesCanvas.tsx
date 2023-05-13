@@ -4,15 +4,18 @@ import { useTheme } from '@nivo/theming'
 import { renderAxisToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useParallelCoordinates } from '../hooks'
-import { BaseDatum, ParallelCoordinatesCanvasProps } from '../types'
+import { BaseDatum, DatumGroupKeys, ParallelCoordinatesCanvasProps } from '../types'
 import { canvasDefaultProps } from '../defaults'
 
-type InnerParallelCoordinatesCanvasProps<D extends BaseDatum> = Omit<
-    ParallelCoordinatesCanvasProps<D>,
-    'renderWrapper' | 'theme'
->
+type InnerParallelCoordinatesCanvasProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> = Omit<ParallelCoordinatesCanvasProps<Datum, GroupBy>, 'renderWrapper' | 'theme'>
 
-export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
+export const InnerParallelCoordinatesCanvas = <
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+>({
     data,
     layout = canvasDefaultProps.layout,
     variables,
@@ -34,7 +37,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     ariaLabelledBy,
     ariaDescribedBy,
     pixelRatio = canvasDefaultProps.pixelRatio,
-}: InnerParallelCoordinatesCanvasProps<D>) => {
+}: InnerParallelCoordinatesCanvasProps<Datum, GroupBy>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -50,7 +53,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
         lineGenerator,
         legendData,
         customLayerContext,
-    } = useParallelCoordinates<D>({
+    } = useParallelCoordinates<Datum, GroupBy>({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -162,15 +165,21 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     )
 }
 
-export const ParallelCoordinatesCanvas = <D extends BaseDatum>({
+export const ParallelCoordinatesCanvas = <
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+>({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,
     animate = canvasDefaultProps.animate,
     motionConfig = canvasDefaultProps.motionConfig,
     renderWrapper,
     ...otherProps
-}: ParallelCoordinatesCanvasProps<D>) => (
+}: ParallelCoordinatesCanvasProps<Datum, GroupBy>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerParallelCoordinatesCanvas<D> isInteractive={isInteractive} {...otherProps} />
+        <InnerParallelCoordinatesCanvas<Datum, GroupBy>
+            isInteractive={isInteractive}
+            {...otherProps}
+        />
     </Container>
 )

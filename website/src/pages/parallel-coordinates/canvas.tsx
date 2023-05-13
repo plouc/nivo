@@ -13,15 +13,32 @@ import mapper from '../../data/components/parallel-coordinates/mapper'
 import { groups } from '../../data/components/parallel-coordinates/props'
 
 const variables = [
-    { id: 'width', value: 'width', min: 0, max: 100, range: [0, 100] },
-    { id: 'height', value: 'height', min: 0, max: 100, range: [0, 100] },
-    { id: 'depth', value: 'depth', min: 0, max: 100, range: [0, 100] },
-    { id: 'weight', value: 'weight', min: 0, max: 1000, range: [0, 1000] },
-    { id: 'price', value: 'price', min: 0, max: 10, range: [0, 10], floating: true },
+    { id: 'width', value: 'width', min: 0, max: 100, range: [0, 100] as [number, number] },
+    { id: 'height', value: 'height', min: 0, max: 100, range: [0, 100] as [number, number] },
+    { id: 'depth', value: 'depth', min: 0, max: 100, range: [0, 100] as [number, number] },
+    { id: 'weight', value: 'weight', min: 0, max: 1000, range: [0, 1000] as [number, number] },
+    {
+        id: 'price',
+        value: 'price',
+        min: 0,
+        max: 10,
+        range: [0, 10] as [number, number],
+        floating: true,
+    },
 ]
 
+interface Datum {
+    id: string
+    group: string
+    width: number
+    height: number
+    depth: number
+    weight: number
+    price: number
+}
+
 const initialProperties: Pick<
-    ParallelCoordinatesCanvasProps,
+    ParallelCoordinatesCanvasProps<Datum, 'group'>,
     | 'variables'
     | 'groupBy'
     | 'margin'
