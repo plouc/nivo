@@ -22,6 +22,8 @@ const babelConfig = {
 const externals = [
     'prop-types',
     'joi',
+    'express',
+    'uuid',
 ]
 
 let input = `./packages/${pkg}/src/index.js`
