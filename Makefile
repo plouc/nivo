@@ -87,8 +87,9 @@ test: ##@0 global run all checks/tests (packages, website)
 
 .PHONY: vercel-build
 vercel-build: ##@0 global Build the website and storybook to vercel
-	@$(MAKE) website-build
-	@$(MAKE) storybook-build
+	@echo "${YELLOW}Building the website and storybook${RESET}"
+	$(MAKE) website-build
+	$(MAKE) storybook-build
 	@cp -a storybook/storybook-static website/public/storybook
 
 .PHONY: clean-all
@@ -169,6 +170,7 @@ pkgs-build: pkgs-types ##@1 packages build all packages
 	@export SKIP_TYPES=TRUE; find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
         | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
+	@echo "${GREEN}Packages built${RESET}"
 
 .PHONY: pkgs-types
 pkgs-types: ##@1 packages build all package types
