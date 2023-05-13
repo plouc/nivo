@@ -9,6 +9,7 @@ import terser from "@rollup/plugin-terser"
 
 const pkg = process.env.PACKAGE
 const isWatching = process.env.ROLLUP_WATCH === 'true'
+const skipSize = process.env.SKIP_SIZE === 'true'
 
 const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx']
 const babelConfig = {
@@ -68,12 +69,12 @@ const configs = [
         },
         plugins: [
             ...commonPlugins,
-            !isWatching && size({
+            !skipSize && !isWatching && size({
                 filename: `stats/${pkg}-size.es.json`,
             }),
-            !isWatching && visualizer({
+            !skipSize && !isWatching && visualizer({
+                template: 'raw-data',
                 filename: `stats/${pkg}-stats.es.json`,
-                json: true,
             })
         ].filter(Boolean),
     }

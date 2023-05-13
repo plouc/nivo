@@ -53,6 +53,8 @@ jobs:
           runTests: false
       - name: Build nivo packages
         run: make pkgs-build
+        env:
+          SKIP_SIZE: true
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
