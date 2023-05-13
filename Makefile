@@ -44,7 +44,7 @@ help: ##prints help
 
 .PHONY: install
 install: ##@0 global install
-	@pnpm install
+	@pnpm install --frozen-lockfile
 
 .PHONY: init
 init: ##@0 global cleanup/install/bootstrap
@@ -169,7 +169,7 @@ pkgs-build: pkgs-types ##@1 packages build all packages
 	@# Skipping type generation as it's already done via `pkgs-types` in one go.
 	@export SKIP_TYPES=TRUE; find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
-        | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
+        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
 	@echo "${GREEN}Packages built${RESET}"
 
 .PHONY: pkgs-types
