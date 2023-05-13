@@ -5,7 +5,7 @@ import stripBanner from 'rollup-plugin-strip-banner'
 import cleanup from 'rollup-plugin-cleanup'
 import size from 'rollup-plugin-size'
 import { visualizer } from 'rollup-plugin-visualizer'
-import terser from "@rollup/plugin-terser"
+import terser from '@rollup/plugin-terser'
 
 const pkg = process.env.PACKAGE
 const isWatching = process.env.ROLLUP_WATCH === 'true'
@@ -56,7 +56,7 @@ const commonPlugins = [
         modulesOnly: true,
     }),
     babel(babelConfig),
-    !isWatching && terser(),
+    // !isWatching && terser(),
     cleanup()
 ]
 

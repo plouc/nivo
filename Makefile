@@ -44,7 +44,7 @@ help: ##prints help
 
 .PHONY: install
 install: ##@0 global install
-	@pnpm install --frozen-lockfile
+	pnpm install --frozen-lockfile
 
 .PHONY: init
 init: ##@0 global cleanup/install/bootstrap
@@ -167,9 +167,12 @@ pkgs-test-cover: ##@1 packages run tests for all packages with code coverage
 pkgs-build: pkgs-types ##@1 packages build all packages
 	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
 	@# Skipping type generation as it's already done via `pkgs-types` in one go.
+	@# | xargs -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
+	find ./packages -type d -maxdepth 1 ! -path ./packages | sed 's|^./packages/||' | sort | xargs -I '{}' sh -c 'echo "make pkg-build-{}"'
 	@export SKIP_TYPES=TRUE; find ./packages -type d -maxdepth 1 ! -path ./packages \
         | sed 's|^./packages/||' \
-        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
+        | sort \
+        | xargs -I '{}' sh -c '$(MAKE) pkg-build-{}'
 	@echo "${GREEN}Packages built${RESET}"
 
 .PHONY: pkgs-types
@@ -193,6 +196,7 @@ pkg-types-%: ##@1 packages generate types for a specific package
 	fi;
 
 pkg-build-%: pkg-types-% ##@1 packages build a package
+	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@-rm -rf ./packages/${*}/dist/nivo-${*}*
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.mjs
 
