@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { radiansToDegrees } from '@nivo/core'
+import { linearGradientDef, radiansToDegrees } from '@nivo/core'
 import {
     ArcShape,
     ArcLabelsLayer,
@@ -27,6 +27,42 @@ const sampleData = [
         value: 50,
         color: '#99cc44',
     },
+]
+
+const sampleGradientData = [
+    linearGradientDef('gradientA', [
+        {
+            offset: 0,
+            color: '#e8c1a0',
+        },
+        {
+            offset: 100,
+            color: '#ff5500',
+            opacity: 0,
+        },
+    ]),
+    linearGradientDef('gradientB', [
+        {
+            offset: 0,
+            color: '#f47560',
+        },
+        {
+            offset: 100,
+            color: '#f47560',
+            opacity: 0,
+        },
+    ]),
+    linearGradientDef('gradientC', [
+        {
+            offset: 0,
+            color: '#f1e15b',
+        },
+        {
+            offset: 100,
+            color: '#f1e15b',
+            opacity: 0,
+        },
+    ]),
 ]
 
 sampleData.forEach(datum => {
@@ -331,7 +367,31 @@ describe('Pie', () => {
         })
 
         it('should support gradients', () => {
-            // @todo
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    defs={sampleGradientData}
+                    fill={[
+                        { match: { id: 'A' }, id: 'gradientA' },
+                        { match: { id: 'B' }, id: 'gradientB' },
+                        { match: { id: 'C' }, id: 'gradientC' },
+                    ]}
+                    animate={false}
+                />
+            )
+            const slices = wrapper.find(ArcShape)
+            expect(slices).toHaveLength(sampleData.length)
+
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').fill).toEqual('url(#gradientA)')
+
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').fill).toEqual('url(#gradientB)')
+
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').fill).toEqual('url(#gradientC)')
         })
     })
 
