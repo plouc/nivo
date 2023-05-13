@@ -25,6 +25,8 @@ jobs:
       - run: pnpm install
       - name: Build nivo packages
         run: make pkgs-build
+        env:
+          SKIP_SIZE: true
       - run: make pkgs-lint
       - run: make pkgs-test
 
