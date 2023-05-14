@@ -458,14 +458,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -506,14 +506,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -587,14 +587,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -620,8 +620,8 @@ importers:
         specifier: workspace:*
         version: link:../tooltip
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-time':
         specifier: ^1.0.10
         version: 1.1.1
@@ -629,8 +629,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.1
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-time:
         specifier: ^1.0.10
         version: 1.1.0
@@ -727,8 +727,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-scale-chromatic':
         specifier: ^2.0.0
         version: 2.0.1
@@ -739,11 +739,11 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-scale-chromatic:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -778,14 +778,14 @@ importers:
         specifier: ^1.4.4
         version: 1.4.5
       d3-interpolate:
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^3.0.1
+        version: 3.0.1
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-scale-chromatic:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^3.0.0
+        version: 3.0.0
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -856,14 +856,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -963,11 +963,11 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
@@ -987,14 +987,14 @@ importers:
         specifier: workspace:*
         version: link:../theming
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/prop-types':
         specifier: ^15.7.2
         version: 15.7.4
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
@@ -1140,14 +1140,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -1233,14 +1233,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -1278,14 +1278,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -1356,8 +1356,8 @@ importers:
   packages/scales:
     dependencies:
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-time':
         specifier: ^1.1.1
         version: 1.1.1
@@ -1365,8 +1365,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.1
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-time:
         specifier: ^1.0.11
         version: 1.1.0
@@ -1410,14 +1410,14 @@ importers:
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -1593,14 +1593,14 @@ importers:
         specifier: ^2.1.0
         version: 2.1.4
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-force:
         specifier: ^2.0.1
         version: 2.1.1
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1683,14 +1683,14 @@ importers:
         specifier: ^5.3.0
         version: 5.3.1
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-delaunay:
         specifier: ^5.3.0
         version: 5.3.0
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       react:
         specifier: '>= 16.14.0 < 19.0.0'
         version: 18.2.0
@@ -1863,8 +1863,8 @@ importers:
         specifier: ^0.11.2
         version: 0.11.2
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
@@ -1875,8 +1875,8 @@ importers:
         specifier: ^0.12.3
         version: 0.12.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -2007,8 +2007,8 @@ importers:
         specifier: ^0.11.2
         version: 0.11.2
       '@types/d3-scale':
-        specifier: ^3.2.3
-        version: 3.3.2
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/d3-shape':
         specifier: ^2.0.0
         version: 2.1.3
@@ -2028,8 +2028,8 @@ importers:
         specifier: ^0.12.3
         version: 0.12.3
       d3-scale:
-        specifier: ^3.2.3
-        version: 3.3.0
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
@@ -7786,10 +7786,10 @@ packages:
     resolution: {integrity: sha512-3EuZlbPu+pvclZcb1DhlymTWT2W+lYsRKBjvkH2ojDbCWDYavifqu1vYX9WGzlPgCgcS4Alhk1+zapXbGEGylQ==}
     dev: false
 
-  /@types/d3-scale@3.3.2:
-    resolution: {integrity: sha512-gGqr7x1ost9px3FvIfUMi5XA/F/yAf4UkUDtdQhpH92XCT0Oa7zkkRzY61gPVJq+DxpHn/btouw5ohWkbBsCzQ==}
+  /@types/d3-scale@4.0.2:
+    resolution: {integrity: sha512-Yk4htunhPAwN0XGlIwArRomOjdoBFXC3+kCxK2Ubg7I9shQlVSJy/pG/Ht5ASN+gdMIalpk8TJ5xV74jFsetLA==}
     dependencies:
-      '@types/d3-time': 2.1.1
+      '@types/d3-time': 1.1.1
 
   /@types/d3-shape@1.3.8:
     resolution: {integrity: sha512-gqfnMz6Fd5H6GOLYixOZP/xlrMtJms9BaS+6oWxTKHNqPGZ93BkWWupQSCYm6YHqx6h9wjRupuJb90bun6ZaYg==}
@@ -7811,10 +7811,6 @@ packages:
 
   /@types/d3-time@1.1.1:
     resolution: {integrity: sha512-ULX7LoqXTCYtM+tLYOaeAJK7IwCT+4Gxlm2MaH0ErKLi07R5lh8NHCAyWcDkCCmx1AfRcBEV6H9QE9R25uP7jw==}
-    dev: false
-
-  /@types/d3-time@2.1.1:
-    resolution: {integrity: sha512-9MVYlmIgmRR31C5b4FVSWtuMmBHh2mOWQYfl7XAYOa8dsnb7iEmUmRSWSFgXFtkjxO65d7hTUHQC+RhR/9IWFg==}
 
   /@types/debug@0.0.30:
     resolution: {integrity: sha512-orGL5LXERPYsLov6CWs3Fh6203+dXzJkR7OnddIr2514Hsecwc8xRpzCapshBbKFImCsvS/mk6+FWiN5LyZJAQ==}
@@ -11463,6 +11459,13 @@ packages:
     dependencies:
       d3-color: 2.0.0
 
+  /d3-interpolate@3.0.1:
+    resolution: {integrity: sha512-3bYs1rOD33uo8aqJfKP3JWPAibgw8Zm2+L9vBKEHJ2Rg+viTR7o5Mmv5mZcieN+FRYaAOWX5SJATX6k1PWz72g==}
+    engines: {node: '>=12'}
+    dependencies:
+      d3-color: 3.1.0
+    dev: false
+
   /d3-path@1.0.9:
     resolution: {integrity: sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg==}
 
@@ -11479,15 +11482,17 @@ packages:
       d3-array: 2.12.1
       d3-shape: 1.3.7
 
-  /d3-scale-chromatic@2.0.0:
-    resolution: {integrity: sha512-LLqy7dJSL8yDy7NRmf6xSlsFZ6zYvJ4BcWFE4zBrOPnQERv9zj24ohnXKRbyi9YHnYV+HN1oEO3iFK971/gkzA==}
+  /d3-scale-chromatic@3.0.0:
+    resolution: {integrity: sha512-Lx9thtxAKrO2Pq6OO2Ua474opeziKr279P/TKZsMAhYyNDD3EnCffdbgeSYN5O7m2ByQsxtuP2CSDczNUIZ22g==}
+    engines: {node: '>=12'}
     dependencies:
-      d3-color: 2.0.0
+      d3-color: 3.1.0
       d3-interpolate: 2.0.1
     dev: false
 
-  /d3-scale@3.3.0:
-    resolution: {integrity: sha512-1JGp44NQCt5d1g+Yy+GeOnZP7xHo0ii8zsQp6PGzd+C1/dl0KGsp9A7Mxwp+1D1o4unbTTxVdU/ZOIEBoeZPbQ==}
+  /d3-scale@4.0.2:
+    resolution: {integrity: sha512-GZW464g1SH7ag3Y7hXjf8RoUuAFIqklOAq3MRl4OaWabTFJY9PN/E1YklhXLh+OQ3fM9yS2nOkCoS+WLZ6kvxQ==}
+    engines: {node: '>=12'}
     dependencies:
       d3-array: 2.12.1
       d3-format: 1.4.5

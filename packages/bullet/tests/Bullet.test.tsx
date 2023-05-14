@@ -243,7 +243,7 @@ describe('Bullet', () => {
             expect(onRangeClick).toHaveBeenCalledTimes(1)
             expect(onRangeClick).toHaveBeenCalledWith(
                 {
-                    color: 'rgb(65, 125, 224)',
+                    color: 'rgb(66, 125, 224)',
                     id: 'A',
                     index: 0,
                     v0: 0,
@@ -385,11 +385,11 @@ describe('Bullet', () => {
 
             expect(props).toMatchInlineSnapshot(`
                 {
-                  "borderColor": "rgb(65, 125, 224)",
+                  "borderColor": "rgb(66, 125, 224)",
                   "borderWidth": 0,
-                  "color": "rgba(65, 125, 224, 1)",
+                  "color": "rgba(66, 125, 224, 1)",
                   "data": {
-                    "color": "rgb(65, 125, 224)",
+                    "color": "rgb(66, 125, 224)",
                     "index": 0,
                     "v0": 0,
                     "v1": 10,

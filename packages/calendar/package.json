@@ -34,10 +34,10 @@
         "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
-        "@types/d3-scale": "^3.2.3",
+        "@types/d3-scale": "^4.0.2",
         "@types/d3-time": "^1.0.10",
         "@types/d3-time-format": "^3.0.0",
-        "d3-scale": "^3.2.3",
+        "d3-scale": "^4.0.2",
         "d3-time": "^1.0.10",
         "d3-time-format": "^3.0.0",
         "lodash": "^4.17.21"

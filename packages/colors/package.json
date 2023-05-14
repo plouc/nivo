@@ -23,12 +23,12 @@
     "dependencies": {
         "@nivo/theming": "workspace:*",
         "@types/d3-color": "^2.0.0",
-        "@types/d3-scale": "^3.2.3",
+        "@types/d3-scale": "^4.0.2",
         "@types/d3-scale-chromatic": "^2.0.0",
         "@types/prop-types": "^15.7.2",
         "d3-color": "^3.1.0",
-        "d3-scale": "^3.2.3",
-        "d3-scale-chromatic": "^2.0.0",
+        "d3-scale": "^4.0.2",
+        "d3-scale-chromatic": "^3.0.0",
         "lodash": "^4.17.21",
         "prop-types": "^15.7.2"
     },
