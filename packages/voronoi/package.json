@@ -33,7 +33,7 @@
         "@types/d3-delaunay": "^5.3.0",
         "@types/d3-scale": "^3.2.3",
         "d3-delaunay": "^5.3.0",
-        "d3-scale": "^3.2.3"
+        "d3-scale": "^4.0.2"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"

@@ -26,7 +26,7 @@
         "@bitbloom/nivo-core": "workspace:*",
         "@types/d3-scale": "^3.2.3",
         "@types/prop-types": "^15.7.2",
-        "d3-scale": "^3.2.3",
+        "d3-scale": "^4.0.2",
         "prop-types": "^15.7.2"
     },
     "peerDependencies": {

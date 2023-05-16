@@ -2,8 +2,8 @@
 
 # `@bitbloom/nivo-radial-bar`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/radial-bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/radial-bar)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/radial-bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/radial-bar)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-radial-bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-radial-bar)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-radial-bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-radial-bar)
 
 ## RadialBar
 

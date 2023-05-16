@@ -38,6 +38,7 @@ export type ComputedDatum<RawDatum> = {
     indexValue: string | number
     data: Exclude<RawDatum, null | undefined | false | '' | 0>
     fill?: string
+    line?: { x1: number, x2: number, y1: number, y2: number }
 }
 
 export type ComputedBarDatumWithValue<RawDatum> = ComputedBarDatum<RawDatum> & {
@@ -99,16 +100,16 @@ export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'ann
 
 interface BarCustomLayerBaseProps<RawDatum>
     extends Pick<
-            BarCommonProps<RawDatum>,
-            | 'borderRadius'
-            | 'borderWidth'
-            | 'enableLabel'
-            | 'isInteractive'
-            | 'labelSkipHeight'
-            | 'labelSkipWidth'
-            | 'tooltip'
-        >,
-        Dimensions {
+        BarCommonProps<RawDatum>,
+        | 'borderRadius'
+        | 'borderWidth'
+        | 'enableLabel'
+        | 'isInteractive'
+        | 'labelSkipHeight'
+        | 'labelSkipWidth'
+        | 'tooltip'
+    >,
+    Dimensions {
     bars: ComputedBarDatum<RawDatum>[]
     legendData: [BarLegendProps, LegendData[]][]
 
@@ -126,11 +127,11 @@ interface BarCustomLayerBaseProps<RawDatum>
 
 export interface BarCustomLayerProps<RawDatum>
     extends BarCustomLayerBaseProps<RawDatum>,
-        BarHandlers<RawDatum, SVGRectElement> {}
+    BarHandlers<RawDatum, SVGRectElement> { }
 
 export interface BarCanvasCustomLayerProps<RawDatum>
     extends BarCustomLayerBaseProps<RawDatum>,
-        BarHandlers<RawDatum, HTMLCanvasElement> {}
+    BarHandlers<RawDatum, HTMLCanvasElement> { }
 
 export type BarCanvasCustomLayer<RawDatum> = (
     context: CanvasRenderingContext2D,
@@ -145,10 +146,10 @@ export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 
 export interface BarItemProps<RawDatum extends BarDatum>
     extends Pick<
-            BarCommonProps<RawDatum>,
-            'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
-        >,
-        BarHandlers<RawDatum, SVGRectElement> {
+        BarCommonProps<RawDatum>,
+        'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
+    >,
+    BarHandlers<RawDatum, SVGRectElement> {
     bar: ComputedBarDatum<RawDatum> & {
         data: {
             value: number
@@ -245,9 +246,10 @@ export type BarCommonProps<RawDatum> = {
     legendLabel?: PropertyAccessor<LegendLabelDatum<RawDatum>, string>
     tooltipLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>
 
-    groupMode: 'grouped' | 'stacked'
+    groupMode: 'grouped' | 'stacked' | 'waterfall'
     layout: 'horizontal' | 'vertical'
     reverse: boolean
+    overflow: boolean
 
     colorBy: 'id' | 'indexValue'
     colors: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>

@@ -36,9 +36,9 @@
         "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-chord": "^3.0.1",
-        "@types/d3-shape": "^2.0.0",
-        "d3-chord": "^1.0.6",
-        "d3-shape": "^1.3.5"
+        "@types/d3-shape": "^3.0.1",
+        "d3-chord": "^3.0.1",
+        "d3-shape": "^3.0.1"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"

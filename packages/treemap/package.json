@@ -34,7 +34,7 @@
         "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-hierarchy": "^1.1.8",
-        "d3-hierarchy": "^1.1.8",
+        "d3-hierarchy": "^3.1.2",
         "lodash": "^4.17.21"
     },
     "peerDependencies": {

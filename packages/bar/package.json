@@ -33,9 +33,9 @@
         "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^3.2.3",
-        "@types/d3-shape": "^2.0.0",
-        "d3-scale": "^3.2.3",
-        "d3-shape": "^1.3.5",
+        "@types/d3-shape": "^3.0.1",
+        "d3-scale": "^4.0.2",
+        "d3-shape": "^3.0.1",
         "lodash": "^4.17.21"
     },
     "peerDependencies": {

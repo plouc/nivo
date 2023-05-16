@@ -2,8 +2,8 @@
 
 # `@bitbloom/nivo-boxplot`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/boxplot?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/boxplot)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/boxplot?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/boxplot)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-boxplot?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-boxplot)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-boxplot?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-boxplot)
 
 ## Boxplot
 

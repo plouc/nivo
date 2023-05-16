@@ -335,6 +335,7 @@ export const usePieFromBox = <RawDatum>({
 
     return {
         arcGenerator,
+        activeId,
         setActiveId,
         toggleSerie,
         ...pieArcs,

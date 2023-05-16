@@ -66,6 +66,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     reverse,
     minValue,
     maxValue,
+    overflow,
 
     valueScale,
     indexScale,
@@ -86,7 +87,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     renderBar = (
         ctx,
         {
-            bar: { color, height, width, x, y },
+            bar: { color, height, width, x, y, data },
 
             borderColor,
             borderRadius,
@@ -123,6 +124,15 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         }
 
         ctx.fill()
+
+        if (data?.line) {
+            const { x1, x2, y1, y2 } = data.line
+            ctx.beginPath();
+            ctx.moveTo(x1, y1)
+            ctx.lineTo(x2, y2)
+            ctx.lineWidth = 1
+            ctx.stroke()
+        }
 
         if (borderWidth > 0) {
             ctx.stroke()
@@ -224,11 +234,11 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         annotations: useAnnotations({
             data: bars,
             annotations,
-            getPosition: node => ({
-                x: node.x,
-                y: node.y,
+            getPosition: ({ x, y }: { x: number, y: number }) => ({
+                x,
+                y,
             }),
-            getDimensions: ({ width, height }) => ({
+            getDimensions: ({ width, height }: { width: number, height: number }) => ({
                 width,
                 height,
                 size: Math.max(width, height),
@@ -300,7 +310,10 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
         ctx.translate(margin.left, margin.top)
 
+        if (!overflow) clip({ ctx, margin, width: outerWidth, height: outerHeight })
+
         layers.forEach(layer => {
+
             if (layer === 'grid') {
                 if (isNumber(theme.grid.line.strokeWidth) && theme.grid.line.strokeWidth > 0) {
                     ctx.lineWidth = theme.grid.line.strokeWidth
@@ -421,7 +434,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                         color: bar.color,
                         label: bar.label,
                         value: Number(bar.data.value),
-                    }),
+                    } as any),
                     event
                 )
 
@@ -498,3 +511,9 @@ export const BarCanvas = forwardRef(
         </Container>
     )
 )
+
+const clip = ({ ctx, margin, width, height }: { ctx: CanvasRenderingContext2D, margin: Margin, width: number, height: number }) => {
+    let region = new Path2D();
+    region.rect(0, 0, width, height - margin.bottom - margin.top);
+    ctx.clip(region, "evenodd");
+}

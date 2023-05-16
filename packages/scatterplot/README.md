@@ -2,7 +2,7 @@
 
 # `@bitbloom/nivo-scatterplot`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/scatterplot.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-/scatterplot)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-scatterplot?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-scatterplot)
 [![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-scatterplot?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-scatterplot)
 
 ## ScatterPlot

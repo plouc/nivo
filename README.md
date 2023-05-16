@@ -67,7 +67,7 @@ your logo will show up here with a link to your website. [[Become a sponsor](htt
 
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
-[npm-image]: https://img.shields.io/npm/v/@bitbloom/nivo-/core.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/@bitbloom/nivo-core.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/~nivo
 [actions-image]: https://img.shields.io/github/workflow/status/plouc/nivo/CI.svg?style=flat-square
 [actions-url]: https://github.com/plouc/nivo/actions

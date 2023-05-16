@@ -41,14 +41,14 @@
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-force": "^2.1.0",
         "@types/d3-scale": "^3.2.3",
-        "d3-force": "^2.0.1",
-        "d3-scale": "^3.2.3",
+        "d3-force": "^3.0.0",
+        "d3-scale": "^4.0.2",
         "lodash": "^4.17.21"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"
     },
     "publishConfig": {
-      "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
+        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
     }
 }

@@ -10,7 +10,7 @@ import {
     BarLegendProps,
 } from './types'
 import { defaultProps } from './props'
-import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
+import { generateGroupedBars, generateStackedBars, getLegendData, generateWaterfallBars } from './compute'
 
 export const useBar = <RawDatum extends BarDatum>({
     indexBy = defaultProps.indexBy,
@@ -94,7 +94,9 @@ export const useBar = <RawDatum extends BarDatum>({
         theme
     )
 
-    const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
+    const generateBars = groupMode === 'grouped' 
+    ? generateGroupedBars 
+    : groupMode === 'waterfall' ? generateWaterfallBars: generateStackedBars
     const { bars, xScale, yScale } = generateBars({
         layout,
         reverse,

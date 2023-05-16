@@ -2,8 +2,8 @@
 
 # `@bitbloom/nivo-marimekko`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/marimekko?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/marimekko)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/marimekko?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/marimekko)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-marimekko?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-marimekko)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-marimekko?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-marimekko)
 
 ## Marimekko
 

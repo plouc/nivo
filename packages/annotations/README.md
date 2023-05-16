@@ -2,5 +2,5 @@
 
 # `@bitbloom/nivo-annotations`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/annotations?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/annotations)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/annotations?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/annotations)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-annotations?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-annotations)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-annotations?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-annotations)
