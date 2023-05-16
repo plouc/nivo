@@ -24,14 +24,14 @@ import {
 // use it later for `stack.value()`.
 export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['dimensions']) =>
     useMemo(() => {
-        const dimensions: Record<string, (datum: RawDatum) => number> = {}
+        const dimensions: Record<string, DatumPropertyAccessor<RawDatum, number>> = {}
         const dimensionIds: string[] = []
         rawDimensions.forEach(dimension => {
             dimensionIds.push(dimension.id)
             dimensions[dimension.id] =
                 typeof dimension.value === 'function'
                     ? dimension.value
-                    : (datum: RawDatum) => get(datum, dimension.value as string, 0)
+                    :((datum: RawDatum) => get(datum, dimension.value as string, 0)) as DatumPropertyAccessor<RawDatum, number>
         })
 
         return { dimensionIds, dimensions }

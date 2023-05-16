@@ -113,7 +113,7 @@ export type CompleteTheme = {
         text: TextStyle
     }
     tooltip: {
-        container: Partial<React.CSSProperties>
+        container: Partial<React.CSSProperties> | any
         basic: Partial<React.CSSProperties>
         chip: Partial<React.CSSProperties>
         table: Partial<React.CSSProperties>
