@@ -22,7 +22,6 @@
     ],
     "dependencies": {
         "@bitbloom/nivo-recompose": "workspace:*",
-        "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^2.0.0",
         "d3-color": "^3.1.0",
