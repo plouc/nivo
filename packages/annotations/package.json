@@ -1,6 +1,6 @@
 {
     "name": "@bitbloom/nivo-annotations",
-    "version": "0.83.0",
+    "version": "0.83.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -11,7 +11,11 @@
         "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/annotations"
     },
-    "maintainers": [{"name": "Bitbloom"}],
+    "maintainers": [
+        {
+            "name": "Bitbloom"
+        }
+    ],
     "keywords": [
         "nivo",
         "dataviz",
