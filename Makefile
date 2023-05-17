@@ -297,3 +297,12 @@ api-lint: ##@5 API run eslint on the API code
 
 api-deploy: ##@5 API Deploy API on heroku
 	git subtree push --prefix api heroku master
+
+########################################################################################################################
+#
+# 6. CICD
+#
+########################################################################################################################
+packages-publish-ci: ##@1 packages publish all packages
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish from-git --yes
