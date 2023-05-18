@@ -119,6 +119,10 @@ const LineCanvas = ({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
         ctx.translate(margin.left, margin.top)
 
+        if (!overflow) {
+            clip({ctx: ctx, margin, width: outerWidth, height: outerHeight})
+        }
+
         layers.forEach(layer => {
             if (typeof layer === 'function') {
                 layer({
@@ -174,6 +178,47 @@ const LineCanvas = ({
                 })
             }
 
+            if (layer === 'areas' && enableArea === true) {
+                ctx.save()
+                ctx.globalAlpha = areaOpacity
+
+                areaGenerator.context(ctx)
+                series.forEach(serie => {
+                    ctx.fillStyle = serie.color
+                    ctx.beginPath()
+                    areaGenerator(serie.data.map(d => d.position))
+                    ctx.fill()
+                })
+
+                ctx.restore()
+            }
+
+            if (layer === 'lines') {
+                lineGenerator.context(ctx)
+                series.forEach(serie => {
+                    ctx.strokeStyle = serie.color
+                    ctx.lineWidth = lineWidth
+                    ctx.beginPath()
+                    lineGenerator(serie.data.map(d => d.position))
+                    ctx.stroke()
+                })
+            }
+
+            if (layer === 'points' && enablePoints === true && pointSize > 0) {
+                points.forEach(point => {
+                    ctx.fillStyle = point.color
+                    ctx.beginPath()
+                    ctx.arc(point.x, point.y, pointSize / 2, 0, 2 * Math.PI)
+                    ctx.fill()
+
+                    if (pointBorderWidth > 0) {
+                        ctx.strokeStyle = point.borderColor
+                        ctx.lineWidth = pointBorderWidth
+                        ctx.stroke()
+                    }
+                })
+            }
+
             if (layer === 'mesh' && debugMesh === true) {
                 renderVoronoiToCanvas(ctx, voronoi)
                 if (currentPoint) {
@@ -198,51 +243,6 @@ const LineCanvas = ({
                         containerHeight: innerHeight,
                         theme,
                     })
-                })
-            }
-
-
-            if (layer === 'areas' && enableArea === true) {
-                ctx.save()
-                ctx.globalAlpha = areaOpacity
-
-                if (!overflow) clip({ctx: ctx, margin, width: outerWidth, height: outerHeight})
-                areaGenerator.context(ctx)
-                series.forEach(serie => {
-                    ctx.fillStyle = serie.color
-                    ctx.beginPath()
-                    areaGenerator(serie.data.map(d => d.position))
-                    ctx.fill()
-                })
-
-                ctx.restore()
-            }
-
-            if (layer === 'lines') {
-                if (!overflow) clip({ctx: ctx, margin, width: outerWidth, height: outerHeight})
-                lineGenerator.context(ctx)
-                series.forEach(serie => {
-                    ctx.strokeStyle = serie.color
-                    ctx.lineWidth = lineWidth
-                    ctx.beginPath()
-                    lineGenerator(serie.data.map(d => d.position))
-                    ctx.stroke()
-                })
-            }
-
-            if (layer === 'points' && enablePoints === true && pointSize > 0) {
-                if (!overflow) clip({ctx: ctx, margin, width: outerWidth, height: outerHeight})
-                points.forEach(point => {
-                    ctx.fillStyle = point.color
-                    ctx.beginPath()
-                    ctx.arc(point.x, point.y, pointSize / 2, 0, 2 * Math.PI)
-                    ctx.fill()
-
-                    if (pointBorderWidth > 0) {
-                        ctx.strokeStyle = point.borderColor
-                        ctx.lineWidth = pointBorderWidth
-                        ctx.stroke()
-                    }
                 })
             }
         })

@@ -125,16 +125,16 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 
         ctx.fill()
 
+        if (borderWidth > 0) {
+            ctx.stroke()
+        }
+
         if (data?.line) {
             const { x1, x2, y1, y2 } = data.line
             ctx.beginPath();
             ctx.moveTo(x1, y1)
             ctx.lineTo(x2, y2)
             ctx.lineWidth = 1
-            ctx.stroke()
-        }
-
-        if (borderWidth > 0) {
             ctx.stroke()
         }
 

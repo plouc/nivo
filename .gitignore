@@ -12,7 +12,9 @@ build
 *.tsbuildinfo
 
 packages/*/dist
+packages/*/bitbloom*.tgz
 
+/.vscode
 /tmp
 
 *.lerna_backup

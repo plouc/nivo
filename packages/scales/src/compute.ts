@@ -1,4 +1,5 @@
 import uniq from 'lodash/uniq'
+import { min as _min, max as _max } from 'lodash'
 import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 import last from 'lodash/last'
@@ -235,7 +236,7 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
                 v => v
             )
 
-            return { all, min: Math.min(...all), max: Math.max(...all) }
+            return { all, min: _min(all), max: _max(all) }
         }
         case 'time': {
             const all = uniqBy(values as Date[], v => v.getTime())
