@@ -194,6 +194,11 @@ const LineCanvas = ({
             }
 
             if (layer === 'lines') {
+                if (!overflow) {
+                    ctx.save()
+                    clip({ ctx: ctx, margin, width: outerWidth, height: outerHeight })
+                }
+
                 lineGenerator.context(ctx)
                 series.forEach(serie => {
                     ctx.strokeStyle = serie.color
@@ -202,6 +207,10 @@ const LineCanvas = ({
                     lineGenerator(serie.data.map(d => d.position))
                     ctx.stroke()
                 })
+
+                if (!overflow) {
+                    ctx.restore()
+                }
             }
 
             if (layer === 'points' && enablePoints === true && pointSize > 0) {
