@@ -301,6 +301,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         if (!canvasEl.current) return
         if (!ctx) return
 
+        if (!overflow) clip({ ctx, margin, width: outerWidth, height: outerHeight })
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
@@ -309,8 +311,6 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         ctx.fillStyle = theme.background
         ctx.fillRect(0, 0, outerWidth, outerHeight)
         ctx.translate(margin.left, margin.top)
-
-        if (!overflow) clip({ ctx, margin, width: outerWidth, height: outerHeight })
 
         layers.forEach(layer => {
 
