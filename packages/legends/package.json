@@ -1,7 +1,7 @@
 {
     "name": "@bitbloom/nivo-legends",
     "description": "legend components for nivo dataviz library",
-    "version": "0.83.1",
+    "version": "0.83.2",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
