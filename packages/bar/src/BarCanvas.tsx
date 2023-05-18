@@ -313,7 +313,10 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         layers.forEach(layer => {
 
             if (layer === 'grid') {
-                if (!overflow) clip({ ctx, margin, width: outerWidth, height: outerHeight })
+                if (!overflow) {
+                    ctx.save()
+                    clip({ ctx, margin, width: outerWidth, height: outerHeight })
+                }
                 if (isNumber(theme.grid.line.strokeWidth) && theme.grid.line.strokeWidth > 0) {
                     ctx.lineWidth = theme.grid.line.strokeWidth
                     ctx.strokeStyle = theme.grid.line.stroke as string
@@ -330,12 +333,16 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 
                     if (enableGridY) {
                         renderGridLinesToCanvas<string | number>(ctx, {
-                            width,
+                            width: innerWidth,
                             height,
                             scale: yScale,
                             axis: 'y',
                             values: gridYValues,
                         })
+                    }
+
+                    if (!overflow) {
+                        ctx.restore()
                     }
                 }
             } else if (layer === 'axes') {
@@ -351,7 +358,10 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                     theme,
                 })
             } else if (layer === 'bars') {
-                if (!overflow) clip({ ctx, margin, width: outerWidth, height: outerHeight })
+                if (!overflow) {
+                    ctx.save()
+                    clip({ ctx, margin, width: outerWidth, height: outerHeight })
+                }
                 barsWithValue.forEach(bar => {
                     renderBar(ctx, {
                         bar,
@@ -363,6 +373,9 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                         shouldRenderLabel: shouldRenderBarLabel(bar),
                     })
                 })
+                if (!overflow) {
+                    ctx.restore()
+                }
             } else if (layer === 'legends') {
                 legendsWithData.forEach(([legend, data]) => {
                     renderLegendToCanvas(ctx, {
