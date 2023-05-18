@@ -119,10 +119,6 @@ const LineCanvas = ({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
         ctx.translate(margin.left, margin.top)
 
-        if (!overflow) {
-            clip({ctx: ctx, margin, width: outerWidth, height: outerHeight})
-        }
-
         layers.forEach(layer => {
             if (typeof layer === 'function') {
                 layer({
@@ -181,6 +177,10 @@ const LineCanvas = ({
             if (layer === 'areas' && enableArea === true) {
                 ctx.save()
                 ctx.globalAlpha = areaOpacity
+
+                if (!overflow) {
+                    clip({ ctx: ctx, margin, width: outerWidth, height: outerHeight })
+                }
 
                 areaGenerator.context(ctx)
                 series.forEach(serie => {
