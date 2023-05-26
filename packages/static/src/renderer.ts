@@ -1,4 +1,4 @@
-import { pick } from 'lodash'
+import pick from 'lodash/pick'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ChartProps, chartsMapping, ChartType } from './mappings'
