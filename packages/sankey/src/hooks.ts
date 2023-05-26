@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import { sankey as d3Sankey } from 'd3-sankey'
 import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'

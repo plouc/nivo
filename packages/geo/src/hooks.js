@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 import { useMemo } from 'react'
-import { isFunction, get } from 'lodash'
+import isFunction from 'lodash/isFunction'
+import get from 'lodash/get'
 import { format } from 'd3-format'
 import {
     geoPath,

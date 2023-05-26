@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { get } from 'lodash'
+import get from 'lodash/get'
 import { stack as d3Stack, Stack, Series } from 'd3-shape'
 import { useValueFormatter, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'

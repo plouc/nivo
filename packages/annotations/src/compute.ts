@@ -1,4 +1,6 @@
-import { filter, isNumber, omit } from 'lodash'
+import filter from 'lodash/filter'
+import isNumber from 'lodash/isNumber'
+import omit from 'lodash/omit'
 import {
     radiansToDegrees,
     absoluteAngleDegrees,
