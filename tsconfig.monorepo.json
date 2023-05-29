@@ -23,6 +23,7 @@
 
         // Charts now
         { "path": "./packages/bar" },
+        { "path": "./packages/boxplot" },
         { "path": "./packages/bullet" },
         { "path": "./packages/bump" },
         { "path": "./packages/calendar" },
