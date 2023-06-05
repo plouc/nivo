@@ -104,23 +104,26 @@ export const generateCountriesPopulation = (size: number) => {
     }))
 }
 
-export const generateDayCounts = (from: Date, to: Date, maxSize = 0.9) => {
+export const generateOrderedDayCounts = (from: Date, to: Date) => {
     const days = timeDays(from, to)
+    const dayFormat = timeFormat('%Y-%m-%d')
+
+    return days.map(day => {
+        return {
+            value: Math.round(Math.random() * 400),
+            day: dayFormat(day),
+        }
+    })
+}
+
+export const generateDayCounts = (from: Date, to: Date, maxSize = 0.9) => {
+    const days = generateOrderedDayCounts(from, to)
 
     const size =
         Math.round(days.length * (maxSize * 0.4)) +
         Math.round(Math.random() * (days.length * (maxSize * 0.6)))
 
-    const dayFormat = timeFormat('%Y-%m-%d')
-
-    return shuffle(days)
-        .slice(0, size)
-        .map(day => {
-            return {
-                day: dayFormat(day),
-                value: Math.round(Math.random() * 400),
-            }
-        })
+    return shuffle(days).slice(0, size)
 }
 
 export const generateCountriesData = (
@@ -223,13 +226,24 @@ const libTreeItems = [
     ],
 ]
 
-export const generateLibTree = (name = 'nivo', limit?: number | null, children = libTreeItems) => {
+interface LibTreeDatum {
+    name: string
+    loc?: number
+    color: string
+    children?: LibTreeDatum[]
+}
+
+export const generateLibTree = (
+    name = 'nivo',
+    limit?: number | null,
+    children = libTreeItems
+): LibTreeDatum => {
     limit = limit || children.length
     if (limit > children.length) {
         limit = children.length
     }
 
-    const tree: Record<string, unknown> = {
+    const tree: LibTreeDatum = {
         name,
         color: randColor(),
     }
@@ -263,9 +277,12 @@ export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     return { data, keys: wines }
 }
 
+export * from './boxplot'
 export * from './bullet'
 export * from './chord'
 export * from './network'
 export * from './parallelCoordinates'
 export * from './sankey'
 export * from './swarmplot'
+export * from './waffle'
+export * from './xySeries'

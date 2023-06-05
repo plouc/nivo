@@ -1,9 +1,8 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { Pie } from './Pie'
-import { PieSvgProps } from './types'
+import { PieSvgProps, MayHaveLabel } from './types'
 
-export const ResponsivePie = <RawDatum,>(
+export const ResponsivePie = <RawDatum extends MayHaveLabel>(
     props: Omit<PieSvgProps<RawDatum>, 'width' | 'height'>
 ) => (
     <ResponsiveWrapper>

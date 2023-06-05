@@ -1,13 +1,6 @@
 import * as React from 'react'
-import { Interpolation, SpringValue } from 'react-spring'
-import {
-    Box,
-    ModernMotionProps,
-    Theme,
-    PropertyAccessor,
-    ValueFormat,
-    SvgDefsAndFill,
-} from '@bitbloom/nivo-core'
+import { Interpolation, SpringValue } from '@react-spring/web'
+import { Box, MotionProps, Theme, PropertyAccessor, ValueFormat, SvgDefsAndFill } from '@bitbloom/nivo-core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 
 export interface ComputedDatum<RawDatum> {
@@ -82,8 +75,9 @@ export interface CirclePackingCommonProps<RawDatum> {
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
     zoomedId?: string | null
     animate: boolean
-    motionConfig: ModernMotionProps['motionConfig']
+    motionConfig: MotionProps['motionConfig']
     role: string
+    renderWrapper?: boolean
 }
 
 export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum> &

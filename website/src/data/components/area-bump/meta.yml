@@ -4,9 +4,7 @@ flavors:
 
 AreaBump:
   package: '@bitbloom/nivo-bump'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories: []
   description: |
     The AreaBump chart is similar to the [Bump](self:/bump/) chart,

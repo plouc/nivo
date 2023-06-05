@@ -5,7 +5,6 @@ flavors:
 Voronoi:
   package: '@bitbloom/nivo-voronoi'
   tags:
-    - svg
     - experimental
   stories: []
   description: |

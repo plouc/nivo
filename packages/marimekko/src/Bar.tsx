@@ -1,5 +1,5 @@
-import React, { createElement, MouseEvent, useCallback } from 'react'
-import { animated, SpringValues, to } from 'react-spring'
+import { createElement, useCallback, MouseEvent } from 'react'
+import { animated, SpringValues, to } from '@react-spring/web'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { BarDatum, CommonProps, MouseEventHandlers } from './types'
 
@@ -31,7 +31,8 @@ export const Bar = <RawDatum,>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const showTooltip = useCallback(
-        event => showTooltipFromEvent(createElement(tooltip, { bar }), event),
+        (event: MouseEvent<SVGRectElement>) =>
+            showTooltipFromEvent(createElement(tooltip, { bar }), event),
         [showTooltipFromEvent, tooltip, bar]
     )
 

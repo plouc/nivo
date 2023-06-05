@@ -1,5 +1,4 @@
-import React from 'react'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { useTheme } from '@bitbloom/nivo-core'
 import { LabelProps } from './types'
 import { interpolatePosition, interpolateSize } from './CircleHtml'

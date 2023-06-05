@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react'
-import { animated } from 'react-spring'
+import { useMemo, memo } from 'react'
+import * as React from 'react'
+import { animated } from '@react-spring/web'
 import { useTheme } from '@bitbloom/nivo-core'
-import { AxisTickProps, AxisValue } from '../types'
+import { ScaleValue } from '@bitbloom/nivo-scales'
+import { AxisTickProps } from '../types'
 
-export const AxisTick = <Value extends AxisValue>({
+const AxisTick = <Value extends ScaleValue>({
     value: _value,
     format,
     lineX,
@@ -14,6 +16,8 @@ export const AxisTick = <Value extends AxisValue>({
     animatedProps,
 }: AxisTickProps<Value>) => {
     const theme = useTheme()
+    const lineStyle = theme.axis.ticks.line
+    const textStyle = theme.axis.ticks.text
 
     const value = format?.(_value) ?? _value
 
@@ -32,15 +36,32 @@ export const AxisTick = <Value extends AxisValue>({
 
     return (
         <animated.g transform={animatedProps.transform} {...props}>
-            <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
+            <line x1={0} x2={lineX} y1={0} y2={lineY} style={lineStyle} />
+            {textStyle.outlineWidth > 0 && (
+                <animated.text
+                    dominantBaseline={textBaseline}
+                    textAnchor={textAnchor}
+                    transform={animatedProps.textTransform}
+                    style={textStyle}
+                    strokeWidth={textStyle.outlineWidth * 2}
+                    stroke={textStyle.outlineColor}
+                    strokeLinejoin="round"
+                >
+                    {`${value}`}
+                </animated.text>
+            )}
             <animated.text
                 dominantBaseline={textBaseline}
                 textAnchor={textAnchor}
                 transform={animatedProps.textTransform}
-                style={theme.axis.ticks.text}
+                style={textStyle}
             >
-                {value}
+                {`${value}`}
             </animated.text>
         </animated.g>
     )
 }
+
+const memoizedAxisTick = memo(AxisTick) as typeof AxisTick
+
+export { memoizedAxisTick as AxisTick }

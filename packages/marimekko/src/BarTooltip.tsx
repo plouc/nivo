@@ -1,4 +1,3 @@
-import React from 'react'
 import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { BarDatum } from './types'
 

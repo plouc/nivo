@@ -1,34 +1,26 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { memo } from 'react'
+import { createElement, memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
-import { dotsThemePropType } from '../../theming'
+import { useSpring, animated } from '@react-spring/web'
+import { useTheme } from '../../theming'
 import { useMotionConfig } from '../../motion'
 import DotsItemSymbol from './DotsItemSymbol'
 
 const DotsItem = ({
     x,
     y,
-    symbol,
+    symbol = DotsItemSymbol,
     size,
     datum,
     color,
     borderWidth,
     borderColor,
     label,
-    labelTextAnchor,
-    labelYOffset,
-    theme,
+    labelTextAnchor = 'middle',
+    labelYOffset = -12,
 }) => {
-    const { animate, config: springConfig } = useMotionConfig()
+    const theme = useTheme()
 
+    const { animate, config: springConfig } = useMotionConfig()
     const animatedProps = useSpring({
         transform: `translate(${x}, ${y})`,
         config: springConfig,
@@ -37,7 +29,7 @@ const DotsItem = ({
 
     return (
         <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
-            {React.createElement(symbol, {
+            {createElement(symbol, {
                 size,
                 color,
                 datum,
@@ -67,20 +59,7 @@ DotsItem.propTypes = {
 
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
-    labelYOffset: PropTypes.number.isRequired,
-
-    theme: PropTypes.shape({
-        dots: dotsThemePropType.isRequired,
-    }).isRequired,
+    labelYOffset: PropTypes.number,
 }
-
-export const DotsItemDefaultProps = {
-    symbol: DotsItemSymbol,
-
-    labelTextAnchor: 'middle',
-    labelYOffset: -12,
-}
-
-DotsItem.defaultProps = DotsItemDefaultProps
 
 export default memo(DotsItem)

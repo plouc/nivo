@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { CirclePackingCanvasProps } from './types'
 import { CirclePackingCanvas } from './CirclePackingCanvas'

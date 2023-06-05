@@ -10,8 +10,6 @@ Pie:
   package: '@bitbloom/nivo-pie'
   tags: 
     - radial
-    - svg
-    - isomorphic
   stories:
     - label: Using colors from data
       link: pie--using-colors-from-data

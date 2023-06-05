@@ -1,18 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveCalendar, CalendarDefaultProps } from '@bitbloom/nivo-calendar'
+import { ResponsiveCalendar, calendarDefaultProps } from '@bitbloom/nivo-calendar'
 import { generateDayCounts } from '@bitbloom/nivo-generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -56,6 +49,7 @@ const initialProperties = {
 
     isInteractive: true,
     'custom tooltip example': false,
+    tooltip: null,
 
     legends: [
         {
@@ -72,6 +66,20 @@ const initialProperties = {
 }
 
 const Calendar = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/calendar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Calendar"
@@ -81,13 +89,14 @@ const Calendar = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={CalendarDefaultProps}
+            defaultProperties={calendarDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
                 ...properties,
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo, ReactNode } from 'react'
+import { CSSProperties, memo, ReactNode } from 'react'
 import { useTheme } from '@bitbloom/nivo-core'
 
 const tableStyle = {

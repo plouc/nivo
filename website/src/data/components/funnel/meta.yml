@@ -6,8 +6,6 @@ Funnel:
   package: '@bitbloom/nivo-funnel'
   tags:
     - experimental
-    - svg
-    - isomorphic
   stories: []
   description: |
     A funnel chart.

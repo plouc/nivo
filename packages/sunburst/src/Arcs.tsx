@@ -1,4 +1,5 @@
-import React, { createElement, useMemo } from 'react'
+import { createElement, useMemo } from 'react'
+import * as React from 'react'
 import { ArcGenerator, ArcsLayer } from '@bitbloom/nivo-arcs'
 import { ComputedDatum, SunburstCommonProps, MouseHandlers } from './types'
 import { useTooltip } from '@bitbloom/nivo-tooltip'

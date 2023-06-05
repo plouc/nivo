@@ -1,0 +1,42 @@
+{
+    "name": "@bitbloom/nivo-polar-axes",
+    "version": "0.83.2",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/polar-axes"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "axes",
+        "polar"
+    ],
+    "main": "./dist/nivo-polar-axes.cjs.js",
+    "module": "./dist/nivo-polar-axes.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@bitbloom/nivo-arcs": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-scales": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

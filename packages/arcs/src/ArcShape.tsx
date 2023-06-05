@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react'
-import { SpringValue, Interpolation, animated } from 'react-spring'
+import { useCallback, MouseEvent } from 'react'
+import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { DatumWithArcAndColor } from './types'
 
 export type ArcMouseHandler<Datum extends DatumWithArcAndColor> = (
     datum: Datum,
-    event: React.MouseEvent<SVGPathElement>
+    event: MouseEvent<SVGPathElement>
 ) => void
 
 export interface ArcShapeProps<Datum extends DatumWithArcAndColor> {
@@ -36,19 +36,25 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
     onMouseMove,
     onMouseLeave,
 }: ArcShapeProps<Datum>) => {
-    const handleClick = useCallback(event => onClick?.(datum, event), [onClick, datum])
+    const handleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onClick?.(datum, event),
+        [onClick, datum]
+    )
 
-    const handleMouseEnter = useCallback(event => onMouseEnter?.(datum, event), [
-        onMouseEnter,
-        datum,
-    ])
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onMouseEnter?.(datum, event),
+        [onMouseEnter, datum]
+    )
 
-    const handleMouseMove = useCallback(event => onMouseMove?.(datum, event), [onMouseMove, datum])
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onMouseMove?.(datum, event),
+        [onMouseMove, datum]
+    )
 
-    const handleMouseLeave = useCallback(event => onMouseLeave?.(datum, event), [
-        onMouseLeave,
-        datum,
-    ])
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onMouseLeave?.(datum, event),
+        [onMouseLeave, datum]
+    )
 
     return (
         <animated.path

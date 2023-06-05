@@ -19,7 +19,7 @@ steps:
 
 - script: |
     echo "Create new container"
-    docker run --name nivo -v $(Agent.HomeDirectory)/.npmrc:/tmp/.npmrc -e NPM_CONFIG_USERCONFIG=/tmp/.npmrc -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
+    docker run --name nivo -v $(Agent.HomeDirectory)/.npmrc:/tmp/.npmrc -e NPM_CONFIG_USERCONFIG=/tmp/.npmrc -v $(Build.SourcesDirectory):/app -w /app node:latest ./build.sh
   displayName: 'Build modules on nivo container'
   condition: succeeded()
   

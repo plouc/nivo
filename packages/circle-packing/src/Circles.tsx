@@ -1,5 +1,6 @@
-import React, { createElement, useMemo, MouseEvent } from 'react'
-import { useTransition, to, SpringValue } from 'react-spring'
+import { createElement, useMemo, MouseEvent } from 'react'
+import * as React from 'react'
+import { useTransition, to, SpringValue } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@bitbloom/nivo-core'
 import { useInheritedColor } from '@bitbloom/nivo-colors'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
@@ -105,9 +106,10 @@ export const Circles = <RawDatum,>({
     const theme = useTheme()
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
 
-    const transitionPhases = useMemo(() => getTransitionPhases<RawDatum>(getBorderColor), [
-        getBorderColor,
-    ])
+    const transitionPhases = useMemo(
+        () => getTransitionPhases<RawDatum>(getBorderColor),
+        [getBorderColor]
+    )
 
     const transition = useTransition<
         ComputedDatum<RawDatum>,

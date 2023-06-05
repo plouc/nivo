@@ -4,7 +4,7 @@ import {
     Dimensions,
     Theme,
     SvgDefsAndFill,
-    ModernMotionProps,
+    MotionProps,
     ValueFormat,
     PropertyAccessor,
 } from '@bitbloom/nivo-core'
@@ -26,6 +26,10 @@ export type DatumId = string | number
 export interface DefaultRawDatum {
     id: DatumId
     value: number
+}
+
+export interface MayHaveLabel {
+    label?: string | number
 }
 
 export interface PieArc extends Arc {
@@ -50,6 +54,7 @@ export interface ComputedDatum<RawDatum> {
     // contains the raw datum as passed to the chart
     data: RawDatum
     arc: PieArc
+    hidden: boolean
 }
 
 export interface DataProps<RawDatum> {
@@ -112,6 +117,7 @@ export type CommonPieProps<RawDatum> = {
     legends: LegendProps[]
 
     role: string
+    renderWrapper: boolean
 } & Partial<ArcLabelsProps<ComputedDatum<RawDatum>>> &
     Partial<ArcLinkLabelsProps<ComputedDatum<RawDatum>>>
 
@@ -133,7 +139,7 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers?: PieLayer<RawDatum>[]
         animate?: boolean
-        motionConfig?: ModernMotionProps['motionConfig']
+        motionConfig?: MotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
     } & PieSvgCustomComponents<RawDatum>
 
@@ -144,7 +150,7 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers: PieLayer<RawDatum>[]
         animate: boolean
-        motionConfig: ModernMotionProps['motionConfig']
+        motionConfig: MotionProps['motionConfig']
         transitionMode: ArcTransitionMode
     } & PieSvgCustomComponents<RawDatum>
 

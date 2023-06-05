@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useRef, useEffect, useCallback } from 'react'
+import { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
 import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@bitbloom/nivo-core'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
@@ -175,10 +175,10 @@ const ChoroplethCanvas = memo(
                 projection,
             ]
         )
-        const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
-            isInteractive,
-            hideTooltip,
-        ])
+        const handleMouseLeave = useCallback(
+            () => isInteractive && hideTooltip(),
+            [isInteractive, hideTooltip]
+        )
         const handleClick = useCallback(
             event => {
                 if (!isInteractive || !onClick) return

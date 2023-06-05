@@ -1,10 +1,11 @@
 import React from 'react'
 import { ResponsiveCirclePackingHtml, defaultProps } from '@bitbloom/nivo-circle-packing'
 import { generateLibTree } from '@bitbloom/nivo-generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => generateLibTree()
 
@@ -43,6 +44,20 @@ const initialProperties = {
 }
 
 const CirclePackingHtml = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/circle-packing.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="CirclePackingHtml"
@@ -56,10 +71,11 @@ const CirclePackingHtml = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             dataKey="root"
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBubbleHtml
+                    <ResponsiveCirclePackingHtml
                         root={data}
                         {...properties}
                         theme={theme}

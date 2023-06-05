@@ -1,46 +1,44 @@
 {
-  "name": "@bitbloom/nivo-voronoi",
-  "version": "0.69.10",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/voronoi"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "voronoi"
-  ],
-  "main": "./dist/nivo-voronoi.cjs.js",
-  "module": "./dist/nivo-voronoi.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@bitbloom/nivo-core": "^0.69.10",
-    "@types/d3-delaunay": "^5.3.0",
-    "@types/d3-scale": "^3.2.2",
-    "d3-delaunay": "^5.1.1",
-    "d3-scale": "^3.0.0",
-    "recompose": "^0.30.0"
-  },
-  "peerDependencies": {
-    "react": ">= 16.8.4 < 18.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  },
-  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
+    "name": "@bitbloom/nivo-voronoi",
+    "version": "0.83.2",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
+        "directory": "packages/voronoi"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "voronoi"
+    ],
+    "main": "./dist/nivo-voronoi.cjs.js",
+    "module": "./dist/nivo-voronoi.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@bitbloom/nivo-core": "workspace:*",
+        "@types/d3-delaunay": "^5.3.0",
+        "@types/d3-scale": "^3.2.3",
+        "d3-delaunay": "^5.3.0",
+        "d3-scale": "^4.0.2"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
+    }
 }

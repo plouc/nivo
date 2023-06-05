@@ -1,4 +1,4 @@
-import { ScaleLinear, scaleLinear } from 'd3-scale'
+import { createLinearScale } from '@bitbloom/nivo-scales'
 import { useMemo } from 'react'
 import { Datum, CommonBulletProps } from './types'
 
@@ -6,40 +6,33 @@ export const useEnhancedData = (
     data: Datum[],
     {
         layout,
+        maxValue,
+        minValue,
         reverse,
         height,
         width,
-    }: Pick<CommonBulletProps, 'layout' | 'reverse' | 'height' | 'width'>
+    }: Pick<CommonBulletProps, 'layout' | 'reverse' | 'height' | 'width'> &
+        Record<'maxValue' | 'minValue', number | undefined>
 ) => {
     return useMemo(
         () =>
             data.map(d => {
                 const all = [...d.ranges, ...d.measures, ...(d.markers ?? [])]
+                const max = maxValue ?? Math.max(...all)
+                const min = minValue ?? Math.min(...all)
 
-                const max = Math.max(...all)
-
-                const min = Math.min(...all, 0)
-
-                const scale = scaleLinear().domain([min, max]) as ScaleLinear<
-                    number,
-                    number,
-                    never
-                > & { type: 'linear' }
-
-                if (layout === 'horizontal') {
-                    scale.range(reverse === true ? [width, 0] : [0, width])
-                } else {
-                    scale.range(reverse === true ? [0, height] : [height, 0])
-                }
-
-                // Add our type property
-                ;(scale as any).type = 'linear'
+                const scale = createLinearScale(
+                    { clamp: true, min, max, type: 'linear' },
+                    { all, max, min },
+                    layout === 'horizontal' ? width : height,
+                    layout === 'horizontal' ? (reverse ? 'y' : 'x') : reverse ? 'x' : 'y'
+                )
 
                 return {
                     ...d,
                     scale,
                 }
             }),
-        [data, height, layout, reverse, width]
+        [data, height, layout, maxValue, minValue, reverse, width]
     )
 }

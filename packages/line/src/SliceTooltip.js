@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useTheme } from '@bitbloom/nivo-core'
-import { Chip, TableTooltip } from '@bitbloom/nivo-tooltip'
+import { TableTooltip } from '@bitbloom/nivo-tooltip'
 
 const SliceTooltip = ({ slice, axis }) => {
     const theme = useTheme()

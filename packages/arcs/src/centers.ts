@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useTransition, to, SpringValue } from 'react-spring'
+import { useTransition, to, SpringValue } from '@react-spring/web'
 import {
     // @ts-ignore
     midAngle,
@@ -17,23 +17,25 @@ export const computeArcCenter = (arc: Arc, offset: number): Point => {
     return positionFromAngle(angle, radius)
 }
 
-export const interpolateArcCenter = (offset: number) => (
-    startAngleValue: SpringValue<number>,
-    endAngleValue: SpringValue<number>,
-    innerRadiusValue: SpringValue<number>,
-    outerRadiusValue: SpringValue<number>
-) =>
-    to(
-        [startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue],
-        (startAngle, endAngle, innerRadius, outerRadius) => {
-            const centroid = computeArcCenter(
-                { startAngle, endAngle, innerRadius, outerRadius },
-                offset
-            )
+export const interpolateArcCenter =
+    (offset: number) =>
+    (
+        startAngleValue: SpringValue<number>,
+        endAngleValue: SpringValue<number>,
+        innerRadiusValue: SpringValue<number>,
+        outerRadiusValue: SpringValue<number>
+    ) =>
+        to(
+            [startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue],
+            (startAngle, endAngle, innerRadius, outerRadius) => {
+                const centroid = computeArcCenter(
+                    { startAngle, endAngle, innerRadius, outerRadius },
+                    offset
+                )
 
-            return `translate(${centroid.x},${centroid.y})`
-        }
-    )
+                return `translate(${centroid.x},${centroid.y})`
+            }
+        )
 
 export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps = unknown>(
     data: Datum[],

@@ -1,50 +1,46 @@
 {
-  "name": "@bitbloom/nivo-circle-packing",
-  "version": "0.69.10",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/circle-packing"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "circle-packing"
-  ],
-  "main": "./dist/nivo-circle-packing.cjs.js",
-  "module": "./dist/nivo-circle-packing.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@bitbloom/nivo-colors": "^0.69.10",
-    "@bitbloom/nivo-core": "^0.69.10",
-    "@bitbloom/nivo-tooltip": "^0.69.10",
-    "d3-hierarchy": "^1.1.8",
-    "lodash": "^4.17.11",
-    "react-spring": "9.1.2"
-  },
-  "devDependencies": {
-    "@types/d3-hierarchy": "^1.1.7"
-  },
-  "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 18.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  },
-  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
+    "name": "@bitbloom/nivo-circle-packing",
+    "version": "0.83.2",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
+        "directory": "packages/circle-packing"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "circle-packing"
+    ],
+    "main": "./dist/nivo-circle-packing.cjs.js",
+    "module": "./dist/nivo-circle-packing.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-hierarchy": "^1.1.8",
+        "d3-hierarchy": "^3.1.2",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
+    }
 }

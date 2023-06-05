@@ -1,18 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveCalendarCanvas, CalendarCanvasDefaultProps } from '@bitbloom/nivo-calendar'
+import { ResponsiveCalendarCanvas, calendarCanvasDefaultProps } from '@bitbloom/nivo-calendar'
 import { generateDayCounts } from '@bitbloom/nivo-generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const from = new Date(2013, 3, 1)
 const to = new Date(2019, 7, 12)
@@ -75,6 +68,20 @@ const initialProperties = {
 }
 
 const CalendarCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/calendar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="CalendarCanvas"
@@ -84,13 +91,14 @@ const CalendarCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={CalendarCanvasDefaultProps}
+            defaultProperties={calendarCanvasDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
                 ...properties,
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

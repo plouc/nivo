@@ -3,7 +3,7 @@
 *.log*
 node_modules
 coverage
-/storybook-static
+storybook/storybook-static
 
 package-lock.json
 .npmrc
@@ -11,8 +11,26 @@ package-lock.json
 build
 *.tsbuildinfo
 
-/packages/*/dist
+packages/*/dist
+packages/*/bitbloom*.tgz
+
+/.vscode
+/tmp
 
 *.lerna_backup
 
 /stats
+/api/app.js
+# Local Netlify folder
+.netlify
+
+# yarn 2 - not using zero-installs
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+cypress/cypress/videos

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, useState, useMemo } from 'react'
+import { Fragment, useState } from 'react'
 import {
     bindDefs,
     withContainer,
@@ -103,7 +103,17 @@ const Line = props => {
         partialMargin
     )
 
-    const { lineGenerator, areaGenerator, series, xScale, yScale, slices, points } = useLine({
+    const {
+        legendData,
+        toggleSerie,
+        lineGenerator,
+        areaGenerator,
+        series,
+        xScale,
+        yScale,
+        slices,
+        points,
+    } = useLine({
         data,
         xScale: xScaleSpec,
         xFormat,
@@ -125,18 +135,6 @@ const Line = props => {
 
     const [currentPoint, setCurrentPoint] = useState(null)
     const [currentSlice, setCurrentSlice] = useState(null)
-
-    const legendData = useMemo(
-        () =>
-            series
-                .map(line => ({
-                    id: line.id,
-                    label: line.id,
-                    color: line.color,
-                }))
-                .reverse(),
-        [series]
-    )
 
     const layerById = {
         grid: (
@@ -192,6 +190,7 @@ const Line = props => {
                 containerHeight={innerHeight}
                 data={legend.data || legendData}
                 theme={theme}
+                toggleSerie={legend.toggleSerie ? toggleSerie : undefined}
             />
         )),
     }
@@ -221,6 +220,10 @@ const Line = props => {
                 tooltip={sliceTooltip}
                 current={currentSlice}
                 setCurrent={setCurrentSlice}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
             />
         )
     }

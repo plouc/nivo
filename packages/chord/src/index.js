@@ -1,7 +1,0 @@
-export { default as Chord } from './Chord'
-export { default as ChordCanvas } from './ChordCanvas'
-export { default as ResponsiveChord } from './ResponsiveChord'
-export { default as ResponsiveChordCanvas } from './ResponsiveChordCanvas'
-export * from './props'
-export * from './compute'
-export * from './hooks'

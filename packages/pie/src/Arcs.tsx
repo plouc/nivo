@@ -1,4 +1,5 @@
-import React, { createElement, useMemo } from 'react'
+import { createElement, useMemo } from 'react'
+import * as React from 'react'
 import { ArcGenerator, ArcsLayer } from '@bitbloom/nivo-arcs'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { ComputedDatum, CompletePieSvgProps } from './types'
@@ -52,7 +53,7 @@ export const Arcs = <RawDatum,>({
             setActiveId(datum.id)
             onMouseEnter?.(datum, event)
         }
-    }, [isInteractive, showTooltipFromEvent, setActiveId, onMouseEnter])
+    }, [isInteractive, showTooltipFromEvent, setActiveId, onMouseEnter, tooltip])
 
     const handleMouseMove = useMemo(() => {
         if (!isInteractive) return undefined
@@ -61,7 +62,7 @@ export const Arcs = <RawDatum,>({
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
             onMouseMove?.(datum, event)
         }
-    }, [isInteractive, showTooltipFromEvent, onMouseMove])
+    }, [isInteractive, showTooltipFromEvent, onMouseMove, tooltip])
 
     const handleMouseLeave = useMemo(() => {
         if (!isInteractive) return undefined

@@ -8,9 +8,7 @@ flavors:
 
 Bar:
   package: '@bitbloom/nivo-bar'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: Using markers
       link: bar--with-marker
@@ -29,7 +27,13 @@ Bar:
     - label: With symlog scale
       link: bar--with-symlog-scale
     - label: Race bar chart
-      link: bar-race-chart--demo
+      link: bar--race-chart
+    - label: Initial hidden ids
+      link: bar--initial-hidden-ids
+    - label: Using custom label for legends
+      link: bar--custom-legend-labels
+    - label: Using annotations
+      link: bar--with-annotations
   description: |
     Bar chart which can display multiple data series, stacked or side by side. Also
     supports both vertical and horizontal layout, with negative values descending
@@ -57,6 +61,13 @@ BarCanvas:
   package: '@bitbloom/nivo-bar'
   tags:
     - canvas
+  stories:
+    - label: Using custom layer
+      link: barcanvas--custom-layer
+    - label: Using custom bar renderer
+      link: barcanvas--custom-bar-renderer
+    - label: Using annotations
+      link: barcanvas--with-annotations
   description: |
     A variation around the [Bar](self:/bar) component. Well suited for
     large data sets as it does not impact DOM tree depth, however you'll

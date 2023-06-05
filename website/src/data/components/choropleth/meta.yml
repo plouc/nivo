@@ -8,8 +8,6 @@ Choropleth:
   package: '@bitbloom/nivo-geo'
   tags:
     - map
-    - svg
-    - isomorphic
   stories: []
   description: |
     The Choropleth component displays divided geographical areas shaded

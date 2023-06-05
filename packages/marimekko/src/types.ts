@@ -6,8 +6,8 @@ import {
     stackOffsetSilhouette,
     stackOffsetWiggle,
 } from 'd3-shape'
-import { ScaleLinear } from 'd3-scale'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@bitbloom/nivo-core'
+import { ScaleLinear } from '@bitbloom/nivo-scales'
+import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@bitbloom/nivo-core'
 import { AxisProps } from '@bitbloom/nivo-axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
 import { LegendProps } from '@bitbloom/nivo-legends'
@@ -70,8 +70,8 @@ export type LayerId = 'grid' | 'axes' | 'bars' | 'legends'
 export interface CustomLayerProps<RawDatum> {
     data: ComputedDatum<RawDatum>[]
     bars: BarDatum<RawDatum>[]
-    thicknessScale: ScaleLinear<number, number>
-    dimensionsScale: ScaleLinear<number, number>
+    thicknessScale: ScaleLinear<number>
+    dimensionsScale: ScaleLinear<number>
 }
 
 export type CustomLayer<RawDatum> = React.FC<CustomLayerProps<RawDatum>>
@@ -114,10 +114,10 @@ export type CommonProps<RawDatum> = {
     innerPadding: number
 
     // axes and grid
-    axisTop?: AxisProps
-    axisRight?: AxisProps
-    axisBottom?: AxisProps
-    axisLeft?: AxisProps
+    axisTop?: AxisProps | null
+    axisRight?: AxisProps | null
+    axisBottom?: AxisProps | null
+    axisLeft?: AxisProps | null
     enableGridX: boolean
     gridXValues?: number[]
     enableGridY: boolean
@@ -160,7 +160,7 @@ export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonProps<RawDatum>> &
-    ModernMotionProps &
+    MotionProps &
     SvgDefsAndFill<BarDatum<RawDatum>> &
     MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers?: Layer<RawDatum>[]

@@ -1,11 +1,11 @@
-FROM node:12.18.4
+FROM node:latest
 #ENV NODE_ENV=production
 
 RUN mkdir /app
 WORKDIR /app
 COPY . .
 
-RUN npm install yarn
+RUN npm install pnpm
 RUN make init
 
 COPY . .

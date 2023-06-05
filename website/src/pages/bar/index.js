@@ -1,19 +1,12 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { patternDotsDef, patternLinesDef } from '@bitbloom/nivo-core'
-import { ResponsiveBar, BarDefaultProps } from '@bitbloom/nivo-bar'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ResponsiveBar, svgDefaultProps } from '@bitbloom/nivo-bar'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateLightDataSet } from '../../data/components/bar/generator'
 import mapper from '../../data/components/bar/mapper'
 import { groups } from '../../data/components/bar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = () => {
     /* return custom tooltip */
@@ -40,6 +33,7 @@ const initialProperties = {
 
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
+    valueFormat: { format: '', enabled: false },
 
     colors: { scheme: 'nivo' },
     colorBy: 'id',
@@ -149,11 +143,29 @@ const initialProperties = {
     tooltip: null,
 
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'default',
+
+    role: 'application',
+    isFocusable: false,
+    ariaLabel: 'Nivo bar chart demo',
+    barAriaLabel: data => `${data.id}: ${data.formattedValue} in country: ${data.indexValue}`,
 }
 
 const Bar = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bar.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Bar"
@@ -163,7 +175,7 @@ const Bar = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BarDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,
@@ -172,6 +184,7 @@ const Bar = () => {
             })}
             generateData={generateLightDataSet}
             getTabData={data => data.data}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

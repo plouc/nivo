@@ -1,20 +1,13 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import omit from 'lodash/omit'
 import { ResponsiveLineCanvas, LineCanvasDefaultProps } from '@bitbloom/nivo-line'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'
 import mapper from '../../data/components/line/mapper'
 import { groups } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
 import { generateHeavyDataSet } from '../../data/components/line/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const xValues = [0, 20, 40, 60, 80, 100, 120]
 const yValues = [0, 500, 1000, 1500, 2000, 2500]
@@ -24,6 +17,8 @@ const initialProperties = {
     useMesh: true,
     debugMesh: false,
     curve: 'monotoneX',
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     margin: {
         top: 50,
         right: 160,
@@ -121,6 +116,20 @@ const initialProperties = {
 }
 
 const LineCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/line-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Line"
@@ -134,6 +143,7 @@ const LineCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
             getDataSize={data => data.length * data[0].data.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

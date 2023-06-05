@@ -8,8 +8,10 @@ export const pure = <TProps>(component: ComponentType<TProps>): ComponentType<TP
     const hoc = shouldUpdate((props, nextProps) => !shallowEqual(props, nextProps))
 
     if (process.env.NODE_ENV !== 'production') {
+        // @ts-ignore
         return setDisplayName(wrapDisplayName(component, 'pure'))(hoc(component))
     }
 
+    // @ts-ignore
     return hoc(component)
 }

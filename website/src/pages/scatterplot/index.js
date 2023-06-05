@@ -1,18 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@bitbloom/nivo-scatterplot'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ResponsiveScatterPlot, svgDefaultProps } from '@bitbloom/nivo-scatterplot'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
 import { groups } from '../../data/components/scatterplot/props'
 import { generateLightDataSet } from '../../data/components/scatterplot/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     margin: {
@@ -27,21 +20,21 @@ const initialProperties = {
         min: 0,
         max: 'auto',
     },
-    xFormat: d => `${d} kg`,
+    xFormat: { format: '>-.2f', enabled: true },
     yScale: {
         type: 'linear',
         min: 0,
         max: 'auto',
     },
-    yFormat: d => `${d} cm`,
+    yFormat: { format: '>-.2f', enabled: true },
 
-    colors: ScatterPlotDefaultProps.colors,
+    colors: svgDefaultProps.colors,
     blendMode: 'multiply',
 
-    nodeSize: ScatterPlotDefaultProps.nodeSize,
+    nodeSize: svgDefaultProps.nodeSize,
 
-    enableGridX: ScatterPlotDefaultProps.enableGridX,
-    enableGridY: ScatterPlotDefaultProps.enableGridY,
+    enableGridX: svgDefaultProps.enableGridX,
+    enableGridY: svgDefaultProps.enableGridY,
     axisTop: {
         enable: false,
         orient: 'top',
@@ -83,13 +76,12 @@ const initialProperties = {
         format: d => `${d} cm`,
     },
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 
-    isInteractive: true,
-    useMesh: true,
-    debugMesh: false,
+    isInteractive: svgDefaultProps.isInteractive,
+    useMesh: svgDefaultProps.useMesh,
+    debugMesh: svgDefaultProps.debugMesh,
 
     legends: [
         {
@@ -120,6 +112,20 @@ const initialProperties = {
 }
 
 const ScatterPlot = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/scatterplot.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="ScatterPlot"
@@ -129,9 +135,10 @@ const ScatterPlot = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={ScatterPlotDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
+            image={image}
         >
             {(properties, data, theme, logAction) => (
                 <ResponsiveScatterPlot
@@ -141,8 +148,8 @@ const ScatterPlot = () => {
                     onClick={node => {
                         logAction({
                             type: 'click',
-                            label: `[node] serie: ${node.data.serieId}, x: ${node.x}, y: ${node.y}`,
-                            color: node.style.color,
+                            label: `[node] id: ${node.id}, x: ${node.x}, y: ${node.y}`,
+                            color: node.color,
                             data: node,
                         })
                     }}

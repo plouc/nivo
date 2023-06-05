@@ -6,51 +6,56 @@ import { InferableComponentEnhancerWithProps, Mapper, PredicateDiff } from './ty
 import { pick } from './utils'
 import { wrapDisplayName } from './wrapDisplayName'
 
-export const withPropsOnChange = <TInner, TOuter extends Record<string, unknown>>(
-    shouldMapOrKeys: string[] | PredicateDiff<TOuter>,
-    propsMapper: Mapper<TOuter, TInner>
-): InferableComponentEnhancerWithProps<TInner & TOuter, TOuter> => (BaseComponent: any): any => {
-    const factory = (props: any) => createElement(BaseComponent, props)
-    const shouldMap =
-        typeof shouldMapOrKeys === 'function'
-            ? shouldMapOrKeys
-            : (props: TOuter, nextProps: TOuter) =>
-                  !shallowEqual(pick(props, shouldMapOrKeys), pick(nextProps, shouldMapOrKeys))
+export const withPropsOnChange =
+    <TInner, TOuter extends Record<string, unknown>>(
+        shouldMapOrKeys: string[] | PredicateDiff<TOuter>,
+        propsMapper: Mapper<TOuter, TInner>
+    ): InferableComponentEnhancerWithProps<TInner & TOuter, TOuter> =>
+    (BaseComponent: any): any => {
+        const factory = (props: any) => createElement(BaseComponent, props)
+        const shouldMap =
+            typeof shouldMapOrKeys === 'function'
+                ? shouldMapOrKeys
+                : (props: TOuter, nextProps: TOuter) =>
+                      !shallowEqual(pick(props, shouldMapOrKeys), pick(nextProps, shouldMapOrKeys))
 
-    class WithPropsOnChange extends Component<TOuter> {
-        state = {
-            computedProps: propsMapper(this.props),
-            prevProps: this.props,
-        }
+        class WithPropsOnChange extends Component<TOuter> {
+            state = {
+                computedProps: propsMapper(this.props),
+                prevProps: this.props,
+            }
 
-        static getDerivedStateFromProps(nextProps: TOuter, prevState: WithPropsOnChange['state']) {
-            if (shouldMap(prevState.prevProps, nextProps)) {
+            static getDerivedStateFromProps(
+                nextProps: TOuter,
+                prevState: WithPropsOnChange['state']
+            ) {
+                if (shouldMap(prevState.prevProps, nextProps)) {
+                    return {
+                        computedProps: propsMapper(nextProps),
+                        prevProps: nextProps,
+                    }
+                }
+
                 return {
-                    computedProps: propsMapper(nextProps),
                     prevProps: nextProps,
                 }
             }
 
-            return {
-                prevProps: nextProps,
+            render() {
+                return factory({
+                    ...this.props,
+                    ...this.state.computedProps,
+                })
             }
         }
 
-        render() {
-            return factory({
-                ...this.props,
-                ...this.state.computedProps,
-            })
+        polyfill(WithPropsOnChange)
+
+        if (process.env.NODE_ENV !== 'production') {
+            return setDisplayName(wrapDisplayName(BaseComponent, 'withPropsOnChange'))(
+                WithPropsOnChange
+            )
         }
+
+        return WithPropsOnChange
     }
-
-    polyfill(WithPropsOnChange)
-
-    if (process.env.NODE_ENV !== 'production') {
-        return setDisplayName(wrapDisplayName(BaseComponent, 'withPropsOnChange'))(
-            WithPropsOnChange
-        )
-    }
-
-    return WithPropsOnChange
-}

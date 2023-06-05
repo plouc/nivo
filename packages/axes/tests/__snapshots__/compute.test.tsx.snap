@@ -1,46 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`computeCartesianTicks() from band scale should compute ticks for x axis 1`] = `
-Object {
+{
   "textAlign": "middle",
-  "textBaseline": "alphabetic",
-  "ticks": Array [
-    Object {
+  "textBaseline": "text-before-edge",
+  "ticks": [
+    {
       "key": "I",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "I",
       "x": 50,
       "y": 0,
     },
-    Object {
+    {
       "key": "J",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "J",
       "x": 150,
       "y": 0,
     },
-    Object {
+    {
       "key": "K",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "K",
       "x": 250,
       "y": 0,
     },
-    Object {
+    {
       "key": "L",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "L",
       "x": 350,
       "y": 0,
@@ -50,45 +50,45 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from band scale should compute ticks for y axis 1`] = `
-Object {
-  "textAlign": "end",
+{
+  "textAlign": "start",
   "textBaseline": "central",
-  "ticks": Array [
-    Object {
+  "ticks": [
+    {
       "key": "I",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "I",
       "x": 0,
       "y": 50,
     },
-    Object {
+    {
       "key": "J",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "J",
       "x": 0,
       "y": 150,
     },
-    Object {
+    {
       "key": "K",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "K",
       "x": 0,
       "y": 250,
     },
-    Object {
+    {
       "key": "L",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "L",
       "x": 0,
@@ -99,116 +99,116 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from linear scale should compute ticks for x axis 1`] = `
-Object {
+{
   "textAlign": "middle",
-  "textBaseline": "alphabetic",
-  "ticks": Array [
-    Object {
-      "key": 0,
+  "textBaseline": "text-before-edge",
+  "ticks": [
+    {
+      "key": "0",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 0,
       "x": 0,
       "y": 0,
     },
-    Object {
-      "key": 50,
+    {
+      "key": "50",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 50,
       "x": 10,
       "y": 0,
     },
-    Object {
-      "key": 100,
+    {
+      "key": "100",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 100,
       "x": 20,
       "y": 0,
     },
-    Object {
-      "key": 150,
+    {
+      "key": "150",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 150,
       "x": 30,
       "y": 0,
     },
-    Object {
-      "key": 200,
+    {
+      "key": "200",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 200,
       "x": 40,
       "y": 0,
     },
-    Object {
-      "key": 250,
+    {
+      "key": "250",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 250,
       "x": 50,
       "y": 0,
     },
-    Object {
-      "key": 300,
+    {
+      "key": "300",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 300,
       "x": 60,
       "y": 0,
     },
-    Object {
-      "key": 350,
+    {
+      "key": "350",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 350,
       "x": 70,
       "y": 0,
     },
-    Object {
-      "key": 400,
+    {
+      "key": "400",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 400,
       "x": 80,
       "y": 0,
     },
-    Object {
-      "key": 450,
+    {
+      "key": "450",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 450,
       "x": 90,
       "y": 0,
     },
-    Object {
-      "key": 500,
+    {
+      "key": "500",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": 500,
       "x": 100,
       "y": 0,
@@ -218,115 +218,115 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from linear scale should compute ticks for y axis 1`] = `
-Object {
-  "textAlign": "end",
+{
+  "textAlign": "start",
   "textBaseline": "central",
-  "ticks": Array [
-    Object {
-      "key": 0,
-      "lineX": NaN,
+  "ticks": [
+    {
+      "key": "0",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 0,
       "x": 0,
       "y": 0,
     },
-    Object {
-      "key": 50,
-      "lineX": NaN,
+    {
+      "key": "50",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 50,
       "x": 0,
       "y": 10,
     },
-    Object {
-      "key": 100,
-      "lineX": NaN,
+    {
+      "key": "100",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 100,
       "x": 0,
       "y": 20,
     },
-    Object {
-      "key": 150,
-      "lineX": NaN,
+    {
+      "key": "150",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 150,
       "x": 0,
       "y": 30,
     },
-    Object {
-      "key": 200,
-      "lineX": NaN,
+    {
+      "key": "200",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 200,
       "x": 0,
       "y": 40,
     },
-    Object {
-      "key": 250,
-      "lineX": NaN,
+    {
+      "key": "250",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 250,
       "x": 0,
       "y": 50,
     },
-    Object {
-      "key": 300,
-      "lineX": NaN,
+    {
+      "key": "300",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 300,
       "x": 0,
       "y": 60,
     },
-    Object {
-      "key": 350,
-      "lineX": NaN,
+    {
+      "key": "350",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 350,
       "x": 0,
       "y": 70,
     },
-    Object {
-      "key": 400,
-      "lineX": NaN,
+    {
+      "key": "400",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 400,
       "x": 0,
       "y": 80,
     },
-    Object {
-      "key": 450,
-      "lineX": NaN,
+    {
+      "key": "450",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 450,
       "x": 0,
       "y": 90,
     },
-    Object {
-      "key": 500,
-      "lineX": NaN,
+    {
+      "key": "500",
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": 500,
       "x": 0,
@@ -337,46 +337,46 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from ordinal scale should compute ticks for x axis 1`] = `
-Object {
+{
   "textAlign": "middle",
-  "textBaseline": "alphabetic",
-  "ticks": Array [
-    Object {
+  "textBaseline": "text-before-edge",
+  "ticks": [
+    {
       "key": "A",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "A",
       "x": 0,
       "y": 0,
     },
-    Object {
+    {
       "key": "B",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "B",
       "x": 10,
       "y": 0,
     },
-    Object {
+    {
       "key": "C",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "C",
       "x": 20,
       "y": 0,
     },
-    Object {
+    {
       "key": "D",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "D",
       "x": 30,
       "y": 0,
@@ -386,45 +386,45 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from ordinal scale should compute ticks for y axis 1`] = `
-Object {
-  "textAlign": "end",
+{
+  "textAlign": "start",
   "textBaseline": "central",
-  "ticks": Array [
-    Object {
+  "ticks": [
+    {
       "key": "A",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "A",
       "x": 0,
       "y": 0,
     },
-    Object {
+    {
       "key": "B",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "B",
       "x": 0,
       "y": 10,
     },
-    Object {
+    {
       "key": "C",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "C",
       "x": 0,
       "y": 20,
     },
-    Object {
+    {
       "key": "D",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "D",
       "x": 0,
@@ -435,46 +435,46 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from point scale should compute ticks for x axis 1`] = `
-Object {
+{
   "textAlign": "middle",
-  "textBaseline": "alphabetic",
-  "ticks": Array [
-    Object {
+  "textBaseline": "text-before-edge",
+  "ticks": [
+    {
       "key": "E",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "E",
       "x": 0,
       "y": 0,
     },
-    Object {
+    {
       "key": "F",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "F",
       "x": 100,
       "y": 0,
     },
-    Object {
+    {
       "key": "G",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "G",
       "x": 200,
       "y": 0,
     },
-    Object {
+    {
       "key": "H",
       "lineX": 0,
-      "lineY": NaN,
+      "lineY": 10,
       "textX": 0,
-      "textY": NaN,
+      "textY": 15,
       "value": "H",
       "x": 300,
       "y": 0,
@@ -484,45 +484,45 @@ Object {
 `;
 
 exports[`computeCartesianTicks() from point scale should compute ticks for y axis 1`] = `
-Object {
-  "textAlign": "end",
+{
+  "textAlign": "start",
   "textBaseline": "central",
-  "ticks": Array [
-    Object {
+  "ticks": [
+    {
       "key": "E",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "E",
       "x": 0,
       "y": 0,
     },
-    Object {
+    {
       "key": "F",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "F",
       "x": 0,
       "y": 100,
     },
-    Object {
+    {
       "key": "G",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "G",
       "x": 0,
       "y": 200,
     },
-    Object {
+    {
       "key": "H",
-      "lineX": NaN,
+      "lineX": 10,
       "lineY": 0,
-      "textX": NaN,
+      "textX": 15,
       "textY": 0,
       "value": "H",
       "x": 0,

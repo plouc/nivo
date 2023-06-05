@@ -1,18 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveSwarmPlotCanvas, SwarmPlotCanvasDefaultProps } from '@bitbloom/nivo-swarmplot'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ResponsiveSwarmPlotCanvas, defaultProps } from '@bitbloom/nivo-swarmplot'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
-import mapper from '../../data/components/scatterplot/mapper'
+import mapper from '../../data/components/swarmplot/mapper'
 import { groups } from '../../data/components/swarmplot/props'
 import { generateHeavyDataSet } from '../../data/components/swarmplot/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = Object.freeze({
     pixelRatio:
@@ -20,7 +13,7 @@ const initialProperties = Object.freeze({
     groupBy: 'group',
     identity: 'id',
     value: 'price',
-    valueFormat: '$.2f',
+    valueFormat: { format: '$.2f', enabled: true },
     valueScale: {
         type: 'linear',
         min: 0,
@@ -33,8 +26,8 @@ const initialProperties = Object.freeze({
         sizes: [4, 12],
     },
     spacing: 1,
-    layout: SwarmPlotCanvasDefaultProps.layout,
-    gap: SwarmPlotCanvasDefaultProps.gap,
+    layout: defaultProps.layout,
+    gap: defaultProps.gap,
 
     forceStrength: 1,
     simulationIterations: 60,
@@ -100,7 +93,21 @@ const initialProperties = Object.freeze({
     debugMesh: false,
 })
 
-const ScatterPlotCanvas = () => {
+const SwarmPlotCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/swarmplot-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="SwarmPlotCanvas"
@@ -110,7 +117,7 @@ const ScatterPlotCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={SwarmPlotCanvasDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 groups: data.groups,
@@ -119,6 +126,7 @@ const ScatterPlotCanvas = () => {
             generateData={generateHeavyDataSet}
             getTabData={data => data.data}
             getDataSize={data => data.data.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
@@ -142,4 +150,4 @@ const ScatterPlotCanvas = () => {
     )
 }
 
-export default ScatterPlotCanvas
+export default SwarmPlotCanvas

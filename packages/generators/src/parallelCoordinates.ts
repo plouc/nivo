@@ -1,37 +1,80 @@
 import random from 'lodash/random'
-import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
 
-type Options = Partial<{
-    size: number
-    keys: Array<{
-        key: string
-        random?: [number, number]
-        shuffle?: string[]
-    }>
-}>
+interface Id {
+    id: string
+}
+
+interface Variable {
+    id: string
+    range: [number, number]
+    floating?: boolean
+}
+
+interface Group {
+    id: string
+}
 
 export const generateParallelCoordinatesData = ({
-    size = 26,
-    keys = [
-        { key: 'temp', random: [-10, 40] },
-        { key: 'cost', random: [200, 400000] },
-        { key: 'color', shuffle: ['red', 'yellow', 'green'] },
-        { key: 'target', shuffle: ['A', 'B', 'C', 'D', 'E'] },
-        { key: 'volume', random: [0.2, 7.6] },
-    ],
-}: Options = {}) => {
+    ids,
+    variables,
+}: {
+    ids: Id[]
+    variables: Variable[]
+}) => {
     const datumGenerator = () =>
-        keys.reduce((acc, key) => {
-            let value
-            if (key.random !== undefined) {
-                value = random(...key.random)
-            } else if (key.shuffle !== undefined) {
-                value = shuffle(key.shuffle)[0]
-            }
+        variables.reduce((acc, variable) => {
+            const value = random(variable.range[0], variable.range[1], variable.floating)
 
-            return { ...acc, [key.key]: value }
+            return { ...acc, [variable.id]: value }
         }, {})
 
-    return range(size).map(datumGenerator)
+    return ids.map(id => {
+        return {
+            ...datumGenerator(),
+            ...id,
+        }
+    })
+}
+
+export const generateGroupedParallelCoordinatesData = ({
+    ids,
+    groups,
+    variables,
+}: {
+    ids: Id[]
+    groups: Group[]
+    variables: Variable[]
+}) => {
+    const data: Record<string, string | number>[] = []
+
+    for (const group of groups) {
+        // First, generate a baseline for each variable,
+        // so that values within a group are close to each other.
+        const baselineValues: Record<string, { base: number; variation: number }> = {}
+        for (const variable of variables) {
+            baselineValues[variable.id] = {
+                base: random(variable.range[0], variable.range[1], variable.floating),
+                variation: Math.abs(variable.range[1] - variable.range[0]) * 0.12,
+            }
+        }
+
+        for (const id of ids) {
+            const datum: Record<string, string | number> = { ...id, group: group.id }
+            for (const variable of variables) {
+                const baseline = baselineValues[variable.id]
+                const unclampedValue =
+                    baseline.base +
+                    random(-baseline.variation, baseline.variation, variable.floating)
+
+                datum[variable.id] = Math.max(
+                    variable.range[0],
+                    Math.min(variable.range[1], unclampedValue)
+                )
+            }
+
+            data.push(datum)
+        }
+    }
+
+    return data
 }

@@ -1,8 +1,8 @@
-import React, { memo, ReactNode } from 'react'
+import { memo, ReactNode } from 'react'
 import { useTheme, ValueFormat, useValueFormatter } from '@bitbloom/nivo-core'
 import { Chip } from './Chip'
 
-interface BasicTooltipProps {
+export interface BasicTooltipProps {
     id: ReactNode
     value?: number | string | Date
     format?: ValueFormat<number | string | Date>
@@ -17,7 +17,7 @@ interface BasicTooltipProps {
 export const BasicTooltip = memo<BasicTooltipProps>(
     ({ id, value: _value, format, enableChip = false, color, renderContent }) => {
         const theme = useTheme()
-        const formatValue = useValueFormatter(format)
+        const formatValue = useValueFormatter<number | string | Date>(format)
 
         let content: JSX.Element
         if (typeof renderContent === 'function') {

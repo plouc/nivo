@@ -1,4 +1,4 @@
-<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/>
+<a href="https://nivo.rocks"><img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/></a>
 
 [![Backers on Open Collective](https://opencollective.com/nivo/backers/badge.svg?style=flat-square)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/nivo/sponsors/badge.svg?style=flat-square)](#sponsors)
@@ -16,7 +16,7 @@ but just a few provide server side rendering ability and fully declarative chart
 ## Installation
 
 In order to use nivo, you have to install the `@bitbloom/nivo-core` package and then choose
-some of the scoped `@nivo` packages according to the charts you wish to use:
+some of the scoped `@bitbloom/nivo-` packages according to the charts you wish to use:
 
 ```
 yarn add @bitbloom/nivo-core @bitbloom/nivo-bar
@@ -24,18 +24,17 @@ yarn add @bitbloom/nivo-core @bitbloom/nivo-bar
 
 ## Features
 
--   Highly customizable
--   Motion/transitions, powered by [react-motion](https://github.com/chenglou/react-motion)
--   [Component playground](http://nivo.rocks)
--   [Exhaustive documentation](http://nivo.rocks)
--   Isomorphic rendering
--   [SVG charts](http://nivo.rocks/components?filter=svg)
--   [HTML charts](http://nivo.rocks/components?filter=html)
--   [Canvas charts](http://nivo.rocks/components?filter=canvas)
--   [server side rendering API](https://github.com/plouc/nivo-api)
--   [SVG patterns](http://nivo.rocks/guides/patterns)
--   [Gradients](http://nivo.rocks/guides/gradients)
--   [responsive charts](http://nivo.rocks/components?q=responsive)
+-   Highly Customizable
+-   Motion/Transitions, powered by [react-spring](https://react-spring.io)
+-   [Interactive Components Playground](http://nivo.rocks/)
+-   [Exhaustive Documentation](http://nivo.rocks/)
+-   [SVG Charts](http://nivo.rocks/components/?filter=svg)
+-   [HTML Charts](http://nivo.rocks/components/?filter=html)
+-   [Canvas Charts](http://nivo.rocks/components/?filter=canvas)
+-   Server Side Rendering and HTTP API
+-   [Patterns](http://nivo.rocks/guides/patterns/) & [Gradients](http://nivo.rocks/guides/gradients/)
+-   [Theming](http://nivo.rocks/guides/theming/)
+-   Responsive Charts
 
 ## Discussion
 
@@ -44,29 +43,16 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 ## Packages & components
 
 **nivo** is comprised of several packages/components, for a full list,
-please use the [components explorer](http://nivo.rocks/components).
-
-## [HTTP API](https://github.com/plouc/nivo-api)
-
-Components available through the HTTP rendering API.
-
--   [Bar](https://nivo-api.herokuapp.com/samples/bar.svg)
--   [CirclePacking](https://nivo-api.herokuapp.com/samples/circle-packing.svg)
--   [Chord](https://nivo-api.herokuapp.com/samples/chord.svg)
--   [HeatMap](https://nivo-api.herokuapp.com/samples/heatmap.svg)
--   [Line](https://nivo-api.herokuapp.com/samples/line.svg)
--   [Pie](https://nivo-api.herokuapp.com/samples/pie.svg)
--   [Radar](https://nivo-api.herokuapp.com/samples/radar.svg)
--   [Sankey](https://nivo-api.herokuapp.com/samples/sankey.svg)
--   [Sunburst](https://nivo-api.herokuapp.com/samples/sunburst.svg)
--   [TreeMap](https://nivo-api.herokuapp.com/samples/treemap.svg)
+please use the [Components Explorer](http://nivo.rocks/components/).
 
 ## Guides
 
--   [colors](http://nivo.rocks/guides/colors)
--   [legends](http://nivo.rocks/guides/legends)
--   [gradients](http://nivo.rocks/guides/gradients)
--   [patterns](http://nivo.rocks/guides/patterns)
+-   [Axes](http://nivo.rocks/guides/axes/)
+-   [Colors](http://nivo.rocks/guides/colors/)
+-   [Legends](http://nivo.rocks/guides/legends/)
+-   [Gradients](http://nivo.rocks/guides/gradients/)
+-   [Patterns](http://nivo.rocks/guides/patterns/)
+-   [Theming](http://nivo.rocks/guides/theming/)
 
 ## Backers
 
@@ -78,12 +64,6 @@ Donations are welcome to help improving **nivo** [[Become a backer](https://open
 
 Support this project by becoming a sponsor,
 your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nivo#sponsor)]
-
-## Credits
-
--   [d3](https://d3js.org/)
--   [react](https://facebook.github.io/react/)
--   …
 
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md

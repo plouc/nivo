@@ -1,139 +1,13 @@
-import {
-    CountableTimeInterval,
-    timeMillisecond,
-    utcMillisecond,
-    timeSecond,
-    utcSecond,
-    timeMinute,
-    utcMinute,
-    timeHour,
-    utcHour,
-    timeDay,
-    utcDay,
-    timeWeek,
-    utcWeek,
-    timeSunday,
-    utcSunday,
-    timeMonday,
-    utcMonday,
-    timeTuesday,
-    utcTuesday,
-    timeWednesday,
-    utcWednesday,
-    timeThursday,
-    utcThursday,
-    timeFriday,
-    utcFriday,
-    timeSaturday,
-    utcSaturday,
-    timeMonth,
-    utcMonth,
-    timeYear,
-    utcYear,
-} from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 // @ts-ignore
 import { textPropsByEngine } from '@bitbloom/nivo-core'
-import {
-    AxisValue,
-    Point,
-    TicksSpec,
-    AnyScale,
-    ScaleWithBandwidth,
-    ValueFormatter,
-    Line,
-} from './types'
-
-export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
-    const bandwidth = scale.bandwidth()
-
-    if (bandwidth === 0) return scale
-
-    let offset = bandwidth / 2
-    if (scale.round()) {
-        offset = Math.round(offset)
-    }
-
-    return <T extends Value>(d: T) => (scale(d) ?? 0) + offset
-}
-
-const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
-    millisecond: [timeMillisecond, utcMillisecond],
-    second: [timeSecond, utcSecond],
-    minute: [timeMinute, utcMinute],
-    hour: [timeHour, utcHour],
-    day: [timeDay, utcDay],
-    week: [timeWeek, utcWeek],
-    sunday: [timeSunday, utcSunday],
-    monday: [timeMonday, utcMonday],
-    tuesday: [timeTuesday, utcTuesday],
-    wednesday: [timeWednesday, utcWednesday],
-    thursday: [timeThursday, utcThursday],
-    friday: [timeFriday, utcFriday],
-    saturday: [timeSaturday, utcSaturday],
-    month: [timeMonth, utcMonth],
-    year: [timeYear, utcYear],
-}
-
-const timeTypes = Object.keys(timeByType)
-const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
-
-const isInteger = (value: unknown): value is number =>
-    typeof value === 'number' && isFinite(value) && Math.floor(value) === value
+import { ScaleValue, AnyScale, TicksSpec, getScaleTicks, centerScale } from '@bitbloom/nivo-scales'
+import { Point, ValueFormatter, Line } from './types'
 
 const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
 
-export const getScaleTicks = <Value extends AxisValue>(
-    scale: AnyScale,
-    spec?: TicksSpec<Value>
-) => {
-    // specific values
-    if (Array.isArray(spec)) {
-        return spec
-    }
-
-    // continuous scales
-    if ('ticks' in scale) {
-        // default behaviour
-        if (spec === undefined) {
-            return scale.ticks()
-        }
-
-        // specific tick count
-        if (isInteger(spec)) {
-            return scale.ticks(spec)
-        }
-
-        if (typeof spec === 'string' && 'useUTC' in scale) {
-            // time interval
-            const matches = spec.match(timeIntervalRegexp)
-            if (matches) {
-                // UTC is used as it's more predictible
-                // however local time could be used too
-                // let's see how it fits users' requirements
-                const timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0]
-
-                if (matches[1] === undefined) {
-                    return scale.ticks(timeType)
-                }
-
-                const interval = timeType.every(Number(matches[1]))
-
-                if (interval) {
-                    return scale.ticks(interval)
-                }
-            }
-
-            throw new Error(`Invalid tickValues: ${spec}`)
-        }
-    }
-
-    // non linear scale default
-    return scale.domain()
-}
-
-export const computeCartesianTicks = <Value extends AxisValue>({
+export const computeCartesianTicks = <Value extends ScaleValue>({
     axis,
     scale,
     ticksPosition,
@@ -152,7 +26,7 @@ export const computeCartesianTicks = <Value extends AxisValue>({
     tickRotation: number
     engine?: 'svg' | 'canvas'
 }) => {
-    const values = getScaleTicks(scale, tickValues)
+    const values = getScaleTicks<Value>(scale, tickValues)
 
     const textProps = textPropsByEngine[engine]
 
@@ -205,8 +79,8 @@ export const computeCartesianTicks = <Value extends AxisValue>({
         }
     }
 
-    const ticks = values.map(value => ({
-        key: typeof value === 'number' || typeof value === 'string' ? value : `${value}`,
+    const ticks = values.map((value: Value) => ({
+        key: value instanceof Date ? `${value.valueOf()}` : `${value}`,
         value,
         ...translate(value),
         ...line,
@@ -220,7 +94,7 @@ export const computeCartesianTicks = <Value extends AxisValue>({
     }
 }
 
-export const getFormatter = <Value extends AxisValue>(
+export const getFormatter = <Value extends ScaleValue>(
     format: string | ValueFormatter<Value> | undefined,
     scale: AnyScale
 ): ValueFormatter<Value> | undefined => {
@@ -229,13 +103,13 @@ export const getFormatter = <Value extends AxisValue>(
     if (scale.type === 'time') {
         const formatter = timeFormat(format)
 
-        return (d => formatter(d instanceof Date ? d : new Date(d))) as ValueFormatter<Value>
+        return ((d: any) => formatter(d instanceof Date ? d : new Date(d))) as ValueFormatter<Value>
     }
 
-    return (d3Format(format) as unknown) as ValueFormatter<Value>
+    return d3Format(format) as unknown as ValueFormatter<Value>
 }
 
-export const computeGridLines = <Value extends AxisValue>({
+export const computeGridLines = <Value extends ScaleValue>({
     width,
     height,
     scale,
@@ -249,23 +123,20 @@ export const computeGridLines = <Value extends AxisValue>({
     values?: TicksSpec<Value>
 }) => {
     const lineValues = isArray<number>(_values) ? _values : undefined
-    const lineCount = isInteger(_values) ? _values : undefined
-
-    const values = lineValues || getScaleTicks(scale, lineCount)
-
+    const values = lineValues || getScaleTicks<Value>(scale, _values)
     const position = 'bandwidth' in scale ? centerScale(scale) : scale
 
     const lines: Line[] =
         axis === 'x'
-            ? values.map(value => ({
-                  key: `${value}`,
+            ? values.map((value: Value) => ({
+                  key: value instanceof Date ? `${value.valueOf()}` : `${value}`,
                   x1: position(value) ?? 0,
                   x2: position(value) ?? 0,
                   y1: 0,
                   y2: height,
               }))
-            : values.map(value => ({
-                  key: `${value}`,
+            : values.map((value: Value) => ({
+                  key: value instanceof Date ? `${value.valueOf()}` : `${value}`,
                   x1: 0,
                   x2: width,
                   y1: position(value) ?? 0,

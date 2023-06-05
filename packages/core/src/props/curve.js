@@ -48,8 +48,6 @@ export const curvePropType = PropTypes.oneOf(curvePropKeys)
 
 export const closedCurvePropKeys = curvePropKeys.filter(c => c.endsWith('Closed'))
 
-export const closedCurvePropType = PropTypes.oneOf(closedCurvePropKeys)
-
 // Safe curves to be used with d3 area shape generator
 export const areaCurvePropKeys = without(
     curvePropKeys,
@@ -62,8 +60,6 @@ export const areaCurvePropKeys = without(
     'catmullRomOpen',
     'linearClosed'
 )
-
-export const areaCurvePropType = PropTypes.oneOf(areaCurvePropKeys)
 
 // Safe curves to be used with d3 line shape generator
 export const lineCurvePropKeys = without(

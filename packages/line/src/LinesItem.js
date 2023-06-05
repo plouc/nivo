@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { animated } from 'react-spring'
+import { animated } from '@react-spring/web'
 import { useAnimatedPath } from '@bitbloom/nivo-core'
 
 const LinesItem = ({ lineGenerator, points, color, thickness }) => {

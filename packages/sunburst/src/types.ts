@@ -1,13 +1,6 @@
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@bitbloom/nivo-arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
-import {
-    Theme,
-    Box,
-    ValueFormat,
-    SvgDefsAndFill,
-    ModernMotionProps,
-    PropertyAccessor,
-} from '@bitbloom/nivo-core'
+import { Theme, Box, ValueFormat, SvgDefsAndFill, MotionProps, PropertyAccessor } from '@bitbloom/nivo-core'
 
 export type DatumId = string | number
 
@@ -74,11 +67,12 @@ export type SunburstCommonProps<RawDatum> = {
     enableArcLabels: boolean
     layers: SunburstLayer<RawDatum>[]
     role: string
+    renderWrapper: boolean
     transitionMode: ArcTransitionMode
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
     animate: boolean
-    motionConfig: ModernMotionProps['motionConfig']
+    motionConfig: MotionProps['motionConfig']
 } & ArcLabelsProps<ComputedDatum<RawDatum>>
 
 export type MouseHandler<RawDatum> = (

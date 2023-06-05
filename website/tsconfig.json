@@ -1,0 +1,25 @@
+{
+  "include": [
+    "./src/**/*",
+    "./gatsby-browser.tsx",
+    "./gatsby-node.ts",
+    "./gatsby-config.ts",
+    "./gatsby-ssr.tsx",
+    "./plugins/**/*"
+  ],
+  "compilerOptions": {
+    "lib": ["dom", "esnext"],
+    "target": "esnext",
+    "jsx": "react",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": ["node_modules/@types/", "./src/@types/"],
+    "strict": true,
+    "baseUrl": "."
+  }
+}

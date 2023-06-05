@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
 import PropTypes from 'prop-types'
 
-export const LinearGradient = ({ id, colors }) => (
-    <linearGradient id={id} x1={0} x2={0} y1={0} y2={1}>
+export const LinearGradient = ({ id, colors, ...rest }) => (
+    <linearGradient id={id} x1={0} x2={0} y1={0} y2={1} {...rest}>
         {colors.map(({ offset, color, opacity }) => (
             <stop
                 key={offset}
@@ -31,6 +30,7 @@ LinearGradient.propTypes = {
             opacity: PropTypes.number,
         })
     ).isRequired,
+    gradientTransform: PropTypes.string,
 }
 
 export const linearGradientDef = (id, colors, options = {}) => ({

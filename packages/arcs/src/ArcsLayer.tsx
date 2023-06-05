@@ -1,4 +1,4 @@
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import { useTheme } from '@bitbloom/nivo-core'
 import { InheritedColorConfig, useInheritedColor } from '@bitbloom/nivo-colors'
 import { DatumWithArcAndColor, ArcGenerator } from './types'

@@ -8,9 +8,7 @@ flavors:
 
 Line:
   package: '@bitbloom/nivo-line'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: stacked lines
       link: line--stacked-lines

@@ -1,6 +1,5 @@
 import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import { getRelativeCursor, useDimensions, useTheme, Container } from '@bitbloom/nivo-core'
-// @ts-ignore
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { useInheritedColor, InheritedColorConfig } from '@bitbloom/nivo-colors'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
@@ -13,10 +12,10 @@ import {
     drawCanvasArcLinkLabels,
 } from '@bitbloom/nivo-arcs'
 import { useNormalizedData, usePieFromBox } from './hooks'
-import { ComputedDatum, PieCanvasProps } from './types'
+import { ComputedDatum, PieCanvasProps, MayHaveLabel } from './types'
 import { defaultProps } from './props'
 
-const InnerPieCanvas = <RawDatum,>({
+const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -97,19 +96,19 @@ const InnerPieCanvas = <RawDatum,>({
         setActiveId,
         activeId
     } = usePieFromBox<RawDatum>({
-        data: normalizedData,
-        width: innerWidth,
-        height: innerHeight,
-        fit,
-        innerRadius: innerRadiusRatio,
-        startAngle,
-        endAngle,
-        padAngle,
-        sortByValue,
-        cornerRadius,
-        activeInnerRadiusOffset,
-        activeOuterRadiusOffset,
-    })
+            data: normalizedData,
+            width: innerWidth,
+            height: innerHeight,
+            fit,
+            innerRadius: innerRadiusRatio,
+            startAngle,
+            endAngle,
+            padAngle,
+            sortByValue,
+            cornerRadius,
+            activeInnerRadiusOffset,
+            activeOuterRadiusOffset,
+        })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
 
@@ -292,12 +291,13 @@ const InnerPieCanvas = <RawDatum,>({
     )
 }
 
-export const PieCanvas = <RawDatum,>({
+export const PieCanvas = <RawDatum extends MayHaveLabel>({
     isInteractive = defaultProps.isInteractive,
     theme,
+    renderWrapper,
     ...otherProps
 }: PieCanvasProps<RawDatum>) => (
-    <Container isInteractive={isInteractive} theme={theme}>
+    <Container {...{ isInteractive, renderWrapper, theme }}>
         <InnerPieCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

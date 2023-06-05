@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.types.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist/types",
+    "rootDir": "./src",
+    "paths": {
+      "@bitbloom/nivo-arcs": ["../arcs"]
+    }
+  },
+  "include": ["src/**/*"]
+}

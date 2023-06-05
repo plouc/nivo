@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, createElement } from 'react'
+import { ReactNode, Fragment, createElement } from 'react'
 import {
     // @ts-ignore
     bindDefs,
@@ -10,11 +10,11 @@ import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@bitbloom/nivo-arcs'
 import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
-import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
+import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId, MayHaveLabel } from './types'
 import { defaultProps } from './props'
 import { Arcs } from './Arcs'
 
-const InnerPie = <RawDatum,>({
+const InnerPie = <RawDatum extends MayHaveLabel>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -96,12 +96,14 @@ const InnerPie = <RawDatum,>({
 
     const {
         dataWithArc,
+        legendData,
         arcGenerator,
         centerX,
         centerY,
         radius,
         innerRadius,
         setActiveId,
+        toggleSerie,
         activeId
     } = usePieFromBox<RawDatum>({
         data: normalizedData,
@@ -191,8 +193,9 @@ const InnerPie = <RawDatum,>({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                dataWithArc={dataWithArc}
+                data={legendData}
                 legends={legends}
+                toggleSerie={toggleSerie}
             />
         )
     }
@@ -229,18 +232,22 @@ const InnerPie = <RawDatum,>({
     )
 }
 
-export const Pie = <RawDatum,>({
+export const Pie = <RawDatum extends MayHaveLabel>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
     theme,
+    renderWrapper,
     ...otherProps
 }: PieSvgProps<RawDatum>) => (
     <Container
-        isInteractive={isInteractive}
-        animate={animate}
-        motionConfig={motionConfig}
-        theme={theme}
+        {...{
+            animate,
+            isInteractive,
+            motionConfig,
+            renderWrapper,
+            theme,
+        }}
     >
         <InnerPie<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>

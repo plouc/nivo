@@ -104,6 +104,9 @@ const commonDefaultProps = {
 
     layers: ['graticule', 'features'],
     legends: [],
+
+    fill: [],
+    defs: [],
 }
 
 export const GeoMapDefaultProps = {
@@ -113,8 +116,7 @@ export const GeoMapDefaultProps = {
 
 export const GeoMapCanvasDefaultProps = {
     ...commonDefaultProps,
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }
 
 const commonChoroplethDefaultProps = {

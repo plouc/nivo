@@ -1,11 +1,13 @@
-import React, { useMemo } from 'react'
-import { useSpring, useTransition, animated } from 'react-spring'
+import { useMemo, memo, useCallback } from 'react'
+import * as React from 'react'
+import { useSpring, useTransition, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
+import { ScaleValue, AnyScale } from '@bitbloom/nivo-scales'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'
-import { AnyScale, AxisProps, AxisValue } from '../types'
+import { AxisProps } from '../types'
 
-export const Axis = <Value extends AxisValue>({
+export const NonMemoizedAxis = <Value extends ScaleValue>({
     axis,
     scale,
     x = 0,
@@ -32,6 +34,7 @@ export const Axis = <Value extends AxisValue>({
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }) => {
     const theme = useTheme()
+    const legendTextStyle = theme.axis.legend.text
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
@@ -78,16 +81,33 @@ export const Axis = <Value extends AxisValue>({
         }
 
         legendNode = (
-            <text
-                transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
-                textAnchor={textAnchor}
-                style={{
-                    dominantBaseline: 'central',
-                    ...theme.axis.legend.text,
-                }}
-            >
-                {legend}
-            </text>
+            <>
+                {legendTextStyle.outlineWidth > 0 && (
+                    <text
+                        transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
+                        textAnchor={textAnchor}
+                        style={{
+                            dominantBaseline: 'central',
+                            ...legendTextStyle,
+                        }}
+                        strokeWidth={legendTextStyle.outlineWidth * 2}
+                        stroke={legendTextStyle.outlineColor}
+                        strokeLinejoin="round"
+                    >
+                        {legend}
+                    </text>
+                )}
+                <text
+                    transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
+                    textAnchor={textAnchor}
+                    style={{
+                        dominantBaseline: 'central',
+                        ...legendTextStyle,
+                    }}
+                >
+                    {legend}
+                </text>
+            </>
         )
     }
 
@@ -101,31 +121,32 @@ export const Axis = <Value extends AxisValue>({
         immediate: !animate,
     })
 
-    const transition = useTransition<
-        typeof ticks[0],
-        { opacity: number; transform: string; textTransform: string }
-    >(ticks, {
-        keys: tick => tick.key,
-        initial: tick => ({
+    const getAnimatedProps = useCallback(
+        (tick: (typeof ticks)[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        from: tick => ({
+        [tickRotation]
+    )
+    const getFromAnimatedProps = useCallback(
+        (tick: (typeof ticks)[0]) => ({
             opacity: 0,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        enter: tick => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
-        update: tick => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
+        [tickRotation]
+    )
+
+    const transition = useTransition<
+        (typeof ticks)[0],
+        { opacity: number; transform: string; textTransform: string }
+    >(ticks, {
+        keys: tick => tick.key,
+        initial: getAnimatedProps,
+        from: getFromAnimatedProps,
+        enter: getAnimatedProps,
+        update: getAnimatedProps,
         leave: {
             opacity: 0,
         },
@@ -158,3 +179,5 @@ export const Axis = <Value extends AxisValue>({
         </animated.g>
     )
 }
+
+export const Axis = memo(NonMemoizedAxis) as typeof NonMemoizedAxis

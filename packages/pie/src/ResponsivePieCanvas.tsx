@@ -1,9 +1,8 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { PieCanvas } from './PieCanvas'
-import { PieCanvasProps } from './types'
+import { PieCanvasProps, MayHaveLabel } from './types'
 
-export const ResponsivePieCanvas = <RawDatum,>(
+export const ResponsivePieCanvas = <RawDatum extends MayHaveLabel>(
     props: Omit<PieCanvasProps<RawDatum>, 'width' | 'height'>
 ) => (
     <ResponsiveWrapper>

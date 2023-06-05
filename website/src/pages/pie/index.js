@@ -1,10 +1,11 @@
 import React from 'react'
 import { ResponsivePie, defaultProps } from '@bitbloom/nivo-pie'
 import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'
 import { groups } from '../../data/components/pie/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const DATASET_SIZE = 5
 const generateData = () =>
@@ -101,6 +102,20 @@ const initialProperties = {
 }
 
 const Pie = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/pie.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="Pie"
@@ -113,6 +128,7 @@ const Pie = () => {
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 const handleArcClick = slice => {

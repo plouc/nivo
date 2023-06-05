@@ -1,5 +1,5 @@
-import React from 'react'
 import { mount } from 'enzyme'
+import { Axis } from '@bitbloom/nivo-axes'
 import Line from '../src/Line'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
@@ -93,7 +93,7 @@ it('should have left and bottom axis by default', () => {
     ]
     const wrapper = mount(<Line width={500} height={300} data={data} animate={false} />)
 
-    const axes = wrapper.find('Axis')
+    const axes = wrapper.find(Axis)
     expect(axes).toHaveLength(2)
     expect(axes.at(0).prop('axis')).toBe('x')
     expect(axes.at(1).prop('axis')).toBe('y')
@@ -147,4 +147,54 @@ describe('curve interpolation', () => {
             expect(tree).toMatchSnapshot()
         })
     }
+})
+
+describe('mouse events on slices', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+    ]
+    const baseProps = {
+        width: 500,
+        height: 300,
+        data: data,
+        animate: false,
+        enableSlices: 'x',
+    }
+
+    it('should call onMouseEnter', () => {
+        const onMouseEnter = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseEnter={onMouseEnter} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('mouseenter')
+        expect(onMouseEnter).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onMouseMove', () => {
+        const onMouseMove = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseMove={onMouseMove} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('mousemove')
+        expect(onMouseMove).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onMouseLeave', () => {
+        const onMouseLeave = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseLeave={onMouseLeave} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('mouseleave')
+        expect(onMouseLeave).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick', () => {
+        const onClick = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onClick={onClick} />)
+        wrapper.find(`[data-testid='slice-0']`).simulate('click')
+        expect(onClick).toHaveBeenCalledTimes(1)
+    })
 })

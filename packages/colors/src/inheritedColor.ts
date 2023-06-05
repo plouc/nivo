@@ -15,7 +15,7 @@ export type ColorModifierFunction = (color: RGBColor) => RGBColor
 
 export type InheritedColorConfigStaticColor = string
 
-export type InheritedColorConfigCustomFunction<Datum> = (d: Datum) => string
+export type InheritedColorConfigCustomFunction<Datum> = (d: Datum, ...drest: Datum[]) => string
 
 export interface InheritedColorConfigFromTheme {
     theme: string
@@ -61,7 +61,7 @@ export const getInheritedColorGenerator = <Datum = any>(
 ) => {
     // user provided function
     if (typeof config === 'function') {
-        return (datum: Datum) => config(datum)
+        return config
     }
 
     if (isPlainObject(config)) {

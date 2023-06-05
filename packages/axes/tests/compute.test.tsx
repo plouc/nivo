@@ -1,196 +1,13 @@
-import { scaleLinear, scaleOrdinal, scalePoint, scaleBand, scaleTime, scaleUtc } from 'd3-scale'
-import { getScaleTicks, computeCartesianTicks } from '../src/compute'
-
-describe('getTicks', () => {
-    describe('linear scale', () => {
-        const linearScale = scaleLinear().domain([0, 500])
-
-        it('should return default ticks', () => {
-            expect(getScaleTicks(linearScale)).toEqual([
-                0,
-                50,
-                100,
-                150,
-                200,
-                250,
-                300,
-                350,
-                400,
-                450,
-                500,
-            ])
-        })
-
-        it('should support using a count', () => {
-            expect(getScaleTicks(linearScale, 6)).toEqual([0, 100, 200, 300, 400, 500])
-        })
-
-        it('should support using specific values', () => {
-            expect(getScaleTicks(linearScale, [0, 200, 400])).toEqual([0, 200, 400])
-        })
-    })
-
-    describe('time scale', () => {
-        const timeScale = scaleUtc().domain([
-            new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
-            new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
-        ])
-
-        it('should return default ticks', () => {
-            expect(getScaleTicks(timeScale)).toEqual([
-                new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 1, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 2, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 3, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 4, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 5, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 6, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 7, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 8, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 9, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 10, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 11, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
-            ])
-        })
-
-        it('should support using a count', () => {
-            expect(getScaleTicks(timeScale, 4)).toEqual([
-                new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 3, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 6, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2000, 9, 1, 0, 0, 0, 0)),
-                new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
-            ])
-        })
-
-        it('should support non-UTC dates', () => {
-            const noUtcTimeScale = scaleTime().domain([
-                new Date(2000, 0, 1, 0, 0, 0, 0),
-                new Date(2001, 0, 1, 0, 0, 0, 0),
-            ])
-
-            expect(getScaleTicks(noUtcTimeScale)).toEqual([
-                new Date(2000, 0, 1, 0, 0, 0, 0),
-                new Date(2000, 1, 1, 0, 0, 0, 0),
-                new Date(2000, 2, 1, 0, 0, 0, 0),
-                new Date(2000, 3, 1, 0, 0, 0, 0),
-                new Date(2000, 4, 1, 0, 0, 0, 0),
-                new Date(2000, 5, 1, 0, 0, 0, 0),
-                new Date(2000, 6, 1, 0, 0, 0, 0),
-                new Date(2000, 7, 1, 0, 0, 0, 0),
-                new Date(2000, 8, 1, 0, 0, 0, 0),
-                new Date(2000, 9, 1, 0, 0, 0, 0),
-                new Date(2000, 10, 1, 0, 0, 0, 0),
-                new Date(2000, 11, 1, 0, 0, 0, 0),
-                new Date(2001, 0, 1, 0, 0, 0, 0),
-            ])
-        })
-
-        const intervals = [
-            {
-                interval: '5 years',
-                domain: [
-                    new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
-                ],
-                expect: [
-                    new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2005, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
-                ],
-            },
-            {
-                interval: 'year',
-                domain: [
-                    new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2004, 0, 1, 0, 0, 0, 0)),
-                ],
-                expect: [
-                    new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2002, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2003, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2004, 0, 1, 0, 0, 0, 0)),
-                ],
-            },
-            {
-                interval: '3 months',
-                domain: [
-                    new Date(Date.UTC(2009, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
-                ],
-                expect: [
-                    new Date(Date.UTC(2009, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2009, 3, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2009, 6, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2009, 9, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
-                ],
-            },
-            {
-                interval: '2 days',
-                domain: [
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 7, 0, 0, 0, 0)),
-                ],
-                expect: [
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 3, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 5, 0, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 7, 0, 0, 0, 0)),
-                ],
-            },
-            {
-                interval: 'wednesday',
-                domain: [
-                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 1, 1, 0, 0, 0)),
-                ],
-                expect: [
-                    new Date(Date.UTC(2010, 0, 6, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 13, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 20, 0, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 27, 0, 0, 0)),
-                ],
-            },
-            {
-                interval: '30 minutes',
-                domain: [
-                    new Date(Date.UTC(2010, 0, 1, 6, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 9, 0, 0)),
-                ],
-                expect: [
-                    new Date(Date.UTC(2010, 0, 1, 6, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 6, 30, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 7, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 7, 30, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 8, 0, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 8, 30, 0)),
-                    new Date(Date.UTC(2010, 0, 1, 9, 0, 0)),
-                ],
-            },
-        ]
-
-        intervals.forEach(interval => {
-            it(`should support ${interval.interval} interval`, () => {
-                const intervalTimeScale = scaleUtc().domain(interval.domain)
-
-                // set utc flag on our scale
-                ;(intervalTimeScale as any).useUTC = true
-
-                expect(getScaleTicks(intervalTimeScale, `every ${interval.interval}`)).toEqual(
-                    interval.expect
-                )
-            })
-        })
-    })
-})
+import { scaleLinear, scaleOrdinal, scalePoint, scaleBand } from 'd3-scale'
+import { castLinearScale, castBandScale, castPointScale } from '@bitbloom/nivo-scales'
+// @ts-ignore
+import { computeCartesianTicks } from '../src/compute'
 
 describe('computeCartesianTicks()', () => {
     const ordinalScale = scaleOrdinal([0, 10, 20, 30]).domain(['A', 'B', 'C', 'D'])
-    const pointScale = scalePoint().domain(['E', 'F', 'G', 'H']).range([0, 300])
-    const bandScale = scaleBand().domain(['I', 'J', 'K', 'L']).rangeRound([0, 400])
-    const linearScale = scaleLinear().domain([0, 500]).range([0, 100])
+    const pointScale = castPointScale(scalePoint().domain(['E', 'F', 'G', 'H']).range([0, 300]))
+    const bandScale = castBandScale(scaleBand().domain(['I', 'J', 'K', 'L']).rangeRound([0, 400]))
+    const linearScale = castLinearScale(scaleLinear().domain([0, 500]).range([0, 100]), false)
 
     describe('from linear scale', () => {
         it('should compute ticks for x axis', () => {
@@ -198,6 +15,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: linearScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -207,6 +28,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: linearScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -217,6 +42,10 @@ describe('computeCartesianTicks()', () => {
                 scale: linearScale,
                 tickValues,
                 axis: 'x',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
             })
             expect(axis.ticks.map(({ value }) => value)).toEqual(tickValues)
         })
@@ -226,6 +55,10 @@ describe('computeCartesianTicks()', () => {
                 scale: linearScale,
                 tickValues: 1,
                 axis: 'y',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
             })
             expect(axis.ticks.length).toBe(2)
         })
@@ -237,6 +70,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: ordinalScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -246,6 +83,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: ordinalScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -257,6 +98,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: pointScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -266,6 +111,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: pointScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -276,6 +125,10 @@ describe('computeCartesianTicks()', () => {
             const ticks = computeCartesianTicks({
                 scale: bandScale,
                 axis: 'x',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
             })
             expect(ticks.ticks[0].x).toBe(50)
         })
@@ -285,6 +138,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: bandScale,
                     axis: 'x',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -294,6 +151,10 @@ describe('computeCartesianTicks()', () => {
                 computeCartesianTicks({
                     scale: bandScale,
                     axis: 'y',
+                    ticksPosition: 'after',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 })
             ).toMatchSnapshot()
         })
@@ -306,6 +167,10 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'y',
                     engine: 'canvas',
+                    ticksPosition: 'before',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textAlign
             ).toBe('right')
             expect(
@@ -314,6 +179,9 @@ describe('computeCartesianTicks()', () => {
                     axis: 'y',
                     ticksPosition: 'after',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textAlign
             ).toBe('left')
             expect(
@@ -321,6 +189,9 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'x',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textAlign
             ).toBe('center')
         })
@@ -331,6 +202,9 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'x',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textBaseline
             ).toBe('bottom')
             expect(
@@ -338,6 +212,9 @@ describe('computeCartesianTicks()', () => {
                     scale: linearScale,
                     axis: 'y',
                     engine: 'canvas',
+                    tickSize: 10,
+                    tickPadding: 5,
+                    tickRotation: 0,
                 }).textBaseline
             ).toBe('middle')
         })

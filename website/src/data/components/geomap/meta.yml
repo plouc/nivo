@@ -8,8 +8,6 @@ GeoMap:
   package: '@bitbloom/nivo-geo'
   tags:
     - map
-    - svg
-    - isomorphic
   stories: []
   description: |
     This component can be used to draw maps, it takes an array of

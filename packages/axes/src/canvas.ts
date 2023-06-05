@@ -1,16 +1,10 @@
 import { degreesToRadians, CompleteTheme } from '@bitbloom/nivo-core'
+import { ScaleValue, AnyScale, TicksSpec } from '@bitbloom/nivo-scales'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
-import {
-    AxisValue,
-    TicksSpec,
-    AnyScale,
-    AxisLegendPosition,
-    CanvasAxisProp,
-    ValueFormatter,
-} from './types'
+import { AxisLegendPosition, CanvasAxisProps, ValueFormatter } from './types'
 
-export const renderAxisToCanvas = <Value extends AxisValue>(
+export const renderAxisToCanvas = <Value extends ScaleValue>(
     ctx: CanvasRenderingContext2D,
     {
         axis,
@@ -65,7 +59,11 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
 
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
-    ctx.font = `${theme.axis.ticks.text.fontSize}px ${theme.axis.ticks.text.fontFamily}`
+
+    const textStyle = theme.axis.ticks.text
+    ctx.font = `${textStyle.fontWeight ? `${textStyle.fontWeight} ` : ''}${textStyle.fontSize}px ${
+        textStyle.fontFamily
+    }`
 
     if ((theme.axis.domain.line.strokeWidth ?? 0) > 0) {
         ctx.lineWidth = Number(theme.axis.domain.line.strokeWidth)
@@ -104,11 +102,18 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
 
-        if (theme.axis.ticks.text.fill) {
-            ctx.fillStyle = theme.axis.ticks.text.fill
+        if (textStyle.outlineWidth > 0) {
+            ctx.strokeStyle = textStyle.outlineColor
+            ctx.lineWidth = textStyle.outlineWidth * 2
+            ctx.lineJoin = 'round'
+            ctx.strokeText(`${value}`, 0, 0)
         }
 
-        ctx.fillText(String(value), 0, 0)
+        if (theme.axis.ticks.text.fill) {
+            ctx.fillStyle = textStyle.fill
+        }
+
+        ctx.fillText(`${value}`, 0, 0)
         ctx.restore()
     })
 
@@ -161,7 +166,7 @@ export const renderAxisToCanvas = <Value extends AxisValue>(
     ctx.restore()
 }
 
-export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
+export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
     ctx: CanvasRenderingContext2D,
     {
         xScale,
@@ -180,10 +185,10 @@ export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
         yScale: AnyScale
         width: number
         height: number
-        top?: CanvasAxisProp<X>
-        right?: CanvasAxisProp<Y>
-        bottom?: CanvasAxisProp<X>
-        left?: CanvasAxisProp<Y>
+        top?: CanvasAxisProps<X> | null
+        right?: CanvasAxisProps<Y> | null
+        bottom?: CanvasAxisProps<X> | null
+        left?: CanvasAxisProps<Y> | null
         theme: CompleteTheme
     }
 ) => {
@@ -191,8 +196,8 @@ export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
 
     positions.forEach(position => {
         const axis = axes[position] as typeof position extends 'bottom' | 'top'
-            ? CanvasAxisProp<X> | undefined
-            : CanvasAxisProp<Y> | undefined
+            ? CanvasAxisProps<X> | undefined
+            : CanvasAxisProps<Y> | undefined
 
         if (!axis) return null
 
@@ -215,7 +220,7 @@ export const renderAxesToCanvas = <X extends AxisValue, Y extends AxisValue>(
     })
 }
 
-export const renderGridLinesToCanvas = <Value extends AxisValue>(
+export const renderGridLinesToCanvas = <Value extends ScaleValue>(
     ctx: CanvasRenderingContext2D,
     {
         width,

@@ -1,19 +1,12 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import omit from 'lodash/omit'
 import { ResponsiveGeoMapCanvas, GeoMapCanvasDefaultProps } from '@bitbloom/nivo-geo'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/geomap/props'
 import countries from '../../data/components/geo/world_countries'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     pixelRatio:
@@ -43,6 +36,20 @@ const initialProperties = {
 }
 
 const GeoMapCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/geomap-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="GeoMapCanvas"
@@ -58,7 +65,8 @@ const GeoMapCanvas = () => {
                 features: '/* please have a look at the description for usage */',
                 ...properties,
             })}
-            hasData={false}
+            generateData={() => undefined}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

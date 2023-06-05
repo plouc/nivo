@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { useTransition } from 'react-spring'
+import { createElement, useMemo } from 'react'
+import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@bitbloom/nivo-core'
 import { CirclePackingCommonProps, ComputedDatum, LabelComponent, ComputedLabel } from './types'
 import { useCirclePackingLabels } from './hooks'
@@ -81,7 +81,7 @@ export const Labels = <RawDatum,>({
     return (
         <>
             {transition((transitionProps, label) => {
-                return React.createElement(component, {
+                return createElement(component, {
                     key: label.node.id,
                     label: label.label,
                     style: {

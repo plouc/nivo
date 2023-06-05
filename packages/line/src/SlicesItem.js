@@ -6,32 +6,56 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
+import { createElement, memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
 
-const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
+const SlicesItem = ({
+    slice,
+    axis,
+    debug,
+    tooltip,
+    isCurrent,
+    setCurrent,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+}) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { slice, axis }), event, 'right')
+            showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
+            onMouseEnter && onMouseEnter(slice, event)
         },
-        [showTooltipFromEvent, tooltip, slice]
+        [showTooltipFromEvent, tooltip, slice, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(React.createElement(tooltip, { slice, axis }), event, 'right')
+            showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
+            onMouseMove && onMouseMove(slice, event)
         },
-        [showTooltipFromEvent, tooltip, slice]
+        [showTooltipFromEvent, tooltip, slice, onMouseMove]
     )
 
-    const handleMouseLeave = useCallback(() => {
-        hideTooltip()
-        setCurrent(null)
-    }, [hideTooltip])
+    const handleMouseLeave = useCallback(
+        event => {
+            hideTooltip()
+            setCurrent(null)
+            onMouseLeave && onMouseLeave(slice, event)
+        },
+        [hideTooltip, slice, onMouseLeave]
+    )
+
+    const handleClick = useCallback(
+        event => {
+            onClick && onClick(slice, event)
+        },
+        [slice, onClick]
+    )
 
     return (
         <rect
@@ -47,6 +71,8 @@ const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+            data-testid={`slice-${slice.id}`}
         />
     )
 }
@@ -59,6 +85,10 @@ SlicesItem.propTypes = {
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     isCurrent: PropTypes.bool.isRequired,
     setCurrent: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
 }
 
 export default memo(SlicesItem)

@@ -1,16 +1,6 @@
-import { SpringValues } from 'react-spring'
-import {
-    ScaleBand,
-    ScaleLinear,
-    ScaleOrdinal,
-    ScalePoint,
-    ScaleTime,
-    ScaleSymLog,
-    ScaleLogarithmic,
-} from 'd3-scale'
-import React from 'react'
-
-export type AxisValue = string | number | Date
+import * as React from 'react'
+import { ScaleValue, TicksSpec } from '@bitbloom/nivo-scales'
+import { SpringValues } from '@react-spring/web'
 
 export type GridValuesBuilder<T> = T extends number
     ? number[]
@@ -20,42 +10,18 @@ export type GridValuesBuilder<T> = T extends number
     ? Date[]
     : never
 
-export type GridValues<T extends AxisValue> = number | GridValuesBuilder<T>
+export type GridValues<T extends ScaleValue> = number | GridValuesBuilder<T>
 
 export type Point = {
     x: number
     y: number
 }
 
-export type ScaleWithBandwidth =
-    | (ScaleBand<any> & { type: 'band' })
-    | (ScalePoint<any> & { type: 'point' })
-
-export type AnyScale =
-    | (ScaleLinear<any, number> & { type: 'linear' })
-    | (ScaleOrdinal<any, number> & { type: 'ordinal' })
-    | (ScaleTime<any, number> & { useUTC: boolean; type: 'time' })
-    | (ScaleSymLog<any, number> & { type: 'symlog' })
-    | (ScaleLogarithmic<any, number> & { type: 'log' })
-    | ScaleWithBandwidth
-
-export type TicksSpec<Value extends AxisValue> =
-    // exact number of ticks, please note that
-    // depending on the current range of values,
-    // you might not get this exact count
-    | number
-    // string is used for Date based scales,
-    // it can express a time interval,
-    // for example: every 2 weeks
-    | string
-    // override scale ticks with custom explicit values
-    | Value[]
-
 export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
-export type ValueFormatter<Value extends AxisValue> = (value: Value) => Value | string
+export type ValueFormatter<Value extends ScaleValue> = (value: Value) => Value | string
 
-export interface AxisProps<Value extends AxisValue = any> {
+export interface AxisProps<Value extends ScaleValue = any> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
     tickSize?: number
@@ -69,12 +35,12 @@ export interface AxisProps<Value extends AxisValue = any> {
     ariaHidden?: boolean
 }
 
-export interface CanvasAxisProp<Value extends string | number | Date>
+export interface CanvasAxisProps<Value extends ScaleValue = any>
     extends Omit<AxisProps<Value>, 'legend'> {
     legend?: string
 }
 
-export interface AxisTickProps<Value extends AxisValue> {
+export interface AxisTickProps<Value extends ScaleValue> {
     tickIndex: number
     value: Value
     format?: ValueFormatter<Value>

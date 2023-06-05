@@ -1,0 +1,66 @@
+{
+    "name": "nivo-e2e",
+    "version": "0.83.2",
+    "private": true,
+    "description": "nivo end-to-end tests",
+    "dependencies": {
+        "@bitbloom/nivo-arcs": "workspace:*",
+        "@bitbloom/nivo-axes": "workspace:*",
+        "@bitbloom/nivo-bar": "workspace:*",
+        "@bitbloom/nivo-boxplot": "workspace:*",
+        "@bitbloom/nivo-bullet": "workspace:*",
+        "@bitbloom/nivo-bump": "workspace:*",
+        "@bitbloom/nivo-calendar": "workspace:*",
+        "@bitbloom/nivo-chord": "workspace:*",
+        "@bitbloom/nivo-circle-packing": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-funnel": "workspace:*",
+        "@bitbloom/nivo-generators": "workspace:*",
+        "@bitbloom/nivo-geo": "workspace:*",
+        "@bitbloom/nivo-heatmap": "workspace:*",
+        "@bitbloom/nivo-legends": "workspace:*",
+        "@bitbloom/nivo-line": "workspace:*",
+        "@bitbloom/nivo-marimekko": "workspace:*",
+        "@bitbloom/nivo-network": "workspace:*",
+        "@bitbloom/nivo-parallel-coordinates": "workspace:*",
+        "@bitbloom/nivo-pie": "workspace:*",
+        "@bitbloom/nivo-radar": "workspace:*",
+        "@bitbloom/nivo-radial-bar": "workspace:*",
+        "@bitbloom/nivo-sankey": "workspace:*",
+        "@bitbloom/nivo-scales": "workspace:*",
+        "@bitbloom/nivo-scatterplot": "workspace:*",
+        "@bitbloom/nivo-stream": "workspace:*",
+        "@bitbloom/nivo-sunburst": "workspace:*",
+        "@bitbloom/nivo-swarmplot": "workspace:*",
+        "@bitbloom/nivo-treemap": "workspace:*",
+        "@bitbloom/nivo-voronoi": "workspace:*",
+        "@bitbloom/nivo-waffle": "workspace:*"
+    },
+    "scripts": {
+        "open": "cypress open",
+        "test": "cypress run --component"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "devDependencies": {
+        "cypress": "^12.11.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-scripts": "^5.0.1",
+        "typescript": "^4.9.5"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

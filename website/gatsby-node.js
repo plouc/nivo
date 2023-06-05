@@ -1,7 +1,21 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const replacePath = (_path) =>
+    _path === `/` ? _path : _path.replace(/\/$|$/, `/`)
 
-// You can delete this file if you're not using it
+const excludedPaths = [`/404.html`]
+
+exports.onCreatePage = async ({ page, actions }) => {
+    const { createPage, deletePage } = actions
+
+    return new Promise(resolve => {
+        if(!excludedPaths.includes(page.path)) {
+            const oldPage = Object.assign({}, page)
+            page.path = replacePath(page.path)
+            if (page.path !== oldPage.path) {
+                deletePage(oldPage)
+                createPage(page)
+            }
+        }
+
+        resolve()
+    })
+}

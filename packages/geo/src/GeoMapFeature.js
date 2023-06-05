@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 const GeoMapFeature = memo(
@@ -24,7 +24,7 @@ const GeoMapFeature = memo(
         return (
             <path
                 key={feature.id}
-                fill={fillColor}
+                fill={feature?.fill ?? fillColor}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
                 strokeLinejoin="bevel"

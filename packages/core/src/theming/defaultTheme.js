@@ -6,11 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/**
+ * @type ThemeWithoutInheritance
+ */
 export const defaultTheme = {
     background: 'transparent',
-    fontFamily: 'sans-serif',
-    fontSize: 11,
-    textColor: '#333333',
+    text: {
+        fontFamily: 'sans-serif',
+        fontSize: 11,
+        fill: '#333333',
+        outlineWidth: 0,
+        outlineColor: 'transparent',
+    },
     axis: {
         domain: {
             line: {
@@ -38,7 +46,29 @@ export const defaultTheme = {
         },
     },
     legends: {
+        hidden: {
+            symbol: {
+                fill: '#333333',
+                opacity: 0.6,
+            },
+            text: {
+                fill: '#333333',
+                opacity: 0.6,
+            },
+        },
         text: {},
+        ticks: {
+            line: {
+                stroke: '#777777',
+                strokeWidth: 1,
+            },
+            text: {
+                fontSize: 10,
+            },
+        },
+        title: {
+            text: {},
+        },
     },
     labels: {
         text: {},
@@ -89,12 +119,14 @@ export const defaultTheme = {
             fontSize: 13,
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
         link: {
             stroke: '#000000',
             strokeWidth: 1,
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
         outline: {
             fill: 'none',
@@ -102,11 +134,13 @@ export const defaultTheme = {
             strokeWidth: 2,
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
         symbol: {
             fill: '#000000',
             outlineWidth: 2,
             outlineColor: '#ffffff',
+            outlineOpacity: 1,
         },
     },
 }

@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, Fragment, useCallback } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme } from '@bitbloom/nivo-core'
+import { memo, Fragment, useCallback } from 'react'
+import { SvgWrapper, withContainer, useDimensions, useTheme, bindDefs } from '@bitbloom/nivo-core'
 import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { ChoroplethPropTypes, ChoroplethDefaultProps } from './props'
@@ -44,6 +44,8 @@ const Choropleth = memo(
         onClick,
         tooltip: Tooltip,
         role,
+        defs = ChoroplethDefaultProps.defs,
+        fill = ChoroplethDefaultProps.fill,
     }) => {
         const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
         const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({
@@ -71,6 +73,11 @@ const Choropleth = memo(
 
         const theme = useTheme()
 
+        const boundDefs = bindDefs(defs, boundFeatures, fill, {
+            dataKey: 'data',
+            targetKey: 'fill',
+        })
+
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
         const handleClick = useCallback(
             (feature, event) => isInteractive && onClick && onClick(feature, event),
@@ -90,10 +97,10 @@ const Choropleth = memo(
                 showTooltipFromEvent(<Tooltip feature={feature} />, event),
             [isInteractive, showTooltipFromEvent, Tooltip]
         )
-        const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
-            isInteractive,
-            hideTooltip,
-        ])
+        const handleMouseLeave = useCallback(
+            () => isInteractive && hideTooltip(),
+            [isInteractive, hideTooltip]
+        )
 
         return (
             <SvgWrapper
@@ -101,6 +108,7 @@ const Choropleth = memo(
                 height={outerHeight}
                 margin={margin}
                 theme={theme}
+                defs={boundDefs}
                 role={role}
             >
                 {layers.map((layer, i) => {

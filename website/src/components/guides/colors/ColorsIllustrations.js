@@ -1,10 +1,10 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 import { ResponsiveBar } from '@bitbloom/nivo-bar'
 import { ResponsiveStream } from '@bitbloom/nivo-stream'
 import { ResponsiveTreeMap } from '@bitbloom/nivo-treemap'
 import { generateCountriesData } from '@bitbloom/nivo-generators'
 import { FullWidthBanner } from '../../styled'
-import { useTheme } from '../../../theming/context'
 
 const ColorsIllustrations = () => {
     const theme = useTheme()

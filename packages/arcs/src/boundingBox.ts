@@ -44,7 +44,7 @@ export const computeArcBoundingBox = (
     }
 
     points = points.map(([x, y]) => [centerX + x, centerY + y])
-    if (includeCenter === true) {
+    if (includeCenter) {
         points.push([centerX, centerY])
     }
 

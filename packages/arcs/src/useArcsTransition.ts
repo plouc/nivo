@@ -1,4 +1,4 @@
-import { useTransition } from 'react-spring'
+import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@bitbloom/nivo-core'
 import { DatumWithArc } from './types'
 import { ArcTransitionMode, useArcTransitionMode, TransitionExtra } from './arcTransitionMode'

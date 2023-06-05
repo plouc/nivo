@@ -1,0 +1,36 @@
+import { ScaleLinearSpec } from '@bitbloom/nivo-scales'
+import { SwarmPlotLayerId } from './types'
+import { SwarmPlotTooltip } from './SwarmPlotTooltip'
+
+export const defaultProps = {
+    id: 'id',
+    value: 'value',
+    valueScale: { type: 'linear', min: 0, max: 'auto' } as ScaleLinearSpec,
+    groupBy: 'group',
+    size: 6,
+    spacing: 2,
+    layout: 'vertical' as const,
+    gap: 0,
+    forceStrength: 1,
+    simulationIterations: 120,
+    colors: { scheme: 'nivo' },
+    colorBy: 'group',
+    borderWidth: 0,
+    borderColor: 'rgba(0, 0, 0, 0)',
+    layers: ['grid', 'axes', 'circles', 'annotations', 'mesh'] as SwarmPlotLayerId[],
+    enableGridX: true,
+    enableGridY: true,
+    axisTop: {},
+    axisRight: {},
+    axisBottom: {},
+    axisLeft: {},
+    isInteractive: true,
+    useMesh: false,
+    debugMesh: false,
+    tooltip: SwarmPlotTooltip,
+    animate: true,
+    motionConfig: 'gentle',
+    annotations: [],
+    role: 'img',
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+}

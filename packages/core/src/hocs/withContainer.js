@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { Container } from '../components/Container'
 
 export const withContainer = WrappedComponent => {
@@ -14,15 +14,7 @@ export const withContainer = WrappedComponent => {
     return class extends Component {
         render() {
             // eslint-disable-next-line react/prop-types
-            const {
-                theme,
-                renderWrapper,
-                animate,
-                motionStiffness,
-                motionDamping,
-                motionConfig,
-                ...childProps
-            } = this.props
+            const { theme, renderWrapper, animate, motionConfig, ...childProps } = this.props
 
             return (
                 <Container
@@ -30,8 +22,6 @@ export const withContainer = WrappedComponent => {
                     renderWrapper={renderWrapper}
                     isInteractive={childProps.isInteractive}
                     animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
                     motionConfig={motionConfig}
                 >
                     <WrappedComponent {...childProps} />

@@ -1,11 +1,14 @@
 import { BulletMarkersItem } from './BulletMarkersItem'
 import { BulletRectsItem } from './BulletRectsItem'
 import { motionDefaultProps, defaultMargin } from '@bitbloom/nivo-core'
+import { BulletTooltip } from './BulletTooltip'
 
 export const defaultProps = {
     layout: 'horizontal',
     reverse: false,
     spacing: 30,
+    minValue: 0,
+    maxValue: 'auto',
     axisPosition: 'after',
     titlePosition: 'before',
     titleAlign: 'middle',
@@ -26,6 +29,7 @@ export const defaultProps = {
     measureBorderColor: { from: 'color' },
     markerSize: 0.6,
     isInteractive: true,
+    tooltip: BulletTooltip,
     animate: motionDefaultProps.animate,
     motionConfig: motionDefaultProps.config,
     margin: defaultMargin,

@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react'
-import { useSpring, animated } from 'react-spring'
+import { useMemo } from 'react'
+import { useSpring, animated } from '@react-spring/web'
 import { Axis } from '@bitbloom/nivo-axes'
 // @ts-ignore
 import { getColorScale, useMotionConfig, useTheme } from '@bitbloom/nivo-core'
-import { BasicTooltip, useTooltip } from '@bitbloom/nivo-tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { stackValues } from './compute'
 import { BulletMarkers } from './BulletMarkers'
 import { BulletRects } from './BulletRects'
@@ -27,11 +27,16 @@ export const BulletItem = ({
     titleOffsetX,
     titleOffsetY,
     titleRotation,
+    tooltip,
 
+    rangeBorderColor,
+    rangeBorderWidth,
     rangeComponent,
     rangeColors,
     ranges,
 
+    measureBorderColor,
+    measureBorderWidth,
     measureComponent,
     measureHeight,
     measureColors,
@@ -52,13 +57,13 @@ export const BulletItem = ({
     const computedRanges = useMemo(() => {
         const rangeColorScale = getColorScale(rangeColors, scale, true)
 
-        return stackValues(ranges, rangeColorScale)
+        return stackValues(ranges, scale, rangeColorScale, 'range')
     }, [rangeColors, ranges, scale])
 
     const computedMeasures = useMemo(() => {
         const measureColorScale = getColorScale(measureColors, scale)
 
-        return stackValues(measures, measureColorScale)
+        return stackValues(measures, scale, measureColorScale, 'measures')
     }, [measureColors, measures, scale])
 
     const computedMarkers = useMemo(() => {
@@ -73,6 +78,8 @@ export const BulletItem = ({
         }))
     }, [markerColors, markers, scale])
 
+    const TooltipComponent = tooltip
+
     const rangeNodes = (
         <BulletRects
             data={computedRanges}
@@ -84,17 +91,11 @@ export const BulletItem = ({
             width={width}
             height={height}
             component={rangeComponent}
+            borderColor={rangeBorderColor}
+            borderWidth={rangeBorderWidth}
             onMouseEnter={(range, event) => {
                 showTooltipFromEvent(
-                    <BasicTooltip
-                        id={
-                            <span>
-                                <strong>{range.v0}</strong> to <strong>{range.v1}</strong>
-                            </span>
-                        }
-                        enableChip={true}
-                        color={range.color}
-                    />,
+                    <TooltipComponent color={range.color} v0={range.v0} v1={range.v1} />,
                     event
                 )
             }}
@@ -116,11 +117,7 @@ export const BulletItem = ({
             component={markerComponent}
             onMouseEnter={(marker, event) => {
                 showTooltipFromEvent(
-                    <BasicTooltip
-                        id={<strong>{marker.value}</strong>}
-                        enableChip={true}
-                        color={marker.color}
-                    />,
+                    <TooltipComponent color={marker.color} v0={marker.value} />,
                     event
                 )
             }}
@@ -198,13 +195,11 @@ export const BulletItem = ({
                 width={width}
                 height={measureHeight}
                 component={measureComponent}
+                borderColor={measureBorderColor}
+                borderWidth={measureBorderWidth}
                 onMouseEnter={(measure, event) => {
                     showTooltipFromEvent(
-                        <BasicTooltip
-                            id={<strong>{measure.v1}</strong>}
-                            enableChip={true}
-                            color={measure.color}
-                        />,
+                        <TooltipComponent color={measure.color} v0={measure.v1} />,
                         event
                     )
                 }}

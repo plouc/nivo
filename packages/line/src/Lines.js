@@ -6,12 +6,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 import LinesItem from './LinesItem'
 
 const Lines = ({ lines, lineGenerator, lineWidth }) => {
     return lines
+        .slice(0)
         .reverse()
         .map(({ id, data, color }) => (
             <LinesItem

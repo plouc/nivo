@@ -1,6 +1,6 @@
-import React from 'react'
 import { mount } from 'enzyme'
-import { Bullet } from '../src'
+import { AxisTickProps, Axis, AxisTick } from '@bitbloom/nivo-axes'
+import { Bullet, BulletItemProps, BulletRectsItemProps } from '../src'
 
 const sampleData = [
     {
@@ -38,19 +38,119 @@ describe('Bullet', () => {
             expect(items.at(0).prop('ranges')).toEqual([10, 20, 40])
             expect(items.at(0).prop('measures')).toEqual([30])
             expect(items.at(0).prop('markers')).toEqual([20])
-            expect(items.at(0).prop('scale')).toEqual(expect.any(Function))
+            expect(items.at(0).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 40])
+            expect(
+                wrapper
+                    .find(Axis)
+                    .at(0)
+                    .find(AxisTick)
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                [
+                  "0",
+                  "5",
+                  "10",
+                  "15",
+                  "20",
+                  "25",
+                  "30",
+                  "35",
+                  "40",
+                ]
+            `)
 
             expect(items.at(1).prop('id')).toEqual('B')
             expect(items.at(1).prop('ranges')).toEqual([100])
             expect(items.at(1).prop('measures')).toEqual([20, 50])
             expect(items.at(1).prop('markers')).toEqual([80])
-            expect(items.at(1).prop('scale')).toEqual(expect.any(Function))
+            expect(items.at(1).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 100])
+            expect(
+                wrapper
+                    .find(Axis)
+                    .at(1)
+                    .find(AxisTick)
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                [
+                  "0",
+                  "10",
+                  "20",
+                  "30",
+                  "40",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100",
+                ]
+            `)
 
             expect(items.at(2).prop('id')).toEqual('C')
             expect(items.at(2).prop('ranges')).toEqual([50])
             expect(items.at(2).prop('measures')).toEqual([10])
             expect(items.at(2).prop('markers')).toBeUndefined()
-            expect(items.at(2).prop('scale')).toEqual(expect.any(Function))
+            expect(items.at(2).prop<BulletItemProps['scale']>('scale').domain()).toEqual([0, 50])
+            expect(
+                wrapper
+                    .find(Axis)
+                    .at(2)
+                    .find(AxisTick)
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                [
+                  "0",
+                  "5",
+                  "10",
+                  "15",
+                  "20",
+                  "25",
+                  "30",
+                  "35",
+                  "40",
+                  "45",
+                  "50",
+                ]
+            `)
+        })
+
+        it('should support minValue/maxValue properties', () => {
+            const wrapper = mount(
+                <Bullet
+                    width={300}
+                    height={300}
+                    data={sampleData.slice(0, 1)}
+                    minValue="auto"
+                    maxValue={120}
+                />
+            )
+
+            expect(
+                wrapper.find('BulletItem').at(0).prop<BulletItemProps['scale']>('scale').domain()
+            ).toEqual([10, 120])
+
+            expect(
+                wrapper
+                    .find(Axis)
+                    .first()
+                    .find(AxisTick)
+                    .map(tick => tick.text())
+            ).toMatchInlineSnapshot(`
+                [
+                  "10",
+                  "20",
+                  "30",
+                  "40",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100",
+                  "110",
+                  "120",
+                ]
+            `)
         })
     })
 
@@ -58,12 +158,18 @@ describe('Bullet', () => {
         it('should use horizontal layout by default', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} />)
             const items = wrapper.find('BulletItem')
-            const ticks = wrapper.find('Axis').first().find('AxisTick')
+            const ticks = wrapper.find(Axis).first().find(AxisTick)
 
             expect(
-                ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
+                ticks
+                    .map(el =>
+                        el
+                            .prop<AxisTickProps<number>['animatedProps']>('animatedProps')
+                            .transform.get()
+                    )
+                    .join('; ')
             ).toMatchInlineSnapshot(
-                `"translate(0,0); translate(37.5,0); translate(75,0); translate(112.5,0); translate(150,0); translate(187.5,0); translate(225,0); translate(262.5,0); translate(300,0)"`
+                `"translate(0,0); translate(38,0); translate(75,0); translate(113,0); translate(150,0); translate(188,0); translate(225,0); translate(263,0); translate(300,0)"`
             )
             expect(items.at(1).prop('x')).toEqual(0)
             expect(items.at(1).prop('y')).toEqual(110)
@@ -83,12 +189,17 @@ describe('Bullet', () => {
         it('should support reverse layout', () => {
             const wrapper = mount(<Bullet width={300} height={300} data={sampleData} reverse />)
             const items = wrapper.find('BulletItem')
-            const ticks = wrapper.find('Axis').first().find('AxisTick')
-
+            const ticks = wrapper.find(Axis).first().find(AxisTick)
             expect(
-                ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
+                ticks
+                    .map(el =>
+                        el
+                            .prop<AxisTickProps<number>['animatedProps']>('animatedProps')
+                            .transform.get()
+                    )
+                    .join('; ')
             ).toMatchInlineSnapshot(
-                `"translate(300,0); translate(262.5,0); translate(225,0); translate(187.5,0); translate(150,0); translate(112.5,0); translate(75,0); translate(37.5,0); translate(0,0)"`
+                `"translate(300,0); translate(263,0); translate(225,0); translate(188,0); translate(150,0); translate(113,0); translate(75,0); translate(38,0); translate(0,0)"`
             )
             expect(items.at(1).prop('x')).toEqual(0)
             expect(items.at(1).prop('y')).toEqual(110)
@@ -109,14 +220,14 @@ describe('Bullet', () => {
             )
             const rects = wrapper.find('BulletRectsItem')
 
-            expect(rects.at(0).prop('data').color).toEqual('#aaa')
-            expect(rects.at(1).prop('data').color).toEqual('#bbb')
-            expect(rects.at(2).prop('data').color).toEqual('#ccc')
-            expect(rects.at(3).prop('data').color).toEqual('#ddd')
+            expect(rects.at(0).prop<BulletRectsItemProps['data']>('data').color).toEqual('#aaa')
+            expect(rects.at(1).prop<BulletRectsItemProps['data']>('data').color).toEqual('#bbb')
+            expect(rects.at(2).prop<BulletRectsItemProps['data']>('data').color).toEqual('#ccc')
+            expect(rects.at(3).prop<BulletRectsItemProps['data']>('data').color).toEqual('#ddd')
 
             const markers = wrapper.find('BulletMarkersItem')
 
-            expect(markers.at(0).prop('data').color).toEqual('#eee')
+            expect(markers.at(0).prop<BulletRectsItemProps['data']>('data').color).toEqual('#eee')
         })
     })
 
@@ -228,6 +339,31 @@ describe('Bullet', () => {
             expect(tooltip.exists()).toBeTruthy()
             expect(tooltip.text()).toEqual('20')
         })
+
+        it('should allow to override the default tooltip', () => {
+            const CustomTooltip = ({
+                color,
+                v0,
+                v1,
+            }: {
+                color: string
+                v0: number
+                v1?: number
+            }) => (
+                <span style={{ backgroundColor: color }}>
+                    {v1 ? `${v0} to ${v1}` : `Custom${v0}`}
+                </span>
+            )
+            const wrapper = mount(
+                <Bullet width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
+            )
+
+            wrapper.find('BulletMarkersItem').at(0).simulate('mouseenter')
+
+            const tooltip = wrapper.find(CustomTooltip)
+            expect(tooltip.exists()).toBeTruthy()
+            expect(tooltip.text()).toEqual('Custom20')
+        })
     })
 
     describe('custom components', () => {
@@ -248,9 +384,11 @@ describe('Bullet', () => {
             const { animatedProps: _animatedProps, ...props } = customRange.at(0).props()
 
             expect(props).toMatchInlineSnapshot(`
-                Object {
+                {
+                  "borderColor": "rgb(65, 125, 224)",
+                  "borderWidth": 0,
                   "color": "rgba(65, 125, 224, 1)",
-                  "data": Object {
+                  "data": {
                     "color": "rgb(65, 125, 224)",
                     "index": 0,
                     "v0": 0,
@@ -285,9 +423,11 @@ describe('Bullet', () => {
             const { animatedProps: _animatedProps, ...props } = customMeasure.at(0).props()
 
             expect(props).toMatchInlineSnapshot(`
-                Object {
+                {
+                  "borderColor": "rgb(173, 10, 129)",
+                  "borderWidth": 0,
                   "color": "rgba(173, 10, 129, 1)",
-                  "data": Object {
+                  "data": {
                     "color": "rgb(173, 10, 129)",
                     "index": 0,
                     "v0": 0,
@@ -317,9 +457,9 @@ describe('Bullet', () => {
             const { animatedProps: _animatedProps, ...props } = customMarker.at(0).props()
 
             expect(props).toMatchInlineSnapshot(`
-                Object {
+                {
                   "color": "rgb(243, 105, 163)",
-                  "data": Object {
+                  "data": {
                     "color": "rgb(243, 105, 163)",
                     "index": 0,
                     "value": 20,

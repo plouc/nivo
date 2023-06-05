@@ -1,47 +1,49 @@
 {
-  "name": "@bitbloom/nivo-waffle",
-  "version": "0.69.10",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/waffle"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "waffle-chart"
-  ],
-  "main": "./dist/nivo-waffle.cjs.js",
-  "module": "./dist/nivo-waffle.es.js",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "index.d.ts",
-    "dist/"
-  ],
-  "dependencies": {
-    "@bitbloom/nivo-colors": "^0.69.10",
-    "@bitbloom/nivo-core": "^0.69.10",
-    "@bitbloom/nivo-legends": "^0.69.10",
-    "@bitbloom/nivo-tooltip": "^0.69.10",
-    "lodash.partial": "^4.2.1",
-    "lodash.range": "^3.2.0",
-    "react-motion": "^0.5.2"
-  },
-  "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 18.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  },
-  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
+    "name": "@bitbloom/nivo-waffle",
+    "version": "0.83.2",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
+        "directory": "packages/waffle"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "waffle-chart"
+    ],
+    "sideEffects": false,
+    "main": "./dist/nivo-waffle.cjs.js",
+    "module": "./dist/nivo-waffle.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@bitbloom/nivo-canvas": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-grid": "workspace:*",
+        "@bitbloom/nivo-legends": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-shape": "^2.0.0",
+        "d3-shape": "^3.0.1"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
+    }
 }

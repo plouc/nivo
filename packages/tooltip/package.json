@@ -1,36 +1,30 @@
 {
-  "name": "@bitbloom/nivo-tooltip",
-  "version": "0.69.10",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/tooltip"
-  },
-  "main": "./dist/nivo-tooltip.cjs.js",
-  "module": "./dist/nivo-tooltip.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "react-spring": "9.1.2"
-  },
-  "devDependencies": {
-    "@bitbloom/nivo-core": "^0.69.10"
-  },
-  "peerDependencies": {
-    "@bitbloom/nivo-core": "^0.69.10"
-  },
-  "publishConfig": {
-    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
-  },
-  "gitHead": "3039ce8a9a7a6101dbc3e2601995227903dc4a13"
+    "name": "@bitbloom/nivo-tooltip",
+    "version": "0.83.2",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
+        "directory": "packages/tooltip"
+    },
+    "main": "./dist/nivo-tooltip.cjs.js",
+    "module": "./dist/nivo-tooltip.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@bitbloom/nivo-core": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2"
+    },
+    "publishConfig": {
+        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
+    }
 }

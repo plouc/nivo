@@ -4,9 +4,7 @@ flavors:
 
 Bullet:
   package: '@bitbloom/nivo-bullet'
-  tags:
-    - svg
-    - isomorphic
+  tags: []
   stories:
     - label: custom range
       link: bullet--custom-range
@@ -16,6 +14,8 @@ Bullet:
       link: bullet--custom-marker
     - label: custom title
       link: bullet--custom-title
+    - label: support min/max value property
+      link: bullet--support-min-max-value-property
   description: |
     Bullet chart supporting multiple ranges/measures/markers.
 

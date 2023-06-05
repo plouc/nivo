@@ -1,4 +1,3 @@
-import React from 'react'
 import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { CirclePackingHtmlProps } from './types'
 import { CirclePackingHtml } from './CirclePackingHtml'

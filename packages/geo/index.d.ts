@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Dimensions, Theme, Box, BoxAlign } from '@bitbloom/nivo-core'
+import { Dimensions, Theme, Box } from '@bitbloom/nivo-core'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
 declare module '@bitbloom/nivo-geo' {
     ///////////////////////////////////////////////////////////////////////////
@@ -36,7 +37,7 @@ declare module '@bitbloom/nivo-geo' {
 
         isInteractive?: boolean
 
-        theme?: Partial<Theme>
+        theme?: Theme
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -113,6 +114,7 @@ declare module '@bitbloom/nivo-geo' {
         borderColor?: string | FeatureAccessor<ChoroplethBoundFeature, number>
 
         tooltip?: ChoroplethTooltip
+        legends?: LegendProps[]
 
         onMouseEnter?: ChoroplethEventHandler
         onMouseMove?: ChoroplethEventHandler

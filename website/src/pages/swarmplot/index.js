@@ -1,24 +1,17 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveSwarmPlot, SwarmPlotDefaultProps } from '@bitbloom/nivo-swarmplot'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ResponsiveSwarmPlot, defaultProps } from '@bitbloom/nivo-swarmplot'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'
 import { groups } from '../../data/components/swarmplot/props'
 import { generateLightDataSet } from '../../data/components/swarmplot/generator'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = Object.freeze({
     groupBy: 'group',
     identity: 'id',
     value: 'price',
-    valueFormat: '$.2f',
+    valueFormat: { format: '$.2f', enabled: true },
     valueScale: {
         type: 'linear',
         min: 0,
@@ -31,13 +24,13 @@ const initialProperties = Object.freeze({
         sizes: [6, 20],
     },
     spacing: 2,
-    layout: SwarmPlotDefaultProps.layout,
-    gap: SwarmPlotDefaultProps.gap,
+    layout: defaultProps.layout,
+    gap: defaultProps.gap,
 
     forceStrength: 4,
     simulationIterations: 100,
 
-    colors: SwarmPlotDefaultProps.colors,
+    colors: defaultProps.colors,
     colorBy: 'group',
     borderWidth: 0,
     borderColor: {
@@ -101,11 +94,24 @@ const initialProperties = Object.freeze({
     debugMesh: false,
 
     animate: true,
-    motionStiffness: 50,
-    motionDamping: 10,
+    motionConfig: 'gentle',
 })
 
-const ScatterPlot = () => {
+const SwarmPlot = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/swarmplot.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="SwarmPlot"
@@ -115,7 +121,7 @@ const ScatterPlot = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={SwarmPlotDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 groups: data.groups,
@@ -124,6 +130,7 @@ const ScatterPlot = () => {
             generateData={generateLightDataSet}
             getTabData={data => data.data}
             getDataSize={data => data.data.length}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
@@ -147,4 +154,4 @@ const ScatterPlot = () => {
     )
 }
 
-export default ScatterPlot
+export default SwarmPlot

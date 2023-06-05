@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import {
     // @ts-ignore
     bindDefs,
@@ -162,10 +162,11 @@ export const Sunburst = <RawDatum,>({
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
     theme,
+    renderWrapper,
     ...otherProps
 }: Partial<Omit<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
     Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme }}>
+    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
         <InnerSunburst<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

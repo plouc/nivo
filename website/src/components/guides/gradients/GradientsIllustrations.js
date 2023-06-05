@@ -1,11 +1,11 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 import { linearGradientDef } from '@bitbloom/nivo-core'
 import { ResponsiveBar } from '@bitbloom/nivo-bar'
 import { ResponsiveStream } from '@bitbloom/nivo-stream'
 import { ResponsiveTreeMap } from '@bitbloom/nivo-treemap'
 import { generateCountriesData } from '@bitbloom/nivo-generators'
 import { FullWidthBanner } from '../../styled'
-import { useTheme } from '../../../theming/context'
 
 const GradientsIllustrations = () => {
     const theme = useTheme()

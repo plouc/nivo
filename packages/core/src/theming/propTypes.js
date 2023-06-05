@@ -44,6 +44,13 @@ export const gridThemePropType = PropTypes.shape({
 })
 
 export const legendsThemePropType = PropTypes.shape({
+    hidden: PropTypes.shape({
+        symbol: PropTypes.shape({
+            fill: PropTypes.string.isRequired,
+            opacity: PropTypes.number,
+        }).isRequired,
+        text: PropTypes.shape({ ...textProps, opacity: PropTypes.number }).isRequired,
+    }).isRequired,
     text: PropTypes.shape({ ...textProps }).isRequired,
 })
 

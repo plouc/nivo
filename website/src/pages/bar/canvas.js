@@ -1,18 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { ResponsiveBarCanvas } from '@bitbloom/nivo-bar'
-import ComponentTemplate from '../../components/components/ComponentTemplate'
+import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateHeavyDataSet } from '../../data/components/bar/generator'
 import mapper from '../../data/components/bar/mapper'
 import { groups } from '../../data/components/bar/props'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -42,10 +35,12 @@ const initialProperties = {
 
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
+    valueFormat: { format: '', enabled: false },
 
     colors: { scheme: 'red_blue' },
     colorBy: 'id',
     borderWidth: 0,
+    borderRadius: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 1.6]],
@@ -100,9 +95,25 @@ const initialProperties = {
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
+
+    legends: [],
 }
 
 const BarCanvas = () => {
+    const {
+        image: {
+            childImageSharp: { gatsbyImageData: image },
+        },
+    } = useStaticQuery(graphql`
+        query {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bar-canvas.png" }) {
+                childImageSharp {
+                    gatsbyImageData(layout: FIXED, width: 700, quality: 100)
+                }
+            }
+        }
+    `)
+
     return (
         <ComponentTemplate
             name="BarCanvas"
@@ -120,6 +131,7 @@ const BarCanvas = () => {
             })}
             generateData={generateHeavyDataSet}
             getTabData={data => data.data}
+            image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (

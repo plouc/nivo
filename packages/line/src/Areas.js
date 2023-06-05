@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 
 const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {

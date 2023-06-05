@@ -1,12 +1,4 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { useRef, useMemo, useCallback } from 'react'
+import { useRef, useMemo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import {
     TooltipActionsContext,
@@ -36,8 +28,6 @@ export const LegacyContainer = ({
     isInteractive = true,
     renderWrapper = true,
     animate,
-    motionStiffness,
-    motionDamping,
     motionConfig,
 }) => {
     const container = useRef(null)
@@ -58,12 +48,7 @@ export const LegacyContainer = ({
 
     return (
         <ThemeProvider theme={theme}>
-            <MotionConfigProvider
-                animate={animate}
-                stiffness={motionStiffness}
-                damping={motionDamping}
-                config={motionConfig}
-            >
+            <MotionConfigProvider animate={animate} config={motionConfig}>
                 <TooltipActionsContext.Provider value={tooltipActions}>
                     <TooltipStateContext.Provider value={tooltipState}>
                         {/* we should not render the div element if using the HTTP API */}
@@ -87,7 +72,5 @@ LegacyContainer.propTypes = {
     renderWrapper: PropTypes.bool,
     theme: PropTypes.object.isRequired,
     animate: PropTypes.bool.isRequired,
-    motionStiffness: PropTypes.number,
-    motionDamping: PropTypes.number,
     motionConfig: PropTypes.string,
 }

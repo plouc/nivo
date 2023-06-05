@@ -1,6 +1,5 @@
-import React from 'react'
 import { useTheme } from '@bitbloom/nivo-core'
-import { SpringValue, Interpolation, animated } from 'react-spring'
+import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { DatumWithArcAndColor } from '../types'
 
 export interface ArcLinkLabelProps<Datum extends DatumWithArcAndColor> {

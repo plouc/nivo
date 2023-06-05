@@ -1,5 +1,5 @@
-import React, { memo, useRef, PropsWithChildren, CSSProperties } from 'react'
-import { useSpring, animated } from 'react-spring'
+import { memo, useRef, PropsWithChildren, CSSProperties } from 'react'
+import { useSpring, animated } from '@react-spring/web'
 import {
     useTheme,
     useMotionConfig,

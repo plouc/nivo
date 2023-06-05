@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, createElement } from 'react'
+import { useCallback, useEffect, useRef, createElement } from 'react'
+import * as React from 'react'
 import { useDimensions, useTheme, Container } from '@bitbloom/nivo-core'
 import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@bitbloom/nivo-colors'
 import { useTooltip } from '@bitbloom/nivo-tooltip'

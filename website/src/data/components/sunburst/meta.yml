@@ -9,8 +9,6 @@ Sunburst:
   tags:
     - hierarchy
     - radial
-    - svg
-    - isomorphic
   stories:
     - label: with child color modifier
       link: sunburst--with-child-color-modifier

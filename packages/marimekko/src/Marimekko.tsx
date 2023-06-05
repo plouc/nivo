@@ -1,4 +1,4 @@
-import React, { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode } from 'react'
 import {
     // @ts-ignore
     bindDefs,
@@ -59,24 +59,23 @@ const InnerMarimekko = <RawDatum,>({
         partialMargin
     )
 
-    const { computedData, bars, thicknessScale, dimensionsScale, dimensionIds } = useMarimekko<
-        RawDatum
-    >({
-        data,
-        id,
-        value,
-        dimensions,
-        valueFormat,
-        layout,
-        offset,
-        outerPadding,
-        innerPadding,
-        colors,
-        borderColor,
-        borderWidth,
-        width: innerWidth,
-        height: innerHeight,
-    })
+    const { computedData, bars, thicknessScale, dimensionsScale, dimensionIds } =
+        useMarimekko<RawDatum>({
+            data,
+            id,
+            value,
+            dimensions,
+            valueFormat,
+            layout,
+            offset,
+            outerPadding,
+            innerPadding,
+            colors,
+            borderColor,
+            borderWidth,
+            width: innerWidth,
+            height: innerHeight,
+        })
 
     const layerById: Record<LayerId, ReactNode> = {
         grid: null,
@@ -109,8 +108,8 @@ const InnerMarimekko = <RawDatum,>({
         layerById.grid = (
             <Grid
                 key="grid"
-                xScale={enableGridX ? (xScale as any) : undefined}
-                yScale={enableGridY ? (yScale as any) : undefined}
+                xScale={enableGridX ? xScale : undefined}
+                yScale={enableGridY ? yScale : undefined}
                 width={innerWidth}
                 height={innerHeight}
                 xValues={gridXValues}
@@ -123,8 +122,8 @@ const InnerMarimekko = <RawDatum,>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={xScale as any}
-                yScale={yScale as any}
+                xScale={xScale}
+                yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop}

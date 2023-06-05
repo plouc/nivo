@@ -17,7 +17,7 @@ export const arcTransitionModes = [
     'pushIn',
     'pushOut',
 ] as const
-export type ArcTransitionMode = typeof arcTransitionModes[number]
+export type ArcTransitionMode = (typeof arcTransitionModes)[number]
 
 export const arcTransitionModeById: Record<ArcTransitionMode, ArcTransitionModeConfig> = {
     startAngle: {

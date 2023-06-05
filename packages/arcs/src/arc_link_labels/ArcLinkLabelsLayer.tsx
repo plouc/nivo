@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { createElement, useCallback, useState } from 'react'
 import { usePropertyAccessor } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
 import { useArcLinkLabelsTransition } from './useArcLinkLabelsTransition'
@@ -58,15 +58,15 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
         interpolateTextAnchor,
         interpolateTextPosition,
     } = useArcLinkLabelsTransition<Datum>({
-        data,
-        skipAngle,
-        offset,
-        diagonalLength,
-        straightLength,
-        textOffset,
-        linkColor,
-        textColor,
-    })
+            data,
+            skipAngle,
+            offset,
+            diagonalLength,
+            straightLength,
+            textOffset,
+            linkColor,
+            textColor,
+        })
 
     const [clip, setClip] = useState<ClipType>({
         dimensions: {},
@@ -77,7 +77,7 @@ export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
     if (clip.activeId !== activeId) {
         // clears cached label dimensions if active label changes
         const dimensions = { ...clip.dimensions }
-        let dimsRequired = 0
+        let dimsRequired = 0	
 
         if (clip.activeId) {
             delete dimensions[clip.activeId]
@@ -150,7 +150,7 @@ function ArcLinkLabelItem<Datum extends DatumWithArcAndColor>({
         if (domNode) {
             // the intention is to gather dimensions of all labels then update the state of the parent 
             // to re-render once all the dimensions are gathered
-            const hasDims = !!clip.dimensions[datum.id]
+            const hasDims = !!clip.dimensions[datum.id]		
             clip.dimensions[datum.id] = domNode.getBoundingClientRect()
             if (!hasDims) {
                 --clip.dimsRequired
@@ -203,5 +203,5 @@ function ArcLinkLabelItem<Datum extends DatumWithArcAndColor>({
         )
     }
 
-    return <g ref={ref} key={datum.id}>{React.createElement(Label, { datum, label: getLabel(datum), style })}</g>
+    return <g ref={ref} key={datum.id}>{createElement(Label, { datum, label: getLabel(datum), style })}</g>
 }

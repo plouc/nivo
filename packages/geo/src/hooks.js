@@ -111,22 +111,24 @@ export const useChoropleth = ({
             return featureKey && featureKey === datumKey
         }
     }, [match])
-    const getLabel = useMemo(() => (isFunction(label) ? label : datum => get(datum, label)), [
-        label,
-    ])
-    const getValue = useMemo(() => (isFunction(value) ? value : datum => get(datum, value)), [
-        value,
-    ])
+    const getLabel = useMemo(
+        () => (isFunction(label) ? label : datum => get(datum, label)),
+        [label]
+    )
+    const getValue = useMemo(
+        () => (isFunction(value) ? value : datum => get(datum, value)),
+        [value]
+    )
     const valueFormatter = useMemo(() => {
         if (valueFormat === undefined) return d => d
         if (isFunction(valueFormat)) return valueFormat
         return format(valueFormat)
     }, [valueFormat])
 
-    const colorScale = useMemo(() => guessQuantizeColorScale(colors).domain(domain), [
-        colors,
-        domain,
-    ])
+    const colorScale = useMemo(
+        () => guessQuantizeColorScale(colors).domain(domain),
+        [colors, domain]
+    )
     const getFillColor = useMemo(() => {
         return feature => {
             if (feature.value === undefined) return unknownColor

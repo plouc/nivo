@@ -1,4 +1,4 @@
-import React, { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions } from '@bitbloom/nivo-core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { CirclePackingHtmlProps, CirclePackingLayerId, ComputedDatum } from './types'
