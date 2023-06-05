@@ -89,4 +89,6 @@ export default {
 
     enableCrosshair: true,
     crosshairType: 'bottom-left',
+
+    tooltipPosition: 'cursor',
 }
