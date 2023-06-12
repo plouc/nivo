@@ -7,6 +7,7 @@ import {
     HeatMapDatum,
     SizeVariationConfig,
 } from './types'
+import { arrayExtent } from '@bitbloom/nivo-core'
 
 export const computeLayout = ({
     width: _width,
@@ -131,6 +132,8 @@ export const computeCells = <Datum extends HeatMapDatum, ExtraProps extends obje
         height: cellHeight,
     }))
 
+    const [min,max] = arrayExtent(allValues)
+
     return {
         width,
         height,
@@ -138,8 +141,8 @@ export const computeCells = <Datum extends HeatMapDatum, ExtraProps extends obje
         offsetY,
         xScale,
         yScale,
-        minValue: Math.min(...allValues),
-        maxValue: Math.max(...allValues),
+        minValue: min,
+        maxValue: max,
         cells: cellsWithPosition,
     }
 }

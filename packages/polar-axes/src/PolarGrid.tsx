@@ -1,6 +1,7 @@
 import { AnyScale } from '@bitbloom/nivo-scales'
 import { RadialGrid } from './RadialGrid'
 import { CircularGrid } from './CircularGrid'
+import { arrayExtent } from '@bitbloom/nivo-core'
 
 interface PolarGridProps {
     center: [number, number]
@@ -21,8 +22,7 @@ export const PolarGrid = ({
     startAngle,
     endAngle,
 }: PolarGridProps) => {
-    const innerRadius = Math.min(...radiusScale.range())
-    const outerRadius = Math.max(...radiusScale.range())
+    const [innerRadius, outerRadius] = arrayExtent(radiusScale.range())
 
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>

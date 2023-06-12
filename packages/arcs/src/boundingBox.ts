@@ -1,4 +1,4 @@
-import { positionFromAngle, degreesToRadians } from '@bitbloom/nivo-core'
+import { positionFromAngle, degreesToRadians, arrayExtent } from '@bitbloom/nivo-core'
 
 /**
  * Computes the bounding box for a circle arc.
@@ -51,11 +51,8 @@ export const computeArcBoundingBox = (
     const xs = points.map(([x]) => x)
     const ys = points.map(([, y]) => y)
 
-    const x0 = Math.min(...xs)
-    const x1 = Math.max(...xs)
-
-    const y0 = Math.min(...ys)
-    const y1 = Math.max(...ys)
+    const [x0, x1] = arrayExtent(xs)
+    const [y0, y1] = arrayExtent(ys)
 
     return {
         points,

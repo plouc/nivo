@@ -294,9 +294,13 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
         })
     })
 
-    xy[axis].minStacked = Math.min(...all)
-    xy[axis].maxStacked = Math.max(...all)
+const [min,max] = arrayExtent(all)
+
+    xy[axis].minStacked = min
+    xy[axis].maxStacked = max
 }
+
+
 
 const stackX = <S = never, D extends SerieDatum = SerieDatum>(
     xy: StackedXY,

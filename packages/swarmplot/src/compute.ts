@@ -14,6 +14,7 @@ import {
     ScaleTimeSpec,
 } from '@bitbloom/nivo-scales'
 import { ComputedDatum, PreSimulationDatum, SizeSpec, SimulationForces } from './types'
+import { arrayExtent } from '@bitbloom/nivo-core'
 
 const getParsedValue = (scaleSpec: ScaleLinearSpec | ScaleTimeSpec) => {
     if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
@@ -82,8 +83,7 @@ export const computeValueScale = <RawDatum>({
         >
     }
 
-    const min = Math.min(...(values as number[]))
-    const max = Math.max(...(values as number[]))
+    const [min,max] = arrayExtent(values as number[])
 
     return computeScale(
         scale,

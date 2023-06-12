@@ -1,7 +1,7 @@
 import { useMemo, useRef, useEffect } from 'react'
 import { line } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
-import { curveFromProp } from '@bitbloom/nivo-core'
+import { arrayExtent, curveFromProp } from '@bitbloom/nivo-core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import { castPointScale, castLinearScale, ScalePoint } from '@bitbloom/nivo-scales'
 import {
@@ -97,15 +97,16 @@ const computeVariablesScales = <Datum extends BaseDatum>({
 
     return variables.map(variable => {
         const allValues: number[] = data.map(datum => datum[variable.value] as number)
+        const [minValue, maxValue] = arrayExtent(allValues)
 
         const min =
             variable.min !== undefined && variable.min !== 'auto'
                 ? variable.min
-                : Math.min(...allValues!)
+                : minValue
         const max =
             variable.max !== undefined && variable.max !== 'auto'
                 ? variable.max
-                : Math.max(...allValues!)
+                : maxValue
 
         const scale = castLinearScale(scaleLinear().rangeRound(range).domain([min, max]))
 
