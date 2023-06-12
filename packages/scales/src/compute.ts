@@ -254,6 +254,22 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
     }
 }
 
+// returns [min, max] of array
+// Math.min(...array) and Math.max(...array) wil cause stack overflow
+// if the array is too large for its elements to be copied to the stack
+const arrayExtent = (array:number[]) => {
+    return array.reduce((acc, val) => {
+        if (!(val > acc[0])) {
+            acc[0] = val;
+        }
+        if (!(val < acc[1])) {
+            acc[1] = val;
+        }
+        return acc;
+    }, [NaN, NaN])
+}
+
+
 export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
     axis: ScaleAxis,
     xy: StackedXY,
@@ -294,7 +310,7 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
         })
     })
 
-const [min,max] = arrayExtent(all)
+    const [min, max] = arrayExtent(all)
 
     xy[axis].minStacked = min
     xy[axis].maxStacked = max

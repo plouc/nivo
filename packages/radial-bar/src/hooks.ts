@@ -54,7 +54,7 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     // a dependency for other hooks, and otherwise a new array would be created all
     // the time, forcing recomputing everything.
     const center: [number, number] = useMemo(() => [width / 2, height / 2], [width, height])
-    const outerRadius = Math.min(...center)
+    const [outerRadius] = arrayExtent(center)
     const innerRadius = outerRadius * Math.min(innerRadiusRatio, 1)
 
     const getColor = useOrdinalColorScale<ComputedBar<D>>(colors, 'category')
