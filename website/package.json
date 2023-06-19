@@ -1,6 +1,6 @@
 {
     "name": "nivo-website",
-    "version": "0.83.2",
+    "version": "0.83.3",
     "private": true,
     "description": "nivo website",
     "dependencies": {
