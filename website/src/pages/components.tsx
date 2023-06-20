@@ -7,19 +7,13 @@ interface ComponentsProps {
     location: {
         search: string
     }
-    navigate: (
-        path: string,
-        options?: {
-            replace?: boolean
-        }
-    ) => void
 }
 
-const Components = ({ location, navigate }: ComponentsProps) => {
+const Components = ({ location }: ComponentsProps) => {
     return (
         <Layout>
             <Seo title="Components" />
-            <ComponentsExplorer location={location} navigate={navigate} />
+            <ComponentsExplorer location={location} />
         </Layout>
     )
 }
