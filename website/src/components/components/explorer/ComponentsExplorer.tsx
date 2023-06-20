@@ -6,20 +6,15 @@ import PageContent from '../../PageContent'
 import { ComponentsSearch } from './ComponentsSearch'
 import { ComponentsFilters } from './ComponentsFilters'
 import { ComponentsGrid } from './ComponentsGrid'
+import { navigate } from 'gatsby'
 
 interface ComponentsExplorerProps {
     location: {
         search: string
     }
-    navigate: (
-        path: string,
-        options?: {
-            replace?: boolean
-        }
-    ) => void
 }
 
-export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerProps) => {
+export const ComponentsExplorer = ({ location }: ComponentsExplorerProps) => {
     const [term, filter] = useMemo(() => {
         const params = new URLSearchParams(location.search)
         return [params.get('q'), params.get('filter')]
@@ -35,7 +30,7 @@ export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerPro
                 replace: true,
             })
         },
-        [filter, navigate]
+        [filter]
     )
     const handleFilter = useCallback(
         (filter: string | null) => {
@@ -45,7 +40,7 @@ export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerPro
 
             navigate(`/components/?${params.toString()}`)
         },
-        [term, navigate]
+        [term]
     )
 
     return (
