@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import { arc as d3Arc } from 'd3-shape'
-import { degreesToRadians, useValueFormatter } from '@bitbloom/nivo-core'
+import { arrayExtent, degreesToRadians, useValueFormatter } from '@bitbloom/nivo-core'
 import { Arc } from '@bitbloom/nivo-arcs'
 import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import { castLinearScale, castBandScale, getScaleTicks } from '@bitbloom/nivo-scales'
@@ -54,7 +54,7 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
     // a dependency for other hooks, and otherwise a new array would be created all
     // the time, forcing recomputing everything.
     const center: [number, number] = useMemo(() => [width / 2, height / 2], [width, height])
-    const outerRadius = Math.min(...center)
+    const [outerRadius] = arrayExtent(center)
     const innerRadius = outerRadius * Math.min(innerRadiusRatio, 1)
 
     const getColor = useOrdinalColorScale<ComputedBar<D>>(colors, 'category')
@@ -95,7 +95,8 @@ export const useRadialBar = <D extends RadialBarDatum = RadialBarDatum>({
         })
 
         if (maxValueDirective === 'auto') {
-            result.maxValue = Math.max(...result.groups.map(group => group.total))
+            const [_,max] = arrayExtent(result.groups.map(group => group.total))
+            result.maxValue = max
         } else {
             result.maxValue = maxValueDirective
         }

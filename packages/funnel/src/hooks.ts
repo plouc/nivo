@@ -2,7 +2,7 @@ import { createElement, useMemo, useState, MouseEvent } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
-import { useTheme, useValueFormatter } from '@bitbloom/nivo-core'
+import { arrayExtent, useTheme, useValueFormatter } from '@bitbloom/nivo-core'
 import { useAnnotations } from '@bitbloom/nivo-annotations'
 import { useTooltip, TooltipActionsContextData } from '@bitbloom/nivo-tooltip'
 import { svgDefaultProps as defaults } from './props'
@@ -92,8 +92,10 @@ export const computeScales = <D extends FunnelDatum>({
 
     const allValues = data.map(d => d.value)
 
+    const [_, max] = arrayExtent(allValues)
+
     const linearScale = scaleLinear()
-        .domain([0, Math.max(...allValues)])
+        .domain([0, max])
         .range([0, linearScaleSize])
 
     return [bandScale, linearScale]
@@ -249,8 +251,8 @@ export const computePartsHandlers = <D extends FunnelDatum>({
         const boundOnClick =
             onClick !== undefined
                 ? (event: MouseEvent) => {
-                      onClick(part, event)
-                  }
+                    onClick(part, event)
+                }
                 : undefined
 
         return {
@@ -473,19 +475,19 @@ export const useFunnel = <D extends FunnelDatum>({
                     y: part.y1 - part.height * shapeBlending,
                 })
                 part.areaPoints.push(lastAreaPoint)
-                ;[0, 1, 2, 3].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x0,
-                        y: part.areaPoints[index].y,
+                    ;[0, 1, 2, 3].map(index => {
+                        part.borderPoints.push({
+                            x: part.areaPoints[index].x0,
+                            y: part.areaPoints[index].y,
+                        })
                     })
-                })
                 part.borderPoints.push(null)
-                ;[3, 2, 1, 0].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x1,
-                        y: part.areaPoints[index].y,
+                    ;[3, 2, 1, 0].map(index => {
+                        part.borderPoints.push({
+                            x: part.areaPoints[index].x1,
+                            y: part.areaPoints[index].y,
+                        })
                     })
-                })
             } else {
                 part.points.push({ x: part.x0, y: part.y0 })
                 if (nextPart) {
@@ -530,19 +532,19 @@ export const useFunnel = <D extends FunnelDatum>({
                     x: part.x1 - part.width * shapeBlending,
                 })
                 part.areaPoints.push(lastAreaPoint)
-                ;[0, 1, 2, 3].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x,
-                        y: part.areaPoints[index].y0,
+                    ;[0, 1, 2, 3].map(index => {
+                        part.borderPoints.push({
+                            x: part.areaPoints[index].x,
+                            y: part.areaPoints[index].y0,
+                        })
                     })
-                })
                 part.borderPoints.push(null)
-                ;[3, 2, 1, 0].map(index => {
-                    part.borderPoints.push({
-                        x: part.areaPoints[index].x,
-                        y: part.areaPoints[index].y1,
+                    ;[3, 2, 1, 0].map(index => {
+                        part.borderPoints.push({
+                            x: part.areaPoints[index].x,
+                            y: part.areaPoints[index].y1,
+                        })
                     })
-                })
             }
         })
 

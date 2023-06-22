@@ -1,4 +1,4 @@
-import { Margin } from '@bitbloom/nivo-core'
+import { Margin, arrayExtent } from '@bitbloom/nivo-core'
 import { OrdinalColorScale } from '@bitbloom/nivo-colors'
 import { Scale, ScaleBand, computeScale } from '@bitbloom/nivo-scales'
 import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
@@ -208,8 +208,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
         flattenDeep(stackedData as unknown as number[][]),
         valueScale.type
     )
-    const min = Math.min(...values)
-    const max = Math.max(...values)
+    const [min, max] = arrayExtent(values)
 
     const scale = computeScale(
         scaleSpec as any,

@@ -1,4 +1,4 @@
-import { Margin } from '@bitbloom/nivo-core'
+import { Margin, arrayExtent } from '@bitbloom/nivo-core'
 import { OrdinalColorScale } from '@bitbloom/nivo-colors'
 import { Scale, ScaleBand, computeScale } from '@bitbloom/nivo-scales'
 import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
@@ -213,8 +213,9 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     const values = data
         .reduce<number[]>((acc, entry) => [...acc, ...keys.map(k => entry[k] as number)], [])
         .filter(Boolean)
-    const min = clampMin(Math.min(...values))
-    const max = zeroIfNotFinite(Math.max(...values))
+    const [valueMin, valueMax] = arrayExtent(values)
+    const min = clampMin(valueMin)
+    const max = zeroIfNotFinite(valueMax)
 
     const scale = computeScale(
         scaleSpec as any,

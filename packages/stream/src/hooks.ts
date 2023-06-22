@@ -9,6 +9,7 @@ import {
     stackOrderFromProp,
     // @ts-ignore
     stackOffsetFromProp,
+    arrayExtent,
 } from '@bitbloom/nivo-core'
 import { useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import {
@@ -92,8 +93,8 @@ export const useStream = <RawDatum extends StreamDatum>({
             })
         })
 
-        const minValue = Math.min(...allMin)
-        const maxValue = Math.max(...allMax)
+
+        const [minValue, maxValue] = arrayExtent(allMax)
 
         const xScale = createPointScale(
             { type: 'point' },

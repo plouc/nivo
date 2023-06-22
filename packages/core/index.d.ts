@@ -424,6 +424,8 @@ export function absoluteAngleDegrees(degrees: number): number
 export function normalizeAngle(degrees: number): number
 export function clampArc(startAngle: number, endAngle: number, length?: number): [number, number]
 
+export function arrayExtent(array: number[]): [number, number]
+
 type Accessor<T extends keyof U, U> = T extends string ? U[T] : never
 
 export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T

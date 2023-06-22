@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
 import {
+    arrayExtent,
     // @ts-ignore
     bindDefs,
     useCurveInterpolation,
@@ -81,8 +82,8 @@ export const useRadar = <D extends Record<string, unknown>>({
             (acc: number[], d) => [...acc, ...keys.map(key => d[key] as number)],
             [] as number[]
         )
-        const computedMaxValue = maxValue !== 'auto' ? maxValue : Math.max(...allValues)
-
+        const [_,max] = arrayExtent(allValues)
+        const computedMaxValue = maxValue !== 'auto' ? maxValue : max
         const radius = Math.min(width, height) / 2
         const radiusScale = scaleLinear<number, number>()
             .range([0, radius])

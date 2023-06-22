@@ -1,5 +1,5 @@
 import { isDate, memoize, range } from 'lodash'
-import { alignBox } from '@bitbloom/nivo-core'
+import { alignBox, arrayExtent } from '@bitbloom/nivo-core'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 import { ScaleQuantize } from 'd3-scale'
@@ -14,8 +14,9 @@ export const computeDomain = (
     maxSpec: NonNullable<CalendarSvgProps['maxValue']>
 ) => {
     const allValues = data.map(d => d.value)
-    const minValue = minSpec === 'auto' ? Math.min(...allValues) : minSpec
-    const maxValue = maxSpec === 'auto' ? Math.max(...allValues) : maxSpec
+    const [min, max] = arrayExtent(allValues)
+    const minValue = minSpec === 'auto' ? min : minSpec
+    const maxValue = maxSpec === 'auto' ? max : maxSpec
 
     return [minValue, maxValue] as const
 }

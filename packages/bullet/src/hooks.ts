@@ -1,6 +1,7 @@
 import { createLinearScale } from '@bitbloom/nivo-scales'
 import { useMemo } from 'react'
 import { Datum, CommonBulletProps } from './types'
+import { arrayExtent } from '@bitbloom/nivo-core'
 
 export const useEnhancedData = (
     data: Datum[],
@@ -18,8 +19,9 @@ export const useEnhancedData = (
         () =>
             data.map(d => {
                 const all = [...d.ranges, ...d.measures, ...(d.markers ?? [])]
-                const max = maxValue ?? Math.max(...all)
-                const min = minValue ?? Math.min(...all)
+                const [allMin, allMax] = arrayExtent(all)
+                const max = maxValue ?? allMax
+                const min = minValue ?? allMin
 
                 const scale = createLinearScale(
                     { clamp: true, min, max, type: 'linear' },

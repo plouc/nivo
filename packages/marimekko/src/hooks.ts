@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { get } from 'lodash'
 import { stack as d3Stack, Stack, Series } from 'd3-shape'
-import { useValueFormatter, useTheme } from '@bitbloom/nivo-core'
+import { useValueFormatter, useTheme, arrayExtent } from '@bitbloom/nivo-core'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import { createLinearScale, ScaleLinear } from '@bitbloom/nivo-scales'
 import {
@@ -31,7 +31,7 @@ export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['
             dimensions[dimension.id] =
                 typeof dimension.value === 'function'
                     ? dimension.value
-                    :((datum: RawDatum) => get(datum, dimension.value as string, 0)) as DatumPropertyAccessor<RawDatum, number>
+                    : ((datum: RawDatum) => get(datum, dimension.value as string, 0)) as DatumPropertyAccessor<RawDatum, number>
         })
 
         return { dimensionIds, dimensions }
@@ -66,8 +66,7 @@ export const useStackedData = <RawDatum>(
             })
         })
 
-        const min = Math.min(...allValues)
-        const max = Math.max(...allValues)
+        const [min, max] = arrayExtent(allValues)
 
         return {
             stacked,
@@ -233,12 +232,12 @@ export const useComputedData = <RawDatum>({
 
                     computedDatum.dimensions.push(dimensionDatum)
                 }
-
+                const [min] = arrayExtent(allPositions)
                 if (layout === 'vertical') {
-                    computedDatum.y = Math.min(...allPositions)
+                    computedDatum.y = min
                     computedDatum.height = totalSize
                 } else {
-                    computedDatum.x = Math.min(...allPositions)
+                    computedDatum.x = min
                     computedDatum.width = totalSize
                 }
             })

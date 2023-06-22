@@ -24,13 +24,8 @@ packages/*/bitbloom*.tgz
 # Local Netlify folder
 .netlify
 
-# yarn 2 - not using zero-installs
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+# pnpm
+pnpm-lock.yaml
+/.pnpm-store/
 
 cypress/cypress/videos
