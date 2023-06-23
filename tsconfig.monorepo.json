@@ -42,6 +42,7 @@
         { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" },
         { "path": "./packages/treemap" },
+        { "path": "./packages/waffle" },
 
         // Static rendering and express middleware
         { "path": "./packages/static" },
