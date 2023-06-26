@@ -26,5 +26,5 @@ steps:
 - script: |
     echo "Executing build script"
     ./build.sh
-  displayName: 'Build modules on nivo container'
+  displayName: 'Build nivo'
   condition: succeeded()
