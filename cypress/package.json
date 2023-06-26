@@ -1,6 +1,6 @@
 {
     "name": "nivo-e2e",
-    "version": "0.83.5",
+    "version": "0.83.6",
     "private": true,
     "description": "nivo end-to-end tests",
     "dependencies": {
