@@ -25,7 +25,7 @@ steps:
 
 - bash: |
     npm install -g pnpm
-    make init
-    make packages-publish-ci
+    make -s init
+    make -s packages-publish-ci
   displayName: 'Build nivo'
   condition: succeeded()
