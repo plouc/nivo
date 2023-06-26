@@ -13,10 +13,17 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: $(Build.SourcesDirectory)
+    Contents: '.npmrc'
+    TargetFolder: $(Agent.TempDirectory)
+
 - task: npmAuthenticate@0
   inputs:
-    workingFile: $(Build.SourcesDirectory)/.npmrc
-- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Build.SourcesDirectory)/.npmrc
+    workingFile: $(Agent.TempDirectory)/.npmrc
+
+- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.TempDirectory)/.npmrc
 
 - task: NodeTool@0
   inputs:
