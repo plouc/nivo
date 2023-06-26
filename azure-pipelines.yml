@@ -23,8 +23,8 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-- script: |
-    echo "Executing build script"
-    ./build.sh
+- task: ShellScript@2
+  inputs:
+    scriptPath: $(Build.SourcesDirectory)/build.sh
   displayName: 'Build nivo'
   condition: succeeded()
