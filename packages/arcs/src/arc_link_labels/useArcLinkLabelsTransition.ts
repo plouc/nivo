@@ -78,7 +78,7 @@ const useTransitionPhases = <Datum extends DatumWithArcAndColor>({
                 opacity: 0,
             }),
         }),
-        [diagonalLength, straightLength, textOffset, getLinkColor, getTextColor]
+        [diagonalLength, straightLength, textOffset, getLinkColor, getTextColor, offset]
     )
 
 const interpolateLink = (

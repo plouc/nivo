@@ -122,30 +122,10 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 
     const layerById: Record<PieLayerId, ReactNode> = {
-        arcLinkLabels: null,
         arcs: null,
+        arcLinkLabels: null,
         arcLabels: null,
         legends: null,
-    }
-
-    if (enableArcLinkLabels && layers.includes('arcLinkLabels')) {
-        layerById.arcLinkLabels = (
-            <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
-                key="arcLinkLabels"
-                center={[centerX, centerY]}
-                data={dataWithArc}
-                label={arcLinkLabel}
-                skipAngle={arcLinkLabelsSkipAngle}
-                offset={arcLinkLabelsOffset}
-                diagonalLength={arcLinkLabelsDiagonalLength}
-                straightLength={arcLinkLabelsStraightLength}
-                strokeWidth={arcLinkLabelsThickness}
-                textOffset={arcLinkLabelsTextOffset}
-                textColor={arcLinkLabelsTextColor}
-                linkColor={arcLinkLabelsColor}
-                component={arcLinkLabelComponent}
-            />
-        )
     }
 
     if (layers.includes('arcs')) {
@@ -165,6 +145,26 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
                 setActiveId={setActiveId}
                 tooltip={tooltip}
                 transitionMode={transitionMode}
+            />
+        )
+    }
+
+    if (enableArcLinkLabels && layers.includes('arcLinkLabels')) {
+        layerById.arcLinkLabels = (
+            <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
+                key="arcLinkLabels"
+                center={[centerX, centerY]}
+                data={dataWithArc}
+                label={arcLinkLabel}
+                skipAngle={arcLinkLabelsSkipAngle}
+                offset={arcLinkLabelsOffset}
+                diagonalLength={arcLinkLabelsDiagonalLength}
+                straightLength={arcLinkLabelsStraightLength}
+                strokeWidth={arcLinkLabelsThickness}
+                textOffset={arcLinkLabelsTextOffset}
+                textColor={arcLinkLabelsTextColor}
+                linkColor={arcLinkLabelsColor}
+                component={arcLinkLabelComponent}
             />
         )
     }
