@@ -7,8 +7,10 @@ trigger:
   branches:
     include:
       - master
+      - refs/tags/*
 
-pool: 'Default'
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: npmAuthenticate@0
