@@ -23,8 +23,9 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-- task: Bash@3
-  inputs:
-    filePath: $(Build.SourcesDirectory)/build.sh
+- bash: |
+    npm install -g pnpm
+    make init
+    make packages-publish-ci
   displayName: 'Build nivo'
   condition: succeeded()
