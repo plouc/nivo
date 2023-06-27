@@ -304,5 +304,5 @@ api-deploy: ##@5 API Deploy API on heroku
 #
 ########################################################################################################################
 packages-publish-ci: ##@1 packages publish all packages
-	@echo "${YELLOW}Publishing packages${RESET}"
+## 	@echo "${YELLOW}Publishing packages${RESET}" MT - removing due to broken pipe issue in Azure DevOps
 	@./node_modules/.bin/lerna publish from-git --yes

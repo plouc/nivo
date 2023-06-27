@@ -9,21 +9,30 @@ trigger:
       - master
       - refs/tags/*
 
-pool: 'Default'
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: $(Build.SourcesDirectory)
+    Contents: '.npmrc'
+    TargetFolder: $(Agent.TempDirectory)
+
 - task: npmAuthenticate@0
   inputs:
-    workingFile: $(Agent.HomeDirectory)/.npmrc
-- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.HomeDirectory)/.npmrc
+    workingFile: $(Agent.TempDirectory)/.npmrc
 
-- script: |
-    echo "Create new container"
-    docker run --name nivo -v $(Agent.HomeDirectory)/.npmrc:/tmp/.npmrc -e NPM_CONFIG_USERCONFIG=/tmp/.npmrc -v $(Build.SourcesDirectory):/app -w /app node:latest ./build.sh
-  displayName: 'Build modules on nivo container'
+- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.TempDirectory)/.npmrc
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+
+- bash: |
+    npm install -g pnpm
+    make -s init
+    make -s packages-publish-ci
+  displayName: 'Build nivo'
   condition: succeeded()
-  
-- script: |
-    docker rm -f nivo
-  displayName: 'Remove nivo container'
-  condition: always()
