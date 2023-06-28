@@ -58,7 +58,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     gridXValues,
     gridYValues,
 
-    layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
+    layers = svgDefaultProps.layers as readonly BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
 
     enableLabel = svgDefaultProps.enableLabel,
