@@ -28,8 +28,8 @@ export const bindAnnotations = <
     getPosition,
     getDimensions,
 }: {
-    data: Datum[]
-    annotations: AnnotationMatcher<Datum>[]
+    data: readonly Datum[]
+    annotations: readonly AnnotationMatcher<Datum>[]
     getPosition: AnnotationPositionGetter<Datum>
     getDimensions: AnnotationDimensionsGetter<Datum>
 }): BoundAnnotation<Datum>[] =>

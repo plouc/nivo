@@ -16,8 +16,8 @@ export const useAnnotations = <Datum>({
     getPosition,
     getDimensions,
 }: {
-    data: Datum[]
-    annotations: AnnotationMatcher<Datum>[]
+    data: readonly Datum[]
+    annotations: readonly AnnotationMatcher<Datum>[]
     getPosition: AnnotationPositionGetter<Datum>
     getDimensions: AnnotationDimensionsGetter<Datum>
 }) =>
@@ -35,7 +35,7 @@ export const useAnnotations = <Datum>({
 export const useComputedAnnotations = <Datum>({
     annotations,
 }: {
-    annotations: BoundAnnotation<Datum>[]
+    annotations: readonly BoundAnnotation<Datum>[]
 }) =>
     useMemo(
         () =>

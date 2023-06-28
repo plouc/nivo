@@ -4,7 +4,7 @@ import { ScaleBandSpec, ScaleBand, computeScale } from '@nivo/scales'
  * Generates indexed scale.
  */
 export const getIndexScale = <RawDatum>(
-    data: RawDatum[],
+    data: readonly RawDatum[],
     getIndex: (datum: RawDatum) => string,
     padding: number,
     indexScale: ScaleBandSpec,
@@ -24,7 +24,7 @@ export const getIndexScale = <RawDatum>(
 /**
  * This method ensures all the provided keys exist in the entire series.
  */
-export const normalizeData = <RawDatum>(data: RawDatum[], keys: string[]) =>
+export const normalizeData = <RawDatum>(data: readonly RawDatum[], keys: readonly string[]) =>
     data.map(
         item =>
             ({

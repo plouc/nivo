@@ -5,7 +5,7 @@ import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
 type Params<RawDatum, XScaleInput, YScaleInput> = {
-    data: RawDatum[]
+    data: readonly RawDatum[]
     formatValue: (value: number) => string
     getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
     getIndex: (datum: RawDatum) => string
@@ -186,7 +186,7 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     getIndex: (datum: RawDatum) => string
     getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
     margin: Margin
-    hiddenIds?: (string | number)[]
+    hiddenIds?: readonly (string | number)[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
     const data = normalizeData(props.data, keys)

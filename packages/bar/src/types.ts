@@ -22,7 +22,7 @@ export interface BarDatum {
 }
 
 export interface DataProps<RawDatum extends BarDatum> {
-    data: RawDatum[]
+    data: readonly RawDatum[]
 }
 
 export type BarDatumWithColor = BarDatum & {
@@ -109,8 +109,8 @@ interface BarCustomLayerBaseProps<RawDatum>
             | 'tooltip'
         >,
         Dimensions {
-    bars: ComputedBarDatum<RawDatum>[]
-    legendData: [BarLegendProps, LegendData[]][]
+    bars: readonly ComputedBarDatum<RawDatum>[]
+    legendData: [BarLegendProps, readonly LegendData[]][]
 
     margin: Margin
     innerWidth: number
@@ -208,7 +208,7 @@ export type BarHandlers<RawDatum, Element> = {
 
 export type BarCommonProps<RawDatum> = {
     indexBy: PropertyAccessor<RawDatum, string>
-    keys: string[]
+    keys: readonly string[]
 
     maxValue: 'auto' | number
     minValue: 'auto' | number
@@ -253,12 +253,12 @@ export type BarCommonProps<RawDatum> = {
     colors: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>
     theme: Theme
 
-    annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
-    legends: BarLegendProps[]
+    annotations: readonly AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
+    legends: readonly BarLegendProps[]
 
     renderWrapper?: boolean
 
-    initialHiddenIds: (string | number)[]
+    initialHiddenIds: readonly (string | number)[]
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
@@ -275,9 +275,9 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
 
         barComponent: React.FC<BarItemProps<RawDatum>>
 
-        markers: CartesianMarkerProps[]
+        markers: readonly CartesianMarkerProps[]
 
-        layers: BarLayer<RawDatum>[]
+        layers: readonly BarLayer<RawDatum>[]
 
         role: string
         ariaLabel?: React.AriaAttributes['aria-label']
@@ -310,6 +310,6 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
     }>
 
 export type BarAnnotationsProps<RawDatum> = {
-    annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
-    bars: ComputedBarDatum<RawDatum>[]
+    annotations: readonly AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
+    bars: readonly ComputedBarDatum<RawDatum>[]
 }
