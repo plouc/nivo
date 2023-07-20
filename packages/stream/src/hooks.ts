@@ -101,7 +101,7 @@ export const useStream = <RawDatum extends StreamDatum>({
             width
         )
         const yScale = createLinearScale(
-            { type: 'linear' },
+            { type: 'linear', min: minValue },
             { all: [minValue, maxValue], min: minValue, max: maxValue },
             height,
             'y'
