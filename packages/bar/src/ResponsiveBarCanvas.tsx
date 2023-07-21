@@ -3,9 +3,14 @@ import { BarCanvas } from './BarCanvas'
 import { ForwardedRef, forwardRef } from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 
+export type ResponsiveBarCanvasProps<RawDatum extends BarDatum> = Omit<
+    BarCanvasProps<RawDatum>,
+    'height' | 'width'
+>
+
 export const ResponsiveBarCanvas = forwardRef(function ResponsiveBarCanvas<
     RawDatum extends BarDatum
->(props: Omit<BarCanvasProps<RawDatum>, 'height' | 'width'>, ref: ForwardedRef<HTMLCanvasElement>) {
+>(props: ResponsiveBarCanvasProps<RawDatum>, ref: ForwardedRef<HTMLCanvasElement>) {
     return (
         <ResponsiveWrapper>
             {({ width, height }) => (
