@@ -30,7 +30,7 @@ export interface AxisProps<Value extends ScaleValue = any> {
     tickPadding?: number
     tickRotation?: number
     format?: string | ValueFormatter<Value>
-    rotateOnTickLength: TickRotationOnLength
+    rotateOnTickLength?: TickRotationOnLength
     renderTick?: (props: AxisTickProps<Value>) => JSX.Element
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
