@@ -106,6 +106,18 @@ export const axes = ({
                                     max: 60,
                                 },
                             },
+                            {
+                                key: `rotateTickOnLength`,
+                                flavors,
+                                help: `${axisKey} prevent the tick to overlap rotating when length overpassing certain length`,
+                                type: '{angle: number, length: number }',
+                                control: {
+                                    type: 'angle',
+                                    start: 90,
+                                    min: -90,
+                                    max: 90,
+                                },
+                            },
                         ],
                     },
                 },
