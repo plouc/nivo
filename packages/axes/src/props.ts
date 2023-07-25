@@ -9,6 +9,10 @@ export const axisPropTypes = {
         ),
         PropTypes.string,
     ]),
+    rotateOnTickLength: PropTypes.shape({
+        angle: PropTypes.number,
+        length: PropTypes.number,
+    }),
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
