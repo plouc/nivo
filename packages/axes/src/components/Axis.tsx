@@ -1,11 +1,11 @@
-import { useMemo, memo, useCallback } from 'react'
+import { useMotionConfig, useTheme } from '@nivo/core'
+import { AnyScale, ScaleValue } from '@nivo/scales'
+import { animated, useSpring, useTransition } from '@react-spring/web'
 import * as React from 'react'
-import { useSpring, useTransition, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
-import { ScaleValue, AnyScale } from '@nivo/scales'
+import { memo, useCallback, useMemo } from 'react'
 import { computeCartesianTicks, getFormatter } from '../compute'
-import { AxisTick } from './AxisTick'
 import { AxisProps } from '../types'
+import { AxisTick } from './AxisTick'
 
 export const NonMemoizedAxis = <Value extends ScaleValue>({
     axis,
@@ -20,6 +20,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     tickRotation = 0,
     format,
     renderTick = AxisTick,
+    rotateTickOnLength,
     legend,
     legendPosition = 'end',
     legendOffset = 0,
@@ -121,12 +122,35 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
         immediate: !animate,
     })
 
+    const rotateTick = useCallback(
+        (thresholdLength: number, rotation: number, tick: (typeof ticks)[0]): string => {
+            if (String(tick.value).length >= thresholdLength) {
+                return `translate(${tick.x},${tick.y}) rotate(${rotation})`
+            }
+            return `translate(${tick.x},${tick.y})`
+        },
+        []
+    )
+
+    const autoRotationOnLength = useCallback(
+        (tick: (typeof ticks)[0]): string => {
+            if (!rotateTickOnLength || !rotateTickOnLength.angle || rotateTickOnLength.angle === 0)
+                return `translate(${tick.x},${tick.y})`
+
+            return rotateTick(rotateTickOnLength?.length ?? 5, rotateTickOnLength.angle, tick)
+        },
+        [rotateTick, rotateTickOnLength]
+    )
+
     const getAnimatedProps = useCallback(
-        (tick: (typeof ticks)[0]) => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
+        (tick: (typeof ticks)[0]) => {
+            return {
+                opacity: 1,
+                transform: autoRotationOnLength(tick),
+                // transform: `translate(${tick.x},${tick.y})`,
+                textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
+            }
+        },
         [tickRotation]
     )
     const getFromAnimatedProps = useCallback(
@@ -163,6 +187,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
                     rotate: tickRotation,
                     textBaseline,
                     textAnchor: textAlign,
+                    rotateTickOnLength: rotateTickOnLength,
                     animatedProps: transitionProps,
                     ...tick,
                     ...(onClick ? { onClick } : {}),
