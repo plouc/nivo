@@ -49,6 +49,7 @@ export const Axes = memo(
                             scale={isXAxis ? xScale : yScale}
                             length={isXAxis ? width : height}
                             ticksPosition={ticksPosition}
+                            truncateTickAt={axis.truncateTickAt}
                         />
                     )
                 })}

@@ -21,8 +21,6 @@ export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
 export type ValueFormatter<Value extends ScaleValue> = (value: Value) => Value | string
 
-export type TickRotationOnLength = { angle: number | undefined; length: number | undefined }
-
 export interface AxisProps<Value extends ScaleValue = any> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
@@ -30,7 +28,7 @@ export interface AxisProps<Value extends ScaleValue = any> {
     tickPadding?: number
     tickRotation?: number
     format?: string | ValueFormatter<Value>
-    rotateOnTickLength?: TickRotationOnLength
+    truncateTickAt?: number
     renderTick?: (props: AxisTickProps<Value>) => JSX.Element
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
@@ -62,6 +60,7 @@ export interface AxisTickProps<Value extends ScaleValue> {
         textTransform: string
         transform: string
     }>
+    truncateTickAt: number | undefined
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }
 

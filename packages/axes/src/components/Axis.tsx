@@ -20,7 +20,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     tickRotation = 0,
     format,
     renderTick = AxisTick,
-    rotateTickOnLength,
+    truncateTickAt,
     legend,
     legendPosition = 'end',
     legendOffset = 0,
@@ -122,32 +122,11 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
         immediate: !animate,
     })
 
-    const rotateTick = useCallback(
-        (thresholdLength: number, rotation: number, tick: (typeof ticks)[0]): string => {
-            if (String(tick.value).length >= thresholdLength) {
-                return `translate(${tick.x},${tick.y}) rotate(${rotation})`
-            }
-            return `translate(${tick.x},${tick.y})`
-        },
-        []
-    )
-
-    const autoRotationOnLength = useCallback(
-        (tick: (typeof ticks)[0]): string => {
-            if (!rotateTickOnLength || !rotateTickOnLength.angle || rotateTickOnLength.angle === 0)
-                return `translate(${tick.x},${tick.y})`
-
-            return rotateTick(rotateTickOnLength?.length ?? 5, rotateTickOnLength.angle, tick)
-        },
-        [rotateTick, rotateTickOnLength]
-    )
-
     const getAnimatedProps = useCallback(
         (tick: (typeof ticks)[0]) => {
             return {
                 opacity: 1,
-                transform: autoRotationOnLength(tick),
-                // transform: `translate(${tick.x},${tick.y})`,
+                transform: `translate(${tick.x},${tick.y})`,
                 textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
             }
         },
@@ -187,7 +166,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
                     rotate: tickRotation,
                     textBaseline,
                     textAnchor: textAlign,
-                    rotateTickOnLength: rotateTickOnLength,
+                    truncateTickAt: truncateTickAt,
                     animatedProps: transitionProps,
                     ...tick,
                     ...(onClick ? { onClick } : {}),
