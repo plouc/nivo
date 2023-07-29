@@ -47,6 +47,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
         tickSize,
         tickPadding,
         tickRotation,
+        truncateTickAt,
     })
 
     let legendNode = null
