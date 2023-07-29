@@ -35,14 +35,6 @@ const AxisTick = <Value extends ScaleValue>({
         }
     }, [animatedProps.opacity, onClick, value])
 
-    const truncateTick = () => {
-        const valueLength = String(value).length
-        if (truncateTickAt && truncateTickAt > 0 && valueLength > truncateTickAt) {
-            return `${String(value).slice(0, truncateTickAt).concat('...')}`
-        }
-        return `${value}`
-    }
-
     return (
         <animated.g transform={animatedProps.transform} {...props}>
             <line x1={0} x2={lineX} y1={0} y2={lineY} style={lineStyle} />
@@ -56,7 +48,7 @@ const AxisTick = <Value extends ScaleValue>({
                     stroke={textStyle.outlineColor}
                     strokeLinejoin="round"
                 >
-                    {truncateTick()}
+                    {`${value}`}
                 </animated.text>
             )}
             <animated.text
@@ -65,7 +57,7 @@ const AxisTick = <Value extends ScaleValue>({
                 transform={animatedProps.textTransform}
                 style={textStyle}
             >
-                {truncateTick()}
+                {`${value}`}
             </animated.text>
         </animated.g>
     )
