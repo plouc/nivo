@@ -2,14 +2,7 @@ import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 // @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
-import {
-    ScaleValue,
-    AnyScale,
-    TicksSpec,
-    getScaleTicks,
-    centerScale,
-    StringValue,
-} from '@nivo/scales'
+import { ScaleValue, AnyScale, TicksSpec, getScaleTicks, centerScale } from '@nivo/scales'
 import { Point, ValueFormatter, Line } from './types'
 
 const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
