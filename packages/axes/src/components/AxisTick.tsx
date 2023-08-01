@@ -13,7 +13,6 @@ const AxisTick = <Value extends ScaleValue>({
     onClick,
     textBaseline,
     textAnchor,
-    truncateTickAt,
     animatedProps,
 }: AxisTickProps<Value>) => {
     const theme = useTheme()
