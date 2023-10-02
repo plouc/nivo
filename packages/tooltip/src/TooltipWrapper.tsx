@@ -83,7 +83,7 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
         }
 
         return (
-            <animated.div ref={measureRef} style={style}>
+            <animated.div ref={measureRef} style={style} className="tooltip-wrapper">
                 {children}
             </animated.div>
         )
