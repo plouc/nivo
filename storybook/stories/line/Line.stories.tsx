@@ -3,7 +3,7 @@ import { Component, useState, useEffect } from 'react'
 import range from 'lodash/range'
 import last from 'lodash/last'
 import { generateDrinkStats } from '@nivo/generators'
-import { Defs, linearGradientDef } from '@nivo/core'
+import { Defs, DotsItem, Point, linearGradientDef } from '@nivo/core'
 import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
@@ -1067,6 +1067,74 @@ export const CustomLineStyle: Story = {
                 tickRotation: 0,
             }}
             layers={['grid', 'markers', 'areas', DashedLine, 'slices', 'points', 'axes', 'legends']}
+        />
+    ),
+}
+
+const Points = ({ points, ...props }) => {
+    return (
+        <g>
+            {points.map(point => {
+                if (props.currentSlice && props.currentSlice.points) {
+                    const isMatch = props.currentSlice.points.some(
+                        (currentPoint: Point) =>
+                            point.x === currentPoint.x && point.y === currentPoint.y
+                    )
+
+                    if (isMatch) {
+                        return (
+                            <DotsItem
+                                key={point.id}
+                                x={point.x}
+                                y={point.y}
+                                datum={point.data}
+                                symbol={props.pointSymbol}
+                                size={props.pointSize}
+                                color={point.color}
+                                label={point.label}
+                                borderWidth={2}
+                                labelYOffset={props.pointLabelYOffset}
+                            />
+                        )
+                    }
+                }
+
+                return null
+            })}
+        </g>
+    )
+}
+
+/**
+ * You can use this with a custom Points layer, with enableSlices set to `true`.
+ */
+export const CustomPointsWithHover: Story = {
+    render: () => (
+        <Line
+            {...commonProperties}
+            xScale={{
+                type: 'point',
+                min: 'auto',
+                max: 'auto',
+            }}
+            yScale={{
+                type: 'linear',
+                min: 'auto',
+                max: 'auto',
+            }}
+            axisBottom={{
+                orient: 'bottom',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+            }}
+            axisLeft={{
+                orient: 'left',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+            }}
+            layers={['grid', 'markers', 'areas', 'lines', 'slices', Points, 'axes', 'legends']}
         />
     ),
 }
