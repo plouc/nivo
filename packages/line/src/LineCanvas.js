@@ -21,56 +21,56 @@ import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from
 import { LineCanvasPropTypes, LineCanvasDefaultProps } from './props'
 import { useLine } from './hooks'
 
-const LineCanvas = ({
-    width,
-    height,
-    margin: partialMargin,
-    pixelRatio,
-
-    data,
-    xScale: xScaleSpec,
-    xFormat,
-    yScale: yScaleSpec,
-    yFormat,
-    curve,
-
-    layers,
-
-    colors,
-    lineWidth,
-
-    enableArea,
-    areaBaselineValue,
-    areaOpacity,
-
-    enablePoints,
-    pointSize,
-    pointColor,
-    pointBorderWidth,
-    pointBorderColor,
-
-    enableGridX,
-    gridXValues,
-    enableGridY,
-    gridYValues,
-    axisTop,
-    axisRight,
-    axisBottom,
-    axisLeft,
-
-    legends,
-
-    isInteractive,
-    debugMesh,
-    //onMouseEnter,
-    //onMouseMove,
-    onMouseLeave,
-    onClick,
-    tooltip,
-
-    canvasRef,
-}) => {
+const LineCanvas = props => {
     const canvasEl = useRef(null)
+    const {
+        width,
+        height,
+        margin: partialMargin,
+        pixelRatio,
+
+        data,
+        xScale: xScaleSpec,
+        xFormat,
+        yScale: yScaleSpec,
+        yFormat,
+        curve,
+
+        layers,
+
+        colors,
+        lineWidth,
+
+        enableArea,
+        areaBaselineValue,
+        areaOpacity,
+
+        enablePoints,
+        pointSize,
+        pointColor,
+        pointBorderWidth,
+        pointBorderColor,
+
+        enableGridX,
+        gridXValues,
+        enableGridY,
+        gridYValues,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+
+        legends,
+
+        isInteractive,
+        debugMesh,
+        //onMouseEnter,
+        //onMouseMove,
+        onMouseLeave,
+        onClick,
+        tooltip,
+        canvasRef,
+    } = { ...LineCanvasDefaultProps, ...props }
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -330,7 +330,6 @@ const LineCanvas = ({
 }
 
 LineCanvas.propTypes = LineCanvasPropTypes
-LineCanvas.defaultProps = LineCanvasDefaultProps
 
 const LineCanvasWithContainer = withContainer(LineCanvas)
 

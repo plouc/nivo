@@ -35,7 +35,7 @@ const GeoMap = memo(props => {
         onClick,
         tooltip: Tooltip,
         role,
-    } = props
+    } = { ...GeoMapDefaultProps, ...props }
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
     const { graticule, path, getFillColor, getBorderWidth, getBorderColor } = useGeoMap({
         width,
@@ -122,6 +122,5 @@ const GeoMap = memo(props => {
 
 GeoMap.displayName = 'GeoMap'
 GeoMap.propTypes = GeoMapPropTypes
-GeoMap.defaultProps = GeoMapDefaultProps
 
 export default withContainer(GeoMap)

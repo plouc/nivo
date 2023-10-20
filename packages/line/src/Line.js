@@ -95,7 +95,7 @@ const Line = props => {
         crosshairType,
 
         role,
-    } = props
+    } = { ...LineDefaultProps, ...props }
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -331,6 +331,5 @@ const Line = props => {
 }
 
 Line.propTypes = LinePropTypes
-Line.defaultProps = LineDefaultProps
 
 export default withContainer(Line)

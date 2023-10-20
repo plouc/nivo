@@ -45,7 +45,7 @@ const GeoMapCanvas = memo(props => {
         onClick,
         onMouseMove,
         tooltip: Tooltip,
-    } = props
+    } = { ...GeoMapCanvasDefaultProps, ...props }
 
     const canvasEl = useRef(null)
     const theme = useTheme()
@@ -173,6 +173,5 @@ const GeoMapCanvas = memo(props => {
 
 GeoMapCanvas.displatName = 'GeoMapCanvas'
 GeoMapCanvas.propTypes = GeoMapCanvasPropTypes
-GeoMapCanvas.defaultProps = GeoMapCanvasDefaultProps
 
 export default withContainer(GeoMapCanvas)
