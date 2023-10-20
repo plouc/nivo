@@ -171,10 +171,10 @@ const CartesianMarkersItem = ({
     lineStyle,
     textStyle,
     legend,
-    legendPosition,
-    legendOffsetX,
-    legendOffsetY,
-    legendOrientation,
+    legendPosition = 'top-right',
+    legendOffsetX = 14,
+    legendOffsetY = 14,
+    legendOrientation = 'horizontal',
 }) => {
     const theme = useTheme()
 
@@ -255,12 +255,6 @@ CartesianMarkersItem.propTypes = {
     legendOffsetX: PropTypes.number.isRequired,
     legendOffsetY: PropTypes.number.isRequired,
     legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-}
-CartesianMarkersItem.defaultProps = {
-    legendPosition: 'top-right',
-    legendOffsetX: 14,
-    legendOffsetY: 14,
-    legendOrientation: 'horizontal',
 }
 
 export default memo(CartesianMarkersItem)
