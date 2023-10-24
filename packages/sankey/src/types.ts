@@ -2,13 +2,13 @@ import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { SankeyNodeMinimal } from 'd3-sankey'
 import {
     Box,
-    Theme,
     CssMixBlendMode,
     Dimensions,
     MotionProps,
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -115,7 +115,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     margin: Box
 
     colors: OrdinalColorScaleConfig<Omit<SankeyNodeDatum<N, L>, 'color' | 'label'>>
-    theme: Theme
+    theme: PartialTheme
 
     nodeOpacity: number
     nodeHoverOpacity: number

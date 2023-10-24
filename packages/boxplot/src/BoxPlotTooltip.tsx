@@ -1,7 +1,7 @@
 import { BoxPlotSummaryFormatted, BoxPlotTooltipProps, BoxPlotSummary } from './types'
 import { Chip } from '@nivo/tooltip'
 import { memo } from 'react'
-import { useTheme, CompleteTheme } from '@nivo/core'
+import { useTheme, Theme } from '@nivo/theming'
 
 interface BoxPlotSummaryTooltipProps {
     label: string
@@ -23,11 +23,11 @@ export const defaultTranslation = {
     Quantiles: 'Quantiles',
 }
 
-type ExtendedTheme = CompleteTheme & {
+type ExtendedTheme = Theme & {
     translation: Translation
 }
 
-const hasTranslation = (theme: CompleteTheme | ExtendedTheme): theme is ExtendedTheme => {
+const hasTranslation = (theme: Theme | ExtendedTheme): theme is ExtendedTheme => {
     return 'translation' in theme
 }
 

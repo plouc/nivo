@@ -1,4 +1,4 @@
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ReactElement } from 'react'
 
 // The types below are from lodash but the babel plugin won't let us import it
@@ -38,7 +38,7 @@ export type NoteCanvasRenderer<Datum> = (
         datum: Datum
         x: number
         y: number
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => void
 

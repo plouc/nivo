@@ -1,4 +1,4 @@
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ComputedAnnotation } from './types'
 import { isCanvasNote, isCircleAnnotation, isDotAnnotation, isRectAnnotation } from './utils'
 
@@ -19,7 +19,7 @@ export const renderAnnotationsToCanvas = <Datum>(
         theme,
     }: {
         annotations: ComputedAnnotation<Datum>[]
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     if (annotations.length === 0) return

@@ -1,6 +1,7 @@
 import { CSSProperties, memo, useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 
 interface CrosshairLineProps {
     x0: number

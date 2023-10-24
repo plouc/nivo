@@ -1,6 +1,7 @@
 import { FunctionComponent, MouseEvent } from 'react'
 import { Line as D3Line } from 'd3-shape'
-import { Theme, Box, Dimensions, MotionProps } from '@nivo/core'
+import { Box, Dimensions, MotionProps } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
 import { ScalePoint } from '@nivo/scales'
@@ -129,7 +130,7 @@ export type BumpCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSeri
     xOuterPadding: number
     yOuterPadding: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<BumpSerie<Datum, ExtraProps>>
     lineWidth: number
     activeLineWidth: number

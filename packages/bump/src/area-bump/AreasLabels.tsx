@@ -1,6 +1,8 @@
-import { useSprings, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useSprings } from '@react-spring/web'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig } from '@nivo/colors'
+import { Text } from '@nivo/text'
 import {
     AreaBumpComputedSerie,
     AreaBumpDatum,
@@ -59,7 +61,7 @@ export const AreasLabels = <
                 const label = labels[index]
 
                 return (
-                    <animated.text
+                    <Text
                         data-testid={`label.${position}.${label.serie.id}`}
                         key={label.id}
                         x={animatedProps.x}
@@ -73,7 +75,7 @@ export const AreasLabels = <
                         }}
                     >
                         {label.label}
-                    </animated.text>
+                    </Text>
                 )
             })}
         </>

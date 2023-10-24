@@ -1,6 +1,7 @@
 import { SVGProps, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { AnyScale, getScaleTicks } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 

@@ -1,4 +1,6 @@
-import { Box, BoxAlign, CompleteTheme, Dimensions, Theme, ValueFormat } from '@nivo/core'
+import { Box, BoxAlign, Dimensions, ValueFormat } from '@nivo/core'
+import { Theme } from '@nivo/theming'
+import { PartialTheme } from '@nivo/theming'
 import { LegendProps } from '@nivo/legends'
 
 export type BBox = Record<'x' | 'y' | 'height' | 'width', number>
@@ -56,14 +58,14 @@ export interface ColorScale {
 
 export type CalendarYearLegendsProps = {
     legend: (year: number) => string | number
-    theme: CompleteTheme
+    theme: Theme
     years: YearLegend[]
 }
 
 export type CalendarMonthLegendsProps = {
     legend: (year: number, month: number, date: Date) => string | number
     months: MonthLegend[]
-    theme: CompleteTheme
+    theme: Theme
 }
 
 export type CalendarTooltipProps = {
@@ -145,7 +147,7 @@ export type CommonCalendarProps = {
     valueFormat: ValueFormat<number>
     legendFormat: ValueFormat<number>
 
-    theme: Theme
+    theme: PartialTheme
 
     // interactivity
     isInteractive: boolean

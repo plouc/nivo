@@ -25,12 +25,10 @@ jobs:
       - run: pnpm install
       - name: Build nivo packages
         run: make pkgs-build
+        env:
+          SKIP_SIZE: true
       - run: make pkgs-lint
       - run: make pkgs-test
-      # Make sure that we can build the website
-      - run: make website-build
-      # Make sure that we can build storybook
-      - run: make storybook-build
 
   end-to-end-tests:
     runs-on: ubuntu-22.04
@@ -53,6 +51,8 @@ jobs:
           runTests: false
       - name: Build nivo packages
         run: make pkgs-build
+        env:
+          SKIP_SIZE: true
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:

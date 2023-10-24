@@ -1,5 +1,7 @@
-import { degreesToRadians, CompleteTheme } from '@nivo/core'
+import { degreesToRadians } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
 import { AxisLegendPosition, CanvasAxisProps, ValueFormatter } from './types'
@@ -40,7 +42,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         legend?: string
         legendPosition?: AxisLegendPosition
         legendOffset?: number
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
@@ -60,10 +62,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
 
-    const textStyle = theme.axis.ticks.text
-    ctx.font = `${textStyle.fontWeight ? `${textStyle.fontWeight} ` : ''}${textStyle.fontSize}px ${
-        textStyle.fontFamily
-    }`
+    setCanvasFont(ctx, theme.axis.ticks.text)
 
     if ((theme.axis.domain.line.strokeWidth ?? 0) > 0) {
         ctx.lineWidth = Number(theme.axis.domain.line.strokeWidth)
@@ -102,18 +101,8 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
 
-        if (textStyle.outlineWidth > 0) {
-            ctx.strokeStyle = textStyle.outlineColor
-            ctx.lineWidth = textStyle.outlineWidth * 2
-            ctx.lineJoin = 'round'
-            ctx.strokeText(`${value}`, 0, 0)
-        }
+        drawCanvasText(ctx, theme.axis.ticks.text, `${value}`)
 
-        if (theme.axis.ticks.text.fill) {
-            ctx.fillStyle = textStyle.fill
-        }
-
-        ctx.fillText(`${value}`, 0, 0)
         ctx.restore()
     })
 
@@ -150,16 +139,12 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
 
         ctx.translate(legendX, legendY)
         ctx.rotate(degreesToRadians(legendRotation))
-        ctx.font = `${
-            theme.axis.legend.text.fontWeight ? `${theme.axis.legend.text.fontWeight} ` : ''
-        }${theme.axis.legend.text.fontSize}px ${theme.axis.legend.text.fontFamily}`
 
-        if (theme.axis.legend.text.fill) {
-            ctx.fillStyle = theme.axis.legend.text.fill
-        }
-
+        setCanvasFont(ctx, theme.axis.legend.text)
         ctx.textAlign = textAlign
         ctx.textBaseline = 'middle'
+        drawCanvasText(ctx, theme.axis.legend.text, legend)
+
         ctx.fillText(legend, 0, 0)
     }
 
@@ -189,7 +174,7 @@ export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
         right?: CanvasAxisProps<Y> | null
         bottom?: CanvasAxisProps<X> | null
         left?: CanvasAxisProps<Y> | null
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const axes = { top, right, bottom, left }

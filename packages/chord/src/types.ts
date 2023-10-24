@@ -3,13 +3,13 @@ import { RibbonGenerator as D3RibbonGenerator } from 'd3-chord'
 import { Arc as D3Arc } from 'd3-shape'
 import {
     Box,
-    Theme,
     Dimensions,
     MotionProps,
     CssMixBlendMode,
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -114,7 +114,7 @@ export type ChordCommonProps = {
     innerRadiusRatio: number
     innerRadiusOffset: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ArcDatum, 'label' | 'color'>>
 
     arcOpacity: number

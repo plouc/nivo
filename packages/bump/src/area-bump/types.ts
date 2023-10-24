@@ -1,6 +1,7 @@
 import { FunctionComponent, MouseEvent } from 'react'
 import { Area } from 'd3-shape'
-import { Box, Theme, Dimensions, MotionProps, CssMixBlendMode, SvgDefsAndFill } from '@nivo/core'
+import { Box, Dimensions, MotionProps, CssMixBlendMode, SvgDefsAndFill } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
 import { ScalePoint } from '@nivo/scales'
@@ -130,7 +131,7 @@ export type AreaBumpCommonProps<
     spacing: number
     xPadding: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<AreaBumpSerie<Datum, ExtraProps>>
     blendMode: CssMixBlendMode
     fillOpacity: number

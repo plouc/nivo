@@ -1,13 +1,16 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { BaseDatum, ParallelCoordinatesCanvasProps } from '../types'
+import { BaseDatum, DatumGroupKeys, ParallelCoordinatesCanvasProps } from '../types'
 import { ParallelCoordinatesCanvas } from './ParallelCoordinatesCanvas'
 
-export const ResponsiveParallelCoordinatesCanvas = <D extends BaseDatum>(
-    props: Omit<ParallelCoordinatesCanvasProps<D>, 'height' | 'width'>
+export const ResponsiveParallelCoordinatesCanvas = <
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+>(
+    props: Omit<ParallelCoordinatesCanvasProps<Datum, GroupBy>, 'height' | 'width'>
 ) => (
     <ResponsiveWrapper>
         {({ width, height }) => (
-            <ParallelCoordinatesCanvas<D> width={width} height={height} {...props} />
+            <ParallelCoordinatesCanvas<Datum, GroupBy> width={width} height={height} {...props} />
         )}
     </ResponsiveWrapper>
 )

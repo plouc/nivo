@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTheme } from 'styled-components'
-// @ts-ignore
-import { themeContext } from '@nivo/core'
+import { ThemeProvider } from '@nivo/theming'
 import Layout from '../../components/Layout'
 import { Seo } from '../../components/Seo'
 import PageContent from '../../components/PageContent'
@@ -18,7 +17,7 @@ const Legends = () => {
 
     return (
         <Layout>
-            <themeContext.Provider value={theme.nivo}>
+            <ThemeProvider theme={theme.nivo}>
                 <Seo title="Legends Guide" description="How to add legends to your nivo charts?" />
                 <PageContent>
                     <div className="guide__header">
@@ -37,7 +36,7 @@ const Legends = () => {
                     <LegendItemDirection />
                     <SymbolShape />
                 </DescriptionBlock>
-            </themeContext.Provider>
+            </ThemeProvider>
         </Layout>
     )
 }

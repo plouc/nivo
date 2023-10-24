@@ -1,7 +1,9 @@
 import { useMemo, memo, useCallback } from 'react'
 import * as React from 'react'
 import { useSpring, useTransition, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { ScaleValue, AnyScale } from '@nivo/scales'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisTick } from './AxisTick'
@@ -34,7 +36,6 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }) => {
     const theme = useTheme()
-    const legendTextStyle = theme.axis.legend.text
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
@@ -81,33 +82,16 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
         }
 
         legendNode = (
-            <>
-                {legendTextStyle.outlineWidth > 0 && (
-                    <text
-                        transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
-                        textAnchor={textAnchor}
-                        style={{
-                            dominantBaseline: 'central',
-                            ...legendTextStyle,
-                        }}
-                        strokeWidth={legendTextStyle.outlineWidth * 2}
-                        stroke={legendTextStyle.outlineColor}
-                        strokeLinejoin="round"
-                    >
-                        {legend}
-                    </text>
-                )}
-                <text
-                    transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
-                    textAnchor={textAnchor}
-                    style={{
-                        dominantBaseline: 'central',
-                        ...legendTextStyle,
-                    }}
-                >
-                    {legend}
-                </text>
-            </>
+            <Text
+                transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
+                textAnchor={textAnchor}
+                style={{
+                    ...theme.axis.legend.text,
+                    dominantBaseline: 'central',
+                }}
+            >
+                {legend}
+            </Text>
         )
     }
 

@@ -1,6 +1,7 @@
 import { AriaAttributes, FunctionComponent } from 'react'
 import { Line } from 'd3-shape'
-import { Box, Dimensions, MotionProps, LineCurveFactoryId, Theme, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, MotionProps, LineCurveFactoryId, ValueFormat } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps } from '@nivo/axes'
 import { ScaleLinear } from '@nivo/scales'
@@ -117,7 +118,7 @@ export interface CommonProps<
     layout: 'horizontal' | 'vertical'
     curve: LineCurveFactoryId
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<IfGrouped<Datum, GroupBy, BaseGroup, Datum>>
     lineWidth: number
     lineOpacity: number
@@ -173,9 +174,12 @@ type ParallelCoordinatesCanvasLayer<Datum extends BaseDatum> =
     | LayerId
     | ParallelCoordinatesCanvasCustomLayer<Datum>
 
-export type ParallelCoordinatesCanvasProps<Datum extends BaseDatum> = DataProps<Datum> &
+export type ParallelCoordinatesCanvasProps<
+    Datum extends BaseDatum,
+    GroupBy extends DatumGroupKeys<Datum> | undefined
+> = DataProps<Datum> &
     Dimensions &
-    Partial<CommonProps<Datum>> & {
+    Partial<CommonProps<Datum, GroupBy>> & {
         layers: ParallelCoordinatesCanvasLayer<Datum>[]
         pixelRatio?: number
     }

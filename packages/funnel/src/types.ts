@@ -1,6 +1,7 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { Area, Line } from 'd3-shape'
-import { Box, Theme, Dimensions, MotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, MotionProps, ValueFormat } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { PartTooltipProps } from './PartTooltip'
@@ -93,7 +94,7 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
     spacing: number
     shapeBlending: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<D>
     fillOpacity: number
     borderWidth: number

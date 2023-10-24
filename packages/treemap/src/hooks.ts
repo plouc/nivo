@@ -8,7 +8,8 @@ import {
     HierarchyNode,
     HierarchyRectangularNode,
 } from 'd3-hierarchy'
-import { useTheme, useValueFormatter, PropertyAccessor, usePropertyAccessor } from '@nivo/core'
+import { useValueFormatter, PropertyAccessor, usePropertyAccessor } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { commonDefaultProps } from './defaults'

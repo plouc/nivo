@@ -5,10 +5,11 @@ import stripBanner from 'rollup-plugin-strip-banner'
 import cleanup from 'rollup-plugin-cleanup'
 import size from 'rollup-plugin-size'
 import { visualizer } from 'rollup-plugin-visualizer'
-import terser from "@rollup/plugin-terser"
+import terser from '@rollup/plugin-terser'
 
 const pkg = process.env.PACKAGE
 const isWatching = process.env.ROLLUP_WATCH === 'true'
+const skipSize = process.env.SKIP_SIZE === 'true'
 
 const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx']
 const babelConfig = {
@@ -21,6 +22,8 @@ const babelConfig = {
 const externals = [
     'prop-types',
     'joi',
+    'express',
+    'uuid',
 ]
 
 let input = `./packages/${pkg}/src/index.js`
@@ -53,7 +56,7 @@ const commonPlugins = [
         modulesOnly: true,
     }),
     babel(babelConfig),
-    !isWatching && terser(),
+    // !isWatching && terser(),
     cleanup()
 ]
 
@@ -68,12 +71,12 @@ const configs = [
         },
         plugins: [
             ...commonPlugins,
-            !isWatching && size({
+            !skipSize && !isWatching && size({
                 filename: `stats/${pkg}-size.es.json`,
             }),
-            !isWatching && visualizer({
+            !skipSize && !isWatching && visualizer({
+                template: 'raw-data',
                 filename: `stats/${pkg}-stats.es.json`,
-                json: true,
             })
         ].filter(Boolean),
     }

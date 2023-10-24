@@ -1,6 +1,7 @@
 import { createElement, SVGProps, useMemo } from 'react'
 import { useSpring, useTransition } from '@react-spring/web'
-import { useMotionConfig, useTheme, positionFromAngle, degreesToRadians } from '@nivo/core'
+import { useMotionConfig, positionFromAngle, degreesToRadians } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { AnyScale, getScaleTicks } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 import { CircularAxisConfig, CircularAxisTickAnimatedProps } from './types'

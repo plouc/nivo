@@ -1,7 +1,6 @@
 import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import {
     useDimensions,
-    useTheme,
     // @ts-ignore
     midAngle,
     // @ts-ignore
@@ -11,10 +10,12 @@ import {
     Margin,
     Container,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { findArcUnderCursor } from '@nivo/arcs'
 import { useInheritedColor } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { useChord, useChordSelection, useCustomLayerProps } from './hooks'
 import { ArcDatum, ChordCanvasProps } from './types'
 import { canvasDefaultProps } from './defaults'
@@ -198,9 +199,7 @@ const InnerChordCanvas = ({
                 ctx.save()
                 ctx.translate(margin.left + center[0], margin.top + center[1])
 
-                ctx.font = `${theme.labels.text.fontSize}px ${
-                    theme.labels.text.fontFamily || 'sans-serif'
-                }`
+                setCanvasFont(ctx, theme.labels.text)
 
                 arcs.forEach(arc => {
                     const angle = midAngle(arc)
@@ -212,8 +211,14 @@ const InnerChordCanvas = ({
 
                     ctx.textAlign = props.align
                     ctx.textBaseline = props.baseline
-                    ctx.fillStyle = getLabelTextColor(arc)
-                    ctx.fillText(arc.label, 0, 0)
+                    drawCanvasText(
+                        ctx,
+                        {
+                            ...theme.labels.text,
+                            fill: getLabelTextColor(arc),
+                        },
+                        arc.label
+                    )
 
                     ctx.restore()
                 })

@@ -10,13 +10,13 @@ import * as React from 'react'
 import {
     Dimensions,
     Box,
-    Theme,
     MotionProps,
     CartesianMarkerProps,
     SvgDefsAndFill,
     ValueFormat,
     DatumValue as CoreDatumValue,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { ScaleSpec, Scale, TicksSpec } from '@nivo/scales'
@@ -155,7 +155,7 @@ export interface LineProps {
     lineWidth?: number
 
     colors?: OrdinalColorScaleConfig
-    theme?: Theme
+    theme?: PartialTheme
 
     axisTop?: AxisProps | null
     axisRight?: AxisProps | null

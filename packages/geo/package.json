@@ -32,6 +32,7 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "d3-format": "^1.4.4",
         "d3-geo": "^1.11.3",

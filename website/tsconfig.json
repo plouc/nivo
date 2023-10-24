@@ -11,6 +11,7 @@
     "lib": ["dom", "esnext"],
     "target": "esnext",
     "jsx": "react",
+    "moduleResolution": "NodeNext",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

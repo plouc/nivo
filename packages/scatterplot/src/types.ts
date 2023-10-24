@@ -3,13 +3,13 @@ import { SpringValues } from '@react-spring/web'
 import {
     Dimensions,
     Box,
-    Theme,
     ValueFormat,
     MotionProps,
     CssMixBlendMode,
     CartesianMarkerProps,
     PropertyAccessor,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { AnyScale, ScaleSpec } from '@nivo/scales'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, GridValues } from '@nivo/axes'
@@ -130,7 +130,7 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     axisRight: AxisProps | null
     axisBottom: AxisProps | null
     axisLeft: AxisProps | null
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<{ serieId: ScatterPlotRawSerie<RawDatum>['id'] }>
     nodeSize:
         | number

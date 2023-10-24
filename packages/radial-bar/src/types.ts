@@ -1,6 +1,5 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import {
-    Theme,
     Box,
     Dimensions,
     MotionProps,
@@ -8,6 +7,7 @@ import {
     ValueFormat,
     SvgDefsAndFill,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -70,7 +70,7 @@ export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
 
     margin: Box
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedBar<D>, 'color'>>
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedBar<D>>
