@@ -34,7 +34,7 @@ const Mesh = ({
                 'top'
             )
             setCurrent(point)
-            onMouseEnter && onMouseEnter(point, event)
+            onMouseEnter?.(point, event)
         },
         [setCurrent, showTooltipAt, tooltip, onMouseEnter, margin]
     )
@@ -47,23 +47,23 @@ const Mesh = ({
                 'top'
             )
             setCurrent(point)
-            onMouseMove && onMouseMove(point, event)
+            onMouseMove?.(point, event)
         },
-        [setCurrent, showTooltipAt, tooltip, onMouseMove]
+        [setCurrent, showTooltipAt, tooltip, onMouseMove, margin]
     )
 
     const handleMouseLeave = useCallback(
         (point, event) => {
             hideTooltip()
             setCurrent(null)
-            onMouseLeave && onMouseLeave(point, event)
+            onMouseLeave?.(point, event)
         },
         [hideTooltip, setCurrent, onMouseLeave]
     )
 
     const handleClick = useCallback(
         (point, event) => {
-            onClick && onClick(point, event)
+            onClick?.(point, event)
         },
         [onClick]
     )

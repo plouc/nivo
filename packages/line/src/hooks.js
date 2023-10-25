@@ -18,8 +18,8 @@ export const useLineGenerator = ({ curve }) => {
         () =>
             line()
                 .defined(d => d.x !== null && d.y !== null)
-                .x(d => d.x)
-                .y(d => d.y)
+                .x(d => d.x | 0)
+                .y(d => d.y | 0)
                 .curve(curveFromProp(curve)),
         [curve]
     )
@@ -38,32 +38,48 @@ export const useAreaGenerator = ({ curve, yScale, areaBaselineValue }) => {
 
 const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, formatY }) => {
     return useMemo(() => {
-        return series.reduce((acc, serie) => {
-            return [
-                ...acc,
-                ...serie.data
-                    .filter(datum => datum.position.x !== null && datum.position.y !== null)
-                    .map((datum, i) => {
-                        const point = {
-                            id: `${serie.id}.${i}`,
-                            index: acc.length + i,
-                            serieId: serie.id,
-                            serieColor: serie.color,
-                            x: datum.position.x,
-                            y: datum.position.y,
-                        }
-                        point.color = getPointColor(serie)
-                        point.borderColor = getPointBorderColor(point)
-                        point.data = {
-                            ...datum.data,
-                            xFormatted: formatX(datum.data.x),
-                            yFormatted: formatY(datum.data.y),
-                        }
+        let pointCount = 0
+        for (let i = 0; i < series.length; ++i) {
+            const serie = series[i]
 
-                        return point
-                    }),
-            ]
-        }, [])
+            for (let j = 0; j < serie.data.length; ++j) {
+                const datum = serie.data[j]
+                if (datum.position.x !== null && datum.position.y !== null) ++pointCount
+            }
+        }
+
+        let points = new Array(pointCount)
+        let pointIndex = 0
+        const fixedBorderColor = getPointBorderColor.length === 0 ? getPointBorderColor() : undefined
+
+        for (let i = 0; i < series.length; ++i) {
+            const serie = series[i]
+            const pointColor = getPointColor(serie)
+
+            for (let j = 0; j < serie.data.length; ++j) {
+                const datum = serie.data[j]
+                if (datum.position.x === null || datum.position.y === null) continue
+                const point = {
+                    id: `${serie.id}.${i}`,
+                    index: pointIndex,
+                    serieId: serie.id,
+                    serieColor: serie.color,
+                    x: datum.position.x,
+                    y: datum.position.y,
+                    color: pointColor,
+                    borderColor: fixedBorderColor || getPointBorderColor(point),
+                    data: {
+                        ...datum.data,
+                        xFormatted: formatX(datum.data.x),
+                        yFormatted: formatY(datum.data.y),
+                    }
+                }
+                points[pointIndex] = point
+                ++pointIndex
+            }
+        }
+
+        return points
     }, [series, getPointColor, getPointBorderColor, formatX, formatY])
 }
 
@@ -136,7 +152,7 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                     }
                 })
         }
-    }, [enableSlices, points])
+    }, [enableSlices, points, height, width])
 }
 
 export const useLine = ({
@@ -179,6 +195,8 @@ export const useLine = ({
     )
 
     const { legendData, series } = useMemo(() => {
+        const rawSeriesById = {}
+        rawSeries.forEach(serie => rawSeriesById[serie.id] = serie)
         const dataWithColor = data.map(line => ({
             id: line.id,
             label: line.id,
@@ -186,12 +204,13 @@ export const useLine = ({
         }))
         const series = dataWithColor
             .map(datum => ({
-                ...rawSeries.find(serie => serie.id === datum.id),
+                ...rawSeriesById[datum.id],
                 color: datum.color,
             }))
             .filter(item => Boolean(item.id))
+        const seriesIds = new Set(series.map(serie => serie.id))
         const legendData = dataWithColor
-            .map(item => ({ ...item, hidden: !series.find(serie => serie.id === item.id) }))
+            .map(item => ({ ...item, hidden: !seriesIds.has(item.id) }))
             .reverse()
 
         return { legendData, series }
