@@ -1,8 +1,9 @@
-import { LayerId, ChordSvgProps, ChordCommonProps } from './types'
+import { LayerId, ChordSvgProps, ChordCommonProps, RibbonTooltipComponentProps } from './types'
 import { ChordArcTooltip } from './ChordArcTooltip'
 import { ChordRibbonTooltip } from './ChordRibbonTooltip'
+import { CssMixBlendMode } from '@bitbloom/nivo-core'
 
-export const commonDefaultProps: Omit<
+type CommonDefaultProps = Omit<
     ChordCommonProps,
     | 'valueFormat'
     | 'margin'
@@ -21,7 +22,19 @@ export const commonDefaultProps: Omit<
     | 'ariaDescribedBy'
 > & {
     layers: LayerId[]
-} = {
+}
+
+type SvgDefaultProps = CommonDefaultProps & {
+    ribbonBlendMode: NonNullable<CssMixBlendMode | undefined>
+    ribbonTooltip: React.MemoExoticComponent<({ ribbon }: RibbonTooltipComponentProps) => JSX.Element>
+}
+
+type CanvasDefaultProps = CommonDefaultProps & {
+    pixelRatio: number
+}
+
+
+export const commonDefaultProps: CommonDefaultProps = {
     layers: ['ribbons', 'arcs', 'labels', 'legends'],
 
     padAngle: 0,
@@ -69,13 +82,12 @@ export const commonDefaultProps: Omit<
     role: 'img',
 }
 
-export const svgDefaultProps = {
+export const svgDefaultProps: SvgDefaultProps = {
     ...commonDefaultProps,
     ribbonBlendMode: 'normal' as NonNullable<ChordSvgProps['ribbonBlendMode']>,
     ribbonTooltip: ChordRibbonTooltip,
 }
-
-export const canvasDefaultProps = {
+export const canvasDefaultProps:CanvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

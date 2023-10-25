@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useTransition, to, SpringValue } from '@react-spring/web'
+import { useTransition, to, SpringValue, TransitionFn, PickAnimated, Interpolation } from '@react-spring/web'
 import {
     // @ts-ignore
     midAngle,
@@ -19,25 +19,33 @@ export const computeArcCenter = (arc: Arc, offset: number): Point => {
 
 export const interpolateArcCenter =
     (offset: number) =>
-    (
-        startAngleValue: SpringValue<number>,
-        endAngleValue: SpringValue<number>,
-        innerRadiusValue: SpringValue<number>,
-        outerRadiusValue: SpringValue<number>
-    ) =>
-        to(
-            [startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue],
-            (startAngle, endAngle, innerRadius, outerRadius) => {
-                const centroid = computeArcCenter(
-                    { startAngle, endAngle, innerRadius, outerRadius },
-                    offset
-                )
+        (
+            startAngleValue: SpringValue<number>,
+            endAngleValue: SpringValue<number>,
+            innerRadiusValue: SpringValue<number>,
+            outerRadiusValue: SpringValue<number>
+        ) =>
+            to(
+                [startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue],
+                (startAngle, endAngle, innerRadius, outerRadius) => {
+                    const centroid = computeArcCenter(
+                        { startAngle, endAngle, innerRadius, outerRadius },
+                        offset
+                    )
 
-                return `translate(${centroid.x},${centroid.y})`
-            }
-        )
+                    return `translate(${centroid.x},${centroid.y})`
+                }
+            )
 
-export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps = unknown>(
+type Props<ExtraProps> = {
+    progress: number
+    startAngle: number
+    endAngle: number
+    innerRadius: number
+    outerRadius: number
+} & ExtraProps
+
+export function useArcCentersTransition<Datum extends DatumWithArc, ExtraProps = unknown>(
     data: Datum[],
     // define where the centers should be placed,
     // 0.0: inner radius
@@ -46,30 +54,25 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
     offset = 0.5,
     mode: ArcTransitionMode = 'innerRadius',
     extra?: TransitionExtra<Datum, ExtraProps>
-) => {
+): {
+    transition: TransitionFn<Datum, PickAnimated<Props<ExtraProps>>>,
+    interpolate: (startAngleValue: SpringValue<number>, endAngleValue: SpringValue<number>, innerRadiusValue: SpringValue<number>, outerRadiusValue: SpringValue<number>) => Interpolation<string, any>
+} {
     const { animate, config: springConfig } = useMotionConfig()
 
     const phases = useArcTransitionMode<Datum, ExtraProps>(mode, extra)
-
-    const transition = useTransition<
-        Datum,
+    const transition = useTransition<Datum, Props<ExtraProps>>(
+        data,
         {
-            progress: number
-            startAngle: number
-            endAngle: number
-            innerRadius: number
-            outerRadius: number
-        } & ExtraProps
-    >(data, {
-        keys: datum => datum.id,
-        initial: phases.update,
-        from: phases.enter,
-        enter: phases.update,
-        update: phases.update,
-        leave: phases.leave,
-        config: springConfig,
-        immediate: !animate,
-    })
+            keys: datum => datum.id,
+            initial: phases.update,
+            from: phases.enter,
+            enter: phases.update,
+            update: phases.update,
+            leave: phases.leave,
+            config: springConfig,
+            immediate: !animate,
+        })
 
     return {
         transition,
