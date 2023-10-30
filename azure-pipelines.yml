@@ -33,6 +33,7 @@ steps:
 - bash: |
     npm install -g pnpm
     make -s init
+    git restore ./pnpm-lock.yaml
     make -s packages-publish-ci
   displayName: 'Build nivo'
   condition: succeeded()
