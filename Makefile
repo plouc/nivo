@@ -44,7 +44,7 @@ help: ##prints help
 ########################################################################################################################
 
 install: ##@0 global install
-	@pnpm install
+	@pnpm install --no-frozen-lockfile
 
 init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
