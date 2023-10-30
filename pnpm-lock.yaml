@@ -14,15 +14,6 @@ importers:
       '@babel/core':
         specifier: ^7.21.8
         version: 7.21.8
-      '@babel/preset-env':
-        specifier: ^7.21.5
-        version: 7.21.5(@babel/core@7.21.8)
-      '@babel/preset-react':
-        specifier: ^7.18.6
-        version: 7.18.6(@babel/core@7.21.8)
-      '@babel/preset-typescript':
-        specifier: ^7.21.5
-        version: 7.21.5(@babel/core@7.21.8)
       '@ekino/config':
         specifier: ^0.3.0
         version: 0.3.0
@@ -341,10 +332,10 @@ importers:
   packages/annotations:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -365,10 +356,10 @@ importers:
   packages/arcs:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -386,10 +377,10 @@ importers:
   packages/axes:
     dependencies:
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -419,25 +410,25 @@ importers:
   packages/bar:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -464,25 +455,25 @@ importers:
   packages/boxplot:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -509,22 +500,22 @@ importers:
   packages/bullet:
     dependencies:
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -536,22 +527,22 @@ importers:
   packages/bump:
     dependencies:
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -575,13 +566,13 @@ importers:
   packages/calendar:
     dependencies:
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@types/d3-scale':
         specifier: ^3.2.3
@@ -613,19 +604,19 @@ importers:
   packages/chord:
     dependencies:
       '@bitbloom/nivo-arcs':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../arcs
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -649,13 +640,13 @@ importers:
   packages/circle-packing:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -676,7 +667,7 @@ importers:
   packages/colors:
     dependencies:
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@types/d3-color':
         specifier: ^2.0.0
@@ -712,7 +703,7 @@ importers:
   packages/core:
     dependencies:
       '@bitbloom/nivo-recompose':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../recompose
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -757,7 +748,7 @@ importers:
   packages/express:
     dependencies:
       '@bitbloom/nivo-static':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../static
       '@types/express':
         specifier: ^4.17.13
@@ -787,16 +778,16 @@ importers:
   packages/funnel:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -844,16 +835,16 @@ importers:
   packages/geo:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       d3-format:
         specifier: ^3.1.0
@@ -876,25 +867,25 @@ importers:
   packages/heatmap:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -912,10 +903,10 @@ importers:
   packages/legends:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@types/d3-scale':
         specifier: ^3.2.3
@@ -936,28 +927,28 @@ importers:
   packages/line:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@bitbloom/nivo-voronoi':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../voronoi
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -975,22 +966,22 @@ importers:
   packages/marimekko:
     dependencies:
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1011,16 +1002,16 @@ importers:
   packages/network:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1038,22 +1029,22 @@ importers:
   packages/parallel-coordinates:
     dependencies:
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1077,19 +1068,19 @@ importers:
   packages/pie:
     dependencies:
       '@bitbloom/nivo-arcs':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../arcs
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@types/d3-shape':
         specifier: ^2.0.0
@@ -1104,13 +1095,13 @@ importers:
   packages/polar-axes:
     dependencies:
       '@bitbloom/nivo-arcs':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../arcs
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1122,16 +1113,16 @@ importers:
   packages/radar:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1155,25 +1146,25 @@ importers:
   packages/radial-bar:
     dependencies:
       '@bitbloom/nivo-arcs':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../arcs
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-polar-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../polar-axes
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1215,16 +1206,16 @@ importers:
   packages/sankey:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1275,28 +1266,28 @@ importers:
   packages/scatterplot:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@bitbloom/nivo-voronoi':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../voronoi
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1323,52 +1314,52 @@ importers:
   packages/static:
     dependencies:
       '@bitbloom/nivo-arcs':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../arcs
       '@bitbloom/nivo-bar':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../bar
       '@bitbloom/nivo-calendar':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../calendar
       '@bitbloom/nivo-chord':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../chord
       '@bitbloom/nivo-circle-packing':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../circle-packing
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-generators':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../generators
       '@bitbloom/nivo-heatmap':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../heatmap
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-line':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../line
       '@bitbloom/nivo-pie':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../pie
       '@bitbloom/nivo-radar':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../radar
       '@bitbloom/nivo-sankey':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../sankey
       '@bitbloom/nivo-sunburst':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../sunburst
       '@bitbloom/nivo-treemap':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../treemap
       joi:
         specifier: ^17.5.0
@@ -1386,22 +1377,22 @@ importers:
   packages/stream:
     dependencies:
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1419,16 +1410,16 @@ importers:
   packages/sunburst:
     dependencies:
       '@bitbloom/nivo-arcs':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../arcs
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@types/d3-hierarchy':
         specifier: ^1.1.8
@@ -1446,28 +1437,28 @@ importers:
   packages/swarmplot:
     dependencies:
       '@bitbloom/nivo-annotations':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../annotations
       '@bitbloom/nivo-axes':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../axes
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-scales':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../scales
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@bitbloom/nivo-voronoi':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../voronoi
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1494,7 +1485,7 @@ importers:
   packages/tooltip:
     dependencies:
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1503,13 +1494,13 @@ importers:
   packages/treemap:
     dependencies:
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
@@ -1530,7 +1521,7 @@ importers:
   packages/voronoi:
     dependencies:
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@types/d3-delaunay':
         specifier: ^5.3.0
@@ -1551,22 +1542,22 @@ importers:
   packages/waffle:
     dependencies:
       '@bitbloom/nivo-canvas':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../canvas
       '@bitbloom/nivo-colors':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../colors
       '@bitbloom/nivo-core':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../core
       '@bitbloom/nivo-grid':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../grid
       '@bitbloom/nivo-legends':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../legends
       '@bitbloom/nivo-tooltip':
-        specifier: 0.83.7
+        specifier: workspace:*
         version: link:../tooltip
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
