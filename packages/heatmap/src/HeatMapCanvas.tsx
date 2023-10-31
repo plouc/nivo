@@ -63,6 +63,8 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     ariaLabelledBy,
     ariaDescribedBy,
     pixelRatio = canvasDefaultProps.pixelRatio,
+    minValue,
+    maxValue
 }: InnerNetworkCanvasProps<Datum, ExtraProps>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -105,6 +107,8 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
         label,
         labelTextColor,
         hoverTarget,
+        minValue,
+        maxValue
     })
 
     const margin = useMemo(
