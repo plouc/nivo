@@ -1,17 +1,17 @@
 import {
-    timeDays,
     timeDay,
-    timeMonday,
-    timeTuesday,
-    timeWednesday,
-    timeThursday,
+    timeDays,
     timeFriday,
+    timeMonday,
     timeSaturday,
     timeSunday,
+    timeThursday,
+    timeTuesday,
+    timeWednesday,
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
-import { DateOrString, Weekday } from '../types'
 import isDate from 'lodash/isDate'
+import { DateOrString, Weekday } from '../types'
 
 // Interfaces
 interface ComputeBaseProps {
@@ -246,8 +246,12 @@ export const computeCellPositions = ({
     // we need to determine whether we need to add days to move to correct position
     const start = from ? from : data[0].date
     const end = to ? to : data[data.length - 1].date
-    const startDate = isDate(start) ? start : new Date(start)
-    const endDate = isDate(end) ? end : new Date(end)
+
+    // The timeDays function's endDate is exclusive, so we need to add one day
+    // Also we need to reset the hours using timeDay to fix locale issue
+    const startDate = timeDay(isDate(start) ? start : new Date(start))
+    const endDate = timeDay.offset(timeDay(isDate(end) ? end : new Date(end)), 1)
+
     const dateRange = timeDays(startDate, endDate).map(dayDate => {
         return {
             date: dayDate,
