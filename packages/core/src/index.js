@@ -29,5 +29,3 @@ export * from './theming'
 export * from './motion'
 export * from './defaults'
 export * from './lib/array'
-
-const increment = 0 // force republish following failure

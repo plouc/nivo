@@ -232,5 +232,3 @@ export { default as Line } from './Line'
 export { default as ResponsiveLine } from './ResponsiveLine'
 export { default as LineCanvas } from './LineCanvas'
 export { default as ResponsiveLineCanvas } from './ResponsiveLineCanvas'
-
-const increment = 0 // force republish following failure
