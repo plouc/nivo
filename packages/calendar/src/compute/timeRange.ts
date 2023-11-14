@@ -184,12 +184,8 @@ const getTimeInterval = (firstWeekday: Weekday) => {
 function shiftArray<T>(arr: T[], x: number): T[] {
     if (!arr.length || !x) return arr
 
-    for (let i = 0; i < x; i++) {
-        const shifted = arr.shift() as T
-        arr.push(shifted)
-    }
-
-    return arr
+    x = x % arr.length
+    return arr.slice(x, arr.length).concat(arr.slice(0, x))
 }
 
 function computeGrid({
