@@ -58,7 +58,7 @@ export interface ComputedDatum<RawDatum> {
 }
 
 export interface DataProps<RawDatum> {
-    data: RawDatum[]
+    data: readonly RawDatum[]
 }
 
 export interface PieTooltipProps<RawDatum> {
@@ -73,7 +73,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
 export type PieLayerId = 'arcLinkLabels' | 'arcs' | 'arcLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
-    dataWithArc: ComputedDatum<RawDatum>[]
+    dataWithArc: readonly ComputedDatum<RawDatum>[]
     centerX: number
     centerY: number
     radius: number
@@ -114,7 +114,7 @@ export type CommonPieProps<RawDatum> = {
     isInteractive: boolean
     tooltip: React.FC<PieTooltipProps<RawDatum>>
 
-    legends: LegendProps[]
+    legends: readonly LegendProps[]
 
     role: string
     renderWrapper: boolean
@@ -137,7 +137,7 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     Partial<CommonPieProps<RawDatum>> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
-        layers?: PieLayer<RawDatum>[]
+        layers?: readonly PieLayer<RawDatum>[]
         animate?: boolean
         motionConfig?: MotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
@@ -148,7 +148,7 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     CommonPieProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
-        layers: PieLayer<RawDatum>[]
+        layers: readonly PieLayer<RawDatum>[]
         animate: boolean
         motionConfig: MotionProps['motionConfig']
         transitionMode: ArcTransitionMode
