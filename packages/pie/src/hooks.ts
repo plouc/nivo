@@ -31,7 +31,7 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
         Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'>
     >,
 }: Pick<CompletePieSvgProps<RawDatum>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
-    data: RawDatum[]
+    data: readonly RawDatum[]
 }): Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[] => {
     const getId = usePropertyAccessor<RawDatum, DatumId>(id)
     const getValue = usePropertyAccessor<RawDatum, number>(value)
