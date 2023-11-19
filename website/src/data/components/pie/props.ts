@@ -509,6 +509,60 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'activeId',
+        flavors: ['svg'],
+        help: `Programmatically control the \`activeId\`.`,
+        description: `
+            This property should be used with \`onActiveIdChange\`,
+            allowing you to fully control which arc should be highlighted.
+            
+            You might want to use this in case:
+            
+            - You want to synchronize the \`activeId\` with other UI elements defined
+              outside of nivo, or other nivo charts.
+            - You're creating some kind of *story-telling* app where you want to highlight
+              certain arcs based on external input.
+            - You want to change the default behavior and highlight arcs depending on clicks
+              rather than \`onMouseEnter\`, which can be desirable on mobile for example.
+        `,
+        type: 'string | number | null',
+        required: false,
+        group: 'Interactivity',
+    },
+    {
+        key: 'onActiveIdChange',
+        flavors: ['svg'],
+        help: `Programmatically control the \`activeId\`.`,
+        description: `
+            This property should be used with \`activeId\`,
+            allowing you to fully control which arc should be highlighted.
+            
+            You might want to use this in case:
+            
+            - You want to synchronize the \`activeId\` with other UI elements defined
+              outside of nivo, or other nivo charts.
+            - You're creating some kind of *story-telling* app where you want to highlight
+              certain arcs based on external input.
+            - You want to change the default behavior and highlight arcs depending on clicks
+              rather than \`onMouseEnter\`, which can be desirable on mobile for example.
+        `,
+        type: '(id: string | number | null) => void',
+        required: false,
+        group: 'Interactivity',
+    },
+    {
+        key: 'defaultActiveId',
+        flavors: ['svg'],
+        help: `Default \`activeId\`.`,
+        description: `
+            You can use this property in case you want to define a default \`activeId\`,
+            but still don't want to control it by yourself (using \`activeId\` & \`onActiveIdChange\`).
+        `,
+        type: 'string | number | null',
+        required: false,
+        group: 'Interactivity',
+    },
+    {
         key: 'onMouseEnter',
         flavors: ['svg'],
         group: 'Interactivity',
