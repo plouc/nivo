@@ -41,7 +41,11 @@ PieCanvas:
   tags:
     - radial
     - canvas
-  stories: []
+  stories:
+    - label: Using colors from data
+      link: piecanvas--using-colors-from-data
+    - label: Sync activeId between two pies
+      link: piecanvas--controlled-active-id
   description: |
     A variation around the [Pie](self:/pie) component. Well suited for
     large data sets as it does not impact DOM tree depth, however you'll
