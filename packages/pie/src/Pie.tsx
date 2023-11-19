@@ -74,6 +74,8 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     onMouseMove,
     onMouseLeave,
     tooltip = defaultProps.tooltip,
+    activeId: activeIdFromProps,
+    onActiveIdChange,
 
     transitionMode = defaultProps.transitionMode,
 
@@ -117,6 +119,8 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
         cornerRadius,
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
+        activeId: activeIdFromProps,
+        onActiveIdChange,
     })
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)
