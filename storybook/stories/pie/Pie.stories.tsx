@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { animated } from '@react-spring/web'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
@@ -244,4 +245,39 @@ export const CustomArcLabelComponent: Story = {
             )}
         />
     ),
+}
+
+const controlledPieProps = {
+    ...commonProperties,
+    width: 400,
+    height: 400,
+    margin: { top: 60, right: 80, bottom: 60, left: 80 },
+    innerRadius: 0.4,
+    padAngle: 0.3,
+    cornerRadius: 3,
+    activeOuterRadiusOffset: 12,
+    activeInnerRadiusOffset: 12,
+    arcLinkLabelsDiagonalLength: 10,
+    arcLinkLabelsStraightLength: 10,
+}
+
+const ControlledPies = () => {
+    const [activeId, setActiveId] = useState<string>(commonProperties.data[1].id)
+
+    return (
+        <div
+            style={{
+                width: '800px',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+            }}
+        >
+            <Pie {...controlledPieProps} activeId={activeId} onActiveIdChange={setActiveId} />
+            <Pie {...controlledPieProps} activeId={activeId} onActiveIdChange={setActiveId} />
+        </div>
+    )
+}
+
+export const ControlledActiveId: Story = {
+    render: () => <ControlledPies />,
 }
