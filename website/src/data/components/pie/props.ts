@@ -510,7 +510,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'activeId',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         help: `Programmatically control the \`activeId\`.`,
         description: `
             This property should be used with \`onActiveIdChange\`,
@@ -531,7 +531,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onActiveIdChange',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         help: `Programmatically control the \`activeId\`.`,
         description: `
             This property should be used with \`activeId\`,
@@ -552,7 +552,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'defaultActiveId',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         help: `Default \`activeId\`.`,
         description: `
             You can use this property in case you want to define a default \`activeId\`,
