@@ -8,7 +8,7 @@ import {
 } from '@nivo/core'
 import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
 import { InheritedColorConfig } from '@nivo/colors'
-import PieLegends from './PieLegends'
+import { PieLegends } from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId, MayHaveLabel } from './types'
 import { defaultProps } from './props'
@@ -81,6 +81,8 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     transitionMode = defaultProps.transitionMode,
 
     legends = defaultProps.legends,
+    forwardLegendData,
+
     role = defaultProps.role,
 }: PieSvgProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -123,6 +125,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
         activeId: activeIdFromProps,
         onActiveIdChange,
         defaultActiveId,
+        forwardLegendData,
     })
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)

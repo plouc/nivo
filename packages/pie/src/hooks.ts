@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { pie as d3Pie } from 'd3-shape'
 import { useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
 import {
@@ -16,6 +16,8 @@ import {
     DatumId,
     PieArc,
     PieCustomLayerProps,
+    LegendDatum,
+    CommonPieProps,
 } from './types'
 
 /**
@@ -81,6 +83,7 @@ export const usePieArcs = <RawDatum>({
     activeInnerRadiusOffset,
     activeOuterRadiusOffset,
     hiddenIds,
+    forwardLegendData,
 }: {
     data: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[]
     // in degrees
@@ -97,9 +100,10 @@ export const usePieArcs = <RawDatum>({
     activeInnerRadiusOffset: number
     activeOuterRadiusOffset: number
     hiddenIds: DatumId[]
+    forwardLegendData?: CommonPieProps<RawDatum>['forwardLegendData']
 }): {
     dataWithArc: Omit<ComputedDatum<RawDatum>, 'fill'>[]
-    legendData: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[]
+    legendData: LegendDatum<RawDatum>[]
 } => {
     const pie = useMemo(() => {
         const innerPie = d3Pie<Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>>()
@@ -115,7 +119,7 @@ export const usePieArcs = <RawDatum>({
         return innerPie
     }, [startAngle, endAngle, padAngle, sortByValue])
 
-    return useMemo(() => {
+    const result = useMemo(() => {
         const hiddenData = data.filter(item => !hiddenIds.includes(item.id))
         const dataWithArc = pie(hiddenData).map(
             (
@@ -150,7 +154,13 @@ export const usePieArcs = <RawDatum>({
                 }
             }
         )
-        const legendData = data.map(item => ({ ...item, hidden: hiddenIds.includes(item.id) }))
+        const legendData: LegendDatum<RawDatum>[] = data.map(item => ({
+            id: item.id,
+            label: item.label,
+            color: item.color,
+            hidden: hiddenIds.includes(item.id),
+            data: item,
+        }))
 
         return { dataWithArc, legendData }
     }, [
@@ -163,6 +173,16 @@ export const usePieArcs = <RawDatum>({
         outerRadius,
         activeOuterRadiusOffset,
     ])
+
+    // Forward the legends data if `forwardLegendData` is defined.
+    const legendData = result.legendData
+    const forwardLegendDataRef = useRef(forwardLegendData)
+    useEffect(() => {
+        if (typeof forwardLegendDataRef.current !== 'function') return
+        forwardLegendDataRef.current(legendData)
+    }, [forwardLegendDataRef, legendData])
+
+    return result
 }
 
 /**
@@ -222,6 +242,7 @@ export const usePie = <RawDatum>({
     activeId: activeIdFromProps,
     onActiveIdChange,
     defaultActiveId,
+    forwardLegendData,
 }: Pick<
     Partial<CompletePieSvgProps<RawDatum>>,
     | 'startAngle'
@@ -234,6 +255,7 @@ export const usePie = <RawDatum>({
     | 'activeId'
     | 'onActiveIdChange'
     | 'defaultActiveId'
+    | 'forwardLegendData'
 > & {
     data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
     radius: number
@@ -258,6 +280,7 @@ export const usePie = <RawDatum>({
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
         hiddenIds,
+        forwardLegendData,
     })
 
     const toggleSerie = useCallback((id: DatumId) => {
@@ -295,6 +318,7 @@ export const usePieFromBox = <RawDatum>({
     activeId: activeIdFromProps,
     onActiveIdChange,
     defaultActiveId,
+    forwardLegendData,
 }: Pick<
     CompletePieSvgProps<RawDatum>,
     | 'width'
@@ -311,7 +335,7 @@ export const usePieFromBox = <RawDatum>({
 > &
     Pick<
         Partial<CompletePieSvgProps<RawDatum>>,
-        'activeId' | 'onActiveIdChange' | 'defaultActiveId'
+        'activeId' | 'onActiveIdChange' | 'defaultActiveId' | 'forwardLegendData'
     > & {
         data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
     }) => {
@@ -382,6 +406,7 @@ export const usePieFromBox = <RawDatum>({
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
         hiddenIds,
+        forwardLegendData,
     })
 
     const toggleSerie = useCallback((id: DatumId) => {

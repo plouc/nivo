@@ -70,7 +70,7 @@ export const CustomLegend: Story = {
     render: args => {
         const [legends, setLegends] = useState<LegendDatum<Datum>[]>([])
 
-        const formatValue = useCallback((value: number) => `${value} peolpe`, [])
+        const formatValue = useCallback((value: number) => `${value} people`, [])
 
         return (
             <div>
