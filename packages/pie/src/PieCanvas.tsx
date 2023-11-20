@@ -205,6 +205,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         centerY,
         arcGenerator,
         dataWithArc,
+        borderWidth,
         getBorderColor,
         enableArcLabels,
         arcLabels,

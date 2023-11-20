@@ -28,7 +28,7 @@ export interface DefaultRawDatum {
     value: number
 }
 
-export interface MayHaveLabel {
+export interface MayHaveLabel extends Object {
     label?: string | number
 }
 
