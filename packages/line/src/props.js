@@ -212,4 +212,5 @@ export const LineDefaultProps = {
 export const LineCanvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
+    tooltipPostion: 'cursor',
 }

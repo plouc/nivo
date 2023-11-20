@@ -80,7 +80,7 @@ const props: ChartProperty[] = [
 
             If you use a time scale, you must provide a time format
             as values are converted to Date objects.
-            
+
             Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
@@ -163,7 +163,7 @@ const props: ChartProperty[] = [
 
             If you use a time scale, you must provide a time format
             as values are converted to Date objects.
-            
+
             Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
@@ -445,6 +445,28 @@ const props: ChartProperty[] = [
         help: `Custom point tooltip`,
         type: 'Function',
         required: false,
+    },
+    {
+        key: 'tooltipPosition',
+        flavors: ['canvas'],
+        group: 'Interactivity',
+        help: `Tooltip position when hovering`,
+        type: 'string',
+        required: false,
+        defaultValue: defaults.tooltipPosition,
+        control: {
+            type: 'choices',
+            choices: [
+                {
+                    label: 'cursor',
+                    value: 'cursor',
+                },
+                {
+                    label: 'point',
+                    value: 'point',
+                },
+            ],
+        },
     },
     {
         key: 'enableSlices',

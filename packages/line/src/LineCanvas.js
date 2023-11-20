@@ -67,6 +67,7 @@ const LineCanvas = ({
     onMouseLeave,
     onClick,
     tooltip,
+    tooltipPosition = LineCanvasDefaultProps.tooltipPosition,
 
     canvasRef,
 }) => {
@@ -276,7 +277,7 @@ const LineCanvas = ({
         [canvasEl, margin, innerWidth, innerHeight, delaunay]
     )
 
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+    const { showTooltipAt, showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
         event => {
@@ -284,12 +285,29 @@ const LineCanvas = ({
             setCurrentPoint(point)
 
             if (point) {
-                showTooltipFromEvent(createElement(tooltip, { point }), event)
+                if (tooltipPosition === 'point') {
+                    showTooltipAt(
+                        createElement(tooltip, { point }),
+                        [point.x + margin.left, point.y + margin.top],
+                        'top'
+                    )
+                } else {
+                    showTooltipFromEvent(createElement(tooltip, { point }), event)
+                }
             } else {
                 hideTooltip()
             }
         },
-        [getPointFromMouseEvent, setCurrentPoint, showTooltipFromEvent, hideTooltip, tooltip]
+        [
+            getPointFromMouseEvent,
+            setCurrentPoint,
+            showTooltipAt,
+            showTooltipFromEvent,
+            hideTooltip,
+            tooltip,
+            tooltipPosition,
+            margin,
+        ]
     )
 
     const handleMouseLeave = useCallback(
