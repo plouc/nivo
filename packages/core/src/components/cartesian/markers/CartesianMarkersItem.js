@@ -171,6 +171,7 @@ const CartesianMarkersItem = ({
     lineStyle,
     textStyle,
     legend,
+    legendNode,
     legendPosition,
     legendOffsetX,
     legendOffsetY,
@@ -191,8 +192,7 @@ const CartesianMarkersItem = ({
         y2 = height
     }
 
-    let legendNode = null
-    if (legend) {
+    if (legend && !legendNode) {
         const legendProps = computeLabel({
             axis,
             width,
