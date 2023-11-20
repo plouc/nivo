@@ -12,7 +12,13 @@ import { LegendSvgItem, SymbolSquare } from '@nivo/legends'
 // @ts-ignore
 import { Pie } from '../src/index'
 
-const sampleData = [
+interface SampleDatum {
+    id: string
+    value: number
+    color: string
+}
+
+const sampleData: readonly SampleDatum[] = [
     {
         id: 'A',
         value: 30,
