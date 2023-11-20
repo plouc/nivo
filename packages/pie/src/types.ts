@@ -118,6 +118,7 @@ export type CommonPieProps<RawDatum> = {
     defaultActiveId: DatumId | null
 
     legends: readonly LegendProps[]
+    forwardLegendData: (data: LegendDatum<RawDatum>[]) => void
 
     role: string
     renderWrapper: boolean
@@ -133,6 +134,14 @@ export type PieHandlers<RawDatum, ElementType> = {
 
 export type PieSvgCustomComponents<RawDatum> = {
     arcLinkLabelComponent?: ArcLinkLabelsProps<ComputedDatum<RawDatum>>['component']
+}
+
+export interface LegendDatum<RawDatum> {
+    id: ComputedDatum<RawDatum>['id']
+    label: ComputedDatum<RawDatum>['label']
+    color: string
+    hidden: boolean
+    data: Omit<ComputedDatum<RawDatum>, 'fill' | 'arc'>
 }
 
 export type PieSvgProps<RawDatum> = DataProps<RawDatum> &

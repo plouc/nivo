@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
-import { PieCanvas } from '@nivo/pie'
+import { LegendDatum, PieCanvas } from '@nivo/pie'
 import { nivoTheme } from '../nivo-theme'
 
 const meta: Meta<typeof PieCanvas> = {
@@ -160,4 +160,72 @@ const ControlledPies = () => {
 
 export const ControlledActiveId: Story = {
     render: () => <ControlledPies />,
+}
+
+const PieWithCustomLegend = () => {
+    const [customLegends, setCustomLegends] = useState<LegendDatum<SampleDatum>[]>([])
+
+    const valueFormat = useCallback(
+        (value: number) =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`,
+        []
+    )
+
+    return (
+        <div>
+            <PieCanvas
+                {...commonProperties}
+                width={500}
+                margin={{
+                    top: 100,
+                    right: 100,
+                    bottom: 100,
+                    left: 100,
+                }}
+                valueFormat={valueFormat}
+                forwardLegendData={setCustomLegends}
+            />
+            <div>
+                <table className="Table">
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>ID</th>
+                            <th>Value</th>
+                            <th>Formatted Value</th>
+                            <th>Label</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {customLegends.map(legend => {
+                            return (
+                                <tr key={legend.id}>
+                                    <td>
+                                        <span
+                                            className="Chip"
+                                            style={{ backgroundColor: legend.color }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <em>{legend.id}</em>
+                                    </td>
+                                    <td>
+                                        <em>{legend.data.value}</em>
+                                    </td>
+                                    <td>{legend.data.formattedValue}</td>
+                                    <td>{legend.label}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}
+
+export const CustomLegend: Story = {
+    render: () => <PieWithCustomLegend />,
 }

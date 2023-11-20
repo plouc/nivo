@@ -72,6 +72,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     defaultActiveId,
 
     legends = defaultProps.legends,
+    forwardLegendData,
 }: PieCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
@@ -107,6 +108,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
             activeId: activeIdFromProps,
             onActiveIdChange,
             defaultActiveId,
+            forwardLegendData,
         })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
