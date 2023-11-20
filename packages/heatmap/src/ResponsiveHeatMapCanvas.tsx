@@ -10,6 +10,7 @@ export const ResponsiveHeatMapCanvas = <
 ) => (
     <ResponsiveWrapper>
         {({ width, height }) => (
+            // extra comment to trigger lerna
             <HeatMapCanvas<Datum, ExtraProps> width={width} height={height} {...props} />
         )}
     </ResponsiveWrapper>

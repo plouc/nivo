@@ -117,6 +117,9 @@ export type HeatMapCommonProps<Datum extends HeatMapDatum> = {
 
     margin: Box
 
+    minValue?: number | 'auto'
+    maxValue?: number | 'auto'
+
     forceSquare: boolean
     sizeVariation: false | SizeVariationConfig
     xInnerPadding: number

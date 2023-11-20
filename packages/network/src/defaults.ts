@@ -1,9 +1,34 @@
-import { NetworkCommonProps, InputNode, LayerId, NetworkSvgProps, InputLink } from './types'
+import { NetworkCommonProps, InputNode, LayerId, NetworkSvgProps, InputLink, NodeComponent, LinkComponent, ComputedNode, ComputedLink } from './types'
 import { NetworkNode } from './NetworkNode'
 import { renderCanvasNode } from './renderCanvasNode'
 import { NetworkLink } from './NetworkLink'
 import { renderCanvasLink } from './renderCanvasLink'
 import { NetworkNodeTooltip } from './NetworkNodeTooltip'
+
+type CommonDefaultProps = Omit<
+    NetworkCommonProps<InputNode, InputLink>,
+    | 'margin'
+    | 'theme'
+    | 'onClick'
+    | 'renderWrapper'
+    | 'ariaLabel'
+    | 'ariaLabelledBy'
+    | 'ariaDescribedBy'
+> & {
+    layers: LayerId[]
+}
+
+type SvgDefaultProps = CommonDefaultProps & {
+    nodeComponent: NodeComponent<InputNode>
+    linkComponent: LinkComponent<InputNode, InputLink>
+    linkBlendMode: NonNullable<NetworkSvgProps<InputNode, InputLink>['linkBlendMode']>
+}
+
+type CanvasDefaultProps = CommonDefaultProps & {
+    renderNode: <Node extends InputNode>(ctx: CanvasRenderingContext2D, node: ComputedNode<Node>) => void
+    renderLink: <Node extends InputNode, Link extends InputLink>(ctx: CanvasRenderingContext2D, link: ComputedLink<Node, Link>) => void
+    pixelRatio: number
+}
 
 export const commonDefaultProps: Omit<
     NetworkCommonProps<InputNode, InputLink>,
@@ -48,7 +73,7 @@ export const commonDefaultProps: Omit<
     role: 'img',
 }
 
-export const svgDefaultProps = {
+export const svgDefaultProps: SvgDefaultProps = {
     ...commonDefaultProps,
     nodeComponent: NetworkNode as NonNullable<
         NetworkSvgProps<InputNode, InputLink>['nodeComponent']
@@ -59,7 +84,7 @@ export const svgDefaultProps = {
     linkBlendMode: 'normal' as NonNullable<NetworkSvgProps<InputNode, InputLink>['linkBlendMode']>,
 }
 
-export const canvasDefaultProps = {
+export const canvasDefaultProps: CanvasDefaultProps = {
     ...commonDefaultProps,
     renderNode: renderCanvasNode,
     renderLink: renderCanvasLink,

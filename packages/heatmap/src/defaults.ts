@@ -1,6 +1,41 @@
 import { DefaultHeatMapDatum, HeatMapCommonProps, LayerId } from './types'
 import { HeatMapTooltip } from './HeatMapTooltip'
 
+type CommonDefaultProps = Omit<
+    HeatMapCommonProps<DefaultHeatMapDatum>,
+    | 'margin'
+    | 'theme'
+    | 'valueFormat'
+    | 'onClick'
+    | 'renderWrapper'
+    | 'role'
+    | 'ariaLabel'
+    | 'ariaLabelledBy'
+    | 'ariaDescribedBy'
+> & {
+    layers: LayerId[]
+}
+
+type SvgDefaultProps = CommonDefaultProps & {
+    axisTop: {}
+    axisRight: null
+    axisBottom: null
+    axisLeft: {}
+    borderRadius: number
+    cellComponent: "rect"
+    animate: boolean
+}
+
+type CanvasDefaultProps = CommonDefaultProps &  {
+    axisTop: {}
+    axisRight: null
+    axisBottom: null
+    axisLeft: {}
+    renderCell: "rect"
+    pixelRatio: number
+}
+
+
 export const commonDefaultProps: Omit<
     HeatMapCommonProps<DefaultHeatMapDatum>,
     | 'margin'
@@ -54,7 +89,7 @@ export const commonDefaultProps: Omit<
     motionConfig: 'gentle' as const,
 }
 
-export const svgDefaultProps = {
+export const svgDefaultProps :SvgDefaultProps= {
     ...commonDefaultProps,
     axisTop: {},
     axisRight: null,
@@ -64,7 +99,7 @@ export const svgDefaultProps = {
     cellComponent: 'rect' as const,
 }
 
-export const canvasDefaultProps = {
+export const canvasDefaultProps :CanvasDefaultProps= {
     ...commonDefaultProps,
     axisTop: {},
     axisRight: null,

@@ -1,9 +1,9 @@
-import { TreeMapCommonProps, DefaultTreeMapDatum, LayerId } from './types'
+import { TreeMapCommonProps, DefaultTreeMapDatum, LayerId, NodeProps } from './types'
 import { TreeMapNode } from './TreeMapNode'
 import { TreeMapNodeTooltip } from './TreeMapNodeTooltip'
 import { TreeMapHtmlNode } from './TreeMapHtmlNode'
 
-export const commonDefaultProps: Omit<
+type CommonDefaultProps = Omit<
     TreeMapCommonProps<DefaultTreeMapDatum>,
     | 'valueFormat'
     | 'margin'
@@ -19,7 +19,26 @@ export const commonDefaultProps: Omit<
     | 'ariaDescribedBy'
 > & {
     layers: LayerId[]
-} = {
+}
+
+type SvgDefaultProps = CommonDefaultProps & {
+    defs: never[]
+    fill: never[]
+    animate?: boolean | undefined
+    nodeComponent: <Datum extends object>({ node, animatedProps, borderWidth, enableLabel, enableParentLabel, labelSkipSize, }: NodeProps<Datum>) => JSX.Element
+}
+
+type HtmlDefaultProps = CommonDefaultProps & {
+    nodeComponent: <Datum extends object>({ node, animatedProps, borderWidth, enableLabel, enableParentLabel, labelSkipSize, }: NodeProps<Datum>) => JSX.Element
+
+}
+type CanvasDefaultProps = CommonDefaultProps & {
+    pixelRatio: number
+}
+
+
+
+export const commonDefaultProps: CommonDefaultProps = {
     layers: ['nodes'],
 
     identity: 'id',
@@ -59,19 +78,19 @@ export const commonDefaultProps: Omit<
     motionConfig: 'gentle',
 }
 
-export const svgDefaultProps = {
+export const svgDefaultProps: SvgDefaultProps = {
     ...commonDefaultProps,
     nodeComponent: TreeMapNode,
     defs: [],
     fill: [],
 }
 
-export const htmlDefaultProps = {
+export const htmlDefaultProps: HtmlDefaultProps = {
     ...commonDefaultProps,
     nodeComponent: TreeMapHtmlNode,
 }
 
-export const canvasDefaultProps = {
+export const canvasDefaultProps: CanvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

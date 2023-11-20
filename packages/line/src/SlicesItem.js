@@ -28,31 +28,31 @@ const SlicesItem = ({
         event => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
-            onMouseEnter && onMouseEnter(slice, event)
+            onMouseEnter?.(slice, event)
         },
-        [showTooltipFromEvent, tooltip, slice, onMouseEnter]
+        [showTooltipFromEvent, tooltip, slice, onMouseEnter, setCurrent, axis]
     )
 
     const handleMouseMove = useCallback(
         event => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
-            onMouseMove && onMouseMove(slice, event)
+            onMouseMove?.(slice, event)
         },
-        [showTooltipFromEvent, tooltip, slice, onMouseMove]
+        [showTooltipFromEvent, tooltip, slice, onMouseMove, axis]
     )
 
     const handleMouseLeave = useCallback(
         event => {
             hideTooltip()
             setCurrent(null)
-            onMouseLeave && onMouseLeave(slice, event)
+            onMouseLeave?.(slice, event)
         },
-        [hideTooltip, slice, onMouseLeave]
+        [hideTooltip, slice, onMouseLeave, setCurrent]
     )
 
     const handleClick = useCallback(
         event => {
-            onClick && onClick(slice, event)
+            onClick?.(slice, event)
         },
         [slice, onClick]
     )

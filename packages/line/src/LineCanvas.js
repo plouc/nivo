@@ -141,7 +141,7 @@ const LineCanvas = ({
                 ctx.lineWidth = theme.grid.line.strokeWidth
                 ctx.strokeStyle = theme.grid.line.stroke
 
-                enableGridX &&
+                if (enableGridX) {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -149,8 +149,9 @@ const LineCanvas = ({
                         axis: 'x',
                         values: gridXValues,
                     })
+                }
 
-                enableGridY &&
+                if (enableGridY) {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -158,6 +159,7 @@ const LineCanvas = ({
                         axis: 'y',
                         values: gridYValues,
                     })
+                }
             }
 
             if (layer === 'axes') {
@@ -213,19 +215,29 @@ const LineCanvas = ({
                 }
             }
 
-            if (layer === 'points' && enablePoints === true && pointSize > 0) {
-                points.forEach(point => {
-                    ctx.fillStyle = point.color
-                    ctx.beginPath()
-                    ctx.arc(point.x, point.y, pointSize / 2, 0, 2 * Math.PI)
-                    ctx.fill()
+            if (layer === 'points' && enablePoints === true && pointSize > 0
+                // limit number of points if lines or areas are enabled for performance reasons
+                && (points.length <= 25000 || !(layers.indexOf('lines') >= 0 || layers.indexOf('areas') >= 0))) {
+                try {
+                    points.forEach((point, index) => {
+                        ctx.fillStyle = point.color
+                        ctx.beginPath()
+                        ctx.arc(point.x, point.y, pointSize / 2, 0, 2 * Math.PI)
+                        ctx.fill()
 
-                    if (pointBorderWidth > 0) {
-                        ctx.strokeStyle = point.borderColor
-                        ctx.lineWidth = pointBorderWidth
-                        ctx.stroke()
-                    }
-                })
+                        if (pointBorderWidth > 0) {
+                            ctx.strokeStyle = point.borderColor
+                            ctx.lineWidth = pointBorderWidth
+                            ctx.stroke()
+                        }
+
+                        if (index % 100 === 0 && Date.now() > layerStart + 500) {
+                            throw new Error(`aborting - took more than 500ms ${index} points of ${points.length} rendered`)
+                        }
+                    })
+                } catch (e) {
+                    console.error(e)
+                }
             }
 
             if (layer === 'mesh' && debugMesh === true) {
@@ -255,30 +267,7 @@ const LineCanvas = ({
                 })
             }
         })
-    }, [
-        canvasEl,
-        outerWidth,
-        outerHeight,
-        layers,
-        theme,
-        lineGenerator,
-        series,
-        xScale,
-        yScale,
-        enableGridX,
-        gridXValues,
-        enableGridY,
-        gridYValues,
-        axisTop,
-        axisRight,
-        axisBottom,
-        axisLeft,
-        legends,
-        points,
-        enablePoints,
-        pointSize,
-        currentPoint,
-    ])
+    })
 
     const getPointFromMouseEvent = useCallback(
         event => {
@@ -287,8 +276,7 @@ const LineCanvas = ({
 
             const pointIndex = delaunay.find(x - margin.left, y - margin.top)
             return points[pointIndex]
-        },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+        }, [canvasEl, margin, innerWidth, innerHeight, delaunay, points]
     )
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -311,16 +299,16 @@ const LineCanvas = ({
         event => {
             hideTooltip()
             setCurrentPoint(null)
-            currentPoint && onMouseLeave && onMouseLeave(currentPoint, event)
+            if (currentPoint && onMouseLeave) onMouseLeave(currentPoint, event)
         },
-        [hideTooltip, setCurrentPoint, onMouseLeave]
+        [hideTooltip, currentPoint, setCurrentPoint, onMouseLeave]
     )
 
     const handleClick = useCallback(
         event => {
             if (onClick) {
                 const point = getPointFromMouseEvent(event)
-                point && onClick(point, event)
+                if (point) onClick(point, event)
             }
         },
         [getPointFromMouseEvent, onClick]

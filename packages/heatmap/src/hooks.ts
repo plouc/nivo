@@ -231,6 +231,8 @@ export const useHeatMap = <
     label = commonDefaultProps.label as HeatMapCommonProps<Datum>['label'],
     labelTextColor = commonDefaultProps.labelTextColor as HeatMapCommonProps<Datum>['labelTextColor'],
     hoverTarget = commonDefaultProps.hoverTarget,
+    minValue,
+    maxValue
 }: {
     data: HeatMapDataProps<Datum, ExtraProps>['data']
     width: number
@@ -254,11 +256,13 @@ export const useHeatMap = <
         | 'label'
         | 'labelTextColor'
         | 'hoverTarget'
+        | 'minValue'
+        | 'maxValue'
     >
 >) => {
     const [activeCell, setActiveCell] = useState<ComputedCell<Datum> | null>(null)
 
-    const { width, height, offsetX, offsetY, cells, xScale, yScale, minValue, maxValue } =
+    const { width, height, offsetX, offsetY, cells, xScale, yScale, minValue: minValueAuto, maxValue: maxValueAuto } =
         useComputeCells<Datum, ExtraProps>({
             data,
             width: _width,
@@ -269,6 +273,13 @@ export const useHeatMap = <
             yInnerPadding,
             forceSquare,
         })
+
+    if (maxValue === 'auto' || maxValue === undefined) {
+        maxValue = maxValueAuto
+    }
+    if (minValue === 'auto' || minValue === undefined) {
+        minValue = minValueAuto
+    }
 
     const activeIds = useMemo(() => {
         if (!activeCell) return []
