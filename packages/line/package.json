@@ -21,12 +21,12 @@
     ],
     "main": "./dist/nivo-line.cjs.js",
     "module": "./dist/nivo-line.es.js",
-    "types": "./index.d.ts",
+    "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
         "LICENSE.md",
-        "index.d.ts",
-        "dist/"
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
         "@nivo/annotations": "workspace:*",
