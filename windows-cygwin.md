@@ -9,5 +9,4 @@
 5 - make with `make pkgs-build`
 6 - if it complains about babel packages then install them manually
 
-To trigger a new version on Azure pipelines, push a new tag and the rest should be automatic through lerna.
-(and some other magic that I can't remember)
+To trigger a new version on Azure pipelines, use `lerna version patch`, which will create a patch version and push to origin. This will trigger a new build on Azure pipelines.
