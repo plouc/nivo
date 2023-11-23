@@ -7,7 +7,7 @@ trigger:
   branches:
     include:
       - master
-      - refs/tags/*
+      - refs/tags/v*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -23,14 +23,15 @@ steps:
   inputs:
     workingFile: $(Agent.TempDirectory)/.npmrc
 
-- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.TempDirectory)/.npmrc
+- script: echo "##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.TempDirectory)/.npmrc"
 
 - task: NodeTool@0
   inputs:
-    versionSpec: '16.x'
+    versionSpec: '20.x'
   displayName: 'Install Node.js'
 
 - bash: |
+    echo $NPM_CONFIG_USERCONFIG
     npm install -g pnpm
     make -s init
     git restore ./pnpm-lock.yaml
