@@ -9,7 +9,7 @@
 import { Fragment, useCallback, memo } from 'react'
 import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import { GeoMapPropTypes, GeoMapDefaultProps } from './props'
+import { GeoMapPropTypes } from './props'
 import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'
 import { useGeoMap } from './hooks'
@@ -20,22 +20,22 @@ const GeoMap = memo(props => {
         height,
         margin: partialMargin,
         features,
-        layers,
-        projectionType,
-        projectionScale,
-        projectionTranslation,
-        projectionRotation,
-        fillColor,
-        borderWidth,
-        borderColor,
-        enableGraticule,
-        graticuleLineWidth,
-        graticuleLineColor,
-        isInteractive,
-        onClick,
+        layers = ['graticule', 'features'],
+        projectionType = 'mercator',
+        projectionScale = 100,
+        projectionTranslation = [0.5, 0.5],
+        projectionRotation = [0, 0, 0],
+        fillColor = '#dddddd',
+        borderWidth = 0,
+        borderColor = '#000000',
+        enableGraticule = false,
+        graticuleLineWidth = 0.5,
+        graticuleLineColor = '#999999',
+        isInteractive = true,
+        onClick = () => {},
         tooltip: Tooltip,
-        role,
-    } = { ...GeoMapDefaultProps, ...props }
+        role = 'img',
+    } = props
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
     const { graticule, path, getFillColor, getBorderWidth, getBorderColor } = useGeoMap({
         width,

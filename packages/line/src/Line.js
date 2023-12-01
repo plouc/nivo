@@ -20,25 +20,42 @@ import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Crosshair } from '@nivo/tooltip'
 import { useLine } from './hooks'
-import { LinePropTypes, LineDefaultProps } from './props'
+import { LinePropTypes } from './props'
 import Areas from './Areas'
 import Lines from './Lines'
 import Slices from './Slices'
 import Points from './Points'
 import Mesh from './Mesh'
+import PointTooltip from './PointTooltip'
+import SliceTooltip from './SliceTooltip'
 
 const Line = props => {
     const {
         data,
-        xScale: xScaleSpec,
+        xScale: xScaleSpec = { type: 'point' },
         xFormat,
-        yScale: yScaleSpec,
+        yScale: yScaleSpec = {
+            type: 'linear',
+            min: 0,
+            max: 'auto',
+        },
         yFormat,
-        layers,
-        curve,
-        areaBaselineValue,
+        layers = [
+            'grid',
+            'markers',
+            'axes',
+            'areas',
+            'crosshair',
+            'lines',
+            'points',
+            'slices',
+            'mesh',
+            'legends',
+        ],
+        curve = 'linear',
+        areaBaselineValue = 0,
 
-        colors,
+        colors = { scheme: 'nivo' },
 
         margin: partialMargin,
         width,
@@ -46,56 +63,56 @@ const Line = props => {
 
         axisTop,
         axisRight,
-        axisBottom,
-        axisLeft,
-        enableGridX,
-        enableGridY,
+        axisBottom = {},
+        axisLeft = {},
+        enableGridX = true,
+        enableGridY = true,
         gridXValues,
         gridYValues,
 
-        lineWidth,
-        enableArea,
-        areaOpacity,
-        areaBlendMode,
+        lineWidth = 2,
+        enableArea = false,
+        areaOpacity = 0.2,
+        areaBlendMode = 'normal',
 
-        enablePoints,
+        enablePoints = true,
         pointSymbol,
-        pointSize,
-        pointColor,
-        pointBorderWidth,
-        pointBorderColor,
-        enablePointLabel,
-        pointLabel,
+        pointSize = 6,
+        pointColor = { from: 'color' },
+        pointBorderWidth = 0,
+        pointBorderColor = { theme: 'background' },
+        enablePointLabel = false,
+        pointLabel = 'yFormatted',
         pointLabelYOffset,
 
-        defs,
-        fill,
+        defs = [],
+        fill = [],
 
         markers,
 
-        legends,
+        legends = [],
 
-        isInteractive,
+        isInteractive = true,
 
-        useMesh,
-        debugMesh,
+        useMesh = false,
+        debugMesh = false,
 
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
 
-        tooltip,
+        tooltip = PointTooltip,
 
-        enableSlices,
-        debugSlices,
-        sliceTooltip,
+        enableSlices = false,
+        debugSlices = false,
+        sliceTooltip = SliceTooltip,
 
-        enableCrosshair,
-        crosshairType,
+        enableCrosshair = true,
+        crosshairType = 'bottom-left',
 
-        role,
-    } = { ...LineDefaultProps, ...props }
+        role = 'img',
+    } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,

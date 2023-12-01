@@ -11,7 +11,7 @@ export const motionDefaultProps = {
 }
 
 export const MotionConfigProvider = props => {
-    const { children, animate, config } = { ...motionDefaultProps, ...props }
+    const { children, animate = true, config = 'default' } = props
 
     const value = useMemo(() => {
         const reactSpringConfig = isString(config) ? presets[config] : config

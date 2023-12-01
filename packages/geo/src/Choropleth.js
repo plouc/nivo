@@ -10,10 +10,11 @@ import { memo, Fragment, useCallback } from 'react'
 import { SvgWrapper, withContainer, useDimensions, useTheme, bindDefs } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
-import { ChoroplethPropTypes, ChoroplethDefaultProps } from './props'
+import { ChoroplethPropTypes } from './props'
 import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'
 import { useGeoMap, useChoropleth } from './hooks'
+import ChoroplethTooltip from './ChoroplethTooltip'
 
 const Choropleth = memo(props => {
     const {
@@ -22,31 +23,31 @@ const Choropleth = memo(props => {
         margin: partialMargin,
         features,
         data,
-        match,
-        label,
-        value,
+        match = 'id',
+        label = 'id',
+        value = 'value',
         valueFormat,
-        projectionType,
-        projectionScale,
-        projectionTranslation,
-        projectionRotation,
-        colors,
+        projectionType = 'mercator',
+        projectionScale = 100,
+        projectionTranslation = [0.5, 0.5],
+        projectionRotation = [0, 0, 0],
+        colors = 'PuBuGn',
         domain,
-        unknownColor,
-        borderWidth,
-        borderColor,
-        enableGraticule,
-        graticuleLineWidth,
-        graticuleLineColor,
-        layers,
-        legends,
-        isInteractive,
-        onClick,
-        tooltip: Tooltip,
-        role,
-        defs,
-        fill,
-    } = { ...ChoroplethDefaultProps, ...props }
+        unknownColor = '#999',
+        borderWidth = 0,
+        borderColor = '#000000',
+        enableGraticule = false,
+        graticuleLineWidth = 0.5,
+        graticuleLineColor = '#999999',
+        layers = ['graticule', 'features', 'legends'],
+        legends = [],
+        isInteractive = true,
+        onClick = () => {},
+        tooltip: Tooltip = ChoroplethTooltip,
+        role = 'img',
+        defs = [],
+        fill = [],
+    } = props
 
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
     const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({

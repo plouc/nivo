@@ -11,8 +11,9 @@ import { geoContains } from 'd3-geo'
 import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
-import { ChoroplethCanvasDefaultProps, ChoroplethCanvasPropTypes } from './props'
+import { ChoroplethCanvasPropTypes } from './props'
 import { useGeoMap, useChoropleth } from './hooks'
+import ChoroplethTooltip from './ChoroplethTooltip'
 
 const getFeatureFromMouseEvent = (event, el, features, projection) => {
     const [x, y] = getRelativeCursor(el, event)
@@ -25,32 +26,32 @@ const ChoroplethCanvas = memo(props => {
         width,
         height,
         margin: partialMargin,
-        pixelRatio,
+        pixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
         features,
         data,
-        match,
-        label,
-        value,
+        match = 'id',
+        label = 'id',
+        value = 'value',
         valueFormat,
-        projectionType,
-        projectionScale,
-        projectionTranslation,
-        projectionRotation,
-        colors,
+        projectionType = 'mercator',
+        projectionScale = 100,
+        projectionTranslation = [0.5, 0.5],
+        projectionRotation = [0, 0, 0],
+        colors = 'PuBuGn',
         domain,
-        unknownColor,
-        borderWidth,
-        borderColor,
-        enableGraticule,
-        graticuleLineWidth,
-        graticuleLineColor,
-        layers,
-        legends,
-        isInteractive,
-        onClick,
-        onMouseMove,
-        tooltip: Tooltip,
-    } = { ...ChoroplethCanvasDefaultProps, ...props }
+        unknownColor = '#999',
+        borderWidth = 0,
+        borderColor = '#000000',
+        enableGraticule = false,
+        graticuleLineWidth = 0.5,
+        graticuleLineColor = '#999999',
+        layers = ['graticule', 'features', 'legends'],
+        legends = [],
+        isInteractive = true,
+        onClick = () => {},
+        onMouseMove = () => {},
+        tooltip: Tooltip = ChoroplethTooltip,
+    } = props
     const canvasEl = useRef(null)
     const theme = useTheme()
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)

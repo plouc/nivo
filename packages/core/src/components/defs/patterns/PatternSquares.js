@@ -10,10 +10,14 @@ export const PatternSquaresDefaultProps = {
 }
 
 export const PatternSquares = memo(props => {
-    const { id, color, background, size, padding, stagger } = {
-        ...PatternSquaresDefaultProps,
-        ...props,
-    }
+    const {
+        id,
+        color = PatternSquaresDefaultProps.color,
+        background = PatternSquaresDefaultProps.background,
+        size = PatternSquaresDefaultProps.size,
+        padding = PatternSquaresDefaultProps.padding,
+        stagger = PatternSquaresDefaultProps.stagger,
+    } = props
 
     let fullSize = size + padding
     const halfPadding = padding / 2
