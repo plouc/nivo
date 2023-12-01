@@ -10,10 +10,14 @@ export const PatternDotsDefaultProps = {
 }
 
 export const PatternDots = memo(props => {
-    const { id, background, color, size, padding, stagger } = {
-        ...PatternDotsDefaultProps,
-        ...props,
-    }
+    const {
+        id,
+        background = PatternDotsDefaultProps.background,
+        color = PatternDotsDefaultProps.color,
+        size = PatternDotsDefaultProps.size,
+        padding = PatternDotsDefaultProps.padding,
+        stagger = PatternDotsDefaultProps.stagger,
+    } = props
 
     let fullSize = size + padding
     const radius = size / 2
