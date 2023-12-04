@@ -1,25 +1,40 @@
-import { createElement, memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { createElement, memo, useCallback, MouseEvent } from 'react'
+import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
+import { LineDatum, PointDatum, PointTooltipComponent, PointMouseHandler } from './types'
 
-const Mesh = ({
+interface MeshProps<Datum extends LineDatum> {
+    points: readonly PointDatum<Datum>[]
+    width: number
+    height: number
+    margin: Margin
+    setCurrent: (point: PointDatum<Datum> | null) => void
+    tooltip: PointTooltipComponent<Datum>
+    debug: boolean
+    onMouseEnter?: PointMouseHandler<Datum>
+    onMouseMove?: PointMouseHandler<Datum>
+    onMouseLeave?: PointMouseHandler<Datum>
+    onClick?: PointMouseHandler<Datum>
+}
+
+const NonMemoizedMesh = <Datum extends LineDatum>({
     points,
     width,
     height,
     margin,
     setCurrent,
+    tooltip,
+    debug,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip,
-    debug,
-}) => {
+}: MeshProps<Datum>) => {
     const { showTooltipAt, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        (point, event) => {
+        (point: PointDatum<Datum>, event: MouseEvent) => {
             showTooltipAt(
                 createElement(tooltip, { point }),
                 [point.x + margin.left, point.y + margin.top],
@@ -32,7 +47,7 @@ const Mesh = ({
     )
 
     const handleMouseMove = useCallback(
-        (point, event) => {
+        (point: PointDatum<Datum>, event: MouseEvent) => {
             showTooltipAt(
                 createElement(tooltip, { point }),
                 [point.x + margin.left, point.y + margin.top],
@@ -45,7 +60,7 @@ const Mesh = ({
     )
 
     const handleMouseLeave = useCallback(
-        (point, event) => {
+        (point: PointDatum<Datum>, event: MouseEvent) => {
             hideTooltip()
             setCurrent(null)
             onMouseLeave && onMouseLeave(point, event)
@@ -54,7 +69,7 @@ const Mesh = ({
     )
 
     const handleClick = useCallback(
-        (point, event) => {
+        (point: PointDatum<Datum>, event: MouseEvent) => {
             onClick && onClick(point, event)
         },
         [onClick]
@@ -74,18 +89,4 @@ const Mesh = ({
     )
 }
 
-Mesh.propTypes = {
-    points: PropTypes.arrayOf(PropTypes.object).isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: PropTypes.object.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    debug: PropTypes.bool.isRequired,
-}
-
-export default memo(Mesh)
+export const Mesh = memo(NonMemoizedMesh) as typeof NonMemoizedMesh

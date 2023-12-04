@@ -12,14 +12,17 @@ export const useVoronoiMesh = <Datum>({
     height,
     debug,
 }: {
-    points: Datum[]
+    points: readonly Datum[]
     x?: XYAccessor<Datum>
     y?: XYAccessor<Datum>
     width: number
     height: number
     debug?: boolean
 }) => {
-    const points2d = useMemo(() => computeMeshPoints<Datum>({ points, x, y }), [points, x, y])
+    const points2d: readonly [number, number][] = useMemo(
+        () => computeMeshPoints<Datum>({ points, x, y }),
+        [points, x, y]
+    )
 
     return useMemo(
         () => computeMesh({ points: points2d, width, height, debug }),

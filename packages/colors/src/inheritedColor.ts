@@ -59,7 +59,7 @@ const isInheritedColorConfigFromContext = <Datum>(
 export const getInheritedColorGenerator = <Datum = any>(
     config: InheritedColorConfig<Datum>,
     theme?: Theme
-) => {
+): ((datum: Datum) => string) => {
     // user provided function
     if (typeof config === 'function') {
         return config

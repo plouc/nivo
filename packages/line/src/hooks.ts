@@ -1,34 +1,65 @@
 import { useCallback, useMemo, useState } from 'react'
 import { area, line } from 'd3-shape'
-import { curveFromProp, useTheme, useValueFormatter } from '@nivo/core'
-import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
-import { computeXYScalesForSeries } from '@nivo/scales'
-import { LineDefaultProps } from './props'
+import { curveFromProp, LineCurveFactoryId, useTheme, useValueFormatter } from '@nivo/core'
+import { useOrdinalColorScale, useInheritedColor, OrdinalColorScale } from '@nivo/colors'
+import { AnyScale, computeXYScalesForSeries } from '@nivo/scales'
+import {
+    AreaGenerator,
+    ComputedSeries,
+    LegendDatum,
+    LineCommonProps,
+    LineDataProps,
+    LineDatum,
+    LineGenerator,
+    LineSeries,
+    PointDatum,
+    PointPosition,
+    SliceDatum,
+} from './types'
+import { commonDefaultProps } from './props'
 
-export const useLineGenerator = ({ curve }) => {
-    return useMemo(
+export const useLineGenerator = ({ curve }: { curve: LineCurveFactoryId }): LineGenerator =>
+    useMemo(
         () =>
-            line()
+            line<PointPosition>()
                 .defined(d => d.x !== null && d.y !== null)
-                .x(d => d.x)
-                .y(d => d.y)
+                .x(d => d.x as number)
+                .y(d => d.y as number)
                 .curve(curveFromProp(curve)),
         [curve]
     )
-}
 
-export const useAreaGenerator = ({ curve, yScale, areaBaselineValue }) => {
-    return useMemo(() => {
-        return area()
+export const useAreaGenerator = <Datum extends LineDatum>({
+    curve,
+    yScale,
+    areaBaselineValue,
+}: {
+    curve: LineCurveFactoryId
+    yScale: AnyScale
+    areaBaselineValue: Exclude<Datum['y'], null | undefined>
+}): AreaGenerator =>
+    useMemo(() => {
+        return area<PointPosition>()
             .defined(d => d.x !== null && d.y !== null)
-            .x(d => d.x)
-            .y1(d => d.y)
+            .x(d => d.x as number)
+            .y1(d => d.y as number)
             .curve(curveFromProp(curve))
             .y0(yScale(areaBaselineValue))
     }, [curve, yScale, areaBaselineValue])
-}
 
-const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, formatY }) => {
+const usePoints = <Series extends LineSeries>({
+    series,
+    getPointColor,
+    getPointBorderColor,
+    formatX,
+    formatY,
+}: {
+    series: ComputedSeries<Series>[]
+    getPointColor: (point: PointDatum<Series['data'][0]>) => string
+    getPointBorderColor: (point: PointDatum<Series['data'][0]>) => string
+    formatX: (value: Exclude<Series['data'][0]['x'], null | undefined>) => string
+    formatY: (value: Exclude<Series['data'][0]['y'], null | undefined>) => string
+}): PointDatum<Series['data'][0]>[] => {
     return useMemo(() => {
         return series.reduce((acc, serie) => {
             return [
@@ -36,40 +67,58 @@ const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, format
                 ...serie.data
                     .filter(datum => datum.position.x !== null && datum.position.y !== null)
                     .map((datum, i) => {
-                        const point = {
+                        const point: Omit<
+                            PointDatum<Series['data'][0]>,
+                            'color' | 'borderColor'
+                        > = {
                             id: `${serie.id}.${i}`,
                             index: acc.length + i,
                             serieId: serie.id,
                             serieColor: serie.color,
-                            x: datum.position.x,
-                            y: datum.position.y,
+                            x: datum.position.x as number,
+                            y: datum.position.y as number,
+                            data: {
+                                ...datum.data,
+                                xFormatted: formatX(datum.data.x),
+                                yFormatted: formatY(datum.data.y),
+                            },
                         }
                         point.color = getPointColor(serie)
                         point.borderColor = getPointBorderColor(point)
-                        point.data = {
-                            ...datum.data,
-                            xFormatted: formatX(datum.data.x),
-                            yFormatted: formatY(datum.data.y),
-                        }
 
-                        return point
+                        return point as PointDatum<Series['data'][0]>
                     }),
             ]
-        }, [])
+        }, [] as PointDatum<Series['data'][0]>[])
     }, [series, getPointColor, getPointBorderColor, formatX, formatY])
 }
 
-export const useSlices = ({ enableSlices, points, width, height }) => {
+/**
+ * Compute slices for a specific axis, either `x` or `y`.
+ * We'll have one slice for each unique value on the specified axis.
+ * We're also computing the dimension of each slice, as a rectangle.
+ */
+export const useSlices = <Datum extends LineDatum>({
+    enableSlices,
+    points,
+    width,
+    height,
+}: {
+    enableSlices: LineCommonProps<LineSeries>['enableSlices']
+    points: PointDatum<Datum>[]
+    width: number
+    height: number
+}): SliceDatum<Datum>[] => {
     return useMemo(() => {
-        if (enableSlices === false) return []
-
         if (enableSlices === 'x') {
             const map = new Map()
+
             points.forEach(point => {
                 if (point.data.x === null || point.data.y === null) return
                 if (!map.has(point.x)) map.set(point.x, [point])
                 else map.get(point.x).push(point)
             })
+
             return Array.from(map.entries())
                 .sort((a, b) => a[0] - b[0])
                 .map(([x, slicePoints], i, slices) => {
@@ -93,15 +142,17 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                         width: sliceWidth,
                         height,
                         points: slicePoints.reverse(),
-                    }
+                    } as SliceDatum<Datum>
                 })
         } else if (enableSlices === 'y') {
             const map = new Map()
+
             points.forEach(point => {
                 if (point.data.x === null || point.data.y === null) return
                 if (!map.has(point.y)) map.set(point.y, [point])
                 else map.get(point.y).push(point)
             })
+
             return Array.from(map.entries())
                 .sort((a, b) => a[0] - b[0])
                 .map(([y, slicePoints], i, slices) => {
@@ -125,34 +176,67 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                         width,
                         height: sliceHeight,
                         points: slicePoints.reverse(),
-                    }
+                    } as SliceDatum<Datum>
                 })
         }
+
+        return []
     }, [enableSlices, points])
 }
 
-export const useLine = ({
+export const useLine = <Series extends LineSeries>({
     data,
-    xScale: xScaleSpec = LineDefaultProps.xScale,
+    xScale: xScaleSpec = commonDefaultProps.xScale,
     xFormat,
-    yScale: yScaleSpec = LineDefaultProps.yScale,
+    yScale: yScaleSpec = commonDefaultProps.yScale,
     yFormat,
     width,
     height,
-    colors = LineDefaultProps.colors,
-    curve = LineDefaultProps.curve,
-    areaBaselineValue = LineDefaultProps.areaBaselineValue,
-    pointColor = LineDefaultProps.pointColor,
-    pointBorderColor = LineDefaultProps.pointBorderColor,
-    enableSlices = LineDefaultProps.enableSlicesTooltip,
-}) => {
+    colors = commonDefaultProps.colors,
+    curve = commonDefaultProps.curve,
+    areaBaselineValue = commonDefaultProps.areaBaselineValue as Exclude<
+        Series['data'][0]['y'],
+        null | undefined
+    >,
+    pointColor = commonDefaultProps.pointColor,
+    pointBorderColor = commonDefaultProps.pointBorderColor,
+    enableSlices = commonDefaultProps.enableSlices,
+}: {
+    data: LineDataProps<Series>['data']
+    xScale: LineCommonProps<Series>['xScale']
+    xFormat?: LineCommonProps<Series>['xFormat']
+    yScale: LineCommonProps<Series>['yScale']
+    yFormat?: LineCommonProps<Series>['yFormat']
+    width: number
+    height: number
+    colors?: LineCommonProps<Series>['colors']
+    curve?: LineCommonProps<Series>['curve']
+    areaBaselineValue: LineCommonProps<Series>['areaBaselineValue']
+    pointColor?: LineCommonProps<Series>['pointColor']
+    pointBorderColor?: LineCommonProps<Series>['pointBorderColor']
+    enableSlices?: LineCommonProps<Series>['enableSlices']
+}): {
+    legendData: readonly LegendDatum[]
+    toggleSerie: (id: LineSeries['id']) => void
+    lineGenerator: LineGenerator
+    areaGenerator: AreaGenerator
+    getColor: OrdinalColorScale<Series>
+    series: readonly ComputedSeries<Series>[]
+    xScale: AnyScale
+    yScale: AnyScale
+    slices: readonly SliceDatum<Series['data'][0]>[]
+    points: readonly PointDatum<Series['data'][0]>[]
+} => {
     const formatX = useValueFormatter(xFormat)
     const formatY = useValueFormatter(yFormat)
+
     const getColor = useOrdinalColorScale(colors, 'id')
+
     const theme = useTheme()
     const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
-    const [hiddenIds, setHiddenIds] = useState([])
+
+    const [hiddenIds, setHiddenIds] = useState<LineSeries['id'][]>([])
 
     const {
         xScale,
@@ -160,7 +244,7 @@ export const useLine = ({
         series: rawSeries,
     } = useMemo(
         () =>
-            computeXYScalesForSeries(
+            computeXYScalesForSeries<Series, Series['data'][0]>(
                 data.filter(item => hiddenIds.indexOf(item.id) === -1),
                 xScaleSpec,
                 yScaleSpec,
@@ -171,17 +255,22 @@ export const useLine = ({
     )
 
     const { legendData, series } = useMemo(() => {
-        const dataWithColor = data.map(line => ({
+        // Not excluding series according to `hiddenIds` here,
+        // as we want all series shown in the legends.
+        const dataWithColor: readonly LegendDatum[] = data.map(line => ({
             id: line.id,
             label: line.id,
             color: getColor(line),
+            hidden: false,
         }))
-        const series = dataWithColor
+
+        const series: ComputedSeries<Series>[] = dataWithColor
             .map(datum => ({
-                ...rawSeries.find(serie => serie.id === datum.id),
+                ...rawSeries.find(serie => serie.id === datum.id)!,
                 color: datum.color,
             }))
             .filter(item => Boolean(item.id))
+
         const legendData = dataWithColor
             .map(item => ({ ...item, hidden: !series.find(serie => serie.id === item.id) }))
             .reverse()
@@ -189,13 +278,13 @@ export const useLine = ({
         return { legendData, series }
     }, [data, rawSeries, getColor])
 
-    const toggleSerie = useCallback(id => {
+    const toggleSerie = useCallback((id: LineSeries['id']) => {
         setHiddenIds(state =>
             state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
         )
     }, [])
 
-    const points = usePoints({
+    const points = usePoints<Series>({
         series,
         getPointColor,
         getPointBorderColor,
@@ -203,7 +292,7 @@ export const useLine = ({
         formatY,
     })
 
-    const slices = useSlices({
+    const slices = useSlices<Series['data'][0]>({
         enableSlices,
         points,
         width,
@@ -211,10 +300,23 @@ export const useLine = ({
     })
 
     const lineGenerator = useLineGenerator({ curve })
-    const areaGenerator = useAreaGenerator({
+    const areaGenerator = useAreaGenerator<Series['data'][0]>({
         curve,
         yScale,
         areaBaselineValue,
+    })
+
+    console.log({
+        legendData,
+        toggleSerie,
+        lineGenerator,
+        areaGenerator,
+        getColor,
+        series,
+        xScale,
+        yScale,
+        slices,
+        points,
     })
 
     return {

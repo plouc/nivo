@@ -65,7 +65,7 @@ export type Datum = {
 }
 
 type CommonLegendProps = {
-    data?: Datum[]
+    data?: readonly Datum[]
     direction: LegendDirection
     padding?: number | Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>
     justify?: boolean

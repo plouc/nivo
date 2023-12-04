@@ -1,10 +1,32 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
-import { getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
+import {
+    usePropertyAccessor,
+    DotsItem,
+    PropertyAccessor,
+    DotsItemSymbolComponent,
+} from '@nivo/core'
+import { LineDatum, PointDatum } from './types'
 
-const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
-    const theme = useTheme()
-    const getLabel = getLabelGenerator(label)
+interface PointsProps<Datum extends LineDatum> {
+    points: readonly PointDatum<Datum>[]
+    symbol?: DotsItemSymbolComponent
+    size: number
+    borderWidth: number
+    enableLabel: boolean
+    label: PropertyAccessor<Datum, string>
+    labelYOffset?: number
+}
+
+const NonMemoizedPoints = <Datum extends LineDatum>({
+    points,
+    symbol,
+    size,
+    borderWidth,
+    enableLabel,
+    label,
+    labelYOffset,
+}: PointsProps<Datum>) => {
+    const getLabel = usePropertyAccessor<Datum, string>(label)
 
     /**
      * We reverse the `points` array so that points from the lower lines in stacked lines
@@ -42,23 +64,10 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
                     borderColor={point.stroke}
                     label={point.label}
                     labelYOffset={labelYOffset}
-                    theme={theme}
                 />
             ))}
         </g>
     )
 }
 
-Points.propTypes = {
-    points: PropTypes.arrayOf(PropTypes.object),
-    symbol: PropTypes.func,
-    size: PropTypes.number.isRequired,
-    color: PropTypes.func.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.func.isRequired,
-    enableLabel: PropTypes.bool.isRequired,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    labelYOffset: PropTypes.number,
-}
-
-export default memo(Points)
+export const Points = memo(NonMemoizedPoints) as typeof NonMemoizedPoints

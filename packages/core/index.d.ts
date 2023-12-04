@@ -543,7 +543,7 @@ interface CartesianMarkersProps<
     height: number
     xScale: (value: X) => number
     yScale: (value: Y) => number
-    markers: CartesianMarkerProps<X | Y>[]
+    markers: readonly CartesianMarkerProps<X | Y>[]
 }
 type CartesianMarkersType = <X extends DatumValue = DatumValue, Y extends DatumValue = DatumValue>(
     props: CartesianMarkersProps<X, Y>
@@ -623,7 +623,7 @@ export interface DotsItemProps<D = any> {
     color: string
     borderWidth: number
     borderColor: string
-    label?: string | number
+    label?: string | number | null
     labelTextAnchor?: 'start' | 'middle' | 'end'
     labelYOffset?: number
     symbol?: DotsItemSymbolComponent

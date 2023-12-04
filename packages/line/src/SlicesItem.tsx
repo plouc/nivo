@@ -1,8 +1,22 @@
-import { createElement, memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import { createElement, memo, useCallback, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
+import { LineDatum, SliceDatum, SliceTooltipComponent } from './types'
 
-const SlicesItem = ({
+interface SlicesItemProps<Datum extends LineDatum> {
+    slice: SliceDatum<Datum>
+    axis: 'x' | 'y'
+    debug: boolean
+    height: number
+    tooltip: SliceTooltipComponent<Datum>
+    isCurrent: boolean
+    setCurrent: (slice: SliceDatum<Datum> | null) => void
+    onMouseEnter?: any
+    onMouseMove?: any
+    onMouseLeave?: any
+    onClick?: any
+}
+
+const NonMemoizedSlicesItem = <Datum extends LineDatum>({
     slice,
     axis,
     debug,
@@ -13,11 +27,11 @@ const SlicesItem = ({
     onMouseMove,
     onMouseLeave,
     onClick,
-}) => {
+}: SlicesItemProps<Datum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
             onMouseEnter && onMouseEnter(slice, event)
@@ -26,7 +40,7 @@ const SlicesItem = ({
     )
 
     const handleMouseMove = useCallback(
-        event => {
+        (event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             onMouseMove && onMouseMove(slice, event)
         },
@@ -34,7 +48,7 @@ const SlicesItem = ({
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent) => {
             hideTooltip()
             setCurrent(null)
             onMouseLeave && onMouseLeave(slice, event)
@@ -43,7 +57,7 @@ const SlicesItem = ({
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             onClick && onClick(slice, event)
         },
         [slice, onClick]
@@ -69,18 +83,4 @@ const SlicesItem = ({
     )
 }
 
-SlicesItem.propTypes = {
-    slice: PropTypes.object.isRequired,
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    debug: PropTypes.bool.isRequired,
-    height: PropTypes.number.isRequired,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    isCurrent: PropTypes.bool.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-}
-
-export default memo(SlicesItem)
+export const SlicesItem = memo(NonMemoizedSlicesItem) as typeof NonMemoizedSlicesItem

@@ -1,9 +1,16 @@
-import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig, CssMixBlendMode } from '@nivo/core'
+import { AreaGenerator, ComputedSeries, LineSeries } from './types'
 
-const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
+interface AreaPathProps {
+    areaBlendMode: CssMixBlendMode
+    areaOpacity: number
+    color: string
+    fill?: string
+    path: string
+}
+
+const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }: AreaPathProps) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const animatedPath = useAnimatedPath(path)
@@ -26,15 +33,19 @@ const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
     )
 }
 
-AreaPath.propTypes = {
-    areaBlendMode: blendModePropType.isRequired,
-    areaOpacity: PropTypes.number.isRequired,
-    color: PropTypes.string,
-    fill: PropTypes.string,
-    path: PropTypes.string.isRequired,
+interface AreasProps<Series extends LineSeries> {
+    areaGenerator: AreaGenerator
+    areaOpacity: number
+    areaBlendMode: CssMixBlendMode
+    lines: readonly ComputedSeries<Series>[]
 }
 
-const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+export const Areas = <Series extends LineSeries>({
+    areaGenerator,
+    areaOpacity,
+    areaBlendMode,
+    lines,
+}: AreasProps<Series>) => {
     const computedLines = lines.slice(0).reverse()
 
     return (
@@ -42,19 +53,10 @@ const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
             {computedLines.map(line => (
                 <AreaPath
                     key={line.id}
-                    path={areaGenerator(line.data.map(d => d.position))}
+                    path={areaGenerator(line.data.map(d => d.position)) as string}
                     {...{ areaOpacity, areaBlendMode, ...line }}
                 />
             ))}
         </g>
     )
 }
-
-Areas.propTypes = {
-    areaGenerator: PropTypes.func.isRequired,
-    areaOpacity: PropTypes.number.isRequired,
-    areaBlendMode: blendModePropType.isRequired,
-    lines: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
-
-export default memo(Areas)
