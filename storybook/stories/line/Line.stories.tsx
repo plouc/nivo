@@ -34,7 +34,7 @@ const commonProperties = {
     margin: { top: 20, right: 20, bottom: 60, left: 80 },
     data,
     animate: true,
-    enableSlices: 'x',
+    enableSlices: 'x' as const,
 }
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
@@ -1046,8 +1046,6 @@ export const CustomLineStyle: Story = {
             {...commonProperties}
             xScale={{
                 type: 'point',
-                min: 'auto',
-                max: 'auto',
             }}
             yScale={{
                 type: 'linear',
@@ -1055,13 +1053,11 @@ export const CustomLineStyle: Story = {
                 max: 'auto',
             }}
             axisBottom={{
-                orient: 'bottom',
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
             }}
             axisLeft={{
-                orient: 'left',
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,

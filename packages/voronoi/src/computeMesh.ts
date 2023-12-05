@@ -22,7 +22,7 @@ export const computeMeshPoints = <Datum>({
     x = 'x' as NumberPropertyNames<Datum>,
     y = 'y' as NumberPropertyNames<Datum>,
 }: {
-    points: Datum[]
+    points: readonly Datum[]
     x?: XYAccessor<Datum>
     y?: XYAccessor<Datum>
 }): [number, number][] => {
@@ -38,7 +38,7 @@ export const computeMesh = ({
     height,
     debug,
 }: {
-    points: [number, number][]
+    points: readonly [number, number][]
     width: number
     height: number
     debug?: boolean

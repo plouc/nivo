@@ -6,7 +6,7 @@ import { XYAccessor } from './computeMesh'
 type MouseHandler<Datum> = (datum: Datum, event: MouseEvent) => void
 
 interface MeshProps<Datum> {
-    nodes: Datum[]
+    nodes: readonly Datum[]
     width: number
     height: number
     x?: XYAccessor<Datum>

@@ -1,98 +1,108 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { createElement, useRef, useEffect, useState, useCallback, forwardRef } from 'react'
 import {
-    withContainer,
-    useDimensions,
-    useTheme,
-    getRelativeCursor,
-    isCursorInRect,
-} from '@nivo/core'
+    createElement,
+    useRef,
+    useEffect,
+    useState,
+    useCallback,
+    forwardRef,
+    MouseEvent,
+    ForwardedRef,
+} from 'react'
+import { useDimensions, useTheme, getRelativeCursor, isCursorInRect, Container } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
-import { LineCanvasPropTypes, LineCanvasDefaultProps } from './props'
 import { useLine } from './hooks'
+import { canvasDefaultProps } from './props'
+import { LineCanvasProps, LineSeries, PointDatum } from './types'
 
-const LineCanvas = ({
+const isNumber = (value: unknown): value is number => typeof value === 'number'
+
+type InnerLineCanvasProps<Series extends LineSeries> = Omit<
+    LineCanvasProps<Series>,
+    'renderWrapper' | 'theme'
+> & {
+    canvasRef: ForwardedRef<HTMLCanvasElement>
+}
+
+const InnerLineCanvas = <Series extends LineSeries>({
     width,
     height,
     margin: partialMargin,
-    pixelRatio,
+    pixelRatio = canvasDefaultProps.pixelRatio,
 
     data,
-    xScale: xScaleSpec,
+    xScale: xScaleSpec = canvasDefaultProps.xScale,
     xFormat,
-    yScale: yScaleSpec,
+    yScale: yScaleSpec = canvasDefaultProps.yScale,
     yFormat,
-    curve,
+    curve = canvasDefaultProps.curve,
 
-    layers,
+    layers = canvasDefaultProps.layers,
 
-    colors,
-    lineWidth,
+    colors = canvasDefaultProps.colors,
+    lineWidth = canvasDefaultProps.lineWidth,
 
-    enableArea,
-    areaBaselineValue,
-    areaOpacity,
+    enableArea = canvasDefaultProps.enableArea,
+    areaBaselineValue = canvasDefaultProps.areaBaselineValue as Exclude<
+        Series['data'][0]['y'],
+        null | undefined
+    >,
+    areaOpacity = canvasDefaultProps.areaOpacity,
 
-    enablePoints,
-    pointSize,
+    enablePoints = canvasDefaultProps.enablePoints,
+    pointSize = canvasDefaultProps.pointSize,
     pointColor,
-    pointBorderWidth,
+    pointBorderWidth = canvasDefaultProps.pointBorderWidth,
     pointBorderColor,
 
-    enableGridX,
+    enableGridX = canvasDefaultProps.enableGridX,
     gridXValues,
-    enableGridY,
+    enableGridY = canvasDefaultProps.enableGridY,
     gridYValues,
     axisTop,
     axisRight,
-    axisBottom,
-    axisLeft,
+    axisBottom = canvasDefaultProps.axisBottom,
+    axisLeft = canvasDefaultProps.axisLeft,
 
-    legends,
+    legends = canvasDefaultProps.legends,
 
-    isInteractive,
-    debugMesh,
+    isInteractive = canvasDefaultProps.isInteractive,
+    debugMesh = canvasDefaultProps.debugMesh,
     //onMouseEnter,
     //onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip,
+    tooltip = canvasDefaultProps.tooltip,
 
     canvasRef,
-}) => {
-    const canvasEl = useRef(null)
+}: InnerLineCanvasProps<Series>) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
+
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
     const theme = useTheme()
-    const [currentPoint, setCurrentPoint] = useState(null)
+    const [currentPoint, setCurrentPoint] = useState<PointDatum<Series['data'][0]> | null>(null)
 
-    const { lineGenerator, areaGenerator, series, xScale, yScale, points } = useLine({
-        data,
-        xScale: xScaleSpec,
-        xFormat,
-        yScale: yScaleSpec,
-        yFormat,
-        width: innerWidth,
-        height: innerHeight,
-        colors,
-        curve,
-        areaBaselineValue,
-        pointColor,
-        pointBorderColor,
-    })
+    const { lineGenerator, areaGenerator, series, xScale, yScale, points, legendData } =
+        useLine<Series>({
+            data,
+            xScale: xScaleSpec,
+            xFormat,
+            yScale: yScaleSpec,
+            yFormat,
+            width: innerWidth,
+            height: innerHeight,
+            colors,
+            curve,
+            areaBaselineValue,
+            pointColor,
+            pointBorderColor,
+        })
 
     const { delaunay, voronoi } = useVoronoiMesh({
         points,
@@ -102,14 +112,13 @@ const LineCanvas = ({
     })
 
     useEffect(() => {
-        if (canvasRef) {
-            canvasRef.current = canvasEl.current
-        }
+        if (!canvasEl.current) return
+
+        const ctx = canvasEl.current?.getContext('2d')
+        if (!ctx) return
 
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
-
-        const ctx = canvasEl.current.getContext('2d')
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -130,32 +139,36 @@ const LineCanvas = ({
                     lineWidth,
                     lineGenerator,
                     areaGenerator,
-                    currentPoint,
-                    setCurrentPoint,
+                    // currentPoint,
+                    // setCurrentPoint,
                 })
             }
 
-            if (layer === 'grid' && theme.grid.line.strokeWidth > 0) {
-                ctx.lineWidth = theme.grid.line.strokeWidth
-                ctx.strokeStyle = theme.grid.line.stroke
+            if (layer === 'grid') {
+                if (isNumber(theme.grid.line.strokeWidth) && theme.grid.line.strokeWidth > 0) {
+                    ctx.lineWidth = theme.grid.line.strokeWidth
+                    ctx.strokeStyle = theme.grid.line.stroke as string
 
-                enableGridX &&
-                    renderGridLinesToCanvas(ctx, {
-                        width: innerWidth,
-                        height: innerHeight,
-                        scale: xScale,
-                        axis: 'x',
-                        values: gridXValues,
-                    })
+                    if (enableGridX) {
+                        renderGridLinesToCanvas(ctx, {
+                            width: innerWidth,
+                            height: innerHeight,
+                            scale: xScale,
+                            axis: 'x',
+                            values: gridXValues,
+                        })
+                    }
 
-                enableGridY &&
-                    renderGridLinesToCanvas(ctx, {
-                        width: innerWidth,
-                        height: innerHeight,
-                        scale: yScale,
-                        axis: 'y',
-                        values: gridYValues,
-                    })
+                    if (enableGridY) {
+                        renderGridLinesToCanvas(ctx, {
+                            width: innerWidth,
+                            height: innerHeight,
+                            scale: yScale,
+                            axis: 'y',
+                            values: gridYValues,
+                        })
+                    }
+                }
             }
 
             if (layer === 'axes') {
@@ -172,7 +185,7 @@ const LineCanvas = ({
                 })
             }
 
-            if (layer === 'areas' && enableArea === true) {
+            if (layer === 'areas' && enableArea) {
                 ctx.save()
                 ctx.globalAlpha = areaOpacity
 
@@ -198,7 +211,7 @@ const LineCanvas = ({
                 })
             }
 
-            if (layer === 'points' && enablePoints === true && pointSize > 0) {
+            if (layer === 'points' && enablePoints && pointSize > 0) {
                 points.forEach(point => {
                     ctx.fillStyle = point.color
                     ctx.beginPath()
@@ -213,22 +226,15 @@ const LineCanvas = ({
                 })
             }
 
-            if (layer === 'mesh' && debugMesh === true) {
+            if (layer === 'mesh' && debugMesh && voronoi) {
                 renderVoronoiToCanvas(ctx, voronoi)
+
                 if (currentPoint) {
                     renderVoronoiCellToCanvas(ctx, voronoi, currentPoint.index)
                 }
             }
 
             if (layer === 'legends') {
-                const legendData = series
-                    .map(serie => ({
-                        id: serie.id,
-                        label: serie.id,
-                        color: serie.color,
-                    }))
-                    .reverse()
-
                 legends.forEach(legend => {
                     renderLegendToCanvas(ctx, {
                         ...legend,
@@ -259,6 +265,7 @@ const LineCanvas = ({
         axisBottom,
         axisLeft,
         legends,
+        legendData,
         points,
         enablePoints,
         pointSize,
@@ -266,7 +273,9 @@ const LineCanvas = ({
     ])
 
     const getPointFromMouseEvent = useCallback(
-        event => {
+        (event: MouseEvent) => {
+            if (canvasEl.current === null) return
+
             const [x, y] = getRelativeCursor(canvasEl.current, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
@@ -279,9 +288,9 @@ const LineCanvas = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent) => {
             const point = getPointFromMouseEvent(event)
-            setCurrentPoint(point)
+            setCurrentPoint(point || null)
 
             if (point) {
                 showTooltipFromEvent(createElement(tooltip, { point }), event)
@@ -293,7 +302,7 @@ const LineCanvas = ({
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent) => {
             hideTooltip()
             setCurrentPoint(null)
             currentPoint && onMouseLeave && onMouseLeave(currentPoint, event)
@@ -302,7 +311,7 @@ const LineCanvas = ({
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (onClick) {
                 const point = getPointFromMouseEvent(event)
                 point && onClick(point, event)
@@ -313,7 +322,10 @@ const LineCanvas = ({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={canvas => {
+                canvasEl.current = canvas
+                if (canvasRef && 'current' in canvasRef) canvasRef.current = canvas
+            }}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -329,9 +341,15 @@ const LineCanvas = ({
     )
 }
 
-LineCanvas.propTypes = LineCanvasPropTypes
-LineCanvas.defaultProps = LineCanvasDefaultProps
+const LineCanvasWithRef = <Series extends LineSeries>(
+    { isInteractive, renderWrapper, theme, ...innerProps }: LineCanvasProps<Series>,
+    ref: ForwardedRef<HTMLCanvasElement>
+) => (
+    <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
+        <InnerLineCanvas<Series> {...innerProps} canvasRef={ref} />
+    </Container>
+)
 
-const LineCanvasWithContainer = withContainer(LineCanvas)
-
-export default forwardRef((props, ref) => <LineCanvasWithContainer {...props} canvasRef={ref} />)
+export const LineCanvas = forwardRef(LineCanvasWithRef) as <Series extends LineSeries>(
+    props: LineCanvasProps<Series> & { ref?: ForwardedRef<HTMLCanvasElement> }
+) => ReturnType<typeof LineCanvasWithRef>

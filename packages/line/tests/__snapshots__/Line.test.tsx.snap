@@ -1,0 +1,2569 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Line curve interpolation should support basis curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164L20.833333333333332,177.5C41.666666666666664,191,83.33333333333333,218,125,222.5C166.66666666666666,227,208.33333333333334,209,250,177.33333333333334C291.6666666666667,145.66666666666666,333.3333333333333,100.33333333333333,375,104.83333333333333C416.6666666666667,109.33333333333333,458.3333333333333,163.66666666666666,479.1666666666667,190.83333333333334L500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273L20.833333333333332,263.8333333333333C41.666666666666664,254.66666666666666,83.33333333333333,236.33333333333334,125,218.16666666666666C166.66666666666666,200,208.33333333333334,182,250,163.83333333333334C291.6666666666667,145.66666666666666,333.3333333333333,127.33333333333333,375,100C416.6666666666667,72.66666666666667,458.3333333333333,36.333333333333336,479.1666666666667,18.166666666666668L500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L20.833333333333332,199.83333333333334C41.666666666666664,181.66666666666666,83.33333333333333,145.33333333333334,125,109C166.66666666666666,72.66666666666667,208.33333333333334,36.333333333333336,250,27.333333333333332C291.6666666666667,18.333333333333332,333.3333333333333,36.666666666666664,375,50.333333333333336C416.6666666666667,64,458.3333333333333,73,479.1666666666667,77.5L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support cardinal curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164C0,164,83.33333333333334,240.5,125,245C166.66666666666666,249.5,208.33333333333334,222.66666666666666,250,191C291.6666666666667,159.33333333333334,333.3333333333333,50.5,375,55C416.6666666666667,59.5,500,218,500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273C0,273,83.33333333333334,236.16666666666666,125,218C166.66666666666666,199.83333333333334,208.33333333333334,182.16666666666666,250,164C291.6666666666667,145.83333333333334,333.3333333333333,136.33333333333334,375,109C416.6666666666667,81.66666666666667,500,0,500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218C0,218,83.33333333333334,145.33333333333331,125,109C166.66666666666666,72.66666666666667,208.33333333333334,9,250,0C291.6666666666667,-9,333.3333333333333,41.333333333333336,375,55C416.6666666666667,68.66666666666667,500,82,500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support catmullRom curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164C0,164,82.35582359167418,241.42697849731016,125,245C165.7730563648771,248.41624623552693,211.0555033019545,218.66499868099316,250,191C295.35949855095356,158.77797701913514,334.3819638261772,53.18996050542546,375,55C417.8327697835703,56.90873346605189,500,218,500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273C0,273,83.30275914085655,236.17975260013068,125,218C166.63618195061323,199.84686872608285,208.36381804938674,182.1531312739172,250,164C291.6972408591435,145.82024739986932,335.1682915474288,134.29646540909448,375,109C418.89510427964404,81.1229384785042,500,0,500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218C0,218,83.33333333333333,145.33333333333334,125,109C166.66666666666666,72.66666666666666,206.10489572035593,6.692957167071312,250,0C289.83170845257115,-6.073386154090098,332.62631341887106,41.25724476151072,375,55C416.00459618510786,68.29872792507959,500,82,500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support linear curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164L125,245L250,191L375,55L500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273L125,218L250,164L375,109L500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L125,109L250,0L375,55L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support monotoneX curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164C41.666666666666664,204.5,83.33333333333334,245,125,245C166.66666666666666,245,208.33333333333334,222.66666666666666,250,191C291.6666666666667,159.33333333333334,333.3333333333333,55,375,55C416.6666666666667,55,458.3333333333333,136.5,500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273C41.666666666666664,254.58333333333334,83.33333333333334,236.16666666666666,125,218C166.66666666666666,199.83333333333334,208.33333333333334,182.16666666666666,250,164C291.6666666666667,145.83333333333334,333.3333333333333,136.33333333333334,375,109C416.6666666666667,81.66666666666667,458.3333333333333,40.83333333333333,500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218C41.666666666666664,181.66666666666666,83.33333333333334,145.33333333333331,125,109C166.66666666666666,72.66666666666667,208.33333333333334,0,250,0C291.6666666666667,0,333.3333333333333,41.333333333333336,375,55C416.6666666666667,68.66666666666667,458.3333333333333,75.33333333333333,500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support monotoneY curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164C62.5,191,125,218,125,245C125,227,216.91176470588235,209,250,191C333.3333333333333,145.66666666666666,375,100.33333333333334,375,55C375,109.33333333333334,437.5,163.66666666666666,500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273C41.471995696001805,254.66666666666666,82.94399139200362,236.33333333333334,125,218C166.2913539060328,200,208.7086460939672,182,250,164C292.0560086079964,145.66666666666666,340.25602297307375,127.33333333333333,375,109C443.85624538063564,72.66666666666666,471.9281226903178,36.333333333333336,500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218C41.66666666666667,181.66666666666666,83.33333333333333,145.33333333333334,125,109C166.66666666666669,72.66666666666666,250,36.333333333333336,250,0C250,18.333333333333332,304.3510990665462,36.66666666666667,375,55C409.6821877309682,64,454.8410938654841,73,500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support natural curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164C41.66666666666666,199.32142857142856,83.33333333333331,234.64285714285714,125,245C166.66666666666669,255.35714285714286,208.33333333333337,240.75,250,191C291.66666666666663,141.25,333.3333333333333,56.357142857142854,375,55C416.6666666666667,53.642857142857146,458.33333333333337,135.82142857142858,500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273C41.66666666666666,254.875,83.33333333333331,236.75,125,218C166.66666666666669,199.25,208.33333333333337,179.875,250,164C291.66666666666663,148.125,333.3333333333333,135.75,375,109C416.6666666666667,82.25,458.33333333333337,41.125,500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218C41.66666666666666,185.73809523809524,83.33333333333331,153.47619047619048,125,109C166.66666666666669,64.52380952380953,208.33333333333337,7.833333333333333,250,0C291.66666666666663,-7.833333333333333,333.3333333333333,33.19047619047619,375,55C416.6666666666667,76.80952380952381,458.33333333333337,79.4047619047619,500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support step curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164L62.5,164L62.5,245L187.5,245L187.5,191L312.5,191L312.5,55L437.5,55L437.5,218L500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273L62.5,273L62.5,218L187.5,218L187.5,164L312.5,164L312.5,109L437.5,109L437.5,0L500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L62.5,218L62.5,109L187.5,109L187.5,0L312.5,0L312.5,55L437.5,55L437.5,82L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support stepAfter curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164L125,164L125,245L250,245L250,191L375,191L375,55L500,55L500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273L125,273L125,218L250,218L250,164L375,164L375,109L500,109L500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L125,218L125,109L250,109L250,0L375,0L375,55L500,55L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line curve interpolation should support stepBefore curve interpolation 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <path
+        d="M0,164L0,245L125,245L125,191L250,191L250,55L375,55L375,218L500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273L0,218L125,218L125,164L250,164L250,109L375,109L375,0L500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L0,109L125,109L125,0L250,0L250,55L375,55L375,82L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line data should support a single line 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={125}
+          x2={125}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={250}
+          x2={250}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={375}
+          x2={375}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={500}
+          x2={500}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={273}
+          y2={273}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={245}
+          y2={245}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={218}
+          y2={218}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={191}
+          y2={191}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={164}
+          y2={164}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={136}
+          y2={136}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={109}
+          y2={109}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={82}
+          y2={82}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={55}
+          y2={55}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={27}
+          y2={27}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,300)"
+      >
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(125,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            1
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(250,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            2
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(375,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            3
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(500,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            4
+          </text>
+        </g>
+        <line
+          style={
+            {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,300)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,273)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            1
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,245)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            2
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,218)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            3
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,191)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            4
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,164)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            5
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,136)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            6
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,109)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            7
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,82)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            8
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,55)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            9
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,27)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            10
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            11
+          </text>
+        </g>
+        <line
+          style={
+            {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <path
+        d="M0,218L125,109L250,0L375,55L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+      <g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 82)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 55)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`Line data should support multiple lines 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={125}
+          x2={125}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={250}
+          x2={250}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={375}
+          x2={375}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={500}
+          x2={500}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={273}
+          y2={273}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={245}
+          y2={245}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={218}
+          y2={218}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={191}
+          y2={191}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={164}
+          y2={164}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={136}
+          y2={136}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={109}
+          y2={109}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={82}
+          y2={82}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={55}
+          y2={55}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={27}
+          y2={27}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,300)"
+      >
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(125,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            1
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(250,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            2
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(375,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            3
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(500,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            4
+          </text>
+        </g>
+        <line
+          style={
+            {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,300)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,273)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            1
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,245)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            2
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,218)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            3
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,191)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            4
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,164)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            5
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,136)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            6
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,109)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            7
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,82)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            8
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,55)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            9
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,27)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            10
+          </text>
+        </g>
+        <g
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+                "outlineColor": "transparent",
+                "outlineWidth": 0,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            11
+          </text>
+        </g>
+        <line
+          style={
+            {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <path
+        d="M0,164L125,245L250,191L375,55L500,218"
+        fill="none"
+        stroke="#f1e15b"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,273L125,218L250,164L375,109L500,0"
+        fill="none"
+        stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L125,109L250,0L375,55L500,82"
+        fill="none"
+        stroke="#e8c1a0"
+        strokeWidth={2}
+      />
+      <g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 218)"
+        >
+          <circle
+            fill="#f1e15b"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 55)"
+        >
+          <circle
+            fill="#f1e15b"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 191)"
+        >
+          <circle
+            fill="#f1e15b"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 245)"
+        >
+          <circle
+            fill="#f1e15b"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 164)"
+        >
+          <circle
+            fill="#f1e15b"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 0)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 109)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 164)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 218)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 273)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 82)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 55)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+`;

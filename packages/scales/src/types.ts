@@ -134,7 +134,7 @@ export type Series<XValue extends ScaleValue, YValue extends ScaleValue> = {
     }[]
 }[]
 
-// A serie containing data for a specific axis
+// A serie containing data for a specific axis.
 export type SerieAxis<Axis extends ScaleAxis, Value extends ScaleValue> = {
     data: {
         data: Record<Axis, Value | null>
@@ -152,11 +152,11 @@ export type ComputedSerieAxis<Value extends ScaleValue> = {
 export type TicksSpec<Value extends ScaleValue> =
     // exact number of ticks, please note that
     // depending on the current range of values,
-    // you might not get this exact count
+    // you might not get this exact count.
     | number
     // string is used for Date based scales,
     // it can express a time interval,
-    // for example: every 2 weeks
+    // for example: every 2 weeks.
     | string
-    // override scale ticks with custom explicit values
+    // override scale ticks with custom explicit values.
     | Value[]
