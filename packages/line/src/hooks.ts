@@ -115,8 +115,11 @@ export const useSlices = <Datum extends LineDatum>({
 
             points.forEach(point => {
                 if (point.data.x === null || point.data.y === null) return
-                if (!map.has(point.x)) map.set(point.x, [point])
-                else map.get(point.x).push(point)
+                if (!map.has(point.x)) {
+                    map.set(point.x, [point])
+                } else {
+                    map.get(point.x).push(point)
+                }
             })
 
             return Array.from(map.entries())
@@ -306,18 +309,18 @@ export const useLine = <Series extends LineSeries>({
         areaBaselineValue,
     })
 
-    console.log({
-        legendData,
-        toggleSerie,
-        lineGenerator,
-        areaGenerator,
-        getColor,
-        series,
-        xScale,
-        yScale,
-        slices,
-        points,
-    })
+    // console.log({
+    //     legendData,
+    //     toggleSerie,
+    //     lineGenerator,
+    //     areaGenerator,
+    //     getColor,
+    //     series,
+    //     xScale,
+    //     yScale,
+    //     slices,
+    //     points,
+    // })
 
     return {
         legendData,

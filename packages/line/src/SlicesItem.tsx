@@ -1,4 +1,4 @@
-import { createElement, memo, useCallback, MouseEvent } from 'react'
+import { createElement, useCallback, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { LineDatum, SliceDatum, SliceTooltipComponent } from './types'
 
@@ -10,13 +10,13 @@ interface SlicesItemProps<Datum extends LineDatum> {
     tooltip: SliceTooltipComponent<Datum>
     isCurrent: boolean
     setCurrent: (slice: SliceDatum<Datum> | null) => void
-    onMouseEnter?: any
-    onMouseMove?: any
-    onMouseLeave?: any
-    onClick?: any
+    onMouseEnter?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
+    onMouseMove?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
+    onMouseLeave?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
+    onClick?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
 }
 
-const NonMemoizedSlicesItem = <Datum extends LineDatum>({
+export const SlicesItem = <Datum extends LineDatum>({
     slice,
     axis,
     debug,
@@ -36,7 +36,7 @@ const NonMemoizedSlicesItem = <Datum extends LineDatum>({
             setCurrent(slice)
             onMouseEnter && onMouseEnter(slice, event)
         },
-        [showTooltipFromEvent, tooltip, slice, onMouseEnter]
+        [showTooltipFromEvent, tooltip, slice, axis, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
@@ -44,7 +44,7 @@ const NonMemoizedSlicesItem = <Datum extends LineDatum>({
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             onMouseMove && onMouseMove(slice, event)
         },
-        [showTooltipFromEvent, tooltip, slice, onMouseMove]
+        [showTooltipFromEvent, tooltip, slice, axis, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
@@ -53,7 +53,7 @@ const NonMemoizedSlicesItem = <Datum extends LineDatum>({
             setCurrent(null)
             onMouseLeave && onMouseLeave(slice, event)
         },
-        [hideTooltip, slice, onMouseLeave]
+        [hideTooltip, setCurrent, slice, onMouseLeave]
     )
 
     const handleClick = useCallback(
@@ -82,5 +82,3 @@ const NonMemoizedSlicesItem = <Datum extends LineDatum>({
         />
     )
 }
-
-export const SlicesItem = memo(NonMemoizedSlicesItem) as typeof NonMemoizedSlicesItem

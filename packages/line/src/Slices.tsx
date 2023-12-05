@@ -1,5 +1,6 @@
 import { LineDatum, SliceDatum, SliceTooltipComponent } from './types'
 import { SlicesItem } from './SlicesItem'
+import { MouseEvent } from 'react'
 
 interface SlicesProps<Datum extends LineDatum> {
     slices: readonly SliceDatum<Datum>[]
@@ -9,10 +10,10 @@ interface SlicesProps<Datum extends LineDatum> {
     tooltip: SliceTooltipComponent<Datum>
     current: SliceDatum<Datum> | null
     setCurrent: (slice: SliceDatum<Datum> | null) => void
-    onMouseEnter?: any
-    onMouseMove?: any
-    onMouseLeave?: any
-    onClick?: any
+    onMouseEnter?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
+    onMouseMove?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
+    onMouseLeave?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
+    onClick?: (slice: SliceDatum<Datum>, event: MouseEvent) => void
 }
 
 export const Slices = <Datum extends LineDatum>({
