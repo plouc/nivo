@@ -43,12 +43,12 @@ export interface ComputedDatum {
 
 export interface Serie {
     id: string | number
-    data: Datum[]
+    data: readonly Datum[]
     [key: string]: any
 }
 export interface ComputedSerie {
     id: string | number
-    data: ComputedDatum[]
+    data: readonly ComputedDatum[]
     color?: string
     [key: string]: any
 }
@@ -69,8 +69,8 @@ export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'
     innerHeight: number
     innerWidth: number
     lineGenerator: D3Line<ComputedDatum['position']>
-    points: Point[]
-    series: ComputedSerie[]
+    points: readonly Point[]
+    series: readonly ComputedSerie[]
     xScale: Scale<unknown, unknown>
     yScale: Scale<unknown, unknown>
 }
@@ -115,7 +115,7 @@ export interface SliceTooltipProps {
         x: number
         y0: number
         y: number
-        points: Point[]
+        points: readonly Point[]
     }
 }
 export type SliceTooltip = React.FunctionComponent<SliceTooltipProps>
@@ -129,14 +129,14 @@ export interface PointSymbolProps {
 }
 
 export interface LineProps {
-    data: Serie[]
+    data: readonly Serie[]
 
     xScale?: ScaleSpec
     xFormat?: ValueFormat<DatumValue>
     yScale?: ScaleSpec
     yFormat?: ValueFormat<DatumValue>
 
-    layers?: Layer[]
+    layers?: readonly Layer[]
 
     margin?: Box
 
@@ -178,7 +178,7 @@ export interface LineProps {
     areaOpacity?: number
     areaBaselineValue?: DatumValue
 
-    markers?: CartesianMarkerProps[]
+    markers?: readonly CartesianMarkerProps[]
 
     isInteractive?: boolean
     onMouseEnter?: PointMouseHandler
@@ -198,7 +198,7 @@ export interface LineProps {
     enableCrosshair?: boolean
     crosshairType?: CrosshairType
 
-    legends?: LegendProps[]
+    legends?: readonly LegendProps[]
 }
 
 export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
@@ -222,7 +222,7 @@ export type CanvasLayer = LineLayerType | CustomCanvasLayer
 
 export interface LineCanvasProps extends Omit<LineProps, 'layers'> {
     pixelRatio?: number
-    layers?: CanvasLayer[]
+    layers?: readonly CanvasLayer[]
 }
 
 export class LineCanvas extends React.Component<LineCanvasProps & Dimensions> {}
