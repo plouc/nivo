@@ -142,7 +142,7 @@ export type SerieAxis<Axis extends ScaleAxis, Value extends ScaleValue> = {
 }[]
 
 export type ComputedSerieAxis<Value extends ScaleValue> = {
-    all: Value[]
+    all: readonly Value[]
     min: Value
     minStacked?: Value
     max: Value
@@ -159,4 +159,4 @@ export type TicksSpec<Value extends ScaleValue> =
     // for example: every 2 weeks
     | string
     // override scale ticks with custom explicit values
-    | Value[]
+    | readonly Value[]
