@@ -2,19 +2,24 @@ import { MotionProps } from '@nivo/core'
 import { LineTooltip } from './LineTooltip'
 import { Point } from './Point'
 import { BumpCommonProps, BumpPointComponent, DefaultBumpDatum } from './types'
+import PointTooltip from './PointTooltip'
 
 const commonDefaultProps: Omit<
     BumpCommonProps<DefaultBumpDatum, Record<string, unknown>>,
-    | 'onMouseEnter'
-    | 'onMouseMove'
-    | 'onMouseLeave'
-    | 'onClick'
+    | 'onPointMouseEnter'
+    | 'onPointClick'
+    | 'onPointMouseMove'
+    | 'onPointMouseLeave'
+    | 'onSerieMouseEnter'
+    | 'onSerieClick'
+    | 'onSerieMouseMove'
+    | 'onSerieMouseLeave'
     | 'margin'
     | 'theme'
     | 'axisRight'
     | 'renderWrapper'
 > = {
-    layers: ['grid', 'axes', 'labels', 'lines', 'points'],
+    layers: ['grid', 'axes', 'labels', 'lines', 'points', 'mesh'],
 
     interpolation: 'smooth',
     xPadding: 0.6,
@@ -53,7 +58,10 @@ const commonDefaultProps: Omit<
 
     isInteractive: true,
     defaultActiveSerieIds: [],
-    tooltip: LineTooltip,
+    lineTooltip: LineTooltip,
+    pointTooltip: PointTooltip,
+    tooltipAnchor: 'line',
+    debugMesh: false,
 
     role: 'img',
 }

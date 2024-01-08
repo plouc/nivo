@@ -9,12 +9,13 @@ interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     lineGenerator: D3Line<[number, number | null]>
     yStep: number
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onClick']
+    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseEnter']
+    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseMove']
+    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseLeave']
+    onClick?: BumpCommonProps<Datum, ExtraProps>['onSerieClick']
     setActiveSerieIds: (serieIds: string[]) => void
-    tooltip: BumpCommonProps<Datum, ExtraProps>['tooltip']
+    lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
+    tooltipAnchor: string
 }
 
 export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
@@ -27,7 +28,8 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
     onMouseLeave,
     onClick,
     setActiveSerieIds,
-    tooltip,
+    lineTooltip,
+    tooltipAnchor,
 }: LineProps<Datum, ExtraProps>) => {
     const handlers = useBumpSerieHandlers<Datum, ExtraProps>({
         serie,
@@ -37,7 +39,7 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
         onMouseLeave,
         onClick,
         setActiveSerieIds,
-        tooltip,
+        lineTooltip,
     })
 
     const { animate, config: springConfig } = useMotionConfig()
@@ -69,7 +71,7 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
                 strokeOpacity={animatedProps.opacity}
                 style={{ pointerEvents: 'none' }}
             />
-            {isInteractive && (
+            {isInteractive && tooltipAnchor === 'line' && (
                 <path
                     data-testid={`line.${serie.id}.interactive`}
                     fill="none"
