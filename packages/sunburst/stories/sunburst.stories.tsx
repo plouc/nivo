@@ -223,3 +223,16 @@ const CenteredMetric = ({ nodes, centerX, centerY }: SunburstCustomLayerProps<Ra
 stories.add('adding a metric in the center using a custom layer', () => (
     <Sunburst<RawDatum> {...commonProperties} layers={['arcs', 'arcLabels', CenteredMetric]} />
 ))
+
+stories.add('with root node', () => (
+    <Sunburst<RawDatum>
+        {...commonProperties}
+        innerRadius={number('innerRadius', 0.25, {
+            range: true,
+            min: 0.0,
+            max: 0.95,
+            step: 0.05,
+        })}
+        renderRootNode={boolean('renderRootNode', true)}
+    />
+))
