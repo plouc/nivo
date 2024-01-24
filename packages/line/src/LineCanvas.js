@@ -219,6 +219,7 @@ const LineCanvas = ({
                 // limit number of points if lines or areas are enabled for performance reasons
                 && (points.length <= 25000 || !(layers.indexOf('lines') >= 0 || layers.indexOf('areas') >= 0))) {
                 try {
+                    const layerStart = Date.now()
                     points.forEach((point, index) => {
                         ctx.fillStyle = point.color
                         ctx.beginPath()
