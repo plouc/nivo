@@ -66,7 +66,6 @@ const initialProperties = {
         legendPosition: 'middle',
         legendOffset: -40,
         truncateTickAt: 0,
-
     },
 
     colors: { scheme: 'nivo' },
