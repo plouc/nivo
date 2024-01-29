@@ -118,6 +118,7 @@ const initialProperties: UnmappedProps = {
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: -40,
+        truncateTickAt: 0,
     },
 }
 
