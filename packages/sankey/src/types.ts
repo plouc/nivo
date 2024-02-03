@@ -88,7 +88,7 @@ export interface SankeyDataProps<N extends DefaultNode, L extends DefaultLink> {
 
 export type SankeyLayerId = 'links' | 'nodes' | 'labels' | 'legends'
 
-export type SankeyMouseHandler = <N extends DefaultNode, L extends DefaultLink>(
+export type SankeyMouseHandler<N extends DefaultNode, L extends DefaultLink> = (
     data: SankeyNodeDatum<N, L> | SankeyLinkDatum<N, L>,
     event: MouseEvent
 ) => void
