@@ -142,7 +142,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     labelTextColor: InheritedColorConfig<SankeyNodeDatum<N, L>>
 
     isInteractive: boolean
-    onClick: SankeyMouseHandler
+    onClick: SankeyMouseHandler<N, L>
     nodeTooltip: FunctionComponent<{ node: SankeyNodeDatum<N, L> }>
     linkTooltip: FunctionComponent<{ link: SankeyLinkDatum<N, L> }>
 
