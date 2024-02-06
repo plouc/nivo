@@ -53,4 +53,13 @@ export const timeRangeDefaultProps = {
     square: true,
     weekdayLegendOffset: 75,
     firstWeekday: 'sunday',
+    weekdays: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ] as string[],
 } as const

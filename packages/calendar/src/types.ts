@@ -222,6 +222,7 @@ export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial
                 weekdayLegendOffset: number
                 weekdayTicks: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>
                 firstWeekday: Weekday
+                weekdays: string[]
             }
     >
 
