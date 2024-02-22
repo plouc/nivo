@@ -17,6 +17,12 @@
     "main": "./dist/nivo-bar.cjs.js",
     "module": "./dist/nivo-bar.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-bar.cjs.js",
+        "import": "./dist/nivo-bar.es.js",
+        "default": "./dist/nivo-bar.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

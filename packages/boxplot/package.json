@@ -27,6 +27,12 @@
     "main": "./dist/nivo-boxplot.cjs.js",
     "module": "./dist/nivo-boxplot.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-boxplot.cjs.js",
+        "import": "./dist/nivo-boxplot.es.js",
+        "default": "./dist/nivo-boxplot.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

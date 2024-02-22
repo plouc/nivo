@@ -22,6 +22,12 @@
     "main": "./dist/nivo-heatmap.cjs.js",
     "module": "./dist/nivo-heatmap.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-heatmap.cjs.js",
+        "import": "./dist/nivo-heatmap.es.js",
+        "default": "./dist/nivo-heatmap.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

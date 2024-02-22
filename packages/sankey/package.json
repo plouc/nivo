@@ -22,6 +22,12 @@
     "main": "./dist/nivo-sankey.cjs.js",
     "module": "./dist/nivo-sankey.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-sankey.cjs.js",
+        "import": "./dist/nivo-sankey.es.js",
+        "default": "./dist/nivo-sankey.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

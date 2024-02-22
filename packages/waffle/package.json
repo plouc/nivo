@@ -23,6 +23,12 @@
     "main": "./dist/nivo-waffle.cjs.js",
     "module": "./dist/nivo-waffle.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-waffle.cjs.js",
+        "import": "./dist/nivo-waffle.es.js",
+        "default": "./dist/nivo-waffle.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

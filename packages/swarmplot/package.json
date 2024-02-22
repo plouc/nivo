@@ -23,6 +23,12 @@
     "main": "./dist/nivo-swarmplot.cjs.js",
     "module": "./dist/nivo-swarmplot.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-swarmplot.cjs.js",
+        "import": "./dist/nivo-swarmplot.es.js",
+        "default": "./dist/nivo-swarmplot.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

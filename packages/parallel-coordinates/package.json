@@ -23,6 +23,12 @@
     "main": "./dist/nivo-parallel-coordinates.cjs.js",
     "module": "./dist/nivo-parallel-coordinates.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-parallel-coordinates.cjs.js",
+        "import": "./dist/nivo-parallel-coordinates.es.js",
+        "default": "./dist/nivo-parallel-coordinates.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

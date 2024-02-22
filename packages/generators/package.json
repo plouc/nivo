@@ -20,6 +20,12 @@
     "main": "./dist/nivo-generators.cjs.js",
     "module": "./dist/nivo-generators.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-generators.cjs.js",
+        "import": "./dist/nivo-generators.es.js",
+        "default": "./dist/nivo-generators.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

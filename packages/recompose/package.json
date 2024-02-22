@@ -19,6 +19,12 @@
     "main": "./dist/nivo-recompose.cjs.js",
     "module": "./dist/nivo-recompose.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-recompose.cjs.js",
+        "import": "./dist/nivo-recompose.es.js",
+        "default": "./dist/nivo-recompose.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

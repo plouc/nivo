@@ -16,6 +16,12 @@
     "main": "./dist/nivo-grid.cjs.js",
     "module": "./dist/nivo-grid.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-grid.cjs.js",
+        "import": "./dist/nivo-grid.es.js",
+        "default": "./dist/nivo-grid.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

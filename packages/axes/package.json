@@ -20,6 +20,12 @@
     "main": "./dist/nivo-axes.cjs.js",
     "module": "./dist/nivo-axes.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-axes.cjs.js",
+        "import": "./dist/nivo-axes.es.js",
+        "default": "./dist/nivo-axes.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

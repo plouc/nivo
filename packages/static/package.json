@@ -14,6 +14,12 @@
     "main": "./dist/nivo-static.cjs.js",
     "module": "./dist/nivo-static.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-static.cjs.js",
+        "import": "./dist/nivo-static.es.js",
+        "default": "./dist/nivo-static.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

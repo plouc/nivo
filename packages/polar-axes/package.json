@@ -21,6 +21,12 @@
     "main": "./dist/nivo-polar-axes.cjs.js",
     "module": "./dist/nivo-polar-axes.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-polar-axes.cjs.js",
+        "import": "./dist/nivo-polar-axes.es.js",
+        "default": "./dist/nivo-polar-axes.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

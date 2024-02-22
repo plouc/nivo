@@ -15,6 +15,12 @@
     "main": "./dist/nivo-legends.cjs.js",
     "module": "./dist/nivo-legends.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-legends.cjs.js",
+        "import": "./dist/nivo-legends.es.js",
+        "default": "./dist/nivo-legends.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

@@ -24,6 +24,12 @@
     "main": "./dist/nivo-network.cjs.js",
     "module": "./dist/nivo-network.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-network.cjs.js",
+        "import": "./dist/nivo-network.es.js",
+        "default": "./dist/nivo-network.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

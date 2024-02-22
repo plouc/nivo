@@ -22,6 +22,12 @@
     "main": "./dist/nivo-scatterplot.cjs.js",
     "module": "./dist/nivo-scatterplot.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-scatterplot.cjs.js",
+        "import": "./dist/nivo-scatterplot.es.js",
+        "default": "./dist/nivo-scatterplot.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

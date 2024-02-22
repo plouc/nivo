@@ -22,6 +22,12 @@
     "main": "./dist/nivo-stream.cjs.js",
     "module": "./dist/nivo-stream.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-stream.cjs.js",
+        "import": "./dist/nivo-stream.es.js",
+        "default": "./dist/nivo-stream.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

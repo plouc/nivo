@@ -26,6 +26,12 @@
     "main": "./dist/nivo-annotations.cjs.js",
     "module": "./dist/nivo-annotations.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-annotations.cjs.js",
+        "import": "./dist/nivo-annotations.es.js",
+        "default": "./dist/nivo-annotations.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

@@ -23,6 +23,12 @@
     "main": "./dist/nivo-bump.cjs.js",
     "module": "./dist/nivo-bump.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-bump.cjs.js",
+        "import": "./dist/nivo-bump.es.js",
+        "default": "./dist/nivo-bump.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

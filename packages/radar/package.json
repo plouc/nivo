@@ -22,6 +22,12 @@
     "main": "./dist/nivo-radar.cjs.js",
     "module": "./dist/nivo-radar.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-radar.cjs.js",
+        "import": "./dist/nivo-radar.es.js",
+        "default": "./dist/nivo-radar.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

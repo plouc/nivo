@@ -14,6 +14,12 @@
     "main": "./dist/nivo-marimekko.cjs.js",
     "module": "./dist/nivo-marimekko.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-marimekko.cjs.js",
+        "import": "./dist/nivo-marimekko.es.js",
+        "default": "./dist/nivo-marimekko.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

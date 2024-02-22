@@ -22,6 +22,12 @@
     "main": "./dist/nivo-funnel.cjs.js",
     "module": "./dist/nivo-funnel.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-funnel.cjs.js",
+        "import": "./dist/nivo-funnel.es.js",
+        "default": "./dist/nivo-funnel.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

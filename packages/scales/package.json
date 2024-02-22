@@ -14,6 +14,12 @@
     "main": "./dist/nivo-scales.cjs.js",
     "module": "./dist/nivo-scales.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-scales.cjs.js",
+        "import": "./dist/nivo-scales.es.js",
+        "default": "./dist/nivo-scales.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

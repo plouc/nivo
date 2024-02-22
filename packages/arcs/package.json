@@ -21,6 +21,12 @@
     "main": "./dist/nivo-arcs.cjs.js",
     "module": "./dist/nivo-arcs.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-arcs.cjs.js",
+        "import": "./dist/nivo-arcs.es.js",
+        "default": "./dist/nivo-arcs.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

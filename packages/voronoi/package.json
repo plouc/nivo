@@ -22,6 +22,12 @@
     "main": "./dist/nivo-voronoi.cjs.js",
     "module": "./dist/nivo-voronoi.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-voronoi.cjs.js",
+        "import": "./dist/nivo-voronoi.es.js",
+        "default": "./dist/nivo-voronoi.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

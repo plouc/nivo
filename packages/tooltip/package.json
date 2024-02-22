@@ -14,6 +14,12 @@
     "main": "./dist/nivo-tooltip.cjs.js",
     "module": "./dist/nivo-tooltip.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-tooltip.cjs.js",
+        "import": "./dist/nivo-tooltip.es.js",
+        "default": "./dist/nivo-tooltip.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

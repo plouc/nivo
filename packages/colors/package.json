@@ -14,6 +14,12 @@
     "main": "./dist/nivo-colors.cjs.js",
     "module": "./dist/nivo-colors.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-colors.cjs.js",
+        "import": "./dist/nivo-colors.es.js",
+        "default": "./dist/nivo-colors.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",

@@ -22,6 +22,12 @@
     "main": "./dist/nivo-sunburst.cjs.js",
     "module": "./dist/nivo-sunburst.es.js",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "require": "./dist/nivo-sunburst.cjs.js",
+        "import": "./dist/nivo-sunburst.es.js",
+        "default": "./dist/nivo-sunburst.cjs.js"
+    },
     "files": [
         "README.md",
         "LICENSE.md",
