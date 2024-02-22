@@ -53,6 +53,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
@@ -62,6 +63,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -72,6 +74,7 @@ const initialProperties = {
         legend: 'participation',
         legendOffset: 36,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -82,6 +85,7 @@ const initialProperties = {
         legend: 'opinions',
         legendOffset: -40,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     enableGridX: defaultProps.enableGridX,
     enableGridY: defaultProps.enableGridY,

@@ -34,6 +34,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -43,6 +44,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -52,6 +54,7 @@ export default {
         legend: 'transportation',
         legendOffset: 36,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -61,6 +64,7 @@ export default {
         legend: 'count',
         legendOffset: -40,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
 
     enableGridX: LineDefaultProps.enableGridX,

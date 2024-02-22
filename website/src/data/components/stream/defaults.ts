@@ -20,6 +20,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -29,6 +30,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -38,6 +40,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -47,6 +50,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: -40,
+        truncateTickAt: 0,
     },
     enableGridX: true,
     enableGridY: false,

@@ -86,6 +86,7 @@ const initialProperties: UnmappedProps = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: -36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -96,6 +97,7 @@ const initialProperties: UnmappedProps = {
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: 40,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -105,6 +107,7 @@ const initialProperties: UnmappedProps = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: 32,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -115,6 +118,7 @@ const initialProperties: UnmappedProps = {
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: -40,
+        truncateTickAt: 0,
     },
 }
 
