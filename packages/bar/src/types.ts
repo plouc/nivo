@@ -95,7 +95,8 @@ export interface BarLegendProps extends LegendProps {
 export type LabelFormatter = (label: string | number) => string | number
 export type ValueFormatter = (value: number) => string | number
 
-export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations'
+export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations' | 'totals'
+export type BarCanvasLayerId = Exclude<BarLayerId, 'markers'>
 
 interface BarCustomLayerBaseProps<RawDatum>
     extends Pick<
@@ -138,9 +139,7 @@ export type BarCanvasCustomLayer<RawDatum> = (
 ) => void
 export type BarCustomLayer<RawDatum> = React.FC<BarCustomLayerProps<RawDatum>>
 
-export type BarCanvasLayer<RawDatum> =
-    | Exclude<BarLayerId, 'markers'>
-    | BarCanvasCustomLayer<RawDatum>
+export type BarCanvasLayer<RawDatum> = BarCanvasLayerId | BarCanvasCustomLayer<RawDatum>
 export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 
 export interface BarItemProps<RawDatum extends BarDatum>

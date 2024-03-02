@@ -1,6 +1,6 @@
 import { BarItem } from './BarItem'
 import { BarTooltip } from './BarTooltip'
-import { ComputedDatum } from './types'
+import { BarCanvasLayerId, BarLayerId, ComputedDatum } from './types'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { ScaleBandSpec, ScaleSpec } from '@nivo/scales'
 
@@ -51,7 +51,7 @@ export const defaultProps = {
 
 export const svgDefaultProps = {
     ...defaultProps,
-    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations'],
+    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations'] as BarLayerId[],
     barComponent: BarItem,
 
     defs: [],
@@ -66,7 +66,7 @@ export const svgDefaultProps = {
 
 export const canvasDefaultProps = {
     ...defaultProps,
-    layers: ['grid', 'axes', 'bars', 'legends', 'annotations'],
+    layers: ['grid', 'axes', 'bars', 'legends', 'annotations'] as BarCanvasLayerId[],
 
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

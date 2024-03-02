@@ -2,6 +2,7 @@ import {
     BarCanvasCustomLayerProps,
     BarCanvasLayer,
     BarCanvasProps,
+    BarCommonProps,
     BarDatum,
     ComputedBarDatum,
 } from './types'
@@ -22,7 +23,7 @@ import {
     useMemo,
     useRef,
 } from 'react'
-import { canvasDefaultProps } from './props'
+import { canvasDefaultProps, defaultProps } from './props'
 import {
     renderAnnotationsToCanvas,
     useAnnotations,
@@ -32,6 +33,12 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useBar } from './hooks'
+import {
+    updateGreatestValueByIndex,
+    updateNumberOfBarsByIndex,
+    updateTotalsByIndex,
+    updateTotalsPositivesByIndex,
+} from './BarTotals'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
     BarCanvasProps<RawDatum>,
@@ -51,6 +58,93 @@ const findBarUnderCursor = <RawDatum,>(
     )
 
 const isNumber = (value: unknown): value is number => typeof value === 'number'
+
+function renderTotalsToCanvas<RawDatum extends BarDatum>(
+    ctx: CanvasRenderingContext2D,
+    bars: ComputedBarDatum<RawDatum>[],
+    xScale: (value: string | number) => number,
+    yScale: (value: string | number) => number,
+    layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
+    groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode
+) {
+    if (bars.length === 0) return
+
+    const totalsByIndex = new Map<string | number, number>()
+
+    const barWidth = bars[0].width
+    const barHeight = bars[0].height
+    const yOffsetVertically = -10
+    const xOffsetHorizontally = 20
+    const fontSize = 12
+
+    ctx.fillStyle = '#222222'
+    ctx.font = `${fontSize}px sans-serif`
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center'
+
+    if (groupMode === 'stacked') {
+        const totalsPositivesByIndex = new Map<string | number, number>()
+
+        bars.forEach(bar => {
+            const { indexValue, value } = bar.data
+            updateTotalsByIndex(totalsByIndex, indexValue, Number(value))
+            updateTotalsPositivesByIndex(totalsPositivesByIndex, indexValue, Number(value))
+        })
+
+        totalsPositivesByIndex.forEach((totalsPositive, indexValue) => {
+            let xPosition: number
+            let yPosition: number
+
+            if (layout === 'vertical') {
+                xPosition = xScale(indexValue)
+                yPosition = yScale(totalsPositive)
+            } else {
+                xPosition = xScale(totalsPositive)
+                yPosition = yScale(indexValue)
+            }
+
+            ctx.fillText(
+                String(totalsByIndex.get(indexValue)),
+                xPosition + (layout === 'vertical' ? barWidth / 2 : xOffsetHorizontally),
+                yPosition + (layout === 'vertical' ? yOffsetVertically : barHeight / 2)
+            )
+        })
+    }
+
+    if (groupMode === 'grouped') {
+        const greatestValueByIndex = new Map<string | number, number>()
+        const numberOfBarsByIndex = new Map()
+
+        bars.forEach(bar => {
+            const { indexValue, value } = bar.data
+            updateTotalsByIndex(totalsByIndex, indexValue, Number(value))
+            updateGreatestValueByIndex(greatestValueByIndex, indexValue, Number(value))
+            updateNumberOfBarsByIndex(numberOfBarsByIndex, indexValue)
+        })
+
+        greatestValueByIndex.forEach((greatestValue, indexValue) => {
+            let xPosition: number
+            let yPosition: number
+
+            if (layout === 'vertical') {
+                xPosition = xScale(indexValue)
+                yPosition = yScale(greatestValue)
+            } else {
+                xPosition = xScale(greatestValue)
+                yPosition = yScale(indexValue)
+            }
+
+            const indexBarsWidth = numberOfBarsByIndex.get(indexValue) * barWidth
+            const indexBarsHeight = numberOfBarsByIndex.get(indexValue) * barHeight
+
+            ctx.fillText(
+                String(totalsByIndex.get(indexValue)),
+                xPosition + (layout === 'vertical' ? indexBarsWidth / 2 : xOffsetHorizontally),
+                yPosition + (layout === 'vertical' ? yOffsetVertically : indexBarsHeight / 2)
+            )
+        })
+    }
+}
 
 const InnerBarCanvas = <RawDatum extends BarDatum>({
     data,
@@ -362,6 +456,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 })
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
+            } else if (layer === 'totals') {
+                renderTotalsToCanvas(ctx, bars, xScale, yScale, layout, groupMode)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
             }
@@ -404,6 +500,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         theme,
         width,
+        bars,
     ])
 
     const handleMouseHover = useCallback(

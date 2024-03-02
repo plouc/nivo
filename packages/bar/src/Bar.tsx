@@ -22,6 +22,7 @@ import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
 import { useBar } from './hooks'
+import { BarTotals } from './BarTotals'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -283,6 +284,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         grid: null,
         legends: null,
         markers: null,
+        totals: null,
     }
 
     if (layers.includes('annotations')) {
@@ -358,6 +360,19 @@ const InnerBar = <RawDatum extends BarDatum>({
                 height={innerHeight}
                 xScale={xScale as (v: number | string) => number}
                 yScale={yScale as (v: number) => number}
+            />
+        )
+    }
+
+    if (layers.includes('totals')) {
+        layerById.totals = (
+            <BarTotals
+                key={'totals'}
+                layout={layout}
+                groupMode={groupMode}
+                bars={bars}
+                xScale={xScale}
+                yScale={yScale}
             />
         )
     }

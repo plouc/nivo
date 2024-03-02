@@ -294,6 +294,15 @@ export const WithSymlogScale: Story = {
     ),
 }
 
+export const WithTotals: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations', 'totals']}
+        />
+    ),
+}
+
 const DataGenerator = (initialIndex, initialState) => {
     let index = initialIndex
     let state = initialState
