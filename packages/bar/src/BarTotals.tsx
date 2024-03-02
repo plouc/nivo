@@ -58,6 +58,7 @@ export const BarTotals = <RawDatum extends BarDatum>({
 
             totals.push(
                 <text
+                    key={'total_' + indexValue}
                     x={xPosition + (layout === 'vertical' ? barWidth / 2 : xOffsetHorizontally)}
                     y={yPosition + (layout === 'vertical' ? yOffsetVertically : barHeight / 2)}
                     {...commonProps}
@@ -96,6 +97,7 @@ export const BarTotals = <RawDatum extends BarDatum>({
 
             totals.push(
                 <text
+                    key={'total_' + indexValue}
                     x={
                         xPosition +
                         (layout === 'vertical' ? indexBarsWidth / 2 : xOffsetHorizontally)
