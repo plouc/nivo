@@ -19,6 +19,7 @@ interface MeshProps<Datum> {
     onTouchStart?: TouchHandler<Datum>
     onTouchMove?: TouchHandler<Datum>
     onTouchEnd?: TouchHandler<Datum>
+    touchCrosshair?: boolean
     debug?: boolean
 }
 
@@ -35,6 +36,7 @@ export const Mesh = <Datum,>({
     onTouchStart,
     onTouchMove,
     onTouchEnd,
+    touchCrosshair = false,
     debug,
 }: MeshProps<Datum>) => {
     const elementRef = useRef<SVGGElement>(null)
@@ -135,7 +137,9 @@ export const Mesh = <Datum,>({
     const handleTouchStart = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
             const [index, node] = getIndexAndNodeFromTouchEvent(event)
-            setCurrentIndex(index)
+            if (touchCrosshair) {
+                setCurrentIndex(index)
+            }
             if (node) {
                 onTouchStart?.(node, event)
             }
@@ -146,7 +150,9 @@ export const Mesh = <Datum,>({
     const handleTouchMove = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
             const [index, node] = getIndexAndNodeFromTouchEvent(event)
-            setCurrentIndex(index)
+            if (touchCrosshair) {
+                setCurrentIndex(index)
+            }
             if (node) {
                 onTouchMove?.(node, event)
             }
@@ -156,7 +162,9 @@ export const Mesh = <Datum,>({
 
     const handleTouchEnd = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            setCurrentIndex(null)
+            if (touchCrosshair) {
+                setCurrentIndex(null)
+            }
             if (onTouchEnd) {
                 let previousNode: Datum | undefined = undefined
                 if (currentIndex !== null) {

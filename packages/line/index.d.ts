@@ -201,6 +201,7 @@ export interface LineProps {
 
     enableCrosshair?: boolean
     crosshairType?: CrosshairType
+    touchCrosshair?: boolean
 
     legends?: LegendProps[]
 }

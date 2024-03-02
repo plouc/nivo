@@ -113,6 +113,7 @@ const Line = props => {
 
         enableCrosshair = true,
         crosshairType = 'bottom-left',
+        touchCrosshair = false,
 
         role = 'img',
     } = props
@@ -313,6 +314,7 @@ const Line = props => {
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
                 tooltip={tooltip}
+                touchCrosshair={touchCrosshair}
                 debug={debugMesh}
             />
         )
