@@ -21,6 +21,9 @@ const Mesh = ({
     onMouseMove,
     onMouseLeave,
     onClick,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
     tooltip,
     debug,
 }) => {
@@ -68,6 +71,41 @@ const Mesh = ({
         [onClick]
     )
 
+    const handleTouchStart = useCallback(
+        (point, event) => {
+            showTooltipAt(
+                createElement(tooltip, { point }),
+                [point.x + margin.left, point.y + margin.top],
+                'top'
+            )
+            setCurrent(point)
+            onTouchStart && onTouchStart(point, event)
+        },
+        [onTouchStart]
+    )
+
+    const handleTouchMove = useCallback(
+        (point, event) => {
+            showTooltipAt(
+                createElement(tooltip, { point }),
+                [point.x + margin.left, point.y + margin.top],
+                'top'
+            )
+            setCurrent(point)
+            onTouchMove && onTouchMove(point, event)
+        },
+        [onTouchMove]
+    )
+
+    const handleTouchEnd = useCallback(
+        (point, event) => {
+            hideTooltip()
+            setCurrent(null)
+            onTouchEnd && onTouchEnd(point, event)
+        },
+        [onTouchEnd, hideTooltip, setCurrent]
+    )
+
     return (
         <BaseMesh
             nodes={points}
@@ -77,6 +115,9 @@ const Mesh = ({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
             debug={debug}
         />
     )

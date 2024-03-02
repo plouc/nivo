@@ -101,6 +101,9 @@ const Line = props => {
         onMouseMove,
         onMouseLeave,
         onClick,
+        onTouchStart,
+        onTouchMove,
+        onTouchEnd,
 
         tooltip = PointTooltip,
 
@@ -241,6 +244,9 @@ const Line = props => {
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
             />
         )
     }
@@ -303,6 +309,9 @@ const Line = props => {
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
                 tooltip={tooltip}
                 debug={debugMesh}
             />

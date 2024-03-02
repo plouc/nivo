@@ -24,7 +24,11 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
     )
 
     const showTooltipFromEvent: TooltipActionsContextData['showTooltipFromEvent'] = useCallback(
-        (content: JSX.Element, event: MouseEvent, anchor: TooltipAnchor = 'top') => {
+        (
+            content: JSX.Element,
+            event: Pick<MouseEvent, 'clientX' | 'clientY'>,
+            anchor: TooltipAnchor = 'top'
+        ) => {
             const bounds = container.current.getBoundingClientRect()
             const offsetWidth = container.current.offsetWidth
             // In a normal situation mouse enter / mouse leave events

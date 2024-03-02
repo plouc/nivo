@@ -7,7 +7,11 @@ export interface TooltipActionsContextData {
         position: [number, number],
         anchor?: TooltipAnchor
     ) => void
-    showTooltipFromEvent: (content: JSX.Element, event: MouseEvent, anchor?: TooltipAnchor) => void
+    showTooltipFromEvent: (
+        content: JSX.Element,
+        event: Pick<MouseEvent, 'clientX' | 'clientY'>,
+        anchor?: TooltipAnchor
+    ) => void
     hideTooltip: () => void
 }
 
