@@ -39,6 +39,7 @@ import {
     updateTotalsByIndex,
     updateTotalsPositivesByIndex,
 } from './BarTotals'
+import { AnyScale, ScaleBand } from '@nivo/scales'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
     BarCanvasProps<RawDatum>,
@@ -62,8 +63,8 @@ const isNumber = (value: unknown): value is number => typeof value === 'number'
 function renderTotalsToCanvas<RawDatum extends BarDatum>(
     ctx: CanvasRenderingContext2D,
     bars: ComputedBarDatum<RawDatum>[],
-    xScale: (value: string | number) => number,
-    yScale: (value: string | number) => number,
+    xScale: ScaleBand<string> | AnyScale,
+    yScale: ScaleBand<string> | AnyScale,
     layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
     groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode
 ) {

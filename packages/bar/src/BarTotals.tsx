@@ -1,10 +1,11 @@
+import { AnyScale, ScaleBand } from '@nivo/scales'
 import { defaultProps } from './props'
 import { BarCommonProps, BarDatum, ComputedBarDatum } from './types'
 
 interface BarTotalsProps<RawDatum extends BarDatum> {
     bars: ComputedBarDatum<RawDatum>[]
-    xScale: (value: string | number) => number
-    yScale: (value: string | number) => number
+    xScale: ScaleBand<string> | AnyScale
+    yScale: ScaleBand<string> | AnyScale
     layout?: BarCommonProps<RawDatum>['layout']
     groupMode?: BarCommonProps<RawDatum>['groupMode']
 }
