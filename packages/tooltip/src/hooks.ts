@@ -35,7 +35,7 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
             // width give us the scaling factor to calculate
             // ok mouse position
             const scaling = offsetWidth === bounds.width ? 1 : offsetWidth / bounds.width
-            const { clientX, clientY } = 'clientX' in event ? event : event.touches[0]
+            const { clientX, clientY } = 'touches' in event ? event.touches[0] : event
             const x = (clientX - bounds.left) * scaling
             const y = (clientY - bounds.top) * scaling
 

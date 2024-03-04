@@ -189,6 +189,7 @@ export const Mesh = <Datum,>({
             )}
             {/* transparent rect to intercept mouse events */}
             <rect
+                data-testid="mesh-interceptor"
                 width={width}
                 height={height}
                 fill="red"
