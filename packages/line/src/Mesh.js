@@ -26,7 +26,7 @@ const Mesh = ({
     onTouchEnd,
     tooltip,
     debug,
-    touchCrosshair,
+    enableTouchCrosshair,
 }) => {
     const { showTooltipAt, hideTooltip } = useTooltip()
 
@@ -119,7 +119,7 @@ const Mesh = ({
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            touchCrosshair={touchCrosshair}
+            enableTouchCrosshair={enableTouchCrosshair}
             debug={debug}
         />
     )
