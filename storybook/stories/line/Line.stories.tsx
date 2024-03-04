@@ -34,6 +34,7 @@ const commonProperties = {
     margin: { top: 20, right: 20, bottom: 60, left: 80 },
     data,
     animate: true,
+    enableTouchCrosshair: true,
     enableSlices: 'x',
 }
 
