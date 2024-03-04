@@ -24,11 +24,7 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
     )
 
     const showTooltipFromEvent: TooltipActionsContextData['showTooltipFromEvent'] = useCallback(
-        (
-            content: JSX.Element,
-            event: Pick<MouseEvent, 'clientX' | 'clientY'>,
-            anchor: TooltipAnchor = 'top'
-        ) => {
+        (content: JSX.Element, event: MouseEvent | TouchEvent, anchor: TooltipAnchor = 'top') => {
             const bounds = container.current.getBoundingClientRect()
             const offsetWidth = container.current.offsetWidth
             // In a normal situation mouse enter / mouse leave events
@@ -39,8 +35,9 @@ export const useTooltipHandlers = (container: MutableRefObject<HTMLDivElement>) 
             // width give us the scaling factor to calculate
             // ok mouse position
             const scaling = offsetWidth === bounds.width ? 1 : offsetWidth / bounds.width
-            const x = (event.clientX - bounds.left) * scaling
-            const y = (event.clientY - bounds.top) * scaling
+            const { clientX, clientY } = 'clientX' in event ? event : event.touches[0]
+            const x = (clientX - bounds.left) * scaling
+            const y = (clientY - bounds.top) * scaling
 
             if (anchor === 'left' || anchor === 'right') {
                 if (x < bounds.width / 2) anchor = 'right'

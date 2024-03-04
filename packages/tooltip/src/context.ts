@@ -9,7 +9,7 @@ export interface TooltipActionsContextData {
     ) => void
     showTooltipFromEvent: (
         content: JSX.Element,
-        event: Pick<MouseEvent, 'clientX' | 'clientY'>,
+        event: MouseEvent | TouchEvent,
         anchor?: TooltipAnchor
     ) => void
     hideTooltip: () => void

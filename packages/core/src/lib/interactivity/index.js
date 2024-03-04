@@ -22,7 +22,7 @@ export * from './detect'
  * give us the scaling factor to calculate the proper mouse position.
  */
 export const getRelativeCursor = (el, event) => {
-    const { clientX, clientY } = event
+    const { clientX, clientY } = 'clientX' in event ? event : event.touches[0]
     // Get the dimensions of the element, in case it has
     // been scaled using a transform for example, we get
     // the scaled dimensions, not the original ones.
