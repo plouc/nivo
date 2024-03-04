@@ -70,7 +70,7 @@ export const Mesh = <Datum,>({
 
             return [index, index !== undefined ? nodes[index] : null] as [number, Datum | null]
         },
-        [elementRef, delaunay]
+        [delaunay, nodes]
     )
 
     const getIndexAndNodeFromTouchEvent = useCallback(
@@ -79,12 +79,12 @@ export const Mesh = <Datum,>({
                 return [null, null]
             }
 
-            const [x, y] = getRelativeCursor(elementRef.current, event.touches[0])
+            const [x, y] = getRelativeCursor(elementRef.current, event)
             const index = delaunay.find(x, y)
 
             return [index, index !== undefined ? nodes[index] : null] as [number, Datum | null]
         },
-        [elementRef, delaunay]
+        [delaunay, nodes]
     )
 
     const handleMouseEnter = useCallback(
@@ -144,7 +144,7 @@ export const Mesh = <Datum,>({
                 onTouchStart?.(node, event)
             }
         },
-        [getIndexAndNodeFromTouchEvent, setCurrentIndex, onTouchStart]
+        [getIndexAndNodeFromTouchEvent, enableTouchCrosshair, onTouchStart]
     )
 
     const handleTouchMove = useCallback(
@@ -157,7 +157,7 @@ export const Mesh = <Datum,>({
                 onTouchMove?.(node, event)
             }
         },
-        [getIndexAndNodeFromTouchEvent, setCurrentIndex, onTouchMove]
+        [getIndexAndNodeFromTouchEvent, enableTouchCrosshair, onTouchMove]
     )
 
     const handleTouchEnd = useCallback(
@@ -173,7 +173,7 @@ export const Mesh = <Datum,>({
                 previousNode && onTouchEnd(previousNode, event)
             }
         },
-        [setCurrentIndex, currentIndex, onTouchEnd, nodes]
+        [enableTouchCrosshair, onTouchEnd, currentIndex, nodes]
     )
 
     return (

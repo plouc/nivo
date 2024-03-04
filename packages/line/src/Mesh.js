@@ -53,7 +53,7 @@ const Mesh = ({
             setCurrent(point)
             onMouseMove && onMouseMove(point, event)
         },
-        [setCurrent, showTooltipAt, tooltip, onMouseMove]
+        [showTooltipAt, tooltip, margin.left, margin.top, setCurrent, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
@@ -82,7 +82,7 @@ const Mesh = ({
             setCurrent(point)
             onTouchStart && onTouchStart(point, event)
         },
-        [onTouchStart]
+        [margin.left, margin.top, onTouchStart, setCurrent, showTooltipAt, tooltip]
     )
 
     const handleTouchMove = useCallback(
@@ -95,7 +95,7 @@ const Mesh = ({
             setCurrent(point)
             onTouchMove && onTouchMove(point, event)
         },
-        [onTouchMove]
+        [margin.left, margin.top, onTouchMove, setCurrent, showTooltipAt, tooltip]
     )
 
     const handleTouchEnd = useCallback(
