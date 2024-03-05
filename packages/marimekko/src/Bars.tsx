@@ -5,7 +5,7 @@ import { Bar } from './Bar'
 
 interface BarsProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {
     isInteractive: boolean
-    bars: BarDatum<RawDatum>[]
+    bars: readonly BarDatum<RawDatum>[]
     tooltip: CommonProps<RawDatum>['tooltip']
 }
 
