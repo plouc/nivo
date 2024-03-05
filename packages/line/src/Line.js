@@ -101,6 +101,9 @@ const Line = props => {
         onMouseMove,
         onMouseLeave,
         onClick,
+        onTouchStart,
+        onTouchMove,
+        onTouchEnd,
 
         tooltip = PointTooltip,
 
@@ -110,6 +113,7 @@ const Line = props => {
 
         enableCrosshair = true,
         crosshairType = 'bottom-left',
+        enableTouchCrosshair = false,
 
         role = 'img',
     } = props
@@ -241,6 +245,9 @@ const Line = props => {
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
             />
         )
     }
@@ -303,7 +310,11 @@ const Line = props => {
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
                 tooltip={tooltip}
+                enableTouchCrosshair={enableTouchCrosshair}
                 debug={debugMesh}
             />
         )

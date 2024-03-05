@@ -92,5 +92,6 @@ export default {
     debugSlices: false,
 
     enableCrosshair: true,
+    enableTouchCrosshair: true,
     crosshairType: 'bottom-left',
 }

@@ -22,7 +22,8 @@ export * from './detect'
  * give us the scaling factor to calculate the proper mouse position.
  */
 export const getRelativeCursor = (el, event) => {
-    const { clientX, clientY } = event
+    const { clientX, clientY } = 'touches' in event ? event.touches[0] : event
+
     // Get the dimensions of the element, in case it has
     // been scaled using a transform for example, we get
     // the scaled dimensions, not the original ones.
@@ -36,8 +37,10 @@ export const getRelativeCursor = (el, event) => {
     } else {
         // Other elements.
         originalBox = {
-            width: el.offsetWidth,
-            height: el.offsetHeight,
+            // These should be here, except when we are running in jsdom.
+            // https://github.com/jsdom/jsdom/issues/135
+            width: el.offsetWidth || 0,
+            height: el.offsetHeight || 0,
         }
     }
 

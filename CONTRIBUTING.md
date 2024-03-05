@@ -28,7 +28,11 @@ the various packages, please execute the following:
 make init
 ```
 
-> please note that it will take a while as this project uses a lot of dependencies…
+> please note that it will take a while as this project uses a lot of dependencies…'
+
+### Windows
+
+If you want to build this project on Windows, it is recommended to use either WSL 2, or Git bash + `choco install make`.
 
 ## Development
 

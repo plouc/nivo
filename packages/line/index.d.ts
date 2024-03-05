@@ -99,6 +99,7 @@ export interface Point {
 export type AccessorFunc = (datum: Point['data']) => string
 
 export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
+export type PointTouchHandler = (point: Point, event: React.TouchEvent) => void
 
 export interface PointTooltipProps {
     point: Point
@@ -185,6 +186,9 @@ export interface LineProps {
     onMouseMove?: PointMouseHandler
     onMouseLeave?: PointMouseHandler
     onClick?: PointMouseHandler
+    onTouchStart?: PointTouchHandler
+    onTouchMove?: PointTouchHandler
+    onTouchEnd?: PointTouchHandler
 
     debugMesh?: boolean
 
@@ -197,6 +201,7 @@ export interface LineProps {
 
     enableCrosshair?: boolean
     crosshairType?: CrosshairType
+    enableTouchCrosshair?: boolean
 
     legends?: LegendProps[]
 }

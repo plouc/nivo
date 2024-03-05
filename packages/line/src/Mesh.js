@@ -21,8 +21,12 @@ const Mesh = ({
     onMouseMove,
     onMouseLeave,
     onClick,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
     tooltip,
     debug,
+    enableTouchCrosshair,
 }) => {
     const { showTooltipAt, hideTooltip } = useTooltip()
 
@@ -49,7 +53,7 @@ const Mesh = ({
             setCurrent(point)
             onMouseMove && onMouseMove(point, event)
         },
-        [setCurrent, showTooltipAt, tooltip, onMouseMove]
+        [showTooltipAt, tooltip, margin.left, margin.top, setCurrent, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
@@ -68,6 +72,41 @@ const Mesh = ({
         [onClick]
     )
 
+    const handleTouchStart = useCallback(
+        (point, event) => {
+            showTooltipAt(
+                createElement(tooltip, { point }),
+                [point.x + margin.left, point.y + margin.top],
+                'top'
+            )
+            setCurrent(point)
+            onTouchStart && onTouchStart(point, event)
+        },
+        [margin.left, margin.top, onTouchStart, setCurrent, showTooltipAt, tooltip]
+    )
+
+    const handleTouchMove = useCallback(
+        (point, event) => {
+            showTooltipAt(
+                createElement(tooltip, { point }),
+                [point.x + margin.left, point.y + margin.top],
+                'top'
+            )
+            setCurrent(point)
+            onTouchMove && onTouchMove(point, event)
+        },
+        [margin.left, margin.top, onTouchMove, setCurrent, showTooltipAt, tooltip]
+    )
+
+    const handleTouchEnd = useCallback(
+        (point, event) => {
+            hideTooltip()
+            setCurrent(null)
+            onTouchEnd && onTouchEnd(point, event)
+        },
+        [onTouchEnd, hideTooltip, setCurrent]
+    )
+
     return (
         <BaseMesh
             nodes={points}
@@ -77,6 +116,10 @@ const Mesh = ({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            enableTouchCrosshair={enableTouchCrosshair}
             debug={debug}
         />
     )
@@ -92,6 +135,9 @@ Mesh.propTypes = {
     onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
+    onTouchStart: PropTypes.func,
+    onTouchMove: PropTypes.func,
+    onTouchEnd: PropTypes.func,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     debug: PropTypes.bool.isRequired,
 }

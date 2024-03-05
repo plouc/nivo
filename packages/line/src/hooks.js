@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState, useId } from 'react'
 import { area, line } from 'd3-shape'
 import { curveFromProp, useTheme, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -67,7 +67,7 @@ const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, format
     }, [series, getPointColor, getPointBorderColor, formatX, formatY])
 }
 
-export const useSlices = ({ enableSlices, points, width, height }) => {
+export const useSlices = ({ componentId, enableSlices, points, width, height }) => {
     return useMemo(() => {
         if (enableSlices === false) return []
 
@@ -93,7 +93,7 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                     else sliceWidth = x - x0 + (nextSlice[0] - x) / 2
 
                     return {
-                        id: x,
+                        id: `slice${componentId}${x}`,
                         x0,
                         x,
                         y0: 0,
@@ -136,7 +136,7 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                     }
                 })
         }
-    }, [enableSlices, points])
+    }, [componentId, enableSlices, height, points, width])
 }
 
 export const useLine = ({
@@ -154,6 +154,7 @@ export const useLine = ({
     pointBorderColor = LineDefaultProps.pointBorderColor,
     enableSlices = LineDefaultProps.enableSlicesTooltip,
 }) => {
+    const componentId = useId()
     const formatX = useValueFormatter(xFormat)
     const formatY = useValueFormatter(yFormat)
     const getColor = useOrdinalColorScale(colors, 'id')
@@ -212,6 +213,7 @@ export const useLine = ({
     })
 
     const slices = useSlices({
+        componentId,
         enableSlices,
         points,
         width,

@@ -78,7 +78,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 
 test: ##@0 global run all checks/tests (packages, website)
 	@$(MAKE) fmt-check
-	@$(MAKE) lint
+	@$(MAKE) pkgs-lint
 	@$(MAKE) pkgs-test
 
 vercel-build: ##@0 global Build the website and storybook to vercel

@@ -516,7 +516,10 @@ export function usePropertyAccessor<Datum, Value>(
     accessor: PropertyAccessor<Datum, Value>
 ): (datum: Datum) => Value
 
-export function getRelativeCursor(element: Element, event: React.MouseEvent): [number, number]
+export function getRelativeCursor(
+    element: Element,
+    event: React.MouseEvent | React.TouchEvent
+): [number, number]
 export function isCursorInRect(
     x: number,
     y: number,
