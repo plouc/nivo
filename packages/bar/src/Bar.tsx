@@ -17,6 +17,7 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
+    useTheme,
 } from '@nivo/core'
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { svgDefaultProps } from './props'
@@ -106,6 +107,7 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     enableTotals = svgDefaultProps.enableTotals,
 }: InnerBarProps<RawDatum>) => {
+    const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -431,6 +433,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                     bars={bars}
                     xScale={xScale}
                     yScale={yScale}
+                    theme={theme.text}
                 />
             )}
         </SvgWrapper>

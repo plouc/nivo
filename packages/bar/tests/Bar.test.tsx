@@ -735,6 +735,37 @@ describe('totals layer', () => {
             }
         })
     })
+    it('should follow the theme configurations', () => {
+        const instance = create(
+            <Bar
+                width={500}
+                height={300}
+                enableTotals={true}
+                theme={{
+                    text: {
+                        fontSize: 14,
+                        fill: 'red',
+                    },
+                }}
+                keys={['value1', 'value2']}
+                data={[
+                    { id: 'one', value1: 1, value2: 1 },
+                    { id: 'two', value1: 2, value2: 1 },
+                    { id: 'three', value1: 3, value2: 1 },
+                ]}
+                animate={false}
+            />
+        ).root
+
+        const totals = instance.findByType(BarTotals)
+
+        expect(totals.children).toHaveLength(3)
+        ;(totals.children as ReactTestInstance[]).forEach((total, index) => {
+            const props = total.findByType('text').props
+            expect(props.fill).toBe('red')
+            expect(props.fontSize).toBe(14)
+        })
+    })
 })
 
 describe('tooltip', () => {

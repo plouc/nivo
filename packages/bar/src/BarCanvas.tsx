@@ -9,6 +9,7 @@ import {
 import {
     Container,
     Margin,
+    TextStyle,
     getRelativeCursor,
     isCursorInRect,
     useDimensions,
@@ -66,7 +67,8 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
     xScale: ScaleBand<string> | AnyScale,
     yScale: ScaleBand<string> | AnyScale,
     layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
-    groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode
+    groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode,
+    theme: TextStyle
 ) {
     if (bars.length === 0) return
 
@@ -76,10 +78,9 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
     const barHeight = bars[0].height
     const yOffsetVertically = -10
     const xOffsetHorizontally = 20
-    const fontSize = 12
 
-    ctx.fillStyle = '#222222'
-    ctx.font = `${fontSize}px sans-serif`
+    ctx.fillStyle = theme.fill
+    ctx.font = `bold ${theme.fontSize}px sans-serif`
     ctx.textBaseline = 'middle'
     ctx.textAlign = 'center'
 
@@ -465,7 +466,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         })
 
         if (enableTotals) {
-            renderTotalsToCanvas(ctx, bars, xScale, yScale, layout, groupMode)
+            renderTotalsToCanvas(ctx, bars, xScale, yScale, layout, groupMode, theme.text)
         }
 
         ctx.save()

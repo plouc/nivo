@@ -1,6 +1,7 @@
 import { AnyScale, ScaleBand } from '@nivo/scales'
 import { defaultProps } from './props'
 import { BarCommonProps, BarDatum, ComputedBarDatum } from './types'
+import { TextStyle } from '@nivo/core'
 
 interface BarTotalsProps<RawDatum extends BarDatum> {
     bars: ComputedBarDatum<RawDatum>[]
@@ -8,6 +9,7 @@ interface BarTotalsProps<RawDatum extends BarDatum> {
     yScale: ScaleBand<string> | AnyScale
     layout?: BarCommonProps<RawDatum>['layout']
     groupMode?: BarCommonProps<RawDatum>['groupMode']
+    theme: TextStyle
 }
 
 export const BarTotals = <RawDatum extends BarDatum>({
@@ -16,6 +18,7 @@ export const BarTotals = <RawDatum extends BarDatum>({
     yScale,
     layout = defaultProps.layout,
     groupMode = defaultProps.groupMode,
+    theme,
 }: BarTotalsProps<RawDatum>) => {
     if (bars.length === 0) return <></>
     const totals: JSX.Element[] = []
@@ -26,12 +29,11 @@ export const BarTotals = <RawDatum extends BarDatum>({
     const barHeight = bars[0].height
     const yOffsetVertically = -10
     const xOffsetHorizontally = 20
-    const fontSize = 12
 
     const commonProps = {
-        fill: '#222222',
+        fill: theme.fill,
         fontWeight: 'bold',
-        fontSize,
+        fontSize: theme.fontSize,
         textAnchor: 'middle',
         alignmentBaseline: 'middle',
     } as const
