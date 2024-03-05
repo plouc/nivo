@@ -6,6 +6,7 @@ import {
     ComputedBarDatum,
 } from './types'
 import {
+    CompleteTheme,
     Container,
     Margin,
     getRelativeCursor,
@@ -32,7 +33,7 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useBar } from './hooks'
-import { computeBarTotals } from './compute/totals'
+import { BarTotalsData, computeBarTotals } from './compute/totals'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
     BarCanvasProps<RawDatum>,
@@ -52,6 +53,21 @@ const findBarUnderCursor = <RawDatum,>(
     )
 
 const isNumber = (value: unknown): value is number => typeof value === 'number'
+
+function renderTotalsToCanvas(
+    ctx: CanvasRenderingContext2D,
+    barTotals: BarTotalsData[],
+    theme: CompleteTheme
+) {
+    ctx.fillStyle = theme.text.fill
+    ctx.font = `bold ${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center'
+
+    barTotals.forEach(barTotal => {
+        ctx.fillText(String(barTotal.value), barTotal.x, barTotal.y)
+    })
+}
 
 const InnerBarCanvas = <RawDatum extends BarDatum>({
     data,
@@ -366,28 +382,19 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 })
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
+            } else if (layer === 'totals' && enableTotals) {
+                const barTotals = computeBarTotals(
+                    bars,
+                    xScale,
+                    yScale,
+                    layout,
+                    groupMode,
+                    totalsOffset
+                )
+                renderTotalsToCanvas(ctx, barTotals, theme)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
             }
-        })
-
-        const barTotals = computeBarTotals(
-            enableTotals,
-            bars,
-            xScale,
-            yScale,
-            layout,
-            groupMode,
-            totalsOffset
-        )
-
-        ctx.fillStyle = theme.text.fill
-        ctx.font = `bold ${theme.text.fontSize}px sans-serif`
-        ctx.textBaseline = 'middle'
-        ctx.textAlign = 'center'
-
-        barTotals.forEach(barTotal => {
-            ctx.fillText(String(barTotal.value), barTotal.x, barTotal.y)
         })
 
         ctx.save()

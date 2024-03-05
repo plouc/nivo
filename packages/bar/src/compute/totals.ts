@@ -2,7 +2,7 @@ import { AnyScale, ScaleBand } from '@nivo/scales'
 import { defaultProps } from '../props'
 import { BarCommonProps, BarDatum, ComputedBarDatum } from '../types'
 
-interface BarTotalsData {
+export interface BarTotalsData {
     key: string
     x: number
     y: number
@@ -10,7 +10,6 @@ interface BarTotalsData {
 }
 
 export const computeBarTotals = <RawDatum extends BarDatum>(
-    enableTotals: boolean,
     bars: ComputedBarDatum<RawDatum>[],
     xScale: ScaleBand<string> | AnyScale,
     yScale: ScaleBand<string> | AnyScale,
@@ -20,7 +19,7 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
 ) => {
     const totals = [] as BarTotalsData[]
 
-    if (!enableTotals || bars.length === 0) return totals
+    if (bars.length === 0) return totals
 
     const totalsByIndex = new Map<string | number, number>()
 

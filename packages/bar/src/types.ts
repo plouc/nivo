@@ -95,7 +95,7 @@ export interface BarLegendProps extends LegendProps {
 export type LabelFormatter = (label: string | number) => string | number
 export type ValueFormatter = (value: number) => string | number
 
-export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations'
+export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations' | 'totals'
 export type BarCanvasLayerId = Exclude<BarLayerId, 'markers'>
 
 interface BarCustomLayerBaseProps<RawDatum>

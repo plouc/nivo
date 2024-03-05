@@ -54,7 +54,7 @@ export const defaultProps = {
 
 export const svgDefaultProps = {
     ...defaultProps,
-    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations'] as BarLayerId[],
+    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations', 'totals'] as BarLayerId[],
     barComponent: BarItem,
 
     defs: [],
@@ -69,7 +69,7 @@ export const svgDefaultProps = {
 
 export const canvasDefaultProps = {
     ...defaultProps,
-    layers: ['grid', 'axes', 'bars', 'legends', 'annotations'] as BarCanvasLayerId[],
+    layers: ['grid', 'axes', 'bars', 'legends', 'annotations', 'totals'] as BarCanvasLayerId[],
 
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

@@ -24,6 +24,7 @@ import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
 import { useBar } from './hooks'
 import { computeBarTotals } from './compute/totals'
+import { BarTotals } from './BarTotals'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -289,6 +290,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         grid: null,
         legends: null,
         markers: null,
+        totals: null,
     }
 
     if (layers.includes('annotations')) {
@@ -368,6 +370,11 @@ const InnerBar = <RawDatum extends BarDatum>({
         )
     }
 
+    if (layers.includes('totals') && enableTotals) {
+        const barTotals = computeBarTotals(bars, xScale, yScale, layout, groupMode, totalsOffset)
+        layerById.totals = <BarTotals barTotals={barTotals} />
+    }
+
     const layerContext: BarCustomLayerProps<RawDatum> = useMemo(
         () => ({
             ...commonProps,
@@ -407,16 +414,6 @@ const InnerBar = <RawDatum extends BarDatum>({
         ]
     )
 
-    const barTotals = computeBarTotals(
-        enableTotals,
-        bars,
-        xScale,
-        yScale,
-        layout,
-        groupMode,
-        totalsOffset
-    )
-
     return (
         <SvgWrapper
             width={outerWidth}
@@ -436,21 +433,6 @@ const InnerBar = <RawDatum extends BarDatum>({
 
                 return layerById?.[layer] ?? null
             })}
-            {barTotals.map(barTotal => (
-                <text
-                    key={barTotal.key}
-                    x={barTotal.x}
-                    y={barTotal.y}
-                    fill={theme.text.fill}
-                    fontSize={theme.text.fontSize}
-                    fontWeight="bold"
-                    textAnchor="middle"
-                    alignmentBaseline="middle"
-                    data-test="bar-total"
-                >
-                    {barTotal.value}
-                </text>
-            ))}
         </SvgWrapper>
     )
 }
