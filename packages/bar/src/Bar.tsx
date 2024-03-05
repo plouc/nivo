@@ -23,7 +23,7 @@ import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
 import { useBar } from './hooks'
-import { BarTotals } from './BarTotals'
+import { computeBarTotals } from './compute/totals'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -407,6 +407,16 @@ const InnerBar = <RawDatum extends BarDatum>({
         ]
     )
 
+    const barTotals = computeBarTotals(
+        enableTotals,
+        bars,
+        xScale,
+        yScale,
+        layout,
+        groupMode,
+        totalsOffset
+    )
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -426,18 +436,21 @@ const InnerBar = <RawDatum extends BarDatum>({
 
                 return layerById?.[layer] ?? null
             })}
-            {enableTotals && (
-                <BarTotals
-                    key="totals"
-                    layout={layout}
-                    groupMode={groupMode}
-                    bars={bars}
-                    xScale={xScale}
-                    yScale={yScale}
-                    theme={theme.text}
-                    totalsOffset={totalsOffset}
-                />
-            )}
+            {barTotals.map(barTotal => (
+                <text
+                    key={barTotal.key}
+                    x={barTotal.x}
+                    y={barTotal.y}
+                    fill={theme.text.fill}
+                    fontSize={theme.text.fontSize}
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    alignmentBaseline="middle"
+                    data-test="bar-total"
+                >
+                    {barTotal.value}
+                </text>
+            ))}
         </SvgWrapper>
     )
 }

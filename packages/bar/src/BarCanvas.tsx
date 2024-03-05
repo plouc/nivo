@@ -2,14 +2,12 @@ import {
     BarCanvasCustomLayerProps,
     BarCanvasLayer,
     BarCanvasProps,
-    BarCommonProps,
     BarDatum,
     ComputedBarDatum,
 } from './types'
 import {
     Container,
     Margin,
-    TextStyle,
     getRelativeCursor,
     isCursorInRect,
     useDimensions,
@@ -24,7 +22,7 @@ import {
     useMemo,
     useRef,
 } from 'react'
-import { canvasDefaultProps, defaultProps } from './props'
+import { canvasDefaultProps } from './props'
 import {
     renderAnnotationsToCanvas,
     useAnnotations,
@@ -34,13 +32,7 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useBar } from './hooks'
-import {
-    updateGreatestValueByIndex,
-    updateNumberOfBarsByIndex,
-    updateTotalsByIndex,
-    updateTotalsPositivesByIndex,
-} from './BarTotals'
-import { AnyScale, ScaleBand } from '@nivo/scales'
+import { computeBarTotals } from './compute/totals'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
     BarCanvasProps<RawDatum>,
@@ -60,90 +52,6 @@ const findBarUnderCursor = <RawDatum,>(
     )
 
 const isNumber = (value: unknown): value is number => typeof value === 'number'
-
-function renderTotalsToCanvas<RawDatum extends BarDatum>(
-    ctx: CanvasRenderingContext2D,
-    bars: ComputedBarDatum<RawDatum>[],
-    xScale: ScaleBand<string> | AnyScale,
-    yScale: ScaleBand<string> | AnyScale,
-    layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
-    groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode,
-    theme: TextStyle,
-    totalsOffset: number
-) {
-    if (bars.length === 0) return
-
-    const totalsByIndex = new Map<string | number, number>()
-
-    const barWidth = bars[0].width
-    const barHeight = bars[0].height
-
-    ctx.fillStyle = theme.fill
-    ctx.font = `bold ${theme.fontSize}px sans-serif`
-    ctx.textBaseline = 'middle'
-    ctx.textAlign = 'center'
-
-    if (groupMode === 'stacked') {
-        const totalsPositivesByIndex = new Map<string | number, number>()
-
-        bars.forEach(bar => {
-            const { indexValue, value } = bar.data
-            updateTotalsByIndex(totalsByIndex, indexValue, Number(value))
-            updateTotalsPositivesByIndex(totalsPositivesByIndex, indexValue, Number(value))
-        })
-
-        totalsPositivesByIndex.forEach((totalsPositive, indexValue) => {
-            let xPosition: number
-            let yPosition: number
-
-            if (layout === 'vertical') {
-                xPosition = xScale(indexValue)
-                yPosition = yScale(totalsPositive)
-            } else {
-                xPosition = xScale(totalsPositive)
-                yPosition = yScale(indexValue)
-            }
-
-            ctx.fillText(
-                String(totalsByIndex.get(indexValue)),
-                xPosition + (layout === 'vertical' ? barWidth / 2 : totalsOffset),
-                yPosition + (layout === 'vertical' ? -totalsOffset : barHeight / 2)
-            )
-        })
-    } else if (groupMode === 'grouped') {
-        const greatestValueByIndex = new Map<string | number, number>()
-        const numberOfBarsByIndex = new Map()
-
-        bars.forEach(bar => {
-            const { indexValue, value } = bar.data
-            updateTotalsByIndex(totalsByIndex, indexValue, Number(value))
-            updateGreatestValueByIndex(greatestValueByIndex, indexValue, Number(value))
-            updateNumberOfBarsByIndex(numberOfBarsByIndex, indexValue)
-        })
-
-        greatestValueByIndex.forEach((greatestValue, indexValue) => {
-            let xPosition: number
-            let yPosition: number
-
-            if (layout === 'vertical') {
-                xPosition = xScale(indexValue)
-                yPosition = yScale(greatestValue)
-            } else {
-                xPosition = xScale(greatestValue)
-                yPosition = yScale(indexValue)
-            }
-
-            const indexBarsWidth = numberOfBarsByIndex.get(indexValue) * barWidth
-            const indexBarsHeight = numberOfBarsByIndex.get(indexValue) * barHeight
-
-            ctx.fillText(
-                String(totalsByIndex.get(indexValue)),
-                xPosition + (layout === 'vertical' ? indexBarsWidth / 2 : totalsOffset),
-                yPosition + (layout === 'vertical' ? -totalsOffset : indexBarsHeight / 2)
-            )
-        })
-    }
-}
 
 const InnerBarCanvas = <RawDatum extends BarDatum>({
     data,
@@ -463,18 +371,24 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             }
         })
 
-        if (enableTotals) {
-            renderTotalsToCanvas(
-                ctx,
-                bars,
-                xScale,
-                yScale,
-                layout,
-                groupMode,
-                theme.text,
-                totalsOffset
-            )
-        }
+        const barTotals = computeBarTotals(
+            enableTotals,
+            bars,
+            xScale,
+            yScale,
+            layout,
+            groupMode,
+            totalsOffset
+        )
+
+        ctx.fillStyle = theme.text.fill
+        ctx.font = `bold ${theme.text.fontSize}px sans-serif`
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center'
+
+        barTotals.forEach(barTotal => {
+            ctx.fillText(String(barTotal.value), barTotal.x, barTotal.y)
+        })
 
         ctx.save()
     }, [
