@@ -385,6 +385,11 @@ const props: ChartProperty[] = [
     isInteractive({
         flavors: ['svg', 'canvas'],
         defaultValue: defaults.isInteractive,
+        help: [
+            'Enable/disable interactivity.',
+            'Using `enableSlices` will enable a crosshair on the `x` or `y` axis, that will move between the nearest slice to the mouse/touch point, and will show a tooltip of all data points for that slice.',
+            'Using `useMesh` will use a voronoi mesh to detect the closest point to the mouse cursor/touch point, which is useful for very dense datasets, as it can become difficult to hover a specific point, however, it will only return one data point.',
+        ].join('\n'),
     }),
     {
         key: 'useMesh',
@@ -459,7 +464,10 @@ const props: ChartProperty[] = [
         key: 'onTouchMove',
         flavors: ['svg'],
         group: 'Interactivity',
-        help: `onTouchMove handler, when a touch gesture that originated from inside the graph is moved. Note, when using slices, this will return the originally touched slice, not the slice currently being hovered over (use document.elementFromPoint()).`,
+        help: [
+            'onTouchMove handler, when a touch gesture that originated from inside the graph is moved.',
+            'Note, when using slices, this will return the originally touched slice, not the slice currently being hovered over (use document.elementFromPoint()).',
+        ].join('\n'),
         type: '(point, event) => void',
         required: false,
     },
