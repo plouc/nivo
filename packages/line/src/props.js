@@ -133,7 +133,7 @@ export const LinePropTypes = {
     enablePointLabel: PropTypes.bool.isRequired,
     role: PropTypes.string.isRequired,
     useMesh: PropTypes.bool.isRequired,
-    enableTouchCrosshair: PropTypes.bool.isRequired,
+    enableTouchCrosshair: PropTypes.bool,
     ...motionPropTypes,
     ...defsPropTypes,
 }
