@@ -106,6 +106,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     initialHiddenIds,
 
     enableTotals = svgDefaultProps.enableTotals,
+    totalsOffset = svgDefaultProps.totalsOffset,
 }: InnerBarProps<RawDatum>) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
@@ -434,6 +435,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                     xScale={xScale}
                     yScale={yScale}
                     theme={theme.text}
+                    totalsOffset={totalsOffset}
                 />
             )}
         </SvgWrapper>

@@ -10,6 +10,7 @@ interface BarTotalsProps<RawDatum extends BarDatum> {
     layout?: BarCommonProps<RawDatum>['layout']
     groupMode?: BarCommonProps<RawDatum>['groupMode']
     theme: TextStyle
+    totalsOffset: number
 }
 
 export const BarTotals = <RawDatum extends BarDatum>({
@@ -19,6 +20,7 @@ export const BarTotals = <RawDatum extends BarDatum>({
     layout = defaultProps.layout,
     groupMode = defaultProps.groupMode,
     theme,
+    totalsOffset,
 }: BarTotalsProps<RawDatum>) => {
     if (bars.length === 0) return <></>
     const totals: JSX.Element[] = []
@@ -27,8 +29,6 @@ export const BarTotals = <RawDatum extends BarDatum>({
 
     const barWidth = bars[0].width
     const barHeight = bars[0].height
-    const yOffsetVertically = -10
-    const xOffsetHorizontally = 20
 
     const commonProps = {
         fill: theme.fill,
@@ -62,17 +62,15 @@ export const BarTotals = <RawDatum extends BarDatum>({
             totals.push(
                 <text
                     key={'total_' + indexValue}
-                    x={xPosition + (layout === 'vertical' ? barWidth / 2 : xOffsetHorizontally)}
-                    y={yPosition + (layout === 'vertical' ? yOffsetVertically : barHeight / 2)}
+                    x={xPosition + (layout === 'vertical' ? barWidth / 2 : totalsOffset)}
+                    y={yPosition + (layout === 'vertical' ? -totalsOffset : barHeight / 2)}
                     {...commonProps}
                 >
                     {totalsByIndex.get(indexValue)}
                 </text>
             )
         })
-    }
-
-    if (groupMode === 'grouped') {
+    } else if (groupMode === 'grouped') {
         const greatestValueByIndex = new Map<string | number, number>()
         const numberOfBarsByIndex = new Map()
 
@@ -101,14 +99,8 @@ export const BarTotals = <RawDatum extends BarDatum>({
             totals.push(
                 <text
                     key={'total_' + indexValue}
-                    x={
-                        xPosition +
-                        (layout === 'vertical' ? indexBarsWidth / 2 : xOffsetHorizontally)
-                    }
-                    y={
-                        yPosition +
-                        (layout === 'vertical' ? yOffsetVertically : indexBarsHeight / 2)
-                    }
+                    x={xPosition + (layout === 'vertical' ? indexBarsWidth / 2 : totalsOffset)}
+                    y={yPosition + (layout === 'vertical' ? -totalsOffset : indexBarsHeight / 2)}
                     {...commonProps}
                 >
                     {totalsByIndex.get(indexValue)}

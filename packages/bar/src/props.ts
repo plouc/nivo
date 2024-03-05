@@ -49,6 +49,7 @@ export const defaultProps = {
     markers: [],
 
     enableTotals: false,
+    totalsOffset: 10,
 }
 
 export const svgDefaultProps = {

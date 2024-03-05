@@ -68,7 +68,8 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
     yScale: ScaleBand<string> | AnyScale,
     layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
     groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode,
-    theme: TextStyle
+    theme: TextStyle,
+    totalsOffset: number
 ) {
     if (bars.length === 0) return
 
@@ -76,8 +77,6 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
 
     const barWidth = bars[0].width
     const barHeight = bars[0].height
-    const yOffsetVertically = -10
-    const xOffsetHorizontally = 20
 
     ctx.fillStyle = theme.fill
     ctx.font = `bold ${theme.fontSize}px sans-serif`
@@ -107,13 +106,11 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
 
             ctx.fillText(
                 String(totalsByIndex.get(indexValue)),
-                xPosition + (layout === 'vertical' ? barWidth / 2 : xOffsetHorizontally),
-                yPosition + (layout === 'vertical' ? yOffsetVertically : barHeight / 2)
+                xPosition + (layout === 'vertical' ? barWidth / 2 : totalsOffset),
+                yPosition + (layout === 'vertical' ? -totalsOffset : barHeight / 2)
             )
         })
-    }
-
-    if (groupMode === 'grouped') {
+    } else if (groupMode === 'grouped') {
         const greatestValueByIndex = new Map<string | number, number>()
         const numberOfBarsByIndex = new Map()
 
@@ -141,8 +138,8 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
 
             ctx.fillText(
                 String(totalsByIndex.get(indexValue)),
-                xPosition + (layout === 'vertical' ? indexBarsWidth / 2 : xOffsetHorizontally),
-                yPosition + (layout === 'vertical' ? yOffsetVertically : indexBarsHeight / 2)
+                xPosition + (layout === 'vertical' ? indexBarsWidth / 2 : totalsOffset),
+                yPosition + (layout === 'vertical' ? -totalsOffset : indexBarsHeight / 2)
             )
         })
     }
@@ -264,6 +261,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     canvasRef,
 
     enableTotals = canvasDefaultProps.enableTotals,
+    totalsOffset = canvasDefaultProps.totalsOffset,
 }: InnerBarCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -466,7 +464,16 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         })
 
         if (enableTotals) {
-            renderTotalsToCanvas(ctx, bars, xScale, yScale, layout, groupMode, theme.text)
+            renderTotalsToCanvas(
+                ctx,
+                bars,
+                xScale,
+                yScale,
+                layout,
+                groupMode,
+                theme.text,
+                totalsOffset
+            )
         }
 
         ctx.save()
@@ -508,6 +515,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         width,
         bars,
         enableTotals,
+        totalsOffset,
     ])
 
     const handleMouseHover = useCallback(
