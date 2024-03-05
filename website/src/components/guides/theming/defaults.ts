@@ -110,7 +110,7 @@ const annotationsDefaults: CompleteTheme['annotations'] = {
 const tooltipDefaults: CompleteTheme['tooltip'] = {
     container: {
         background: '#ffffff',
-        color: extendedTheme.textColor,
+        color: extendedTheme.text.fill,
         fontSize: 12,
     },
     basic: {},
