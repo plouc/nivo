@@ -103,6 +103,8 @@ const InnerBar = <RawDatum extends BarDatum>({
     barAriaDescribedBy,
 
     initialHiddenIds,
+
+    enableTotals = svgDefaultProps.enableTotals,
 }: InnerBarProps<RawDatum>) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -284,7 +286,6 @@ const InnerBar = <RawDatum extends BarDatum>({
         grid: null,
         legends: null,
         markers: null,
-        totals: null,
     }
 
     if (layers.includes('annotations')) {
@@ -364,19 +365,6 @@ const InnerBar = <RawDatum extends BarDatum>({
         )
     }
 
-    if (layers.includes('totals')) {
-        layerById.totals = (
-            <BarTotals
-                key={'totals'}
-                layout={layout}
-                groupMode={groupMode}
-                bars={bars}
-                xScale={xScale}
-                yScale={yScale}
-            />
-        )
-    }
-
     const layerContext: BarCustomLayerProps<RawDatum> = useMemo(
         () => ({
             ...commonProps,
@@ -435,6 +423,16 @@ const InnerBar = <RawDatum extends BarDatum>({
 
                 return layerById?.[layer] ?? null
             })}
+            {enableTotals && (
+                <BarTotals
+                    key="totals"
+                    layout={layout}
+                    groupMode={groupMode}
+                    bars={bars}
+                    xScale={xScale}
+                    yScale={yScale}
+                />
+            )}
         </SvgWrapper>
     )
 }

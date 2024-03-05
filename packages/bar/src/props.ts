@@ -47,6 +47,8 @@ export const defaultProps = {
     initialHiddenIds: [],
     annotations: [],
     markers: [],
+
+    enableTotals: false,
 }
 
 export const svgDefaultProps = {

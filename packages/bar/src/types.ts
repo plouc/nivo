@@ -95,7 +95,7 @@ export interface BarLegendProps extends LegendProps {
 export type LabelFormatter = (label: string | number) => string | number
 export type ValueFormatter = (value: number) => string | number
 
-export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations' | 'totals'
+export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations'
 export type BarCanvasLayerId = Exclude<BarLayerId, 'markers'>
 
 interface BarCustomLayerBaseProps<RawDatum>
@@ -258,6 +258,8 @@ export type BarCommonProps<RawDatum> = {
     renderWrapper?: boolean
 
     initialHiddenIds: readonly (string | number)[]
+
+    enableTotals?: boolean
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &

@@ -261,6 +261,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     pixelRatio = canvasDefaultProps.pixelRatio,
 
     canvasRef,
+
+    enableTotals = canvasDefaultProps.enableTotals,
 }: InnerBarCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -457,12 +459,14 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 })
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
-            } else if (layer === 'totals') {
-                renderTotalsToCanvas(ctx, bars, xScale, yScale, layout, groupMode)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
             }
         })
+
+        if (enableTotals) {
+            renderTotalsToCanvas(ctx, bars, xScale, yScale, layout, groupMode)
+        }
 
         ctx.save()
     }, [
@@ -502,6 +506,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         theme,
         width,
         bars,
+        enableTotals,
     ])
 
     const handleMouseHover = useCallback(

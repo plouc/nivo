@@ -620,7 +620,7 @@ describe('totals layer', () => {
             <Bar
                 width={500}
                 height={300}
-                layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations', 'totals']}
+                enableTotals={true}
                 keys={['value1', 'value2']}
                 data={[
                     { id: 'one', value1: 1, value2: 1 },
@@ -649,7 +649,7 @@ describe('totals layer', () => {
             <Bar
                 width={500}
                 height={300}
-                layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations', 'totals']}
+                enableTotals={true}
                 keys={['value1', 'value2']}
                 layout="horizontal"
                 data={[
@@ -679,7 +679,7 @@ describe('totals layer', () => {
             <Bar
                 width={500}
                 height={300}
-                layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations', 'totals']}
+                enableTotals={true}
                 keys={['value1', 'value2']}
                 groupMode="grouped"
                 data={[
@@ -709,7 +709,7 @@ describe('totals layer', () => {
             <Bar
                 width={500}
                 height={300}
-                layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations', 'totals']}
+                enableTotals={true}
                 keys={['value1', 'value2']}
                 groupMode="grouped"
                 layout="horizontal"
