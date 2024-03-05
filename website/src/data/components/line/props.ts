@@ -389,7 +389,7 @@ const props: ChartProperty[] = [
             'Enable/disable interactivity.',
             'Using `enableSlices` will enable a crosshair on the `x` or `y` axis, that will move between the nearest slice to the mouse/touch point, and will show a tooltip of all data points for that slice.',
             'Using `useMesh` will use a voronoi mesh to detect the closest point to the mouse cursor/touch point, which is useful for very dense datasets, as it can become difficult to hover a specific point, however, it will only return one data point.',
-        ].join('\n'),
+        ].join(' '),
     }),
     {
         key: 'useMesh',
@@ -444,15 +444,6 @@ const props: ChartProperty[] = [
         required: false,
     },
     {
-        key: 'enableTouchCrosshair',
-        flavors: ['svg'],
-        group: 'Interactivity',
-        help: `Enables the crosshair to be dragged around a touch screen, requires useMesh and slices disabled.`,
-        type: 'boolean',
-        defaultValue: defaults.enableTouchCrosshair,
-        control: { type: 'switch' },
-    },
-    {
         key: 'onTouchStart',
         flavors: ['svg'],
         group: 'Interactivity',
@@ -467,7 +458,7 @@ const props: ChartProperty[] = [
         help: [
             'onTouchMove handler, when a touch gesture that originated from inside the graph is moved.',
             'Note, when using slices, this will return the originally touched slice, not the slice currently being hovered over (use document.elementFromPoint()).',
-        ].join('\n'),
+        ].join(' '),
         type: '(point, event) => void',
         required: false,
     },
@@ -540,6 +531,15 @@ const props: ChartProperty[] = [
         required: false,
         control: { type: 'switch' },
         defaultValue: defaults.enableCrosshair,
+    },
+    {
+        key: 'enableTouchCrosshair',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: `Enables the crosshair to be dragged around a touch screen.`,
+        type: 'boolean',
+        defaultValue: defaults.enableTouchCrosshair,
+        control: { type: 'switch' },
     },
     {
         key: 'crosshairType',
