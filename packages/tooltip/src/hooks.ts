@@ -1,4 +1,12 @@
-import { useState, useContext, useCallback, MutableRefObject, MouseEvent, useMemo } from 'react'
+import {
+    useState,
+    useContext,
+    useCallback,
+    MutableRefObject,
+    MouseEvent,
+    TouchEvent,
+    useMemo,
+} from 'react'
 import {
     TooltipActionsContext,
     TooltipActionsContextData,
