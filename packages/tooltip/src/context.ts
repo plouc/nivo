@@ -1,4 +1,4 @@
-import { createContext, MouseEvent } from 'react'
+import { createContext, MouseEvent, TouchEvent } from 'react'
 import { TooltipAnchor } from './types'
 
 export interface TooltipActionsContextData {

@@ -135,6 +135,9 @@ Mesh.propTypes = {
     onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
+    onTouchStart: PropTypes.func,
+    onTouchMove: PropTypes.func,
+    onTouchEnd: PropTypes.func,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     debug: PropTypes.bool.isRequired,
 }
