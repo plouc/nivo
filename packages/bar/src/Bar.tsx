@@ -413,6 +413,7 @@ const InnerBar = <RawDatum extends BarDatum>({
                         labelOpacity: style.labelOpacity,
                         x: style.x,
                         y: style.y,
+                        layout,
                     })
                 )}
             </Fragment>

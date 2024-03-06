@@ -2,6 +2,7 @@ import {
     BarCanvasCustomLayerProps,
     BarCanvasLayer,
     BarCanvasProps,
+    BarCommonProps,
     BarDatum,
     ComputedBarDatum,
 } from './types'
@@ -54,15 +55,16 @@ const findBarUnderCursor = <RawDatum,>(
 
 const isNumber = (value: unknown): value is number => typeof value === 'number'
 
-function renderTotalsToCanvas(
+function renderTotalsToCanvas<RawDatum extends BarDatum>(
     ctx: CanvasRenderingContext2D,
     barTotals: BarTotalsData[],
-    theme: CompleteTheme
+    theme: CompleteTheme,
+    layout: BarCommonProps<RawDatum>['layout'] = canvasDefaultProps.layout
 ) {
     ctx.fillStyle = theme.text.fill
     ctx.font = `bold ${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
     ctx.textBaseline = 'middle'
-    ctx.textAlign = 'center'
+    ctx.textAlign = layout === 'vertical' ? 'center' : 'start'
 
     barTotals.forEach(barTotal => {
         ctx.fillText(String(barTotal.value), barTotal.x, barTotal.y)
@@ -385,7 +387,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
             } else if (layer === 'totals' && enableTotals) {
-                renderTotalsToCanvas(ctx, barTotals, theme)
+                renderTotalsToCanvas(ctx, barTotals, theme, layout)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
             }

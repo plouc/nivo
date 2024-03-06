@@ -1,14 +1,23 @@
 import { useTheme } from '@nivo/core'
 import { SpringValue, animated } from '@react-spring/web'
+import { BarCommonProps, BarDatum } from './types'
+import { svgDefaultProps } from './props'
 
-interface Props {
+interface Props<RawDatum extends BarDatum> {
     value: number
     labelOpacity: SpringValue<number>
     x: SpringValue<number>
     y: SpringValue<number>
+    layout?: BarCommonProps<RawDatum>['layout']
 }
 
-export const BarTotal = ({ value, labelOpacity, x, y }: Props) => {
+export const BarTotal = <RawDatum extends BarDatum>({
+    value,
+    labelOpacity,
+    x,
+    y,
+    layout = svgDefaultProps.layout,
+}: Props<RawDatum>) => {
     const theme = useTheme()
     return (
         <animated.text
@@ -23,7 +32,7 @@ export const BarTotal = ({ value, labelOpacity, x, y }: Props) => {
             fontWeight="bold"
             fontSize={theme.labels.text.fontSize}
             fontFamily={theme.labels.text.fontFamily}
-            textAnchor="middle"
+            textAnchor={layout === 'vertical' ? 'middle' : 'start'}
             alignmentBaseline="middle"
         >
             {value}
