@@ -207,6 +207,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         getLabelColor,
         shouldRenderBarLabel,
         legendsWithData,
+        barTotals,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -235,6 +236,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         labelSkipHeight,
         legends,
         legendLabel,
+        totalsOffset,
     })
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -383,14 +385,6 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
             } else if (layer === 'totals' && enableTotals) {
-                const barTotals = computeBarTotals(
-                    bars,
-                    xScale,
-                    yScale,
-                    layout,
-                    groupMode,
-                    totalsOffset
-                )
                 renderTotalsToCanvas(ctx, barTotals, theme)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
@@ -434,9 +428,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         theme,
         width,
-        bars,
+        barTotals,
         enableTotals,
-        totalsOffset,
     ])
 
     const handleMouseHover = useCallback(
