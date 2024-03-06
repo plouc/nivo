@@ -416,6 +416,16 @@ const props: ChartProperty[] = [
         control: { type: 'inheritedColor' },
         group: 'Labels',
     },
+    {
+        key: 'enableTotals',
+        help: 'Enable/disable totals labels',
+        type: 'boolean',
+        flavors: ['svg', 'canvas', 'api'],
+        required: false,
+        defaultValue: svgDefaultProps.enableTotals,
+        group: 'Labels',
+        control: { type: 'switch' },
+    },
     ...chartGrid({
         flavors: allFlavors,
         xDefault: svgDefaultProps.enableGridX,
