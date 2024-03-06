@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import { create, act, ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotals } from '../'
+import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotal } from '../'
 
 type IdValue = {
     id: string
@@ -631,15 +631,16 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findByType(BarTotals)
-        expect(totals.children).toHaveLength(3)
-        ;(totals.children as ReactTestInstance[]).forEach((total, index) => {
+        const totals = instance.findAllByType(BarTotal)
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
             if (index === 0) {
-                expect(total.children[0]).toBe(`2`)
+                expect(value).toBe(`2`)
             } else if (index === 1) {
-                expect(total.children[0]).toBe(`3`)
+                expect(value).toBe(`3`)
             } else if (index === 2) {
-                expect(total.children[0]).toBe(`4`)
+                expect(value).toBe(`4`)
             }
         })
     })
@@ -660,15 +661,16 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findByType(BarTotals)
-        expect(totals.children).toHaveLength(3)
-        ;(totals.children as ReactTestInstance[]).forEach((total, index) => {
+        const totals = instance.findAllByType(BarTotal)
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
             if (index === 0) {
-                expect(total.children[0]).toBe(`2`)
+                expect(value).toBe(`2`)
             } else if (index === 1) {
-                expect(total.children[0]).toBe(`4`)
+                expect(value).toBe(`4`)
             } else if (index === 2) {
-                expect(total.children[0]).toBe(`6`)
+                expect(value).toBe(`6`)
             }
         })
     })
@@ -688,13 +690,14 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findByType(BarTotals)
-        expect(totals.children).toHaveLength(2)
-        ;(totals.children as ReactTestInstance[]).forEach((total, index) => {
+        const totals = instance.findAllByType(BarTotal)
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
             if (index === 0) {
-                expect(total.children[0]).toBe(`-2`)
+                expect(value).toBe(`-2`)
             } else {
-                expect(total.children[0]).toBe(`-4`)
+                expect(value).toBe(`-4`)
             }
         })
     })
@@ -716,15 +719,16 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findByType(BarTotals)
-        expect(totals.children).toHaveLength(3)
-        ;(totals.children as ReactTestInstance[]).forEach((total, index) => {
+        const totals = instance.findAllByType(BarTotal)
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
             if (index === 0) {
-                expect(total.children[0]).toBe(`0`)
+                expect(value).toBe(`0`)
             } else if (index === 1) {
-                expect(total.children[0]).toBe(`1`)
+                expect(value).toBe(`1`)
             } else if (index === 2) {
-                expect(total.children[0]).toBe(`3`)
+                expect(value).toBe(`3`)
             }
         })
     })
@@ -735,10 +739,14 @@ describe('totals layer', () => {
                 height={300}
                 enableTotals={true}
                 theme={{
+                    labels: {
+                        text: {
+                            fontSize: 14,
+                            fontFamily: 'serif',
+                        },
+                    },
                     text: {
-                        fontSize: 14,
                         fill: 'red',
-                        fontFamily: 'serif',
                     },
                 }}
                 keys={['value1', 'value2']}
@@ -751,11 +759,11 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findByType(BarTotals)
-        expect(totals.children).toHaveLength(3)
-        ;(totals.children as ReactTestInstance[]).forEach((total, index) => {
-            const props = total.props
-            expect(props.fill).toBe('red')
+        const totals = instance.findAllByType(BarTotal)
+
+        totals.forEach((total, index) => {
+            const props = total.findByType('text').props
+            expect(props.style.fill).toBe('red')
             expect(props.fontSize).toBe(14)
             expect(props.fontFamily).toBe('serif')
         })
