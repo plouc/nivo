@@ -1,14 +1,4 @@
 import { Axes, Grid } from '@nivo/axes'
-import { BarAnnotations } from './BarAnnotations'
-import {
-    BarCustomLayerProps,
-    BarDatum,
-    BarLayer,
-    BarLayerId,
-    BarSvgProps,
-    ComputedBarDatumWithValue,
-} from './types'
-import { BarLegends } from './BarLegends'
 import {
     CartesianMarkers,
     Container,
@@ -18,12 +8,22 @@ import {
     useDimensions,
     useMotionConfig,
 } from '@nivo/core'
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { BarAnnotations } from './BarAnnotations'
+import { BarLegends } from './BarLegends'
+import { BarTotalsData } from './compute/totals'
 import { useBar } from './hooks'
-import { computeBarTotals } from './compute/totals'
-import { BarTotals } from './BarTotals'
+import { svgDefaultProps } from './props'
+import {
+    BarCustomLayerProps,
+    BarDatum,
+    BarLayer,
+    BarLayerId,
+    BarSvgProps,
+    ComputedBarDatumWithValue,
+} from './types'
+import { BarTotal } from './BarTotal'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -127,6 +127,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         toggleSerie,
         legendsWithData,
+        barTotals,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -156,6 +157,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         legends,
         legendLabel,
         initialHiddenIds,
+        totalsOffset,
     })
 
     const transition = useTransition<
@@ -281,6 +283,40 @@ const InnerBar = <RawDatum extends BarDatum>({
         targetKey: 'data.fill',
     })
 
+    const totalsTransition = useTransition<
+        BarTotalsData,
+        {
+            x: number
+            y: number
+            labelOpacity: number
+        }
+    >(barTotals, {
+        keys: barTotal => barTotal.key,
+        from: barTotal => ({
+            x: layout === 'vertical' ? barTotal.x : barTotal.x - 50,
+            y: layout === 'vertical' ? barTotal.y + 50 : barTotal.y,
+            labelOpacity: 0,
+        }),
+        enter: barTotal => ({
+            x: barTotal.x,
+            y: barTotal.y,
+            labelOpacity: 1,
+        }),
+        update: barTotal => ({
+            x: barTotal.x,
+            y: barTotal.y,
+            labelOpacity: 1,
+        }),
+        leave: barTotal => ({
+            x: layout === 'vertical' ? barTotal.x : barTotal.x - 50,
+            y: layout === 'vertical' ? barTotal.y + 50 : barTotal.y,
+            labelOpacity: 0,
+        }),
+        config: springConfig,
+        immediate: !animate,
+        initial: animate ? undefined : null,
+    })
+
     const layerById: Record<BarLayerId, ReactNode> = {
         annotations: null,
         axes: null,
@@ -369,8 +405,18 @@ const InnerBar = <RawDatum extends BarDatum>({
     }
 
     if (layers.includes('totals') && enableTotals) {
-        const barTotals = computeBarTotals(bars, xScale, yScale, layout, groupMode, totalsOffset)
-        layerById.totals = <BarTotals barTotals={barTotals} />
+        layerById.totals = (
+            <Fragment key="totals">
+                {totalsTransition((style, barTotal) =>
+                    createElement(BarTotal, {
+                        value: barTotal.value,
+                        labelOpacity: style.labelOpacity,
+                        x: style.x,
+                        y: style.y,
+                    })
+                )}
+            </Fragment>
+        )
     }
 
     const layerContext: BarCustomLayerProps<RawDatum> = useMemo(
