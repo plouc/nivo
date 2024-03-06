@@ -107,6 +107,7 @@ const initialProperties = {
     enableGridY: true,
 
     enableLabel: true,
+    enableTotals: false,
     labelSkipWidth: 12,
     labelSkipHeight: 12,
     labelTextColor: {
