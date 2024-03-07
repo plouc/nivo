@@ -14,6 +14,7 @@ import {
     isCursorInRect,
     useDimensions,
     useTheme,
+    useValueFormatter,
 } from '@nivo/core'
 import {
     ForwardedRef,
@@ -59,6 +60,7 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
     ctx: CanvasRenderingContext2D,
     barTotals: BarTotalsData[],
     theme: CompleteTheme,
+    formatValue: (value: number) => string,
     layout: BarCommonProps<RawDatum>['layout'] = canvasDefaultProps.layout
 ) {
     ctx.fillStyle = theme.text.fill
@@ -67,7 +69,7 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
     ctx.textAlign = layout === 'vertical' ? 'center' : 'start'
 
     barTotals.forEach(barTotal => {
-        ctx.fillText(String(barTotal.value), barTotal.x, barTotal.y)
+        ctx.fillText(formatValue(barTotal.value), barTotal.x, barTotal.y)
     })
 }
 
@@ -309,6 +311,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         ]
     )
 
+    const formatValue = useValueFormatter(valueFormat)
+
     useEffect(() => {
         const ctx = canvasEl.current?.getContext('2d')
 
@@ -387,7 +391,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
             } else if (layer === 'totals' && enableTotals) {
-                renderTotalsToCanvas(ctx, barTotals, theme, layout)
+                renderTotalsToCanvas(ctx, barTotals, theme, formatValue, layout)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
             }
@@ -432,6 +436,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         width,
         barTotals,
         enableTotals,
+        formatValue,
     ])
 
     const handleMouseHover = useCallback(

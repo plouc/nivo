@@ -1,4 +1,4 @@
-import { useTheme } from '@nivo/core'
+import { useTheme, useValueFormatter } from '@nivo/core'
 import { SpringValue, animated } from '@react-spring/web'
 import { BarCommonProps, BarDatum } from './types'
 import { svgDefaultProps } from './props'
@@ -8,6 +8,7 @@ interface Props<RawDatum extends BarDatum> {
     labelOpacity: SpringValue<number>
     x: SpringValue<number>
     y: SpringValue<number>
+    valueFormat: BarCommonProps<RawDatum>['valueFormat']
     layout?: BarCommonProps<RawDatum>['layout']
 }
 
@@ -16,9 +17,12 @@ export const BarTotal = <RawDatum extends BarDatum>({
     labelOpacity,
     x,
     y,
+    valueFormat,
     layout = svgDefaultProps.layout,
 }: Props<RawDatum>) => {
     const theme = useTheme()
+    const formatValue = useValueFormatter(valueFormat)
+
     return (
         <animated.text
             x={x}
@@ -35,7 +39,7 @@ export const BarTotal = <RawDatum extends BarDatum>({
             textAnchor={layout === 'vertical' ? 'middle' : 'start'}
             alignmentBaseline="middle"
         >
-            {value}
+            {formatValue(value)}
         </animated.text>
     )
 }

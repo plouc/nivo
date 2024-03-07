@@ -658,6 +658,7 @@ describe('totals layer', () => {
                     { id: 'three', value1: 3, value2: 3 },
                 ]}
                 animate={false}
+                valueFormat=" >-$"
             />
         ).root
 
@@ -666,11 +667,11 @@ describe('totals layer', () => {
         totals.forEach((total, index) => {
             const value = total.findByType('text').children[0]
             if (index === 0) {
-                expect(value).toBe(`2`)
+                expect(value).toBe(`$2`)
             } else if (index === 1) {
-                expect(value).toBe(`4`)
+                expect(value).toBe(`$4`)
             } else if (index === 2) {
-                expect(value).toBe(`6`)
+                expect(value).toBe(`$6`)
             }
         })
     })
