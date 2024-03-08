@@ -6,7 +6,7 @@ export interface BarTotalsData {
     key: string
     x: number
     y: number
-    value: number
+    value: string
 }
 
 export const computeBarTotals = <RawDatum extends BarDatum>(
@@ -15,7 +15,8 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
     yScale: ScaleBand<string> | AnyScale,
     layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
     groupMode: BarCommonProps<RawDatum>['groupMode'] = defaultProps.groupMode,
-    totalsOffset: number
+    totalsOffset: number,
+    formatValue: (value: number) => string
 ) => {
     const totals = [] as BarTotalsData[]
 
@@ -56,7 +57,7 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
                 key: 'total_' + indexValue,
                 x: xPosition,
                 y: yPosition,
-                value: indexTotal,
+                value: formatValue(indexTotal),
             })
         })
     } else if (groupMode === 'grouped') {
@@ -94,7 +95,7 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
                 key: 'total_' + indexValue,
                 x: xPosition,
                 y: yPosition,
-                value: indexTotal,
+                value: formatValue(indexTotal),
             })
         })
     }

@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import { create, act, ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotal } from '../'
+import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotals } from '../'
 
 type IdValue = {
     id: string
@@ -631,7 +631,7 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findAllByType(BarTotal)
+        const totals = instance.findByType(BarTotals).findAllByType('text')
 
         totals.forEach((total, index) => {
             const value = total.findByType('text').children[0]
@@ -662,7 +662,7 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findAllByType(BarTotal)
+        const totals = instance.findByType(BarTotals).findAllByType('text')
 
         totals.forEach((total, index) => {
             const value = total.findByType('text').children[0]
@@ -691,7 +691,7 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findAllByType(BarTotal)
+        const totals = instance.findByType(BarTotals).findAllByType('text')
 
         totals.forEach((total, index) => {
             const value = total.findByType('text').children[0]
@@ -720,7 +720,7 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findAllByType(BarTotal)
+        const totals = instance.findByType(BarTotals).findAllByType('text')
 
         totals.forEach((total, index) => {
             const value = total.findByType('text').children[0]
@@ -760,7 +760,7 @@ describe('totals layer', () => {
             />
         ).root
 
-        const totals = instance.findAllByType(BarTotal)
+        const totals = instance.findByType(BarTotals).findAllByType('text')
 
         totals.forEach((total, index) => {
             const props = total.findByType('text').props

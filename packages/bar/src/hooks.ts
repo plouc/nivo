@@ -171,8 +171,8 @@ export const useBar = <RawDatum extends BarDatum>({
     )
 
     const barTotals = useMemo(
-        () => computeBarTotals(bars, xScale, yScale, layout, groupMode, totalsOffset),
-        [bars, xScale, yScale, layout, groupMode, totalsOffset]
+        () => computeBarTotals(bars, xScale, yScale, layout, groupMode, totalsOffset, formatValue),
+        [bars, xScale, yScale, layout, groupMode, totalsOffset, formatValue]
     )
 
     return {
