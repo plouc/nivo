@@ -108,6 +108,7 @@ const initialProperties = {
 
     enableLabel: true,
     enableTotals: false,
+    totalsOffset: 10,
     labelSkipWidth: 12,
     labelSkipHeight: 12,
     labelTextColor: {

@@ -64,7 +64,7 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
 ) {
     ctx.fillStyle = theme.text.fill
     ctx.font = `bold ${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
-    ctx.textBaseline = 'middle'
+    ctx.textBaseline = layout === 'vertical' ? 'alphabetic' : 'middle'
     ctx.textAlign = layout === 'vertical' ? 'center' : 'start'
 
     barTotals.forEach(barTotal => {

@@ -67,7 +67,7 @@ export const BarTotals = <RawDatum extends BarDatum>({
             fontSize={theme.labels.text.fontSize}
             fontFamily={theme.labels.text.fontFamily}
             textAnchor={layout === 'vertical' ? 'middle' : 'start'}
-            alignmentBaseline="middle"
+            alignmentBaseline={layout === 'vertical' ? 'alphabetic' : 'middle'}
         >
             {barTotal.value}
         </animated.text>
