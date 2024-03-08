@@ -14,6 +14,7 @@ export const timeXScale = scaleTime()
     .range([0, 280])
     .domain([new Date(2019, 0, 1, 0, 0, 0, 0), new Date(2020, 0, 1, 0, 0, 0, 0)])
 timeXScale.type = 'time'
+timeXScale.useUTC = false
 
 export const timeXScaleHours = scaleTime()
     .range([0, 280])
@@ -22,3 +23,4 @@ export const timeXScaleHours = scaleTime()
         new Date(Date.UTC(2020, 0, 1, 10, 0, 0, 0)),
     ])
 timeXScaleHours.type = 'time'
+timeXScaleHours.useUTC = true
