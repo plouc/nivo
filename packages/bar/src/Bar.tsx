@@ -12,7 +12,6 @@ import { useTransition } from '@react-spring/web'
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { BarAnnotations } from './BarAnnotations'
 import { BarLegends } from './BarLegends'
-import { BarTotalsData } from './compute/totals'
 import { useBar } from './hooks'
 import { svgDefaultProps } from './props'
 import {
@@ -23,7 +22,7 @@ import {
     BarSvgProps,
     ComputedBarDatumWithValue,
 } from './types'
-import { BarTotal } from './BarTotal'
+import { BarTotals } from './BarTotals'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -283,40 +282,6 @@ const InnerBar = <RawDatum extends BarDatum>({
         targetKey: 'data.fill',
     })
 
-    const totalsTransition = useTransition<
-        BarTotalsData,
-        {
-            x: number
-            y: number
-            labelOpacity: number
-        }
-    >(barTotals, {
-        keys: barTotal => barTotal.key,
-        from: barTotal => ({
-            x: layout === 'vertical' ? barTotal.x : barTotal.x - 50,
-            y: layout === 'vertical' ? barTotal.y + 50 : barTotal.y,
-            labelOpacity: 0,
-        }),
-        enter: barTotal => ({
-            x: barTotal.x,
-            y: barTotal.y,
-            labelOpacity: 1,
-        }),
-        update: barTotal => ({
-            x: barTotal.x,
-            y: barTotal.y,
-            labelOpacity: 1,
-        }),
-        leave: barTotal => ({
-            x: layout === 'vertical' ? barTotal.x : barTotal.x - 50,
-            y: layout === 'vertical' ? barTotal.y + 50 : barTotal.y,
-            labelOpacity: 0,
-        }),
-        config: springConfig,
-        immediate: !animate,
-        initial: animate ? undefined : null,
-    })
-
     const layerById: Record<BarLayerId, ReactNode> = {
         annotations: null,
         axes: null,
@@ -406,18 +371,12 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     if (layers.includes('totals') && enableTotals) {
         layerById.totals = (
-            <Fragment key="totals">
-                {totalsTransition((style, barTotal) =>
-                    createElement(BarTotal, {
-                        value: barTotal.value,
-                        labelOpacity: style.labelOpacity,
-                        x: style.x,
-                        y: style.y,
-                        valueFormat,
-                        layout,
-                    })
-                )}
-            </Fragment>
+            <BarTotals
+                data={barTotals}
+                springConfig={springConfig}
+                animate={animate}
+                layout={layout}
+            />
         )
     }
 
