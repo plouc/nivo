@@ -259,8 +259,8 @@ export type BarCommonProps<RawDatum> = {
 
     initialHiddenIds: readonly (string | number)[]
 
-    enableTotals?: boolean
-    totalsOffset?: number
+    enableTotals: boolean
+    totalsOffset: number
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
