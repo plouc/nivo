@@ -28,8 +28,8 @@ export const BarTotals = <RawDatum extends BarDatum>({
     >(data, {
         keys: barTotal => barTotal.key,
         from: barTotal => ({
-            x: layout === 'vertical' ? barTotal.x : barTotal.x - 50,
-            y: layout === 'vertical' ? barTotal.y + 50 : barTotal.y,
+            x: layout === 'vertical' ? barTotal.x : barTotal.animationOffset,
+            y: layout === 'vertical' ? barTotal.animationOffset : barTotal.y,
             labelOpacity: 0,
         }),
         enter: barTotal => ({
@@ -43,8 +43,8 @@ export const BarTotals = <RawDatum extends BarDatum>({
             labelOpacity: 1,
         }),
         leave: barTotal => ({
-            x: layout === 'vertical' ? barTotal.x : barTotal.x - 50,
-            y: layout === 'vertical' ? barTotal.y + 50 : barTotal.y,
+            x: layout === 'vertical' ? barTotal.x : barTotal.animationOffset,
+            y: layout === 'vertical' ? barTotal.animationOffset : barTotal.y,
             labelOpacity: 0,
         }),
         config: springConfig,

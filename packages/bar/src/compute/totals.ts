@@ -7,6 +7,7 @@ export interface BarTotalsData {
     x: number
     y: number
     value: string
+    animationOffset: number
 }
 
 export const computeBarTotals = <RawDatum extends BarDatum>(
@@ -41,13 +42,16 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
 
             let xPosition: number
             let yPosition: number
+            let animationOffset: number
 
             if (layout === 'vertical') {
                 xPosition = xScale(indexValue)
                 yPosition = yScale(totalsPositive)
+                animationOffset = yScale(totalsPositive / 2)
             } else {
                 xPosition = xScale(totalsPositive)
                 yPosition = yScale(indexValue)
+                animationOffset = xScale(totalsPositive / 2)
             }
 
             xPosition += layout === 'vertical' ? barWidth / 2 : totalsOffset
@@ -58,6 +62,7 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
                 x: xPosition,
                 y: yPosition,
                 value: formatValue(indexTotal),
+                animationOffset,
             })
         })
     } else if (groupMode === 'grouped') {
@@ -73,20 +78,24 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
 
         greatestValueByIndex.forEach((greatestValue, indexValue) => {
             const indexTotal = totalsByIndex.get(indexValue) || 0
+            const numberOfBars = numberOfBarsByIndex.get(indexValue)
 
             let xPosition: number
             let yPosition: number
+            let animationOffset: number
 
             if (layout === 'vertical') {
                 xPosition = xScale(indexValue)
                 yPosition = yScale(greatestValue)
+                animationOffset = yScale(greatestValue / 2)
             } else {
                 xPosition = xScale(greatestValue)
                 yPosition = yScale(indexValue)
+                animationOffset = xScale(greatestValue / 2)
             }
 
-            const indexBarsWidth = numberOfBarsByIndex.get(indexValue) * barWidth
-            const indexBarsHeight = numberOfBarsByIndex.get(indexValue) * barHeight
+            const indexBarsWidth = numberOfBars * barWidth
+            const indexBarsHeight = numberOfBars * barHeight
 
             xPosition += layout === 'vertical' ? indexBarsWidth / 2 : totalsOffset
             yPosition += layout === 'vertical' ? -totalsOffset : indexBarsHeight / 2
@@ -96,6 +105,7 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
                 x: xPosition,
                 y: yPosition,
                 value: formatValue(indexTotal),
+                animationOffset,
             })
         })
     }
