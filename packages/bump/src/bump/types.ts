@@ -107,7 +107,9 @@ export interface BumpCustomLayerProps<
     xScale: ScalePoint<Datum['x']>
     yScale: ScalePoint<number>
     activeSerieIds: string[]
+    activePointIds: string[]
     setActiveSerieIds: (serieIds: string[]) => void
+    setActivePointIds: (pointIds: string[]) => void
 }
 export type BumpCustomLayer<
     Datum extends BumpDatum,
