@@ -280,8 +280,8 @@ export const useBump = <
                     isActive: activePointIds.includes(serie.id),
                     isInactive: activePointIds.length > 0 && !activeSerieIds.includes(serie.id),
                 }
-                point.color = getPointColor(point) as string
-                point.borderColor = getPointBorderColor(point) as string
+                point.color = getPointColor(point)
+                point.borderColor = getPointBorderColor(point)
 
                 pts.push({
                     ...point,
@@ -496,8 +496,8 @@ export const useBumpSeriesLabels = <
             labels.push({
                 id: serie.id,
                 label,
-                x: (point?.[0] as number) + signedPadding,
-                y: point?.[1] as number,
+                x: point[0] + signedPadding,
+                y: point[1],
                 color: getColor(serie) as string,
                 opacity: serie.opacity,
                 serie,

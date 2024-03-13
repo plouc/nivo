@@ -57,7 +57,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
         BumpSvgProps<Datum, ExtraProps>['endLabelTextColor']
     >,
 
-    pointComponent = bumpSvgDefaultProps.pointComponent as unknown as NonNullable<
+    pointComponent = bumpSvgDefaultProps.pointComponent as NonNullable<
         BumpSvgProps<Datum, ExtraProps>['pointComponent']
     >,
     pointSize = bumpSvgDefaultProps.pointSize,

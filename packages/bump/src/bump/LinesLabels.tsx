@@ -52,19 +52,19 @@ export const LinesLabels = <Datum extends BumpDatum, ExtraProps extends BumpSeri
 
                 return (
                     <animated.text
-                        data-testid={`label.${position}.${label?.serie.id}`}
-                        key={label?.id}
+                        data-testid={`label.${position}.${label.serie.id}`}
+                        key={label.id}
                         x={animatedProps.x}
                         y={animatedProps.y}
-                        textAnchor={label?.textAnchor}
+                        textAnchor={label.textAnchor}
                         dominantBaseline="central"
                         opacity={animatedProps.opacity}
                         style={{
                             ...theme.labels.text,
-                            fill: label?.color,
+                            fill: label.color,
                         }}
                     >
-                        {label?.label}
+                        {label.label}
                     </animated.text>
                 )
             })}
