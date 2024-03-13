@@ -157,6 +157,7 @@ const Bump = () => {
                         data={data}
                         {...properties}
                         theme={theme}
+                        useMesh={false}
                         onClick={serie =>
                             logAction({
                                 type: 'click',

@@ -6,14 +6,10 @@ import PointTooltip from './PointTooltip'
 
 const commonDefaultProps: Omit<
     BumpCommonProps<DefaultBumpDatum, Record<string, unknown>>,
-    | 'onPointMouseEnter'
-    | 'onPointClick'
-    | 'onPointMouseMove'
-    | 'onPointMouseLeave'
-    | 'onSerieMouseEnter'
-    | 'onSerieClick'
-    | 'onSerieMouseMove'
-    | 'onSerieMouseLeave'
+    | 'onMouseEnter'
+    | 'onClick'
+    | 'onMouseMove'
+    | 'onMouseLeave'
     | 'margin'
     | 'theme'
     | 'axisRight'

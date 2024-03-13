@@ -1,7 +1,13 @@
 import { useSpring, animated } from '@react-spring/web'
 import { Line as D3Line } from 'd3-shape'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { BumpCommonProps, BumpComputedSerie, BumpDatum, BumpSerieExtraProps } from './types'
+import {
+    BumpCommonProps,
+    BumpComputedSerie,
+    BumpDatum,
+    BumpSerieExtraProps,
+    BumpSerieMouseHandler,
+} from './types'
 import { useBumpSerieHandlers } from './hooks'
 
 interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
@@ -9,10 +15,10 @@ interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     lineGenerator: D3Line<[number, number | null]>
     yStep: number
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onSerieClick']
+    onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
     setActiveSerieIds: (serieIds: string[]) => void
     lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
     useMesh: BumpCommonProps<Datum, ExtraProps>['useMesh']

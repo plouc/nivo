@@ -3,7 +3,13 @@ import { createElement, memo, useCallback } from 'react'
 import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
-import { BumpCommonProps, BumpDatum, BumpPoint, BumpSerieExtraProps } from './types'
+import {
+    BumpCommonProps,
+    BumpDatum,
+    BumpPoint,
+    BumpPointMouseHandler,
+    BumpSerieExtraProps,
+} from './types'
 
 interface MeshProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
     points: BumpPoint<Datum, ExtraProps>[]
@@ -12,10 +18,10 @@ interface MeshProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     margin: Margin
     setActivePointIds: (ids: string[]) => void
     setActiveSerieIds: (ids: string[]) => void
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onPointMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onPointMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onPointMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onPointClick']
+    onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onClick?: BumpPointMouseHandler<Datum, ExtraProps>
     tooltip: BumpCommonProps<Datum, ExtraProps>['pointTooltip']
     debug: boolean
 }

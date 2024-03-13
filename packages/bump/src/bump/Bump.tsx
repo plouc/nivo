@@ -5,7 +5,9 @@ import {
     BumpCustomLayerProps,
     BumpDatum,
     BumpLayerId,
+    BumpPointMouseHandler,
     BumpSerieExtraProps,
+    BumpSerieMouseHandler,
     BumpSvgProps,
     DefaultBumpDatum,
 } from './types'
@@ -82,22 +84,18 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
 
     isInteractive = bumpSvgDefaultProps.isInteractive,
     defaultActiveSerieIds = bumpSvgDefaultProps.defaultActiveSerieIds,
-    onSerieMouseEnter,
-    onSerieMouseMove,
-    onSerieMouseLeave,
-    onSerieClick,
-    onPointMouseEnter,
-    onPointMouseMove,
-    onPointMouseLeave,
-    onPointClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
     useMesh = bumpSvgDefaultProps.useMesh,
+    debugMesh = bumpSvgDefaultProps.debugMesh,
     lineTooltip = bumpSvgDefaultProps.lineTooltip as NonNullable<
         BumpSvgProps<Datum, ExtraProps>['lineTooltip']
     >,
     pointTooltip = bumpSvgDefaultProps.pointTooltip as NonNullable<
         BumpSvgProps<Datum, ExtraProps>['pointTooltip']
     >,
-    debugMesh = bumpSvgDefaultProps.debugMesh,
     role = bumpSvgDefaultProps.role,
 }: InnerBumpProps<Datum, ExtraProps>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -191,10 +189,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
                         lineGenerator={lineGenerator}
                         yStep={yScale.step()}
                         isInteractive={isInteractive}
-                        onMouseEnter={onSerieMouseEnter}
-                        onMouseMove={onSerieMouseMove}
-                        onMouseLeave={onSerieMouseLeave}
-                        onClick={onSerieClick}
+                        onMouseEnter={onMouseEnter as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onMouseMove={onMouseMove as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onMouseLeave={onMouseLeave as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onClick={onClick as BumpSerieMouseHandler<Datum, ExtraProps>}
                         lineTooltip={lineTooltip}
                         useMesh={useMesh}
                     />
@@ -213,10 +211,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
                 margin={margin}
                 setActivePointIds={setActivePointIds}
                 setActiveSerieIds={setActiveSerieIds}
-                onMouseEnter={onPointMouseEnter}
-                onMouseMove={onPointMouseMove}
-                onMouseLeave={onPointMouseLeave}
-                onClick={onPointClick}
+                onMouseEnter={onMouseEnter as BumpPointMouseHandler<Datum, ExtraProps>}
+                onMouseMove={onMouseMove as BumpPointMouseHandler<Datum, ExtraProps>}
+                onMouseLeave={onMouseLeave as BumpPointMouseHandler<Datum, ExtraProps>}
+                onClick={onClick as BumpPointMouseHandler<Datum, ExtraProps>}
                 tooltip={pointTooltip}
                 debug={debugMesh}
             />

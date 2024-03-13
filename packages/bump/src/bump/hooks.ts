@@ -14,6 +14,8 @@ import {
     BumpLabel,
     BumpLabelData,
     BumpSerieExtraProps,
+    BumpPointMouseHandler,
+    BumpSerieMouseHandler,
 } from './types'
 import { computeSeries } from './compute'
 
@@ -321,10 +323,10 @@ export const useBumpSerieHandlers = <
 }: {
     serie: BumpComputedSerie<Datum, ExtraProps>
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onSerieMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onSerieClick']
+    onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
     setActiveSerieIds: (serieIds: string[]) => void
     lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
 }) => {
@@ -390,10 +392,10 @@ export const useBumpPointHandlers = <
 }: {
     point: BumpPoint<Datum, ExtraProps>
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onPointMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onPointMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onPointMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onPointClick']
+    onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onClick?: BumpPointMouseHandler<Datum, ExtraProps>
     setActivePointIds: (pointIds: string[]) => void
     setActiveSerieIds: (pointIds: string[]) => void
     pointTooltip: BumpCommonProps<Datum, ExtraProps>['pointTooltip']
