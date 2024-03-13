@@ -277,8 +277,8 @@ export const useBump = <
                 const point: BumpPoint<Datum, ExtraProps> = {
                     ...rawPoint,
                     serie,
-                    isActive: activePointIds.includes(serie.id),
-                    isInactive: activePointIds.length > 0 && !activeSerieIds.includes(serie.id),
+                    isActive: activeSerieIds.includes(serie.id),
+                    isInactive: activeSerieIds.length > 0 && !activeSerieIds.includes(serie.id),
                 }
                 point.color = getPointColor(point)
                 point.borderColor = getPointBorderColor(point)
@@ -291,7 +291,7 @@ export const useBump = <
         })
 
         return pts
-    }, [series, activePointIds, activeSerieIds, getPointColor, getPointBorderColor, getPointStyle])
+    }, [series, activeSerieIds, getPointColor, getPointBorderColor, getPointStyle])
 
     return {
         xScale,
