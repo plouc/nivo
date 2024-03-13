@@ -1,5 +1,6 @@
 import { MouseEvent } from 'react'
 import { createElement, memo, useCallback } from 'react'
+import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { BumpCommonProps, BumpDatum, BumpPoint, BumpSerieExtraProps } from './types'
@@ -8,12 +9,7 @@ interface MeshProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     points: BumpPoint<Datum, ExtraProps>[]
     width: number
     height: number
-    margin: {
-        top: number
-        right: number
-        bottom: number
-        left: number
-    }
+    margin: Margin
     setActivePointIds: (ids: string[]) => void
     setActiveSerieIds: (ids: string[]) => void
     onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onPointMouseEnter']
