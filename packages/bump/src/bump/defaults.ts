@@ -60,9 +60,8 @@ const commonDefaultProps: Omit<
     defaultActiveSerieIds: [],
     lineTooltip: LineTooltip,
     pointTooltip: PointTooltip,
-    tooltipAnchor: 'line',
+    useMesh: false,
     debugMesh: false,
-
     role: 'img',
 }
 

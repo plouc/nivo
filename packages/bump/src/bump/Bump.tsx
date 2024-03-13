@@ -90,7 +90,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     onPointMouseMove,
     onPointMouseLeave,
     onPointClick,
-    tooltipAnchor = bumpSvgDefaultProps.tooltipAnchor,
+    useMesh = bumpSvgDefaultProps.useMesh,
     lineTooltip = bumpSvgDefaultProps.lineTooltip as NonNullable<
         BumpSvgProps<Datum, ExtraProps>['lineTooltip']
     >,
@@ -196,14 +196,14 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
                         onMouseLeave={onSerieMouseLeave}
                         onClick={onSerieClick}
                         lineTooltip={lineTooltip}
-                        tooltipAnchor={tooltipAnchor}
+                        useMesh={useMesh}
                     />
                 ))}
             </Fragment>
         )
     }
 
-    if (isInteractive && tooltipAnchor === 'point') {
+    if (isInteractive && useMesh && layers.includes('mesh')) {
         layerById.mesh = (
             <Mesh
                 key="mesh"

@@ -15,7 +15,7 @@ interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     onClick?: BumpCommonProps<Datum, ExtraProps>['onSerieClick']
     setActiveSerieIds: (serieIds: string[]) => void
     lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
-    tooltipAnchor: string
+    useMesh: BumpCommonProps<Datum, ExtraProps>['useMesh']
 }
 
 export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
@@ -29,7 +29,7 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
     onClick,
     setActiveSerieIds,
     lineTooltip,
-    tooltipAnchor,
+    useMesh,
 }: LineProps<Datum, ExtraProps>) => {
     const handlers = useBumpSerieHandlers<Datum, ExtraProps>({
         serie,
@@ -71,7 +71,7 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
                 strokeOpacity={animatedProps.opacity}
                 style={{ pointerEvents: 'none' }}
             />
-            {isInteractive && tooltipAnchor === 'line' && (
+            {isInteractive && !useMesh && (
                 <path
                     data-testid={`line.${serie.id}.interactive`}
                     fill="none"

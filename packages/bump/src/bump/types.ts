@@ -185,7 +185,7 @@ export interface BumpCommonProps<Datum extends BumpDatum, ExtraProps extends Bum
     onPointClick: BumpPointMouseHandler<Datum, ExtraProps>
     lineTooltip: BumpLineTooltip<Datum, ExtraProps>
     pointTooltip: BumpPointTooltip<Datum, ExtraProps>
-    tooltipAnchor: 'line' | 'point'
+    useMesh: boolean
     debugMesh: boolean
     role: string
 
