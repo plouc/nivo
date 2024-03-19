@@ -13,6 +13,8 @@
     "jsx": "react",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
