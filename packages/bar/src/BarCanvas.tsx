@@ -2,16 +2,19 @@ import {
     BarCanvasCustomLayerProps,
     BarCanvasLayer,
     BarCanvasProps,
+    BarCommonProps,
     BarDatum,
     ComputedBarDatum,
 } from './types'
 import {
+    CompleteTheme,
     Container,
     Margin,
     getRelativeCursor,
     isCursorInRect,
     useDimensions,
     useTheme,
+    useValueFormatter,
 } from '@nivo/core'
 import {
     ForwardedRef,
@@ -32,6 +35,7 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useBar } from './hooks'
+import { BarTotalsData } from './compute/totals'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
     BarCanvasProps<RawDatum>,
@@ -51,6 +55,22 @@ const findBarUnderCursor = <RawDatum,>(
     )
 
 const isNumber = (value: unknown): value is number => typeof value === 'number'
+
+function renderTotalsToCanvas<RawDatum extends BarDatum>(
+    ctx: CanvasRenderingContext2D,
+    barTotals: BarTotalsData[],
+    theme: CompleteTheme,
+    layout: BarCommonProps<RawDatum>['layout'] = canvasDefaultProps.layout
+) {
+    ctx.fillStyle = theme.text.fill
+    ctx.font = `bold ${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+    ctx.textBaseline = layout === 'vertical' ? 'alphabetic' : 'middle'
+    ctx.textAlign = layout === 'vertical' ? 'center' : 'start'
+
+    barTotals.forEach(barTotal => {
+        ctx.fillText(barTotal.formattedValue, barTotal.x, barTotal.y)
+    })
+}
 
 const InnerBarCanvas = <RawDatum extends BarDatum>({
     data,
@@ -166,6 +186,9 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     pixelRatio = canvasDefaultProps.pixelRatio,
 
     canvasRef,
+
+    enableTotals = canvasDefaultProps.enableTotals,
+    totalsOffset = canvasDefaultProps.totalsOffset,
 }: InnerBarCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -187,6 +210,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         getLabelColor,
         shouldRenderBarLabel,
         legendsWithData,
+        barTotals,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -215,6 +239,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         labelSkipHeight,
         legends,
         legendLabel,
+        totalsOffset,
     })
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -284,6 +309,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             onMouseLeave,
         ]
     )
+
+    const formatValue = useValueFormatter(valueFormat)
 
     useEffect(() => {
         const ctx = canvasEl.current?.getContext('2d')
@@ -362,6 +389,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
                 })
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
+            } else if (layer === 'totals' && enableTotals) {
+                renderTotalsToCanvas(ctx, barTotals, theme, layout)
             } else if (typeof layer === 'function') {
                 layer(ctx, layerContext)
             }
@@ -404,6 +433,9 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         theme,
         width,
+        barTotals,
+        enableTotals,
+        formatValue,
     ])
 
     const handleMouseHover = useCallback(

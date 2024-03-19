@@ -294,6 +294,10 @@ export const WithSymlogScale: Story = {
     ),
 }
 
+export const WithTotals: Story = {
+    render: () => <Bar {...commonProps} enableTotals={true} totalsOffset={10} />,
+}
+
 const DataGenerator = (initialIndex, initialState) => {
     let index = initialIndex
     let state = initialState
