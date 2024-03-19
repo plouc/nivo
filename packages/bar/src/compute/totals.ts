@@ -6,7 +6,8 @@ export interface BarTotalsData {
     key: string
     x: number
     y: number
-    value: string
+    value: number
+    formattedValue: string
     animationOffset: number
 }
 
@@ -61,7 +62,8 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
                 key: 'total_' + indexValue,
                 x: xPosition,
                 y: yPosition,
-                value: formatValue(indexTotal),
+                value: indexTotal,
+                formattedValue: formatValue(indexTotal),
                 animationOffset,
             })
         })
@@ -104,7 +106,8 @@ export const computeBarTotals = <RawDatum extends BarDatum>(
                 key: 'total_' + indexValue,
                 x: xPosition,
                 y: yPosition,
-                value: formatValue(indexTotal),
+                value: indexTotal,
+                formattedValue: formatValue(indexTotal),
                 animationOffset,
             })
         })

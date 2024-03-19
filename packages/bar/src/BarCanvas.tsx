@@ -68,7 +68,7 @@ function renderTotalsToCanvas<RawDatum extends BarDatum>(
     ctx.textAlign = layout === 'vertical' ? 'center' : 'start'
 
     barTotals.forEach(barTotal => {
-        ctx.fillText(barTotal.value, barTotal.x, barTotal.y)
+        ctx.fillText(barTotal.formattedValue, barTotal.x, barTotal.y)
     })
 }
 

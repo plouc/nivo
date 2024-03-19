@@ -69,7 +69,7 @@ export const BarTotals = <RawDatum extends BarDatum>({
             textAnchor={layout === 'vertical' ? 'middle' : 'start'}
             alignmentBaseline={layout === 'vertical' ? 'alphabetic' : 'middle'}
         >
-            {barTotal.value}
+            {barTotal.formattedValue}
         </animated.text>
     ))
 }
