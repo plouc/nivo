@@ -35,6 +35,7 @@
         "@nivo/tooltip": "workspace:*",
         "@types/d3-hierarchy": "^1.1.8",
         "d3-hierarchy": "^1.1.8",
+        "d3-scale": "^3.2.3",
         "lodash": "^4.17.21"
     },
     "peerDependencies": {
