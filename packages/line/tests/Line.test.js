@@ -1,6 +1,7 @@
 import { mount } from 'enzyme'
 import { Axis } from '@nivo/axes'
 import Line from '../src/Line'
+import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
 
@@ -9,12 +10,9 @@ let id = 0
 beforeEach(() => {
     id = 0
 })
-const generateId = () => ++id
+const generateId = () => `${LINE_UNIQUE_ID_PREFIX}${++id}`
 
-jest.mock('react', () => ({
-    ...jest.requireActual('react'),
-    useId: () => `:r${generateId()}:`,
-}))
+jest.mock('lodash/uniqueId', () => generateId)
 
 it('should render a basic line chart', () => {
     const data = [
@@ -185,7 +183,7 @@ describe('mouse events on slices', () => {
     it('should call onMouseEnter', () => {
         const onMouseEnter = jest.fn()
         const wrapper = mount(<Line {...baseProps} onMouseEnter={onMouseEnter} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('mouseenter', {
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('mouseenter', {
             clientX: 100,
             clientY: 100,
         })
@@ -195,7 +193,7 @@ describe('mouse events on slices', () => {
     it('should call onMouseMove', () => {
         const onMouseMove = jest.fn()
         const wrapper = mount(<Line {...baseProps} onMouseMove={onMouseMove} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('mousemove', {
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('mousemove', {
             clientX: 100,
             clientY: 100,
         })
@@ -205,14 +203,14 @@ describe('mouse events on slices', () => {
     it('should call onMouseLeave', () => {
         const onMouseLeave = jest.fn()
         const wrapper = mount(<Line {...baseProps} onMouseLeave={onMouseLeave} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('mouseleave')
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('mouseleave')
         expect(onMouseLeave).toHaveBeenCalledTimes(1)
     })
 
     it('should call onClick', () => {
         const onClick = jest.fn()
         const wrapper = mount(<Line {...baseProps} onClick={onClick} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('click')
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('click')
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 })
@@ -294,7 +292,7 @@ describe('touch events with slices', () => {
     it('should call onTouchStart', () => {
         const onTouchStart = jest.fn()
         const wrapper = mount(<Line {...baseProps} onTouchStart={onTouchStart} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('touchstart')
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('touchstart')
         expect(onTouchStart).toHaveBeenCalledTimes(1)
     })
 
@@ -303,11 +301,11 @@ describe('touch events with slices', () => {
         // Enzyme doesn't support this, so we mock it
         document.elementFromPoint = jest.fn(() => {
             const rect = document.createElement('rect')
-            rect.setAttribute('data-ref', 'slice:r1:1')
+            rect.setAttribute('data-ref', `slice:${LINE_UNIQUE_ID_PREFIX}1:1`)
             return rect
         })
         const wrapper = mount(<Line {...baseProps} onTouchMove={onTouchMove} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('touchmove', {
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('touchmove', {
             touches: [{ clientX: 50, clientY: 50 }],
         })
         expect(onTouchMove).toHaveBeenCalledTimes(1)
@@ -316,7 +314,7 @@ describe('touch events with slices', () => {
     it('should call onTouchEnd', () => {
         const onTouchEnd = jest.fn()
         const wrapper = mount(<Line {...baseProps} onTouchEnd={onTouchEnd} />)
-        wrapper.find(`[data-ref='slice:r1:0']`).simulate('touchend')
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('touchend')
         expect(onTouchEnd).toHaveBeenCalledTimes(1)
     })
 })
