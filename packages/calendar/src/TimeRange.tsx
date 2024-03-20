@@ -38,6 +38,7 @@ const InnerTimeRange = ({
 
     weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
     weekdayTicks,
+    weekdays = timeRangeDefaultProps.weekdays,
 
     dayBorderColor = timeRangeDefaultProps.dayBorderColor,
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
@@ -121,6 +122,7 @@ const InnerTimeRange = ({
         daySpacing,
         ticks: weekdayTicks,
         firstWeekday,
+        arrayOfWeekdays: weekdays,
     })
 
     const monthLegends = useMonthLegends({
@@ -137,7 +139,7 @@ const InnerTimeRange = ({
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {weekdayLegends.map(legend => (
                 <text
-                    key={legend.value}
+                    key={`${legend.value}-${legend.x}-${legend.y}`}
                     transform={`translate(${legend.x},${legend.y}) rotate(${legend.rotation})`}
                     textAnchor="left"
                     style={theme.labels.text}
