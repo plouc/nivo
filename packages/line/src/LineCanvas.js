@@ -193,12 +193,12 @@ const LineCanvas = props => {
                 ctx.globalAlpha = areaOpacity
 
                 areaGenerator.context(ctx)
-                series.forEach(serie => {
-                    ctx.fillStyle = serie.color
+                for (let i = series.length - 1; i >= 0; i--) {
+                    ctx.fillStyle = series[i].color
                     ctx.beginPath()
-                    areaGenerator(serie.data.map(d => d.position))
+                    areaGenerator(series[i].data.map(d => d.position))
                     ctx.fill()
-                })
+                }
 
                 ctx.restore()
             }
