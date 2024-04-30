@@ -348,7 +348,14 @@ const props: ChartProperty[] = [
     {
         key: 'useMesh',
         flavors: ['svg'],
-        help: 'Use a voronoi mesh to detect mouse interactions, enableSlices must be disabled',
+        help: 'Use a voronoi mesh to detect mouse interactions.',
+        description: `
+            Use a voronoi mesh to detect mouse interactions, using points rather than lines
+            to detect interactions.
+
+            In this mode, lines are still highlighted when hovering a point, but only
+            the current point is being highlighted.
+        `,
         type: 'boolean',
         required: false,
         defaultValue: defaults.useMesh,
@@ -398,15 +405,26 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
     },
     {
-        key: 'tooltip',
+        key: 'lineTooltip',
         group: 'Interactivity',
         type: 'Function',
         required: false,
-        help: 'Custom tooltip component.',
+        help: 'Custom line tooltip component, used when `useMesh` is `false`.',
         description: `
-            A function allowing complete tooltip customisation,
-            it must return a valid HTML
-            element and will receive the series's data.
+            A function allowing complete tooltip customisation for lines,
+            it must return a valid HTML element and will receive the series's data.
+        `,
+        flavors: ['svg'],
+    },
+    {
+        key: 'pointTooltip',
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Custom point tooltip component, used when `useMesh` is `true`.',
+        description: `
+            A function allowing complete tooltip customisation for points,
+            it must return a valid HTML element and will receive the point's data.
         `,
         flavors: ['svg'],
     },
