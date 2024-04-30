@@ -372,6 +372,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     if (layers.includes('totals') && enableTotals) {
         layerById.totals = (
             <BarTotals
+                key="totals"
                 data={barTotals}
                 springConfig={springConfig}
                 animate={animate}
