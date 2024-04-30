@@ -187,6 +187,21 @@ export interface BumpBaseCommonProps<
     debugMesh: boolean
 }
 
+export const isBumpPoint = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>(
+    point: BumpComputedSerie<Datum, ExtraProps> | BumpPoint<Datum, ExtraProps>
+): point is BumpPoint<Datum, ExtraProps> => {
+    return 'serie' in point
+}
+
+export const isComputedBumpSerie = <
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+>(
+    serie: BumpComputedSerie<Datum, ExtraProps> | BumpPoint<Datum, ExtraProps>
+): serie is BumpComputedSerie<Datum, ExtraProps> => {
+    return 'points' in serie
+}
+
 interface BumpMeshCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>
     extends BumpBaseCommonProps<Datum, ExtraProps> {
     useMesh: true

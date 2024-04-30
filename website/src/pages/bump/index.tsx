@@ -7,6 +7,8 @@ import {
     bumpSvgDefaultProps as defaults,
     BumpCommonProps,
     DefaultBumpDatum,
+    isBumpPoint,
+    isComputedBumpSerie,
 } from '@nivo/bump'
 import { MotionProps } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
@@ -161,14 +163,23 @@ const Bump = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={(serie: { id: string; color: string }) =>
-                            logAction({
-                                type: 'click',
-                                label: `[serie] ${serie.id}`,
-                                color: serie.color,
-                                data: serie,
-                            })
-                        }
+                        onClick={(data: any) => {
+                            if (isComputedBumpSerie(data)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[serie] ${data.id}`,
+                                    color: data.color,
+                                    data: data,
+                                })
+                            } else if (isBumpPoint(data)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[point] ${data.id}`,
+                                    color: data.serie.color,
+                                    data: data,
+                                })
+                            }
+                        }}
                     />
                 )
             }}
