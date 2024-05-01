@@ -73,7 +73,7 @@ const Line = props => {
         pointBorderWidth = 0,
         pointBorderColor = { theme: 'background' },
         enablePointLabel = false,
-        pointLabel = 'yFormatted',
+        pointLabel = 'data.yFormatted',
         pointLabelYOffset,
 
         defs = [],
