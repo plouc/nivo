@@ -706,9 +706,6 @@ importers:
 
   packages/core:
     dependencies:
-      '@nivo/recompose':
-        specifier: workspace:*
-        version: link:../recompose
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -1179,24 +1176,6 @@ importers:
       react:
         specifier: 18.2.0
         version: 18.2.0
-
-  packages/recompose:
-    dependencies:
-      '@types/prop-types':
-        specifier: ^15.7.2
-        version: 15.7.4
-      '@types/react-lifecycles-compat':
-        specifier: ^3.0.1
-        version: 3.0.1
-      prop-types:
-        specifier: ^15.7.2
-        version: 15.8.1
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-lifecycles-compat:
-        specifier: ^3.0.4
-        version: 3.0.4
 
   packages/sankey:
     dependencies:
@@ -7977,12 +7956,6 @@ packages:
 
   /@types/react-helmet@6.1.4:
     resolution: {integrity: sha512-jyx50RNZXVaTGHY3MsoRPNpeiVk8b0XTPgD/O6KHF6COTDnG/+lRjPYvTK5nfWtR3xDOux0w6bHLAsaHo2ZLTA==}
-    dependencies:
-      '@types/react': 18.2.0
-    dev: false
-
-  /@types/react-lifecycles-compat@3.0.1:
-    resolution: {integrity: sha512-4KiU5s1Go4xRbf7t6VxUUpBeN5PGjpjpBv9VvET4uiPHC500VNYBclU13f8ehHkHoZL39b2cfwHu6RzbV3b44A==}
     dependencies:
       '@types/react': 18.2.0
     dev: false
@@ -21561,10 +21534,6 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
-
-  /react-lifecycles-compat@3.0.4:
-    resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
-    dev: false
 
   /react-markdown@8.0.7(@types/react@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}

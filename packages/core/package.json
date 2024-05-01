@@ -21,7 +21,6 @@
         "dist/"
     ],
     "dependencies": {
-        "@nivo/recompose": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^2.0.0",
