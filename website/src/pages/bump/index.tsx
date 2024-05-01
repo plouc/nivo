@@ -174,7 +174,7 @@ const Bump = () => {
                             } else if (isBumpPoint(data)) {
                                 logAction({
                                     type: 'click',
-                                    label: `[point] ${data.id}`,
+                                    label: `[point] x: ${data.data.x}, y: ${data.data.y} (series: ${data.serie.id})`,
                                     color: data.serie.color,
                                     data: data,
                                 })
