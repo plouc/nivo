@@ -30,7 +30,6 @@
     "@nivo/parallel-coordinates": "0.86.0",
     "@nivo/pie": "0.86.0",
     "@nivo/radar": "0.86.0",
-    "@nivo/recompose": "0.86.0",
     "@nivo/sankey": "0.86.0",
     "@nivo/scales": "0.86.0",
     "@nivo/scatterplot": "0.86.0",

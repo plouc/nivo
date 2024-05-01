@@ -19,7 +19,6 @@
 
         // Utility packages
         { "path": "./packages/generators" },
-        { "path": "./packages/recompose" },
 
         // Charts now
         { "path": "./packages/bar" },
