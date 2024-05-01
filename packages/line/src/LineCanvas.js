@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { createElement, useRef, useEffect, useState, useCallback, forwardRef } from 'react'
 import {
     withContainer,
@@ -18,7 +10,6 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
-import { LineCanvasPropTypes } from './props'
 import { useLine } from './hooks'
 import PointTooltip from './PointTooltip'
 
@@ -344,8 +335,6 @@ const LineCanvas = props => {
         />
     )
 }
-
-LineCanvas.propTypes = LineCanvasPropTypes
 
 const LineCanvasWithContainer = withContainer(LineCanvas)
 
