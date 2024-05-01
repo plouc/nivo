@@ -353,15 +353,9 @@ importers:
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
-      '@types/prop-types':
-        specifier: ^15.7.2
-        version: 15.7.4
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      prop-types:
-        specifier: ^15.7.2
-        version: 15.8.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -404,18 +398,12 @@ importers:
       '@types/d3-time-format':
         specifier: ^2.3.1
         version: 2.3.1
-      '@types/prop-types':
-        specifier: ^15.7.2
-        version: 15.7.4
       d3-format:
         specifier: ^1.4.4
         version: 1.4.5
       d3-time-format:
         specifier: ^3.0.0
         version: 3.0.0
-      prop-types:
-        specifier: ^15.7.2
-        version: 15.8.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -927,15 +915,9 @@ importers:
       '@types/d3-scale':
         specifier: ^4.0.8
         version: 4.0.8
-      '@types/prop-types':
-        specifier: ^15.7.2
-        version: 15.7.4
       d3-scale:
         specifier: ^4.0.2
         version: 4.0.2
-      prop-types:
-        specifier: ^15.7.2
-        version: 15.8.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -972,9 +954,6 @@ importers:
       d3-shape:
         specifier: ^1.3.5
         version: 1.3.7
-      prop-types:
-        specifier: ^15.7.2
-        version: 15.8.1
       react:
         specifier: 18.2.0
         version: 18.2.0
