@@ -74,6 +74,12 @@ export type LinkThicknessFunction<Datum extends object> = (
 
 export interface LinkComponentProps<Datum extends object> {
     link: ComputedLink<Datum>
+    isInteractive: boolean
+    onMouseEnter?: LinkMouseEventHandler<Datum>
+    onMouseMove?: LinkMouseEventHandler<Datum>
+    onMouseLeave?: LinkMouseEventHandler<Datum>
+    onClick?: LinkMouseEventHandler<Datum>
+    // tooltip?: NodeTooltip<Datum>
     animatedProps: SpringValues<{
         sourceX: number
         sourceY: number
@@ -82,6 +88,11 @@ export interface LinkComponentProps<Datum extends object> {
     }>
 }
 export type LinkComponent<Datum extends object> = FunctionComponent<LinkComponentProps<Datum>>
+
+export type LinkMouseEventHandler<Datum extends object> = (
+    node: ComputedLink<Datum>,
+    event: MouseEvent
+) => void
 
 export interface CustomLayerProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
@@ -110,6 +121,10 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     onNodeMouseLeave: NodeMouseEventHandler<Datum>
     onNodeClick: NodeMouseEventHandler<Datum>
     nodeTooltip: NodeTooltip<Datum>
+    onLinkMouseEnter: LinkMouseEventHandler<Datum>
+    onLinkMouseMove: LinkMouseEventHandler<Datum>
+    onLinkMouseLeave: LinkMouseEventHandler<Datum>
+    onLinkClick: LinkMouseEventHandler<Datum>
 
     role: string
     renderWrapper: boolean

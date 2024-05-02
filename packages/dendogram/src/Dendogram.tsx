@@ -28,6 +28,10 @@ const InnerDendogram = <Datum extends object>({
     onNodeMouseLeave,
     onNodeClick,
     nodeTooltip,
+    onLinkMouseEnter,
+    onLinkMouseMove,
+    onLinkMouseLeave,
+    onLinkClick,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -55,7 +59,18 @@ const InnerDendogram = <Datum extends object>({
     }
 
     if (layers.includes('links')) {
-        layerById.links = <Links<Datum> key="links" links={links} linkComponent={linkComponent} />
+        layerById.links = (
+            <Links<Datum>
+                key="links"
+                links={links}
+                linkComponent={linkComponent}
+                isInteractive={isInteractive}
+                onMouseEnter={onLinkMouseEnter}
+                onMouseMove={onLinkMouseMove}
+                onMouseLeave={onLinkMouseLeave}
+                onClick={onLinkClick}
+            />
+        )
     }
 
     if (layers.includes('nodes')) {
