@@ -61,11 +61,10 @@ declare module '*calendar/meta.yml' {
     export default meta
 }
 
-declare module '*calendar/meta.yml' {
+declare module '*dendogram/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
-        Calendar: ChartMeta
-        CalendarCanvas: ChartMeta
+        Dendogram: ChartMeta
     }
 
     export default meta

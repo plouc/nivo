@@ -7,6 +7,7 @@ import bullet from './components/bullet/meta.yml'
 import calendar from './components/calendar/meta.yml'
 import choropleth from './components/choropleth/meta.yml'
 import chord from './components/chord/meta.yml'
+import dendogram from './components/dendogram/meta.yml'
 import funnel from './components/funnel/meta.yml'
 import geomap from './components/geomap/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
@@ -109,6 +110,14 @@ export const components: ChartNavData[] = [
             svg: true,
             canvas: true,
             api: true,
+        },
+    },
+    {
+        name: 'Dendogram',
+        id: 'dendogram',
+        tags: dendogram.Dendogram.tags,
+        flavors: {
+            svg: true,
         },
     },
     {
