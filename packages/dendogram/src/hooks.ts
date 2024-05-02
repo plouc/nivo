@@ -16,6 +16,7 @@ import {
     NodeTooltip,
     IntermediateComputedLink,
     LinkThicknessFunction,
+    LinkMouseEventHandler,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -292,6 +293,84 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
             onClick?.(node, event)
         },
         [node, onClick]
+    )
+
+    return {
+        onMouseEnter: isInteractive ? handleMouseEnter : undefined,
+        onMouseMove: isInteractive ? handleMouseMove : undefined,
+        onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+        onClick: isInteractive ? handleClick : undefined,
+    }
+}
+
+/**
+ * This hook may generates mouse event handlers for a node according to the main chart props.
+ * It's used for the default `Node` component and may be used for custom nodes
+ * to simplify their implementation.
+ */
+export const useLinkMouseEventHandlers = <Datum extends object>(
+    link: ComputedLink<Datum>,
+    {
+        isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+    }: // tooltip,
+    {
+        isInteractive: boolean
+        onMouseEnter?: LinkMouseEventHandler<Datum>
+        onMouseMove?: LinkMouseEventHandler<Datum>
+        onMouseLeave?: LinkMouseEventHandler<Datum>
+        onClick?: LinkMouseEventHandler<Datum>
+        // tooltip?: NodeTooltip<Datum>
+    }
+) => {
+    // const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    // const showTooltip = useCallback(
+    //     (event: MouseEvent) => {
+    //         tooltip !== undefined &&
+    //             showTooltipFromEvent(
+    //                 createElement(tooltip, {
+    //                     node,
+    //                 }),
+    //                 event,
+    //                 'left'
+    //             )
+    //     },
+    //     [node, tooltip, showTooltipFromEvent]
+    // )
+
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent) => {
+            // showTooltip(event)
+            onMouseEnter?.(link, event)
+        },
+        [link, onMouseEnter]
+    )
+
+    const handleMouseMove = useCallback(
+        (event: MouseEvent) => {
+            // showTooltip(event)
+            onMouseMove?.(link, event)
+        },
+        [link, onMouseMove]
+    )
+
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent) => {
+            // hideTooltip()
+            onMouseLeave?.(link, event)
+        },
+        [link, onMouseLeave]
+    )
+
+    const handleClick = useCallback(
+        (event: MouseEvent) => {
+            onClick?.(link, event)
+        },
+        [link, onClick]
     )
 
     return {

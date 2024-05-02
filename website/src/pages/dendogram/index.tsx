@@ -21,24 +21,6 @@ const initialProperties = {
         left: 24,
     },
 
-    enableLabel: true,
-    label: defaults.label,
-    labelSkipSize: 12,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 1.2]],
-    },
-    orientLabel: defaults.orientLabel,
-
-    colors: defaults.colors,
-    colorBy: defaults.colorBy,
-    nodeOpacity: defaults.nodeOpacity,
-    borderWidth: defaults.borderWidth,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.1]],
-    },
-
     animate: defaults.animate,
     motionConfig: defaults.motionConfig,
 
@@ -84,8 +66,14 @@ const TreeMap = () => {
                             logAction({
                                 type: 'click',
                                 label: `[node] ${node.pathComponents.join(' / ')}`,
-                                // color: node.color,
                                 data: node,
+                            })
+                        }}
+                        onLinkClick={link => {
+                            logAction({
+                                type: 'click',
+                                label: `[link] ${link.source.id} > ${link.target.id}`,
+                                data: link,
                             })
                         }}
                     />
