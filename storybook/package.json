@@ -26,6 +26,7 @@
         "@nivo/circle-packing": "workspace:*",
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/dendogram": "workspace:*",
         "@nivo/funnel": "workspace:*",
         "@nivo/generators": "workspace:*",
         "@nivo/heatmap": "workspace:*",

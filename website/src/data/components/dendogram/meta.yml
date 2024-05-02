@@ -1,0 +1,15 @@
+flavors:
+  - flavor: svg
+    path: /dendogram/
+
+Dendogram:
+  package: '@nivo/dendogram'
+  tags:
+    - hierarchy
+  stories:
+    - label: Using custom tooltip
+      link: treemap--custom-tooltip
+    - label: Patterns & Gradients
+      link: treemap--patterns-and-gradients
+  description: |
+    Dendogram
