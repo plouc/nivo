@@ -1,11 +1,11 @@
 import { createElement } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedNode, NodeMouseEventHandler, DendogramSvgProps, NodeTooltip } from './types'
+import { ComputedNode, NodeComponent, NodeMouseEventHandler, NodeTooltip } from './types'
 
 interface NodesProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
-    nodeComponent: Exclude<DendogramSvgProps<Datum>['nodeComponent'], undefined>
+    nodeComponent: NodeComponent<Datum>
     isInteractive: boolean
     onMouseEnter?: NodeMouseEventHandler<Datum>
     onMouseMove?: NodeMouseEventHandler<Datum>

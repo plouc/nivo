@@ -1,10 +1,6 @@
-import { ComputedLink } from './types'
+import { LinkComponentProps } from './types'
 
-interface LinkProps<Datum extends object> {
-    link: ComputedLink<Datum>
-}
-
-export const Link = <Datum extends object>({ link }: LinkProps<Datum>) => {
+export const Link = <Datum extends object>({ link }: LinkComponentProps<Datum>) => {
     // console.log(link)
 
     return (

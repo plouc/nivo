@@ -1,6 +1,6 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { DefaultDatum, LayerId, DendogramSvgProps } from './types'
+import { DefaultDatum, LayerId, DendogramSvgProps, CustomLayerProps } from './types'
 import { svgDefaultProps } from './defaults'
 import { useDendogram } from './hooks'
 import { Links } from './Links'
@@ -18,8 +18,9 @@ const InnerDendogram = <Datum extends object>({
     data,
     identity,
     nodeComponent = svgDefaultProps.nodeComponent,
+    linkComponent = svgDefaultProps.linkComponent,
     layout = svgDefaultProps.layout,
-    layers = svgDefaultProps.layers as LayerId[],
+    layers = svgDefaultProps.layers,
     isInteractive = svgDefaultProps.isInteractive,
     onNodeMouseEnter,
     onNodeMouseMove,
@@ -52,7 +53,7 @@ const InnerDendogram = <Datum extends object>({
     }
 
     if (layers.includes('links')) {
-        layerById.links = <Links key="links" links={links} />
+        layerById.links = <Links<Datum> key="links" links={links} linkComponent={linkComponent} />
     }
 
     if (layers.includes('nodes')) {
@@ -71,10 +72,15 @@ const InnerDendogram = <Datum extends object>({
         )
     }
 
-    const customLayerProps = {} /*useCustomLayerProps<D>({
-        cells,
-        computedData,
-    })*/
+    const customLayerProps: CustomLayerProps<Datum> = useMemo(
+        () => ({
+            nodes,
+            links,
+            innerWidth,
+            innerHeight,
+        }),
+        [nodes, links, innerWidth, innerHeight]
+    )
 
     return (
         <SvgWrapper
