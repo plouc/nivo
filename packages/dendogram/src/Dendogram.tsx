@@ -17,6 +17,7 @@ const InnerDendogram = <Datum extends object>({
     margin: partialMargin,
     data,
     identity,
+    linkThickness = svgDefaultProps.linkThickness,
     nodeComponent = svgDefaultProps.nodeComponent,
     linkComponent = svgDefaultProps.linkComponent,
     layout = svgDefaultProps.layout,
@@ -44,6 +45,7 @@ const InnerDendogram = <Datum extends object>({
         layout,
         width: innerWidth,
         height: innerHeight,
+        linkThickness,
     })
 
     const layerById: Record<LayerId, ReactNode> = {

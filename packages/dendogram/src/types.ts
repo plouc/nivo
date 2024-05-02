@@ -33,10 +33,14 @@ export interface ComputedNode<Datum extends object> {
     y: number
 }
 
-export interface ComputedLink<Datum extends object> {
+export interface IntermediateComputedLink<Datum extends object> {
     id: string
     source: ComputedNode<Datum>
     target: ComputedNode<Datum>
+}
+
+export interface ComputedLink<Datum extends object> extends IntermediateComputedLink<Datum> {
+    thickness: number
 }
 
 export interface NodeComponentProps<Datum extends object> {
@@ -64,8 +68,18 @@ export type NodeMouseEventHandler<Datum extends object> = (
     event: MouseEvent
 ) => void
 
+export type LinkThicknessFunction<Datum extends object> = (
+    link: IntermediateComputedLink<Datum>
+) => number
+
 export interface LinkComponentProps<Datum extends object> {
     link: ComputedLink<Datum>
+    animatedProps: SpringValues<{
+        sourceX: number
+        sourceY: number
+        targetX: number
+        targetY: number
+    }>
 }
 export type LinkComponent<Datum extends object> = FunctionComponent<LinkComponentProps<Datum>>
 
@@ -88,6 +102,7 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     identity: PropertyAccessor<Datum, string>
 
     theme: Theme
+    linkThickness: number | LinkThicknessFunction<Datum>
 
     isInteractive: boolean
     onNodeMouseEnter: NodeMouseEventHandler<Datum>

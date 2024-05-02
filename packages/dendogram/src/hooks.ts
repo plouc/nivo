@@ -14,6 +14,8 @@ import {
     ComputedLink,
     NodeMouseEventHandler,
     NodeTooltip,
+    IntermediateComputedLink,
+    LinkThicknessFunction,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -144,20 +146,37 @@ const useNodes = <Datum extends object>({
 const useLinks = <Datum extends object>({
     root,
     nodeByUid,
+    linkThickness,
 }: {
     root: HierarchyDendogramNode<Datum>
     nodeByUid: Record<string, ComputedNode<Datum>>
-}) =>
-    useMemo<ComputedLink<Datum>[]>(() => {
+    linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
+}): ComputedLink<Datum>[] => {
+    const intermediateLinks = useMemo<IntermediateComputedLink<Datum>[]>(() => {
         return (root.links() as HierarchyDendogramLink<Datum>[]).map(link => {
             return {
+                id: `${link.source.uid}:${link.target.uid}`,
                 // Replace with computed nodes.
                 source: nodeByUid[link.source.uid!],
                 target: nodeByUid[link.target.uid!],
-                id: `${link.source.uid}:${link.target.uid}`,
             }
         })
     }, [root, nodeByUid])
+
+    const getLinkThickness: LinkThicknessFunction<Datum> = useMemo(() => {
+        if (typeof linkThickness === 'function') return linkThickness
+        return () => linkThickness
+    }, [linkThickness])
+
+    return useMemo(() => {
+        return intermediateLinks.map(intermediateLink => {
+            return {
+                ...intermediateLink,
+                thickness: getLinkThickness(intermediateLink),
+            }
+        })
+    }, [intermediateLinks, getLinkThickness])
+}
 
 export const useDendogram = <Datum extends object = DefaultDatum>({
     data,
@@ -165,12 +184,14 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     layout = commonDefaultProps.layout,
     width,
     height,
+    linkThickness = commonDefaultProps.linkThickness,
 }: {
     data: DendogramDataProps<Datum>['data']
     identity?: CommonProps<Datum>['identity']
     layout?: Layout
     width: number
     height: number
+    linkThickness?: CommonProps<Datum>['linkThickness']
 }) => {
     const getIdentity = usePropertyAccessor(identity)
 
@@ -194,7 +215,7 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
         getIdentity,
     })
 
-    const links = useLinks<Datum>({ root, nodeByUid })
+    const links = useLinks<Datum>({ root, nodeByUid, linkThickness })
 
     return {
         nodes,

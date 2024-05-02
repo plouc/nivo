@@ -1,14 +1,27 @@
+import { animated, to } from '@react-spring/web'
+import { line as d3Line } from 'd3-shape'
 import { LinkComponentProps } from './types'
 
-export const Link = <Datum extends object>({ link }: LinkComponentProps<Datum>) => {
-    // console.log(link)
+const lineGenerator = d3Line()
 
+export const Link = <Datum extends object>({ link, animatedProps }: LinkComponentProps<Datum>) => {
     return (
-        <line
-            x1={link.source.x}
-            y1={link.source.y}
-            x2={link.target.x}
-            y2={link.target.y}
+        <animated.path
+            d={to(
+                [
+                    animatedProps.sourceX,
+                    animatedProps.sourceY,
+                    animatedProps.targetX,
+                    animatedProps.targetY,
+                ],
+                (sourceX, sourceY, targetX, targetY) => {
+                    return lineGenerator([
+                        [sourceX, sourceY],
+                        [targetX, targetY],
+                    ])
+                }
+            )}
+            strokeWidth={link.thickness}
             stroke="red"
         />
     )
