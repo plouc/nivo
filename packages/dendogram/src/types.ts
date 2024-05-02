@@ -64,6 +64,19 @@ export type NodeMouseEventHandler<Datum extends object> = (
     event: MouseEvent
 ) => void
 
+export interface LinkComponentProps<Datum extends object> {
+    link: ComputedLink<Datum>
+}
+export type LinkComponent<Datum extends object> = FunctionComponent<LinkComponentProps<Datum>>
+
+export interface CustomLayerProps<Datum extends object> {
+    nodes: ComputedNode<Datum>[]
+    links: ComputedLink<Datum>[]
+    innerWidth: number
+    innerHeight: number
+}
+export type CustomSvgLayer<Datum extends object> = FunctionComponent<CustomLayerProps<Datum>>
+
 export interface DendogramDataProps<Datum extends object> {
     data: Datum
 }
@@ -93,8 +106,9 @@ export interface CommonProps<Datum extends object> extends MotionProps {
 export type DendogramSvgProps<Datum extends object> = DendogramDataProps<Datum> &
     Dimensions &
     Partial<CommonProps<Datum>> & {
-        layers?: LayerId[]
+        layers?: (LayerId | CustomSvgLayer<Datum>)[]
         nodeComponent?: NodeComponent<Datum>
+        linkComponent?: LinkComponent<Datum>
     }
 
 export type ResponsiveDendogramSvgProps<Datum extends object> = Omit<
