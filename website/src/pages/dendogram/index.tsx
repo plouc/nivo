@@ -12,6 +12,7 @@ type Datum = ReturnType<typeof generateLightDataSet>
 const initialProperties = {
     identity: 'name',
     layout: defaults.layout,
+    linkThickness: defaults.linkThickness,
 
     margin: {
         top: 24,

@@ -4,10 +4,11 @@ import { Link } from './Link'
 
 export const commonDefaultProps: Pick<
     CommonProps<any>,
-    'identity' | 'layout' | 'isInteractive' | 'role' | 'animate' | 'motionConfig'
+    'identity' | 'layout' | 'linkThickness' | 'isInteractive' | 'role' | 'animate' | 'motionConfig'
 > = {
     identity: 'id',
     layout: 'top-to-bottom',
+    linkThickness: 1,
     isInteractive: true,
     role: 'img',
     animate: true,
