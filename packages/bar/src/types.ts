@@ -165,6 +165,7 @@ export interface BarItemProps<RawDatum extends BarDatum>
         opacity: number
         transform: string
         width: number
+        textAnchor: 'start' | 'middle'
     }>
 
     label: string

@@ -17,6 +17,7 @@ export const BarItem = <RawDatum extends BarDatum>({
         labelY,
         transform,
         width,
+        textAnchor,
     },
 
     borderRadius,
@@ -104,7 +105,7 @@ export const BarItem = <RawDatum extends BarDatum>({
                 <animated.text
                     x={labelX}
                     y={labelY}
-                    textAnchor="middle"
+                    textAnchor={textAnchor}
                     dominantBaseline="central"
                     fillOpacity={labelOpacity}
                     style={{
