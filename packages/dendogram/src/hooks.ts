@@ -18,6 +18,7 @@ import {
     LinkThicknessFunction,
     LinkMouseEventHandler,
     LinkTooltip,
+    IntermediateComputedNode,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -85,23 +86,31 @@ const useCartesianScales = ({
         }
     }, [width, height, layout])
 
+const useNodeColor = <Datum extends object>(
+    color: Exclude<CommonProps<Datum>['nodeColor'], undefined>
+) =>
+    useMemo(() => {
+        if (typeof color === 'function') return color
+        return () => color
+    }, [color])
+
 const useNodes = <Datum extends object>({
     root,
     xScale,
     yScale,
     layout,
     getIdentity,
+    nodeColor,
 }: {
     root: HierarchyDendogramNode<Datum>
     xScale: ScaleLinear<number, number>
     yScale: ScaleLinear<number, number>
     layout: Layout
     getIdentity: (node: Datum) => string
-}) =>
-    useMemo(() => {
-        const nodeByUid: Record<string, ComputedNode<Datum>> = {}
-
-        const nodes: ComputedNode<Datum>[] = root.descendants().map(node => {
+    nodeColor: Exclude<CommonProps<Datum>['nodeColor'], undefined>
+}) => {
+    const intermediateNodes = useMemo<IntermediateComputedNode<Datum>[]>(() => {
+        return root.descendants().map(node => {
             const { pathComponents } = computeNodePath<Datum>(node, getIdentity)
 
             let x: number
@@ -114,7 +123,7 @@ const useNodes = <Datum extends object>({
                 y = yScale(node.x!)
             }
 
-            const computedNode: ComputedNode<Datum> = {
+            return {
                 uid: node.uid!,
                 id: getIdentity(node.data),
                 data: node.data,
@@ -124,6 +133,20 @@ const useNodes = <Datum extends object>({
                 x,
                 y,
             }
+        })
+    }, [root, getIdentity, layout, xScale, yScale])
+
+    const getNodeColor = useNodeColor<Datum>(nodeColor)
+
+    return useMemo(() => {
+        const nodeByUid: Record<string, ComputedNode<Datum>> = {}
+
+        const nodes: ComputedNode<Datum>[] = intermediateNodes.map(intermediateNode => {
+            const computedNode: ComputedNode<Datum> = {
+                ...intermediateNode,
+                color: getNodeColor(intermediateNode),
+            }
+
             nodeByUid[computedNode.uid] = computedNode
 
             return computedNode
@@ -133,16 +156,27 @@ const useNodes = <Datum extends object>({
             nodes,
             nodeByUid,
         }
-    }, [root, getIdentity, layout, xScale, yScale])
+    }, [intermediateNodes, getNodeColor])
+}
+
+const useLinkColor = <Datum extends object>(
+    color: Exclude<CommonProps<Datum>['linkColor'], undefined>
+) =>
+    useMemo(() => {
+        if (typeof color === 'function') return color
+        return () => color
+    }, [color])
 
 const useLinks = <Datum extends object>({
     root,
     nodeByUid,
     linkThickness,
+    linkColor,
 }: {
     root: HierarchyDendogramNode<Datum>
     nodeByUid: Record<string, ComputedNode<Datum>>
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
+    linkColor: Exclude<CommonProps<Datum>['linkColor'], undefined>
 }): ComputedLink<Datum>[] => {
     const intermediateLinks = useMemo<IntermediateComputedLink<Datum>[]>(() => {
         return (root.links() as HierarchyDendogramLink<Datum>[]).map(link => {
@@ -160,14 +194,17 @@ const useLinks = <Datum extends object>({
         return () => linkThickness
     }, [linkThickness])
 
+    const getLinkColor = useLinkColor<Datum>(linkColor)
+
     return useMemo(() => {
         return intermediateLinks.map(intermediateLink => {
             return {
                 ...intermediateLink,
                 thickness: getLinkThickness(intermediateLink),
+                color: getLinkColor(intermediateLink),
             }
         })
-    }, [intermediateLinks, getLinkThickness])
+    }, [intermediateLinks, getLinkThickness, getLinkColor])
 }
 
 export const useDendogram = <Datum extends object = DefaultDatum>({
@@ -176,14 +213,18 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     layout = commonDefaultProps.layout,
     width,
     height,
+    nodeColor = commonDefaultProps.nodeColor,
     linkThickness = commonDefaultProps.linkThickness,
+    linkColor = commonDefaultProps.linkColor,
 }: {
     data: DendogramDataProps<Datum>['data']
     identity?: CommonProps<Datum>['identity']
     layout?: Layout
     width: number
     height: number
+    nodeColor?: CommonProps<Datum>['nodeColor']
     linkThickness?: CommonProps<Datum>['linkThickness']
+    linkColor?: CommonProps<Datum>['linkColor']
 }) => {
     const getIdentity = usePropertyAccessor(identity)
 
@@ -205,9 +246,15 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
         yScale,
         layout,
         getIdentity,
+        nodeColor,
     })
 
-    const links = useLinks<Datum>({ root, nodeByUid, linkThickness })
+    const links = useLinks<Datum>({ root, nodeByUid, linkThickness, linkColor })
+
+    console.log({
+        nodes,
+        links,
+    })
 
     return {
         nodes,

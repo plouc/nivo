@@ -174,6 +174,9 @@ importers:
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
 
   api:
     dependencies:
@@ -16305,7 +16308,7 @@ packages:
       jest-util: 29.5.0
       jest-validate: 29.5.0
       prompts: 2.4.2
-      yargs: 17.7.1
+      yargs: 17.7.2
     transitivePeerDependencies:
       - '@types/node'
       - supports-color
@@ -19395,7 +19398,7 @@ packages:
       tsconfig-paths: 4.2.0
       tslib: 2.5.0
       v8-compile-cache: 2.3.0
-      yargs: 17.7.1
+      yargs: 17.7.2
       yargs-parser: 21.1.1
     optionalDependencies:
       '@nrwl/nx-darwin-arm64': 15.9.3
@@ -25746,6 +25749,19 @@ packages:
 
   /yargs@17.7.1:
     resolution: {integrity: sha512-cwiTb08Xuv5fqF4AovYacTFNxk62th7LKJ6BL9IGUpTJrWoU7/7WdQGTP2SjKf1dUNBGzDd28p/Yfs/GI6JrLw==}
+    engines: {node: '>=12'}
+    dependencies:
+      cliui: 8.0.1
+      escalade: 3.1.1
+      get-caller-file: 2.0.5
+      require-directory: 2.1.1
+      string-width: 4.2.3
+      y18n: 5.0.8
+      yargs-parser: 21.1.1
+    dev: true
+
+  /yargs@17.7.2:
+    resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
     dependencies:
       cliui: 8.0.1

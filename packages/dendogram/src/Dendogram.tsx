@@ -17,8 +17,10 @@ const InnerDendogram = <Datum extends object>({
     margin: partialMargin,
     data,
     identity,
-    linkThickness = svgDefaultProps.linkThickness,
+    nodeColor = svgDefaultProps.nodeColor,
     nodeComponent = svgDefaultProps.nodeComponent,
+    linkThickness = svgDefaultProps.linkThickness,
+    linkColor = svgDefaultProps.linkColor,
     linkComponent = svgDefaultProps.linkComponent,
     layout = svgDefaultProps.layout,
     layers = svgDefaultProps.layers,
@@ -50,7 +52,9 @@ const InnerDendogram = <Datum extends object>({
         layout,
         width: innerWidth,
         height: innerHeight,
+        nodeColor,
         linkThickness,
+        linkColor,
     })
 
     const layerById: Record<LayerId, ReactNode> = {

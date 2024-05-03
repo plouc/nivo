@@ -22,7 +22,7 @@ export interface HierarchyDendogramLink<Datum> {
     target: HierarchyDendogramNode<Datum>
 }
 
-export interface ComputedNode<Datum extends object> {
+export interface IntermediateComputedNode<Datum extends object> {
     uid: string
     id: string
     data: Datum
@@ -33,6 +33,10 @@ export interface ComputedNode<Datum extends object> {
     y: number
 }
 
+export interface ComputedNode<Datum extends object> extends IntermediateComputedNode<Datum> {
+    color: string
+}
+
 export interface IntermediateComputedLink<Datum extends object> {
     id: string
     source: ComputedNode<Datum>
@@ -41,7 +45,12 @@ export interface IntermediateComputedLink<Datum extends object> {
 
 export interface ComputedLink<Datum extends object> extends IntermediateComputedLink<Datum> {
     thickness: number
+    color: string
 }
+
+export type NodeColorFunction<Datum extends object> = (
+    node: IntermediateComputedNode<Datum>
+) => string
 
 export interface NodeComponentProps<Datum extends object> {
     node: ComputedNode<Datum>
@@ -71,6 +80,10 @@ export type NodeMouseEventHandler<Datum extends object> = (
 export type LinkThicknessFunction<Datum extends object> = (
     link: IntermediateComputedLink<Datum>
 ) => number
+
+export type LinkColorFunction<Datum extends object> = (
+    link: IntermediateComputedLink<Datum>
+) => string
 
 export interface LinkComponentProps<Datum extends object> {
     link: ComputedLink<Datum>
@@ -118,7 +131,9 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     identity: PropertyAccessor<Datum, string>
 
     theme: Theme
+    nodeColor: string | NodeColorFunction<Datum>
     linkThickness: number | LinkThicknessFunction<Datum>
+    linkColor: string | LinkColorFunction<Datum>
 
     isInteractive: boolean
     onNodeMouseEnter: NodeMouseEventHandler<Datum>

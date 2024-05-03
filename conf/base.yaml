@@ -1,4 +1,4 @@
-baseUrl: http://localhost:9000
+baseUrl: http://localhost:8000
 capture:
     pages:
       - id: home
@@ -57,6 +57,10 @@ capture:
         chart: bar
         flavors: [svg, canvas]
 
+      - pkg: bullet
+        chart: bullet
+        flavors: [ svg ]
+
       - pkg: calendar
         chart: calendar
         flavors: [svg]
@@ -71,8 +75,8 @@ capture:
         # html is broken for now
         # flavors: [svg, html, canvas]
 
-      - pkg: bullet
-        chart: bullet
+      - pkg: dendogram
+        chart: dendogram
         flavors: [svg]
 
       - pkg: heatmap

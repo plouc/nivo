@@ -61,6 +61,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"storybook/.storybook/*.{js,ts,tsx}" \
 		"storybook/stories/**/*.{js,ts,tsx}" \
 		"cypress/src/**/*.{js,ts,tsx}" \
+		"scripts/*.{js,mjs}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
@@ -74,6 +75,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 		"storybook/.storybook/*.{js,ts,tsx}" \
 		"storybook/stories/**/*.{js,ts,tsx}" \
 		"cypress/src/**/*.{js,ts,tsx}" \
+		"scripts/*.{js,mjs}" \
         "README.md"
 
 test: ##@0 global run all checks/tests (packages, website)
@@ -203,10 +205,21 @@ pkgs-publish-next: ##@1 packages publish all packages for @next npm tag
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@pnpm lerna publish --exact --npm-tag=next
 
-pkg-dev-%: ##@1 packages build package (es flavor) on change, eg. `package-watch-bar`
+pkg-dev-%: ##@1 packages build package (es flavor) on change, eg. `pkg-dev-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
 	@rm -rf ./packages/${*}/cjs
 	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.mjs -w
+
+pkg-icons-%: ##@1 capture packages icons for the website, eg. `pkg-icons-bar`
+	./scripts/capture.mjs icons --pkg ${*}
+	@$(MAKE) website-sprites
+
+pkg-previews-%: ##@1 capture packages previews for readmes, eg. `pkg-previews-bar`
+	./scripts/capture.mjs charts --pkg ${*}
+
+pkg-capture-%: ##@1 capture packages previews and icons, eg. `pkg-capture-bar`
+	./scripts/capture.mjs all --pkg ${*}
+	@$(MAKE) website-sprites
 
 ########################################################################################################################
 #

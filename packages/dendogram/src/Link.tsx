@@ -41,7 +41,7 @@ export const Link = <Datum extends object>({
                 }
             )}
             strokeWidth={link.thickness}
-            stroke="red"
+            stroke={link.color}
             {...eventHandlers}
         />
     )

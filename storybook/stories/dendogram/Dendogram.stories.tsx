@@ -22,6 +22,10 @@ const meta: Meta<typeof Dendogram> = {
         onNodeMouseMove: { action: 'node mouse move' },
         onNodeMouseLeave: { action: 'node mouse leave' },
         onNodeClick: { action: 'node clicked' },
+        onLinkMouseEnter: { action: 'link mouse enter' },
+        onLinkMouseMove: { action: 'link mouse move' },
+        onLinkMouseLeave: { action: 'link mouse leave' },
+        onLinkClick: { action: 'link clicked' },
     },
     args: {
         layout: 'top-to-bottom',
@@ -79,10 +83,8 @@ export const Basic: Story = {
         <Dendogram
             {...commonProperties}
             layout={args.layout}
-            onNodeMouseEnter={args.onNodeMouseEnter}
-            onNodeMouseMove={args.onNodeMouseMove}
-            onNodeMouseLeave={args.onNodeMouseLeave}
             onNodeClick={args.onNodeClick}
+            onLinkClick={args.onLinkClick}
         />
     ),
 }
@@ -108,10 +110,10 @@ export const WithLinkTooltip: Story = {
             linkThickness={12}
             layout={args.layout}
             linkTooltip={LinkTooltip}
-            onNodeMouseEnter={args.onNodeMouseEnter}
-            onNodeMouseMove={args.onNodeMouseMove}
-            onNodeMouseLeave={args.onNodeMouseLeave}
-            onNodeClick={args.onNodeClick}
+            onLinkMouseEnter={args.onLinkMouseEnter}
+            onLinkMouseMove={args.onLinkMouseMove}
+            onLinkMouseLeave={args.onLinkMouseLeave}
+            onLinkClick={args.onLinkClick}
         />
     ),
 }
