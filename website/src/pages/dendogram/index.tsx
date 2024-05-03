@@ -20,6 +20,8 @@ const initialProperties: Pick<
     | 'identity'
     | 'layout'
     | 'nodeSize'
+    | 'activeNodeSize'
+    | 'inactiveNodeSize'
     | 'nodeColor'
     | 'linkThickness'
     | 'activeLinkThickness'
@@ -39,13 +41,13 @@ const initialProperties: Pick<
 > = {
     identity: 'name',
     layout: 'left-to-right',
-    nodeSize: 16,
+    nodeSize: 12,
     activeNodeSize: 24,
-    inactiveNodeSize: 8,
+    inactiveNodeSize: 12,
     nodeColor: { scheme: 'dark2' },
     linkThickness: 2,
-    activeLinkThickness: 6,
-    inactiveLinkThickness: 1,
+    activeLinkThickness: 8,
+    inactiveLinkThickness: 2,
     linkColor: defaults.linkColor,
 
     margin: {

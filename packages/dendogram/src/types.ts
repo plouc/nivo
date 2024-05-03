@@ -1,5 +1,6 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
+import { Link as LinkShape, DefaultLinkObject } from 'd3-shape'
 import { SpringValues } from '@react-spring/web'
 import { Box, Dimensions, MotionProps, Theme, PropertyAccessor } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
@@ -26,7 +27,7 @@ export interface HierarchyDendogramLink<Datum> {
     target: HierarchyDendogramNode<Datum>
 }
 
-export interface IntermediateComputedNode<Datum extends object> {
+export interface IntermediateComputedNode<Datum> {
     path: string[]
     uid: string
     ancestorIds: string[]
@@ -40,31 +41,29 @@ export interface IntermediateComputedNode<Datum extends object> {
     y: number
 }
 
-export interface ComputedNode<Datum extends object> extends IntermediateComputedNode<Datum> {
+export interface ComputedNode<Datum> extends IntermediateComputedNode<Datum> {
     size: number
     color: string
     isActive: boolean | null
 }
 
-export type CurrentNodeSetter<Datum extends object> = (node: ComputedNode<Datum> | null) => void
+export type CurrentNodeSetter<Datum> = (node: ComputedNode<Datum> | null) => void
 
-export interface IntermediateComputedLink<Datum extends object> {
+export interface IntermediateComputedLink<Datum> {
     id: string
     source: ComputedNode<Datum>
     target: ComputedNode<Datum>
 }
 
-export interface ComputedLink<Datum extends object> extends IntermediateComputedLink<Datum> {
+export interface ComputedLink<Datum> extends IntermediateComputedLink<Datum> {
     thickness: number
     color: string
     isActive: boolean | null
 }
 
-export type NodeSizeFunction<Datum extends object> = (
-    node: IntermediateComputedNode<Datum>
-) => number
+export type NodeSizeFunction<Datum> = (node: IntermediateComputedNode<Datum>) => number
 
-export type NodeSizeModifierFunction<Datum extends object> = (node: ComputedNode<Datum>) => number
+export type NodeSizeModifierFunction<Datum> = (node: ComputedNode<Datum>) => number
 
 export type NodeAnimatedProps = {
     x: number
@@ -73,7 +72,7 @@ export type NodeAnimatedProps = {
     color: string
 }
 
-export interface NodeComponentProps<Datum extends object> {
+export interface NodeComponentProps<Datum> {
     node: ComputedNode<Datum>
     isInteractive: boolean
     onMouseEnter?: NodeMouseEventHandler<Datum>
@@ -84,25 +83,18 @@ export interface NodeComponentProps<Datum extends object> {
     tooltip?: NodeTooltip<Datum>
     animatedProps: SpringValues<NodeAnimatedProps>
 }
-export type NodeComponent<Datum extends object> = FunctionComponent<NodeComponentProps<Datum>>
+export type NodeComponent<Datum> = FunctionComponent<NodeComponentProps<Datum>>
 
-export interface NodeTooltipProps<Datum extends object> {
+export interface NodeTooltipProps<Datum> {
     node: ComputedNode<Datum>
 }
-export type NodeTooltip<Datum extends object> = FunctionComponent<NodeTooltipProps<Datum>>
+export type NodeTooltip<Datum> = FunctionComponent<NodeTooltipProps<Datum>>
 
-export type NodeMouseEventHandler<Datum extends object> = (
-    node: ComputedNode<Datum>,
-    event: MouseEvent
-) => void
+export type NodeMouseEventHandler<Datum> = (node: ComputedNode<Datum>, event: MouseEvent) => void
 
-export type LinkThicknessFunction<Datum extends object> = (
-    link: IntermediateComputedLink<Datum>
-) => number
+export type LinkThicknessFunction<Datum> = (link: IntermediateComputedLink<Datum>) => number
 
-export type LinkThicknessModifierFunction<Datum extends object> = (
-    link: ComputedLink<Datum>
-) => number
+export type LinkThicknessModifierFunction<Datum> = (link: ComputedLink<Datum>) => number
 
 export type LinkAnimatedProps = {
     sourceX: number
@@ -113,8 +105,11 @@ export type LinkAnimatedProps = {
     color: string
 }
 
-export interface LinkComponentProps<Datum extends object> {
+export type LinkGenerator = LinkShape<any, DefaultLinkObject, [number, number]>
+
+export interface LinkComponentProps<Datum> {
     link: ComputedLink<Datum>
+    linkGenerator: LinkGenerator
     isInteractive: boolean
     onMouseEnter?: LinkMouseEventHandler<Datum>
     onMouseMove?: LinkMouseEventHandler<Datum>
@@ -123,31 +118,28 @@ export interface LinkComponentProps<Datum extends object> {
     tooltip?: LinkTooltip<Datum>
     animatedProps: SpringValues<LinkAnimatedProps>
 }
-export type LinkComponent<Datum extends object> = FunctionComponent<LinkComponentProps<Datum>>
+export type LinkComponent<Datum> = FunctionComponent<LinkComponentProps<Datum>>
 
-export type LinkMouseEventHandler<Datum extends object> = (
-    node: ComputedLink<Datum>,
-    event: MouseEvent
-) => void
+export type LinkMouseEventHandler<Datum> = (node: ComputedLink<Datum>, event: MouseEvent) => void
 
-export interface LinkTooltipProps<Datum extends object> {
+export interface LinkTooltipProps<Datum> {
     link: ComputedLink<Datum>
 }
-export type LinkTooltip<Datum extends object> = FunctionComponent<LinkTooltipProps<Datum>>
+export type LinkTooltip<Datum> = FunctionComponent<LinkTooltipProps<Datum>>
 
-export interface CustomLayerProps<Datum extends object> {
+export interface CustomLayerProps<Datum> {
     nodes: ComputedNode<Datum>[]
     links: ComputedLink<Datum>[]
     innerWidth: number
     innerHeight: number
 }
-export type CustomSvgLayer<Datum extends object> = FunctionComponent<CustomLayerProps<Datum>>
+export type CustomSvgLayer<Datum> = FunctionComponent<CustomLayerProps<Datum>>
 
-export interface DendogramDataProps<Datum extends object> {
+export interface DendogramDataProps<Datum> {
     data: Datum
 }
 
-export interface CommonProps<Datum extends object> extends MotionProps {
+export interface CommonProps<Datum> extends MotionProps {
     margin: Box
 
     layout: Layout
@@ -189,7 +181,7 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type DendogramSvgProps<Datum extends object> = DendogramDataProps<Datum> &
+export type DendogramSvgProps<Datum> = DendogramDataProps<Datum> &
     Dimensions &
     Partial<CommonProps<Datum>> & {
         layers?: (LayerId | CustomSvgLayer<Datum>)[]
@@ -197,7 +189,4 @@ export type DendogramSvgProps<Datum extends object> = DendogramDataProps<Datum> 
         linkComponent?: LinkComponent<Datum>
     }
 
-export type ResponsiveDendogramSvgProps<Datum extends object> = Omit<
-    DendogramSvgProps<Datum>,
-    'height' | 'width'
->
+export type ResponsiveDendogramSvgProps<Datum> = Omit<DendogramSvgProps<Datum>, 'height' | 'width'>

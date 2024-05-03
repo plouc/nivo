@@ -10,7 +10,7 @@ import {
     NodeAnimatedProps,
 } from './types'
 
-interface NodesProps<Datum extends object> {
+interface NodesProps<Datum> {
     nodes: ComputedNode<Datum>[]
     nodeComponent: NodeComponent<Datum>
     isInteractive: boolean
@@ -22,20 +22,20 @@ interface NodesProps<Datum extends object> {
     tooltip?: NodeTooltip<Datum>
 }
 
-const regularTransition = <Datum extends object>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
+const regularTransition = <Datum,>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
     x: node.x,
     y: node.y,
     size: node.size,
     color: node.color,
 })
-const leaveTransition = <Datum extends object>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
+const leaveTransition = <Datum,>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
     x: node.x,
     y: node.y,
     size: 0,
     color: node.color,
 })
 
-export const Nodes = <Datum extends object>({
+export const Nodes = <Datum,>({
     nodes,
     nodeComponent,
     isInteractive,

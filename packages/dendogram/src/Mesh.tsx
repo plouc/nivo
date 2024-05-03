@@ -5,7 +5,7 @@ import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { ComputedNode, CurrentNodeSetter, NodeMouseEventHandler, NodeTooltip } from './types'
 
-interface MeshProps<Datum extends object> {
+interface MeshProps<Datum> {
     nodes: ComputedNode<Datum>[]
     width: number
     height: number
@@ -20,7 +20,7 @@ interface MeshProps<Datum extends object> {
     debug: boolean
 }
 
-const NonMemoizedMesh = <Datum extends object>({
+const NonMemoizedMesh = <Datum,>({
     nodes,
     width,
     height,

@@ -6,12 +6,13 @@ import {
     LinkComponent,
     LinkMouseEventHandler,
     LinkTooltip,
-    LinkAnimatedProps,
+    LinkAnimatedProps, LinkGenerator,
 } from './types'
 
-interface LinksProps<Datum extends object> {
+interface LinksProps<Datum> {
     links: ComputedLink<Datum>[]
     linkComponent: LinkComponent<Datum>
+    linkGenerator: LinkGenerator
     isInteractive: boolean
     onMouseEnter?: LinkMouseEventHandler<Datum>
     onMouseMove?: LinkMouseEventHandler<Datum>
@@ -20,7 +21,7 @@ interface LinksProps<Datum extends object> {
     tooltip?: LinkTooltip<Datum>
 }
 
-const regularTransition = <Datum extends object>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
+const regularTransition = <Datum,>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
     sourceX: link.source.x,
     sourceY: link.source.y,
     targetX: link.target.x,
@@ -28,7 +29,7 @@ const regularTransition = <Datum extends object>(link: ComputedLink<Datum>): Lin
     thickness: link.thickness,
     color: link.color,
 })
-const leaveTransition = <Datum extends object>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
+const leaveTransition = <Datum,>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
     sourceX: link.source.x,
     sourceY: link.source.y,
     targetX: link.target.x,
@@ -37,9 +38,10 @@ const leaveTransition = <Datum extends object>(link: ComputedLink<Datum>): LinkA
     color: link.color,
 })
 
-export const Links = <Datum extends object>({
+export const Links = <Datum,>({
     links,
     linkComponent,
+    linkGenerator,
     isInteractive,
     onMouseEnter,
     onMouseMove,
@@ -64,6 +66,7 @@ export const Links = <Datum extends object>({
             {transition((animatedProps, link) =>
                 createElement(linkComponent, {
                     link,
+                    linkGenerator,
                     animatedProps,
                     isInteractive,
                     onMouseEnter,
