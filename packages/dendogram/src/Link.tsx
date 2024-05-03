@@ -40,8 +40,8 @@ export const Link = <Datum extends object>({
                     ])
                 }
             )}
-            strokeWidth={link.thickness}
-            stroke={link.color}
+            strokeWidth={animatedProps.thickness}
+            stroke={animatedProps.color}
             {...eventHandlers}
         />
     )

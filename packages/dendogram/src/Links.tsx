@@ -1,7 +1,13 @@
 import { createElement } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedLink, LinkComponent, LinkMouseEventHandler, LinkTooltip } from './types'
+import {
+    ComputedLink,
+    LinkComponent,
+    LinkMouseEventHandler,
+    LinkTooltip,
+    LinkAnimatedProps,
+} from './types'
 
 interface LinksProps<Datum extends object> {
     links: ComputedLink<Datum>[]
@@ -14,17 +20,21 @@ interface LinksProps<Datum extends object> {
     tooltip?: LinkTooltip<Datum>
 }
 
-const regularTransition = <Datum extends object>(link: ComputedLink<Datum>) => ({
+const regularTransition = <Datum extends object>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
     sourceX: link.source.x,
     sourceY: link.source.y,
     targetX: link.target.x,
     targetY: link.target.y,
+    thickness: link.thickness,
+    color: link.color,
 })
-const leaveTransition = <Datum extends object>(link: ComputedLink<Datum>) => ({
+const leaveTransition = <Datum extends object>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
     sourceX: link.source.x,
     sourceY: link.source.y,
     targetX: link.target.x,
     targetY: link.target.y,
+    thickness: link.thickness,
+    color: link.color,
 })
 
 export const Links = <Datum extends object>({
@@ -39,15 +49,7 @@ export const Links = <Datum extends object>({
 }: LinksProps<Datum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const transition = useTransition<
-        ComputedLink<Datum>,
-        {
-            sourceX: number
-            sourceY: number
-            targetX: number
-            targetY: number
-        }
-    >(links, {
+    const transition = useTransition<ComputedLink<Datum>, LinkAnimatedProps>(links, {
         keys: link => link.id,
         from: regularTransition,
         enter: regularTransition,

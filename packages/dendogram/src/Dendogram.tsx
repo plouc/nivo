@@ -34,6 +34,8 @@ const InnerDendogram = <Datum extends object>({
     debugMesh = svgDefaultProps.debugMesh,
     highlightAncestorNodes = svgDefaultProps.highlightAncestorNodes,
     highlightDescendantNodes = svgDefaultProps.highlightDescendantNodes,
+    highlightAncestorLinks = svgDefaultProps.highlightAncestorLinks,
+    highlightDescendantLinks = svgDefaultProps.highlightDescendantLinks,
     onNodeMouseEnter,
     onNodeMouseMove,
     onNodeMouseLeave,
@@ -69,6 +71,8 @@ const InnerDendogram = <Datum extends object>({
         highlightDescendantNodes,
         linkThickness,
         linkColor,
+        highlightAncestorLinks,
+        highlightDescendantLinks,
     })
 
     const layerById: Record<LayerId, ReactNode> = {

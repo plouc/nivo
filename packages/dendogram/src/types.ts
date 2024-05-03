@@ -57,6 +57,7 @@ export interface IntermediateComputedLink<Datum extends object> {
 export interface ComputedLink<Datum extends object> extends IntermediateComputedLink<Datum> {
     thickness: number
     color: string
+    isActive: boolean | null
 }
 
 export type NodeSizeFunction<Datum extends object> = (
@@ -99,6 +100,19 @@ export type LinkThicknessFunction<Datum extends object> = (
     link: IntermediateComputedLink<Datum>
 ) => number
 
+export type LinkThicknessModifierFunction<Datum extends object> = (
+    link: ComputedLink<Datum>
+) => number
+
+export type LinkAnimatedProps = {
+    sourceX: number
+    sourceY: number
+    targetX: number
+    targetY: number
+    thickness: number
+    color: string
+}
+
 export interface LinkComponentProps<Datum extends object> {
     link: ComputedLink<Datum>
     isInteractive: boolean
@@ -107,12 +121,7 @@ export interface LinkComponentProps<Datum extends object> {
     onMouseLeave?: LinkMouseEventHandler<Datum>
     onClick?: LinkMouseEventHandler<Datum>
     tooltip?: LinkTooltip<Datum>
-    animatedProps: SpringValues<{
-        sourceX: number
-        sourceY: number
-        targetX: number
-        targetY: number
-    }>
+    animatedProps: SpringValues<LinkAnimatedProps>
 }
 export type LinkComponent<Datum extends object> = FunctionComponent<LinkComponentProps<Datum>>
 
@@ -150,6 +159,8 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     inactiveNodeSize: number | NodeSizeModifierFunction<Datum>
     nodeColor: OrdinalColorScaleConfig<IntermediateComputedNode<Datum>>
     linkThickness: number | LinkThicknessFunction<Datum>
+    activeLinkThickness: number | LinkThicknessModifierFunction<Datum>
+    inactiveLinkThickness: number | LinkThicknessModifierFunction<Datum>
     linkColor: InheritedColorConfig<IntermediateComputedLink<Datum>>
 
     isInteractive: boolean
@@ -158,6 +169,8 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     debugMesh: boolean
     highlightAncestorNodes: boolean
     highlightDescendantNodes: boolean
+    highlightAncestorLinks: boolean
+    highlightDescendantLinks: boolean
     onNodeMouseEnter: NodeMouseEventHandler<Datum>
     onNodeMouseMove: NodeMouseEventHandler<Datum>
     onNodeMouseLeave: NodeMouseEventHandler<Datum>

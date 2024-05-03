@@ -16,6 +16,8 @@ export const commonDefaultProps: Pick<
     | 'debugMesh'
     | 'highlightAncestorNodes'
     | 'highlightDescendantNodes'
+    | 'highlightAncestorLinks'
+    | 'highlightDescendantLinks'
     | 'role'
     | 'animate'
     | 'motionConfig'
@@ -32,6 +34,8 @@ export const commonDefaultProps: Pick<
     debugMesh: false,
     highlightAncestorNodes: true,
     highlightDescendantNodes: false,
+    highlightAncestorLinks: true,
+    highlightDescendantLinks: false,
     role: 'img',
     animate: true,
     motionConfig: 'gentle',
@@ -40,7 +44,7 @@ export const commonDefaultProps: Pick<
 export const svgDefaultProps: typeof commonDefaultProps &
     Required<Pick<DendogramSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent'>> = {
     ...commonDefaultProps,
-    layers: ['links', 'nodes', 'labels', 'mesh'],
+    layers: ['links', 'nodes', 'mesh'],
     nodeComponent: Node,
     linkComponent: Link,
 }

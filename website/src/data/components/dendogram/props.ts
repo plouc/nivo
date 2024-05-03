@@ -1,6 +1,6 @@
 import {
     commonDefaultProps as defaults,
-    IntermediateComputedLink,
+    svgDefaultProps as svgDefaults,
     IntermediateComputedNode,
 } from '@nivo/dendogram'
 import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
@@ -11,8 +11,6 @@ import {
     ordinalColors,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { svgDefaultProps } from '@nivo/bar'
 import { a } from '@react-spring/web'
 
 const allFlavors: Flavor[] = ['svg']
@@ -111,6 +109,26 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
     },
     {
+        key: 'activeLinkThickness',
+        group: 'Style',
+        type: 'number | (link: ComputedLink) => number',
+        control: { type: 'lineWidth' },
+        help: 'Defines the size of active links, statically or dynamically.',
+        required: false,
+        defaultValue: defaults.activeLinkThickness,
+        flavors: allFlavors,
+    },
+    {
+        key: 'inactiveLinkThickness',
+        group: 'Style',
+        type: 'number | (link: ComputedLink) => number',
+        control: { type: 'lineWidth' },
+        help: 'Defines the thickness of inactive links, statically or dynamically.',
+        required: false,
+        defaultValue: defaults.inactiveLinkThickness,
+        flavors: allFlavors,
+    },
+    {
         key: 'linkColor',
         group: 'Style',
         type: 'InheritedColorConfig<IntermediateComputedLink>',
@@ -131,7 +149,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'layers',
-        type: `('links' | 'nodes' | 'labels' | CustomSvgLayer)[]`,
+        type: `('links' | 'nodes' | 'mesh' | CustomSvgLayer)[]`,
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
         description: `
@@ -141,8 +159,8 @@ const props: ChartProperty[] = [
             The layer function which will receive the chart's
             context & computed data and must return a valid SVG element.
         `,
-        defaultValue: defaults.layers,
-        flavors: ['svg'],
+        defaultValue: svgDefaults.layers,
+        flavors: allFlavors,
     },
     {
         key: 'nodeComponent',
@@ -171,7 +189,7 @@ const props: ChartProperty[] = [
         required: false,
     },
     isInteractive({
-        flavors: ['svg'],
+        flavors: allFlavors,
         defaultValue: defaults.isInteractive,
     }),
     {
@@ -228,6 +246,24 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         type: 'boolean',
         help: 'Highlight active node descendant nodes.',
+        required: false,
+        control: { type: 'switch' },
+    },
+    {
+        key: 'highlightAncestorLinks',
+        flavors: allFlavors,
+        group: 'Interactivity',
+        type: 'boolean',
+        help: 'Highlight active node ancestor links.',
+        required: false,
+        control: { type: 'switch' },
+    },
+    {
+        key: 'highlightDescendantLinks',
+        flavors: allFlavors,
+        group: 'Interactivity',
+        type: 'boolean',
+        help: 'Highlight active node descendant links.',
         required: false,
         control: { type: 'switch' },
     },
