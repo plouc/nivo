@@ -2,7 +2,7 @@ import { animated } from '@react-spring/web'
 import { NodeComponentProps } from './types'
 import { useNodeMouseEventHandlers } from './hooks'
 
-export const Node = <Datum extends object>({
+export const Node = <Datum,>({
     node,
     isInteractive,
     onMouseEnter,

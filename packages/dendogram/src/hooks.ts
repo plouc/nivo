@@ -1,6 +1,7 @@
 import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
 import { hierarchy as d3Hierarchy, cluster as d3Cluster } from 'd3-hierarchy'
 import { scaleLinear, ScaleLinear } from 'd3-scale'
+import { link as d3Link, curveBumpX, curveBumpY } from 'd3-shape'
 import { usePropertyAccessor, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -22,10 +23,11 @@ import {
     IntermediateComputedNode,
     CurrentNodeSetter,
     NodeSizeModifierFunction,
+    LinkThicknessModifierFunction,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
-export const useRoot = <Datum extends object>({
+export const useRoot = <Datum>({
     data,
     getIdentity,
 }: {
@@ -98,24 +100,20 @@ const useCartesianScales = ({
         }
     }, [width, height, layout])
 
-const useNodeSize = <Datum extends object>(
-    size: Exclude<CommonProps<Datum>['nodeSize'], undefined>
-) =>
+const useNodeSize = <Datum>(size: Exclude<CommonProps<Datum>['nodeSize'], undefined>) =>
     useMemo(() => {
         if (typeof size === 'function') return size
         return () => size
     }, [size])
 
-const useNodeSizeModifier = <Datum extends object>(
-    size?: NodeSizeModifierFunction<Datum> | number
-) =>
+const useNodeSizeModifier = <Datum>(size?: NodeSizeModifierFunction<Datum> | number) =>
     useMemo(() => {
         if (size === undefined) return (node: ComputedNode<Datum>) => node.size
         if (typeof size === 'function') return size
         return () => size
     }, [size])
 
-const useNodes = <Datum extends object>({
+const useNodes = <Datum>({
     root,
     xScale,
     yScale,
@@ -211,15 +209,28 @@ const useNodes = <Datum extends object>({
     return { ...computed, setActiveNodeUids }
 }
 
-const useLinks = <Datum extends object>({
+const useLinkThicknessModifier = <Datum>(
+    thickness?: LinkThicknessModifierFunction<Datum> | number
+) =>
+    useMemo(() => {
+        if (thickness === undefined) return (link: ComputedLink<Datum>) => link.thickness
+        if (typeof thickness === 'function') return thickness
+        return () => thickness
+    }, [thickness])
+
+const useLinks = <Datum>({
     root,
     nodeByUid,
     linkThickness,
+    activeLinkThickness,
+    inactiveLinkThickness,
     linkColor,
 }: {
     root: HierarchyDendogramNode<Datum>
     nodeByUid: Record<string, ComputedNode<Datum>>
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
+    activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
+    inactiveLinkThickness?: CommonProps<Datum>['inactiveLinkThickness']
     linkColor: Exclude<CommonProps<Datum>['linkColor'], undefined>
 }) => {
     const intermediateLinks = useMemo<IntermediateComputedLink<Datum>[]>(() => {
@@ -237,6 +248,8 @@ const useLinks = <Datum extends object>({
         if (typeof linkThickness === 'function') return linkThickness
         return () => linkThickness
     }, [linkThickness])
+    const getActiveLinkThickness = useLinkThicknessModifier(activeLinkThickness)
+    const getInactiveLinkThickness = useLinkThicknessModifier(inactiveLinkThickness)
 
     const theme = useTheme()
     const getLinkColor = useInheritedColor(linkColor, theme)
@@ -255,15 +268,22 @@ const useLinks = <Datum extends object>({
             if (activeLinkIds.length > 0) {
                 computedLink.isActive = activeLinkIds.includes(computedLink.id)
                 if (computedLink.isActive) {
-                    computedLink.thickness = 10
+                    computedLink.thickness = getActiveLinkThickness(computedLink)
                 } else {
-                    computedLink.thickness = 1
+                    computedLink.thickness = getInactiveLinkThickness(computedLink)
                 }
             }
 
             return computedLink
         })
-    }, [intermediateLinks, getLinkThickness, getLinkColor, activeLinkIds])
+    }, [
+        intermediateLinks,
+        getLinkThickness,
+        getActiveLinkThickness,
+        getInactiveLinkThickness,
+        getLinkColor,
+        activeLinkIds,
+    ])
 
     return {
         links,
@@ -271,63 +291,33 @@ const useLinks = <Datum extends object>({
     }
 }
 
-export const useDendogram = <Datum extends object = DefaultDatum>({
-    data,
-    width,
-    height,
-    identity = commonDefaultProps.identity,
-    layout = commonDefaultProps.layout,
-    nodeSize = commonDefaultProps.nodeSize,
-    activeNodeSize,
-    inactiveNodeSize,
-    nodeColor = commonDefaultProps.nodeColor,
-    highlightAncestorNodes = commonDefaultProps.highlightAncestorNodes,
-    highlightDescendantNodes = commonDefaultProps.highlightDescendantNodes,
-    linkThickness = commonDefaultProps.linkThickness,
-    linkColor = commonDefaultProps.linkColor,
-    highlightAncestorLinks = commonDefaultProps.highlightAncestorLinks,
-    highlightDescendantLinks = commonDefaultProps.highlightDescendantLinks,
+const useLinkGenerator = ({ layout }: { layout: Layout }) =>
+    useMemo(() => {
+        if (layout === 'top-to-bottom' || layout === 'bottom-to-top') {
+            return d3Link(curveBumpY)
+        } else {
+            return d3Link(curveBumpX)
+        }
+    }, [layout])
+
+const useSetCurrentNode = <Datum>({
+    setActiveNodeUids,
+    highlightAncestorNodes,
+    highlightDescendantNodes,
+    links,
+    setActiveLinkIds,
+    highlightAncestorLinks,
+    highlightDescendantLinks,
 }: {
-    data: DendogramDataProps<Datum>['data']
-    width: number
-    height: number
-    identity?: CommonProps<Datum>['identity']
-    layout?: Layout
-    nodeSize?: CommonProps<Datum>['nodeSize']
-    activeNodeSize?: CommonProps<Datum>['activeNodeSize']
-    inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
-    nodeColor?: CommonProps<Datum>['nodeColor']
-    highlightAncestorNodes?: boolean
-    highlightDescendantNodes?: boolean
-    linkThickness?: CommonProps<Datum>['linkThickness']
-    linkColor?: CommonProps<Datum>['linkColor']
-    highlightAncestorLinks?: boolean
-    highlightDescendantLinks?: boolean
-}) => {
-    const getIdentity = usePropertyAccessor(identity)
-    const root = useRoot<Datum>({ data, getIdentity })
-
-    const { xScale, yScale } = useCartesianScales({ width, height, layout })
-    const { nodes, nodeByUid, setActiveNodeUids } = useNodes<Datum>({
-        root,
-        xScale,
-        yScale,
-        layout,
-        getIdentity,
-        nodeSize,
-        activeNodeSize,
-        inactiveNodeSize,
-        nodeColor,
-    })
-
-    const { links, setActiveLinkIds } = useLinks<Datum>({
-        root,
-        nodeByUid,
-        linkThickness,
-        linkColor,
-    })
-
-    const setCurrentNode = useCallback(
+    setActiveNodeUids: (uids: string[]) => void
+    highlightAncestorNodes: boolean
+    highlightDescendantNodes: boolean
+    links: ComputedLink<Datum>[]
+    setActiveLinkIds: (ids: string[]) => void
+    highlightAncestorLinks: boolean
+    highlightDescendantLinks: boolean
+}) =>
+    useCallback(
         (node: ComputedNode<Datum> | null) => {
             if (node === null) {
                 setActiveNodeUids([])
@@ -381,9 +371,83 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
         ]
     )
 
+export const useDendogram = <Datum = DefaultDatum>({
+    data,
+    width,
+    height,
+    identity = commonDefaultProps.identity,
+    layout = commonDefaultProps.layout,
+    nodeSize = commonDefaultProps.nodeSize,
+    activeNodeSize,
+    inactiveNodeSize,
+    nodeColor = commonDefaultProps.nodeColor,
+    highlightAncestorNodes = commonDefaultProps.highlightAncestorNodes,
+    highlightDescendantNodes = commonDefaultProps.highlightDescendantNodes,
+    linkThickness = commonDefaultProps.linkThickness,
+    linkColor = commonDefaultProps.linkColor,
+    activeLinkThickness,
+    inactiveLinkThickness,
+    highlightAncestorLinks = commonDefaultProps.highlightAncestorLinks,
+    highlightDescendantLinks = commonDefaultProps.highlightDescendantLinks,
+}: {
+    data: DendogramDataProps<Datum>['data']
+    width: number
+    height: number
+    identity?: CommonProps<Datum>['identity']
+    layout?: Layout
+    nodeSize?: CommonProps<Datum>['nodeSize']
+    activeNodeSize?: CommonProps<Datum>['activeNodeSize']
+    inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
+    nodeColor?: CommonProps<Datum>['nodeColor']
+    highlightAncestorNodes?: boolean
+    highlightDescendantNodes?: boolean
+    linkThickness?: CommonProps<Datum>['linkThickness']
+    activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
+    inactiveLinkThickness?: CommonProps<Datum>['inactiveLinkThickness']
+    linkColor?: CommonProps<Datum>['linkColor']
+    highlightAncestorLinks?: boolean
+    highlightDescendantLinks?: boolean
+}) => {
+    const getIdentity = usePropertyAccessor(identity)
+    const root = useRoot<Datum>({ data, getIdentity })
+
+    const { xScale, yScale } = useCartesianScales({ width, height, layout })
+    const { nodes, nodeByUid, setActiveNodeUids } = useNodes<Datum>({
+        root,
+        xScale,
+        yScale,
+        layout,
+        getIdentity,
+        nodeSize,
+        activeNodeSize,
+        inactiveNodeSize,
+        nodeColor,
+    })
+
+    const linkGenerator = useLinkGenerator({ layout })
+    const { links, setActiveLinkIds } = useLinks<Datum>({
+        root,
+        nodeByUid,
+        linkThickness,
+        activeLinkThickness,
+        inactiveLinkThickness,
+        linkColor,
+    })
+
+    const setCurrentNode = useSetCurrentNode<Datum>({
+        setActiveNodeUids,
+        highlightAncestorNodes,
+        highlightDescendantNodes,
+        links,
+        setActiveLinkIds,
+        highlightAncestorLinks,
+        highlightDescendantLinks,
+    })
+
     return {
         nodes,
         links,
+        linkGenerator,
         setCurrentNode,
     }
 }
@@ -393,7 +457,7 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
  * It's used for the default `Node` component and may be used for custom nodes
  * to simplify their implementation.
  */
-export const useNodeMouseEventHandlers = <Datum extends object>(
+export const useNodeMouseEventHandlers = <Datum>(
     node: ComputedNode<Datum>,
     {
         isInteractive,
@@ -474,7 +538,7 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
  * It's used for the default `Node` component and may be used for custom nodes
  * to simplify their implementation.
  */
-export const useLinkMouseEventHandlers = <Datum extends object>(
+export const useLinkMouseEventHandlers = <Datum>(
     link: ComputedLink<Datum>,
     {
         isInteractive,

@@ -1,12 +1,10 @@
 import { animated, to } from '@react-spring/web'
-import { line as d3Line } from 'd3-shape'
 import { LinkComponentProps } from './types'
 import { useLinkMouseEventHandlers } from './hooks'
 
-const lineGenerator = d3Line()
-
-export const Link = <Datum extends object>({
+export const Link = <Datum,>({
     link,
+    linkGenerator,
     animatedProps,
     isInteractive,
     onMouseEnter,
@@ -34,12 +32,13 @@ export const Link = <Datum extends object>({
                     animatedProps.targetY,
                 ],
                 (sourceX, sourceY, targetX, targetY) => {
-                    return lineGenerator([
-                        [sourceX, sourceY],
-                        [targetX, targetY],
-                    ])
+                    return linkGenerator({
+                        source: [sourceX, sourceY],
+                        target: [targetX, targetY],
+                    })
                 }
             )}
+            fill="none"
             strokeWidth={animatedProps.thickness}
             stroke={animatedProps.color}
             {...eventHandlers}

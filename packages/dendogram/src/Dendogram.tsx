@@ -7,12 +7,12 @@ import { Links } from './Links'
 import { Nodes } from './Nodes'
 import { Mesh } from './Mesh'
 
-type InnerDendogramProps<Datum extends object> = Omit<
+type InnerDendogramProps<Datum> = Omit<
     DendogramSvgProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerDendogram = <Datum extends object>({
+const InnerDendogram = <Datum,>({
     width,
     height,
     margin: partialMargin,
@@ -24,6 +24,8 @@ const InnerDendogram = <Datum extends object>({
     nodeColor = svgDefaultProps.nodeColor,
     nodeComponent = svgDefaultProps.nodeComponent,
     linkThickness = svgDefaultProps.linkThickness,
+    activeLinkThickness,
+    inactiveLinkThickness,
     linkColor = svgDefaultProps.linkColor,
     linkComponent = svgDefaultProps.linkComponent,
     layout = svgDefaultProps.layout,
@@ -57,7 +59,7 @@ const InnerDendogram = <Datum extends object>({
         partialMargin
     )
 
-    const { nodes, links, setCurrentNode } = useDendogram<Datum>({
+    const { nodes, links, linkGenerator, setCurrentNode } = useDendogram<Datum>({
         data,
         identity,
         layout,
@@ -70,6 +72,8 @@ const InnerDendogram = <Datum extends object>({
         highlightAncestorNodes,
         highlightDescendantNodes,
         linkThickness,
+        activeLinkThickness,
+        inactiveLinkThickness,
         linkColor,
         highlightAncestorLinks,
         highlightDescendantLinks,
@@ -88,6 +92,7 @@ const InnerDendogram = <Datum extends object>({
                 key="links"
                 links={links}
                 linkComponent={linkComponent}
+                linkGenerator={linkGenerator}
                 isInteractive={isInteractive}
                 onMouseEnter={onLinkMouseEnter}
                 onMouseMove={onLinkMouseMove}
@@ -165,7 +170,7 @@ const InnerDendogram = <Datum extends object>({
     )
 }
 
-export const Dendogram = <Datum extends object = DefaultDatum>({
+export const Dendogram = <Datum = DefaultDatum,>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,

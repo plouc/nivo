@@ -18,7 +18,7 @@ Dendogram:
     Nivo dendogram graph.
     
     For now this component doesn't support labels, but that's something
-    you could do using a custom layer.
+    you can implement via a custom layer.
     
     While it's part of the nivo internals, and not formally documented,
     you could use the `useDendogram` hook directly in order to build
