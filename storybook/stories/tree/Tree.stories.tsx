@@ -7,6 +7,7 @@ import {
     NodeComponentProps,
     NodeTooltipProps,
     LinkTooltipProps,
+    TreeSvgProps,
 } from '@nivo/tree'
 
 const meta: Meta<typeof Tree> = {
@@ -14,6 +15,10 @@ const meta: Meta<typeof Tree> = {
     component: Tree,
     tags: ['autodocs'],
     argTypes: {
+        mode: {
+            control: 'select',
+            options: ['tree', 'dendogram'],
+        },
         layout: {
             control: 'select',
             options: ['top-to-bottom', 'right-to-left', 'bottom-to-top', 'left-to-right'],
@@ -28,6 +33,7 @@ const meta: Meta<typeof Tree> = {
         onLinkClick: { action: 'link clicked' },
     },
     args: {
+        mode: 'dendogram',
         layout: 'top-to-bottom',
     },
 }
@@ -41,13 +47,15 @@ const generateData = () => {
     return { data }
 }
 
-const commonProperties = {
+const commonProperties: Partial<TreeSvgProps<any>> = {
     width: 900,
     height: 500,
     margin: { top: 30, right: 30, bottom: 30, left: 30 },
     ...generateData(),
     identity: 'name',
-    value: 'loc',
+    activeNodeSize: 20,
+    linkThickness: 2,
+    activeLinkThickness: 6,
 }
 
 const NodeTooltip = ({ node }: NodeTooltipProps<any>) => {
@@ -57,7 +65,10 @@ const NodeTooltip = ({ node }: NodeTooltipProps<any>) => {
         <div style={theme.tooltip.container}>
             id: <strong>{node.id}</strong>
             <br />
-            path: <strong>{node.pathComponents.join(' > ')}</strong>
+            path:{' '}
+            <strong>
+                {node.ancestorIds.join(' > ')} &gt; {node.id}
+            </strong>
             <br />
             uid: <strong>{node.uid}</strong>
         </div>
@@ -82,6 +93,7 @@ export const Basic: Story = {
     render: args => (
         <Tree
             {...commonProperties}
+            mode={args.mode}
             layout={args.layout}
             onNodeClick={args.onNodeClick}
             onLinkClick={args.onLinkClick}
@@ -93,6 +105,7 @@ export const WithNodeTooltip: Story = {
     render: args => (
         <Tree
             {...commonProperties}
+            mode={args.mode}
             layout={args.layout}
             nodeTooltip={NodeTooltip}
             onNodeMouseEnter={args.onNodeMouseEnter}
@@ -107,7 +120,10 @@ export const WithLinkTooltip: Story = {
     render: args => (
         <Tree
             {...commonProperties}
+            useMesh={false}
             linkThickness={12}
+            activeLinkThickness={20}
+            mode={args.mode}
             layout={args.layout}
             linkTooltip={LinkTooltip}
             onLinkMouseEnter={args.onLinkMouseEnter}
@@ -126,8 +142,9 @@ const CustomNode = ({
     onMouseMove,
     onMouseLeave,
     onClick,
+    setCurrentNode,
     tooltip,
-}: NodeComponentProps) => {
+}: NodeComponentProps<any>) => {
     const eventHandlers = useNodeMouseEventHandlers(node, {
         isInteractive,
         onMouseEnter,
@@ -135,6 +152,7 @@ const CustomNode = ({
         onMouseLeave,
         onClick,
         tooltip,
+        setCurrentNode,
     })
 
     return (
@@ -144,13 +162,13 @@ const CustomNode = ({
             })`}
         >
             <rect
-                y={5}
+                y={node.isActive ? 7 : 3}
                 width={CUSTOM_NODE_SIZE}
                 height={CUSTOM_NODE_SIZE}
                 rx={3}
                 ry={3}
                 fill="black"
-                opacity={0.15}
+                opacity={0.1}
             />
             <rect
                 width={CUSTOM_NODE_SIZE}
@@ -158,10 +176,22 @@ const CustomNode = ({
                 rx={3}
                 ry={3}
                 fill="white"
-                strokeWidth={1}
-                stroke="red"
+                strokeWidth={node.isActive ? 2 : 1}
+                stroke={node.color}
                 {...eventHandlers}
             />
+            <text
+                dx={CUSTOM_NODE_SIZE / 2}
+                dy={CUSTOM_NODE_SIZE / 2}
+                dominantBaseline="central"
+                textAnchor="middle"
+                fill={node.color}
+                style={{
+                    fontWeight: 800,
+                }}
+            >
+                {node.id[0].toUpperCase()}
+            </text>
         </g>
     )
 }
@@ -170,8 +200,9 @@ export const CustomNodeComponent: Story = {
     render: args => (
         <Tree
             {...commonProperties}
+            mode={args.mode}
             layout={args.layout}
-            linkThickness={4}
+            linkColor={{ from: 'source.color' }}
             nodeTooltip={NodeTooltip}
             nodeComponent={CustomNode}
             onNodeMouseEnter={args.onNodeMouseEnter}

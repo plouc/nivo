@@ -136,6 +136,7 @@ const InnerTree = <Datum,>({
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
                 onClick={onNodeClick}
+                tooltip={nodeTooltip}
                 setCurrentNode={setCurrentNode}
             />
         )
