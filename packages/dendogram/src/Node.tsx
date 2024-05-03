@@ -9,6 +9,7 @@ export const Node = <Datum extends object>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    setCurrentNode,
     tooltip,
     animatedProps,
 }: NodeComponentProps<Datum>) => {
@@ -18,13 +19,14 @@ export const Node = <Datum extends object>({
         onMouseMove,
         onMouseLeave,
         onClick,
+        setCurrentNode,
         tooltip,
     })
 
     return (
         <animated.circle
-            r={node.size / 2}
-            fill={node.color}
+            r={animatedProps.size.to(size => size / 2)}
+            fill={animatedProps.color}
             cx={animatedProps.x}
             cy={animatedProps.y}
             {...eventHandlers}

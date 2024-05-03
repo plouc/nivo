@@ -1,7 +1,14 @@
 import { createElement } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedNode, NodeComponent, NodeMouseEventHandler, NodeTooltip } from './types'
+import {
+    ComputedNode,
+    CurrentNodeSetter,
+    NodeComponent,
+    NodeMouseEventHandler,
+    NodeTooltip,
+    NodeAnimatedProps,
+} from './types'
 
 interface NodesProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
@@ -11,16 +18,21 @@ interface NodesProps<Datum extends object> {
     onMouseMove?: NodeMouseEventHandler<Datum>
     onMouseLeave?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
+    setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
 }
 
-const regularTransition = <Datum extends object>(node: ComputedNode<Datum>) => ({
+const regularTransition = <Datum extends object>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
     x: node.x,
     y: node.y,
+    size: node.size,
+    color: node.color,
 })
-const leaveTransition = <Datum extends object>(node: ComputedNode<Datum>) => ({
+const leaveTransition = <Datum extends object>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
     x: node.x,
     y: node.y,
+    size: 0,
+    color: node.color,
 })
 
 export const Nodes = <Datum extends object>({
@@ -31,17 +43,12 @@ export const Nodes = <Datum extends object>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    setCurrentNode,
     tooltip,
 }: NodesProps<Datum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const transition = useTransition<
-        ComputedNode<Datum>,
-        {
-            x: number
-            y: number
-        }
-    >(nodes, {
+    const transition = useTransition<ComputedNode<Datum>, NodeAnimatedProps>(nodes, {
         keys: node => node.uid,
         from: regularTransition,
         enter: regularTransition,
@@ -61,6 +68,7 @@ export const Nodes = <Datum extends object>({
                     onMouseMove,
                     onMouseLeave,
                     onClick,
+                    setCurrentNode,
                     tooltip,
                     animatedProps,
                 })

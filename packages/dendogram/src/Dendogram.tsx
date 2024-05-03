@@ -19,6 +19,8 @@ const InnerDendogram = <Datum extends object>({
     data,
     identity,
     nodeSize = svgDefaultProps.nodeSize,
+    activeNodeSize,
+    inactiveNodeSize,
     nodeColor = svgDefaultProps.nodeColor,
     nodeComponent = svgDefaultProps.nodeComponent,
     linkThickness = svgDefaultProps.linkThickness,
@@ -30,6 +32,8 @@ const InnerDendogram = <Datum extends object>({
     useMesh = svgDefaultProps.useMesh,
     meshDetectionThreshold = svgDefaultProps.meshDetectionThreshold,
     debugMesh = svgDefaultProps.debugMesh,
+    highlightAncestorNodes = svgDefaultProps.highlightAncestorNodes,
+    highlightDescendantNodes = svgDefaultProps.highlightDescendantNodes,
     onNodeMouseEnter,
     onNodeMouseMove,
     onNodeMouseLeave,
@@ -51,14 +55,18 @@ const InnerDendogram = <Datum extends object>({
         partialMargin
     )
 
-    const { nodes, links } = useDendogram<Datum>({
+    const { nodes, links, setCurrentNode } = useDendogram<Datum>({
         data,
         identity,
         layout,
         width: innerWidth,
         height: innerHeight,
         nodeSize,
+        activeNodeSize,
+        inactiveNodeSize,
         nodeColor,
+        highlightAncestorNodes,
+        highlightDescendantNodes,
         linkThickness,
         linkColor,
     })
@@ -97,6 +105,7 @@ const InnerDendogram = <Datum extends object>({
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
                 onClick={onNodeClick}
+                setCurrentNode={setCurrentNode}
                 tooltip={nodeTooltip}
             />
         )
@@ -104,7 +113,7 @@ const InnerDendogram = <Datum extends object>({
 
     if (layers.includes('mesh') && isInteractive && useMesh) {
         layerById.mesh = (
-            <Mesh
+            <Mesh<Datum>
                 key="mesh"
                 nodes={nodes}
                 width={innerWidth}
@@ -116,6 +125,7 @@ const InnerDendogram = <Datum extends object>({
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
                 onClick={onNodeClick}
+                setCurrentNode={setCurrentNode}
             />
         )
     }
