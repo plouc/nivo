@@ -14,6 +14,8 @@ export const commonDefaultProps: Pick<
     | 'useMesh'
     | 'meshDetectionThreshold'
     | 'debugMesh'
+    | 'highlightAncestorNodes'
+    | 'highlightDescendantNodes'
     | 'role'
     | 'animate'
     | 'motionConfig'
@@ -25,9 +27,11 @@ export const commonDefaultProps: Pick<
     linkThickness: 1,
     linkColor: { from: 'source.color', modifiers: [['opacity', 0.3]] },
     isInteractive: true,
-    useMesh: false,
+    useMesh: true,
     meshDetectionThreshold: Infinity,
     debugMesh: false,
+    highlightAncestorNodes: true,
+    highlightDescendantNodes: false,
     role: 'img',
     animate: true,
     motionConfig: 'gentle',

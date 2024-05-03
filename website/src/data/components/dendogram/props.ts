@@ -73,6 +73,26 @@ const props: ChartProperty[] = [
         defaultValue: defaults.nodeSize,
         flavors: allFlavors,
     },
+    {
+        key: 'activeNodeSize',
+        group: 'Style',
+        type: 'number | (node: ComputedNode) => number',
+        control: { type: 'range', min: 0, max: 40, unit: 'px' },
+        help: 'Defines the size of active nodes, statically or dynamically.',
+        required: false,
+        defaultValue: defaults.activeNodeSize,
+        flavors: allFlavors,
+    },
+    {
+        key: 'inactiveNodeSize',
+        group: 'Style',
+        type: 'number | (node: ComputedNode) => number',
+        control: { type: 'range', min: 0, max: 40, unit: 'px' },
+        help: 'Defines the size of inactive nodes, statically or dynamically.',
+        required: false,
+        defaultValue: defaults.activeNodeSize,
+        flavors: allFlavors,
+    },
     ordinalColors({
         key: 'nodeColor',
         help: 'Defines the color of the nodes, statically or dynamically.',
@@ -160,9 +180,10 @@ const props: ChartProperty[] = [
         help: 'Use a voronoi mesh to detect mouse interactions.',
         description: `
             Use a voronoi mesh to detect mouse interactions, this can be useful
-            when the tree is dense.
+            when the tree is dense, or if the nodes are small and you want to
+            facilitate user interactions.
             
-            Please note that you won't be able to capture link events if using this feature.
+            Please note that you won't be able to capture link events when using this feature.
         `,
         type: 'boolean',
         required: false,
@@ -178,6 +199,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         required: false,
         defaultValue: Infinity,
+        control: { type: 'range', min: 0, max: 200, step: 10, unit: 'px' },
     },
     {
         key: 'debugMesh',
@@ -189,9 +211,29 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
         group: 'Interactivity',
     },
+    //     highlightAncestorNodes: boolean
+    //     highlightDescendantNodes: boolean
+    {
+        key: 'highlightAncestorNodes',
+        flavors: allFlavors,
+        group: 'Interactivity',
+        type: 'boolean',
+        help: 'Highlight active node ancestor nodes.',
+        required: false,
+        control: { type: 'switch' },
+    },
+    {
+        key: 'highlightDescendantNodes',
+        flavors: allFlavors,
+        group: 'Interactivity',
+        type: 'boolean',
+        help: 'Highlight active node descendant nodes.',
+        required: false,
+        control: { type: 'switch' },
+    },
     {
         key: 'onNodeMouseEnter',
-        flavors: ['svg'],
+        flavors: allFlavors,
         group: 'Interactivity',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onMouseEnter handler for nodes.',

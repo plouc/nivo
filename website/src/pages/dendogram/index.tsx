@@ -30,10 +30,14 @@ const initialProperties: Pick<
     | 'useMesh'
     | 'meshDetectionThreshold'
     | 'debugMesh'
+    | 'highlightAncestorNodes'
+    | 'highlightDescendantNodes'
 > = {
     identity: 'name',
     layout: 'left-to-right',
-    nodeSize: defaults.nodeSize,
+    nodeSize: 16,
+    activeNodeSize: 24,
+    inactiveNodeSize: 8,
     nodeColor: { scheme: 'dark2' },
     linkThickness: 2,
     linkColor: defaults.linkColor,
@@ -46,12 +50,14 @@ const initialProperties: Pick<
     },
 
     animate: defaults.animate,
-    motionConfig: defaults.motionConfig,
+    motionConfig: 'stiff',
 
     isInteractive: defaults.isInteractive,
     useMesh: true,
-    meshDetectionThreshold: 60,
-    debugMesh: true,
+    meshDetectionThreshold: 40,
+    debugMesh: defaults.debugMesh,
+    highlightAncestorNodes: defaults.highlightAncestorNodes,
+    highlightDescendantNodes: defaults.highlightDescendantNodes,
 }
 
 const TreeMap = () => {
@@ -92,7 +98,7 @@ const TreeMap = () => {
                         onNodeClick={(node: ComputedNode<Datum>) => {
                             logAction({
                                 type: 'click',
-                                label: `[node] ${node.pathComponents.join(' / ')}`,
+                                label: `[node] ${node.path.join(' / ')}`,
                                 data: node,
                                 color: node.color,
                             })

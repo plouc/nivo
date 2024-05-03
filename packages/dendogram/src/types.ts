@@ -16,6 +16,9 @@ export interface DefaultDatum {
 
 export interface HierarchyDendogramNode<Datum> extends HierarchyNode<Datum> {
     uid: string | undefined
+    ancestorIds: string[] | undefined
+    ancestorUids: string[] | undefined
+    descendantUids: string[] | undefined
 }
 
 export interface HierarchyDendogramLink<Datum> {
@@ -24,10 +27,13 @@ export interface HierarchyDendogramLink<Datum> {
 }
 
 export interface IntermediateComputedNode<Datum extends object> {
+    path: string[]
     uid: string
+    ancestorIds: string[]
+    ancestorUids: string[]
+    descendantUids: string[]
     id: string
     data: Datum
-    pathComponents: string[]
     depth: number
     height: number
     x: number
@@ -37,7 +43,10 @@ export interface IntermediateComputedNode<Datum extends object> {
 export interface ComputedNode<Datum extends object> extends IntermediateComputedNode<Datum> {
     size: number
     color: string
+    isActive: boolean | null
 }
+
+export type CurrentNodeSetter<Datum extends object> = (node: ComputedNode<Datum> | null) => void
 
 export interface IntermediateComputedLink<Datum extends object> {
     id: string
@@ -54,9 +63,14 @@ export type NodeSizeFunction<Datum extends object> = (
     node: IntermediateComputedNode<Datum>
 ) => number
 
-export type NodeColorFunction<Datum extends object> = (
-    node: IntermediateComputedNode<Datum>
-) => string
+export type NodeSizeModifierFunction<Datum extends object> = (node: ComputedNode<Datum>) => number
+
+export type NodeAnimatedProps = {
+    x: number
+    y: number
+    size: number
+    color: string
+}
 
 export interface NodeComponentProps<Datum extends object> {
     node: ComputedNode<Datum>
@@ -65,11 +79,9 @@ export interface NodeComponentProps<Datum extends object> {
     onMouseMove?: NodeMouseEventHandler<Datum>
     onMouseLeave?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
+    setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
-    animatedProps: SpringValues<{
-        x: number
-        y: number
-    }>
+    animatedProps: SpringValues<NodeAnimatedProps>
 }
 export type NodeComponent<Datum extends object> = FunctionComponent<NodeComponentProps<Datum>>
 
@@ -134,6 +146,8 @@ export interface CommonProps<Datum extends object> extends MotionProps {
 
     theme: Theme
     nodeSize: number | NodeSizeFunction<Datum>
+    activeNodeSize: number | NodeSizeModifierFunction<Datum>
+    inactiveNodeSize: number | NodeSizeModifierFunction<Datum>
     nodeColor: OrdinalColorScaleConfig<IntermediateComputedNode<Datum>>
     linkThickness: number | LinkThicknessFunction<Datum>
     linkColor: InheritedColorConfig<IntermediateComputedLink<Datum>>
@@ -142,6 +156,8 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     useMesh: boolean
     meshDetectionThreshold: number
     debugMesh: boolean
+    highlightAncestorNodes: boolean
+    highlightDescendantNodes: boolean
     onNodeMouseEnter: NodeMouseEventHandler<Datum>
     onNodeMouseMove: NodeMouseEventHandler<Datum>
     onNodeMouseLeave: NodeMouseEventHandler<Datum>

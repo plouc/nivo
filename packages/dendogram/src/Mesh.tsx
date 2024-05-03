@@ -3,7 +3,7 @@ import { createElement, memo, useCallback } from 'react'
 import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
-import { ComputedNode, NodeMouseEventHandler, NodeTooltip } from './types'
+import { ComputedNode, CurrentNodeSetter, NodeMouseEventHandler, NodeTooltip } from './types'
 
 interface MeshProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
@@ -14,6 +14,7 @@ interface MeshProps<Datum extends object> {
     onMouseMove?: NodeMouseEventHandler<Datum>
     onMouseLeave?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
+    setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
     detectionThreshold: number
     debug: boolean
@@ -28,6 +29,7 @@ const NonMemoizedMesh = <Datum extends object>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    setCurrentNode,
     tooltip,
     detectionThreshold,
     debug,
@@ -36,6 +38,7 @@ const NonMemoizedMesh = <Datum extends object>({
 
     const handleMouseEnter = useCallback(
         (node: ComputedNode<Datum>, event: MouseEvent) => {
+            setCurrentNode(node)
             if (tooltip !== undefined) {
                 showTooltipAt(
                     createElement(tooltip, { node }),
@@ -45,11 +48,12 @@ const NonMemoizedMesh = <Datum extends object>({
             }
             onMouseEnter && onMouseEnter(node, event)
         },
-        [showTooltipAt, tooltip, margin.left, margin.top, onMouseEnter]
+        [showTooltipAt, tooltip, margin.left, margin.top, setCurrentNode, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
         (node: ComputedNode<Datum>, event: MouseEvent) => {
+            setCurrentNode(node)
             if (tooltip !== undefined) {
                 showTooltipAt(
                     createElement(tooltip, { node }),
@@ -59,15 +63,16 @@ const NonMemoizedMesh = <Datum extends object>({
             }
             onMouseMove && onMouseMove(node, event)
         },
-        [showTooltipAt, tooltip, margin.left, margin.top, onMouseMove]
+        [showTooltipAt, tooltip, margin.left, margin.top, setCurrentNode, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
         (node: ComputedNode<Datum>, event: MouseEvent) => {
+            setCurrentNode(null)
             hideTooltip()
             onMouseLeave && onMouseLeave(node, event)
         },
-        [hideTooltip, onMouseLeave]
+        [hideTooltip, setCurrentNode, onMouseLeave]
     )
 
     const handleClick = useCallback(

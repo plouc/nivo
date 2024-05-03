@@ -1,4 +1,4 @@
-import { createElement, MouseEvent, useCallback, useMemo } from 'react'
+import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
 import { hierarchy as d3Hierarchy, cluster as d3Cluster } from 'd3-hierarchy'
 import { scaleLinear, ScaleLinear } from 'd3-scale'
 import { usePropertyAccessor, useTheme } from '@nivo/core'
@@ -20,6 +20,8 @@ import {
     LinkMouseEventHandler,
     LinkTooltip,
     IntermediateComputedNode,
+    CurrentNodeSetter,
+    NodeSizeModifierFunction,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -36,18 +38,6 @@ export const useCluster = <Datum extends object>(_props: {
 
         return cluster
     }, [])
-
-const computeNodePath = <Datum extends object>(
-    node: HierarchyDendogramNode<Datum>,
-    getIdentity: (node: Datum) => string
-) => {
-    const path = node
-        .ancestors()
-        .map(ancestor => getIdentity(ancestor.data))
-        .reverse()
-
-    return { path: path.join('.'), pathComponents: path }
-}
 
 /**
  * By default, the x/y positions are computed for a 0~1 range,
@@ -95,6 +85,15 @@ const useNodeSize = <Datum extends object>(
         return () => size
     }, [size])
 
+const useNodeSizeModifier = <Datum extends object>(
+    size?: NodeSizeModifierFunction<Datum> | number
+) =>
+    useMemo(() => {
+        if (size === undefined) return (node: ComputedNode<Datum>) => node.size
+        if (typeof size === 'function') return size
+        return () => size
+    }, [size])
+
 const useNodes = <Datum extends object>({
     root,
     xScale,
@@ -102,7 +101,11 @@ const useNodes = <Datum extends object>({
     layout,
     getIdentity,
     nodeSize,
+    activeNodeSize,
+    inactiveNodeSize,
     nodeColor,
+    highlightAncestorNodes,
+    highlightDescendantNodes,
 }: {
     root: HierarchyDendogramNode<Datum>
     xScale: ScaleLinear<number, number>
@@ -110,12 +113,14 @@ const useNodes = <Datum extends object>({
     layout: Layout
     getIdentity: (node: Datum) => string
     nodeSize: Exclude<CommonProps<Datum>['nodeSize'], undefined>
+    activeNodeSize?: CommonProps<Datum>['activeNodeSize']
+    inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
     nodeColor: Exclude<CommonProps<Datum>['nodeColor'], undefined>
+    highlightAncestorNodes: boolean
+    highlightDescendantNodes: boolean
 }) => {
     const intermediateNodes = useMemo<IntermediateComputedNode<Datum>[]>(() => {
         return root.descendants().map(node => {
-            const { pathComponents } = computeNodePath<Datum>(node, getIdentity)
-
             let x: number
             let y: number
             if (layout === 'top-to-bottom' || layout === 'bottom-to-top') {
@@ -126,11 +131,16 @@ const useNodes = <Datum extends object>({
                 y = yScale(node.x!)
             }
 
+            const id = getIdentity(node.data)
+
             return {
+                path: [...node.ancestorIds!, id],
                 uid: node.uid!,
-                id: getIdentity(node.data),
+                ancestorIds: node.ancestorIds!,
+                ancestorUids: node.ancestorUids!,
+                descendantUids: node.descendantUids!,
+                id,
                 data: node.data,
-                pathComponents,
                 depth: node.depth,
                 height: node.height,
                 x,
@@ -139,10 +149,32 @@ const useNodes = <Datum extends object>({
         })
     }, [root, getIdentity, layout, xScale, yScale])
 
-    const getNodeSize = useNodeSize(nodeSize)
+    const getNodeSize = useNodeSize<Datum>(nodeSize)
+    const getActiveNodeSize = useNodeSizeModifier<Datum>(activeNodeSize)
+    const getInactiveNodeSize = useNodeSizeModifier<Datum>(inactiveNodeSize)
     const getNodeColor = useOrdinalColorScale(nodeColor, 'uid')
 
-    return useMemo(() => {
+    const [activeNodeUids, setActiveNodeUids] = useState<string[]>([])
+
+    const setCurrentNode = useCallback(
+        (node: ComputedNode<Datum> | null) => {
+            if (node === null) {
+                setActiveNodeUids([])
+            } else {
+                let uids: string[] = [node.uid]
+                if (highlightAncestorNodes) {
+                    uids = [...uids, ...node.ancestorUids]
+                }
+                if (highlightDescendantNodes) {
+                    uids = [...uids, ...node.descendantUids]
+                }
+                setActiveNodeUids(uids)
+            }
+        },
+        [setActiveNodeUids, highlightAncestorNodes, highlightDescendantNodes]
+    )
+
+    const computed = useMemo(() => {
         const nodeByUid: Record<string, ComputedNode<Datum>> = {}
 
         const nodes: ComputedNode<Datum>[] = intermediateNodes.map(intermediateNode => {
@@ -150,6 +182,16 @@ const useNodes = <Datum extends object>({
                 ...intermediateNode,
                 size: getNodeSize(intermediateNode),
                 color: getNodeColor(intermediateNode),
+                isActive: null,
+            }
+
+            if (activeNodeUids.length > 0) {
+                computedNode.isActive = activeNodeUids.includes(computedNode.uid)
+                if (computedNode.isActive) {
+                    computedNode.size = getActiveNodeSize(computedNode)
+                } else {
+                    computedNode.size = getInactiveNodeSize(computedNode)
+                }
             }
 
             nodeByUid[computedNode.uid] = computedNode
@@ -157,11 +199,17 @@ const useNodes = <Datum extends object>({
             return computedNode
         })
 
-        return {
-            nodes,
-            nodeByUid,
-        }
-    }, [intermediateNodes, getNodeSize, getNodeColor])
+        return { nodes, nodeByUid }
+    }, [
+        intermediateNodes,
+        getNodeSize,
+        getActiveNodeSize,
+        getInactiveNodeSize,
+        getNodeColor,
+        activeNodeUids,
+    ])
+
+    return { ...computed, setCurrentNode }
 }
 
 const useLinks = <Datum extends object>({
@@ -212,7 +260,11 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     width,
     height,
     nodeSize = commonDefaultProps.nodeSize,
+    activeNodeSize,
+    inactiveNodeSize,
     nodeColor = commonDefaultProps.nodeColor,
+    highlightAncestorNodes = commonDefaultProps.highlightAncestorNodes,
+    highlightDescendantNodes = commonDefaultProps.highlightDescendantNodes,
     linkThickness = commonDefaultProps.linkThickness,
     linkColor = commonDefaultProps.linkColor,
 }: {
@@ -222,45 +274,59 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     width: number
     height: number
     nodeSize?: CommonProps<Datum>['nodeSize']
+    activeNodeSize?: CommonProps<Datum>['activeNodeSize']
+    inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
     nodeColor?: CommonProps<Datum>['nodeColor']
+    highlightAncestorNodes?: boolean
+    highlightDescendantNodes?: boolean
     linkThickness?: CommonProps<Datum>['linkThickness']
     linkColor?: CommonProps<Datum>['linkColor']
 }) => {
     const getIdentity = usePropertyAccessor(identity)
 
     const root = useHierarchy<Datum>({ root: data })
+    root.eachBefore(node => {
+        const ancestors = node
+            .ancestors()
+            .filter(ancestor => ancestor !== node)
+            .reverse()
+        const ancestorIds = ancestors.map(ancestor => getIdentity(ancestor.data))
+
+        node.ancestorIds = ancestorIds
+        node.uid = [...ancestorIds, getIdentity(node.data)].join('.')
+        node.ancestorUids = ancestors.map(ancestor => ancestor.uid!)
+    })
     root.each(node => {
-        // We add an uid first, because we're going to use it to be able
-        // to replace the links' source and target nodes with computed nodes.
-        const { path } = computeNodePath(node, getIdentity)
-        node.uid = path
+        node.descendantUids = node
+            .descendants()
+            .filter(descendant => descendant !== node)
+            .map(descendant => descendant.uid!)
     })
     const cluster = useCluster<Datum>({ width, height, layout })
     cluster(root)
 
     const { xScale, yScale } = useCartesianScales({ width, height, layout })
 
-    const { nodes, nodeByUid } = useNodes<Datum>({
+    const { nodes, nodeByUid, setCurrentNode } = useNodes<Datum>({
         root,
         xScale,
         yScale,
         layout,
         getIdentity,
         nodeSize,
+        activeNodeSize,
+        inactiveNodeSize,
         nodeColor,
+        highlightAncestorNodes,
+        highlightDescendantNodes,
     })
 
     const links = useLinks<Datum>({ root, nodeByUid, linkThickness, linkColor })
 
-    console.log({
-        nodes,
-        links,
-    })
-
     return {
         nodes,
         links,
-        root,
+        setCurrentNode,
     }
 }
 
@@ -277,6 +343,7 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
         onMouseMove,
         onMouseLeave,
         onClick,
+        setCurrentNode,
         tooltip,
     }: {
         isInteractive: boolean
@@ -284,6 +351,7 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
         onMouseMove?: NodeMouseEventHandler<Datum>
         onMouseLeave?: NodeMouseEventHandler<Datum>
         onClick?: NodeMouseEventHandler<Datum>
+        setCurrentNode: CurrentNodeSetter<Datum>
         tooltip?: NodeTooltip<Datum>
     }
 ) => {
@@ -304,10 +372,11 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
+            setCurrentNode(node)
             showTooltip(event)
             onMouseEnter?.(node, event)
         },
-        [node, showTooltip, onMouseEnter]
+        [node, showTooltip, setCurrentNode, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
@@ -320,10 +389,11 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
 
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
+            setCurrentNode(null)
             hideTooltip()
             onMouseLeave?.(node, event)
         },
-        [node, hideTooltip, onMouseLeave]
+        [node, hideTooltip, setCurrentNode, onMouseLeave]
     )
 
     const handleClick = useCallback(
