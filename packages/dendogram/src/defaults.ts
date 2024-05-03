@@ -11,6 +11,9 @@ export const commonDefaultProps: Pick<
     | 'linkThickness'
     | 'linkColor'
     | 'isInteractive'
+    | 'useMesh'
+    | 'meshDetectionThreshold'
+    | 'debugMesh'
     | 'role'
     | 'animate'
     | 'motionConfig'
@@ -20,8 +23,11 @@ export const commonDefaultProps: Pick<
     nodeSize: 16,
     nodeColor: { scheme: 'nivo' },
     linkThickness: 1,
-    linkColor: '#555555',
+    linkColor: { from: 'source.color', modifiers: [['opacity', 0.3]] },
     isInteractive: true,
+    useMesh: false,
+    meshDetectionThreshold: Infinity,
+    debugMesh: false,
     role: 'img',
     animate: true,
     motionConfig: 'gentle',
@@ -30,7 +36,7 @@ export const commonDefaultProps: Pick<
 export const svgDefaultProps: typeof commonDefaultProps &
     Required<Pick<DendogramSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent'>> = {
     ...commonDefaultProps,
-    layers: ['links', 'nodes', 'labels'],
+    layers: ['links', 'nodes', 'labels', 'mesh'],
     nodeComponent: Node,
     linkComponent: Link,
 }

@@ -46,5 +46,5 @@ export const computeMesh = ({
     const delaunay = Delaunay.from(points)
     const voronoi = debug ? delaunay.voronoi([0, 0, width, height]) : undefined
 
-    return { delaunay, voronoi }
+    return { points, delaunay, voronoi }
 }
