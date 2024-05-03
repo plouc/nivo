@@ -17,17 +17,14 @@ import {
     IntermediateComputedLink,
     LinkThicknessFunction,
     LinkMouseEventHandler,
+    LinkTooltip,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
 export const useHierarchy = <Datum extends object>({ root }: { root: Datum }) =>
     useMemo(() => d3Hierarchy<Datum>(root) as HierarchyDendogramNode<Datum>, [root])
 
-export const useCluster = <Datum extends object>({
-    width,
-    height,
-    layout,
-}: {
+export const useCluster = <Datum extends object>(_props: {
     width: number
     height: number
     layout: Layout
@@ -35,14 +32,8 @@ export const useCluster = <Datum extends object>({
     useMemo(() => {
         const cluster = d3Cluster<Datum>().size([1, 1])
 
-        if (layout === 'bottom-to-top') {
-            // cluster.size([width, -height])
-        } else {
-            // cluster.size([width, height])
-        }
-
         return cluster
-    }, [width, height, layout])
+    }, [])
 
 const computeNodePath = <Datum extends object>(
     node: HierarchyDendogramNode<Datum>,
@@ -142,7 +133,7 @@ const useNodes = <Datum extends object>({
             nodes,
             nodeByUid,
         }
-    }, [root, xScale, yScale])
+    }, [root, getIdentity, layout, xScale, yScale])
 
 const useLinks = <Datum extends object>({
     root,
@@ -257,8 +248,7 @@ export const useNodeMouseEventHandlers = <Datum extends object>(
                     createElement(tooltip, {
                         node,
                     }),
-                    event,
-                    'left'
+                    event
                 )
         },
         [node, tooltip, showTooltipFromEvent]
@@ -316,54 +306,53 @@ export const useLinkMouseEventHandlers = <Datum extends object>(
         onMouseMove,
         onMouseLeave,
         onClick,
-    }: // tooltip,
-    {
+        tooltip,
+    }: {
         isInteractive: boolean
         onMouseEnter?: LinkMouseEventHandler<Datum>
         onMouseMove?: LinkMouseEventHandler<Datum>
         onMouseLeave?: LinkMouseEventHandler<Datum>
         onClick?: LinkMouseEventHandler<Datum>
-        // tooltip?: NodeTooltip<Datum>
+        tooltip?: LinkTooltip<Datum>
     }
 ) => {
-    // const { showTooltipFromEvent, hideTooltip } = useTooltip()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    // const showTooltip = useCallback(
-    //     (event: MouseEvent) => {
-    //         tooltip !== undefined &&
-    //             showTooltipFromEvent(
-    //                 createElement(tooltip, {
-    //                     node,
-    //                 }),
-    //                 event,
-    //                 'left'
-    //             )
-    //     },
-    //     [node, tooltip, showTooltipFromEvent]
-    // )
+    const showTooltip = useCallback(
+        (event: MouseEvent) => {
+            tooltip !== undefined &&
+                showTooltipFromEvent(
+                    createElement(tooltip, {
+                        link,
+                    }),
+                    event
+                )
+        },
+        [link, tooltip, showTooltipFromEvent]
+    )
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
-            // showTooltip(event)
+            showTooltip(event)
             onMouseEnter?.(link, event)
         },
-        [link, onMouseEnter]
+        [link, showTooltip, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
-            // showTooltip(event)
+            showTooltip(event)
             onMouseMove?.(link, event)
         },
-        [link, onMouseMove]
+        [link, showTooltip, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
-            // hideTooltip()
+            hideTooltip()
             onMouseLeave?.(link, event)
         },
-        [link, onMouseLeave]
+        [link, hideTooltip, onMouseLeave]
     )
 
     const handleClick = useCallback(

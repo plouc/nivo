@@ -1,13 +1,7 @@
 import { commonDefaultProps as defaults } from '@nivo/dendogram'
-import {
-    motionProperties,
-    defsProperties,
-    groupProperties,
-    themeProperty,
-} from '../../../lib/componentProperties'
+import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
 import {
     chartDimensions,
-    ordinalColors,
     isInteractive,
     commonAccessibilityProps,
 } from '../../../lib/chart-properties'
@@ -152,8 +146,8 @@ const props: ChartProperty[] = [
         key: 'nodeTooltip',
         flavors: ['svg'],
         group: 'Interactivity',
-        type: '(node: ComputedNode, event: MouseEvent) => void',
-        help: 'onClick handler.',
+        type: 'NodeTooltip',
+        help: 'Tooltip component for nodes.',
         required: false,
     },
     {
@@ -186,6 +180,14 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
         help: 'onClick handler for links.',
+        required: false,
+    },
+    {
+        key: 'linkTooltip',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: 'LinkTooltip',
+        help: 'Tooltip component for links.',
         required: false,
     },
     ...commonAccessibilityProps(allFlavors),

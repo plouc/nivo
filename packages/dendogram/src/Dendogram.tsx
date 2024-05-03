@@ -32,6 +32,7 @@ const InnerDendogram = <Datum extends object>({
     onLinkMouseMove,
     onLinkMouseLeave,
     onLinkClick,
+    linkTooltip,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -69,6 +70,7 @@ const InnerDendogram = <Datum extends object>({
                 onMouseMove={onLinkMouseMove}
                 onMouseLeave={onLinkMouseLeave}
                 onClick={onLinkClick}
+                tooltip={linkTooltip}
             />
         )
     }

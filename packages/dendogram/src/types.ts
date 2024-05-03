@@ -79,7 +79,7 @@ export interface LinkComponentProps<Datum extends object> {
     onMouseMove?: LinkMouseEventHandler<Datum>
     onMouseLeave?: LinkMouseEventHandler<Datum>
     onClick?: LinkMouseEventHandler<Datum>
-    // tooltip?: NodeTooltip<Datum>
+    tooltip?: LinkTooltip<Datum>
     animatedProps: SpringValues<{
         sourceX: number
         sourceY: number
@@ -93,6 +93,11 @@ export type LinkMouseEventHandler<Datum extends object> = (
     node: ComputedLink<Datum>,
     event: MouseEvent
 ) => void
+
+export interface LinkTooltipProps<Datum extends object> {
+    link: ComputedLink<Datum>
+}
+export type LinkTooltip<Datum extends object> = FunctionComponent<LinkTooltipProps<Datum>>
 
 export interface CustomLayerProps<Datum extends object> {
     nodes: ComputedNode<Datum>[]
@@ -125,6 +130,7 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     onLinkMouseMove: LinkMouseEventHandler<Datum>
     onLinkMouseLeave: LinkMouseEventHandler<Datum>
     onLinkClick: LinkMouseEventHandler<Datum>
+    linkTooltip: LinkTooltip<Datum>
 
     role: string
     renderWrapper: boolean
