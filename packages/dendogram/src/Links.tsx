@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedLink, LinkComponent, LinkMouseEventHandler } from './types'
+import { ComputedLink, LinkComponent, LinkMouseEventHandler, LinkTooltip } from './types'
 
 interface LinksProps<Datum extends object> {
     links: ComputedLink<Datum>[]
@@ -11,7 +11,7 @@ interface LinksProps<Datum extends object> {
     onMouseMove?: LinkMouseEventHandler<Datum>
     onMouseLeave?: LinkMouseEventHandler<Datum>
     onClick?: LinkMouseEventHandler<Datum>
-    // tooltip?: NodeTooltip<Datum>
+    tooltip?: LinkTooltip<Datum>
 }
 
 const regularTransition = <Datum extends object>(link: ComputedLink<Datum>) => ({
@@ -35,6 +35,7 @@ export const Links = <Datum extends object>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    tooltip,
 }: LinksProps<Datum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -67,6 +68,7 @@ export const Links = <Datum extends object>({
                     onMouseMove,
                     onMouseLeave,
                     onClick,
+                    tooltip,
                 })
             )}
         </>

@@ -13,6 +13,7 @@ export const Link = <Datum extends object>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    tooltip,
 }: LinkComponentProps<Datum>) => {
     const eventHandlers = useLinkMouseEventHandlers<Datum>(link, {
         isInteractive,
@@ -20,7 +21,7 @@ export const Link = <Datum extends object>({
         onMouseMove,
         onMouseLeave,
         onClick,
-        // tooltip,
+        tooltip,
     })
 
     return (

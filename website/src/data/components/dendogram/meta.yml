@@ -7,9 +7,11 @@ Dendogram:
   tags:
     - hierarchy
   stories:
-    - label: Using custom tooltip
-      link: treemap--custom-tooltip
-    - label: Patterns & Gradients
-      link: treemap--patterns-and-gradients
+    - label: Custom node component
+      link: dendogram--custom-node-component
+    - label: With node tooltip
+      link: dendogram--with-node-tooltip
+    - label: With link tooltip
+      link: dendogram--with-link-tooltip
   description: |
     Dendogram
