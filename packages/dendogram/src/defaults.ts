@@ -6,6 +6,7 @@ export const commonDefaultProps: Pick<
     CommonProps<any>,
     | 'identity'
     | 'layout'
+    | 'nodeSize'
     | 'nodeColor'
     | 'linkThickness'
     | 'linkColor'
@@ -16,7 +17,8 @@ export const commonDefaultProps: Pick<
 > = {
     identity: 'id',
     layout: 'top-to-bottom',
-    nodeColor: '#000000',
+    nodeSize: 16,
+    nodeColor: { scheme: 'nivo' },
     linkThickness: 1,
     linkColor: '#555555',
     isInteractive: true,

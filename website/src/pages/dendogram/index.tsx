@@ -1,6 +1,12 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveDendogram, svgDefaultProps as defaults } from '@nivo/dendogram'
+import {
+    ResponsiveDendogram,
+    DendogramSvgProps,
+    svgDefaultProps as defaults,
+    ComputedLink,
+    ComputedNode,
+} from '@nivo/dendogram'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/dendogram/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
@@ -9,10 +15,25 @@ import { generateLightDataSet } from '../../data/components/treemap/generator'
 
 type Datum = ReturnType<typeof generateLightDataSet>
 
-const initialProperties = {
+const initialProperties: Pick<
+    DendogramSvgProps<any>,
+    | 'identity'
+    | 'layout'
+    | 'nodeSize'
+    | 'nodeColor'
+    | 'linkThickness'
+    | 'linkColor'
+    | 'margin'
+    | 'animate'
+    | 'motionConfig'
+    | 'isInteractive'
+> = {
     identity: 'name',
-    layout: defaults.layout,
+    layout: 'left-to-right',
+    nodeSize: defaults.nodeSize,
+    nodeColor: { scheme: 'dark2' },
     linkThickness: 2,
+    linkColor: { from: 'source.color', modifiers: [['opacity', 0.4]] },
 
     margin: {
         top: 24,
@@ -62,14 +83,14 @@ const TreeMap = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onNodeClick={node => {
+                        onNodeClick={(node: ComputedNode<Datum>) => {
                             logAction({
                                 type: 'click',
                                 label: `[node] ${node.pathComponents.join(' / ')}`,
                                 data: node,
                             })
                         }}
-                        onLinkClick={link => {
+                        onLinkClick={(link: ComputedLink<Datum>) => {
                             logAction({
                                 type: 'click',
                                 label: `[link] ${link.source.id} > ${link.target.id}`,

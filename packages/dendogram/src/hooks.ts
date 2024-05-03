@@ -1,8 +1,9 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { hierarchy as d3Hierarchy, cluster as d3Cluster } from 'd3-hierarchy'
 import { scaleLinear, ScaleLinear } from 'd3-scale'
-import { usePropertyAccessor } from '@nivo/core'
+import { usePropertyAccessor, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
+import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import {
     DefaultDatum,
     HierarchyDendogramNode,
@@ -86,13 +87,13 @@ const useCartesianScales = ({
         }
     }, [width, height, layout])
 
-const useNodeColor = <Datum extends object>(
-    color: Exclude<CommonProps<Datum>['nodeColor'], undefined>
+const useNodeSize = <Datum extends object>(
+    size: Exclude<CommonProps<Datum>['nodeSize'], undefined>
 ) =>
     useMemo(() => {
-        if (typeof color === 'function') return color
-        return () => color
-    }, [color])
+        if (typeof size === 'function') return size
+        return () => size
+    }, [size])
 
 const useNodes = <Datum extends object>({
     root,
@@ -100,6 +101,7 @@ const useNodes = <Datum extends object>({
     yScale,
     layout,
     getIdentity,
+    nodeSize,
     nodeColor,
 }: {
     root: HierarchyDendogramNode<Datum>
@@ -107,6 +109,7 @@ const useNodes = <Datum extends object>({
     yScale: ScaleLinear<number, number>
     layout: Layout
     getIdentity: (node: Datum) => string
+    nodeSize: Exclude<CommonProps<Datum>['nodeSize'], undefined>
     nodeColor: Exclude<CommonProps<Datum>['nodeColor'], undefined>
 }) => {
     const intermediateNodes = useMemo<IntermediateComputedNode<Datum>[]>(() => {
@@ -136,7 +139,8 @@ const useNodes = <Datum extends object>({
         })
     }, [root, getIdentity, layout, xScale, yScale])
 
-    const getNodeColor = useNodeColor<Datum>(nodeColor)
+    const getNodeSize = useNodeSize(nodeSize)
+    const getNodeColor = useOrdinalColorScale(nodeColor, 'uid')
 
     return useMemo(() => {
         const nodeByUid: Record<string, ComputedNode<Datum>> = {}
@@ -144,6 +148,7 @@ const useNodes = <Datum extends object>({
         const nodes: ComputedNode<Datum>[] = intermediateNodes.map(intermediateNode => {
             const computedNode: ComputedNode<Datum> = {
                 ...intermediateNode,
+                size: getNodeSize(intermediateNode),
                 color: getNodeColor(intermediateNode),
             }
 
@@ -156,16 +161,8 @@ const useNodes = <Datum extends object>({
             nodes,
             nodeByUid,
         }
-    }, [intermediateNodes, getNodeColor])
+    }, [intermediateNodes, getNodeSize, getNodeColor])
 }
-
-const useLinkColor = <Datum extends object>(
-    color: Exclude<CommonProps<Datum>['linkColor'], undefined>
-) =>
-    useMemo(() => {
-        if (typeof color === 'function') return color
-        return () => color
-    }, [color])
 
 const useLinks = <Datum extends object>({
     root,
@@ -194,7 +191,8 @@ const useLinks = <Datum extends object>({
         return () => linkThickness
     }, [linkThickness])
 
-    const getLinkColor = useLinkColor<Datum>(linkColor)
+    const theme = useTheme()
+    const getLinkColor = useInheritedColor(linkColor, theme)
 
     return useMemo(() => {
         return intermediateLinks.map(intermediateLink => {
@@ -213,6 +211,7 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     layout = commonDefaultProps.layout,
     width,
     height,
+    nodeSize = commonDefaultProps.nodeSize,
     nodeColor = commonDefaultProps.nodeColor,
     linkThickness = commonDefaultProps.linkThickness,
     linkColor = commonDefaultProps.linkColor,
@@ -222,6 +221,7 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     layout?: Layout
     width: number
     height: number
+    nodeSize?: CommonProps<Datum>['nodeSize']
     nodeColor?: CommonProps<Datum>['nodeColor']
     linkThickness?: CommonProps<Datum>['linkThickness']
     linkColor?: CommonProps<Datum>['linkColor']
@@ -246,6 +246,7 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
         yScale,
         layout,
         getIdentity,
+        nodeSize,
         nodeColor,
     })
 

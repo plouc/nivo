@@ -23,7 +23,7 @@ export const Node = <Datum extends object>({
 
     return (
         <animated.circle
-            r={6}
+            r={node.size / 2}
             fill={node.color}
             cx={animatedProps.x}
             cy={animatedProps.y}
