@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useMemo, MouseEvent, TouchEvent } from 'react'
+import { useRef, useState, useCallback, useMemo, useEffect, MouseEvent, TouchEvent } from 'react'
 import { getRelativeCursor, getDistance } from '@nivo/core'
 import { useVoronoiMesh } from './hooks'
 import { XYAccessor } from './computeMesh'
@@ -41,8 +41,18 @@ export const Mesh = <Datum,>({
     detectionThreshold = Infinity,
     debug,
 }: MeshProps<Datum>) => {
+    // Used to get the relative cursor position.
     const elementRef = useRef<SVGGElement>(null)
-    const [currentIndex, setCurrentIndex] = useState<number | null>(null)
+    // Store the index of the current point and the current node.
+    const [current, setCurrent] = useState<[number, Datum] | null>(null)
+    // Keep track of the previous index and node, this is needed as we don't have enter/leave events
+    // for each nodes because we use a single rect element to capture events.
+    const previous = useRef<[number, Datum] | null>(null)
+
+    useEffect(() => {
+        // Assign the latest current node to the ref, assigning a value to ref doesn't re-render.
+        previous.current = current
+    }, [current])
 
     const { delaunay, voronoi } = useVoronoiMesh({
         points: nodes,
@@ -54,18 +64,15 @@ export const Mesh = <Datum,>({
     })
 
     const voronoiPath = useMemo(() => {
-        if (debug && voronoi) {
-            return voronoi.render()
-        }
-
+        if (debug && voronoi) return voronoi.render()
         return undefined
     }, [debug, voronoi])
 
     const getIndexAndNodeFromEvent = useCallback(
-        (event: MouseEvent<SVGRectElement> | TouchEvent<SVGRectElement>) => {
-            if (!elementRef.current) {
-                return [null, null]
-            }
+        (
+            event: MouseEvent<SVGRectElement> | TouchEvent<SVGRectElement>
+        ): null | [number, Datum] => {
+            if (!elementRef.current) return null
 
             const [x, y] = getRelativeCursor(elementRef.current, event)
             let index: number | null = delaunay.find(x, y)
@@ -80,98 +87,95 @@ export const Mesh = <Datum,>({
                 }
             }
 
-            return [node ? index : null, node] as [null, null] | [number, Datum]
+            if (index === null || node === null) return null
+            return [index, node]
         },
         [delaunay, nodes, detectionThreshold]
     )
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            setCurrentIndex(index)
-            if (node) {
-                onMouseEnter?.(node, event)
-            }
+            const match = getIndexAndNodeFromEvent(event)
+            setCurrent(match)
+            match && onMouseEnter?.(match[1], event)
         },
-        [getIndexAndNodeFromEvent, setCurrentIndex, onMouseEnter]
+        [getIndexAndNodeFromEvent, setCurrent, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            setCurrentIndex(index)
-            if (node) {
-                onMouseMove?.(node, event)
+            const match = getIndexAndNodeFromEvent(event)
+            setCurrent(match)
+
+            if (match) {
+                const [index, node] = match
+                if (previous.current) {
+                    const [previousIndex, previousNode] = previous.current
+                    if (index !== previousIndex) {
+                        // Simulate an enter event if the previous index is different.
+                        onMouseLeave?.(previousNode, event)
+                    } else {
+                        // If it's the same, trigger a regular move event.
+                        onMouseMove?.(node, event)
+                    }
+                } else {
+                    onMouseEnter?.(node, event)
+                }
+            } else {
+                if (previous.current) {
+                    // Simulate a leave event if there's a previous node.
+                    onMouseLeave?.(previous.current[1], event)
+                }
             }
         },
-        [getIndexAndNodeFromEvent, setCurrentIndex, onMouseMove]
+        [getIndexAndNodeFromEvent, setCurrent, previous, onMouseEnter, onMouseMove, onMouseLeave]
     )
 
     const handleMouseLeave = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            setCurrentIndex(null)
-            if (onMouseLeave) {
-                let previousNode: Datum | undefined = undefined
-                if (currentIndex !== null) {
-                    previousNode = nodes[currentIndex]
-                }
-                previousNode && onMouseLeave(previousNode, event)
+            setCurrent(null)
+            if (onMouseLeave && previous.current) {
+                onMouseLeave(previous.current[1], event)
             }
         },
-        [setCurrentIndex, currentIndex, onMouseLeave, nodes]
+        [setCurrent, previous, onMouseLeave]
     )
 
     const handleClick = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            setCurrentIndex(index)
-            if (node) {
-                onClick?.(node, event)
-            }
+            const match = getIndexAndNodeFromEvent(event)
+            setCurrent(match)
+            match && onClick?.(match[1], event)
         },
-        [getIndexAndNodeFromEvent, setCurrentIndex, onClick]
+        [getIndexAndNodeFromEvent, setCurrent, onClick]
     )
 
     const handleTouchStart = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            if (enableTouchCrosshair) {
-                setCurrentIndex(index)
-            }
-            if (node) {
-                onTouchStart?.(node, event)
-            }
+            const match = getIndexAndNodeFromEvent(event)
+            enableTouchCrosshair && setCurrent(match)
+            match && onTouchStart?.(match[1], event)
         },
-        [getIndexAndNodeFromEvent, enableTouchCrosshair, onTouchStart]
+        [getIndexAndNodeFromEvent, setCurrent, enableTouchCrosshair, onTouchStart]
     )
 
     const handleTouchMove = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            if (enableTouchCrosshair) {
-                setCurrentIndex(index)
-            }
-            if (node) {
-                onTouchMove?.(node, event)
-            }
+            const match = getIndexAndNodeFromEvent(event)
+            enableTouchCrosshair && setCurrent(match)
+            match && onTouchMove?.(match[1], event)
         },
-        [getIndexAndNodeFromEvent, enableTouchCrosshair, onTouchMove]
+        [getIndexAndNodeFromEvent, setCurrent, enableTouchCrosshair, onTouchMove]
     )
 
     const handleTouchEnd = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            if (enableTouchCrosshair) {
-                setCurrentIndex(null)
-            }
-            if (onTouchEnd) {
-                let previousNode: Datum | undefined = undefined
-                if (currentIndex !== null) {
-                    previousNode = nodes[currentIndex]
-                }
-                previousNode && onTouchEnd(previousNode, event)
+            enableTouchCrosshair && setCurrent(null)
+            if (onTouchEnd && previous.current) {
+                onTouchEnd(previous.current[1], event)
             }
         },
-        [enableTouchCrosshair, onTouchEnd, currentIndex, nodes]
+        [enableTouchCrosshair, setCurrent, onTouchEnd, previous, nodes]
     )
 
     return (
@@ -180,8 +184,8 @@ export const Mesh = <Datum,>({
                 <>
                     <path d={voronoiPath} stroke="red" strokeWidth={1} opacity={0.75} />
                     {/* highlight the current cell */}
-                    {currentIndex !== null && (
-                        <path fill="pink" opacity={0.35} d={voronoi.renderCell(currentIndex)} />
+                    {current && (
+                        <path fill="pink" opacity={0.35} d={voronoi.renderCell(current[0])} />
                     )}
                 </>
             )}

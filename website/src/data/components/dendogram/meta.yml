@@ -6,6 +6,7 @@ Dendogram:
   package: '@nivo/dendogram'
   tags:
     - hierarchy
+    - experimental
   stories:
     - label: Custom node component
       link: dendogram--custom-node-component

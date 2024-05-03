@@ -54,20 +54,20 @@ const initialProperties: Pick<
 
     isInteractive: defaults.isInteractive,
     useMesh: true,
-    meshDetectionThreshold: 40,
+    meshDetectionThreshold: 60,
     debugMesh: defaults.debugMesh,
     highlightAncestorNodes: defaults.highlightAncestorNodes,
     highlightDescendantNodes: defaults.highlightDescendantNodes,
 }
 
-const TreeMap = () => {
+const Dendogram = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/treemap.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/dendogram.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -117,4 +117,4 @@ const TreeMap = () => {
     )
 }
 
-export default TreeMap
+export default Dendogram
