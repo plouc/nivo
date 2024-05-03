@@ -22,6 +22,8 @@ const initialProperties: Pick<
     | 'nodeSize'
     | 'nodeColor'
     | 'linkThickness'
+    | 'activeLinkThickness'
+    | 'inactiveLinkThickness'
     | 'linkColor'
     | 'margin'
     | 'animate'
@@ -32,6 +34,8 @@ const initialProperties: Pick<
     | 'debugMesh'
     | 'highlightAncestorNodes'
     | 'highlightDescendantNodes'
+    | 'highlightAncestorLinks'
+    | 'highlightDescendantLinks'
 > = {
     identity: 'name',
     layout: 'left-to-right',
@@ -40,6 +44,8 @@ const initialProperties: Pick<
     inactiveNodeSize: 8,
     nodeColor: { scheme: 'dark2' },
     linkThickness: 2,
+    activeLinkThickness: 6,
+    inactiveLinkThickness: 1,
     linkColor: defaults.linkColor,
 
     margin: {
@@ -54,10 +60,12 @@ const initialProperties: Pick<
 
     isInteractive: defaults.isInteractive,
     useMesh: true,
-    meshDetectionThreshold: 60,
+    meshDetectionThreshold: 80,
     debugMesh: defaults.debugMesh,
     highlightAncestorNodes: defaults.highlightAncestorNodes,
     highlightDescendantNodes: defaults.highlightDescendantNodes,
+    highlightAncestorLinks: defaults.highlightAncestorLinks,
+    highlightDescendantLinks: defaults.highlightDescendantLinks,
 }
 
 const Dendogram = () => {

@@ -25,19 +25,40 @@ import {
 } from './types'
 import { commonDefaultProps } from './defaults'
 
-export const useHierarchy = <Datum extends object>({ root }: { root: Datum }) =>
-    useMemo(() => d3Hierarchy<Datum>(root) as HierarchyDendogramNode<Datum>, [root])
-
-export const useCluster = <Datum extends object>(_props: {
-    width: number
-    height: number
-    layout: Layout
+export const useRoot = <Datum extends object>({
+    data,
+    getIdentity,
+}: {
+    data: DendogramDataProps<Datum>['data']
+    getIdentity: (node: Datum) => string
 }) =>
     useMemo(() => {
+        const root = d3Hierarchy<Datum>(data) as HierarchyDendogramNode<Datum>
         const cluster = d3Cluster<Datum>().size([1, 1])
 
-        return cluster
-    }, [])
+        root.eachBefore(node => {
+            const ancestors = node
+                .ancestors()
+                .filter(ancestor => ancestor !== node)
+                .reverse()
+            const ancestorIds = ancestors.map(ancestor => getIdentity(ancestor.data))
+
+            node.ancestorIds = ancestorIds
+            node.uid = [...ancestorIds, getIdentity(node.data)].join('.')
+            node.ancestorUids = ancestors.map(ancestor => ancestor.uid!)
+        })
+
+        root.each(node => {
+            node.descendantUids = node
+                .descendants()
+                .filter(descendant => descendant !== node)
+                .map(descendant => descendant.uid!)
+        })
+
+        cluster(root)
+
+        return root
+    }, [data, getIdentity])
 
 /**
  * By default, the x/y positions are computed for a 0~1 range,
@@ -104,8 +125,6 @@ const useNodes = <Datum extends object>({
     activeNodeSize,
     inactiveNodeSize,
     nodeColor,
-    highlightAncestorNodes,
-    highlightDescendantNodes,
 }: {
     root: HierarchyDendogramNode<Datum>
     xScale: ScaleLinear<number, number>
@@ -116,8 +135,6 @@ const useNodes = <Datum extends object>({
     activeNodeSize?: CommonProps<Datum>['activeNodeSize']
     inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
     nodeColor: Exclude<CommonProps<Datum>['nodeColor'], undefined>
-    highlightAncestorNodes: boolean
-    highlightDescendantNodes: boolean
 }) => {
     const intermediateNodes = useMemo<IntermediateComputedNode<Datum>[]>(() => {
         return root.descendants().map(node => {
@@ -156,24 +173,6 @@ const useNodes = <Datum extends object>({
 
     const [activeNodeUids, setActiveNodeUids] = useState<string[]>([])
 
-    const setCurrentNode = useCallback(
-        (node: ComputedNode<Datum> | null) => {
-            if (node === null) {
-                setActiveNodeUids([])
-            } else {
-                let uids: string[] = [node.uid]
-                if (highlightAncestorNodes) {
-                    uids = [...uids, ...node.ancestorUids]
-                }
-                if (highlightDescendantNodes) {
-                    uids = [...uids, ...node.descendantUids]
-                }
-                setActiveNodeUids(uids)
-            }
-        },
-        [setActiveNodeUids, highlightAncestorNodes, highlightDescendantNodes]
-    )
-
     const computed = useMemo(() => {
         const nodeByUid: Record<string, ComputedNode<Datum>> = {}
 
@@ -209,7 +208,7 @@ const useNodes = <Datum extends object>({
         activeNodeUids,
     ])
 
-    return { ...computed, setCurrentNode }
+    return { ...computed, setActiveNodeUids }
 }
 
 const useLinks = <Datum extends object>({
@@ -222,7 +221,7 @@ const useLinks = <Datum extends object>({
     nodeByUid: Record<string, ComputedNode<Datum>>
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
     linkColor: Exclude<CommonProps<Datum>['linkColor'], undefined>
-}): ComputedLink<Datum>[] => {
+}) => {
     const intermediateLinks = useMemo<IntermediateComputedLink<Datum>[]>(() => {
         return (root.links() as HierarchyDendogramLink<Datum>[]).map(link => {
             return {
@@ -242,23 +241,42 @@ const useLinks = <Datum extends object>({
     const theme = useTheme()
     const getLinkColor = useInheritedColor(linkColor, theme)
 
-    return useMemo(() => {
+    const [activeLinkIds, setActiveLinkIds] = useState<string[]>([])
+
+    const links = useMemo(() => {
         return intermediateLinks.map(intermediateLink => {
-            return {
+            const computedLink: ComputedLink<Datum> = {
                 ...intermediateLink,
                 thickness: getLinkThickness(intermediateLink),
                 color: getLinkColor(intermediateLink),
+                isActive: null,
             }
+
+            if (activeLinkIds.length > 0) {
+                computedLink.isActive = activeLinkIds.includes(computedLink.id)
+                if (computedLink.isActive) {
+                    computedLink.thickness = 10
+                } else {
+                    computedLink.thickness = 1
+                }
+            }
+
+            return computedLink
         })
-    }, [intermediateLinks, getLinkThickness, getLinkColor])
+    }, [intermediateLinks, getLinkThickness, getLinkColor, activeLinkIds])
+
+    return {
+        links,
+        setActiveLinkIds,
+    }
 }
 
 export const useDendogram = <Datum extends object = DefaultDatum>({
     data,
-    identity = commonDefaultProps.identity,
-    layout = commonDefaultProps.layout,
     width,
     height,
+    identity = commonDefaultProps.identity,
+    layout = commonDefaultProps.layout,
     nodeSize = commonDefaultProps.nodeSize,
     activeNodeSize,
     inactiveNodeSize,
@@ -267,12 +285,14 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     highlightDescendantNodes = commonDefaultProps.highlightDescendantNodes,
     linkThickness = commonDefaultProps.linkThickness,
     linkColor = commonDefaultProps.linkColor,
+    highlightAncestorLinks = commonDefaultProps.highlightAncestorLinks,
+    highlightDescendantLinks = commonDefaultProps.highlightDescendantLinks,
 }: {
     data: DendogramDataProps<Datum>['data']
-    identity?: CommonProps<Datum>['identity']
-    layout?: Layout
     width: number
     height: number
+    identity?: CommonProps<Datum>['identity']
+    layout?: Layout
     nodeSize?: CommonProps<Datum>['nodeSize']
     activeNodeSize?: CommonProps<Datum>['activeNodeSize']
     inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
@@ -281,33 +301,14 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
     highlightDescendantNodes?: boolean
     linkThickness?: CommonProps<Datum>['linkThickness']
     linkColor?: CommonProps<Datum>['linkColor']
+    highlightAncestorLinks?: boolean
+    highlightDescendantLinks?: boolean
 }) => {
     const getIdentity = usePropertyAccessor(identity)
-
-    const root = useHierarchy<Datum>({ root: data })
-    root.eachBefore(node => {
-        const ancestors = node
-            .ancestors()
-            .filter(ancestor => ancestor !== node)
-            .reverse()
-        const ancestorIds = ancestors.map(ancestor => getIdentity(ancestor.data))
-
-        node.ancestorIds = ancestorIds
-        node.uid = [...ancestorIds, getIdentity(node.data)].join('.')
-        node.ancestorUids = ancestors.map(ancestor => ancestor.uid!)
-    })
-    root.each(node => {
-        node.descendantUids = node
-            .descendants()
-            .filter(descendant => descendant !== node)
-            .map(descendant => descendant.uid!)
-    })
-    const cluster = useCluster<Datum>({ width, height, layout })
-    cluster(root)
+    const root = useRoot<Datum>({ data, getIdentity })
 
     const { xScale, yScale } = useCartesianScales({ width, height, layout })
-
-    const { nodes, nodeByUid, setCurrentNode } = useNodes<Datum>({
+    const { nodes, nodeByUid, setActiveNodeUids } = useNodes<Datum>({
         root,
         xScale,
         yScale,
@@ -317,11 +318,68 @@ export const useDendogram = <Datum extends object = DefaultDatum>({
         activeNodeSize,
         inactiveNodeSize,
         nodeColor,
-        highlightAncestorNodes,
-        highlightDescendantNodes,
     })
 
-    const links = useLinks<Datum>({ root, nodeByUid, linkThickness, linkColor })
+    const { links, setActiveLinkIds } = useLinks<Datum>({
+        root,
+        nodeByUid,
+        linkThickness,
+        linkColor,
+    })
+
+    const setCurrentNode = useCallback(
+        (node: ComputedNode<Datum> | null) => {
+            if (node === null) {
+                setActiveNodeUids([])
+                setActiveLinkIds([])
+            } else {
+                let nodeUids: string[] = [node.uid]
+                if (highlightAncestorNodes) {
+                    nodeUids = [...nodeUids, ...node.ancestorUids]
+                }
+                if (highlightDescendantNodes) {
+                    nodeUids = [...nodeUids, ...node.descendantUids]
+                }
+                setActiveNodeUids(nodeUids)
+
+                const linkIds: string[] = []
+                if (highlightAncestorLinks) {
+                    links
+                        .filter(link => {
+                            return (
+                                link.target.uid === node.uid ||
+                                node.ancestorUids.includes(link.target.uid)
+                            )
+                        })
+                        .forEach(link => {
+                            linkIds.push(link.id)
+                        })
+                }
+                if (highlightDescendantLinks) {
+                    links
+                        .filter(link => {
+                            return (
+                                link.source.uid === node.uid ||
+                                node.descendantUids.includes(link.source.uid)
+                            )
+                        })
+                        .forEach(link => {
+                            linkIds.push(link.id)
+                        })
+                }
+                setActiveLinkIds(linkIds)
+            }
+        },
+        [
+            setActiveNodeUids,
+            highlightAncestorNodes,
+            highlightDescendantNodes,
+            links,
+            setActiveLinkIds,
+            highlightAncestorLinks,
+            highlightDescendantLinks,
+        ]
+    )
 
     return {
         nodes,
