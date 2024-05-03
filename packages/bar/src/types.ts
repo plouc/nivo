@@ -16,6 +16,7 @@ import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
+import { BarLabelLayout } from './compute/common'
 
 export interface BarDatum {
     [key: string]: string | number
@@ -186,10 +187,11 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     | 'ariaLabel'
     | 'ariaLabelledBy'
     | 'ariaDescribedBy'
-> & {
-    borderColor: string
-    labelColor: string
-}
+> &
+    BarLabelLayout & {
+        borderColor: string
+        labelColor: string
+    }
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
