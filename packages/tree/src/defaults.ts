@@ -26,7 +26,7 @@ export const commonDefaultProps: Pick<
     identity: 'id',
     mode: 'dendogram',
     layout: 'top-to-bottom',
-    nodeSize: 16,
+    nodeSize: 12,
     nodeColor: { scheme: 'nivo' },
     linkThickness: 1,
     linkColor: { from: 'source.color', modifiers: [['opacity', 0.3]] },
