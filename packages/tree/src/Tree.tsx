@@ -1,23 +1,25 @@
 import { createElement, Fragment, ReactNode, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { DefaultDatum, LayerId, DendogramSvgProps, CustomLayerProps } from './types'
+import { DefaultDatum, LayerId, TreeSvgProps, CustomLayerProps } from './types'
 import { svgDefaultProps } from './defaults'
-import { useDendogram } from './hooks'
+import { useTree } from './hooks'
 import { Links } from './Links'
 import { Nodes } from './Nodes'
 import { Mesh } from './Mesh'
 
-type InnerDendogramProps<Datum> = Omit<
-    DendogramSvgProps<Datum>,
+type InnerTreeProps<Datum> = Omit<
+    TreeSvgProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerDendogram = <Datum,>({
+const InnerTree = <Datum,>({
     width,
     height,
     margin: partialMargin,
     data,
     identity,
+    mode = svgDefaultProps.mode,
+    layout = svgDefaultProps.layout,
     nodeSize = svgDefaultProps.nodeSize,
     activeNodeSize,
     inactiveNodeSize,
@@ -28,7 +30,6 @@ const InnerDendogram = <Datum,>({
     inactiveLinkThickness,
     linkColor = svgDefaultProps.linkColor,
     linkComponent = svgDefaultProps.linkComponent,
-    layout = svgDefaultProps.layout,
     layers = svgDefaultProps.layers,
     isInteractive = svgDefaultProps.isInteractive,
     useMesh = svgDefaultProps.useMesh,
@@ -52,17 +53,18 @@ const InnerDendogram = <Datum,>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: InnerDendogramProps<Datum>) => {
+}: InnerTreeProps<Datum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const { nodes, links, linkGenerator, setCurrentNode } = useDendogram<Datum>({
+    const { nodes, links, linkGenerator, setCurrentNode } = useTree<Datum>({
         data,
         identity,
         layout,
+        mode,
         width: innerWidth,
         height: innerHeight,
         nodeSize,
@@ -170,14 +172,14 @@ const InnerDendogram = <Datum,>({
     )
 }
 
-export const Dendogram = <Datum = DefaultDatum,>({
+export const Tree = <Datum = DefaultDatum,>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: DendogramSvgProps<Datum>) => (
+}: TreeSvgProps<Datum>) => (
     <Container
         {...{
             animate,
@@ -187,6 +189,6 @@ export const Dendogram = <Datum = DefaultDatum,>({
             theme,
         }}
     >
-        <InnerDendogram<Datum> isInteractive={isInteractive} {...otherProps} />
+        <InnerTree<Datum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

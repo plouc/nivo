@@ -5,6 +5,7 @@ import { SpringValues } from '@react-spring/web'
 import { Box, Dimensions, MotionProps, Theme, PropertyAccessor } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
+export type TreeMode = 'tree' | 'dendogram'
 export type Layout = 'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'
 
 export type LayerId = 'links' | 'nodes' | 'labels' | 'mesh'
@@ -15,16 +16,16 @@ export interface DefaultDatum {
     children?: DefaultDatum[]
 }
 
-export interface HierarchyDendogramNode<Datum> extends HierarchyNode<Datum> {
+export interface HierarchyTreeNode<Datum> extends HierarchyNode<Datum> {
     uid: string | undefined
     ancestorIds: string[] | undefined
     ancestorUids: string[] | undefined
     descendantUids: string[] | undefined
 }
 
-export interface HierarchyDendogramLink<Datum> {
-    source: HierarchyDendogramNode<Datum>
-    target: HierarchyDendogramNode<Datum>
+export interface HierarchyTreeLink<Datum> {
+    source: HierarchyTreeNode<Datum>
+    target: HierarchyTreeNode<Datum>
 }
 
 export interface IntermediateComputedNode<Datum> {
@@ -135,13 +136,14 @@ export interface CustomLayerProps<Datum> {
 }
 export type CustomSvgLayer<Datum> = FunctionComponent<CustomLayerProps<Datum>>
 
-export interface DendogramDataProps<Datum> {
+export interface TreeDataProps<Datum> {
     data: Datum
 }
 
 export interface CommonProps<Datum> extends MotionProps {
     margin: Box
 
+    mode: TreeMode
     layout: Layout
     identity: PropertyAccessor<Datum, string>
 
@@ -181,7 +183,7 @@ export interface CommonProps<Datum> extends MotionProps {
     ariaDescribedBy: AriaAttributes['aria-describedby']
 }
 
-export type DendogramSvgProps<Datum> = DendogramDataProps<Datum> &
+export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
     Dimensions &
     Partial<CommonProps<Datum>> & {
         layers?: (LayerId | CustomSvgLayer<Datum>)[]
@@ -189,4 +191,4 @@ export type DendogramSvgProps<Datum> = DendogramDataProps<Datum> &
         linkComponent?: LinkComponent<Datum>
     }
 
-export type ResponsiveDendogramSvgProps<Datum> = Omit<DendogramSvgProps<Datum>, 'height' | 'width'>
+export type ResponsiveTreeSvgProps<Datum> = Omit<TreeSvgProps<Datum>, 'height' | 'width'>

@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/dendogram",
+    "name": "@nivo/tree",
     "version": "0.86.0",
     "license": "MIT",
     "author": {
@@ -9,7 +9,7 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/plouc/nivo.git",
-        "directory": "packages/dendogram"
+        "directory": "packages/tree"
     },
     "keywords": [
         "nivo",
@@ -17,10 +17,11 @@
         "react",
         "d3",
         "charts",
-        "dendogram"
+        "hierarchy",
+        "tree"
     ],
-    "main": "./dist/nivo-dendogram.cjs.js",
-    "module": "./dist/nivo-dendogram.es.js",
+    "main": "./dist/nivo-tree.cjs.js",
+    "module": "./dist/nivo-tree.es.js",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",

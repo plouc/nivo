@@ -2,7 +2,7 @@ import {
     commonDefaultProps as defaults,
     svgDefaultProps as svgDefaults,
     IntermediateComputedNode,
-} from '@nivo/dendogram'
+} from '@nivo/tree'
 import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
 import {
     chartDimensions,
@@ -11,7 +11,6 @@ import {
     ordinalColors,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
-import { a } from '@react-spring/web'
 
 const allFlavors: Flavor[] = ['svg']
 
@@ -40,6 +39,22 @@ const props: ChartProperty[] = [
         type: 'string | Function',
         required: false,
         defaultValue: defaults.identity,
+    },
+    {
+        key: 'mode',
+        group: 'Base',
+        help: `Type of tree diagram.`,
+        type: `'tree' | 'dendogram'`,
+        flavors: allFlavors,
+        required: false,
+        defaultValue: defaults.mode,
+        control: {
+            type: 'radio',
+            choices: [
+                { label: 'tree', value: 'tree' },
+                { label: 'dendogram', value: 'dendogram' },
+            ],
+        },
     },
     {
         key: 'layout',

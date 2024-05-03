@@ -6,7 +6,8 @@ import {
     LinkComponent,
     LinkMouseEventHandler,
     LinkTooltip,
-    LinkAnimatedProps, LinkGenerator,
+    LinkAnimatedProps,
+    LinkGenerator,
 } from './types'
 
 interface LinksProps<Datum> {

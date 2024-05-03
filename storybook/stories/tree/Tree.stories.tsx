@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { useTheme } from '@nivo/core'
 import {
-    Dendogram,
+    Tree,
     useNodeMouseEventHandlers,
     NodeComponentProps,
     NodeTooltipProps,
     LinkTooltipProps,
-} from '@nivo/dendogram'
+} from '@nivo/tree'
 
-const meta: Meta<typeof Dendogram> = {
-    title: 'Dendogram',
-    component: Dendogram,
+const meta: Meta<typeof Tree> = {
+    title: 'Tree',
+    component: Tree,
     tags: ['autodocs'],
     argTypes: {
         layout: {
@@ -33,7 +33,7 @@ const meta: Meta<typeof Dendogram> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Dendogram>
+type Story = StoryObj<typeof Tree>
 
 const generateData = () => {
     const data = generateLibTree()
@@ -80,7 +80,7 @@ const LinkTooltip = ({ link }: LinkTooltipProps<any>) => {
 
 export const Basic: Story = {
     render: args => (
-        <Dendogram
+        <Tree
             {...commonProperties}
             layout={args.layout}
             onNodeClick={args.onNodeClick}
@@ -91,7 +91,7 @@ export const Basic: Story = {
 
 export const WithNodeTooltip: Story = {
     render: args => (
-        <Dendogram
+        <Tree
             {...commonProperties}
             layout={args.layout}
             nodeTooltip={NodeTooltip}
@@ -105,7 +105,7 @@ export const WithNodeTooltip: Story = {
 
 export const WithLinkTooltip: Story = {
     render: args => (
-        <Dendogram
+        <Tree
             {...commonProperties}
             linkThickness={12}
             layout={args.layout}
@@ -168,7 +168,7 @@ const CustomNode = ({
 
 export const CustomNodeComponent: Story = {
     render: args => (
-        <Dendogram
+        <Tree
             {...commonProperties}
             layout={args.layout}
             linkThickness={4}

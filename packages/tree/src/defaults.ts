@@ -1,10 +1,11 @@
-import { CommonProps, DendogramSvgProps } from './types'
+import { CommonProps, TreeSvgProps } from './types'
 import { Node } from './Node'
 import { Link } from './Link'
 
 export const commonDefaultProps: Pick<
     CommonProps<any>,
     | 'identity'
+    | 'mode'
     | 'layout'
     | 'nodeSize'
     | 'nodeColor'
@@ -23,6 +24,7 @@ export const commonDefaultProps: Pick<
     | 'motionConfig'
 > = {
     identity: 'id',
+    mode: 'dendogram',
     layout: 'top-to-bottom',
     nodeSize: 16,
     nodeColor: { scheme: 'nivo' },
@@ -42,7 +44,7 @@ export const commonDefaultProps: Pick<
 }
 
 export const svgDefaultProps: typeof commonDefaultProps &
-    Required<Pick<DendogramSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent'>> = {
+    Required<Pick<TreeSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent'>> = {
     ...commonDefaultProps,
     layers: ['links', 'nodes', 'mesh'],
     nodeComponent: Node,
