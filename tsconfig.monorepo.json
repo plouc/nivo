@@ -28,7 +28,6 @@
         { "path": "./packages/calendar" },
         { "path": "./packages/chord" },
         { "path": "./packages/circle-packing" },
-        { "path": "./packages/dendogram" },
         { "path": "./packages/funnel" },
         { "path": "./packages/heatmap" },
         { "path": "./packages/marimekko" },
@@ -41,6 +40,7 @@
         { "path": "./packages/sunburst" },
         { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" },
+        { "path": "./packages/tree" },
         { "path": "./packages/treemap" },
         { "path": "./packages/waffle" },
 

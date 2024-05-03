@@ -1,5 +1,5 @@
 import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
-import { hierarchy as d3Hierarchy, cluster as d3Cluster } from 'd3-hierarchy'
+import { hierarchy as d3Hierarchy, cluster as d3Cluster, tree as d3Tree } from 'd3-hierarchy'
 import { scaleLinear, ScaleLinear } from 'd3-scale'
 import { link as d3Link, curveBumpX, curveBumpY } from 'd3-shape'
 import { usePropertyAccessor, useTheme } from '@nivo/core'
@@ -7,9 +7,9 @@ import { useTooltip } from '@nivo/tooltip'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import {
     DefaultDatum,
-    HierarchyDendogramNode,
-    HierarchyDendogramLink,
-    DendogramDataProps,
+    HierarchyTreeNode,
+    HierarchyTreeLink,
+    TreeDataProps,
     CommonProps,
     Layout,
     ComputedNode,
@@ -24,19 +24,22 @@ import {
     CurrentNodeSetter,
     NodeSizeModifierFunction,
     LinkThicknessModifierFunction,
+    TreeMode,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
 export const useRoot = <Datum>({
     data,
+    mode,
     getIdentity,
 }: {
-    data: DendogramDataProps<Datum>['data']
+    data: TreeDataProps<Datum>['data']
+    mode: TreeMode
     getIdentity: (node: Datum) => string
 }) =>
     useMemo(() => {
-        const root = d3Hierarchy<Datum>(data) as HierarchyDendogramNode<Datum>
-        const cluster = d3Cluster<Datum>().size([1, 1])
+        const root = d3Hierarchy<Datum>(data) as HierarchyTreeNode<Datum>
+        const cluster = mode === 'tree' ? d3Tree<Datum>() : d3Cluster<Datum>()
 
         root.eachBefore(node => {
             const ancestors = node
@@ -60,7 +63,7 @@ export const useRoot = <Datum>({
         cluster(root)
 
         return root
-    }, [data, getIdentity])
+    }, [data, mode, getIdentity])
 
 /**
  * By default, the x/y positions are computed for a 0~1 range,
@@ -124,7 +127,7 @@ const useNodes = <Datum>({
     inactiveNodeSize,
     nodeColor,
 }: {
-    root: HierarchyDendogramNode<Datum>
+    root: HierarchyTreeNode<Datum>
     xScale: ScaleLinear<number, number>
     yScale: ScaleLinear<number, number>
     layout: Layout
@@ -226,7 +229,7 @@ const useLinks = <Datum>({
     inactiveLinkThickness,
     linkColor,
 }: {
-    root: HierarchyDendogramNode<Datum>
+    root: HierarchyTreeNode<Datum>
     nodeByUid: Record<string, ComputedNode<Datum>>
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
     activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
@@ -234,7 +237,7 @@ const useLinks = <Datum>({
     linkColor: Exclude<CommonProps<Datum>['linkColor'], undefined>
 }) => {
     const intermediateLinks = useMemo<IntermediateComputedLink<Datum>[]>(() => {
-        return (root.links() as HierarchyDendogramLink<Datum>[]).map(link => {
+        return (root.links() as HierarchyTreeLink<Datum>[]).map(link => {
             return {
                 id: `${link.source.uid}:${link.target.uid}`,
                 // Replace with computed nodes.
@@ -371,11 +374,12 @@ const useSetCurrentNode = <Datum>({
         ]
     )
 
-export const useDendogram = <Datum = DefaultDatum>({
+export const useTree = <Datum = DefaultDatum>({
     data,
     width,
     height,
     identity = commonDefaultProps.identity,
+    mode = commonDefaultProps.mode,
     layout = commonDefaultProps.layout,
     nodeSize = commonDefaultProps.nodeSize,
     activeNodeSize,
@@ -390,10 +394,11 @@ export const useDendogram = <Datum = DefaultDatum>({
     highlightAncestorLinks = commonDefaultProps.highlightAncestorLinks,
     highlightDescendantLinks = commonDefaultProps.highlightDescendantLinks,
 }: {
-    data: DendogramDataProps<Datum>['data']
+    data: TreeDataProps<Datum>['data']
     width: number
     height: number
     identity?: CommonProps<Datum>['identity']
+    mode?: TreeMode
     layout?: Layout
     nodeSize?: CommonProps<Datum>['nodeSize']
     activeNodeSize?: CommonProps<Datum>['activeNodeSize']
@@ -409,7 +414,7 @@ export const useDendogram = <Datum = DefaultDatum>({
     highlightDescendantLinks?: boolean
 }) => {
     const getIdentity = usePropertyAccessor(identity)
-    const root = useRoot<Datum>({ data, getIdentity })
+    const root = useRoot<Datum>({ data, mode, getIdentity })
 
     const { xScale, yScale } = useCartesianScales({ width, height, layout })
     const { nodes, nodeByUid, setActiveNodeUids } = useNodes<Datum>({

@@ -7,7 +7,6 @@ import bullet from './components/bullet/meta.yml'
 import calendar from './components/calendar/meta.yml'
 import choropleth from './components/choropleth/meta.yml'
 import chord from './components/chord/meta.yml'
-import dendogram from './components/dendogram/meta.yml'
 import funnel from './components/funnel/meta.yml'
 import geomap from './components/geomap/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
@@ -24,6 +23,7 @@ import stream from './components/stream/meta.yml'
 import sunburst from './components/sunburst/meta.yml'
 import swarmplot from './components/swarmplot/meta.yml'
 import timeRange from './components/time-range/meta.yml'
+import tree from './components/tree/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
@@ -110,14 +110,6 @@ export const components: ChartNavData[] = [
             svg: true,
             canvas: true,
             api: true,
-        },
-    },
-    {
-        name: 'Dendogram',
-        id: 'dendogram',
-        tags: dendogram.Dendogram.tags,
-        flavors: {
-            svg: true,
         },
     },
     {
@@ -258,6 +250,14 @@ export const components: ChartNavData[] = [
         name: 'TimeRange',
         id: 'time-range',
         tags: timeRange.TimeRange.tags,
+        flavors: {
+            svg: true,
+        },
+    },
+    {
+        name: 'Tree',
+        id: 'tree',
+        tags: tree.Tree.tags,
         flavors: {
             svg: true,
         },

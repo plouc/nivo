@@ -1,26 +1,27 @@
 flavors:
   - flavor: svg
-    path: /dendogram/
+    path: /tree/
 
-Dendogram:
-  package: '@nivo/dendogram'
+Tree:
+  package: '@nivo/tree'
   tags:
     - hierarchy
     - experimental
+    - tree
   stories:
     - label: Custom node component
-      link: dendogram--custom-node-component
+      link: tree--custom-node-component
     - label: With node tooltip
-      link: dendogram--with-node-tooltip
+      link: tree--with-node-tooltip
     - label: With link tooltip
-      link: dendogram--with-link-tooltip
+      link: tree--with-link-tooltip
   description: |
-    Nivo dendogram graph.
+    Nivo tree graph, supporting dendograms.
     
     For now this component doesn't support labels, but that's something
     you can implement via a custom layer.
     
     While it's part of the nivo internals, and not formally documented,
-    you could use the `useDendogram` hook directly in order to build
+    you could use the `useTree` hook directly in order to build
     a fully custom component, this hook takes a config object which
     is very close to the component's props.

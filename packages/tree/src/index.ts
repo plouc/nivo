@@ -1,5 +1,5 @@
-export * from './Dendogram'
-export * from './ResponsiveDendogram'
+export * from './Tree'
+export * from './ResponsiveTree'
 export * from './hooks'
 export * from './types'
 export * from './defaults'

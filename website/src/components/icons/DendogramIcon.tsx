@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react'
 import { Theme } from '@nivo/core'
-import { Dendogram, DendogramSvgProps } from '@nivo/dendogram'
-import dendogramLightNeutralImg from '../../assets/icons/dendogram-light-neutral.png'
-import dendogramLightColoredImg from '../../assets/icons/dendogram-light-colored.png'
-import dendogramDarkNeutralImg from '../../assets/icons/dendogram-dark-neutral.png'
-import dendogramDarkColoredImg from '../../assets/icons/dendogram-dark-colored.png'
+import { Tree, TreeSvgProps } from '@nivo/tree'
+import treeLightNeutralImg from '../../assets/icons/tree-light-neutral.png'
+import treeLightColoredImg from '../../assets/icons/tree-light-colored.png'
+import treeDarkNeutralImg from '../../assets/icons/tree-dark-neutral.png'
+import treeDarkColoredImg from '../../assets/icons/tree-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 import { IconType } from './types'
 
@@ -13,7 +13,7 @@ type Datum = {
     children?: Datum[]
 }
 
-const chartProps: DendogramSvgProps<Datum> = {
+const chartProps: TreeSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: {
@@ -43,7 +43,7 @@ const chartProps: DendogramSvgProps<Datum> = {
     isInteractive: false,
 }
 
-const DendogramIconItem = ({ type }: { type: IconType }) => {
+const TreeIconItem = ({ type }: { type: IconType }) => {
     const currentColors = colors[type].colors
 
     const theme: Theme = useMemo(
@@ -69,8 +69,8 @@ const DendogramIconItem = ({ type }: { type: IconType }) => {
     }
 
     return (
-        <Icon id={`dendogram-${type}`} type={type}>
-            <Dendogram<Datum>
+        <Icon id={`tree-${type}`} type={type}>
+            <Tree<Datum>
                 {...chartProps}
                 nodeColor={nodeColor}
                 linkColor={linkColor}
@@ -82,13 +82,13 @@ const DendogramIconItem = ({ type }: { type: IconType }) => {
 
 export const DendogramIcon = () => (
     <>
-        <DendogramIconItem type="lightNeutral" />
-        <IconImg url={dendogramLightNeutralImg} />
-        <DendogramIconItem type="lightColored" />
-        <IconImg url={dendogramLightColoredImg} />
-        <DendogramIconItem type="darkNeutral" />
-        <IconImg url={dendogramDarkNeutralImg} />
-        <DendogramIconItem type="darkColored" />
-        <IconImg url={dendogramDarkColoredImg} />
+        <TreeIconItem type="lightNeutral" />
+        <IconImg url={treeLightNeutralImg} />
+        <TreeIconItem type="lightColored" />
+        <IconImg url={treeLightColoredImg} />
+        <TreeIconItem type="darkNeutral" />
+        <IconImg url={treeDarkNeutralImg} />
+        <TreeIconItem type="darkColored" />
+        <IconImg url={treeDarkColoredImg} />
     </>
 )

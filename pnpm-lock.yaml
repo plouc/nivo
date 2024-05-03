@@ -749,48 +749,6 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
 
-  packages/dendogram:
-    dependencies:
-      '@nivo/annotations':
-        specifier: workspace:*
-        version: link:../annotations
-      '@nivo/colors':
-        specifier: workspace:*
-        version: link:../colors
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
-      '@nivo/tooltip':
-        specifier: workspace:*
-        version: link:../tooltip
-      '@nivo/voronoi':
-        specifier: workspace:*
-        version: link:../voronoi
-      '@react-spring/web':
-        specifier: 9.4.5 || ^9.7.2
-        version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
-      '@types/d3-hierarchy':
-        specifier: ^3.1.7
-        version: 3.1.7
-      '@types/d3-scale':
-        specifier: ^4.0.8
-        version: 4.0.8
-      '@types/d3-shape':
-        specifier: ^3.1.6
-        version: 3.1.6
-      d3-hierarchy:
-        specifier: ^3.1.2
-        version: 3.1.2
-      d3-scale:
-        specifier: ^4.0.2
-        version: 4.0.2
-      d3-shape:
-        specifier: ^3.2.0
-        version: 3.2.0
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-
   packages/express:
     dependencies:
       '@nivo/static':
@@ -1513,6 +1471,48 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
 
+  packages/tree:
+    dependencies:
+      '@nivo/annotations':
+        specifier: workspace:*
+        version: link:../annotations
+      '@nivo/colors':
+        specifier: workspace:*
+        version: link:../colors
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
+      '@nivo/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
+      '@nivo/voronoi':
+        specifier: workspace:*
+        version: link:../voronoi
+      '@react-spring/web':
+        specifier: 9.4.5 || ^9.7.2
+        version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/d3-hierarchy':
+        specifier: ^3.1.7
+        version: 3.1.7
+      '@types/d3-scale':
+        specifier: ^4.0.8
+        version: 4.0.8
+      '@types/d3-shape':
+        specifier: ^3.1.6
+        version: 3.1.6
+      d3-hierarchy:
+        specifier: ^3.1.2
+        version: 3.1.2
+      d3-scale:
+        specifier: ^4.0.2
+        version: 4.0.2
+      d3-shape:
+        specifier: ^3.2.0
+        version: 3.2.0
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+
   packages/treemap:
     dependencies:
       '@nivo/colors':
@@ -1635,9 +1635,6 @@ importers:
       '@nivo/core':
         specifier: workspace:*
         version: link:../packages/core
-      '@nivo/dendogram':
-        specifier: workspace:*
-        version: link:../packages/dendogram
       '@nivo/funnel':
         specifier: workspace:*
         version: link:../packages/funnel
@@ -1686,6 +1683,9 @@ importers:
       '@nivo/tooltip':
         specifier: workspace:*
         version: link:../packages/tooltip
+      '@nivo/tree':
+        specifier: workspace:*
+        version: link:../packages/tree
       '@nivo/treemap':
         specifier: workspace:*
         version: link:../packages/treemap
@@ -1794,9 +1794,6 @@ importers:
       '@nivo/core':
         specifier: workspace:*
         version: link:../packages/core
-      '@nivo/dendogram':
-        specifier: workspace:*
-        version: link:../packages/dendogram
       '@nivo/funnel':
         specifier: workspace:*
         version: link:../packages/funnel
@@ -1851,6 +1848,9 @@ importers:
       '@nivo/swarmplot':
         specifier: workspace:*
         version: link:../packages/swarmplot
+      '@nivo/tree':
+        specifier: workspace:*
+        version: link:../packages/tree
       '@nivo/treemap':
         specifier: workspace:*
         version: link:../packages/treemap

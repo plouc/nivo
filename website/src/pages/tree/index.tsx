@@ -1,23 +1,24 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import {
-    ResponsiveDendogram,
-    DendogramSvgProps,
+    ResponsiveTree,
+    TreeSvgProps,
     svgDefaultProps as defaults,
     ComputedLink,
     ComputedNode,
-} from '@nivo/dendogram'
+} from '@nivo/tree'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
-import meta from '../../data/components/dendogram/meta.yml'
+import meta from '../../data/components/tree/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
-import { groups } from '../../data/components/dendogram/props'
+import { groups } from '../../data/components/tree/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 
 type Datum = ReturnType<typeof generateLightDataSet>
 
 const initialProperties: Pick<
-    DendogramSvgProps<any>,
+    TreeSvgProps<any>,
     | 'identity'
+    | 'mode'
     | 'layout'
     | 'nodeSize'
     | 'activeNodeSize'
@@ -40,6 +41,7 @@ const initialProperties: Pick<
     | 'highlightDescendantLinks'
 > = {
     identity: 'name',
+    mode: defaults.mode,
     layout: 'left-to-right',
     nodeSize: 12,
     activeNodeSize: 24,
@@ -70,14 +72,14 @@ const initialProperties: Pick<
     highlightDescendantLinks: defaults.highlightDescendantLinks,
 }
 
-const Dendogram = () => {
+const Tree = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/dendogram.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/tree.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -87,9 +89,9 @@ const Dendogram = () => {
 
     return (
         <ComponentTemplate
-            name="Dendogram"
-            meta={meta.Dendogram}
-            icon="dendogram"
+            name="Tree"
+            meta={meta.Tree}
+            icon="tree"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
@@ -101,7 +103,7 @@ const Dendogram = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveDendogram<Datum>
+                    <ResponsiveTree<Datum>
                         data={data}
                         {...properties}
                         theme={theme}
@@ -127,4 +129,4 @@ const Dendogram = () => {
     )
 }
 
-export default Dendogram
+export default Tree
