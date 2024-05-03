@@ -34,12 +34,12 @@ const chartProps: DendogramSvgProps<Datum> = {
         ],
     },
     margin: {
-        top: 8,
-        right: 4,
-        bottom: 8,
-        left: 4,
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
     },
-    linkThickness: 3,
+    linkThickness: 6,
     isInteractive: false,
 }
 

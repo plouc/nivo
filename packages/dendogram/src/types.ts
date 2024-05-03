@@ -2,6 +2,7 @@ import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
 import { SpringValues } from '@react-spring/web'
 import { Box, Dimensions, MotionProps, Theme, PropertyAccessor } from '@nivo/core'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 export type Layout = 'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'
 
@@ -34,6 +35,7 @@ export interface IntermediateComputedNode<Datum extends object> {
 }
 
 export interface ComputedNode<Datum extends object> extends IntermediateComputedNode<Datum> {
+    size: number
     color: string
 }
 
@@ -47,6 +49,10 @@ export interface ComputedLink<Datum extends object> extends IntermediateComputed
     thickness: number
     color: string
 }
+
+export type NodeSizeFunction<Datum extends object> = (
+    node: IntermediateComputedNode<Datum>
+) => number
 
 export type NodeColorFunction<Datum extends object> = (
     node: IntermediateComputedNode<Datum>
@@ -80,10 +86,6 @@ export type NodeMouseEventHandler<Datum extends object> = (
 export type LinkThicknessFunction<Datum extends object> = (
     link: IntermediateComputedLink<Datum>
 ) => number
-
-export type LinkColorFunction<Datum extends object> = (
-    link: IntermediateComputedLink<Datum>
-) => string
 
 export interface LinkComponentProps<Datum extends object> {
     link: ComputedLink<Datum>
@@ -131,9 +133,10 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     identity: PropertyAccessor<Datum, string>
 
     theme: Theme
-    nodeColor: string | NodeColorFunction<Datum>
+    nodeSize: number | NodeSizeFunction<Datum>
+    nodeColor: OrdinalColorScaleConfig<IntermediateComputedNode<Datum>>
     linkThickness: number | LinkThicknessFunction<Datum>
-    linkColor: string | LinkColorFunction<Datum>
+    linkColor: InheritedColorConfig<IntermediateComputedLink<Datum>>
 
     isInteractive: boolean
     onNodeMouseEnter: NodeMouseEventHandler<Datum>

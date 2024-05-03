@@ -9,6 +9,7 @@ export const ordinalColors = ({
     help = `Define chart's colors.`,
     description = `Please see the [dedicated documentation](self:/guides/colors) for colors.`,
     defaultValue,
+    genericType,
 }: {
     key?: string
     group?: string
@@ -16,17 +17,25 @@ export const ordinalColors = ({
     help?: string
     description?: string
     defaultValue: OrdinalColorScaleConfig
-}): ChartProperty => ({
-    key,
-    group,
-    type: 'OrdinalColorScaleConfig',
-    help,
-    description,
-    required: false,
-    defaultValue,
-    flavors,
-    control: { type: 'ordinalColors' },
-})
+    genericType?: string
+}): ChartProperty => {
+    let type: string = `OrdinalColorScaleConfig`
+    if (genericType !== undefined) {
+        type = `${type}<${genericType}>`
+    }
+
+    return {
+        key,
+        group,
+        type,
+        help,
+        description,
+        required: false,
+        defaultValue,
+        flavors,
+        control: { type: 'ordinalColors' },
+    }
+}
 
 export const blendMode = ({
     key = 'blendMode',

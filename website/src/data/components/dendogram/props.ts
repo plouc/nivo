@@ -1,11 +1,18 @@
-import { commonDefaultProps as defaults } from '@nivo/dendogram'
+import {
+    commonDefaultProps as defaults,
+    IntermediateComputedLink,
+    IntermediateComputedNode,
+} from '@nivo/dendogram'
 import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
 import {
     chartDimensions,
     isInteractive,
     commonAccessibilityProps,
+    ordinalColors,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { svgDefaultProps } from '@nivo/bar'
 
 const allFlavors: Flavor[] = ['svg']
 
@@ -56,6 +63,23 @@ const props: ChartProperty[] = [
     ...chartDimensions(allFlavors),
     themeProperty(allFlavors),
     {
+        key: 'nodeSize',
+        group: 'Style',
+        type: 'number | (node: IntermediateComputedNode) => number',
+        control: { type: 'lineWidth' },
+        help: 'Defines the size of the nodes, statically or dynamically.',
+        required: false,
+        defaultValue: defaults.nodeSize,
+        flavors: allFlavors,
+    },
+    ordinalColors({
+        key: 'nodeColor',
+        help: 'Defines the color of the nodes, statically or dynamically.',
+        flavors: allFlavors,
+        defaultValue: defaults.nodeColor,
+        genericType: 'IntermediateComputedNode',
+    }),
+    {
         key: 'linkThickness',
         group: 'Style',
         type: 'number | (link: IntermediateComputedLink) => number',
@@ -63,6 +87,25 @@ const props: ChartProperty[] = [
         help: 'Defines the thickness of the links, statically or dynamically.',
         required: false,
         defaultValue: defaults.linkThickness,
+        flavors: ['svg'],
+    },
+    {
+        key: 'linkColor',
+        group: 'Style',
+        type: 'InheritedColorConfig<IntermediateComputedLink>',
+        control: {
+            type: 'inheritedColor',
+            inheritableProperties: ['source.color', 'target.color'],
+            defaultFrom: 'source.color',
+            defaultThemeProperty: 'labels.text.fill',
+        },
+        help: 'Defines the color of the links.',
+        description: `
+            How to compute the links color,
+            [see dedicated documentation](self:/guides/colors).
+        `,
+        required: false,
+        defaultValue: defaults.linkColor,
         flavors: ['svg'],
     },
     {
