@@ -5,6 +5,7 @@ import { svgDefaultProps } from './defaults'
 import { useDendogram } from './hooks'
 import { Links } from './Links'
 import { Nodes } from './Nodes'
+import { Mesh } from './Mesh'
 
 type InnerDendogramProps<Datum extends object> = Omit<
     DendogramSvgProps<Datum>,
@@ -26,6 +27,9 @@ const InnerDendogram = <Datum extends object>({
     layout = svgDefaultProps.layout,
     layers = svgDefaultProps.layers,
     isInteractive = svgDefaultProps.isInteractive,
+    useMesh = svgDefaultProps.useMesh,
+    meshDetectionThreshold = svgDefaultProps.meshDetectionThreshold,
+    debugMesh = svgDefaultProps.debugMesh,
     onNodeMouseEnter,
     onNodeMouseMove,
     onNodeMouseLeave,
@@ -63,6 +67,7 @@ const InnerDendogram = <Datum extends object>({
         links: null,
         nodes: null,
         labels: null,
+        mesh: null,
     }
 
     if (layers.includes('links')) {
@@ -93,6 +98,24 @@ const InnerDendogram = <Datum extends object>({
                 onMouseLeave={onNodeMouseLeave}
                 onClick={onNodeClick}
                 tooltip={nodeTooltip}
+            />
+        )
+    }
+
+    if (layers.includes('mesh') && isInteractive && useMesh) {
+        layerById.mesh = (
+            <Mesh
+                key="mesh"
+                nodes={nodes}
+                width={innerWidth}
+                height={innerHeight}
+                margin={margin}
+                detectionThreshold={meshDetectionThreshold}
+                debug={debugMesh}
+                onMouseEnter={onNodeMouseEnter}
+                onMouseMove={onNodeMouseMove}
+                onMouseLeave={onNodeMouseLeave}
+                onClick={onNodeClick}
             />
         )
     }

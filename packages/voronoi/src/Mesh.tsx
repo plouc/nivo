@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, useMemo, MouseEvent, TouchEvent } from 'react'
-import { getRelativeCursor } from '@nivo/core'
+import { getRelativeCursor, getDistance } from '@nivo/core'
 import { useVoronoiMesh } from './hooks'
 import { XYAccessor } from './computeMesh'
 
@@ -20,6 +20,7 @@ interface MeshProps<Datum> {
     onTouchMove?: TouchHandler<Datum>
     onTouchEnd?: TouchHandler<Datum>
     enableTouchCrosshair?: boolean
+    detectionThreshold?: number
     debug?: boolean
 }
 
@@ -37,6 +38,7 @@ export const Mesh = <Datum,>({
     onTouchMove,
     onTouchEnd,
     enableTouchCrosshair = false,
+    detectionThreshold = Infinity,
     debug,
 }: MeshProps<Datum>) => {
     const elementRef = useRef<SVGGElement>(null)
@@ -59,54 +61,50 @@ export const Mesh = <Datum,>({
         return undefined
     }, [debug, voronoi])
 
-    const getIndexAndNodeFromMouseEvent = useCallback(
-        (event: MouseEvent<SVGRectElement>) => {
+    const getIndexAndNodeFromEvent = useCallback(
+        (event: MouseEvent<SVGRectElement> | TouchEvent<SVGRectElement>) => {
             if (!elementRef.current) {
                 return [null, null]
             }
 
             const [x, y] = getRelativeCursor(elementRef.current, event)
-            const index = delaunay.find(x, y)
-
-            return [index, index !== undefined ? nodes[index] : null] as [number, Datum | null]
-        },
-        [delaunay, nodes]
-    )
-
-    const getIndexAndNodeFromTouchEvent = useCallback(
-        (event: TouchEvent<SVGRectElement>) => {
-            if (!elementRef.current) {
-                return [null, null]
+            let index: number | null = delaunay.find(x, y)
+            let node = index !== undefined ? nodes[index] : null
+            if (node && detectionThreshold !== Infinity) {
+                if (
+                    getDistance(x, y, (node as any).x as number, (node as any).y as number) >
+                    detectionThreshold
+                ) {
+                    index = null
+                    node = null
+                }
             }
 
-            const [x, y] = getRelativeCursor(elementRef.current, event)
-            const index = delaunay.find(x, y)
-
-            return [index, index !== undefined ? nodes[index] : null] as [number, Datum | null]
+            return [node ? index : null, node] as [null, null] | [number, Datum]
         },
-        [delaunay, nodes]
+        [delaunay, nodes, detectionThreshold]
     )
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromMouseEvent(event)
+            const [index, node] = getIndexAndNodeFromEvent(event)
             setCurrentIndex(index)
             if (node) {
                 onMouseEnter?.(node, event)
             }
         },
-        [getIndexAndNodeFromMouseEvent, setCurrentIndex, onMouseEnter]
+        [getIndexAndNodeFromEvent, setCurrentIndex, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromMouseEvent(event)
+            const [index, node] = getIndexAndNodeFromEvent(event)
             setCurrentIndex(index)
             if (node) {
                 onMouseMove?.(node, event)
             }
         },
-        [getIndexAndNodeFromMouseEvent, setCurrentIndex, onMouseMove]
+        [getIndexAndNodeFromEvent, setCurrentIndex, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
@@ -125,18 +123,18 @@ export const Mesh = <Datum,>({
 
     const handleClick = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromMouseEvent(event)
+            const [index, node] = getIndexAndNodeFromEvent(event)
             setCurrentIndex(index)
             if (node) {
                 onClick?.(node, event)
             }
         },
-        [getIndexAndNodeFromMouseEvent, setCurrentIndex, onClick]
+        [getIndexAndNodeFromEvent, setCurrentIndex, onClick]
     )
 
     const handleTouchStart = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromTouchEvent(event)
+            const [index, node] = getIndexAndNodeFromEvent(event)
             if (enableTouchCrosshair) {
                 setCurrentIndex(index)
             }
@@ -144,12 +142,12 @@ export const Mesh = <Datum,>({
                 onTouchStart?.(node, event)
             }
         },
-        [getIndexAndNodeFromTouchEvent, enableTouchCrosshair, onTouchStart]
+        [getIndexAndNodeFromEvent, enableTouchCrosshair, onTouchStart]
     )
 
     const handleTouchMove = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromTouchEvent(event)
+            const [index, node] = getIndexAndNodeFromEvent(event)
             if (enableTouchCrosshair) {
                 setCurrentIndex(index)
             }
@@ -157,7 +155,7 @@ export const Mesh = <Datum,>({
                 onTouchMove?.(node, event)
             }
         },
-        [getIndexAndNodeFromTouchEvent, enableTouchCrosshair, onTouchMove]
+        [getIndexAndNodeFromEvent, enableTouchCrosshair, onTouchMove]
     )
 
     const handleTouchEnd = useCallback(
@@ -181,7 +179,7 @@ export const Mesh = <Datum,>({
             {debug && voronoi && (
                 <>
                     <path d={voronoiPath} stroke="red" strokeWidth={1} opacity={0.75} />
-                    {/* highlight current cell */}
+                    {/* highlight the current cell */}
                     {currentIndex !== null && (
                         <path fill="pink" opacity={0.35} d={voronoi.renderCell(currentIndex)} />
                     )}

@@ -33,6 +33,7 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/tooltip": "workspace:*",
+        "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-hierarchy": "^3.1.7",
         "@types/d3-scale": "^4.0.8",

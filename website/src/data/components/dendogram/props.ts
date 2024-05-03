@@ -13,6 +13,7 @@ import {
 import { ChartProperty, Flavor } from '../../../types'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { svgDefaultProps } from '@nivo/bar'
+import { a } from '@react-spring/web'
 
 const allFlavors: Flavor[] = ['svg']
 
@@ -154,6 +155,41 @@ const props: ChartProperty[] = [
         defaultValue: defaults.isInteractive,
     }),
     {
+        key: 'useMesh',
+        flavors: allFlavors,
+        help: 'Use a voronoi mesh to detect mouse interactions.',
+        description: `
+            Use a voronoi mesh to detect mouse interactions, this can be useful
+            when the tree is dense.
+            
+            Please note that you won't be able to capture link events if using this feature.
+        `,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.useMesh,
+        control: { type: 'switch' },
+        group: 'Interactivity',
+    },
+    {
+        key: 'meshDetectionThreshold',
+        group: 'Interactivity',
+        type: 'number',
+        help: 'Prevent nodes from being detected if the cursor is too far away from the node.',
+        flavors: allFlavors,
+        required: false,
+        defaultValue: Infinity,
+    },
+    {
+        key: 'debugMesh',
+        flavors: allFlavors,
+        help: 'Display mesh used to detect mouse interactions (voronoi cells).',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.debugMesh,
+        control: { type: 'switch' },
+        group: 'Interactivity',
+    },
+    {
         key: 'onNodeMouseEnter',
         flavors: ['svg'],
         group: 'Interactivity',
@@ -198,7 +234,7 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
-        help: 'onMouseEnter handler for links.',
+        help: 'onMouseEnter handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
@@ -206,7 +242,7 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
-        help: 'onMouseMove handler for links.',
+        help: 'onMouseMove handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
@@ -214,7 +250,7 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
-        help: 'onMouseLeave handler for links.',
+        help: 'onMouseLeave handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
@@ -222,7 +258,7 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
-        help: 'onClick handler for links.',
+        help: 'onClick handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
@@ -230,7 +266,7 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         group: 'Interactivity',
         type: 'LinkTooltip',
-        help: 'Tooltip component for links.',
+        help: 'Tooltip component for links (`useMesh` must be `false`).',
         required: false,
     },
     ...commonAccessibilityProps(allFlavors),

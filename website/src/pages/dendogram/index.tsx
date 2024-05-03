@@ -27,13 +27,16 @@ const initialProperties: Pick<
     | 'animate'
     | 'motionConfig'
     | 'isInteractive'
+    | 'useMesh'
+    | 'meshDetectionThreshold'
+    | 'debugMesh'
 > = {
     identity: 'name',
     layout: 'left-to-right',
     nodeSize: defaults.nodeSize,
     nodeColor: { scheme: 'dark2' },
     linkThickness: 2,
-    linkColor: { from: 'source.color', modifiers: [['opacity', 0.4]] },
+    linkColor: defaults.linkColor,
 
     margin: {
         top: 24,
@@ -46,6 +49,9 @@ const initialProperties: Pick<
     motionConfig: defaults.motionConfig,
 
     isInteractive: defaults.isInteractive,
+    useMesh: true,
+    meshDetectionThreshold: 60,
+    debugMesh: true,
 }
 
 const TreeMap = () => {
@@ -88,6 +94,7 @@ const TreeMap = () => {
                                 type: 'click',
                                 label: `[node] ${node.pathComponents.join(' / ')}`,
                                 data: node,
+                                color: node.color,
                             })
                         }}
                         onLinkClick={(link: ComputedLink<Datum>) => {

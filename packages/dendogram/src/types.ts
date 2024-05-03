@@ -6,7 +6,7 @@ import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 export type Layout = 'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'
 
-export type LayerId = 'links' | 'nodes' | 'labels'
+export type LayerId = 'links' | 'nodes' | 'labels' | 'mesh'
 
 export interface DefaultDatum {
     id: string
@@ -139,6 +139,9 @@ export interface CommonProps<Datum extends object> extends MotionProps {
     linkColor: InheritedColorConfig<IntermediateComputedLink<Datum>>
 
     isInteractive: boolean
+    useMesh: boolean
+    meshDetectionThreshold: number
+    debugMesh: boolean
     onNodeMouseEnter: NodeMouseEventHandler<Datum>
     onNodeMouseMove: NodeMouseEventHandler<Datum>
     onNodeMouseLeave: NodeMouseEventHandler<Datum>
