@@ -417,6 +417,38 @@ const props: ChartProperty[] = [
         group: 'Labels',
     },
     {
+        key: 'labelPosition',
+        help: 'Defines the position of the label relative to its bar.',
+        type: `'start' | 'center' | 'end'`,
+        flavors: allFlavors,
+        required: false,
+        defaultValue: svgDefaultProps.labelPosition,
+        control: {
+            type: 'radio',
+            choices: [
+                { label: 'start', value: 'start' },
+                { label: 'center', value: 'center' },
+                { label: 'end', value: 'end' },
+            ],
+        },
+        group: 'Labels',
+    },
+    {
+        key: 'labelOffset',
+        help: 'Defines the vertical or horizontal (depends on layout) offset of the label.',
+        type: 'number',
+        flavors: ['svg', 'canvas', 'api'],
+        required: false,
+        defaultValue: svgDefaultProps.labelOffset,
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: -16,
+            max: 16,
+        },
+        group: 'Labels',
+    },
+    {
         key: 'enableTotals',
         help: 'Enable/disable totals labels.',
         type: 'boolean',
