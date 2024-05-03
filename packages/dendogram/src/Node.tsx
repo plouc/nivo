@@ -21,5 +21,13 @@ export const Node = <Datum extends object>({
         tooltip,
     })
 
-    return <animated.circle r={6} cx={animatedProps.x} cy={animatedProps.y} {...eventHandlers} />
+    return (
+        <animated.circle
+            r={6}
+            fill={node.color}
+            cx={animatedProps.x}
+            cy={animatedProps.y}
+            {...eventHandlers}
+        />
+    )
 }

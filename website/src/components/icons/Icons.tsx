@@ -11,6 +11,7 @@ import { ChoroplethIcon } from './ChoroplethIcon'
 import { CirclePackingIcon } from './CirclePackingIcon'
 import { CodeIcon } from './CodeIcon'
 import { DataIcon } from './DataIcon'
+import { DendogramIcon } from './DendogramIcon'
 import { FunnelIcon } from './FunnelIcon'
 import { GeoMapIcon } from './GeoMapIcon'
 import { HeatMapIcon } from './HeatMapIcon'
@@ -60,6 +61,7 @@ const ColorsDemo = ({ type }: { type: IconType }) => {
 
 export const Icons = () => (
     <Container>
+        <DendogramIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />

@@ -4,11 +4,21 @@ import { Link } from './Link'
 
 export const commonDefaultProps: Pick<
     CommonProps<any>,
-    'identity' | 'layout' | 'linkThickness' | 'isInteractive' | 'role' | 'animate' | 'motionConfig'
+    | 'identity'
+    | 'layout'
+    | 'nodeColor'
+    | 'linkThickness'
+    | 'linkColor'
+    | 'isInteractive'
+    | 'role'
+    | 'animate'
+    | 'motionConfig'
 > = {
     identity: 'id',
     layout: 'top-to-bottom',
+    nodeColor: '#000000',
     linkThickness: 1,
+    linkColor: '#555555',
     isInteractive: true,
     role: 'img',
     animate: true,

@@ -1,11 +1,13 @@
+#!/usr/bin/env node
 import Path from 'path'
-import fs from 'fs/promises'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 import puppeteer from 'puppeteer'
 import chalk from 'chalk-template'
 import _ from 'lodash'
 import config from '@ekino/config'
 
-const HEADLESS = false // 'new'
+const HEADLESS = 'new' // 'new'
 const DEFAULT_FLAVOR = 'svg'
 const CHART_SELECTOR = '#chart'
 const VIEWPORT = {
@@ -13,12 +15,7 @@ const VIEWPORT = {
     icons: { width: 1400, height: 4000 },
     homeDemos: { width: 1800, height: 6000 },
 }
-const ICON_VARIANTS = [
-    'light-neutral',
-    'light-colored',
-    'dark-neutral',
-    'dark-colored',
-]
+const ICON_VARIANTS = ['light-neutral', 'light-colored', 'dark-neutral', 'dark-colored']
 
 const projectDir = process.cwd()
 const websiteDir = Path.join(projectDir, 'website')
@@ -26,14 +23,11 @@ const websiteCapturesDir = Path.join(websiteDir, 'src', 'assets', 'captures')
 const websiteIconsDir = Path.join(websiteDir, 'src', 'assets', 'icons')
 const websiteHomeDemosDir = Path.join(websiteCapturesDir, 'home')
 const websitePagesDir = Path.join(websiteCapturesDir, 'pages')
-const getChartFileName = (chart, flavor) => `${chart}${flavor !== DEFAULT_FLAVOR ? `-${flavor}` : ''}.png`
-const getChartWebsiteFilePath = (chart, flavor) => Path.join(
-    websiteCapturesDir,
-    getChartFileName(chart, flavor)
-)
-const getChartUrl = (chart, flavor) => {
-    const baseUrl = config.get('baseUrl')
-
+const getChartFileName = (chart, flavor) =>
+    `${chart}${flavor !== DEFAULT_FLAVOR ? `-${flavor}` : ''}.png`
+const getChartWebsiteFilePath = (chart, flavor) =>
+    Path.join(websiteCapturesDir, getChartFileName(chart, flavor))
+const getChartUrl = (baseUrl, chart, flavor) => {
     const chunks = [baseUrl, chart]
     if (flavor !== DEFAULT_FLAVOR) {
         chunks.push(flavor)
@@ -47,15 +41,20 @@ const getHomeDemoFilePath = id => Path.join(websiteHomeDemosDir, `${id}.png`)
 const getPageUrl = path => `${Path.join(config.get('baseUrl'), path)}/?capture=1`
 const getPageFilePath = id => Path.join(websitePagesDir, `${id}.png`)
 
+const allPackages = _.uniq(config.get('capture.charts').map(chart => chart.pkg))
+const allCharts = config.get('capture.charts')
+
 const delay = time =>
     new Promise(resolve => {
         setTimeout(resolve, time)
     })
 
-const captureChart = async (page, { pkg, chart, flavor, theme }) => {
-    const url = getChartUrl(chart, flavor)
+const captureChart = async (baseUrl, page, { pkg, chart, flavor, theme }) => {
+    const url = getChartUrl(baseUrl, chart, flavor)
 
-    console.log(chalk`{yellow Capturing chart {white ${chart}}} {dim (package: @nivo/${pkg}, flavor: ${flavor}, url: ${url})}`)
+    console.log(
+        chalk`{yellow Capturing chart {white ${chart}}} {dim (package: @nivo/${pkg}, flavor: ${flavor}, url: ${url})}`
+    )
 
     await page.setViewport(VIEWPORT.chart)
     await page.goto(url)
@@ -73,25 +72,21 @@ const captureChart = async (page, { pkg, chart, flavor, theme }) => {
         throw new Error(`Unable to find element matching selector: ${CHART_SELECTOR} (url: ${url})`)
     }
 
-    const clip = await element.boundingBox()
     const websiteFilePath = getChartWebsiteFilePath(chart, flavor)
+    const clip = await element.boundingBox()
 
-    // initially saved to the package doc dir
     await page.screenshot({
         path: websiteFilePath,
         clip,
         omitBackground: true,
     })
 
-    // also save a copy in the website, for social images
-    await fs.copyFile(docFilePath, websiteFilePath)
-
     console.log(chalk`{green saved to {white ${websiteFilePath}}}`)
     console.log('')
 }
 
-const captureCharts = async () => {
-    const charts = config.get('capture').charts
+const captureCharts = async ({ baseUrl, packages }) => {
+    const charts = allCharts.filter(chart => packages.includes(chart.pkg))
 
     console.log(chalk`{yellow Starting capture for ${charts.length} chart(s)}`)
     console.log('')
@@ -104,7 +99,7 @@ const captureCharts = async () => {
 
         for (let chart of charts) {
             for (let flavor of chart.flavors) {
-                await captureChart(page, { ...chart, flavor })
+                await captureChart(baseUrl, page, { ...chart, flavor })
             }
         }
 
@@ -120,12 +115,13 @@ const captureCharts = async () => {
     }
 }
 
-const captureIcons = async () => {
-    const charts = config.get('capture').charts
-    const icons = charts.map(chart => chart.chart)
+const captureIcons = async ({ baseUrl, packages }) => {
+    const icons = allCharts.filter(chart => packages.includes(chart.pkg)).map(chart => chart.chart)
 
-    console.log(chalk`{yellow Starting capture for ${icons.length} chart icon(s)}`)
-    console.log('')
+    const iconsUrl = `${Path.join(baseUrl, 'internal', 'icons')}/?capture=1`
+    console.log(
+        chalk`{yellow Starting capture for ${icons.length} chart icon(s)} {dim url: ${iconsUrl}}`
+    )
 
     try {
         const browser = await puppeteer.launch({
@@ -133,10 +129,11 @@ const captureIcons = async () => {
         })
         const page = await browser.newPage()
         await page.setViewport(VIEWPORT.icons)
-        await page.goto(`${Path.join(config.get('baseUrl'), 'internal', 'icons')}/?capture=1`)
+        await page.goto(iconsUrl)
 
         for (let icon of icons) {
             console.log(chalk`{yellow Capturing {white ${icon}} chart icons}`)
+
             for (let variant of ICON_VARIANTS) {
                 const selector = `#${icon}-${_.camelCase(variant)}`
                 console.log(chalk`{dim variant: ${variant}, selector: ${selector}}`)
@@ -237,7 +234,9 @@ const capturePages = async () => {
             const url = getPageUrl(pageConfig.path)
             const selector = pageConfig.selector
 
-            console.log(chalk`{yellow Capturing page {white ${pageConfig.id}}} {dim (url: ${url}, selector: ${selector})}`)
+            console.log(
+                chalk`{yellow Capturing page {white ${pageConfig.id}}} {dim (url: ${url}, selector: ${selector})}`
+            )
 
             await page.setViewport({
                 width: pageConfig.viewport[0],
@@ -248,7 +247,9 @@ const capturePages = async () => {
             await page.waitForSelector(selector)
             const element = await page.$(selector)
             if (element === null) {
-                throw new Error(`Unable to find element matching selector: ${selector} (url: ${url})`)
+                throw new Error(
+                    `Unable to find element matching selector: ${selector} (url: ${url})`
+                )
             }
 
             const clip = await element.boundingBox()
@@ -276,10 +277,87 @@ const capturePages = async () => {
 }
 
 const run = async () => {
+    // const argv = yargs(hideBin(process.argv)).parse()
+
+    // console.log(argv)
     // await capturePages()
     // await captureHomeDemos()
-    // await captureCharts()
-    await captureIcons()
+
+    yargs(hideBin(process.argv))
+        .command(
+            'all',
+            'capture everything',
+            yargs => {
+                return yargs
+            },
+            async argv => {
+                await captureIcons({
+                    baseUrl: argv.baseUrl,
+                    packages: argv.pkg,
+                })
+                await captureCharts({
+                    baseUrl: argv.baseUrl,
+                    packages: argv.pkg,
+                })
+            }
+        )
+        .command(
+            'icons',
+            'capture icons for the website',
+            yargs => {
+                return yargs
+            },
+            async argv => {
+                await captureIcons({
+                    baseUrl: argv.baseUrl,
+                    packages: argv.pkg,
+                })
+            }
+        )
+        .command(
+            'charts',
+            'capture charts for package readmes',
+            yargs => {
+                return yargs
+            },
+            async argv => {
+                await captureCharts({
+                    baseUrl: argv.baseUrl,
+                    packages: argv.pkg,
+                })
+            }
+        )
+        .command(
+            'home',
+            'capture charts for the website home page',
+            yargs => {
+                return yargs.positional('port', {
+                    describe: 'port to bind on',
+                    default: 5000,
+                })
+            },
+            argv => {
+                if (argv.verbose) console.info(`start server on :${argv.port}`)
+                serve(argv.port)
+            }
+        )
+        .option('baseUrl', {
+            alias: 'u',
+            type: 'string',
+            default: config.get('baseUrl'),
+        })
+        .option('pkg', {
+            alias: 'p',
+            describe: 'only capture icons for specific packages',
+            choices: allPackages,
+            default: allPackages,
+        })
+        .coerce('pkg', arg => {
+            if (Array.isArray(arg)) return arg
+            return [arg]
+        })
+        .demandCommand(1)
+        .parse()
 }
 
 run()
