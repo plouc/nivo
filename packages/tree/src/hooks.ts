@@ -1,7 +1,16 @@
 import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
 import { hierarchy as d3Hierarchy, cluster as d3Cluster, tree as d3Tree } from 'd3-hierarchy'
 import { scaleLinear, ScaleLinear } from 'd3-scale'
-import { link as d3Link, curveBumpX, curveBumpY } from 'd3-shape'
+import {
+    link as d3Link,
+    CurveFactory,
+    curveLinear,
+    curveBumpX,
+    curveBumpY,
+    curveStep,
+    curveStepBefore,
+    curveStepAfter,
+} from 'd3-shape'
 import { usePropertyAccessor, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -25,6 +34,7 @@ import {
     NodeSizeModifierFunction,
     LinkThicknessModifierFunction,
     TreeMode,
+    LinkCurve,
 } from './types'
 import { commonDefaultProps } from './defaults'
 
@@ -296,14 +306,26 @@ const useLinks = <Datum>({
     }
 }
 
-const useLinkGenerator = ({ layout }: { layout: Layout }) =>
+const useLinkGenerator = ({ layout, curve }: { layout: Layout; curve: LinkCurve }) =>
     useMemo(() => {
-        if (layout === 'top-to-bottom' || layout === 'bottom-to-top') {
-            return d3Link(curveBumpY)
-        } else {
-            return d3Link(curveBumpX)
+        let curveFactory: CurveFactory = curveLinear
+
+        if (curve === 'bump') {
+            if (layout === 'top-to-bottom' || layout === 'bottom-to-top') {
+                curveFactory = curveBumpY
+            } else {
+                curveFactory = curveBumpX
+            }
+        } else if (curve === 'step') {
+            curveFactory = curveStep
+        } else if (curve === 'step-before') {
+            curveFactory = curveStepBefore
+        } else if (curve === 'step-after') {
+            curveFactory = curveStepAfter
         }
-    }, [layout])
+
+        return d3Link(curveFactory)
+    }, [layout, curve])
 
 const useSetCurrentNode = <Datum>({
     setActiveNodeUids,
@@ -389,6 +411,7 @@ export const useTree = <Datum = DefaultDatum>({
     nodeColor = commonDefaultProps.nodeColor,
     highlightAncestorNodes = commonDefaultProps.highlightAncestorNodes,
     highlightDescendantNodes = commonDefaultProps.highlightDescendantNodes,
+    linkCurve = commonDefaultProps.linkCurve,
     linkThickness = commonDefaultProps.linkThickness,
     linkColor = commonDefaultProps.linkColor,
     activeLinkThickness,
@@ -408,6 +431,7 @@ export const useTree = <Datum = DefaultDatum>({
     nodeColor?: CommonProps<Datum>['nodeColor']
     highlightAncestorNodes?: boolean
     highlightDescendantNodes?: boolean
+    linkCurve?: LinkCurve
     linkThickness?: CommonProps<Datum>['linkThickness']
     activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
     inactiveLinkThickness?: CommonProps<Datum>['inactiveLinkThickness']
@@ -431,7 +455,7 @@ export const useTree = <Datum = DefaultDatum>({
         nodeColor,
     })
 
-    const linkGenerator = useLinkGenerator({ layout })
+    const linkGenerator = useLinkGenerator({ layout, curve: linkCurve })
     const { links, setActiveLinkIds } = useLinks<Datum>({
         root,
         nodeByUid,

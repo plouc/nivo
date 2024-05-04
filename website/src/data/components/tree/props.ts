@@ -114,6 +114,22 @@ const props: ChartProperty[] = [
         genericType: 'IntermediateComputedNode',
     }),
     {
+        key: 'linkCurve',
+        help: 'Defines the type of curve to use to draw links.',
+        flavors: allFlavors,
+        type: `'bump' | 'linear' | 'step' | 'step-before' | 'step-after'`,
+        required: false,
+        defaultValue: defaults.linkCurve,
+        group: 'Style',
+        control: {
+            type: 'choices',
+            choices: ['bump', 'linear', 'step', 'step-before', 'step-after'].map(choice => ({
+                label: choice,
+                value: choice,
+            })),
+        },
+    },
+    {
         key: 'linkThickness',
         group: 'Style',
         type: 'number | (link: IntermediateComputedLink) => number',

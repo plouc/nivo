@@ -9,6 +9,7 @@ export const commonDefaultProps: Pick<
     | 'layout'
     | 'nodeSize'
     | 'nodeColor'
+    | 'linkCurve'
     | 'linkThickness'
     | 'linkColor'
     | 'isInteractive'
@@ -28,6 +29,7 @@ export const commonDefaultProps: Pick<
     layout: 'top-to-bottom',
     nodeSize: 12,
     nodeColor: { scheme: 'nivo' },
+    linkCurve: 'bump',
     linkThickness: 1,
     linkColor: { from: 'source.color', modifiers: [['opacity', 0.3]] },
     isInteractive: true,
