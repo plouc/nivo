@@ -319,6 +319,9 @@ importers:
       '@nivo/swarmplot':
         specifier: workspace:*
         version: link:../packages/swarmplot
+      '@nivo/tree':
+        specifier: workspace:*
+        version: link:../packages/tree
       '@nivo/treemap':
         specifier: workspace:*
         version: link:../packages/treemap
@@ -330,8 +333,8 @@ importers:
         version: link:../packages/waffle
     devDependencies:
       cypress:
-        specifier: ^12.11.0
-        version: 12.11.0
+        specifier: ^13.8.1
+        version: 13.8.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -3528,6 +3531,30 @@ packages:
       qs: 6.10.4
       safe-buffer: 5.2.1
       tough-cookie: 2.5.0
+      tunnel-agent: 0.6.0
+      uuid: 8.3.2
+    dev: true
+
+  /@cypress/request@3.0.1:
+    resolution: {integrity: sha512-TWivJlJi8ZDx2wGOw1dbLuHJKUYX7bWySw377nlnGOW3hP9/MUKIsEdXT/YngWxVdgNCHRBmFlBipE+5/2ZZlQ==}
+    engines: {node: '>= 6'}
+    dependencies:
+      aws-sign2: 0.7.0
+      aws4: 1.11.0
+      caseless: 0.12.0
+      combined-stream: 1.0.8
+      extend: 3.0.2
+      forever-agent: 0.6.1
+      form-data: 2.3.3
+      http-signature: 1.3.6
+      is-typedarray: 1.0.0
+      isstream: 0.1.2
+      json-stringify-safe: 5.0.1
+      mime-types: 2.1.35
+      performance-now: 2.1.0
+      qs: 6.10.4
+      safe-buffer: 5.2.1
+      tough-cookie: 4.1.4
       tunnel-agent: 0.6.0
       uuid: 8.3.2
     dev: true
@@ -11241,6 +11268,56 @@ packages:
       proxy-from-env: 1.0.0
       request-progress: 3.0.0
       semver: 7.5.0
+      supports-color: 8.1.1
+      tmp: 0.2.1
+      untildify: 4.0.0
+      yauzl: 2.10.0
+    dev: true
+
+  /cypress@13.8.1:
+    resolution: {integrity: sha512-Uk6ovhRbTg6FmXjeZW/TkbRM07KPtvM5gah1BIMp4Y2s+i/NMxgaLw0+PbYTOdw1+egE0FP3mWRiGcRkjjmhzA==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@cypress/request': 3.0.1
+      '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
+      '@types/sinonjs__fake-timers': 8.1.1
+      '@types/sizzle': 2.3.3
+      arch: 2.2.0
+      blob-util: 2.0.2
+      bluebird: 3.7.2
+      buffer: 5.7.1
+      cachedir: 2.3.0
+      chalk: 4.1.2
+      check-more-types: 2.24.0
+      cli-cursor: 3.1.0
+      cli-table3: 0.6.3
+      commander: 6.2.1
+      common-tags: 1.8.2
+      dayjs: 1.11.7
+      debug: 4.3.4(supports-color@8.1.1)
+      enquirer: 2.3.6
+      eventemitter2: 6.4.7
+      execa: 4.1.0
+      executable: 4.1.1
+      extract-zip: 2.0.1(supports-color@8.1.1)
+      figures: 3.2.0
+      fs-extra: 9.1.0
+      getos: 3.2.1
+      is-ci: 3.0.1
+      is-installed-globally: 0.4.0
+      lazy-ass: 1.6.0
+      listr2: 3.14.0(enquirer@2.3.6)
+      lodash: 4.17.21
+      log-symbols: 4.1.0
+      minimist: 1.2.8
+      ospath: 1.2.2
+      pretty-bytes: 5.6.0
+      process: 0.11.10
+      proxy-from-env: 1.0.0
+      request-progress: 3.0.0
+      semver: 7.6.0
       supports-color: 8.1.1
       tmp: 0.2.1
       untildify: 4.0.0
@@ -22651,6 +22728,14 @@ packages:
     dependencies:
       lru-cache: 6.0.0
 
+  /semver@7.6.0:
+    resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
   /send@0.17.2:
     resolution: {integrity: sha512-UJYB6wFSJE3G00nEivR5rgWp8c2xXvJ3OPWPhmuteU0IKj8nKbG3DrjiOmLwpnHGYWAVwA69zmTm++YG0Hmwww==}
     engines: {node: '>= 0.8.0'}
@@ -24038,6 +24123,16 @@ packages:
 
   /tough-cookie@4.1.2:
     resolution: {integrity: sha512-G9fqXWoYFZgTc2z8Q5zaHy/vJMjm+WV0AkAeHxVCQiEB1b+dGvWzFW6QV07cY5jQ5gRkeid2qIkzkxUnmoQZUQ==}
+    engines: {node: '>=6'}
+    dependencies:
+      psl: 1.8.0
+      punycode: 2.3.0
+      universalify: 0.2.0
+      url-parse: 1.5.10
+    dev: true
+
+  /tough-cookie@4.1.4:
+    resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
     engines: {node: '>=6'}
     dependencies:
       psl: 1.8.0

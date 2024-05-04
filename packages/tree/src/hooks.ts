@@ -209,7 +209,7 @@ const useNodes = <Datum>({
         activeNodeUids,
     ])
 
-    return { ...computed, setActiveNodeUids }
+    return { ...computed, activeNodeUids, setActiveNodeUids }
 }
 
 const useLinkThicknessModifier = <Datum>(
@@ -224,6 +224,7 @@ const useLinkThicknessModifier = <Datum>(
 const useLinks = <Datum>({
     root,
     nodeByUid,
+    activeNodeUids,
     linkThickness,
     activeLinkThickness,
     inactiveLinkThickness,
@@ -231,6 +232,7 @@ const useLinks = <Datum>({
 }: {
     root: HierarchyTreeNode<Datum>
     nodeByUid: Record<string, ComputedNode<Datum>>
+    activeNodeUids: string[]
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
     activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
     inactiveLinkThickness?: CommonProps<Datum>['inactiveLinkThickness']
@@ -268,7 +270,7 @@ const useLinks = <Datum>({
                 isActive: null,
             }
 
-            if (activeLinkIds.length > 0) {
+            if (activeNodeUids.length > 0) {
                 computedLink.isActive = activeLinkIds.includes(computedLink.id)
                 if (computedLink.isActive) {
                     computedLink.thickness = getActiveLinkThickness(computedLink)
@@ -417,7 +419,7 @@ export const useTree = <Datum = DefaultDatum>({
     const root = useRoot<Datum>({ data, mode, getIdentity })
 
     const { xScale, yScale } = useCartesianScales({ width, height, layout })
-    const { nodes, nodeByUid, setActiveNodeUids } = useNodes<Datum>({
+    const { nodes, nodeByUid, activeNodeUids, setActiveNodeUids } = useNodes<Datum>({
         root,
         xScale,
         yScale,
@@ -433,6 +435,7 @@ export const useTree = <Datum = DefaultDatum>({
     const { links, setActiveLinkIds } = useLinks<Datum>({
         root,
         nodeByUid,
+        activeNodeUids,
         linkThickness,
         activeLinkThickness,
         inactiveLinkThickness,
