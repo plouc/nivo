@@ -24,6 +24,7 @@ const initialProperties: Pick<
     | 'activeNodeSize'
     | 'inactiveNodeSize'
     | 'nodeColor'
+    | 'linkCurve'
     | 'linkThickness'
     | 'activeLinkThickness'
     | 'inactiveLinkThickness'
@@ -42,11 +43,12 @@ const initialProperties: Pick<
 > = {
     identity: 'name',
     mode: defaults.mode,
-    layout: 'left-to-right',
+    layout: defaults.layout,
     nodeSize: 12,
     activeNodeSize: 24,
     inactiveNodeSize: 12,
     nodeColor: { scheme: 'dark2' },
+    linkCurve: defaults.linkCurve,
     linkThickness: 2,
     activeLinkThickness: 8,
     inactiveLinkThickness: 2,

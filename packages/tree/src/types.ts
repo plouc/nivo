@@ -7,8 +7,8 @@ import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 export type TreeMode = 'tree' | 'dendogram'
 export type Layout = 'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'
-
 export type LayerId = 'links' | 'nodes' | 'labels' | 'mesh'
+export type LinkCurve = 'bump' | 'linear' | 'step' | 'step-before' | 'step-after'
 
 export interface DefaultDatum {
     id: string
@@ -152,6 +152,7 @@ export interface CommonProps<Datum> extends MotionProps {
     activeNodeSize: number | NodeSizeModifierFunction<Datum>
     inactiveNodeSize: number | NodeSizeModifierFunction<Datum>
     nodeColor: OrdinalColorScaleConfig<IntermediateComputedNode<Datum>>
+    linkCurve: LinkCurve
     linkThickness: number | LinkThicknessFunction<Datum>
     activeLinkThickness: number | LinkThicknessModifierFunction<Datum>
     inactiveLinkThickness: number | LinkThicknessModifierFunction<Datum>
