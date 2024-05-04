@@ -62,6 +62,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"storybook/stories/**/*.{js,ts,tsx}" \
 		"cypress/src/**/*.{js,ts,tsx}" \
 		"scripts/*.{js,mjs}" \
+		"cypress/src/**/*.{js,tsx}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
@@ -76,6 +77,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 		"storybook/stories/**/*.{js,ts,tsx}" \
 		"cypress/src/**/*.{js,ts,tsx}" \
 		"scripts/*.{js,mjs}" \
+		"cypress/src/**/*.{js,tsx}" \
         "README.md"
 
 test: ##@0 global run all checks/tests (packages, website)

@@ -24,6 +24,7 @@ export const Link = <Datum,>({
 
     return (
         <animated.path
+            data-testid={`link.${link.id}`}
             d={to(
                 [
                     animatedProps.sourceX,

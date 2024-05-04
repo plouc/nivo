@@ -25,6 +25,7 @@ export const Node = <Datum,>({
 
     return (
         <animated.circle
+            data-testid={`node.${node.uid}`}
             r={animatedProps.size.to(size => size / 2)}
             fill={animatedProps.color}
             cx={animatedProps.x}
