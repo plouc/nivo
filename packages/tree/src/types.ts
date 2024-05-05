@@ -162,6 +162,8 @@ export interface CustomLayerProps<Datum> {
     links: ComputedLink<Datum>[]
     innerWidth: number
     innerHeight: number
+    linkGenerator: LinkGenerator
+    setCurrentNode: (node: ComputedNode<Datum> | null) => void
 }
 export type CustomSvgLayer<Datum> = FunctionComponent<CustomLayerProps<Datum>>
 
