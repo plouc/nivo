@@ -74,7 +74,7 @@ const commonProperties: Partial<TreeSvgProps<any>> = {
     ...generateData(),
     identity: 'name',
     activeNodeSize: 20,
-    nodeColor: { scheme: 'dark2' },
+    nodeColor: { scheme: 'tableau10' },
     fixNodeColorAtDepth: 1,
     linkThickness: 2,
     activeLinkThickness: 6,
