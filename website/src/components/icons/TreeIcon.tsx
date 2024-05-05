@@ -17,29 +17,32 @@ const chartProps: TreeSvgProps<Datum> = {
     width: ICON_SIZE,
     height: ICON_SIZE,
     data: {
-        id: 'A',
+        id: 'X',
         children: [
             {
+                id: 'A',
+                children: [{ id: '0' }],
+            },
+            {
                 id: 'B',
-                children: [{ id: 'E' }],
+                children: [{ id: '0' }],
             },
             {
                 id: 'C',
-                children: [{ id: 'F' }],
-            },
-            {
-                id: 'D',
-                children: [{ id: 'G' }],
+                children: [{ id: '0' }],
             },
         ],
     },
     margin: {
-        top: 10,
-        right: 10,
-        bottom: 10,
-        left: 10,
+        top: 8,
+        right: 8,
+        bottom: 8,
+        left: 8,
     },
-    linkThickness: 6,
+    mode: 'dendogram',
+    nodeSize: 14,
+    linkThickness: 5,
+    enableLabel: false,
     isInteractive: false,
 }
 
@@ -80,7 +83,7 @@ const TreeIconItem = ({ type }: { type: IconType }) => {
     )
 }
 
-export const DendogramIcon = () => (
+export const TreeIcon = () => (
     <>
         <TreeIconItem type="lightNeutral" />
         <IconImg url={treeLightNeutralImg} />

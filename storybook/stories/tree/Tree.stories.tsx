@@ -8,6 +8,9 @@ import {
     NodeTooltipProps,
     LinkTooltipProps,
     TreeSvgProps,
+    Layout,
+    LabelsPosition,
+    TreeMode,
 } from '@nivo/tree'
 
 const meta: Meta<typeof Tree> = {
@@ -47,10 +50,32 @@ const generateData = () => {
     return { data }
 }
 
+const minimalData = {
+    id: 'R',
+    children: [
+        {
+            id: 'A',
+            children: [{ id: '00' }, { id: '01' }, { id: '02' }],
+        },
+        {
+            id: 'B',
+        },
+        {
+            id: 'C',
+            children: [{ id: '00' }, { id: '01' }, { id: '02' }],
+        },
+    ],
+}
+
+const _minimalData = {
+    id: 'A',
+    children: [{ id: 'B', children: [{ id: 'C' }] }],
+}
+
 const commonProperties: Partial<TreeSvgProps<any>> = {
     width: 900,
     height: 500,
-    margin: { top: 30, right: 30, bottom: 30, left: 30 },
+    margin: { top: 36, right: 36, bottom: 36, left: 36 },
     ...generateData(),
     identity: 'name',
     activeNodeSize: 20,
@@ -211,4 +236,118 @@ export const CustomNodeComponent: Story = {
             onNodeClick={args.onNodeClick}
         />
     ),
+}
+
+interface LabelsPositionConfig {
+    layout: Layout
+    labelsPosition: LabelsPosition
+    orientLabel: boolean
+}
+
+const LabelsPositionDemo = ({ config, mode }: { config: LabelsPositionConfig; mode: TreeMode }) => {
+    return (
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                border: '1px solid #999',
+                borderRadius: '4px',
+                boxShadow: '0 3px 3px rgba(0,0,0,.08)',
+            }}
+        >
+            <div
+                style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    padding: '6px 9px',
+                    display: 'grid',
+                    gridTemplateColumns: '90px auto',
+                    rowGap: '3px',
+                    fontSize: '12px',
+                    paddingBottom: '6px',
+                    borderBottom: '1px solid #ddd',
+                }}
+            >
+                <span>layout</span>
+                <strong>{config.layout}</strong>
+                <span>labelsPosition</span>
+                <strong>{config.labelsPosition}</strong>
+                <span>orientLabel</span>
+                <strong>{config.orientLabel ? 'true' : 'false'}</strong>
+            </div>
+            <Tree
+                data={minimalData}
+                height={180}
+                width={180}
+                margin={{
+                    top: 24,
+                    right: 24,
+                    bottom: 24,
+                    left: 24,
+                }}
+                mode={mode}
+                nodeSize={6}
+                activeNodeSize={12}
+                linkThickness={2}
+                activeLinkThickness={4}
+                labelOffset={4}
+                theme={{
+                    labels: {
+                        text: {
+                            outlineWidth: 6,
+                            outlineColor: '#fff',
+                        },
+                    },
+                }}
+                {...config}
+            />
+        </div>
+    )
+}
+
+const layouts: Layout[] = ['top-to-bottom', 'bottom-to-top', 'left-to-right', 'right-to-left']
+const labelsPositions: LabelsPosition[] = ['outward', 'inward', 'layout', 'layout-opposite']
+
+const getLabelsPositionConfigs = (): LabelsPositionConfig[] => {
+    const configs: LabelsPositionConfig[] = []
+
+    layouts.forEach(layout => {
+        const isVertical = layout.includes('top')
+
+        labelsPositions.forEach(labelsPosition => {
+            const config: LabelsPositionConfig = {
+                layout,
+                labelsPosition,
+                orientLabel: false,
+            }
+            configs.push(config)
+
+            // Orienting labels only affects vertical layouts.
+            if (isVertical) configs.push({ ...config, orientLabel: true })
+        })
+    })
+
+    return configs
+}
+
+export const LabelsPositionDemos: Story = {
+    render: args => {
+        const labelsPositionConfigs = getLabelsPositionConfigs()
+
+        return (
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    columnGap: '12px',
+                    rowGap: '12px',
+                }}
+            >
+                {labelsPositionConfigs.map((config, index) => (
+                    <LabelsPositionDemo key={index} config={config} mode={args.mode!} />
+                ))}
+            </div>
+        )
+    },
 }

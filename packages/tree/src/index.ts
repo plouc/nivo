@@ -1,5 +1,6 @@
 export * from './Tree'
 export * from './ResponsiveTree'
 export * from './hooks'
+export * from './labelsHooks'
 export * from './types'
 export * from './defaults'

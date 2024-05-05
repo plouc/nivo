@@ -11,7 +11,6 @@ import { ChoroplethIcon } from './ChoroplethIcon'
 import { CirclePackingIcon } from './CirclePackingIcon'
 import { CodeIcon } from './CodeIcon'
 import { DataIcon } from './DataIcon'
-import { DendogramIcon } from './DendogramIcon'
 import { FunnelIcon } from './FunnelIcon'
 import { GeoMapIcon } from './GeoMapIcon'
 import { HeatMapIcon } from './HeatMapIcon'
@@ -28,6 +27,7 @@ import { StreamIcon } from './StreamIcon'
 import { SunburstIcon } from './SunburstIcon'
 import { SwarmPlotIcon } from './SwarmPlotIcon'
 import { TimeRangeIcon } from './TimeRangeIcon'
+import { TreeIcon } from './TreeIcon'
 import { TreeMapIcon } from './TreeMapIcon'
 import { VoronoiIcon } from './VoronoiIcon'
 import { WaffleIcon } from './WaffleIcon'
@@ -61,7 +61,7 @@ const ColorsDemo = ({ type }: { type: IconType }) => {
 
 export const Icons = () => (
     <Container>
-        <DendogramIcon />
+        <TreeIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />

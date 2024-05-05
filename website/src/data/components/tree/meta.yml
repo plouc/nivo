@@ -9,6 +9,8 @@ Tree:
     - experimental
     - tree
   stories:
+    - label: Labels position demos
+      link: tree--labels-position-demos
     - label: Custom node component
       link: tree--custom-node-component
     - label: With node tooltip
@@ -16,12 +18,9 @@ Tree:
     - label: With link tooltip
       link: tree--with-link-tooltip
   description: |
-    Nivo tree graph, supporting dendograms.
-    
-    For now this component doesn't support labels, but that's something
-    you can implement via a custom layer.
+    Nivo tree graph, supporting dendograms as well.
     
     While it's part of the nivo internals, and not formally documented,
-    you could use the `useTree` hook directly in order to build
-    a fully custom component, this hook takes a config object which
+    you should be able to use the `useTree` hook directly in order to build
+    a fully custom graph, this hook takes a config object which
     is very close to the component's props.

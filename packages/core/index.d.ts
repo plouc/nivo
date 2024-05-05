@@ -100,7 +100,7 @@ export type CompleteTheme = {
         }
     }
     labels: {
-        text: Partial<React.CSSProperties>
+        text: TextStyle
     }
     markers: {
         lineColor: string

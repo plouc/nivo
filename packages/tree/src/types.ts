@@ -9,6 +9,7 @@ export type TreeMode = 'tree' | 'dendogram'
 export type Layout = 'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'
 export type LayerId = 'links' | 'nodes' | 'labels' | 'mesh'
 export type LinkCurve = 'bump' | 'linear' | 'step' | 'step-before' | 'step-after'
+export type LabelsPosition = 'outward' | 'inward' | 'layout' | 'layout-opposite'
 
 export interface DefaultDatum {
     id: string
@@ -31,6 +32,8 @@ export interface HierarchyTreeLink<Datum> {
 export interface IntermediateComputedNode<Datum> {
     path: string[]
     uid: string
+    isRoot: boolean
+    isLeaf: boolean
     ancestorIds: string[]
     ancestorUids: string[]
     descendantUids: string[]
@@ -128,6 +131,32 @@ export interface LinkTooltipProps<Datum> {
 }
 export type LinkTooltip<Datum> = FunctionComponent<LinkTooltipProps<Datum>>
 
+export type LabelTextAnchor = 'start' | 'middle' | 'end'
+export type LabelBaseline = 'auto' | 'middle' | 'hanging'
+
+export interface ComputedLabel<Datum> {
+    id: string // node.uid
+    label: string
+    node: ComputedNode<Datum>
+    x: number
+    y: number
+    rotation: number
+    textAnchor: LabelTextAnchor
+    baseline: LabelBaseline
+}
+
+export type LabelAnimatedProps = {
+    x: number
+    y: number
+    rotation: number
+}
+
+export interface LabelComponentProps<Datum> {
+    label: ComputedLabel<Datum>
+    animatedProps: SpringValues<LabelAnimatedProps>
+}
+export type LabelComponent<Datum> = FunctionComponent<LabelComponentProps<Datum>>
+
 export interface CustomLayerProps<Datum> {
     nodes: ComputedNode<Datum>[]
     links: ComputedLink<Datum>[]
@@ -157,6 +186,13 @@ export interface CommonProps<Datum> extends MotionProps {
     activeLinkThickness: number | LinkThicknessModifierFunction<Datum>
     inactiveLinkThickness: number | LinkThicknessModifierFunction<Datum>
     linkColor: InheritedColorConfig<IntermediateComputedLink<Datum>>
+
+    enableLabel: boolean
+    label: PropertyAccessor<ComputedNode<Datum>, string>
+    labelsPosition: LabelsPosition
+    orientLabel: boolean
+    labelOffset: number
+    labelComponent: LabelComponent<Datum>
 
     isInteractive: boolean
     useMesh: boolean

@@ -164,6 +164,8 @@ const useNodes = <Datum>({
             return {
                 path: [...node.ancestorIds!, id],
                 uid: node.uid!,
+                isRoot: node.depth === 0,
+                isLeaf: node.height === 0,
                 ancestorIds: node.ancestorIds!,
                 ancestorUids: node.ancestorUids!,
                 descendantUids: node.descendantUids!,

@@ -1,8 +1,4 @@
-import {
-    commonDefaultProps as defaults,
-    svgDefaultProps as svgDefaults,
-    IntermediateComputedNode,
-} from '@nivo/tree'
+import { commonDefaultProps as defaults, svgDefaultProps as svgDefaults } from '@nivo/tree'
 import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
 import {
     chartDimensions,
@@ -178,10 +174,96 @@ const props: ChartProperty[] = [
         defaultValue: defaults.linkColor,
         flavors: ['svg'],
     },
+    // Labels
     {
+        group: 'Labels',
+        key: 'enableLabel',
+        flavors: allFlavors,
+        help: 'Show labels for nodes.',
+        description: `
+            If you want to adjust the labels styles you should
+            use the \`theme\` property, labels use the \`theme.labels.text\`
+            styles.
+        `,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.enableLabel,
+        control: { type: 'switch' },
+    },
+    {
+        group: 'Labels',
+        key: 'label',
+        help: `Define what to use as a node label, if a string is provided it's used as a property path to access the value.`,
+        type: 'string | (node: ComputedNode) => string',
+        flavors: allFlavors,
+        required: false,
+        defaultValue: defaults.label,
+    },
+    {
+        group: 'Labels',
+        key: 'labelsPosition',
+        help: 'Defines how to position the nodes labels.',
+        description: `
+            Please note that labels don't affect the margins, meaning
+            that if you're using the \`outward\` mode for example,
+            you'll probably have to adjust the margins so that
+            the labels fit within the chart.
+        `,
+        flavors: allFlavors,
+        type: `'outward' | 'inward' | 'layout' | 'layout-opposite'`,
+        required: false,
+        defaultValue: defaults.labelsPosition,
+        control: {
+            type: 'choices',
+            choices: ['outward', 'inward', 'layout', 'layout-opposite'].map(choice => ({
+                label: choice,
+                value: choice,
+            })),
+        },
+    },
+    {
+        group: 'Labels',
+        key: 'orientLabel',
+        flavors: allFlavors,
+        help: 'Automatically orient labels according to the selected `layout`.',
+        description: `
+            If enabled, this is going to only affect vertical layouts
+            (\`top-to-bottom\`, \`bottom-to-top\`), rotating labels
+            so that they match the direction of the selected \`layout\`.  
+        `,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.orientLabel,
+        control: { type: 'switch' },
+    },
+    {
+        group: 'Labels',
+        key: 'labelOffset',
+        type: 'number',
+        help: 'Prevent nodes from being detected if the cursor is too far away from the node.',
+        flavors: allFlavors,
+        required: false,
+        defaultValue: Infinity,
+        control: { type: 'range', min: 0, max: 60, unit: 'px' },
+    },
+    {
+        group: 'Labels',
+        key: 'labelComponent',
+        type: 'LabelComponent',
+        help: 'Override the default label component.',
+        description: `
+            When providing your own component, some features are disabled,
+            such as animations, you should have a look at the default \`Label\`
+            component if you plan on restoring these.
+        `,
+        flavors: ['svg'],
+        required: false,
+    },
+    // Customization
+    {
+        group: 'Customization',
         key: 'layers',
         type: `('links' | 'nodes' | 'mesh' | CustomSvgLayer)[]`,
-        group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
         description: `
             You can also use this to insert extra layers
@@ -194,9 +276,9 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
     },
     {
+        group: 'Customization',
         key: 'nodeComponent',
         type: 'NodeComponent',
-        group: 'Customization',
         help: 'Override the default node component.',
         description: `
             When providing your own component, some features are disabled,
@@ -207,9 +289,9 @@ const props: ChartProperty[] = [
         required: false,
     },
     {
+        group: 'Customization',
         key: 'linkComponent',
         type: 'LinkComponent',
-        group: 'Customization',
         help: 'Override the default link component.',
         description: `
             When providing your own component, some features are disabled,
@@ -219,11 +301,13 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         required: false,
     },
+    // Interactivity
     isInteractive({
         flavors: allFlavors,
         defaultValue: defaults.isInteractive,
     }),
     {
+        group: 'Interactivity',
         key: 'useMesh',
         flavors: allFlavors,
         help: 'Use a voronoi mesh to detect mouse interactions.',
@@ -238,11 +322,10 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.useMesh,
         control: { type: 'switch' },
-        group: 'Interactivity',
     },
     {
-        key: 'meshDetectionThreshold',
         group: 'Interactivity',
+        key: 'meshDetectionThreshold',
         type: 'number',
         help: 'Prevent nodes from being detected if the cursor is too far away from the node.',
         flavors: allFlavors,
@@ -251,6 +334,7 @@ const props: ChartProperty[] = [
         control: { type: 'range', min: 0, max: 200, step: 10, unit: 'px' },
     },
     {
+        group: 'Interactivity',
         key: 'debugMesh',
         flavors: allFlavors,
         help: 'Display mesh used to detect mouse interactions (voronoi cells).',
@@ -258,14 +342,11 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.debugMesh,
         control: { type: 'switch' },
-        group: 'Interactivity',
     },
-    //     highlightAncestorNodes: boolean
-    //     highlightDescendantNodes: boolean
     {
+        group: 'Interactivity',
         key: 'highlightAncestorNodes',
         flavors: allFlavors,
-        group: 'Interactivity',
         type: 'boolean',
         help: 'Highlight active node ancestor nodes.',
         required: false,
@@ -281,99 +362,99 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
     },
     {
+        group: 'Interactivity',
         key: 'highlightAncestorLinks',
         flavors: allFlavors,
-        group: 'Interactivity',
         type: 'boolean',
         help: 'Highlight active node ancestor links.',
         required: false,
         control: { type: 'switch' },
     },
     {
+        group: 'Interactivity',
         key: 'highlightDescendantLinks',
         flavors: allFlavors,
-        group: 'Interactivity',
         type: 'boolean',
         help: 'Highlight active node descendant links.',
         required: false,
         control: { type: 'switch' },
     },
     {
+        group: 'Interactivity',
         key: 'onNodeMouseEnter',
         flavors: allFlavors,
-        group: 'Interactivity',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onMouseEnter handler for nodes.',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onNodeMouseMove',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onMouseMove handler for nodes.',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onNodeMouseLeave',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onMouseLeave handler for nodes.',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onNodeClick',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onClick handler for nodes.',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'nodeTooltip',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: 'NodeTooltip',
         help: 'Tooltip component for nodes.',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onLinkMouseEnter',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
         help: 'onMouseEnter handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onLinkMouseMove',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
         help: 'onMouseMove handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onLinkMouseLeave',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
         help: 'onMouseLeave handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'onLinkClick',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: '(node: ComputedLink, event: MouseEvent) => void',
         help: 'onClick handler for links (`useMesh` must be `false`).',
         required: false,
     },
     {
+        group: 'Interactivity',
         key: 'linkTooltip',
         flavors: ['svg'],
-        group: 'Interactivity',
         type: 'LinkTooltip',
         help: 'Tooltip component for links (`useMesh` must be `false`).',
         required: false,
