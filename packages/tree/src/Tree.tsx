@@ -172,8 +172,10 @@ const InnerTree = <Datum,>({
             links,
             innerWidth,
             innerHeight,
+            linkGenerator,
+            setCurrentNode,
         }),
-        [nodes, links, innerWidth, innerHeight]
+        [nodes, links, innerWidth, innerHeight, linkGenerator, setCurrentNode]
     )
 
     return (

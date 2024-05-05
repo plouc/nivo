@@ -57,13 +57,17 @@ export const Labels = <Datum,>({
     })
 
     return (
-        <>
+        <g
+            style={{
+                pointerEvents: 'none',
+            }}
+        >
             {transition((animatedProps, label) =>
                 createElement(labelComponent, {
                     label,
                     animatedProps,
                 })
             )}
-        </>
+        </g>
     )
 }

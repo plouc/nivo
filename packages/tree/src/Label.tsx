@@ -7,10 +7,8 @@ export const Label = <Datum,>({ label, animatedProps }: LabelComponentProps<Datu
 
     return (
         <animated.g
-            transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x}, ${y})`)}
-            style={{
-                pointerEvents: 'none',
-            }}
+            data-testid={`label.${label.id}`}
+            transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x},${y})`)}
         >
             <animated.g transform={animatedProps.rotation.to(rotation => `rotate(${rotation})`)}>
                 {theme.labels.text.outlineWidth > 0 && (
@@ -29,6 +27,7 @@ export const Label = <Datum,>({ label, animatedProps }: LabelComponentProps<Datu
                     </text>
                 )}
                 <text
+                    data-testid={`label.${label.id}.label`}
                     style={theme.labels.text}
                     textAnchor={label.textAnchor}
                     dominantBaseline={label.baseline}
