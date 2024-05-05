@@ -509,6 +509,7 @@ export const useTree = <Datum = DefaultDatum>({
 
     return {
         nodes,
+        nodeByUid,
         links,
         linkGenerator,
         setCurrentNode,
