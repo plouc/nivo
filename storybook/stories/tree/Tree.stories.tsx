@@ -67,20 +67,18 @@ const minimalData = {
     ],
 }
 
-const _minimalData = {
-    id: 'A',
-    children: [{ id: 'B', children: [{ id: 'C' }] }],
-}
-
 const commonProperties: Partial<TreeSvgProps<any>> = {
     width: 900,
-    height: 500,
-    margin: { top: 36, right: 36, bottom: 36, left: 36 },
+    height: 600,
+    margin: { top: 70, right: 70, bottom: 70, left: 70 },
     ...generateData(),
     identity: 'name',
     activeNodeSize: 20,
+    nodeColor: { scheme: 'dark2' },
+    fixNodeColorAtDepth: 1,
     linkThickness: 2,
     activeLinkThickness: 6,
+    linkColor: { from: 'target.color', modifiers: [['opacity', 0.4]] },
 }
 
 const NodeTooltip = ({ node }: NodeTooltipProps<any>) => {
@@ -234,6 +232,7 @@ export const CustomNodeComponent: Story = {
             onNodeMouseMove={args.onNodeMouseMove}
             onNodeMouseLeave={args.onNodeMouseLeave}
             onNodeClick={args.onNodeClick}
+            enableLabel={false}
         />
     ),
 }
@@ -289,8 +288,11 @@ const LabelsPositionDemo = ({ config, mode }: { config: LabelsPositionConfig; mo
                 mode={mode}
                 nodeSize={6}
                 activeNodeSize={12}
+                nodeColor={{ scheme: 'dark2' }}
+                fixNodeColorAtDepth={1}
                 linkThickness={2}
                 activeLinkThickness={4}
+                linkColor={{ from: 'target.color', modifiers: [['opacity', 0.4]] }}
                 labelOffset={4}
                 theme={{
                     labels: {
