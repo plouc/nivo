@@ -75,10 +75,6 @@ capture:
         # html is broken for now
         # flavors: [svg, html, canvas]
 
-      - pkg: tree
-        chart: tree
-        flavors: [svg]
-
       - pkg: heatmap
         chart: heatmap
         flavors: [svg, canvas]
@@ -123,6 +119,11 @@ capture:
 
       - pkg: sunburst
         chart: sunburst
+        flavors: [svg]
+
+      - pkg: tree
+        chart: tree
+        theme: dark
         flavors: [svg]
 
       - pkg: treemap
