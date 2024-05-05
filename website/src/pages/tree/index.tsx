@@ -52,7 +52,7 @@ const initialProperties: Pick<
     nodeSize: 12,
     activeNodeSize: 24,
     inactiveNodeSize: 12,
-    nodeColor: { scheme: 'dark2' },
+    nodeColor: { scheme: 'tableau10' },
     fixNodeColorAtDepth: 1,
     linkCurve: defaults.linkCurve,
     linkThickness: 2,
