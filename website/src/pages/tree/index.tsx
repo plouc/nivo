@@ -112,6 +112,7 @@ const Tree = () => {
             defaultProperties={defaults}
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
+            enableDiceRoll={false}
             image={image}
         >
             {(properties, data, theme, logAction) => {
