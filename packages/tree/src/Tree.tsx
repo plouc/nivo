@@ -69,7 +69,7 @@ const InnerTree = <Datum,>({
         partialMargin
     )
 
-    const { nodes, links, linkGenerator, setCurrentNode } = useTree<Datum>({
+    const { nodes, nodeByUid, links, linkGenerator, setCurrentNode } = useTree<Datum>({
         data,
         identity,
         layout,
@@ -171,13 +171,14 @@ const InnerTree = <Datum,>({
     const customLayerProps: CustomLayerProps<Datum> = useMemo(
         () => ({
             nodes,
+            nodeByUid,
             links,
             innerWidth,
             innerHeight,
             linkGenerator,
             setCurrentNode,
         }),
-        [nodes, links, innerWidth, innerHeight, linkGenerator, setCurrentNode]
+        [nodes, nodeByUid, links, innerWidth, innerHeight, linkGenerator, setCurrentNode]
     )
 
     return (

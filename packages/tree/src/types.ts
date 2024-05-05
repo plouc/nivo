@@ -159,6 +159,7 @@ export type LabelComponent<Datum> = FunctionComponent<LabelComponentProps<Datum>
 
 export interface CustomLayerProps<Datum> {
     nodes: readonly ComputedNode<Datum>[]
+    nodeByUid: Record<string, ComputedNode<Datum>>
     links: readonly ComputedLink<Datum>[]
     innerWidth: number
     innerHeight: number
