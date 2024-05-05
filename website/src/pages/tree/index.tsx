@@ -16,7 +16,7 @@ import { generateLightDataSet } from '../../data/components/treemap/generator'
 type Datum = ReturnType<typeof generateLightDataSet>
 
 const initialProperties: Pick<
-    TreeSvgProps<any>,
+    TreeSvgProps<Datum>,
     | 'identity'
     | 'mode'
     | 'layout'
@@ -24,6 +24,7 @@ const initialProperties: Pick<
     | 'activeNodeSize'
     | 'inactiveNodeSize'
     | 'nodeColor'
+    | 'fixNodeColorAtDepth'
     | 'linkCurve'
     | 'linkThickness'
     | 'activeLinkThickness'
@@ -52,11 +53,12 @@ const initialProperties: Pick<
     activeNodeSize: 24,
     inactiveNodeSize: 12,
     nodeColor: { scheme: 'dark2' },
+    fixNodeColorAtDepth: 1,
     linkCurve: defaults.linkCurve,
     linkThickness: 2,
     activeLinkThickness: 8,
     inactiveLinkThickness: 2,
-    linkColor: defaults.linkColor,
+    linkColor: { from: 'target.color', modifiers: [['opacity', 0.4]] },
 
     enableLabel: defaults.enableLabel,
     labelsPosition: defaults.labelsPosition,

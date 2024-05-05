@@ -136,6 +136,7 @@ const useNodes = <Datum>({
     activeNodeSize,
     inactiveNodeSize,
     nodeColor,
+    fixNodeColorAtDepth,
 }: {
     root: HierarchyTreeNode<Datum>
     xScale: ScaleLinear<number, number>
@@ -146,6 +147,7 @@ const useNodes = <Datum>({
     activeNodeSize?: CommonProps<Datum>['activeNodeSize']
     inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
     nodeColor: Exclude<CommonProps<Datum>['nodeColor'], undefined>
+    fixNodeColorAtDepth: number
 }) => {
     const intermediateNodes = useMemo<IntermediateComputedNode<Datum>[]>(() => {
         return root.descendants().map(node => {
@@ -182,7 +184,30 @@ const useNodes = <Datum>({
     const getNodeSize = useNodeSize<Datum>(nodeSize)
     const getActiveNodeSize = useNodeSizeModifier<Datum>(activeNodeSize)
     const getInactiveNodeSize = useNodeSizeModifier<Datum>(inactiveNodeSize)
-    const getNodeColor = useOrdinalColorScale(nodeColor, 'uid')
+
+    const getNodeColorBase = useOrdinalColorScale(nodeColor, 'uid')
+    // Wrap the default color function to support `getNodeColorAtDepth`.
+    const getNodeColor = useMemo(() => {
+        if (fixNodeColorAtDepth === Infinity) return getNodeColorBase
+
+        return (
+            node: IntermediateComputedNode<Datum>,
+            nodeByUid: Record<string, ComputedNode<Datum>>
+        ) => {
+            if (
+                node.depth <= 0 ||
+                node.depth <= fixNodeColorAtDepth ||
+                node.ancestorUids.length === 0
+            )
+                return getNodeColorBase(node)
+
+            const parentUid = node.ancestorUids[node.ancestorUids.length - 1]
+            const parent = nodeByUid[parentUid]
+            if (parent === undefined) return getNodeColorBase(node)
+
+            return parent.color
+        }
+    }, [getNodeColorBase, fixNodeColorAtDepth])
 
     const [activeNodeUids, setActiveNodeUids] = useState<string[]>([])
 
@@ -193,7 +218,7 @@ const useNodes = <Datum>({
             const computedNode: ComputedNode<Datum> = {
                 ...intermediateNode,
                 size: getNodeSize(intermediateNode),
-                color: getNodeColor(intermediateNode),
+                color: getNodeColor(intermediateNode, nodeByUid),
                 isActive: null,
             }
 
@@ -244,7 +269,7 @@ const useLinks = <Datum>({
 }: {
     root: HierarchyTreeNode<Datum>
     nodeByUid: Record<string, ComputedNode<Datum>>
-    activeNodeUids: string[]
+    activeNodeUids: readonly string[]
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
     activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
     inactiveLinkThickness?: CommonProps<Datum>['inactiveLinkThickness']
@@ -299,6 +324,7 @@ const useLinks = <Datum>({
         getActiveLinkThickness,
         getInactiveLinkThickness,
         getLinkColor,
+        activeNodeUids.length,
         activeLinkIds,
     ])
 
@@ -341,7 +367,7 @@ const useSetCurrentNode = <Datum>({
     setActiveNodeUids: (uids: string[]) => void
     highlightAncestorNodes: boolean
     highlightDescendantNodes: boolean
-    links: ComputedLink<Datum>[]
+    links: readonly ComputedLink<Datum>[]
     setActiveLinkIds: (ids: string[]) => void
     highlightAncestorLinks: boolean
     highlightDescendantLinks: boolean
@@ -411,6 +437,7 @@ export const useTree = <Datum = DefaultDatum>({
     activeNodeSize,
     inactiveNodeSize,
     nodeColor = commonDefaultProps.nodeColor,
+    fixNodeColorAtDepth = commonDefaultProps.fixNodeColorAtDepth,
     highlightAncestorNodes = commonDefaultProps.highlightAncestorNodes,
     highlightDescendantNodes = commonDefaultProps.highlightDescendantNodes,
     linkCurve = commonDefaultProps.linkCurve,
@@ -431,6 +458,7 @@ export const useTree = <Datum = DefaultDatum>({
     activeNodeSize?: CommonProps<Datum>['activeNodeSize']
     inactiveNodeSize?: CommonProps<Datum>['inactiveNodeSize']
     nodeColor?: CommonProps<Datum>['nodeColor']
+    fixNodeColorAtDepth?: number
     highlightAncestorNodes?: boolean
     highlightDescendantNodes?: boolean
     linkCurve?: LinkCurve
@@ -455,6 +483,7 @@ export const useTree = <Datum = DefaultDatum>({
         activeNodeSize,
         inactiveNodeSize,
         nodeColor,
+        fixNodeColorAtDepth,
     })
 
     const linkGenerator = useLinkGenerator({ layout, curve: linkCurve })

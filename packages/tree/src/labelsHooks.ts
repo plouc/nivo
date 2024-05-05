@@ -221,7 +221,7 @@ export const useLabels = <Datum>({
     orientLabel,
     labelOffset,
 }: {
-    nodes: ComputedNode<Datum>[]
+    nodes: readonly ComputedNode<Datum>[]
     label: Exclude<CommonProps<Datum>['label'], undefined>
     layout: Layout
     labelsPosition: LabelsPosition

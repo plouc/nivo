@@ -14,14 +14,14 @@ export type LabelsPosition = 'outward' | 'inward' | 'layout' | 'layout-opposite'
 export interface DefaultDatum {
     id: string
     value?: number
-    children?: DefaultDatum[]
+    children?: readonly DefaultDatum[]
 }
 
 export interface HierarchyTreeNode<Datum> extends HierarchyNode<Datum> {
     uid: string | undefined
-    ancestorIds: string[] | undefined
-    ancestorUids: string[] | undefined
-    descendantUids: string[] | undefined
+    ancestorIds: readonly string[] | undefined
+    ancestorUids: readonly string[] | undefined
+    descendantUids: readonly string[] | undefined
 }
 
 export interface HierarchyTreeLink<Datum> {
@@ -30,13 +30,13 @@ export interface HierarchyTreeLink<Datum> {
 }
 
 export interface IntermediateComputedNode<Datum> {
-    path: string[]
+    path: readonly string[]
     uid: string
     isRoot: boolean
     isLeaf: boolean
-    ancestorIds: string[]
-    ancestorUids: string[]
-    descendantUids: string[]
+    ancestorIds: readonly string[]
+    ancestorUids: readonly string[]
+    descendantUids: readonly string[]
     id: string
     data: Datum
     depth: number
@@ -158,8 +158,8 @@ export interface LabelComponentProps<Datum> {
 export type LabelComponent<Datum> = FunctionComponent<LabelComponentProps<Datum>>
 
 export interface CustomLayerProps<Datum> {
-    nodes: ComputedNode<Datum>[]
-    links: ComputedLink<Datum>[]
+    nodes: readonly ComputedNode<Datum>[]
+    links: readonly ComputedLink<Datum>[]
     innerWidth: number
     innerHeight: number
     linkGenerator: LinkGenerator
@@ -183,6 +183,7 @@ export interface CommonProps<Datum> extends MotionProps {
     activeNodeSize: number | NodeSizeModifierFunction<Datum>
     inactiveNodeSize: number | NodeSizeModifierFunction<Datum>
     nodeColor: OrdinalColorScaleConfig<IntermediateComputedNode<Datum>>
+    fixNodeColorAtDepth: number
     linkCurve: LinkCurve
     linkThickness: number | LinkThicknessFunction<Datum>
     activeLinkThickness: number | LinkThicknessModifierFunction<Datum>
