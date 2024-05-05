@@ -71,6 +71,7 @@ const props: ChartProperty[] = [
         },
     },
     ...chartDimensions(allFlavors),
+    // Style
     themeProperty(allFlavors),
     {
         key: 'nodeSize',
@@ -109,6 +110,20 @@ const props: ChartProperty[] = [
         defaultValue: defaults.nodeColor,
         genericType: 'IntermediateComputedNode',
     }),
+    {
+        group: 'Style',
+        key: 'fixNodeColorAtDepth',
+        type: 'number',
+        help: `
+            Fix the node color past a certain depth, meaning descendant nodes
+            are going to inherit the parent color defined at that depth.
+            Use \`Infinity\` to disable.
+        `,
+        flavors: allFlavors,
+        required: false,
+        defaultValue: defaults.fixNodeColorAtDepth,
+        control: { type: 'range', min: 0, max: 5 },
+    },
     {
         key: 'linkCurve',
         help: 'Defines the type of curve to use to draw links.',

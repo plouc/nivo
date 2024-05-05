@@ -10,6 +10,7 @@ export const commonDefaultProps: Pick<
     | 'layout'
     | 'nodeSize'
     | 'nodeColor'
+    | 'fixNodeColorAtDepth'
     | 'linkCurve'
     | 'linkThickness'
     | 'linkColor'
@@ -36,9 +37,10 @@ export const commonDefaultProps: Pick<
     layout: 'top-to-bottom',
     nodeSize: 12,
     nodeColor: { scheme: 'nivo' },
+    fixNodeColorAtDepth: Infinity,
     linkCurve: 'bump',
     linkThickness: 1,
-    linkColor: { from: 'source.color', modifiers: [['opacity', 0.3]] },
+    linkColor: { from: 'source.color', modifiers: [['opacity', 0.4]] },
     enableLabel: true,
     label: 'id',
     labelsPosition: 'outward',
