@@ -1,6 +1,7 @@
 import { CommonProps, TreeSvgProps } from './types'
 import { Node } from './Node'
 import { Link } from './Link'
+import { Label } from './Label'
 
 export const commonDefaultProps: Pick<
     CommonProps<any>,
@@ -12,6 +13,12 @@ export const commonDefaultProps: Pick<
     | 'linkCurve'
     | 'linkThickness'
     | 'linkColor'
+    | 'enableLabel'
+    | 'label'
+    | 'labelsPosition'
+    | 'orientLabel'
+    | 'labelOffset'
+    | 'labelComponent'
     | 'isInteractive'
     | 'useMesh'
     | 'meshDetectionThreshold'
@@ -32,6 +39,12 @@ export const commonDefaultProps: Pick<
     linkCurve: 'bump',
     linkThickness: 1,
     linkColor: { from: 'source.color', modifiers: [['opacity', 0.3]] },
+    enableLabel: true,
+    label: 'id',
+    labelsPosition: 'outward',
+    orientLabel: true,
+    labelOffset: 6,
+    labelComponent: Label,
     isInteractive: true,
     useMesh: true,
     meshDetectionThreshold: Infinity,
@@ -48,7 +61,7 @@ export const commonDefaultProps: Pick<
 export const svgDefaultProps: typeof commonDefaultProps &
     Required<Pick<TreeSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent'>> = {
     ...commonDefaultProps,
-    layers: ['links', 'nodes', 'mesh'],
+    layers: ['links', 'nodes', 'labels', 'mesh'],
     nodeComponent: Node,
     linkComponent: Link,
 }

@@ -5,6 +5,7 @@ import { svgDefaultProps } from './defaults'
 import { useTree } from './hooks'
 import { Links } from './Links'
 import { Nodes } from './Nodes'
+import { Labels } from './Labels'
 import { Mesh } from './Mesh'
 
 type InnerTreeProps<Datum> = Omit<
@@ -31,6 +32,12 @@ const InnerTree = <Datum,>({
     inactiveLinkThickness,
     linkColor = svgDefaultProps.linkColor,
     linkComponent = svgDefaultProps.linkComponent,
+    enableLabel = svgDefaultProps.enableLabel,
+    label = svgDefaultProps.label,
+    labelsPosition = svgDefaultProps.labelsPosition,
+    orientLabel = svgDefaultProps.orientLabel,
+    labelOffset = svgDefaultProps.labelOffset,
+    labelComponent = svgDefaultProps.labelComponent,
     layers = svgDefaultProps.layers,
     isInteractive = svgDefaultProps.isInteractive,
     useMesh = svgDefaultProps.useMesh,
@@ -120,6 +127,21 @@ const InnerTree = <Datum,>({
                 onClick={onNodeClick}
                 setCurrentNode={setCurrentNode}
                 tooltip={nodeTooltip}
+            />
+        )
+    }
+
+    if (layers.includes('labels') && enableLabel) {
+        layerById.labels = (
+            <Labels<Datum>
+                key="labels"
+                label={label}
+                nodes={nodes}
+                layout={layout}
+                labelsPosition={labelsPosition}
+                orientLabel={orientLabel}
+                labelOffset={labelOffset}
+                labelComponent={labelComponent}
             />
         )
     }

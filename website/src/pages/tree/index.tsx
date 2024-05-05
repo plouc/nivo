@@ -29,6 +29,10 @@ const initialProperties: Pick<
     | 'activeLinkThickness'
     | 'inactiveLinkThickness'
     | 'linkColor'
+    | 'enableLabel'
+    | 'labelsPosition'
+    | 'orientLabel'
+    | 'labelOffset'
     | 'margin'
     | 'animate'
     | 'motionConfig'
@@ -54,11 +58,16 @@ const initialProperties: Pick<
     inactiveLinkThickness: 2,
     linkColor: defaults.linkColor,
 
+    enableLabel: defaults.enableLabel,
+    labelsPosition: defaults.labelsPosition,
+    orientLabel: defaults.orientLabel,
+    labelOffset: defaults.labelOffset,
+
     margin: {
-        top: 24,
-        right: 24,
-        bottom: 24,
-        left: 24,
+        top: 90,
+        right: 90,
+        bottom: 90,
+        left: 90,
     },
 
     animate: defaults.animate,
@@ -108,7 +117,17 @@ const Tree = () => {
                     <ResponsiveTree<Datum>
                         data={data}
                         {...properties}
-                        theme={theme}
+                        theme={{
+                            ...theme,
+                            labels: {
+                                ...theme.labels,
+                                text: {
+                                    ...theme.labels?.text,
+                                    outlineWidth: 4,
+                                    outlineColor: theme.background,
+                                },
+                            },
+                        }}
                         onNodeClick={(node: ComputedNode<Datum>) => {
                             logAction({
                                 type: 'click',
