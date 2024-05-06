@@ -9,3 +9,4 @@
 export * from './defaultTheme'
 export * from './extend'
 export * from './context'
+export * from './helpers'
