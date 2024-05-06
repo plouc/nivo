@@ -11,16 +11,18 @@ export interface ChartMeta {
     }[]
 }
 
+export type FlavorAwareChartPropertyAttribute<T> = T | Partial<Record<Flavor, T>>
+
 export interface ChartProperty<Settings = any> {
     key: string
     name?: string
     group: string
     // type of the property, preferably expressed with TypeScript notation
-    type: string
+    type: FlavorAwareChartPropertyAttribute<string>
     // will be parsed in Markdown and supports links
     help?: string
     // will be parsed in Markdown and supports links
-    description?: string
+    description?: FlavorAwareChartPropertyAttribute<string>
     // assumed to be optional by default
     required?: boolean
     // default property value as defined for the component,
