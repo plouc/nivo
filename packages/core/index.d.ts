@@ -58,6 +58,8 @@ export type TextStyle = {
     outlineOpacity: number
 } & Partial<React.CSSProperties>
 
+export function sanitizeSvgTextStyle(style: TextStyle): any
+
 export type CompleteTheme = {
     background: string
     text: TextStyle

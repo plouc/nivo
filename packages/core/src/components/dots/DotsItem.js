@@ -1,7 +1,7 @@
 import { createElement, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme } from '../../theming'
+import { useTheme, sanitizeSvgTextStyle } from '../../theming'
 import { useMotionConfig } from '../../motion'
 import DotsItemSymbol from './DotsItemSymbol'
 
@@ -27,6 +27,11 @@ const DotsItem = ({
         immediate: !animate,
     })
 
+    console.log({
+        bare: theme.dots.text,
+        sanitized: sanitizeSvgTextStyle(theme.dots.text),
+    })
+
     return (
         <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
             {createElement(symbol, {
@@ -37,7 +42,11 @@ const DotsItem = ({
                 borderColor,
             })}
             {label && (
-                <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
+                <text
+                    textAnchor={labelTextAnchor}
+                    y={labelYOffset}
+                    style={sanitizeSvgTextStyle(theme.dots.text)}
+                >
                     {label}
                 </text>
             )}
