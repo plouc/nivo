@@ -238,6 +238,7 @@ declare module '*tree/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Tree: ChartMeta
+        TreeCanvas: ChartMeta
     }
 
     export default meta

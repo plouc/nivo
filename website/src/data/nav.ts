@@ -260,6 +260,7 @@ export const components: ChartNavData[] = [
         tags: tree.Tree.tags,
         flavors: {
             svg: true,
+            canvas: true,
         },
     },
     {

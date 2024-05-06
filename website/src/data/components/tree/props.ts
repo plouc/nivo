@@ -8,20 +8,40 @@ import {
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
-const allFlavors: Flavor[] = ['svg']
+const allFlavors: Flavor[] = ['svg', 'canvas']
 
 const props: ChartProperty[] = [
     {
-        key: 'data',
         group: 'Base',
+        key: 'data',
         flavors: allFlavors,
         help: 'The hierarchical data object.',
+        description: `
+            A typical data object should look like this:
+            
+            \`\`\`
+            {
+                id: '0',
+                children: [
+                    { id: 'A', children: [{ id: '0' }, { id: '1' }] },
+                    { id: 'B', children: [{ id: '0' }] },
+                    { id: 'C' },
+                ], 
+            }
+            \`\`\`
+            
+            Please note that you should **never** mutate the data object,
+            because otherwise nivo won't know that it changed, we make heavy
+            use of memoization internally via React hooks, so if you want
+            to update the data, the reference should change, meaning you
+            should pass a new object.
+        `,
         type: 'object',
         required: true,
     },
     {
-        key: 'identity',
         group: 'Base',
+        key: 'identity',
         flavors: allFlavors,
         help: 'The key or function to use to retrieve nodes identity.',
         description: `
@@ -37,8 +57,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.identity,
     },
     {
-        key: 'mode',
         group: 'Base',
+        key: 'mode',
         help: `Type of tree diagram.`,
         type: `'tree' | 'dendogram'`,
         flavors: allFlavors,
@@ -53,13 +73,13 @@ const props: ChartProperty[] = [
         },
     },
     {
+        group: 'Base',
         key: 'layout',
         help: 'Defines the diagram layout.',
         flavors: allFlavors,
         type: `'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'`,
         required: false,
         defaultValue: defaults.layout,
-        group: 'Base',
         control: {
             type: 'choices',
             choices: ['top-to-bottom', 'right-to-left', 'bottom-to-top', 'left-to-right'].map(
@@ -74,8 +94,8 @@ const props: ChartProperty[] = [
     // Style
     themeProperty(allFlavors),
     {
-        key: 'nodeSize',
         group: 'Style',
+        key: 'nodeSize',
         type: 'number | (node: IntermediateComputedNode) => number',
         control: { type: 'lineWidth' },
         help: 'Defines the size of the nodes, statically or dynamically.',
@@ -84,8 +104,8 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
     },
     {
-        key: 'activeNodeSize',
         group: 'Style',
+        key: 'activeNodeSize',
         type: 'number | (node: ComputedNode) => number',
         control: { type: 'range', min: 0, max: 40, unit: 'px' },
         help: 'Defines the size of active nodes, statically or dynamically.',
@@ -94,8 +114,8 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
     },
     {
-        key: 'inactiveNodeSize',
         group: 'Style',
+        key: 'inactiveNodeSize',
         type: 'number | (node: ComputedNode) => number',
         control: { type: 'range', min: 0, max: 40, unit: 'px' },
         help: 'Defines the size of inactive nodes, statically or dynamically.',
@@ -125,13 +145,13 @@ const props: ChartProperty[] = [
         control: { type: 'range', min: 0, max: 5 },
     },
     {
+        group: 'Style',
         key: 'linkCurve',
         help: 'Defines the type of curve to use to draw links.',
         flavors: allFlavors,
         type: `'bump' | 'linear' | 'step' | 'step-before' | 'step-after'`,
         required: false,
         defaultValue: defaults.linkCurve,
-        group: 'Style',
         control: {
             type: 'choices',
             choices: ['bump', 'linear', 'step', 'step-before', 'step-after'].map(choice => ({
@@ -141,18 +161,18 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'linkThickness',
         group: 'Style',
+        key: 'linkThickness',
         type: 'number | (link: IntermediateComputedLink) => number',
         control: { type: 'lineWidth' },
         help: 'Defines the thickness of the links, statically or dynamically.',
         required: false,
         defaultValue: defaults.linkThickness,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     {
-        key: 'activeLinkThickness',
         group: 'Style',
+        key: 'activeLinkThickness',
         type: 'number | (link: ComputedLink) => number',
         control: { type: 'lineWidth' },
         help: 'Defines the size of active links, statically or dynamically.',
@@ -161,8 +181,8 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
     },
     {
-        key: 'inactiveLinkThickness',
         group: 'Style',
+        key: 'inactiveLinkThickness',
         type: 'number | (link: ComputedLink) => number',
         control: { type: 'lineWidth' },
         help: 'Defines the thickness of inactive links, statically or dynamically.',
@@ -171,8 +191,8 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
     },
     {
-        key: 'linkColor',
         group: 'Style',
+        key: 'linkColor',
         type: 'InheritedColorConfig<IntermediateComputedLink>',
         control: {
             type: 'inheritedColor',
@@ -187,7 +207,7 @@ const props: ChartProperty[] = [
         `,
         required: false,
         defaultValue: defaults.linkColor,
-        flavors: ['svg'],
+        flavors: allFlavors,
     },
     // Labels
     {
@@ -274,19 +294,48 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         required: false,
     },
+    {
+        group: 'Labels',
+        key: 'renderLabel',
+        type: 'LabelCanvasRenderer',
+        help: 'Override the default label canvas rendering.',
+        description: `
+            Please make sure to use \`context.save()\` and \`context.restore()\`
+            if you make some global modifications to the 2d context inside this
+            function to avoid side effects.
+        `,
+        flavors: ['canvas'],
+        required: false,
+    },
     // Customization
     {
         group: 'Customization',
         key: 'layers',
-        type: `('links' | 'nodes' | 'mesh' | CustomSvgLayer)[]`,
+        type: {
+            svg: `('links' | 'nodes' | 'mesh' | CustomSvgLayer)[]`,
+            canvas: `('links' | 'nodes' | 'mesh' | CustomCanvasLayer)[]`,
+        },
         help: 'Defines the order of layers and add custom layers.',
-        description: `
-            You can also use this to insert extra layers
-            to the chart, the extra layer must be a function.
-            
-            The layer function which will receive the chart's
-            context & computed data and must return a valid SVG element.
-        `,
+        description: {
+            svg: `
+                You can also use this property to insert extra layers to the chart,
+                the extra layer must be a function component.
+                
+                This component is going to get the chart's context and computed data
+                as props and should return a valid SVG element.
+            `,
+            canvas: `
+                You can also use this property to insert extra layers to the chart,
+                the extra layer must be a function.
+
+                The function is going to get the canvas 2d context as first argument
+                and the chart's context and computed data as second.
+
+                Please make sure to use \`context.save()\` and \`context.restore()\`
+                if you make some global modifications to the 2d context inside this
+                function to avoid side effects.
+            `,
+        },
         defaultValue: svgDefaults.layers,
         flavors: allFlavors,
     },
@@ -305,6 +354,19 @@ const props: ChartProperty[] = [
     },
     {
         group: 'Customization',
+        key: 'renderNode',
+        type: 'NodeCanvasRenderer',
+        help: 'Override the default node canvas rendering.',
+        description: `
+            Please make sure to use \`context.save()\` and \`context.restore()\`
+            if you make some global modifications to the 2d context inside this
+            function to avoid side effects.
+        `,
+        flavors: ['canvas'],
+        required: false,
+    },
+    {
+        group: 'Customization',
         key: 'linkComponent',
         type: 'LinkComponent',
         help: 'Override the default link component.',
@@ -316,6 +378,19 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         required: false,
     },
+    {
+        group: 'Customization',
+        key: 'renderLink',
+        type: 'LinkCanvasRenderer',
+        help: 'Override the default link canvas rendering.',
+        description: `
+            Please make sure to use \`context.save()\` and \`context.restore()\`
+            if you make some global modifications to the 2d context inside this
+            function to avoid side effects.
+        `,
+        flavors: ['canvas'],
+        required: false,
+    },
     // Interactivity
     isInteractive({
         flavors: allFlavors,
@@ -324,8 +399,8 @@ const props: ChartProperty[] = [
     {
         group: 'Interactivity',
         key: 'useMesh',
-        flavors: allFlavors,
-        help: 'Use a voronoi mesh to detect mouse interactions.',
+        flavors: ['svg'],
+        help: 'Use a voronoi mesh to detect mouse interactions. Always `true` for the canvas implementation',
         description: `
             Use a voronoi mesh to detect mouse interactions, this can be useful
             when the tree is dense, or if the nodes are small and you want to
@@ -405,7 +480,7 @@ const props: ChartProperty[] = [
     {
         group: 'Interactivity',
         key: 'onNodeMouseMove',
-        flavors: ['svg'],
+        flavors: allFlavors,
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onMouseMove handler for nodes.',
         required: false,
@@ -413,7 +488,7 @@ const props: ChartProperty[] = [
     {
         group: 'Interactivity',
         key: 'onNodeMouseLeave',
-        flavors: ['svg'],
+        flavors: allFlavors,
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onMouseLeave handler for nodes.',
         required: false,
@@ -421,7 +496,7 @@ const props: ChartProperty[] = [
     {
         group: 'Interactivity',
         key: 'onNodeClick',
-        flavors: ['svg'],
+        flavors: allFlavors,
         type: '(node: ComputedNode, event: MouseEvent) => void',
         help: 'onClick handler for nodes.',
         required: false,
@@ -429,7 +504,7 @@ const props: ChartProperty[] = [
     {
         group: 'Interactivity',
         key: 'nodeTooltip',
-        flavors: ['svg'],
+        flavors: allFlavors,
         type: 'NodeTooltip',
         help: 'Tooltip component for nodes.',
         required: false,

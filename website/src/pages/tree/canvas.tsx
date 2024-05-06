@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import {
-    ResponsiveTree,
+    ResponsiveTreeCanvas,
     TreeSvgProps,
     svgDefaultProps as defaults,
     ComputedLink,
@@ -38,7 +38,6 @@ const initialProperties: Pick<
     | 'animate'
     | 'motionConfig'
     | 'isInteractive'
-    | 'useMesh'
     | 'meshDetectionThreshold'
     | 'debugMesh'
     | 'highlightAncestorNodes'
@@ -76,16 +75,18 @@ const initialProperties: Pick<
     motionConfig: 'stiff',
 
     isInteractive: defaults.isInteractive,
-    useMesh: true,
     meshDetectionThreshold: 80,
     debugMesh: defaults.debugMesh,
     highlightAncestorNodes: defaults.highlightAncestorNodes,
     highlightDescendantNodes: defaults.highlightDescendantNodes,
     highlightAncestorLinks: defaults.highlightAncestorLinks,
     highlightDescendantLinks: defaults.highlightDescendantLinks,
+
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
 
-const Tree = () => {
+const TreeCanvas = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -102,11 +103,11 @@ const Tree = () => {
 
     return (
         <ComponentTemplate
-            name="Tree"
-            meta={meta.Tree}
+            name="TreeCanvas"
+            meta={meta.TreeCanvas}
             icon="tree"
             flavors={meta.flavors}
-            currentFlavor="svg"
+            currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaults}
@@ -117,7 +118,7 @@ const Tree = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveTree<Datum>
+                    <ResponsiveTreeCanvas<Datum>
                         data={data}
                         {...properties}
                         theme={{
@@ -153,4 +154,4 @@ const Tree = () => {
     )
 }
 
-export default Tree
+export default TreeCanvas

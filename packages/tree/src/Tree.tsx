@@ -1,6 +1,6 @@
 import { createElement, Fragment, ReactNode, useMemo } from 'react'
 import { Container, useDimensions, SvgWrapper } from '@nivo/core'
-import { DefaultDatum, LayerId, TreeSvgProps, CustomLayerProps } from './types'
+import { DefaultDatum, LayerId, TreeSvgProps, CustomSvgLayerProps } from './types'
 import { svgDefaultProps } from './defaults'
 import { useTree } from './hooks'
 import { Links } from './Links'
@@ -168,7 +168,7 @@ const InnerTree = <Datum,>({
         )
     }
 
-    const customLayerProps: CustomLayerProps<Datum> = useMemo(
+    const customLayerProps: CustomSvgLayerProps<Datum> = useMemo(
         () => ({
             nodes,
             nodeByUid,
