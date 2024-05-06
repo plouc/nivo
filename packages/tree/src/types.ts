@@ -2,7 +2,7 @@ import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
 import { Link as LinkShape, DefaultLinkObject } from 'd3-shape'
 import { SpringValues } from '@react-spring/web'
-import { Box, Dimensions, MotionProps, Theme, PropertyAccessor } from '@nivo/core'
+import { Box, Dimensions, MotionProps, Theme, PropertyAccessor, CompleteTheme } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 export type TreeMode = 'tree' | 'dendogram'
@@ -89,6 +89,14 @@ export interface NodeComponentProps<Datum> {
 }
 export type NodeComponent<Datum> = FunctionComponent<NodeComponentProps<Datum>>
 
+export interface NodeCanvasRendererProps<Datum> {
+    node: ComputedNode<Datum>
+}
+export type NodeCanvasRenderer<Datum> = (
+    ctx: CanvasRenderingContext2D,
+    props: NodeCanvasRendererProps<Datum>
+) => void
+
 export interface NodeTooltipProps<Datum> {
     node: ComputedNode<Datum>
 }
@@ -124,6 +132,15 @@ export interface LinkComponentProps<Datum> {
 }
 export type LinkComponent<Datum> = FunctionComponent<LinkComponentProps<Datum>>
 
+export interface LinkCanvasRendererProps<Datum> {
+    link: ComputedLink<Datum>
+    linkGenerator: LinkGenerator
+}
+export type LinkCanvasRenderer<Datum> = (
+    ctx: CanvasRenderingContext2D,
+    props: LinkCanvasRendererProps<Datum>
+) => void
+
 export type LinkMouseEventHandler<Datum> = (node: ComputedLink<Datum>, event: MouseEvent) => void
 
 export interface LinkTooltipProps<Datum> {
@@ -157,7 +174,16 @@ export interface LabelComponentProps<Datum> {
 }
 export type LabelComponent<Datum> = FunctionComponent<LabelComponentProps<Datum>>
 
-export interface CustomLayerProps<Datum> {
+export interface LabelCanvasRendererProps<Datum> {
+    label: ComputedLabel<Datum>
+    theme: CompleteTheme
+}
+export type LabelCanvasRenderer<Datum> = (
+    ctx: CanvasRenderingContext2D,
+    props: LabelCanvasRendererProps<Datum>
+) => void
+
+export interface CustomSvgLayerProps<Datum> {
     nodes: readonly ComputedNode<Datum>[]
     nodeByUid: Record<string, ComputedNode<Datum>>
     links: readonly ComputedLink<Datum>[]
@@ -166,7 +192,13 @@ export interface CustomLayerProps<Datum> {
     linkGenerator: LinkGenerator
     setCurrentNode: (node: ComputedNode<Datum> | null) => void
 }
-export type CustomSvgLayer<Datum> = FunctionComponent<CustomLayerProps<Datum>>
+export type CustomSvgLayer<Datum> = FunctionComponent<CustomSvgLayerProps<Datum>>
+
+export type CustomCanvasLayerProps<Datum> = Omit<CustomSvgLayerProps<Datum>, 'setCurrentNode'>
+export type CustomCanvasLayer<Datum> = (
+    ctx: CanvasRenderingContext2D,
+    props: CustomCanvasLayerProps<Datum>
+) => void
 
 export interface TreeDataProps<Datum> {
     data: Datum
@@ -196,7 +228,6 @@ export interface CommonProps<Datum> extends MotionProps {
     labelsPosition: LabelsPosition
     orientLabel: boolean
     labelOffset: number
-    labelComponent: LabelComponent<Datum>
 
     isInteractive: boolean
     useMesh: boolean
@@ -218,10 +249,11 @@ export interface CommonProps<Datum> extends MotionProps {
     linkTooltip: LinkTooltip<Datum>
 
     role: string
-    renderWrapper: boolean
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
+
+    renderWrapper: boolean
 }
 
 export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
@@ -230,6 +262,19 @@ export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
         layers?: (LayerId | CustomSvgLayer<Datum>)[]
         nodeComponent?: NodeComponent<Datum>
         linkComponent?: LinkComponent<Datum>
+        labelComponent?: LabelComponent<Datum>
     }
 
 export type ResponsiveTreeSvgProps<Datum> = Omit<TreeSvgProps<Datum>, 'height' | 'width'>
+
+export type TreeCanvasProps<Datum> = TreeDataProps<Datum> &
+    Dimensions &
+    Partial<CommonProps<Datum>> & {
+        layers?: (LayerId | CustomCanvasLayer<Datum>)[]
+        renderNode?: NodeCanvasRenderer<Datum>
+        renderLink?: LinkCanvasRenderer<Datum>
+        renderLabel?: LabelCanvasRenderer<Datum>
+        pixelRatio?: number
+    }
+
+export type ResponsiveTreeCanvasProps<Datum> = Omit<TreeCanvasProps<Datum>, 'height' | 'width'>

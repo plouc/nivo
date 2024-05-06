@@ -18,7 +18,7 @@ export const Label = <Datum,>({ label, animatedProps }: LabelComponentProps<Datu
                             fill: theme.labels.text.outlineColor,
                         }}
                         stroke={theme.labels.text.outlineColor}
-                        strokeWidth={theme.labels.text.outlineWidth}
+                        strokeWidth={theme.labels.text.outlineWidth * 2}
                         strokeLinejoin="round"
                         textAnchor={label.textAnchor}
                         dominantBaseline={label.baseline}

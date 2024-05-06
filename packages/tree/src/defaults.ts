@@ -1,7 +1,8 @@
-import { CommonProps, TreeSvgProps } from './types'
+import { CommonProps, TreeCanvasProps, TreeSvgProps } from './types'
 import { Node } from './Node'
 import { Link } from './Link'
 import { Label } from './Label'
+import { renderNode, renderLink, renderLabel } from './canvas'
 
 export const commonDefaultProps: Pick<
     CommonProps<any>,
@@ -19,7 +20,6 @@ export const commonDefaultProps: Pick<
     | 'labelsPosition'
     | 'orientLabel'
     | 'labelOffset'
-    | 'labelComponent'
     | 'isInteractive'
     | 'useMesh'
     | 'meshDetectionThreshold'
@@ -46,7 +46,6 @@ export const commonDefaultProps: Pick<
     labelsPosition: 'outward',
     orientLabel: true,
     labelOffset: 6,
-    labelComponent: Label,
     isInteractive: true,
     useMesh: true,
     meshDetectionThreshold: Infinity,
@@ -61,9 +60,27 @@ export const commonDefaultProps: Pick<
 }
 
 export const svgDefaultProps: typeof commonDefaultProps &
-    Required<Pick<TreeSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent'>> = {
+    Required<
+        Pick<TreeSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent' | 'labelComponent'>
+    > = {
     ...commonDefaultProps,
     layers: ['links', 'nodes', 'labels', 'mesh'],
     nodeComponent: Node,
     linkComponent: Link,
+    labelComponent: Label,
+}
+
+export const canvasDefaultProps: typeof commonDefaultProps &
+    Required<
+        Pick<
+            TreeCanvasProps<any>,
+            'layers' | 'renderNode' | 'renderLink' | 'renderLabel' | 'pixelRatio'
+        >
+    > = {
+    ...commonDefaultProps,
+    layers: ['links', 'nodes', 'labels', 'mesh'],
+    renderNode,
+    renderLink,
+    renderLabel,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
 }

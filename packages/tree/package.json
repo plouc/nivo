@@ -30,9 +30,9 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/annotations": "workspace:*",
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/text": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",

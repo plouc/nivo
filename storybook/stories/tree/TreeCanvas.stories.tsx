@@ -3,19 +3,18 @@ import { generateLibTree } from '@nivo/generators'
 import { useTheme } from '@nivo/core'
 import {
     Tree,
-    useNodeMouseEventHandlers,
-    NodeComponentProps,
+    TreeCanvas,
     NodeTooltipProps,
-    LinkTooltipProps,
-    TreeSvgProps,
+    TreeCanvasProps,
     Layout,
     LabelsPosition,
     TreeMode,
+    NodeCanvasRendererProps,
 } from '@nivo/tree'
 
-const meta: Meta<typeof Tree> = {
-    title: 'Tree',
-    component: Tree,
+const meta: Meta<typeof TreeCanvas> = {
+    title: 'TreeCanvas',
+    component: TreeCanvas,
     tags: ['autodocs'],
     argTypes: {
         mode: {
@@ -30,10 +29,6 @@ const meta: Meta<typeof Tree> = {
         onNodeMouseMove: { action: 'node mouse move' },
         onNodeMouseLeave: { action: 'node mouse leave' },
         onNodeClick: { action: 'node clicked' },
-        onLinkMouseEnter: { action: 'link mouse enter' },
-        onLinkMouseMove: { action: 'link mouse move' },
-        onLinkMouseLeave: { action: 'link mouse leave' },
-        onLinkClick: { action: 'link clicked' },
     },
     args: {
         mode: 'dendogram',
@@ -68,7 +63,7 @@ const minimalData = {
 }
 
 const commonProperties: Pick<
-    TreeSvgProps<any>,
+    TreeCanvasProps<any>,
     | 'width'
     | 'height'
     | 'margin'
@@ -126,35 +121,20 @@ const NodeTooltip = ({ node }: NodeTooltipProps<any>) => {
     )
 }
 
-const LinkTooltip = ({ link }: LinkTooltipProps<any>) => {
-    const theme = useTheme()
-
-    return (
-        <div style={theme.tooltip.container}>
-            id: <strong>{link.id}</strong>
-            <br />
-            source: <strong>{link.source.id}</strong>
-            <br />
-            target: <strong>{link.target.id}</strong>
-        </div>
-    )
-}
-
 export const Basic: Story = {
     render: args => (
-        <Tree
+        <TreeCanvas
             {...commonProperties}
             mode={args.mode}
             layout={args.layout}
             onNodeClick={args.onNodeClick}
-            onLinkClick={args.onLinkClick}
         />
     ),
 }
 
 export const WithNodeTooltip: Story = {
     render: args => (
-        <Tree
+        <TreeCanvas
             {...commonProperties}
             mode={args.mode}
             layout={args.layout}
@@ -167,95 +147,46 @@ export const WithNodeTooltip: Story = {
     ),
 }
 
-export const WithLinkTooltip: Story = {
-    render: args => (
-        <Tree
-            {...commonProperties}
-            useMesh={false}
-            linkThickness={12}
-            activeLinkThickness={20}
-            mode={args.mode}
-            layout={args.layout}
-            linkTooltip={LinkTooltip}
-            onLinkMouseEnter={args.onLinkMouseEnter}
-            onLinkMouseMove={args.onLinkMouseMove}
-            onLinkMouseLeave={args.onLinkMouseLeave}
-            onLinkClick={args.onLinkClick}
-        />
-    ),
+const renderNodeCustom = (
+    ctx: CanvasRenderingContext2D,
+    { node }: NodeCanvasRendererProps<any>
+) => {
+    ctx.save()
+
+    ctx.translate(node.x, node.y)
+
+    if (node.isActive) {
+        ctx.fillStyle = '#ffffff'
+        ctx.strokeStyle = node.color
+    } else {
+        ctx.fillStyle = node.color
+    }
+
+    ctx.beginPath()
+    ctx.arc(0, 0, node.size / 2, 0, 2 * Math.PI)
+    ctx.fill()
+    if (node.isActive) {
+        ctx.stroke()
+    }
+
+    if (node.isActive) {
+    }
+
+    ctx.restore()
 }
 
-const CUSTOM_NODE_SIZE = 32
-const CustomNode = ({
-    node,
-    isInteractive,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-    setCurrentNode,
-    tooltip,
-}: NodeComponentProps<any>) => {
-    const eventHandlers = useNodeMouseEventHandlers(node, {
-        isInteractive,
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-        tooltip,
-        setCurrentNode,
-    })
-
-    return (
-        <g
-            transform={`translate(${node.x - CUSTOM_NODE_SIZE / 2}, ${
-                node.y - CUSTOM_NODE_SIZE / 2
-            })`}
-        >
-            <rect
-                y={node.isActive ? 7 : 3}
-                width={CUSTOM_NODE_SIZE}
-                height={CUSTOM_NODE_SIZE}
-                rx={3}
-                ry={3}
-                fill="black"
-                opacity={0.1}
-            />
-            <rect
-                width={CUSTOM_NODE_SIZE}
-                height={CUSTOM_NODE_SIZE}
-                rx={3}
-                ry={3}
-                fill="white"
-                strokeWidth={node.isActive ? 2 : 1}
-                stroke={node.color}
-                {...eventHandlers}
-            />
-            <text
-                dx={CUSTOM_NODE_SIZE / 2}
-                dy={CUSTOM_NODE_SIZE / 2}
-                dominantBaseline="central"
-                textAnchor="middle"
-                fill={node.color}
-                style={{
-                    fontWeight: 800,
-                }}
-            >
-                {node.id[0].toUpperCase()}
-            </text>
-        </g>
-    )
-}
-
-export const CustomNodeComponent: Story = {
+export const CustomNodeRendering: Story = {
     render: args => (
-        <Tree
+        <TreeCanvas
             {...commonProperties}
             mode={args.mode}
             layout={args.layout}
+            nodeSize={24}
+            activeNodeSize={36}
+            inactiveNodeSize={12}
             linkColor={{ from: 'source.color' }}
             nodeTooltip={NodeTooltip}
-            nodeComponent={CustomNode}
+            renderNode={renderNodeCustom}
             onNodeMouseEnter={args.onNodeMouseEnter}
             onNodeMouseMove={args.onNodeMouseMove}
             onNodeMouseLeave={args.onNodeMouseLeave}
@@ -303,7 +234,7 @@ const LabelsPositionDemo = ({ config, mode }: { config: LabelsPositionConfig; mo
                 <span>orientLabel</span>
                 <strong>{config.orientLabel ? 'true' : 'false'}</strong>
             </div>
-            <Tree
+            <TreeCanvas
                 data={minimalData}
                 height={180}
                 width={180}
