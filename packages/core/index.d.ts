@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
 import { CurveFactory } from 'd3-shape'
 import { ComponentType } from 'react'
+import { extendDefaultTheme } from './src'
 
 export type DatumValue = string | number | Date
 
@@ -54,6 +55,7 @@ export type TextStyle = {
     fill: string
     outlineWidth: number
     outlineColor: string
+    outlineOpacity: number
 } & Partial<React.CSSProperties>
 
 export type CompleteTheme = {
@@ -265,6 +267,10 @@ export type Theme = Partial<{
 
 export function useTheme(): CompleteTheme
 export function usePartialTheme(theme?: Theme): CompleteTheme
+export function extendDefaultTheme(
+    defaultTheme: ThemeWithoutInheritance,
+    customTheme: Theme
+): CompleteTheme
 
 export type MotionProps = Partial<{
     animate: boolean
