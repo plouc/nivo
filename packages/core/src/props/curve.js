@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import without from 'lodash/without'
 import {
     curveBasis,
@@ -44,8 +43,6 @@ export const curvePropMapping = {
 
 export const curvePropKeys = Object.keys(curvePropMapping)
 
-export const curvePropType = PropTypes.oneOf(curvePropKeys)
-
 export const closedCurvePropKeys = curvePropKeys.filter(c => c.endsWith('Closed'))
 
 // Safe curves to be used with d3 area shape generator
@@ -73,8 +70,6 @@ export const lineCurvePropKeys = without(
     'catmullRomOpen',
     'linearClosed'
 )
-
-export const lineCurvePropType = PropTypes.oneOf(lineCurvePropKeys)
 
 /**
  * Returns curve interpolator from given identifier.
