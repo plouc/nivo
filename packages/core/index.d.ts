@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
 import { CurveFactory } from 'd3-shape'
 import { ComponentType } from 'react'
-import { extendDefaultTheme } from './src'
 
 export type DatumValue = string | number | Date
 
@@ -24,6 +23,7 @@ export type Margin = {
     right: number
     top: number
 }
+export type Padding = Margin
 
 export type Box = Partial<Margin>
 export type BoxAlign =

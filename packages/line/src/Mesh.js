@@ -28,10 +28,9 @@ const Mesh = ({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            setCurrent(point)
             onMouseEnter && onMouseEnter(point, event)
         },
-        [setCurrent, showTooltipAt, tooltip, onMouseEnter, margin]
+        [showTooltipAt, tooltip, onMouseEnter, margin]
     )
 
     const handleMouseMove = useCallback(
@@ -41,19 +40,17 @@ const Mesh = ({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            setCurrent(point)
             onMouseMove && onMouseMove(point, event)
         },
-        [showTooltipAt, tooltip, margin.left, margin.top, setCurrent, onMouseMove]
+        [showTooltipAt, tooltip, margin.left, margin.top, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
         (point, event) => {
             hideTooltip()
-            setCurrent(null)
             onMouseLeave && onMouseLeave(point, event)
         },
-        [hideTooltip, setCurrent, onMouseLeave]
+        [hideTooltip, onMouseLeave]
     )
 
     const handleClick = useCallback(
@@ -70,10 +67,9 @@ const Mesh = ({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            setCurrent(point)
             onTouchStart && onTouchStart(point, event)
         },
-        [margin.left, margin.top, onTouchStart, setCurrent, showTooltipAt, tooltip]
+        [margin.left, margin.top, onTouchStart, showTooltipAt, tooltip]
     )
 
     const handleTouchMove = useCallback(
@@ -83,19 +79,17 @@ const Mesh = ({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            setCurrent(point)
             onTouchMove && onTouchMove(point, event)
         },
-        [margin.left, margin.top, onTouchMove, setCurrent, showTooltipAt, tooltip]
+        [margin.left, margin.top, onTouchMove, showTooltipAt, tooltip]
     )
 
     const handleTouchEnd = useCallback(
         (point, event) => {
             hideTooltip()
-            setCurrent(null)
             onTouchEnd && onTouchEnd(point, event)
         },
-        [onTouchEnd, hideTooltip, setCurrent]
+        [onTouchEnd, hideTooltip]
     )
 
     return (
@@ -103,6 +97,7 @@ const Mesh = ({
             nodes={points}
             width={width}
             height={height}
+            setCurrent={setCurrent}
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
