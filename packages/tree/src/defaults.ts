@@ -22,12 +22,14 @@ export const commonDefaultProps: Pick<
     | 'labelOffset'
     | 'isInteractive'
     | 'useMesh'
-    | 'meshDetectionThreshold'
+    | 'meshDetectionRadius'
     | 'debugMesh'
     | 'highlightAncestorNodes'
     | 'highlightDescendantNodes'
     | 'highlightAncestorLinks'
     | 'highlightDescendantLinks'
+    | 'nodeTooltipPosition'
+    | 'nodeTooltipAnchor'
     | 'role'
     | 'animate'
     | 'motionConfig'
@@ -48,12 +50,14 @@ export const commonDefaultProps: Pick<
     labelOffset: 6,
     isInteractive: true,
     useMesh: true,
-    meshDetectionThreshold: Infinity,
+    meshDetectionRadius: Infinity,
     debugMesh: false,
     highlightAncestorNodes: true,
     highlightDescendantNodes: false,
     highlightAncestorLinks: true,
     highlightDescendantLinks: false,
+    nodeTooltipPosition: 'fixed',
+    nodeTooltipAnchor: 'top',
     role: 'img',
     animate: true,
     motionConfig: 'gentle',
@@ -61,13 +65,17 @@ export const commonDefaultProps: Pick<
 
 export const svgDefaultProps: typeof commonDefaultProps &
     Required<
-        Pick<TreeSvgProps<any>, 'layers' | 'nodeComponent' | 'linkComponent' | 'labelComponent'>
+        Pick<
+            TreeSvgProps<any>,
+            'layers' | 'nodeComponent' | 'linkComponent' | 'labelComponent' | 'linkTooltipAnchor'
+        >
     > = {
     ...commonDefaultProps,
     layers: ['links', 'nodes', 'labels', 'mesh'],
     nodeComponent: Node,
     linkComponent: Link,
     labelComponent: Label,
+    linkTooltipAnchor: 'top',
 }
 
 export const canvasDefaultProps: typeof commonDefaultProps &

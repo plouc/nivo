@@ -39,12 +39,15 @@ const initialProperties: Pick<
     | 'motionConfig'
     | 'isInteractive'
     | 'useMesh'
-    | 'meshDetectionThreshold'
+    | 'meshDetectionRadius'
     | 'debugMesh'
     | 'highlightAncestorNodes'
     | 'highlightDescendantNodes'
     | 'highlightAncestorLinks'
     | 'highlightDescendantLinks'
+    | 'nodeTooltipAnchor'
+    | 'nodeTooltipPosition'
+    | 'linkTooltipAnchor'
 > = {
     identity: 'name',
     mode: defaults.mode,
@@ -77,12 +80,15 @@ const initialProperties: Pick<
 
     isInteractive: defaults.isInteractive,
     useMesh: true,
-    meshDetectionThreshold: 80,
+    meshDetectionRadius: 80,
     debugMesh: defaults.debugMesh,
     highlightAncestorNodes: defaults.highlightAncestorNodes,
     highlightDescendantNodes: defaults.highlightDescendantNodes,
     highlightAncestorLinks: defaults.highlightAncestorLinks,
     highlightDescendantLinks: defaults.highlightDescendantLinks,
+    nodeTooltipPosition: defaults.nodeTooltipPosition,
+    nodeTooltipAnchor: defaults.nodeTooltipAnchor,
+    linkTooltipAnchor: defaults.linkTooltipAnchor,
 }
 
 const Tree = () => {
@@ -144,6 +150,7 @@ const Tree = () => {
                                 type: 'click',
                                 label: `[link] ${link.source.id} > ${link.target.id}`,
                                 data: link,
+                                color: link.color,
                             })
                         }}
                     />

@@ -2,8 +2,17 @@ import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
 import { Link as LinkShape, DefaultLinkObject } from 'd3-shape'
 import { SpringValues } from '@react-spring/web'
-import { Box, Dimensions, MotionProps, Theme, PropertyAccessor, CompleteTheme } from '@nivo/core'
+import {
+    Box,
+    Dimensions,
+    MotionProps,
+    Theme,
+    PropertyAccessor,
+    CompleteTheme,
+    Margin,
+} from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
+import { TooltipAnchor, TooltipPosition } from '@nivo/tooltip'
 
 export type TreeMode = 'tree' | 'dendogram'
 export type Layout = 'top-to-bottom' | 'right-to-left' | 'bottom-to-top' | 'left-to-right'
@@ -85,6 +94,9 @@ export interface NodeComponentProps<Datum> {
     onClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
+    tooltipPosition: TooltipPosition
+    tooltipAnchor: TooltipAnchor
+    margin: Margin
     animatedProps: SpringValues<NodeAnimatedProps>
 }
 export type NodeComponent<Datum> = FunctionComponent<NodeComponentProps<Datum>>
@@ -128,6 +140,7 @@ export interface LinkComponentProps<Datum> {
     onMouseLeave?: LinkMouseEventHandler<Datum>
     onClick?: LinkMouseEventHandler<Datum>
     tooltip?: LinkTooltip<Datum>
+    tooltipAnchor: TooltipAnchor
     animatedProps: SpringValues<LinkAnimatedProps>
 }
 export type LinkComponent<Datum> = FunctionComponent<LinkComponentProps<Datum>>
@@ -231,7 +244,7 @@ export interface CommonProps<Datum> extends MotionProps {
 
     isInteractive: boolean
     useMesh: boolean
-    meshDetectionThreshold: number
+    meshDetectionRadius: number
     debugMesh: boolean
     highlightAncestorNodes: boolean
     highlightDescendantNodes: boolean
@@ -242,11 +255,8 @@ export interface CommonProps<Datum> extends MotionProps {
     onNodeMouseLeave: NodeMouseEventHandler<Datum>
     onNodeClick: NodeMouseEventHandler<Datum>
     nodeTooltip: NodeTooltip<Datum>
-    onLinkMouseEnter: LinkMouseEventHandler<Datum>
-    onLinkMouseMove: LinkMouseEventHandler<Datum>
-    onLinkMouseLeave: LinkMouseEventHandler<Datum>
-    onLinkClick: LinkMouseEventHandler<Datum>
-    linkTooltip: LinkTooltip<Datum>
+    nodeTooltipPosition: TooltipPosition
+    nodeTooltipAnchor: TooltipAnchor
 
     role: string
     ariaLabel: AriaAttributes['aria-label']
@@ -263,6 +273,12 @@ export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
         nodeComponent?: NodeComponent<Datum>
         linkComponent?: LinkComponent<Datum>
         labelComponent?: LabelComponent<Datum>
+        onLinkMouseEnter: LinkMouseEventHandler<Datum>
+        onLinkMouseMove: LinkMouseEventHandler<Datum>
+        onLinkMouseLeave: LinkMouseEventHandler<Datum>
+        onLinkClick: LinkMouseEventHandler<Datum>
+        linkTooltip: LinkTooltip<Datum>
+        linkTooltipAnchor: TooltipAnchor
     }
 
 export type ResponsiveTreeSvgProps<Datum> = Omit<TreeSvgProps<Datum>, 'height' | 'width'>

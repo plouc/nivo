@@ -1,5 +1,6 @@
 import uniq from 'lodash/uniq'
 import { defaultAnimate } from '@nivo/core'
+import { TooltipPosition, TooltipAnchor } from '@nivo/tooltip'
 import { Flavor, ChartProperty } from '../types'
 
 export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
@@ -234,6 +235,92 @@ export const groupProperties = (
     )
 
     return grouped
+}
+
+export const tooltipPositionProperty = ({
+    group = 'Interactivity',
+    key = 'tooltipPosition',
+    help = `Define the tooltip positioning behavior.`,
+    flavors,
+    defaultValue,
+}: {
+    group?: string
+    key?: string
+    help?: string
+    flavors: Flavor[]
+    defaultValue?: TooltipPosition
+}): ChartProperty => {
+    return {
+        key,
+        group,
+        help,
+        description: `
+            For the \`cursor\` mode, the tooltip is going to follow the cursor position,
+            while for the \`fixed\` mode, the tooltip stays at the element's position. 
+        `,
+        type: `'cursor' | 'fixed'`,
+        required: false,
+        flavors,
+        defaultValue,
+        control: {
+            type: 'radio',
+            choices: [
+                {
+                    label: 'cursor',
+                    value: 'cursor',
+                },
+                {
+                    label: 'fixed',
+                    value: 'fixed',
+                },
+            ],
+        },
+    }
+}
+
+export const tooltipAnchorProperty = ({
+    group = 'Interactivity',
+    key = 'tooltipAnchor',
+    help = `Define the tooltip anchor.`,
+    flavors,
+    defaultValue,
+}: {
+    group?: string
+    key?: string
+    help?: string
+    flavors: Flavor[]
+    defaultValue?: TooltipAnchor
+}): ChartProperty => {
+    return {
+        key,
+        group,
+        help,
+        type: `'top' | 'right' | 'bottom' | 'left'`,
+        required: false,
+        flavors,
+        defaultValue,
+        control: {
+            type: 'choices',
+            choices: [
+                {
+                    label: 'top',
+                    value: 'top',
+                },
+                {
+                    label: 'right',
+                    value: 'right',
+                },
+                {
+                    label: 'bottom',
+                    value: 'bottom',
+                },
+                {
+                    label: 'left',
+                    value: 'left',
+                },
+            ],
+        },
+    }
 }
 
 export const polarAxisProperty = ({

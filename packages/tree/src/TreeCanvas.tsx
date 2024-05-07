@@ -1,8 +1,7 @@
-import { MouseEvent, useCallback, useEffect, useMemo, useRef, useState, createElement } from 'react'
-import { Container, getRelativeCursor, isCursorInRect, useDimensions, useTheme } from '@nivo/core'
+import { useEffect, useMemo, useRef, createElement } from 'react'
+import { Container, useDimensions, useTheme } from '@nivo/core'
 import { setCanvasFont } from '@nivo/text'
-import { useTooltip } from '@nivo/tooltip'
-import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
+import { useMesh, renderDebugToCanvas } from '@nivo/voronoi'
 import { DefaultDatum, TreeCanvasProps, CustomCanvasLayerProps, ComputedNode } from './types'
 import { canvasDefaultProps } from './defaults'
 import { useTree } from './hooks'
@@ -42,17 +41,19 @@ const InnerTreeCanvas = <Datum,>({
     renderLabel = canvasDefaultProps.renderLabel,
     layers = canvasDefaultProps.layers,
     isInteractive = canvasDefaultProps.isInteractive,
-    // meshDetectionThreshold = canvasDefaultProps.meshDetectionThreshold,
+    meshDetectionRadius = canvasDefaultProps.meshDetectionRadius,
     debugMesh = canvasDefaultProps.debugMesh,
     highlightAncestorNodes = canvasDefaultProps.highlightAncestorNodes,
     highlightDescendantNodes = canvasDefaultProps.highlightDescendantNodes,
     highlightAncestorLinks = canvasDefaultProps.highlightAncestorLinks,
     highlightDescendantLinks = canvasDefaultProps.highlightDescendantLinks,
-    // onNodeMouseEnter,
-    // onNodeMouseMove,
-    // onNodeMouseLeave,
+    onNodeMouseEnter,
+    onNodeMouseMove,
+    onNodeMouseLeave,
     onNodeClick,
     nodeTooltip,
+    nodeTooltipPosition = canvasDefaultProps.nodeTooltipPosition,
+    nodeTooltipAnchor = canvasDefaultProps.nodeTooltipAnchor,
     role = canvasDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -100,10 +101,35 @@ const InnerTreeCanvas = <Datum,>({
         labelOffset,
     })
 
-    const { delaunay, voronoi } = useVoronoiMesh({
-        points: nodes,
+    const renderTooltip = useMemo(() => {
+        if (!nodeTooltip) return undefined
+        return (node: ComputedNode<Datum>) => createElement(nodeTooltip, { node })
+    }, [nodeTooltip])
+
+    const {
+        delaunay,
+        voronoi,
+        handleMouseEnter,
+        handleMouseMove,
+        handleMouseLeave,
+        handleClick,
+        current,
+    } = useMesh<ComputedNode<Datum>, HTMLCanvasElement>({
+        elementRef: canvasEl,
+        nodes,
         width: innerWidth,
         height: innerHeight,
+        margin,
+        detectionRadius: meshDetectionRadius,
+        isInteractive,
+        setCurrent: setCurrentNode,
+        onMouseEnter: onNodeMouseEnter,
+        onMouseMove: onNodeMouseMove,
+        onMouseLeave: onNodeMouseLeave,
+        onClick: onNodeClick,
+        tooltip: renderTooltip,
+        tooltipPosition: nodeTooltipPosition,
+        tooltipAnchor: nodeTooltipAnchor,
         debug: debugMesh,
     })
 
@@ -118,8 +144,6 @@ const InnerTreeCanvas = <Datum,>({
         }),
         [nodes, nodeByUid, links, innerWidth, innerHeight, linkGenerator]
     )
-
-    const [currentNodeIndex, setCurrentNodeIndex] = useState<number | null>(null)
 
     useEffect(() => {
         if (canvasEl.current === null) return
@@ -153,11 +177,19 @@ const InnerTreeCanvas = <Datum,>({
                 labels.forEach(label => {
                     renderLabel(ctx, { label, theme })
                 })
-            } else if (layer === 'mesh' && debugMesh) {
-                renderVoronoiToCanvas(ctx, voronoi!)
-                if (currentNodeIndex !== null) {
-                    renderVoronoiCellToCanvas(ctx, voronoi!, currentNodeIndex)
-                }
+            } else if (layer === 'mesh' && debugMesh && voronoi) {
+                ctx.save()
+                // The mesh should cover the whole chart, including margins.
+                ctx.translate(-margin.left, -margin.top)
+
+                renderDebugToCanvas(ctx, {
+                    delaunay,
+                    voronoi,
+                    detectionRadius: meshDetectionRadius,
+                    index: current !== null ? current[0] : null,
+                })
+
+                ctx.restore()
             } else if (typeof layer === 'function') {
                 layer(ctx, customLayerProps)
             }
@@ -180,75 +212,13 @@ const InnerTreeCanvas = <Datum,>({
         labels,
         enableLabel,
         renderLabel,
+        delaunay,
         voronoi,
+        meshDetectionRadius,
         debugMesh,
-        currentNodeIndex,
+        current,
         customLayerProps,
     ])
-
-    const getNodeFromMouseEvent = useCallback(
-        (
-            event: MouseEvent<HTMLCanvasElement>
-        ): [node: ComputedNode<Datum> | null, nodeIndex: number | null] => {
-            const [x, y] = getRelativeCursor(canvasEl.current!, event)
-            if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y))
-                return [null, null]
-
-            const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
-            return [nodes[nodeIndex], nodeIndex]
-        },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay, nodes]
-    )
-
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleMouseHover = useCallback(
-        (event: MouseEvent<HTMLCanvasElement>) => {
-            const [node, nodeIndex] = getNodeFromMouseEvent(event)
-            setCurrentNode(node)
-            setCurrentNodeIndex(nodeIndex)
-
-            if (node) {
-                nodeTooltip && showTooltipFromEvent(createElement(nodeTooltip, { node }), event)
-
-                /*
-                if (currentNode && currentNode.id !== node.id) {
-                    onMouseLeave && onMouseLeave(currentNode, event)
-                    onMouseEnter && onMouseEnter(node, event)
-                }
-                if (!currentNode) {
-                    onMouseEnter && onMouseEnter(node, event)
-                }
-                onMouseMove && onMouseMove(node, event)
-                */
-            } else {
-                hideTooltip()
-                // currentNode && onMouseLeave && onMouseLeave(currentNode, event)
-            }
-        },
-        [
-            getNodeFromMouseEvent,
-            // currentNode,
-            setCurrentNode,
-            setCurrentNodeIndex,
-            showTooltipFromEvent,
-            hideTooltip,
-            nodeTooltip,
-            // onMouseEnter,
-            // onMouseMove,
-            // onMouseLeave,
-        ]
-    )
-
-    const handleClick = useCallback(
-        (event: MouseEvent<HTMLCanvasElement>) => {
-            if (onNodeClick) {
-                const [node] = getNodeFromMouseEvent(event)
-                node && onNodeClick?.(node, event)
-            }
-        },
-        [getNodeFromMouseEvent, onNodeClick]
-    )
 
     return (
         <canvas
@@ -260,10 +230,10 @@ const InnerTreeCanvas = <Datum,>({
                 height: outerHeight,
                 cursor: isInteractive ? 'auto' : 'normal',
             }}
-            onMouseEnter={isInteractive ? handleMouseHover : undefined}
-            onMouseMove={isInteractive ? handleMouseHover : undefined}
-            // onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-            onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
             role={role}
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}

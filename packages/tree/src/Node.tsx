@@ -11,6 +11,9 @@ export const Node = <Datum,>({
     onClick,
     setCurrentNode,
     tooltip,
+    tooltipPosition,
+    tooltipAnchor,
+    margin,
     animatedProps,
 }: NodeComponentProps<Datum>) => {
     const eventHandlers = useNodeMouseEventHandlers<Datum>(node, {
@@ -21,6 +24,9 @@ export const Node = <Datum,>({
         onClick,
         setCurrentNode,
         tooltip,
+        tooltipPosition,
+        tooltipAnchor,
+        margin,
     })
 
     return (

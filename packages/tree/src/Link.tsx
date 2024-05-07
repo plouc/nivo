@@ -5,13 +5,14 @@ import { useLinkMouseEventHandlers } from './hooks'
 export const Link = <Datum,>({
     link,
     linkGenerator,
-    animatedProps,
     isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
     tooltip,
+    tooltipAnchor,
+    animatedProps,
 }: LinkComponentProps<Datum>) => {
     const eventHandlers = useLinkMouseEventHandlers<Datum>(link, {
         isInteractive,
@@ -20,6 +21,7 @@ export const Link = <Datum,>({
         onMouseLeave,
         onClick,
         tooltip,
+        tooltipAnchor,
     })
 
     return (

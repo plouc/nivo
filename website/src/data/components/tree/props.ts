@@ -1,5 +1,11 @@
 import { commonDefaultProps as defaults, svgDefaultProps as svgDefaults } from '@nivo/tree'
-import { motionProperties, groupProperties, themeProperty } from '../../../lib/componentProperties'
+import {
+    motionProperties,
+    groupProperties,
+    themeProperty,
+    tooltipPositionProperty,
+    tooltipAnchorProperty,
+} from '../../../lib/componentProperties'
 import {
     chartDimensions,
     isInteractive,
@@ -415,12 +421,12 @@ const props: ChartProperty[] = [
     },
     {
         group: 'Interactivity',
-        key: 'meshDetectionThreshold',
+        key: 'meshDetectionRadius',
         type: 'number',
         help: 'Prevent nodes from being detected if the cursor is too far away from the node.',
         flavors: allFlavors,
         required: false,
-        defaultValue: Infinity,
+        defaultValue: defaults.meshDetectionRadius,
         control: { type: 'range', min: 0, max: 200, step: 10, unit: 'px' },
     },
     {
@@ -501,14 +507,16 @@ const props: ChartProperty[] = [
         help: 'onClick handler for nodes.',
         required: false,
     },
-    {
-        group: 'Interactivity',
-        key: 'nodeTooltip',
+    tooltipPositionProperty({
+        key: 'nodeTooltipPosition',
         flavors: allFlavors,
-        type: 'NodeTooltip',
-        help: 'Tooltip component for nodes.',
-        required: false,
-    },
+        defaultValue: svgDefaults.TooltipPosition,
+    }),
+    tooltipAnchorProperty({
+        key: 'nodeTooltipAnchor',
+        flavors: allFlavors,
+        defaultValue: defaults.nodeTooltipAnchor,
+    }),
     {
         group: 'Interactivity',
         key: 'onLinkMouseEnter',
@@ -549,8 +557,13 @@ const props: ChartProperty[] = [
         help: 'Tooltip component for links (`useMesh` must be `false`).',
         required: false,
     },
+    tooltipAnchorProperty({
+        key: 'linkTooltipAnchor',
+        flavors: ['svg'],
+        defaultValue: svgDefaults.linkTooltipAnchor,
+    }),
     ...commonAccessibilityProps(allFlavors),
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(allFlavors, defaults),
 ]
 
 export const groups = groupProperties(props)

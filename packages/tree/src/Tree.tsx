@@ -42,7 +42,7 @@ const InnerTree = <Datum,>({
     layers = svgDefaultProps.layers,
     isInteractive = svgDefaultProps.isInteractive,
     useMesh = svgDefaultProps.useMesh,
-    meshDetectionThreshold = svgDefaultProps.meshDetectionThreshold,
+    meshDetectionRadius = svgDefaultProps.meshDetectionRadius,
     debugMesh = svgDefaultProps.debugMesh,
     highlightAncestorNodes = svgDefaultProps.highlightAncestorNodes,
     highlightDescendantNodes = svgDefaultProps.highlightDescendantNodes,
@@ -53,11 +53,14 @@ const InnerTree = <Datum,>({
     onNodeMouseLeave,
     onNodeClick,
     nodeTooltip,
+    nodeTooltipPosition = svgDefaultProps.nodeTooltipPosition,
+    nodeTooltipAnchor = svgDefaultProps.nodeTooltipAnchor,
     onLinkMouseEnter,
     onLinkMouseMove,
     onLinkMouseLeave,
     onLinkClick,
     linkTooltip,
+    linkTooltipAnchor = svgDefaultProps.linkTooltipAnchor,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -112,6 +115,7 @@ const InnerTree = <Datum,>({
                 onMouseLeave={onLinkMouseLeave}
                 onClick={onLinkClick}
                 tooltip={linkTooltip}
+                tooltipAnchor={linkTooltipAnchor}
             />
         )
     }
@@ -129,6 +133,9 @@ const InnerTree = <Datum,>({
                 onClick={onNodeClick}
                 setCurrentNode={setCurrentNode}
                 tooltip={nodeTooltip}
+                tooltipPosition={nodeTooltipPosition}
+                tooltipAnchor={nodeTooltipAnchor}
+                margin={margin}
             />
         )
     }
@@ -156,13 +163,15 @@ const InnerTree = <Datum,>({
                 width={innerWidth}
                 height={innerHeight}
                 margin={margin}
-                detectionThreshold={meshDetectionThreshold}
+                detectionRadius={meshDetectionRadius}
                 debug={debugMesh}
                 onMouseEnter={onNodeMouseEnter}
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
                 onClick={onNodeClick}
                 tooltip={nodeTooltip}
+                tooltipPosition={nodeTooltipPosition}
+                tooltipAnchor={nodeTooltipAnchor}
                 setCurrentNode={setCurrentNode}
             />
         )

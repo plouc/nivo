@@ -4,7 +4,6 @@ import {
     ResponsiveTreeCanvas,
     TreeSvgProps,
     svgDefaultProps as defaults,
-    ComputedLink,
     ComputedNode,
 } from '@nivo/tree'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -38,12 +37,14 @@ const initialProperties: Pick<
     | 'animate'
     | 'motionConfig'
     | 'isInteractive'
-    | 'meshDetectionThreshold'
+    | 'meshDetectionRadius'
     | 'debugMesh'
     | 'highlightAncestorNodes'
     | 'highlightDescendantNodes'
     | 'highlightAncestorLinks'
     | 'highlightDescendantLinks'
+    | 'nodeTooltipPosition'
+    | 'nodeTooltipAnchor'
 > = {
     identity: 'name',
     mode: defaults.mode,
@@ -75,12 +76,14 @@ const initialProperties: Pick<
     motionConfig: 'stiff',
 
     isInteractive: defaults.isInteractive,
-    meshDetectionThreshold: 80,
+    meshDetectionRadius: 80,
     debugMesh: defaults.debugMesh,
     highlightAncestorNodes: defaults.highlightAncestorNodes,
     highlightDescendantNodes: defaults.highlightDescendantNodes,
     highlightAncestorLinks: defaults.highlightAncestorLinks,
     highlightDescendantLinks: defaults.highlightDescendantLinks,
+    nodeTooltipPosition: defaults.nodeTooltipPosition,
+    nodeTooltipAnchor: defaults.nodeTooltipAnchor,
 
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
@@ -138,13 +141,6 @@ const TreeCanvas = () => {
                                 label: `[node] ${node.path.join(' / ')}`,
                                 data: node,
                                 color: node.color,
-                            })
-                        }}
-                        onLinkClick={(link: ComputedLink<Datum>) => {
-                            logAction({
-                                type: 'click',
-                                label: `[link] ${link.source.id} > ${link.target.id}`,
-                                data: link,
                             })
                         }}
                     />

@@ -1,6 +1,7 @@
 import { createElement } from 'react'
 import { useTransition } from '@react-spring/web'
-import { useMotionConfig } from '@nivo/core'
+import { Margin, useMotionConfig } from '@nivo/core'
+import { TooltipAnchor, TooltipPosition } from '@nivo/tooltip'
 import {
     ComputedNode,
     CurrentNodeSetter,
@@ -20,6 +21,9 @@ interface NodesProps<Datum> {
     onClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
+    tooltipPosition: TooltipPosition
+    tooltipAnchor: TooltipAnchor
+    margin: Margin
 }
 
 const regularTransition = <Datum,>(node: ComputedNode<Datum>): NodeAnimatedProps => ({
@@ -45,6 +49,9 @@ export const Nodes = <Datum,>({
     onClick,
     setCurrentNode,
     tooltip,
+    tooltipPosition,
+    tooltipAnchor,
+    margin,
 }: NodesProps<Datum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -70,6 +77,9 @@ export const Nodes = <Datum,>({
                     onClick,
                     setCurrentNode,
                     tooltip,
+                    tooltipPosition,
+                    tooltipAnchor,
+                    margin,
                     animatedProps,
                 })
             )}
