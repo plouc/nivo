@@ -316,33 +316,42 @@ export const useMeshEvents = <Node, ElementType extends Element>({
         (event: TouchEvent<ElementType>) => {
             const match = findNode(event)
 
-            enableTouchCrosshair && setCurrent(match)
+            if (enableTouchCrosshair) {
+                setCurrent(match)
+                setCurrentNode?.(match ? match[1] : null)
+            }
 
             match && onTouchStart?.(match[1], event)
         },
-        [findNode, setCurrent, enableTouchCrosshair, onTouchStart]
+        [findNode, setCurrent, setCurrentNode, enableTouchCrosshair, onTouchStart]
     )
 
     const handleTouchMove = useCallback(
         (event: TouchEvent<ElementType>) => {
             const match = findNode(event)
 
-            enableTouchCrosshair && setCurrent(match)
+            if (enableTouchCrosshair) {
+                setCurrent(match)
+                setCurrentNode?.(match ? match[1] : null)
+            }
 
             match && onTouchMove?.(match[1], event)
         },
-        [findNode, setCurrent, enableTouchCrosshair, onTouchMove]
+        [findNode, setCurrent, setCurrentNode, enableTouchCrosshair, onTouchMove]
     )
 
     const handleTouchEnd = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
-            enableTouchCrosshair && setCurrent(null)
+            if (enableTouchCrosshair) {
+                setCurrent(null)
+                setCurrentNode?.(null)
+            }
 
             if (onTouchEnd && previous.current) {
                 onTouchEnd(previous.current[1], event)
             }
         },
-        [enableTouchCrosshair, setCurrent, onTouchEnd, previous]
+        [enableTouchCrosshair, setCurrent, setCurrentNode, onTouchEnd, previous]
     )
 
     return {
