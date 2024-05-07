@@ -1,7 +1,7 @@
-import { MouseEvent } from 'react'
-import { createElement, memo, useCallback } from 'react'
+import { useMemo } from 'react'
+import { createElement, memo } from 'react'
 import { Margin } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { TooltipAnchor, TooltipPosition } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { ComputedNode, CurrentNodeSetter, NodeMouseEventHandler, NodeTooltip } from './types'
 
@@ -16,7 +16,9 @@ interface MeshProps<Datum> {
     onClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
-    detectionThreshold: number
+    tooltipPosition?: TooltipPosition
+    tooltipAnchor?: TooltipAnchor
+    detectionRadius: number
     debug: boolean
 }
 
@@ -31,11 +33,17 @@ const NonMemoizedMesh = <Datum,>({
     onClick,
     setCurrentNode,
     tooltip,
-    detectionThreshold,
+    tooltipPosition,
+    tooltipAnchor,
+    detectionRadius,
     debug,
 }: MeshProps<Datum>) => {
-    const { showTooltipAt, hideTooltip } = useTooltip()
+    const renderTooltip = useMemo(() => {
+        if (!tooltip) return undefined
+        return (node: ComputedNode<Datum>) => createElement(tooltip, { node })
+    }, [tooltip])
 
+    /*
     const handleMouseEnter = useCallback(
         (node: ComputedNode<Datum>, event: MouseEvent) => {
             setCurrentNode(node)
@@ -81,17 +89,23 @@ const NonMemoizedMesh = <Datum,>({
         },
         [onClick]
     )
+    */
 
     return (
-        <BaseMesh
+        <BaseMesh<ComputedNode<Datum>>
             nodes={nodes}
             width={width}
             height={height}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
-            detectionThreshold={detectionThreshold}
+            margin={margin}
+            detectionRadius={detectionRadius}
+            setCurrent={setCurrentNode}
+            onMouseEnter={onMouseEnter}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+            onClick={onClick}
+            tooltip={renderTooltip}
+            tooltipPosition={tooltipPosition}
+            tooltipAnchor={tooltipAnchor}
             debug={debug}
         />
     )

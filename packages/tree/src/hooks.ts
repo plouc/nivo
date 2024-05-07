@@ -11,8 +11,8 @@ import {
     curveStepBefore,
     curveStepAfter,
 } from 'd3-shape'
-import { usePropertyAccessor, useTheme } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { Margin, usePropertyAccessor, useTheme } from '@nivo/core'
+import { TooltipAnchor, TooltipPosition, useTooltip } from '@nivo/tooltip'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import {
     DefaultDatum,
@@ -531,6 +531,9 @@ export const useNodeMouseEventHandlers = <Datum>(
         onClick,
         setCurrentNode,
         tooltip,
+        tooltipPosition,
+        tooltipAnchor,
+        margin,
     }: {
         isInteractive: boolean
         onMouseEnter?: NodeMouseEventHandler<Datum>
@@ -539,27 +542,44 @@ export const useNodeMouseEventHandlers = <Datum>(
         onClick?: NodeMouseEventHandler<Datum>
         setCurrentNode: CurrentNodeSetter<Datum>
         tooltip?: NodeTooltip<Datum>
+        tooltipPosition: TooltipPosition
+        tooltipAnchor: TooltipAnchor
+        margin: Margin
     }
 ) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+    const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
 
-    const showTooltip = useCallback(
-        (event: MouseEvent) => {
-            tooltip !== undefined &&
-                showTooltipFromEvent(
+    const showTooltip = useMemo(() => {
+        if (!tooltip) return undefined
+
+        if (tooltipPosition === 'fixed') {
+            return () => {
+                const { x, y } = node
+                showTooltipAt(
                     createElement(tooltip, {
                         node,
                     }),
-                    event
+                    [x + margin.left, y + margin.top],
+                    tooltipAnchor
                 )
-        },
-        [node, tooltip, showTooltipFromEvent]
-    )
+            }
+        }
+
+        return (event: MouseEvent) => {
+            showTooltipFromEvent(
+                createElement(tooltip, {
+                    node,
+                }),
+                event,
+                tooltipAnchor
+            )
+        }
+    }, [node, tooltip, showTooltipFromEvent, showTooltipAt, tooltipPosition, tooltipAnchor, margin])
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
             setCurrentNode(node)
-            showTooltip(event)
+            showTooltip?.(event)
             onMouseEnter?.(node, event)
         },
         [node, showTooltip, setCurrentNode, onMouseEnter]
@@ -567,7 +587,7 @@ export const useNodeMouseEventHandlers = <Datum>(
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
-            showTooltip(event)
+            showTooltip?.(event)
             onMouseMove?.(node, event)
         },
         [node, showTooltip, onMouseMove]
@@ -611,6 +631,7 @@ export const useLinkMouseEventHandlers = <Datum>(
         onMouseLeave,
         onClick,
         tooltip,
+        tooltipAnchor,
     }: {
         isInteractive: boolean
         onMouseEnter?: LinkMouseEventHandler<Datum>
@@ -618,26 +639,28 @@ export const useLinkMouseEventHandlers = <Datum>(
         onMouseLeave?: LinkMouseEventHandler<Datum>
         onClick?: LinkMouseEventHandler<Datum>
         tooltip?: LinkTooltip<Datum>
+        tooltipAnchor: TooltipAnchor
     }
 ) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const showTooltip = useCallback(
-        (event: MouseEvent) => {
-            tooltip !== undefined &&
-                showTooltipFromEvent(
-                    createElement(tooltip, {
-                        link,
-                    }),
-                    event
-                )
-        },
-        [link, tooltip, showTooltipFromEvent]
-    )
+    const showTooltip = useMemo(() => {
+        if (!tooltip) return undefined
+
+        return (event: MouseEvent) => {
+            showTooltipFromEvent(
+                createElement(tooltip, {
+                    link,
+                }),
+                event,
+                tooltipAnchor
+            )
+        }
+    }, [link, tooltip, showTooltipFromEvent, tooltipAnchor])
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
-            showTooltip(event)
+            showTooltip?.(event)
             onMouseEnter?.(link, event)
         },
         [link, showTooltip, onMouseEnter]
@@ -645,7 +668,7 @@ export const useLinkMouseEventHandlers = <Datum>(
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
-            showTooltip(event)
+            showTooltip?.(event)
             onMouseMove?.(link, event)
         },
         [link, showTooltip, onMouseMove]
