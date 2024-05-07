@@ -64,6 +64,9 @@ export function useComputeLabelLayout<RawDatum extends BarDatum>(
     labelOffset: BarCommonProps<RawDatum>['labelOffset'] = defaultProps.labelOffset
 ): (width: number, height: number) => BarLabelLayout {
     return (width: number, height: number) => {
+        // If the chart is reversed, we want to make sure the offset is also reversed
+        const computedLabelOffset = labelOffset * (reverse ? -1 : 1)
+
         if (layout === 'horizontal') {
             let x = width / 2
             if (labelPosition === 'start') {
@@ -72,7 +75,7 @@ export function useComputeLabelLayout<RawDatum extends BarDatum>(
                 x = reverse ? 0 : width
             }
             return {
-                labelX: x + labelOffset,
+                labelX: x + computedLabelOffset,
                 labelY: height / 2,
                 textAnchor: labelPosition === 'center' ? 'middle' : 'start',
             }
@@ -85,7 +88,7 @@ export function useComputeLabelLayout<RawDatum extends BarDatum>(
             }
             return {
                 labelX: width / 2,
-                labelY: y + labelOffset,
+                labelY: y - computedLabelOffset,
                 textAnchor: 'middle',
             }
         }

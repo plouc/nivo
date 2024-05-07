@@ -821,8 +821,8 @@ describe('useComputeLabelLayout', () => {
         ${'start'}    | ${'horizontal'} | ${0}   | ${false} | ${0}          | ${'start'}
         ${'center'}   | ${'horizontal'} | ${0}   | ${false} | ${100}        | ${'middle'}
         ${'end'}      | ${'horizontal'} | ${0}   | ${false} | ${200}        | ${'start'}
-        ${'center'}   | ${'vertical'}   | ${-10} | ${false} | ${90}         | ${'middle'}
-        ${'center'}   | ${'vertical'}   | ${10}  | ${false} | ${110}        | ${'middle'}
+        ${'center'}   | ${'vertical'}   | ${-10} | ${false} | ${110}        | ${'middle'}
+        ${'center'}   | ${'vertical'}   | ${10}  | ${false} | ${90}         | ${'middle'}
         ${'center'}   | ${'horizontal'} | ${-10} | ${false} | ${90}         | ${'middle'}
         ${'center'}   | ${'horizontal'} | ${10}  | ${false} | ${110}        | ${'middle'}
         ${'start'}    | ${'vertical'}   | ${0}   | ${true}  | ${0}          | ${'middle'}
@@ -833,8 +833,8 @@ describe('useComputeLabelLayout', () => {
         ${'end'}      | ${'horizontal'} | ${0}   | ${true}  | ${0}          | ${'start'}
         ${'center'}   | ${'vertical'}   | ${-10} | ${true}  | ${90}         | ${'middle'}
         ${'center'}   | ${'vertical'}   | ${10}  | ${true}  | ${110}        | ${'middle'}
-        ${'center'}   | ${'horizontal'} | ${-10} | ${true}  | ${90}         | ${'middle'}
-        ${'center'}   | ${'horizontal'} | ${10}  | ${true}  | ${110}        | ${'middle'}
+        ${'center'}   | ${'horizontal'} | ${-10} | ${true}  | ${110}        | ${'middle'}
+        ${'center'}   | ${'horizontal'} | ${10}  | ${true}  | ${90}         | ${'middle'}
     `(
         'should compute the correct label layout for (layout: $layout, labelPosition: $labelPosition, offset: $offset, reverse: $reverse)',
         ({ labelPosition, layout, offset, reverse, expectedValue, expectedTextAnchor }) => {
