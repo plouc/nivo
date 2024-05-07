@@ -430,6 +430,7 @@ const props: ChartProperty[] = [
                 { label: 'center', value: 'center' },
                 { label: 'end', value: 'end' },
             ],
+            columns: 3,
         },
         group: 'Labels',
     },
