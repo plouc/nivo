@@ -3,6 +3,7 @@ import {
     MutableRefObject,
     TouchEvent,
     useCallback,
+    useEffect,
     useMemo,
     useRef,
     useState,
@@ -19,6 +20,7 @@ import {
     NodeMouseHandler,
     // DatumTouchHandler,
     NodePositionAccessor,
+    NodeTouchHandler,
 } from './types'
 import {
     defaultMargin,
@@ -128,6 +130,10 @@ export const useMeshEvents = <Node, ElementType extends Element>({
     onMouseMove,
     onMouseLeave,
     onClick,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    enableTouchCrosshair = false,
     tooltip,
     tooltipPosition = defaultTooltipPosition,
     tooltipAnchor = defaultTooltipAnchor,
@@ -144,6 +150,10 @@ export const useMeshEvents = <Node, ElementType extends Element>({
     onMouseMove?: NodeMouseHandler<Node>
     onMouseLeave?: NodeMouseHandler<Node>
     onClick?: NodeMouseHandler<Node>
+    onTouchStart?: NodeTouchHandler<Node>
+    onTouchMove?: NodeTouchHandler<Node>
+    onTouchEnd?: NodeTouchHandler<Node>
+    enableTouchCrosshair?: boolean
     tooltip?: (node: Node) => JSX.Element
     tooltipPosition?: TooltipPosition
     tooltipAnchor?: TooltipAnchor
@@ -154,6 +164,10 @@ export const useMeshEvents = <Node, ElementType extends Element>({
     // Keep track of the previous index and node, this is needed as we don't have enter/leave events
     // for each node because we use a single rect element to capture events.
     const previous = useRef<[number, Node] | null>(null)
+
+    useEffect(() => {
+        previous.current = current
+    }, [previous, current])
 
     const findNode = useCallback(
         (event: MouseEvent<ElementType> | TouchEvent<ElementType>): null | [number, Node] => {
@@ -298,35 +312,38 @@ export const useMeshEvents = <Node, ElementType extends Element>({
         [findNode, setCurrent, onClick]
     )
 
-    /*
     const handleTouchStart = useCallback(
-        (event: TouchEvent<SVGRectElement>) => {
-            const match = getIndexAndNodeFromEvent(event)
+        (event: TouchEvent<ElementType>) => {
+            const match = findNode(event)
+
             enableTouchCrosshair && setCurrent(match)
+
             match && onTouchStart?.(match[1], event)
         },
-        [getIndexAndNodeFromEvent, setCurrent, enableTouchCrosshair, onTouchStart]
+        [findNode, setCurrent, enableTouchCrosshair, onTouchStart]
     )
 
     const handleTouchMove = useCallback(
-        (event: TouchEvent<SVGRectElement>) => {
-            const match = getIndexAndNodeFromEvent(event)
+        (event: TouchEvent<ElementType>) => {
+            const match = findNode(event)
+
             enableTouchCrosshair && setCurrent(match)
+
             match && onTouchMove?.(match[1], event)
         },
-        [getIndexAndNodeFromEvent, setCurrent, enableTouchCrosshair, onTouchMove]
+        [findNode, setCurrent, enableTouchCrosshair, onTouchMove]
     )
 
     const handleTouchEnd = useCallback(
         (event: TouchEvent<SVGRectElement>) => {
             enableTouchCrosshair && setCurrent(null)
+
             if (onTouchEnd && previous.current) {
                 onTouchEnd(previous.current[1], event)
             }
         },
-        [enableTouchCrosshair, setCurrent, onTouchEnd, previous, nodes]
+        [enableTouchCrosshair, setCurrent, onTouchEnd, previous]
     )
-    */
 
     return {
         current,
@@ -334,6 +351,9 @@ export const useMeshEvents = <Node, ElementType extends Element>({
         handleMouseMove: isInteractive ? handleMouseMove : undefined,
         handleMouseLeave: isInteractive ? handleMouseLeave : undefined,
         handleClick: isInteractive ? handleClick : undefined,
+        handleTouchStart: isInteractive ? handleTouchStart : undefined,
+        handleTouchMove: isInteractive ? handleTouchMove : undefined,
+        handleTouchEnd: isInteractive ? handleTouchEnd : undefined,
     }
 }
 

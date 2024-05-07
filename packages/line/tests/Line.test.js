@@ -372,6 +372,7 @@ describe('touch events with slices', () => {
         height: 300,
         data: data,
         animate: false,
+        useMesh: false,
         enableSlices: 'x',
     }
 

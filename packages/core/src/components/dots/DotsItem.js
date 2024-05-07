@@ -27,11 +27,6 @@ const DotsItem = ({
         immediate: !animate,
     })
 
-    console.log({
-        bare: theme.dots.text,
-        sanitized: sanitizeSvgTextStyle(theme.dots.text),
-    })
-
     return (
         <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
             {createElement(symbol, {

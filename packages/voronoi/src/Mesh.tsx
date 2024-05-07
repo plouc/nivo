@@ -43,10 +43,10 @@ export const Mesh = <Node,>({
     onMouseMove,
     onMouseLeave,
     onClick,
-    // onTouchStart,
-    // onTouchMove,
-    // onTouchEnd,
-    // enableTouchCrosshair = false,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    enableTouchCrosshair = false,
     detectionRadius = Infinity,
     tooltip,
     tooltipPosition = defaultTooltipPosition,
@@ -64,22 +64,34 @@ export const Mesh = <Node,>({
         debug,
     })
 
-    const { current, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick } =
-        useMeshEvents<Node, SVGRectElement>({
-            elementRef,
-            nodes,
-            delaunay,
-            margin,
-            detectionRadius,
-            setCurrent,
-            onMouseEnter,
-            onMouseMove,
-            onMouseLeave,
-            onClick,
-            tooltip,
-            tooltipPosition,
-            tooltipAnchor,
-        })
+    const {
+        current,
+        handleMouseEnter,
+        handleMouseMove,
+        handleMouseLeave,
+        handleClick,
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
+    } = useMeshEvents<Node, SVGRectElement>({
+        elementRef,
+        nodes,
+        delaunay,
+        margin,
+        detectionRadius,
+        setCurrent,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        onTouchStart,
+        onTouchMove,
+        onTouchEnd,
+        enableTouchCrosshair,
+        tooltip,
+        tooltipPosition,
+        tooltipAnchor,
+    })
 
     const voronoiPath = useMemo(() => {
         if (debug && voronoi) return voronoi.render()
@@ -116,9 +128,9 @@ export const Mesh = <Node,>({
                 onMouseEnter={handleMouseEnter}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                // onTouchStart={handleTouchStart}
-                // onTouchMove={handleTouchMove}
-                // onTouchEnd={handleTouchEnd}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 onClick={handleClick}
             />
         </g>
