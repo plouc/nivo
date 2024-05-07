@@ -828,9 +828,9 @@ describe('useComputeLabelLayout', () => {
         ${'start'}    | ${'vertical'}   | ${0}   | ${true}  | ${0}          | ${'middle'}
         ${'center'}   | ${'vertical'}   | ${0}   | ${true}  | ${100}        | ${'middle'}
         ${'end'}      | ${'vertical'}   | ${0}   | ${true}  | ${200}        | ${'middle'}
-        ${'start'}    | ${'horizontal'} | ${0}   | ${true}  | ${200}        | ${'start'}
+        ${'start'}    | ${'horizontal'} | ${0}   | ${true}  | ${200}        | ${'end'}
         ${'center'}   | ${'horizontal'} | ${0}   | ${true}  | ${100}        | ${'middle'}
-        ${'end'}      | ${'horizontal'} | ${0}   | ${true}  | ${0}          | ${'start'}
+        ${'end'}      | ${'horizontal'} | ${0}   | ${true}  | ${0}          | ${'end'}
         ${'center'}   | ${'vertical'}   | ${-10} | ${true}  | ${90}         | ${'middle'}
         ${'center'}   | ${'vertical'}   | ${10}  | ${true}  | ${110}        | ${'middle'}
         ${'center'}   | ${'horizontal'} | ${-10} | ${true}  | ${110}        | ${'middle'}

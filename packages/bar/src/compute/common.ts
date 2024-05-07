@@ -51,7 +51,7 @@ export const coerceValue = <T>(value: T) => [value, Number(value)] as const
 export type BarLabelLayout = {
     labelX: number
     labelY: number
-    textAnchor: 'start' | 'middle'
+    textAnchor: 'start' | 'middle' | 'end'
 }
 
 /**
@@ -77,7 +77,7 @@ export function useComputeLabelLayout<RawDatum extends BarDatum>(
             return {
                 labelX: x + computedLabelOffset,
                 labelY: height / 2,
-                textAnchor: labelPosition === 'center' ? 'middle' : 'start',
+                textAnchor: labelPosition === 'center' ? 'middle' : reverse ? 'end' : 'start',
             }
         } else {
             let y = height / 2
