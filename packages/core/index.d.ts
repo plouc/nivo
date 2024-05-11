@@ -35,11 +35,11 @@ export type BoxAlign =
     | 'bottom'
     | 'bottom-left'
     | 'left'
-export const boxAlignments: BoxAlign[]
+export const boxAlignments: readonly BoxAlign[]
 export function alignBox(box: AlignBox, container: AlignBox, alignment: BoxAlign): [number, number]
 
 export type GetColor<T> = (datum: T) => string
-export type Colors = string[] | string
+export type Colors = readonly string[] | string
 export interface ColorProps<T> {
     colors?: Colors
     colorBy?: string | GetColor<T>
@@ -278,11 +278,11 @@ export function useMotionConfig(): {
 
 export type SvgFillMatcher<T> = (datum: T) => boolean
 export interface SvgDefsAndFill<T> {
-    defs?: {
+    defs?: readonly {
         id: string
         [key: string]: any
     }[]
-    fill?: { id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }[]
+    fill?: readonly { id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }[]
 }
 
 export type CssMixBlendMode =
@@ -394,7 +394,7 @@ export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
 export type Def = LinearGradientDef | PatternDotsDef | PatternSquaresDef | PatternLinesDef
 
 export type DefsProps = {
-    defs: Def[]
+    defs: readonly Def[]
 }
 
 export function Defs(props: DefsProps): JSX.Element
@@ -547,7 +547,7 @@ interface CartesianMarkersProps<
     height: number
     xScale: (value: X) => number
     yScale: (value: Y) => number
-    markers: CartesianMarkerProps<X | Y>[]
+    markers: readonly CartesianMarkerProps<X | Y>[]
 }
 type CartesianMarkersType = <X extends DatumValue = DatumValue, Y extends DatumValue = DatumValue>(
     props: CartesianMarkersProps<X, Y>
@@ -605,7 +605,7 @@ export type ClosedCurveFactoryId =
     | 'cardinalClosed'
     | 'catmullRomClosed'
     | 'linearClosed'
-export const closedCurvePropKeys: ClosedCurveFactoryId[]
+export const closedCurvePropKeys: readonly ClosedCurveFactoryId[]
 
 export const curveFromProp: (interpolation: CurveFactoryId) => CurveFactory
 
