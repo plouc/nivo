@@ -27,6 +27,7 @@ export interface DefaultDatum {
 }
 
 export interface HierarchyTreeNode<Datum> extends HierarchyNode<Datum> {
+    // Ancestors UID joined with a `.`.
     uid: string | undefined
     ancestorIds: readonly string[] | undefined
     ancestorUids: readonly string[] | undefined
@@ -40,6 +41,7 @@ export interface HierarchyTreeLink<Datum> {
 
 export interface IntermediateComputedNode<Datum> {
     path: readonly string[]
+    // Ancestors UID joined with a `.`.
     uid: string
     isRoot: boolean
     isLeaf: boolean
@@ -60,9 +62,14 @@ export interface ComputedNode<Datum> extends IntermediateComputedNode<Datum> {
     isActive: boolean | null
 }
 
+export type NodesMap<Datum> = {
+    [k: string]: ComputedNode<Datum>
+}
+
 export type CurrentNodeSetter<Datum> = (node: ComputedNode<Datum> | null) => void
 
 export interface IntermediateComputedLink<Datum> {
+    // source.uid + `.` + target.uid
     id: string
     source: ComputedNode<Datum>
     target: ComputedNode<Datum>
@@ -93,6 +100,7 @@ export interface NodeComponentProps<Datum> {
     onMouseLeave?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
+    toggleNode: (node: ComputedNode<Datum>) => void
     tooltip?: NodeTooltip<Datum>
     tooltipPosition: TooltipPosition
     tooltipAnchor: TooltipAnchor
@@ -179,6 +187,7 @@ export type LabelAnimatedProps = {
     x: number
     y: number
     rotation: number
+    opacity: number
 }
 
 export interface LabelComponentProps<Datum> {
@@ -198,7 +207,7 @@ export type LabelCanvasRenderer<Datum> = (
 
 export interface CustomSvgLayerProps<Datum> {
     nodes: readonly ComputedNode<Datum>[]
-    nodeByUid: Record<string, ComputedNode<Datum>>
+    nodeByUid: NodesMap<Datum>
     links: readonly ComputedLink<Datum>[]
     innerWidth: number
     innerHeight: number
@@ -243,6 +252,7 @@ export interface CommonProps<Datum> extends MotionProps {
     labelOffset: number
 
     isInteractive: boolean
+    isCollapsible: boolean
     useMesh: boolean
     meshDetectionRadius: number
     debugMesh: boolean

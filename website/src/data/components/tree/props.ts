@@ -404,6 +404,16 @@ const props: ChartProperty[] = [
     }),
     {
         group: 'Interactivity',
+        key: 'isCollapsible',
+        flavors: allFlavors,
+        type: 'boolean',
+        help: 'Toggle nodes on click.',
+        required: false,
+        control: { type: 'switch' },
+        defaultValue: defaults.isCollapsible,
+    },
+    {
+        group: 'Interactivity',
         key: 'useMesh',
         flavors: ['svg'],
         help: 'Use a voronoi mesh to detect mouse interactions. Always `true` for the canvas implementation',

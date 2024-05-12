@@ -9,10 +9,14 @@ import {
     LinkTooltip,
     LinkAnimatedProps,
     LinkGenerator,
+    ComputedNode,
+    NodesMap,
 } from './types'
+import { getFirstRemainingAncestorOrSelf, getPreviousCollapsedAncestorOrSelf } from './hooks'
 
 interface LinksProps<Datum> {
     links: ComputedLink<Datum>[]
+    nodeByUid: NodesMap<Datum>
     linkComponent: LinkComponent<Datum>
     linkGenerator: LinkGenerator
     isInteractive: boolean
@@ -24,6 +28,32 @@ interface LinksProps<Datum> {
     tooltipAnchor: TooltipAnchor
 }
 
+const enterTransition =
+    <Datum,>(previousCollapsedNodes: NodesMap<Datum>) =>
+    (link: ComputedLink<Datum>) => {
+        const source = link.source
+        const target = link.target
+        // const source = getPreviousCollapsedAncestorOrSelf<Datum>(
+        //     link.source,
+        //     previousCollapsedNodeUids,
+        //     nodeByUid
+        // )
+        // const target = getPreviousCollapsedAncestorOrSelf<Datum>(
+        //     link.target,
+        //     previousCollapsedNodeUids,
+        //     nodeByUid
+        // )
+
+        return {
+            sourceX: source.x,
+            sourceY: source.y,
+            targetX: target.x,
+            targetY: target.y,
+            thickness: link.thickness,
+            color: link.color,
+        }
+    }
+
 const regularTransition = <Datum,>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
     sourceX: link.source.x,
     sourceY: link.source.y,
@@ -32,17 +62,33 @@ const regularTransition = <Datum,>(link: ComputedLink<Datum>): LinkAnimatedProps
     thickness: link.thickness,
     color: link.color,
 })
-const leaveTransition = <Datum,>(link: ComputedLink<Datum>): LinkAnimatedProps => ({
-    sourceX: link.source.x,
-    sourceY: link.source.y,
-    targetX: link.target.x,
-    targetY: link.target.y,
-    thickness: link.thickness,
-    color: link.color,
-})
+
+const leaveTransition =
+    <Datum,>(nodeByUid: NodesMap<Datum>) =>
+    (link: ComputedLink<Datum>): LinkAnimatedProps => {
+        let source: ComputedNode<Datum> | undefined = nodeByUid[link.source.uid]
+        if (!source) {
+            source = getFirstRemainingAncestorOrSelf(link.source, nodeByUid)
+        }
+
+        let target: ComputedNode<Datum> | undefined = nodeByUid[link.target.uid]
+        if (!target) {
+            target = getFirstRemainingAncestorOrSelf(link.target, nodeByUid)
+        }
+
+        return {
+            sourceX: source.x,
+            sourceY: source.y,
+            targetX: target.x,
+            targetY: target.y,
+            thickness: link.thickness,
+            color: link.color,
+        }
+    }
 
 export const Links = <Datum,>({
     links,
+    nodeByUid,
     linkComponent,
     linkGenerator,
     isInteractive,
@@ -57,18 +103,19 @@ export const Links = <Datum,>({
 
     const transition = useTransition<ComputedLink<Datum>, LinkAnimatedProps>(links, {
         keys: link => link.id,
-        from: regularTransition,
+        initial: regularTransition,
+        // from: enterTransition(previousCollapsedNodes.current),
         enter: regularTransition,
         update: regularTransition,
-        leave: leaveTransition,
+        leave: leaveTransition(nodeByUid),
         config: springConfig,
         immediate: !animate,
     })
 
     return (
         <>
-            {transition((animatedProps, link) =>
-                createElement(linkComponent, {
+            {transition((animatedProps, link) => {
+                return createElement(linkComponent, {
                     link,
                     linkGenerator,
                     animatedProps,
@@ -80,7 +127,7 @@ export const Links = <Datum,>({
                     tooltip,
                     tooltipAnchor,
                 })
-            )}
+            })}
         </>
     )
 }

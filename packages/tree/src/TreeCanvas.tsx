@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, createElement } from 'react'
+import { useEffect, useMemo, useRef, createElement, useCallback, MouseEvent } from 'react'
 import { Container, useDimensions, useTheme } from '@nivo/core'
 import { setCanvasFont } from '@nivo/text'
 import { useMesh, renderDebugToCanvas } from '@nivo/voronoi'
@@ -41,6 +41,7 @@ const InnerTreeCanvas = <Datum,>({
     renderLabel = canvasDefaultProps.renderLabel,
     layers = canvasDefaultProps.layers,
     isInteractive = canvasDefaultProps.isInteractive,
+    isCollapsible = canvasDefaultProps.isCollapsible,
     meshDetectionRadius = canvasDefaultProps.meshDetectionRadius,
     debugMesh = canvasDefaultProps.debugMesh,
     highlightAncestorNodes = canvasDefaultProps.highlightAncestorNodes,
@@ -69,7 +70,7 @@ const InnerTreeCanvas = <Datum,>({
 
     const theme = useTheme()
 
-    const { nodes, nodeByUid, links, linkGenerator, setCurrentNode } = useTree<Datum>({
+    const { nodes, nodeByUid, links, linkGenerator, setCurrentNode, toggleNode } = useTree<Datum>({
         data,
         identity,
         layout,
@@ -106,6 +107,14 @@ const InnerTreeCanvas = <Datum,>({
         return (node: ComputedNode<Datum>) => createElement(nodeTooltip, { node })
     }, [nodeTooltip])
 
+    const onClick = useCallback(
+        (node: ComputedNode<Datum>, event: MouseEvent) => {
+            isCollapsible && toggleNode(node)
+            onNodeClick?.(node, event)
+        },
+        [isCollapsible, toggleNode, onNodeClick]
+    )
+
     const {
         delaunay,
         voronoi,
@@ -126,7 +135,7 @@ const InnerTreeCanvas = <Datum,>({
         onMouseEnter: onNodeMouseEnter,
         onMouseMove: onNodeMouseMove,
         onMouseLeave: onNodeMouseLeave,
-        onClick: onNodeClick,
+        onClick,
         tooltip: renderTooltip,
         tooltipPosition: nodeTooltipPosition,
         tooltipAnchor: nodeTooltipAnchor,

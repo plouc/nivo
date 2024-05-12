@@ -21,6 +21,7 @@ export const commonDefaultProps: Pick<
     | 'orientLabel'
     | 'labelOffset'
     | 'isInteractive'
+    | 'isCollapsible'
     | 'useMesh'
     | 'meshDetectionRadius'
     | 'debugMesh'
@@ -49,6 +50,7 @@ export const commonDefaultProps: Pick<
     orientLabel: true,
     labelOffset: 6,
     isInteractive: true,
+    isCollapsible: true,
     useMesh: true,
     meshDetectionRadius: Infinity,
     debugMesh: false,

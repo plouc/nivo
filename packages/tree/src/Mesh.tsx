@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo, MouseEvent } from 'react'
 import { createElement, memo } from 'react'
 import { Margin } from '@nivo/core'
 import { TooltipAnchor, TooltipPosition } from '@nivo/tooltip'
@@ -15,6 +15,7 @@ interface MeshProps<Datum> {
     onMouseLeave?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
+    toggleNode: (node: ComputedNode<Datum>) => void
     tooltip?: NodeTooltip<Datum>
     tooltipPosition?: TooltipPosition
     tooltipAnchor?: TooltipAnchor
@@ -32,6 +33,7 @@ const NonMemoizedMesh = <Datum,>({
     onMouseLeave,
     onClick,
     setCurrentNode,
+    toggleNode,
     tooltip,
     tooltipPosition,
     tooltipAnchor,
@@ -43,53 +45,13 @@ const NonMemoizedMesh = <Datum,>({
         return (node: ComputedNode<Datum>) => createElement(tooltip, { node })
     }, [tooltip])
 
-    /*
-    const handleMouseEnter = useCallback(
-        (node: ComputedNode<Datum>, event: MouseEvent) => {
-            setCurrentNode(node)
-            if (tooltip !== undefined) {
-                showTooltipAt(
-                    createElement(tooltip, { node }),
-                    [node.x + margin.left, node.y ?? 0 + margin.top],
-                    'top'
-                )
-            }
-            onMouseEnter && onMouseEnter(node, event)
-        },
-        [showTooltipAt, tooltip, margin.left, margin.top, setCurrentNode, onMouseEnter]
-    )
-
-    const handleMouseMove = useCallback(
-        (node: ComputedNode<Datum>, event: MouseEvent) => {
-            setCurrentNode(node)
-            if (tooltip !== undefined) {
-                showTooltipAt(
-                    createElement(tooltip, { node }),
-                    [node.x + margin.left, node.y ?? 0 + margin.top],
-                    'top'
-                )
-            }
-            onMouseMove && onMouseMove(node, event)
-        },
-        [showTooltipAt, tooltip, margin.left, margin.top, setCurrentNode, onMouseMove]
-    )
-
-    const handleMouseLeave = useCallback(
-        (node: ComputedNode<Datum>, event: MouseEvent) => {
-            setCurrentNode(null)
-            hideTooltip()
-            onMouseLeave && onMouseLeave(node, event)
-        },
-        [hideTooltip, setCurrentNode, onMouseLeave]
-    )
-
     const handleClick = useCallback(
         (node: ComputedNode<Datum>, event: MouseEvent) => {
-            onClick && onClick(node, event)
+            if (!node.isLeaf) toggleNode(node)
+            onClick?.(node, event)
         },
-        [onClick]
+        [onClick, toggleNode]
     )
-    */
 
     return (
         <BaseMesh<ComputedNode<Datum>>
@@ -102,7 +64,7 @@ const NonMemoizedMesh = <Datum,>({
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
-            onClick={onClick}
+            onClick={handleClick}
             tooltip={renderTooltip}
             tooltipPosition={tooltipPosition}
             tooltipAnchor={tooltipAnchor}

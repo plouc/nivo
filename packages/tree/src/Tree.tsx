@@ -41,6 +41,7 @@ const InnerTree = <Datum,>({
     labelComponent = svgDefaultProps.labelComponent,
     layers = svgDefaultProps.layers,
     isInteractive = svgDefaultProps.isInteractive,
+    isCollapsible = svgDefaultProps.isCollapsible,
     useMesh = svgDefaultProps.useMesh,
     meshDetectionRadius = svgDefaultProps.meshDetectionRadius,
     debugMesh = svgDefaultProps.debugMesh,
@@ -72,7 +73,7 @@ const InnerTree = <Datum,>({
         partialMargin
     )
 
-    const { nodes, nodeByUid, links, linkGenerator, setCurrentNode } = useTree<Datum>({
+    const { nodes, nodeByUid, links, linkGenerator, setCurrentNode, toggleNode } = useTree<Datum>({
         data,
         identity,
         layout,
@@ -93,6 +94,7 @@ const InnerTree = <Datum,>({
         linkColor,
         highlightAncestorLinks,
         highlightDescendantLinks,
+        isCollapsible,
     })
 
     const layerById: Record<LayerId, ReactNode> = {
@@ -107,6 +109,7 @@ const InnerTree = <Datum,>({
             <Links<Datum>
                 key="links"
                 links={links}
+                nodeByUid={nodeByUid}
                 linkComponent={linkComponent}
                 linkGenerator={linkGenerator}
                 isInteractive={isInteractive}
@@ -125,8 +128,10 @@ const InnerTree = <Datum,>({
             <Nodes<Datum>
                 key="nodes"
                 nodes={nodes}
+                nodeByUid={nodeByUid}
                 nodeComponent={nodeComponent}
                 isInteractive={isInteractive}
+                toggleNode={toggleNode}
                 onMouseEnter={onNodeMouseEnter}
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
@@ -146,6 +151,7 @@ const InnerTree = <Datum,>({
                 key="labels"
                 label={label}
                 nodes={nodes}
+                nodeById={nodeByUid}
                 layout={layout}
                 labelsPosition={labelsPosition}
                 orientLabel={orientLabel}
@@ -173,6 +179,7 @@ const InnerTree = <Datum,>({
                 tooltipPosition={nodeTooltipPosition}
                 tooltipAnchor={nodeTooltipAnchor}
                 setCurrentNode={setCurrentNode}
+                toggleNode={toggleNode}
             />
         )
     }

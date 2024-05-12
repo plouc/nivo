@@ -9,6 +9,7 @@ export const Label = <Datum,>({ label, animatedProps }: LabelComponentProps<Datu
         <animated.g
             data-testid={`label.${label.id}`}
             transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x},${y})`)}
+            style={{ opacity: animatedProps.opacity }}
         >
             <animated.g transform={animatedProps.rotation.to(rotation => `rotate(${rotation})`)}>
                 {theme.labels.text.outlineWidth > 0 && (

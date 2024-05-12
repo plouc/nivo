@@ -35,19 +35,52 @@ import {
     LinkThicknessModifierFunction,
     TreeMode,
     LinkCurve,
+    NodesMap,
 } from './types'
 import { commonDefaultProps } from './defaults'
+
+/**
+ * Find the closest ancestor of a node in a map,
+ * this is typically used for transitions.
+ */
+export const getFirstRemainingAncestorOrSelf = <Datum>(
+    node: ComputedNode<Datum>,
+    nodeByUid: NodesMap<Datum>
+) => {
+    const reversed = [...node.ancestorUids].reverse()
+
+    for (const ancestorUid of reversed) {
+        const ancestor = nodeByUid[ancestorUid]
+        if (ancestor !== undefined) return ancestor
+    }
+
+    return node
+}
+
+export const getPreviousCollapsedAncestorOrSelf = <Datum>(
+    node: ComputedNode<Datum>,
+    previousCollapsedNodes: NodesMap<Datum>
+) => {
+    for (const ancestorUid of node.ancestorUids) {
+        const ancestor = previousCollapsedNodes[ancestorUid]
+        if (ancestor !== undefined) return ancestor
+    }
+
+    return node
+}
 
 export const useRoot = <Datum>({
     data,
     mode,
     getIdentity,
+    collapsedNodeUids,
 }: {
     data: TreeDataProps<Datum>['data']
     mode: TreeMode
     getIdentity: (node: Datum) => string
-}) =>
-    useMemo(() => {
+    collapsedNodeUids: string[]
+}) => {
+    return useMemo(() => {
         const root = d3Hierarchy<Datum>(data) as HierarchyTreeNode<Datum>
         const cluster = mode === 'tree' ? d3Tree<Datum>() : d3Cluster<Datum>()
 
@@ -68,12 +101,17 @@ export const useRoot = <Datum>({
                 .descendants()
                 .filter(descendant => descendant !== node)
                 .map(descendant => descendant.uid!)
+
+            if (collapsedNodeUids.includes(node.uid!)) {
+                node.children = undefined
+            }
         })
 
         cluster(root)
 
         return root
-    }, [data, mode, getIdentity])
+    }, [data, mode, getIdentity, collapsedNodeUids])
+}
 
 /**
  * By default, the x/y positions are computed for a 0~1 range,
@@ -149,6 +187,8 @@ const useNodes = <Datum>({
     nodeColor: Exclude<CommonProps<Datum>['nodeColor'], undefined>
     fixNodeColorAtDepth: number
 }) => {
+    const [activeNodeUids, setActiveNodeUids] = useState<string[]>([])
+
     const intermediateNodes = useMemo<IntermediateComputedNode<Datum>[]>(() => {
         return root.descendants().map(node => {
             let x: number
@@ -190,10 +230,7 @@ const useNodes = <Datum>({
     const getNodeColor = useMemo(() => {
         if (fixNodeColorAtDepth === Infinity) return getNodeColorBase
 
-        return (
-            node: IntermediateComputedNode<Datum>,
-            nodeByUid: Record<string, ComputedNode<Datum>>
-        ) => {
+        return (node: IntermediateComputedNode<Datum>, nodeByUid: NodesMap<Datum>) => {
             if (
                 node.depth <= 0 ||
                 node.depth <= fixNodeColorAtDepth ||
@@ -209,10 +246,8 @@ const useNodes = <Datum>({
         }
     }, [getNodeColorBase, fixNodeColorAtDepth])
 
-    const [activeNodeUids, setActiveNodeUids] = useState<string[]>([])
-
     const computed = useMemo(() => {
-        const nodeByUid: Record<string, ComputedNode<Datum>> = {}
+        const nodeByUid: NodesMap<Datum> = {}
 
         const nodes: ComputedNode<Datum>[] = intermediateNodes.map(intermediateNode => {
             const computedNode: ComputedNode<Datum> = {
@@ -246,7 +281,11 @@ const useNodes = <Datum>({
         activeNodeUids,
     ])
 
-    return { ...computed, activeNodeUids, setActiveNodeUids }
+    return {
+        ...computed,
+        activeNodeUids,
+        setActiveNodeUids,
+    }
 }
 
 const useLinkThicknessModifier = <Datum>(
@@ -268,7 +307,7 @@ const useLinks = <Datum>({
     linkColor,
 }: {
     root: HierarchyTreeNode<Datum>
-    nodeByUid: Record<string, ComputedNode<Datum>>
+    nodeByUid: NodesMap<Datum>
     activeNodeUids: readonly string[]
     linkThickness: Exclude<CommonProps<Datum>['linkThickness'], undefined>
     activeLinkThickness?: CommonProps<Datum>['activeLinkThickness']
@@ -426,6 +465,33 @@ const useSetCurrentNode = <Datum>({
         ]
     )
 
+const useCollapsibleNodes = <Datum>(isCollapsible: boolean) => {
+    // Track which nodes are collapsed, doesn't include descendant nodes.
+    const [collapsedNodeUids, setCollapsedNodeUids] = useState<string[]>([])
+
+    const toggleNode = useCallback(
+        (node: ComputedNode<Datum>) => {
+            if (!isCollapsible) return
+
+            setCollapsedNodeUids(prevState => {
+                if (prevState.includes(node.uid)) {
+                    // Expand the node.
+                    return prevState.filter(uid => uid !== node.uid)
+                }
+
+                // Collapse the node.
+                return [...prevState, node.uid]
+            })
+        },
+        [isCollapsible, setCollapsedNodeUids]
+    )
+
+    return {
+        collapsedNodeUids,
+        toggleNode,
+    }
+}
+
 export const useTree = <Datum = DefaultDatum>({
     data,
     width,
@@ -447,6 +513,7 @@ export const useTree = <Datum = DefaultDatum>({
     inactiveLinkThickness,
     highlightAncestorLinks = commonDefaultProps.highlightAncestorLinks,
     highlightDescendantLinks = commonDefaultProps.highlightDescendantLinks,
+    isCollapsible = commonDefaultProps.isCollapsible,
 }: {
     data: TreeDataProps<Datum>['data']
     width: number
@@ -468,9 +535,13 @@ export const useTree = <Datum = DefaultDatum>({
     linkColor?: CommonProps<Datum>['linkColor']
     highlightAncestorLinks?: boolean
     highlightDescendantLinks?: boolean
+    isCollapsible?: boolean
 }) => {
     const getIdentity = usePropertyAccessor(identity)
-    const root = useRoot<Datum>({ data, mode, getIdentity })
+
+    const { collapsedNodeUids, toggleNode } = useCollapsibleNodes(isCollapsible)
+
+    const root = useRoot<Datum>({ data, mode, getIdentity, collapsedNodeUids })
 
     const { xScale, yScale } = useCartesianScales({ width, height, layout })
     const { nodes, nodeByUid, activeNodeUids, setActiveNodeUids } = useNodes<Datum>({
@@ -513,6 +584,7 @@ export const useTree = <Datum = DefaultDatum>({
         links,
         linkGenerator,
         setCurrentNode,
+        toggleNode,
     }
 }
 
@@ -530,6 +602,7 @@ export const useNodeMouseEventHandlers = <Datum>(
         onMouseLeave,
         onClick,
         setCurrentNode,
+        toggleNode,
         tooltip,
         tooltipPosition,
         tooltipAnchor,
@@ -541,6 +614,7 @@ export const useNodeMouseEventHandlers = <Datum>(
         onMouseLeave?: NodeMouseEventHandler<Datum>
         onClick?: NodeMouseEventHandler<Datum>
         setCurrentNode: CurrentNodeSetter<Datum>
+        toggleNode: (node: ComputedNode<Datum>) => void
         tooltip?: NodeTooltip<Datum>
         tooltipPosition: TooltipPosition
         tooltipAnchor: TooltipAnchor
@@ -604,9 +678,10 @@ export const useNodeMouseEventHandlers = <Datum>(
 
     const handleClick = useCallback(
         (event: MouseEvent) => {
+            if (!node.isLeaf) toggleNode(node)
             onClick?.(node, event)
         },
-        [node, onClick]
+        [node, toggleNode, onClick]
     )
 
     return {

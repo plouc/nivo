@@ -37,6 +37,7 @@ const initialProperties: Pick<
     | 'animate'
     | 'motionConfig'
     | 'isInteractive'
+    | 'isCollapsible'
     | 'meshDetectionRadius'
     | 'debugMesh'
     | 'highlightAncestorNodes'
@@ -76,6 +77,7 @@ const initialProperties: Pick<
     motionConfig: 'stiff',
 
     isInteractive: defaults.isInteractive,
+    isCollapsible: defaults.isCollapsible,
     meshDetectionRadius: 80,
     debugMesh: defaults.debugMesh,
     highlightAncestorNodes: defaults.highlightAncestorNodes,

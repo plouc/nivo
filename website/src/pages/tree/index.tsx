@@ -38,6 +38,7 @@ const initialProperties: Pick<
     | 'animate'
     | 'motionConfig'
     | 'isInteractive'
+    | 'isCollapsible'
     | 'useMesh'
     | 'meshDetectionRadius'
     | 'debugMesh'
@@ -76,9 +77,10 @@ const initialProperties: Pick<
     },
 
     animate: defaults.animate,
-    motionConfig: 'stiff',
+    motionConfig: 'gentle',
 
     isInteractive: defaults.isInteractive,
+    isCollapsible: defaults.isCollapsible,
     useMesh: true,
     meshDetectionRadius: 80,
     debugMesh: defaults.debugMesh,
@@ -89,6 +91,15 @@ const initialProperties: Pick<
     nodeTooltipPosition: defaults.nodeTooltipPosition,
     nodeTooltipAnchor: defaults.nodeTooltipAnchor,
     linkTooltipAnchor: defaults.linkTooltipAnchor,
+}
+
+const sampleData: Datum = {
+    name: 'root',
+    children: [
+        { name: 'A' },
+        { name: 'B' },
+        { name: 'C', children: [{ name: '0' }, { name: '1' }, { name: '2' }] },
+    ],
 }
 
 const Tree = () => {
@@ -124,7 +135,7 @@ const Tree = () => {
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveTree<Datum>
-                        data={data}
+                        data={sampleData}
                         {...properties}
                         theme={{
                             ...theme,
@@ -153,6 +164,8 @@ const Tree = () => {
                                 color: link.color,
                             })
                         }}
+                        motionConfig="wobbly"
+                        // useMesh={false}
                     />
                 )
             }}

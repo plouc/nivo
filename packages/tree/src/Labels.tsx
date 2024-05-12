@@ -9,11 +9,14 @@ import {
     LabelComponent,
     LabelsPosition,
     Layout,
+    NodesMap,
 } from './types'
 import { useLabels } from './labelsHooks'
+import { getFirstRemainingAncestorOrSelf } from './hooks'
 
 interface LabelsProps<Datum> {
     nodes: readonly ComputedNode<Datum>[]
+    nodeById: NodesMap<Datum>
     label: Exclude<CommonProps<Datum>['label'], undefined>
     layout: Layout
     labelsPosition: LabelsPosition
@@ -26,15 +29,25 @@ const regularTransition = <Datum,>(label: ComputedLabel<Datum>): LabelAnimatedPr
     x: label.x,
     y: label.y,
     rotation: label.rotation,
+    opacity: 1,
 })
-const leaveTransition = <Datum,>(label: ComputedLabel<Datum>): LabelAnimatedProps => ({
-    x: label.x,
-    y: label.y,
-    rotation: label.rotation,
-})
+
+const leaveTransition =
+    <Datum,>(nodeByUid: NodesMap<Datum>) =>
+    (label: ComputedLabel<Datum>): LabelAnimatedProps => {
+        const ancestor = getFirstRemainingAncestorOrSelf(label.node, nodeByUid)
+
+        return {
+            x: ancestor.x,
+            y: ancestor.y,
+            rotation: label.rotation,
+            opacity: 0,
+        }
+    }
 
 export const Labels = <Datum,>({
     nodes,
+    nodeById,
     label,
     layout,
     labelsPosition,
@@ -51,7 +64,7 @@ export const Labels = <Datum,>({
         from: regularTransition,
         enter: regularTransition,
         update: regularTransition,
-        leave: leaveTransition,
+        leave: leaveTransition(nodeById),
         config: springConfig,
         immediate: !animate,
     })
@@ -62,12 +75,12 @@ export const Labels = <Datum,>({
                 pointerEvents: 'none',
             }}
         >
-            {transition((animatedProps, label) =>
-                createElement(labelComponent, {
+            {transition((animatedProps, label) => {
+                return createElement(labelComponent, {
                     label,
                     animatedProps,
                 })
-            )}
+            })}
         </g>
     )
 }
