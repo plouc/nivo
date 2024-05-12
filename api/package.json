@@ -16,7 +16,7 @@
     },
     "engineStrict": true,
     "engines": {
-        "node": ">=16"
+        "node": ">=18"
     },
     "devDependencies": {
         "nodemon": "^2.0.22"
@@ -39,7 +39,7 @@
         "winston": "3.3.3"
     },
     "scripts": {
-        "start": "yarn build && node app.js",
+        "start": "npm run build && node app.js",
         "dev": "nodemon app.ts",
         "build": "tsc"
     },
