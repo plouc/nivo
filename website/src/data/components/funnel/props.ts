@@ -23,10 +23,10 @@ const props: ChartProperty[] = [
                 value: number
             }[]
             \`\`\`
-            
+
             Datum is a generic and can be overriden, this can be useful
             to attach a color to each datum for example, and then use
-            this for the \`colors\` property.            
+            this for the \`colors\` property.
         `,
     },
     ...chartDimensions(allFlavors),
@@ -84,6 +84,46 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         defaultValue: defaults.shapeBlending,
+        flavors: ['svg'],
+        control: {
+            type: 'range',
+            min: 0,
+            max: 1,
+            step: 0.01,
+        },
+    },
+    {
+        key: 'fixedShape',
+        group: 'Base',
+        help: `Use a fixed shape. If true, spacing and shapeBlending are ignored.`,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.fixedShape,
+        flavors: ['svg'],
+        control: { type: 'switch' },
+    },
+    {
+        key: 'neckHeightRatio',
+        group: 'Base',
+        help: 'Set the neck height ratio for a fixedShape funnel.',
+        type: 'number',
+        required: false,
+        defaultValue: defaults.neckHeightRatio,
+        flavors: ['svg'],
+        control: {
+            type: 'range',
+            min: 0,
+            max: 1,
+            step: 0.01,
+        },
+    },
+    {
+        key: 'neckWidthRatio',
+        group: 'Base',
+        help: 'Set the neck width ratio for a fixedShape funnel.',
+        type: 'number',
+        required: false,
+        defaultValue: defaults.neckWidthRatio,
         flavors: ['svg'],
         control: {
             type: 'range',
@@ -287,7 +327,7 @@ const props: ChartProperty[] = [
         description: `
             You can also use this to insert extra layers
             to the chart, the extra layer must be a function.
-            
+
             The layer function which will receive the chart's
             context & computed data and must return a valid SVG element.
         `,
@@ -305,7 +345,7 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: `
             Expand part size by this amount of pixels on each side
-            when it's active 
+            when it's active
         `,
         required: false,
         defaultValue: defaults.currentPartSizeExtension,
