@@ -1,8 +1,8 @@
-import range from 'lodash/range'
-import random from 'lodash/random'
-import shuffle from 'lodash/shuffle'
-import { timeDays } from 'd3-time'
+import { timeDay, timeDays } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
+import random from 'lodash/random'
+import range from 'lodash/range'
+import shuffle from 'lodash/shuffle'
 import * as color from './color'
 import * as sets from './sets'
 
@@ -105,7 +105,10 @@ export const generateCountriesPopulation = (size: number) => {
 }
 
 export const generateOrderedDayCounts = (from: Date, to: Date) => {
-    const days = timeDays(from, to)
+    const startDate = timeDay(from)
+    const endDate = timeDay.offset(timeDay(to), 1)
+
+    const days = timeDays(startDate, endDate)
     const dayFormat = timeFormat('%Y-%m-%d')
 
     return days.map(day => {
