@@ -157,20 +157,3 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
 export type RadarHandlers<RawDatum, ElementType> = {
     onClick?: MouseEventHandler<RawDatum, ElementType>
 }
-
-export type DatumId = string | number
-
-export interface ComputedDatum<RawDatum> {
-    id: DatumId
-    label: DatumId
-    value: number
-    formattedValue: string
-    color: string
-    // only defined in case gradients or patterns are used
-    // and the datum matches one of the rules.
-    fill?: string
-    // contains the raw datum as passed to the chart
-    data: RawDatum
-    // arc: PieArc
-    hidden: boolean
-}
