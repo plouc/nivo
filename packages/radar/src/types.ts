@@ -144,6 +144,33 @@ export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarComm
     RadarDataProps<D> &
     Dimensions &
     MotionProps &
-    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
+    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>> &
+    RadarHandlers<D, SVGPathElement>
 
 export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>
+
+export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
+    datum: RawDatum,
+    event: React.MouseEvent<ElementType>
+) => void
+
+export type RadarHandlers<RawDatum, ElementType> = {
+    onClick?: MouseEventHandler<RawDatum, ElementType>
+}
+
+export type DatumId = string | number
+
+export interface ComputedDatum<RawDatum> {
+    id: DatumId
+    label: DatumId
+    value: number
+    formattedValue: string
+    color: string
+    // only defined in case gradients or patterns are used
+    // and the datum matches one of the rules.
+    fill?: string
+    // contains the raw datum as passed to the chart
+    data: RawDatum
+    // arc: PieArc
+    hidden: boolean
+}
