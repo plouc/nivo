@@ -1,0 +1,52 @@
+{
+    "name": "@nivo/tree",
+    "version": "0.87.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/tree"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "hierarchy",
+        "tree"
+    ],
+    "main": "./dist/nivo-tree.cjs.js",
+    "module": "./dist/nivo-tree.es.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/text": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@nivo/voronoi": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-hierarchy": "^3.1.7",
+        "@types/d3-scale": "^4.0.8",
+        "@types/d3-shape": "^3.1.6",
+        "d3-hierarchy": "^3.1.2",
+        "d3-scale": "^4.0.2",
+        "d3-shape": "^3.2.0"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

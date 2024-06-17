@@ -1,7 +1,7 @@
 {
     "name": "@nivo/legends",
     "description": "legend components for nivo dataviz library",
-    "version": "0.85.1",
+    "version": "0.87.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -25,9 +25,7 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@types/d3-scale": "^4.0.8",
-        "@types/prop-types": "^15.7.2",
-        "d3-scale": "^4.0.2",
-        "prop-types": "^15.7.2"
+        "d3-scale": "^4.0.2"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"

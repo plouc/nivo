@@ -1,14 +1,4 @@
 import { Axes, Grid } from '@nivo/axes'
-import { BarAnnotations } from './BarAnnotations'
-import {
-    BarCustomLayerProps,
-    BarDatum,
-    BarLayer,
-    BarLayerId,
-    BarSvgProps,
-    ComputedBarDatumWithValue,
-} from './types'
-import { BarLegends } from './BarLegends'
 import {
     CartesianMarkers,
     Container,
@@ -18,10 +8,21 @@ import {
     useDimensions,
     useMotionConfig,
 } from '@nivo/core'
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { BarAnnotations } from './BarAnnotations'
+import { BarLegends } from './BarLegends'
 import { useBar } from './hooks'
+import { svgDefaultProps } from './props'
+import {
+    BarCustomLayerProps,
+    BarDatum,
+    BarLayer,
+    BarLayerId,
+    BarSvgProps,
+    ComputedBarDatumWithValue,
+} from './types'
+import { BarTotals } from './BarTotals'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -102,6 +103,9 @@ const InnerBar = <RawDatum extends BarDatum>({
     barAriaDescribedBy,
 
     initialHiddenIds,
+
+    enableTotals = svgDefaultProps.enableTotals,
+    totalsOffset = svgDefaultProps.totalsOffset,
 }: InnerBarProps<RawDatum>) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -122,6 +126,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         toggleSerie,
         legendsWithData,
+        barTotals,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -151,6 +156,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         legends,
         legendLabel,
         initialHiddenIds,
+        totalsOffset,
     })
 
     const transition = useTransition<
@@ -283,6 +289,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         grid: null,
         legends: null,
         markers: null,
+        totals: null,
     }
 
     if (layers.includes('annotations')) {
@@ -358,6 +365,18 @@ const InnerBar = <RawDatum extends BarDatum>({
                 height={innerHeight}
                 xScale={xScale as (v: number | string) => number}
                 yScale={yScale as (v: number) => number}
+            />
+        )
+    }
+
+    if (layers.includes('totals') && enableTotals) {
+        layerById.totals = (
+            <BarTotals
+                key="totals"
+                data={barTotals}
+                springConfig={springConfig}
+                animate={animate}
+                layout={layout}
             />
         )
     }

@@ -18,6 +18,7 @@ export const defaultTheme = {
         fill: '#333333',
         outlineWidth: 0,
         outlineColor: 'transparent',
+        outlineOpacity: 1,
     },
     axis: {
         domain: {

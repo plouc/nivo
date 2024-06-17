@@ -10,7 +10,7 @@ import merge from 'lodash/merge'
 import get from 'lodash/get'
 import set from 'lodash/set'
 
-const textProps = [
+const textPropsWithInheritance = [
     'axis.ticks.text',
     'axis.legend.text',
     'legends.title.text',
@@ -24,6 +24,16 @@ const textProps = [
 ]
 
 /**
+ * @param {Partial<TextStyle>} partialStyle
+ * @param {TextStyle} rootStyle
+ * @returns {TextStyle}
+ */
+export const inheritRootThemeText = (partialStyle, rootStyle) => ({
+    ...rootStyle,
+    ...partialStyle,
+})
+
+/**
  * @param {ThemeWithoutInheritance} defaultTheme
  * @param {Theme} customTheme
  * @returns {CompleteTheme}
@@ -31,22 +41,8 @@ const textProps = [
 export const extendDefaultTheme = (defaultTheme, customTheme) => {
     const theme = merge({}, defaultTheme, customTheme)
 
-    textProps.forEach(prop => {
-        if (get(theme, `${prop}.fontFamily`) === undefined) {
-            set(theme, `${prop}.fontFamily`, theme.text.fontFamily)
-        }
-        if (get(theme, `${prop}.fontSize`) === undefined) {
-            set(theme, `${prop}.fontSize`, theme.text.fontSize)
-        }
-        if (get(theme, `${prop}.fill`) === undefined) {
-            set(theme, `${prop}.fill`, theme.text.fill)
-        }
-        if (get(theme, `${prop}.outlineWidth`) === undefined) {
-            set(theme, `${prop}.outlineWidth`, theme.text.outlineWidth)
-        }
-        if (get(theme, `${prop}.outlineColor`) === undefined) {
-            set(theme, `${prop}.outlineColor`, theme.text.outlineColor)
-        }
+    textPropsWithInheritance.forEach(prop => {
+        set(theme, prop, inheritRootThemeText(get(theme, prop), theme.text))
     })
 
     return theme

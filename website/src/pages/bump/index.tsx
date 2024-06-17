@@ -2,7 +2,14 @@ import React from 'react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveBump, bumpSvgDefaultProps as defaults, BumpCommonProps } from '@nivo/bump'
+import {
+    ResponsiveBump,
+    bumpSvgDefaultProps as defaults,
+    BumpCommonProps,
+    DefaultBumpDatum,
+    isBumpPoint,
+    isComputedBumpSerie,
+} from '@nivo/bump'
 import { MotionProps } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -10,18 +17,13 @@ import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
 import mapper from '../../data/components/bump/mapper'
 
-interface Datum {
-    x: number
-    y: number
-}
-
 const generateData = () => {
     const years = range(2000, 2005)
     const ranks = range(1, 13)
 
     const series: {
         id: string
-        data: Datum[]
+        data: DefaultBumpDatum[]
     }[] = ranks.map(rank => {
         return {
             id: `Serie ${rank}`,
@@ -32,7 +34,7 @@ const generateData = () => {
     years.forEach(year => {
         shuffle(ranks).forEach((rank, i) => {
             series[i].data.push({
-                x: year,
+                x: year.toString(),
                 y: rank,
             })
         })
@@ -42,12 +44,16 @@ const generateData = () => {
 }
 
 type Props = Omit<
-    BumpCommonProps<Datum, {}>,
-    'theme' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick' | 'renderWrapper'
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    BumpCommonProps<DefaultBumpDatum, {}>,
+    'theme' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick'
 > &
     MotionProps
 
-type UnmappedProps = Omit<Props, 'axisTop' | 'axisRight' | 'axisBottom' | 'axisLeft'> & {
+type UnmappedProps = Omit<
+    Props,
+    'axisTop' | 'axisRight' | 'axisBottom' | 'axisLeft' | 'renderWrapper'
+> & {
     axisTop: AxisProps & { enable: boolean }
     axisRight: AxisProps & { enable: boolean }
     axisBottom: AxisProps & { enable: boolean }
@@ -153,18 +159,27 @@ const Bump = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBump<Datum>
+                    <ResponsiveBump
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={serie =>
-                            logAction({
-                                type: 'click',
-                                label: `[serie] ${serie.id}`,
-                                color: serie.color,
-                                data: serie,
-                            })
-                        }
+                        onClick={(data: any) => {
+                            if (isComputedBumpSerie(data)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[serie] ${data.id}`,
+                                    color: data.color,
+                                    data: data,
+                                })
+                            } else if (isBumpPoint(data)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[point] x: ${data.data.x}, y: ${data.data.y} (series: ${data.serie.id})`,
+                                    color: data.serie.color,
+                                    data: data,
+                                })
+                            }
+                        }}
                     />
                 )
             }}

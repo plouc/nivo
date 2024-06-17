@@ -5,7 +5,9 @@ import {
     BumpCustomLayerProps,
     BumpDatum,
     BumpLayerId,
+    BumpPointMouseHandler,
     BumpSerieExtraProps,
+    BumpSerieMouseHandler,
     BumpSvgProps,
     DefaultBumpDatum,
 } from './types'
@@ -13,7 +15,7 @@ import { useBump } from './hooks'
 import { bumpSvgDefaultProps } from './defaults'
 import { Line } from './Line'
 import { LinesLabels } from './LinesLabels'
-import { Points } from './Points'
+import { Mesh } from './Mesh'
 
 type InnerBumpProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> = Omit<
     BumpSvgProps<Datum, ExtraProps>,
@@ -86,8 +88,13 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = bumpSvgDefaultProps.tooltip as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['tooltip']
+    useMesh = bumpSvgDefaultProps.useMesh,
+    debugMesh = bumpSvgDefaultProps.debugMesh,
+    lineTooltip = bumpSvgDefaultProps.lineTooltip as NonNullable<
+        BumpSvgProps<Datum, ExtraProps>['lineTooltip']
+    >,
+    pointTooltip = bumpSvgDefaultProps.pointTooltip as NonNullable<
+        BumpSvgProps<Datum, ExtraProps>['pointTooltip']
     >,
     role = bumpSvgDefaultProps.role,
 }: InnerBumpProps<Datum, ExtraProps>) => {
@@ -97,33 +104,42 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
         partialMargin
     )
 
-    const { series, points, xScale, yScale, lineGenerator, activeSerieIds, setActiveSerieIds } =
-        useBump<Datum, ExtraProps>({
-            width: innerWidth,
-            height: innerHeight,
-            data,
-            interpolation,
-            xPadding,
-            xOuterPadding,
-            yOuterPadding,
-            lineWidth,
-            activeLineWidth,
-            inactiveLineWidth,
-            colors,
-            opacity,
-            activeOpacity,
-            inactiveOpacity,
-            pointSize,
-            activePointSize,
-            inactivePointSize,
-            pointColor,
-            pointBorderWidth,
-            activePointBorderWidth,
-            inactivePointBorderWidth,
-            pointBorderColor,
-            isInteractive,
-            defaultActiveSerieIds,
-        })
+    const {
+        series,
+        points,
+        xScale,
+        yScale,
+        lineGenerator,
+        activePointIds,
+        activeSerieIds,
+        setActiveSerieIds,
+        setActivePointIds,
+    } = useBump<Datum, ExtraProps>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        interpolation,
+        xPadding,
+        xOuterPadding,
+        yOuterPadding,
+        lineWidth,
+        activeLineWidth,
+        inactiveLineWidth,
+        colors,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
+        pointSize,
+        activePointSize,
+        inactivePointSize,
+        pointColor,
+        pointBorderWidth,
+        activePointBorderWidth,
+        inactivePointBorderWidth,
+        pointBorderColor,
+        isInteractive,
+        defaultActiveSerieIds,
+    })
 
     const layerById: Record<BumpLayerId, ReactNode> = {
         grid: null,
@@ -131,6 +147,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
         labels: null,
         lines: null,
         points: null,
+        mesh: null,
     }
 
     if (layers.includes('grid')) {
@@ -172,24 +189,44 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
                         lineGenerator={lineGenerator}
                         yStep={yScale.step()}
                         isInteractive={isInteractive}
-                        onMouseEnter={onMouseEnter}
-                        onMouseMove={onMouseMove}
-                        onMouseLeave={onMouseLeave}
-                        onClick={onClick}
-                        tooltip={tooltip}
+                        onMouseEnter={onMouseEnter as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onMouseMove={onMouseMove as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onMouseLeave={onMouseLeave as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onClick={onClick as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        lineTooltip={lineTooltip}
+                        useMesh={useMesh}
                     />
                 ))}
             </Fragment>
         )
     }
 
-    if (layers.includes('points')) {
-        layerById.points = (
-            <Points<Datum, ExtraProps>
-                key="points"
-                pointComponent={pointComponent}
+    if (isInteractive && useMesh && layers.includes('mesh')) {
+        layerById.mesh = (
+            <Mesh
+                key="mesh"
                 points={points}
+                width={innerWidth}
+                height={innerHeight}
+                margin={margin}
+                setActivePointIds={setActivePointIds}
+                setActiveSerieIds={setActiveSerieIds}
+                onMouseEnter={onMouseEnter as BumpPointMouseHandler<Datum, ExtraProps>}
+                onMouseMove={onMouseMove as BumpPointMouseHandler<Datum, ExtraProps>}
+                onMouseLeave={onMouseLeave as BumpPointMouseHandler<Datum, ExtraProps>}
+                onClick={onClick as BumpPointMouseHandler<Datum, ExtraProps>}
+                tooltip={pointTooltip}
+                debug={debugMesh}
             />
+        )
+    }
+
+    if (layers.includes('points')) {
+        layerById.points = points.map(point =>
+            createElement(pointComponent, {
+                key: point.id,
+                point,
+            })
         )
     }
 
@@ -228,10 +265,14 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
             xScale,
             yScale,
             activeSerieIds,
+            activePointIds,
             setActiveSerieIds,
+            setActivePointIds,
         }),
         [
+            activePointIds,
             activeSerieIds,
+            setActivePointIds,
             setActiveSerieIds,
             innerHeight,
             innerWidth,

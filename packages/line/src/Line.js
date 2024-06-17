@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { Fragment, useState } from 'react'
 import {
     bindDefs,
@@ -20,7 +12,6 @@ import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Crosshair } from '@nivo/tooltip'
 import { useLine } from './hooks'
-import { LinePropTypes } from './props'
 import Areas from './Areas'
 import Lines from './Lines'
 import Slices from './Slices'
@@ -82,7 +73,7 @@ const Line = props => {
         pointBorderWidth = 0,
         pointBorderColor = { theme: 'background' },
         enablePointLabel = false,
-        pointLabel = 'yFormatted',
+        pointLabel = 'data.yFormatted',
         pointLabelYOffset,
 
         defs = [],
@@ -359,7 +350,5 @@ const Line = props => {
         </SvgWrapper>
     )
 }
-
-Line.propTypes = LinePropTypes
 
 export default withContainer(Line)

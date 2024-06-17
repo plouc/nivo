@@ -34,21 +34,19 @@ Bar:
       link: bar--custom-legend-labels
     - label: Using annotations
       link: bar--with-annotations
+    - label: Using totals
+      link: bar--with-totals
   description: |
     Bar chart which can display multiple data series, stacked or side by side. Also
     supports both vertical and horizontal layout, with negative values descending
     below the x axis (or y axis if using horizontal layout).
-
     The bar item component can be customized to render any valid SVG element, it
     will receive current bar style, data and event handlers,
     the storybook offers an [example](storybook:bar--custom-bar-item).
-
     The responsive alternative of this component is `ResponsiveBar`.
-
     This component is available in the `@nivo/api`,
     see [sample](api:/samples/bar.svg)
     or [try it using the API client](self:/bar/api).
-
     See the [dedicated guide](self:/guides/legends) on how to setup
     legends for this component.
     However it requires an extra property for each legend configuration you pass to
@@ -56,7 +54,6 @@ Bar:
     legend's data and accept `indexes` or `keys`.
     `indexes` is suitable for simple bar chart with a single data serie
     while `keys` may be used if you have several ones (groups).
-
 BarCanvas:
   package: '@nivo/bar'
   tags:
@@ -72,5 +69,4 @@ BarCanvas:
     A variation around the [Bar](self:/bar) component. Well suited for
     large data sets as it does not impact DOM tree depth, however you'll
     lose the isomorphic ability and transitions.
-
     The responsive alternative of this component is `ResponsiveBarCanvas`.

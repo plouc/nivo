@@ -173,6 +173,9 @@ importers:
             typescript:
                 specifier: ^4.9.5
                 version: 4.9.5
+            yargs:
+                specifier: ^17.7.2
+                version: 17.7.2
 
     api:
         dependencies:
@@ -315,6 +318,9 @@ importers:
             '@nivo/swarmplot':
                 specifier: workspace:*
                 version: link:../packages/swarmplot
+            '@nivo/tree':
+                specifier: workspace:*
+                version: link:../packages/tree
             '@nivo/treemap':
                 specifier: workspace:*
                 version: link:../packages/treemap
@@ -326,8 +332,8 @@ importers:
                 version: link:../packages/waffle
         devDependencies:
             cypress:
-                specifier: ^12.11.0
-                version: 12.11.0
+                specifier: ^13.8.1
+                version: 13.8.1
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -352,15 +358,9 @@ importers:
             '@react-spring/web':
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
-            '@types/prop-types':
-                specifier: ^15.7.2
-                version: 15.7.4
             lodash:
                 specifier: ^4.17.21
                 version: 4.17.21
-            prop-types:
-                specifier: ^15.7.2
-                version: 15.8.1
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -377,11 +377,11 @@ importers:
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -403,18 +403,12 @@ importers:
             '@types/d3-time-format':
                 specifier: ^2.3.1
                 version: 2.3.1
-            '@types/prop-types':
-                specifier: ^15.7.2
-                version: 15.7.4
             d3-format:
                 specifier: ^1.4.4
                 version: 1.4.5
             d3-time-format:
                 specifier: ^3.0.0
                 version: 3.0.0
-            prop-types:
-                specifier: ^15.7.2
-                version: 15.8.1
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -449,14 +443,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             lodash:
                 specifier: ^4.17.21
                 version: 4.17.21
@@ -494,14 +488,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             lodash:
                 specifier: ^4.17.21
                 version: 4.17.21
@@ -556,6 +550,9 @@ importers:
             '@nivo/tooltip':
                 specifier: workspace:*
                 version: link:../tooltip
+            '@nivo/voronoi':
+                specifier: workspace:*
+                version: link:../voronoi
             '@react-spring/web':
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
@@ -563,14 +560,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -637,14 +634,14 @@ importers:
                 specifier: ^3.0.1
                 version: 3.0.1
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-chord:
                 specifier: ^1.0.6
                 version: 1.0.6
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -714,9 +711,6 @@ importers:
 
     packages/core:
         dependencies:
-            '@nivo/recompose':
-                specifier: workspace:*
-                version: link:../recompose
             '@nivo/tooltip':
                 specifier: workspace:*
                 version: link:../tooltip
@@ -724,8 +718,8 @@ importers:
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-color:
                 specifier: ^3.1.0
                 version: 3.1.0
@@ -742,8 +736,8 @@ importers:
                 specifier: ^3.0.0
                 version: 3.0.0
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             d3-time-format:
                 specifier: ^3.0.0
                 version: 3.0.0
@@ -808,14 +802,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -923,15 +917,9 @@ importers:
             '@types/d3-scale':
                 specifier: ^4.0.8
                 version: 4.0.8
-            '@types/prop-types':
-                specifier: ^15.7.2
-                version: 15.7.4
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
-            prop-types:
-                specifier: ^15.7.2
-                version: 15.8.1
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -966,11 +954,8 @@ importers:
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
-            prop-types:
-                specifier: ^15.7.2
-                version: 15.8.1
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -999,11 +984,11 @@ importers:
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             lodash:
                 specifier: ^4.17.21
                 version: 4.17.21
@@ -1065,14 +1050,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -1095,11 +1080,11 @@ importers:
                 specifier: workspace:*
                 version: link:../tooltip
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -1143,14 +1128,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -1185,35 +1170,17 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
-
-    packages/recompose:
-        dependencies:
-            '@types/prop-types':
-                specifier: ^15.7.2
-                version: 15.7.4
-            '@types/react-lifecycles-compat':
-                specifier: ^3.0.1
-                version: 3.0.1
-            prop-types:
-                specifier: ^15.7.2
-                version: 15.8.1
-            react:
-                specifier: 18.2.0
-                version: 18.2.0
-            react-lifecycles-compat:
-                specifier: ^3.0.4
-                version: 3.0.4
 
     packages/sankey:
         dependencies:
@@ -1236,14 +1203,14 @@ importers:
                 specifier: ^0.11.2
                 version: 0.11.2
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-sankey:
                 specifier: ^0.12.3
                 version: 0.12.3
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             lodash:
                 specifier: ^4.17.21
                 version: 4.17.21
@@ -1308,14 +1275,14 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             lodash:
                 specifier: ^4.17.21
                 version: 4.17.21
@@ -1410,11 +1377,11 @@ importers:
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -1494,6 +1461,18 @@ importers:
                 specifier: 18.2.0
                 version: 18.2.0
 
+    packages/text:
+        dependencies:
+            '@nivo/core':
+                specifier: workspace:*
+                version: link:../core
+            '@react-spring/web':
+                specifier: 9.4.5 || ^9.7.2
+                version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
+            react:
+                specifier: 18.2.0
+                version: 18.2.0
+
     packages/tooltip:
         dependencies:
             '@nivo/core':
@@ -1502,6 +1481,48 @@ importers:
             '@react-spring/web':
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
+            react:
+                specifier: 18.2.0
+                version: 18.2.0
+
+    packages/tree:
+        dependencies:
+            '@nivo/colors':
+                specifier: workspace:*
+                version: link:../colors
+            '@nivo/core':
+                specifier: workspace:*
+                version: link:../core
+            '@nivo/text':
+                specifier: workspace:*
+                version: link:../text
+            '@nivo/tooltip':
+                specifier: workspace:*
+                version: link:../tooltip
+            '@nivo/voronoi':
+                specifier: workspace:*
+                version: link:../voronoi
+            '@react-spring/web':
+                specifier: 9.4.5 || ^9.7.2
+                version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
+            '@types/d3-hierarchy':
+                specifier: ^3.1.7
+                version: 3.1.7
+            '@types/d3-scale':
+                specifier: ^4.0.8
+                version: 4.0.8
+            '@types/d3-shape':
+                specifier: ^3.1.6
+                version: 3.1.6
+            d3-hierarchy:
+                specifier: ^3.1.2
+                version: 3.1.2
+            d3-scale:
+                specifier: ^4.0.2
+                version: 4.0.2
+            d3-shape:
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -1538,15 +1559,18 @@ importers:
             '@nivo/core':
                 specifier: workspace:*
                 version: link:../core
+            '@nivo/tooltip':
+                specifier: workspace:0.87.0
+                version: link:../tooltip
             '@types/d3-delaunay':
-                specifier: ^5.3.0
-                version: 5.3.1
+                specifier: ^6.0.4
+                version: 6.0.4
             '@types/d3-scale':
                 specifier: ^4.0.8
                 version: 4.0.8
             d3-delaunay:
-                specifier: ^5.3.0
-                version: 5.3.0
+                specifier: ^6.0.4
+                version: 6.0.4
             d3-scale:
                 specifier: ^4.0.2
                 version: 4.0.2
@@ -1578,11 +1602,11 @@ importers:
                 specifier: 9.4.5 || ^9.7.2
                 version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             react:
                 specifier: 18.2.0
                 version: 18.2.0
@@ -1676,6 +1700,9 @@ importers:
             '@nivo/tooltip':
                 specifier: workspace:*
                 version: link:../packages/tooltip
+            '@nivo/tree':
+                specifier: workspace:*
+                version: link:../packages/tree
             '@nivo/treemap':
                 specifier: workspace:*
                 version: link:../packages/treemap
@@ -1719,8 +1746,8 @@ importers:
                 specifier: ^4.0.8
                 version: 4.0.8
             '@types/d3-shape':
-                specifier: ^2.0.0
-                version: 2.1.3
+                specifier: ^3.1.6
+                version: 3.1.6
             d3-random:
                 specifier: ^1.1.2
                 version: 1.1.2
@@ -1731,8 +1758,8 @@ importers:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             prop-types:
                 specifier: ^15.8.1
                 version: 15.8.1
@@ -1838,6 +1865,9 @@ importers:
             '@nivo/swarmplot':
                 specifier: workspace:*
                 version: link:../packages/swarmplot
+            '@nivo/tree':
+                specifier: workspace:*
+                version: link:../packages/tree
             '@nivo/treemap':
                 specifier: workspace:*
                 version: link:../packages/treemap
@@ -1881,8 +1911,8 @@ importers:
                 specifier: ^4.0.2
                 version: 4.0.2
             d3-shape:
-                specifier: ^1.3.5
-                version: 1.3.7
+                specifier: ^3.2.0
+                version: 3.2.0
             dedent-js:
                 specifier: ^1.0.1
                 version: 1.0.1
@@ -3970,6 +4000,33 @@ packages:
             qs: 6.10.4
             safe-buffer: 5.2.1
             tough-cookie: 2.5.0
+            tunnel-agent: 0.6.0
+            uuid: 8.3.2
+        dev: true
+
+    /@cypress/request@3.0.1:
+        resolution:
+            {
+                integrity: sha512-TWivJlJi8ZDx2wGOw1dbLuHJKUYX7bWySw377nlnGOW3hP9/MUKIsEdXT/YngWxVdgNCHRBmFlBipE+5/2ZZlQ==,
+            }
+        engines: { node: '>= 6' }
+        dependencies:
+            aws-sign2: 0.7.0
+            aws4: 1.11.0
+            caseless: 0.12.0
+            combined-stream: 1.0.8
+            extend: 3.0.2
+            forever-agent: 0.6.1
+            form-data: 2.3.3
+            http-signature: 1.3.6
+            is-typedarray: 1.0.0
+            isstream: 0.1.2
+            json-stringify-safe: 5.0.1
+            mime-types: 2.1.35
+            performance-now: 2.1.0
+            qs: 6.10.4
+            safe-buffer: 5.2.1
+            tough-cookie: 4.1.4
             tunnel-agent: 0.6.0
             uuid: 8.3.2
         dev: true
@@ -9236,10 +9293,10 @@ packages:
             }
         dev: false
 
-    /@types/d3-delaunay@5.3.1:
+    /@types/d3-delaunay@6.0.4:
         resolution:
             {
-                integrity: sha512-F6itHi2DxdatHil1rJ2yEFUNhejj8+0Acd55LZ6Ggwbdoks0+DxVY2cawNj16sjCBiWvubVlh6eBMVsYRNGLew==,
+                integrity: sha512-ZMaSKu4THYCU6sV64Lhg6qjf1orxBthaC161plr5KuPHo3CNm8DTHiLw/5Eq2b6TsNP0W0iJrUOFscY6Q450Hw==,
             }
         dev: false
 
@@ -9261,6 +9318,13 @@ packages:
         resolution:
             {
                 integrity: sha512-AbStKxNyWiMDQPGDguG2Kuhlq1Sv539pZSxYbx4UZeYkutpPwXCcgyiRrlV4YH64nIOsKx7XVnOMy9O7rJsXkg==,
+            }
+        dev: false
+
+    /@types/d3-hierarchy@3.1.7:
+        resolution:
+            {
+                integrity: sha512-tJFtNoYBtRtkNysX1Xq4sxtjK8YgoWUNpIiUee0/jHGRwqvzYxkq0hGVbbOGSz+JgFxxRu4K8nb3YpG3CMARtg==,
             }
         dev: false
 
@@ -9317,6 +9381,15 @@ packages:
         resolution:
             {
                 integrity: sha512-HAhCel3wP93kh4/rq+7atLdybcESZ5bRHDEZUojClyZWsRuEMo3A52NGYJSh48SxfxEU6RZIVbZL2YFZ2OAlzQ==,
+            }
+        dependencies:
+            '@types/d3-path': 2.0.1
+        dev: false
+
+    /@types/d3-shape@3.1.6:
+        resolution:
+            {
+                integrity: sha512-5KKk5aKGu2I+O6SONMYSNflgiP0WfZIQvVUMan50wHsLG1G94JlxEVnCpQARfTtzytuY0p/9PXXZb3I7giofIA==,
             }
         dependencies:
             '@types/d3-path': 2.0.1
@@ -9792,15 +9865,6 @@ packages:
         resolution:
             {
                 integrity: sha512-jyx50RNZXVaTGHY3MsoRPNpeiVk8b0XTPgD/O6KHF6COTDnG/+lRjPYvTK5nfWtR3xDOux0w6bHLAsaHo2ZLTA==,
-            }
-        dependencies:
-            '@types/react': 18.2.0
-        dev: false
-
-    /@types/react-lifecycles-compat@3.0.1:
-        resolution:
-            {
-                integrity: sha512-4KiU5s1Go4xRbf7t6VxUUpBeN5PGjpjpBv9VvET4uiPHC500VNYBclU13f8ehHkHoZL39b2cfwHu6RzbV3b44A==,
             }
         dependencies:
             '@types/react': 18.2.0
@@ -14325,6 +14389,59 @@ packages:
             yauzl: 2.10.0
         dev: true
 
+    /cypress@13.8.1:
+        resolution:
+            {
+                integrity: sha512-Uk6ovhRbTg6FmXjeZW/TkbRM07KPtvM5gah1BIMp4Y2s+i/NMxgaLw0+PbYTOdw1+egE0FP3mWRiGcRkjjmhzA==,
+            }
+        engines: { node: ^16.0.0 || ^18.0.0 || >=20.0.0 }
+        hasBin: true
+        requiresBuild: true
+        dependencies:
+            '@cypress/request': 3.0.1
+            '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
+            '@types/sinonjs__fake-timers': 8.1.1
+            '@types/sizzle': 2.3.3
+            arch: 2.2.0
+            blob-util: 2.0.2
+            bluebird: 3.7.2
+            buffer: 5.7.1
+            cachedir: 2.3.0
+            chalk: 4.1.2
+            check-more-types: 2.24.0
+            cli-cursor: 3.1.0
+            cli-table3: 0.6.3
+            commander: 6.2.1
+            common-tags: 1.8.2
+            dayjs: 1.11.7
+            debug: 4.3.4(supports-color@8.1.1)
+            enquirer: 2.3.6
+            eventemitter2: 6.4.7
+            execa: 4.1.0
+            executable: 4.1.1
+            extract-zip: 2.0.1(supports-color@8.1.1)
+            figures: 3.2.0
+            fs-extra: 9.1.0
+            getos: 3.2.1
+            is-ci: 3.0.1
+            is-installed-globally: 0.4.0
+            lazy-ass: 1.6.0
+            listr2: 3.14.0(enquirer@2.3.6)
+            lodash: 4.17.21
+            log-symbols: 4.1.0
+            minimist: 1.2.8
+            ospath: 1.2.2
+            pretty-bytes: 5.6.0
+            process: 0.11.10
+            proxy-from-env: 1.0.0
+            request-progress: 3.0.0
+            semver: 7.6.0
+            supports-color: 8.1.1
+            tmp: 0.2.1
+            untildify: 4.0.0
+            yauzl: 2.10.0
+        dev: true
+
     /d3-array@1.2.4:
         resolution:
             {
@@ -14357,13 +14474,14 @@ packages:
             }
         engines: { node: '>=12' }
 
-    /d3-delaunay@5.3.0:
+    /d3-delaunay@6.0.4:
         resolution:
             {
-                integrity: sha512-amALSrOllWVLaHTnDLHwMIiz0d1bBu9gZXd1FiLfXf8sHcX9jrcj81TVZOqD4UX7MgBZZ07c8GxzEgBpJqc74w==,
+                integrity: sha512-mdjtIZ1XLAM8bm/hx3WwjfHt6Sggek7qH043O8KEjDXN40xi3vx/6pYSVTwLjEgiXQTbvaouWKynLBiUZ6SK6A==,
             }
+        engines: { node: '>=12' }
         dependencies:
-            delaunator: 4.0.1
+            delaunator: 5.0.1
         dev: false
 
     /d3-dispatch@2.0.0:
@@ -14406,6 +14524,14 @@ packages:
             }
         dev: false
 
+    /d3-hierarchy@3.1.2:
+        resolution:
+            {
+                integrity: sha512-FX/9frcub54beBdugHjDCdikxThEqjnR93Qt7PvQTOHxyiNCAlvMrHhclk3cD5VeAaq9fxmfRp+CnWw9rEMBuA==,
+            }
+        engines: { node: '>=12' }
+        dev: false
+
     /d3-interpolate@3.0.1:
         resolution:
             {
@@ -14420,6 +14546,13 @@ packages:
             {
                 integrity: sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg==,
             }
+
+    /d3-path@3.1.0:
+        resolution:
+            {
+                integrity: sha512-p3KP5HCf/bvjBSSKuXid6Zqijx7wIfNW+J/maPs+iwR35at5JCbLUT0LzF1cnjbCHWhqzQTIN2Jpe8pRebIEFQ==,
+            }
+        engines: { node: '>=12' }
 
     /d3-quadtree@2.0.0:
         resolution:
@@ -14474,6 +14607,15 @@ packages:
             }
         dependencies:
             d3-path: 1.0.9
+
+    /d3-shape@3.2.0:
+        resolution:
+            {
+                integrity: sha512-SaLBuwGm3MOViRq2ABk3eLoxwZELpH6zhl3FbAoJ7Vm1gofKx6El1Ib5z23NUEhF9AsGl7y+dzLe5Cw2AArGTA==,
+            }
+        engines: { node: '>=12' }
+        dependencies:
+            d3-path: 3.1.0
 
     /d3-time-format@3.0.0:
         resolution:
@@ -14869,11 +15011,13 @@ packages:
             slash: 3.0.0
         dev: true
 
-    /delaunator@4.0.1:
+    /delaunator@5.0.1:
         resolution:
             {
-                integrity: sha512-WNPWi1IRKZfCt/qIDMfERkDp93+iZEmOxN2yy4Jg+Xhv8SLk2UTqqbe1sfiipn0and9QrE914/ihdx82Y/Giag==,
+                integrity: sha512-8nvh+XBe96aCESrGOqMp/84b13H9cdKbG5P2ejQCh4d4sK9RL4371qou9drQjMhvnPmhWl5hnmqbEE0fXr9Xnw==,
             }
+        dependencies:
+            robust-predicates: 3.0.2
         dev: false
 
     /delayed-stream@1.0.0:
@@ -21163,7 +21307,7 @@ packages:
             jest-util: 29.5.0
             jest-validate: 29.5.0
             prompts: 2.4.2
-            yargs: 17.7.1
+            yargs: 17.7.2
         transitivePeerDependencies:
             - '@types/node'
             - supports-color
@@ -25318,7 +25462,7 @@ packages:
             tsconfig-paths: 4.2.0
             tslib: 2.5.0
             v8-compile-cache: 2.3.0
-            yargs: 17.7.1
+            yargs: 17.7.2
             yargs-parser: 21.1.1
         optionalDependencies:
             '@nrwl/nx-darwin-arm64': 15.9.3
@@ -28340,13 +28484,6 @@ packages:
                 integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==,
             }
 
-    /react-lifecycles-compat@3.0.4:
-        resolution:
-            {
-                integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==,
-            }
-        dev: false
-
     /react-markdown@8.0.7(@types/react@18.2.0)(react@18.2.0):
         resolution:
             {
@@ -29363,6 +29500,13 @@ packages:
             glob: 9.3.5
         dev: true
 
+    /robust-predicates@3.0.2:
+        resolution:
+            {
+                integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==,
+            }
+        dev: false
+
     /rollup-plugin-cleanup@3.2.1(rollup@3.21.0):
         resolution:
             {
@@ -29770,6 +29914,17 @@ packages:
         hasBin: true
         dependencies:
             lru-cache: 6.0.0
+
+    /semver@7.6.0:
+        resolution:
+            {
+                integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==,
+            }
+        engines: { node: '>=10' }
+        hasBin: true
+        dependencies:
+            lru-cache: 6.0.0
+        dev: true
 
     /send@0.17.2:
         resolution:
@@ -31718,6 +31873,19 @@ packages:
         resolution:
             {
                 integrity: sha512-G9fqXWoYFZgTc2z8Q5zaHy/vJMjm+WV0AkAeHxVCQiEB1b+dGvWzFW6QV07cY5jQ5gRkeid2qIkzkxUnmoQZUQ==,
+            }
+        engines: { node: '>=6' }
+        dependencies:
+            psl: 1.8.0
+            punycode: 2.3.0
+            universalify: 0.2.0
+            url-parse: 1.5.10
+        dev: true
+
+    /tough-cookie@4.1.4:
+        resolution:
+            {
+                integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==,
             }
         engines: { node: '>=6' }
         dependencies:
@@ -34165,6 +34333,22 @@ packages:
         resolution:
             {
                 integrity: sha512-cwiTb08Xuv5fqF4AovYacTFNxk62th7LKJ6BL9IGUpTJrWoU7/7WdQGTP2SjKf1dUNBGzDd28p/Yfs/GI6JrLw==,
+            }
+        engines: { node: '>=12' }
+        dependencies:
+            cliui: 8.0.1
+            escalade: 3.1.1
+            get-caller-file: 2.0.5
+            require-directory: 2.1.1
+            string-width: 4.2.3
+            y18n: 5.0.8
+            yargs-parser: 21.1.1
+        dev: true
+
+    /yargs@17.7.2:
+        resolution:
+            {
+                integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==,
             }
         engines: { node: '>=12' }
         dependencies:

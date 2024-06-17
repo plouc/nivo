@@ -26,7 +26,7 @@ export const PropertyDocumentation = ({
             currentFlavor={currentFlavor}
             supportedFlavors={property.flavors}
         >
-            <PropertyHeader {...property} context={context} />
+            <PropertyHeader {...property} currentFlavor={currentFlavor} context={context} />
             <Help>{property.help}</Help>
         </Control>
     )

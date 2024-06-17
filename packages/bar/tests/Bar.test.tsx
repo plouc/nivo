@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
-import { create, act, ReactTestRenderer } from 'react-test-renderer'
+import { create, act, ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip } from '../'
+import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotals } from '../'
 
 type IdValue = {
     id: string
@@ -611,6 +611,163 @@ it('should render bars in grouped mode after updating starting values from 0', (
     expect(bars).toHaveLength(2)
     bars.forEach(bar => {
         expect(bar.props.bar.height).toBe(300)
+    })
+})
+
+describe('totals layer', () => {
+    it('should have the total text for each index with vertical layout', () => {
+        const instance = create(
+            <Bar
+                width={500}
+                height={300}
+                enableTotals={true}
+                keys={['costA', 'costB']}
+                data={[
+                    { id: 'one', costA: 1, costB: 1 },
+                    { id: 'two', costA: 2, costB: 1 },
+                    { id: 'three', costA: 3, costB: 1 },
+                ]}
+                animate={false}
+            />
+        ).root
+
+        const totals = instance.findByType(BarTotals).findAllByType('text')
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
+            if (index === 0) {
+                expect(value).toBe(`2`)
+            } else if (index === 1) {
+                expect(value).toBe(`3`)
+            } else if (index === 2) {
+                expect(value).toBe(`4`)
+            }
+        })
+    })
+    it('should have the total text for each index with horizontal layout', () => {
+        const instance = create(
+            <Bar
+                width={500}
+                height={300}
+                enableTotals={true}
+                keys={['value1', 'value2']}
+                layout="horizontal"
+                data={[
+                    { id: 'one', value1: 1, value2: 1 },
+                    { id: 'two', value1: 2, value2: 2 },
+                    { id: 'three', value1: 3, value2: 3 },
+                ]}
+                animate={false}
+                valueFormat=" >-$"
+            />
+        ).root
+
+        const totals = instance.findByType(BarTotals).findAllByType('text')
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
+            if (index === 0) {
+                expect(value).toBe(`$2`)
+            } else if (index === 1) {
+                expect(value).toBe(`$4`)
+            } else if (index === 2) {
+                expect(value).toBe(`$6`)
+            }
+        })
+    })
+    it('should have the total text for each index with grouped group mode and vertical layout', () => {
+        const instance = create(
+            <Bar
+                width={500}
+                height={300}
+                enableTotals={true}
+                keys={['value1', 'value2']}
+                groupMode="grouped"
+                data={[
+                    { id: 'one', value1: -1, value2: -1 },
+                    { id: 'two', value1: -2, value2: -2 },
+                ]}
+                animate={false}
+            />
+        ).root
+
+        const totals = instance.findByType(BarTotals).findAllByType('text')
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
+            if (index === 0) {
+                expect(value).toBe(`-2`)
+            } else {
+                expect(value).toBe(`-4`)
+            }
+        })
+    })
+    it('should have the total text for each index with grouped group mode and horizontal layout', () => {
+        const instance = create(
+            <Bar
+                width={500}
+                height={300}
+                enableTotals={true}
+                keys={['value1', 'value2']}
+                groupMode="grouped"
+                layout="horizontal"
+                data={[
+                    { id: 'one', value1: -10, value2: 10 },
+                    { id: 'two', value1: -2, value2: 3 },
+                    { id: 'three', value1: 1, value2: 2 },
+                ]}
+                animate={false}
+            />
+        ).root
+
+        const totals = instance.findByType(BarTotals).findAllByType('text')
+
+        totals.forEach((total, index) => {
+            const value = total.findByType('text').children[0]
+            if (index === 0) {
+                expect(value).toBe(`0`)
+            } else if (index === 1) {
+                expect(value).toBe(`1`)
+            } else if (index === 2) {
+                expect(value).toBe(`3`)
+            }
+        })
+    })
+    it('should follow the theme configurations', () => {
+        const instance = create(
+            <Bar
+                width={500}
+                height={300}
+                enableTotals={true}
+                theme={{
+                    labels: {
+                        text: {
+                            fontSize: 14,
+                            fontFamily: 'serif',
+                        },
+                    },
+                    text: {
+                        fill: 'red',
+                    },
+                }}
+                keys={['value1', 'value2']}
+                data={[
+                    { id: 'one', value1: 1, value2: 1 },
+                    { id: 'two', value1: 2, value2: 1 },
+                    { id: 'three', value1: 3, value2: 1 },
+                ]}
+                animate={false}
+            />
+        ).root
+
+        const totals = instance.findByType(BarTotals).findAllByType('text')
+
+        totals.forEach((total, index) => {
+            const props = total.findByType('text').props
+            expect(props.style.fill).toBe('red')
+            expect(props.fontSize).toBe(14)
+            expect(props.fontFamily).toBe('serif')
+        })
     })
 })
 
