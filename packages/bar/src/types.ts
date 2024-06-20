@@ -174,6 +174,8 @@ export interface BarItemProps<RawDatum extends BarDatum>
     ariaLabel?: BarSvgProps<RawDatum>['barAriaLabel']
     ariaLabelledBy?: BarSvgProps<RawDatum>['barAriaLabelledBy']
     ariaDescribedBy?: BarSvgProps<RawDatum>['barAriaDescribedBy']
+    ariaHidden?: BarSvgProps<RawDatum>['barAriaHidden']
+    ariaDisabled?: BarSvgProps<RawDatum>['barAriaDisabled']
 }
 
 export type RenderBarProps<RawDatum extends BarDatum> = Omit<
@@ -185,6 +187,8 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     | 'ariaLabel'
     | 'ariaLabelledBy'
     | 'ariaDescribedBy'
+    | 'ariaHidden'
+    | 'ariaDisabled'
 > & {
     borderColor: string
     labelColor: string
@@ -293,6 +297,8 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
         barAriaDescribedBy?: (
             data: ComputedDatum<RawDatum>
         ) => React.AriaAttributes['aria-describedby']
+        barAriaHidden?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-hidden']
+        barAriaDisabled?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-disabled']
     }>
 
 export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &

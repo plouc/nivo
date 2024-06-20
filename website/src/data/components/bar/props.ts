@@ -591,6 +591,22 @@ const props: ChartProperty[] = [
         help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for bar items.',
         type: '(data) => string',
     },
+    {
+        key: 'barAriaHidden',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for bar items.',
+        type: '(data) => boolean',
+    },
+    {
+        key: 'barAriaDisabled',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for bar items.',
+        type: '(data) => boolean',
+    },
 ]
 
 export const groups = groupProperties(props)
