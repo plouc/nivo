@@ -148,6 +148,7 @@ export const useLine = ({
     pointColor = LineDefaultProps.pointColor,
     pointBorderColor = LineDefaultProps.pointBorderColor,
     enableSlices = LineDefaultProps.enableSlicesTooltip,
+    initialHiddenIds = LineDefaultProps.initialHiddenIds,
 }) => {
     const [componentId] = useState(uniqueId(LINE_UNIQUE_ID_PREFIX))
     const formatX = useValueFormatter(xFormat)
@@ -156,7 +157,7 @@ export const useLine = ({
     const theme = useTheme()
     const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
-    const [hiddenIds, setHiddenIds] = useState([])
+    const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
 
     const {
         xScale,

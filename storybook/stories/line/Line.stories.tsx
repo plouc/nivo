@@ -36,6 +36,7 @@ const commonProperties = {
     animate: true,
     enableTouchCrosshair: true,
     enableSlices: 'x',
+    initialHiddenIds: ['cognac'],
 }
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
@@ -64,6 +65,16 @@ export const StackedLines: Story = {
                 stacked: true,
             }}
             curve={args.curve}
+            legends={[
+                {
+                    anchor: 'bottom',
+                    direction: 'row',
+                    itemHeight: 20,
+                    itemWidth: 80,
+                    toggleSerie: true,
+                    translateY: 50,
+                },
+            ]}
         />
     ),
 }

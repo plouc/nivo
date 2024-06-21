@@ -67,6 +67,7 @@ export const LineDefaultProps = {
     defs: [],
     fill: [],
     role: 'img',
+    initialHiddenIds: [],
 }
 
 export const LineCanvasDefaultProps = {

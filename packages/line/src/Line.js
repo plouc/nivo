@@ -107,6 +107,7 @@ const Line = props => {
         enableTouchCrosshair = false,
 
         role = 'img',
+        initialHiddenIds = [],
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -139,6 +140,7 @@ const Line = props => {
         pointColor,
         pointBorderColor,
         enableSlices,
+        initialHiddenIds,
     })
 
     const theme = useTheme()
