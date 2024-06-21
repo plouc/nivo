@@ -1,4 +1,4 @@
-import { positionFromAngle } from '@nivo/core'
+import { positionFromAngle, radiansToDegrees } from '@nivo/core'
 import { Arc, Point } from '../types'
 import { getNormalizedAngle } from '../utils'
 import { ArcLink } from './types'
@@ -37,8 +37,14 @@ export const computeArcLink = (
     const centerAngle = getNormalizedAngle(
         arc.startAngle + (arc.endAngle - arc.startAngle) / 2 - Math.PI / 2
     )
+
+    const absSin = Math.abs(Math.sin(centerAngle))
+    const offsetReducer = Math.abs(arc.endAngle - arc.startAngle) < (Math.PI / 10) ? 1 : 2
+    const baseOffset = radiansToDegrees(Math.asin(absSin)) / offsetReducer
+    const linkDiagonalLengthOffset = baseOffset * absSin
+
     const point0: Point = positionFromAngle(centerAngle, arc.outerRadius + offset)
-    const point1: Point = positionFromAngle(centerAngle, arc.outerRadius + offset + diagonalLength)
+    const point1: Point = positionFromAngle(centerAngle, arc.outerRadius + offset + diagonalLength + linkDiagonalLengthOffset)
 
     let side: ArcLink['side']
     let point2: Point
