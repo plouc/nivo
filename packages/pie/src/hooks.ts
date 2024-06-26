@@ -180,7 +180,7 @@ export const usePieArcs = <RawDatum>({
     useEffect(() => {
         if (typeof forwardLegendDataRef.current !== 'function') return
         forwardLegendDataRef.current(legendData)
-    }, [forwardLegendDataRef, legendData])
+    }, [legendData])
 
     return result
 }
