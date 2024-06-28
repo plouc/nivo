@@ -2,7 +2,7 @@ import { SVGProps, useMemo } from 'react'
 import { positionFromAngle, useTheme } from '@nivo/core'
 import { RadarGridLabels } from './RadarGridLabels'
 import { RadarGridLevels } from './RadarGridLevels'
-import { ComputedDatum, GridLabelComponent, RadarCommonProps, RadarSvgProps } from './types'
+import { GridLabelComponent, RadarCommonProps } from './types'
 
 interface RadarGridProps<D extends Record<string, unknown>> {
     indices: string[]
