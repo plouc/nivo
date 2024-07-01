@@ -52,8 +52,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -89,8 +87,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -126,8 +122,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -163,8 +157,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -200,8 +192,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -253,8 +243,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -290,8 +278,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -327,8 +313,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -364,8 +348,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -401,8 +383,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -438,8 +418,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -475,8 +453,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -512,8 +488,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -549,8 +523,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -586,8 +558,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -623,8 +593,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -660,8 +628,6 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -684,7 +650,7 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
         />
       </g>
       <path
-        d="M0,218L20.833333333333332,199.83333333333334C41.666666666666664,181.66666666666666,83.33333333333333,145.33333333333334,125,109C166.66666666666666,72.66666666666667,208.33333333333334,36.333333333333336,250,27.333333333333332C291.6666666666667,18.333333333333332,333.3333333333333,36.666666666666664,375,50.333333333333336C416.6666666666667,64,458.3333333333333,73,479.1666666666667,77.5L500,82"
+        d="M0,218L20.833,199.833C41.667,181.667,83.333,145.333,125,109C166.667,72.667,208.333,36.333,250,27.333C291.667,18.333,333.333,36.667,375,50.333C416.667,64,458.333,73,479.167,77.5L500,82"
         fill="none"
         stroke="#e8c1a0"
         strokeWidth={2}
@@ -848,8 +814,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -885,8 +849,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -922,8 +884,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -959,8 +919,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -996,8 +954,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -1049,8 +1005,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1086,8 +1040,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1123,8 +1075,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1160,8 +1110,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1197,8 +1145,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1234,8 +1180,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1271,8 +1215,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1308,8 +1250,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1345,8 +1285,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1382,8 +1320,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1419,8 +1355,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1456,8 +1390,6 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1480,7 +1412,7 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
         />
       </g>
       <path
-        d="M0,218C0,218,83.33333333333334,145.33333333333331,125,109C166.66666666666666,72.66666666666667,208.33333333333334,9,250,0C291.6666666666667,-9,333.3333333333333,41.333333333333336,375,55C416.6666666666667,68.66666666666667,500,82,500,82"
+        d="M0,218C0,218,83.333,145.333,125,109C166.667,72.667,208.333,9,250,0C291.667,-9,333.333,41.333,375,55C416.667,68.667,500,82,500,82"
         fill="none"
         stroke="#e8c1a0"
         strokeWidth={2}
@@ -1644,8 +1576,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -1681,8 +1611,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -1718,8 +1646,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -1755,8 +1681,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -1792,8 +1716,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -1845,8 +1767,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1882,8 +1802,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1919,8 +1837,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1956,8 +1872,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -1993,8 +1907,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2030,8 +1942,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2067,8 +1977,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2104,8 +2012,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2141,8 +2047,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2178,8 +2082,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2215,8 +2117,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2252,8 +2152,6 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2276,7 +2174,7 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
         />
       </g>
       <path
-        d="M0,218C0,218,83.33333333333333,145.33333333333334,125,109C166.66666666666666,72.66666666666666,206.10489572035593,6.692957167071312,250,0C289.83170845257115,-6.073386154090098,332.62631341887106,41.25724476151072,375,55C416.00459618510786,68.29872792507959,500,82,500,82"
+        d="M0,218C0,218,83.333,145.333,125,109C166.667,72.667,206.105,6.693,250,0C289.832,-6.073,332.626,41.257,375,55C416.005,68.299,500,82,500,82"
         fill="none"
         stroke="#e8c1a0"
         strokeWidth={2}
@@ -2440,8 +2338,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -2477,8 +2373,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -2514,8 +2408,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -2551,8 +2443,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -2588,8 +2478,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -2641,8 +2529,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2678,8 +2564,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2715,8 +2599,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2752,8 +2634,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2789,8 +2669,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2826,8 +2704,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2863,8 +2739,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2900,8 +2774,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2937,8 +2809,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -2974,8 +2844,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3011,8 +2879,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3048,8 +2914,6 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3236,8 +3100,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -3273,8 +3135,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -3310,8 +3170,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -3347,8 +3205,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -3384,8 +3240,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -3437,8 +3291,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3474,8 +3326,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3511,8 +3361,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3548,8 +3396,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3585,8 +3431,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3622,8 +3466,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3659,8 +3501,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3696,8 +3536,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3733,8 +3571,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3770,8 +3606,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3807,8 +3641,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3844,8 +3676,6 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -3868,7 +3698,7 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
         />
       </g>
       <path
-        d="M0,218C41.666666666666664,181.66666666666666,83.33333333333334,145.33333333333331,125,109C166.66666666666666,72.66666666666667,208.33333333333334,0,250,0C291.6666666666667,0,333.3333333333333,41.333333333333336,375,55C416.6666666666667,68.66666666666667,458.3333333333333,75.33333333333333,500,82"
+        d="M0,218C41.667,181.667,83.333,145.333,125,109C166.667,72.667,208.333,0,250,0C291.667,0,333.333,41.333,375,55C416.667,68.667,458.333,75.333,500,82"
         fill="none"
         stroke="#e8c1a0"
         strokeWidth={2}
@@ -4032,8 +3862,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4069,8 +3897,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4106,8 +3932,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4143,8 +3967,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4180,8 +4002,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4233,8 +4053,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4270,8 +4088,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4307,8 +4123,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4344,8 +4158,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4381,8 +4193,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4418,8 +4228,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4455,8 +4263,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4492,8 +4298,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4529,8 +4333,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4566,8 +4368,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4603,8 +4403,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4640,8 +4438,6 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -4664,7 +4460,7 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
         />
       </g>
       <path
-        d="M0,218C41.66666666666667,181.66666666666666,83.33333333333333,145.33333333333334,125,109C166.66666666666669,72.66666666666666,250,36.333333333333336,250,0C250,18.333333333333332,304.3510990665462,36.66666666666667,375,55C409.6821877309682,64,454.8410938654841,73,500,82"
+        d="M0,218C41.667,181.667,83.333,145.333,125,109C166.667,72.667,250,36.333,250,0C250,18.333,304.351,36.667,375,55C409.682,64,454.841,73,500,82"
         fill="none"
         stroke="#e8c1a0"
         strokeWidth={2}
@@ -4828,8 +4624,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4865,8 +4659,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4902,8 +4694,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4939,8 +4729,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -4976,8 +4764,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -5029,8 +4815,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5066,8 +4850,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5103,8 +4885,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5140,8 +4920,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5177,8 +4955,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5214,8 +4990,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5251,8 +5025,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5288,8 +5060,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5325,8 +5095,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5362,8 +5130,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5399,8 +5165,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5436,8 +5200,6 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5460,7 +5222,7 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
         />
       </g>
       <path
-        d="M0,218C41.66666666666666,185.73809523809524,83.33333333333331,153.47619047619048,125,109C166.66666666666669,64.52380952380953,208.33333333333337,7.833333333333333,250,0C291.66666666666663,-7.833333333333333,333.3333333333333,33.19047619047619,375,55C416.6666666666667,76.80952380952381,458.33333333333337,79.4047619047619,500,82"
+        d="M0,218C41.667,185.738,83.333,153.476,125,109C166.667,64.524,208.333,7.833,250,0C291.667,-7.833,333.333,33.19,375,55C416.667,76.81,458.333,79.405,500,82"
         fill="none"
         stroke="#e8c1a0"
         strokeWidth={2}
@@ -5624,8 +5386,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -5661,8 +5421,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -5698,8 +5456,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -5735,8 +5491,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -5772,8 +5526,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -5825,8 +5577,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5862,8 +5612,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5899,8 +5647,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5936,8 +5682,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -5973,8 +5717,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6010,8 +5752,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6047,8 +5787,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6084,8 +5822,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6121,8 +5857,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6158,8 +5892,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6195,8 +5927,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6232,8 +5962,6 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6420,8 +6148,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -6457,8 +6183,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -6494,8 +6218,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -6531,8 +6253,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -6568,8 +6288,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -6621,8 +6339,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6658,8 +6374,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6695,8 +6409,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6732,8 +6444,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6769,8 +6479,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6806,8 +6514,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6843,8 +6549,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6880,8 +6584,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6917,8 +6619,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6954,8 +6654,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -6991,8 +6689,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7028,8 +6724,6 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7216,8 +6910,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -7253,8 +6945,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -7290,8 +6980,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -7327,8 +7015,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -7364,8 +7050,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -7417,8 +7101,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7454,8 +7136,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7491,8 +7171,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7528,8 +7206,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7565,8 +7241,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7602,8 +7276,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7639,8 +7311,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7676,8 +7346,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7713,8 +7381,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7750,8 +7416,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7787,8 +7451,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -7824,8 +7486,6 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8169,8 +7829,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -8206,8 +7864,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -8243,8 +7899,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -8280,8 +7934,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -8317,8 +7969,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -8370,8 +8020,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8407,8 +8055,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8444,8 +8090,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8481,8 +8125,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8518,8 +8160,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8555,8 +8195,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8592,8 +8230,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8629,8 +8265,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8666,8 +8300,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8703,8 +8335,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8740,8 +8370,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -8777,8 +8405,6 @@ exports[`should render a basic line chart 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9122,8 +8748,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -9159,8 +8783,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -9196,8 +8818,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -9233,8 +8853,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -9270,8 +8888,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="middle"
@@ -9323,8 +8939,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9360,8 +8974,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9397,8 +9009,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9434,8 +9044,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9471,8 +9079,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9508,8 +9114,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9545,8 +9149,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9582,8 +9184,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9619,8 +9219,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9656,8 +9254,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9693,8 +9289,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"
@@ -9730,8 +9324,6 @@ exports[`should support multiple lines 1`] = `
                 "fill": "#333333",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
-                "outlineColor": "transparent",
-                "outlineWidth": 0,
               }
             }
             textAnchor="end"

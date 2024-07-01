@@ -27,6 +27,7 @@ import { StreamIcon } from './StreamIcon'
 import { SunburstIcon } from './SunburstIcon'
 import { SwarmPlotIcon } from './SwarmPlotIcon'
 import { TimeRangeIcon } from './TimeRangeIcon'
+import { TreeIcon } from './TreeIcon'
 import { TreeMapIcon } from './TreeMapIcon'
 import { VoronoiIcon } from './VoronoiIcon'
 import { WaffleIcon } from './WaffleIcon'
@@ -60,6 +61,7 @@ const ColorsDemo = ({ type }: { type: IconType }) => {
 
 export const Icons = () => (
     <Container>
+        <TreeIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />

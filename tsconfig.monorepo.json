@@ -5,6 +5,7 @@
         // { "path": "./packages/core" },
 
         // Shared next because charts need them
+        { "path": "./packages/text" },
         { "path": "./packages/canvas" },
         { "path": "./packages/annotations" },
         { "path": "./packages/scales" },
@@ -40,6 +41,7 @@
         { "path": "./packages/sunburst" },
         { "path": "./packages/stream" },
         { "path": "./packages/swarmplot" },
+        { "path": "./packages/tree" },
         { "path": "./packages/treemap" },
         { "path": "./packages/waffle" },
 

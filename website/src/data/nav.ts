@@ -23,6 +23,7 @@ import stream from './components/stream/meta.yml'
 import sunburst from './components/sunburst/meta.yml'
 import swarmplot from './components/swarmplot/meta.yml'
 import timeRange from './components/time-range/meta.yml'
+import tree from './components/tree/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
@@ -251,6 +252,15 @@ export const components: ChartNavData[] = [
         tags: timeRange.TimeRange.tags,
         flavors: {
             svg: true,
+        },
+    },
+    {
+        name: 'Tree',
+        id: 'tree',
+        tags: tree.Tree.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
         },
     },
     {

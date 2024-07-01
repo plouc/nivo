@@ -1,31 +1,63 @@
-import { useMemo } from 'react'
+import {
+    MouseEvent,
+    MutableRefObject,
+    TouchEvent,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
 import { scaleLinear } from 'd3-scale'
 import { Delaunay } from 'd3-delaunay'
-import { computeMeshPoints, computeMesh, XYAccessor } from './computeMesh'
-import { VoronoiCommonProps, VoronoiDatum, VoronoiCustomLayerProps } from './types'
+import { getDistance, getRelativeCursor, Margin } from '@nivo/core'
+import { TooltipAnchor, TooltipPosition, useTooltip } from '@nivo/tooltip'
+import { computeMeshPoints, computeMesh } from './computeMesh'
+import {
+    VoronoiCommonProps,
+    VoronoiDatum,
+    VoronoiCustomLayerProps,
+    NodeMouseHandler,
+    // DatumTouchHandler,
+    NodePositionAccessor,
+    NodeTouchHandler,
+} from './types'
+import {
+    defaultMargin,
+    defaultNodePositionAccessor,
+    defaultTooltipPosition,
+    defaultTooltipAnchor,
+} from './defaults'
 
-export const useVoronoiMesh = <Datum>({
+export const useVoronoiMesh = <Node>({
     points,
-    x,
-    y,
+    getNodePosition = defaultNodePositionAccessor as NodePositionAccessor<Node>,
     width,
     height,
+    margin = defaultMargin,
     debug,
 }: {
-    points: Datum[]
-    x?: XYAccessor<Datum>
-    y?: XYAccessor<Datum>
+    points: readonly Node[]
+    getNodePosition?: NodePositionAccessor<Node>
+    // Margins are added to the chart's dimensions, so that mouse detection
+    // also works inside the margins, omit if that's not what you want.
+    // When including the margins, we recommend to set a `detectionRadius` as well.
+    margin?: Margin
     width: number
     height: number
     debug?: boolean
-}) => {
-    const points2d = useMemo(() => computeMeshPoints<Datum>({ points, x, y }), [points, x, y])
-
-    return useMemo(
-        () => computeMesh({ points: points2d, width, height, debug }),
-        [points2d, width, height, debug]
+}) =>
+    useMemo(
+        () =>
+            computeMesh({
+                points: computeMeshPoints<Node>({ points, margin, getNodePosition }),
+                width,
+                height,
+                margin,
+                debug,
+            }),
+        [points, width, height, margin, debug]
     )
-}
 
 export const useVoronoi = ({
     data,
@@ -84,3 +116,330 @@ export const useVoronoiLayerContext = ({
         }),
         [points, delaunay, voronoi]
     )
+
+export const useMeshEvents = <Node, ElementType extends Element>({
+    elementRef,
+    nodes,
+    getNodePosition = defaultNodePositionAccessor as NodePositionAccessor<Node>,
+    delaunay,
+    setCurrent: setCurrentNode,
+    margin = defaultMargin,
+    detectionRadius = Infinity,
+    isInteractive = true,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    enableTouchCrosshair = false,
+    tooltip,
+    tooltipPosition = defaultTooltipPosition,
+    tooltipAnchor = defaultTooltipAnchor,
+}: {
+    elementRef: MutableRefObject<ElementType | null>
+    nodes: readonly Node[]
+    getNodePosition?: NodePositionAccessor<Node>
+    delaunay: Delaunay<Node>
+    setCurrent?: (node: Node | null) => void
+    margin?: Margin
+    detectionRadius?: number
+    isInteractive?: boolean
+    onMouseEnter?: NodeMouseHandler<Node>
+    onMouseMove?: NodeMouseHandler<Node>
+    onMouseLeave?: NodeMouseHandler<Node>
+    onClick?: NodeMouseHandler<Node>
+    onTouchStart?: NodeTouchHandler<Node>
+    onTouchMove?: NodeTouchHandler<Node>
+    onTouchEnd?: NodeTouchHandler<Node>
+    enableTouchCrosshair?: boolean
+    tooltip?: (node: Node) => JSX.Element
+    tooltipPosition?: TooltipPosition
+    tooltipAnchor?: TooltipAnchor
+}) => {
+    // Store the index of the current point and the current node.
+    const [current, setCurrent] = useState<[number, Node] | null>(null)
+
+    // Keep track of the previous index and node, this is needed as we don't have enter/leave events
+    // for each node because we use a single rect element to capture events.
+    const previous = useRef<[number, Node] | null>(null)
+
+    useEffect(() => {
+        previous.current = current
+    }, [previous, current])
+
+    const findNode = useCallback(
+        (event: MouseEvent<ElementType> | TouchEvent<ElementType>): null | [number, Node] => {
+            if (!elementRef.current) return null
+
+            const [x, y] = getRelativeCursor(elementRef.current, event)
+
+            let index: number | null = delaunay.find(x, y)
+            let node = index !== undefined ? nodes[index] : null
+
+            if (node && detectionRadius !== Infinity) {
+                const [nodeX, nodeY] = getNodePosition(node)
+                if (getDistance(x, y, nodeX + margin.left, nodeY + margin.top) > detectionRadius) {
+                    index = null
+                    node = null
+                }
+            }
+
+            if (index === null || node === null) return null
+
+            return [index, node]
+        },
+        [elementRef, delaunay, nodes, getNodePosition, margin, detectionRadius]
+    )
+
+    const { showTooltipAt, showTooltipFromEvent, hideTooltip } = useTooltip()
+    const showTooltip = useMemo(() => {
+        if (!tooltip) return undefined
+
+        if (tooltipPosition === 'cursor') {
+            // Following the cursor.
+            return (node: Node, event: MouseEvent<ElementType>) => {
+                showTooltipFromEvent(tooltip(node), event, tooltipAnchor)
+            }
+        }
+
+        // Fixed at the node's position.
+        return (node: Node) => {
+            const [x, y] = getNodePosition(node)
+            showTooltipAt(tooltip(node), [x + margin.left, y + margin.top], tooltipAnchor)
+        }
+    }, [
+        showTooltipAt,
+        showTooltipFromEvent,
+        tooltip,
+        tooltipPosition,
+        tooltipAnchor,
+        getNodePosition,
+        margin,
+    ])
+
+    // Mouse enter only occurs when entering the main element,
+    // not for each node.
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            const match = findNode(event)
+
+            setCurrent(match)
+            setCurrentNode?.(match ? match[1] : null)
+
+            if (match) {
+                const node = match[1]
+
+                showTooltip?.(node, event)
+                onMouseEnter?.(match[1], event)
+            }
+        },
+        [findNode, setCurrent, setCurrentNode, showTooltip, onMouseEnter]
+    )
+
+    // Handle mouse enter/move/leave, relying on `previous` to simulate events.
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            const match = findNode(event)
+
+            setCurrent(match)
+
+            if (match) {
+                const [index, node] = match
+
+                setCurrentNode?.(node)
+                showTooltip?.(node, event)
+
+                if (previous.current) {
+                    const [previousIndex, previousNode] = previous.current
+                    if (index !== previousIndex) {
+                        // Simulate an enter event if the previous index is different.
+                        onMouseLeave?.(previousNode, event)
+                    } else {
+                        // If it's the same, trigger a regular move event.
+                        onMouseMove?.(node, event)
+                    }
+                } else {
+                    onMouseEnter?.(node, event)
+                }
+            } else {
+                setCurrentNode?.(null)
+                hideTooltip?.()
+
+                if (previous.current) {
+                    // Simulate a leave event if there's a previous node.
+                    onMouseLeave?.(previous.current[1], event)
+                }
+            }
+        },
+        [
+            findNode,
+            setCurrent,
+            previous,
+            onMouseEnter,
+            onMouseMove,
+            onMouseLeave,
+            showTooltip,
+            hideTooltip,
+        ]
+    )
+
+    // Mouse leave only occurs when leaving the main element,
+    // not for each node.
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            setCurrent(null)
+            setCurrentNode?.(null)
+
+            hideTooltip()
+
+            if (onMouseLeave && previous.current) {
+                onMouseLeave(previous.current[1], event)
+            }
+        },
+        [setCurrent, setCurrentNode, previous, hideTooltip, onMouseLeave]
+    )
+
+    const handleClick = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            const match = findNode(event)
+
+            setCurrent(match)
+
+            match && onClick?.(match[1], event)
+        },
+        [findNode, setCurrent, onClick]
+    )
+
+    const handleTouchStart = useCallback(
+        (event: TouchEvent<ElementType>) => {
+            const match = findNode(event)
+
+            if (enableTouchCrosshair) {
+                setCurrent(match)
+                setCurrentNode?.(match ? match[1] : null)
+            }
+
+            match && onTouchStart?.(match[1], event)
+        },
+        [findNode, setCurrent, setCurrentNode, enableTouchCrosshair, onTouchStart]
+    )
+
+    const handleTouchMove = useCallback(
+        (event: TouchEvent<ElementType>) => {
+            const match = findNode(event)
+
+            if (enableTouchCrosshair) {
+                setCurrent(match)
+                setCurrentNode?.(match ? match[1] : null)
+            }
+
+            match && onTouchMove?.(match[1], event)
+        },
+        [findNode, setCurrent, setCurrentNode, enableTouchCrosshair, onTouchMove]
+    )
+
+    const handleTouchEnd = useCallback(
+        (event: TouchEvent<SVGRectElement>) => {
+            if (enableTouchCrosshair) {
+                setCurrent(null)
+                setCurrentNode?.(null)
+            }
+
+            if (onTouchEnd && previous.current) {
+                onTouchEnd(previous.current[1], event)
+            }
+        },
+        [enableTouchCrosshair, setCurrent, setCurrentNode, onTouchEnd, previous]
+    )
+
+    return {
+        current,
+        handleMouseEnter: isInteractive ? handleMouseEnter : undefined,
+        handleMouseMove: isInteractive ? handleMouseMove : undefined,
+        handleMouseLeave: isInteractive ? handleMouseLeave : undefined,
+        handleClick: isInteractive ? handleClick : undefined,
+        handleTouchStart: isInteractive ? handleTouchStart : undefined,
+        handleTouchMove: isInteractive ? handleTouchMove : undefined,
+        handleTouchEnd: isInteractive ? handleTouchEnd : undefined,
+    }
+}
+
+/**
+ * Compute a voronoi mesh and corresponding events.
+ */
+export const useMesh = <Node, ElementType extends Element>({
+    elementRef,
+    nodes,
+    getNodePosition,
+    width,
+    height,
+    margin = defaultMargin,
+    isInteractive = true,
+    detectionRadius = Infinity,
+    setCurrent,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip,
+    tooltipPosition = defaultTooltipPosition,
+    tooltipAnchor = defaultTooltipAnchor,
+    debug = false,
+}: {
+    elementRef: MutableRefObject<ElementType | null>
+    nodes: readonly Node[]
+    getNodePosition?: NodePositionAccessor<Node>
+    width: number
+    height: number
+    margin?: Margin
+    isInteractive?: boolean
+    detectionRadius?: number
+    setCurrent?: (node: Node | null) => void
+    onMouseEnter?: NodeMouseHandler<Node>
+    onMouseMove?: NodeMouseHandler<Node>
+    onMouseLeave?: NodeMouseHandler<Node>
+    onClick?: NodeMouseHandler<Node>
+    tooltip?: (node: Node) => JSX.Element
+    tooltipPosition?: TooltipPosition
+    tooltipAnchor?: TooltipAnchor
+    debug?: boolean
+}) => {
+    const { delaunay, voronoi } = useVoronoiMesh<Node>({
+        points: nodes,
+        getNodePosition,
+        width,
+        height,
+        margin,
+        debug,
+    })
+
+    const { handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick, current } =
+        useMeshEvents<Node, ElementType>({
+            elementRef,
+            nodes,
+            margin,
+            setCurrent,
+            delaunay,
+            detectionRadius,
+            isInteractive,
+            onMouseEnter,
+            onMouseMove,
+            onMouseLeave,
+            onClick,
+            tooltip,
+            tooltipPosition,
+            tooltipAnchor,
+        })
+
+    return {
+        delaunay,
+        voronoi,
+        current,
+        handleMouseEnter,
+        handleMouseMove,
+        handleMouseLeave,
+        handleClick,
+    }
+}

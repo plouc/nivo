@@ -3,8 +3,8 @@ import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
 export default settingsMapper(
     {
         pointLabel: value => {
-            if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.x}: ${d.y}`
-            return value
+            if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.data.x}: ${d.data.y}`
+            return `data.${value}`
         },
         xFormat: mapFormat,
         yFormat: mapFormat,

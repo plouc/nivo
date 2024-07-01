@@ -1,13 +1,7 @@
 import { Delaunay } from 'd3-delaunay'
-
-type NumberPropertyNames<T> = {
-    [K in keyof T]: T[K] extends number ? K : never
-}[keyof T]
-
-export type XYAccessor<Datum> = NumberPropertyNames<Datum> | ((datum: Datum) => number)
-
-const getAccessor = <Datum>(directive: XYAccessor<Datum>) =>
-    typeof directive === 'function' ? directive : (datum: Datum) => datum[directive]
+import { Margin } from '@nivo/core'
+import { NodePositionAccessor } from './types'
+import { defaultNodePositionAccessor, defaultMargin } from './defaults'
 
 /**
  * The delaunay generator requires an array
@@ -17,34 +11,44 @@ const getAccessor = <Datum>(directive: XYAccessor<Datum>) =>
  * Points represent the raw input data
  * and x/y represent accessors to x & y.
  */
-export const computeMeshPoints = <Datum>({
+export const computeMeshPoints = <Node>({
     points,
-    x = 'x' as NumberPropertyNames<Datum>,
-    y = 'y' as NumberPropertyNames<Datum>,
+    getNodePosition = defaultNodePositionAccessor as NodePositionAccessor<Node>,
+    margin = defaultMargin,
 }: {
-    points: Datum[]
-    x?: XYAccessor<Datum>
-    y?: XYAccessor<Datum>
+    points: readonly Node[]
+    getNodePosition?: NodePositionAccessor<Node>
+    margin?: Margin
 }): [number, number][] => {
-    const getX = getAccessor<Datum>(x)
-    const getY = getAccessor<Datum>(y)
+    return points.map(node => {
+        const [x, y] = getNodePosition(node)
 
-    return points.map(point => [getX(point) as number, getY(point) as number])
+        return [x + margin.left, y + margin.top]
+    })
 }
 
 export const computeMesh = ({
     points,
     width,
     height,
+    margin = defaultMargin,
     debug,
 }: {
-    points: [number, number][]
+    points: readonly [number, number][]
     width: number
     height: number
+    margin?: Margin
     debug?: boolean
 }) => {
     const delaunay = Delaunay.from(points)
-    const voronoi = debug ? delaunay.voronoi([0, 0, width, height]) : undefined
+    const voronoi = debug
+        ? delaunay.voronoi([
+              0,
+              0,
+              margin.left + width + margin.right,
+              margin.top + height + margin.bottom,
+          ])
+        : undefined
 
-    return { delaunay, voronoi }
+    return { points, delaunay, voronoi }
 }

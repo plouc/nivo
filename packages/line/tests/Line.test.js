@@ -4,6 +4,7 @@ import Line from '../src/Line'
 import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
+import { DotsItem } from '@nivo/core'
 
 // Handle useId mocks
 let id = 0
@@ -107,6 +108,91 @@ it('should have left and bottom axis by default', () => {
     expect(axes).toHaveLength(2)
     expect(axes.at(0).prop('axis')).toBe('x')
     expect(axes.at(1).prop('axis')).toBe('y')
+})
+
+it('should display the label for each points', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+    ]
+
+    const wrapper = mount(
+        <Line
+            width={500}
+            height={300}
+            data={data}
+            animate={false}
+            pointLabel={'data.yFormatted'}
+            enablePointLabel
+        />
+    )
+
+    const dotsItem = wrapper.find(DotsItem)
+    expect(dotsItem).toHaveLength(5)
+    expect(dotsItem.at(0).prop('label')).toBe('8')
+    expect(dotsItem.at(1).prop('label')).toBe('9')
+    expect(dotsItem.at(2).prop('label')).toBe('11')
+    expect(dotsItem.at(3).prop('label')).toBe('7')
+    expect(dotsItem.at(4).prop('label')).toBe('3')
+})
+
+it('should call the custom label callback for each point', () => {
+    const serieAData = [
+        { x: 0, y: 3 },
+        { x: 1, y: 7 },
+        { x: 2, y: 11 },
+        { x: 3, y: 9 },
+        { x: 4, y: 8 },
+    ]
+    const data = [
+        {
+            id: 'A',
+            data: serieAData,
+        },
+    ]
+
+    const pointLabelFn = jest.fn(point => point.data.yFormatted)
+
+    renderer.create(
+        <Line
+            width={500}
+            height={300}
+            data={data}
+            animate={false}
+            pointLabel={pointLabelFn}
+            enablePointLabel
+        />
+    )
+
+    expect(pointLabelFn).toHaveBeenCalledTimes(5)
+
+    for (let i = 0; i < serieAData.length; ++i) {
+        const currentData = serieAData[i]
+        expect(pointLabelFn).toHaveBeenCalledWith({
+            id: `A.${i}`,
+            index: i,
+            serieId: 'A',
+            serieColor: expect.any(String),
+            x: expect.any(Number),
+            y: expect.any(Number),
+            color: expect.any(String),
+            borderColor: expect.any(String),
+            data: {
+                x: currentData.x,
+                y: currentData.y,
+                yFormatted: String(currentData.y),
+                xFormatted: String(currentData.x),
+            },
+        })
+    }
 })
 
 describe('curve interpolation', () => {
@@ -286,6 +372,7 @@ describe('touch events with slices', () => {
         height: 300,
         data: data,
         animate: false,
+        useMesh: false,
         enableSlices: 'x',
     }
 

@@ -105,6 +105,8 @@ const InnerBar = <RawDatum extends BarDatum>({
     barAriaLabel,
     barAriaLabelledBy,
     barAriaDescribedBy,
+    barAriaHidden,
+    barAriaDisabled,
 
     initialHiddenIds,
 
@@ -261,6 +263,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             ariaLabel: barAriaLabel,
             ariaLabelledBy: barAriaLabelledBy,
             ariaDescribedBy: barAriaDescribedBy,
+            ariaHidden: barAriaHidden,
+            ariaDisabled: barAriaDisabled,
         }),
         [
             borderRadius,
@@ -278,6 +282,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             barAriaLabel,
             barAriaLabelledBy,
             barAriaDescribedBy,
+            barAriaHidden,
+            barAriaDisabled,
         ]
     )
 
