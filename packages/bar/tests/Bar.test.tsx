@@ -776,10 +776,10 @@ describe('labelPosition', () => {
     it.each`
         labelPosition | layout          | expected
         ${'start'}    | ${'vertical'}   | ${200}
-        ${'center'}   | ${'vertical'}   | ${100}
+        ${'middle'}   | ${'vertical'}   | ${100}
         ${'end'}      | ${'vertical'}   | ${0}
         ${'start'}    | ${'horizontal'} | ${0}
-        ${'center'}   | ${'horizontal'} | ${100}
+        ${'middle'}   | ${'horizontal'} | ${100}
         ${'end'}      | ${'horizontal'} | ${200}
     `(
         'should position labels correctly on $layout charts when labelPosition=$labelPosition',
@@ -816,25 +816,25 @@ describe('useComputeLabelLayout', () => {
     it.each`
         labelPosition | layout          | offset | reverse  | expectedValue | expectedTextAnchor
         ${'start'}    | ${'vertical'}   | ${0}   | ${false} | ${200}        | ${'middle'}
-        ${'center'}   | ${'vertical'}   | ${0}   | ${false} | ${100}        | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${0}   | ${false} | ${100}        | ${'middle'}
         ${'end'}      | ${'vertical'}   | ${0}   | ${false} | ${0}          | ${'middle'}
         ${'start'}    | ${'horizontal'} | ${0}   | ${false} | ${0}          | ${'start'}
-        ${'center'}   | ${'horizontal'} | ${0}   | ${false} | ${100}        | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${0}   | ${false} | ${100}        | ${'middle'}
         ${'end'}      | ${'horizontal'} | ${0}   | ${false} | ${200}        | ${'start'}
-        ${'center'}   | ${'vertical'}   | ${-10} | ${false} | ${110}        | ${'middle'}
-        ${'center'}   | ${'vertical'}   | ${10}  | ${false} | ${90}         | ${'middle'}
-        ${'center'}   | ${'horizontal'} | ${-10} | ${false} | ${90}         | ${'middle'}
-        ${'center'}   | ${'horizontal'} | ${10}  | ${false} | ${110}        | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${-10} | ${false} | ${110}        | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${10}  | ${false} | ${90}         | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${-10} | ${false} | ${90}         | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${10}  | ${false} | ${110}        | ${'middle'}
         ${'start'}    | ${'vertical'}   | ${0}   | ${true}  | ${0}          | ${'middle'}
-        ${'center'}   | ${'vertical'}   | ${0}   | ${true}  | ${100}        | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${0}   | ${true}  | ${100}        | ${'middle'}
         ${'end'}      | ${'vertical'}   | ${0}   | ${true}  | ${200}        | ${'middle'}
         ${'start'}    | ${'horizontal'} | ${0}   | ${true}  | ${200}        | ${'end'}
-        ${'center'}   | ${'horizontal'} | ${0}   | ${true}  | ${100}        | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${0}   | ${true}  | ${100}        | ${'middle'}
         ${'end'}      | ${'horizontal'} | ${0}   | ${true}  | ${0}          | ${'end'}
-        ${'center'}   | ${'vertical'}   | ${-10} | ${true}  | ${90}         | ${'middle'}
-        ${'center'}   | ${'vertical'}   | ${10}  | ${true}  | ${110}        | ${'middle'}
-        ${'center'}   | ${'horizontal'} | ${-10} | ${true}  | ${110}        | ${'middle'}
-        ${'center'}   | ${'horizontal'} | ${10}  | ${true}  | ${90}         | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${-10} | ${true}  | ${90}         | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${10}  | ${true}  | ${110}        | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${-10} | ${true}  | ${110}        | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${10}  | ${true}  | ${90}         | ${'middle'}
     `(
         'should compute the correct label layout for (layout: $layout, labelPosition: $labelPosition, offset: $offset, reverse: $reverse)',
         ({ labelPosition, layout, offset, reverse, expectedValue, expectedTextAnchor }) => {

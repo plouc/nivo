@@ -28,7 +28,7 @@ export const defaultProps = {
 
     enableLabel: true,
     label: 'formattedValue',
-    labelPosition: 'center' as const,
+    labelPosition: 'middle' as const,
     labelOffset: 0,
     labelSkipWidth: 0,
     labelSkipHeight: 0,

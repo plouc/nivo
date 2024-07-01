@@ -233,7 +233,7 @@ export type BarCommonProps<RawDatum> = {
 
     enableLabel: boolean
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
-    labelPosition: 'start' | 'center' | 'end'
+    labelPosition: 'start' | 'middle' | 'end'
     labelOffset: number
     labelFormat: string | LabelFormatter
     labelSkipWidth: number

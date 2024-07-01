@@ -77,7 +77,7 @@ export function useComputeLabelLayout<RawDatum extends BarDatum>(
             return {
                 labelX: x + computedLabelOffset,
                 labelY: height / 2,
-                textAnchor: labelPosition === 'center' ? 'middle' : reverse ? 'end' : 'start',
+                textAnchor: labelPosition === 'middle' ? 'middle' : reverse ? 'end' : 'start',
             }
         } else {
             let y = height / 2

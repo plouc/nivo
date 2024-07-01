@@ -419,7 +419,7 @@ const props: ChartProperty[] = [
     {
         key: 'labelPosition',
         help: 'Defines the position of the label relative to its bar.',
-        type: `'start' | 'center' | 'end'`,
+        type: `'start' | 'middle' | 'end'`,
         flavors: allFlavors,
         required: false,
         defaultValue: svgDefaultProps.labelPosition,
@@ -427,7 +427,7 @@ const props: ChartProperty[] = [
             type: 'radio',
             choices: [
                 { label: 'start', value: 'start' },
-                { label: 'center', value: 'center' },
+                { label: 'middle', value: 'middle' },
                 { label: 'end', value: 'end' },
             ],
             columns: 3,
