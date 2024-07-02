@@ -53,6 +53,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     ariaDescribedBy,
     defs = svgDefaultProps.defs,
     fill = svgDefaultProps.fill,
+    onClick,
 }: InnerRadarProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -154,6 +155,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
                     rotation={rotation}
                     angleStep={angleStep}
                     tooltip={sliceTooltip}
+                    onClick={onClick}
                 />
             </g>
         )
