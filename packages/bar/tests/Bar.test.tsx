@@ -2,6 +2,7 @@ import { mount } from 'enzyme'
 import { create, act, ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
 import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotals } from '../'
+import { useComputeLabelLayout } from '../src/compute/common'
 
 type IdValue = {
     id: string
@@ -769,6 +770,84 @@ describe('totals layer', () => {
             expect(props.fontFamily).toBe('serif')
         })
     })
+})
+
+describe('labelPosition', () => {
+    it.each`
+        labelPosition | layout          | expected
+        ${'start'}    | ${'vertical'}   | ${200}
+        ${'middle'}   | ${'vertical'}   | ${100}
+        ${'end'}      | ${'vertical'}   | ${0}
+        ${'start'}    | ${'horizontal'} | ${0}
+        ${'middle'}   | ${'horizontal'} | ${100}
+        ${'end'}      | ${'horizontal'} | ${200}
+    `(
+        'should position labels correctly on $layout charts when labelPosition=$labelPosition',
+        ({ labelPosition, layout, expected }) => {
+            const instance = create(
+                <Bar
+                    width={200}
+                    height={200}
+                    keys={['costA', 'costB']}
+                    data={[
+                        { id: 'one', costA: 1, costB: 1 },
+                        { id: 'two', costA: 1, costB: 1 },
+                    ]}
+                    animate={false}
+                    groupMode="grouped"
+                    labelPosition={labelPosition}
+                    layout={layout}
+                />
+            ).root
+
+            for (const bar of instance.findAllByType(BarItem)) {
+                const { labelX, labelY } = bar.props.style
+                if (layout === 'vertical') {
+                    expect(labelY.animation.to).toBe(expected)
+                } else {
+                    expect(labelX.animation.to).toBe(expected)
+                }
+            }
+        }
+    )
+})
+
+describe('useComputeLabelLayout', () => {
+    it.each`
+        labelPosition | layout          | offset | reverse  | expectedValue | expectedTextAnchor
+        ${'start'}    | ${'vertical'}   | ${0}   | ${false} | ${200}        | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${0}   | ${false} | ${100}        | ${'middle'}
+        ${'end'}      | ${'vertical'}   | ${0}   | ${false} | ${0}          | ${'middle'}
+        ${'start'}    | ${'horizontal'} | ${0}   | ${false} | ${0}          | ${'start'}
+        ${'middle'}   | ${'horizontal'} | ${0}   | ${false} | ${100}        | ${'middle'}
+        ${'end'}      | ${'horizontal'} | ${0}   | ${false} | ${200}        | ${'start'}
+        ${'middle'}   | ${'vertical'}   | ${-10} | ${false} | ${110}        | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${10}  | ${false} | ${90}         | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${-10} | ${false} | ${90}         | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${10}  | ${false} | ${110}        | ${'middle'}
+        ${'start'}    | ${'vertical'}   | ${0}   | ${true}  | ${0}          | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${0}   | ${true}  | ${100}        | ${'middle'}
+        ${'end'}      | ${'vertical'}   | ${0}   | ${true}  | ${200}        | ${'middle'}
+        ${'start'}    | ${'horizontal'} | ${0}   | ${true}  | ${200}        | ${'end'}
+        ${'middle'}   | ${'horizontal'} | ${0}   | ${true}  | ${100}        | ${'middle'}
+        ${'end'}      | ${'horizontal'} | ${0}   | ${true}  | ${0}          | ${'end'}
+        ${'middle'}   | ${'vertical'}   | ${-10} | ${true}  | ${90}         | ${'middle'}
+        ${'middle'}   | ${'vertical'}   | ${10}  | ${true}  | ${110}        | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${-10} | ${true}  | ${110}        | ${'middle'}
+        ${'middle'}   | ${'horizontal'} | ${10}  | ${true}  | ${90}         | ${'middle'}
+    `(
+        'should compute the correct label layout for (layout: $layout, labelPosition: $labelPosition, offset: $offset, reverse: $reverse)',
+        ({ labelPosition, layout, offset, reverse, expectedValue, expectedTextAnchor }) => {
+            const computeLabelLayout = useComputeLabelLayout(layout, reverse, labelPosition, offset)
+            const { labelX, labelY, textAnchor } = computeLabelLayout(200, 200)
+            if (layout === 'vertical') {
+                expect(labelY).toBe(expectedValue)
+            } else {
+                expect(labelX).toBe(expectedValue)
+            }
+            expect(textAnchor).toBe(expectedTextAnchor)
+        }
+    )
 })
 
 describe('tooltip', () => {

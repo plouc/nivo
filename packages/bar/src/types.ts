@@ -16,6 +16,7 @@ import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
+import { BarLabelLayout } from './compute/common'
 
 export interface BarDatum {
     [key: string]: string | number
@@ -165,6 +166,7 @@ export interface BarItemProps<RawDatum extends BarDatum>
         opacity: number
         transform: string
         width: number
+        textAnchor: 'start' | 'middle'
     }>
 
     label: string
@@ -189,10 +191,11 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     | 'ariaDescribedBy'
     | 'ariaHidden'
     | 'ariaDisabled'
-> & {
-    borderColor: string
-    labelColor: string
-}
+> &
+    BarLabelLayout & {
+        borderColor: string
+        labelColor: string
+    }
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
@@ -234,6 +237,8 @@ export type BarCommonProps<RawDatum> = {
 
     enableLabel: boolean
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
+    labelPosition: 'start' | 'middle' | 'end'
+    labelOffset: number
     labelFormat: string | LabelFormatter
     labelSkipWidth: number
     labelSkipHeight: number

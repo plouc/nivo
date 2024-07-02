@@ -36,6 +36,8 @@ Bar:
       link: bar--with-annotations
     - label: Using totals
       link: bar--with-totals
+    - label: Using top labels
+      link: bar--with-top-labels
   description: |
     Bar chart which can display multiple data series, stacked or side by side. Also
     supports both vertical and horizontal layout, with negative values descending

@@ -28,6 +28,8 @@ export const defaultProps = {
 
     enableLabel: true,
     label: 'formattedValue',
+    labelPosition: 'middle' as const,
+    labelOffset: 0,
     labelSkipWidth: 0,
     labelSkipHeight: 0,
     labelTextColor: { from: 'theme', theme: 'labels.text.fill' },
