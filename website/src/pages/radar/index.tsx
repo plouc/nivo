@@ -114,13 +114,23 @@ const Radar = () => {
             getTabData={data => data.data}
             image={image}
         >
-            {(properties, data, theme) => {
+            {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveRadar
                         data={data.data}
                         keys={data.keys}
                         {...properties}
                         theme={theme}
+                        onClick={slice =>
+                            logAction({
+                                type: 'click',
+                                label: `[slice] {${Object.entries(slice)
+                                    .map(([key, value]) => `${key}: ${value}`)
+                                    .join(', ')}}`,
+                                color: slice.color,
+                                data: slice,
+                            })
+                        }
                     />
                 )
             }}
