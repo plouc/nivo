@@ -2,6 +2,8 @@ import { mount } from 'enzyme'
 import { LegendProps, BoxLegendSvg } from '@nivo/legends'
 // @ts-ignore
 import { Radar, RadarSvgProps, RadarSliceTooltipProps } from '../src'
+import { act, create } from 'react-test-renderer'
+import { RadarSlice } from '../src/RadarSlice'
 
 type TestDatum = {
     A: number
@@ -220,5 +222,24 @@ describe('legend', () => {
         expect(wrapper.find(BoxLegendSvg).find('text').at(1).text()).toBe(customLabels[0].B)
         expect(wrapper.find(BoxLegendSvg).find('text').at(2).text()).toBe(customLabels[1].A)
         expect(wrapper.find(BoxLegendSvg).find('text').at(3).text()).toBe(customLabels[1].B)
+    })
+})
+
+describe('interactivity', () => {
+    it('should support onClick handler', async () => {
+        const onClick = jest.fn()
+        // const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
+        const instance = create(<Radar<TestDatum> {...baseProps} onClick={onClick} />).root
+
+        await act(() => {
+            instance.findAllByType(RadarSlice)[0].findByType('path').props.onClick()
+        })
+
+        expect(onClick).toHaveBeenCalledTimes(1)
+        const [datum] = onClick.mock.calls[0]
+        expect(datum).toHaveProperty('A')
+        expect(datum).toHaveProperty('B')
+        expect(datum).not.toHaveProperty('C')
+        expect(datum).toHaveProperty('category')
     })
 })
