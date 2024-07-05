@@ -227,14 +227,3 @@ export const WithPatterns: Story = {
 export const WithRotation: Story = {
     render: args => <Radar {...commonProperties} curve={args.curve} rotation={36} />,
 }
-
-export const WithOnClick: Story = {
-    render: args => (
-        <Radar
-            {...commonProperties}
-            curve={args.curve}
-            rotation={36}
-            onClick={datum => console.log('datum', datum)}
-        />
-    ),
-}

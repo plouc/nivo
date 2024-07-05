@@ -228,13 +228,10 @@ describe('legend', () => {
 describe('interactivity', () => {
     it('should support onClick handler', async () => {
         const onClick = jest.fn()
-        // const wrapper = mount(<Radar<TestDatum> {...baseProps} />)
         const instance = create(<Radar<TestDatum> {...baseProps} onClick={onClick} />).root
-
         await act(() => {
             instance.findAllByType(RadarSlice)[0].findByType('path').props.onClick()
         })
-
         expect(onClick).toHaveBeenCalledTimes(1)
         const [datum] = onClick.mock.calls[0]
         expect(datum).toHaveProperty('A')
