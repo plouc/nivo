@@ -97,6 +97,8 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 1.6]],
     },
+    labelPosition: 'middle',
+    labelOffset: 0,
 
     isInteractive: true,
     'custom tooltip example': false,

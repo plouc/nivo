@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/core'
-import { Bar, BarDatum, BarItemProps } from '@nivo/bar'
+import { Bar, BarCanvas, BarDatum, BarItemProps } from '@nivo/bar'
 import { AxisTickProps } from '@nivo/axes'
 
 const meta: Meta<typeof Bar> = {
@@ -296,6 +296,19 @@ export const WithSymlogScale: Story = {
 
 export const WithTotals: Story = {
     render: () => <Bar {...commonProps} enableTotals={true} totalsOffset={10} />,
+}
+
+export const WithTopLabels: Story = {
+    render: () => (
+        <Bar
+            {...commonProps}
+            data={generateCountriesData(keys, { size: 2 }) as BarDatum[]}
+            labelPosition="end"
+            layout="vertical"
+            labelOffset={-10}
+            groupMode="grouped"
+        />
+    ),
 }
 
 const DataGenerator = (initialIndex, initialState) => {

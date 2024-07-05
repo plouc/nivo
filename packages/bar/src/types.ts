@@ -16,6 +16,7 @@ import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
+import { BarLabelLayout } from './compute/common'
 
 export interface BarDatum {
     [key: string]: string | number
@@ -165,6 +166,7 @@ export interface BarItemProps<RawDatum extends BarDatum>
         opacity: number
         transform: string
         width: number
+        textAnchor: 'start' | 'middle'
     }>
 
     label: string
@@ -174,6 +176,8 @@ export interface BarItemProps<RawDatum extends BarDatum>
     ariaLabel?: BarSvgProps<RawDatum>['barAriaLabel']
     ariaLabelledBy?: BarSvgProps<RawDatum>['barAriaLabelledBy']
     ariaDescribedBy?: BarSvgProps<RawDatum>['barAriaDescribedBy']
+    ariaHidden?: BarSvgProps<RawDatum>['barAriaHidden']
+    ariaDisabled?: BarSvgProps<RawDatum>['barAriaDisabled']
 }
 
 export type RenderBarProps<RawDatum extends BarDatum> = Omit<
@@ -185,10 +189,13 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     | 'ariaLabel'
     | 'ariaLabelledBy'
     | 'ariaDescribedBy'
-> & {
-    borderColor: string
-    labelColor: string
-}
+    | 'ariaHidden'
+    | 'ariaDisabled'
+> &
+    BarLabelLayout & {
+        borderColor: string
+        labelColor: string
+    }
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
@@ -230,6 +237,8 @@ export type BarCommonProps<RawDatum> = {
 
     enableLabel: boolean
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
+    labelPosition: 'start' | 'middle' | 'end'
+    labelOffset: number
     labelFormat: string | LabelFormatter
     labelSkipWidth: number
     labelSkipHeight: number
@@ -293,6 +302,8 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
         barAriaDescribedBy?: (
             data: ComputedDatum<RawDatum>
         ) => React.AriaAttributes['aria-describedby']
+        barAriaHidden?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-hidden']
+        barAriaDisabled?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-disabled']
     }>
 
 export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &

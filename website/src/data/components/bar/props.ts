@@ -417,6 +417,39 @@ const props: ChartProperty[] = [
         group: 'Labels',
     },
     {
+        key: 'labelPosition',
+        help: 'Defines the position of the label relative to its bar.',
+        type: `'start' | 'middle' | 'end'`,
+        flavors: allFlavors,
+        required: false,
+        defaultValue: svgDefaultProps.labelPosition,
+        control: {
+            type: 'radio',
+            choices: [
+                { label: 'start', value: 'start' },
+                { label: 'middle', value: 'middle' },
+                { label: 'end', value: 'end' },
+            ],
+            columns: 3,
+        },
+        group: 'Labels',
+    },
+    {
+        key: 'labelOffset',
+        help: 'Defines the vertical or horizontal (depends on layout) offset of the label.',
+        type: 'number',
+        flavors: ['svg', 'canvas', 'api'],
+        required: false,
+        defaultValue: svgDefaultProps.labelOffset,
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: -16,
+            max: 16,
+        },
+        group: 'Labels',
+    },
+    {
         key: 'enableTotals',
         help: 'Enable/disable totals labels.',
         type: 'boolean',
@@ -590,6 +623,22 @@ const props: ChartProperty[] = [
         group: 'Accessibility',
         help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for bar items.',
         type: '(data) => string',
+    },
+    {
+        key: 'barAriaHidden',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for bar items.',
+        type: '(data) => boolean',
+    },
+    {
+        key: 'barAriaDisabled',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for bar items.',
+        type: '(data) => boolean',
     },
 ]
 
