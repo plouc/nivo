@@ -90,7 +90,7 @@ it('should create slice for each x value', () => {
     expect(slices.at(4).prop('slice').x).toBe(500)
 })
 
-it('should hide certain line charts by default given their ids', () => {
+it('should hide single line charts by default given their id', () => {
     const data = [
         {
             id: 'A',
@@ -112,6 +112,16 @@ it('should hide certain line charts by default given their ids', () => {
                 { x: 5, y: 9 },
             ],
         },
+        {
+            id: 'C',
+            data: [
+                { x: 0, y: 5 },
+                { x: 2, y: 9 },
+                { x: 3, y: 13 },
+                { x: 4, y: 11 },
+                { x: 5, y: 10 },
+            ],
+        },
     ]
     const wrapper = mount(
         <Line 
@@ -121,6 +131,54 @@ it('should hide certain line charts by default given their ids', () => {
             enableSlices="x" 
             animate={false} 
             initialHiddenIds={['B']}
+        />
+    )
+
+    const lines = wrapper.find(Lines)
+    expect(lines).toHaveLength(1)
+})
+
+it('should hide multiple line charts by default given their ids', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+        {
+            id: 'B',
+            data: [
+                { x: 0, y: 4 },
+                { x: 2, y: 8 },
+                { x: 3, y: 12 },
+                { x: 4, y: 10 },
+                { x: 5, y: 9 },
+            ],
+        },
+        {
+            id: 'C',
+            data: [
+                { x: 0, y: 5 },
+                { x: 2, y: 9 },
+                { x: 3, y: 13 },
+                { x: 4, y: 11 },
+                { x: 5, y: 10 },
+            ],
+        },
+    ]
+    const wrapper = mount(
+        <Line 
+            width={500} 
+            height={300} 
+            data={data}  
+            enableSlices="x" 
+            animate={false} 
+            initialHiddenIds={['B', 'C']}
         />
     )
 
