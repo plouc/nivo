@@ -546,9 +546,8 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         group: 'Interactivity',
         help: `Hides certain series by default given their ids`,
-        type: 'boolean',
+        type: 'string[]',
         defaultValue: defaults.initialHiddenIds,
-        control: { type: 'switch' },
     },
     {
         key: 'crosshairType',
