@@ -542,6 +542,14 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
     },
     {
+        key: 'initialHiddenIds',
+        flavors: allFlavors,
+        group: 'Interactivity',
+        help: `Hides certain series by default given their ids`,
+        type: 'string[]',
+        defaultValue: defaults.initialHiddenIds,
+    },
+    {
         key: 'crosshairType',
         flavors: ['svg'],
         group: 'Interactivity',

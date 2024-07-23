@@ -1,6 +1,7 @@
 import { mount } from 'enzyme'
 import { Axis } from '@nivo/axes'
 import Line from '../src/Line'
+import Lines from '../src/Lines'
 import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
@@ -87,6 +88,102 @@ it('should create slice for each x value', () => {
     expect(slices.at(2).prop('slice').x).toBe(250)
     expect(slices.at(3).prop('slice').x).toBe(375)
     expect(slices.at(4).prop('slice').x).toBe(500)
+})
+
+it('should hide single line charts by default given their id', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+        {
+            id: 'B',
+            data: [
+                { x: 0, y: 4 },
+                { x: 2, y: 8 },
+                { x: 3, y: 12 },
+                { x: 4, y: 10 },
+                { x: 5, y: 9 },
+            ],
+        },
+        {
+            id: 'C',
+            data: [
+                { x: 0, y: 5 },
+                { x: 2, y: 9 },
+                { x: 3, y: 13 },
+                { x: 4, y: 11 },
+                { x: 5, y: 10 },
+            ],
+        },
+    ]
+    const wrapper = mount(
+        <Line
+            width={500}
+            height={300}
+            data={data}
+            enableSlices="x"
+            animate={false}
+            initialHiddenIds={['B']}
+        />
+    )
+
+    const lines = wrapper.find(Lines)
+    expect(lines).toHaveLength(1)
+})
+
+it('should hide multiple line charts by default given their ids', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+        {
+            id: 'B',
+            data: [
+                { x: 0, y: 4 },
+                { x: 2, y: 8 },
+                { x: 3, y: 12 },
+                { x: 4, y: 10 },
+                { x: 5, y: 9 },
+            ],
+        },
+        {
+            id: 'C',
+            data: [
+                { x: 0, y: 5 },
+                { x: 2, y: 9 },
+                { x: 3, y: 13 },
+                { x: 4, y: 11 },
+                { x: 5, y: 10 },
+            ],
+        },
+    ]
+    const wrapper = mount(
+        <Line
+            width={500}
+            height={300}
+            data={data}
+            enableSlices="x"
+            animate={false}
+            initialHiddenIds={['B', 'C']}
+        />
+    )
+
+    const lines = wrapper.find(Lines)
+    expect(lines).toHaveLength(1)
 })
 
 it('should have left and bottom axis by default', () => {

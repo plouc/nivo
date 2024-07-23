@@ -193,6 +193,7 @@ export interface LineProps {
     debugMesh?: boolean
 
     enableSlices?: 'x' | 'y' | false
+    initialHiddenIds?: string[]
     debugSlices?: boolean
     sliceTooltip?: SliceTooltip
 
