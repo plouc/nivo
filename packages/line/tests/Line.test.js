@@ -124,12 +124,12 @@ it('should hide single line charts by default given their id', () => {
         },
     ]
     const wrapper = mount(
-        <Line 
-            width={500} 
-            height={300} 
-            data={data}  
-            enableSlices="x" 
-            animate={false} 
+        <Line
+            width={500}
+            height={300}
+            data={data}
+            enableSlices="x"
+            animate={false}
             initialHiddenIds={['B']}
         />
     )
@@ -172,12 +172,12 @@ it('should hide multiple line charts by default given their ids', () => {
         },
     ]
     const wrapper = mount(
-        <Line 
-            width={500} 
-            height={300} 
-            data={data}  
-            enableSlices="x" 
-            animate={false} 
+        <Line
+            width={500}
+            height={300}
+            data={data}
+            enableSlices="x"
+            animate={false}
             initialHiddenIds={['B', 'C']}
         />
     )
