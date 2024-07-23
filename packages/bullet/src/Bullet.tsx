@@ -14,6 +14,8 @@ export const Bullet = (props: BulletSvgProps) => {
         markerSize,
         reverse,
         axisPosition,
+        axisFormat,
+        xAxis,
 
         minValue,
         maxValue,
@@ -92,6 +94,8 @@ export const Bullet = (props: BulletSvgProps) => {
                         y={layout === 'horizontal' ? itemHeight * i + spacing * i : 0}
                         width={innerWidth}
                         height={itemHeight}
+                        axisFormat={axisFormat}
+                        xAxis={xAxis}
                         titlePosition={titlePosition}
                         titleAlign={titleAlign}
                         titleOffsetX={titleOffsetX}
