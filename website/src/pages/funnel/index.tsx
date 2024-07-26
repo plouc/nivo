@@ -27,6 +27,9 @@ const initialProperties: UnmappedFunnelProps = {
     },
 
     direction: svgDefaultProps.direction,
+    fixedShape: svgDefaultProps.fixedShape,
+    neckHeightRatio: svgDefaultProps.neckHeightRatio,
+    neckWidthRatio: svgDefaultProps.neckWidthRatio,
     interpolation: svgDefaultProps.interpolation,
     shapeBlending: svgDefaultProps.shapeBlending,
     spacing: svgDefaultProps.spacing,
