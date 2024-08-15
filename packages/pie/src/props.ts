@@ -50,7 +50,7 @@ export const defaultProps = {
     fill: [],
 
     isInteractive: true,
-
+    isFocusable: false,
     animate: true,
     motionConfig: 'gentle',
     transitionMode: 'innerRadius' as ArcTransitionMode,

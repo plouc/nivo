@@ -4,7 +4,7 @@ import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { DatumWithArcAndColor, ArcGenerator } from './types'
 import { useArcsTransition } from './useArcsTransition'
 import { ArcTransitionMode } from './arcTransitionMode'
-import { ArcMouseHandler, ArcShape, ArcShapeProps } from './ArcShape'
+import { ArcKeyboardHandler, ArcMouseHandler, ArcShape, ArcShapeProps } from './ArcShape'
 
 export type ArcComponent<Datum extends DatumWithArcAndColor> = (
     props: ArcShapeProps<Datum>
@@ -17,9 +17,13 @@ interface ArcsLayerProps<Datum extends DatumWithArcAndColor> {
     borderWidth: number
     borderColor: InheritedColorConfig<Datum>
     onClick?: ArcMouseHandler<Datum>
+    onMouseDown?: ArcMouseHandler<Datum>
+    onMouseUp?: ArcMouseHandler<Datum>
     onMouseEnter?: ArcMouseHandler<Datum>
     onMouseMove?: ArcMouseHandler<Datum>
     onMouseLeave?: ArcMouseHandler<Datum>
+    onFocus?: ArcKeyboardHandler<Datum>
+    onBlur?: ArcKeyboardHandler<Datum>
     transitionMode: ArcTransitionMode
     component?: ArcComponent<Datum>
 }
@@ -34,6 +38,10 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
+    onFocus,
+    onBlur,
     transitionMode,
     component = ArcShape,
 }: ArcsLayerProps<Datum>) => {
@@ -88,6 +96,10 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
                     onMouseEnter,
                     onMouseMove,
                     onMouseLeave,
+                    onMouseDown,
+                    onMouseUp,
+                    onFocus,
+                    onBlur,
                 })
             })}
         </g>

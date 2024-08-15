@@ -69,10 +69,15 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
 
     // interactivity
     isInteractive = defaultProps.isInteractive,
+    isFocusable = defaultProps.isFocusable,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
+    onFocus,
+    onBlur,
     tooltip = defaultProps.tooltip,
     activeId: activeIdFromProps,
     onActiveIdChange,
@@ -147,10 +152,15 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
                 borderWidth={borderWidth}
                 borderColor={borderColor}
                 isInteractive={isInteractive}
+                isFocusable={isFocusable}
                 onClick={onClick}
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 setActiveId={setActiveId}
                 tooltip={tooltip}
                 transitionMode={transitionMode}
@@ -241,6 +251,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
 
 export const Pie = <RawDatum extends MayHaveLabel>({
     isInteractive = defaultProps.isInteractive,
+    isFocusable = defaultProps.isFocusable,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
     theme,
@@ -251,11 +262,16 @@ export const Pie = <RawDatum extends MayHaveLabel>({
         {...{
             animate,
             isInteractive,
+            isFocusable,
             motionConfig,
             renderWrapper,
             theme,
         }}
     >
-        <InnerPie<RawDatum> isInteractive={isInteractive} {...otherProps} />
+        <InnerPie<RawDatum>
+            isInteractive={isInteractive}
+            isFocusable={isFocusable}
+            {...otherProps}
+        />
     </Container>
 )

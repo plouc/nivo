@@ -1,10 +1,15 @@
-import { useCallback, MouseEvent } from 'react'
+import { useCallback, MouseEvent, FocusEvent } from 'react'
 import { SpringValue, Interpolation, animated } from '@react-spring/web'
 import { DatumWithArcAndColor } from './types'
 
 export type ArcMouseHandler<Datum extends DatumWithArcAndColor> = (
     datum: Datum,
     event: MouseEvent<SVGPathElement>
+) => void
+
+export type ArcKeyboardHandler<Datum extends DatumWithArcAndColor> = (
+    datum: Datum,
+    event: FocusEvent<SVGPathElement>
 ) => void
 
 export interface ArcShapeProps<Datum extends DatumWithArcAndColor> {
@@ -17,9 +22,13 @@ export interface ArcShapeProps<Datum extends DatumWithArcAndColor> {
         path: Interpolation<string>
     }
     onClick?: ArcMouseHandler<Datum>
+    onMouseDown?: ArcMouseHandler<Datum>
+    onMouseUp?: ArcMouseHandler<Datum>
     onMouseEnter?: ArcMouseHandler<Datum>
     onMouseMove?: ArcMouseHandler<Datum>
     onMouseLeave?: ArcMouseHandler<Datum>
+    onFocus?: ArcKeyboardHandler<Datum>
+    onBlur?: ArcKeyboardHandler<Datum>
 }
 
 /**
@@ -35,6 +44,10 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
+    onFocus,
+    onBlur,
 }: ArcShapeProps<Datum>) => {
     const handleClick = useCallback(
         (event: MouseEvent<SVGPathElement>) => onClick?.(datum, event),
@@ -56,6 +69,23 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
         [onMouseLeave, datum]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onMouseDown?.(datum, event),
+        [onMouseDown, datum]
+    )
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onMouseUp?.(datum, event),
+        [onMouseUp, datum]
+    )
+    const handleFocus = useCallback(
+        (event: FocusEvent<SVGPathElement>) => onFocus?.(datum, event),
+        [onFocus, datum]
+    )
+    const handleBlur = useCallback(
+        (event: FocusEvent<SVGPathElement>) => onBlur?.(datum, event),
+        [onBlur, datum]
+    )
+
     return (
         <animated.path
             d={style.path}
@@ -64,9 +94,15 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             onClick={onClick ? handleClick : undefined}
+            onMouseDown={onMouseDown ? handleMouseDown : undefined}
+            onMouseUp={onMouseUp ? handleMouseUp : undefined}
             onMouseEnter={onMouseEnter ? handleMouseEnter : undefined}
             onMouseMove={onMouseMove ? handleMouseMove : undefined}
             onMouseLeave={onMouseLeave ? handleMouseLeave : undefined}
+            onFocus={onFocus ? handleFocus : undefined}
+            onBlur={onBlur ? handleBlur : undefined}
+            focusable={onFocus || onBlur ? true : undefined}
+            tabIndex={onFocus || onBlur ? 0 : undefined}
         />
     )
 }

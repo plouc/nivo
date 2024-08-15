@@ -70,6 +70,11 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
+export type FocusEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
+    datum: ComputedDatum<RawDatum>,
+    event: React.FocusEvent<ElementType>
+) => void
+
 export type PieLayerId = 'arcLinkLabels' | 'arcs' | 'arcLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
@@ -112,6 +117,7 @@ export type CommonPieProps<RawDatum> = {
 
     // interactivity
     isInteractive: boolean
+    isFocusable: boolean
     tooltip: React.FC<PieTooltipProps<RawDatum>>
     activeId: DatumId | null
     onActiveIdChange: (id: DatumId | null) => void
@@ -130,6 +136,10 @@ export type PieHandlers<RawDatum, ElementType> = {
     onMouseEnter?: MouseEventHandler<RawDatum, ElementType>
     onMouseMove?: MouseEventHandler<RawDatum, ElementType>
     onMouseLeave?: MouseEventHandler<RawDatum, ElementType>
+    onMouseDown?: MouseEventHandler<RawDatum, ElementType>
+    onMouseUp?: MouseEventHandler<RawDatum, ElementType>
+    onFocus?: FocusEventHandler<RawDatum, ElementType>
+    onBlur?: FocusEventHandler<RawDatum, ElementType>
 }
 
 export type PieSvgCustomComponents<RawDatum> = {
