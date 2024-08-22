@@ -91,5 +91,9 @@
     "type": "opencollective",
     "url": "https://opencollective.com/nivo"
   },
-  "packageManager": "pnpm@8.10.2"
+  "packageManager": "pnpm@8.10.2",
+  "dependencies": {
+    "@nivo/bar": "^0.87.0",
+    "@nivo/core": "^0.87.0"
+  }
 }
