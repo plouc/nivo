@@ -8,6 +8,7 @@ import {
     MotionProps,
     PropertyAccessor,
     ValueFormat,
+    Margin,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -102,6 +103,22 @@ export type SankeySortFunction<N extends DefaultNode, L extends DefaultLink> = (
     b: SankeyNodeDatum<N, L>
 ) => number
 
+export interface LayerProps<N extends DefaultNode, L extends DefaultLink> {
+    links: SankeyLinkDatum<N, L>[]
+    nodes: SankeyNodeDatum<N, L>[]
+    margin: Margin
+    width: SankeySvgProps<N, L>
+    height: SankeySvgProps<N, L>
+    outerWidth: number
+    outerHeight: number
+    nodeTooltip: SankeySvgProps<N, L>
+    linkTooltip: SankeySvgProps<N, L>
+    currentNode: SankeyNodeDatum<N, L>
+    setCurrentNode: (node: SankeyNodeDatum<N, L>) => void
+    currentLink: SankeyLinkDatum<N, L>
+    setCurrentLink: (node: SankeyLinkDatum<N, L>) => void
+}
+
 export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink> {
     // formatting for link value
     valueFormat: ValueFormat<number>
@@ -110,7 +127,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     align: SankeyAlignType | SankeyAlignFunction
     sort: SankeySortType | SankeySortFunction<N, L>
 
-    layers: SankeyLayerId[]
+    layers: (SankeyLayerId | ((props: LayerProps<N, L>) => React.ReactNode))[]
 
     margin: Box
 

@@ -131,6 +131,12 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
         height,
         outerWidth,
         outerHeight,
+        nodeTooltip,
+        linkTooltip,
+        currentNode,
+        setCurrentNode,
+        currentLink,
+        setCurrentLink,
     }
 
     const layerById: Record<SankeyLayerId, ReactNode> = {
