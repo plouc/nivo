@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import merge from 'lodash/merge'
+import merge from 'lodash/merge.js'
 import {
     ResponsiveParallelCoordinatesCanvas,
     commonDefaultProps,

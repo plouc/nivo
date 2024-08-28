@@ -1,5 +1,5 @@
 import { createContext, useMemo } from 'react'
-import isString from 'lodash/isString'
+import isString from 'lodash/isString.js'
 import PropTypes from 'prop-types'
 import { config as presets } from '@react-spring/web'
 
