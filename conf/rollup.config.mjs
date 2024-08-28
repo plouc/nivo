@@ -61,7 +61,7 @@ const configs = [
     {
         ...common,
         output: {
-            file: `./packages/${pkg}/dist/nivo-${pkg}.es.js`,
+            file: `./packages/${pkg}/dist/nivo-${pkg}.mjs`,
             format: 'es',
             name: `@nivo/${pkg}`,
             sourcemap: true,
