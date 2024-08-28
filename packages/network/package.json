@@ -22,7 +22,7 @@
         "network"
     ],
     "main": "./dist/nivo-network.cjs.js",
-    "module": "./dist/nivo-network.es.js",
+    "module": "./dist/nivo-network.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -44,5 +44,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-network.mjs",
+            "require": "./dist/nivo-network.cjs.js"
+        }
     }
 }

@@ -20,7 +20,7 @@
         "bar-chart"
     ],
     "main": "./dist/nivo-bar.cjs.js",
-    "module": "./dist/nivo-bar.es.js",
+    "module": "./dist/nivo-bar.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -48,5 +48,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-bar.mjs",
+            "require": "./dist/nivo-bar.cjs.js"
+        }
     }
 }

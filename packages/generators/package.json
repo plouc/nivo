@@ -18,7 +18,7 @@
         "directory": "packages/generators"
     },
     "main": "./dist/nivo-generators.cjs.js",
-    "module": "./dist/nivo-generators.es.js",
+    "module": "./dist/nivo-generators.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -37,5 +37,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-generators.mjs",
+            "require": "./dist/nivo-generators.cjs.js"
+        }
     }
 }

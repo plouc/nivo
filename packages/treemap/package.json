@@ -20,7 +20,7 @@
         "treemap-chart"
     ],
     "main": "./dist/nivo-treemap.cjs.js",
-    "module": "./dist/nivo-treemap.es.js",
+    "module": "./dist/nivo-treemap.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -42,5 +42,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-treemap.mjs",
+            "require": "./dist/nivo-treemap.cjs.js"
+        }
     }
 }

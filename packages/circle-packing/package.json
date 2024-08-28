@@ -20,7 +20,7 @@
         "circle-packing"
     ],
     "main": "./dist/nivo-circle-packing.cjs.js",
-    "module": "./dist/nivo-circle-packing.es.js",
+    "module": "./dist/nivo-circle-packing.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -42,5 +42,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-circle-packing.mjs",
+            "require": "./dist/nivo-circle-packing.cjs.js"
+        }
     }
 }

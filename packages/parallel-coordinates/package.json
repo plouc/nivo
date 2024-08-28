@@ -21,7 +21,7 @@
     ],
     "sideEffects": false,
     "main": "./dist/nivo-parallel-coordinates.cjs.js",
-    "module": "./dist/nivo-parallel-coordinates.es.js",
+    "module": "./dist/nivo-parallel-coordinates.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -47,5 +47,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-parallel-coordinates.mjs",
+            "require": "./dist/nivo-parallel-coordinates.cjs.js"
+        }
     }
 }
