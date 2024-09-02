@@ -3,6 +3,7 @@ import { SankeyLayerId, SankeyNodeDatum, SankeyAlignType } from './types'
 import { InheritedColorConfig } from '@nivo/colors'
 import { SankeyNodeTooltip } from './SankeyNodeTooltip'
 import { SankeyLinkTooltip } from './SankeyLinkTooltip'
+import { LayerProps } from './types'
 
 export const sankeyAlignmentPropMapping = {
     center: sankeyCenter,
@@ -56,7 +57,10 @@ export const svgDefaultProps = {
 
     legends: [],
 
-    layers: ['links', 'nodes', 'labels', 'legends'] as SankeyLayerId[],
+    layers: ['links', 'nodes', 'labels', 'legends'] as (
+        | SankeyLayerId
+        | React.FunctionComponent<LayerProps<any, any>>
+    )[],
 
     role: 'img',
 

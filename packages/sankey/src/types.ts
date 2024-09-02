@@ -107,8 +107,8 @@ export interface LayerProps<N extends DefaultNode, L extends DefaultLink> {
     links: SankeyLinkDatum<N, L>[]
     nodes: SankeyNodeDatum<N, L>[]
     margin: Margin
-    width: SankeySvgProps<N, L>
-    height: SankeySvgProps<N, L>
+    width: number
+    height: number
     outerWidth: number
     outerHeight: number
     nodeTooltip: SankeySvgProps<N, L>
@@ -127,7 +127,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     align: SankeyAlignType | SankeyAlignFunction
     sort: SankeySortType | SankeySortFunction<N, L>
 
-    layers: (SankeyLayerId | ((props: LayerProps<N, L>) => React.ReactNode))[]
+    layers: (SankeyLayerId | React.FunctionComponent<LayerProps<N, L>>)[]
 
     margin: Box
 

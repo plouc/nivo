@@ -14,6 +14,7 @@ import {
     SankeyLinkDatum,
     SankeyNodeDatum,
     SankeySvgProps,
+    LayerProps,
 } from './types'
 
 type InnerSankeyProps<N extends DefaultNode, L extends DefaultLink> = Omit<
@@ -137,7 +138,7 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
         setCurrentNode,
         currentLink,
         setCurrentLink,
-    }
+    } as unknown as LayerProps<N, L>
 
     const layerById: Record<SankeyLayerId, ReactNode> = {
         links: null,
