@@ -2,7 +2,7 @@ import { scaleLog } from 'd3-scale'
 import { ComputedSerieAxis, ScaleAxis, ScaleLog, ScaleLogSpec } from './types'
 
 export const createLogScale = (
-    { base = 10, min = 'auto', max = 'auto' }: ScaleLogSpec,
+    { base = 10, min = 'auto', max = 'auto', nice = false }: ScaleLogSpec,
     data: ComputedSerieAxis<number>,
     size: number,
     axis: ScaleAxis
@@ -47,9 +47,8 @@ export const createLogScale = (
         .domain([minValue, maxValue])
         .rangeRound(axis === 'x' ? [0, size] : [size, 0])
         .base(base)
-        .nice()
 
-    const typedScale = scale as ScaleLog
+    const typedScale = (nice ? scale.nice():scale) as ScaleLog
     typedScale.type = 'log'
 
     return typedScale

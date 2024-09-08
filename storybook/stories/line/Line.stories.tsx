@@ -282,6 +282,7 @@ export const LogarithmicScale: Story = {
                 type: 'log',
                 base: 2,
                 max: 'auto',
+                min: 6
             }}
             axisBottom={{
                 legend: 'logarithmic scale (base: 2)',

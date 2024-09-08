@@ -66,6 +66,8 @@ export interface ScaleLogSpec {
     min?: 'auto' | number
     // default to `auto`
     max?: 'auto' | number
+    // default to `false`
+    nice?: boolean
 }
 export interface ScaleLog extends D3ScaleLogarithmic<number, number> {
     type: 'log'
