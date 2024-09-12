@@ -6,7 +6,16 @@ import { CalendarMonthPath } from './CalendarMonthPath'
 import { CalendarMonthLegends } from './CalendarMonthLegends'
 import { CalendarDay } from './CalendarDay'
 import { calendarDefaultProps } from './props'
-import { useMonthLegends, useYearLegends, useCalendarLayout, useDays, useColorScale } from './hooks'
+import {
+    useMonthLegends,
+    useYearLegends,
+    useCalendarLayout,
+    useDays,
+    useColorScale,
+    useFontSize,
+    useColorFormatter,
+    useDayLabels,
+} from './hooks'
 
 const InnerCalendar = ({
     margin: partialMargin,
@@ -41,6 +50,11 @@ const InnerCalendar = ({
     dayBorderColor = calendarDefaultProps.dayBorderColor,
     dayBorderWidth = calendarDefaultProps.dayBorderWidth,
     daySpacing = calendarDefaultProps.daySpacing,
+
+    dayLabel = calendarDefaultProps.dayLabel,
+    dayLabelFormat,
+    dayLabelColor = calendarDefaultProps.dayLabelColor,
+    dayLabelStyle = calendarDefaultProps.dayLabelStyle,
 
     isInteractive = calendarDefaultProps.isInteractive,
     tooltip = calendarDefaultProps.tooltip,
@@ -81,6 +95,11 @@ const InnerCalendar = ({
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
 
+    const formatDayLabel = useValueFormatter(dayLabelFormat)
+    const dayLabels = useDayLabels(data, formatDayLabel)
+    const dayLabelFontSize = useFontSize(dayLabels)
+    const setLabelColor = useColorFormatter(dayLabelColor)
+
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {days.map(d => (
@@ -96,6 +115,11 @@ const InnerCalendar = ({
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     onMouseMove={onMouseMove}
+                    displayLabel={dayLabel}
+                    label={dayLabels[d.day]}
+                    labelSize={dayLabelFontSize}
+                    labelColor={setLabelColor}
+                    labelStyle={dayLabelStyle}
                     isInteractive={isInteractive}
                     tooltip={tooltip}
                     onClick={onClick}

@@ -30,6 +30,9 @@ const commonDefaultProps = {
     dayBorderWidth: 1,
     dayBorderColor: '#000',
 
+    dayLabel: false,
+    dayLabelColor: '#000000',
+
     isInteractive: true,
 
     legends: [] as CalendarLegendProps[],
@@ -38,11 +41,13 @@ const commonDefaultProps = {
 
 export const calendarDefaultProps = {
     ...commonDefaultProps,
+    dayLabelStyle: {},
     role: 'img',
 } as const
 
 export const calendarCanvasDefaultProps = {
     ...commonDefaultProps,
+    dayLabelFontWeight: '',
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 } as const
 

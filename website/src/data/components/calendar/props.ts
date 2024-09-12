@@ -308,6 +308,56 @@ const props: ChartProperty[] = [
         control: { type: 'colorPicker' },
         group: 'Days',
     },
+    {
+        key: 'dayLabel',
+        help: 'enable/disable label on day cells.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.dayLabel,
+        flavors: ['svg', 'canvas'],
+        control: { type: 'switch' },
+        group: 'Days',
+    },
+    {
+        key: 'dayLabelColor',
+        type: 'string | Function',
+        required: false,
+        defaultValue: defaults.dayLabelColor,
+        flavors: ['svg', 'canvas'],
+        control: { type: 'colorPicker' },
+        group: 'Days',
+    },
+    {
+        key: 'dayLabelFormat',
+        group: 'Days',
+        flavors: ['svg', 'canvas'],
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | Function ',
+        control: { type: 'valueFormat' },
+    },
+    {
+        key: 'dayLabelStyle',
+        flavors: ['svg'],
+        group: 'Days',
+        help: 'Pass inline styles directly to the label.',
+        type: 'React.CSSProperties',
+        required: false,
+    },
+    {
+        key: 'dayLabelFontWeight',
+        flavors: ['canvas'],
+        group: 'Days',
+        type: 'string',
+        required: false,
+    },
     isInteractive({
         flavors: ['svg', 'canvas'],
         defaultValue: defaults.isInteractive,

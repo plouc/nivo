@@ -5,7 +5,7 @@ import { alignBox } from '@nivo/core'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 import { ScaleQuantize } from 'd3-scale'
-import { BBox, CalendarSvgProps, ColorScale, Datum, Year } from '../types'
+import { BBox, CalendarDatum, CalendarSvgProps, ColorScale, Datum, Year } from '../types'
 
 /**
  * Compute min/max values.
@@ -465,4 +465,33 @@ export const computeMonthLegendPositions = <Month extends { bbox: BBox }>({
             rotation,
         }
     })
+}
+
+export const computeMaxLabelLength = (labels: string[]): number => {
+    return labels.reduce((max, label) => {
+        return Math.max(label.length, max)
+    }, 0)
+}
+
+export const createFontSizeCalculator = (maxLength: number) => {
+    const cache = { width: 0, height: 0, fontSize: '0px' }
+    return (width: number, height: number) => {
+        if (width != cache.width || height != cache.height) {
+            cache.fontSize = `${Math.max(Math.min(width / (0.5 + maxLength * 0.5), height), 0)}px`
+            cache.height = height
+            cache.width = width
+        }
+        return cache.fontSize
+    }
+}
+
+export const computeDayLabels = (
+    data: CalendarDatum[],
+    format: (value: number, day: CalendarDatum) => string
+): { [day: string]: string } => {
+    const dayLabelPairs: { [day: string]: string } = {}
+    data.forEach(day => {
+        dayLabelPairs[day.day] = format(day.value, day)
+    })
+    return dayLabelPairs
 }

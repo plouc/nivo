@@ -50,6 +50,10 @@ const initialProperties = {
     dayBorderWidth: 0,
     dayBorderColor: '#ffffff',
 
+    dayLabel: false,
+    dayLabelColor: '#000000',
+    dayLabelFormat: { format: '', enabled: false },
+
     isInteractive: true,
     'custom tooltip example': false,
 

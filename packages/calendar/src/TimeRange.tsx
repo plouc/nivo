@@ -8,7 +8,13 @@ import {
     computeMonthLegends,
     computeTotalDays,
 } from './compute/timeRange'
-import { useMonthLegends, useColorScale } from './hooks'
+import {
+    useMonthLegends,
+    useColorScale,
+    useFontSize,
+    useColorFormatter,
+    useDayLabels,
+} from './hooks'
 import { TimeRangeDay } from './TimeRangeDay'
 import { CalendarMonthLegends } from './CalendarMonthLegends'
 import { TimeRangeSvgProps } from './types'
@@ -43,6 +49,11 @@ const InnerTimeRange = ({
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
     daySpacing = timeRangeDefaultProps.daySpacing,
     dayRadius = timeRangeDefaultProps.dayRadius,
+
+    dayLabel = timeRangeDefaultProps.dayLabel,
+    dayLabelFormat,
+    dayLabelColor = timeRangeDefaultProps.dayLabelColor,
+    dayLabelStyle = timeRangeDefaultProps.dayLabelStyle,
 
     isInteractive = timeRangeDefaultProps.isInteractive,
     tooltip = timeRangeDefaultProps.tooltip,
@@ -133,6 +144,11 @@ const InnerTimeRange = ({
     const formatValue = useValueFormatter(valueFormat)
     const formatLegend = useValueFormatter(legendFormat)
 
+    const formatDayLabel = useValueFormatter(dayLabelFormat)
+    const dayLabels = useDayLabels(data, formatDayLabel)
+    const dayLabelFontSize = useFontSize(dayLabels)
+    const setLabelColor = useColorFormatter(dayLabelColor)
+
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {weekdayLegends.map(legend => (
@@ -159,6 +175,11 @@ const InnerTimeRange = ({
                         color={d.color}
                         borderWidth={dayBorderWidth}
                         borderColor={dayBorderColor}
+                        displayLabel={dayLabel}
+                        label={dayLabels[d.day]}
+                        labelSize={dayLabelFontSize}
+                        labelColor={setLabelColor}
+                        labelStyle={dayLabelStyle}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}
                         onMouseMove={onMouseMove}
