@@ -124,6 +124,7 @@ interface BarCustomLayerBaseProps<RawDatum>
 
     xScale: AnyScale
     yScale: AnyScale
+    getColor: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>
 }
 
 export interface BarCustomLayerProps<RawDatum>
