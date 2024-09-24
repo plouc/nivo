@@ -250,6 +250,8 @@ const InnerBar = <RawDatum extends BarDatum>({
         () => ({
             borderRadius,
             borderWidth,
+            colorBy,
+            colors,
             enableLabel,
             isInteractive,
             labelSkipWidth,
@@ -269,6 +271,8 @@ const InnerBar = <RawDatum extends BarDatum>({
         [
             borderRadius,
             borderWidth,
+            colorBy,
+            colors,
             enableLabel,
             getTooltipLabel,
             isInteractive,
