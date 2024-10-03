@@ -12,7 +12,7 @@ import {
     Theme,
     ValueFormat,
 } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { InheritedColorConfig, OrdinalColorScale, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
@@ -124,7 +124,7 @@ interface BarCustomLayerBaseProps<RawDatum>
 
     xScale: AnyScale
     yScale: AnyScale
-    getColor: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>
+    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
 }
 
 export interface BarCustomLayerProps<RawDatum>
