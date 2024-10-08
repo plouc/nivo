@@ -1,9 +1,9 @@
 import React from 'react'
-import { Defs, patternSquaresDef, PatternSquares } from '@nivo/core'
+import { Defs, patternSquaresDef, PatternSquaresDefaultProps } from '@nivo/core'
 import { ChartProperty } from '../../../types'
 import { GuideDemoBlock } from '../GuideDemoBlock'
 
-const defaults = (PatternSquares as unknown as any).defaultProps as Settings
+const defaults = PatternSquaresDefaultProps as Settings
 const SAMPLE_SIZE = 120
 const patternId = 'squares-pattern'
 

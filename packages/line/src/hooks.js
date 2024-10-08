@@ -1,16 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useCallback, useMemo, useState } from 'react'
 import { area, line } from 'd3-shape'
 import { curveFromProp, useTheme, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
+import uniqueId from 'lodash/uniqueId'
 import { LineDefaultProps } from './props'
 
 export const useLineGenerator = ({ curve }) => {
@@ -67,7 +60,7 @@ const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, format
     }, [series, getPointColor, getPointBorderColor, formatX, formatY])
 }
 
-export const useSlices = ({ enableSlices, points, width, height }) => {
+export const useSlices = ({ componentId, enableSlices, points, width, height }) => {
     return useMemo(() => {
         if (enableSlices === false) return []
 
@@ -93,7 +86,7 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                     else sliceWidth = x - x0 + (nextSlice[0] - x) / 2
 
                     return {
-                        id: x,
+                        id: `slice:${componentId}:${x}`,
                         x0,
                         x,
                         y0: 0,
@@ -136,8 +129,10 @@ export const useSlices = ({ enableSlices, points, width, height }) => {
                     }
                 })
         }
-    }, [enableSlices, points])
+    }, [componentId, enableSlices, height, points, width])
 }
+
+export const LINE_UNIQUE_ID_PREFIX = 'line'
 
 export const useLine = ({
     data,
@@ -153,14 +148,16 @@ export const useLine = ({
     pointColor = LineDefaultProps.pointColor,
     pointBorderColor = LineDefaultProps.pointBorderColor,
     enableSlices = LineDefaultProps.enableSlicesTooltip,
+    initialHiddenIds = LineDefaultProps.initialHiddenIds,
 }) => {
+    const [componentId] = useState(uniqueId(LINE_UNIQUE_ID_PREFIX))
     const formatX = useValueFormatter(xFormat)
     const formatY = useValueFormatter(yFormat)
     const getColor = useOrdinalColorScale(colors, 'id')
     const theme = useTheme()
     const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
-    const [hiddenIds, setHiddenIds] = useState([])
+    const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
 
     const {
         xScale,
@@ -212,6 +209,7 @@ export const useLine = ({
     })
 
     const slices = useSlices({
+        componentId,
         enableSlices,
         points,
         width,

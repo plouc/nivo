@@ -108,9 +108,10 @@ const annotationsDefaults: CompleteTheme['annotations'] = {
 }
 
 const tooltipDefaults: CompleteTheme['tooltip'] = {
+    wrapper: {},
     container: {
         background: '#ffffff',
-        color: extendedTheme.textColor,
+        color: extendedTheme.text.fill,
         fontSize: 12,
     },
     basic: {},

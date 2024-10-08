@@ -35,7 +35,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     width,
     height,
     margin: partialMargin,
-    pixelRatio = 1,
+    pixelRatio = defaultProps.pixelRatio,
 
     colors = defaultProps.colors,
 
@@ -67,8 +67,12 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     onClick,
     onMouseMove,
     tooltip = defaultProps.tooltip,
+    activeId: activeIdFromProps,
+    onActiveIdChange,
+    defaultActiveId,
 
     legends = defaultProps.legends,
+    forwardLegendData,
 }: PieCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
@@ -101,6 +105,10 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
             cornerRadius,
             activeInnerRadiusOffset,
             activeOuterRadiusOffset,
+            activeId: activeIdFromProps,
+            onActiveIdChange,
+            defaultActiveId,
+            forwardLegendData,
         })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
@@ -199,6 +207,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         centerY,
         arcGenerator,
         dataWithArc,
+        borderWidth,
         getBorderColor,
         enableArcLabels,
         arcLabels,

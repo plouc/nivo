@@ -17,6 +17,7 @@ export const BarItem = <RawDatum extends BarDatum>({
         labelY,
         transform,
         width,
+        textAnchor,
     },
 
     borderRadius,
@@ -36,6 +37,8 @@ export const BarItem = <RawDatum extends BarDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    ariaDisabled,
+    ariaHidden,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
@@ -93,6 +96,8 @@ export const BarItem = <RawDatum extends BarDatum>({
                 aria-label={ariaLabel ? ariaLabel(data) : undefined}
                 aria-labelledby={ariaLabelledBy ? ariaLabelledBy(data) : undefined}
                 aria-describedby={ariaDescribedBy ? ariaDescribedBy(data) : undefined}
+                aria-disabled={ariaDisabled ? ariaDisabled(data) : undefined}
+                aria-hidden={ariaHidden ? ariaHidden(data) : undefined}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
                 onMouseMove={isInteractive ? handleTooltip : undefined}
                 onMouseLeave={isInteractive ? handleMouseLeave : undefined}
@@ -104,7 +109,7 @@ export const BarItem = <RawDatum extends BarDatum>({
                 <animated.text
                     x={labelX}
                     y={labelY}
-                    textAnchor="middle"
+                    textAnchor={textAnchor}
                     dominantBaseline="central"
                     fillOpacity={labelOpacity}
                     style={{

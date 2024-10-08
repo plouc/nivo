@@ -88,6 +88,18 @@ export const axes = ({
                                 },
                             },
                             {
+                                key: `truncateTickAt`,
+                                flavors,
+                                help: `${axisKey} prevent the tick from overlapping truncating it`,
+                                type: 'number',
+                                required: false,
+                                control: {
+                                    type: 'range',
+                                    min: 0,
+                                    max: 100,
+                                },
+                            },
+                            {
                                 key: `legend`,
                                 flavors,
                                 help: `${axisKey} axis legend.`,
@@ -98,7 +110,7 @@ export const axes = ({
                                 key: `legendOffset`,
                                 flavors,
                                 help: `${axisKey} axis legend offset from axis.`,
-                                type: 'number',
+                                type: 'object',
                                 control: {
                                     type: 'range',
                                     unit: 'px',

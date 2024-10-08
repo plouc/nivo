@@ -1,11 +1,11 @@
-import { useMemo, memo, useCallback } from 'react'
+import { useMotionConfig, useTheme } from '@nivo/core'
+import { AnyScale, ScaleValue } from '@nivo/scales'
+import { animated, useSpring, useTransition } from '@react-spring/web'
 import * as React from 'react'
-import { useSpring, useTransition, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
-import { ScaleValue, AnyScale } from '@nivo/scales'
+import { memo, useCallback, useMemo } from 'react'
 import { computeCartesianTicks, getFormatter } from '../compute'
-import { AxisTick } from './AxisTick'
 import { AxisProps } from '../types'
+import { AxisTick } from './AxisTick'
 
 export const NonMemoizedAxis = <Value extends ScaleValue>({
     axis,
@@ -20,6 +20,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     tickRotation = 0,
     format,
     renderTick = AxisTick,
+    truncateTickAt,
     legend,
     legendPosition = 'end',
     legendOffset = 0,
@@ -46,6 +47,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
         tickSize,
         tickPadding,
         tickRotation,
+        truncateTickAt,
     })
 
     let legendNode = null
@@ -122,11 +124,13 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     })
 
     const getAnimatedProps = useCallback(
-        (tick: (typeof ticks)[0]) => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
+        (tick: (typeof ticks)[0]) => {
+            return {
+                opacity: 1,
+                transform: `translate(${tick.x},${tick.y})`,
+                textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
+            }
+        },
         [tickRotation]
     )
     const getFromAnimatedProps = useCallback(
@@ -163,6 +167,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
                     rotate: tickRotation,
                     textBaseline,
                     textAnchor: textAlign,
+                    truncateTickAt: truncateTickAt,
                     animatedProps: transitionProps,
                     ...tick,
                     ...(onClick ? { onClick } : {}),

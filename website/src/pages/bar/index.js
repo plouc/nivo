@@ -71,6 +71,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -79,6 +80,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -88,6 +90,7 @@ const initialProperties = {
         legend: 'country',
         legendPosition: 'middle',
         legendOffset: 32,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -97,18 +100,23 @@ const initialProperties = {
         legend: 'food',
         legendPosition: 'middle',
         legendOffset: -40,
+        truncateTickAt: 0,
     },
 
     enableGridX: false,
     enableGridY: true,
 
     enableLabel: true,
+    enableTotals: false,
+    totalsOffset: 10,
     labelSkipWidth: 12,
     labelSkipHeight: 12,
     labelTextColor: {
         from: 'color',
         modifiers: [['darker', 1.6]],
     },
+    labelPosition: 'middle',
+    labelOffset: 0,
 
     legends: [
         {

@@ -1,12 +1,12 @@
 import { ResponsiveWrapper } from '@nivo/core'
-import { BumpDatum, BumpSerieExtraProps, BumpSvgProps, DefaultBumpDatum } from './types'
+import { BumpDatum, BumpResponsiveProps, BumpSerieExtraProps, DefaultBumpDatum } from './types'
 import { Bump } from './Bump'
 
 export const ResponsiveBump = <
     Datum extends BumpDatum = DefaultBumpDatum,
     ExtraProps extends BumpSerieExtraProps = Record<string, never>
 >(
-    props: Omit<BumpSvgProps<Datum, ExtraProps>, 'width' | 'height'>
+    props: BumpResponsiveProps<Datum, ExtraProps>
 ) => (
     <ResponsiveWrapper>
         {({ width, height }) => (

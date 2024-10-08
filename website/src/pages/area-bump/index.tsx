@@ -84,6 +84,7 @@ const initialProperties = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: -36,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -93,6 +94,7 @@ const initialProperties = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: 32,
+        truncateTickAt: 0,
     },
 
     isInteractive: true,

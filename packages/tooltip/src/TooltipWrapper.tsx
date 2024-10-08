@@ -10,9 +10,9 @@ import { TooltipStateContextDataVisible } from './context'
 
 const TOOLTIP_OFFSET = 14
 
-const tooltipStyle = {
-    pointerEvents: 'none' as CSSProperties['pointerEvents'],
-    position: 'absolute' as CSSProperties['position'],
+const tooltipStyle: Partial<CSSProperties> = {
+    pointerEvents: 'none',
+    position: 'absolute',
     zIndex: 10,
     top: 0,
     left: 0,
@@ -78,8 +78,9 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
 
         const style = {
             ...tooltipStyle,
-            ...theme.tooltip,
+            ...theme.tooltip.wrapper,
             transform: animatedProps.transform ?? translate(x, y),
+            opacity: animatedProps.transform ? 1 : 0,
         }
 
         return (

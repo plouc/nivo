@@ -43,6 +43,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -52,6 +53,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -63,6 +65,7 @@ const initialProperties = {
         legendPosition: 'middle',
         legendOffset: 46,
         format: d => `${d} kg`,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -74,6 +77,7 @@ const initialProperties = {
         legendPosition: 'middle',
         legendOffset: -60,
         format: d => `${d} cm`,
+        truncateTickAt: 0,
     },
 
     animate: svgDefaultProps.animate,

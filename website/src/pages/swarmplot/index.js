@@ -57,6 +57,7 @@ const initialProperties = Object.freeze({
         legend: 'group if vertical, price if horizontal',
         legendPosition: 'middle',
         legendOffset: -46,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
@@ -67,6 +68,7 @@ const initialProperties = Object.freeze({
         legend: 'price if vertical, group if horizontal',
         legendPosition: 'middle',
         legendOffset: 76,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -77,6 +79,7 @@ const initialProperties = Object.freeze({
         legend: 'group if vertical, price if horizontal',
         legendPosition: 'middle',
         legendOffset: 46,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -87,6 +90,7 @@ const initialProperties = Object.freeze({
         legend: 'price if vertical, group if horizontal',
         legendPosition: 'middle',
         legendOffset: -76,
+        truncateTickAt: 0,
     },
 
     isInteractive: true,

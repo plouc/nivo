@@ -38,7 +38,7 @@ export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['
     }, [rawDimensions])
 
 export const useStack = <RawDatum>(
-    dimensionIds: string[],
+    dimensionIds: readonly string[],
     dimensions: Record<string, (datum: RawDatum) => number>,
     offset: OffsetId
 ) =>
@@ -186,6 +186,7 @@ export const useComputedData = <RawDatum>({
                 height: layout === 'vertical' ? 0 : thickness,
                 dimensions: [],
             }
+            const dimensions: DimensionDatum<RawDatum>[] = []
 
             const allPositions: number[] = []
             let totalSize = 0
@@ -231,7 +232,7 @@ export const useComputedData = <RawDatum>({
 
                     dimensionDatum.color = getColor(dimensionDatum)
 
-                    computedDatum.dimensions.push(dimensionDatum)
+                    dimensions.push(dimensionDatum)
                 }
 
                 if (layout === 'vertical') {
@@ -242,6 +243,7 @@ export const useComputedData = <RawDatum>({
                     computedDatum.width = totalSize
                 }
             })
+            computedDatum.dimensions = dimensions
 
             computedData.push(computedDatum)
         })

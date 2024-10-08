@@ -19,10 +19,10 @@ export type DatumFormattedValue = string | number
 export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
 export interface DataProps<RawDatum> {
-    data: RawDatum[]
+    data: readonly RawDatum[]
     id: string | number | DatumPropertyAccessor<RawDatum, DatumId>
     value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
-    dimensions: {
+    dimensions: readonly {
         id: string
         value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
     }[]
@@ -53,7 +53,7 @@ export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
     y: number
     width: number
     height: number
-    dimensions: DimensionDatum<RawDatum>[]
+    dimensions: readonly DimensionDatum<RawDatum>[]
 }
 
 export interface BarDatum<RawDatum> extends DimensionDatum<RawDatum> {
@@ -68,8 +68,8 @@ export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) =
 export type LayerId = 'grid' | 'axes' | 'bars' | 'legends'
 
 export interface CustomLayerProps<RawDatum> {
-    data: ComputedDatum<RawDatum>[]
-    bars: BarDatum<RawDatum>[]
+    data: readonly ComputedDatum<RawDatum>[]
+    bars: readonly BarDatum<RawDatum>[]
     thicknessScale: ScaleLinear<number>
     dimensionsScale: ScaleLinear<number>
 }
@@ -119,9 +119,9 @@ export type CommonProps<RawDatum> = {
     axisBottom?: AxisProps | null
     axisLeft?: AxisProps | null
     enableGridX: boolean
-    gridXValues?: number[]
+    gridXValues?: readonly number[]
     enableGridY: boolean
-    gridYValues?: number[]
+    gridYValues?: readonly number[]
 
     // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<DimensionDatum<RawDatum>, 'color' | 'fill'>>
@@ -140,7 +140,7 @@ export type CommonProps<RawDatum> = {
     isInteractive: boolean
     tooltip: BarTooltipType<RawDatum>
 
-    legends: LegendProps[]
+    legends: readonly LegendProps[]
 
     role: string
 }
@@ -163,5 +163,5 @@ export type SvgProps<RawDatum> = DataProps<RawDatum> &
     MotionProps &
     SvgDefsAndFill<BarDatum<RawDatum>> &
     MouseEventHandlers<RawDatum, SVGRectElement> & {
-        layers?: Layer<RawDatum>[]
+        layers?: readonly Layer<RawDatum>[]
     }

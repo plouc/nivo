@@ -23,6 +23,7 @@ export type Margin = {
     right: number
     top: number
 }
+export type Padding = Margin
 
 export type Box = Partial<Margin>
 export type BoxAlign =
@@ -35,11 +36,11 @@ export type BoxAlign =
     | 'bottom'
     | 'bottom-left'
     | 'left'
-export const boxAlignments: BoxAlign[]
+export const boxAlignments: readonly BoxAlign[]
 export function alignBox(box: AlignBox, container: AlignBox, alignment: BoxAlign): [number, number]
 
 export type GetColor<T> = (datum: T) => string
-export type Colors = string[] | string
+export type Colors = readonly string[] | string
 export interface ColorProps<T> {
     colors?: Colors
     colorBy?: string | GetColor<T>
@@ -54,7 +55,10 @@ export type TextStyle = {
     fill: string
     outlineWidth: number
     outlineColor: string
+    outlineOpacity: number
 } & Partial<React.CSSProperties>
+
+export function sanitizeSvgTextStyle(style: TextStyle): any
 
 export type CompleteTheme = {
     background: string
@@ -100,7 +104,7 @@ export type CompleteTheme = {
         }
     }
     labels: {
-        text: Partial<React.CSSProperties>
+        text: TextStyle
     }
     markers: {
         lineColor: string
@@ -113,6 +117,7 @@ export type CompleteTheme = {
         text: TextStyle
     }
     tooltip: {
+        wrapper: Partial<React.CSSProperties>
         container: Partial<React.CSSProperties>
         basic: Partial<React.CSSProperties>
         chip: Partial<React.CSSProperties>
@@ -264,6 +269,10 @@ export type Theme = Partial<{
 
 export function useTheme(): CompleteTheme
 export function usePartialTheme(theme?: Theme): CompleteTheme
+export function extendDefaultTheme(
+    defaultTheme: ThemeWithoutInheritance,
+    customTheme: Theme
+): CompleteTheme
 
 export type MotionProps = Partial<{
     animate: boolean
@@ -277,11 +286,11 @@ export function useMotionConfig(): {
 
 export type SvgFillMatcher<T> = (datum: T) => boolean
 export interface SvgDefsAndFill<T> {
-    defs?: {
+    defs?: readonly {
         id: string
         [key: string]: any
     }[]
-    fill?: { id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }[]
+    fill?: readonly { id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }[]
 }
 
 export type CssMixBlendMode =
@@ -393,7 +402,7 @@ export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
 export type Def = LinearGradientDef | PatternDotsDef | PatternSquaresDef | PatternLinesDef
 
 export type DefsProps = {
-    defs: Def[]
+    defs: readonly Def[]
 }
 
 export function Defs(props: DefsProps): JSX.Element
@@ -516,7 +525,10 @@ export function usePropertyAccessor<Datum, Value>(
     accessor: PropertyAccessor<Datum, Value>
 ): (datum: Datum) => Value
 
-export function getRelativeCursor(element: Element, event: React.MouseEvent): [number, number]
+export function getRelativeCursor(
+    element: Element,
+    event: React.MouseEvent | React.TouchEvent
+): [number, number]
 export function isCursorInRect(
     x: number,
     y: number,
@@ -543,7 +555,7 @@ interface CartesianMarkersProps<
     height: number
     xScale: (value: X) => number
     yScale: (value: Y) => number
-    markers: CartesianMarkerProps<X | Y>[]
+    markers: readonly CartesianMarkerProps<X | Y>[]
 }
 type CartesianMarkersType = <X extends DatumValue = DatumValue, Y extends DatumValue = DatumValue>(
     props: CartesianMarkersProps<X, Y>
@@ -601,7 +613,7 @@ export type ClosedCurveFactoryId =
     | 'cardinalClosed'
     | 'catmullRomClosed'
     | 'linearClosed'
-export const closedCurvePropKeys: ClosedCurveFactoryId[]
+export const closedCurvePropKeys: readonly ClosedCurveFactoryId[]
 
 export const curveFromProp: (interpolation: CurveFactoryId) => CurveFactory
 

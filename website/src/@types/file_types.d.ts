@@ -61,16 +61,6 @@ declare module '*calendar/meta.yml' {
     export default meta
 }
 
-declare module '*calendar/meta.yml' {
-    const meta: {
-        flavors: ChartMetaFlavors
-        Calendar: ChartMeta
-        CalendarCanvas: ChartMeta
-    }
-
-    export default meta
-}
-
 declare module '*chord/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
@@ -239,6 +229,16 @@ declare module '*time-range/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         TimeRange: ChartMeta
+    }
+
+    export default meta
+}
+
+declare module '*tree/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        Tree: ChartMeta
+        TreeCanvas: ChartMeta
     }
 
     export default meta

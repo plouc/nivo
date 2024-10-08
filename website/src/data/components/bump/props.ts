@@ -346,26 +346,53 @@ const props: ChartProperty[] = [
         defaultValue: defaults.isInteractive,
     }),
     {
+        key: 'useMesh',
+        flavors: ['svg'],
+        help: 'Use a voronoi mesh to detect mouse interactions.',
+        description: `
+            Use a voronoi mesh to detect mouse interactions, using points rather than lines
+            to detect interactions.
+
+            In this mode, lines are still highlighted when hovering a point, but only
+            the current point is being highlighted.
+        `,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.useMesh,
+        control: { type: 'switch' },
+        group: 'Interactivity',
+    },
+    {
+        key: 'debugMesh',
+        flavors: ['svg', 'canvas'],
+        help: 'Display mesh used to detect mouse interactions (voronoi cells).',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.debugMesh,
+        control: { type: 'switch' },
+        group: 'Interactivity',
+    },
+    {
         key: 'onMouseEnter',
         group: 'Interactivity',
-        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
-        help: 'onMouseEnter handler.',
+        type: '(data: (BumpComputedSerie | BumpPoint), event: MouseEvent) => void',
+        help: 'onMouseEnter handler, for series by default, for points if `useMesh` is `true`.',
         required: false,
         flavors: ['svg'],
     },
     {
         key: 'onMouseMove',
         group: 'Interactivity',
-        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
-        help: 'onMouseMove handler.',
+        type: '(data: (BumpComputedSerie | BumpPoint), event: MouseEvent) => void',
+        help: 'onMouseMove handler, for series by default, for points if `useMesh` is `true`.',
         required: false,
         flavors: ['svg'],
     },
     {
         key: 'onMouseLeave',
         group: 'Interactivity',
-        type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
-        help: 'onMouseLeave handler.',
+        type: '(data: (BumpComputedSerie | BumpPoint), event: MouseEvent) => void',
+        help: 'onMouseLeave handler, for series by default, for points if `useMesh` is `true`.',
         required: false,
         flavors: ['svg'],
     },
@@ -373,20 +400,31 @@ const props: ChartProperty[] = [
         key: 'onClick',
         group: 'Interactivity',
         type: '(serie: BumpComputedSerie, event: MouseEvent) => void',
-        help: 'onClick handler.',
+        help: 'onClick handler, for series by default, for points if `useMesh` is `true`.',
         required: false,
         flavors: ['svg'],
     },
     {
-        key: 'tooltip',
+        key: 'lineTooltip',
         group: 'Interactivity',
         type: 'Function',
         required: false,
-        help: 'Custom tooltip component.',
+        help: 'Custom line tooltip component, used when `useMesh` is `false`.',
         description: `
-            A function allowing complete tooltip customisation,
-            it must return a valid HTML
-            element and will receive the series's data.
+            A function allowing complete tooltip customisation for lines,
+            it must return a valid HTML element and will receive the series's data.
+        `,
+        flavors: ['svg'],
+    },
+    {
+        key: 'pointTooltip',
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Custom point tooltip component, used when `useMesh` is `true`.',
+        description: `
+            A function allowing complete tooltip customisation for points,
+            it must return a valid HTML element and will receive the point's data.
         `,
         flavors: ['svg'],
     },

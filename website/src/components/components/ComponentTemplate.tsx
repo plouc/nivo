@@ -41,6 +41,7 @@ interface ComponentTemplateProps<
     propertiesMapper?: (props: UnmappedProps, data: Data) => MappedProps
     codePropertiesMapper?: (props: MappedProps, data: Data) => MappedProps
     generateData: (previousData?: Data | null) => Data
+    enableDiceRoll?: boolean
     dataKey?: string
     getDataSize?: (data: Data) => number
     getTabData?: (data: Data) => Data
@@ -70,6 +71,7 @@ export const ComponentTemplate = <
     propertiesMapper,
     codePropertiesMapper,
     generateData,
+    enableDiceRoll = true,
     dataKey = 'data',
     getDataSize,
     getTabData = data => data,
@@ -129,7 +131,9 @@ export const ComponentTemplate = <
                     data={tabData}
                     dataKey={dataKey}
                     nodeCount={getDataSize !== undefined ? getDataSize(data) : undefined}
-                    diceRoll={data !== undefined ? diceRoll : undefined}
+                    diceRoll={
+                        enableDiceRoll ? (data !== undefined ? diceRoll : undefined) : undefined
+                    }
                 >
                     {children(mappedProperties, data, theme.nivo, logAction)}
                 </ComponentTabs>

@@ -13,9 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -38,9 +37,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -54,7 +52,7 @@ jobs:
       - name: Build nivo packages
         run: make pkgs-build
       - name: Cypress run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           install: false
           component: true

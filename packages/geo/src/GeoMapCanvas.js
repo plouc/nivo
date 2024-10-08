@@ -10,7 +10,7 @@ import { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
 import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import { GeoMapCanvasDefaultProps, GeoMapCanvasPropTypes } from './props'
+import { GeoMapCanvasPropTypes } from './props'
 import { useGeoMap } from './hooks'
 
 const getFeatureFromMouseEvent = (event, el, features, projection) => {
@@ -24,26 +24,26 @@ const GeoMapCanvas = memo(props => {
         width,
         height,
         margin: partialMargin,
-        pixelRatio,
+        pixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
         features,
         layers,
 
-        projectionType,
-        projectionScale,
-        projectionTranslation,
-        projectionRotation,
+        projectionType = 'mercator',
+        projectionScale = 100,
+        projectionTranslation = [0.5, 0.5],
+        projectionRotation = [0, 0, 0],
 
-        fillColor,
-        borderWidth,
-        borderColor,
+        fillColor = '#dddddd',
+        borderWidth = 0,
+        borderColor = '#000000',
 
-        enableGraticule,
-        graticuleLineWidth,
-        graticuleLineColor,
+        enableGraticule = false,
+        graticuleLineWidth = 0.5,
+        graticuleLineColor = '#999999',
 
-        isInteractive,
-        onClick,
-        onMouseMove,
+        isInteractive = true,
+        onClick = () => {},
+        onMouseMove = () => {},
         tooltip: Tooltip,
     } = props
 
@@ -173,6 +173,5 @@ const GeoMapCanvas = memo(props => {
 
 GeoMapCanvas.displatName = 'GeoMapCanvas'
 GeoMapCanvas.propTypes = GeoMapCanvasPropTypes
-GeoMapCanvas.defaultProps = GeoMapCanvasDefaultProps
 
 export default withContainer(GeoMapCanvas)

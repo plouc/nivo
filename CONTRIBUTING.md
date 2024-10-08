@@ -30,6 +30,11 @@ make init
 
 > please note that it will take a while as this project uses a lot of dependencies…
 
+### Windows
+
+If you want to build this project on Windows, it is recommended to use either WSL 2,
+or Git bash + `choco install make`.
+
 ## Development
 
 ### Storybook
@@ -73,6 +78,13 @@ You can also build the packages without running a watcher, you have two options:
 
 ### Testing
 
+#### Unit tests
+
+Unit tests for each package are located in the `packages/<pkg>/tests` folder, we're using jest
+as a test running and `react-test-renderer` as a testing library, some tests are still using
+`enzyme`, but this lib is not maintained anymore and doesn't support newer versions of React,
+so those should eventually be migrated.
+
 To run unit tests on all packages, run the following command:
 
 ```
@@ -87,6 +99,14 @@ make pkg-test-bar
 ```
 
 where `bar` is the name of the targeted nivo package.
+
+#### End-to-end tests
+
+Sometimes it's difficult to test certain things in unit tests, from our experience, animations
+and interactions can be tricky to test via unit tests only, so we also try to have end-to-end tests.
+
+We're using `cypress` for writing such tests, and those are located in the `cypress/src/components`
+folder, as we introduced end-to-end tests later, not all packages have some.
 
 ### Formatting
 

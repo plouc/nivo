@@ -36,6 +36,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
@@ -44,6 +45,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -53,6 +55,7 @@ const initialProperties = {
         legend: 'group',
         legendPosition: 'middle',
         legendOffset: 32,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -62,6 +65,7 @@ const initialProperties = {
         legend: 'value',
         legendPosition: 'middle',
         legendOffset: -40,
+        truncateTickAt: 0,
     },
 
     colors: { scheme: 'nivo' },

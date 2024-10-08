@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
-import { Bump, BumpPoint, BumpSvgProps } from '@nivo/bump'
+import { Bump, BumpPoint, BumpSvgProps, BumpComputedSerie } from '@nivo/bump'
 
 const meta: Meta<typeof Bump> = {
     title: 'Bump',
@@ -149,17 +149,96 @@ export const MissingData: Story = {
     ),
 }
 
+const generateDataWithHoles = (): Array<{
+    id: string
+    data: Array<{ x: number; y: number | null }>
+}> =>
+    generateData().map(series => ({
+        ...series,
+        data: series.data.map(datum => ({
+            x: datum.x,
+            y: datum.y >= 5 ? null : datum.y,
+        })),
+    }))
+
 export const MoreSeriesThanRanks: Story = {
-    render: () => (
-        <Bump<{ x: number; y: number | null }>
-            {...commonProps}
-            data={generateData().map(series => ({
-                ...series,
-                data: series.data.map(datum => ({
-                    x: datum.x,
-                    y: datum.y >= 5 ? null : datum.y,
-                })),
-            }))}
-        />
-    ),
+    render: () => {
+        const data = generateDataWithHoles()
+
+        return <Bump<{ x: number; y: number | null }> {...commonProps} data={data} />
+    },
+}
+
+const LineTooltip = ({ serie }: { serie: BumpComputedSerie }) => (
+    <div
+        style={{
+            background: serie.color,
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '11px',
+            lineHeight: '16px',
+            padding: '9px',
+            borderRadius: '3px',
+        }}
+    >
+        Series: {serie.id}
+        <br />
+        Color: {serie.color}
+        <br />
+        {serie.points.length} points
+    </div>
+)
+
+export const CustomLineTooltip: Story = {
+    render: () => {
+        const data = generateDataWithHoles()
+
+        return (
+            <Bump<{ x: number; y: number | null }>
+                {...commonProps}
+                lineTooltip={LineTooltip}
+                data={data}
+            />
+        )
+    },
+}
+
+const PointTooltip = ({ point }: { point: BumpPoint }) => {
+    console.log(point)
+
+    return (
+        <div
+            style={{
+                background: point.serie.color,
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '11px',
+                lineHeight: '16px',
+                padding: '9px',
+                borderRadius: '3px',
+            }}
+        >
+            Series: {point.serie.id}
+            <br />
+            x: {point.data.x} ({point.x}px)
+            <br />
+            y: {point.data.y} ({point.y}px)
+        </div>
+    )
+}
+
+export const CustomPointTooltip: Story = {
+    render: () => {
+        const data = generateDataWithHoles()
+
+        return (
+            <Bump<{ x: number; y: number | null }>
+                {...commonProps}
+                useMesh={true}
+                debugMesh={true}
+                pointTooltip={PointTooltip}
+                data={data}
+            />
+        )
+    },
 }

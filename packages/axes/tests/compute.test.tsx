@@ -5,6 +5,18 @@ import { computeCartesianTicks } from '../src/compute'
 
 describe('computeCartesianTicks()', () => {
     const ordinalScale = scaleOrdinal([0, 10, 20, 30]).domain(['A', 'B', 'C', 'D'])
+    const ordinalScaleForTruncationText = scaleOrdinal([0, 10, 20, 30]).domain([
+        'Colombia',
+        'England',
+        'Australia',
+        'France',
+    ])
+    const ordinalScaleForTruncationWithNoText = scaleOrdinal([0, 10, 20, 30]).domain([
+        new Date(),
+        1234,
+        false,
+        {},
+    ])
     const pointScale = castPointScale(scalePoint().domain(['E', 'F', 'G', 'H']).range([0, 300]))
     const bandScale = castBandScale(scaleBand().domain(['I', 'J', 'K', 'L']).rangeRound([0, 400]))
     const linearScale = castLinearScale(scaleLinear().domain([0, 500]).range([0, 100]), false)
@@ -89,6 +101,61 @@ describe('computeCartesianTicks()', () => {
                     tickRotation: 0,
                 })
             ).toMatchSnapshot()
+        })
+    })
+
+    describe('from ordinal scale with text for value truncation', () => {
+        it('should truncate tick value for x axis', () => {
+            const axis = computeCartesianTicks({
+                scale: ordinalScaleForTruncationText,
+                tickValues: 1,
+                axis: 'x',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
+                truncateTickAt: 2,
+            })
+            expect(axis.ticks[0].value).toBe('Co...')
+            expect(axis.ticks[1].value).toBe('En...')
+            expect(axis.ticks[2].value).toBe('Au...')
+            expect(axis.ticks[3].value).toBe('Fr...')
+        })
+        it('should truncate tick value for y axis', () => {
+            const axis = computeCartesianTicks({
+                scale: ordinalScaleForTruncationText,
+                tickValues: 1,
+                axis: 'y',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
+                truncateTickAt: 3,
+            })
+            expect(axis.ticks[0].value).toBe('Col...')
+            expect(axis.ticks[1].value).toBe('Eng...')
+            expect(axis.ticks[2].value).toBe('Aus...')
+            expect(axis.ticks[3].value).toBe('Fra...')
+        })
+    })
+
+    describe('from ordinal scale with NO text for value truncation', () => {
+        it('should NOT truncate tick', () => {
+            const axis = computeCartesianTicks({
+                scale: ordinalScaleForTruncationWithNoText,
+                tickValues: 1,
+                axis: 'y',
+                ticksPosition: 'after',
+                tickSize: 10,
+                tickPadding: 5,
+                tickRotation: 0,
+                truncateTickAt: 3,
+            })
+            console.info(axis)
+            expect(axis.ticks[0].value).not.toContain('...')
+            expect(axis.ticks[1].value).not.toContain('...')
+            expect(axis.ticks[2].value).not.toContain('...')
+            expect(axis.ticks[3].value).not.toContain('...')
         })
     })
 

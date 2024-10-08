@@ -10,6 +10,10 @@ Bump:
       link: bump--custom-points
     - label: Missing data
       link: bump--missing-data
+    - label: Custom line tooltip
+      link: bump--custom-line-tooltip
+    - label: Custom point tooltip
+      link: bump--custom-point-tooltip
   description: |
     The Bump chart can be used to show the ranking of several series
     over time. It is quite similar to [line](self:/line/) charts,

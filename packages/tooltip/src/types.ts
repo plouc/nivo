@@ -1,3 +1,4 @@
+export type TooltipPosition = 'cursor' | 'fixed'
 export type TooltipAnchor = 'top' | 'right' | 'bottom' | 'left' | 'center'
 
 export type CrosshairType =

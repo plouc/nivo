@@ -1,7 +1,24 @@
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 
-export const PatternSquares = memo(({ id, background, color, size, padding, stagger }) => {
+export const PatternSquaresDefaultProps = {
+    color: '#000000',
+    background: '#ffffff',
+    size: 4,
+    padding: 4,
+    stagger: false,
+}
+
+export const PatternSquares = memo(props => {
+    const {
+        id,
+        color = PatternSquaresDefaultProps.color,
+        background = PatternSquaresDefaultProps.background,
+        size = PatternSquaresDefaultProps.size,
+        padding = PatternSquaresDefaultProps.padding,
+        stagger = PatternSquaresDefaultProps.stagger,
+    } = props
+
     let fullSize = size + padding
     const halfPadding = padding / 2
     if (stagger === true) {
@@ -33,13 +50,6 @@ PatternSquares.propTypes = {
     size: PropTypes.number.isRequired,
     padding: PropTypes.number.isRequired,
     stagger: PropTypes.bool.isRequired,
-}
-PatternSquares.defaultProps = {
-    color: '#000000',
-    background: '#ffffff',
-    size: 4,
-    padding: 4,
-    stagger: false,
 }
 
 export const patternSquaresDef = (id, options = {}) => ({

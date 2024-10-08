@@ -1,14 +1,4 @@
 import { Axes, Grid } from '@nivo/axes'
-import { BarAnnotations } from './BarAnnotations'
-import {
-    BarCustomLayerProps,
-    BarDatum,
-    BarLayer,
-    BarLayerId,
-    BarSvgProps,
-    ComputedBarDatumWithValue,
-} from './types'
-import { BarLegends } from './BarLegends'
 import {
     CartesianMarkers,
     Container,
@@ -18,10 +8,23 @@ import {
     useDimensions,
     useMotionConfig,
 } from '@nivo/core'
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { BarAnnotations } from './BarAnnotations'
+import { BarLegends } from './BarLegends'
 import { useBar } from './hooks'
+import { svgDefaultProps } from './props'
+import {
+    BarCustomLayerProps,
+    BarDatum,
+    BarItemProps,
+    BarLayer,
+    BarLayerId,
+    BarSvgProps,
+    ComputedBarDatumWithValue,
+} from './types'
+import { BarTotals } from './BarTotals'
+import { useComputeLabelLayout } from './compute/common'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -58,7 +61,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     gridXValues,
     gridYValues,
 
-    layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
+    layers = svgDefaultProps.layers as readonly BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
 
     enableLabel = svgDefaultProps.enableLabel,
@@ -66,6 +69,8 @@ const InnerBar = <RawDatum extends BarDatum>({
     labelSkipWidth = svgDefaultProps.labelSkipWidth,
     labelSkipHeight = svgDefaultProps.labelSkipHeight,
     labelTextColor,
+    labelPosition = svgDefaultProps.labelPosition,
+    labelOffset = svgDefaultProps.labelOffset,
 
     markers = svgDefaultProps.markers,
 
@@ -100,8 +105,13 @@ const InnerBar = <RawDatum extends BarDatum>({
     barAriaLabel,
     barAriaLabelledBy,
     barAriaDescribedBy,
+    barAriaHidden,
+    barAriaDisabled,
 
     initialHiddenIds,
+
+    enableTotals = svgDefaultProps.enableTotals,
+    totalsOffset = svgDefaultProps.totalsOffset,
 }: InnerBarProps<RawDatum>) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -122,6 +132,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         toggleSerie,
         legendsWithData,
+        barTotals,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -151,7 +162,10 @@ const InnerBar = <RawDatum extends BarDatum>({
         legends,
         legendLabel,
         initialHiddenIds,
+        totalsOffset,
     })
+
+    const computeLabelLayout = useComputeLabelLayout(layout, reverse, labelPosition, labelOffset)
 
     const transition = useTransition<
         ComputedBarDatumWithValue<RawDatum>,
@@ -166,6 +180,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             opacity: number
             transform: string
             width: number
+            textAnchor: BarItemProps<RawDatum>['style']['textAnchor']
         }
     >(barsWithValue, {
         keys: bar => bar.key,
@@ -175,8 +190,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: 0,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 0,
-            labelX: bar.width / 2,
-            labelY: bar.height / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             transform: `translate(${bar.x}, ${bar.y + bar.height})`,
             width: bar.width,
             ...(layout === 'vertical'
@@ -193,8 +207,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: bar.height,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 1,
-            labelX: bar.width / 2,
-            labelY: bar.height / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             transform: `translate(${bar.x}, ${bar.y})`,
             width: bar.width,
         }),
@@ -204,8 +217,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: bar.height,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 1,
-            labelX: bar.width / 2,
-            labelY: bar.height / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             transform: `translate(${bar.x}, ${bar.y})`,
             width: bar.width,
         }),
@@ -215,15 +227,15 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: 0,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 0,
-            labelX: bar.width / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             labelY: 0,
             transform: `translate(${bar.x}, ${bar.y + bar.height})`,
             width: bar.width,
             ...(layout === 'vertical'
                 ? {}
                 : {
+                      ...computeLabelLayout(bar.width, bar.height),
                       labelX: 0,
-                      labelY: bar.height / 2,
                       height: bar.height,
                       transform: `translate(${bar.x}, ${bar.y})`,
                       width: 0,
@@ -231,6 +243,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         }),
         config: springConfig,
         immediate: !animate,
+        initial: animate ? undefined : null,
     })
 
     const commonProps = useMemo(
@@ -250,6 +263,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             ariaLabel: barAriaLabel,
             ariaLabelledBy: barAriaLabelledBy,
             ariaDescribedBy: barAriaDescribedBy,
+            ariaHidden: barAriaHidden,
+            ariaDisabled: barAriaDisabled,
         }),
         [
             borderRadius,
@@ -267,6 +282,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             barAriaLabel,
             barAriaLabelledBy,
             barAriaDescribedBy,
+            barAriaHidden,
+            barAriaDisabled,
         ]
     )
 
@@ -282,6 +299,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         grid: null,
         legends: null,
         markers: null,
+        totals: null,
     }
 
     if (layers.includes('annotations')) {
@@ -357,6 +375,18 @@ const InnerBar = <RawDatum extends BarDatum>({
                 height={innerHeight}
                 xScale={xScale as (v: number | string) => number}
                 yScale={yScale as (v: number) => number}
+            />
+        )
+    }
+
+    if (layers.includes('totals') && enableTotals) {
+        layerById.totals = (
+            <BarTotals
+                key="totals"
+                data={barTotals}
+                springConfig={springConfig}
+                animate={animate}
+                layout={layout}
             />
         )
     }

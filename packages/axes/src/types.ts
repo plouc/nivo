@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { ScaleValue, TicksSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
+import * as React from 'react'
 
 export type GridValuesBuilder<T> = T extends number
     ? number[]
@@ -28,6 +28,7 @@ export interface AxisProps<Value extends ScaleValue = any> {
     tickPadding?: number
     tickRotation?: number
     format?: string | ValueFormatter<Value>
+    truncateTickAt?: number
     renderTick?: (props: AxisTickProps<Value>) => JSX.Element
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
@@ -59,6 +60,7 @@ export interface AxisTickProps<Value extends ScaleValue> {
         textTransform: string
         transform: string
     }>
+    truncateTickAt: number | undefined
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }
 

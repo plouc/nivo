@@ -240,7 +240,7 @@ export const useWaffle = <D extends Datum = Datum>({
             id: datum.id,
             label: datum.label,
             color: datum.color,
-            // fill: datum.fill,,
+            // fill: datum.fill,
             data: datum,
         }))
 

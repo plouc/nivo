@@ -1,6 +1,6 @@
 {
     "name": "@nivo/api",
-    "version": "0.83.0",
+    "version": "0.87.0",
     "private": true,
     "description": "Rendering API for nivo dataviz React/d3 components",
     "main": "src/app.js",
@@ -16,7 +16,7 @@
     },
     "engineStrict": true,
     "engines": {
-        "node": ">=16"
+        "node": ">=18"
     },
     "devDependencies": {
         "nodemon": "^2.0.22"
@@ -39,7 +39,7 @@
         "winston": "3.3.3"
     },
     "scripts": {
-        "start": "yarn build && node app.js",
+        "start": "npm run build && node app.js",
         "dev": "nodemon app.ts",
         "build": "tsc"
     },

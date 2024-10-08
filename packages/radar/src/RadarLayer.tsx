@@ -4,7 +4,7 @@ import { lineRadial, CurveFactory } from 'd3-shape'
 import { ScaleLinear } from 'd3-scale'
 import { useMotionConfig, useTheme, useAnimatedPath } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
-import { RadarCommonProps } from './types'
+import { RadarCommonProps, RadarSvgProps } from './types'
 
 interface RadarLayerProps<D extends Record<string, unknown>> {
     data: D[]
@@ -19,6 +19,7 @@ interface RadarLayerProps<D extends Record<string, unknown>> {
     borderColor: RadarCommonProps<D>['borderColor']
     fillOpacity: RadarCommonProps<D>['fillOpacity']
     blendMode: RadarCommonProps<D>['blendMode']
+    onClick?: RadarSvgProps<D>['onClick']
 }
 
 export const RadarLayer = <D extends Record<string, unknown>>({

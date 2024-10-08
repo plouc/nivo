@@ -144,6 +144,16 @@ export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarComm
     RadarDataProps<D> &
     Dimensions &
     MotionProps &
-    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
+    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>> &
+    RadarHandlers<D, SVGPathElement>
 
 export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>
+
+export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
+    datum: RawDatum,
+    event: React.MouseEvent<ElementType>
+) => void
+
+export type RadarHandlers<RawDatum, ElementType> = {
+    onClick?: MouseEventHandler<RawDatum, ElementType>
+}

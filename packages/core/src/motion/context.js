@@ -5,7 +5,14 @@ import { config as presets } from '@react-spring/web'
 
 export const motionConfigContext = createContext()
 
-export const MotionConfigProvider = ({ children, animate, config }) => {
+export const motionDefaultProps = {
+    animate: true,
+    config: 'default',
+}
+
+export const MotionConfigProvider = props => {
+    const { children, animate = true, config = 'default' } = props
+
     const value = useMemo(() => {
         const reactSpringConfig = isString(config) ? presets[config] : config
 
@@ -40,10 +47,3 @@ MotionConfigProvider.propTypes = {
     animate: motionPropTypes.animate,
     config: motionPropTypes.motionConfig,
 }
-
-export const motionDefaultProps = {
-    animate: true,
-    config: 'default',
-}
-
-MotionConfigProvider.defaultProps = motionDefaultProps

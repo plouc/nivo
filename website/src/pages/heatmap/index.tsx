@@ -38,6 +38,7 @@ const initialProperties: SvgUnmappedProps = {
         tickRotation: -90,
         legend: '',
         legendOffset: 46,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
@@ -47,6 +48,7 @@ const initialProperties: SvgUnmappedProps = {
         legend: 'country',
         legendPosition: 'middle',
         legendOffset: 70,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: false,
@@ -56,6 +58,7 @@ const initialProperties: SvgUnmappedProps = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -65,6 +68,7 @@ const initialProperties: SvgUnmappedProps = {
         legend: 'country',
         legendPosition: 'middle',
         legendOffset: -72,
+        truncateTickAt: 0,
     },
     colors: {
         type: 'diverging',

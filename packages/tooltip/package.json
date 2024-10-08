@@ -1,6 +1,6 @@
 {
     "name": "@nivo/tooltip",
-    "version": "0.83.0",
+    "version": "0.87.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -23,6 +23,9 @@
     "dependencies": {
         "@nivo/core": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 19.0.0"
     },
     "publishConfig": {
         "access": "public"

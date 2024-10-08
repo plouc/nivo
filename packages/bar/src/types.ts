@@ -16,13 +16,14 @@ import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
+import { BarLabelLayout } from './compute/common'
 
 export interface BarDatum {
     [key: string]: string | number
 }
 
 export interface DataProps<RawDatum extends BarDatum> {
-    data: RawDatum[]
+    data: readonly RawDatum[]
 }
 
 export type BarDatumWithColor = BarDatum & {
@@ -95,7 +96,8 @@ export interface BarLegendProps extends LegendProps {
 export type LabelFormatter = (label: string | number) => string | number
 export type ValueFormatter = (value: number) => string | number
 
-export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations'
+export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations' | 'totals'
+export type BarCanvasLayerId = Exclude<BarLayerId, 'markers'>
 
 interface BarCustomLayerBaseProps<RawDatum>
     extends Pick<
@@ -109,8 +111,8 @@ interface BarCustomLayerBaseProps<RawDatum>
             | 'tooltip'
         >,
         Dimensions {
-    bars: ComputedBarDatum<RawDatum>[]
-    legendData: [BarLegendProps, LegendData[]][]
+    bars: readonly ComputedBarDatum<RawDatum>[]
+    legendData: [BarLegendProps, readonly LegendData[]][]
 
     margin: Margin
     innerWidth: number
@@ -138,9 +140,7 @@ export type BarCanvasCustomLayer<RawDatum> = (
 ) => void
 export type BarCustomLayer<RawDatum> = React.FC<BarCustomLayerProps<RawDatum>>
 
-export type BarCanvasLayer<RawDatum> =
-    | Exclude<BarLayerId, 'markers'>
-    | BarCanvasCustomLayer<RawDatum>
+export type BarCanvasLayer<RawDatum> = BarCanvasLayerId | BarCanvasCustomLayer<RawDatum>
 export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
 
 export interface BarItemProps<RawDatum extends BarDatum>
@@ -166,6 +166,7 @@ export interface BarItemProps<RawDatum extends BarDatum>
         opacity: number
         transform: string
         width: number
+        textAnchor: 'start' | 'middle'
     }>
 
     label: string
@@ -175,6 +176,8 @@ export interface BarItemProps<RawDatum extends BarDatum>
     ariaLabel?: BarSvgProps<RawDatum>['barAriaLabel']
     ariaLabelledBy?: BarSvgProps<RawDatum>['barAriaLabelledBy']
     ariaDescribedBy?: BarSvgProps<RawDatum>['barAriaDescribedBy']
+    ariaHidden?: BarSvgProps<RawDatum>['barAriaHidden']
+    ariaDisabled?: BarSvgProps<RawDatum>['barAriaDisabled']
 }
 
 export type RenderBarProps<RawDatum extends BarDatum> = Omit<
@@ -186,10 +189,13 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
     | 'ariaLabel'
     | 'ariaLabelledBy'
     | 'ariaDescribedBy'
-> & {
-    borderColor: string
-    labelColor: string
-}
+    | 'ariaHidden'
+    | 'ariaDisabled'
+> &
+    BarLabelLayout & {
+        borderColor: string
+        labelColor: string
+    }
 
 export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
     color: string
@@ -208,7 +214,7 @@ export type BarHandlers<RawDatum, Element> = {
 
 export type BarCommonProps<RawDatum> = {
     indexBy: PropertyAccessor<RawDatum, string>
-    keys: string[]
+    keys: readonly string[]
 
     maxValue: 'auto' | number
     minValue: 'auto' | number
@@ -231,6 +237,8 @@ export type BarCommonProps<RawDatum> = {
 
     enableLabel: boolean
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
+    labelPosition: 'start' | 'middle' | 'end'
+    labelOffset: number
     labelFormat: string | LabelFormatter
     labelSkipWidth: number
     labelSkipHeight: number
@@ -253,12 +261,15 @@ export type BarCommonProps<RawDatum> = {
     colors: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>
     theme: Theme
 
-    annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
-    legends: BarLegendProps[]
+    annotations: readonly AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
+    legends: readonly BarLegendProps[]
 
     renderWrapper?: boolean
 
-    initialHiddenIds: (string | number)[]
+    initialHiddenIds: readonly (string | number)[]
+
+    enableTotals: boolean
+    totalsOffset: number
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
@@ -275,9 +286,9 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
 
         barComponent: React.FC<BarItemProps<RawDatum>>
 
-        markers: CartesianMarkerProps[]
+        markers: readonly CartesianMarkerProps[]
 
-        layers: BarLayer<RawDatum>[]
+        layers: readonly BarLayer<RawDatum>[]
 
         role: string
         ariaLabel?: React.AriaAttributes['aria-label']
@@ -291,6 +302,8 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
         barAriaDescribedBy?: (
             data: ComputedDatum<RawDatum>
         ) => React.AriaAttributes['aria-describedby']
+        barAriaHidden?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-hidden']
+        barAriaDisabled?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-disabled']
     }>
 
 export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
@@ -310,6 +323,6 @@ export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<R
     }>
 
 export type BarAnnotationsProps<RawDatum> = {
-    annotations: AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
-    bars: ComputedBarDatum<RawDatum>[]
+    annotations: readonly AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
+    bars: readonly ComputedBarDatum<RawDatum>[]
 }

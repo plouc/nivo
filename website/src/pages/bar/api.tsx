@@ -109,12 +109,16 @@ const BarApi = () => {
                     enableGridY: true,
 
                     enableLabel: true,
+                    enableTotals: false,
+                    totalsOffset: 10,
                     labelSkipWidth: 12,
                     labelSkipHeight: 12,
                     labelTextColor: {
                         from: 'color',
                         modifiers: [['darker', 1.6]],
                     },
+                    labelPosition: 'middle',
+                    labelOffset: 0,
                 }}
             />
         </>

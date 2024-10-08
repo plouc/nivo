@@ -17,6 +17,10 @@ Pie:
       link: pie--adding-a-metric-in-the-center-using-a-custom-layer
     - label: Custom arc label component
       link: pie--custom-arc-label-component
+    - label: Sync activeId between two pies
+      link: pie--controlled-active-id
+    - label: Implementing a custom legend
+      link: pie--custom-legend
   description: |
     Generates a pie chart from an array of data, each datum must have an
     id and a value property.
@@ -39,7 +43,13 @@ PieCanvas:
   tags:
     - radial
     - canvas
-  stories: []
+  stories:
+    - label: Using colors from data
+      link: piecanvas--using-colors-from-data
+    - label: Sync activeId between two pies
+      link: piecanvas--controlled-active-id
+    - label: Implementing a custom legend
+      link: piecanvas--custom-legend
   description: |
     A variation around the [Pie](self:/pie) component. Well suited for
     large data sets as it does not impact DOM tree depth, however you'll

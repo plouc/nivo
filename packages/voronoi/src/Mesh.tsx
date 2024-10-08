@@ -1,137 +1,136 @@
-import { useRef, useState, useCallback, useMemo, MouseEvent } from 'react'
-import { getRelativeCursor } from '@nivo/core'
-import { useVoronoiMesh } from './hooks'
-import { XYAccessor } from './computeMesh'
+import { useMemo, useRef } from 'react'
+import { Margin } from '@nivo/core'
+import { TooltipAnchor, TooltipPosition } from '@nivo/tooltip'
+import { useVoronoiMesh, useMeshEvents } from './hooks'
+import { NodeMouseHandler, NodePositionAccessor, NodeTouchHandler } from './types'
+import { defaultMargin, defaultTooltipAnchor, defaultTooltipPosition } from './defaults'
 
-type MouseHandler<Datum> = (datum: Datum, event: MouseEvent) => void
-
-interface MeshProps<Datum> {
-    nodes: Datum[]
+interface MeshProps<Node> {
+    nodes: Node[]
     width: number
     height: number
-    x?: XYAccessor<Datum>
-    y?: XYAccessor<Datum>
-    onMouseEnter?: MouseHandler<Datum>
-    onMouseMove?: MouseHandler<Datum>
-    onMouseLeave?: MouseHandler<Datum>
-    onClick?: MouseHandler<Datum>
+    margin?: Margin
+    getNodePosition?: NodePositionAccessor<Node>
+    // Can be used in case you want to keep track of the current node externally,
+    // the current node being the last hovered node.
+    setCurrent?: (node: Node | null) => void
+    onMouseEnter?: NodeMouseHandler<Node>
+    onMouseMove?: NodeMouseHandler<Node>
+    onMouseLeave?: NodeMouseHandler<Node>
+    onClick?: NodeMouseHandler<Node>
+    onTouchStart?: NodeTouchHandler<Node>
+    onTouchMove?: NodeTouchHandler<Node>
+    onTouchEnd?: NodeTouchHandler<Node>
+    enableTouchCrosshair?: boolean
+    // Restrict the node detection to a given radius, default to `Infinity`.
+    detectionRadius?: number
+    // If specified, tooltips are going to be handled automatically.
+    tooltip?: (node: Node) => JSX.Element
+    tooltipPosition?: TooltipPosition
+    tooltipAnchor?: TooltipAnchor
+    // Display the voronoi mesh for debugging purpose.
     debug?: boolean
 }
 
-export const Mesh = <Datum,>({
+export const Mesh = <Node,>({
     nodes,
     width,
     height,
-    x,
-    y,
+    margin = defaultMargin,
+    getNodePosition,
+    setCurrent,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    enableTouchCrosshair = false,
+    detectionRadius = Infinity,
+    tooltip,
+    tooltipPosition = defaultTooltipPosition,
+    tooltipAnchor = defaultTooltipAnchor,
     debug,
-}: MeshProps<Datum>) => {
-    const elementRef = useRef<SVGGElement>(null)
-    const [currentIndex, setCurrentIndex] = useState<number | null>(null)
+}: MeshProps<Node>) => {
+    const elementRef = useRef<SVGRectElement | null>(null)
 
-    const { delaunay, voronoi } = useVoronoiMesh({
+    const { delaunay, voronoi } = useVoronoiMesh<Node>({
         points: nodes,
-        x,
-        y,
+        getNodePosition,
         width,
         height,
+        margin,
         debug,
     })
 
-    const voronoiPath = useMemo(() => {
-        if (debug && voronoi) {
-            return voronoi.render()
-        }
+    const {
+        current,
+        handleMouseEnter,
+        handleMouseMove,
+        handleMouseLeave,
+        handleClick,
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
+    } = useMeshEvents<Node, SVGRectElement>({
+        elementRef,
+        nodes,
+        delaunay,
+        margin,
+        detectionRadius,
+        setCurrent,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        onTouchStart,
+        onTouchMove,
+        onTouchEnd,
+        enableTouchCrosshair,
+        tooltip,
+        tooltipPosition,
+        tooltipAnchor,
+    })
 
+    const voronoiPath = useMemo(() => {
+        if (debug && voronoi) return voronoi.render()
         return undefined
     }, [debug, voronoi])
 
-    const getIndexAndNodeFromEvent = useCallback(
-        (event: MouseEvent<SVGRectElement>) => {
-            if (!elementRef.current) {
-                return [null, null]
-            }
-
-            const [x, y] = getRelativeCursor(elementRef.current, event)
-            const index = delaunay.find(x, y)
-
-            return [index, index !== undefined ? nodes[index] : null] as [number, Datum | null]
-        },
-        [elementRef, delaunay]
-    )
-
-    const handleMouseEnter = useCallback(
-        (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            setCurrentIndex(index)
-            if (node) {
-                onMouseEnter?.(node, event)
-            }
-        },
-        [getIndexAndNodeFromEvent, setCurrentIndex, onMouseEnter]
-    )
-
-    const handleMouseMove = useCallback(
-        (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            setCurrentIndex(index)
-            if (node) {
-                onMouseMove?.(node, event)
-            }
-        },
-        [getIndexAndNodeFromEvent, setCurrentIndex, onMouseMove]
-    )
-
-    const handleMouseLeave = useCallback(
-        (event: MouseEvent<SVGRectElement>) => {
-            setCurrentIndex(null)
-            if (onMouseLeave) {
-                let previousNode: Datum | undefined = undefined
-                if (currentIndex !== null) {
-                    previousNode = nodes[currentIndex]
-                }
-                previousNode && onMouseLeave(previousNode, event)
-            }
-        },
-        [setCurrentIndex, currentIndex, onMouseLeave, nodes]
-    )
-
-    const handleClick = useCallback(
-        (event: MouseEvent<SVGRectElement>) => {
-            const [index, node] = getIndexAndNodeFromEvent(event)
-            setCurrentIndex(index)
-            if (node) {
-                onClick?.(node, event)
-            }
-        },
-        [getIndexAndNodeFromEvent, setCurrentIndex, onClick]
-    )
-
     return (
-        <g ref={elementRef}>
+        <g ref={elementRef} transform={`translate(${-margin.left},${-margin.top})`}>
             {debug && voronoi && (
                 <>
                     <path d={voronoiPath} stroke="red" strokeWidth={1} opacity={0.75} />
-                    {/* highlight current cell */}
-                    {currentIndex !== null && (
-                        <path fill="pink" opacity={0.35} d={voronoi.renderCell(currentIndex)} />
+                    {detectionRadius < Infinity && (
+                        <path
+                            stroke="red"
+                            strokeWidth={0.35}
+                            fill="none"
+                            d={delaunay.renderPoints(undefined, detectionRadius)}
+                        />
+                    )}
+                    {/* highlight the current cell */}
+                    {current && (
+                        <path fill="pink" opacity={0.35} d={voronoi.renderCell(current[0])} />
                     )}
                 </>
             )}
             {/* transparent rect to intercept mouse events */}
             <rect
-                width={width}
-                height={height}
+                data-ref="mesh-interceptor"
+                width={margin.left + width + margin.right}
+                height={margin.top + height + margin.bottom}
                 fill="red"
                 opacity={0}
                 style={{ cursor: 'auto' }}
                 onMouseEnter={handleMouseEnter}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 onClick={handleClick}
             />
         </g>

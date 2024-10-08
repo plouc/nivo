@@ -1,146 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import PropTypes from 'prop-types'
-import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
-import { axisPropType } from '@nivo/axes'
-import { LegendPropShape } from '@nivo/legends'
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
-
-const commonPropTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            data: PropTypes.arrayOf(
-                PropTypes.shape({
-                    x: PropTypes.oneOfType([
-                        PropTypes.number,
-                        PropTypes.string,
-                        PropTypes.instanceOf(Date),
-                    ]),
-                    y: PropTypes.oneOfType([
-                        PropTypes.number,
-                        PropTypes.string,
-                        PropTypes.instanceOf(Date),
-                    ]),
-                })
-            ).isRequired,
-        })
-    ).isRequired,
-
-    xScale: PropTypes.object.isRequired,
-    xFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    yScale: PropTypes.object.isRequired,
-    yFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-
-    layers: PropTypes.arrayOf(
-        PropTypes.oneOfType([
-            PropTypes.oneOf([
-                'grid',
-                'markers',
-                'axes',
-                'areas',
-                'crosshair',
-                'lines',
-                'slices',
-                'points',
-                'mesh',
-                'legends',
-            ]),
-            PropTypes.func,
-        ])
-    ).isRequired,
-
-    curve: lineCurvePropType.isRequired,
-
-    axisTop: axisPropType,
-    axisRight: axisPropType,
-    axisBottom: axisPropType,
-    axisLeft: axisPropType,
-
-    enableGridX: PropTypes.bool.isRequired,
-    enableGridY: PropTypes.bool.isRequired,
-    gridXValues: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.arrayOf(
-            PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
-        ),
-    ]),
-    gridYValues: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.arrayOf(
-            PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
-        ),
-    ]),
-
-    enablePoints: PropTypes.bool.isRequired,
-    pointSymbol: PropTypes.func,
-    pointSize: PropTypes.number.isRequired,
-    pointColor: PropTypes.any.isRequired,
-    pointBorderWidth: PropTypes.number.isRequired,
-    pointBorderColor: PropTypes.any.isRequired,
-    enablePointLabel: PropTypes.bool.isRequired,
-    pointLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-
-    markers: PropTypes.arrayOf(
-        PropTypes.shape({
-            axis: PropTypes.oneOf(['x', 'y']).isRequired,
-            value: PropTypes.oneOfType([
-                PropTypes.number,
-                PropTypes.string,
-                PropTypes.instanceOf(Date),
-            ]).isRequired,
-            style: PropTypes.object,
-        })
-    ),
-
-    colors: ordinalColorsPropType.isRequired,
-
-    enableArea: PropTypes.bool.isRequired,
-    areaOpacity: PropTypes.number.isRequired,
-    areaBlendMode: blendModePropType.isRequired,
-    areaBaselineValue: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-        PropTypes.instanceOf(Date),
-    ]).isRequired,
-    lineWidth: PropTypes.number.isRequired,
-
-    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-
-    isInteractive: PropTypes.bool.isRequired,
-    debugMesh: PropTypes.bool.isRequired,
-
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-
-    enableSlices: PropTypes.oneOf(['x', 'y', false]).isRequired,
-    debugSlices: PropTypes.bool.isRequired,
-    sliceTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-
-    enableCrosshair: PropTypes.bool.isRequired,
-    crosshairType: PropTypes.string.isRequired,
-}
-
-export const LinePropTypes = {
-    ...commonPropTypes,
-    enablePointLabel: PropTypes.bool.isRequired,
-    role: PropTypes.string.isRequired,
-    useMesh: PropTypes.bool.isRequired,
-    ...motionPropTypes,
-    ...defsPropTypes,
-}
-
-export const LineCanvasPropTypes = {
-    pixelRatio: PropTypes.number.isRequired,
-    ...commonPropTypes,
-}
 
 const commonDefaultProps = {
     curve: 'linear',
@@ -202,11 +61,13 @@ export const LineDefaultProps = {
     ...commonDefaultProps,
     enablePointLabel: false,
     useMesh: false,
+    enableTouchCrosshair: false,
     animate: true,
     motionConfig: 'gentle',
     defs: [],
     fill: [],
     role: 'img',
+    initialHiddenIds: [],
 }
 
 export const LineCanvasDefaultProps = {
