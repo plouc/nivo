@@ -292,6 +292,36 @@ it('should call the custom label callback for each point', () => {
     }
 })
 
+it('should display a custom legendNode for marker', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+    ]
+    const markers = [{
+        axis: "x",
+        lineStyle: {
+            stroke: "lightblue",
+            strokeWidth: 5
+        },
+        legendPosition: "top",
+        legendNode: <foreignObject x={0} y={0} width={32} height={32}><div>😎</div></foreignObject>,
+    }]
+
+    const component = renderer.create(<Line width={500} height={300} data={data} animate={false} markers={markers} />)
+
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+
+})
+
 describe('curve interpolation', () => {
     const curveInterpolations = [
         'basis',
