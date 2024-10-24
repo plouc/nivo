@@ -103,6 +103,11 @@ export type CalendarDayProps = {
     color: string
     borderWidth: number
     borderColor: string
+    displayLabel: boolean
+    label: string
+    labelSize: (width: number, height: number) => string
+    labelColor: (day: CalendarDatum) => string
+    labelStyle: React.CSSProperties
     isInteractive: boolean
     tooltip: React.FC<CalendarTooltipProps>
     formatValue: (value: number) => string
@@ -145,6 +150,10 @@ export type CommonCalendarProps = {
     valueFormat: ValueFormat<number>
     legendFormat: ValueFormat<number>
 
+    dayLabel: boolean
+    dayLabelFormat: ValueFormat<number, CalendarDatum>
+    dayLabelColor: string | ((day: CalendarDatum) => string)
+
     theme: Theme
 
     // interactivity
@@ -162,6 +171,7 @@ export type CalendarSvgProps = Dimensions &
         CommonCalendarProps &
             InteractivityProps<Omit<Datum, 'data' | 'value'> | Datum, SVGRectElement> & {
                 role: string
+                dayLabelStyle: React.CSSProperties
             }
     >
 
@@ -171,6 +181,8 @@ export type CalendarCanvasProps = Dimensions &
         CommonCalendarProps &
             InteractivityProps<Omit<Datum, 'data' | 'value'> | Datum, HTMLCanvasElement> & {
                 pixelRatio: number
+                dayLabelFont: string
+                dayLabelFontWeight: string
             }
     >
 
@@ -201,9 +213,10 @@ export type Weekday =
     | 'friday'
     | 'saturday'
 
-export type TimeRangeSvgProps = Dimensions & { data: CalendarDatum[] } & Partial<
-        Omit<CalendarData, 'data'>
-    > &
+export type TimeRangeSvgProps = Dimensions & {
+    data: CalendarDatum[]
+    dayLabelStyle: React.CSSProperties
+} & Partial<Omit<CalendarData, 'data'>> &
     Partial<
         Omit<
             CommonCalendarProps,
@@ -232,6 +245,11 @@ export type TimeRangeDayProps = Record<
     data: TimeRangeDayData
     color: string
     borderColor: string
+    displayLabel: boolean
+    label: string
+    labelSize: (width: number, height: number) => string
+    labelColor: (day: CalendarDatum) => string
+    labelStyle: React.CSSProperties
     isInteractive: boolean
     tooltip: React.FC<TimeRangeTooltipProps>
     formatValue: (value: number) => string
