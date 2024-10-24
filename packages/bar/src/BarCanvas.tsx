@@ -218,6 +218,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         legendsWithData,
         barTotals,
+        getColor,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -292,6 +293,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             onClick,
             onMouseEnter,
             onMouseLeave,
+            getColor,
         }),
         [
             borderRadius,
@@ -314,6 +316,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             onClick,
             onMouseEnter,
             onMouseLeave,
+            getColor,
         ]
     )
 
