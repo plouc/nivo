@@ -21,7 +21,7 @@
         "swarmplot"
     ],
     "main": "./dist/nivo-swarmplot.cjs.js",
-    "module": "./dist/nivo-swarmplot.es.js",
+    "module": "./dist/nivo-swarmplot.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -50,5 +50,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-swarmplot.mjs",
+            "require": "./dist/nivo-swarmplot.cjs.js"
+        }
     }
 }

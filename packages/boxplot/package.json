@@ -25,7 +25,7 @@
         "stats"
     ],
     "main": "./dist/nivo-boxplot.cjs.js",
-    "module": "./dist/nivo-boxplot.es.js",
+    "module": "./dist/nivo-boxplot.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -53,5 +53,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-boxplot.mjs",
+            "require": "./dist/nivo-boxplot.cjs.js"
+        }
     }
 }

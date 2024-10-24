@@ -1,6 +1,6 @@
 import React from 'react'
-import range from 'lodash/range'
-import random from 'lodash/random'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
 import { useStaticQuery, graphql } from 'gatsby'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveAreaBump, areaBumpSvgDefaultProps as defaults } from '@nivo/bump'

@@ -12,7 +12,7 @@
         "directory": "packages/tooltip"
     },
     "main": "./dist/nivo-tooltip.cjs.js",
-    "module": "./dist/nivo-tooltip.es.js",
+    "module": "./dist/nivo-tooltip.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -29,5 +29,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-tooltip.mjs",
+            "require": "./dist/nivo-tooltip.cjs.js"
+        }
     }
 }

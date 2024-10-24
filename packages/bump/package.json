@@ -21,7 +21,7 @@
         "area-bump-chart"
     ],
     "main": "./dist/nivo-bump.cjs.js",
-    "module": "./dist/nivo-bump.es.js",
+    "module": "./dist/nivo-bump.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -48,5 +48,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-bump.mjs",
+            "require": "./dist/nivo-bump.cjs.js"
+        }
     }
 }

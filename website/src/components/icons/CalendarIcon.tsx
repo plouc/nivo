@@ -1,5 +1,5 @@
 import React from 'react'
-import range from 'lodash/range'
+import range from 'lodash/range.js'
 import calendarLightNeutralImg from '../../assets/icons/calendar-light-neutral.png'
 import calendarLightColoredImg from '../../assets/icons/calendar-light-colored.png'
 import calendarDarkNeutralImg from '../../assets/icons/calendar-dark-neutral.png'

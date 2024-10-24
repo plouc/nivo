@@ -20,7 +20,7 @@
         "heatmap"
     ],
     "main": "./dist/nivo-heatmap.cjs.js",
-    "module": "./dist/nivo-heatmap.es.js",
+    "module": "./dist/nivo-heatmap.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -45,5 +45,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-heatmap.mjs",
+            "require": "./dist/nivo-heatmap.cjs.js"
+        }
     }
 }

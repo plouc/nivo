@@ -1,7 +1,7 @@
 import { BoxPlotDatum, BoxPlotCommonProps, ComputedBoxPlotSummary, LegendData } from '../types'
 import { getPropertyAccessor } from '@nivo/core'
-import uniqBy from 'lodash/uniqBy'
-import sortBy from 'lodash/sortBy'
+import uniqBy from 'lodash/uniqBy.js'
+import sortBy from 'lodash/sortBy.js'
 
 export const getLegendData = <RawDatum extends BoxPlotDatum>({
     boxPlots,

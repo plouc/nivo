@@ -1,5 +1,5 @@
 import React from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { generateSankeyData } from '@nivo/generators'
 import {
     ResponsiveSankey,

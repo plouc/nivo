@@ -19,7 +19,7 @@
         "arcs"
     ],
     "main": "./dist/nivo-arcs.cjs.js",
-    "module": "./dist/nivo-arcs.es.js",
+    "module": "./dist/nivo-arcs.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -39,5 +39,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-arcs.mjs",
+            "require": "./dist/nivo-arcs.cjs.js"
+        }
     }
 }

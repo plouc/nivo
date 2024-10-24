@@ -1,5 +1,5 @@
 import React from 'react'
-import range from 'lodash/range'
+import range from 'lodash/range.js'
 import { Voronoi } from '@nivo/voronoi'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'

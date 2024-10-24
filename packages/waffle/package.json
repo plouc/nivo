@@ -21,7 +21,7 @@
     ],
     "sideEffects": false,
     "main": "./dist/nivo-waffle.cjs.js",
-    "module": "./dist/nivo-waffle.es.js",
+    "module": "./dist/nivo-waffle.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -45,5 +45,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-waffle.mjs",
+            "require": "./dist/nivo-waffle.cjs.js"
+        }
     }
 }

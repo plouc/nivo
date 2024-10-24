@@ -20,7 +20,7 @@
         "sunburst-chart"
     ],
     "main": "./dist/nivo-sunburst.cjs.js",
-    "module": "./dist/nivo-sunburst.es.js",
+    "module": "./dist/nivo-sunburst.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -42,5 +42,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-sunburst.mjs",
+            "require": "./dist/nivo-sunburst.cjs.js"
+        }
     }
 }

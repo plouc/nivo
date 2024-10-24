@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
+import range from 'lodash/range.js'
+import shuffle from 'lodash/shuffle.js'
 import { AreaBump, AreaBumpSvgProps } from '@nivo/bump'
 
 const meta: Meta<typeof AreaBump> = {
