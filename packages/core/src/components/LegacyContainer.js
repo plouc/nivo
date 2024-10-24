@@ -8,7 +8,7 @@ import {
 } from '@nivo/tooltip'
 import noop from '../lib/noop'
 import { ThemeProvider } from '../theming'
-import { MotionConfigProvider } from '../motion'
+import { MotionConfigProvider, motionPropTypes } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
 
 const containerStyle = {
@@ -72,5 +72,5 @@ LegacyContainer.propTypes = {
     renderWrapper: PropTypes.bool,
     theme: PropTypes.object.isRequired,
     animate: PropTypes.bool.isRequired,
-    motionConfig: PropTypes.string,
+    motionConfig: PropTypes.oneOfType([PropTypes.string, motionPropTypes.motionConfig]),
 }
