@@ -20,6 +20,9 @@ import {
     CommonPieProps,
 } from './types'
 
+const idIsActive = (id, activeId) =>
+    Array.isArray(activeId) ? activeId.indexOf(id) > -1 : activeId === id
+
 /**
  * Format data so that we get a consistent data structure.
  * It will also add the `formattedValue` and `color` property.
@@ -138,12 +141,10 @@ export const usePieArcs = <RawDatum>({
                         index: arc.index,
                         startAngle: arc.startAngle,
                         endAngle: arc.endAngle,
-                        innerRadius:
-                            activeId === arc.data.id
+                        innerRadius: idIsActive(arc.data.id, activeId)
                                 ? innerRadius - activeInnerRadiusOffset
                                 : innerRadius,
-                        outerRadius:
-                            activeId === arc.data.id
+                        outerRadius: idIsActive(arc.data.id, activeId)
                                 ? outerRadius + activeOuterRadiusOffset
                                 : outerRadius,
                         thickness: outerRadius - innerRadius,
