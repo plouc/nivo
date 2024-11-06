@@ -282,6 +282,76 @@ export const ControlledActiveId: Story = {
     render: () => <ControlledPies />,
 }
 
+const ControlledPiesMultipleActiveIds = () => {
+    const [activeId, setActiveId] = useState<string>(commonProperties.data[1].id)
+    const [additionalActiveIds, setAdditionalActiveIds] = useState<string>([])
+    function addActiveId(id) {
+        setAdditionalActiveIds(additionalActiveIds.concat(id))
+    }
+    function removeActiveId(id) {
+        setAdditionalActiveIds(additionalActiveIds.filter(x => x !== id))
+    }
+    function handleCheckboxChange(id, checked) {
+        if (checked) addActiveId(id)
+        if (!checked) removeActiveId(id)
+    }
+    function handlePieClick(id) {
+        if (additionalActiveIds.indexOf(id) > -1) {
+            removeActiveId(id)
+        } else {
+            addActiveId(id)
+        }
+    }
+    const allActiveIds = [activeId, ...additionalActiveIds]
+    return (
+        <div>
+            <div
+                style={{
+                    marginBottom: '10px',
+                }}
+            >
+                <h3>Active IDs:</h3>
+                {commonProperties.data.map(x => (
+                    <div key={x.id}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={additionalActiveIds.indexOf(x.id) > -1}
+                                onChange={evt => handleCheckboxChange(x.id, evt.target.checked)}
+                            />
+                            {x.id}
+                        </label>
+                    </div>
+                ))}
+            </div>
+            <div
+                style={{
+                    width: '800px',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                }}
+            >
+                <Pie
+                    {...controlledPieProps}
+                    activeId={allActiveIds}
+                    onActiveIdChange={setActiveId}
+                    onClick={slice => handlePieClick(slice.id)}
+                />
+                <Pie
+                    {...controlledPieProps}
+                    activeId={allActiveIds}
+                    onActiveIdChange={setActiveId}
+                    onClick={slice => handlePieClick(slice.id)}
+                />
+            </div>
+        </div>
+    )
+}
+
+export const ControlledMultipleActiveIds: Story = {
+    render: () => <ControlledPiesMultipleActiveIds />,
+}
+
 const PieWithCustomLegend = () => {
     const [customLegends, setCustomLegends] = useState<LegendDatum<SampleDatum>[]>([])
 
