@@ -1560,7 +1560,7 @@ importers:
                 specifier: workspace:*
                 version: link:../core
             '@nivo/tooltip':
-                specifier: workspace:0.87.0
+                specifier: workspace:0.88.0
                 version: link:../tooltip
             '@types/d3-delaunay':
                 specifier: ^6.0.4
