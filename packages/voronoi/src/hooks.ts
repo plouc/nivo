@@ -171,7 +171,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
 
     const findNode = useCallback(
         (event: MouseEvent<ElementType> | TouchEvent<ElementType>): null | [number, Node] => {
-            if (!elementRef.current) return null
+            if (!elementRef.current || nodes.length === 0) return null
 
             const [x, y] = getRelativeCursor(elementRef.current, event)
 
