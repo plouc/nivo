@@ -6,13 +6,11 @@ import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
 import { DotsItem } from '@nivo/core'
-import { shallow } from 'enzyme'
 
 // Handle useId mocks
 let id = 0
 beforeEach(() => {
     id = 0
-    jest.resetAllMocks()
 })
 const generateId = () => `${LINE_UNIQUE_ID_PREFIX}${++id}`
 
@@ -468,6 +466,7 @@ describe('events with useMesh', () => {
                 clientY: 50,
             })
         ).not.toThrow()
+        wrapper.unmount()
     })
 
     it('should call onTouchStart', () => {
