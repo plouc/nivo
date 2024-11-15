@@ -1,6 +1,6 @@
-import filter from 'lodash/filter'
-import isNumber from 'lodash/isNumber'
-import omit from 'lodash/omit'
+import filter from 'lodash/filter.js'
+import isNumber from 'lodash/isNumber.js'
+import omit from 'lodash/omit.js'
 import {
     radiansToDegrees,
     absoluteAngleDegrees,

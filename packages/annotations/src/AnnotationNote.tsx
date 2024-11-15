@@ -1,5 +1,5 @@
 import { createElement } from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { NoteSvg } from './types'

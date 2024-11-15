@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import Joi from 'joi'
 
 export const validate = (

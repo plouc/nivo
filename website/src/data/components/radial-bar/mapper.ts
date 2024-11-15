@@ -1,4 +1,4 @@
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { settingsMapper, mapFormat } from '../../../lib/settings'
 
 export const mapAxis = (key: string) => (value: any, settings: any) =>

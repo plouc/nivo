@@ -1,5 +1,5 @@
-import range from 'lodash/range'
-import random from 'lodash/random'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
 
 const keys = ['group A', 'group B', 'group C', 'group D', 'group E']
 const ageRange = [0, 100]

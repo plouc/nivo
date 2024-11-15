@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
-import isString from 'lodash/isString'
-import isPlainObject from 'lodash/isPlainObject'
+import isString from 'lodash/isString.js'
+import isPlainObject from 'lodash/isPlainObject.js'
 import styled from 'styled-components'
 import { InheritedColorConfig } from '@nivo/colors'
 import { ChartProperty, Flavor } from '../../../types'
