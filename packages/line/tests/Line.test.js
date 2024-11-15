@@ -435,7 +435,7 @@ describe('mouse events on slices', () => {
     })
 })
 
-describe('touch events with useMesh', () => {
+describe('events with useMesh', () => {
     const data = [
         {
             id: 'A',
@@ -457,6 +457,18 @@ describe('touch events with useMesh', () => {
         enableTouchCrosshair: true,
     }
 
+    it('should not throw onMouseEnter on empty data', () => {
+        const onMouseEnter = jest.fn()
+        const wrapper = mount(<Line {...baseProps} data={[]} onMouseEnter={onMouseEnter} />)
+        expect(() =>
+            wrapper.find(`[data-ref='mesh-interceptor']`).simulate('mouseenter', {
+                clientX: 50,
+                clientY: 50,
+            })
+        ).not.toThrow()
+        wrapper.unmount()
+    })
+
     it('should call onTouchStart', () => {
         const onTouchStart = jest.fn()
         const wrapper = mount(<Line {...baseProps} onTouchStart={onTouchStart} />)
@@ -464,6 +476,7 @@ describe('touch events with useMesh', () => {
             touches: [{ clientX: 50, clientY: 50 }],
         })
         expect(onTouchStart).toHaveBeenCalledTimes(1)
+        wrapper.unmount()
     })
 
     it('should call onTouchMove', () => {
@@ -473,6 +486,7 @@ describe('touch events with useMesh', () => {
             touches: [{ clientX: 50, clientY: 50 }],
         })
         expect(onTouchMove).toHaveBeenCalledTimes(1)
+        wrapper.unmount()
     })
 
     it('should call onTouchEnd', () => {
@@ -485,6 +499,7 @@ describe('touch events with useMesh', () => {
             })
             .simulate('touchend')
         expect(onTouchEnd).toHaveBeenCalledTimes(1)
+        wrapper.unmount()
     })
 })
 
