@@ -12,7 +12,16 @@ import {
 } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { calendarCanvasDefaultProps } from './props'
-import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
+import {
+    useCalendarLayout,
+    useColorScale,
+    useMonthLegends,
+    useYearLegends,
+    useDays,
+    useFontSize,
+    useColorFormatter,
+    useDayLabels,
+} from './hooks'
 import { useTooltip } from '@nivo/tooltip'
 import { CalendarCanvasProps } from './types'
 
@@ -74,6 +83,11 @@ const InnerCalendarCanvas = memo(
         dayBorderWidth = calendarCanvasDefaultProps.dayBorderWidth,
         daySpacing = calendarCanvasDefaultProps.daySpacing,
 
+        dayLabel = calendarCanvasDefaultProps.dayLabel,
+        dayLabelFormat,
+        dayLabelColor = calendarCanvasDefaultProps.dayLabelColor,
+        dayLabelFontWeight = calendarCanvasDefaultProps.dayLabelFontWeight,
+
         isInteractive = calendarCanvasDefaultProps.isInteractive,
         tooltip = calendarCanvasDefaultProps.tooltip,
         onClick,
@@ -121,6 +135,11 @@ const InnerCalendarCanvas = memo(
         const formatValue = useValueFormatter(valueFormat)
         const formatLegend = useValueFormatter(legendFormat)
 
+        const formatDayLabel = useValueFormatter(dayLabelFormat)
+        const dayLabels = useDayLabels(data, formatDayLabel)
+        const dayLabelFontSize = useFontSize(dayLabels)
+        const setLabelColor = useColorFormatter(dayLabelColor)
+
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         useEffect(() => {
@@ -139,6 +158,9 @@ const InnerCalendarCanvas = memo(
             ctx.fillRect(0, 0, outerWidth, outerHeight)
             ctx.translate(margin.left, margin.top)
 
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+
             days.forEach(day => {
                 ctx.fillStyle = day.color
                 if (dayBorderWidth > 0) {
@@ -150,13 +172,24 @@ const InnerCalendarCanvas = memo(
                 ctx.rect(day.x, day.y, day.size, day.size)
                 ctx.fill()
 
+                if (dayLabel && dayLabels[day.day] && 'data' in day) {
+                    ctx.font = `${dayLabelFontWeight} ${dayLabelFontSize(
+                        day.size - dayBorderWidth,
+                        day.size - dayBorderWidth
+                    )} ${theme.labels.text.fontFamily}`
+                    ctx.fillStyle = setLabelColor(day.data)
+                    ctx.fillText(
+                        dayLabels[day.day],
+                        day.x + dayBorderWidth / 2 + (day.size - dayBorderWidth) / 2,
+                        day.y + dayBorderWidth / 2 + (day.size - dayBorderWidth) / 2
+                    )
+                }
+
                 if (dayBorderWidth > 0) {
                     ctx.stroke()
                 }
             })
 
-            ctx.textAlign = 'center'
-            ctx.textBaseline = 'middle'
             ctx.fillStyle = theme.labels.text.fill ?? ''
             ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
@@ -202,6 +235,11 @@ const InnerCalendarCanvas = memo(
             days,
             dayBorderColor,
             dayBorderWidth,
+            dayLabel,
+            setLabelColor,
+            dayLabelFontSize,
+            dayLabelFontWeight,
+            formatDayLabel,
             colorScale,
             yearLegend,
             yearLegends,

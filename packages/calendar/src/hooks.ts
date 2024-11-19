@@ -6,8 +6,11 @@ import {
     computeMonthLegendPositions,
     bindDaysData,
     computeLayout,
+    computeMaxLabelLength,
+    computeDayLabels,
+    createFontSizeCalculator,
 } from './compute/calendar'
-import { BBox, CalendarSvgProps, ColorScale, Year } from './types'
+import { BBox, CalendarSvgProps, ColorScale, Year, CalendarDatum } from './types'
 
 export const useCalendarLayout = ({
     width,
@@ -125,3 +128,18 @@ export const useDays = ({
             }),
         [days, data, colorScale, emptyColor]
     )
+
+export const useFontSize = (labels: { [key: string]: string }) => {
+    const maxLength = useMemo(() => computeMaxLabelLength(Object.values(labels)), [labels])
+
+    return useMemo(() => createFontSizeCalculator(maxLength), [maxLength])
+}
+
+export const useColorFormatter = (format: string | ((data: CalendarDatum) => string)) =>
+    useMemo(() => (typeof format === 'function' ? format : () => format), [format])
+
+export const useDayLabels = (
+    data: CalendarDatum[],
+    dayLabelFormatter: (value: number, day: CalendarDatum) => string
+): { [day: string]: string } =>
+    useMemo(() => computeDayLabels(data, dayLabelFormatter), [data, dayLabelFormatter])
