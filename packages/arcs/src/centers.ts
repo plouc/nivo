@@ -47,6 +47,11 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
     mode: ArcTransitionMode = 'innerRadius',
     extra?: TransitionExtra<Datum, ExtraProps>
 ) => {
+    // center root node label
+    const dataWithCenteredRoot = data.map(d =>
+        d.arc.innerRadius === 0 ? { ...d, arc: { ...d.arc, outerRadius: 0 } } : d
+    )
+
     const { animate, config: springConfig } = useMotionConfig()
 
     const phases = useArcTransitionMode<Datum, ExtraProps>(mode, extra)
@@ -60,7 +65,7 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
             innerRadius: number
             outerRadius: number
         } & ExtraProps
-    >(data, {
+    >(dataWithCenteredRoot, {
         keys: datum => datum.id,
         initial: phases.update,
         from: phases.enter,

@@ -25,6 +25,8 @@ const initialProperties = {
     value: 'loc',
     valueFormat: { format: '', enabled: false },
     cornerRadius: 2,
+    innerRadius: 0.4,
+    renderRootNode: false,
     borderWidth: 1,
     borderColor: { theme: 'background' },
     colors: { scheme: 'nivo' },
