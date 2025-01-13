@@ -18,14 +18,16 @@ export type DatumFormattedValue = string | number
 
 export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
+export type RawDimensionDatum<RawDatum> = {
+    id: string
+    value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
+}
+
 export interface DataProps<RawDatum> {
     data: readonly RawDatum[]
     id: string | number | DatumPropertyAccessor<RawDatum, DatumId>
     value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
-    dimensions: readonly {
-        id: string
-        value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
-    }[]
+    dimensions: readonly RawDimensionDatum<RawDatum>[]
     valueFormat?: ValueFormat<number>
 }
 
@@ -45,6 +47,7 @@ export interface DimensionDatum<RawDatum> {
     y: number
     width: number
     height: number
+    dimension: RawDimensionDatum<RawDatum>
     datum: ComputedDatum<RawDatum>
 }
 
