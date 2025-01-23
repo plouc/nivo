@@ -14,6 +14,11 @@ export const TimeRangeDay = memo(
         color,
         borderWidth,
         borderColor,
+        displayLabel,
+        label,
+        labelSize,
+        labelColor,
+        labelStyle,
         isInteractive,
         tooltip,
         onMouseEnter,
@@ -71,23 +76,41 @@ export const TimeRangeDay = memo(
         )
 
         return (
-            <rect
-                x={x}
-                y={y}
-                rx={rx}
-                ry={ry}
-                width={width}
-                height={height}
-                style={{
-                    fill: color,
-                    strokeWidth: borderWidth,
-                    stroke: borderColor,
-                }}
-                onMouseEnter={isInteractive ? handleMouseEnter : undefined}
-                onMouseMove={isInteractive ? handleMouseMove : undefined}
-                onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-                onClick={isInteractive ? handleClick : undefined}
-            />
+            <>
+                <rect
+                    x={x}
+                    y={y}
+                    rx={rx}
+                    ry={ry}
+                    width={width}
+                    height={height}
+                    style={{
+                        fill: color,
+                        strokeWidth: borderWidth,
+                        stroke: borderColor,
+                    }}
+                    onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+                    onMouseMove={isInteractive ? handleMouseMove : undefined}
+                    onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+                    onClick={isInteractive ? handleClick : undefined}
+                />
+                {displayLabel && label && 'value' in data && (
+                    <text
+                        x={x + width / 2}
+                        y={y + height / 2}
+                        width={width}
+                        height={height}
+                        dy={(height - borderWidth) * 0.05}
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        fill={labelColor(data)}
+                        fontSize={labelSize(width - borderWidth, height - borderWidth)}
+                        style={{ pointerEvents: 'none', ...labelStyle }}
+                    >
+                        {label}
+                    </text>
+                )}
+            </>
         )
     }
 )
