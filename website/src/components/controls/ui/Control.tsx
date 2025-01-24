@@ -1,5 +1,5 @@
 import React, { useState, useCallback, PropsWithChildren } from 'react'
-import intersection from 'lodash/intersection'
+import intersection from 'lodash/intersection.js'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
 import { Flavor, FlavorAwareChartPropertyAttribute } from '../../../types'

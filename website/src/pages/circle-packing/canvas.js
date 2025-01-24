@@ -1,6 +1,6 @@
 import React from 'react'
-import range from 'lodash/range'
-import random from 'lodash/random'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
 import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'

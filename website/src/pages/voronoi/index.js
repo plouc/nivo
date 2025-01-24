@@ -1,5 +1,5 @@
 import React from 'react'
-import range from 'lodash/range'
+import range from 'lodash/range.js'
 import { ResponsiveVoronoi, defaultVoronoiProps } from '@nivo/voronoi'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/voronoi/meta.yml'

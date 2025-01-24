@@ -1,7 +1,7 @@
 import { createElement, useCallback, useMemo, MouseEvent } from 'react'
-import omit from 'lodash/omit'
-import cloneDeep from 'lodash/cloneDeep'
-import startCase from 'lodash/startCase'
+import omit from 'lodash/omit.js'
+import cloneDeep from 'lodash/cloneDeep.js'
+import startCase from 'lodash/startCase.js'
 import {
     treemap as d3Treemap,
     hierarchy,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState, useCallback, useMemo } from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { area, curveMonotoneX } from 'd3-shape'
 import {
     ScatterPlot,

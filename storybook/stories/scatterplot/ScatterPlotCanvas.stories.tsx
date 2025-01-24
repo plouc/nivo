@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useCallback, useMemo, useRef, useState } from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import {
     ResponsiveScatterPlotCanvas,
     ScatterPlotCanvas,

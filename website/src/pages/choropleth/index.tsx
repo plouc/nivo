@@ -1,5 +1,5 @@
 import React from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { patternDotsDef, patternLinesDef, linearGradientDef } from '@nivo/core'
 import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'

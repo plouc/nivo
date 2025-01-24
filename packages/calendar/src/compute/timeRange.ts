@@ -11,7 +11,7 @@ import {
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { DateOrString, Weekday } from '../types'
-import isDate from 'lodash/isDate'
+import isDate from 'lodash/isDate.js'
 
 // Interfaces
 interface ComputeBaseProps {
