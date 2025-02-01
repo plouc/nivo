@@ -7,15 +7,8 @@
  * @param {number} y2
  * @return {number}
  */
-export const getDistance = (x1, y1, x2, y2) => {
-    let deltaX = x2 - x1
-    let deltaY = y2 - y1
-
-    deltaX *= deltaX
-    deltaY *= deltaY
-
-    return Math.sqrt(deltaX + deltaY)
-}
+export const getDistance = (x1, y1, x2, y2) =>
+  Math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2));
 
 /**
  * Computes angle (radians) between two points.
@@ -27,10 +20,10 @@ export const getDistance = (x1, y1, x2, y2) => {
  * @return {number}
  */
 export const getAngle = (x1, y1, x2, y2) => {
-    const angle = Math.atan2(y2 - y1, x2 - x1) - Math.PI / 2
+  const angle = Math.atan2(y2 - y1, x2 - x1) - Math.PI / 2;
 
-    return angle > 0 ? angle : Math.PI * 2 + angle
-}
+  return angle > 0 ? angle : Math.PI * 2 + angle;
+};
 
 /**
  * Check if cursor is in given rectangle.
@@ -44,4 +37,4 @@ export const getAngle = (x1, y1, x2, y2) => {
  * @return {boolean}
  */
 export const isCursorInRect = (x, y, width, height, cursorX, cursorY) =>
-    x <= cursorX && cursorX <= x + width && y <= cursorY && cursorY <= y + height
+  x <= cursorX && cursorX <= x + width && y <= cursorY && cursorY <= y + height;
