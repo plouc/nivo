@@ -228,9 +228,12 @@ export const useBorderWidth = <RawDatum>(
 export const useNodeMouseHandlers = <RawDatum>({
     isInteractive,
     onClick,
+    onDoubleClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
+    onMouseDown,
+    onMouseUp,
     tooltip,
 }: Pick<SwarmPlotCommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & MouseHandlers<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -265,6 +268,24 @@ export const useNodeMouseHandlers = <RawDatum>({
         [isInteractive, hideTooltip, onMouseLeave]
     )
 
+    const mouseDownHandler = useCallback(
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            if (!isInteractive) return
+
+            onMouseDown?.(node, event)
+        },
+        [isInteractive, onMouseDown]
+    )
+
+    const mouseUpHandler = useCallback(
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            if (!isInteractive) return
+
+            onMouseUp?.(node, event)
+        },
+        [isInteractive, onMouseUp]
+    )
+
     const clickHandler = useCallback(
         (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
@@ -274,11 +295,23 @@ export const useNodeMouseHandlers = <RawDatum>({
         [isInteractive, onClick]
     )
 
+    const doubleClickHandler = useCallback(
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            if (!isInteractive) return
+
+            onDoubleClick?.(node, event)
+        },
+        [isInteractive, onDoubleClick]
+    )
+
     return {
         onMouseEnter: mouseEnterHandler,
         onMouseMove: mouseMoveHandler,
         onMouseLeave: mouseLeaveHandler,
+        onMouseDown: mouseDownHandler,
+        onMouseUp: mouseUpHandler,
         onClick: clickHandler,
+        onDoubleClick: doubleClickHandler,
     }
 }
 
