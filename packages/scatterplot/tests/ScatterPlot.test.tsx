@@ -542,7 +542,10 @@ describe('event handlers', () => {
         { handler: 'onMouseEnter', simulated: 'mouseenter', tooltipExpected: true },
         { handler: 'onMouseMove', simulated: 'mousemove', tooltipExpected: true },
         { handler: 'onMouseLeave', simulated: 'mouseleave', tooltipExpected: false },
+        { handler: 'onMouseDown', simulated: 'mousedown', tooltipExpected: false },
+        { handler: 'onMouseUp', simulated: 'mouseup', tooltipExpected: false },
         { handler: 'onClick', simulated: 'click', tooltipExpected: false },
+        { handler: 'onDoubleClick', simulated: 'dblclick', tooltipExpected: false },
     ]
 
     eventHandlers.forEach(eventHandler => {
