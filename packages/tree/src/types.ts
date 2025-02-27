@@ -91,7 +91,10 @@ export interface NodeComponentProps<Datum> {
     onMouseEnter?: NodeMouseEventHandler<Datum>
     onMouseMove?: NodeMouseEventHandler<Datum>
     onMouseLeave?: NodeMouseEventHandler<Datum>
+    onMouseDown?: NodeMouseEventHandler<Datum>
+    onMouseUp?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
+    onDoubleClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
     tooltipPosition: TooltipPosition
@@ -138,7 +141,10 @@ export interface LinkComponentProps<Datum> {
     onMouseEnter?: LinkMouseEventHandler<Datum>
     onMouseMove?: LinkMouseEventHandler<Datum>
     onMouseLeave?: LinkMouseEventHandler<Datum>
+    onMouseDown?: LinkMouseEventHandler<Datum>
+    onMouseUp?: LinkMouseEventHandler<Datum>
     onClick?: LinkMouseEventHandler<Datum>
+    onDoubleClick?: LinkMouseEventHandler<Datum>
     tooltip?: LinkTooltip<Datum>
     tooltipAnchor: TooltipAnchor
     animatedProps: SpringValues<LinkAnimatedProps>
@@ -253,7 +259,10 @@ export interface CommonProps<Datum> extends MotionProps {
     onNodeMouseEnter: NodeMouseEventHandler<Datum>
     onNodeMouseMove: NodeMouseEventHandler<Datum>
     onNodeMouseLeave: NodeMouseEventHandler<Datum>
+    onNodeMouseDown: NodeMouseEventHandler<Datum>
+    onNodeMouseUp: NodeMouseEventHandler<Datum>
     onNodeClick: NodeMouseEventHandler<Datum>
+    onNodeDoubleClick: NodeMouseEventHandler<Datum>
     nodeTooltip: NodeTooltip<Datum>
     nodeTooltipPosition: TooltipPosition
     nodeTooltipAnchor: TooltipAnchor
@@ -276,7 +285,10 @@ export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
         onLinkMouseEnter?: LinkMouseEventHandler<Datum>
         onLinkMouseMove?: LinkMouseEventHandler<Datum>
         onLinkMouseLeave?: LinkMouseEventHandler<Datum>
+        onLinkMouseDown?: LinkMouseEventHandler<Datum>
+        onLinkMouseUp?: LinkMouseEventHandler<Datum>
         onLinkClick?: LinkMouseEventHandler<Datum>
+        onLinkDoubleClick?: LinkMouseEventHandler<Datum>
         linkTooltip?: LinkTooltip<Datum>
         linkTooltipAnchor?: TooltipAnchor
     }

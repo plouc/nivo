@@ -13,7 +13,10 @@ interface MeshProps<Datum> {
     onMouseEnter?: NodeMouseEventHandler<Datum>
     onMouseMove?: NodeMouseEventHandler<Datum>
     onMouseLeave?: NodeMouseEventHandler<Datum>
+    onMouseDown?: NodeMouseEventHandler<Datum>
+    onMouseUp?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
+    onDoubleClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
     tooltipPosition?: TooltipPosition
@@ -30,7 +33,10 @@ const NonMemoizedMesh = <Datum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setCurrentNode,
     tooltip,
     tooltipPosition,
@@ -102,7 +108,10 @@ const NonMemoizedMesh = <Datum,>({
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
             onClick={onClick}
+            onDoubleClick={onDoubleClick}
             tooltip={renderTooltip}
             tooltipPosition={tooltipPosition}
             tooltipAnchor={tooltipAnchor}
