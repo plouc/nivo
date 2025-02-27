@@ -87,7 +87,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     useMesh = bumpSvgDefaultProps.useMesh,
     debugMesh = bumpSvgDefaultProps.debugMesh,
     lineTooltip = bumpSvgDefaultProps.lineTooltip as NonNullable<
@@ -192,7 +195,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
                         onMouseEnter={onMouseEnter as BumpSerieMouseHandler<Datum, ExtraProps>}
                         onMouseMove={onMouseMove as BumpSerieMouseHandler<Datum, ExtraProps>}
                         onMouseLeave={onMouseLeave as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onMouseDown={onMouseDown as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onMouseUp={onMouseUp as BumpSerieMouseHandler<Datum, ExtraProps>}
                         onClick={onClick as BumpSerieMouseHandler<Datum, ExtraProps>}
+                        onDoubleClick={onDoubleClick as BumpSerieMouseHandler<Datum, ExtraProps>}
                         lineTooltip={lineTooltip}
                         useMesh={useMesh}
                     />
@@ -214,7 +220,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
                 onMouseEnter={onMouseEnter as BumpPointMouseHandler<Datum, ExtraProps>}
                 onMouseMove={onMouseMove as BumpPointMouseHandler<Datum, ExtraProps>}
                 onMouseLeave={onMouseLeave as BumpPointMouseHandler<Datum, ExtraProps>}
+                onMouseDown={onMouseDown as BumpPointMouseHandler<Datum, ExtraProps>}
+                onMouseUp={onMouseUp as BumpPointMouseHandler<Datum, ExtraProps>}
                 onClick={onClick as BumpPointMouseHandler<Datum, ExtraProps>}
+                onDoubleClick={onDoubleClick as BumpPointMouseHandler<Datum, ExtraProps>}
                 tooltip={pointTooltip}
                 debug={debugMesh}
             />

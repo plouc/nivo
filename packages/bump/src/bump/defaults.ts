@@ -8,8 +8,11 @@ const commonDefaultProps: Omit<
     BumpCommonProps<DefaultBumpDatum, Record<string, unknown>>,
     | 'onMouseEnter'
     | 'onClick'
+    | 'onDoubleClick'
     | 'onMouseMove'
     | 'onMouseLeave'
+    | 'onMouseDown'
+    | 'onMouseUp'
     | 'margin'
     | 'theme'
     | 'axisRight'

@@ -18,7 +18,10 @@ interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
     onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
     onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
     onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
     setActiveSerieIds: (serieIds: string[]) => void
     lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
     useMesh: BumpCommonProps<Datum, ExtraProps>['useMesh']
@@ -32,7 +35,10 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setActiveSerieIds,
     lineTooltip,
     useMesh,
@@ -43,7 +49,10 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
+        onMouseDown,
+        onMouseUp,
         onClick,
+        onDoubleClick,
         setActiveSerieIds,
         lineTooltip,
     })
@@ -89,7 +98,10 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
                     onMouseEnter={handlers.onMouseEnter}
                     onMouseMove={handlers.onMouseMove}
                     onMouseLeave={handlers.onMouseLeave}
+                    onMouseDown={handlers.onMouseDown}
+                    onMouseUp={handlers.onMouseUp}
                     onClick={handlers.onClick}
+                    onDoubleClick={handlers.onDoubleClick}
                 />
             )}
         </>
