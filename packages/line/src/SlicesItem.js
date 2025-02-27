@@ -12,7 +12,10 @@ const SlicesItem = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
@@ -45,11 +48,32 @@ const SlicesItem = ({
         [hideTooltip, setCurrent, onMouseLeave, slice]
     )
 
+    const handleMouseDown = useCallback(
+        event => {
+            onMouseDown && onMouseDown(slice, event)
+        },
+        [slice, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        event => {
+            onMouseUp && onMouseUp(slice, event)
+        },
+        [slice, onMouseUp]
+    )
+
     const handleClick = useCallback(
         event => {
             onClick && onClick(slice, event)
         },
         [slice, onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        event => {
+            onDoubleClick && onDoubleClick(slice, event)
+        },
+        [slice, onDoubleClick]
     )
 
     const handeOnTouchStart = useCallback(
@@ -111,7 +135,10 @@ const SlicesItem = ({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
             onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
             onTouchStart={handeOnTouchStart}
             onTouchMove={handeOnTouchMove}
             onTouchEnd={handleOnTouchEnd}
