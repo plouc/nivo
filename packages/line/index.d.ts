@@ -185,7 +185,10 @@ export interface LineProps {
     onMouseEnter?: PointMouseHandler
     onMouseMove?: PointMouseHandler
     onMouseLeave?: PointMouseHandler
+    onMouseDown?: PointMouseHandler
+    onMouseUp?: PointMouseHandler
     onClick?: PointMouseHandler
+    onDoubleClick?: PointMouseHandler
     onTouchStart?: PointTouchHandler
     onTouchMove?: PointTouchHandler
     onTouchEnd?: PointTouchHandler

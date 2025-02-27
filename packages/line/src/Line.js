@@ -91,7 +91,10 @@ const Line = props => {
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
+        onMouseDown,
+        onMouseUp,
         onClick,
+        onDoubleClick,
         onTouchStart,
         onTouchMove,
         onTouchEnd,
@@ -237,7 +240,10 @@ const Line = props => {
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
                 onClick={onClick}
+                onDoubleClick={onDoubleClick}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
@@ -302,7 +308,10 @@ const Line = props => {
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
                 onClick={onClick}
+                onDoubleClick={onDoubleClick}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
