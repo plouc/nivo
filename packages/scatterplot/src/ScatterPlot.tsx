@@ -44,7 +44,10 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip = svgDefaultProps.tooltip,
     markers = svgDefaultProps.markers,
     legends = svgDefaultProps.legends,
@@ -138,7 +141,10 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
                 onClick={onClick}
+                onDoubleClick={onDoubleClick}
             />
         )
     }
@@ -166,7 +172,10 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
                 onClick={onClick}
+                onDoubleClick={onDoubleClick}
                 tooltip={tooltip}
                 debug={debugMesh}
             />

@@ -16,7 +16,10 @@ interface NodesProps<RawDatum extends ScatterPlotDatum> {
     onMouseEnter?: ScatterPlotCommonProps<RawDatum>['onMouseEnter']
     onMouseMove?: ScatterPlotCommonProps<RawDatum>['onMouseMove']
     onMouseLeave?: ScatterPlotCommonProps<RawDatum>['onMouseLeave']
+    onMouseDown?: ScatterPlotCommonProps<RawDatum>['onMouseDown']
+    onMouseUp?: ScatterPlotCommonProps<RawDatum>['onMouseUp']
     onClick?: ScatterPlotCommonProps<RawDatum>['onClick']
+    onDoubleClick?: ScatterPlotCommonProps<RawDatum>['onDoubleClick']
     tooltip: ScatterPlotCommonProps<RawDatum>['tooltip']
     blendMode: CssMixBlendMode
 }
@@ -47,7 +50,10 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip,
     blendMode,
 }: NodesProps<RawDatum>) => {
@@ -92,9 +98,21 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
         },
         [hideTooltip, onMouseLeave]
     )
+    const handleMouseDown = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onMouseDown?.(node, event),
+        [onMouseDown]
+    )
+    const handleMouseUp = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onMouseUp?.(node, event),
+        [onMouseUp]
+    )
     const handleClick = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onClick?.(node, event),
         [onClick]
+    )
+    const handleDoubleClick = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onDoubleClick?.(node, event),
+        [onDoubleClick]
     )
 
     return (
@@ -108,7 +126,10 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
                     onMouseEnter: isInteractive ? handleMouseEnter : undefined,
                     onMouseMove: isInteractive ? handleMouseMove : undefined,
                     onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+                    onMouseDown: isInteractive ? handleMouseDown : undefined,
+                    onMouseUp: isInteractive ? handleMouseUp : undefined,
                     onClick: isInteractive ? handleClick : undefined,
+                    onDoubleClick: isInteractive ? handleDoubleClick : undefined,
                 })
             )}
         </>

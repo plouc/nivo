@@ -55,7 +55,10 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip = canvasDefaultProps.tooltip,
     legends = canvasDefaultProps.legends,
     canvasRef,
@@ -271,6 +274,26 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         [hideTooltip, currentNode, setCurrentNode, onMouseLeave]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (onMouseDown) {
+                const node = getNodeFromMouseEvent(event)
+                node && onMouseDown(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (onMouseUp) {
+                const node = getNodeFromMouseEvent(event)
+                node && onMouseUp(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onMouseUp]
+    )
+
     const handleClick = useCallback(
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onClick) {
@@ -279,6 +302,16 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             }
         },
         [getNodeFromMouseEvent, onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (onDoubleClick) {
+                const node = getNodeFromMouseEvent(event)
+                node && onDoubleClick(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onDoubleClick]
     )
 
     return (
@@ -297,7 +330,10 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             onMouseEnter={isInteractive ? handleMouseHover : undefined}
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onMouseDown={isInteractive ? handleMouseDown : undefined}
+            onMouseUp={isInteractive ? handleMouseUp : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            onDoubleClick={isInteractive ? handleDoubleClick : undefined}
         />
     )
 }
