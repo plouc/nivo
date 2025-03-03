@@ -174,3 +174,10 @@ export type AnchoredContinuousColorsLegendProps = ContinuousColorsLegendProps & 
     containerWidth: number
     containerHeight: number
 }
+
+export interface ColourStop {
+    key: string
+    offset: number
+    stopColor: string
+}
+

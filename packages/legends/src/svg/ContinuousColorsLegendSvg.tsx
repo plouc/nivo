@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { useTheme } from '@nivo/core'
 import { computeContinuousColorsLegend } from '../compute'
-import { ContinuousColorsLegendProps } from '../types'
+import { ColourStop, ContinuousColorsLegendProps } from '../types'
 import { continuousColorsLegendDefaults } from '../defaults'
 
 export const ContinuousColorsLegendSvg = ({
@@ -53,7 +53,7 @@ export const ContinuousColorsLegendSvg = ({
     const theme = useTheme()
 
     const id = `ContinuousColorsLegendSvgGradient.${direction}.${colorStops
-        .map(stop => stop.offset)
+        .map((stop: ColourStop) => `${stop.offset}-${stop.stopColor}`)
         .join('_')}`
 
     return (
@@ -66,7 +66,7 @@ export const ContinuousColorsLegendSvg = ({
                     x2={gradientX2}
                     y2={gradientY2}
                 >
-                    {colorStops.map(colorStop => (
+                    {colorStops.map((colorStop: ColourStop) => (
                         <stop {...colorStop} />
                     ))}
                 </linearGradient>
