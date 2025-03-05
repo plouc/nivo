@@ -7,7 +7,10 @@ export const CircleSvg = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
 }: CircleProps<RawDatum>) => {
     return (
         <animated.circle
@@ -22,7 +25,10 @@ export const CircleSvg = <RawDatum,>({
             onMouseEnter={event => onMouseEnter?.(node, event)}
             onMouseMove={event => onMouseMove?.(node, event)}
             onMouseLeave={event => onMouseLeave?.(node, event)}
+            onMouseDown={event => onMouseDown?.(node, event)}
+            onMouseUp={event => onMouseUp?.(node, event)}
             onClick={event => onClick?.(node, event)}
+            onDoubleClick={event => onDoubleClick?.(node, event)}
         />
     )
 }

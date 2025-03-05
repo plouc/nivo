@@ -129,7 +129,10 @@ export const useMeshEvents = <Node, ElementType extends Element>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
@@ -149,7 +152,10 @@ export const useMeshEvents = <Node, ElementType extends Element>({
     onMouseEnter?: NodeMouseHandler<Node>
     onMouseMove?: NodeMouseHandler<Node>
     onMouseLeave?: NodeMouseHandler<Node>
+    onMouseDown?: NodeMouseHandler<Node>
+    onMouseUp?: NodeMouseHandler<Node>
     onClick?: NodeMouseHandler<Node>
+    onDoubleClick?: NodeMouseHandler<Node>
     onTouchStart?: NodeTouchHandler<Node>
     onTouchMove?: NodeTouchHandler<Node>
     onTouchEnd?: NodeTouchHandler<Node>
@@ -301,6 +307,28 @@ export const useMeshEvents = <Node, ElementType extends Element>({
         [setCurrent, setCurrentNode, previous, hideTooltip, onMouseLeave]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            const match = findNode(event)
+
+            setCurrent(match)
+
+            match && onMouseDown?.(match[1], event)
+        },
+        [findNode, setCurrent, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            const match = findNode(event)
+
+            setCurrent(match)
+
+            match && onMouseUp?.(match[1], event)
+        },
+        [findNode, setCurrent, onMouseUp]
+    )
+
     const handleClick = useCallback(
         (event: MouseEvent<ElementType>) => {
             const match = findNode(event)
@@ -310,6 +338,17 @@ export const useMeshEvents = <Node, ElementType extends Element>({
             match && onClick?.(match[1], event)
         },
         [findNode, setCurrent, onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<ElementType>) => {
+            const match = findNode(event)
+
+            setCurrent(match)
+
+            match && onDoubleClick?.(match[1], event)
+        },
+        [findNode, setCurrent, onDoubleClick]
     )
 
     const handleTouchStart = useCallback(
@@ -359,7 +398,10 @@ export const useMeshEvents = <Node, ElementType extends Element>({
         handleMouseEnter: isInteractive ? handleMouseEnter : undefined,
         handleMouseMove: isInteractive ? handleMouseMove : undefined,
         handleMouseLeave: isInteractive ? handleMouseLeave : undefined,
+        handleMouseDown: isInteractive ? handleMouseDown : undefined,
+        handleMouseUp: isInteractive ? handleMouseUp : undefined,
         handleClick: isInteractive ? handleClick : undefined,
+        handleDoubleClick: isInteractive ? handleDoubleClick : undefined,
         handleTouchStart: isInteractive ? handleTouchStart : undefined,
         handleTouchMove: isInteractive ? handleTouchMove : undefined,
         handleTouchEnd: isInteractive ? handleTouchEnd : undefined,
@@ -382,7 +424,10 @@ export const useMesh = <Node, ElementType extends Element>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip,
     tooltipPosition = defaultTooltipPosition,
     tooltipAnchor = defaultTooltipAnchor,
@@ -400,7 +445,10 @@ export const useMesh = <Node, ElementType extends Element>({
     onMouseEnter?: NodeMouseHandler<Node>
     onMouseMove?: NodeMouseHandler<Node>
     onMouseLeave?: NodeMouseHandler<Node>
+    onMouseDown?: NodeMouseHandler<Node>
+    onMouseUp?: NodeMouseHandler<Node>
     onClick?: NodeMouseHandler<Node>
+    onDoubleClick?: NodeMouseHandler<Node>
     tooltip?: (node: Node) => JSX.Element
     tooltipPosition?: TooltipPosition
     tooltipAnchor?: TooltipAnchor
@@ -415,23 +463,34 @@ export const useMesh = <Node, ElementType extends Element>({
         debug,
     })
 
-    const { handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick, current } =
-        useMeshEvents<Node, ElementType>({
-            elementRef,
-            nodes,
-            margin,
-            setCurrent,
-            delaunay,
-            detectionRadius,
-            isInteractive,
-            onMouseEnter,
-            onMouseMove,
-            onMouseLeave,
-            onClick,
-            tooltip,
-            tooltipPosition,
-            tooltipAnchor,
-        })
+    const {
+        handleMouseEnter,
+        handleMouseMove,
+        handleMouseLeave,
+        handleMouseDown,
+        handleMouseUp,
+        handleClick,
+        handleDoubleClick,
+        current,
+    } = useMeshEvents<Node, ElementType>({
+        elementRef,
+        nodes,
+        margin,
+        setCurrent,
+        delaunay,
+        detectionRadius,
+        isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onMouseDown,
+        onMouseUp,
+        onClick,
+        onDoubleClick,
+        tooltip,
+        tooltipPosition,
+        tooltipAnchor,
+    })
 
     return {
         delaunay,
@@ -440,6 +499,9 @@ export const useMesh = <Node, ElementType extends Element>({
         handleMouseEnter,
         handleMouseMove,
         handleMouseLeave,
+        handleMouseDown,
+        handleMouseUp,
         handleClick,
+        handleDoubleClick,
     }
 }
