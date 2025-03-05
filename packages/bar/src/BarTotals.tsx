@@ -61,7 +61,6 @@ export const BarTotals = <RawDatum extends BarDatum>({
             style={{
                 ...theme.labels.text,
                 pointerEvents: 'none',
-                fill: theme.text.fill,
             }}
             fontWeight="bold"
             fontSize={theme.labels.text.fontSize}
