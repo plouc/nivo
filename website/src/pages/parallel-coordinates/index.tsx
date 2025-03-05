@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import merge from 'lodash/merge'
+import merge from 'lodash/merge.js'
 import { ResponsiveParallelCoordinates, commonDefaultProps } from '@nivo/parallel-coordinates'
 import { generateParallelCoordinatesData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'

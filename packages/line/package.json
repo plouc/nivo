@@ -20,7 +20,7 @@
         "line-chart"
     ],
     "main": "./dist/nivo-line.cjs.js",
-    "module": "./dist/nivo-line.es.js",
+    "module": "./dist/nivo-line.mjs",
     "types": "./index.d.ts",
     "files": [
         "README.md",
@@ -45,5 +45,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./index.d.ts",
+            "import": "./dist/nivo-line.mjs",
+            "require": "./dist/nivo-line.cjs.js"
+        }
     }
 }

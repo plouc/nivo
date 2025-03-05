@@ -1,4 +1,4 @@
-import random from 'lodash/random'
+import random from 'lodash/random.js'
 
 type Link = {
     source: string

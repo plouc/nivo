@@ -12,7 +12,7 @@
         "directory": "packages/express"
     },
     "main": "./dist/nivo-express.cjs.js",
-    "module": "./dist/nivo-express.es.js",
+    "module": "./dist/nivo-express.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -35,5 +35,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-express.mjs",
+            "require": "./dist/nivo-express.cjs.js"
+        }
     }
 }

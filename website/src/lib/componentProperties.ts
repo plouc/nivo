@@ -1,4 +1,4 @@
-import uniq from 'lodash/uniq'
+import uniq from 'lodash/uniq.js'
 import { defaultAnimate } from '@nivo/core'
 import { TooltipPosition, TooltipAnchor } from '@nivo/tooltip'
 import { Flavor, ChartProperty } from '../types'

@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 import { Flavor } from '../../../types'
 import { ControlContext, RangeControlConfig } from '../types'
 import { Control, PropertyHeader, Help, TextInput } from '../ui'

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import range from 'lodash/range'
+import range from 'lodash/range.js'
 import { startCase } from 'lodash'
 // @ts-ignore
 import { components } from 'react-select'

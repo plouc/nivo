@@ -19,7 +19,7 @@
         "annotations"
     ],
     "main": "./dist/nivo-annotations.cjs.js",
-    "module": "./dist/nivo-annotations.es.js",
+    "module": "./dist/nivo-annotations.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -38,5 +38,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-annotations.mjs",
+            "require": "./dist/nivo-annotations.cjs.js"
+        }
     }
 }

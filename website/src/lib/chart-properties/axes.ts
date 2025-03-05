@@ -1,4 +1,4 @@
-import upperFirst from 'lodash/upperFirst'
+import upperFirst from 'lodash/upperFirst.js'
 import { ChartProperty, Flavor } from '../../types'
 
 const positions = [
