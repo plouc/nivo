@@ -7,15 +7,7 @@
  * @param {number} y2
  * @return {number}
  */
-export const getDistance = (x1, y1, x2, y2) => {
-    let deltaX = x2 - x1
-    let deltaY = y2 - y1
-
-    deltaX *= deltaX
-    deltaY *= deltaY
-
-    return Math.sqrt(deltaX + deltaY)
-}
+export const getDistance = (x1, y1, x2, y2) => Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 /**
  * Computes angle (radians) between two points.
