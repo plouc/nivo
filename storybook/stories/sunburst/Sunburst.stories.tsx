@@ -246,3 +246,54 @@ export const AddingAMetricInTheCenterUsingACustomLayer: Story = {
         <Sunburst<RawDatum> {...commonProperties} layers={['arcs', 'arcLabels', CenteredMetric]} />
     ),
 }
+
+/**
+ * This story demonstrates the renderRootNode feature, which allows you to display
+ * the root node as a circle in the center.
+ */
+export const InnerRadiusAndRootNodeExample: Story = {
+    argTypes: {
+        renderRootNode: {
+            control: 'boolean',
+            description: 'Whether to render the root node in the center',
+            defaultValue: true,
+        },
+        innerRadius: {
+            control: { type: 'range', min: 0.0, max: 1.0, step: 0.05 },
+            description: 'Size of the center circle (0.0-1.0)',
+            defaultValue: 0.3,
+        },
+    },
+    args: {
+        renderRootNode: true,
+        innerRadius: 0.3,
+    },
+    render: function RenderRootNodeExampleStory({ renderRootNode, innerRadius }) {
+        return (
+            <Sunburst<RawDatum>
+                {...commonProperties}
+                renderRootNode={renderRootNode}
+                innerRadius={innerRadius}
+                childColor={{
+                    from: 'color',
+                    modifiers: [['brighter', 0.2]],
+                }}
+                borderWidth={2}
+                borderColor={{
+                    from: 'color',
+                    modifiers: [['darker', 0.8]],
+                }}
+                // Use a custom color function to make the root node a different color
+                colors={node => (node.depth === 0 ? '#2196F3' : colorSchemes.nivo[0])}
+                inheritColorFromParent={false}
+                enableArcLabels
+                arcLabelsSkipAngle={12}
+                arcLabelsRadiusOffset={0.6}
+                arcLabelsTextColor={{
+                    from: 'color',
+                    modifiers: [['darker', 3]],
+                }}
+            />
+        )
+    },
+}
