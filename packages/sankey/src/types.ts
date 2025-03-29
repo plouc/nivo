@@ -102,6 +102,15 @@ export type SankeySortFunction<N extends DefaultNode, L extends DefaultLink> = (
     b: SankeyNodeDatum<N, L>
 ) => number
 
+export interface CustomSankeyLayerProps<N extends DefaultNode, L extends DefaultLink>
+    extends Dimensions {
+    nodes: readonly SankeyNodeDatum<N, L>[]
+    links: readonly SankeyLinkDatum<N, L>[]
+    margin: Box
+    outerWidth: number
+    outerHeight: number
+}
+
 export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink> {
     // formatting for link value
     valueFormat: ValueFormat<number>
@@ -110,7 +119,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     align: SankeyAlignType | SankeyAlignFunction
     sort: SankeySortType | SankeySortFunction<N, L>
 
-    layers: readonly SankeyLayerId[]
+    layers: readonly (SankeyLayerId | FunctionComponent<CustomSankeyLayerProps<N, L>>)[]
 
     margin: Box
 
