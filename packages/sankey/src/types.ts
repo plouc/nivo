@@ -71,8 +71,8 @@ export type SankeyNodeDatum<N extends DefaultNode, L extends DefaultLink> = N & 
     label: string
     formattedValue: string
     layer: number
-    sourceLinks: SankeyLinkDatum<N, L>[]
-    targetLinks: SankeyLinkDatum<N, L>[]
+    sourceLinks: readonly SankeyLinkDatum<N, L>[]
+    targetLinks: readonly SankeyLinkDatum<N, L>[]
     x: number
     y: number
     width: number
@@ -81,8 +81,8 @@ export type SankeyNodeDatum<N extends DefaultNode, L extends DefaultLink> = N & 
 
 export interface SankeyDataProps<N extends DefaultNode, L extends DefaultLink> {
     data: {
-        nodes: N[]
-        links: L[]
+        nodes: readonly N[]
+        links: readonly L[]
     }
 }
 
@@ -110,7 +110,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     align: SankeyAlignType | SankeyAlignFunction
     sort: SankeySortType | SankeySortFunction<N, L>
 
-    layers: SankeyLayerId[]
+    layers: readonly SankeyLayerId[]
 
     margin: Box
 
@@ -146,7 +146,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     nodeTooltip: FunctionComponent<{ node: SankeyNodeDatum<N, L> }>
     linkTooltip: FunctionComponent<{ link: SankeyLinkDatum<N, L> }>
 
-    legends: LegendProps[]
+    legends: readonly LegendProps[]
 
     renderWrapper: boolean
 
