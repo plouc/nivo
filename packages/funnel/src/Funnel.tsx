@@ -23,6 +23,7 @@ const InnerFunnel = <D extends FunnelDatum>({
     spacing = svgDefaultProps.spacing,
     shapeBlending = svgDefaultProps.shapeBlending,
     valueFormat,
+    valueFormatter,
     colors = svgDefaultProps.colors,
     fillOpacity = svgDefaultProps.fillOpacity,
     borderWidth = svgDefaultProps.borderWidth,
@@ -93,6 +94,7 @@ const InnerFunnel = <D extends FunnelDatum>({
         onMouseLeave,
         onClick,
         tooltip,
+        valueFormatter,
     })
 
     const layerById: Record<FunnelLayerId, ReactNode> = {

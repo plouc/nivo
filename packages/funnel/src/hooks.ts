@@ -279,6 +279,7 @@ export const useFunnel = <D extends FunnelDatum>({
     spacing = defaults.spacing,
     shapeBlending: rawShapeBlending = defaults.shapeBlending,
     valueFormat,
+    valueFormatter,
     colors = defaults.colors,
     fillOpacity = defaults.fillOpacity,
     borderWidth = defaults.borderWidth,
@@ -308,6 +309,7 @@ export const useFunnel = <D extends FunnelDatum>({
     spacing?: FunnelCommonProps<D>['spacing']
     shapeBlending?: FunnelCommonProps<D>['shapeBlending']
     valueFormat?: FunnelCommonProps<D>['valueFormat']
+    valueFormatter?: FunnelCommonProps<D>['valueFormatter']
     colors?: FunnelCommonProps<D>['colors']
     fillOpacity?: FunnelCommonProps<D>['fillOpacity']
     borderWidth?: FunnelCommonProps<D>['borderWidth']
@@ -334,7 +336,8 @@ export const useFunnel = <D extends FunnelDatum>({
     const getBorderColor = useInheritedColor(borderColor, theme)
     const getLabelColor = useInheritedColor(labelColor, theme)
 
-    const formatValue = useValueFormatter<number>(valueFormat)
+    const _formatValue = useValueFormatter<number>(valueFormat)
+    const formatValue = valueFormatter || _formatValue
 
     const [areaGenerator, borderGenerator] = useMemo(
         () => computeShapeGenerators<D>(interpolation, direction),
@@ -376,13 +379,19 @@ export const useFunnel = <D extends FunnelDatum>({
             let y0, x0
 
             if (direction === 'vertical') {
-                partWidth = linearScale(datum.value)
+                partWidth =
+                    datum.overrides?.size !== undefined
+                        ? innerWidth * (datum.overrides.size / 100)
+                        : linearScale(datum.value)
                 partHeight = bandScale.bandwidth
                 x0 = paddingBefore + (innerWidth - partWidth) * 0.5
                 y0 = bandScale(index)
             } else {
                 partWidth = bandScale.bandwidth
-                partHeight = linearScale(datum.value)
+                partHeight =
+                    datum.overrides?.size !== undefined
+                        ? innerHeight * (datum.overrides.size / 100)
+                        : linearScale(datum.value)
                 x0 = bandScale(index)
                 y0 = paddingBefore + (innerHeight - partHeight) * 0.5
             }
@@ -396,7 +405,7 @@ export const useFunnel = <D extends FunnelDatum>({
                 data: datum,
                 width: partWidth,
                 height: partHeight,
-                color: getColor(datum),
+                color: datum.overrides?.color || getColor(datum),
                 fillOpacity,
                 borderWidth:
                     isCurrent && currentBorderWidth !== undefined
