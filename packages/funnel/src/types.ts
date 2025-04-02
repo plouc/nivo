@@ -9,6 +9,10 @@ export interface FunnelDatum {
     id: string | number
     value: number
     label?: string
+    overrides?: {
+        size?: number
+        color?: string
+    }
 }
 
 export interface Position {
@@ -42,6 +46,8 @@ export interface FunnelPart<D extends FunnelDatum> extends BoxPosition {
     borderOpacity: number
     labelColor: string
     formattedValue: number | string
+    tooltipName?: string
+    labelName?: string
     isCurrent: boolean
     points: Position[]
     areaPoints: FunnelAreaPoint[]
@@ -87,7 +93,7 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
     layers: (FunnelLayerId | FunnelCustomLayer<D>)[]
 
     valueFormat: ValueFormat<number>
-
+    valueFormatter?: (value?: number) => string
     direction: FunnelDirection
     interpolation: 'smooth' | 'linear'
     spacing: number
