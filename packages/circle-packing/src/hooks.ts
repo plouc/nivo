@@ -1,7 +1,7 @@
 import { useMemo, MouseEvent, MutableRefObject, useCallback } from 'react'
 import { pack as d3Pack, hierarchy as d3Hierarchy } from 'd3-hierarchy'
-import cloneDeep from 'lodash/cloneDeep'
-import sortBy from 'lodash/sortBy'
+import cloneDeep from 'lodash/cloneDeep.js'
+import sortBy from 'lodash/sortBy.js'
 import {
     usePropertyAccessor,
     useValueFormatter,

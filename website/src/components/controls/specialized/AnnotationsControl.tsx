@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo } from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { ChartProperty, Flavor } from '../../../types'
 import { AnnotationsControlConfig, ArrayControlConfig, ControlContext } from '../types'

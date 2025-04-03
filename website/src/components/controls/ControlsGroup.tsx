@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react'
-import get from 'lodash/get'
-import snakeCase from 'lodash/snakeCase'
+import get from 'lodash/get.js'
+import snakeCase from 'lodash/snakeCase.js'
 import { ChartProperty, Flavor } from '../../types'
 import { ControlContext } from './types'
 import {

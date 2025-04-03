@@ -20,7 +20,7 @@
         "funnel"
     ],
     "main": "./dist/nivo-funnel.cjs.js",
-    "module": "./dist/nivo-funnel.es.js",
+    "module": "./dist/nivo-funnel.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -44,5 +44,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-funnel.mjs",
+            "require": "./dist/nivo-funnel.cjs.js"
+        }
     }
 }

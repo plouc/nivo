@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
-import random from 'lodash/random'
+import random from 'lodash/random.js'
 import { AreaBump } from '@nivo/bump'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
-import range from 'lodash/range'
+import range from 'lodash/range.js'
 
 const serieIds = ['JavaScript', 'ReasonML', 'TypeScript', 'Elm']
 const generateData = () => {

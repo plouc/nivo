@@ -12,7 +12,7 @@
         "directory": "packages/marimekko"
     },
     "main": "./dist/nivo-marimekko.cjs.js",
-    "module": "./dist/nivo-marimekko.es.js",
+    "module": "./dist/nivo-marimekko.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -37,5 +37,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-marimekko.mjs",
+            "require": "./dist/nivo-marimekko.cjs.js"
+        }
     }
 }

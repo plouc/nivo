@@ -1,7 +1,7 @@
-import isNumber from 'lodash/isNumber'
-import isPlainObject from 'lodash/isPlainObject'
-import isString from 'lodash/isString'
-import get from 'lodash/get'
+import isNumber from 'lodash/isNumber.js'
+import isPlainObject from 'lodash/isPlainObject.js'
+import isString from 'lodash/isString.js'
+import get from 'lodash/get.js'
 import { scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide, ForceX, ForceY } from 'd3-force'
 import {

@@ -1,6 +1,6 @@
 import React from 'react'
-import omit from 'lodash/omit'
-import merge from 'lodash/merge'
+import omit from 'lodash/omit.js'
+import merge from 'lodash/merge.js'
 import { ResponsiveFunnel, svgDefaultProps } from '@nivo/funnel'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'

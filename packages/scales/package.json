@@ -12,7 +12,7 @@
         "directory": "packages/scales"
     },
     "main": "./dist/nivo-scales.cjs.js",
-    "module": "./dist/nivo-scales.es.js",
+    "module": "./dist/nivo-scales.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -31,5 +31,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-scales.mjs",
+            "require": "./dist/nivo-scales.cjs.js"
+        }
     }
 }
