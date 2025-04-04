@@ -17,7 +17,10 @@ interface MeshProps<Node> {
     onMouseEnter?: NodeMouseHandler<Node>
     onMouseMove?: NodeMouseHandler<Node>
     onMouseLeave?: NodeMouseHandler<Node>
+    onMouseDown?: NodeMouseHandler<Node>
+    onMouseUp?: NodeMouseHandler<Node>
     onClick?: NodeMouseHandler<Node>
+    onDoubleClick?: NodeMouseHandler<Node>
     onTouchStart?: NodeTouchHandler<Node>
     onTouchMove?: NodeTouchHandler<Node>
     onTouchEnd?: NodeTouchHandler<Node>
@@ -42,7 +45,10 @@ export const Mesh = <Node,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
@@ -69,7 +75,10 @@ export const Mesh = <Node,>({
         handleMouseEnter,
         handleMouseMove,
         handleMouseLeave,
+        handleMouseDown,
+        handleMouseUp,
         handleClick,
+        handleDoubleClick,
         handleTouchStart,
         handleTouchMove,
         handleTouchEnd,
@@ -83,7 +92,10 @@ export const Mesh = <Node,>({
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
+        onMouseDown,
+        onMouseUp,
         onClick,
+        onDoubleClick,
         onTouchStart,
         onTouchMove,
         onTouchEnd,
@@ -128,10 +140,13 @@ export const Mesh = <Node,>({
                 onMouseEnter={handleMouseEnter}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
                 onClick={handleClick}
+                onDoubleClick={handleDoubleClick}
             />
         </g>
     )

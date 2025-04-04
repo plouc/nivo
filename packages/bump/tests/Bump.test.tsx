@@ -308,6 +308,36 @@ describe('interactivity', () => {
             expect(series.id).toEqual('A')
         })
 
+        it('onMouseDown', async () => {
+            const mouseDownHandler = jest.fn()
+            const root = create(<Bump<Datum> {...baseProps} onMouseDown={mouseDownHandler} />).root
+
+            const onMouseDown = root.findByProps({ 'data-testid': 'line.B.interactive' }).props
+                .onMouseDown
+            expect(onMouseDown).toBeDefined()
+            await act(() => onMouseDown())
+
+            expect(mouseDownHandler).toHaveBeenCalledTimes(1)
+            const [series] = mouseDownHandler.mock.calls[0]
+            expect(isComputedBumpSerie(series)).toBeTruthy()
+            expect(series.id).toEqual('B')
+        })
+
+        it('onMouseUp', async () => {
+            const mouseUpHandler = jest.fn()
+            const root = create(<Bump<Datum> {...baseProps} onMouseUp={mouseUpHandler} />).root
+
+            const onMouseUp = root.findByProps({ 'data-testid': 'line.B.interactive' }).props
+                .onMouseUp
+            expect(onMouseUp).toBeDefined()
+            await act(() => onMouseUp())
+
+            expect(mouseUpHandler).toHaveBeenCalledTimes(1)
+            const [series] = mouseUpHandler.mock.calls[0]
+            expect(isComputedBumpSerie(series)).toBeTruthy()
+            expect(series.id).toEqual('B')
+        })
+
         it('onClick', async () => {
             const clickHandler = jest.fn()
             const root = create(<Bump<Datum> {...baseProps} onClick={clickHandler} />).root
@@ -318,6 +348,23 @@ describe('interactivity', () => {
 
             expect(clickHandler).toHaveBeenCalledTimes(1)
             const [series] = clickHandler.mock.calls[0]
+            expect(isComputedBumpSerie(series)).toBeTruthy()
+            expect(series.id).toEqual('B')
+        })
+
+        it('onDoubleClick', async () => {
+            const doubleClickHandler = jest.fn()
+            const root = create(
+                <Bump<Datum> {...baseProps} onDoubleClick={doubleClickHandler} />
+            ).root
+
+            const onDoubleClick = root.findByProps({ 'data-testid': 'line.B.interactive' }).props
+                .onDoubleClick
+            expect(onDoubleClick).toBeDefined()
+            await act(() => onDoubleClick())
+
+            expect(doubleClickHandler).toHaveBeenCalledTimes(1)
+            const [series] = doubleClickHandler.mock.calls[0]
             expect(isComputedBumpSerie(series)).toBeTruthy()
             expect(series.id).toEqual('B')
         })

@@ -18,7 +18,10 @@ interface NodesProps<Datum> {
     onMouseEnter?: NodeMouseEventHandler<Datum>
     onMouseMove?: NodeMouseEventHandler<Datum>
     onMouseLeave?: NodeMouseEventHandler<Datum>
+    onMouseDown?: NodeMouseEventHandler<Datum>
+    onMouseUp?: NodeMouseEventHandler<Datum>
     onClick?: NodeMouseEventHandler<Datum>
+    onDoubleClick?: NodeMouseEventHandler<Datum>
     setCurrentNode: CurrentNodeSetter<Datum>
     tooltip?: NodeTooltip<Datum>
     tooltipPosition: TooltipPosition
@@ -46,7 +49,10 @@ export const Nodes = <Datum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setCurrentNode,
     tooltip,
     tooltipPosition,
@@ -74,7 +80,10 @@ export const Nodes = <Datum,>({
                     onMouseEnter,
                     onMouseMove,
                     onMouseLeave,
+                    onMouseDown,
+                    onMouseUp,
                     onClick,
+                    onDoubleClick,
                     setCurrentNode,
                     tooltip,
                     tooltipPosition,

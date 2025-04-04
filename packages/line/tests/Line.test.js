@@ -427,11 +427,32 @@ describe('mouse events on slices', () => {
         expect(onMouseLeave).toHaveBeenCalledTimes(1)
     })
 
+    it('should call onMouseDown', () => {
+        const onMouseDown = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseDown={onMouseDown} />)
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('mousedown')
+        expect(onMouseDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onMouseUp', () => {
+        const onMouseUp = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onMouseUp={onMouseUp} />)
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('mouseup')
+        expect(onMouseUp).toHaveBeenCalledTimes(1)
+    })
+
     it('should call onClick', () => {
         const onClick = jest.fn()
         const wrapper = mount(<Line {...baseProps} onClick={onClick} />)
         wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('click')
         expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onDoubleClick', () => {
+        const onDoubleClick = jest.fn()
+        const wrapper = mount(<Line {...baseProps} onDoubleClick={onDoubleClick} />)
+        wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('dblclick')
+        expect(onDoubleClick).toHaveBeenCalledTimes(1)
     })
 })
 

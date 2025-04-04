@@ -12,7 +12,10 @@ export const Node = <RawDatum extends ScatterPlotDatum>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
 }: ScatterPlotNodeProps<RawDatum>) => {
     const handleMouseEnter = useCallback(
         (event: MouseEvent<SVGCircleElement>) => onMouseEnter?.(node, event),
@@ -26,9 +29,21 @@ export const Node = <RawDatum extends ScatterPlotDatum>({
         (event: MouseEvent<SVGCircleElement>) => onMouseLeave?.(node, event),
         [node, onMouseLeave]
     )
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onMouseDown?.(node, event),
+        [node, onMouseDown]
+    )
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onMouseUp?.(node, event),
+        [node, onMouseUp]
+    )
     const handleClick = useCallback(
         (event: MouseEvent<SVGCircleElement>) => onClick?.(node, event),
         [node, onClick]
+    )
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<SVGCircleElement>) => onDoubleClick?.(node, event),
+        [node, onDoubleClick]
     )
 
     return (
@@ -41,7 +56,10 @@ export const Node = <RawDatum extends ScatterPlotDatum>({
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}
             onMouseMove={isInteractive ? handleMouseMove : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onMouseDown={isInteractive ? handleMouseDown : undefined}
+            onMouseUp={isInteractive ? handleMouseUp : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            onDoubleClick={isInteractive ? handleDoubleClick : undefined}
         />
     )
 }
