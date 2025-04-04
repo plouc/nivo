@@ -197,6 +197,15 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'weekdays',
+        help: 'define labels for weekdays',
+        flavors: allFlavors,
+        type: 'Array<string>',
+        required: false,
+        defaultValue: defaults.weekdays,
+        group: 'Weekday',
+    },
+    {
         key: 'weekdayTicks',
         help: 'define weekday tickmarks to show',
         flavors: allFlavors,
