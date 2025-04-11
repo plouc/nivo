@@ -139,15 +139,12 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
             height,
             outerWidth,
             outerHeight,
-            meta: {
-                currentNode,
-                isCurrentNode,
-                setCurrentNode,
-
-                currentLink,
-                isCurrentLink,
-                setCurrentLink,
-            },
+            currentNode,
+            isCurrentNode,
+            setCurrentNode,
+            currentLink,
+            isCurrentLink,
+            setCurrentLink,
             isInteractive,
         }),
         [
