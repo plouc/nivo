@@ -86,7 +86,13 @@ export interface SankeyDataProps<N extends DefaultNode, L extends DefaultLink> {
     }
 }
 
+export type SankeyCustomLayer<N extends DefaultNode, L extends DefaultLink> = FunctionComponent<
+    CustomSankeyLayerProps<N, L>
+>
 export type SankeyLayerId = 'links' | 'nodes' | 'labels' | 'legends'
+export type SankeyLayer<N extends DefaultNode, L extends DefaultLink> =
+    | SankeyLayerId
+    | SankeyCustomLayer<N, L>
 
 export type SankeyMouseHandler<N extends DefaultNode, L extends DefaultLink> = (
     data: SankeyNodeDatum<N, L> | SankeyLinkDatum<N, L>,
@@ -109,6 +115,13 @@ export interface CustomSankeyLayerProps<N extends DefaultNode, L extends Default
     margin: Box
     outerWidth: number
     outerHeight: number
+    currentNode: SankeyNodeDatum<N, L> | null
+    isCurrentNode: (node: SankeyNodeDatum<N, L>) => boolean
+    setCurrentNode: (node: SankeyNodeDatum<N, L> | null) => void
+    currentLink: SankeyLinkDatum<N, L> | null
+    isCurrentLink: (link: SankeyLinkDatum<N, L>) => boolean
+    setCurrentLink: (link: SankeyLinkDatum<N, L> | null) => void
+    isInteractive: boolean
 }
 
 export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink> {
@@ -119,7 +132,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     align: SankeyAlignType | SankeyAlignFunction
     sort: SankeySortType | SankeySortFunction<N, L>
 
-    layers: readonly (SankeyLayerId | FunctionComponent<CustomSankeyLayerProps<N, L>>)[]
+    layers: readonly SankeyLayer<N, L>[]
 
     margin: Box
 
