@@ -19,7 +19,10 @@ interface LinksProps<Datum> {
     onMouseEnter?: LinkMouseEventHandler<Datum>
     onMouseMove?: LinkMouseEventHandler<Datum>
     onMouseLeave?: LinkMouseEventHandler<Datum>
+    onMouseDown?: LinkMouseEventHandler<Datum>
+    onMouseUp?: LinkMouseEventHandler<Datum>
     onClick?: LinkMouseEventHandler<Datum>
+    onDoubleClick?: LinkMouseEventHandler<Datum>
     tooltip?: LinkTooltip<Datum>
     tooltipAnchor: TooltipAnchor
 }
@@ -49,7 +52,10 @@ export const Links = <Datum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip,
     tooltipAnchor,
 }: LinksProps<Datum>) => {
@@ -76,7 +82,10 @@ export const Links = <Datum,>({
                     onMouseEnter,
                     onMouseMove,
                     onMouseLeave,
+                    onMouseDown,
+                    onMouseUp,
                     onClick,
+                    onDoubleClick,
                     tooltip,
                     tooltipAnchor,
                 })

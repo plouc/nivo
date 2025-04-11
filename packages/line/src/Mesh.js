@@ -11,7 +11,10 @@ const Mesh = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
@@ -53,11 +56,32 @@ const Mesh = ({
         [hideTooltip, onMouseLeave]
     )
 
+    const handleMouseDown = useCallback(
+        (point, event) => {
+            onMouseDown && onMouseDown(point, event)
+        },
+        [onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (point, event) => {
+            onMouseUp && onMouseUp(point, event)
+        },
+        [onMouseUp]
+    )
+
     const handleClick = useCallback(
         (point, event) => {
             onClick && onClick(point, event)
         },
         [onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        (point, event) => {
+            onDoubleClick && onDoubleClick(point, event)
+        },
+        [onDoubleClick]
     )
 
     const handleTouchStart = useCallback(
@@ -101,7 +125,10 @@ const Mesh = ({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
             onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}

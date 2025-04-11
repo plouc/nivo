@@ -51,14 +51,20 @@ const InnerTree = <Datum,>({
     onNodeMouseEnter,
     onNodeMouseMove,
     onNodeMouseLeave,
+    onNodeMouseDown,
+    onNodeMouseUp,
     onNodeClick,
+    onNodeDoubleClick,
     nodeTooltip,
     nodeTooltipPosition = svgDefaultProps.nodeTooltipPosition,
     nodeTooltipAnchor = svgDefaultProps.nodeTooltipAnchor,
     onLinkMouseEnter,
     onLinkMouseMove,
     onLinkMouseLeave,
+    onLinkMouseDown,
+    onLinkMouseUp,
     onLinkClick,
+    onLinkDoubleClick,
     linkTooltip,
     linkTooltipAnchor = svgDefaultProps.linkTooltipAnchor,
     role = svgDefaultProps.role,
@@ -113,7 +119,10 @@ const InnerTree = <Datum,>({
                 onMouseEnter={onLinkMouseEnter}
                 onMouseMove={onLinkMouseMove}
                 onMouseLeave={onLinkMouseLeave}
+                onMouseDown={onLinkMouseDown}
+                onMouseUp={onLinkMouseUp}
                 onClick={onLinkClick}
+                onDoubleClick={onLinkDoubleClick}
                 tooltip={linkTooltip}
                 tooltipAnchor={linkTooltipAnchor}
             />
@@ -130,7 +139,10 @@ const InnerTree = <Datum,>({
                 onMouseEnter={onNodeMouseEnter}
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
+                onMouseDown={onNodeMouseDown}
+                onMouseUp={onNodeMouseUp}
                 onClick={onNodeClick}
+                onDoubleClick={onNodeDoubleClick}
                 setCurrentNode={setCurrentNode}
                 tooltip={nodeTooltip}
                 tooltipPosition={nodeTooltipPosition}
@@ -168,7 +180,10 @@ const InnerTree = <Datum,>({
                 onMouseEnter={onNodeMouseEnter}
                 onMouseMove={onNodeMouseMove}
                 onMouseLeave={onNodeMouseLeave}
+                onMouseDown={onNodeMouseDown}
+                onMouseUp={onNodeMouseUp}
                 onClick={onNodeClick}
+                onDoubleClick={onNodeDoubleClick}
                 tooltip={nodeTooltip}
                 tooltipPosition={nodeTooltipPosition}
                 tooltipAnchor={nodeTooltipAnchor}

@@ -86,9 +86,12 @@ export type MouseHandler<RawDatum> = (
 
 export type MouseHandlers<RawDatum> = {
     onClick?: MouseHandler<RawDatum>
+    onDoubleClick?: MouseHandler<RawDatum>
     onMouseEnter?: MouseHandler<RawDatum>
     onMouseMove?: MouseHandler<RawDatum>
     onMouseLeave?: MouseHandler<RawDatum>
+    onMouseDown?: MouseHandler<RawDatum>
+    onMouseUp?: MouseHandler<RawDatum>
 }
 
 export type SwarmPlotCommonProps<RawDatum> = {
@@ -142,7 +145,10 @@ export type SwarmPlotSvgProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
     }
 
 export type SwarmPlotCanvasProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
-    Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'> & {
+    Pick<
+        MouseHandlers<RawDatum>,
+        'onMouseMove' | 'onMouseDown' | 'onMouseUp' | 'onClick' | 'onDoubleClick'
+    > & {
         axisTop?: CanvasAxisProps<string> | null
         axisRight?: CanvasAxisProps<string> | null
         axisBottom?: CanvasAxisProps<string> | null

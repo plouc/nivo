@@ -50,7 +50,10 @@ const InnerTreeCanvas = <Datum,>({
     onNodeMouseEnter,
     onNodeMouseMove,
     onNodeMouseLeave,
+    onNodeMouseDown,
+    onNodeMouseUp,
     onNodeClick,
+    onNodeDoubleClick,
     nodeTooltip,
     nodeTooltipPosition = canvasDefaultProps.nodeTooltipPosition,
     nodeTooltipAnchor = canvasDefaultProps.nodeTooltipAnchor,
@@ -112,7 +115,10 @@ const InnerTreeCanvas = <Datum,>({
         handleMouseEnter,
         handleMouseMove,
         handleMouseLeave,
+        handleMouseDown,
+        handleMouseUp,
         handleClick,
+        handleDoubleClick,
         current,
     } = useMesh<ComputedNode<Datum>, HTMLCanvasElement>({
         elementRef: canvasEl,
@@ -126,7 +132,10 @@ const InnerTreeCanvas = <Datum,>({
         onMouseEnter: onNodeMouseEnter,
         onMouseMove: onNodeMouseMove,
         onMouseLeave: onNodeMouseLeave,
+        onMouseDown: onNodeMouseDown,
+        onMouseUp: onNodeMouseUp,
         onClick: onNodeClick,
+        onDoubleClick: onNodeDoubleClick,
         tooltip: renderTooltip,
         tooltipPosition: nodeTooltipPosition,
         tooltipAnchor: nodeTooltipAnchor,
@@ -233,7 +242,10 @@ const InnerTreeCanvas = <Datum,>({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
             onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
             role={role}
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}
