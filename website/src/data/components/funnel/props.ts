@@ -110,6 +110,35 @@ const props: ChartProperty[] = [
         defaultValue: defaults.colors,
     }),
     {
+        key: 'sizes',
+        group: 'Style',
+        help: 'Define how to compute the size of funnel parts.',
+        description: `
+            Define how funnel part sizes are computed, possible values:
+            
+            - \`undefined\`: Default, uses linearScale(datum.value)
+            - \`function\`: Custom function: \`(datum) => number\`
+            - \`array\`: Array of fixed sizes to use
+            - \`object\`: With format \`{ datum: string }\` to get the size from a specific datum property
+            
+            Examples:
+            \`\`\`
+            // Using a fixed array of sizes
+            sizes={[100, 200, 150]} 
+            
+            // Using a property from the datum
+            sizes={{ datum: 'size' }}
+            
+            // Using a custom function
+            sizes={(datum) => datum.value * 2}
+            \`\`\`
+        `,
+        type: 'Function | number[] | { datum: string }',
+        required: false,
+        defaultValue: defaults.sizes,
+        flavors: ['svg'],
+    },
+    {
         key: 'fillOpacity',
         group: 'Style',
         help: 'Part background opacity.',
