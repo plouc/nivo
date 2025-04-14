@@ -74,7 +74,10 @@ const LineCanvas = props => {
         //onMouseEnter,
         //onMouseMove,
         onMouseLeave,
+        onMouseDown,
+        onMouseUp,
         onClick,
+        onDoubleClick,
         tooltip = PointTooltip,
         canvasRef,
     } = props
@@ -308,6 +311,26 @@ const LineCanvas = props => {
         [hideTooltip, setCurrentPoint, onMouseLeave]
     )
 
+    const handleMouseDown = useCallback(
+        event => {
+            if (onMouseDown) {
+                const point = getPointFromMouseEvent(event)
+                point && onMouseDown(point, event)
+            }
+        },
+        [getPointFromMouseEvent, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        event => {
+            if (onMouseUp) {
+                const point = getPointFromMouseEvent(event)
+                point && onMouseUp(point, event)
+            }
+        },
+        [getPointFromMouseEvent, onMouseUp]
+    )
+
     const handleClick = useCallback(
         event => {
             if (onClick) {
@@ -316,6 +339,16 @@ const LineCanvas = props => {
             }
         },
         [getPointFromMouseEvent, onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        event => {
+            if (onDoubleClick) {
+                const point = getPointFromMouseEvent(event)
+                point && onDoubleClick(point, event)
+            }
+        },
+        [getPointFromMouseEvent, onDoubleClick]
     )
 
     return (
@@ -331,7 +364,10 @@ const LineCanvas = props => {
             onMouseEnter={isInteractive ? handleMouseHover : undefined}
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onMouseDown={isInteractive ? handleMouseDown : undefined}
+            onMouseUp={isInteractive ? handleMouseUp : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            onDoubleClick={isInteractive ? handleDoubleClick : undefined}
         />
     )
 }

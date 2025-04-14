@@ -46,6 +46,26 @@ describe('SwarmPlot', () => {
             expect(datum.id).toEqual('A')
         })
 
+        it('should support onDoubleClick handler', () => {
+            const onDoubleClick = jest.fn()
+            const wrapper = mount(
+                <SwarmPlot
+                    width={400}
+                    height={400}
+                    groupBy="group"
+                    groups={groups}
+                    data={sampleData}
+                    onDoubleClick={onDoubleClick}
+                />
+            )
+
+            wrapper.find('circle').at(0).simulate('dblclick')
+
+            expect(onDoubleClick).toHaveBeenCalledTimes(1)
+            const [datum] = onDoubleClick.mock.calls[0]
+            expect(datum.id).toEqual('A')
+        })
+
         it('should support onMouseEnter handler', () => {
             const onMouseEnter = jest.fn()
             const wrapper = mount(
@@ -106,11 +126,54 @@ describe('SwarmPlot', () => {
             expect(datum.id).toEqual('A')
         })
 
+        it('should support onMouseDown handler', () => {
+            const onMouseDown = jest.fn()
+            const wrapper = mount(
+                <SwarmPlot
+                    width={400}
+                    height={400}
+                    groupBy="group"
+                    groups={groups}
+                    data={sampleData}
+                    onMouseDown={onMouseDown}
+                />
+            )
+
+            wrapper.find('circle').at(0).simulate('mousedown')
+
+            expect(onMouseDown).toHaveBeenCalledTimes(1)
+            const [datum] = onMouseDown.mock.calls[0]
+            expect(datum.id).toEqual('A')
+        })
+
+        it('should support onMouseUp handler', () => {
+            const onMouseUp = jest.fn()
+            const wrapper = mount(
+                <SwarmPlot
+                    width={400}
+                    height={400}
+                    groupBy="group"
+                    groups={groups}
+                    data={sampleData}
+                    onMouseUp={onMouseUp}
+                />
+            )
+
+            wrapper.find('circle').at(0).simulate('mouseup')
+
+            expect(onMouseUp).toHaveBeenCalledTimes(1)
+            const [datum] = onMouseUp.mock.calls[0]
+            expect(datum.id).toEqual('A')
+        })
+
         it('should allow to completely disable interactivity', () => {
             const onClick = jest.fn()
+            const onDoubleClick = jest.fn()
             const onMouseEnter = jest.fn()
             const onMouseMove = jest.fn()
             const onMouseLeave = jest.fn()
+            const onMouseDown = jest.fn()
+            const onMouseUp = jest.fn()
 
             const wrapper = mount(
                 <SwarmPlot
@@ -120,22 +183,31 @@ describe('SwarmPlot', () => {
                     groups={groups}
                     data={sampleData}
                     onClick={onClick}
+                    onDoubleClick={onDoubleClick}
                     onMouseEnter={onMouseEnter}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
+                    onMouseDown={onMouseDown}
+                    onMouseUp={onMouseUp}
                     isInteractive={false}
                 />
             )
 
             wrapper.find('circle').at(0).simulate('click')
+            wrapper.find('circle').at(0).simulate('dblclick')
             wrapper.find('circle').at(0).simulate('mouseenter')
             wrapper.find('circle').at(0).simulate('mousemove')
             wrapper.find('circle').at(0).simulate('mouseleave')
+            wrapper.find('circle').at(0).simulate('mousedown')
+            wrapper.find('circle').at(0).simulate('mouseup')
 
             expect(onClick).not.toHaveBeenCalled()
+            expect(onDoubleClick).not.toHaveBeenCalled()
             expect(onMouseEnter).not.toHaveBeenCalled()
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
+            expect(onMouseDown).not.toHaveBeenCalled()
+            expect(onMouseUp).not.toHaveBeenCalled()
         })
 
         it('should support the borderWidth property', () => {

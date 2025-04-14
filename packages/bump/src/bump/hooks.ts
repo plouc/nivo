@@ -317,7 +317,10 @@ export const useBumpSerieHandlers = <
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setActiveSerieIds,
     lineTooltip: tooltip,
 }: {
@@ -326,7 +329,10 @@ export const useBumpSerieHandlers = <
     onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
     onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
     onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
     onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
     setActiveSerieIds: (serieIds: string[]) => void
     lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
 }) => {
@@ -358,6 +364,20 @@ export const useBumpSerieHandlers = <
         [serie, onMouseLeave, hideTooltip, setActiveSerieIds]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseDown && onMouseDown(serie, event)
+        },
+        [serie, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseUp && onMouseUp(serie, event)
+        },
+        [serie, onMouseUp]
+    )
+
     const handleClick = useCallback(
         (event: MouseEvent<SVGPathElement>) => {
             onClick && onClick(serie, event)
@@ -365,14 +385,33 @@ export const useBumpSerieHandlers = <
         [serie, onClick]
     )
 
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onDoubleClick && onDoubleClick(serie, event)
+        },
+        [serie, onDoubleClick]
+    )
+
     return useMemo(
         () => ({
             onMouseEnter: isInteractive ? handleMouseEnter : undefined,
             onMouseMove: isInteractive ? handleMouseMove : undefined,
             onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+            onMouseDown: isInteractive ? handleMouseDown : undefined,
+            onMouseUp: isInteractive ? handleMouseUp : undefined,
             onClick: isInteractive ? handleClick : undefined,
+            onDoubleClick: isInteractive ? handleDoubleClick : undefined,
         }),
-        [isInteractive, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
+        [
+            isInteractive,
+            handleMouseEnter,
+            handleMouseMove,
+            handleMouseLeave,
+            handleMouseDown,
+            handleMouseUp,
+            handleClick,
+            handleDoubleClick,
+        ]
     )
 }
 
@@ -385,7 +424,10 @@ export const useBumpPointHandlers = <
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setActivePointIds,
     setActiveSerieIds,
     pointTooltip: tooltip,
@@ -395,7 +437,10 @@ export const useBumpPointHandlers = <
     onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
     onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
     onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpPointMouseHandler<Datum, ExtraProps>
     onClick?: BumpPointMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpPointMouseHandler<Datum, ExtraProps>
     setActivePointIds: (pointIds: string[]) => void
     setActiveSerieIds: (pointIds: string[]) => void
     pointTooltip: BumpCommonProps<Datum, ExtraProps>['pointTooltip']
@@ -430,6 +475,20 @@ export const useBumpPointHandlers = <
         [hideTooltip, setActivePointIds, setActiveSerieIds, onMouseLeave, point]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseDown && onMouseDown(point, event)
+        },
+        [point, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseUp && onMouseUp(point, event)
+        },
+        [point, onMouseUp]
+    )
+
     const handleClick = useCallback(
         (event: MouseEvent<SVGPathElement>) => {
             onClick && onClick(point, event)
@@ -437,14 +496,33 @@ export const useBumpPointHandlers = <
         [point, onClick]
     )
 
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onDoubleClick && onDoubleClick(point, event)
+        },
+        [point, onDoubleClick]
+    )
+
     return useMemo(
         () => ({
             onMouseEnter: isInteractive ? handleMouseEnter : undefined,
             onMouseMove: isInteractive ? handleMouseMove : undefined,
             onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+            onMouseDown: isInteractive ? handleMouseDown : undefined,
+            onMouseUp: isInteractive ? handleMouseUp : undefined,
             onClick: isInteractive ? handleClick : undefined,
+            onDoubleClick: isInteractive ? handleDoubleClick : undefined,
         }),
-        [isInteractive, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
+        [
+            isInteractive,
+            handleMouseEnter,
+            handleMouseMove,
+            handleMouseLeave,
+            handleMouseDown,
+            handleMouseUp,
+            handleClick,
+            handleDoubleClick,
+        ]
     )
 }
 

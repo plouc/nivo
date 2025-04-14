@@ -21,7 +21,10 @@ interface MeshProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
     onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
     onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpPointMouseHandler<Datum, ExtraProps>
     onClick?: BumpPointMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpPointMouseHandler<Datum, ExtraProps>
     tooltip: BumpCommonProps<Datum, ExtraProps>['pointTooltip']
     debug: boolean
 }
@@ -36,7 +39,10 @@ const InnerMesh = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip,
     debug,
 }: MeshProps<Datum, ExtraProps>) => {
@@ -96,11 +102,32 @@ const InnerMesh = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
         [hideTooltip, onMouseLeave, setActivePointIds, setActiveSerieIds]
     )
 
+    const handleMouseDown = useCallback(
+        (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
+            onMouseDown && onMouseDown(point, event)
+        },
+        [onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
+            onMouseUp && onMouseUp(point, event)
+        },
+        [onMouseUp]
+    )
+
     const handleClick = useCallback(
         (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
             onClick && onClick(point, event)
         },
         [onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
+            onDoubleClick && onDoubleClick(point, event)
+        },
+        [onDoubleClick]
     )
 
     return (
@@ -111,7 +138,10 @@ const InnerMesh = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
             onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
             debug={debug}
         />
     )
