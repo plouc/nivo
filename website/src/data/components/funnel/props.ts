@@ -110,7 +110,7 @@ const props: ChartProperty[] = [
         defaultValue: defaults.colors,
     }),
     {
-        key: 'sizes',
+        key: 'size',
         group: 'Style',
         help: 'Define how to compute the size of funnel parts.',
         description: `

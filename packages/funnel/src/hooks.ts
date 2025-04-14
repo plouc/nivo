@@ -20,8 +20,8 @@ import {
     FunnelAreaPoint,
     FunnelBorderGenerator,
     Position,
-    OrdinalSizeScaleConfig,
-    OrdinalSizeScaleConfigDatumProperty,
+    SizeSpec,
+    SizeSpecDatumProperty,
 } from './types'
 
 export const computeShapeGenerators = <D extends FunnelDatum>(
@@ -267,15 +267,15 @@ export const computePartsHandlers = <D extends FunnelDatum>({
     })
 }
 
-const isOrdinalSizeScaleConfigDatumProperty = <Datum>(
-    config: OrdinalSizeScaleConfig<Datum> | undefined
-): config is OrdinalSizeScaleConfigDatumProperty => {
-    return (config as OrdinalSizeScaleConfigDatumProperty).datum !== undefined
+const isSizeSpecDatumProperty = <Datum>(
+    config: SizeSpec<Datum> | undefined
+): config is SizeSpecDatumProperty => {
+    return (config as SizeSpecDatumProperty).datum !== undefined
 }
 
 // Get size based on configuration
-export const getOrdinalSizeScale = <Datum extends FunnelDatum>(
-    config: OrdinalSizeScaleConfig<Datum> | undefined,
+export const getSizeGenerator = <Datum extends FunnelDatum>(
+    config: SizeSpec<Datum> | undefined,
     linearScale: ScaleLinear<number, number>
 ): ((datum: Datum) => number) => {
     //User defined function
@@ -296,16 +296,14 @@ export const getOrdinalSizeScale = <Datum extends FunnelDatum>(
 
     if (isPlainObject(config)) {
         // Use size from current datum
-        if (isOrdinalSizeScaleConfigDatumProperty(config)) {
+        if (isSizeSpecDatumProperty(config)) {
             return (datum: Datum) => {
                 const value = get(datum, config.datum)
                 return typeof value === 'number' ? value : 0
             }
         }
 
-        throw new Error(
-            `Invalid sizes, when using an object, you should specify a 'datum' property`
-        )
+        throw new Error(`Invalid size, when using an object, you should specify a 'datum' property`)
     }
 
     // Default behavior: use linearScale with datum.value
@@ -313,11 +311,11 @@ export const getOrdinalSizeScale = <Datum extends FunnelDatum>(
 }
 
 // Use size scale hook
-export const useOrdinalSizeScale = <Datum extends FunnelDatum>(
-    config: OrdinalSizeScaleConfig<Datum> | undefined,
+export const useSize = <Datum extends FunnelDatum>(
+    config: SizeSpec<Datum> | undefined,
     linearScale: ScaleLinear<number, number>
 ): ((datum: Datum) => number) =>
-    useMemo(() => getOrdinalSizeScale<Datum>(config, linearScale), [config, linearScale])
+    useMemo(() => getSizeGenerator<Datum>(config, linearScale), [config, linearScale])
 
 /**
  * Creates required layout to generate a funnel chart,
@@ -336,7 +334,7 @@ export const useFunnel = <D extends FunnelDatum>({
     shapeBlending: rawShapeBlending = defaults.shapeBlending,
     valueFormat,
     colors = defaults.colors,
-    sizes,
+    size = defaults.size,
     fillOpacity = defaults.fillOpacity,
     borderWidth = defaults.borderWidth,
     borderColor = defaults.borderColor,
@@ -366,7 +364,7 @@ export const useFunnel = <D extends FunnelDatum>({
     shapeBlending?: FunnelCommonProps<D>['shapeBlending']
     valueFormat?: FunnelCommonProps<D>['valueFormat']
     colors?: FunnelCommonProps<D>['colors']
-    sizes?: FunnelCommonProps<D>['sizes']
+    size?: FunnelCommonProps<D>['size']
     fillOpacity?: FunnelCommonProps<D>['fillOpacity']
     borderWidth?: FunnelCommonProps<D>['borderWidth']
     borderColor?: FunnelCommonProps<D>['borderColor']
@@ -423,7 +421,7 @@ export const useFunnel = <D extends FunnelDatum>({
         [data, direction, innerWidth, innerHeight, spacing]
     )
 
-    const getSize = useOrdinalSizeScale<D>(sizes, linearScale)
+    const getSize = useSize<D>(size, linearScale)
 
     const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
 

@@ -6,16 +6,16 @@ import { AnnotationMatcher } from '@nivo/annotations'
 import { PartTooltipProps } from './PartTooltip'
 
 // Define size configuration
-export type OrdinalSizeScaleConfigCustomFunction<Datum> = (d: Datum) => number
-export type OrdinalSizeScaleConfigCustomSizes = number[]
-export interface OrdinalSizeScaleConfigDatumProperty {
+export type SizeSpecCustomFunction<Datum> = (d: Datum) => number
+export type SizeSpecCustomSizes = number[]
+export interface SizeSpecDatumProperty {
     datum: string
 }
 
-export type OrdinalSizeScaleConfig<Datum = any> =
-    | OrdinalSizeScaleConfigCustomFunction<Datum>
-    | OrdinalSizeScaleConfigCustomSizes
-    | OrdinalSizeScaleConfigDatumProperty
+export type SizeSpec<Datum = any> =
+    | SizeSpecCustomFunction<Datum>
+    | SizeSpecCustomSizes
+    | SizeSpecDatumProperty
 
 type BaseFunnelDatum = {
     id: string | number
@@ -110,7 +110,7 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
 
     theme: Theme
     colors: OrdinalColorScaleConfig<D>
-    sizes: OrdinalSizeScaleConfig<D>
+    size: SizeSpec<D>
     fillOpacity: number
     borderWidth: number
     borderColor: InheritedColorConfig<FunnelPart<D>>
