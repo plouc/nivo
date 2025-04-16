@@ -252,9 +252,9 @@ CartesianMarkersItem.propTypes = {
         'bottom-left',
         'left',
     ]),
-    legendOffsetX: PropTypes.number.isRequired,
-    legendOffsetY: PropTypes.number.isRequired,
-    legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
+    legendOffsetX: PropTypes.number,
+    legendOffsetY: PropTypes.number,
+    legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']),
 }
 
 export default memo(CartesianMarkersItem)
