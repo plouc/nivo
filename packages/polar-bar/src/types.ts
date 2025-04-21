@@ -51,6 +51,7 @@ export interface PolarBarLegendDatum {
 export type PolarBarCommonProps<RawDatum extends PolarBarDatum> = {
     indexBy: PropertyAccessor<RawDatum, string>
     keys: readonly string[]
+    adjustValueRange: boolean
     valueFormat?: ValueFormat<number>
 
     margin: Box

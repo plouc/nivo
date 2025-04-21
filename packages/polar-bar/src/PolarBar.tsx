@@ -12,6 +12,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     data,
     indexBy = svgDefaultProps.indexBy,
     keys = svgDefaultProps.keys,
+    adjustValueRange = svgDefaultProps.adjustValueRange,
     valueFormat,
 
     layers = svgDefaultProps.layers,
@@ -81,6 +82,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
         data,
         indexBy,
         keys,
+        adjustValueRange,
         valueFormat,
         width: innerWidth,
         height: innerHeight,
