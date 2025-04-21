@@ -7,7 +7,7 @@ import imgDarkColoredImg from '../../assets/icons/polar-bar-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 import { IconType } from './types'
 
-const data: PolarBarSvgProps['data'] = [
+const data: PolarBarSvgProps<any>['data'] = [
     {
         id: 'A',
         x: 30,

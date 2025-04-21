@@ -7,7 +7,7 @@ import mapper from '../../data/components/polar-bar/mapper'
 import { groups } from '../../data/components/polar-bar/props'
 import { generateLightDataSet } from '../../data/components/polar-bar/generator'
 
-type MappedPolarBarProps = Omit<PolarBarSvgProps, 'data' | 'width' | 'height'>
+type MappedPolarBarProps = Omit<PolarBarSvgProps<any>, 'data' | 'width' | 'height'>
 type UnmappedPolarBarProps = Omit<
     MappedPolarBarProps,
     'valueFormat' | 'radialAxisStart' | 'radialAxisEnd' | 'circularAxisInner' | 'circularAxisOuter'
@@ -16,10 +16,10 @@ type UnmappedPolarBarProps = Omit<
         format: string
         enabled: boolean
     }
-    radialAxisStart: { enable: boolean } & PolarBarSvgProps['radialAxisStart']
-    radialAxisEnd: { enable: boolean } & PolarBarSvgProps['radialAxisEnd']
-    circularAxisInner: { enable: boolean } & PolarBarSvgProps['circularAxisInner']
-    circularAxisOuter: { enable: boolean } & PolarBarSvgProps['circularAxisOuter']
+    radialAxisStart: { enable: boolean } & MappedPolarBarProps['radialAxisStart']
+    radialAxisEnd: { enable: boolean } & MappedPolarBarProps['radialAxisEnd']
+    circularAxisInner: { enable: boolean } & MappedPolarBarProps['circularAxisInner']
+    circularAxisOuter: { enable: boolean } & MappedPolarBarProps['circularAxisOuter']
 }
 
 const initialProperties: UnmappedPolarBarProps = {
@@ -109,7 +109,7 @@ const PolarBar = () => {
     `)
 
     return (
-        <ComponentTemplate<PolarBarSvgProps, PolarBarSvgProps, any>
+        <ComponentTemplate<UnmappedPolarBarProps, MappedPolarBarProps, any>
             name="PolarBar"
             meta={meta.PolarBar}
             icon="polar-bar"

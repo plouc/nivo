@@ -1,4 +1,5 @@
 import { defaultProps, svgDefaultProps } from '@nivo/polar-bar'
+import { arcTransitionModes } from '@nivo/arcs'
 import {
     themeProperty,
     motionProperties,
@@ -13,7 +14,6 @@ import {
     commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
-import { arcTransitionModes } from '@nivo/arcs'
 
 const allFlavors: Flavor[] = ['svg']
 
@@ -69,27 +69,6 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaultProps.keys,
     },
-    // {
-    //     key: 'maxValue',
-    //     group: 'Base',
-    //     type: `number | 'auto'`,
-    //     required: false,
-    //     help: 'Maximum value.',
-    //     description: `
-    //         Maximum value, if 'auto',
-    //         will use max value from
-    //         the provided data.
-    //     `,
-    //     flavors: allFlavors,
-    //     defaultValue: svgDefaultProps.maxValue,
-    //     control: {
-    //         type: 'switchableRange',
-    //         disabledValue: 'auto',
-    //         defaultValue: 200,
-    //         min: 0,
-    //         max: 1000,
-    //     },
-    // },
     {
         key: 'valueFormat',
         group: 'Base',
