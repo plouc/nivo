@@ -17,9 +17,6 @@ export interface PolarBarComputedDatum {
     value: number
     formattedValue: string
     color: string
-    // only defined in case gradients or patterns are used
-    // and the datum matches one of the rules.
-    // fill?: string
     arc: Arc
 }
 

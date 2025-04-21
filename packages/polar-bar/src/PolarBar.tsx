@@ -1,7 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
 import {
-    // @ts-ignore
-    // bindDefs,
     useDimensions,
     Container,
     SvgWrapper,
@@ -40,10 +38,6 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     radialAxisEnd = svgDefaultProps.radialAxisEnd,
     circularAxisInner = svgDefaultProps.circularAxisInner,
     circularAxisOuter = svgDefaultProps.circularAxisOuter,
-
-    // styling
-    // defs = defaultProps.defs,
-    // fill = defaultProps.fill,
 
     legends = svgDefaultProps.legends,
     forwardLegendData,
