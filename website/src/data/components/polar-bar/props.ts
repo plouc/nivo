@@ -351,6 +351,28 @@ const props: ChartProperty[] = [
             },
         },
     },
+    {
+        key: 'forwardLegendData',
+        group: 'Legends',
+        type: '(data: PolarBarLegendDatum[]) => void',
+        required: false,
+        flavors: ['svg'],
+        help: 'Can be used to get the computed legend data.',
+        description: `
+            This property allows you to implement custom
+            legends, bypassing the limitations of SVG/Canvas.
+            
+            For example you could have a state in the parent component,
+            and then pass the setter.
+            
+            Please be very careful when using this property though,
+            you could end up with an infinite loop if the properties
+            defining the data don't have a stable reference.
+            
+            For example, using a non static/memoized function for \`valueFormat\`
+            would lead to such issue.
+        `,
+    },
     ...commonAccessibilityProps(allFlavors),
     ...motionProperties(['svg'], svgDefaultProps),
     {
