@@ -161,7 +161,7 @@ pkgs-build: pkgs-types ##@1 packages build all packages
         | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
 
 pkgs-types: ##@1 packages build all package types
-	@pnpm tsc --build ./tsconfig.monorepo.json
+	@pnpm run pkgs:types:check
 
 pkgs-types-clean: ##@1 packages clean all package types
 	@pnpm tsc --build --clean ./tsconfig.monorepo.json
@@ -180,7 +180,7 @@ pkg-types-%: ##@1 packages generate types for a specific package
 
 pkg-build-%: pkg-types-% ##@1 packages build a package
 	@-rm -rf ./packages/${*}/dist/nivo-${*}*
-	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.mjs
+	@PACKAGE=${*} pnpm run pkg:build
 
 pkgs-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.mjs

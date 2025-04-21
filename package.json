@@ -82,7 +82,11 @@
   "scripts": {
     "make:init": "make init",
     "build": "echo 'nothing to do, please use make for available commands'",
-    "heroku-postbuild": "make pkgs-build && cd api && pnpm build"
+    "heroku-postbuild": "make pkgs-build && cd api && pnpm build",
+    "codesandbox:init": "pnpm install && pnpm run pkgs:types:check && pnpm run pkgs:build",
+    "pkgs:types:check": "pnpm tsc --build ./tsconfig.monorepo.json",
+    "pkgs:build": "pnpm ls --filter \"./packages/*\" --depth -1 --no-color | sed -E 's|.*/([^/]+)$|\\1|' | xargs -P 8 -I '{}' sh -c 'PACKAGE={} pnpm run pkg:build || 255'",
+    "pkg:build": "NODE_ENV=production BABEL_ENV=production pnpm rollup -c conf/rollup.config.mjs"
   },
   "engines": {
     "node": ">= 16"
