@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: 3b0ea47a6c */
+/* glue: 0.13 hash: ffcdf9910e */
 .sprite-icons-waffle-light-neutral,
 .sprite-icons-waffle-light-colored,
 .sprite-icons-waffle-dark-neutral,
@@ -55,6 +55,10 @@
 .sprite-icons-radar-light-colored,
 .sprite-icons-radar-dark-neutral,
 .sprite-icons-radar-dark-colored,
+.sprite-icons-polar-bar-light-neutral,
+.sprite-icons-polar-bar-light-colored,
+.sprite-icons-polar-bar-dark-neutral,
+.sprite-icons-polar-bar-dark-colored,
 .sprite-icons-pie-light-neutral,
 .sprite-icons-pie-light-colored,
 .sprite-icons-pie-dark-neutral,
@@ -472,464 +476,488 @@
     height: 52px;
 }
 
-.sprite-icons-pie-light-neutral {
+.sprite-icons-polar-bar-light-neutral {
     background-position: -4px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-pie-light-colored {
+.sprite-icons-polar-bar-light-colored {
     background-position: -64px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-pie-dark-neutral {
+.sprite-icons-polar-bar-dark-neutral {
     background-position: -124px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-pie-dark-colored {
+.sprite-icons-polar-bar-dark-colored {
     background-position: -184px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-parallel-coordinates-light-neutral {
+.sprite-icons-pie-light-neutral {
     background-position: -244px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-parallel-coordinates-light-colored {
+.sprite-icons-pie-light-colored {
     background-position: -304px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-parallel-coordinates-dark-neutral {
+.sprite-icons-pie-dark-neutral {
     background-position: -364px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-parallel-coordinates-dark-colored {
+.sprite-icons-pie-dark-colored {
     background-position: -424px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-nivo-icon {
+.sprite-icons-parallel-coordinates-light-neutral {
     background-position: -484px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-network-light-neutral {
+.sprite-icons-parallel-coordinates-light-colored {
     background-position: -484px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-network-light-colored {
+.sprite-icons-parallel-coordinates-dark-neutral {
     background-position: -484px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-network-dark-neutral {
+.sprite-icons-parallel-coordinates-dark-colored {
     background-position: -484px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-network-dark-colored {
+.sprite-icons-nivo-icon {
     background-position: -484px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-marimekko-light-neutral {
+.sprite-icons-network-light-neutral {
     background-position: -484px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-marimekko-light-colored {
+.sprite-icons-network-light-colored {
     background-position: -484px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-marimekko-dark-neutral {
+.sprite-icons-network-dark-neutral {
     background-position: -484px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-marimekko-dark-colored {
+.sprite-icons-network-dark-colored {
     background-position: -4px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-light-neutral {
+.sprite-icons-marimekko-light-neutral {
     background-position: -64px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-light-colored {
+.sprite-icons-marimekko-light-colored {
     background-position: -124px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-dark-neutral {
+.sprite-icons-marimekko-dark-neutral {
     background-position: -184px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-dark-colored {
+.sprite-icons-marimekko-dark-colored {
     background-position: -244px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-light-neutral {
+.sprite-icons-line-light-neutral {
     background-position: -304px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-light-colored {
+.sprite-icons-line-light-colored {
     background-position: -364px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-dark-neutral {
+.sprite-icons-line-dark-neutral {
     background-position: -424px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-dark-colored {
+.sprite-icons-line-dark-colored {
     background-position: -484px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-geomap-light-neutral {
+.sprite-icons-heatmap-light-neutral {
     background-position: -544px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-geomap-light-colored {
+.sprite-icons-heatmap-light-colored {
     background-position: -544px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-geomap-dark-neutral {
+.sprite-icons-heatmap-dark-neutral {
     background-position: -544px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-geomap-dark-colored {
+.sprite-icons-heatmap-dark-colored {
     background-position: -544px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-funnel-light-neutral {
+.sprite-icons-geomap-light-neutral {
     background-position: -544px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-funnel-light-colored {
+.sprite-icons-geomap-light-colored {
     background-position: -544px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-funnel-dark-neutral {
+.sprite-icons-geomap-dark-neutral {
     background-position: -544px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-funnel-dark-colored {
+.sprite-icons-geomap-dark-colored {
     background-position: -544px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-light-neutral {
+.sprite-icons-funnel-light-neutral {
     background-position: -544px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-light-colored {
+.sprite-icons-funnel-light-colored {
     background-position: -4px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-dark-neutral {
+.sprite-icons-funnel-dark-neutral {
     background-position: -64px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-dark-colored {
+.sprite-icons-funnel-dark-colored {
     background-position: -124px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-light-neutral {
+.sprite-icons-data-light-neutral {
     background-position: -184px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-light-colored {
+.sprite-icons-data-light-colored {
     background-position: -244px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-dark-neutral {
+.sprite-icons-data-dark-neutral {
     background-position: -304px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-dark-colored {
+.sprite-icons-data-dark-colored {
     background-position: -364px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-light-neutral {
+.sprite-icons-code-light-neutral {
     background-position: -424px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-light-colored {
+.sprite-icons-code-light-colored {
     background-position: -484px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-dark-neutral {
+.sprite-icons-code-dark-neutral {
     background-position: -544px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-dark-colored {
+.sprite-icons-code-dark-colored {
     background-position: -604px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-light-neutral {
+.sprite-icons-circle-packing-light-neutral {
     background-position: -604px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-light-colored {
+.sprite-icons-circle-packing-light-colored {
     background-position: -604px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-dark-neutral {
+.sprite-icons-circle-packing-dark-neutral {
     background-position: -604px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-dark-colored {
+.sprite-icons-circle-packing-dark-colored {
     background-position: -604px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-light-neutral {
+.sprite-icons-choropleth-light-neutral {
     background-position: -604px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-light-colored {
+.sprite-icons-choropleth-light-colored {
     background-position: -604px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-dark-neutral {
+.sprite-icons-choropleth-dark-neutral {
     background-position: -604px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-dark-colored {
+.sprite-icons-choropleth-dark-colored {
     background-position: -604px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-light-neutral {
+.sprite-icons-chord-light-neutral {
     background-position: -604px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-light-colored {
+.sprite-icons-chord-light-colored {
     background-position: -4px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-dark-neutral {
+.sprite-icons-chord-dark-neutral {
     background-position: -64px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-dark-colored {
+.sprite-icons-chord-dark-colored {
     background-position: -124px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-light-neutral {
+.sprite-icons-calendar-light-neutral {
     background-position: -184px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-light-colored {
+.sprite-icons-calendar-light-colored {
     background-position: -244px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-dark-neutral {
+.sprite-icons-calendar-dark-neutral {
     background-position: -304px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-dark-colored {
+.sprite-icons-calendar-dark-colored {
     background-position: -364px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-light-neutral {
+.sprite-icons-bump-light-neutral {
     background-position: -424px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-light-colored {
+.sprite-icons-bump-light-colored {
     background-position: -484px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-dark-neutral {
+.sprite-icons-bump-dark-neutral {
     background-position: -544px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-dark-colored {
+.sprite-icons-bump-dark-colored {
     background-position: -604px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-boxplot-light-neutral {
+.sprite-icons-bullet-light-neutral {
     background-position: -664px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-boxplot-light-colored {
+.sprite-icons-bullet-light-colored {
     background-position: -664px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-boxplot-dark-neutral {
+.sprite-icons-bullet-dark-neutral {
     background-position: -664px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-boxplot-dark-colored {
+.sprite-icons-bullet-dark-colored {
     background-position: -664px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-light-neutral {
+.sprite-icons-boxplot-light-neutral {
     background-position: -664px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-light-colored {
+.sprite-icons-boxplot-light-colored {
     background-position: -664px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-dark-neutral {
+.sprite-icons-boxplot-dark-neutral {
     background-position: -664px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-dark-colored {
+.sprite-icons-boxplot-dark-colored {
     background-position: -664px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-light-neutral {
+.sprite-icons-bar-light-neutral {
     background-position: -664px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-light-colored {
+.sprite-icons-bar-light-colored {
     background-position: -664px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-dark-neutral {
+.sprite-icons-bar-dark-neutral {
     background-position: -664px -604px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-dark-colored {
+.sprite-icons-bar-dark-colored {
     background-position: -4px -664px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-neutral {
+    background-position: -64px -664px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-colored {
+    background-position: -124px -664px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-neutral {
+    background-position: -184px -664px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-colored {
+    background-position: -244px -664px;
     width: 52px;
     height: 52px;
 }
@@ -995,6 +1023,10 @@
     .sprite-icons-radar-light-colored,
     .sprite-icons-radar-dark-neutral,
     .sprite-icons-radar-dark-colored,
+    .sprite-icons-polar-bar-light-neutral,
+    .sprite-icons-polar-bar-light-colored,
+    .sprite-icons-polar-bar-dark-neutral,
+    .sprite-icons-polar-bar-dark-colored,
     .sprite-icons-pie-light-neutral,
     .sprite-icons-pie-light-colored,
     .sprite-icons-pie-dark-neutral,
@@ -1140,6 +1172,10 @@
     .sprite-icons-radar-light-colored,
     .sprite-icons-radar-dark-neutral,
     .sprite-icons-radar-dark-colored,
+    .sprite-icons-polar-bar-light-neutral,
+    .sprite-icons-polar-bar-light-colored,
+    .sprite-icons-polar-bar-dark-neutral,
+    .sprite-icons-polar-bar-dark-colored,
     .sprite-icons-pie-light-neutral,
     .sprite-icons-pie-light-colored,
     .sprite-icons-pie-dark-neutral,

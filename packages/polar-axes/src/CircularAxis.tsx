@@ -1,7 +1,7 @@
 import { createElement, SVGProps, useMemo } from 'react'
 import { useSpring, useTransition } from '@react-spring/web'
 import { useMotionConfig, useTheme, positionFromAngle, degreesToRadians } from '@nivo/core'
-import { AnyScale, getScaleTicks } from '@nivo/scales'
+import { AnyScale, getScaleTicks, centerScale } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 import { CircularAxisConfig, CircularAxisTickAnimatedProps } from './types'
 import { CircularAxisTick } from './CircularAxisTick'
@@ -69,11 +69,12 @@ export const CircularAxis = ({
 
     const ticks = useMemo(() => {
         const values = getScaleTicks(scale)
+        const angle = 'bandwidth' in scale ? centerScale(scale) : scale
 
         return values.map((value, index) => ({
             key: index,
             label: value,
-            angle: scale(value) - 90,
+            angle: angle(value) - 90,
         }))
     }, [scale])
 

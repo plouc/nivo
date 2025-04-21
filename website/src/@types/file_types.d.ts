@@ -160,6 +160,15 @@ declare module '*pie/meta.yml' {
     export default meta
 }
 
+declare module '*polar-bar/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        PolarBar: ChartMeta
+    }
+
+    export default meta
+}
+
 declare module '*radar/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
