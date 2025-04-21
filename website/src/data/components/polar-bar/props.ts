@@ -3,7 +3,6 @@ import {
     themeProperty,
     motionProperties,
     groupProperties,
-    defsProperties,
     polarAxisProperty,
     getLegendsProps,
 } from '../../../lib/componentProperties'
@@ -174,21 +173,6 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         defaultValue: svgDefaultProps.colors,
     }),
-    // {
-    //     key: 'fillOpacity',
-    //     group: 'Style',
-    //     type: 'number',
-    //     required: false,
-    //     help: 'Shape fill opacity.',
-    //     flavors: allFlavors,
-    //     defaultValue: svgDefaultProps.fillOpacity,
-    //     control: { type: 'opacity' },
-    // },
-    // blendMode({
-    //     target: 'layers',
-    //     flavors: ['svg'],
-    //     defaultValue: svgDefaultProps.blendMode,
-    // }),
     {
         key: 'borderWidth',
         group: 'Style',

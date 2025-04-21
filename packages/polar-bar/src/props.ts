@@ -1,20 +1,32 @@
-import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { ArcTransitionMode } from '@nivo/arcs'
 import { PolarBarTooltip } from './PolarBarTooltip'
+import { PolarBarCommonProps } from './types'
 
-export const defaultProps = {
+export const defaultProps: Omit<
+    PolarBarCommonProps<any>,
+    | 'margin'
+    | 'theme'
+    | 'onClick'
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'forwardLegendData'
+    | 'renderWrapper'
+    | 'ariaLabel'
+    | 'ariaLabelledBy'
+    | 'ariaDescribedBy'
+> = {
     indexBy: 'id',
     keys: ['value'],
 
     startAngle: 0,
     endAngle: 360,
     innerRadius: 0,
-    padAngle: 0,
     cornerRadius: 0,
 
     layers: ['grid', 'arcs', 'axes', 'labels', 'legends'],
 
-    colors: { scheme: 'nivo' } as unknown as OrdinalColorScaleConfig,
+    colors: { scheme: 'nivo' },
     // defs: [],
     // fill: [],
     borderWidth: 0,
@@ -35,11 +47,12 @@ export const defaultProps = {
     isInteractive: true,
     tooltip: PolarBarTooltip,
 
-    animate: true,
-    motionConfig: 'gentle',
-    transitionMode: 'innerRadius' as ArcTransitionMode,
-
     role: 'img',
 }
 
-export const svgDefaultProps = defaultProps
+export const svgDefaultProps = {
+    ...defaultProps,
+    animate: true,
+    motionConfig: 'gentle',
+    transitionMode: 'innerRadius' as ArcTransitionMode,
+}
