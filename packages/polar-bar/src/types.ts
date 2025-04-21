@@ -14,7 +14,6 @@ export interface PolarBarComputedDatum {
     index: string
     key: string
     id: string
-    // label: DatumId
     value: number
     formattedValue: string
     color: string
@@ -36,8 +35,8 @@ export interface PolarBarCustomLayerProps {
     innerRadius: number
     arcs: PolarBarComputedDatum[]
     arcGenerator: ArcGenerator
-    radiusScale: ScaleLinear<string>
-    angleScale: ScaleBand<number>
+    radiusScale: ScaleLinear<number>
+    angleScale: ScaleBand<string>
 }
 export type PolarBarCustomLayer = FunctionComponent<PolarBarCustomLayerProps>
 
@@ -45,6 +44,12 @@ export interface PolarBarTooltipProps {
     arc: PolarBarComputedDatum
 }
 export type PolarBarTooltipComponent = FunctionComponent<PolarBarTooltipProps>
+
+export interface PolarBarLegendDatum {
+    id: string
+    label: string
+    color: string
+}
 
 export type PolarBarCommonProps<RawDatum extends PolarBarDatum> = {
     indexBy: PropertyAccessor<RawDatum, string>
@@ -79,7 +84,7 @@ export type PolarBarCommonProps<RawDatum extends PolarBarDatum> = {
     onMouseLeave: (arc: PolarBarComputedDatum, event: MouseEvent) => void
 
     legends: readonly LegendProps[]
-    // forwardLegendData: (data: LegendDatum<RawDatum>[]) => void
+    forwardLegendData: (data: PolarBarLegendDatum[]) => void
 
     renderWrapper: boolean
 

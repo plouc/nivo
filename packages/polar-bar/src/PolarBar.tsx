@@ -47,7 +47,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     // fill = defaultProps.fill,
 
     legends = svgDefaultProps.legends,
-    // forwardLegendData,
+    forwardLegendData,
 
     isInteractive = svgDefaultProps.isInteractive,
     tooltip = svgDefaultProps.tooltip,
@@ -91,6 +91,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
         innerRadius: innerRadiusRatio,
         cornerRadius,
         colors,
+        forwardLegendData,
     })
 
     const layerById: Record<PolarBarLayerId, ReactNode> = {

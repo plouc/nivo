@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import { arc as d3Arc, stack as d3Stack } from 'd3-shape'
 import { degreesToRadians, usePropertyAccessor, useValueFormatter } from '@nivo/core'
@@ -25,9 +25,16 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
     innerRadius: innerRadiusRatio = defaultProps.innerRadius,
     cornerRadius = defaultProps.cornerRadius,
     colors = defaultProps.colors,
+    forwardLegendData,
 }: Pick<
     Partial<PolarBarCommonProps<RawDatum>>,
-    'valueFormat' | 'startAngle' | 'endAngle' | 'innerRadius' | 'cornerRadius' | 'colors'
+    | 'valueFormat'
+    | 'startAngle'
+    | 'endAngle'
+    | 'innerRadius'
+    | 'cornerRadius'
+    | 'colors'
+    | 'forwardLegendData'
 > & {
     data: PolarBarDataProps<RawDatum>['data']
     indexBy?: PolarBarCommonProps<RawDatum>['indexBy']
@@ -80,7 +87,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
 
                 return series.map((datum, indexIndex) => {
                     const index = indices[indexIndex]
-                    const value = datum.data[key]
+                    const value = datum.data[key] as number
                     const startAngle = degreesToRadians(angleScale(index) ?? 0)
 
                     const arc: PolarBarComputedDatum = {
@@ -89,6 +96,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
                         id: `${index}.${key}`,
                         value,
                         formattedValue: formatValue(value),
+                        color: '',
                         arc: {
                             startAngle,
                             endAngle: startAngle + degreesToRadians(angleScale.bandwidth()),
@@ -106,7 +114,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
 
     const arcGenerator = useMemo(
         () =>
-            d3Arc<any>()
+            d3Arc<PolarBarComputedDatum['arc']>()
                 .startAngle(d => d.startAngle)
                 .endAngle(d => d.endAngle)
                 .innerRadius(d => d.innerRadius)
@@ -123,7 +131,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
         () =>
             keys.map(key => {
                 const arcWithKey = arcs.find(arc => arc.key === key)
-                const color = arcWithKey ? arcWithKey.color : undefined
+                const color = arcWithKey ? arcWithKey.color : 'transparent'
 
                 return {
                     id: key,
@@ -133,6 +141,12 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
             }),
         [keys, arcs]
     )
+
+    const forwardLegendDataRef = useRef(forwardLegendData)
+    useEffect(() => {
+        if (typeof forwardLegendDataRef.current !== 'function') return
+        forwardLegendDataRef.current(legendData)
+    }, [forwardLegendDataRef, legendData])
 
     const customLayerProps: PolarBarCustomLayerProps = useMemo(
         () => ({
