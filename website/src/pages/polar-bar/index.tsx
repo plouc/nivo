@@ -70,7 +70,7 @@ const initialProperties: UnmappedPolarBarProps = {
     },
 
     animate: true,
-    motionConfig: 'wobbly',
+    motionConfig: 'gentle',
     transitionMode: 'outerRadius' as const,
 
     isInteractive: true,
