@@ -30,10 +30,7 @@ export const defaultProps: Omit<
     // defs: [],
     // fill: [],
     borderWidth: 0,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 1]],
-    },
+    borderColor: { theme: 'background' },
 
     enableRadialGrid: true,
     enableCircularGrid: true,
@@ -54,5 +51,5 @@ export const svgDefaultProps = {
     ...defaultProps,
     animate: true,
     motionConfig: 'gentle',
-    transitionMode: 'innerRadius' as ArcTransitionMode,
+    transitionMode: 'outerRadius' as ArcTransitionMode,
 }
