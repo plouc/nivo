@@ -30,6 +30,7 @@ export const defaultProps = {
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsSkipAngle: 0,
+    arcLabelsSkipRadius: 0,
     arcLabelsRadiusOffset: 0.5,
     arcLabelsTextColor: { theme: 'labels.text.fill' },
 

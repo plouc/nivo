@@ -97,6 +97,7 @@ export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
     enableLabels: boolean
     label: PropertyAccessor<ComputedBar<D>, string>
     labelsSkipAngle: ArcLabelsProps<ComputedBar<D>>['arcLabelsSkipAngle']
+    labelsSkipRadius: ArcLabelsProps<ComputedBar<D>>['arcLabelsSkipRadius']
     labelsRadiusOffset: ArcLabelsProps<ComputedBar<D>>['arcLabelsRadiusOffset']
     labelsTextColor: ArcLabelsProps<ComputedBar<D>>['arcLabelsTextColor']
 

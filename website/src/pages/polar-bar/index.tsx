@@ -23,7 +23,7 @@ type UnmappedPolarBarProps = Omit<
 }
 
 const initialProperties: UnmappedPolarBarProps = {
-    indexBy: 'country',
+    indexBy: 'month',
     valueFormat: { format: '>-$.0f', enabled: true },
 
     margin: {
@@ -35,12 +35,19 @@ const initialProperties: UnmappedPolarBarProps = {
 
     startAngle: svgDefaultProps.startAngle,
     endAngle: svgDefaultProps.endAngle,
-    innerRadius: 0.3,
+    innerRadius: 0.25,
     cornerRadius: 2,
 
-    colors: { scheme: 'nivo' },
+    colors: svgDefaultProps.colors,
     borderWidth: 1,
-    borderColor: { theme: 'background' },
+    borderColor: svgDefaultProps.borderColor,
+
+    enableArcLabels: true,
+    arcLabel: svgDefaultProps.arcLabel,
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsSkipAngle: 0,
+    arcLabelsSkipRadius: 28,
+    arcLabelsTextColor: svgDefaultProps.arcLabelsTextColor,
 
     enableRadialGrid: true,
     enableCircularGrid: true,
@@ -57,7 +64,7 @@ const initialProperties: UnmappedPolarBarProps = {
         tickRotation: 0,
     },
     circularAxisInner: {
-        enable: true,
+        enable: false,
         tickSize: 0,
         tickPadding: 15,
         tickRotation: 0,
