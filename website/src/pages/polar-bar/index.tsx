@@ -24,6 +24,7 @@ type UnmappedPolarBarProps = Omit<
 
 const initialProperties: UnmappedPolarBarProps = {
     indexBy: 'month',
+    adjustValueRange: true,
     valueFormat: { format: '>-$.0f', enabled: true },
 
     margin: {

@@ -19,6 +19,7 @@ export const defaultProps: Omit<
 > = {
     indexBy: 'id',
     keys: ['value'],
+    adjustValueRange: true,
 
     startAngle: 0,
     endAngle: 360,

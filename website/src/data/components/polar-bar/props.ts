@@ -70,6 +70,16 @@ const props: ChartProperty[] = [
         defaultValue: defaultProps.keys,
     },
     {
+        key: 'adjustValueRange',
+        group: 'Base',
+        help: 'Extends the range of values so that it starts and ends on nice round values.',
+        flavors: allFlavors,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaultProps.adjustValueRange,
+        control: { type: 'switch' },
+    },
+    {
         key: 'valueFormat',
         group: 'Base',
         type: 'string | (value: number) => string',

@@ -17,6 +17,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
     data,
     indexBy = defaultProps.indexBy,
     keys = defaultProps.keys,
+    adjustValueRange = defaultProps.adjustValueRange,
     valueFormat,
     width,
     height,
@@ -28,6 +29,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
     forwardLegendData,
 }: Pick<
     Partial<PolarBarCommonProps<RawDatum>>,
+    | 'adjustValueRange'
     | 'valueFormat'
     | 'startAngle'
     | 'endAngle'
@@ -58,23 +60,25 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
     const outerRadius = Math.min(...center)
     const innerRadius = outerRadius * Math.min(innerRadiusRatio, 1)
 
-    const angleScale = useMemo(
-        () =>
-            castBandScale<string>(
-                scaleBand<string>().domain(indices).range([startAngle, endAngle])
-            ),
-        [indices, startAngle, endAngle]
-    )
+    const angleScale = useMemo(() => {
+        return castBandScale<string>(
+            scaleBand<string>().domain(indices).range([startAngle, endAngle])
+        )
+    }, [indices, startAngle, endAngle])
 
-    const radiusScale = useMemo(
-        () =>
-            castLinearScale<number, number>(
-                scaleLinear<number, number>()
-                    .domain([0, maxStackedValue])
-                    .range([innerRadius, outerRadius])
-            ),
-        [innerRadius, outerRadius, maxStackedValue]
-    )
+    const radiusScale = useMemo(() => {
+        const scale = castLinearScale<number, number>(
+            scaleLinear<number, number>()
+                .domain([0, maxStackedValue])
+                .range([innerRadius, outerRadius])
+        )
+
+        if (adjustValueRange) {
+            scale.nice()
+        }
+
+        return scale
+    }, [innerRadius, outerRadius, maxStackedValue, adjustValueRange])
 
     const formatValue = useValueFormatter<number>(valueFormat)
 
