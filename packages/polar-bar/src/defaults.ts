@@ -6,6 +6,7 @@ export const defaultProps: Omit<
     PolarBarCommonProps<any>,
     | 'margin'
     | 'theme'
+    | 'arcLabelsComponent'
     | 'onClick'
     | 'onMouseEnter'
     | 'onMouseMove'
@@ -27,10 +28,15 @@ export const defaultProps: Omit<
     layers: ['grid', 'arcs', 'axes', 'labels', 'legends'],
 
     colors: { scheme: 'nivo' },
-    // defs: [],
-    // fill: [],
     borderWidth: 0,
     borderColor: { theme: 'background' },
+
+    enableArcLabels: true,
+    arcLabel: 'formattedValue',
+    arcLabelsSkipAngle: 0,
+    arcLabelsSkipRadius: 0,
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsTextColor: { theme: 'labels.text.fill' },
 
     enableRadialGrid: true,
     enableCircularGrid: true,

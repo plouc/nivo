@@ -11,7 +11,7 @@ import {
     PolarBarComputedDatum,
     PolarBarCustomLayerProps,
 } from './types'
-import { defaultProps } from './props'
+import { defaultProps } from './defaults'
 
 export const usePolarBar = <RawDatum extends PolarBarDatum>({
     data,

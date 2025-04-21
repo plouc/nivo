@@ -1,15 +1,12 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import {
-    useDimensions,
-    Container,
-    SvgWrapper,
-} from '@nivo/core'
+import { useDimensions, Container, SvgWrapper } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
+import { ArcLabelsLayer } from '@nivo/arcs'
 import { PolarGrid, RadialAxis, CircularAxis } from '@nivo/polar-axes'
-import { PolarBarSvgProps, PolarBarDatum, PolarBarLayerId } from './types'
-import { svgDefaultProps } from './props'
+import { PolarBarSvgProps, PolarBarDatum, PolarBarLayerId, PolarBarComputedDatum } from './types'
+import { svgDefaultProps } from './defaults'
 import { usePolarBar } from './hooks'
 import { PolarBarArcs } from './PolarBarArcs'
-import { BoxLegendSvg } from '@nivo/legends'
 
 const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     data,
@@ -31,6 +28,14 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     colors = svgDefaultProps.colors,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
+
+    enableArcLabels = svgDefaultProps.enableArcLabels,
+    arcLabel = svgDefaultProps.arcLabel,
+    arcLabelsSkipAngle = svgDefaultProps.arcLabelsSkipAngle,
+    arcLabelsSkipRadius = svgDefaultProps.arcLabelsSkipRadius,
+    arcLabelsTextColor = svgDefaultProps.arcLabelsTextColor,
+    arcLabelsRadiusOffset = svgDefaultProps.arcLabelsRadiusOffset,
+    arcLabelsComponent,
 
     enableRadialGrid = svgDefaultProps.enableRadialGrid,
     enableCircularGrid = svgDefaultProps.enableCircularGrid,
@@ -174,6 +179,23 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
                     />
                 )}
             </Fragment>
+        )
+    }
+
+    if (enableArcLabels && layers.includes('labels')) {
+        layerById.labels = (
+            <ArcLabelsLayer<PolarBarComputedDatum>
+                key="labels"
+                center={center}
+                data={arcs}
+                label={arcLabel}
+                radiusOffset={arcLabelsRadiusOffset}
+                skipAngle={arcLabelsSkipAngle}
+                skipRadius={arcLabelsSkipRadius}
+                textColor={arcLabelsTextColor}
+                transitionMode={transitionMode}
+                component={arcLabelsComponent}
+            />
         )
     }
 

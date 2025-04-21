@@ -74,6 +74,7 @@ const PieApi = () => {
                     enableArcLinkLabels: true,
                     arcLinkLabel: 'id',
                     arcLinkLabelsSkipAngle: 10,
+                    arcLabelsSkipRadius: 0,
                     arcLinkLabelsTextOffset: 6,
                     arcLinkLabelsTextColor: '#333333',
                     arcLinkLabelsOffset: 0,

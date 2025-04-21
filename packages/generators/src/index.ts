@@ -144,6 +144,27 @@ export const generateCountriesData = (
         return d
     })
 
+export const generateMonthlyData = (
+    keys: string[],
+    { size = 12, min = 0, max = 200, withColors = true, short = false } = {}
+) => {
+    const set = short ? sets.monthsShort : sets.months
+
+    return set.slice(0, size).map(month => {
+        const d: Record<string, unknown> = {
+            month,
+        }
+        keys.forEach(key => {
+            d[key] = random(min, max)
+            if (withColors) {
+                d[`${key}Color`] = randColor()
+            }
+        })
+
+        return d
+    })
+}
+
 const libTreeItems = [
     [
         'viz',
