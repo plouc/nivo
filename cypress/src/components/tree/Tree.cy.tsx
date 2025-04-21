@@ -18,17 +18,19 @@ const sampleData: Datum = {
     ],
 }
 
-const defaultProps: Required<Pick<
-    TreeSvgProps<Datum>,
-    | 'data'
-    | 'width'
-    | 'height'
-    | 'nodeSize'
-    | 'linkThickness'
-    | 'activeLinkThickness'
-    | 'inactiveLinkThickness'
-    | 'animate'
->> & {
+const defaultProps: Required<
+    Pick<
+        TreeSvgProps<Datum>,
+        | 'data'
+        | 'width'
+        | 'height'
+        | 'nodeSize'
+        | 'linkThickness'
+        | 'activeLinkThickness'
+        | 'inactiveLinkThickness'
+        | 'animate'
+    >
+> & {
     margin: Margin
     activeNodeSize: number
     inactiveNodeSize: number
