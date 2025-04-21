@@ -46,7 +46,7 @@ jobs:
           node-version: '18'
           cache: 'pnpm'
       - name: Cypress install
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
       - name: Build nivo packages
