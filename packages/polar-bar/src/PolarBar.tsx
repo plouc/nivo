@@ -7,8 +7,7 @@ import {
     SvgWrapper,
 } from '@nivo/core'
 import { PolarGrid, RadialAxis, CircularAxis } from '@nivo/polar-axes'
-import { InheritedColorConfig } from '@nivo/colors'
-import { PolarBarSvgProps, PolarBarDatum, PolarBarLayerId, PolarBarComputedDatum } from './types'
+import { PolarBarSvgProps, PolarBarDatum, PolarBarLayerId } from './types'
 import { svgDefaultProps } from './props'
 import { usePolarBar } from './hooks'
 import { PolarBarArcs } from './PolarBarArcs'
@@ -20,7 +19,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     keys = svgDefaultProps.keys,
     valueFormat,
 
-    layers = svgDefaultProps.layers as PolarBarLayerId[],
+    layers = svgDefaultProps.layers,
 
     width,
     height,
@@ -33,7 +32,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
 
     colors = svgDefaultProps.colors,
     borderWidth = svgDefaultProps.borderWidth,
-    borderColor = svgDefaultProps.borderColor as InheritedColorConfig<PolarBarComputedDatum>,
+    borderColor = svgDefaultProps.borderColor,
 
     enableRadialGrid = svgDefaultProps.enableRadialGrid,
     enableCircularGrid = svgDefaultProps.enableCircularGrid,
