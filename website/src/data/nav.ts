@@ -15,6 +15,7 @@ import marimekko from './components/marimekko/meta.yml'
 import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
 import pie from './components/pie/meta.yml'
+import polarBar from './components/polar-bar/meta.yml'
 import radar from './components/radar/meta.yml'
 import radialBar from './components/radial-bar/meta.yml'
 import sankey from './components/sankey/meta.yml'
@@ -183,6 +184,14 @@ export const components: ChartNavData[] = [
             svg: true,
             canvas: true,
             api: true,
+        },
+    },
+    {
+        name: 'PolarBar',
+        id: 'polar-bar',
+        tags: polarBar.PolarBar.tags,
+        flavors: {
+            svg: true,
         },
     },
     {

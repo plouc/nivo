@@ -34,6 +34,7 @@
         { "path": "./packages/marimekko" },
         { "path": "./packages/network" },
         { "path": "./packages/pie" },
+        { "path": "./packages/polar-bar" },
         { "path": "./packages/radar" },
         { "path": "./packages/radial-bar" },
         { "path": "./packages/sankey" },

@@ -25,6 +25,7 @@
         "@nivo/network": "workspace:*",
         "@nivo/parallel-coordinates": "workspace:*",
         "@nivo/pie": "workspace:*",
+        "@nivo/polar-bar": "workspace:*",
         "@nivo/radar": "workspace:*",
         "@nivo/radial-bar": "workspace:*",
         "@nivo/sankey": "workspace:*",
