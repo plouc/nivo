@@ -1,5 +1,5 @@
+import { Margin } from '@nivo/core'
 import { Tree, TreeSvgProps } from '@nivo/tree'
-import { before } from 'lodash'
 
 interface Datum {
     id: string
@@ -18,20 +18,21 @@ const sampleData: Datum = {
     ],
 }
 
-const defaultProps: Pick<
+const defaultProps: Required<Pick<
     TreeSvgProps<Datum>,
     | 'data'
     | 'width'
     | 'height'
-    | 'margin'
     | 'nodeSize'
-    | 'activeNodeSize'
-    | 'inactiveNodeSize'
     | 'linkThickness'
     | 'activeLinkThickness'
     | 'inactiveLinkThickness'
     | 'animate'
-> = {
+>> & {
+    margin: Margin
+    activeNodeSize: number
+    inactiveNodeSize: number
+} = {
     data: sampleData,
     width: 640,
     height: 640,
