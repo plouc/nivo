@@ -1,27 +1,15 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import merge from 'lodash/merge'
-import { ResponsivePolarBar, PolarBarSvgProps, svgDefaultProps } from '@nivo/polar-bar'
+import { ResponsivePolarBar, svgDefaultProps } from '@nivo/polar-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/polar-bar/meta.yml'
-import mapper from '../../data/components/polar-bar/mapper'
+import mapper, {
+    UnmappedPolarBarProps,
+    MappedPolarBarProps,
+} from '../../data/components/polar-bar/mapper'
 import { groups } from '../../data/components/polar-bar/props'
 import { generateLightDataSet } from '../../data/components/polar-bar/generator'
-
-type MappedPolarBarProps = Omit<PolarBarSvgProps<any>, 'data' | 'width' | 'height'>
-type UnmappedPolarBarProps = Omit<
-    MappedPolarBarProps,
-    'valueFormat' | 'radialAxisStart' | 'radialAxisEnd' | 'circularAxisInner' | 'circularAxisOuter'
-> & {
-    valueFormat: {
-        format: string
-        enabled: boolean
-    }
-    radialAxisStart: { enable: boolean } & MappedPolarBarProps['radialAxisStart']
-    radialAxisEnd: { enable: boolean } & MappedPolarBarProps['radialAxisEnd']
-    circularAxisInner: { enable: boolean } & MappedPolarBarProps['circularAxisInner']
-    circularAxisOuter: { enable: boolean } & MappedPolarBarProps['circularAxisOuter']
-}
 
 const initialProperties: UnmappedPolarBarProps = {
     indexBy: 'month',

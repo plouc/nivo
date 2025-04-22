@@ -1,23 +1,45 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
-import { mapFormat, settingsMapper } from '../../../lib/settings'
+import { SunburstSvgProps, ComputedDatum } from '@nivo/sunburst'
+import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+
+export type MappedSunburstProps = Omit<
+    SunburstSvgProps<any>,
+    'data' | 'width' | 'height' | 'tooltip'
+> & {
+    tooltip?: (node: ComputedDatum<any>) => React.ReactNode
+}
+export type UnmappedSunburstProps = UnmappedSettings<
+    MappedSunburstProps,
+    {
+        valueFormat: {
+            format: string
+            enabled: boolean
+        }
+        arcLabel: string
+        'custom tooltip example': boolean
+        'showcase pattern usage': boolean
+    },
+    'tooltip'
+>
 
 const TooltipWrapper = styled.div`
     display: grid;
+    padding: 12px;
     background: #fff;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 12px;
     font-size: 12px;
     border-radius: 2px;
-    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
 `
 const TooltipKey = styled.span`
     font-weight: 600;
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = node => {
+const CustomTooltip = (node: ComputedDatum<any>) => {
     return (
         <TooltipWrapper style={{ color: node.color }}>
             <TooltipKey>id</TooltipKey>
@@ -32,19 +54,22 @@ const CustomTooltip = node => {
     )
 }
 
-export default settingsMapper(
+export default settingsMapper<UnmappedSunburstProps, MappedSunburstProps>(
     {
         valueFormat: mapFormat,
         arcLabel: value => {
-            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
+            if (value === `d => \`\${d.id} (\${d.value})\``) {
+                return (d: ComputedDatum<any>) => `${d.id} (${d.value})`
+            }
+
             return value
         },
-        tooltip: (value, values) => {
+        tooltip: (_value, values) => {
             if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
-        defs: (value, values) => {
+        defs: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [
@@ -57,7 +82,7 @@ export default settingsMapper(
                 }),
             ]
         },
-        fill: (value, values) => {
+        fill: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [

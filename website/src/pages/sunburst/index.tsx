@@ -4,17 +4,16 @@ import { generateLibTree } from '@nivo/generators'
 import { omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sunburst/meta.yml'
-import mapper from '../../data/components/sunburst/mapper'
+import mapper, {
+    UnmappedSunburstProps,
+    MappedSunburstProps,
+} from '../../data/components/sunburst/mapper'
 import { groups } from '../../data/components/sunburst/props'
 import { graphql, useStaticQuery } from 'gatsby'
 
-const Tooltip = () => {
-    /* return custom tooltip */
-}
-
 const generateData = () => generateLibTree()
 
-const initialProperties = {
+const initialProperties: UnmappedSunburstProps = {
     margin: {
         top: 10,
         right: 10,
@@ -50,7 +49,6 @@ const initialProperties = {
     fill: [],
     isInteractive: true,
     'custom tooltip example': false,
-    tooltip: null,
     'showcase pattern usage': false,
 }
 
@@ -70,7 +68,7 @@ const Sunburst = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedSunburstProps, MappedSunburstProps, any>
             name="Sunburst"
             meta={meta.Sunburst}
             icon="sunburst"
