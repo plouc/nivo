@@ -62,7 +62,6 @@
         "d3-sankey": "^0.12.3",
         "d3-scale": "^4.0.2",
         "d3-shape": "^3.2.0",
-        "prop-types": "^15.8.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "storybook": "^7.0.7",
