@@ -22,6 +22,7 @@
     ],
     "main": "./dist/nivo-geo.cjs.js",
     "module": "./dist/nivo-geo.mjs",
+    "types": "./index.d.ts",
     "files": [
         "README.md",
         "LICENSE.md",
@@ -45,6 +46,7 @@
     },
     "exports": {
         ".": {
+            "types": "./index.d.ts",
             "import": "./dist/nivo-geo.mjs",
             "require": "./dist/nivo-geo.cjs.js"
         }
