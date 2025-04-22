@@ -12,7 +12,10 @@ const Slices = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
@@ -31,7 +34,10 @@ const Slices = ({
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
             onClick={onClick}
+            onDoubleClick={onDoubleClick}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}

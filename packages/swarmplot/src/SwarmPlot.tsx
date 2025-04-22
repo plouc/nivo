@@ -56,7 +56,10 @@ const InnerSwarmPlot = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip = defaultProps.tooltip,
     annotations = defaultProps.annotations,
     role = defaultProps.role,
@@ -93,9 +96,12 @@ const InnerSwarmPlot = <RawDatum,>({
     const handlers = useNodeMouseHandlers({
         isInteractive,
         onClick,
+        onDoubleClick,
         onMouseEnter,
         onMouseLeave,
         onMouseMove,
+        onMouseDown,
+        onMouseUp,
         tooltip,
     })
 
@@ -150,7 +156,10 @@ const InnerSwarmPlot = <RawDatum,>({
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
                 onClick={onClick}
+                onDoubleClick={onDoubleClick}
             />
         )
     }
@@ -175,7 +184,10 @@ const InnerSwarmPlot = <RawDatum,>({
                 onMouseEnter={handlers.onMouseEnter}
                 onMouseMove={handlers.onMouseMove}
                 onMouseLeave={handlers.onMouseLeave}
+                onMouseDown={handlers.onMouseDown}
+                onMouseUp={handlers.onMouseUp}
                 onClick={handlers.onClick}
+                onDoubleClick={handlers.onDoubleClick}
                 debug={debugMesh}
             />
         )

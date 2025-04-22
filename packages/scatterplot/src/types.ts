@@ -62,7 +62,10 @@ export interface ScatterPlotNodeProps<RawDatum extends ScatterPlotDatum> {
     onMouseEnter?: ScatterPlotMouseHandler<RawDatum>
     onMouseMove?: ScatterPlotMouseHandler<RawDatum>
     onMouseLeave?: ScatterPlotMouseHandler<RawDatum>
+    onMouseDown?: ScatterPlotMouseHandler<RawDatum>
+    onMouseUp?: ScatterPlotMouseHandler<RawDatum>
     onClick?: ScatterPlotMouseHandler<RawDatum>
+    onDoubleClick?: ScatterPlotMouseHandler<RawDatum>
 }
 export type ScatterPlotNode<RawDatum extends ScatterPlotDatum> = FunctionComponent<
     ScatterPlotNodeProps<RawDatum>
@@ -143,7 +146,10 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     onMouseEnter: ScatterPlotMouseHandler<RawDatum>
     onMouseMove: ScatterPlotMouseHandler<RawDatum>
     onMouseLeave: ScatterPlotMouseHandler<RawDatum>
+    onMouseDown: ScatterPlotMouseHandler<RawDatum>
+    onMouseUp: ScatterPlotMouseHandler<RawDatum>
     onClick: ScatterPlotMouseHandler<RawDatum>
+    onDoubleClick: ScatterPlotMouseHandler<RawDatum>
     tooltip: ScatterPlotTooltip<RawDatum>
     annotations: AnnotationMatcher<ScatterPlotNodeData<RawDatum>>[]
     legends: LegendProps[]

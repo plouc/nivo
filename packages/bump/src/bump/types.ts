@@ -208,7 +208,10 @@ interface BumpMeshCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSe
     onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
     onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
     onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpPointMouseHandler<Datum, ExtraProps>
     onClick?: BumpPointMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpPointMouseHandler<Datum, ExtraProps>
 }
 
 interface BumpSerieCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>
@@ -217,7 +220,10 @@ interface BumpSerieCommonProps<Datum extends BumpDatum, ExtraProps extends BumpS
     onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
     onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
     onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
     onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
 }
 
 export type BumpCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> =
