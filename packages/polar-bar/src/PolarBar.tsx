@@ -41,8 +41,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
 
     enableRadialGrid = svgDefaultProps.enableRadialGrid,
     enableCircularGrid = svgDefaultProps.enableCircularGrid,
-    radialAxisStart = svgDefaultProps.radialAxisStart,
-    radialAxisEnd = svgDefaultProps.radialAxisEnd,
+    radialAxis = svgDefaultProps.radialAxis,
     circularAxisInner = svgDefaultProps.circularAxisInner,
     circularAxisOuter = svgDefaultProps.circularAxisOuter,
 
@@ -143,25 +142,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     if (layers.includes('axes')) {
         layerById.axes = (
             <Fragment key="axes">
-                {radialAxisStart && (
-                    <RadialAxis
-                        type="start"
-                        center={center}
-                        angle={Math.min(startAngle, endAngle)}
-                        scale={radiusScale}
-                        {...radialAxisStart}
-                    />
-                )}
-                {radialAxisEnd && (
-                    <RadialAxis
-                        type="end"
-                        center={center}
-                        angle={Math.max(startAngle, endAngle)}
-                        scale={radiusScale}
-                        {...radialAxisEnd}
-                    />
-                )}
-                {circularAxisInner && (
+                {circularAxisInner && innerRadius > 0 && (
                     <CircularAxis
                         type="inner"
                         center={center}
@@ -181,6 +162,14 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
                         endAngle={endAngle}
                         scale={angleScale}
                         {...circularAxisOuter}
+                    />
+                )}
+                {radialAxis && (
+                    <RadialAxis
+                        center={center}
+                        scale={radiusScale}
+                        ticks={valueSteps}
+                        {...radialAxis}
                     />
                 )}
             </Fragment>
