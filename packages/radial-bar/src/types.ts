@@ -57,7 +57,7 @@ export interface RadialBarTooltipProps<D extends RadialBarDatum = RadialBarDatum
     bar: ComputedBar<D>
 }
 export type RadialBarTooltipComponent<D extends RadialBarDatum = RadialBarDatum> =
- FunctionComponent<RadialBarTooltipProps<D>>
+    FunctionComponent<RadialBarTooltipProps<D>>
 
 export interface RadialBarTrackDatum {
     id: string
