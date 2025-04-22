@@ -69,7 +69,11 @@ export const ContinuousColorsLegendSvg = ({
                     y2={gradientY2}
                 >
                     {colorStops.map(colorStop => (
-                        <stop {...colorStop} />
+                        <stop
+                            key={colorStop.key}
+                            offset={colorStop.offset}
+                            stopColor={colorStop.stopColor}
+                        />
                     ))}
                 </linearGradient>
             </defs>
