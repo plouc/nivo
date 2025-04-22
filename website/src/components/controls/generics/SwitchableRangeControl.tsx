@@ -1,6 +1,6 @@
 import React, { useCallback, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 import { ControlContext, SwitchableRangeControlConfig } from '../types'
 import { ChartProperty, Flavor } from '../../../types'
 import { Control, PropertyHeader, Help, TextInput, Switch } from '../ui'

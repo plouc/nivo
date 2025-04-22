@@ -1,6 +1,6 @@
 import React from 'react'
-import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
+import range from 'lodash/range.js'
+import shuffle from 'lodash/shuffle.js'
 import { graphql, useStaticQuery } from 'gatsby'
 import {
     ResponsiveBump,

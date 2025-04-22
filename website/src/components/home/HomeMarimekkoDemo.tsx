@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import random from 'lodash/random'
+import random from 'lodash/random.js'
 import { Marimekko } from '@nivo/marimekko'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'

@@ -21,7 +21,7 @@
         "tree"
     ],
     "main": "./dist/nivo-tree.cjs.js",
-    "module": "./dist/nivo-tree.es.js",
+    "module": "./dist/nivo-tree.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -48,5 +48,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-tree.mjs",
+            "require": "./dist/nivo-tree.cjs.js"
+        }
     }
 }

@@ -19,7 +19,7 @@
         "polar"
     ],
     "main": "./dist/nivo-polar-axes.cjs.js",
-    "module": "./dist/nivo-polar-axes.es.js",
+    "module": "./dist/nivo-polar-axes.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -38,5 +38,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-polar-axes.mjs",
+            "require": "./dist/nivo-polar-axes.cjs.js"
+        }
     }
 }

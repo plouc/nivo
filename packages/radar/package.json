@@ -20,7 +20,7 @@
         "radar-chart"
     ],
     "main": "./dist/nivo-radar.cjs.js",
-    "module": "./dist/nivo-radar.es.js",
+    "module": "./dist/nivo-radar.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -44,5 +44,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-radar.mjs",
+            "require": "./dist/nivo-radar.cjs.js"
+        }
     }
 }

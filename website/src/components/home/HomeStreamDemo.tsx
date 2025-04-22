@@ -1,6 +1,6 @@
 import React from 'react'
-import range from 'lodash/range'
-import random from 'lodash/random'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
 import { Stream } from '@nivo/stream'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'

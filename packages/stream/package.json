@@ -20,7 +20,7 @@
         "stream-chart"
     ],
     "main": "./dist/nivo-stream.cjs.js",
-    "module": "./dist/nivo-stream.es.js",
+    "module": "./dist/nivo-stream.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -44,5 +44,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-stream.mjs",
+            "require": "./dist/nivo-stream.cjs.js"
+        }
     }
 }

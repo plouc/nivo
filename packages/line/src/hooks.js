@@ -3,7 +3,7 @@ import { area, line } from 'd3-shape'
 import { curveFromProp, useTheme, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
-import uniqueId from 'lodash/uniqueId'
+import uniqueId from 'lodash/uniqueId.js'
 import { LineDefaultProps } from './props'
 
 export const useLineGenerator = ({ curve }) => {
