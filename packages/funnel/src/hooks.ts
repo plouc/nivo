@@ -7,8 +7,8 @@ import { useAnnotations } from '@nivo/annotations'
 import { useTooltip, TooltipActionsContextData } from '@nivo/tooltip'
 import { svgDefaultProps as defaults } from './props'
 import { PartTooltip, PartTooltipProps } from './PartTooltip'
-import isPlainObject from 'lodash/isPlainObject'
-import get from 'lodash/get'
+import isPlainObject from 'lodash/isPlainObject.js'
+import get from 'lodash/get.js'
 import {
     FunnelDatum,
     FunnelCommonProps,
