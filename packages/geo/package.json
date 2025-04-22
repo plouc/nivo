@@ -35,8 +35,7 @@
         "@nivo/tooltip": "workspace:*",
         "d3-format": "^1.4.4",
         "d3-geo": "^1.11.3",
-        "lodash": "^4.17.21",
-        "prop-types": "^15.7.2"
+        "lodash": "^4.17.21"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 20.0.0"
