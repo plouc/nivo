@@ -20,7 +20,7 @@
         "polar-bar"
     ],
     "main": "./dist/nivo-polar-bar.cjs.js",
-    "module": "./dist/nivo-polar-bar.es.js",
+    "module": "./dist/nivo-polar-bar.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -47,5 +47,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-polar-bar.mjs",
+            "require": "./dist/nivo-polar-bar.cjs.js"
+        }
     }
 }
