@@ -1,8 +1,7 @@
 import { useRef } from 'react'
-import PropTypes from 'prop-types'
 import { TooltipProvider, Tooltip } from '@nivo/tooltip'
 import { ThemeProvider } from '../theming'
-import { MotionConfigProvider, motionPropTypes } from '../motion'
+import { MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
 
 const containerStyle = {
@@ -35,15 +34,6 @@ export const Container = ({
             </MotionConfigProvider>
         </ThemeProvider>
     )
-}
-
-Container.propTypes = {
-    children: PropTypes.element.isRequired,
-    isInteractive: PropTypes.bool,
-    renderWrapper: PropTypes.bool,
-    theme: PropTypes.object,
-    animate: PropTypes.bool,
-    motionConfig: PropTypes.oneOfType([PropTypes.string, motionPropTypes.motionConfig]),
 }
 
 export default Container

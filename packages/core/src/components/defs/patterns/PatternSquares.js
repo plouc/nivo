@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 
 export const PatternSquaresDefaultProps = {
     color: '#000000',
@@ -41,16 +40,6 @@ export const PatternSquares = memo(props => {
         </pattern>
     )
 })
-
-PatternSquares.displayName = 'PatternSquares'
-PatternSquares.propTypes = {
-    id: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    background: PropTypes.string.isRequired,
-    size: PropTypes.number.isRequired,
-    padding: PropTypes.number.isRequired,
-    stagger: PropTypes.bool.isRequired,
-}
 
 export const patternSquaresDef = (id, options = {}) => ({
     id,
