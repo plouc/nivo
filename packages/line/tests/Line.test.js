@@ -292,6 +292,43 @@ it('should call the custom label callback for each point', () => {
     }
 })
 
+it('should display a custom legendNode for marker', () => {
+    const data = [
+        {
+            id: 'A',
+            data: [
+                { x: 0, y: 3 },
+                { x: 1, y: 7 },
+                { x: 2, y: 11 },
+                { x: 3, y: 9 },
+                { x: 4, y: 8 },
+            ],
+        },
+    ]
+    const markers = [
+        {
+            axis: 'x',
+            lineStyle: {
+                stroke: 'lightblue',
+                strokeWidth: 5,
+            },
+            legendPosition: 'top',
+            legendNode: (
+                <foreignObject x={0} y={0} width={32} height={32}>
+                    <div>😎</div>
+                </foreignObject>
+            ),
+        },
+    ]
+
+    const component = renderer.create(
+        <Line width={500} height={300} data={data} animate={false} markers={markers} />
+    )
+
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+})
+
 describe('curve interpolation', () => {
     const curveInterpolations = [
         'basis',
@@ -398,7 +435,7 @@ describe('mouse events on slices', () => {
     })
 })
 
-describe('touch events with useMesh', () => {
+describe('events with useMesh', () => {
     const data = [
         {
             id: 'A',
@@ -420,6 +457,18 @@ describe('touch events with useMesh', () => {
         enableTouchCrosshair: true,
     }
 
+    it('should not throw onMouseEnter on empty data', () => {
+        const onMouseEnter = jest.fn()
+        const wrapper = mount(<Line {...baseProps} data={[]} onMouseEnter={onMouseEnter} />)
+        expect(() =>
+            wrapper.find(`[data-ref='mesh-interceptor']`).simulate('mouseenter', {
+                clientX: 50,
+                clientY: 50,
+            })
+        ).not.toThrow()
+        wrapper.unmount()
+    })
+
     it('should call onTouchStart', () => {
         const onTouchStart = jest.fn()
         const wrapper = mount(<Line {...baseProps} onTouchStart={onTouchStart} />)
@@ -427,6 +476,7 @@ describe('touch events with useMesh', () => {
             touches: [{ clientX: 50, clientY: 50 }],
         })
         expect(onTouchStart).toHaveBeenCalledTimes(1)
+        wrapper.unmount()
     })
 
     it('should call onTouchMove', () => {
@@ -436,6 +486,7 @@ describe('touch events with useMesh', () => {
             touches: [{ clientX: 50, clientY: 50 }],
         })
         expect(onTouchMove).toHaveBeenCalledTimes(1)
+        wrapper.unmount()
     })
 
     it('should call onTouchEnd', () => {
@@ -448,6 +499,7 @@ describe('touch events with useMesh', () => {
             })
             .simulate('touchend')
         expect(onTouchEnd).toHaveBeenCalledTimes(1)
+        wrapper.unmount()
     })
 })
 

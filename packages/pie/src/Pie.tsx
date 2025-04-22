@@ -46,6 +46,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
+    arcLabelsSkipRadius = defaultProps.arcLabelsSkipRadius,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
     arcLabelsComponent,
@@ -187,6 +188,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
                 label={arcLabel}
                 radiusOffset={arcLabelsRadiusOffset}
                 skipAngle={arcLabelsSkipAngle}
+                skipRadius={arcLabelsSkipRadius}
                 textColor={arcLabelsTextColor}
                 transitionMode={transitionMode}
                 component={arcLabelsComponent}

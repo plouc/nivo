@@ -146,7 +146,7 @@ export const useThicknessScale = <RawDatum>({
 export const useComputedData = <RawDatum>({
     data,
     stacked,
-    dimensionIds,
+    rawDimensions,
     valueFormat,
     thicknessScale,
     dimensionsScale,
@@ -157,7 +157,7 @@ export const useComputedData = <RawDatum>({
 }: {
     data: NormalizedDatum<RawDatum>[]
     stacked: Series<RawDatum, string>[]
-    dimensionIds: string[]
+    rawDimensions: DataProps<RawDatum>['dimensions']
     valueFormat: DataProps<RawDatum>['valueFormat']
     thicknessScale: ScaleLinear<number>
     dimensionsScale: ScaleLinear<number>
@@ -193,12 +193,13 @@ export const useComputedData = <RawDatum>({
 
             position += thickness + innerPadding
 
-            dimensionIds.forEach(dimensionId => {
-                const dimension = stacked.find(stack => stack.key === dimensionId)
+            rawDimensions.forEach(rawDimension => {
+                const dimension = stacked.find(stack => stack.key === rawDimension.id)
                 if (dimension) {
                     const dimensionPoint = dimension[datum.index]
                     const dimensionDatum: DimensionDatum<RawDatum> = {
-                        id: dimensionId,
+                        id: rawDimension.id,
+                        dimension: rawDimension,
                         datum: computedDatum,
                         value: dimensionPoint[1] - dimensionPoint[0],
                         formattedValue: formatValue(dimensionPoint[1] - dimensionPoint[0]),
@@ -252,7 +253,7 @@ export const useComputedData = <RawDatum>({
     }, [
         data,
         stacked,
-        dimensionIds,
+        rawDimensions,
         thicknessScale,
         dimensionsScale,
         layout,
@@ -335,7 +336,7 @@ export const useMarimekko = <RawDatum>({
     const computedData = useComputedData<RawDatum>({
         data: normalizedData,
         stacked,
-        dimensionIds,
+        rawDimensions,
         valueFormat,
         thicknessScale,
         dimensionsScale,

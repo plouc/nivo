@@ -118,6 +118,41 @@ export const Diverging: Story = {
         )
     },
 }
+export const CustomColors: Story = {
+    render: () => {
+        const data = generateData()
+        const dimensions = [
+            {
+                id: 'disagree strongly',
+                value: 'stronglyDisagree',
+                color: '#d63a3a',
+            },
+            {
+                id: 'disagree',
+                value: 'disagree',
+                color: '#d6883a',
+            },
+            {
+                id: 'agree',
+                value: 'agree',
+                color: '#ecce00',
+            },
+            {
+                id: 'agree strongly',
+                value: 'stronglyAgree',
+                color: '#007c3e',
+            },
+        ]
+        return (
+            <Marimekko
+                {...commonProps}
+                data={data}
+                dimensions={dimensions}
+                colors={{ datum: 'dimension.color' }}
+            />
+        )
+    },
+}
 
 const ShadowsLayer = ({ data }) => (
     <>

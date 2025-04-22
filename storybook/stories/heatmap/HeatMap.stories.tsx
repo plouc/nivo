@@ -100,6 +100,15 @@ export const CustomTooltip: Story = {
     ),
 }
 
+export const MultipleHeatMaps: Story = {
+    render: () => (
+        <>
+            <HeatMapWithColor colorConfig={'sequential (full domain)'} />
+            <HeatMapWithColor colorConfig={'diverging at 0.5'} />
+        </>
+    ),
+}
+
 const customColorConfigs = {
     'sequential (full domain)': {
         type: 'sequential',

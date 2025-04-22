@@ -133,6 +133,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         toggleSerie,
         legendsWithData,
         barTotals,
+        getColor,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -409,6 +410,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             onClick,
             onMouseEnter,
             onMouseLeave,
+            getColor,
         }),
         [
             commonProps,
@@ -427,6 +429,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             onClick,
             onMouseEnter,
             onMouseLeave,
+            getColor,
         ]
     )
 

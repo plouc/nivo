@@ -1,6 +1,6 @@
 {
     "name": "nivo-e2e",
-    "version": "0.87.0",
+    "version": "0.88.0",
     "private": true,
     "description": "nivo end-to-end tests",
     "dependencies": {
@@ -25,6 +25,7 @@
         "@nivo/network": "workspace:*",
         "@nivo/parallel-coordinates": "workspace:*",
         "@nivo/pie": "workspace:*",
+        "@nivo/polar-bar": "workspace:*",
         "@nivo/radar": "workspace:*",
         "@nivo/radial-bar": "workspace:*",
         "@nivo/sankey": "workspace:*",

@@ -256,6 +256,22 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'arcLabelsSkipRadius',
+        help: `Skip label if corresponding arc's radius is lower than provided value.`,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.arcLabelsSkipRadius,
+        group: 'Arc labels',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 60,
+            step: 1,
+        },
+    },
+    {
         key: 'arcLabelsTextColor',
         help: 'Defines how to compute arc label text color.',
         flavors: allFlavors,

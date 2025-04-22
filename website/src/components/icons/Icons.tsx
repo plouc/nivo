@@ -19,6 +19,7 @@ import { MarimekkoIcon } from './MarimekkoIcon'
 import { NetworkIcon } from './NetworkIcon'
 import { ParallelCoordinatesIcon } from './ParallelCoordinatesIcon'
 import { PieIcon } from './PieIcon'
+import { PolarBarIcon } from './PolarBarIcon'
 import { RadarIcon } from './RadarIcon'
 import { RadialBarIcon } from './RadialBarIcon'
 import { SankeyIcon } from './SankeyIcon'
@@ -61,11 +62,12 @@ const ColorsDemo = ({ type }: { type: IconType }) => {
 
 export const Icons = () => (
     <Container>
-        <TreeIcon />
+        <PolarBarIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <TreeIcon />
         <BoxPlotIcon />
         <AreaBumpIcon />
         <BarIcon />

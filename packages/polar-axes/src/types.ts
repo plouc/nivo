@@ -1,6 +1,7 @@
 import { AnimatedProps } from '@react-spring/web'
 import { ValueFormat } from '@nivo/core'
 import { FunctionComponent } from 'react'
+import { TicksSpec } from '@nivo/scales'
 
 export interface RadialAxisTickAnimatedProps {
     y: number
@@ -22,6 +23,7 @@ export interface RadialAxisTickProps {
 export type RadialAxisTickComponent = FunctionComponent<RadialAxisTickProps>
 
 export interface RadialAxisConfig {
+    ticks?: TicksSpec<any>
     tickSize?: number
     tickPadding?: number
     tickRotation?: number

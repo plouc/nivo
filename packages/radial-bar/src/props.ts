@@ -31,6 +31,7 @@ export const commonDefaultProps = {
     enableLabels: false,
     label: 'formattedValue',
     labelsSkipAngle: 10,
+    labelsSkipRadius: 0,
     labelsRadiusOffset: 0.5,
     labelsTextColor: { theme: 'labels.text.fill' },
 

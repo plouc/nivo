@@ -97,6 +97,10 @@ capture:
         chart: pie
         flavors: [svg, canvas]
 
+      - pkg: polar-bar
+        chart: polar-bar
+        flavors: [svg]
+
       - pkg: radar
         chart: radar
         flavors: [svg]

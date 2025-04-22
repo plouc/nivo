@@ -52,6 +52,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     enableLabels = svgDefaultProps.enableLabels,
     label = svgDefaultProps.label,
     labelsSkipAngle = svgDefaultProps.labelsSkipAngle,
+    labelsSkipRadius = svgDefaultProps.labelsSkipRadius,
     labelsRadiusOffset = svgDefaultProps.labelsRadiusOffset,
     labelsTextColor = svgDefaultProps.labelsTextColor,
     isInteractive = svgDefaultProps.isInteractive,
@@ -124,19 +125,19 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                 />
                 {radialAxisStart && (
                     <RadialAxis
-                        type="start"
                         center={center}
                         angle={Math.min(startAngle, endAngle)}
                         scale={radiusScale}
+                        ticksPosition="before"
                         {...radialAxisStart}
                     />
                 )}
                 {radialAxisEnd && (
                     <RadialAxis
-                        type="end"
                         center={center}
                         angle={Math.max(startAngle, endAngle)}
                         scale={radiusScale}
+                        ticksPosition="after"
                         {...radialAxisEnd}
                     />
                 )}
@@ -207,6 +208,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                 label={label}
                 radiusOffset={labelsRadiusOffset}
                 skipAngle={labelsSkipAngle}
+                skipRadius={labelsSkipRadius}
                 textColor={labelsTextColor}
                 transitionMode={transitionMode}
             />

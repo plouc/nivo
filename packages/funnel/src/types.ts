@@ -5,10 +5,26 @@ import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { PartTooltipProps } from './PartTooltip'
 
-export interface FunnelDatum {
+// Define size configuration
+export type SizeSpecCustomFunction<Datum> = (d: Datum) => number
+export type SizeSpecCustomSizes = number[]
+export interface SizeSpecDatumProperty {
+    datum: string
+}
+
+export type SizeSpec<Datum = any> =
+    | SizeSpecCustomFunction<Datum>
+    | SizeSpecCustomSizes
+    | SizeSpecDatumProperty
+
+type BaseFunnelDatum = {
     id: string | number
     value: number
     label?: string
+}
+
+export type FunnelDatum<T = Record<string, string | number>> = BaseFunnelDatum & {
+    [P in keyof T]: T[P]
 }
 
 export interface Position {
@@ -87,7 +103,6 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
     layers: (FunnelLayerId | FunnelCustomLayer<D>)[]
 
     valueFormat: ValueFormat<number>
-
     direction: FunnelDirection
     interpolation: 'smooth' | 'linear'
     spacing: number
@@ -95,6 +110,7 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
 
     theme: Theme
     colors: OrdinalColorScaleConfig<D>
+    size: SizeSpec<D>
     fillOpacity: number
     borderWidth: number
     borderColor: InheritedColorConfig<FunnelPart<D>>

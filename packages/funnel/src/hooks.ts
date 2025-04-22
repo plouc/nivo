@@ -1,12 +1,14 @@
 import { createElement, useMemo, useState, MouseEvent } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
-import { ScaleLinear, scaleLinear } from 'd3-scale'
+import { ScaleLinear, scaleLinear, scaleOrdinal } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTheme, useValueFormatter } from '@nivo/core'
 import { useAnnotations } from '@nivo/annotations'
 import { useTooltip, TooltipActionsContextData } from '@nivo/tooltip'
 import { svgDefaultProps as defaults } from './props'
 import { PartTooltip, PartTooltipProps } from './PartTooltip'
+import isPlainObject from 'lodash/isPlainObject'
+import get from 'lodash/get'
 import {
     FunnelDatum,
     FunnelCommonProps,
@@ -18,6 +20,8 @@ import {
     FunnelAreaPoint,
     FunnelBorderGenerator,
     Position,
+    SizeSpec,
+    SizeSpecDatumProperty,
 } from './types'
 
 export const computeShapeGenerators = <D extends FunnelDatum>(
@@ -263,6 +267,56 @@ export const computePartsHandlers = <D extends FunnelDatum>({
     })
 }
 
+const isSizeSpecDatumProperty = <Datum>(
+    config: SizeSpec<Datum> | undefined
+): config is SizeSpecDatumProperty => {
+    return (config as SizeSpecDatumProperty).datum !== undefined
+}
+
+// Get size based on configuration
+export const getSizeGenerator = <Datum extends FunnelDatum>(
+    config: SizeSpec<Datum> | undefined,
+    linearScale: ScaleLinear<number, number>
+): ((datum: Datum) => number) => {
+    //User defined function
+    if (typeof config === 'function') {
+        return config
+    }
+
+    // User defined sizes array
+    if (Array.isArray(config)) {
+        const scale = scaleOrdinal(config)
+        const generator = (datum: Datum) => {
+            // Ensure we're using the id property from the datum to map to the appropriate size
+            return Number(scale(String(datum.id)))
+        }
+
+        return generator
+    }
+
+    if (isPlainObject(config)) {
+        // Use size from current datum
+        if (isSizeSpecDatumProperty(config)) {
+            return (datum: Datum) => {
+                const value = get(datum, config.datum)
+                return typeof value === 'number' ? value : 0
+            }
+        }
+
+        throw new Error(`Invalid size, when using an object, you should specify a 'datum' property`)
+    }
+
+    // Default behavior: use linearScale with datum.value
+    return (datum: Datum) => linearScale(datum.value)
+}
+
+// Use size scale hook
+export const useSize = <Datum extends FunnelDatum>(
+    config: SizeSpec<Datum> | undefined,
+    linearScale: ScaleLinear<number, number>
+): ((datum: Datum) => number) =>
+    useMemo(() => getSizeGenerator<Datum>(config, linearScale), [config, linearScale])
+
 /**
  * Creates required layout to generate a funnel chart,
  * it uses almost the same parameters as the Funnel component.
@@ -280,6 +334,7 @@ export const useFunnel = <D extends FunnelDatum>({
     shapeBlending: rawShapeBlending = defaults.shapeBlending,
     valueFormat,
     colors = defaults.colors,
+    size = defaults.size,
     fillOpacity = defaults.fillOpacity,
     borderWidth = defaults.borderWidth,
     borderColor = defaults.borderColor,
@@ -309,6 +364,7 @@ export const useFunnel = <D extends FunnelDatum>({
     shapeBlending?: FunnelCommonProps<D>['shapeBlending']
     valueFormat?: FunnelCommonProps<D>['valueFormat']
     colors?: FunnelCommonProps<D>['colors']
+    size?: FunnelCommonProps<D>['size']
     fillOpacity?: FunnelCommonProps<D>['fillOpacity']
     borderWidth?: FunnelCommonProps<D>['borderWidth']
     borderColor?: FunnelCommonProps<D>['borderColor']
@@ -365,24 +421,27 @@ export const useFunnel = <D extends FunnelDatum>({
         [data, direction, innerWidth, innerHeight, spacing]
     )
 
+    const getSize = useSize<D>(size, linearScale)
+
     const [currentPartId, setCurrentPartId] = useState<string | number | null>(null)
 
     const parts: FunnelPart<D>[] = useMemo(() => {
         const enhancedParts = data.map((datum, index) => {
             const isCurrent = datum.id === currentPartId
+            const sizeValue = getSize(datum)
 
             let partWidth
             let partHeight
             let y0, x0
 
             if (direction === 'vertical') {
-                partWidth = linearScale(datum.value)
+                partWidth = sizeValue
                 partHeight = bandScale.bandwidth
                 x0 = paddingBefore + (innerWidth - partWidth) * 0.5
                 y0 = bandScale(index)
             } else {
                 partWidth = bandScale.bandwidth
-                partHeight = linearScale(datum.value)
+                partHeight = sizeValue
                 x0 = bandScale(index)
                 y0 = paddingBefore + (innerHeight - partHeight) * 0.5
             }
@@ -661,7 +720,7 @@ export const useFunnelAnnotations = <D extends FunnelDatum>(
     useAnnotations<FunnelPart<D>>({
         data: parts,
         annotations,
-        getPosition: part => ({
+        getPosition: (part: FunnelPart<D>) => ({
             x: part.x,
             y: part.y,
         }),
