@@ -24,6 +24,7 @@ type UnmappedPolarBarProps = Omit<
 
 const initialProperties: UnmappedPolarBarProps = {
     indexBy: 'month',
+    valueSteps: [0, 500, 1000],
     adjustValueRange: true,
     valueFormat: { format: '>-$.0f', enabled: true },
 
@@ -79,7 +80,7 @@ const initialProperties: UnmappedPolarBarProps = {
 
     animate: true,
     motionConfig: 'gentle',
-    transitionMode: 'outerRadius' as const,
+    transitionMode: 'startAngle',
 
     isInteractive: true,
 

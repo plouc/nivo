@@ -1,25 +1,27 @@
 import { AnyScale } from '@nivo/scales'
 import { RadialGrid } from './RadialGrid'
-import { CircularGrid } from './CircularGrid'
+import { CircularGrid, CircularGridProps } from './CircularGrid'
 
-interface PolarGridProps {
+export interface PolarGridProps {
     center: [number, number]
     enableRadialGrid: boolean
-    enableCircularGrid: boolean
     angleScale: AnyScale
-    radiusScale: AnyScale
     startAngle: number
     endAngle: number
+    enableCircularGrid: boolean
+    radiusScale: AnyScale
+    circularGridTicks: CircularGridProps['ticks']
 }
 
 export const PolarGrid = ({
     center,
     enableRadialGrid,
-    enableCircularGrid,
     angleScale,
-    radiusScale,
     startAngle,
     endAngle,
+    enableCircularGrid,
+    radiusScale,
+    circularGridTicks,
 }: PolarGridProps) => {
     const innerRadius = Math.min(...radiusScale.range())
     const outerRadius = Math.max(...radiusScale.range())
@@ -34,7 +36,12 @@ export const PolarGrid = ({
                 />
             )}
             {enableCircularGrid && (
-                <CircularGrid scale={radiusScale} startAngle={startAngle} endAngle={endAngle} />
+                <CircularGrid
+                    scale={radiusScale}
+                    ticks={circularGridTicks}
+                    startAngle={startAngle}
+                    endAngle={endAngle}
+                />
             )}
         </g>
     )
