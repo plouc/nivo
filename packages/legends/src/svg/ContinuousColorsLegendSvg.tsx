@@ -52,8 +52,10 @@ export const ContinuousColorsLegendSvg = ({
 
     const theme = useTheme()
 
+    // remove commas, parentheses and spaces from stop color, this will then create a unique id depending on which color scheme you use.
+    // so if you have two or more heatmaps on a single page with differing color schemes the legend will be correct for each.
     const id = `ContinuousColorsLegendSvgGradient.${direction}.${colorStops
-        .map(stop => stop.offset)
+        .map(stop => `${stop.stopColor.replace(/[(),\s]/g, '')}.${stop.offset}`)
         .join('_')}`
 
     return (
@@ -67,7 +69,11 @@ export const ContinuousColorsLegendSvg = ({
                     y2={gradientY2}
                 >
                     {colorStops.map(colorStop => (
-                        <stop {...colorStop} />
+                        <stop
+                            key={colorStop.key}
+                            offset={colorStop.offset}
+                            stopColor={colorStop.stopColor}
+                        />
                     ))}
                 </linearGradient>
             </defs>

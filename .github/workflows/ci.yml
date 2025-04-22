@@ -17,9 +17,9 @@ jobs:
         with:
           run_install: false
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'pnpm'
       - run: pnpm install
       - name: Build nivo packages
@@ -41,12 +41,12 @@ jobs:
         with:
           run_install: false
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'pnpm'
       - name: Cypress install
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           runTests: false
       - name: Build nivo packages

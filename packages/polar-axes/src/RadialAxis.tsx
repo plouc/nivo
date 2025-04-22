@@ -5,18 +5,19 @@ import { AnyScale, getScaleTicks } from '@nivo/scales'
 import { RadialAxisConfig, RadialAxisTickAnimatedProps } from './types'
 import { RadialAxisTick } from './RadialAxisTick'
 
-type RadialAxisProps = {
-    type: 'start' | 'end'
+export type RadialAxisProps = {
     center: [number, number]
     angle: number
     scale: AnyScale
+    ticksPosition: 'before' | 'after'
 } & RadialAxisConfig
 
 export const RadialAxis = ({
-    type,
+    ticksPosition,
     center,
     angle: rawAngle,
     scale,
+    ticks: ticksSpec,
     tickSize = 5,
     tickPadding = 5,
     tickRotation: extraRotation = 0,
@@ -29,7 +30,7 @@ export const RadialAxis = ({
     let textX: number
     let tickRotation: number
 
-    if (type === 'start') {
+    if (ticksPosition === 'before') {
         tickRotation = 90 + extraRotation
         if (angle <= 90) {
             lineX = -tickSize
@@ -64,7 +65,7 @@ export const RadialAxis = ({
     }
 
     const ticks = useMemo(() => {
-        const values = getScaleTicks(scale)
+        const values = getScaleTicks(scale, ticksSpec)
 
         return values.map((value, index) => {
             let position = scale(value) as number
@@ -78,7 +79,7 @@ export const RadialAxis = ({
                 position,
             }
         })
-    }, [scale])
+    }, [scale, ticksSpec])
 
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -130,7 +131,7 @@ export const RadialAxis = ({
     })
 
     return (
-        <g transform={`translate(${center[0]}, ${center[1]})`}>
+        <g transform={`translate(${center[0]}, ${center[1]})`} style={{ pointerEvents: 'none' }}>
             <animated.g transform={spring.rotation.to(value => `rotate(${value})`)}>
                 {transition((animatedProps, tick) =>
                     createElement(tickComponent, {

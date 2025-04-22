@@ -67,6 +67,7 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
             onMouseEnter={onMouseEnter ? handleMouseEnter : undefined}
             onMouseMove={onMouseMove ? handleMouseMove : undefined}
             onMouseLeave={onMouseLeave ? handleMouseLeave : undefined}
+            data-testid={`arc.${datum.id}`}
         />
     )
 }

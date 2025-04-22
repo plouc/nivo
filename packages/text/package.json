@@ -1,6 +1,6 @@
 {
     "name": "@nivo/text",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -13,7 +13,7 @@
     },
     "sideEffects": false,
     "main": "./dist/nivo-text.cjs.js",
-    "module": "./dist/nivo-text.es.js",
+    "module": "./dist/nivo-text.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -26,9 +26,16 @@
         "@react-spring/web": "9.4.5 || ^9.7.2"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-text.mjs",
+            "require": "./dist/nivo-text.cjs.js"
+        }
     }
 }

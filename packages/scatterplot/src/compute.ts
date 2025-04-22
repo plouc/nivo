@@ -1,7 +1,7 @@
-import get from 'lodash/get'
-import isString from 'lodash/isString'
-import isNumber from 'lodash/isNumber'
-import isPlainObject from 'lodash/isPlainObject'
+import get from 'lodash/get.js'
+import isString from 'lodash/isString.js'
+import isNumber from 'lodash/isNumber.js'
+import isPlainObject from 'lodash/isPlainObject.js'
 import { scaleLinear } from 'd3-scale'
 import { ComputedSerie } from '@nivo/scales'
 import {

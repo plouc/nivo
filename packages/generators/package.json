@@ -1,6 +1,6 @@
 {
     "name": "@nivo/generators",
-    "version": "0.88.0",
+    "version": "0.89.0",
     "licenses": [
         {
             "type": "MIT",
@@ -18,7 +18,7 @@
         "directory": "packages/generators"
     },
     "main": "./dist/nivo-generators.cjs.js",
-    "module": "./dist/nivo-generators.es.js",
+    "module": "./dist/nivo-generators.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -37,5 +37,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-generators.mjs",
+            "require": "./dist/nivo-generators.cjs.js"
+        }
     }
 }

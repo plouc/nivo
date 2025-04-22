@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep.js'
 import { sankey as d3Sankey } from 'd3-sankey'
 import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -48,9 +48,9 @@ export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink
 }) => {
     const sankey = d3Sankey()
         .nodeAlign(alignFunction)
-        // @ts-ignore: this method signature is incorrect in current @types/d3-sankey
+        // @ts-expect-error: this method signature is incorrect in current @types/d3-sankey
         .nodeSort(sortFunction)
-        // @ts-ignore: this method is not available in current @types/d3-sankey
+        // @ts-expect-error: this method is not available in current @types/d3-sankey
         .linkSort(linkSortMode)
         .nodeWidth(nodeThickness)
         .nodePadding(nodeSpacing)
@@ -94,17 +94,17 @@ export const computeNodeAndLinks = <N extends DefaultNode, L extends DefaultLink
     data.links.forEach(link => {
         link.formattedValue = formatValue(link.value)
         link.color = link.source.color
-        // @ts-ignore
+        // @ts-expect-error: @types/d3-sankey
         link.pos0 = link.y0
-        // @ts-ignore
+        // @ts-expect-error: @types/d3-sankey
         link.pos1 = link.y1
-        // @ts-ignore
+        // @ts-expect-error: @types/d3-sankey
         link.thickness = link.width
-        // @ts-ignore
+        // @ts-expect-error: @types/d3-sankey
         delete link.y0
-        // @ts-ignore
+        // @ts-expect-error: @types/d3-sankey
         delete link.y1
-        // @ts-ignore
+        // @ts-expect-error: @types/d3-sankey
         delete link.width
     })
 

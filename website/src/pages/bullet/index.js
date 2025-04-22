@@ -1,5 +1,5 @@
 import React from 'react'
-import shuffle from 'lodash/shuffle'
+import shuffle from 'lodash/shuffle.js'
 import { ResponsiveBullet, defaultProps } from '@nivo/bullet'
 import { generateBulletData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'

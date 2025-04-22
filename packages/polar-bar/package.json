@@ -1,0 +1,58 @@
+{
+    "name": "@nivo/polar-bar",
+    "version": "0.89.1",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/polar-bar"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "wind-rose",
+        "polar-bar"
+    ],
+    "main": "./dist/nivo-polar-bar.cjs.js",
+    "module": "./dist/nivo-polar-bar.mjs",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/arcs": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/legends": "workspace:*",
+        "@nivo/polar-axes": "workspace:*",
+        "@nivo/scales": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-scale": "^4.0.8",
+        "@types/d3-shape": "^3.1.6",
+        "d3-scale": "^4.0.2",
+        "d3-shape": "^3.2.0"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-polar-bar.mjs",
+            "require": "./dist/nivo-polar-bar.cjs.js"
+        }
+    }
+}

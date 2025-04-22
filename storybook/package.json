@@ -1,7 +1,7 @@
 {
     "name": "storybook",
     "private": true,
-    "version": "0.88.0",
+    "version": "0.89.1",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -62,9 +62,8 @@
         "d3-sankey": "^0.12.3",
         "d3-scale": "^4.0.2",
         "d3-shape": "^3.2.0",
-        "prop-types": "^15.8.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
         "storybook": "^7.0.7",
         "styled-components": "^5.3.3"
     }

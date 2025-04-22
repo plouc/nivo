@@ -1,6 +1,6 @@
 {
     "name": "@nivo/tooltip",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -12,7 +12,7 @@
         "directory": "packages/tooltip"
     },
     "main": "./dist/nivo-tooltip.cjs.js",
-    "module": "./dist/nivo-tooltip.es.js",
+    "module": "./dist/nivo-tooltip.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -25,9 +25,16 @@
         "@react-spring/web": "9.4.5 || ^9.7.2"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-tooltip.mjs",
+            "require": "./dist/nivo-tooltip.cjs.js"
+        }
     }
 }

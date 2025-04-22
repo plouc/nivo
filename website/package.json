@@ -1,6 +1,6 @@
 {
     "name": "nivo-website",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "private": true,
     "description": "nivo website",
     "dependencies": {
@@ -25,6 +25,7 @@
         "@nivo/network": "workspace:*",
         "@nivo/parallel-coordinates": "workspace:*",
         "@nivo/pie": "workspace:*",
+        "@nivo/polar-bar": "workspace:*",
         "@nivo/radar": "workspace:*",
         "@nivo/radial-bar": "workspace:*",
         "@nivo/sankey": "workspace:*",
@@ -62,8 +63,8 @@
         "gatsby-source-filesystem": "^5.9.0",
         "gatsby-transformer-sharp": "^5.9.0",
         "prism-react-renderer": "^2.0.3",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
         "react-helmet": "^6.1.0",
         "react-icons": "^4.3.1",
         "react-markdown": "^8.0.7",

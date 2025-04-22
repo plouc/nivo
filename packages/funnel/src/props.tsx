@@ -11,6 +11,7 @@ export const svgDefaultProps = {
     shapeBlending: 0.66,
 
     colors: { scheme: 'nivo' as const },
+    size: undefined,
     fillOpacity: 1,
 
     borderWidth: 6,

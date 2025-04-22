@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
-import { FaGithub, FaTwitter } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import { FiExternalLink, FiChevronDown } from 'react-icons/fi'
 import media from '../../theming/mediaQueries'
 import ThemeSelector from '../ThemeSelector'
@@ -58,14 +58,6 @@ export const HeaderNav = ({ isNavOpen, toggleNav }: HeaderNavProps) => {
                 title="GitHub"
             >
                 <FaGithub />
-            </IconExternalLink>
-            <IconExternalLink
-                href="https://twitter.com/benitteraphael"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Twitter"
-            >
-                <FaTwitter />
             </IconExternalLink>
             <NavToggleButton isOpen={isNavOpen} onClick={toggleNav} />
         </Container>

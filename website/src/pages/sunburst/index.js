@@ -38,6 +38,7 @@ const initialProperties = {
     arcLabel: 'formattedValue',
     arcLabelsRadiusOffset: 0.5,
     arcLabelsSkipAngle: 10,
+    arcLabelsSkipRadius: 0,
     arcLabelsTextColor: {
         from: 'color',
         modifiers: [['darker', 1.4]],

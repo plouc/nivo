@@ -1,6 +1,6 @@
 {
     "name": "@nivo/marimekko",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -12,7 +12,7 @@
         "directory": "packages/marimekko"
     },
     "main": "./dist/nivo-marimekko.cjs.js",
-    "module": "./dist/nivo-marimekko.es.js",
+    "module": "./dist/nivo-marimekko.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -33,9 +33,16 @@
         "lodash": "^4.17.21"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-marimekko.mjs",
+            "require": "./dist/nivo-marimekko.cjs.js"
+        }
     }
 }

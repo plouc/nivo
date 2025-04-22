@@ -1,16 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
 import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
-import { GeoMapCanvasPropTypes } from './props'
 import { useGeoMap } from './hooks'
 
 const getFeatureFromMouseEvent = (event, el, features, projection) => {
@@ -170,8 +161,5 @@ const GeoMapCanvas = memo(props => {
         />
     )
 })
-
-GeoMapCanvas.displatName = 'GeoMapCanvas'
-GeoMapCanvas.propTypes = GeoMapCanvasPropTypes
 
 export default withContainer(GeoMapCanvas)

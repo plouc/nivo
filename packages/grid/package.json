@@ -1,7 +1,7 @@
 {
     "name": "@nivo/grid",
     "description": "grid components for nivo dataviz library",
-    "version": "0.88.0",
+    "version": "0.89.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -14,7 +14,7 @@
     },
     "sideEffects": false,
     "main": "./dist/nivo-grid.cjs.js",
-    "module": "./dist/nivo-grid.es.js",
+    "module": "./dist/nivo-grid.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -24,5 +24,12 @@
     ],
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-grid.mjs",
+            "require": "./dist/nivo-grid.cjs.js"
+        }
     }
 }

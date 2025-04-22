@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { Defs } from './defs'
 import { useTheme } from '../theming'
 
@@ -33,22 +32,6 @@ const SvgWrapper = ({
             <g transform={`translate(${margin.left},${margin.top})`}>{children}</g>
         </svg>
     )
-}
-
-SvgWrapper.propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: PropTypes.shape({
-        top: PropTypes.number.isRequired,
-        left: PropTypes.number.isRequired,
-    }).isRequired,
-    defs: PropTypes.array,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-    role: PropTypes.string,
-    isFocusable: PropTypes.bool,
-    ariaLabel: PropTypes.string,
-    ariaLabelledBy: PropTypes.string,
-    ariaDescribedBy: PropTypes.string,
 }
 
 export default SvgWrapper

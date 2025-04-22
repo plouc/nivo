@@ -32,6 +32,11 @@ import {
 } from 'd3-time'
 import { ScaleValue, TicksSpec, AnyScale, ScaleWithBandwidth } from './types'
 
+/**
+ * Band and point scales are not centered, meaning the ticks would
+ * be positioned at the beginning of each step; however, we want
+ * them to be centered for each step.
+ */
 export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
     const bandwidth = scale.bandwidth()
 
@@ -98,8 +103,8 @@ export const getScaleTicks = <Value extends ScaleValue>(
 
         if (matches) {
             const [, amount, type] = matches
-            // UTC is used as it's more predictable
-            // however local time could be used too
+            // UTC is used as it's more predictable,
+            // however, local time could be used too
             // let's see how it fits users' requirements
             const timeType = timeByType[type][scale.useUTC ? 1 : 0]
 

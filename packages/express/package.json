@@ -1,6 +1,6 @@
 {
     "name": "@nivo/express",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -12,7 +12,7 @@
         "directory": "packages/express"
     },
     "main": "./dist/nivo-express.cjs.js",
-    "module": "./dist/nivo-express.es.js",
+    "module": "./dist/nivo-express.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -30,10 +30,17 @@
         "uuid": "^3.1.0"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0",
-        "react-dom": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0",
+        "react-dom": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-express.mjs",
+            "require": "./dist/nivo-express.cjs.js"
+        }
     }
 }

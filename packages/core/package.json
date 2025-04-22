@@ -1,6 +1,6 @@
 {
     "name": "@nivo/core",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -12,7 +12,7 @@
         "directory": "packages/core"
     },
     "main": "./dist/nivo-core.cjs.js",
-    "module": "./dist/nivo-core.es.js",
+    "module": "./dist/nivo-core.mjs",
     "types": "./index.d.ts",
     "files": [
         "README.md",
@@ -31,11 +31,10 @@
         "d3-scale-chromatic": "^3.0.0",
         "d3-shape": "^3.2.0",
         "d3-time-format": "^3.0.0",
-        "lodash": "^4.17.21",
-        "prop-types": "^15.7.2"
+        "lodash": "^4.17.21"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
@@ -43,5 +42,12 @@
     "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/nivo/donate"
+    },
+    "exports": {
+        ".": {
+            "types": "./index.d.ts",
+            "import": "./dist/nivo-core.mjs",
+            "require": "./dist/nivo-core.cjs.js"
+        }
     }
 }

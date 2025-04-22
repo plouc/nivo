@@ -1,5 +1,5 @@
 import { animated, to } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme, sanitizeSvgTextStyle } from '@nivo/core'
 import { RadialAxisTickProps } from './types'
 
 export const RadialAxisTick = ({
@@ -8,6 +8,8 @@ export const RadialAxisTick = ({
     animated: animatedProps,
 }: RadialAxisTickProps) => {
     const theme = useTheme()
+    const textStyle = theme.axis.ticks.text
+    const sanitizedTextStyle = sanitizeSvgTextStyle(textStyle)
 
     return (
         <animated.g
@@ -18,11 +20,25 @@ export const RadialAxisTick = ({
             )}
         >
             <animated.line x2={animatedProps.length} style={theme.axis.ticks.line} />
+            {textStyle.outlineWidth > 0 && (
+                <animated.text
+                    dx={animatedProps.textX}
+                    textAnchor={textAnchor}
+                    dominantBaseline="central"
+                    style={sanitizedTextStyle}
+                    strokeWidth={textStyle.outlineWidth * 2}
+                    stroke={textStyle.outlineColor}
+                    strokeLinejoin="round"
+                    opacity={textStyle.outlineOpacity}
+                >
+                    {label}
+                </animated.text>
+            )}
             <animated.text
                 dx={animatedProps.textX}
                 textAnchor={textAnchor}
                 dominantBaseline="central"
-                style={theme.axis.ticks.text}
+                style={sanitizedTextStyle}
             >
                 {label}
             </animated.text>

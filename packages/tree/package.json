@@ -1,6 +1,6 @@
 {
     "name": "@nivo/tree",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -21,7 +21,7 @@
         "tree"
     ],
     "main": "./dist/nivo-tree.cjs.js",
-    "module": "./dist/nivo-tree.es.js",
+    "module": "./dist/nivo-tree.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -44,9 +44,16 @@
         "d3-shape": "^3.2.0"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-tree.mjs",
+            "require": "./dist/nivo-tree.cjs.js"
+        }
     }
 }

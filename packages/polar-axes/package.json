@@ -1,6 +1,6 @@
 {
     "name": "@nivo/polar-axes",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -19,7 +19,7 @@
         "polar"
     ],
     "main": "./dist/nivo-polar-axes.cjs.js",
-    "module": "./dist/nivo-polar-axes.es.js",
+    "module": "./dist/nivo-polar-axes.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -34,9 +34,16 @@
         "@react-spring/web": "9.4.5 || ^9.7.2"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-polar-axes.mjs",
+            "require": "./dist/nivo-polar-axes.cjs.js"
+        }
     }
 }

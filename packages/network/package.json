@@ -1,6 +1,6 @@
 {
     "name": "@nivo/network",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -22,7 +22,7 @@
         "network"
     ],
     "main": "./dist/nivo-network.cjs.js",
-    "module": "./dist/nivo-network.es.js",
+    "module": "./dist/nivo-network.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -40,9 +40,16 @@
         "d3-force": "^2.0.1"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-network.mjs",
+            "require": "./dist/nivo-network.cjs.js"
+        }
     }
 }

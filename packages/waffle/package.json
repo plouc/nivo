@@ -1,6 +1,6 @@
 {
     "name": "@nivo/waffle",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -21,7 +21,7 @@
     ],
     "sideEffects": false,
     "main": "./dist/nivo-waffle.cjs.js",
-    "module": "./dist/nivo-waffle.es.js",
+    "module": "./dist/nivo-waffle.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -41,9 +41,16 @@
         "d3-shape": "^3.2.0"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-waffle.mjs",
+            "require": "./dist/nivo-waffle.cjs.js"
+        }
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "@nivo/radial-bar",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -20,7 +20,7 @@
         "radial-bar-chart"
     ],
     "main": "./dist/nivo-radial-bar.cjs.js",
-    "module": "./dist/nivo-radial-bar.es.js",
+    "module": "./dist/nivo-radial-bar.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -43,9 +43,16 @@
         "d3-shape": "^3.2.0"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-radial-bar.mjs",
+            "require": "./dist/nivo-radial-bar.cjs.js"
+        }
     }
 }

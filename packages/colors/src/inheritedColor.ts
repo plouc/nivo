@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import get from 'lodash/get'
-import isPlainObject from 'lodash/isPlainObject'
+import get from 'lodash/get.js'
+import isPlainObject from 'lodash/isPlainObject.js'
 import { rgb, RGBColor } from 'd3-color'
 import { Theme } from '@nivo/core'
 

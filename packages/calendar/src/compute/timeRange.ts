@@ -11,7 +11,7 @@ import {
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { DateOrString, Weekday } from '../types'
-import isDate from 'lodash/isDate'
+import isDate from 'lodash/isDate.js'
 
 // Interfaces
 interface ComputeBaseProps {
@@ -303,14 +303,15 @@ export const computeWeekdays = ({
     daySpacing,
     ticks = [1, 3, 5],
     firstWeekday,
-    arrayOfWeekdays = shiftArray(ARRAY_OF_WEEKDAYS, getFirstWeekdayIndex(firstWeekday)),
+    arrayOfWeekdays = ARRAY_OF_WEEKDAYS,
 }: ComputeWeekdays) => {
     const sizes = {
         width: cellWidth + daySpacing,
         height: cellHeight + daySpacing,
     }
+    const shiftedWeekdays = shiftArray(arrayOfWeekdays, getFirstWeekdayIndex(firstWeekday))
     return ticks.map(day => ({
-        value: arrayOfWeekdays[day],
+        value: shiftedWeekdays[day],
         rotation: direction === 'horizontal' ? 0 : -90,
         y: direction === 'horizontal' ? sizes.height * (day + 1) - sizes.height / 3 : 0,
         x: direction === 'horizontal' ? 0 : sizes.width * (day + 1) - sizes.width / 3,

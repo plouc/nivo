@@ -282,15 +282,15 @@ export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
         nodeComponent?: NodeComponent<Datum>
         linkComponent?: LinkComponent<Datum>
         labelComponent?: LabelComponent<Datum>
-        onLinkMouseEnter: LinkMouseEventHandler<Datum>
-        onLinkMouseMove: LinkMouseEventHandler<Datum>
-        onLinkMouseLeave: LinkMouseEventHandler<Datum>
-        onLinkMouseDown: LinkMouseEventHandler<Datum>
-        onLinkMouseUp: LinkMouseEventHandler<Datum>
-        onLinkClick: LinkMouseEventHandler<Datum>
-        onLinkDoubleClick: LinkMouseEventHandler<Datum>
-        linkTooltip: LinkTooltip<Datum>
-        linkTooltipAnchor: TooltipAnchor
+        onLinkMouseEnter?: LinkMouseEventHandler<Datum>
+        onLinkMouseMove?: LinkMouseEventHandler<Datum>
+        onLinkMouseLeave?: LinkMouseEventHandler<Datum>
+        onLinkMouseDown?: LinkMouseEventHandler<Datum>
+        onLinkMouseUp?: LinkMouseEventHandler<Datum>
+        onLinkClick?: LinkMouseEventHandler<Datum>
+        onLinkDoubleClick?: LinkMouseEventHandler<Datum>
+        linkTooltip?: LinkTooltip<Datum>
+        linkTooltipAnchor?: TooltipAnchor
     }
 
 export type ResponsiveTreeSvgProps<Datum> = Omit<TreeSvgProps<Datum>, 'height' | 'width'>

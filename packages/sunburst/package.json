@@ -1,6 +1,6 @@
 {
     "name": "@nivo/sunburst",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -20,7 +20,7 @@
         "sunburst-chart"
     ],
     "main": "./dist/nivo-sunburst.cjs.js",
-    "module": "./dist/nivo-sunburst.es.js",
+    "module": "./dist/nivo-sunburst.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -38,9 +38,16 @@
         "lodash": "^4.17.21"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-sunburst.mjs",
+            "require": "./dist/nivo-sunburst.cjs.js"
+        }
     }
 }

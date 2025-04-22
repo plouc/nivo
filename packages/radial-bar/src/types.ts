@@ -56,7 +56,8 @@ export type RadialBarCustomLayer = FunctionComponent<RadialBarCustomLayerProps>
 export interface RadialBarTooltipProps<D extends RadialBarDatum = RadialBarDatum> {
     bar: ComputedBar<D>
 }
-export type RadialBarTooltipComponent = FunctionComponent<RadialBarTooltipProps>
+export type RadialBarTooltipComponent<D extends RadialBarDatum = RadialBarDatum> =
+    FunctionComponent<RadialBarTooltipProps<D>>
 
 export interface RadialBarTrackDatum {
     id: string
@@ -97,11 +98,12 @@ export type RadialBarCommonProps<D extends RadialBarDatum = RadialBarDatum> = {
     enableLabels: boolean
     label: PropertyAccessor<ComputedBar<D>, string>
     labelsSkipAngle: ArcLabelsProps<ComputedBar<D>>['arcLabelsSkipAngle']
+    labelsSkipRadius: ArcLabelsProps<ComputedBar<D>>['arcLabelsSkipRadius']
     labelsRadiusOffset: ArcLabelsProps<ComputedBar<D>>['arcLabelsRadiusOffset']
     labelsTextColor: ArcLabelsProps<ComputedBar<D>>['arcLabelsTextColor']
 
     isInteractive: boolean
-    tooltip: RadialBarTooltipComponent
+    tooltip: RadialBarTooltipComponent<D>
     onClick: (bar: ComputedBar<D>, event: MouseEvent) => void
     onMouseEnter: (bar: ComputedBar<D>, event: MouseEvent) => void
     onMouseMove: (bar: ComputedBar<D>, event: MouseEvent) => void

@@ -1,7 +1,7 @@
 {
     "name": "@nivo/legends",
     "description": "legend components for nivo dataviz library",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -13,7 +13,7 @@
         "directory": "packages/legends"
     },
     "main": "./dist/nivo-legends.cjs.js",
-    "module": "./dist/nivo-legends.es.js",
+    "module": "./dist/nivo-legends.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -28,9 +28,16 @@
         "d3-scale": "^4.0.2"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-legends.mjs",
+            "require": "./dist/nivo-legends.cjs.js"
+        }
     }
 }

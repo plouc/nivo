@@ -1,5 +1,5 @@
-import omit from 'lodash/omit'
-import upperFirst from 'lodash/upperFirst'
+import omit from 'lodash/omit.js'
+import upperFirst from 'lodash/upperFirst.js'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 
 export const settingsMapper =

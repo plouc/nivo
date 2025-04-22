@@ -1,6 +1,6 @@
 {
     "name": "@nivo/colors",
-    "version": "0.88.0",
+    "version": "0.89.1",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -12,7 +12,7 @@
         "directory": "packages/colors"
     },
     "main": "./dist/nivo-colors.cjs.js",
-    "module": "./dist/nivo-colors.es.js",
+    "module": "./dist/nivo-colors.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -25,17 +25,22 @@
         "@types/d3-color": "^3.0.0",
         "@types/d3-scale": "^4.0.8",
         "@types/d3-scale-chromatic": "^3.0.0",
-        "@types/prop-types": "^15.7.2",
         "d3-color": "^3.1.0",
         "d3-scale": "^4.0.2",
         "d3-scale-chromatic": "^3.0.0",
-        "lodash": "^4.17.21",
-        "prop-types": "^15.7.2"
+        "lodash": "^4.17.21"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 19.0.0"
+        "react": ">= 16.14.0 < 20.0.0"
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-colors.mjs",
+            "require": "./dist/nivo-colors.cjs.js"
+        }
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "@nivo/canvas",
-    "version": "0.88.0",
+    "version": "0.89.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -19,7 +19,7 @@
         "canvas"
     ],
     "main": "./dist/nivo-canvas.cjs.js",
-    "module": "./dist/nivo-canvas.es.js",
+    "module": "./dist/nivo-canvas.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -29,5 +29,12 @@
     ],
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-canvas.mjs",
+            "require": "./dist/nivo-canvas.cjs.js"
+        }
     }
 }
