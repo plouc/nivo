@@ -32,7 +32,7 @@ export const defaultProps: Omit<
     borderWidth: 0,
     borderColor: { theme: 'background' },
 
-    enableArcLabels: true,
+    enableArcLabels: false,
     arcLabel: 'formattedValue',
     arcLabelsSkipAngle: 0,
     arcLabelsSkipRadius: 0,
@@ -41,8 +41,7 @@ export const defaultProps: Omit<
 
     enableRadialGrid: true,
     enableCircularGrid: true,
-    radialAxisStart: {},
-    radialAxisEnd: null,
+    radialAxis: null,
     circularAxisInner: null,
     circularAxisOuter: {},
 

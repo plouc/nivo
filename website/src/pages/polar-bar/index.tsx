@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
+import merge from 'lodash/merge'
 import { ResponsivePolarBar, PolarBarSvgProps, svgDefaultProps } from '@nivo/polar-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/polar-bar/meta.yml'
@@ -24,7 +25,7 @@ type UnmappedPolarBarProps = Omit<
 
 const initialProperties: UnmappedPolarBarProps = {
     indexBy: 'month',
-    valueSteps: [0, 500, 1000],
+    valueSteps: 5,
     adjustValueRange: true,
     valueFormat: { format: '>-$.0f', enabled: true },
 
@@ -44,7 +45,7 @@ const initialProperties: UnmappedPolarBarProps = {
     borderWidth: 1,
     borderColor: svgDefaultProps.borderColor,
 
-    enableArcLabels: true,
+    enableArcLabels: svgDefaultProps.enableArcLabels,
     arcLabel: svgDefaultProps.arcLabel,
     arcLabelsRadiusOffset: 0.5,
     arcLabelsSkipAngle: 0,
@@ -53,27 +54,23 @@ const initialProperties: UnmappedPolarBarProps = {
 
     enableRadialGrid: true,
     enableCircularGrid: true,
-    radialAxisStart: {
-        enable: false,
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-    },
-    radialAxisEnd: {
-        enable: false,
+    radialAxis: {
+        enable: true,
+        angle: 180,
+        ticksPosition: 'after',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
     },
     circularAxisInner: {
         enable: false,
-        tickSize: 0,
+        tickSize: 5,
         tickPadding: 15,
         tickRotation: 0,
     },
     circularAxisOuter: {
         enable: true,
-        tickSize: 0,
+        tickSize: 5,
         tickPadding: 15,
         tickRotation: 0,
     },
@@ -142,7 +139,25 @@ const PolarBar = () => {
                         data={data.data}
                         keys={data.keys}
                         {...properties}
-                        theme={theme}
+                        theme={merge({}, theme, {
+                            labels: {
+                                text: {
+                                    outlineWidth: 1.5,
+                                    outlineColor: theme.background,
+                                },
+                            },
+                            axis: {
+                                ticks: {
+                                    text: {
+                                        fill: theme.legends?.text?.fill,
+                                        fontWeight: 600,
+                                        outlineWidth: 1.5,
+                                        outlineColor: theme.background,
+                                        outlineOpacity: 0.6,
+                                    },
+                                },
+                            },
+                        })}
                         onClick={arc =>
                             logAction({
                                 type: 'click',

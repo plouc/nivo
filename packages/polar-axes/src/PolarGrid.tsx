@@ -10,7 +10,7 @@ export interface PolarGridProps {
     endAngle: number
     enableCircularGrid: boolean
     radiusScale: AnyScale
-    circularGridTicks: CircularGridProps['ticks']
+    circularGridTicks?: CircularGridProps['ticks']
 }
 
 export const PolarGrid = ({

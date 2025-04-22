@@ -315,12 +315,7 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
     },
     polarAxisProperty({
-        key: 'radialAxisStart',
-        flavors: allFlavors,
-        tickComponent: 'RadialAxisTickComponent',
-    }),
-    polarAxisProperty({
-        key: 'radialAxisEnd',
+        key: 'radialAxis',
         flavors: allFlavors,
         tickComponent: 'RadialAxisTickComponent',
     }),
@@ -328,11 +323,13 @@ const props: ChartProperty[] = [
         key: 'circularAxisInner',
         flavors: allFlavors,
         tickComponent: 'CircularAxisTickComponent',
+        exclude: ['angle', 'ticksPosition'],
     }),
     polarAxisProperty({
         key: 'circularAxisOuter',
         flavors: allFlavors,
         tickComponent: 'CircularAxisTickComponent',
+        exclude: ['angle', 'ticksPosition'],
     }),
     {
         key: 'layers',

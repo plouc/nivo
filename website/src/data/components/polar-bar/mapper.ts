@@ -6,8 +6,7 @@ export const mapAxis = (key: string) => (value: any, settings: any) =>
 
 export default settingsMapper({
     valueFormat: mapFormat,
-    radialAxisStart: mapAxis('radialAxisStart'),
-    radialAxisEnd: mapAxis('radialAxisEnd'),
+    radialAxis: mapAxis('radialAxis'),
     circularAxisInner: mapAxis('circularAxisInner'),
     circularAxisOuter: mapAxis('circularAxisOuter'),
 })

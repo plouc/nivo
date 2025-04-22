@@ -270,21 +270,25 @@ const props: ChartProperty[] = [
         key: 'radialAxisStart',
         flavors: allFlavors,
         tickComponent: 'RadialAxisTickComponent',
+        exclude: ['angle', 'ticksPosition'],
     }),
     polarAxisProperty({
         key: 'radialAxisEnd',
         flavors: allFlavors,
         tickComponent: 'RadialAxisTickComponent',
+        exclude: ['angle', 'ticksPosition'],
     }),
     polarAxisProperty({
         key: 'circularAxisInner',
         flavors: allFlavors,
         tickComponent: 'CircularAxisTickComponent',
+        exclude: ['angle', 'ticksPosition'],
     }),
     polarAxisProperty({
         key: 'circularAxisOuter',
         flavors: allFlavors,
         tickComponent: 'CircularAxisTickComponent',
+        exclude: ['angle', 'ticksPosition'],
     }),
     {
         key: 'enableLabels',

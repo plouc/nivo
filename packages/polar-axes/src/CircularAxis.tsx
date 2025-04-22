@@ -113,7 +113,7 @@ export const CircularAxis = ({
     })
 
     return (
-        <g transform={`translate(${center[0]}, ${center[1]})`}>
+        <g transform={`translate(${center[0]}, ${center[1]})`} style={{ pointerEvents: 'none' }}>
             <ArcLine
                 animated={spring}
                 {...(theme.axis.domain.line as Omit<SVGProps<SVGPathElement>, 'ref'>)}

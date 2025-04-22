@@ -125,19 +125,19 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                 />
                 {radialAxisStart && (
                     <RadialAxis
-                        type="start"
                         center={center}
                         angle={Math.min(startAngle, endAngle)}
                         scale={radiusScale}
+                        ticksPosition="before"
                         {...radialAxisStart}
                     />
                 )}
                 {radialAxisEnd && (
                     <RadialAxis
-                        type="end"
                         center={center}
                         angle={Math.max(startAngle, endAngle)}
                         scale={radiusScale}
+                        ticksPosition="after"
                         {...radialAxisEnd}
                     />
                 )}
