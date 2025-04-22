@@ -3,14 +3,14 @@ import { useTransition, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
 import { AnyScale, getScaleTicks } from '@nivo/scales'
 
-interface PolarGridProps {
+export interface RadialGridProps {
     scale: AnyScale
     ticks?: number | number[]
     innerRadius: number
     outerRadius: number
 }
 
-export const RadialGrid = ({ scale, innerRadius, outerRadius }: PolarGridProps) => {
+export const RadialGrid = ({ scale, innerRadius, outerRadius }: RadialGridProps) => {
     const theme = useTheme()
 
     const angles = useMemo(() => {

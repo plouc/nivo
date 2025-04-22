@@ -1,9 +1,9 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { Box, Theme, Dimensions, PropertyAccessor, MotionProps, ValueFormat } from '@nivo/core'
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
-import { CircularAxisConfig, RadialAxisConfig } from '@nivo/polar-axes'
+import { CircularAxisConfig, RadialAxisConfig, PolarGridProps } from '@nivo/polar-axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { ScaleLinear, ScaleBand } from '@nivo/scales'
+import { ScaleLinear, ScaleBand, TicksSpec } from '@nivo/scales'
 import { LegendProps } from '@nivo/legends'
 
 export interface PolarBarDatum {
@@ -52,6 +52,7 @@ export type PolarBarCommonProps<RawDatum extends PolarBarDatum> = {
     indexBy: PropertyAccessor<RawDatum, string>
     keys: readonly string[]
     adjustValueRange: boolean
+    valueSteps?: number | readonly number[]
     valueFormat?: ValueFormat<number>
 
     margin: Box

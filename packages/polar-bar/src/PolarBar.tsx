@@ -12,6 +12,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     data,
     indexBy = svgDefaultProps.indexBy,
     keys = svgDefaultProps.keys,
+    valueSteps,
     adjustValueRange = svgDefaultProps.adjustValueRange,
     valueFormat,
 
@@ -82,6 +83,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
         data,
         indexBy,
         keys,
+        valueSteps,
         adjustValueRange,
         valueFormat,
         width: innerWidth,
@@ -108,11 +110,12 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
                 key="grid"
                 center={center}
                 enableRadialGrid={enableRadialGrid}
-                enableCircularGrid={enableCircularGrid}
                 angleScale={angleScale}
-                radiusScale={radiusScale}
                 startAngle={startAngle}
                 endAngle={endAngle}
+                enableCircularGrid={enableCircularGrid}
+                radiusScale={radiusScale}
+                circularGridTicks={valueSteps}
             />
         )
     }

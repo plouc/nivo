@@ -21,7 +21,7 @@ const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
-        type: 'PolarBarDatum[]',
+        type: 'readonly PolarBarDatum[]',
         required: true,
         help: 'Chart data.',
         description: `
@@ -70,12 +70,38 @@ const props: ChartProperty[] = [
         defaultValue: defaultProps.keys,
     },
     {
+        key: 'valueSteps',
+        group: 'Base',
+        type: 'number | readonly number[]',
+        required: false,
+        help: 'Define how many steps (ticks) to use for the value scale.',
+        description: `
+            This is going to affect the circular grid's rings, if \`enableCircularGrid\`
+            is \`true\`, as well as the radial axes ticks.
+
+            If a number is provided, we'll attempt to divide the scale in that many steps,
+            but it's not guaranteed that the scale will have exactly that many ticks,
+            it might be adjusted to have nice values.
+    
+            If an array of numbers if provided, we'll use these exact values as steps,
+            but if some values are out of the scale range, we'll clamp them.
+        `,
+        flavors: allFlavors,
+    },
+    {
         key: 'adjustValueRange',
         group: 'Base',
-        help: 'Extends the range of values so that it starts and ends on nice round values.',
-        flavors: allFlavors,
         type: 'boolean',
         required: false,
+        help: 'Extends the range of values so that it starts and ends on nice round values.',
+        description: `
+            If \`valueSteps\` is not set, or is an array of numbers,
+            the range is going to be automatically adjusted.
+            
+            If \`valueSteps\` is set and is a number, the range is going to be adjusted
+            to accommodate the number of steps you provided.
+        `,
+        flavors: allFlavors,
         defaultValue: defaultProps.adjustValueRange,
         control: { type: 'switch' },
     },
@@ -273,7 +299,7 @@ const props: ChartProperty[] = [
         group: 'Grid & Axes',
         type: 'boolean',
         required: false,
-        help: 'Enable radial grid (rays)',
+        help: 'Enable radial grid (rays).',
         flavors: allFlavors,
         defaultValue: svgDefaultProps.enableRadialGrid,
         control: { type: 'switch' },
@@ -283,7 +309,7 @@ const props: ChartProperty[] = [
         group: 'Grid & Axes',
         type: 'boolean',
         required: false,
-        help: 'Enable circular grid (rings)',
+        help: 'Enable circular grid (rings).',
         flavors: allFlavors,
         defaultValue: svgDefaultProps.enableCircularGrid,
         control: { type: 'switch' },

@@ -1,17 +1,22 @@
 import { SVGProps, useMemo } from 'react'
 import { useTransition } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
-import { AnyScale, getScaleTicks } from '@nivo/scales'
+import { AnyScale, TicksSpec, getScaleTicks } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 
-interface CircularGridProps {
+/**
+ * Angles are expressed in degrees.
+ */
+export interface CircularGridProps {
     scale: AnyScale
+    ticks?: TicksSpec<any>
     startAngle: number
     endAngle: number
 }
 
 export const CircularGrid = ({
     scale,
+    ticks,
     startAngle: originalStartAngle,
     endAngle: originalEndAngle,
 }: CircularGridProps) => {
@@ -21,7 +26,7 @@ export const CircularGrid = ({
     const endAngle = originalEndAngle - 90
 
     const radii = useMemo(() => {
-        const values = getScaleTicks(scale)
+        const values = getScaleTicks(scale, ticks)
 
         return values.map((value, index) => {
             let radius = scale(value) as number

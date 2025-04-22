@@ -17,6 +17,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
     data,
     indexBy = defaultProps.indexBy,
     keys = defaultProps.keys,
+    valueSteps,
     adjustValueRange = defaultProps.adjustValueRange,
     valueFormat,
     width,
@@ -29,6 +30,7 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
     forwardLegendData,
 }: Pick<
     Partial<PolarBarCommonProps<RawDatum>>,
+    | 'valueSteps'
     | 'adjustValueRange'
     | 'valueFormat'
     | 'startAngle'
@@ -71,14 +73,15 @@ export const usePolarBar = <RawDatum extends PolarBarDatum>({
             scaleLinear<number, number>()
                 .domain([0, maxStackedValue])
                 .range([innerRadius, outerRadius])
+                .clamp(true)
         )
 
         if (adjustValueRange) {
-            scale.nice()
+            scale.nice(typeof valueSteps === 'number' ? valueSteps : undefined)
         }
 
         return scale
-    }, [innerRadius, outerRadius, maxStackedValue, adjustValueRange])
+    }, [innerRadius, outerRadius, maxStackedValue, adjustValueRange, valueSteps])
 
     const formatValue = useValueFormatter<number>(valueFormat)
 
