@@ -1,5 +1,5 @@
 import React from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { ResponsiveLineCanvas, LineCanvasDefaultProps } from '@nivo/line'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'

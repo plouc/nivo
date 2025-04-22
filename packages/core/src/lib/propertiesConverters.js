@@ -1,5 +1,5 @@
-import isFunction from 'lodash/isFunction'
-import get from 'lodash/get'
+import isFunction from 'lodash/isFunction.js'
+import get from 'lodash/get.js'
 import { format } from 'd3-format'
 import { useMemo } from 'react'
 

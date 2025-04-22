@@ -14,7 +14,7 @@ beforeEach(() => {
 })
 const generateId = () => `${LINE_UNIQUE_ID_PREFIX}${++id}`
 
-jest.mock('lodash/uniqueId', () => generateId)
+jest.mock('lodash/uniqueId.js', () => generateId)
 
 it('should render a basic line chart', () => {
     const data = [

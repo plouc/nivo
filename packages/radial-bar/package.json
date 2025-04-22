@@ -20,7 +20,7 @@
         "radial-bar-chart"
     ],
     "main": "./dist/nivo-radial-bar.cjs.js",
-    "module": "./dist/nivo-radial-bar.es.js",
+    "module": "./dist/nivo-radial-bar.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -47,5 +47,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-radial-bar.mjs",
+            "require": "./dist/nivo-radial-bar.cjs.js"
+        }
     }
 }

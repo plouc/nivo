@@ -1,5 +1,5 @@
 import React from 'react'
-import omit from 'lodash/omit'
+import omit from 'lodash/omit.js'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/line/props'

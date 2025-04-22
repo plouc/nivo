@@ -21,7 +21,7 @@
         "map"
     ],
     "main": "./dist/nivo-geo.cjs.js",
-    "module": "./dist/nivo-geo.es.js",
+    "module": "./dist/nivo-geo.mjs",
     "files": [
         "README.md",
         "LICENSE.md",
@@ -43,5 +43,11 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/nivo-geo.mjs",
+            "require": "./dist/nivo-geo.cjs.js"
+        }
     }
 }

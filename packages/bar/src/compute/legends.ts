@@ -7,7 +7,7 @@ import {
     LegendLabelDatum,
 } from '../types'
 import { getPropertyAccessor } from '@nivo/core'
-import uniqBy from 'lodash/uniqBy'
+import uniqBy from 'lodash/uniqBy.js'
 
 export const getLegendDataForKeys = <RawDatum extends BarDatum>(
     bars: BarsWithHidden<RawDatum>,

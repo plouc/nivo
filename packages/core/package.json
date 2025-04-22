@@ -12,7 +12,7 @@
         "directory": "packages/core"
     },
     "main": "./dist/nivo-core.cjs.js",
-    "module": "./dist/nivo-core.es.js",
+    "module": "./dist/nivo-core.mjs",
     "types": "./index.d.ts",
     "files": [
         "README.md",
@@ -43,5 +43,12 @@
     "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/nivo/donate"
+    },
+    "exports": {
+        ".": {
+            "types": "./index.d.ts",
+            "import": "./dist/nivo-core.mjs",
+            "require": "./dist/nivo-core.cjs.js"
+        }
     }
 }

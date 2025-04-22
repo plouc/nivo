@@ -13,7 +13,7 @@
     },
     "sideEffects": false,
     "main": "./dist/nivo-text.cjs.js",
-    "module": "./dist/nivo-text.es.js",
+    "module": "./dist/nivo-text.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -30,5 +30,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-text.mjs",
+            "require": "./dist/nivo-text.cjs.js"
+        }
     }
 }

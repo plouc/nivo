@@ -2,8 +2,8 @@ import React, { useMemo } from 'react'
 import { Bump } from '@nivo/bump'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
-import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
+import range from 'lodash/range.js'
+import shuffle from 'lodash/shuffle.js'
 
 interface Datum {
     x: number

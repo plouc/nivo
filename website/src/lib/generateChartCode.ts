@@ -1,9 +1,9 @@
-import forOwn from 'lodash/forOwn'
-import isPlainObject from 'lodash/isPlainObject'
-import isArray from 'lodash/isArray'
-import isString from 'lodash/isString'
-import isNumber from 'lodash/isNumber'
-import isBoolean from 'lodash/isBoolean'
+import forOwn from 'lodash/forOwn.js'
+import isPlainObject from 'lodash/isPlainObject.js'
+import isArray from 'lodash/isArray.js'
+import isString from 'lodash/isString.js'
+import isNumber from 'lodash/isNumber.js'
+import isBoolean from 'lodash/isBoolean.js'
 import dedent from 'dedent-js'
 
 const indent = (content: string, spaces: number = 8) =>

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import range from 'lodash/range'
-import random from 'lodash/random'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
 import { areaCurvePropKeys } from '@nivo/core'
 import { Stream } from '@nivo/stream'
 

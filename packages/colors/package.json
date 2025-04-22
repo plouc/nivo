@@ -12,7 +12,7 @@
         "directory": "packages/colors"
     },
     "main": "./dist/nivo-colors.cjs.js",
-    "module": "./dist/nivo-colors.es.js",
+    "module": "./dist/nivo-colors.mjs",
     "types": "./dist/types/index.d.ts",
     "files": [
         "README.md",
@@ -37,5 +37,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-colors.mjs",
+            "require": "./dist/nivo-colors.cjs.js"
+        }
     }
 }
