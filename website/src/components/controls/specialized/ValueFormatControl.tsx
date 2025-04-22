@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react'
+import React, { memo, useCallback, useMemo, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { formatSpecifier as parseFormat, FormatSpecifier } from 'd3-format'
 // @ts-ignore
@@ -8,9 +8,16 @@ import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, ValueFormatControlConfig } from '../types'
 import { Control, PropertyHeader, Help, TextInput, Switch, Select } from '../ui'
 
-const typeOptions = [
+interface Option<Value = string> {
+    value: Value
+    label: string
+    description: string
+}
+
+type TypeOption = Option<FormatSpecifier['type']>
+const typeOptions: TypeOption[] = [
     {
-        value: undefined,
+        value: '',
         label: 'none',
         description: 'none',
     },
@@ -82,7 +89,8 @@ const typeOptions = [
     },
 ]
 
-const alignOptions = [
+type AlignOption = Option<FormatSpecifier['align']>
+const alignOptions: AlignOption[] = [
     {
         value: '>',
         label: '>',
@@ -105,7 +113,8 @@ const alignOptions = [
     },
 ]
 
-const signOptions = [
+type SignOption = Option<FormatSpecifier['sign']>
+const signOptions: SignOption[] = [
     {
         value: '-',
         label: '-',
@@ -128,9 +137,10 @@ const signOptions = [
     },
 ]
 
-const symbolOptions = [
+type SymbolOption = Omit<Option<FormatSpecifier['symbol']>, 'description'>
+const symbolOptions: SymbolOption[] = [
     {
-        value: undefined,
+        value: '',
         label: 'none',
     },
     {
@@ -179,7 +189,7 @@ export const ValueFormatControl = memo(
         const formatSpecifier = useMemo(() => parseFormat(value.format), [value.format])
 
         const handleSwitch = useCallback(
-            enabled => {
+            (enabled: boolean) => {
                 onChange({
                     format: formatSpecifier.toString(),
                     enabled,
@@ -189,11 +199,10 @@ export const ValueFormatControl = memo(
         )
 
         const updateFormat = useCallback(
-            (property, propertyValue) => {
-                const updatedFormatSpecifier = new FormatSpecifier({
-                    ...formatSpecifier,
-                    [property]: propertyValue,
-                })
+            <P extends keyof FormatSpecifier>(property: P, propertyValue: FormatSpecifier[P]) => {
+                // Not the most performant way to create a new format specifier, but it's simple enough
+                const updatedFormatSpecifier = parseFormat(formatSpecifier.toString())
+                updatedFormatSpecifier[property] = propertyValue
 
                 onChange({
                     format: updatedFormatSpecifier.toString(),
@@ -203,43 +212,43 @@ export const ValueFormatControl = memo(
             [formatSpecifier, onChange, value.enabled]
         )
 
-        const handleTypeChange = option => {
+        const handleTypeChange = (option: TypeOption) => {
             updateFormat('type', option.value)
         }
 
-        const handleFillChange = e => {
+        const handleFillChange = (e: ChangeEvent<HTMLInputElement>) => {
             updateFormat('fill', e.target.value.slice(1))
         }
 
-        const handleAlignChange = option => {
+        const handleAlignChange = (option: AlignOption) => {
             updateFormat('align', option.value)
         }
 
-        const handleSignChange = option => {
+        const handleSignChange = (option: SignOption) => {
             updateFormat('sign', option.value)
         }
 
-        const handleSymbolChange = option => {
+        const handleSymbolChange = (option: SymbolOption) => {
             updateFormat('symbol', option.value)
         }
 
-        const handleZeroChange = flag => {
+        const handleZeroChange = (flag: boolean) => {
             updateFormat('zero', flag)
         }
 
-        const handleWidthChange = e => {
-            updateFormat('width', e.target.value)
+        const handleWidthChange = (e: ChangeEvent<HTMLInputElement>) => {
+            updateFormat('width', e.target.value ? Number(e.target.value) : undefined)
         }
 
-        const handleCommaChange = flag => {
+        const handleCommaChange = (flag: boolean) => {
             updateFormat('comma', flag)
         }
 
-        const handlePrecisionChange = e => {
-            updateFormat('precision', e.target.value)
+        const handlePrecisionChange = (e: ChangeEvent<HTMLInputElement>) => {
+            updateFormat('precision', e.target.value ? Number(e.target.value) : undefined)
         }
 
-        const handleTrimChange = flag => {
+        const handleTrimChange = (flag: boolean) => {
             updateFormat('trim', flag)
         }
 

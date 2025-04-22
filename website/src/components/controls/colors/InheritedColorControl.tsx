@@ -1,8 +1,13 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, ReactNode, ChangeEvent } from 'react'
 import isString from 'lodash/isString.js'
 import isPlainObject from 'lodash/isPlainObject.js'
 import styled from 'styled-components'
-import { InheritedColorConfig } from '@nivo/colors'
+import {
+    InheritedColorConfig,
+    isInheritedColorConfigFromTheme,
+    isInheritedColorConfigFromContext,
+    ColorModifier,
+} from '@nivo/colors'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, InheritedColorControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Select } from '../ui'
@@ -12,8 +17,15 @@ const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].m
     label: prop,
     value: prop,
 }))
+type ThemeProperty = (typeof themeProperties)[number]
 
 const defaultInheritableProperties = ['color']
+interface InheritableProperty {
+    label: string
+    value: string
+}
+
+type ColorType = '' | 'custom' | 'theme' | 'inherit'
 
 interface InheritedColorControlProps {
     id: string
@@ -42,35 +54,35 @@ export const InheritedColorControl = ({
 }: InheritedColorControlProps) => {
     const [customColor, setCustomColor] = useState(isString(value) ? value : defaultCustomColor)
     const [themeProp, setThemeProp] = useState(
-        isPlainObject(value) && value.theme !== undefined ? value.theme : defaultThemeProperty
+        isInheritedColorConfigFromTheme(value) ? value.theme : defaultThemeProperty
     )
     const [fromProp, setFromProp] = useState(
-        isPlainObject(value) && value.from !== undefined ? value.from : defaultFrom
+        isInheritedColorConfigFromContext(value) ? value.from : defaultFrom
     )
-    const [modifiers, setModifiers] = useState(
-        isPlainObject(value) && value.modifiers !== undefined ? value.modifiers : []
+    const [modifiers, setModifiers] = useState<ColorModifier[]>(
+        isInheritedColorConfigFromContext(value) ? value.modifiers || [] : []
     )
 
-    let type
-    let subControl = null
+    let type: ColorType = ''
+    let subControl: ReactNode = null
 
     const handleTypeChange = useCallback(
-        type => {
-            if (type === 'custom') onChange(customColor)
-            if (type === 'theme') onChange({ theme: themeProp })
-            if (type === 'inherit') onChange({ from: fromProp, modifiers })
+        (_type: ColorType) => {
+            if (_type === 'custom') onChange(customColor)
+            if (_type === 'theme') onChange({ theme: themeProp })
+            if (_type === 'inherit') onChange({ from: fromProp, modifiers })
         },
         [onChange]
     )
     const handleThemePropertyChange = useCallback(
-        value => {
+        (value: ThemeProperty) => {
             setThemeProp(value.value)
             onChange({ theme: value.value })
         },
         [onChange, setThemeProp]
     )
     const handleFromPropertyChange = useCallback(
-        value => {
+        (value: InheritableProperty) => {
             setFromProp(value.value)
             onChange({
                 from: value.value,
@@ -80,7 +92,7 @@ export const InheritedColorControl = ({
         [onChange, setThemeProp]
     )
     const handleModifierChange = useCallback(
-        index => modifier => {
+        (index: number) => (modifier: ColorModifier) => {
             const newModifiers = [...modifiers]
             newModifiers[index] = modifier
             setModifiers(newModifiers)
@@ -92,23 +104,15 @@ export const InheritedColorControl = ({
         [onChange, modifiers]
     )
     const handleCustomColorChange = useCallback(
-        event => {
+        (event: ChangeEvent<HTMLInputElement>) => {
             setCustomColor(event.target.value)
             onChange(event.target.value)
         },
         [onChange, setCustomColor]
     )
 
-    if (isString(value)) {
-        type = 'custom'
-        subControl = (
-            <CustomColor>
-                <input type="color" onChange={handleCustomColorChange} value={value} />
-                <code>{value}</code>
-            </CustomColor>
-        )
-    } else if (isPlainObject(value)) {
-        if (value.theme !== undefined) {
+    if (isPlainObject(value)) {
+        if (isInheritedColorConfigFromTheme(value)) {
             type = 'theme'
             subControl = (
                 <>
@@ -120,12 +124,13 @@ export const InheritedColorControl = ({
                     />
                 </>
             )
-        } else if (value.from !== undefined) {
+        } else if (isInheritedColorConfigFromContext(value)) {
             type = 'inherit'
             const propertyOptions = inheritableProperties.map(prop => ({
                 label: prop,
                 value: prop,
             }))
+            const hasModifiers = Array.isArray(value.modifiers) && value.modifiers.length > 0
             subControl = (
                 <>
                     <SubLabel>inherited property</SubLabel>
@@ -135,17 +140,26 @@ export const InheritedColorControl = ({
                         onChange={handleFromPropertyChange}
                     />
                     <SubLabel>modifiers</SubLabel>
-                    {modifiers.length === 0 && <NoModifiers>No modifier.</NoModifiers>}
-                    {modifiers.map((modifier, i: number) => (
-                        <InheritedColorModifierControl
-                            key={i}
-                            modifier={modifier}
-                            onChange={handleModifierChange(i)}
-                        />
-                    ))}
+                    {!hasModifiers && <NoModifiers>No modifier.</NoModifiers>}
+                    {hasModifiers &&
+                        modifiers!.map((modifier, i: number) => (
+                            <InheritedColorModifierControl
+                                key={i}
+                                modifier={modifier}
+                                onChange={handleModifierChange(i)}
+                            />
+                        ))}
                 </>
             )
         }
+    } else if (isString(value)) {
+        type = 'custom'
+        subControl = (
+            <CustomColor>
+                <input type="color" onChange={handleCustomColorChange} value={value} />
+                <code>{value}</code>
+            </CustomColor>
+        )
     }
 
     return (

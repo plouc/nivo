@@ -33,13 +33,13 @@ export type InheritedColorConfig<Datum> =
     | InheritedColorConfigFromTheme
     | InheritedColorConfigFromContext
 
-const isInheritedColorConfigFromTheme = <Datum>(
+export const isInheritedColorConfigFromTheme = <Datum>(
     config: InheritedColorConfig<Datum>
 ): config is InheritedColorConfigFromTheme => {
     return (config as InheritedColorConfigFromTheme).theme !== undefined
 }
 
-const isInheritedColorConfigFromContext = <Datum>(
+export const isInheritedColorConfigFromContext = <Datum>(
     config: InheritedColorConfig<Datum>
 ): config is InheritedColorConfigFromContext => {
     return (config as InheritedColorConfigFromContext).from !== undefined
