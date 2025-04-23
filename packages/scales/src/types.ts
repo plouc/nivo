@@ -51,6 +51,7 @@ export type ScaleLinearSpec = {
     reverse?: boolean
     clamp?: boolean
     nice?: boolean | number
+    round?: boolean
 }
 export interface ScaleLinear<Output> extends D3ScaleLinear<number, Output, never> {
     type: 'linear'

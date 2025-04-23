@@ -1,5 +1,6 @@
 import { NumberValue, scaleLinear, ScaleLinear as D3ScaleLinear } from 'd3-scale'
 import { ScaleLinearSpec, ScaleLinear, ComputedSerieAxis, ScaleAxis } from './types'
+import { interpolateRound, interpolateNumber } from 'd3-interpolate'
 
 export const createLinearScale = <Output extends NumberValue>(
     {
@@ -9,6 +10,7 @@ export const createLinearScale = <Output extends NumberValue>(
         reverse = false,
         clamp = false,
         nice = false,
+        round = true,
     }: ScaleLinearSpec,
     data: ComputedSerieAxis<Output>,
     size: number,
@@ -29,14 +31,15 @@ export const createLinearScale = <Output extends NumberValue>(
     }
 
     const scale = scaleLinear<number, Output>()
-        .rangeRound(axis === 'x' ? [0, size] : [size, 0])
+        .range(axis === 'x' ? [0, size] : [size, 0])
+        .interpolate(round ? interpolateRound : interpolateNumber)
         .domain(reverse ? [maxValue, minValue] : [minValue, maxValue])
         .clamp(clamp)
 
     if (nice === true) scale.nice()
     else if (typeof nice === 'number') scale.nice(nice)
 
-    return castLinearScale<number, Output>(scale, stacked)
+    return castLinearScale(scale, stacked)
 }
 
 export const castLinearScale = <Range, Output>(
