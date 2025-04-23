@@ -1,8 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
+import { PieSvgProps, PieTooltipProps } from '@nivo/pie'
 // @ts-ignore
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { mapFormat, settingsMapper } from '../../../lib/settings'
+import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+
+export type MappedPieProps = Omit<PieSvgProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedPieProps = UnmappedSettings<
+    MappedPieProps,
+    {
+        valueFormat: {
+            format: string
+            enabled: boolean
+        }
+        'custom tooltip example': boolean
+        'showcase pattern usage': boolean
+    }
+>
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -18,7 +32,7 @@ const TooltipValue = styled.span`
     font-weight: 600;
 `
 
-const CustomTooltip = ({ datum }) => (
+const CustomTooltip = ({ datum }: PieTooltipProps<any>) => (
     <TooltipWrapper style={{ color: datum.color }}>
         <TooltipKey>id</TooltipKey>
         <TooltipValue>{datum.id}</TooltipValue>
@@ -31,7 +45,7 @@ const CustomTooltip = ({ datum }) => (
     </TooltipWrapper>
 )
 
-export default settingsMapper(
+export default settingsMapper<UnmappedPieProps, MappedPieProps>(
     {
         valueFormat: mapFormat,
         arcLinkLabel: value => {
@@ -42,9 +56,8 @@ export default settingsMapper(
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
-        tooltip: (value, values) => {
+        tooltip: (_value, values) => {
             if (!values['custom tooltip example']) return undefined
-
             return CustomTooltip
         },
         theme: (value, values) => {
@@ -54,13 +67,13 @@ export default settingsMapper(
                 ...values.theme,
                 tooltip: {
                     container: {
-                        ...values.theme.tooltip.container,
+                        ...(values.theme?.tooltip?.container || {}),
                         background: '#333',
                     },
                 },
             }
         },
-        defs: (value, values) => {
+        defs: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [
@@ -80,7 +93,7 @@ export default settingsMapper(
                 }),
             ]
         },
-        fill: (value, values) => {
+        fill: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [
