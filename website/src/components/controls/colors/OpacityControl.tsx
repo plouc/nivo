@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, ChangeEvent } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Flavor, ChartProperty } from '../../../types'
 import { ControlContext, OpacityControlConfig } from '../types'
@@ -28,7 +28,7 @@ export const OpacityControl = ({
 }: OpacityControlProps) => {
     const theme = useTheme()
     const handleChange = useCallback(
-        event => {
+        (event: ChangeEvent<HTMLInputElement>) => {
             onChange(Number(event.target.value))
         },
         [onChange]

@@ -1,71 +1,49 @@
 import React from 'react'
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { ResponsiveBar, svgDefaultProps } from '@nivo/bar'
+import { ResponsiveBarCanvas } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
-import { generateLightDataSet } from '../../data/components/bar/generator'
-import mapper from '../../data/components/bar/mapper'
+import { generateHeavyDataSet } from '../../data/components/bar/generator'
+import mapper, { UnmappedBarProps, MappedBarProps } from '../../data/components/bar/mapper'
 import { groups } from '../../data/components/bar/props'
 import { graphql, useStaticQuery } from 'gatsby'
 
-const Tooltip = () => {
-    /* return custom tooltip */
-}
-
-const initialProperties = {
+const initialProperties: UnmappedBarProps = {
     indexBy: 'country',
 
     margin: {
         top: 50,
-        right: 130,
+        right: 60,
         bottom: 50,
         left: 60,
     },
 
-    padding: 0.3,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
+    padding: 0.15,
     innerPadding: 0,
     minValue: 'auto',
     maxValue: 'auto',
 
     groupMode: 'stacked',
-    layout: 'vertical',
+    layout: 'horizontal',
     reverse: false,
 
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
     valueFormat: { format: '', enabled: false },
 
-    colors: { scheme: 'nivo' },
+    colors: { scheme: 'red_blue' },
     colorBy: 'id',
-    defs: [
-        patternDotsDef('dots', {
-            background: 'inherit',
-            color: '#38bcb2',
-            size: 4,
-            padding: 1,
-            stagger: true,
-        }),
-        patternLinesDef('lines', {
-            background: 'inherit',
-            color: '#eed312',
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-        }),
-    ],
-    fill: [
-        { match: { id: 'fries' }, id: 'dots' },
-        { match: { id: 'sandwich' }, id: 'lines' },
-    ],
-    borderRadius: 0,
     borderWidth: 0,
+    borderRadius: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 1.6]],
     },
 
     axisTop: {
-        enable: false,
+        enable: true,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -89,7 +67,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'country',
         legendPosition: 'middle',
-        legendOffset: 32,
+        legendOffset: 36,
         truncateTickAt: 0,
     },
     axisLeft: {
@@ -103,8 +81,8 @@ const initialProperties = {
         truncateTickAt: 0,
     },
 
-    enableGridX: false,
-    enableGridY: true,
+    enableGridX: true,
+    enableGridY: false,
 
     enableLabel: true,
     enableTotals: false,
@@ -118,55 +96,20 @@ const initialProperties = {
     labelPosition: 'middle',
     labelOffset: 0,
 
-    legends: [
-        {
-            dataFrom: 'keys',
-            anchor: 'bottom-right',
-            direction: 'column',
-            justify: false,
-            translateX: 120,
-            translateY: 0,
-            itemsSpacing: 2,
-            itemWidth: 100,
-            itemHeight: 20,
-            itemDirection: 'left-to-right',
-            itemOpacity: 0.85,
-            symbolSize: 20,
-            onClick: data => {
-                alert(JSON.stringify(data, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemOpacity: 1,
-                    },
-                },
-            ],
-        },
-    ],
-
     isInteractive: true,
     'custom tooltip example': false,
-    tooltip: null,
 
-    animate: true,
-    motionConfig: 'default',
-
-    role: 'application',
-    isFocusable: false,
-    ariaLabel: 'Nivo bar chart demo',
-    barAriaLabel: data => `${data.id}: ${data.formattedValue} in country: ${data.indexValue}`,
+    legends: [],
 }
 
-const Bar = () => {
+const BarCanvas = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/bar.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/bar-canvas.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -175,28 +118,27 @@ const Bar = () => {
     `)
 
     return (
-        <ComponentTemplate
-            name="Bar"
-            meta={meta.Bar}
+        <ComponentTemplate<UnmappedBarProps, MappedBarProps, any>
+            name="BarCanvas"
+            meta={meta.BarCanvas}
             icon="bar"
             flavors={meta.flavors}
-            currentFlavor="svg"
+            currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,
                 ...properties,
-                tooltip: properties.tooltip ? Tooltip : undefined,
+                tooltip: properties.tooltip ? 'CustomTooltip' : undefined,
             })}
-            generateData={generateLightDataSet}
+            generateData={generateHeavyDataSet}
             getTabData={data => data.data}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBar
+                    <ResponsiveBarCanvas
                         data={data.data}
                         keys={data.keys}
                         {...properties}
@@ -216,4 +158,4 @@ const Bar = () => {
     )
 }
 
-export default Bar
+export default BarCanvas

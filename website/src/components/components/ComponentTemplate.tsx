@@ -39,7 +39,7 @@ interface ComponentTemplateProps<
     // default props as defined in the package component
     defaultProperties?: Partial<ComponentProps>
     propertiesMapper?: (rawProps: UnmappedProps, data: Data) => MappedProps
-    codePropertiesMapper?: (props: MappedProps, data: Data) => MappedProps
+    codePropertiesMapper?: (props: MappedProps, data: Data) => Record<string, any>
     generateData: (previousData?: Data | null) => Data
     enableDiceRoll?: boolean
     dataKey?: string
@@ -97,7 +97,7 @@ export const ComponentTemplate = <
         mappedProperties = settings as unknown as MappedProps
     }
 
-    let codeProperties = mappedProperties
+    let codeProperties: Record<string, any> = mappedProperties
     if (codePropertiesMapper !== undefined) {
         codeProperties = codePropertiesMapper(mappedProperties, data)
     }

@@ -1,19 +1,11 @@
 import React from 'react'
 import { generateWinesTastes } from '@nivo/generators'
-import { ResponsiveRadar, RadarSvgProps, svgDefaultProps } from '@nivo/radar'
+import { ResponsiveRadar, svgDefaultProps } from '@nivo/radar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radar/meta.yml'
-import mapper from '../../data/components/radar/mapper'
+import mapper, { UnmappedRadarProps, MappedRadarProps } from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radar/props'
 import { graphql, useStaticQuery } from 'gatsby'
-
-type MappedRadarProps = Omit<RadarSvgProps<any>, 'data' | 'keys' | 'width' | 'height'>
-type UnmappedRadarProps = Omit<MappedRadarProps, 'valueFormat'> & {
-    valueFormat: {
-        format: string
-        enabled: boolean
-    }
-}
 
 const initialProperties: UnmappedRadarProps = {
     indexBy: 'taste',

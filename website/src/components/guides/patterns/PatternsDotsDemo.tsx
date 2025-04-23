@@ -23,7 +23,7 @@ const initialSettings: Settings = {
     color: defaults.color,
 }
 
-const controls: ChartProperty[] = [
+const controls: Omit<ChartProperty, 'group' | 'key'>[] = [
     {
         name: 'size',
         type: 'number',

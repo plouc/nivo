@@ -46,7 +46,7 @@ export const MotionConfigControl = memo(
         const [customConfig, setCustomConfig] = useState(type === 'custom' ? value : defaultConfig)
 
         const handleTypeChange = useCallback(
-            event => {
+            (event: ChangeEvent<HTMLInputElement>) => {
                 const newType = event.target.value
                 if (newType === 'preset') {
                     onChange(preset)

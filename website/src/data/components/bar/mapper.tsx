@@ -1,6 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
-import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
+import { BarSvgProps } from '@nivo/bar'
+import { settingsMapper, mapAxis, mapFormat, UnmappedSettings } from '../../../lib/settings'
+
+export type MappedBarProps = Omit<BarSvgProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedBarProps = UnmappedSettings<
+    MappedBarProps,
+    {
+        valueFormat: {
+            format: string
+            enabled: boolean
+        }
+        axisTop: { enable: boolean } & MappedBarProps['axisTop']
+        axisRight: { enable: boolean } & MappedBarProps['axisTop']
+        axisBottom: { enable: boolean } & MappedBarProps['axisBottom']
+        axisLeft: { enable: boolean } & MappedBarProps['axisLeft']
+        'custom tooltip example': boolean
+    }
+>
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -35,7 +52,7 @@ const CustomTooltip = ({ color, ...bar }: any) => {
     )
 }
 
-export default settingsMapper(
+export default settingsMapper<UnmappedBarProps, MappedBarProps>(
     {
         valueFormat: mapFormat,
         axisTop: mapAxis('top'),
@@ -49,12 +66,6 @@ export default settingsMapper(
         },
     },
     {
-        exclude: [
-            'enable axisTop',
-            'enable axisRight',
-            'enable axisBottom',
-            'enable axisLeft',
-            'custom tooltip example',
-        ],
+        exclude: ['custom tooltip example'],
     }
 )

@@ -78,6 +78,10 @@ const Sunburst = () => {
             defaultProperties={defaultProps}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
+            codePropertiesMapper={properties => ({
+                ...properties,
+                tooltip: properties.tooltip ? 'CustomTooltip' : undefined,
+            })}
             generateData={generateData}
             image={image}
         >

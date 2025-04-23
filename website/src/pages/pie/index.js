@@ -128,6 +128,10 @@ const Pie = () => {
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
+            codePropertiesMapper={properties => ({
+                ...properties,
+                tooltip: properties.tooltip ? 'CustomTooltip' : undefined,
+            })}
             generateData={generateData}
             image={image}
         >

@@ -43,7 +43,7 @@ const PolarBarIconItem = ({ type }: { type: IconType }) => (
             borderColor={colors[type].background}
             enableRadialGrid={false}
             enableCircularGrid={false}
-            radialAxisStart={null}
+            radialAxis={null}
             circularAxisOuter={null}
             animate={false}
             isInteractive={false}

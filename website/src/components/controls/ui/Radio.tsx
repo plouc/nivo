@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 interface RadioProps {
@@ -8,7 +8,7 @@ interface RadioProps {
         value: string
         label: string
     }[]
-    onChange: (e: any) => void
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Radio = memo(({ options, columns = 2, value, onChange }: RadioProps) => {
