@@ -134,3 +134,16 @@ it(`should allow numeric nice`, () => {
     expect(scale(0.5)).toBe(50)
     expect(scale(1)).toBe(100)
 })
+
+it(`should not round the outputs`, () => {
+    const scale = createLinearScale<number>(
+        { type: 'linear', round: false },
+        { all: [], min: 0, max: 1 },
+        101,
+        'y'
+    )
+
+    expect(scale(0)).toBe(101)
+    expect(scale(0.5)).toBeCloseTo(50.5)
+    expect(scale(1)).toBe(0)
+})

@@ -123,6 +123,57 @@ export const LinearScale: Story = {
     ),
 }
 
+/**
+ * By default, \`round\` is set to `true`, producing artifacts which are especially
+ * pronounced on the charts with small heights.
+ */
+export const RoundedLinearScale: StoryObj<{
+    curve: 'linear' | 'monotoneX' | 'step' | 'stepBefore' | 'stepAfter'
+    round?: boolean
+}> = {
+    render: args => (
+        <Line
+            {...commonProperties}
+            curve={args.curve}
+            animate={false}
+            pointSize={0}
+            data={[
+                {
+                    id: 'value',
+                    data: Array.from({ length: 200 }, (_, i) => ({
+                        x: i,
+                        y: i,
+                    })),
+                },
+            ]}
+            xScale={{
+                type: 'linear',
+                min: 0,
+                max: 'auto',
+            }}
+            yScale={{
+                type: 'linear',
+                round: args.round,
+            }}
+            axisLeft={{
+                legend: 'linear scale',
+                legendOffset: 12,
+            }}
+            axisBottom={{
+                legend: 'linear scale',
+                legendOffset: -12,
+            }}
+            height={200}
+        />
+    ),
+    argTypes: {
+        round: {
+            control: 'boolean',
+            description: 'Round the interpolated (y) axis values',
+        },
+    },
+}
+
 export const TimeScale: Story = {
     render: args => (
         <Line
