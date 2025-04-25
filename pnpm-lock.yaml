@@ -67,9 +67,6 @@ importers:
       '@wojtekmaj/enzyme-adapter-react-17':
         specifier: 0.6.6
         version: 0.6.6(enzyme@3.11.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@wyze/clog-cli':
-        specifier: ^1.0.1
-        version: 1.0.1
       babel-jest:
         specifier: ^29.5.0
         version: 29.7.0(@babel/core@7.26.10)
@@ -5586,10 +5583,6 @@ packages:
     resolution: {integrity: sha512-ARGIQSIIv3oBia1m5Ihn1VU0FGmft6KPe39SBKTb8p7LSXO23YI4kNtc4M/cKoIY7P+IYdrZcgMObvedyjoSQA==}
     peerDependencies:
       react: 18.3.1
-
-  '@wyze/clog-cli@1.0.1':
-    resolution: {integrity: sha512-HDlI9sCn6GY//cy8MzNsMlclSfm7C/RHW3eUmMCYMl1mxDjbBxgJ7L84FFFt5RL2ASQ7G5wYO8qFTwhRDkBMUQ==}
-    hasBin: true
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -19474,8 +19467,6 @@ snapshots:
       object.fromentries: 2.0.8
       prop-types: 15.8.1
       react: 18.3.1
-
-  '@wyze/clog-cli@1.0.1': {}
 
   '@xtuc/ieee754@1.2.0': {}
 
