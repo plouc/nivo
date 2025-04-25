@@ -28,6 +28,7 @@ export interface DefaultRawDatum {
     value: number
 }
 
+// eslint-disable-next-line
 export interface MayHaveLabel extends Object {
     label?: string | number
 }

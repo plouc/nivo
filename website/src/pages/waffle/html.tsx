@@ -5,9 +5,13 @@ import { ResponsiveWaffleHtml, htmlDefaultProps, ComputedDatum, Datum } from '@n
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
-import mapper from '../../data/components/waffle/mapper'
+import {
+    htmlMapper,
+    UnmappedWaffleHtmlProps,
+    MappedWaffleHtmlProps,
+} from '../../data/components/waffle/mapper'
 
-const initialProperties = {
+const initialProperties: UnmappedWaffleHtmlProps = {
     total: 100,
 
     rows: 18,
@@ -30,7 +34,7 @@ const initialProperties = {
     borderWidth: 0,
     borderColor: {
         from: 'color',
-        gamma: [['darker', 0.3]],
+        modifiers: [['darker', 0.3]],
     },
 
     animate: htmlDefaultProps.animate,
@@ -75,21 +79,16 @@ const WaffleHtml = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedWaffleHtmlProps, MappedWaffleHtmlProps, any>
             name="WaffleHtml"
             meta={meta.WaffleHtml}
             icon="waffle"
             flavors={meta.flavors}
             currentFlavor="html"
             properties={groups}
-            propertiesMapper={mapper}
+            propertiesMapper={htmlMapper}
             initialProperties={initialProperties}
             defaultProperties={htmlDefaultProps}
-            codePropertiesMapper={properties => ({
-                ...properties,
-                cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
-                tooltip: properties.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
-            })}
             generateData={generateData}
             image={image}
         >

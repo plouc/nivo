@@ -1,12 +1,30 @@
 import omit from 'lodash/omit'
-import { settingsMapper, mapFormat } from '../../../lib/settings'
+import { PolarBarSvgProps } from '@nivo/polar-bar'
+import { settingsMapper, mapFormat, UnmappedSettings } from '../../../lib/settings'
 
-export const mapAxis = (key: string) => (value: any, settings: any) =>
-    settings[key].enable ? omit(value, ['enable']) : null
+export type MappedPolarBarProps = Omit<PolarBarSvgProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedPolarBarProps = UnmappedSettings<
+    MappedPolarBarProps,
+    {
+        valueFormat: {
+            format: string
+            enabled: boolean
+        }
+        radialAxis: { enable: boolean } & MappedPolarBarProps['radialAxis']
+        circularAxisInner: { enable: boolean } & MappedPolarBarProps['circularAxisInner']
+        circularAxisOuter: { enable: boolean } & MappedPolarBarProps['circularAxisOuter']
+    }
+>
 
-export default settingsMapper({
+export const mapAxis =
+    <T extends Record<string, any>>() =>
+    (value: T) => {
+        return value.enable ? omit(value, ['enable']) : null
+    }
+
+export default settingsMapper<UnmappedPolarBarProps, MappedPolarBarProps>({
     valueFormat: mapFormat,
-    radialAxis: mapAxis('radialAxis'),
-    circularAxisInner: mapAxis('circularAxisInner'),
-    circularAxisOuter: mapAxis('circularAxisOuter'),
+    radialAxis: mapAxis<UnmappedPolarBarProps['radialAxis']>(),
+    circularAxisInner: mapAxis<UnmappedPolarBarProps['circularAxisInner']>(),
+    circularAxisOuter: mapAxis<UnmappedPolarBarProps['circularAxisOuter']>(),
 })

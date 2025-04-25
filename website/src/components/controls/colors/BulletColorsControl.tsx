@@ -8,6 +8,8 @@ import {
     useBulletColors,
 } from './colorSchemeSelect'
 
+export type BulletColorOption = ReturnType<typeof useBulletColors>[number]
+
 interface QuantizeColorsControlProps {
     id: string
     property: ChartProperty
@@ -30,7 +32,10 @@ export const BulletColorsControl = ({
 }: QuantizeColorsControlProps) => {
     const options = useBulletColors()
 
-    const handleChange = useCallback(value => onChange(value.value), [onChange])
+    const handleChange = useCallback(
+        (value: BulletColorOption | null) => onChange(value!.value),
+        [onChange]
+    )
     const value = options.find(({ value: v }) => v === _value)
 
     return (
@@ -42,12 +47,12 @@ export const BulletColorsControl = ({
             supportedFlavors={property.flavors}
         >
             <PropertyHeader {...property} context={context} />
-            <Select
+            <Select<BulletColorOption>
                 options={options}
                 onChange={handleChange}
                 value={value}
                 isSearchable
-                clearable={false}
+                isClearable={false}
                 components={{
                     SingleValue: ColorSchemeSelectValue,
                     Option: ColorSchemeSelectOption,

@@ -1,6 +1,4 @@
 import React, { useCallback } from 'react'
-// @ts-ignore
-import { components } from 'react-select'
 import { ColorInterpolatorId } from '@nivo/colors'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, ColorInterpolatorsControlConfig } from '../types'
@@ -10,6 +8,8 @@ import {
     ColorSchemeSelectValue,
     useColorInterpolators,
 } from './colorSchemeSelect'
+
+export type ColorInterpolatorOption = ReturnType<typeof useColorInterpolators>[number]
 
 interface OrdinalColorsControlProps {
     id: string
@@ -33,7 +33,10 @@ export const ColorInterpolatorsControl = ({
 }: OrdinalColorsControlProps) => {
     const options = useColorInterpolators()
 
-    const handleChange = useCallback(value => onChange(value.value), [onChange])
+    const handleChange = useCallback(
+        (value: ColorInterpolatorOption | null) => onChange(value!.value),
+        [onChange]
+    )
     const value = options.find(({ value: v }) => v === _value)
 
     return (
@@ -45,12 +48,12 @@ export const ColorInterpolatorsControl = ({
             supportedFlavors={property.flavors}
         >
             <PropertyHeader {...property} context={context} />
-            <Select
+            <Select<ColorInterpolatorOption>
                 options={options}
                 onChange={handleChange}
                 value={value}
                 isSearchable
-                clearable={false}
+                isClearable={false}
                 components={{
                     SingleValue: ColorSchemeSelectValue,
                     Option: ColorSchemeSelectOption,

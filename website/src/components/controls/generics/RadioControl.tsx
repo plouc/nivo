@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, ChangeEvent } from 'react'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, RadioControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Radio } from '../ui'
@@ -25,7 +25,10 @@ export const RadioControl = memo(
         onChange,
         context,
     }: RadioControlProps) => {
-        const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])
+        const handleUpdate = useCallback(
+            (event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
+            [onChange]
+        )
 
         return (
             <Control

@@ -17,10 +17,10 @@ import { Stories } from './Stories'
 import { ChartMeta, ChartProperty, Flavor } from '../../types'
 
 interface ComponentTemplateProps<
-    UnmappedProps extends object,
-    MappedProps extends object,
+    UnmappedProps extends Record<string, any>,
+    MappedProps extends Record<string, any>,
     Data,
-    ComponentProps extends object
+    ComponentProps extends object = any
 > {
     name: string
     meta: ChartMeta
@@ -38,8 +38,8 @@ interface ComponentTemplateProps<
     initialProperties: UnmappedProps
     // default props as defined in the package component
     defaultProperties?: Partial<ComponentProps>
-    propertiesMapper?: (props: UnmappedProps, data: Data) => MappedProps
-    codePropertiesMapper?: (props: MappedProps, data: Data) => MappedProps
+    propertiesMapper?: (rawProps: UnmappedProps, data: Data) => MappedProps
+    codePropertiesMapper?: (props: MappedProps, data: Data) => Record<string, any>
     generateData: (previousData?: Data | null) => Data
     enableDiceRoll?: boolean
     dataKey?: string
@@ -55,9 +55,9 @@ interface ComponentTemplateProps<
 }
 
 export const ComponentTemplate = <
-    UnmappedProps extends object = any,
-    MappedProps extends object = any,
-    Data = any,
+    UnmappedProps extends Record<string, any>,
+    MappedProps extends Record<string, any>,
+    Data,
     ComponentProps extends object = any
 >({
     name,
@@ -97,7 +97,7 @@ export const ComponentTemplate = <
         mappedProperties = settings as unknown as MappedProps
     }
 
-    let codeProperties = mappedProperties
+    let codeProperties: Record<string, any> = mappedProperties
     if (codePropertiesMapper !== undefined) {
         codeProperties = codePropertiesMapper(mappedProperties, data)
     }

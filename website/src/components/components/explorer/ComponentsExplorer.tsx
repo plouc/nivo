@@ -21,7 +21,7 @@ export const ComponentsExplorer = ({ location }: ComponentsExplorerProps) => {
     }, [location.search])
 
     const handleSearch = useCallback(
-        term => {
+        (term: string | null) => {
             const params = new URLSearchParams()
             if (term) params.append('q', term)
             if (filter) params.append('filter', filter)

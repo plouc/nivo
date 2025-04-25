@@ -10,6 +10,7 @@ const presetOptions = Object.keys(springConfig).map(presetId => ({
     value: presetId,
     label: presetId,
 }))
+export type MotionConfigPresetOption = (typeof presetOptions)[number]
 
 const defaultConfig = {
     mass: 1,
@@ -46,7 +47,7 @@ export const MotionConfigControl = memo(
         const [customConfig, setCustomConfig] = useState(type === 'custom' ? value : defaultConfig)
 
         const handleTypeChange = useCallback(
-            event => {
+            (event: ChangeEvent<HTMLInputElement>) => {
                 const newType = event.target.value
                 if (newType === 'preset') {
                     onChange(preset)
@@ -58,9 +59,9 @@ export const MotionConfigControl = memo(
         )
 
         const handlePresetChange = useCallback(
-            option => {
-                setPreset(option.value)
-                onChange(option.value)
+            (option: MotionConfigPresetOption | null) => {
+                setPreset(option!.value)
+                onChange(option!.value)
             },
             [onChange]
         )
@@ -123,7 +124,7 @@ export const MotionConfigControl = memo(
                         onChange={handleTypeChange}
                     />
                     {type === 'preset' && (
-                        <Select
+                        <Select<MotionConfigPresetOption>
                             options={presetOptions}
                             value={presetOptions.find(option => option.value === value)}
                             onChange={handlePresetChange}

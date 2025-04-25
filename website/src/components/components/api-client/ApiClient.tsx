@@ -32,7 +32,7 @@ interface ApiClientProps {
     chartClass: string
     apiPath: string
     dataProperty?: string
-    propsMapper?: (props: any) => any
+    propsMapper?: (props: any, data: any) => any
     defaultProps: any
     flavors: {
         flavor: Flavor

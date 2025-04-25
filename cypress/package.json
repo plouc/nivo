@@ -44,7 +44,7 @@
         "test": "cypress run --component"
     },
     "engines": {
-        "node": ">=18"
+        "node": "22.x"
     },
     "devDependencies": {
         "cypress": "^13.8.1",

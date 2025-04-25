@@ -116,7 +116,6 @@ const props: ChartProperty[] = [
         control: { type: 'range', min: 0, max: 40, unit: 'px' },
         help: 'Defines the size of active nodes, statically or dynamically.',
         required: false,
-        defaultValue: defaults.activeNodeSize,
         flavors: allFlavors,
     },
     {
@@ -126,7 +125,6 @@ const props: ChartProperty[] = [
         control: { type: 'range', min: 0, max: 40, unit: 'px' },
         help: 'Defines the size of inactive nodes, statically or dynamically.',
         required: false,
-        defaultValue: defaults.activeNodeSize,
         flavors: allFlavors,
     },
     ordinalColors({
@@ -183,7 +181,6 @@ const props: ChartProperty[] = [
         control: { type: 'lineWidth' },
         help: 'Defines the size of active links, statically or dynamically.',
         required: false,
-        defaultValue: defaults.activeLinkThickness,
         flavors: allFlavors,
     },
     {
@@ -193,7 +190,6 @@ const props: ChartProperty[] = [
         control: { type: 'lineWidth' },
         help: 'Defines the thickness of inactive links, statically or dynamically.',
         required: false,
-        defaultValue: defaults.inactiveLinkThickness,
         flavors: allFlavors,
     },
     {
@@ -510,7 +506,7 @@ const props: ChartProperty[] = [
     tooltipPositionProperty({
         key: 'nodeTooltipPosition',
         flavors: allFlavors,
-        defaultValue: svgDefaults.TooltipPosition,
+        defaultValue: svgDefaults.nodeTooltipPosition,
     }),
     tooltipAnchorProperty({
         key: 'nodeTooltipAnchor',

@@ -3,13 +3,13 @@ import { generateChordData } from '@nivo/generators'
 import { ResponsiveChordCanvas, canvasDefaultProps } from '@nivo/chord'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
-import mapper from '../../data/components/chord/mapper'
+import mapper, { UnmappedChordProps, MappedChordProps } from '../../data/components/chord/mapper'
 import { groups } from '../../data/components/chord/props'
 import { graphql, useStaticQuery } from 'gatsby'
 
 const MATRIX_SIZE = 38
 
-const initialProperties = {
+const initialProperties: UnmappedChordProps = {
     margin: {
         top: 60,
         right: 200,
@@ -103,7 +103,7 @@ const ChordCanvas = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedChordProps, MappedChordProps, any>
             name="ChordCanvas"
             meta={meta.ChordCanvas}
             icon="chord"

@@ -1,25 +1,13 @@
 import React from 'react'
-import { ResponsiveRadialBar, RadialBarSvgProps, svgDefaultProps } from '@nivo/radial-bar'
+import { ResponsiveRadialBar, svgDefaultProps } from '@nivo/radial-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radial-bar/meta.yml'
-import mapper from '../../data/components/radial-bar/mapper'
+import mapper, {
+    UnmappedRadarProps,
+    MappedRadarProps,
+} from '../../data/components/radial-bar/mapper'
 import { groups } from '../../data/components/radial-bar/props'
 import { graphql, useStaticQuery } from 'gatsby'
-
-type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'width' | 'height'>
-type UnmappedRadarProps = Omit<
-    MappedRadarProps,
-    'valueFormat' | 'radialAxisStart' | 'radialAxisEnd' | 'circularAxisInner' | 'circularAxisOuter'
-> & {
-    valueFormat: {
-        format: string
-        enabled: boolean
-    }
-    radialAxisStart: { enable: boolean } & RadialBarSvgProps['radialAxisStart']
-    radialAxisEnd: { enable: boolean } & RadialBarSvgProps['radialAxisEnd']
-    circularAxisInner: { enable: boolean } & RadialBarSvgProps['circularAxisInner']
-    circularAxisOuter: { enable: boolean } & RadialBarSvgProps['circularAxisOuter']
-}
 
 const initialProperties: UnmappedRadarProps = {
     valueFormat: { format: '>-.2f', enabled: true },

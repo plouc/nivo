@@ -75,6 +75,7 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@types/eslint": "7.29.0",
+    "cheerio": "1.0.0-rc.10",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
@@ -88,11 +89,14 @@
     "pkg:build": "NODE_ENV=production BABEL_ENV=production pnpm rollup -c conf/rollup.config.mjs"
   },
   "engines": {
-    "node": ">= 16"
+    "node": "22.x"
   },
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/nivo"
   },
-  "packageManager": "pnpm@8.10.2"
+  "packageManager": "pnpm@10.9.0",
+  "pnpm": {
+    "onlyBuiltDependencies": ["@parcel/watcher", "@swc/core", "core-js", "core-js-pure", "cypress", "es5-ext", "esbuild", "gatsby", "gatsby-cli", "lmdb", "msgpackr-extract", "nx", "puppeteer", "sharp"]
+  }
 }
