@@ -1812,6 +1812,9 @@ importers:
 
   website:
     dependencies:
+      '@nivo/annotations':
+        specifier: workspace:*
+        version: link:../packages/annotations
       '@nivo/arcs':
         specifier: workspace:*
         version: link:../packages/arcs
