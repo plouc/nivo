@@ -3,5 +3,5 @@
   "buildCommand": false,
   "packages": ["packages/*"],
   "sandboxes": ["/examples/codesandbox", "/website"],
-  "node": "22.x"
+  "node": "22"
 }
