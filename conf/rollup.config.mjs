@@ -72,7 +72,7 @@ const configs = [
             }),
             !isWatching && visualizer({
                 filename: `stats/${pkg}-stats.es.json`,
-                json: true,
+                template: "raw-data",
             })
         ].filter(Boolean),
     }
