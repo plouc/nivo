@@ -88,11 +88,11 @@
     "pkg:build": "NODE_ENV=production BABEL_ENV=production pnpm rollup -c conf/rollup.config.mjs"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 22"
   },
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/nivo"
   },
-  "packageManager": "pnpm@8.10.2"
+  "packageManager": "pnpm@10.9.0"
 }
