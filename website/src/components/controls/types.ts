@@ -21,12 +21,12 @@ export interface BoxAnchorControlConfig {
     type: 'boxAnchor'
 }
 
-export interface ChoicesControlConfig {
+export interface ChoicesControlConfig<Value extends string | boolean = string> {
     type: 'choices'
     disabled?: boolean
     choices: {
         label: string
-        value: string | boolean
+        value: Value
     }[]
 }
 

@@ -65,13 +65,13 @@ const ControlSwitcher = memo(
     }: ControlSwitcherProps) => {
         // generate a unique identifier for the property
         const id = `${snakeCase(groupName)}-${property.name}`
-        const value = get(settings, property.name)
+        const value = get(settings, property.name!)
         const controlConfig = 'control' in property ? property.control : undefined
         const handleChange = useCallback(
-            value => {
+            (value: any) => {
                 onChange({
                     ...settings,
-                    [property.name]: value,
+                    [property.name!]: value,
                 })
             },
             [onChange, settings, property.name]

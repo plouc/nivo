@@ -5,7 +5,11 @@ import { ResponsiveWaffleCanvas, canvasDefaultProps, ComputedDatum, Datum } from
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
-import { canvasMapper, UnmappedWaffleCanvasProps, MappedWaffleCanvasProps } from '../../data/components/waffle/mapper'
+import {
+    canvasMapper,
+    UnmappedWaffleCanvasProps,
+    MappedWaffleCanvasProps,
+} from '../../data/components/waffle/mapper'
 
 const initialProperties: UnmappedWaffleCanvasProps = {
     pixelRatio:
@@ -55,7 +59,7 @@ const initialProperties: UnmappedWaffleCanvasProps = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: (datum) => {
+            onClick: datum => {
                 alert(JSON.stringify(datum, null, '    '))
             },
             effects: [

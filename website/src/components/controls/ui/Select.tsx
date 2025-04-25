@@ -1,18 +1,22 @@
-import React from 'react'
-import ReactSelect from 'react-select'
+import React, { ComponentProps } from 'react'
+import ReactSelect, { GroupBase, StylesConfig } from 'react-select'
 import { useTheme } from 'styled-components'
 
-export const Select = props => {
+export function Select<
+    Option = unknown,
+    IsMulti extends boolean = false,
+    Group extends GroupBase<Option> = GroupBase<Option>
+>(props: ComponentProps<typeof ReactSelect<Option, IsMulti, Group>>) {
     const theme = useTheme()
 
-    const styles = {
+    const styles: StylesConfig<Option, IsMulti, Group> = {
         control: (styles, { isFocused }) => {
             return {
                 ...styles,
                 backgroundColor: theme.colors.inputBackground,
                 borderColor: isFocused ? theme.colors.accent : theme.colors.border,
                 marginBottom: '5px',
-                boxShadow: isFocused ? `0 0 0 1px ${theme.colors.accent}` : null,
+                boxShadow: isFocused ? `0 0 0 1px ${theme.colors.accent}` : undefined,
                 '&:hover': {
                     borderColor: isFocused ? theme.colors.accent : theme.colors.border,
                 },

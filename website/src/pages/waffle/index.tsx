@@ -5,7 +5,11 @@ import { ResponsiveWaffle, svgDefaultProps, ComputedDatum, Datum } from '@nivo/w
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
-import { svgMapper, UnmappedWaffleSvgProps, MappedWaffleSvgProps } from '../../data/components/waffle/mapper'
+import {
+    svgMapper,
+    UnmappedWaffleSvgProps,
+    MappedWaffleSvgProps,
+} from '../../data/components/waffle/mapper'
 
 const initialProperties: UnmappedWaffleSvgProps = {
     total: 100,
@@ -53,7 +57,7 @@ const initialProperties: UnmappedWaffleSvgProps = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: (datum) => {
+            onClick: datum => {
                 alert(JSON.stringify(datum, null, '    '))
             },
             effects: [

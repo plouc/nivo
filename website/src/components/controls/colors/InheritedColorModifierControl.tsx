@@ -3,10 +3,14 @@ import styled from 'styled-components'
 import { TextInput, Select } from '../ui'
 import { ColorModifier } from '@nivo/colors'
 
-const modifierTypes = ['brighter', 'darker', 'opacity'].map(prop => ({
+const MODIFIERS = ['brighter', 'darker', 'opacity'] as const
+export type Modifier = (typeof MODIFIERS)[number]
+
+const modifierTypes = MODIFIERS.map(prop => ({
     label: prop,
     value: prop,
 }))
+export type ModifierOption = (typeof modifierTypes)[number]
 
 interface InheritedColorModifierControlProps {
     modifier: ColorModifier
@@ -19,10 +23,10 @@ export const InheritedColorModifierControl = ({
 }: InheritedColorModifierControlProps) => {
     return (
         <Container>
-            <Select
+            <Select<ModifierOption>
                 options={modifierTypes}
                 value={modifierTypes.find(prop => prop.value === modifier[0])}
-                onChange={(value: any) => onChange([value.value, modifier[1]])}
+                onChange={value => onChange([value!.value, modifier[1]])}
             />
             <TextInput
                 value={modifier[1]}

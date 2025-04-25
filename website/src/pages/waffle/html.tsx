@@ -5,7 +5,11 @@ import { ResponsiveWaffleHtml, htmlDefaultProps, ComputedDatum, Datum } from '@n
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
-import { htmlMapper, UnmappedWaffleHtmlProps, MappedWaffleHtmlProps } from '../../data/components/waffle/mapper'
+import {
+    htmlMapper,
+    UnmappedWaffleHtmlProps,
+    MappedWaffleHtmlProps,
+} from '../../data/components/waffle/mapper'
 
 const initialProperties: UnmappedWaffleHtmlProps = {
     total: 100,

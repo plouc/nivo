@@ -212,24 +212,24 @@ export const ValueFormatControl = memo(
             [formatSpecifier, onChange, value.enabled]
         )
 
-        const handleTypeChange = (option: TypeOption) => {
-            updateFormat('type', option.value)
+        const handleTypeChange = (option: TypeOption | null) => {
+            updateFormat('type', option!.value)
         }
 
         const handleFillChange = (e: ChangeEvent<HTMLInputElement>) => {
             updateFormat('fill', e.target.value.slice(1))
         }
 
-        const handleAlignChange = (option: AlignOption) => {
-            updateFormat('align', option.value)
+        const handleAlignChange = (option: AlignOption | null) => {
+            updateFormat('align', option!.value)
         }
 
-        const handleSignChange = (option: SignOption) => {
-            updateFormat('sign', option.value)
+        const handleSignChange = (option: SignOption | null) => {
+            updateFormat('sign', option!.value)
         }
 
-        const handleSymbolChange = (option: SymbolOption) => {
-            updateFormat('symbol', option.value)
+        const handleSymbolChange = (option: SymbolOption | null) => {
+            updateFormat('symbol', option!.value)
         }
 
         const handleZeroChange = (flag: boolean) => {
@@ -280,34 +280,34 @@ export const ValueFormatControl = memo(
                 {isEditing && (
                     <SubControls>
                         <label>type</label>
-                        <Select
+                        <Select<TypeOption>
                             options={typeOptions}
                             value={typeOptions.find(
                                 option => option.value === formatSpecifier.type
                             )}
-                            clearable={false}
+                            isClearable={false}
                             onChange={handleTypeChange}
                             components={{ Option }}
                         />
 
                         <label>sign</label>
-                        <Select
+                        <Select<SignOption>
                             options={signOptions}
                             value={signOptions.find(
                                 option => option.value === formatSpecifier.sign
                             )}
-                            clearable={false}
+                            isClearable={false}
                             onChange={handleSignChange}
                             components={{ Option }}
                         />
 
                         <label>symbol</label>
-                        <Select
+                        <Select<SymbolOption>
                             options={symbolOptions}
                             value={symbolOptions.find(
                                 option => option.value === formatSpecifier.symbol
                             )}
-                            clearable={false}
+                            isClearable={false}
                             onChange={handleSymbolChange}
                         />
 
@@ -333,12 +333,12 @@ export const ValueFormatControl = memo(
                         />
 
                         <label>align</label>
-                        <Select
+                        <Select<AlignOption>
                             options={alignOptions}
                             value={alignOptions.find(
                                 option => option.value === formatSpecifier.align
                             )}
-                            clearable={false}
+                            isClearable={false}
                             onChange={handleAlignChange}
                             components={{ Option }}
                         />

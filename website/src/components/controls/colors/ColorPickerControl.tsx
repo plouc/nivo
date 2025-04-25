@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, ChangeEvent } from 'react'
 import { Flavor } from '../../../types'
 import { ColorPickerControlConfig, ControlContext } from '../types'
 import { Control, PropertyHeader, Help } from '../ui'
@@ -24,7 +24,7 @@ export const ColorPickerControl = ({
     onChange,
 }: ColorPickerControlProps) => {
     const handleChange = useCallback(
-        e => {
+        (e: ChangeEvent<HTMLInputElement>) => {
             onChange(e.target.value)
         },
         [onChange]

@@ -75,17 +75,17 @@ export const InheritedColorControl = ({
         [onChange]
     )
     const handleThemePropertyChange = useCallback(
-        (value: ThemeProperty) => {
-            setThemeProp(value.value)
-            onChange({ theme: value.value })
+        (value: ThemeProperty | null) => {
+            setThemeProp(value!.value)
+            onChange({ theme: value!.value })
         },
         [onChange, setThemeProp]
     )
     const handleFromPropertyChange = useCallback(
-        (value: InheritableProperty) => {
-            setFromProp(value.value)
+        (value: InheritableProperty | null) => {
+            setFromProp(value!.value)
             onChange({
-                from: value.value,
+                from: value!.value,
                 modifiers,
             })
         },
@@ -117,7 +117,7 @@ export const InheritedColorControl = ({
             subControl = (
                 <>
                     <SubLabel>theme property</SubLabel>
-                    <Select
+                    <Select<ThemeProperty>
                         options={themeProperties}
                         value={themeProperties.find(prop => prop.value === value.theme)}
                         onChange={handleThemePropertyChange}
@@ -134,7 +134,7 @@ export const InheritedColorControl = ({
             subControl = (
                 <>
                     <SubLabel>inherited property</SubLabel>
-                    <Select
+                    <Select<InheritableProperty>
                         options={propertyOptions}
                         value={propertyOptions.find(prop => prop.value === value.from)}
                         onChange={handleFromPropertyChange}

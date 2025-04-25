@@ -8,6 +8,8 @@ import {
     useLegacyQuantizeColors,
 } from './colorSchemeSelect'
 
+export type LegacyQuantizeColorsOption = ReturnType<typeof useLegacyQuantizeColors>[number]
+
 interface QuantizeColorsControlProps {
     id: string
     property: ChartProperty
@@ -30,7 +32,10 @@ export const QuantizeColorsControl = ({
 }: QuantizeColorsControlProps) => {
     const options = useLegacyQuantizeColors()
 
-    const handleChange = useCallback(value => onChange(value.value), [onChange])
+    const handleChange = useCallback(
+        (value: LegacyQuantizeColorsOption | null) => onChange(value!.value),
+        [onChange]
+    )
     const value = options.find(({ value: v }) => v === _value)
 
     return (
@@ -42,12 +47,12 @@ export const QuantizeColorsControl = ({
             supportedFlavors={property.flavors}
         >
             <PropertyHeader {...property} context={context} />
-            <Select
+            <Select<LegacyQuantizeColorsOption>
                 options={options}
                 onChange={handleChange}
                 value={value}
                 isSearchable
-                clearable={false}
+                isClearable={false}
                 components={{
                     SingleValue: ColorSchemeSelectValue,
                     Option: ColorSchemeSelectOption,

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { ColorSchemeId } from '@nivo/colors'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, OrdinalColorsControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Select } from '../ui'
@@ -8,14 +9,16 @@ import {
     useOrdinalColorSchemes,
 } from './colorSchemeSelect'
 
+export type OrdinalColorOption = ReturnType<typeof useOrdinalColorSchemes>[number]
+
 interface OrdinalColorsControlProps {
     id: string
     property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
     config: OrdinalColorsControlConfig
-    value: { scheme: string }
-    onChange: (value: { scheme: string }) => void
+    value: { scheme: ColorSchemeId }
+    onChange: (value: { scheme: ColorSchemeId }) => void
     context?: ControlContext
 }
 
@@ -30,10 +33,10 @@ export const OrdinalColorsControl = ({
 }: OrdinalColorsControlProps) => {
     const options = useOrdinalColorSchemes()
 
-    const selectedOption = options.find(o => o.value === value.scheme)
+    const selectedOption = options.find(o => o.value === value.scheme)!
     const handleChange = useCallback(
-        option => {
-            onChange({ scheme: option.value })
+        (option: OrdinalColorOption | null) => {
+            onChange({ scheme: option!.value })
         },
         [onChange]
     )
@@ -47,7 +50,7 @@ export const OrdinalColorsControl = ({
             supportedFlavors={property.flavors}
         >
             <PropertyHeader {...property} context={context} />
-            <Select
+            <Select<OrdinalColorOption>
                 options={options}
                 onChange={handleChange}
                 value={selectedOption}
