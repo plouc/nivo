@@ -16,7 +16,7 @@
     },
     "engineStrict": true,
     "engines": {
-        "node": ">=18"
+        "node": "22.x"
     },
     "devDependencies": {
         "nodemon": "^2.0.22"
