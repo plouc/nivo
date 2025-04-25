@@ -5,9 +5,9 @@ import { ResponsiveWaffleCanvas, canvasDefaultProps, ComputedDatum, Datum } from
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
-import mapper from '../../data/components/waffle/mapper'
+import { canvasMapper, UnmappedWaffleCanvasProps, MappedWaffleCanvasProps } from '../../data/components/waffle/mapper'
 
-const initialProperties = {
+const initialProperties: UnmappedWaffleCanvasProps = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
@@ -55,7 +55,7 @@ const initialProperties = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: (datum: ComputedDatum<Datum>) => {
+            onClick: (datum) => {
                 alert(JSON.stringify(datum, null, '    '))
             },
             effects: [
@@ -101,21 +101,16 @@ const WaffleCanvas = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedWaffleCanvasProps, MappedWaffleCanvasProps, any>
             name="WaffleCanvas"
             meta={meta.WaffleCanvas}
             icon="waffle"
             flavors={meta.flavors}
             currentFlavor="canvas"
             properties={groups}
-            propertiesMapper={mapper}
+            propertiesMapper={canvasMapper}
             initialProperties={initialProperties}
             defaultProperties={canvasDefaultProps}
-            codePropertiesMapper={properties => ({
-                ...properties,
-                cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
-                tooltip: properties.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
-            })}
             generateData={generateData}
             image={image}
         >

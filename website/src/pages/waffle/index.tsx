@@ -5,9 +5,9 @@ import { ResponsiveWaffle, svgDefaultProps, ComputedDatum, Datum } from '@nivo/w
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
-import mapper from '../../data/components/waffle/mapper'
+import { svgMapper, UnmappedWaffleSvgProps, MappedWaffleSvgProps } from '../../data/components/waffle/mapper'
 
-const initialProperties = {
+const initialProperties: UnmappedWaffleSvgProps = {
     total: 100,
 
     rows: 18,
@@ -53,7 +53,7 @@ const initialProperties = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: (datum: ComputedDatum<Datum>) => {
+            onClick: (datum) => {
                 alert(JSON.stringify(datum, null, '    '))
             },
             effects: [
@@ -104,21 +104,16 @@ const Waffle = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedWaffleSvgProps, MappedWaffleSvgProps, any>
             name="Waffle"
             meta={meta.Waffle}
             icon="waffle"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
-            propertiesMapper={mapper}
+            propertiesMapper={svgMapper}
             initialProperties={initialProperties}
             defaultProperties={svgDefaultProps}
-            codePropertiesMapper={properties => ({
-                ...properties,
-                cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
-                tooltip: properties.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
-            })}
             generateData={generateData}
             image={image}
         >

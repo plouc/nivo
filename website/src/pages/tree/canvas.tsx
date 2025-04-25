@@ -1,51 +1,15 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import {
-    ResponsiveTreeCanvas,
-    TreeSvgProps,
-    svgDefaultProps as defaults,
-    ComputedNode,
-} from '@nivo/tree'
+import { ResponsiveTreeCanvas, svgDefaultProps as defaults, ComputedNode } from '@nivo/tree'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/tree/meta.yml'
-import mapper from '../../data/components/treemap/mapper'
+import { MappedTreeCanvasProps } from '../../data/components/tree/mapper'
 import { groups } from '../../data/components/tree/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 
 type Datum = ReturnType<typeof generateLightDataSet>
 
-const initialProperties: Pick<
-    TreeSvgProps<Datum>,
-    | 'identity'
-    | 'mode'
-    | 'layout'
-    | 'nodeSize'
-    | 'activeNodeSize'
-    | 'inactiveNodeSize'
-    | 'nodeColor'
-    | 'fixNodeColorAtDepth'
-    | 'linkCurve'
-    | 'linkThickness'
-    | 'activeLinkThickness'
-    | 'inactiveLinkThickness'
-    | 'linkColor'
-    | 'enableLabel'
-    | 'labelsPosition'
-    | 'orientLabel'
-    | 'labelOffset'
-    | 'margin'
-    | 'animate'
-    | 'motionConfig'
-    | 'isInteractive'
-    | 'meshDetectionRadius'
-    | 'debugMesh'
-    | 'highlightAncestorNodes'
-    | 'highlightDescendantNodes'
-    | 'highlightAncestorLinks'
-    | 'highlightDescendantLinks'
-    | 'nodeTooltipPosition'
-    | 'nodeTooltipAnchor'
-> = {
+const initialProperties: MappedTreeCanvasProps<Datum> = {
     identity: 'name',
     mode: defaults.mode,
     layout: defaults.layout,
@@ -105,7 +69,7 @@ const TreeCanvas = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<MappedTreeCanvasProps<Datum>, MappedTreeCanvasProps<Datum>, Datum>
             name="TreeCanvas"
             meta={meta.TreeCanvas}
             icon="tree"
@@ -114,7 +78,6 @@ const TreeCanvas = () => {
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaults}
-            propertiesMapper={mapper}
             generateData={generateLightDataSet}
             enableDiceRoll={false}
             image={image}
