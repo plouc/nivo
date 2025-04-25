@@ -88,7 +88,7 @@
     "pkg:build": "NODE_ENV=production BABEL_ENV=production pnpm rollup -c conf/rollup.config.mjs"
   },
   "engines": {
-    "node": ">= 22"
+    "node": "22.x"
   },
   "collective": {
     "type": "opencollective",

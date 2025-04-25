@@ -4,6 +4,7 @@
     "private": true,
     "description": "nivo website",
     "dependencies": {
+        "@nivo/annotations": "workspace:*",
         "@nivo/arcs": "workspace:*",
         "@nivo/axes": "workspace:*",
         "@nivo/bar": "workspace:*",
@@ -80,6 +81,6 @@
         "typecheck": "tsc --noEmit"
     },
     "engines": {
-        "node": ">=18"
+        "node": "22.x"
     }
 }
