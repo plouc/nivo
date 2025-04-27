@@ -647,8 +647,9 @@ export interface DotsItemProps<D = any> {
     ariaDisabled?: React.AriaAttributes['aria-disabled']
     isFocusable?: boolean
     tabIndex?: number
-    onFocus?: (event: React.FocusEvent<SVGGElement>) => void
-    onBlur?: (event: React.FocusEvent<SVGGElement>) => void
+    onFocus?: (datum: D, event: React.FocusEvent<SVGGElement>) => void
+    onBlur?: (datum: D, event: React.FocusEvent<SVGGElement>) => void
+    testId?: string
 }
 export const DotsItem: React.FunctionComponent<DotsItemProps>
 

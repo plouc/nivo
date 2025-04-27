@@ -25,6 +25,7 @@ const DotsItem = ({
     tabIndex = 0,
     onFocus,
     onBlur,
+    testId,
 }) => {
     const theme = useTheme()
 
@@ -62,6 +63,7 @@ const DotsItem = ({
             aria-hidden={ariaHidden}
             onFocus={isFocusable && onFocus ? handleFocus : undefined}
             onBlur={isFocusable && onBlur ? handleBlur : undefined}
+            data-testid={testId}
         >
             {createElement(symbol, {
                 size,
