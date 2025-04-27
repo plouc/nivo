@@ -24,6 +24,7 @@ import {
     ComputedSeries,
     Point,
     SliceData,
+    PointColorContext,
 } from './types'
 
 export function useLineGenerator(curve: CommonLineProps<LineSeries>['curve']): LineGenerator {
@@ -69,7 +70,7 @@ function usePoints<Series extends LineSeries>({
     formatY,
 }: {
     series: ComputedSeries<Series>[]
-    getPointColor: (series: ComputedSeries<Series>) => string
+    getPointColor: (context: PointColorContext<Series>) => string
     getPointBorderColor: (point: Omit<Point<Series>, 'borderColor'>) => string
     formatX: (x: InferX<Series>) => string
     formatY: (y: InferY<Series>) => string
@@ -81,24 +82,31 @@ function usePoints<Series extends LineSeries>({
                 ...seriesItem.data
                     .filter(datum => datum.position.x !== null && datum.position.y !== null)
                     .map((datum, i) => {
-                        const point: Point<Series> = {
+                        const point: Omit<Point<Series>, 'color' | 'borderColor'> & {
+                            color?: string
+                            borderColor?: string
+                        } = {
                             id: `${seriesItem.id}.${i}`,
                             index: acc.length + i,
                             seriesId: seriesItem.id,
                             seriesColor: seriesItem.color,
                             x: datum.position.x,
                             y: datum.position.y,
-                            color: getPointColor(seriesItem),
-                            borderColor: '',
                             data: {
                                 ...datum.data,
                                 xFormatted: formatX(datum.data.x as InferX<Series>),
                                 yFormatted: formatY(datum.data.y as InferY<Series>),
                             },
                         }
-                        point.borderColor = getPointBorderColor(point)
+                        point.color = getPointColor({
+                            series: seriesItem,
+                            point: point as Omit<Point<Series>, 'color' | 'borderColor'>,
+                        })
+                        point.borderColor = getPointBorderColor(
+                            point as Omit<Point<Series>, 'borderColor'>
+                        )
 
-                        return point
+                        return point as Point<Series>
                     }),
             ]
         }, [] as Point<Series>[])
@@ -204,7 +212,7 @@ export const useLine = <Series extends LineSeries>({
     colors = commonDefaultProps.colors as OrdinalColorScaleConfig<Series>,
     curve = commonDefaultProps.curve,
     areaBaselineValue = commonDefaultProps.areaBaselineValue as InferY<Series>,
-    pointColor = commonDefaultProps.pointColor as InheritedColorConfig<ComputedSeries<Series>>,
+    pointColor = commonDefaultProps.pointColor as InheritedColorConfig<PointColorContext<Series>>,
     pointBorderColor = commonDefaultProps.pointBorderColor as InheritedColorConfig<
         Omit<Point<Series>, 'borderColor'>
     >,

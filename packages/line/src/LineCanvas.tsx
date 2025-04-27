@@ -31,9 +31,9 @@ import {
     LineLayerId,
     LineSeries,
     PointTooltipComponent,
-    ComputedSeries,
     Point,
     LineCustomCanvasLayerProps,
+    PointColorContext,
 } from './types'
 import { canvasDefaultProps } from './defaults'
 import { AnyScale } from '@nivo/scales'
@@ -62,7 +62,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
 
     enablePoints = canvasDefaultProps.enablePoints,
     pointSize = canvasDefaultProps.pointSize,
-    pointColor = canvasDefaultProps.pointColor as InheritedColorConfig<ComputedSeries<Series>>,
+    pointColor = canvasDefaultProps.pointColor as InheritedColorConfig<PointColorContext<Series>>,
     pointBorderWidth = canvasDefaultProps.pointBorderWidth,
     pointBorderColor = canvasDefaultProps.pointBorderColor as InheritedColorConfig<
         Omit<Point<Series>, 'borderColor'>
