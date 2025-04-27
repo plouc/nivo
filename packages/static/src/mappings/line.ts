@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
-import { Line, LineSvgProps } from '@nivo/line'
+import { Line, LineSvgProps, DefaultSeries } from '@nivo/line'
 // @ts-ignore
 import { curvePropKeys } from '@nivo/core'
 import { custom, axes, blendMode } from './common'
@@ -11,7 +11,7 @@ import { OmitStrict } from '../types'
 import { FunctionComponent } from 'react'
 
 export type LineApiProps = OmitStrict<
-    LineSvgProps & Dimensions,
+    LineSvgProps<DefaultSeries> & Dimensions,
     | 'layers'
     | 'pointSymbol'
     | 'isInteractive'
