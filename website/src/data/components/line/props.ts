@@ -15,6 +15,7 @@ import {
     chartGrid,
     axes,
     isInteractive,
+    commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -620,6 +621,7 @@ const props: ChartProperty[] = [
         },
     },
     ...motionProperties(['svg'], svgDefaultProps),
+    ...commonAccessibilityProps(['svg']),
 ]
 
 export const groups = groupProperties(props)

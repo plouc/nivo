@@ -23,8 +23,18 @@ export const generateLightDataSet = () => {
             'skateboard',
             'others',
         ],
-        { withColors: false }
-    ) as Array<{
+        { withColors: true }
+    ).map(series => {
+        return {
+            ...series,
+            data: series.data.map(datum => {
+                return {
+                    ...datum,
+                    extra: 'HERE IT IS',
+                }
+            }),
+        }
+    }) as Array<{
         id: string
         data: Array<{ x: string; y: number }>
     }>

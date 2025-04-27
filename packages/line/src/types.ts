@@ -1,4 +1,4 @@
-import { ReactNode, FunctionComponent, MouseEvent, TouchEvent } from 'react'
+import { ReactNode, FunctionComponent, MouseEvent, TouchEvent, AriaAttributes } from 'react'
 import { Line, Area } from 'd3-shape'
 import {
     Dimensions,
@@ -249,6 +249,9 @@ export interface LineSvgExtraProps<Series extends LineSeries> {
     animate: boolean
     motionConfig: MotionProps['motionConfig']
     role: string
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 export type LineSvgProps<Series extends LineSeries> = DataProps<Series> &
     Dimensions &
