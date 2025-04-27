@@ -22,10 +22,10 @@ type StackedXY = {
 }
 
 interface SerieDatum {
-    x: number | string | Date
+    x: number | string | Date | null
     // only numbers can be stacked
     xStacked?: number | null
-    y: number | string | Date
+    y: number | string | Date | null
     // only numbers can be stacked
     yStacked?: number | null
 }
@@ -67,9 +67,9 @@ export function computeScale<Input extends ScaleValue>(
         case 'linear':
             return createLinearScale(spec, data, size, axis)
         case 'point':
-            return createPointScale<Input>(spec, data, size)
+            return createPointScale<Exclude<Input, null>>(spec, data, size)
         case 'band':
-            return createBandScale<Input>(spec, data, size, axis)
+            return createBandScale<Exclude<Input, null>>(spec, data, size, axis)
         case 'time':
             return createTimeScale(spec, data, size)
         case 'log':

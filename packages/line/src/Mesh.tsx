@@ -2,7 +2,7 @@ import { createElement, memo, useCallback, MouseEvent, TouchEvent } from 'react'
 import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
-import {LineSeries, Point, LineSvgProps, LineSvgPropsWithDefaults} from './types'
+import { LineSeries, Point, LineSvgProps, LineSvgPropsWithDefaults } from './types'
 
 const NonMemoizedMesh = <Series extends LineSeries>({
     points,
