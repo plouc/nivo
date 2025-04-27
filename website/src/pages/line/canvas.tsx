@@ -1,20 +1,23 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import omit from 'lodash/omit.js'
-import { ResponsiveLineCanvas, LineCanvasDefaultProps } from '@nivo/line'
+import { ResponsiveLineCanvas, canvasDefaultProps, isPoint } from '@nivo/line'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'
-import mapper from '../../data/components/line/mapper'
+import {
+    canvasMapper,
+    UnmappedLineCanvasProps,
+    MappedLineCanvasProps,
+} from '../../data/components/line/mapper'
 import { groups } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
-import { generateHeavyDataSet } from '../../data/components/line/generator'
-import { graphql, useStaticQuery } from 'gatsby'
+import { generateHeavyDataSet, LineSampleSeries } from '../../data/components/line/generator'
 
 const xValues = [0, 20, 40, 60, 80, 100, 120]
 const yValues = [0, 500, 1000, 1500, 2000, 2500]
 
-const initialProperties = {
+const initialProperties: UnmappedLineCanvasProps = {
     ...omit(defaultSettings, ['width', 'height']),
-    useMesh: true,
     debugMesh: false,
     curve: 'monotoneX',
     pixelRatio:
@@ -131,7 +134,7 @@ const LineCanvas = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedLineCanvasProps, MappedLineCanvasProps, LineSampleSeries[]>
             name="Line"
             meta={meta.LineCanvas}
             icon="line"
@@ -139,8 +142,8 @@ const LineCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={LineCanvasDefaultProps}
-            propertiesMapper={mapper}
+            defaultProperties={canvasDefaultProps}
+            propertiesMapper={canvasMapper}
             generateData={generateHeavyDataSet}
             getDataSize={data => data.length * data[0].data.length}
             image={image}
@@ -151,13 +154,15 @@ const LineCanvas = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={point => {
-                            logAction({
-                                type: 'click',
-                                label: `[point] serie: ${point.serieId}, x: ${point.data.x}, y: ${point.data.y}`,
-                                color: point.color,
-                                data: point,
-                            })
+                        onClick={datum => {
+                            if (isPoint(datum)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[point] series: ${datum.seriesId}, x: ${datum.data.x}, y: ${datum.data.y}`,
+                                    color: datum.color,
+                                    data: datum,
+                                })
+                            }
                         }}
                     />
                 )

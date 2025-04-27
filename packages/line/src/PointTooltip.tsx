@@ -1,7 +1,10 @@
 import { memo } from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
+import { LineSeries, PointTooltipProps } from './types'
 
-const LinePointTooltip = ({ point }) => {
+export const NonMemoizedPointTooltip = <Series extends LineSeries>({
+    point,
+}: PointTooltipProps<Series>) => {
     return (
         <BasicTooltip
             id={
@@ -11,9 +14,9 @@ const LinePointTooltip = ({ point }) => {
                 </span>
             }
             enableChip={true}
-            color={point.serieColor}
+            color={point.seriesColor}
         />
     )
 }
 
-export default memo(LinePointTooltip)
+export const PointTooltip = memo(NonMemoizedPointTooltip)

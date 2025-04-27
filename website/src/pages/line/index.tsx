@@ -1,16 +1,21 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import omit from 'lodash/omit.js'
-import { ResponsiveLine, LineDefaultProps } from '@nivo/line'
+import { ResponsiveLine, svgDefaultProps, isPoint } from '@nivo/line'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'
-import mapper from '../../data/components/line/mapper'
+import {
+    svgMapper,
+    UnmappedLineSvgProps,
+    MappedLineSvgProps,
+} from '../../data/components/line/mapper'
 import { groups } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
-import { generateLightDataSet } from '../../data/components/line/generator'
-import { graphql, useStaticQuery } from 'gatsby'
+import { generateLightDataSet, LineSampleSeries } from '../../data/components/line/generator'
 
-const initialProperties = {
+const initialProperties: UnmappedLineSvgProps = {
     ...omit(defaultSettings, ['width', 'height']),
+    pointLabel: 'yFormatted',
     useMesh: true,
     debugMesh: false,
     legends: [
@@ -42,11 +47,11 @@ const initialProperties = {
             ],
         },
     ],
-    animate: LineDefaultProps.animate,
-    motionConfig: LineDefaultProps.motionConfig,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 }
 
-const linearData = [
+const linearData: LineSampleSeries[] = [
     {
         id: 'fake corp. A',
         data: [
@@ -77,7 +82,7 @@ const Line = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedLineSvgProps, MappedLineSvgProps, LineSampleSeries[]>
             name="Line"
             meta={meta.Line}
             icon="line"
@@ -85,24 +90,32 @@ const Line = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={LineDefaultProps}
-            propertiesMapper={mapper}
+            defaultProperties={svgDefaultProps}
+            propertiesMapper={svgMapper}
             generateData={generateLightDataSet}
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveLine
-                        data={properties.xScale.type === 'linear' ? linearData : data}
+                        data={properties.xScale!.type === 'linear' ? linearData : data}
                         {...properties}
                         theme={theme}
-                        onClick={point => {
-                            logAction({
-                                type: 'click',
-                                label: `[point] serie: ${point.serieId}, x: ${point.data.x}, y: ${point.data.y}`,
-                                color: point.serieColor,
-                                data: point,
-                            })
+                        onClick={datum => {
+                            if (isPoint(datum)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[point] series: ${datum.seriesId}, x: ${datum.data.x}, y: ${datum.data.y}`,
+                                    color: datum.color,
+                                    data: datum,
+                                })
+                            } else {
+                                logAction({
+                                    type: 'click',
+                                    label: `[slice] id: ${datum.id}`,
+                                    data: datum,
+                                })
+                            }
                         }}
                     />
                 )

@@ -21,7 +21,14 @@
     ],
     "main": "./dist/nivo-line.cjs.js",
     "module": "./dist/nivo-line.mjs",
-    "types": "./index.d.ts",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-line.mjs",
+            "require": "./dist/nivo-line.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -38,6 +45,7 @@
         "@nivo/tooltip": "workspace:*",
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-shape": "^3.1.6",
         "d3-shape": "^3.2.0"
     },
     "peerDependencies": {
@@ -45,12 +53,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./index.d.ts",
-            "import": "./dist/nivo-line.mjs",
-            "require": "./dist/nivo-line.cjs.js"
-        }
     }
 }

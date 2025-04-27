@@ -1,7 +1,8 @@
-import { createElement, memo, useCallback } from 'react'
+import { createElement, memo, useCallback, MouseEvent, TouchEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
+import { LineSeries, SliceData, CommonLineProps, LineSvgProps } from './types'
 
-const SlicesItem = ({
+export const NonMemoizedSlicesItem = <Series extends LineSeries>({
     slice,
     slices,
     axis,
@@ -19,11 +20,29 @@ const SlicesItem = ({
     onTouchStart,
     onTouchMove,
     onTouchEnd,
+}: {
+    slice: SliceData<Series>
+    slices: readonly SliceData<Series>[]
+    axis: Exclude<LineSvgProps<Series>['enableSlices'], undefined | false>
+    debug: boolean
+    tooltip: CommonLineProps<Series>['sliceTooltip']
+    isCurrent: boolean
+    setCurrent: (slice: SliceData<Series> | null) => void
+    onMouseEnter?: CommonLineProps<Series>['onMouseEnter']
+    onMouseMove?: CommonLineProps<Series>['onMouseMove']
+    onMouseLeave?: CommonLineProps<Series>['onMouseLeave']
+    onMouseDown?: CommonLineProps<Series>['onMouseDown']
+    onMouseUp?: CommonLineProps<Series>['onMouseUp']
+    onClick?: CommonLineProps<Series>['onClick']
+    onDoubleClick?: CommonLineProps<Series>['onDoubleClick']
+    onTouchStart?: CommonLineProps<Series>['onTouchStart']
+    onTouchMove?: CommonLineProps<Series>['onTouchMove']
+    onTouchEnd?: CommonLineProps<Series>['onTouchEnd']
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
             onMouseEnter && onMouseEnter(slice, event)
@@ -32,7 +51,7 @@ const SlicesItem = ({
     )
 
     const handleMouseMove = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             onMouseMove && onMouseMove(slice, event)
         },
@@ -40,7 +59,7 @@ const SlicesItem = ({
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             hideTooltip()
             setCurrent(null)
             onMouseLeave && onMouseLeave(slice, event)
@@ -49,35 +68,35 @@ const SlicesItem = ({
     )
 
     const handleMouseDown = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             onMouseDown && onMouseDown(slice, event)
         },
         [slice, onMouseDown]
     )
 
     const handleMouseUp = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             onMouseUp && onMouseUp(slice, event)
         },
         [slice, onMouseUp]
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             onClick && onClick(slice, event)
         },
         [slice, onClick]
     )
 
     const handleDoubleClick = useCallback(
-        event => {
+        (event: MouseEvent<SVGRectElement>) => {
             onDoubleClick && onDoubleClick(slice, event)
         },
         [slice, onDoubleClick]
     )
 
     const handeOnTouchStart = useCallback(
-        event => {
+        (event: TouchEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
             onTouchStart && onTouchStart(slice, event)
@@ -86,7 +105,7 @@ const SlicesItem = ({
     )
 
     const handeOnTouchMove = useCallback(
-        event => {
+        (event: TouchEvent<SVGRectElement>) => {
             // This event will be locked to the element that was touched originally
             // We find the element that is currently being "hovered over" by getting the element at the touch point
             const touchPoint = event.touches[0]
@@ -113,7 +132,7 @@ const SlicesItem = ({
     )
 
     const handleOnTouchEnd = useCallback(
-        event => {
+        (event: TouchEvent<SVGRectElement>) => {
             hideTooltip()
             setCurrent(null)
             onTouchEnd && onTouchEnd(slice, event)
@@ -147,4 +166,4 @@ const SlicesItem = ({
     )
 }
 
-export default memo(SlicesItem)
+export const SlicesItem = memo(NonMemoizedSlicesItem) as typeof NonMemoizedSlicesItem

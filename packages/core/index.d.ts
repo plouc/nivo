@@ -645,3 +645,5 @@ export const DotsItem: React.FunctionComponent<DotsItemProps>
 export type ExtractProps<TComponent> = TComponent extends ComponentType<infer TProps>
     ? TProps
     : never
+
+export const mergeRefs: <T>(...refs: (React.Ref<T> | undefined)[]) => (value: T) => void

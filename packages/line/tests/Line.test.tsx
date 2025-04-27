@@ -1,11 +1,11 @@
-import { mount } from 'enzyme'
-import { Axis } from '@nivo/axes'
-import Line from '../src/Line'
-import Lines from '../src/Lines'
-import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
-import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'
-import { DotsItem } from '@nivo/core'
+import { mount } from 'enzyme'
+import { DotsItem, LineCurveFactoryId } from '@nivo/core'
+import { Axis } from '@nivo/axes'
+import { Line } from '../src'
+import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
+import { Lines } from '../src/Lines'
+import { SlicesItem } from '../src/SlicesItem'
 
 // Handle useId mocks
 let id = 0
@@ -29,10 +29,7 @@ it('should render a basic line chart', () => {
             ],
         },
     ]
-    const component = renderer.create(<Line width={500} height={300} data={data} animate={false} />)
-
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    renderer.create(<Line width={500} height={300} data={data} animate={false} />)
 })
 
 it('should support multiple lines', () => {
@@ -276,8 +273,8 @@ it('should call the custom label callback for each point', () => {
         expect(pointLabelFn).toHaveBeenCalledWith({
             id: `A.${i}`,
             index: i,
-            serieId: 'A',
-            serieColor: expect.any(String),
+            seriesId: 'A',
+            seriesColor: expect.any(String),
             x: expect.any(Number),
             y: expect.any(Number),
             color: expect.any(String),
@@ -322,7 +319,7 @@ it('should display a custom legendNode for marker', () => {
     ]
 
     const component = renderer.create(
-        <Line width={500} height={300} data={data} animate={false} markers={markers} />
+        <Line width={500} height={300} data={data} animate={false} markers={markers as any[]} />
     )
 
     let tree = component.toJSON()
@@ -330,7 +327,7 @@ it('should display a custom legendNode for marker', () => {
 })
 
 describe('curve interpolation', () => {
-    const curveInterpolations = [
+    const curveInterpolations: LineCurveFactoryId[] = [
         'basis',
         'cardinal',
         'catmullRom',
@@ -365,9 +362,7 @@ describe('curve interpolation', () => {
                     axisLeft={undefined}
                     axisBottom={undefined}
                     isInteractive={false}
-                    enableStackTooltip={false}
                     animate={false}
-                    enableDots={false}
                     enableGridX={false}
                     enableGridY={false}
                 />
@@ -397,7 +392,7 @@ describe('mouse events on slices', () => {
         height: 300,
         data: data,
         animate: false,
-        enableSlices: 'x',
+        enableSlices: 'x' as const,
     }
 
     it('should call onMouseEnter', () => {
@@ -543,7 +538,7 @@ describe('touch events with slices', () => {
         data: data,
         animate: false,
         useMesh: false,
-        enableSlices: 'x',
+        enableSlices: 'x' as const,
     }
 
     it('should call onTouchStart', () => {

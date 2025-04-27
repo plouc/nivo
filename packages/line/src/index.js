@@ -1,6 +1,0 @@
-export { default as Line } from './Line'
-export { default as ResponsiveLine } from './ResponsiveLine'
-export { default as LineCanvas } from './LineCanvas'
-export { default as ResponsiveLineCanvas } from './ResponsiveLineCanvas'
-export * from './props'
-export * from './hooks'

@@ -1,7 +1,6 @@
 // @ts-ignore
 import { lineCurvePropKeys } from '@nivo/core'
-// @ts-ignore
-import { LineDefaultProps as defaults } from '@nivo/line'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/line'
 import {
     themeProperty,
     motionProperties,
@@ -182,7 +181,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string',
         required: false,
-        defaultValue: defaults.curve,
+        defaultValue: commonDefaultProps.curve,
         group: 'Style',
         control: {
             type: 'choices',
@@ -195,7 +194,7 @@ const props: ChartProperty[] = [
     themeProperty(['svg', 'canvas', 'api']),
     ordinalColors({
         flavors: allFlavors,
-        defaultValue: defaults.colors,
+        defaultValue: commonDefaultProps.colors,
     }),
     {
         key: 'lineWidth',
@@ -203,7 +202,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.lineWidth,
+        defaultValue: commonDefaultProps.lineWidth,
         control: { type: 'lineWidth' },
         group: 'Style',
     },
@@ -213,7 +212,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableArea,
+        defaultValue: commonDefaultProps.enableArea,
         control: { type: 'switch' },
         group: 'Style',
     },
@@ -229,7 +228,7 @@ const props: ChartProperty[] = [
         `,
         type: 'number | string | Date',
         required: false,
-        defaultValue: defaults.areaBaselineValue,
+        defaultValue: commonDefaultProps.areaBaselineValue,
         group: 'Style',
         control: {
             type: 'range',
@@ -243,7 +242,7 @@ const props: ChartProperty[] = [
         help: 'Area opacity (0~1), depends on enableArea.',
         flavors: allFlavors,
         required: false,
-        defaultValue: defaults.areaOpacity,
+        defaultValue: commonDefaultProps.areaOpacity,
         type: 'number',
         control: { type: 'opacity' },
         group: 'Style',
@@ -252,7 +251,7 @@ const props: ChartProperty[] = [
         key: 'areaBlendMode',
         target: 'areas',
         flavors: ['svg'],
-        defaultValue: defaults.areaBlendMode,
+        defaultValue: svgDefaultProps.areaBlendMode,
     }),
     ...defsProperties('Style', ['svg']),
     {
@@ -268,7 +267,7 @@ const props: ChartProperty[] = [
             computed data and must return a valid SVG element.
         `,
         required: false,
-        defaultValue: defaults.layers,
+        defaultValue: commonDefaultProps.layers,
     },
     {
         key: 'enablePoints',
@@ -276,7 +275,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enablePoints,
+        defaultValue: commonDefaultProps.enablePoints,
         control: { type: 'switch' },
         group: 'Points',
     },
@@ -294,7 +293,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.pointSize,
+        defaultValue: commonDefaultProps.pointSize,
         group: 'Points',
         control: {
             type: 'range',
@@ -309,7 +308,7 @@ const props: ChartProperty[] = [
         type: 'string | object | Function',
         flavors: allFlavors,
         required: false,
-        defaultValue: defaults.pointColor,
+        defaultValue: commonDefaultProps.pointColor,
         group: 'Points',
         control: { type: 'inheritedColor' },
     },
@@ -319,7 +318,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.pointBorderWidth,
+        defaultValue: commonDefaultProps.pointBorderWidth,
         group: 'Points',
         control: { type: 'lineWidth' },
     },
@@ -329,9 +328,9 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.pointBorderColor,
+        defaultValue: commonDefaultProps.pointBorderColor,
         group: 'Points',
-        control: { type: 'inheritedColor' },
+        control: { type: 'inheritedColor', inheritableProperties: ['seriesColor'] },
     },
     {
         key: 'enablePointLabel',
@@ -340,7 +339,7 @@ const props: ChartProperty[] = [
         help: 'Enable/disable points label.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enablePointLabel,
+        defaultValue: svgDefaultProps.enablePointLabel,
         control: { type: 'switch' },
     },
     {
@@ -378,13 +377,13 @@ const props: ChartProperty[] = [
     ...chartGrid({
         flavors: allFlavors,
         values: true,
-        xDefault: defaults.enableGridX,
-        yDefault: defaults.enableGridY,
+        xDefault: commonDefaultProps.enableGridX,
+        yDefault: commonDefaultProps.enableGridY,
     }),
     ...axes({ flavors: allFlavors }),
     isInteractive({
         flavors: ['svg', 'canvas'],
-        defaultValue: defaults.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
         help: [
             'Enable/disable interactivity.',
             'Using `enableSlices` will enable a crosshair on the `x` or `y` axis, that will move between the nearest slice to the mouse/touch point, and will show a tooltip of all data points for that slice.',
@@ -397,7 +396,7 @@ const props: ChartProperty[] = [
         help: 'Use a voronoi mesh to detect mouse interactions, enableSlices must be disabled',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.useMesh,
+        defaultValue: svgDefaultProps.useMesh,
         control: { type: 'switch' },
         group: 'Interactivity',
     },
@@ -407,7 +406,7 @@ const props: ChartProperty[] = [
         help: 'Display mesh used to detect mouse interactions (voronoi cells).',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.debugMesh,
+        defaultValue: commonDefaultProps.debugMesh,
         control: { type: 'switch' },
         group: 'Interactivity',
     },
@@ -485,7 +484,7 @@ const props: ChartProperty[] = [
         help: `Enable/disable slices tooltip for x or y axis, automatically disable mesh.`,
         type: `'x' | 'y' | false`,
         required: false,
-        defaultValue: defaults.enableSlicesTooltip,
+        defaultValue: svgDefaultProps.enableSlices,
         control: {
             type: 'choices',
             choices: [
@@ -510,7 +509,7 @@ const props: ChartProperty[] = [
         help: 'Display area used to detect mouse interactions for slices.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.debugSlices,
+        defaultValue: svgDefaultProps.debugSlices,
         control: { type: 'switch' },
         group: 'Interactivity',
     },
@@ -530,7 +529,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         control: { type: 'switch' },
-        defaultValue: defaults.enableCrosshair,
+        defaultValue: svgDefaultProps.enableCrosshair,
     },
     {
         key: 'enableTouchCrosshair',
@@ -538,7 +537,7 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: `Enables the crosshair to be dragged around a touch screen.`,
         type: 'boolean',
-        defaultValue: defaults.enableTouchCrosshair,
+        defaultValue: svgDefaultProps.enableTouchCrosshair,
         control: { type: 'switch' },
     },
     {
@@ -547,14 +546,13 @@ const props: ChartProperty[] = [
         group: 'Interactivity',
         help: `Hides certain series by default given their ids`,
         type: 'string[]',
-        defaultValue: defaults.initialHiddenIds,
     },
     {
         key: 'crosshairType',
         flavors: ['svg'],
         group: 'Interactivity',
         required: false,
-        defaultValue: defaults.crosshairType,
+        defaultValue: svgDefaultProps.crosshairType,
         help: `Crosshair type, forced to slices axis if enabled.`,
         type: 'string',
         control: {
@@ -621,7 +619,7 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

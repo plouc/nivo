@@ -1,95 +1,107 @@
-import { createElement, useRef, useEffect, useState, useCallback, forwardRef } from 'react'
 import {
-    withContainer,
+    createElement,
+    useRef,
+    useEffect,
+    useState,
+    useCallback,
+    forwardRef,
+    ForwardedRef,
+    MouseEvent,
+    useMemo,
+    ReactElement,
+    Ref,
+} from 'react'
+import {
     useDimensions,
     useTheme,
     getRelativeCursor,
     isCursorInRect,
+    Container,
+    mergeRefs,
 } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { useLine } from './hooks'
-import PointTooltip from './PointTooltip'
+import {
+    InferY,
+    LineCanvasProps,
+    LineLayerId,
+    LineSeries,
+    PointTooltipComponent,
+    ComputedSeries,
+    Point,
+    LineCustomCanvasLayerProps,
+} from './types'
+import { canvasDefaultProps } from './defaults'
+import { AnyScale } from '@nivo/scales'
 
-const LineCanvas = props => {
-    const canvasEl = useRef(null)
-    const {
-        width,
-        height,
-        margin: partialMargin,
-        pixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
+const InnerLineCanvas = <Series extends LineSeries>({
+    width,
+    height,
+    margin: partialMargin,
+    pixelRatio = canvasDefaultProps.pixelRatio,
 
-        data,
-        xScale: xScaleSpec = { type: 'point' },
-        xFormat,
-        yScale: yScaleSpec = {
-            type: 'linear',
-            min: 0,
-            max: 'auto',
-        },
-        yFormat,
-        curve = 'linear',
+    data,
+    xScale: xScaleSpec = canvasDefaultProps.xScale,
+    xFormat,
+    yScale: yScaleSpec = canvasDefaultProps.yScale,
+    yFormat,
+    curve = canvasDefaultProps.curve,
 
-        layers = [
-            'grid',
-            'markers',
-            'axes',
-            'areas',
-            'crosshair',
-            'lines',
-            'points',
-            'slices',
-            'mesh',
-            'legends',
-        ],
+    layers = canvasDefaultProps.layers as LineLayerId[],
 
-        colors = { scheme: 'nivo' },
-        lineWidth = 2,
+    colors = canvasDefaultProps.colors as OrdinalColorScaleConfig<Series>,
+    lineWidth = canvasDefaultProps.lineWidth,
 
-        enableArea = false,
-        areaBaselineValue = 0,
-        areaOpacity = 0.2,
+    enableArea = canvasDefaultProps.enableArea,
+    areaBaselineValue = canvasDefaultProps.areaBaselineValue as InferY<Series>,
+    areaOpacity = canvasDefaultProps.areaOpacity,
 
-        enablePoints = true,
-        pointSize = 6,
-        pointColor = { from: 'color' },
-        pointBorderWidth = 0,
-        pointBorderColor = { theme: 'background' },
+    enablePoints = canvasDefaultProps.enablePoints,
+    pointSize = canvasDefaultProps.pointSize,
+    pointColor = canvasDefaultProps.pointColor as InheritedColorConfig<ComputedSeries<Series>>,
+    pointBorderWidth = canvasDefaultProps.pointBorderWidth,
+    pointBorderColor = canvasDefaultProps.pointBorderColor as InheritedColorConfig<
+        Omit<Point<Series>, 'borderColor'>
+    >,
 
-        enableGridX = true,
-        gridXValues,
-        enableGridY = true,
-        gridYValues,
-        axisTop,
-        axisRight,
-        axisBottom = {},
-        axisLeft = {},
+    enableGridX = canvasDefaultProps.enableGridX,
+    gridXValues,
+    enableGridY = canvasDefaultProps.enableGridY,
+    gridYValues,
+    axisTop,
+    axisRight,
+    axisBottom = canvasDefaultProps.axisBottom,
+    axisLeft = canvasDefaultProps.axisLeft,
 
-        legends = [],
+    legends = canvasDefaultProps.legends,
 
-        isInteractive = true,
-        debugMesh = false,
-        //onMouseEnter,
-        //onMouseMove,
-        onMouseLeave,
-        onMouseDown,
-        onMouseUp,
-        onClick,
-        onDoubleClick,
-        tooltip = PointTooltip,
-        canvasRef,
-    } = props
+    isInteractive = canvasDefaultProps.isInteractive,
+    debugMesh = canvasDefaultProps.debugMesh,
+    onMouseLeave,
+    onMouseDown,
+    onMouseUp,
+    onClick,
+    onDoubleClick,
+    tooltip = canvasDefaultProps.tooltip as PointTooltipComponent<Series>,
+    forwardedRef,
+}: Omit<LineCanvasProps<Series>, 'renderWrapper' | 'theme'> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}) => {
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
+
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
     const theme = useTheme()
-    const [currentPoint, setCurrentPoint] = useState(null)
+    const [currentPoint, setCurrentPoint] = useState<Point<Series> | null>(null)
 
-    const { lineGenerator, areaGenerator, series, xScale, yScale, points } = useLine({
+    const { lineGenerator, areaGenerator, series, xScale, yScale, points } = useLine<Series>({
         data,
         xScale: xScaleSpec,
         xFormat,
@@ -104,6 +116,34 @@ const LineCanvas = props => {
         pointBorderColor,
     })
 
+    const customLayerProps: LineCustomCanvasLayerProps<Series> = useMemo(
+        () => ({
+            innerWidth,
+            innerHeight,
+            series,
+            points,
+            xScale,
+            yScale,
+            lineWidth,
+            lineGenerator,
+            areaGenerator,
+            currentPoint,
+            setCurrentPoint,
+        }),
+        [
+            innerWidth,
+            innerHeight,
+            series,
+            points,
+            xScale,
+            yScale,
+            lineWidth,
+            lineGenerator,
+            areaGenerator,
+            currentPoint,
+        ]
+    )
+
     const { delaunay, voronoi } = useVoronoiMesh({
         points,
         width: innerWidth,
@@ -112,14 +152,12 @@ const LineCanvas = props => {
     })
 
     useEffect(() => {
-        if (canvasRef) {
-            canvasRef.current = canvasEl.current
-        }
+        if (canvasEl.current === null) return
 
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')
+        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -129,31 +167,18 @@ const LineCanvas = props => {
 
         layers.forEach(layer => {
             if (typeof layer === 'function') {
-                layer({
-                    ctx,
-                    innerWidth,
-                    innerHeight,
-                    series,
-                    points,
-                    xScale,
-                    yScale,
-                    lineWidth,
-                    lineGenerator,
-                    areaGenerator,
-                    currentPoint,
-                    setCurrentPoint,
-                })
+                layer(ctx, customLayerProps)
             }
 
-            if (layer === 'grid' && theme.grid.line.strokeWidth > 0) {
-                ctx.lineWidth = theme.grid.line.strokeWidth
-                ctx.strokeStyle = theme.grid.line.stroke
+            if (layer === 'grid' && (theme.grid.line.strokeWidth || 0) > 0) {
+                ctx.lineWidth = theme.grid.line.strokeWidth as number
+                ctx.strokeStyle = theme.grid.line.stroke as string
 
                 enableGridX &&
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: xScale,
+                        scale: xScale as AnyScale,
                         axis: 'x',
                         values: gridXValues,
                     })
@@ -162,7 +187,7 @@ const LineCanvas = props => {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: yScale,
+                        scale: yScale as AnyScale,
                         axis: 'y',
                         values: gridYValues,
                     })
@@ -170,8 +195,8 @@ const LineCanvas = props => {
 
             if (layer === 'axes') {
                 renderAxesToCanvas(ctx, {
-                    xScale,
-                    yScale,
+                    xScale: xScale as AnyScale,
+                    yScale: yScale as AnyScale,
                     width: innerWidth,
                     height: innerHeight,
                     top: axisTop,
@@ -199,11 +224,11 @@ const LineCanvas = props => {
 
             if (layer === 'lines') {
                 lineGenerator.context(ctx)
-                series.forEach(serie => {
-                    ctx.strokeStyle = serie.color
+                series.forEach(seriesItem => {
+                    ctx.strokeStyle = seriesItem.color
                     ctx.lineWidth = lineWidth
                     ctx.beginPath()
-                    lineGenerator(serie.data.map(d => d.position))
+                    lineGenerator(seriesItem.data.map(d => d.position))
                     ctx.stroke()
                 })
             }
@@ -223,7 +248,7 @@ const LineCanvas = props => {
                 })
             }
 
-            if (layer === 'mesh' && debugMesh === true) {
+            if (layer === 'mesh' && debugMesh === true && voronoi !== undefined) {
                 renderVoronoiToCanvas(ctx, voronoi)
                 if (currentPoint) {
                     renderVoronoiCellToCanvas(ctx, voronoi, currentPoint.index)
@@ -276,7 +301,9 @@ const LineCanvas = props => {
     ])
 
     const getPointFromMouseEvent = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (!canvasEl.current) return null
+
             const [x, y] = getRelativeCursor(canvasEl.current, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
@@ -289,7 +316,7 @@ const LineCanvas = props => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             const point = getPointFromMouseEvent(event)
             setCurrentPoint(point)
 
@@ -303,7 +330,7 @@ const LineCanvas = props => {
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             hideTooltip()
             setCurrentPoint(null)
             currentPoint && onMouseLeave && onMouseLeave(currentPoint, event)
@@ -312,7 +339,7 @@ const LineCanvas = props => {
     )
 
     const handleMouseDown = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (onMouseDown) {
                 const point = getPointFromMouseEvent(event)
                 point && onMouseDown(point, event)
@@ -322,7 +349,7 @@ const LineCanvas = props => {
     )
 
     const handleMouseUp = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (onMouseUp) {
                 const point = getPointFromMouseEvent(event)
                 point && onMouseUp(point, event)
@@ -332,7 +359,7 @@ const LineCanvas = props => {
     )
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (onClick) {
                 const point = getPointFromMouseEvent(event)
                 point && onClick(point, event)
@@ -342,7 +369,7 @@ const LineCanvas = props => {
     )
 
     const handleDoubleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (onDoubleClick) {
                 const point = getPointFromMouseEvent(event)
                 point && onDoubleClick(point, event)
@@ -353,7 +380,7 @@ const LineCanvas = props => {
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs<HTMLCanvasElement>(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -372,6 +399,17 @@ const LineCanvas = props => {
     )
 }
 
-const LineCanvasWithContainer = withContainer(LineCanvas)
-
-export default forwardRef((props, ref) => <LineCanvasWithContainer {...props} canvasRef={ref} />)
+export const LineCanvas = forwardRef(
+    <Series extends LineSeries>(
+        { isInteractive, renderWrapper, theme, ...props }: LineCanvasProps<Series>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
+            <InnerLineCanvas<Series> {...props} forwardedRef={ref} />
+        </Container>
+    )
+) as <Series extends LineSeries>(
+    props: LineCanvasProps<Series> & {
+        ref?: ForwardedRef<HTMLCanvasElement>
+    }
+) => ReactElement
