@@ -105,6 +105,7 @@ const NonMemoizedPoints = <Series extends LineSeries>({
                     isFocusable={isFocusable}
                     onFocus={point.onFocus}
                     onBlur={point.onBlur}
+                    testId={`line.point.${point.id}`}
                 />
             ))}
         </g>
