@@ -99,6 +99,7 @@ export const svgDefaultProps: Omit<
     animate: true,
     motionConfig: 'gentle',
     role: 'img',
+    isFocusable: false,
 }
 
 export const canvasDefaultProps: Omit<

@@ -41,21 +41,16 @@ function InnerLine<Series extends LineSeries>({
     yScale: yScaleSpec = svgDefaultProps.yScale,
     yFormat,
     curve = svgDefaultProps.curve as LineCurveFactoryId,
-
     margin: partialMargin,
     width,
     height,
-
     colors = svgDefaultProps.colors as OrdinalColorScaleConfig<Series>,
     lineWidth = svgDefaultProps.lineWidth as number,
-
     layers = svgDefaultProps.layers as readonly LineLayerId[],
-
     enableArea = svgDefaultProps.enableArea,
     areaBaselineValue = svgDefaultProps.areaBaselineValue as InferY<Series>,
     areaOpacity = svgDefaultProps.areaOpacity,
     areaBlendMode = svgDefaultProps.areaBlendMode,
-
     enablePoints = svgDefaultProps.enablePoints,
     pointSymbol,
     pointSize = svgDefaultProps.pointSize,
@@ -67,7 +62,6 @@ function InnerLine<Series extends LineSeries>({
     enablePointLabel = svgDefaultProps.enablePointLabel,
     pointLabel = svgDefaultProps.pointLabel as string,
     pointLabelYOffset,
-
     enableGridX = svgDefaultProps.enableGridX,
     gridXValues,
     enableGridY = svgDefaultProps.enableGridY,
@@ -76,14 +70,10 @@ function InnerLine<Series extends LineSeries>({
     axisRight,
     axisBottom = svgDefaultProps.axisBottom,
     axisLeft = svgDefaultProps.axisLeft,
-
     defs = svgDefaultProps.defs,
     fill = svgDefaultProps.fill,
-
     markers,
-
     legends = svgDefaultProps.legends,
-
     isInteractive = svgDefaultProps.isInteractive,
     useMesh = svgDefaultProps.useMesh,
     debugMesh = svgDefaultProps.debugMesh,
@@ -104,8 +94,16 @@ function InnerLine<Series extends LineSeries>({
     enableCrosshair = svgDefaultProps.enableCrosshair,
     crosshairType = svgDefaultProps.crosshairType as CrosshairType,
     enableTouchCrosshair = svgDefaultProps.enableTouchCrosshair,
-
     role = svgDefaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    isFocusable = svgDefaultProps.isFocusable,
+    pointAriaLabel,
+    pointAriaLabelledBy,
+    pointAriaDescribedBy,
+    pointAriaHidden,
+    pointAriaDisabled,
     initialHiddenIds = svgDefaultProps.initialHiddenIds as InferSeriesId<Series>[],
 }: LineSvgProps<Series>) {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -281,6 +279,12 @@ function InnerLine<Series extends LineSeries>({
                 enableLabel={enablePointLabel}
                 label={pointLabel}
                 labelYOffset={pointLabelYOffset}
+                ariaLabel={pointAriaLabel}
+                ariaLabelledBy={pointAriaLabelledBy}
+                ariaDescribedBy={pointAriaDescribedBy}
+                ariaHidden={pointAriaHidden}
+                ariaDisabled={pointAriaDisabled}
+                isFocusable={isFocusable}
             />
         )
     }
@@ -378,6 +382,10 @@ function InnerLine<Series extends LineSeries>({
             height={outerHeight}
             margin={margin}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
+            isFocusable={isFocusable}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {

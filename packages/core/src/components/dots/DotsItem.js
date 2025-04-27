@@ -16,6 +16,13 @@ const DotsItem = ({
     label,
     labelTextAnchor = 'middle',
     labelYOffset = -12,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
+    isFocusable = false,
+    tabIndex = 0,
 }) => {
     const theme = useTheme()
 
@@ -27,7 +34,17 @@ const DotsItem = ({
     })
 
     return (
-        <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
+        <animated.g
+            transform={animatedProps.transform}
+            style={{ pointerEvents: 'none' }}
+            focusable={isFocusable}
+            tabIndex={isFocusable ? tabIndex : undefined}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
+            aria-disabled={ariaDisabled}
+            aria-hidden={ariaHidden}
+        >
             {createElement(symbol, {
                 size,
                 color,
