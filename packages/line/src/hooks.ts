@@ -286,7 +286,10 @@ export const useLine = <Series extends LineSeries>({
             .filter(item => Boolean(item.id)) as unknown as ComputedSeries<Series>[]
 
         const legendData = dataWithColor
-            .map(item => ({ ...item, hidden: !series.find(serie => serie.id === item.id) }))
+            .map(item => ({
+                ...item,
+                hidden: !series.find(seriesItem => seriesItem.id === item.id),
+            }))
             .reverse()
 
         return { legendData, series }

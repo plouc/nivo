@@ -19,7 +19,8 @@ import { LegendProps } from '@nivo/legends'
 import { CrosshairType } from '@nivo/tooltip'
 
 export type AllowedSeriesId = string | number
-export type AllowedValue = string | number | Date
+// `null` is allowed in the data to indicate a missing value.
+export type AllowedValue = string | number | Date | null
 export type LineSeries = {
     id: AllowedSeriesId
     data: { x: AllowedValue; y: AllowedValue }[]
@@ -41,8 +42,8 @@ export type InferY<T> = T extends { data: Array<infer D> }
 export type DefaultSeries = {
     id: string
     data: {
-        x: string
-        y: number
+        x: string | null
+        y: number | null
     }[]
 }
 

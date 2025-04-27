@@ -13,7 +13,7 @@ export type OtherScaleAxis<Axis extends ScaleAxis> = Axis extends 'x' ? 'y' : 'x
 
 export type NumericValue = { valueOf(): number }
 export type StringValue = { toString(): string }
-export type ScaleValue = NumericValue | StringValue | Date
+export type ScaleValue = NumericValue | StringValue | Date | null
 
 export interface ScaleTypeToSpec {
     linear: ScaleLinearSpec
