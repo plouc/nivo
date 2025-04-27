@@ -76,18 +76,20 @@ function usePoints<Series extends LineSeries>({
     formatY: (y: InferY<Series>) => string
 }) {
     return useMemo(() => {
-        return series.reduce((acc, seriesItem) => {
+        return series.reduce((acc, seriesItem, seriesIndex) => {
             return [
                 ...acc,
                 ...seriesItem.data
                     .filter(datum => datum.position.x !== null && datum.position.y !== null)
-                    .map((datum, i) => {
+                    .map((datum, indexInSeries) => {
                         const point: Omit<Point<Series>, 'color' | 'borderColor'> & {
                             color?: string
                             borderColor?: string
                         } = {
-                            id: `${seriesItem.id}.${i}`,
-                            index: acc.length + i,
+                            id: `${seriesItem.id}.${indexInSeries}`,
+                            indexInSeries,
+                            absIndex: acc.length + indexInSeries,
+                            seriesIndex,
                             seriesId: seriesItem.id,
                             seriesColor: seriesItem.color,
                             x: datum.position.x,

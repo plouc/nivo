@@ -228,11 +228,11 @@ it('should display the label for each points', () => {
 
     const dotsItem = wrapper.find(DotsItem)
     expect(dotsItem).toHaveLength(5)
-    expect(dotsItem.at(0).prop('label')).toBe('8')
-    expect(dotsItem.at(1).prop('label')).toBe('9')
+    expect(dotsItem.at(0).prop('label')).toBe('3')
+    expect(dotsItem.at(1).prop('label')).toBe('7')
     expect(dotsItem.at(2).prop('label')).toBe('11')
-    expect(dotsItem.at(3).prop('label')).toBe('7')
-    expect(dotsItem.at(4).prop('label')).toBe('3')
+    expect(dotsItem.at(3).prop('label')).toBe('9')
+    expect(dotsItem.at(4).prop('label')).toBe('8')
 })
 
 it('should call the custom label callback for each point', () => {
@@ -269,7 +269,9 @@ it('should call the custom label callback for each point', () => {
         const currentData = serieAData[i]
         expect(pointLabelFn).toHaveBeenCalledWith({
             id: `A.${i}`,
-            index: i,
+            absIndex: i,
+            indexInSeries: i,
+            seriesIndex: 0,
             seriesId: 'A',
             seriesColor: expect.any(String),
             x: expect.any(Number),

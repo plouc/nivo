@@ -1,7 +1,8 @@
-import { memo } from 'react'
+import { createElement, memo } from 'react'
 // @ts-ignore
 import { getLabelGenerator } from '@nivo/core'
-import { DotsItem } from '@nivo/core'
+import { DotsItem, Margin } from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
 import { LineSeries, LineSvgPropsWithDefaults, Point } from './types'
 
 const NonMemoizedPoints = <Series extends LineSeries>({
@@ -13,6 +14,9 @@ const NonMemoizedPoints = <Series extends LineSeries>({
     label,
     labelYOffset,
     isFocusable,
+    setCurrentPoint,
+    tooltip,
+    margin,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
@@ -27,6 +31,9 @@ const NonMemoizedPoints = <Series extends LineSeries>({
     label: LineSvgPropsWithDefaults<Series>['pointLabel']
     labelYOffset: LineSvgPropsWithDefaults<Series>['pointLabelYOffset']
     isFocusable: LineSvgPropsWithDefaults<Series>['isFocusable']
+    setCurrentPoint: (point: Point<Series> | null) => void
+    tooltip: LineSvgPropsWithDefaults<Series>['tooltip']
+    margin: Margin
     ariaLabel: LineSvgPropsWithDefaults<Series>['pointAriaLabel']
     ariaLabelledBy: LineSvgPropsWithDefaults<Series>['pointAriaLabelledBy']
     ariaDescribedBy: LineSvgPropsWithDefaults<Series>['pointAriaDescribedBy']
@@ -35,13 +42,13 @@ const NonMemoizedPoints = <Series extends LineSeries>({
 }) => {
     const getLabel = getLabelGenerator(label)
 
-    /**
-     * We reverse the `points` array so that points from the lower lines in stacked lines
-     * graph are drawn on top. See https://github.com/plouc/nivo/issues/1051.
-     */
+    const { showTooltipAt, hideTooltip } = useTooltip()
+
+    // We sort the points so that the lower series are drawn on top of the higher ones.
     const mappedPoints = points
         .slice(0)
-        .reverse()
+        .sort((a, b) => a.indexInSeries - b.indexInSeries)
+        .sort((a, b) => b.seriesIndex - a.seriesIndex)
         .map(point => {
             return {
                 id: point.id,
@@ -56,6 +63,22 @@ const NonMemoizedPoints = <Series extends LineSeries>({
                 ariaDescribedBy: ariaDescribedBy ? ariaDescribedBy(point) : undefined,
                 ariaHidden: ariaHidden ? ariaHidden(point) : undefined,
                 ariaDisabled: ariaDisabled ? ariaDisabled(point) : undefined,
+                onFocus: isFocusable
+                    ? () => {
+                          setCurrentPoint(point)
+                          showTooltipAt(
+                              createElement(tooltip, { point }),
+                              [margin.left + point.x, margin.top + point.y],
+                              'top'
+                          )
+                      }
+                    : undefined,
+                onBlur: isFocusable
+                    ? () => {
+                          setCurrentPoint(null)
+                          hideTooltip()
+                      }
+                    : undefined,
             }
         })
 
@@ -80,6 +103,8 @@ const NonMemoizedPoints = <Series extends LineSeries>({
                     ariaHidden={point.ariaHidden}
                     ariaDisabled={point.ariaDisabled}
                     isFocusable={isFocusable}
+                    onFocus={point.onFocus}
+                    onBlur={point.onBlur}
                 />
             ))}
         </g>
