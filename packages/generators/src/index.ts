@@ -83,12 +83,29 @@ export const generateSerie = (xSize = 20) => {
     return range(xSize).map(() => Math.round(Math.random() * max))
 }
 
-export const generateSeries = (ids: string[], xKeys: string[]) =>
-    ids.map(id => ({
-        id,
-        color: randColor(),
-        data: xKeys.map(x => ({ x, y: Math.round(Math.random() * 300) })),
-    }))
+export const generateSeries = (
+    ids: string[],
+    xKeys: string[] | number[],
+    { withColors = true } = {}
+) =>
+    ids.map(id => {
+        const series: {
+            id: string
+            color?: string
+            data: {
+                x: string | number
+                y: number
+            }[]
+        } = {
+            id,
+            data: xKeys.map(x => ({ x, y: Math.round(Math.random() * 300) })),
+        }
+        if (withColors) {
+            series.color = randColor()
+        }
+
+        return series
+    })
 
 export const generateStackData = (size = 3) => {
     const length = 16

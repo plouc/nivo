@@ -1,8 +1,10 @@
-import { createElement, memo, useCallback } from 'react'
+import { createElement, memo, useCallback, MouseEvent, TouchEvent } from 'react'
+import { Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
+import {LineSeries, Point, LineSvgProps, LineSvgPropsWithDefaults} from './types'
 
-const Mesh = ({
+const NonMemoizedMesh = <Series extends LineSeries>({
     points,
     width,
     height,
@@ -21,11 +23,30 @@ const Mesh = ({
     tooltip,
     debug,
     enableTouchCrosshair,
+}: {
+    points: Point<Series>[]
+    width: number
+    height: number
+    margin: Margin
+    setCurrent: (point: Point<Series> | null) => void
+    onMouseEnter?: LineSvgProps<Series>['onMouseEnter']
+    onMouseMove?: LineSvgProps<Series>['onMouseMove']
+    onMouseLeave?: LineSvgProps<Series>['onMouseLeave']
+    onMouseDown?: LineSvgProps<Series>['onMouseDown']
+    onMouseUp?: LineSvgProps<Series>['onMouseUp']
+    onClick?: LineSvgProps<Series>['onClick']
+    onDoubleClick?: LineSvgProps<Series>['onDoubleClick']
+    onTouchStart?: LineSvgProps<Series>['onTouchStart']
+    onTouchMove?: LineSvgProps<Series>['onTouchMove']
+    onTouchEnd?: LineSvgProps<Series>['onTouchEnd']
+    tooltip: LineSvgPropsWithDefaults<Series>['tooltip']
+    debug: boolean
+    enableTouchCrosshair: LineSvgPropsWithDefaults<Series>['enableTouchCrosshair']
 }) => {
     const { showTooltipAt, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             showTooltipAt(
                 createElement(tooltip, { point }),
                 [point.x + margin.left, point.y + margin.top],
@@ -37,7 +58,7 @@ const Mesh = ({
     )
 
     const handleMouseMove = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             showTooltipAt(
                 createElement(tooltip, { point }),
                 [point.x + margin.left, point.y + margin.top],
@@ -49,7 +70,7 @@ const Mesh = ({
     )
 
     const handleMouseLeave = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave && onMouseLeave(point, event)
         },
@@ -57,35 +78,35 @@ const Mesh = ({
     )
 
     const handleMouseDown = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             onMouseDown && onMouseDown(point, event)
         },
         [onMouseDown]
     )
 
     const handleMouseUp = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             onMouseUp && onMouseUp(point, event)
         },
         [onMouseUp]
     )
 
     const handleClick = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             onClick && onClick(point, event)
         },
         [onClick]
     )
 
     const handleDoubleClick = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: MouseEvent) => {
             onDoubleClick && onDoubleClick(point, event)
         },
         [onDoubleClick]
     )
 
     const handleTouchStart = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: TouchEvent) => {
             showTooltipAt(
                 createElement(tooltip, { point }),
                 [point.x + margin.left, point.y + margin.top],
@@ -97,7 +118,7 @@ const Mesh = ({
     )
 
     const handleTouchMove = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: TouchEvent) => {
             showTooltipAt(
                 createElement(tooltip, { point }),
                 [point.x + margin.left, point.y + margin.top],
@@ -109,7 +130,7 @@ const Mesh = ({
     )
 
     const handleTouchEnd = useCallback(
-        (point, event) => {
+        (point: Point<Series>, event: TouchEvent) => {
             hideTooltip()
             onTouchEnd && onTouchEnd(point, event)
         },
@@ -117,7 +138,7 @@ const Mesh = ({
     )
 
     return (
-        <BaseMesh
+        <BaseMesh<Point<Series>>
             nodes={points}
             width={width}
             height={height}
@@ -138,4 +159,4 @@ const Mesh = ({
     )
 }
 
-export default memo(Mesh)
+export const Mesh = memo(NonMemoizedMesh) as typeof NonMemoizedMesh

@@ -1,8 +1,26 @@
 import { memo } from 'react'
-import { getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
+// @ts-ignore
+import { getLabelGenerator } from '@nivo/core'
+import { DotsItem } from '@nivo/core'
+import { LineSeries, LineSvgPropsWithDefaults, Point } from './types'
 
-const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
-    const theme = useTheme()
+const NonMemoizedPoints = <Series extends LineSeries>({
+    points,
+    symbol,
+    size,
+    borderWidth,
+    enableLabel,
+    label,
+    labelYOffset,
+}: {
+    points: readonly Point<Series>[]
+    symbol: LineSvgPropsWithDefaults<Series>['pointSymbol']
+    size: number
+    borderWidth: LineSvgPropsWithDefaults<Series>['pointBorderWidth']
+    enableLabel: LineSvgPropsWithDefaults<Series>['enablePointLabel']
+    label: LineSvgPropsWithDefaults<Series>['pointLabel']
+    labelYOffset: LineSvgPropsWithDefaults<Series>['pointLabelYOffset']
+}) => {
     const getLabel = getLabelGenerator(label)
 
     /**
@@ -34,18 +52,17 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
                     x={point.x}
                     y={point.y}
                     datum={point.datum}
-                    symbol={symbol}
+                    symbol={symbol as any}
                     size={size}
                     color={point.fill}
                     borderWidth={borderWidth}
                     borderColor={point.stroke}
                     label={point.label}
                     labelYOffset={labelYOffset}
-                    theme={theme}
                 />
             ))}
         </g>
     )
 }
 
-export default memo(Points)
+export const Points = memo(NonMemoizedPoints) as typeof NonMemoizedPoints

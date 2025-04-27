@@ -1,6 +1,11 @@
 import range from 'lodash/range.js'
 import { generateSeries } from '@nivo/generators'
 
+export interface LineSampleSeries {
+    id: string
+    data: Array<{ x: string | number; y: number }>
+}
+
 export const generateLightDataSet = () => {
     return generateSeries(
         ['japan', 'france', 'us', 'germany', 'norway'],
@@ -17,8 +22,12 @@ export const generateLightDataSet = () => {
             'horse',
             'skateboard',
             'others',
-        ]
-    )
+        ],
+        { withColors: false }
+    ) as Array<{
+        id: string
+        data: Array<{ x: string; y: number }>
+    }>
 }
 
 export const generateHeavyDataSet = () => {
@@ -36,6 +45,10 @@ export const generateHeavyDataSet = () => {
             'finland',
             'australia',
         ],
-        range(121)
-    )
+        range(121),
+        { withColors: false }
+    ) as Array<{
+        id: string
+        data: Array<{ x: number; y: number }>
+    }>
 }
