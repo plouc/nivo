@@ -76,6 +76,11 @@ export interface Point<Series extends LineSeries> {
     }
 }
 
+export type PointColorContext<Series extends LineSeries> = {
+    series: ComputedSeries<Series>
+    point: Omit<Point<Series>, 'color' | 'borderColor'>
+}
+
 export interface PointSymbolProps<Series extends LineSeries> {
     borderColor: string
     borderWidth: number
@@ -195,7 +200,7 @@ export type CommonLineProps<Series extends LineSeries> = {
     enablePoints: boolean
     pointSymbol?: (props: Readonly<PointSymbolProps<Series>>) => ReactNode
     pointSize: number
-    pointColor: InheritedColorConfig<ComputedSeries<Series>>
+    pointColor: InheritedColorConfig<PointColorContext<Series>>
     pointBorderWidth: number
     pointBorderColor: InheritedColorConfig<Omit<Point<Series>, 'borderColor'>>
     enableArea: boolean

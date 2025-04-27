@@ -61,7 +61,7 @@ export const commonDefaultProps: Omit<
     ],
     enablePoints: true,
     pointSize: 6,
-    pointColor: { from: 'color' },
+    pointColor: { from: 'series.color' },
     pointBorderWidth: 0,
     pointBorderColor: { theme: 'background' },
     enableArea: false,

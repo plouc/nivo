@@ -26,7 +26,7 @@ import {
     LineLayerId,
     LineSvgProps,
     Point,
-    ComputedSeries,
+    PointColorContext,
     SliceData,
     LineCustomSvgLayerProps,
     PointTooltipComponent,
@@ -59,7 +59,7 @@ function InnerLine<Series extends LineSeries>({
     enablePoints = svgDefaultProps.enablePoints,
     pointSymbol,
     pointSize = svgDefaultProps.pointSize,
-    pointColor = svgDefaultProps.pointColor as InheritedColorConfig<ComputedSeries<Series>>,
+    pointColor = svgDefaultProps.pointColor as InheritedColorConfig<PointColorContext<Series>>,
     pointBorderWidth = svgDefaultProps.pointBorderWidth,
     pointBorderColor = svgDefaultProps.pointBorderColor as InheritedColorConfig<
         Omit<Point<Series>, 'borderColor'>

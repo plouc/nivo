@@ -305,12 +305,12 @@ const props: ChartProperty[] = [
     {
         key: 'pointColor',
         help: 'Method to compute points color.',
-        type: 'string | object | Function',
+        type: 'InheritedColorConfig<PointColorContext>',
         flavors: allFlavors,
         required: false,
         defaultValue: commonDefaultProps.pointColor,
         group: 'Points',
-        control: { type: 'inheritedColor' },
+        control: { type: 'inheritedColor', inheritableProperties: ['series.color'] },
     },
     {
         key: 'pointBorderWidth',
@@ -326,7 +326,7 @@ const props: ChartProperty[] = [
         key: 'pointBorderColor',
         help: 'Method to compute points border color.',
         flavors: allFlavors,
-        type: 'string | object | Function',
+        type: `InheritedColorConfig<Omit<Point, 'borderColor'>>`,
         required: false,
         defaultValue: commonDefaultProps.pointBorderColor,
         group: 'Points',
