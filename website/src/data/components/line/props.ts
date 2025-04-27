@@ -621,7 +621,64 @@ const props: ChartProperty[] = [
         },
     },
     ...motionProperties(['svg'], svgDefaultProps),
-    ...commonAccessibilityProps(['svg']),
+    {
+        key: 'isFocusable',
+        flavors: ['svg'],
+        required: false,
+        defaultValue: svgDefaultProps.isFocusable,
+        group: 'Accessibility',
+        help: 'Make the root SVG element and each point focusable, for keyboard navigation.',
+        description: `
+            If enabled, focusing will also reveal the tooltip if \`isInteractive\` is \`true\`,
+            when a point gains focus and hide it on blur.
+            
+            Also note that if this option is enabled, focusing a point will reposition the tooltip
+            at a fixed location.
+        `,
+        type: 'boolean',
+        control: { type: 'switch' },
+    },
+    ...commonAccessibilityProps(['svg'], svgDefaultProps),
+    {
+        key: 'pointAriaLabel',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => string | undefined',
+    },
+    {
+        key: 'pointAriaLabelledBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => string | undefined',
+    },
+    {
+        key: 'pointAriaDescribedBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => string | undefined',
+    },
+    {
+        key: 'pointAriaHidden',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => boolean | undefined',
+    },
+    {
+        key: 'pointAriaDisabled',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => boolean | undefined',
+    },
 ]
 
 export const groups = groupProperties(props)

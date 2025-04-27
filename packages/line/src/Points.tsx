@@ -12,6 +12,12 @@ const NonMemoizedPoints = <Series extends LineSeries>({
     enableLabel,
     label,
     labelYOffset,
+    isFocusable,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
 }: {
     points: readonly Point<Series>[]
     symbol: LineSvgPropsWithDefaults<Series>['pointSymbol']
@@ -20,6 +26,12 @@ const NonMemoizedPoints = <Series extends LineSeries>({
     enableLabel: LineSvgPropsWithDefaults<Series>['enablePointLabel']
     label: LineSvgPropsWithDefaults<Series>['pointLabel']
     labelYOffset: LineSvgPropsWithDefaults<Series>['pointLabelYOffset']
+    isFocusable: LineSvgPropsWithDefaults<Series>['isFocusable']
+    ariaLabel: LineSvgPropsWithDefaults<Series>['pointAriaLabel']
+    ariaLabelledBy: LineSvgPropsWithDefaults<Series>['pointAriaLabelledBy']
+    ariaDescribedBy: LineSvgPropsWithDefaults<Series>['pointAriaDescribedBy']
+    ariaHidden: LineSvgPropsWithDefaults<Series>['pointAriaHidden']
+    ariaDisabled: LineSvgPropsWithDefaults<Series>['pointAriaDisabled']
 }) => {
     const getLabel = getLabelGenerator(label)
 
@@ -31,7 +43,7 @@ const NonMemoizedPoints = <Series extends LineSeries>({
         .slice(0)
         .reverse()
         .map(point => {
-            const mappedPoint = {
+            return {
                 id: point.id,
                 x: point.x,
                 y: point.y,
@@ -39,9 +51,12 @@ const NonMemoizedPoints = <Series extends LineSeries>({
                 fill: point.color,
                 stroke: point.borderColor,
                 label: enableLabel ? getLabel(point) : null,
+                ariaLabel: ariaLabel ? ariaLabel(point) : undefined,
+                ariaLabelledBy: ariaLabelledBy ? ariaLabelledBy(point) : undefined,
+                ariaDescribedBy: ariaDescribedBy ? ariaDescribedBy(point) : undefined,
+                ariaHidden: ariaHidden ? ariaHidden(point) : undefined,
+                ariaDisabled: ariaDisabled ? ariaDisabled(point) : undefined,
             }
-
-            return mappedPoint
         })
 
     return (
@@ -59,6 +74,12 @@ const NonMemoizedPoints = <Series extends LineSeries>({
                     borderColor={point.stroke}
                     label={point.label}
                     labelYOffset={labelYOffset}
+                    ariaLabel={point.ariaLabel}
+                    ariaLabelledBy={point.ariaLabelledBy}
+                    ariaDescribedBy={point.ariaDescribedBy}
+                    ariaHidden={point.ariaHidden}
+                    ariaDisabled={point.ariaDisabled}
+                    isFocusable={isFocusable}
                 />
             ))}
         </g>

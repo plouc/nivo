@@ -1,4 +1,4 @@
-import { ReactNode, FunctionComponent, MouseEvent, TouchEvent, AriaAttributes } from 'react'
+import { FunctionComponent, MouseEvent, TouchEvent, AriaAttributes } from 'react'
 import { Line, Area } from 'd3-shape'
 import {
     Dimensions,
@@ -11,6 +11,7 @@ import {
     CartesianMarkerProps,
     PropertyAccessor,
     LineCurveFactoryId,
+    DotsItemSymbolComponent,
 } from '@nivo/core'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
@@ -79,14 +80,6 @@ export interface Point<Series extends LineSeries> {
 export type PointColorContext<Series extends LineSeries> = {
     series: ComputedSeries<Series>
     point: Omit<Point<Series>, 'color' | 'borderColor'>
-}
-
-export interface PointSymbolProps<Series extends LineSeries> {
-    borderColor: string
-    borderWidth: number
-    color: string
-    datum: Point<Series>
-    size: number
 }
 
 export interface SliceData<Series extends LineSeries> {
@@ -198,7 +191,7 @@ export type CommonLineProps<Series extends LineSeries> = {
     colors: OrdinalColorScaleConfig<Series>
     lineWidth: number
     enablePoints: boolean
-    pointSymbol?: (props: Readonly<PointSymbolProps<Series>>) => ReactNode
+    pointSymbol?: DotsItemSymbolComponent<Point<Series>>
     pointSize: number
     pointColor: InheritedColorConfig<PointColorContext<Series>>
     pointBorderWidth: number
@@ -252,6 +245,12 @@ export interface LineSvgExtraProps<Series extends LineSeries> {
     ariaLabel?: AriaAttributes['aria-label']
     ariaLabelledBy?: AriaAttributes['aria-labelledby']
     ariaDescribedBy?: AriaAttributes['aria-describedby']
+    isFocusable: boolean
+    pointAriaLabel?: (point: Point<Series>) => AriaAttributes['aria-label']
+    pointAriaLabelledBy?: (point: Point<Series>) => AriaAttributes['aria-labelledby']
+    pointAriaDescribedBy?: (point: Point<Series>) => AriaAttributes['aria-describedby']
+    pointAriaHidden?: (point: Point<Series>) => AriaAttributes['aria-hidden']
+    pointAriaDisabled?: (point: Point<Series>) => AriaAttributes['aria-disabled']
 }
 export type LineSvgProps<Series extends LineSeries> = DataProps<Series> &
     Dimensions &

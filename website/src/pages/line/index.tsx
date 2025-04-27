@@ -49,6 +49,8 @@ const initialProperties: UnmappedLineSvgProps = {
     ],
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
+    role: 'application',
+    isFocusable: false,
 }
 
 const linearData: LineSampleSeries[] = [

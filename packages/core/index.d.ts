@@ -619,13 +619,14 @@ export const curveFromProp: (interpolation: CurveFactoryId) => CurveFactory
 
 export const useCurveInterpolation: (interpolation: CurveFactoryId) => CurveFactory
 
-export interface DotsItemSymbolProps {
+export interface DotsItemSymbolProps<D = any> {
+    datum: D
     size: number
     color: string
     borderWidth: number
     borderColor: string
 }
-export type DotsItemSymbolComponent = React.FunctionComponent<DotsItemSymbolProps>
+export type DotsItemSymbolComponent<D = any> = React.FunctionComponent<DotsItemSymbolProps<D>>
 
 export interface DotsItemProps<D = any> {
     datum: D
@@ -638,7 +639,14 @@ export interface DotsItemProps<D = any> {
     label?: string | number
     labelTextAnchor?: 'start' | 'middle' | 'end'
     labelYOffset?: number
-    symbol?: DotsItemSymbolComponent
+    symbol?: DotsItemSymbolComponent<D>
+    ariaLabel?: React.AriaAttributes['aria-label']
+    ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: React.AriaAttributes['aria-describedby']
+    ariaHidden?: React.AriaAttributes['aria-hidden']
+    ariaDisabled?: React.AriaAttributes['aria-disabled']
+    isFocusable?: boolean
+    tabIndex?: number
 }
 export const DotsItem: React.FunctionComponent<DotsItemProps>
 
