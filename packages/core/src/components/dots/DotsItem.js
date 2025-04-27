@@ -1,4 +1,4 @@
-import { createElement, memo } from 'react'
+import { createElement, memo, useCallback } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, sanitizeSvgTextStyle } from '../../theming'
 import { useMotionConfig } from '../../motion'
@@ -23,6 +23,8 @@ const DotsItem = ({
     ariaDisabled,
     isFocusable = false,
     tabIndex = 0,
+    onFocus,
+    onBlur,
 }) => {
     const theme = useTheme()
 
@@ -32,6 +34,20 @@ const DotsItem = ({
         config: springConfig,
         immediate: !animate,
     })
+
+    const handleFocus = useCallback(
+        event => {
+            onFocus?.(datum, event)
+        },
+        [onFocus, datum]
+    )
+
+    const handleBlur = useCallback(
+        event => {
+            onBlur?.(datum, event)
+        },
+        [onBlur, datum]
+    )
 
     return (
         <animated.g
@@ -44,6 +60,8 @@ const DotsItem = ({
             aria-describedby={ariaDescribedBy}
             aria-disabled={ariaDisabled}
             aria-hidden={ariaHidden}
+            onFocus={isFocusable && onFocus ? handleFocus : undefined}
+            onBlur={isFocusable && onBlur ? handleBlur : undefined}
         >
             {createElement(symbol, {
                 size,

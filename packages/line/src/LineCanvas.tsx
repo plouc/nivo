@@ -251,7 +251,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
             if (layer === 'mesh' && debugMesh === true && voronoi !== undefined) {
                 renderVoronoiToCanvas(ctx, voronoi)
                 if (currentPoint) {
-                    renderVoronoiCellToCanvas(ctx, voronoi, currentPoint.index)
+                    renderVoronoiCellToCanvas(ctx, voronoi, currentPoint.absIndex)
                 }
             }
 

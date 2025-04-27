@@ -50,7 +50,7 @@ const initialProperties: UnmappedLineSvgProps = {
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
     role: 'application',
-    isFocusable: false,
+    isFocusable: svgDefaultProps.isFocusable,
 }
 
 const linearData: LineSampleSeries[] = [

@@ -279,12 +279,15 @@ function InnerLine<Series extends LineSeries>({
                 enableLabel={enablePointLabel}
                 label={pointLabel}
                 labelYOffset={pointLabelYOffset}
+                isFocusable={isFocusable}
+                setCurrentPoint={setCurrentPoint}
+                tooltip={tooltip}
+                margin={margin}
                 ariaLabel={pointAriaLabel}
                 ariaLabelledBy={pointAriaLabelledBy}
                 ariaDescribedBy={pointAriaDescribedBy}
                 ariaHidden={pointAriaHidden}
                 ariaDisabled={pointAriaDisabled}
-                isFocusable={isFocusable}
             />
         )
     }

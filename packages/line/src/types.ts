@@ -64,7 +64,9 @@ export interface ComputedSeries<Series extends LineSeries> {
 
 export interface Point<Series extends LineSeries> {
     id: string
-    index: number
+    indexInSeries: number
+    absIndex: number
+    seriesIndex: number
     seriesId: InferSeriesId<Series>
     seriesColor: string
     x: number
