@@ -1,7 +1,7 @@
 {
     "name": "storybook",
     "private": true,
-    "version": "0.89.1",
+    "version": "0.90.0",
     "description": "",
     "main": "index.js",
     "scripts": {
