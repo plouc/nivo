@@ -272,3 +272,44 @@ export type LineCanvasPropsWithDefaults<Series extends LineSeries> = DataProps<S
     Dimensions &
     CommonLineProps<Series> &
     LineCanvasExtraProps<Series>
+
+export type CommonLineMultiProps<Series extends LineSeries> = {
+    xScale: ScaleSpec
+    xFormat?: ValueFormat<InferX<Series>>
+    yScale: ScaleSpec
+    yFormat?: ValueFormat<InferY<Series>>
+    margin: Box
+    curve: LineCurveFactoryId
+    theme: Theme
+    colors: OrdinalColorScaleConfig<Series>
+    lineWidth: number
+    enablePoints: boolean
+    pointSymbol?: (props: Readonly<PointSymbolProps<Series>>) => ReactNode
+    pointSize: number
+    pointColor: InheritedColorConfig<ComputedSeries<Series>>
+    pointBorderWidth: number
+    pointBorderColor: InheritedColorConfig<Omit<Point<Series>, 'borderColor'>>
+    enableArea: boolean
+    areaBaselineValue: InferY<Series>
+    areaOpacity: number
+    enableGridX: boolean
+    gridXValues?: TicksSpec<InferX<Series>>
+    enableGridY: boolean
+    gridYValues?: TicksSpec<InferY<Series>>
+    legends: readonly LegendProps[]
+    isInteractive: boolean
+    debugMesh: boolean
+    onMouseEnter?: PointOrSliceMouseHandler<Series>
+    onMouseMove?: PointOrSliceMouseHandler<Series>
+    onMouseLeave?: PointOrSliceMouseHandler<Series>
+    onMouseDown?: PointOrSliceMouseHandler<Series>
+    onMouseUp?: PointOrSliceMouseHandler<Series>
+    onClick?: PointOrSliceMouseHandler<Series>
+    onDoubleClick?: PointOrSliceMouseHandler<Series>
+    onTouchStart?: PointOrSliceTouchHandler<Series>
+    onTouchMove?: PointOrSliceTouchHandler<Series>
+    onTouchEnd?: PointOrSliceTouchHandler<Series>
+    tooltip: PointTooltipComponent<Series>
+    sliceTooltip: SliceTooltipComponent<Series>
+    renderWrapper: boolean
+}

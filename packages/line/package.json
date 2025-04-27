@@ -45,7 +45,9 @@
         "@nivo/tooltip": "workspace:*",
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-scale": "^4.0.8",
         "@types/d3-shape": "^3.1.6",
+        "d3-scale": "^4.0.2",
         "d3-shape": "^3.2.0"
     },
     "peerDependencies": {

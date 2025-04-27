@@ -151,6 +151,14 @@ export const components: ChartNavData[] = [
         },
     },
     {
+        name: 'LineMulti',
+        id: 'line-multi',
+        tags: line.Line.tags,
+        flavors: {
+            svg: true,
+        },
+    },
+    {
         name: 'Marimekko',
         id: 'marimekko',
         tags: marimekko.Marimekko.tags,

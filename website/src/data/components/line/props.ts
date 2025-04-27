@@ -32,14 +32,14 @@ const props: ChartProperty[] = [
             Array<{
                 id:   string | number
                 data: Array<{
-                    x: number | string | Date
-                    y: number | string | Date
+                    x: number | string | Date | null
+                    y: number | string | Date | null
                 }>
             }>
             \`\`\`
         `,
         required: true,
-        type: 'object[]',
+        type: 'LineSeries[]',
     },
     {
         key: 'xScale',

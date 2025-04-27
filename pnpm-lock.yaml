@@ -940,9 +940,15 @@ importers:
       '@react-spring/web':
         specifier: 9.4.5 || ^9.7.2
         version: 9.7.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@types/d3-scale':
+        specifier: ^4.0.8
+        version: 4.0.9
       '@types/d3-shape':
         specifier: ^3.1.6
         version: 3.1.7
+      d3-scale:
+        specifier: ^4.0.2
+        version: 4.0.2
       d3-shape:
         specifier: ^3.2.0
         version: 3.2.0
