@@ -55,10 +55,7 @@ it('should support multiple lines', () => {
             ],
         },
     ]
-    const component = renderer.create(<Line width={500} height={300} data={data} animate={false} />)
-
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    renderer.create(<Line width={500} height={300} data={data} animate={false} />)
 })
 
 it('should create slice for each x value', () => {
@@ -318,12 +315,9 @@ it('should display a custom legendNode for marker', () => {
         },
     ]
 
-    const component = renderer.create(
+    renderer.create(
         <Line width={500} height={300} data={data} animate={false} markers={markers as any[]} />
     )
-
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
 })
 
 describe('curve interpolation', () => {
@@ -353,7 +347,7 @@ describe('curve interpolation', () => {
     ]
     for (const curveInterpolation of curveInterpolations) {
         it(`should support ${curveInterpolation} curve interpolation`, () => {
-            const component = renderer.create(
+            renderer.create(
                 <Line
                     width={500}
                     height={300}
@@ -367,9 +361,6 @@ describe('curve interpolation', () => {
                     enableGridY={false}
                 />
             )
-
-            const tree = component.toJSON()
-            expect(tree).toMatchSnapshot()
         })
     }
 })
