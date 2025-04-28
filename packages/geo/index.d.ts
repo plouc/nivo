@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Dimensions, Theme, Box } from '@nivo/core'
+import { Dimensions, Box } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/geo' {
@@ -37,7 +38,7 @@ declare module '@nivo/geo' {
 
         isInteractive?: boolean
 
-        theme?: Theme
+        theme?: PartialTheme
     }
 
     ///////////////////////////////////////////////////////////////////////////

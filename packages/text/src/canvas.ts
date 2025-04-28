@@ -1,4 +1,4 @@
-import { TextStyle } from '@nivo/core'
+import { TextStyle } from '@nivo/theming'
 
 export const setCanvasFont = (ctx: CanvasRenderingContext2D, style: TextStyle) => {
     ctx.font = `${style.fontWeight ? `${style.fontWeight} ` : ''}${style.fontSize}px ${

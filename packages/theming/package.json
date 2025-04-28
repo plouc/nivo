@@ -1,0 +1,40 @@
+{
+    "name": "@nivo/theming",
+    "version": "0.91.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/theming"
+    },
+    "keywords": [
+        "nivo",
+        "theming"
+    ],
+    "main": "./dist/nivo-theming.cjs.js",
+    "module": "./dist/nivo-theming.mjs",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-theming.mjs",
+            "require": "./dist/nivo-theming.cjs.js"
+        }
+    },
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

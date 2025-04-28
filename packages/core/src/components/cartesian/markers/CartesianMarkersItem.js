@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useTheme } from '../../../theming'
+import { useTheme } from '@nivo/theming'
 
 /**
  *

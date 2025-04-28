@@ -2,7 +2,6 @@ import { FunctionComponent, AriaAttributes } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import {
     Box,
-    Theme,
     CssMixBlendMode,
     Dimensions,
     MotionProps,
@@ -12,6 +11,7 @@ import {
     DotsItemSymbolComponent,
     SvgDefsAndFill,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { ScaleLinear } from 'd3-scale'
@@ -114,7 +114,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     dotLabelFormat: ValueFormat<number>
     dotLabelYOffset: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<{ key: string; index: number }>
     fillOpacity: number
     blendMode: CssMixBlendMode

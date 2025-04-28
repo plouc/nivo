@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { area, stack as d3Stack } from 'd3-shape'
 import {
-    useTheme,
     usePropertyAccessor,
     useValueFormatter,
     useCurveInterpolation,
@@ -10,6 +9,7 @@ import {
     // @ts-ignore
     stackOffsetFromProp,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     StreamCommonProps,

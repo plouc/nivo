@@ -1,5 +1,6 @@
 import { Fragment, useCallback, memo } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'

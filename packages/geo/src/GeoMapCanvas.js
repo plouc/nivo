@@ -1,6 +1,7 @@
 import { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
-import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { getRelativeCursor, withContainer, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { useGeoMap } from './hooks'
 

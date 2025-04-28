@@ -1,6 +1,7 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { SpringValues } from '@react-spring/web'
-import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Vertex, GridCell, GridFillDirection } from '@nivo/grid'
@@ -101,7 +102,7 @@ export interface CommonProps<D extends Datum> extends MotionProps {
     valueFormat?: ValueFormat<D['value']>
     fillDirection: GridFillDirection
     padding: number
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<D>
     emptyColor: string
     emptyOpacity: number

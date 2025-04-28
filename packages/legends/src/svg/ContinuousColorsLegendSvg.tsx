@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { computeContinuousColorsLegend } from '../compute'
 import { ContinuousColorsLegendProps } from '../types'
 import { continuousColorsLegendDefaults } from '../defaults'
@@ -97,7 +98,7 @@ export const ContinuousColorsLegendSvg = ({
                         y2={tick.y2}
                         style={theme.legends.ticks.line}
                     />
-                    <text
+                    <Text
                         x={tick.textX}
                         y={tick.textY}
                         textAnchor={tick.textHorizontalAlign}
@@ -105,7 +106,7 @@ export const ContinuousColorsLegendSvg = ({
                         style={theme.legends.ticks.text}
                     >
                         {tick.text}
-                    </text>
+                    </Text>
                 </Fragment>
             ))}
         </g>

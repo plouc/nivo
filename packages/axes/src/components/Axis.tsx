@@ -1,4 +1,6 @@
-import { useMotionConfig, useTheme } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { AnyScale, ScaleValue } from '@nivo/scales'
 import { animated, useSpring, useTransition } from '@react-spring/web'
 import * as React from 'react'
@@ -35,7 +37,6 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }) => {
     const theme = useTheme()
-    const legendTextStyle = theme.axis.legend.text
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
@@ -84,31 +85,16 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
 
         legendNode = (
             <>
-                {legendTextStyle.outlineWidth > 0 && (
-                    <text
-                        transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
-                        textAnchor={textAnchor}
-                        style={{
-                            dominantBaseline: 'central',
-                            ...legendTextStyle,
-                        }}
-                        strokeWidth={legendTextStyle.outlineWidth * 2}
-                        stroke={legendTextStyle.outlineColor}
-                        strokeLinejoin="round"
-                    >
-                        {legend}
-                    </text>
-                )}
-                <text
+                <Text
                     transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
                     textAnchor={textAnchor}
                     style={{
+                        ...theme.axis.legend.text,
                         dominantBaseline: 'central',
-                        ...legendTextStyle,
                     }}
                 >
                     {legend}
-                </text>
+                </Text>
             </>
         )
     }

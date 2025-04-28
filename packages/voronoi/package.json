@@ -22,6 +22,13 @@
     "main": "./dist/nivo-voronoi.cjs.js",
     "module": "./dist/nivo-voronoi.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-voronoi.mjs",
+            "require": "./dist/nivo-voronoi.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -30,6 +37,7 @@
     ],
     "dependencies": {
         "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:0.91.0",
         "@types/d3-delaunay": "^6.0.4",
         "@types/d3-scale": "^4.0.8",
@@ -41,12 +49,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-voronoi.mjs",
-            "require": "./dist/nivo-voronoi.cjs.js"
-        }
     }
 }

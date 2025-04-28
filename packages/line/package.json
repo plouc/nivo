@@ -43,6 +43,7 @@
         "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
         "@nivo/tooltip": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^3.1.6",

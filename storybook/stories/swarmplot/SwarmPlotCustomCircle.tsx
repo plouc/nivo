@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Theme } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { usePie } from '@nivo/pie'
@@ -67,7 +67,7 @@ const ShadowsLayer = ({ nodes }: SwarmPlotCustomLayerProps<unknown>) => (
     </>
 )
 
-const theme: Theme = {
+const theme: PartialTheme = {
     background: 'rgb(216, 218, 235)',
     axis: {
         ticks: {

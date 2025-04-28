@@ -11,14 +11,8 @@ import {
     ReactElement,
     Ref,
 } from 'react'
-import {
-    useDimensions,
-    useTheme,
-    getRelativeCursor,
-    isCursorInRect,
-    Container,
-    mergeRefs,
-} from '@nivo/core'
+import { useDimensions, getRelativeCursor, isCursorInRect, Container, mergeRefs } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'

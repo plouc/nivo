@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { Chip, TableTooltip } from '@nivo/tooltip'
 import { LineSeries, SliceTooltipProps } from './types'
 

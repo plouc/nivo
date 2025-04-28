@@ -31,10 +31,13 @@
     "dependencies": {
         "@nivo/annotations": "workspace:*",
         "@nivo/axes": "workspace:*",
+        "@nivo/canvas": "workspace:*",
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/text": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^4.0.8",

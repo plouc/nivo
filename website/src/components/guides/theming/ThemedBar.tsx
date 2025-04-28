@@ -1,9 +1,9 @@
 import React from 'react'
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ResponsiveBar } from '@nivo/bar'
 import { colorSchemes } from '@nivo/colors'
 
-export const ThemedBar = ({ theme }: { theme: CompleteTheme }) => {
+export const ThemedBar = ({ theme }: { theme: Theme }) => {
     return (
         <ResponsiveBar
             margin={{

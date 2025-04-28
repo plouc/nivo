@@ -1,23 +1,13 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+import { ThemeWithoutInheritance } from './types'
 
-/**
- * @type ThemeWithoutInheritance
- */
-export const defaultTheme = {
+export const defaultTheme: ThemeWithoutInheritance = {
     background: 'transparent',
     text: {
         fontFamily: 'sans-serif',
         fontSize: 11,
         fill: '#333333',
         outlineWidth: 0,
-        outlineColor: 'transparent',
+        outlineColor: '#ffffff',
         outlineOpacity: 1,
     },
     axis: {

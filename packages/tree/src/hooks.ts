@@ -11,7 +11,8 @@ import {
     curveStepBefore,
     curveStepAfter,
 } from 'd3-shape'
-import { Margin, usePropertyAccessor, useTheme } from '@nivo/core'
+import { Margin, usePropertyAccessor } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { TooltipAnchor, TooltipPosition, useTooltip } from '@nivo/tooltip'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import {

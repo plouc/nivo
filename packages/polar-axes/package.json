@@ -21,6 +21,13 @@
     "main": "./dist/nivo-polar-axes.cjs.js",
     "module": "./dist/nivo-polar-axes.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-polar-axes.mjs",
+            "require": "./dist/nivo-polar-axes.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -31,6 +38,8 @@
         "@nivo/arcs": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/text": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2"
     },
     "peerDependencies": {
@@ -38,12 +47,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-polar-axes.mjs",
-            "require": "./dist/nivo-polar-axes.cjs.js"
-        }
     }
 }

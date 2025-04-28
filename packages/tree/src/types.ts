@@ -2,15 +2,8 @@ import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
 import { Link as LinkShape, DefaultLinkObject } from 'd3-shape'
 import { SpringValues } from '@react-spring/web'
-import {
-    Box,
-    Dimensions,
-    MotionProps,
-    Theme,
-    PropertyAccessor,
-    CompleteTheme,
-    Margin,
-} from '@nivo/core'
+import { Box, Dimensions, MotionProps, PropertyAccessor, Margin } from '@nivo/core'
+import { PartialTheme, Theme } from '@nivo/theming'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { TooltipAnchor, TooltipPosition } from '@nivo/tooltip'
 
@@ -195,7 +188,7 @@ export type LabelComponent<Datum> = FunctionComponent<LabelComponentProps<Datum>
 
 export interface LabelCanvasRendererProps<Datum> {
     label: ComputedLabel<Datum>
-    theme: CompleteTheme
+    theme: Theme
 }
 export type LabelCanvasRenderer<Datum> = (
     ctx: CanvasRenderingContext2D,
@@ -230,7 +223,7 @@ export interface CommonProps<Datum> extends MotionProps {
     layout: Layout
     identity: PropertyAccessor<Datum, string>
 
-    theme: Theme
+    theme: PartialTheme
     nodeSize: number | NodeSizeFunction<Datum>
     activeNodeSize: number | NodeSizeModifierFunction<Datum>
     inactiveNodeSize: number | NodeSizeModifierFunction<Datum>

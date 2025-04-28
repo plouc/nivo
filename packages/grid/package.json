@@ -16,6 +16,13 @@
     "main": "./dist/nivo-grid.cjs.js",
     "module": "./dist/nivo-grid.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-grid.mjs",
+            "require": "./dist/nivo-grid.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -24,12 +31,5 @@
     ],
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-grid.mjs",
-            "require": "./dist/nivo-grid.cjs.js"
-        }
     }
 }

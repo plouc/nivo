@@ -1,5 +1,5 @@
+import { useTheme } from '@nivo/theming'
 import { Defs } from './defs'
-import { useTheme } from '../theming'
 
 const SvgWrapper = ({
     width,

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import * as React from 'react'
-import { useTheme, sanitizeSvgTextStyle } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { LegendSvgItemProps } from '../types'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
@@ -132,10 +133,10 @@ export const LegendSvgItem = ({
                 borderColor: style.symbolBorderColor ?? symbolBorderColor,
                 ...(data.hidden ? theme.legends.hidden.symbol : undefined),
             })}
-            <text
+            <Text
                 textAnchor={labelAnchor}
                 style={{
-                    ...sanitizeSvgTextStyle(theme.legends.text),
+                    ...theme.legends.text,
                     fill: style.itemTextColor ?? textColor ?? theme.legends.text.fill ?? 'black',
                     dominantBaseline: labelAlignment,
                     pointerEvents: 'none',
@@ -146,7 +147,7 @@ export const LegendSvgItem = ({
                 y={labelY}
             >
                 {data.label}
-            </text>
+            </Text>
         </g>
     )
 }

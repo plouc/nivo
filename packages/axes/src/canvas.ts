@@ -1,4 +1,6 @@
-import { degreesToRadians, CompleteTheme } from '@nivo/core'
+import { degreesToRadians } from '@nivo/core'
+import { Theme } from '@nivo/theming'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
@@ -12,18 +14,15 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         x = 0,
         y = 0,
         length,
-
         ticksPosition,
         tickValues,
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
         format: _format,
-
         legend,
         legendPosition = 'end',
         legendOffset = 0,
-
         theme,
     }: {
         axis: 'x' | 'y'
@@ -40,7 +39,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         legend?: string
         legendPosition?: AxisLegendPosition
         legendOffset?: number
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
@@ -60,10 +59,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
 
-    const textStyle = theme.axis.ticks.text
-    ctx.font = `${textStyle.fontWeight ? `${textStyle.fontWeight} ` : ''}${textStyle.fontSize}px ${
-        textStyle.fontFamily
-    }`
+    setCanvasFont(ctx, theme.axis.ticks.text)
 
     if ((theme.axis.domain.line.strokeWidth ?? 0) > 0) {
         ctx.lineWidth = Number(theme.axis.domain.line.strokeWidth)
@@ -102,16 +98,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
 
-        if (textStyle.outlineWidth > 0) {
-            ctx.strokeStyle = textStyle.outlineColor
-            ctx.lineWidth = textStyle.outlineWidth * 2
-            ctx.lineJoin = 'round'
-            ctx.strokeText(`${value}`, 0, 0)
-        }
-
-        if (theme.axis.ticks.text.fill) {
-            ctx.fillStyle = textStyle.fill
-        }
+        drawCanvasText(ctx, theme.axis.ticks.text, `${value}`)
 
         ctx.fillText(`${value}`, 0, 0)
         ctx.restore()
@@ -189,7 +176,7 @@ export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
         right?: CanvasAxisProps<Y> | null
         bottom?: CanvasAxisProps<X> | null
         left?: CanvasAxisProps<Y> | null
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const axes = { top, right, bottom, left }
