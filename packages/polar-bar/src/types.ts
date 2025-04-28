@@ -1,5 +1,6 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
-import { Box, Theme, Dimensions, PropertyAccessor, MotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, PropertyAccessor, MotionProps, ValueFormat } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { CircularAxisConfig, RadialAxisProps } from '@nivo/polar-axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
@@ -64,7 +65,7 @@ export type PolarBarCommonProps<RawDatum extends PolarBarDatum> = {
     layers: readonly (PolarBarLayerId | PolarBarCustomLayer)[]
 
     colors: OrdinalColorScaleConfig<Omit<PolarBarComputedDatum, 'color' | 'fill' | 'arc'>>
-    theme: Theme
+    theme: PartialTheme
     borderWidth: number
     borderColor: InheritedColorConfig<PolarBarComputedDatum>
 

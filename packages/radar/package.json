@@ -22,6 +22,13 @@
     "main": "./dist/nivo-radar.cjs.js",
     "module": "./dist/nivo-radar.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-radar.mjs",
+            "require": "./dist/nivo-radar.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -32,6 +39,8 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
+        "@nivo/text": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^4.0.8",
@@ -44,12 +53,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-radar.mjs",
-            "require": "./dist/nivo-radar.cjs.js"
-        }
     }
 }

@@ -1,13 +1,14 @@
 import { memo, useMemo } from 'react'
-import { useTransition, animated, to } from '@react-spring/web'
+import { useTransition, to } from '@react-spring/web'
 import {
+    useMotionConfig,
     // @ts-ignore
     midAngle,
     // @ts-ignore
     getPolarLabelProps,
-    useTheme,
 } from '@nivo/core'
-import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { ArcDatum, ChordCommonProps } from './types'
 import { useInheritedColor } from '@nivo/colors'
 
@@ -94,7 +95,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
     return (
         <>
             {transition((transitionProps, label) => (
-                <animated.text
+                <Text
                     key={label.id}
                     data-testid={`label.${label.id}`}
                     style={{
@@ -110,7 +111,7 @@ export const ChordLabels = memo(({ arcs, radius, rotation, color }: ChordLabelsP
                     dominantBaseline={label.dominantBaseline}
                 >
                     {label.label}
-                </animated.text>
+                </Text>
             ))}
         </>
     )

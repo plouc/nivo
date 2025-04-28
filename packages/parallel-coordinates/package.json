@@ -23,6 +23,13 @@
     "main": "./dist/nivo-parallel-coordinates.cjs.js",
     "module": "./dist/nivo-parallel-coordinates.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-parallel-coordinates.mjs",
+            "require": "./dist/nivo-parallel-coordinates.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -35,6 +42,7 @@
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^4.0.8",
@@ -47,12 +55,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-parallel-coordinates.mjs",
-            "require": "./dist/nivo-parallel-coordinates.cjs.js"
-        }
     }
 }

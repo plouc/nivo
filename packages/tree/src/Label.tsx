@@ -1,5 +1,6 @@
 import { animated, to } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
 import { LabelComponentProps } from './types'
 
 export const Label = <Datum,>({ label, animatedProps }: LabelComponentProps<Datum>) => {
@@ -11,29 +12,14 @@ export const Label = <Datum,>({ label, animatedProps }: LabelComponentProps<Datu
             transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x},${y})`)}
         >
             <animated.g transform={animatedProps.rotation.to(rotation => `rotate(${rotation})`)}>
-                {theme.labels.text.outlineWidth > 0 && (
-                    <text
-                        style={{
-                            ...theme.labels.text,
-                            fill: theme.labels.text.outlineColor,
-                        }}
-                        stroke={theme.labels.text.outlineColor}
-                        strokeWidth={theme.labels.text.outlineWidth * 2}
-                        strokeLinejoin="round"
-                        textAnchor={label.textAnchor}
-                        dominantBaseline={label.baseline}
-                    >
-                        {label.label}
-                    </text>
-                )}
-                <text
+                <Text
                     data-testid={`label.${label.id}.label`}
                     style={theme.labels.text}
                     textAnchor={label.textAnchor}
                     dominantBaseline={label.baseline}
                 >
                     {label.label}
-                </text>
+                </Text>
             </animated.g>
         </animated.g>
     )

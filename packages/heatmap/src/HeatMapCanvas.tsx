@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback, createElement, useMemo, MouseEvent } from 'react'
-import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container } from '@nivo/core'
+import { getRelativeCursor, isCursorInRect, useDimensions, Container } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { renderContinuousColorLegendToCanvas } from '@nivo/legends'

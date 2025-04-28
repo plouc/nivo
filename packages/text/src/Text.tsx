@@ -1,6 +1,6 @@
 import { PropsWithChildren, ComponentType } from 'react'
 import { animated } from '@react-spring/web'
-import { TextStyle as ThemeStyle } from '@nivo/core'
+import { TextStyle } from '@nivo/theming'
 
 type GetComponentProps<T> = T extends ComponentType<infer P> ? P : never
 type AnimatedComponentProps = GetComponentProps<(typeof animated)['text']>
@@ -8,7 +8,7 @@ type AnimatedComponentProps = GetComponentProps<(typeof animated)['text']>
 type TextProps = PropsWithChildren<
     Omit<AnimatedComponentProps, 'style'> & {
         style: AnimatedComponentProps['style'] &
-            Pick<ThemeStyle, 'outlineWidth' | 'outlineColor' | 'outlineOpacity'>
+            Pick<TextStyle, 'outlineWidth' | 'outlineColor' | 'outlineOpacity'>
     }
 >
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, createElement } from 'react'
-import { Container, useDimensions, useTheme } from '@nivo/core'
+import { Container, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { setCanvasFont } from '@nivo/text'
 import { useMesh, renderDebugToCanvas } from '@nivo/voronoi'
 import { DefaultDatum, TreeCanvasProps, CustomCanvasLayerProps, ComputedNode } from './types'

@@ -9,7 +9,8 @@ import {
     useState,
     MouseEvent,
 } from 'react'
-import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import { Container, useDimensions, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
 import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'

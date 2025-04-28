@@ -24,6 +24,13 @@
     "main": "./dist/nivo-network.cjs.js",
     "module": "./dist/nivo-network.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-network.mjs",
+            "require": "./dist/nivo-network.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -34,6 +41,7 @@
         "@nivo/annotations": "workspace:*",
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-force": "^2.1.0",
@@ -44,12 +52,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-network.mjs",
-            "require": "./dist/nivo-network.cjs.js"
-        }
     }
 }

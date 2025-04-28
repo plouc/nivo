@@ -1,6 +1,6 @@
 import { createElement, memo, useCallback } from 'react'
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme, sanitizeSvgTextStyle } from '../../theming'
+import { useTheme, sanitizeSvgTextStyle } from '@nivo/theming'
 import { useMotionConfig } from '../../motion'
 import DotsItemSymbol from './DotsItemSymbol'
 

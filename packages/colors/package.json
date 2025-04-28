@@ -14,6 +14,13 @@
     "main": "./dist/nivo-colors.cjs.js",
     "module": "./dist/nivo-colors.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-colors.mjs",
+            "require": "./dist/nivo-colors.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -22,6 +29,7 @@
     ],
     "dependencies": {
         "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@types/d3-color": "^3.0.0",
         "@types/d3-scale": "^4.0.8",
         "@types/d3-scale-chromatic": "^3.0.0",
@@ -35,12 +43,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-colors.mjs",
-            "require": "./dist/nivo-colors.cjs.js"
-        }
     }
 }

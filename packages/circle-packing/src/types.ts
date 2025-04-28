@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
-import { Box, MotionProps, Theme, PropertyAccessor, ValueFormat, SvgDefsAndFill } from '@nivo/core'
+import { Box, MotionProps, PropertyAccessor, ValueFormat, SvgDefsAndFill } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 
 export interface ComputedDatum<RawDatum> {
@@ -55,7 +56,7 @@ export interface CirclePackingCommonProps<RawDatum> {
     margin?: Box
     padding: number
     leavesOnly: boolean
-    theme?: Theme
+    theme?: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
     inheritColorFromParent: boolean

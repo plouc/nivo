@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { animated } from '@react-spring/web'
-import { useAnimatedPath, useTheme } from '@nivo/core'
+import { useAnimatedPath } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 
 export const AnnotationLink = ({
     points,

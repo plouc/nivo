@@ -16,7 +16,7 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
-    identity: 'name',
+    id: 'name',
     value: 'loc',
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
@@ -70,13 +70,12 @@ const CirclePackingHtml = () => {
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
-            dataKey="root"
             image={image}
         >
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveCirclePackingHtml
-                        root={data}
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={node => {

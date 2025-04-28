@@ -22,6 +22,13 @@
     "main": "./dist/nivo-circle-packing.cjs.js",
     "module": "./dist/nivo-circle-packing.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-circle-packing.mjs",
+            "require": "./dist/nivo-circle-packing.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -31,6 +38,7 @@
     "dependencies": {
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-hierarchy": "^1.1.8",
@@ -42,12 +50,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-circle-packing.mjs",
-            "require": "./dist/nivo-circle-packing.cjs.js"
-        }
     }
 }

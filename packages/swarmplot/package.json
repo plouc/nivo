@@ -23,6 +23,13 @@
     "main": "./dist/nivo-swarmplot.cjs.js",
     "module": "./dist/nivo-swarmplot.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-swarmplot.mjs",
+            "require": "./dist/nivo-swarmplot.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -36,6 +43,7 @@
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
@@ -50,12 +58,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-swarmplot.mjs",
-            "require": "./dist/nivo-swarmplot.cjs.js"
-        }
     }
 }

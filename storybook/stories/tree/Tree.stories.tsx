@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import {
     Tree,
     useNodeMouseEventHandlers,

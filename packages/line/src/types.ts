@@ -3,7 +3,6 @@ import { Line, Area } from 'd3-shape'
 import {
     Dimensions,
     Box,
-    Theme,
     MotionProps,
     CssMixBlendMode,
     ValueFormat,
@@ -13,6 +12,7 @@ import {
     LineCurveFactoryId,
     DotsItemSymbolComponent,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { ScaleSpec, TicksSpec } from '@nivo/scales'
@@ -189,7 +189,7 @@ export type CommonLineProps<Series extends LineSeries> = {
     yFormat?: ValueFormat<InferY<Series>>
     margin: Box
     curve: LineCurveFactoryId
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<Series>
     lineWidth: number
     enablePoints: boolean

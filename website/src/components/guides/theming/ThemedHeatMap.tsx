@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ResponsiveHeatMap } from '@nivo/heatmap'
 import { generateXYSeries } from '@nivo/generators'
 
-export const ThemedHeatMap = ({ theme }: { theme: CompleteTheme }) => {
+export const ThemedHeatMap = ({ theme }: { theme: Theme }) => {
     const data = useMemo(
         () =>
             generateXYSeries({

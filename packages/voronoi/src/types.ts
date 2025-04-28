@@ -1,5 +1,6 @@
 import { MouseEvent, TouchEvent, FunctionComponent } from 'react'
-import { Theme, Box } from '@nivo/core'
+import { Box } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { Delaunay, Voronoi } from 'd3-delaunay'
 
 export type NodeMouseHandler<Node> = (node: Node, Node: MouseEvent) => void
@@ -39,7 +40,7 @@ export type VoronoiCommonProps = {
     xDomain: VoronoiDomain
     yDomain: VoronoiDomain
     layers: VoronoiLayer[]
-    theme?: Theme
+    theme?: PartialTheme
     enableLinks: boolean
     linkLineWidth: number
     linkLineColor: string

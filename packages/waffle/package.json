@@ -23,6 +23,13 @@
     "main": "./dist/nivo-waffle.cjs.js",
     "module": "./dist/nivo-waffle.mjs",
     "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-waffle.mjs",
+            "require": "./dist/nivo-waffle.cjs.js"
+        }
+    },
     "files": [
         "README.md",
         "LICENSE.md",
@@ -35,6 +42,7 @@
         "@nivo/core": "workspace:*",
         "@nivo/grid": "workspace:*",
         "@nivo/legends": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^3.1.6",
@@ -45,12 +53,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/nivo-waffle.mjs",
-            "require": "./dist/nivo-waffle.cjs.js"
-        }
     }
 }

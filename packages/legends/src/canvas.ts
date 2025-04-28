@@ -1,4 +1,6 @@
-import { CompleteTheme, degreesToRadians } from '@nivo/core'
+import { degreesToRadians } from '@nivo/core'
+import { Theme } from '@nivo/theming'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import {
     computeDimensions,
     computePositionFromAnchor,
@@ -69,7 +71,7 @@ export const renderLegendToCanvas = (
     ctx.save()
     ctx.translate(x, y)
 
-    ctx.font = `${theme.legends.text.fontSize}px ${theme.legends.text.fontFamily || 'sans-serif'}`
+    setCanvasFont(ctx, theme.legends.text)
 
     data.forEach((d, i) => {
         const itemX = i * xStep + padding.left
@@ -90,13 +92,20 @@ export const renderLegendToCanvas = (
         ctx.fillRect(itemX + symbolX, itemY + symbolY, symbolSize, symbolSize)
 
         ctx.textAlign = textAlignMapping[labelAnchor]
-
         if (labelAlignment === 'central') {
             ctx.textBaseline = 'middle'
         }
 
-        ctx.fillStyle = itemTextColor ?? theme.legends.text.fill ?? 'black'
-        ctx.fillText(String(d.label), itemX + labelX, itemY + labelY)
+        drawCanvasText(
+            ctx,
+            {
+                ...theme.legends.text,
+                fill: itemTextColor ?? theme.legends.text.fill,
+            },
+            String(d.label),
+            itemX + labelX,
+            itemY + labelY
+        )
     })
 
     ctx.restore()
@@ -125,7 +134,7 @@ export const renderContinuousColorLegendToCanvas = (
         titleOffset = continuousColorsLegendDefaults.titleOffset,
         theme,
     }: AnchoredContinuousColorsLegendProps & {
-        theme: CompleteTheme
+        theme: Theme
     }
 ) => {
     const {
@@ -191,9 +200,7 @@ export const renderContinuousColorLegendToCanvas = (
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, width, height)
 
-    ctx.font = `${
-        theme.legends.ticks.text.fontWeight ? `${theme.legends.ticks.text.fontWeight} ` : ''
-    }${theme.legends.ticks.text.fontSize}px ${theme.legends.ticks.text.fontFamily}`
+    setCanvasFont(ctx, theme.legends.ticks.text)
 
     ticks.forEach(tick => {
         if ((theme.legends.ticks.line.strokeWidth ?? 0) > 0) {
@@ -209,13 +216,10 @@ export const renderContinuousColorLegendToCanvas = (
             ctx.stroke()
         }
 
-        if (theme.legends.ticks.text.fill) {
-            ctx.fillStyle = theme.legends.ticks.text.fill
-        }
         ctx.textAlign = tick.textHorizontalAlign === 'middle' ? 'center' : tick.textHorizontalAlign
         ctx.textBaseline = tick.textVerticalAlign === 'central' ? 'middle' : tick.textVerticalAlign
 
-        ctx.fillText(tick.text, tick.textX, tick.textY)
+        drawCanvasText(ctx, theme.legends.ticks.text, tick.text, tick.textX, tick.textY)
     })
 
     if (titleText) {
@@ -223,16 +227,11 @@ export const renderContinuousColorLegendToCanvas = (
         ctx.translate(titleX, titleY)
         ctx.rotate(degreesToRadians(titleRotation))
 
-        ctx.font = `${
-            theme.legends.title.text.fontWeight ? `${theme.legends.title.text.fontWeight} ` : ''
-        }${theme.legends.title.text.fontSize}px ${theme.legends.title.text.fontFamily}`
-        if (theme.legends.title.text.fill) {
-            ctx.fillStyle = theme.legends.title.text.fill
-        }
+        setCanvasFont(ctx, theme.legends.title.text)
         ctx.textAlign = titleHorizontalAlign === 'middle' ? 'center' : titleHorizontalAlign
         ctx.textBaseline = titleVerticalAlign
 
-        ctx.fillText(titleText, 0, 0)
+        drawCanvasText(ctx, theme.legends.title.text, titleText)
 
         ctx.restore()
     }

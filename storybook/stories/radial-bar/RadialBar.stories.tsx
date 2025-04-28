@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useMemo, useState } from 'react'
-import { Theme } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { categoricalColorSchemes } from '@nivo/colors'
 import {
     RadialBar,
@@ -279,7 +279,7 @@ const demoPhases: {
     },
 ]
 
-const demoTheme: Theme = {
+const demoTheme: PartialTheme = {
     axis: {
         domain: {
             line: {
