@@ -97,3 +97,39 @@ it(`should allow to adjust the constant`, () => {
     expect(scale(0.5)).toBe(75)
     expect(scale(1)).toBe(100)
 })
+
+it(`should allow to toggle rounding`, () => {
+    const roundedScale = createSymlogScale(
+        { type: 'symlog' },
+        { all: [], min: 0, max: 1 },
+        100,
+        'x'
+    )
+    expect(roundedScale(0.1)).toBe(14)
+
+    const nonRoundedScale = createSymlogScale(
+        { type: 'symlog', round: false },
+        { all: [], min: 0, max: 1 },
+        100,
+        'x'
+    )
+    expect(nonRoundedScale(0.1)).toBe(13.75035237499349)
+})
+
+it(`should allow to toggle nice`, () => {
+    const niceScale = createSymlogScale(
+        { type: 'symlog' },
+        { all: [], min: 0.1, max: 99.9 },
+        100,
+        'x'
+    )
+    expect(niceScale.domain()).toStrictEqual([0, 100])
+
+    const nonNiceScale = createSymlogScale(
+        { type: 'symlog', nice: false },
+        { all: [], min: 0.1, max: 99.9 },
+        100,
+        'x'
+    )
+    expect(nonNiceScale.domain()).toStrictEqual([0.1, 99.9])
+})
