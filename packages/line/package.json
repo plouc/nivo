@@ -1,6 +1,6 @@
 {
     "name": "@nivo/line",
-    "version": "0.91.0",
+    "version": "0.92.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -42,8 +42,8 @@
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/scales": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
         "@nivo/theming": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^3.1.6",
