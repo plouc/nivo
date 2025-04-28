@@ -80,7 +80,12 @@ export interface ScaleSymlogSpec {
     min?: 'auto' | number
     // default to `auto`
     max?: 'auto' | number
+    // default to `true`
+    round?: boolean
+    // default to `false`
     reverse?: boolean
+    // default to `true`
+    nice?: boolean | number
 }
 export interface ScaleSymlog extends D3ScaleSymLog<number, number> {
     type: 'symlog'
