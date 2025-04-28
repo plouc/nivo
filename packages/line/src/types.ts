@@ -163,12 +163,15 @@ export interface CommonCustomLayerProps<Series extends LineSeries> {
     setCurrentPoint: (point: Point<Series> | null) => void
 }
 
-export interface LineCustomSvgLayerProps<Series extends LineSeries>
-    extends CommonCustomLayerProps<Series> {
-    slices: readonly SliceData<Series>[]
-    currentSlice: SliceData<Series> | null
-    setCurrentSlice: (slice: SliceData<Series> | null) => void
-}
+export type LineCustomSvgLayerProps<Series extends LineSeries> = Omit<
+    LineSvgPropsWithDefaults<Series>,
+    'xScale' | 'yScale'
+> &
+    CommonCustomLayerProps<Series> & {
+        slices: readonly SliceData<Series>[]
+        currentSlice: SliceData<Series> | null
+        setCurrentSlice: (slice: SliceData<Series> | null) => void
+    }
 export type LineCustomSvgLayer<Series extends LineSeries> = FunctionComponent<
     LineCustomSvgLayerProps<Series>
 >
