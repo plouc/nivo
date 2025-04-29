@@ -1,5 +1,4 @@
 import { create, act, ReactTestInstance } from 'react-test-renderer'
-// @ts-ignore
 import { Bump, BumpSvgProps, isComputedBumpSerie } from '../src'
 import { Line } from '../src/bump/Line'
 
@@ -74,7 +73,7 @@ const sampleData: BumpSvgProps<Datum, Record<string, unknown>>['data'] = [
     },
 ]
 
-const baseProps: BumpSvgProps<Datum, Record<string, unknown>> = {
+const baseProps: BumpSvgProps<Datum> = {
     width: 800,
     height: 600,
     data: sampleData,
@@ -126,7 +125,7 @@ describe('style', () => {
         const colors = ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)']
         const root = create(
             <Bump<Datum, { color: string }>
-                {...baseProps}
+                {...baseProps as BumpSvgProps<Datum, { color: string }>}
                 data={sampleData.map((serie, i) => ({
                     ...serie,
                     color: colors[i],
@@ -179,7 +178,7 @@ describe('labels', () => {
     it('end labels from data', () => {
         const root = create(
             <Bump<Datum, { label: string }>
-                {...baseProps}
+                {...baseProps as BumpSvgProps<Datum, { label: string }>}
                 data={sampleData.map(serie => ({
                     ...serie,
                     label: `Serie ${serie.id} label`,
@@ -234,7 +233,7 @@ describe('labels', () => {
     it('start labels from data', () => {
         const root = create(
             <Bump<Datum, { label: string }>
-                {...baseProps}
+                {...baseProps as BumpSvgProps<Datum, { label: string }>}
                 data={sampleData.map(serie => ({
                     ...serie,
                     label: `Serie ${serie.id} label`,

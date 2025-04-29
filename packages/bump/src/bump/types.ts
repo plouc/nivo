@@ -94,6 +94,9 @@ export type BumpPointMouseHandler<
     Datum extends BumpDatum,
     ExtraProps extends BumpSerieExtraProps
 > = (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => void
+export type BumpMouseHandler<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> =
+    | BumpSerieMouseHandler<Datum, ExtraProps>
+    | BumpPointMouseHandler<Datum, ExtraProps>
 
 export type BumpLayerId = 'grid' | 'axes' | 'labels' | 'lines' | 'points' | 'mesh'
 export interface BumpCustomLayerProps<
@@ -134,18 +137,16 @@ export type BumpPointTooltip<
     point: BumpPoint<Datum, ExtraProps>
 }>
 
-export interface BumpBaseCommonProps<
+export interface BumpCommonProps<
     Datum extends BumpDatum,
     ExtraProps extends BumpSerieExtraProps
 > {
-    margin: Box
-
+    margin?: Box
     interpolation: BumpInterpolation
     xPadding: number
     xOuterPadding: number
     yOuterPadding: number
-
-    theme: PartialTheme
+    theme?: PartialTheme
     colors: OrdinalColorScaleConfig<BumpSerie<Datum, ExtraProps>>
     lineWidth: number
     activeLineWidth: number
@@ -153,14 +154,12 @@ export interface BumpBaseCommonProps<
     opacity: number
     activeOpacity: number
     inactiveOpacity: number
-
     startLabel: BumpLabel<Datum, ExtraProps>
     startLabelPadding: number
     startLabelTextColor: InheritedColorConfig<BumpComputedSerie<Datum, ExtraProps>>
     endLabel: BumpLabel<Datum, ExtraProps>
     endLabelPadding: number
     endLabelTextColor: InheritedColorConfig<BumpComputedSerie<Datum, ExtraProps>>
-
     pointSize: number
     activePointSize: number
     inactivePointSize: number
@@ -169,14 +168,12 @@ export interface BumpBaseCommonProps<
     activePointBorderWidth: number
     inactivePointBorderWidth: number
     pointBorderColor: InheritedColorConfig<Omit<BumpPoint<Datum, ExtraProps>, 'borderColor'>>
-
     enableGridX: boolean
     enableGridY: boolean
-    axisBottom: AxisProps | null
-    axisLeft: AxisProps | null
-    axisRight: AxisProps | null
-    axisTop: AxisProps | null
-
+    axisBottom?: AxisProps | null
+    axisLeft?: AxisProps | null
+    axisRight?: AxisProps | null
+    axisTop?: AxisProps | null
     isInteractive: boolean
     defaultActiveSerieIds: string[]
     lineTooltip: BumpLineTooltip<Datum, ExtraProps>
@@ -203,43 +200,31 @@ export const isComputedBumpSerie = <
     return 'points' in serie
 }
 
-interface BumpMeshCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>
-    extends BumpBaseCommonProps<Datum, ExtraProps> {
-    useMesh: true
-    onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
-    onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
-    onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
-    onMouseDown?: BumpPointMouseHandler<Datum, ExtraProps>
-    onMouseUp?: BumpPointMouseHandler<Datum, ExtraProps>
-    onClick?: BumpPointMouseHandler<Datum, ExtraProps>
-    onDoubleClick?: BumpPointMouseHandler<Datum, ExtraProps>
+interface BumpSvgExtraProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+    pointComponent: BumpPointComponent<Datum, ExtraProps>
+    onMouseEnter?: BumpMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpMouseHandler<Datum, ExtraProps>
+    onClick?: BumpMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpMouseHandler<Datum, ExtraProps>
 }
-
-interface BumpSerieCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>
-    extends BumpBaseCommonProps<Datum, ExtraProps> {
-    useMesh: false
-    onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
-    onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
-    onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
-    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
-    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
-    onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
-    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
-}
-
-export type BumpCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> =
-    | BumpMeshCommonProps<Datum, ExtraProps>
-    | BumpSerieCommonProps<Datum, ExtraProps>
-
-export type BumpResponsiveProps<
-    Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
-> = BumpCommonProps<Datum, ExtraProps> &
-    BumpDataProps<Datum, ExtraProps> & {
-        pointComponent?: BumpPointComponent<Datum, ExtraProps>
-    } & MotionProps
 
 export type BumpSvgProps<
     Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps = {}
+> = Dimensions &
+    BumpDataProps<Datum, ExtraProps> &
+    Partial<BumpCommonProps<Datum, ExtraProps>> &
+    Partial<BumpSvgExtraProps<Datum, ExtraProps>> &
+    MotionProps
+
+export type BumpSvgPropsWithDefaults<
+    Datum extends BumpDatum,
     ExtraProps extends BumpSerieExtraProps
-> = BumpResponsiveProps<Datum, ExtraProps> & Dimensions
+> = Dimensions &
+    BumpDataProps<Datum, ExtraProps> &
+    BumpCommonProps<Datum, ExtraProps> &
+    BumpSvgExtraProps<Datum, ExtraProps> &
+    MotionProps

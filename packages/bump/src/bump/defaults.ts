@@ -1,30 +1,14 @@
-import { MotionProps } from '@nivo/core'
 import { LineTooltip } from './LineTooltip'
 import { Point } from './Point'
-import { BumpCommonProps, BumpPointComponent, DefaultBumpDatum } from './types'
+import { BumpCommonProps, DefaultBumpDatum, BumpSvgPropsWithDefaults } from './types'
 import PointTooltip from './PointTooltip'
 
-const commonDefaultProps: Omit<
-    BumpCommonProps<DefaultBumpDatum, Record<string, unknown>>,
-    | 'onMouseEnter'
-    | 'onClick'
-    | 'onDoubleClick'
-    | 'onMouseMove'
-    | 'onMouseLeave'
-    | 'onMouseDown'
-    | 'onMouseUp'
-    | 'margin'
-    | 'theme'
-    | 'axisRight'
-    | 'renderWrapper'
-> = {
+const commonDefaultProps: BumpCommonProps<DefaultBumpDatum, Record<string, unknown>> = {
     layers: ['grid', 'axes', 'labels', 'lines', 'points', 'mesh'],
-
     interpolation: 'smooth',
     xPadding: 0.6,
     xOuterPadding: 0.5,
     yOuterPadding: 0.5,
-
     colors: { scheme: 'nivo' },
     lineWidth: 2,
     activeLineWidth: 4,
@@ -32,14 +16,12 @@ const commonDefaultProps: Omit<
     opacity: 1,
     activeOpacity: 1,
     inactiveOpacity: 0.3,
-
     startLabel: false,
     startLabelPadding: 16,
     startLabelTextColor: { from: 'color' },
     endLabel: true,
     endLabelPadding: 16,
     endLabelTextColor: { from: 'color' },
-
     pointSize: 6,
     activePointSize: 8,
     inactivePointSize: 4,
@@ -48,13 +30,11 @@ const commonDefaultProps: Omit<
     activePointBorderWidth: 0,
     inactivePointBorderWidth: 0,
     pointBorderColor: { from: 'serie.color', modifiers: [['darker', 1.4]] },
-
     enableGridX: true,
     enableGridY: true,
     axisTop: {},
     axisBottom: {},
     axisLeft: {},
-
     isInteractive: true,
     defaultActiveSerieIds: [],
     lineTooltip: LineTooltip,
@@ -62,13 +42,13 @@ const commonDefaultProps: Omit<
     useMesh: false,
     debugMesh: false,
     role: 'img',
+    renderWrapper: true,
 }
 
-export const bumpSvgDefaultProps: typeof commonDefaultProps & {
-    pointComponent: BumpPointComponent<DefaultBumpDatum, Record<string, unknown>>
-    animate: boolean
-    motionConfig: MotionProps['motionConfig']
-} = {
+export const bumpSvgDefaultProps: Omit<
+    BumpSvgPropsWithDefaults<DefaultBumpDatum, Record<string, unknown>>,
+    'width' | 'height' | 'data'
+> = {
     ...commonDefaultProps,
     pointComponent: Point,
     animate: true,
