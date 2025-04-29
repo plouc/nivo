@@ -24,17 +24,17 @@ export type AllowedSeriesId = string | number
 export type AllowedValue = string | number | Date | null
 export type LineSeries = {
     id: AllowedSeriesId
-    data: { x: AllowedValue; y: AllowedValue }[]
+    data: readonly { x: AllowedValue; y: AllowedValue }[]
 }
 
 export type InferSeriesId<T> = T extends { id: infer Id } ? Id : never
 
-export type InferX<T> = T extends { data: Array<infer D> }
+export type InferX<T> = T extends { data: ReadonlyArray<infer D> }
     ? D extends { x: infer X }
         ? X
         : never
     : never
-export type InferY<T> = T extends { data: Array<infer D> }
+export type InferY<T> = T extends { data: ReadonlyArray<infer D> }
     ? D extends { y: infer Y }
         ? Y
         : never
@@ -42,7 +42,7 @@ export type InferY<T> = T extends { data: Array<infer D> }
 
 export type DefaultSeries = {
     id: string
-    data: {
+    data: readonly {
         x: string | null
         y: number | null
     }[]
@@ -56,7 +56,7 @@ export interface ComputedDatum<Series extends LineSeries> {
     }
 }
 
-export interface ComputedSeries<Series extends LineSeries> {
+export type ComputedSeries<Series extends LineSeries> = Omit<Series, 'data' | 'id'> & {
     id: InferSeriesId<Series>
     data: readonly ComputedDatum<Series>[]
     color: string
@@ -92,7 +92,7 @@ export interface SliceData<Series extends LineSeries> {
     y: number
     width: number
     height: number
-    points: Point<Series>[]
+    points: readonly Point<Series>[]
 }
 
 export type PointOrSliceData<Series extends LineSeries> = Point<Series> | SliceData<Series>
