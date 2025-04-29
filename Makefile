@@ -91,21 +91,21 @@ vercel-build: ##@0 global Build the website and storybook to vercel
 	@cp -a storybook/storybook-static website/public/storybook
 
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
-	@rm -rf node_modules
-	@rm -rf package-lock.json
-	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
-	@rm -rf website/node_modules
-	@rm -rf website/package-lock.json
-	@rm -rf api/node_modules
-	@rm -rf api/package-lock.json
+	rm -rf node_modules
+	rm -rf package-lock.json
+	$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
+	rm -rf website/node_modules
+	rm -rf website/package-lock.json
+	rm -rf api/node_modules
+	rm -rf api/package-lock.json
 
 define clean-source-lib
 	rm -rf $(1)/*/cjs
 endef
 
 define clean-source-all
-	rm -rf $(1)/*/cjs
-	rm -rf $(1)/*/node_modules
+	rm -rf $(1)/*/dist/
+	rm -rf $(1)/*/node_modules/
 	rm -rf $(1)/*/package-lock.json
 endef
 
