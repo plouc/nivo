@@ -9,6 +9,7 @@ import {
     BumpSerieExtraProps,
     BumpSerieMouseHandler,
     BumpSvgProps,
+    BumpSvgPropsWithDefaults,
     DefaultBumpDatum,
 } from './types'
 import { useBump } from './hooks'
@@ -24,64 +25,63 @@ type InnerBumpProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
 
 const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
     data,
-
     width,
     height,
     margin: partialMargin,
-
-    layers = bumpSvgDefaultProps.layers as NonNullable<BumpSvgProps<Datum, ExtraProps>['layers']>,
-
+    layers = bumpSvgDefaultProps.layers as BumpLayerId[],
     interpolation = bumpSvgDefaultProps.interpolation,
     xPadding = bumpSvgDefaultProps.xPadding,
     xOuterPadding = bumpSvgDefaultProps.xOuterPadding,
     yOuterPadding = bumpSvgDefaultProps.yOuterPadding,
-
-    colors = bumpSvgDefaultProps.colors as NonNullable<BumpSvgProps<Datum, ExtraProps>['colors']>,
+    colors = bumpSvgDefaultProps.colors as BumpSvgPropsWithDefaults<Datum, ExtraProps>['colors'],
     lineWidth = bumpSvgDefaultProps.lineWidth,
     activeLineWidth = bumpSvgDefaultProps.activeLineWidth,
     inactiveLineWidth = bumpSvgDefaultProps.inactiveLineWidth,
     opacity = bumpSvgDefaultProps.opacity,
     activeOpacity = bumpSvgDefaultProps.activeOpacity,
     inactiveOpacity = bumpSvgDefaultProps.inactiveOpacity,
-
-    startLabel = bumpSvgDefaultProps.startLabel as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['startLabel']
-    >,
+    startLabel = bumpSvgDefaultProps.startLabel as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['startLabel'],
     startLabelPadding = bumpSvgDefaultProps.startLabelPadding,
-    startLabelTextColor = bumpSvgDefaultProps.startLabelTextColor as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['startLabelTextColor']
-    >,
-    endLabel = bumpSvgDefaultProps.endLabel as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['endLabel']
-    >,
+    startLabelTextColor = bumpSvgDefaultProps.startLabelTextColor as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['startLabelTextColor'],
+    endLabel = bumpSvgDefaultProps.endLabel as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['endLabel'],
     endLabelPadding = bumpSvgDefaultProps.endLabelPadding,
-    endLabelTextColor = bumpSvgDefaultProps.endLabelTextColor as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['endLabelTextColor']
-    >,
-
-    pointComponent = bumpSvgDefaultProps.pointComponent as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['pointComponent']
-    >,
+    endLabelTextColor = bumpSvgDefaultProps.endLabelTextColor as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['endLabelTextColor'],
+    pointComponent = bumpSvgDefaultProps.pointComponent as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['pointComponent'],
     pointSize = bumpSvgDefaultProps.pointSize,
     activePointSize = bumpSvgDefaultProps.activePointSize,
     inactivePointSize = bumpSvgDefaultProps.inactivePointSize,
-    pointColor = bumpSvgDefaultProps.pointColor as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['pointColor']
-    >,
+    pointColor = bumpSvgDefaultProps.pointColor as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['pointColor'],
     pointBorderWidth = bumpSvgDefaultProps.pointBorderWidth,
     activePointBorderWidth = bumpSvgDefaultProps.activePointBorderWidth,
     inactivePointBorderWidth = bumpSvgDefaultProps.inactivePointBorderWidth,
-    pointBorderColor = bumpSvgDefaultProps.pointBorderColor as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['pointBorderColor']
-    >,
-
+    pointBorderColor = bumpSvgDefaultProps.pointBorderColor as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['pointBorderColor'],
     enableGridX = bumpSvgDefaultProps.enableGridX,
     enableGridY = bumpSvgDefaultProps.enableGridY,
     axisTop = bumpSvgDefaultProps.axisTop,
     axisRight,
     axisBottom = bumpSvgDefaultProps.axisBottom,
     axisLeft = bumpSvgDefaultProps.axisLeft,
-
     isInteractive = bumpSvgDefaultProps.isInteractive,
     defaultActiveSerieIds = bumpSvgDefaultProps.defaultActiveSerieIds,
     onMouseEnter,
@@ -93,12 +93,14 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     onDoubleClick,
     useMesh = bumpSvgDefaultProps.useMesh,
     debugMesh = bumpSvgDefaultProps.debugMesh,
-    lineTooltip = bumpSvgDefaultProps.lineTooltip as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['lineTooltip']
-    >,
-    pointTooltip = bumpSvgDefaultProps.pointTooltip as NonNullable<
-        BumpSvgProps<Datum, ExtraProps>['pointTooltip']
-    >,
+    lineTooltip = bumpSvgDefaultProps.lineTooltip as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['lineTooltip'],
+    pointTooltip = bumpSvgDefaultProps.pointTooltip as BumpSvgPropsWithDefaults<
+        Datum,
+        ExtraProps
+    >['pointTooltip'],
     role = bumpSvgDefaultProps.role,
 }: InnerBumpProps<Datum, ExtraProps>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -308,7 +310,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
 
 export const Bump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = Record<string, never>
+    ExtraProps extends BumpSerieExtraProps = {}
 >({
     isInteractive = bumpSvgDefaultProps.isInteractive,
     animate = bumpSvgDefaultProps.animate,
