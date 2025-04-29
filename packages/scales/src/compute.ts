@@ -31,7 +31,7 @@ interface SerieDatum {
 }
 
 type Serie<S = never, D extends SerieDatum = SerieDatum> = S & {
-    data: D[]
+    data: readonly D[]
 }
 
 type NestedSerie<S = never, D extends SerieDatum = SerieDatum> = S & {
