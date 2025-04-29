@@ -47,6 +47,7 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
     linkBlendMode = svgDefaultProps.linkBlendMode,
     enableLinkGradient = svgDefaultProps.enableLinkGradient,
     enableLabels = svgDefaultProps.enableLabels,
+    labelComponent = svgDefaultProps.labelComponent,
     labelPosition = svgDefaultProps.labelPosition,
     labelPadding = svgDefaultProps.labelPadding,
     labelOrientation = svgDefaultProps.labelOrientation,
@@ -229,6 +230,7 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
                 labelPadding={labelPadding}
                 labelOrientation={labelOrientation}
                 getLabelTextColor={getLabelTextColor}
+                labelComponent={labelComponent}
             />
         )
     }
