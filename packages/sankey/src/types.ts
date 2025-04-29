@@ -8,6 +8,7 @@ import {
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
+import { TextProps } from '@nivo/text'
 import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -108,6 +109,10 @@ export type SankeySortFunction<N extends DefaultNode, L extends DefaultLink> = (
     b: SankeyNodeDatum<N, L>
 ) => number
 
+export type SankeyLabelComponent<N extends DefaultNode, L extends DefaultLink> = FunctionComponent<
+    TextProps & { node: SankeyNodeDatum<N, L> }
+>
+
 export interface CustomSankeyLayerProps<N extends DefaultNode, L extends DefaultLink>
     extends Dimensions {
     nodes: readonly SankeyNodeDatum<N, L>[]
@@ -162,6 +167,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     labelPadding: number
     labelOrientation: 'horizontal' | 'vertical'
     labelTextColor: InheritedColorConfig<SankeyNodeDatum<N, L>>
+    labelComponent: SankeyLabelComponent<N, L>
 
     isInteractive: boolean
     onClick: SankeyMouseHandler<N, L>

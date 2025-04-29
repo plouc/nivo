@@ -5,7 +5,7 @@ import { TextStyle } from '@nivo/theming'
 type GetComponentProps<T> = T extends ComponentType<infer P> ? P : never
 type AnimatedComponentProps = GetComponentProps<(typeof animated)['text']>
 
-type TextProps = PropsWithChildren<
+export type TextProps = PropsWithChildren<
     Omit<AnimatedComponentProps, 'style'> & {
         style: AnimatedComponentProps['style'] &
             Pick<TextStyle, 'outlineWidth' | 'outlineColor' | 'outlineOpacity'>

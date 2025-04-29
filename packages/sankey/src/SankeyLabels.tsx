@@ -1,7 +1,6 @@
 import { useSprings } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
-import { Text } from '@nivo/text'
 import { DefaultLink, DefaultNode, SankeyCommonProps, SankeyNodeDatum } from './types'
 
 interface SankeyLabelsProps<N extends DefaultNode, L extends DefaultLink> {
@@ -9,6 +8,7 @@ interface SankeyLabelsProps<N extends DefaultNode, L extends DefaultLink> {
     layout: SankeyCommonProps<N, L>['layout']
     width: number
     height: number
+    labelComponent: SankeyCommonProps<N, L>['labelComponent']
     labelPosition: SankeyCommonProps<N, L>['labelPosition']
     labelPadding: SankeyCommonProps<N, L>['labelPadding']
     labelOrientation: SankeyCommonProps<N, L>['labelOrientation']
@@ -24,6 +24,7 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
     labelPadding,
     labelOrientation,
     getLabelTextColor,
+    labelComponent: LabelComponent,
 }: SankeyLabelsProps<N, L>) => {
     const theme = useTheme()
 
@@ -31,7 +32,7 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
     const labels = nodes.map(node => {
         let x
         let y
-        let textAnchor
+        let textAnchor: 'middle' | 'start' | 'end' | undefined
         if (layout === 'horizontal') {
             y = node.y + node.height / 2
             if (node.x < width / 2) {
@@ -99,7 +100,7 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
                 const label = labels[index]
 
                 return (
-                    <Text
+                    <LabelComponent
                         key={label.id}
                         dominantBaseline="central"
                         textAnchor={label.textAnchor}
@@ -109,9 +110,10 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
                             fill: animatedProps.color,
                             pointerEvents: 'none',
                         }}
+                        node={nodes[index]}
                     >
                         {label.label}
-                    </Text>
+                    </LabelComponent>
                 )
             })}
         </>
