@@ -42,6 +42,10 @@ export const BasicTooltip = memo<BasicTooltipProps>(
             )
         }
 
-        return <div style={theme.tooltip.container}>{content}</div>
+        return (
+            <div style={theme.tooltip.container} role="tooltip">
+                {content}
+            </div>
+        )
     }
 )
