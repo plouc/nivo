@@ -66,7 +66,7 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
                     datum,
                     label: getLabel(datum),
                     style: {
-                        ...transitionProps,
+                        progress: transitionProps.progress,
                         transform: interpolate(
                             transitionProps.startAngle,
                             transitionProps.endAngle,
