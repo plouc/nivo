@@ -105,6 +105,7 @@ export const BarItem = <RawDatum extends BarDatum>({
                 onClick={isInteractive ? handleClick : undefined}
                 onFocus={isInteractive && isFocusable ? handleFocus : undefined}
                 onBlur={isInteractive && isFocusable ? handleBlur : undefined}
+                data-testid={`bar.item.${data.id}.${data.index}`}
             />
             {shouldRenderLabel && (
                 <Text
@@ -115,6 +116,7 @@ export const BarItem = <RawDatum extends BarDatum>({
                     fillOpacity={labelOpacity}
                     style={{
                         ...theme.labels.text,
+                        // We don't want the label to intercept mouse events
                         pointerEvents: 'none',
                         fill: labelColor,
                     }}
