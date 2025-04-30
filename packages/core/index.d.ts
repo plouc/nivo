@@ -202,6 +202,14 @@ export const defaultMargin: DefaultMargin
 
 export function degreesToRadians(degrees: number): number
 export function radiansToDegrees(radians: number): number
+export function midAngle(arc: { startAngle: number; endAngle: number }): number
+export function positionFromAngle(
+    angle: number,
+    distance: number
+): {
+    x: number
+    y: number
+}
 export function absoluteAngleDegrees(degrees: number): number
 export function normalizeAngle(degrees: number): number
 export function clampArc(startAngle: number, endAngle: number, length?: number): [number, number]
@@ -259,14 +267,6 @@ export const ResponsiveWrapper: ResponsiveWrapperType
 
 export function getDistance(x1: number, y1: number, x2: number, y2: number): number
 export function getAngle(x1: number, y1: number, x2: number, y2: number): number
-
-export function positionFromAngle(
-    angle: number,
-    distance: number
-): {
-    x: number
-    y: number
-}
 
 export type ValueFormat<Value, Context = void> =
     | string // d3 formatter

@@ -1,7 +1,6 @@
 import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import {
     useDimensions,
-    // @ts-ignore
     midAngle,
     // @ts-ignore
     getPolarLabelProps,
