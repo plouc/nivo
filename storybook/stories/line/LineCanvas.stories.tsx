@@ -187,7 +187,7 @@ export const CustomLineStyle: Story = {
                 'grid',
                 'markers',
                 'areas',
-                ({ lineGenerator, series, ctx, lineWidth, innerWidth }) => {
+                (ctx, { lineGenerator, series, lineWidth, innerWidth }) => {
                     lineGenerator.context(ctx)
                     series.forEach(serie => {
                         const gradient = ctx.createLinearGradient(0, 0, innerWidth, 0)
@@ -211,15 +211,17 @@ export const CustomLineStyle: Story = {
 
 export const DownloadTheChart: Story = {
     render: () => {
-        const ref = useRef(undefined)
+        const ref = useRef<HTMLCanvasElement | null>(null)
 
         const handleDownload = useCallback(() => {
             const canvas = ref.current
+            if (!canvas) return
+
             const link = document.createElement('a')
             link.download = 'nivo-line.png'
             link.href = canvas.toDataURL('image/png')
             link.click()
-        })
+        }, [])
 
         return (
             <div>
