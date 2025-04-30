@@ -13,7 +13,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "strict": true,
     "allowJs": true,
     "composite": true,

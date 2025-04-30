@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useTransition, to, SpringValue } from '@react-spring/web'
+import { useTransition, to, SpringValue, TransitionFn } from '@react-spring/web'
 import {
     // @ts-ignore
     midAngle,
@@ -8,7 +8,12 @@ import {
 } from '@nivo/core'
 import { Arc, DatumWithArc, Point } from './types'
 import { filterDataBySkipAngle } from './utils'
-import { ArcTransitionMode, TransitionExtra, useArcTransitionMode } from './arcTransitionMode'
+import {
+    ArcTransitionMode,
+    ArcTransitionProps,
+    TransitionExtra,
+    useArcTransitionMode,
+} from './arcTransitionMode'
 
 export const computeArcCenter = (arc: Arc, offset: number): Point => {
     const angle = midAngle(arc) - Math.PI / 2
@@ -37,7 +42,10 @@ export const interpolateArcCenter =
             }
         )
 
-export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps = unknown>(
+export const useArcCentersTransition = <
+    Datum extends DatumWithArc,
+    ExtraProps extends Record<string, any> = Record<string, never>
+>(
     data: Datum[],
     // define where the centers should be placed,
     // 0.0: inner radius
@@ -51,16 +59,7 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
 
     const phases = useArcTransitionMode<Datum, ExtraProps>(mode, extra)
 
-    const transition = useTransition<
-        Datum,
-        {
-            progress: number
-            startAngle: number
-            endAngle: number
-            innerRadius: number
-            outerRadius: number
-        } & ExtraProps
-    >(data, {
+    const transition = useTransition<Datum, ArcTransitionProps<ExtraProps>>(data, {
         keys: datum => datum.id,
         initial: phases.update,
         from: phases.enter,
@@ -69,7 +68,7 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
         leave: phases.leave,
         config: springConfig,
         immediate: !animate,
-    })
+    }) as unknown as TransitionFn<Datum, ArcTransitionProps<ExtraProps>>
 
     return {
         transition,
@@ -91,7 +90,7 @@ export interface ArcCenter<Datum extends DatumWithArc> extends Point {
  */
 export const useArcCenters = <
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, any>
+    ExtraProps extends Record<string, any> = Record<string, never>
 >({
     data,
     offset = 0.5,

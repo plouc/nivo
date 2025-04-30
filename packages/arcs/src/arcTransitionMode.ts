@@ -134,13 +134,24 @@ export const arcTransitionModeById: Record<ArcTransitionMode, ArcTransitionModeC
     },
 }
 
-export interface TransitionExtra<Datum extends DatumWithArc, ExtraProps> {
+export interface TransitionExtra<
+    Datum extends DatumWithArc,
+    ExtraProps extends Record<string, any> = Record<string, never>
+> {
     enter: (datum: Datum) => ExtraProps
     update: (datum: Datum) => ExtraProps
     leave: (datum: Datum) => ExtraProps
 }
 
-export const useArcTransitionMode = <Datum extends DatumWithArc, ExtraProps>(
+export type ArcTransitionProps<ExtraProps extends Record<string, any> = Record<string, never>> =
+    Arc & {
+        progress: number
+    } & ExtraProps
+
+export const useArcTransitionMode = <
+    Datum extends DatumWithArc,
+    ExtraProps extends Record<string, any> = Record<string, never>
+>(
     mode: ArcTransitionMode,
     extraTransition?: TransitionExtra<Datum, ExtraProps>
 ) =>
@@ -148,20 +159,23 @@ export const useArcTransitionMode = <Datum extends DatumWithArc, ExtraProps>(
         const transitionMode = arcTransitionModeById[mode]
 
         return {
-            enter: (datum: Datum) => ({
-                progress: 0,
-                ...transitionMode.enter(datum.arc),
-                ...(extraTransition ? extraTransition.enter(datum) : {}),
-            }),
-            update: (datum: Datum) => ({
-                progress: 1,
-                ...transitionMode.update(datum.arc),
-                ...(extraTransition ? extraTransition.update(datum) : {}),
-            }),
-            leave: (datum: Datum) => ({
-                progress: 0,
-                ...transitionMode.leave(datum.arc),
-                ...(extraTransition ? extraTransition.leave(datum) : {}),
-            }),
+            enter: (datum: Datum) =>
+                ({
+                    progress: 0,
+                    ...transitionMode.enter(datum.arc),
+                    ...(extraTransition ? extraTransition.enter(datum) : {}),
+                } as ArcTransitionProps<ExtraProps>),
+            update: (datum: Datum) =>
+                ({
+                    progress: 1,
+                    ...transitionMode.update(datum.arc),
+                    ...(extraTransition ? extraTransition.update(datum) : {}),
+                } as ArcTransitionProps<ExtraProps>),
+            leave: (datum: Datum) =>
+                ({
+                    progress: 0,
+                    ...transitionMode.leave(datum.arc),
+                    ...(extraTransition ? extraTransition.leave(datum) : {}),
+                } as ArcTransitionProps<ExtraProps>),
         }
     }, [mode, extraTransition])
