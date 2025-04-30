@@ -27,8 +27,6 @@ export const absoluteAngleDegrees = angle => {
     return absAngle
 }
 
-export const absoluteAngleRadians = angle => angle - TWO_PI * Math.floor((angle + Math.PI) / TWO_PI)
-
 /**
  * Ensure angle is always between 0~360.
  *

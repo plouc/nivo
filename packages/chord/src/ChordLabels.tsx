@@ -2,7 +2,6 @@ import { memo, useMemo } from 'react'
 import { useTransition, to } from '@react-spring/web'
 import {
     useMotionConfig,
-    // @ts-ignore
     midAngle,
     // @ts-ignore
     getPolarLabelProps,
