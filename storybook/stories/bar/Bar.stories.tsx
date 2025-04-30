@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { within, expect, waitFor, fireEvent, fn } from '@storybook/test'
 import { generateCountriesData, sets } from '@nivo/generators'
 import { random, range } from 'lodash'
 import { useTheme } from '@nivo/theming'
-import { Bar, BarCanvas, BarDatum, BarItemProps } from '@nivo/bar'
+import { Bar, BarDatum, BarItemProps } from '@nivo/bar'
 import { AxisTickProps } from '@nivo/axes'
 
 const meta: Meta<typeof Bar> = {
@@ -10,8 +11,9 @@ const meta: Meta<typeof Bar> = {
     component: Bar,
     tags: ['autodocs'],
     argTypes: {
-        onMouseEnter: { action: 'mouseenter' },
-        onMouseLeave: { action: 'mouseleave' },
+        onMouseEnter: { action: fn() },
+        onMouseLeave: { action: fn() },
+        onClick: { action: fn() },
     },
 }
 
@@ -30,6 +32,42 @@ const commonProps = {
     labelTextColor: 'inherit:darker(1.4)',
     labelSkipWidth: 16,
     labelSkipHeight: 16,
+}
+
+export const Basic: Story = {
+    render: args => (
+        <Bar
+            {...commonProps}
+            keys={['kebab']}
+            onMouseEnter={args.onMouseEnter}
+            onMouseLeave={args.onMouseLeave}
+            onClick={args.onClick}
+        />
+    ),
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement)
+
+        const { data } = commonProps
+
+        for (const [index, datum] of data.entries()) {
+            const bar = canvas.getByTestId(`bar.item.kebab.${index}`)
+            await expect(bar).toBeInTheDocument()
+
+            const position = bar.getBoundingClientRect()
+            await fireEvent.mouseMove(bar, {
+                clientX: position.left + position.width / 2,
+                clientY: position.top,
+            })
+
+            await waitFor(() => {
+                const tooltip = canvas.getByRole('tooltip')
+                expect(tooltip).toBeInTheDocument()
+                expect(tooltip).toHaveTextContent(`kebab - ${datum.country}: ${datum.kebab}`)
+            })
+        }
+
+        await fireEvent.mouseOut(canvas.getByTestId('bar.item.kebab.6'))
+    },
 }
 
 export const Stacked: Story = {
