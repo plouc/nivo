@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { generateSankeyData } from '@nivo/generators'
 import {
@@ -10,17 +11,8 @@ import {
 } from '@nivo/sankey'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sankey/meta.yml'
-import mapper from '../../data/components/sankey/mapper'
+import mapper, { UnmappedSankeyProps, MappedSankeyProps } from '../../data/components/sankey/mapper'
 import { groups } from '../../data/components/sankey/props'
-import { graphql, useStaticQuery } from 'gatsby'
-
-type MappedSankeyProps = Omit<SankeySvgProps<DefaultNode, DefaultLink>, 'data' | 'width' | 'height'>
-type UnmappedSankeyProps = Omit<MappedSankeyProps, 'valueFormat'> & {
-    valueFormat: {
-        format: string
-        enabled: boolean
-    }
-}
 
 const initialProperties: UnmappedSankeyProps = {
     margin: {

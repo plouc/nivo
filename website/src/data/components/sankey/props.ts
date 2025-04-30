@@ -292,6 +292,21 @@ const props: ChartProperty[] = [
         defaultValue: svgDefaultProps.linkBlendMode,
     }),
     {
+        key: 'layers',
+        flavors: ['svg', 'canvas'],
+        help: 'Defines the order of layers.',
+        description: `
+            You can also use this to insert extra layers to the chart,
+            this extra layer must be a function which will receive
+            the chart computed data and must return a valid SVG
+            element.
+        `,
+        type: 'Array<SankeyLayerId | SankeyCustomLayer>',
+        required: false,
+        defaultValue: svgDefaultProps.layers,
+        group: 'Customization',
+    },
+    {
         key: 'enableLinkGradient',
         group: 'Links',
         help: 'Enable/disable gradient from source/target nodes instead of plain color.',
@@ -371,6 +386,14 @@ const props: ChartProperty[] = [
                 value: key,
             })),
         },
+    },
+    {
+        key: 'labelComponent',
+        group: 'Labels',
+        help: 'Label custom component.',
+        type: 'SankeyLabelComponent',
+        required: false,
+        flavors: ['svg'],
     },
     isInteractive({
         flavors: ['svg'],
