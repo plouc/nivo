@@ -125,7 +125,7 @@ describe('style', () => {
         const colors = ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)']
         const root = create(
             <Bump<Datum, { color: string }>
-                {...baseProps as BumpSvgProps<Datum, { color: string }>}
+                {...(baseProps as BumpSvgProps<Datum, { color: string }>)}
                 data={sampleData.map((serie, i) => ({
                     ...serie,
                     color: colors[i],
@@ -178,7 +178,7 @@ describe('labels', () => {
     it('end labels from data', () => {
         const root = create(
             <Bump<Datum, { label: string }>
-                {...baseProps as BumpSvgProps<Datum, { label: string }>}
+                {...(baseProps as BumpSvgProps<Datum, { label: string }>)}
                 data={sampleData.map(serie => ({
                     ...serie,
                     label: `Serie ${serie.id} label`,
@@ -233,7 +233,7 @@ describe('labels', () => {
     it('start labels from data', () => {
         const root = create(
             <Bump<Datum, { label: string }>
-                {...baseProps as BumpSvgProps<Datum, { label: string }>}
+                {...(baseProps as BumpSvgProps<Datum, { label: string }>)}
                 data={sampleData.map(serie => ({
                     ...serie,
                     label: `Serie ${serie.id} label`,
@@ -378,7 +378,7 @@ describe('interactivity', () => {
     describe('points', () => {
         // Point event handlers cannot be tested as we need a DOM environment.
         it('lines should not be interactive anymore when using a mesh', () => {
-            const root = create(<Bump<Datum> {...baseProps} useMesh={true} />).root
+            const root = create(<Bump<Datum> {...(baseProps as any)} useMesh={true} />).root
 
             expect(root.findAllByProps({ 'data-testid': 'line.B.interactive' })).toHaveLength(0)
         })

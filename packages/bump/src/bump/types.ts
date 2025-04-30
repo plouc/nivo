@@ -137,10 +137,7 @@ export type BumpPointTooltip<
     point: BumpPoint<Datum, ExtraProps>
 }>
 
-export interface BumpCommonProps<
-    Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
-> {
+export interface BumpCommonProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
     margin?: Box
     interpolation: BumpInterpolation
     xPadding: number
@@ -181,7 +178,7 @@ export interface BumpCommonProps<
     role: string
     layers: BumpLayer<Datum, ExtraProps>[]
     renderWrapper: boolean
-    useMesh: boolean
+    useMesh?: boolean
     debugMesh: boolean
 }
 
@@ -200,25 +197,64 @@ export const isComputedBumpSerie = <
     return 'points' in serie
 }
 
-interface BumpSvgExtraProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
-    pointComponent: BumpPointComponent<Datum, ExtraProps>
-    onMouseEnter?: BumpMouseHandler<Datum, ExtraProps>
-    onMouseMove?: BumpMouseHandler<Datum, ExtraProps>
-    onMouseLeave?: BumpMouseHandler<Datum, ExtraProps>
-    onMouseDown?: BumpMouseHandler<Datum, ExtraProps>
-    onMouseUp?: BumpMouseHandler<Datum, ExtraProps>
-    onClick?: BumpMouseHandler<Datum, ExtraProps>
-    onDoubleClick?: BumpMouseHandler<Datum, ExtraProps>
+interface BumpPointMouseHandlersProps<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+> {
+    useMesh: true
+    onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpPointMouseHandler<Datum, ExtraProps>
+    onClick?: BumpPointMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpPointMouseHandler<Datum, ExtraProps>
 }
 
-export type BumpSvgProps<
+interface BumpSeriesMouseHandlersProps<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps = {}
+    ExtraProps extends BumpSerieExtraProps
+> {
+    useMesh?: false
+    onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+}
+
+interface BumpSvgExtraProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+    pointComponent: BumpPointComponent<Datum, ExtraProps>
+}
+
+export type BumpSvgPropsWithSeriesMouseHandlers<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
 > = Dimensions &
     BumpDataProps<Datum, ExtraProps> &
     Partial<BumpCommonProps<Datum, ExtraProps>> &
+    BumpSeriesMouseHandlersProps<Datum, ExtraProps> &
     Partial<BumpSvgExtraProps<Datum, ExtraProps>> &
     MotionProps
+
+export type BumpSvgPropsWithPointMouseHandlers<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps
+> = Dimensions &
+    BumpDataProps<Datum, ExtraProps> &
+    Partial<BumpCommonProps<Datum, ExtraProps>> &
+    BumpPointMouseHandlersProps<Datum, ExtraProps> &
+    Partial<BumpSvgExtraProps<Datum, ExtraProps>> &
+    MotionProps
+
+export type BumpSvgProps<
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>
+> =
+    | BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>
+    | BumpSvgPropsWithPointMouseHandlers<Datum, ExtraProps>
 
 export type BumpSvgPropsWithDefaults<
     Datum extends BumpDatum,
@@ -226,5 +262,9 @@ export type BumpSvgPropsWithDefaults<
 > = Dimensions &
     BumpDataProps<Datum, ExtraProps> &
     BumpCommonProps<Datum, ExtraProps> &
+    (
+        | BumpSeriesMouseHandlersProps<Datum, ExtraProps>
+        | BumpPointMouseHandlersProps<Datum, ExtraProps>
+    ) &
     BumpSvgExtraProps<Datum, ExtraProps> &
     MotionProps
