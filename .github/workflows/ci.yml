@@ -6,12 +6,17 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  test:
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -19,23 +24,22 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
       - run: pnpm install
       - name: Build nivo packages
         run: make pkgs-build
       - run: make pkgs-lint
       - run: make pkgs-test
-      # Make sure that we can build the website
-      - run: make website-build
-      # Make sure that we can build storybook
-      - run: make storybook-build
+      - name: Build the website
+        run: make website-build
 
-  end-to-end-tests:
+  end_to_end:
+    name: End-to-End Tests
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -43,7 +47,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
       - name: Cypress install
         uses: cypress-io/github-action@v6
@@ -57,3 +61,25 @@ jobs:
           install: false
           component: true
           command: make end-to-end-test
+
+  storybook_tests:
+    name: Storybook Tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Install dependencies & build packages
+        run: make init
+      - name: Build Storybook
+        run: make storybook-build
+      - name: Serve Storybook and run tests
+        run: make storybook-test-ci

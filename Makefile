@@ -50,6 +50,7 @@ init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
 	@$(MAKE) install
 	@$(MAKE) pkgs-build
+	@$(MAKE) storybook-playwright-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@pnpm prettier --color --write \
@@ -91,13 +92,13 @@ vercel-build: ##@0 global Build the website and storybook to vercel
 	@cp -a storybook/storybook-static website/public/storybook
 
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
-	rm -rf node_modules
-	rm -rf package-lock.json
-	$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
-	rm -rf website/node_modules
-	rm -rf website/package-lock.json
-	rm -rf api/node_modules
-	rm -rf api/package-lock.json
+	@rm -rf node_modules
+	@rm -rf package-lock.json
+	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
+	@rm -rf website/node_modules
+	@rm -rf website/package-lock.json
+	@rm -rf api/node_modules
+	@rm -rf api/package-lock.json
 
 define clean-source-lib
 	rm -rf $(1)/*/cjs
@@ -269,16 +270,27 @@ website-sprites: ##@2 website build sprite sheet
 storybook: ##@3 storybook start storybook in dev mode on port 6006
 	@pnpm --filter storybook dev
 
+storybook-test: ##@3 storybook test storybook stories
+	@echo "${YELLOW}Testing storybook${RESET}"
+	@pnpm --filter storybook test
+
 storybook-build: ##@3 storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
 	@pnpm --filter storybook build
 
-storybook-deploy: ##@3 storybook build and deploy storybook
-	@$(MAKE) storybook-build
-
+storybook-deploy: storybook-build ##@3 storybook build and deploy storybook
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@pnpm gh-pages -d storybook/storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
 
+storybook-playwright-install: ##@3 storybook install playwright
+	@echo "${YELLOW}Installing playwright${RESET}"
+	@pnpm pnpm exec playwright install chromium
+
+storybook-test-ci: ##@3 start storybook & run playwright tests
+	@echo "${YELLOW}Start storybook and run playwright tests${RESET}"
+	@npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+        "npx http-server storybook/storybook-static --port 6006 --silent" \
+        "npx wait-on tcp:127.0.0.1:6006 && make storybook-test"
 
 ########################################################################################################################
 #
