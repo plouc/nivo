@@ -32,6 +32,7 @@
         { "path": "./packages/circle-packing" },
         { "path": "./packages/funnel" },
         { "path": "./packages/heatmap" },
+        { "path": "./packages/icicles" },
         { "path": "./packages/line" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/network" },
