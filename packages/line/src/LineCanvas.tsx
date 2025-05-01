@@ -165,8 +165,9 @@ const InnerLineCanvas = <Series extends LineSeries>({
                 layer(ctx, customLayerProps)
             }
 
-            if (layer === 'grid' && (theme.grid.line.strokeWidth || 0) > 0) {
-                ctx.lineWidth = theme.grid.line.strokeWidth as number
+            const gridLineWidth = theme.grid.line.strokeWidth ?? 0
+            if (layer === 'grid' && typeof gridLineWidth !== 'string' && gridLineWidth > 0) {
+                ctx.lineWidth = gridLineWidth
                 ctx.strokeStyle = theme.grid.line.stroke as string
 
                 if (enableGridX) {
