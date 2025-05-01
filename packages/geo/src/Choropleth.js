@@ -34,6 +34,7 @@ const Choropleth = memo(props => {
         layers = ['graticule', 'features', 'legends'],
         legends = [],
         isInteractive = true,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick = () => {},
         tooltip: Tooltip = ChoroplethTooltip,
         role = 'img',

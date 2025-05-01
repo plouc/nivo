@@ -35,7 +35,7 @@ export const normalizeData = <RawDatum>(data: readonly RawDatum[], keys: readonl
                     return acc
                 }, {}),
                 ...item,
-            } as RawDatum)
+            }) as RawDatum
     )
 
 export const filterNullValues = <RawDatum extends Record<string, unknown>>(data: RawDatum) =>

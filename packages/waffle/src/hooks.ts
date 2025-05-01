@@ -4,7 +4,7 @@ import { line as d3Line, curveLinearClosed } from 'd3-shape'
 import {
     useMotionConfig,
     useValueFormatter,
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
@@ -109,10 +109,13 @@ export const mergeCellsData = <RawDatum extends Datum>(
  * Assumes that cells ares sorted by group.
  */
 const findPolygons = <D extends Datum>(grid: DataCell<D>[]) => {
-    const grouped = grid.reduce((acc, cell) => {
-        ;(acc[cell.data.id] = acc[cell.data.id] || []).push(cell)
-        return acc
-    }, {} as Record<string | number, DataCell<D>[]>)
+    const grouped = grid.reduce(
+        (acc, cell) => {
+            ;(acc[cell.data.id] = acc[cell.data.id] || []).push(cell)
+            return acc
+        },
+        {} as Record<string | number, DataCell<D>[]>
+    )
 
     const polygons: Partial<Record<D['id'], Vertex[][]>> = {}
     for (const [group, cells] of Object.entries(grouped)) {
@@ -292,7 +295,7 @@ export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
             showTooltipFromEvent(createElement(tooltip, { data }), event)
             onMouseEnter?.(data, event)
         },
-        [showTooltipFromEvent, data, onMouseEnter]
+        [showTooltipFromEvent, tooltip, data, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
@@ -300,7 +303,7 @@ export const useAreaMouseHandlers = <D extends Datum, E extends Element>(
             showTooltipFromEvent(createElement(tooltip, { data }), event)
             onMouseMove?.(data, event)
         },
-        [showTooltipFromEvent, data, onMouseMove]
+        [showTooltipFromEvent, tooltip, data, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(

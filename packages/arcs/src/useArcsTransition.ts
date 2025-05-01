@@ -16,7 +16,7 @@ import { interpolateArc } from './interpolateArc'
  */
 export const useArcsTransition = <
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, never>
+    ExtraProps extends Record<string, any> = Record<string, never>,
 >(
     data: Datum[],
     mode: ArcTransitionMode = 'innerRadius',

@@ -237,18 +237,18 @@ export const computePartsHandlers = <D extends FunnelDatum>({
         const boundOnMouseEnter = (event: MouseEvent) => {
             setCurrentPartId(part.data.id)
             showTooltipFromEvent(createElement(tooltip, { part }), event)
-            onMouseEnter !== undefined && onMouseEnter(part, event)
+            onMouseEnter?.(part, event)
         }
 
         const boundOnMouseLeave = (event: MouseEvent) => {
             setCurrentPartId(null)
             hideTooltip()
-            onMouseLeave !== undefined && onMouseLeave(part, event)
+            onMouseLeave?.(part, event)
         }
 
         const boundOnMouseMove = (event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { part }), event)
-            onMouseMove !== undefined && onMouseMove(part, event)
+            onMouseMove?.(part, event)
         }
 
         const boundOnClick =
@@ -610,18 +610,22 @@ export const useFunnel = <D extends FunnelDatum>({
     }, [
         data,
         direction,
-        linearScale,
         bandScale,
         innerWidth,
         innerHeight,
         paddingBefore,
-        paddingAfter,
         rawShapeBlending,
         getColor,
         formatValue,
         getBorderColor,
         getLabelColor,
         currentPartId,
+        borderOpacity,
+        borderWidth,
+        currentBorderWidth,
+        currentPartSizeExtension,
+        fillOpacity,
+        getSize,
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()

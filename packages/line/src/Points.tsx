@@ -1,5 +1,5 @@
 import { createElement, memo } from 'react'
-// @ts-ignore
+// @ts-expect-error no types
 import { getLabelGenerator } from '@nivo/core'
 import { DotsItem, Margin } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'

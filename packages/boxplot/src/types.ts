@@ -24,9 +24,7 @@ import {
 } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 
-export interface BoxPlotDatum {
-    [key: string]: number | string
-}
+export type BoxPlotDatum = Record<string, number | string>
 
 export interface BoxPlotSummary {
     group: string

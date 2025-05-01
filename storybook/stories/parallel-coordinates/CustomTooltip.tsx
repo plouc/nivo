@@ -2,7 +2,7 @@ import { TooltipProps, DatumGroupKeys, BaseDatum } from '@nivo/parallel-coordina
 
 export const CustomTooltip = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 >({
     datum,
 }: TooltipProps<Datum, GroupBy>) => (

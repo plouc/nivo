@@ -42,23 +42,21 @@ export const Seo = ({
 }: SeoProps) => {
     const location = useLocation()
 
-    const { site } = useStaticQuery<SiteData>(
-        graphql`
-            query SiteMetaData {
-                site {
-                    siteMetadata {
-                        title
-                        description
-                        siteUrl
-                        og {
-                            siteName
-                            twitterCreator
-                        }
+    const { site } = useStaticQuery<SiteData>(graphql`
+        query SiteMetaData {
+            site {
+                siteMetadata {
+                    title
+                    description
+                    siteUrl
+                    og {
+                        siteName
+                        twitterCreator
                     }
                 }
             }
-        `
-    )
+        }
+    `)
 
     const title = _title || site.siteMetadata.title
     const description = _description || site.siteMetadata.description

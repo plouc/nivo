@@ -188,7 +188,9 @@ const LoaderContainer = styled.div<{
     pointer-events: none;
     opacity: ${({ isLoading }) => (isLoading ? 1 : 0)};
     transform: translate3d(0, ${({ isLoading }) => (isLoading ? 0 : '20px')}, 0);
-    transition: transform 200ms, opacity 200ms;
+    transition:
+        transform 200ms,
+        opacity 200ms;
 `
 
 const loaderBarAnimation = keyframes`

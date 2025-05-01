@@ -136,7 +136,7 @@ export const arcTransitionModeById: Record<ArcTransitionMode, ArcTransitionModeC
 
 export interface TransitionExtra<
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, never>
+    ExtraProps extends Record<string, any> = Record<string, never>,
 > {
     enter: (datum: Datum) => ExtraProps
     update: (datum: Datum) => ExtraProps
@@ -150,7 +150,7 @@ export type ArcTransitionProps<ExtraProps extends Record<string, any> = Record<s
 
 export const useArcTransitionMode = <
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, never>
+    ExtraProps extends Record<string, any> = Record<string, never>,
 >(
     mode: ArcTransitionMode,
     extraTransition?: TransitionExtra<Datum, ExtraProps>
@@ -164,18 +164,18 @@ export const useArcTransitionMode = <
                     progress: 0,
                     ...transitionMode.enter(datum.arc),
                     ...(extraTransition ? extraTransition.enter(datum) : {}),
-                } as ArcTransitionProps<ExtraProps>),
+                }) as ArcTransitionProps<ExtraProps>,
             update: (datum: Datum) =>
                 ({
                     progress: 1,
                     ...transitionMode.update(datum.arc),
                     ...(extraTransition ? extraTransition.update(datum) : {}),
-                } as ArcTransitionProps<ExtraProps>),
+                }) as ArcTransitionProps<ExtraProps>,
             leave: (datum: Datum) =>
                 ({
                     progress: 0,
                     ...transitionMode.leave(datum.arc),
                     ...(extraTransition ? extraTransition.leave(datum) : {}),
-                } as ArcTransitionProps<ExtraProps>),
+                }) as ArcTransitionProps<ExtraProps>,
         }
     }, [mode, extraTransition])

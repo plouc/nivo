@@ -15,7 +15,7 @@ import {
 
 export const ParallelCoordinatesLine = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 >({
     datum,
     variables,
@@ -38,7 +38,7 @@ export const ParallelCoordinatesLine = <
         (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { datum, variables }), event)
         },
-        [showTooltipFromEvent, datum, variables]
+        [showTooltipFromEvent, tooltip, datum, variables]
     )
 
     const { animate, config: springConfig } = useMotionConfig()

@@ -56,7 +56,7 @@ export const useVoronoiMesh = <Node>({
                 margin,
                 debug,
             }),
-        [points, width, height, margin, debug]
+        [getNodePosition, points, width, height, margin, debug]
     )
 
 export const useVoronoi = ({
@@ -282,6 +282,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
         [
             findNode,
             setCurrent,
+            setCurrentNode,
             previous,
             onMouseEnter,
             onMouseMove,
@@ -313,7 +314,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
 
             setCurrent(match)
 
-            match && onMouseDown?.(match[1], event)
+            if (match) onMouseDown?.(match[1], event)
         },
         [findNode, setCurrent, onMouseDown]
     )
@@ -324,7 +325,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
 
             setCurrent(match)
 
-            match && onMouseUp?.(match[1], event)
+            if (match) onMouseUp?.(match[1], event)
         },
         [findNode, setCurrent, onMouseUp]
     )
@@ -335,7 +336,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
 
             setCurrent(match)
 
-            match && onClick?.(match[1], event)
+            if (match) onClick?.(match[1], event)
         },
         [findNode, setCurrent, onClick]
     )
@@ -346,7 +347,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
 
             setCurrent(match)
 
-            match && onDoubleClick?.(match[1], event)
+            if (match) onDoubleClick?.(match[1], event)
         },
         [findNode, setCurrent, onDoubleClick]
     )
@@ -360,7 +361,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
                 setCurrentNode?.(match ? match[1] : null)
             }
 
-            match && onTouchStart?.(match[1], event)
+            if (match) onTouchStart?.(match[1], event)
         },
         [findNode, setCurrent, setCurrentNode, enableTouchCrosshair, onTouchStart]
     )
@@ -374,7 +375,7 @@ export const useMeshEvents = <Node, ElementType extends Element>({
                 setCurrentNode?.(match ? match[1] : null)
             }
 
-            match && onTouchMove?.(match[1], event)
+            if (match) onTouchMove?.(match[1], event)
         },
         [findNode, setCurrent, setCurrentNode, enableTouchCrosshair, onTouchMove]
     )

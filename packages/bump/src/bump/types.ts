@@ -21,7 +21,7 @@ export type BumpSerieExtraProps = Record<string, unknown>
 
 export type BumpSerie<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = ExtraProps & {
     id: string
     data: Datum[]
@@ -50,12 +50,12 @@ export interface BumpPoint<Datum extends BumpDatum, ExtraProps extends BumpSerie
 }
 export type BumpPointComponent<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = FunctionComponent<PointProps<Datum, ExtraProps>>
 
 export interface BumpComputedSerie<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > {
     id: string
     data: BumpSerie<Datum, ExtraProps>
@@ -88,11 +88,11 @@ export interface BumpLabelData<Datum extends BumpDatum, ExtraProps extends BumpS
 
 export type BumpSerieMouseHandler<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = (serie: BumpComputedSerie<Datum, ExtraProps>, event: MouseEvent<SVGPathElement>) => void
 export type BumpPointMouseHandler<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => void
 export type BumpMouseHandler<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> =
     | BumpSerieMouseHandler<Datum, ExtraProps>
@@ -101,7 +101,7 @@ export type BumpMouseHandler<Datum extends BumpDatum, ExtraProps extends BumpSer
 export type BumpLayerId = 'grid' | 'axes' | 'labels' | 'lines' | 'points' | 'mesh'
 export interface BumpCustomLayerProps<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > {
     innerHeight: number
     innerWidth: number
@@ -117,7 +117,7 @@ export interface BumpCustomLayerProps<
 }
 export type BumpCustomLayer<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = FunctionComponent<BumpCustomLayerProps<Datum, ExtraProps>>
 export type BumpLayer<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> =
     | BumpLayerId
@@ -125,14 +125,14 @@ export type BumpLayer<Datum extends BumpDatum, ExtraProps extends BumpSerieExtra
 
 export type BumpLineTooltip<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = FunctionComponent<{
     serie: BumpComputedSerie<Datum, ExtraProps>
 }>
 
 export type BumpPointTooltip<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = FunctionComponent<{
     point: BumpPoint<Datum, ExtraProps>
 }>
@@ -190,7 +190,7 @@ export const isBumpPoint = <Datum extends BumpDatum, ExtraProps extends BumpSeri
 
 export const isComputedBumpSerie = <
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 >(
     serie: BumpComputedSerie<Datum, ExtraProps> | BumpPoint<Datum, ExtraProps>
 ): serie is BumpComputedSerie<Datum, ExtraProps> => {
@@ -199,7 +199,7 @@ export const isComputedBumpSerie = <
 
 interface BumpPointMouseHandlersProps<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > {
     useMesh: true
     onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
@@ -213,7 +213,7 @@ interface BumpPointMouseHandlersProps<
 
 interface BumpSeriesMouseHandlersProps<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > {
     useMesh?: false
     onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
@@ -231,7 +231,7 @@ interface BumpSvgExtraProps<Datum extends BumpDatum, ExtraProps extends BumpSeri
 
 export type BumpSvgPropsWithSeriesMouseHandlers<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = Dimensions &
     BumpDataProps<Datum, ExtraProps> &
     Partial<BumpCommonProps<Datum, ExtraProps>> &
@@ -241,7 +241,7 @@ export type BumpSvgPropsWithSeriesMouseHandlers<
 
 export type BumpSvgPropsWithPointMouseHandlers<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = Dimensions &
     BumpDataProps<Datum, ExtraProps> &
     Partial<BumpCommonProps<Datum, ExtraProps>> &
@@ -251,14 +251,14 @@ export type BumpSvgPropsWithPointMouseHandlers<
 
 export type BumpSvgProps<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
 > =
     | BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>
     | BumpSvgPropsWithPointMouseHandlers<Datum, ExtraProps>
 
 export type BumpSvgPropsWithDefaults<
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 > = Dimensions &
     BumpDataProps<Datum, ExtraProps> &
     BumpCommonProps<Datum, ExtraProps> &

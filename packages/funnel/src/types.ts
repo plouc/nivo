@@ -48,7 +48,7 @@ export type FunnelAreaGenerator = Area<FunnelAreaPoint>
 
 export type FunnelBorderGenerator = Line<Position | null>
 
-export interface FunnelPart<D extends FunnelDatum> extends BoxPosition {
+export interface FunnelPart<D extends FunnelDatum = BaseFunnelDatum> extends BoxPosition {
     data: D
     width: number
     height: number

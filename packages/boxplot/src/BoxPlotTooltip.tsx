@@ -10,9 +10,7 @@ interface BoxPlotSummaryTooltipProps {
     enableChip?: boolean
 }
 
-interface Translation {
-    [key: string]: number | string
-}
+type Translation = Record<string, number | string>
 
 export const defaultTranslation = {
     n: 'n',

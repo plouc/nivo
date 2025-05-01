@@ -27,7 +27,7 @@ export const StreamLayer = <RawDatum extends StreamDatum>({
         (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { layer }), event, 'left')
         },
-        [showTooltipFromEvent, layer]
+        [showTooltipFromEvent, tooltip, layer]
     )
 
     const { animate, config: springConfig } = useMotionConfig()

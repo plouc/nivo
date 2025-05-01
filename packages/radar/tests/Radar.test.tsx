@@ -1,8 +1,7 @@
 import { mount } from 'enzyme'
-import { LegendProps, BoxLegendSvg } from '@nivo/legends'
-// @ts-ignore
-import { Radar, RadarSvgProps, RadarSliceTooltipProps } from '../src'
 import { act, create } from 'react-test-renderer'
+import { LegendProps, BoxLegendSvg } from '@nivo/legends'
+import { Radar, RadarSvgProps, RadarSliceTooltipProps } from '../src'
 import { RadarSlice } from '../src/RadarSlice'
 
 type TestDatum = {

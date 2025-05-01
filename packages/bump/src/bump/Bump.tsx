@@ -310,7 +310,7 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
 
 export const Bump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
 >({
     isInteractive = bumpSvgDefaultProps.isInteractive,
     animate = bumpSvgDefaultProps.animate,

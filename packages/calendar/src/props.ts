@@ -43,7 +43,7 @@ export const calendarDefaultProps = {
 
 export const calendarCanvasDefaultProps = {
     ...commonDefaultProps,
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 } as const
 
 export const timeRangeDefaultProps = {

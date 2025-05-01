@@ -34,7 +34,9 @@ const GeoMapCanvas = memo(props => {
         graticuleLineColor = '#999999',
 
         isInteractive = true,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick = () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onMouseMove = () => {},
         tooltip: Tooltip,
     } = props
@@ -113,6 +115,10 @@ const GeoMapCanvas = memo(props => {
         getBorderColor,
         features,
         layers,
+        enableGraticule,
+        graticuleLineColor,
+        graticuleLineWidth,
+        props,
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -126,9 +132,18 @@ const GeoMapCanvas = memo(props => {
             } else {
                 hideTooltip()
             }
-            onMouseMove && onMouseMove(feature || null, event)
+            onMouseMove?.(feature || null, event)
         },
-        [showTooltipFromEvent, hideTooltip, isInteractive, Tooltip, canvasEl, features, projection]
+        [
+            showTooltipFromEvent,
+            hideTooltip,
+            isInteractive,
+            Tooltip,
+            canvasEl,
+            features,
+            projection,
+            onMouseMove,
+        ]
     )
     const handleMouseLeave = useCallback(
         () => isInteractive && hideTooltip(),

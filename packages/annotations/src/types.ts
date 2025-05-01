@@ -3,7 +3,6 @@ import { ReactElement } from 'react'
 
 // The types below are from lodash but the babel plugin won't let us import it
 type PartialShallow<T> = {
-    // eslint-disable-next-line @typescript-eslint/ban-types
     [P in keyof T]?: T[P] extends object ? object : T[P]
 }
 type PropertyName = string | number | symbol
@@ -128,7 +127,7 @@ export type BoundAnnotation<Datum> = Required<AnnotationSpec<Datum>> & {
     datum: Datum
 }
 
-export type AnnotationInstructions = {
+export interface AnnotationInstructions {
     // points of the link
     points: [number, number][]
     // position of the text

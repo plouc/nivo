@@ -41,7 +41,7 @@ export interface SwarmPlotCustomLayerProps<
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>,
 > {
     nodes: ComputedDatum<RawDatum>[]
     xScale: Scale
@@ -58,7 +58,7 @@ export type SwarmPlotCustomLayer<
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>,
 > = React.FC<SwarmPlotCustomLayerProps<RawDatum, Scale>>
 
 export type SwarmPlotLayer<
@@ -66,7 +66,7 @@ export type SwarmPlotLayer<
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>,
 > = SwarmPlotLayerId | SwarmPlotCustomLayer<RawDatum, Scale>
 
 export type SizeSpec<RawDatum> =

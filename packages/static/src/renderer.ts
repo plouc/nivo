@@ -29,7 +29,7 @@ export const renderChart = <T extends ChartType>(
         ...pick(override, chart.runtimeProps || []),
     }
     const rendered = renderToStaticMarkup(
-        // @ts-ignore
+        // @ts-expect-error need to properly type mergedProps
         createElement(component, mergedProps)
     )
 

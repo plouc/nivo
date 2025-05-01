@@ -1,5 +1,4 @@
 import { mount } from 'enzyme'
-// @ts-ignore
 import { AreaBump, AreaBumpSvgProps } from '../src'
 
 interface Datum {

@@ -15,9 +15,13 @@ const commonDefaultProps = {
     borderColor: '#000000',
 
     isInteractive: true,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onMouseEnter: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onMouseLeave: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onMouseMove: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onClick: () => {},
 
     layers: ['graticule', 'features'],

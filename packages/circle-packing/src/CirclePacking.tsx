@@ -1,6 +1,6 @@
 import { createElement, Fragment, ReactNode, useMemo } from 'react'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useDimensions,
     Container,

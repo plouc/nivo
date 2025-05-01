@@ -21,7 +21,7 @@ export const bindAnnotations = <
     Datum = {
         x: number
         y: number
-    }
+    },
 >({
     data,
     annotations,

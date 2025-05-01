@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components'
 export function Select<
     Option = unknown,
     IsMulti extends boolean = false,
-    Group extends GroupBase<Option> = GroupBase<Option>
+    Group extends GroupBase<Option> = GroupBase<Option>,
 >(props: ComponentProps<typeof ReactSelect<Option, IsMulti, Group>>) {
     const theme = useTheme()
 
@@ -34,8 +34,8 @@ export function Select<
                 backgroundColor: isSelected
                     ? theme.colors.accent
                     : isFocused
-                    ? theme.colors.background
-                    : 'transparent',
+                      ? theme.colors.background
+                      : 'transparent',
                 color: isDisabled ? theme.colors.textLight : isSelected ? 'white' : 'inherit',
                 ':active': {
                     backgroundColor: isSelected ? theme.colors.accent : theme.colors.background,

@@ -13,12 +13,12 @@ export const validate = (
     return (req: Request, res: Response, next: NextFunction) => {
         let data = req.body
         if (omit) {
-            // @ts-ignore
+            // @ts-expect-error omitProps is not PropertyName[] for simplicity
             data = omit(data, omitProps)
         }
 
         try {
-            // @ts-ignore
+            // @ts-expect-error no type for req.payload
             req.payload = schema.validate(data, {
                 abortEarly: true,
                 convert: true,
@@ -26,7 +26,7 @@ export const validate = (
             next()
         } catch (err: any) {
             return res.status(400).json({
-                // @ts-ignore
+                // @ts-expect-error no type for err
                 errors: err.details.map(({ message, path }) => {
                     return `${message}${path ? ` (${path})` : ''}`
                 }),

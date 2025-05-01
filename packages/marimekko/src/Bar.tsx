@@ -48,7 +48,7 @@ export const Bar = <RawDatum,>({
             onMouseEnter?.(bar, event)
             showTooltip(event)
         },
-        [showTooltip, bar]
+        [onMouseEnter, showTooltip, bar]
     )
 
     const handleMouseMove = useCallback(
@@ -56,7 +56,7 @@ export const Bar = <RawDatum,>({
             onMouseMove?.(bar, event)
             showTooltip(event)
         },
-        [showTooltip, bar]
+        [onMouseMove, showTooltip, bar]
     )
 
     const handleMouseLeave = useCallback(

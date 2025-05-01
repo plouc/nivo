@@ -15,11 +15,4 @@ export const useDimensions = (width, height, partialMargin = {}) =>
             outerWidth: width,
             outerHeight: height,
         }
-    }, [
-        width,
-        height,
-        partialMargin.top,
-        partialMargin.right,
-        partialMargin.bottom,
-        partialMargin.left,
-    ])
+    }, [width, height, partialMargin])

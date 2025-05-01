@@ -97,10 +97,12 @@ export const useNormalizedData = <RawDatum>(
     id: DataProps<RawDatum>['id'],
     value: DataProps<RawDatum>['value']
 ) => {
-    const getId: DatumPropertyAccessor<RawDatum, string | number> =
-        typeof id === 'function' ? id : (datum: RawDatum) => get(datum, id)
-    const getValue: DatumPropertyAccessor<RawDatum, number> =
-        typeof value === 'function' ? value : (datum: RawDatum) => get(datum, value, 0)
+    const getId: DatumPropertyAccessor<RawDatum, string | number> = useMemo(() => {
+        return typeof id === 'function' ? id : (datum: RawDatum) => get(datum, id)
+    }, [id])
+    const getValue: DatumPropertyAccessor<RawDatum, number> = useMemo(() => {
+        return typeof value === 'function' ? value : (datum: RawDatum) => get(datum, value, 0)
+    }, [value])
 
     return useMemo(() => {
         const normalized: NormalizedDatum<RawDatum>[] = []
@@ -142,7 +144,7 @@ export const useThicknessScale = <RawDatum>({
         const size = layout === 'vertical' ? width - totalPadding : height - totalPadding
         // here 'axis' means that the scale will be going forward, i.e. not reversed
         return createLinearScale({ type: 'linear' }, scaleData, size, 'x')
-    }, [data, width, height, layout])
+    }, [data, width, height, layout, innerPadding, outerPadding])
 
 export const useComputedData = <RawDatum>({
     data,

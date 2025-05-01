@@ -66,11 +66,13 @@ export const generateDrinkStats = (xSize = 16) => {
     range(xSize).forEach(() => {
         const x = country()
         types.forEach(id => {
-            data.find(d => d.id === id)?.data.push({
-                color: randColor(),
-                x,
-                y: rand(),
-            })
+            data
+                .find(d => d.id === id)
+                ?.data.push({
+                    color: randColor(),
+                    x,
+                    y: rand(),
+                })
         })
     })
 

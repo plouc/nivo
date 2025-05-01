@@ -1,7 +1,7 @@
 import { create } from 'react-test-renderer'
 import { LegendSvg, LegendSvgItem, LegendProps } from '@nivo/legends'
-// @ts-ignore
-import { Waffle, FillDirection } from '../src'
+import { GridFillDirection } from '@nivo/grid'
+import { Waffle } from '../src'
 import { WaffleCell } from '../src/WaffleCell'
 import { WaffleArea } from '../src/WaffleArea'
 
@@ -22,7 +22,7 @@ describe('<Waffle />', () => {
         expect(tree).toMatchSnapshot()
     })
 
-    const fillModes: FillDirection[] = ['top', 'right', 'bottom', 'left']
+    const fillModes: GridFillDirection[] = ['top', 'right', 'bottom', 'left']
     for (const fillMode of fillModes) {
         it(`should support ${fillMode} fill mode`, () => {
             const component = create(

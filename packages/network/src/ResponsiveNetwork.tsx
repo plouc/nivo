@@ -4,7 +4,7 @@ import { Network } from './Network'
 
 export const ResponsiveNetwork = <
     Node extends InputNode = InputNode,
-    Link extends InputLink = InputLink
+    Link extends InputLink = InputLink,
 >(
     props: Omit<NetworkSvgProps<Node, Link>, 'height' | 'width'>
 ) => (

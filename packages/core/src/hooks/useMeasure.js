@@ -25,7 +25,7 @@ export const useMeasure = () => {
         return () => {
             if (observer !== null) observer.disconnect()
         }
-    }, [])
+    }, [observer])
 
     return [measureRef, bounds]
 }

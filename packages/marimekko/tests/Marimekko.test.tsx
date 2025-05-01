@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme'
-// @ts-ignore
 import { Marimekko } from '../src/Marimekko'
 
 const commonProps = {

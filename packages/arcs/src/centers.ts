@@ -39,7 +39,7 @@ export const interpolateArcCenter =
 
 export const useArcCentersTransition = <
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, never>
+    ExtraProps extends Record<string, any> = Record<string, never>,
 >(
     data: Datum[],
     // define where the centers should be placed,
@@ -85,12 +85,12 @@ export interface ArcCenter<Datum extends DatumWithArc> extends Point {
  */
 export const useArcCenters = <
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, never>
+    ExtraProps extends Record<string, any> = Record<string, never>,
 >({
     data,
     offset = 0.5,
     skipAngle = 0,
-    computeExtraProps = () => ({} as ExtraProps),
+    computeExtraProps = () => ({}) as ExtraProps,
 }: {
     data: Datum[]
     // define where the centers should be placed,

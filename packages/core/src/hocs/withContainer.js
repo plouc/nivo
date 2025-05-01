@@ -10,7 +10,6 @@ import { Component } from 'react'
 import { Container } from '../components/Container'
 
 export const withContainer = WrappedComponent => {
-    // eslint-disable-next-line react/display-name
     return class extends Component {
         render() {
             const { theme, renderWrapper, animate, motionConfig, ...childProps } = this.props

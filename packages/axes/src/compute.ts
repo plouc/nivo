@@ -1,6 +1,6 @@
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
-// @ts-ignore
+// @ts-expect-error no types
 import { textPropsByEngine } from '@nivo/core'
 import { ScaleValue, AnyScale, TicksSpec, getScaleTicks, centerScale } from '@nivo/scales'
 import { Point, ValueFormatter, Line } from './types'

@@ -165,7 +165,7 @@ const computeDataVariables = <Datum extends BaseDatum>({
 
 export const useParallelCoordinates = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined,
 >({
     width,
     height,

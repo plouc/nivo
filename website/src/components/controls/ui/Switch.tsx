@@ -56,7 +56,9 @@ const Input = styled.input<{
         height: 18px;
         background-color: ${({ colors }) => colors?.off || '#e98473'};
         border-radius: 9px;
-        transition: border-color 120ms, background-color 120ms;
+        transition:
+            border-color 120ms,
+            background-color 120ms;
     }
 
     & + label:after {

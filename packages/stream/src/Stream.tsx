@@ -3,7 +3,7 @@ import {
     Container,
     SvgWrapper,
     useDimensions,
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
 } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'

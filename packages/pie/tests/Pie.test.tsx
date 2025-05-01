@@ -9,7 +9,6 @@ import {
     ArcLinkLabelComponent as ArcLinkLabel,
 } from '@nivo/arcs'
 import { LegendSvgItem, SymbolSquare } from '@nivo/legends'
-// @ts-ignore
 import { Pie } from '../src/index'
 
 interface SampleDatum {
@@ -745,8 +744,6 @@ describe('Pie', () => {
                 expect(arcs[2].props.datum.id).toEqual(sampleData[2].id)
                 expect(arcs[2].props.datum.arc.outerRadius).toEqual(200)
             })
-
-            xit('should allow to control the activeId externally', () => {})
         })
     })
 

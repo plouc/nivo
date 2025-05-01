@@ -4,9 +4,9 @@ import {
     usePropertyAccessor,
     useValueFormatter,
     useCurveInterpolation,
-    // @ts-ignore
+    // @ts-expect-error no types
     stackOrderFromProp,
-    // @ts-ignore
+    // @ts-expect-error no types
     stackOffsetFromProp,
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'

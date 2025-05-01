@@ -7,7 +7,6 @@ import {
     NodeProps,
     svgDefaultProps,
     TooltipProps,
-    // @ts-ignore
 } from '../src'
 
 const nodes = [

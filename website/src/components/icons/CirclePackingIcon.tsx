@@ -54,7 +54,7 @@ const chartProps = (colors: string[]) =>
         enableLabels: false,
         leavesOnly: true,
         isInteractive: false,
-    } as CirclePackingSvgProps<Datum>)
+    }) as CirclePackingSvgProps<Datum>
 
 const CirclePackingIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`circle-packing-${type}`} type={type}>

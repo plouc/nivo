@@ -55,7 +55,7 @@ export const useTreeMapLayout = <Datum extends object>({
 
         if (enableParentLabel && !leavesOnly) {
             const parentLabelPadding = parentLabelSize + outerPadding * 2
-            // @ts-ignore
+            // @ts-expect-error dynamic function call
             treemap[`padding${startCase(parentLabelPosition)}`](parentLabelPadding)
         }
 

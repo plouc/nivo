@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useCurveInterpolation,
     usePropertyAccessor,

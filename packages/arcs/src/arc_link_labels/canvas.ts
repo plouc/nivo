@@ -1,5 +1,5 @@
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     textPropsByEngine,
 } from '@nivo/core'
 import { Theme } from '@nivo/theming'

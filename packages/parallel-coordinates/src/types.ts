@@ -57,7 +57,7 @@ export type IfGrouped<
     Datum extends BaseDatum,
     GroupBy extends DatumGroupKeys<Datum> | undefined,
     GroupedType,
-    NonGroupedType
+    NonGroupedType,
 > = GroupBy extends DatumGroupKeys<Datum> ? GroupedType : NonGroupedType
 
 export interface DataProps<Datum extends BaseDatum> {
@@ -79,14 +79,14 @@ export interface ComputedGroupDatum<Datum extends BaseDatum> extends ComputedDat
 
 export interface TooltipProps<
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 > {
     datum: IfGrouped<Datum, GroupBy, ComputedGroupDatum<Datum>, ComputedDatum<Datum>>
     variables: readonly Variable<Datum>[]
 }
 export type TooltipComponent<
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 > = FunctionComponent<TooltipProps<Datum, GroupBy>>
 
 export interface DatumLegend<Datum extends BaseDatum> {
@@ -109,7 +109,7 @@ export type LayerId = 'axes' | 'lines' | 'legends'
 // but required internally, using defaults.
 export interface CommonProps<
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined,
 > extends MotionProps {
     groupBy: GroupBy
     groups: IfGrouped<Datum, GroupBy, readonly BaseGroup[], never>
@@ -157,7 +157,7 @@ type ParallelCoordinatesLayer<Datum extends BaseDatum> =
 
 export type ParallelCoordinatesProps<
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 > = DataProps<Datum> &
     Dimensions &
     Partial<CommonProps<Datum, GroupBy>> & {

@@ -40,7 +40,7 @@ export const CircularGrid = ({
                 radius,
             }
         })
-    }, [scale])
+    }, [scale, ticks])
 
     const { animate, config: springConfig } = useMotionConfig()
     const transition = useTransition<

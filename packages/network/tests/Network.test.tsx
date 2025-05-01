@@ -10,7 +10,6 @@ import {
     ComputedNode,
     LinkProps,
     NodeProps,
-    // @ts-ignore
 } from '../src'
 
 const sampleData: NetworkSvgProps<InputNode, InputLink>['data'] = {

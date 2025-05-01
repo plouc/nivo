@@ -122,7 +122,7 @@ pkg-lint-%: ##@1 packages run eslint on package
 
 pkgs-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
+	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,mjs,ts,tsx}"
 
 pkgs-lint-fix: ##@1 packages run eslint on all packages with a fix option
 	@echo "${YELLOW}Running eslint on all packages${RESET}"

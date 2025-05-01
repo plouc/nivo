@@ -1,8 +1,6 @@
 import { mount } from 'enzyme'
 import { ArcShape, ArcLabelsLayer, ArcLabelComponent as ArcLabel } from '@nivo/arcs'
-// @ts-ignore
 import { linearGradientDef, patternDotsDef } from '@nivo/core'
-// @ts-ignore
 import { Sunburst } from '../src'
 
 interface CustomSampleData {

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { Axis } from '@nivo/axes'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     getColorScale,
     useMotionConfig,
 } from '@nivo/core'
@@ -157,8 +157,8 @@ export const BulletItem = ({
         layout === 'horizontal'
             ? height / 2 + titleOffsetY
             : titlePosition === 'before'
-            ? titleOffsetY
-            : width + titleOffsetY
+              ? titleOffsetY
+              : width + titleOffsetY
 
     const titleNode = (
         <g transform={`translate(${titleX},${titleY}) rotate(${titleRotation})`}>

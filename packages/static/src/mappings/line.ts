@@ -1,10 +1,9 @@
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
 import { Line, LineSvgProps, DefaultSeries } from '@nivo/line'
-// @ts-ignore
+// @ts-expect-error no types
 import { curvePropKeys } from '@nivo/core'
 import { custom, axes, blendMode } from './common'
-// import { scale } from './commons/scales'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { OmitStrict } from '../types'

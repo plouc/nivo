@@ -52,7 +52,7 @@ const NonMemoizedMesh = <Series extends LineSeries>({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            onMouseEnter && onMouseEnter(point, event)
+            onMouseEnter?.(point, event)
         },
         [showTooltipAt, tooltip, onMouseEnter, margin]
     )
@@ -64,7 +64,7 @@ const NonMemoizedMesh = <Series extends LineSeries>({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            onMouseMove && onMouseMove(point, event)
+            onMouseMove?.(point, event)
         },
         [showTooltipAt, tooltip, margin.left, margin.top, onMouseMove]
     )
@@ -72,35 +72,35 @@ const NonMemoizedMesh = <Series extends LineSeries>({
     const handleMouseLeave = useCallback(
         (point: Point<Series>, event: MouseEvent) => {
             hideTooltip()
-            onMouseLeave && onMouseLeave(point, event)
+            onMouseLeave?.(point, event)
         },
         [hideTooltip, onMouseLeave]
     )
 
     const handleMouseDown = useCallback(
         (point: Point<Series>, event: MouseEvent) => {
-            onMouseDown && onMouseDown(point, event)
+            onMouseDown?.(point, event)
         },
         [onMouseDown]
     )
 
     const handleMouseUp = useCallback(
         (point: Point<Series>, event: MouseEvent) => {
-            onMouseUp && onMouseUp(point, event)
+            onMouseUp?.(point, event)
         },
         [onMouseUp]
     )
 
     const handleClick = useCallback(
         (point: Point<Series>, event: MouseEvent) => {
-            onClick && onClick(point, event)
+            onClick?.(point, event)
         },
         [onClick]
     )
 
     const handleDoubleClick = useCallback(
         (point: Point<Series>, event: MouseEvent) => {
-            onDoubleClick && onDoubleClick(point, event)
+            onDoubleClick?.(point, event)
         },
         [onDoubleClick]
     )
@@ -112,7 +112,7 @@ const NonMemoizedMesh = <Series extends LineSeries>({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            onTouchStart && onTouchStart(point, event)
+            onTouchStart?.(point, event)
         },
         [margin.left, margin.top, onTouchStart, showTooltipAt, tooltip]
     )
@@ -124,7 +124,7 @@ const NonMemoizedMesh = <Series extends LineSeries>({
                 [point.x + margin.left, point.y + margin.top],
                 'top'
             )
-            onTouchMove && onTouchMove(point, event)
+            onTouchMove?.(point, event)
         },
         [margin.left, margin.top, onTouchMove, showTooltipAt, tooltip]
     )
@@ -132,7 +132,7 @@ const NonMemoizedMesh = <Series extends LineSeries>({
     const handleTouchEnd = useCallback(
         (point: Point<Series>, event: TouchEvent) => {
             hideTooltip()
-            onTouchEnd && onTouchEnd(point, event)
+            onTouchEnd?.(point, event)
         },
         [onTouchEnd, hideTooltip]
     )

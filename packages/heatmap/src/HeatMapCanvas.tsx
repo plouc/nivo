@@ -320,7 +320,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 
 export const HeatMapCanvas = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 >({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,

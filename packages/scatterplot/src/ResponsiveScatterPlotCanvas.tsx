@@ -5,7 +5,7 @@ import { ScatterPlotCanvas } from './ScatterPlotCanvas'
 import { ScatterPlotCanvasProps, ScatterPlotDatum } from './types'
 
 export const ResponsiveScatterPlotCanvas = forwardRef(function ResponsiveScatterPlotCanvas<
-    RawDatum extends ScatterPlotDatum
+    RawDatum extends ScatterPlotDatum,
 >(
     props: Omit<ScatterPlotCanvasProps<RawDatum>, 'width' | 'height'>,
     ref: ForwardedRef<HTMLCanvasElement>

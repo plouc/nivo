@@ -3,7 +3,7 @@ import {
     CartesianMarkers,
     Container,
     SvgWrapper,
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useDimensions,
     useMotionConfig,
