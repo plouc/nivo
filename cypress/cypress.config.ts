@@ -5,8 +5,8 @@ export default defineConfig({
     viewportHeight: 600,
     component: {
         devServer: {
-            framework: "create-react-app",
-            bundler: "webpack",
+            framework: "react",
+            bundler: "vite",
         },
         video: false,
     },
