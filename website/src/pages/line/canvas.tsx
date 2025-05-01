@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { ResponsiveLineCanvas, canvasDefaultProps, isPoint } from '@nivo/line'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -118,7 +118,7 @@ const initialProperties: UnmappedLineCanvasProps = {
     ],
 }
 
-const LineCanvas = () => {
+const LineCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -147,6 +147,7 @@ const LineCanvas = () => {
             generateData={generateHeavyDataSet}
             getDataSize={data => data.length * data[0].data.length}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

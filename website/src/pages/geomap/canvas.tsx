@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { ResponsiveGeoMapCanvas, GeoMapCanvasDefaultProps } from '@nivo/geo'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -6,7 +7,6 @@ import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/geomap/props'
 import countries from '../../data/components/geo/world_countries'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     pixelRatio:
@@ -35,7 +35,7 @@ const initialProperties = {
     isInteractive: true,
 }
 
-const GeoMapCanvas = () => {
+const GeoMapCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -67,6 +67,7 @@ const GeoMapCanvas = () => {
             })}
             generateData={() => undefined}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

@@ -64,11 +64,11 @@
         "gatsby-plugin-styled-components": "^6.14.0",
         "gatsby-source-filesystem": "^5.14.0",
         "gatsby-transformer-sharp": "^5.14.0",
-        "prism-react-renderer": "^2.0.3",
+        "prism-react-renderer": "^2.4.1",
         "react": "18.3.1",
         "react-dom": "18.3.1",
         "react-helmet": "^6.1.0",
-        "react-icons": "^4.3.1",
+        "react-icons": "^5.5.0",
         "react-markdown": "^8.0.7",
         "react-select": "^5.10.1",
         "styled-components": "^5.3.10"

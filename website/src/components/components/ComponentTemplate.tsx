@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react'
+import { PageProps } from 'gatsby'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 import { useTheme } from 'styled-components'
-import { Theme as NivoTheme } from '@nivo/core'
+import { PartialTheme as NivoTheme } from '@nivo/theming'
 import { startCase } from 'lodash'
 import { Seo } from '../Seo'
 import Layout from '../Layout'
@@ -52,6 +53,7 @@ interface ComponentTemplateProps<
         logAction: ActionLoggerLogFn
     ) => JSX.Element
     image?: IGatsbyImageData
+    location?: PageProps['location']
 }
 
 export const ComponentTemplate = <
@@ -76,6 +78,7 @@ export const ComponentTemplate = <
     getDataSize,
     getTabData = data => data,
     image,
+    location,
     children,
 }: ComponentTemplateProps<UnmappedProps, MappedProps, Data, ComponentProps>) => {
     const theme = useTheme()
@@ -144,6 +147,7 @@ export const ComponentTemplate = <
                     groups={properties}
                     flavors={flavorKeys}
                     currentFlavor={currentFlavor}
+                    location={location}
                 />
                 {hasStories && <Stories stories={meta.stories} />}
             </ComponentPage>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { generateSankeyData } from '@nivo/generators'
 import {
@@ -91,7 +91,7 @@ const initialProperties: UnmappedSankeyProps = {
 
 const generateData = () => generateSankeyData({ nodeCount: 6, maxIterations: 8 })
 
-const Sankey = () => {
+const Sankey = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -123,6 +123,7 @@ const Sankey = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

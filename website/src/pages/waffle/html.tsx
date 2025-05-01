@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateWaffleData } from '@nivo/generators'
 import { ResponsiveWaffleHtml, htmlDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -63,7 +63,7 @@ const generateData = () =>
         ],
     })
 
-const WaffleHtml = () => {
+const WaffleHtml = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -91,6 +91,7 @@ const WaffleHtml = () => {
             defaultProperties={htmlDefaultProps}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

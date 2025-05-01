@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveStream, svgDefaultProps } from '@nivo/stream'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/stream/meta.yml'
@@ -6,7 +7,6 @@ import mapper from '../../data/components/stream/mapper'
 import { groups } from '../../data/components/stream/props'
 import { generateLightDataSet } from '../../data/components/stream/generator'
 import defaultSettings from '../../data/components/stream/defaults'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     ...defaultSettings,
@@ -35,7 +35,7 @@ const initialProperties = {
     ],
 }
 
-const Stream = () => {
+const Stream = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -68,6 +68,7 @@ const Stream = () => {
             generateData={generateLightDataSet}
             getTabData={data => data.data}
             image={image}
+            location={location}
         >
             {(properties, data, theme) => {
                 return (

@@ -1,11 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import shuffle from 'lodash/shuffle.js'
 import { ResponsiveBullet, defaultProps } from '@nivo/bullet'
 import { generateBulletData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
 import { groups } from '../../data/components/bullet/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => [
     generateBulletData('temp.', shuffle([100, 120, 140])[0]),
@@ -46,7 +46,7 @@ const initialProperties = {
     motionConfig: defaultProps.motionConfig,
 }
 
-const Bullet = () => {
+const Bullet = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -73,6 +73,7 @@ const Bullet = () => {
             defaultProperties={defaultProps}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

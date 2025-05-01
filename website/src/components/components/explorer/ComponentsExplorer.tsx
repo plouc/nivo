@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react'
+import { PageProps } from 'gatsby'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import media from '../../../theming/mediaQueries'
@@ -8,13 +9,7 @@ import { ComponentsFilters } from './ComponentsFilters'
 import { ComponentsGrid } from './ComponentsGrid'
 import { navigate } from 'gatsby'
 
-interface ComponentsExplorerProps {
-    location: {
-        search: string
-    }
-}
-
-export const ComponentsExplorer = ({ location }: ComponentsExplorerProps) => {
+export const ComponentsExplorer = ({ location }: Pick<PageProps, 'location'>) => {
     const [term, filter] = useMemo(() => {
         const params = new URLSearchParams(location.search)
         return [params.get('q'), params.get('filter')]

@@ -1,24 +1,12 @@
 import React from 'react'
-import range from 'lodash/range.js'
-import random from 'lodash/random.js'
-import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import { patternLinesDef } from '@nivo/core'
+import { ResponsiveCirclePacking, defaultProps } from '@nivo/circle-packing'
+import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
-import { graphql, useStaticQuery } from 'gatsby'
-
-const NODE_COUNT = 800
-
-const generateData = () => {
-    return {
-        name: 'root',
-        children: range(NODE_COUNT).map(i => ({
-            name: `node.${i}`,
-            value: random(1, 100),
-        })),
-    }
-}
 
 const initialProperties = {
     margin: {
@@ -27,46 +15,56 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
-    pixelRatio:
-        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     id: 'name',
-    value: 'value',
+    value: 'loc',
     valueFormat: { format: '', enabled: false },
-    colors: { scheme: 'spectral' },
-    colorBy: 'id',
+    colors: { scheme: 'nivo' },
+    colorBy: 'depth',
     inheritColorFromParent: false,
     childColor: {
         from: 'color',
         modifiers: [['brighter', 0.4]],
     },
-    padding: 1,
-    leavesOnly: true,
+    padding: 4,
+    leavesOnly: false,
     enableLabels: true,
-    label: 'value',
-    labelsSkipRadius: 8,
+    label: 'id',
+    labelsFilter: label => label.node.depth === 2,
+    labelsSkipRadius: 10,
     labelTextColor: {
         from: 'color',
-        modifiers: [['darker', 2.4]],
+        modifiers: [['darker', 2]],
     },
-    borderWidth: 0,
+    borderWidth: 1,
     borderColor: {
         from: 'color',
-        modifiers: [['darker', 0.3]],
+        modifiers: [['darker', 0.5]],
     },
+    defs: [
+        patternLinesDef('lines', {
+            background: 'none',
+            color: 'inherit',
+            rotation: -45,
+            lineWidth: 5,
+            spacing: 8,
+        }),
+    ],
+    fill: [{ match: { depth: 1 }, id: 'lines' }],
+    animate: true,
+    motionConfig: 'gentle',
     isInteractive: true,
-    animate: false,
 }
 
-const CirclePackingCanvas = () => {
+const generateData = () => generateLibTree()
+
+const CirclePacking = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(
-                absolutePath: { glob: "**/src/assets/captures/circle-packing-canvas.png" }
-            ) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/circle-packing.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -76,22 +74,22 @@ const CirclePackingCanvas = () => {
 
     return (
         <ComponentTemplate
-            name="CirclePackingCanvas"
-            meta={meta.CirclePackingCanvas}
+            name="CirclePacking"
+            meta={meta.CirclePacking}
             icon="circle-packing"
             flavors={meta.flavors}
-            currentFlavor="canvas"
+            currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
-            getDataSize={() => NODE_COUNT}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveCirclePackingCanvas
+                    <ResponsiveCirclePacking
                         data={data}
                         {...properties}
                         theme={theme}
@@ -110,4 +108,4 @@ const CirclePackingCanvas = () => {
     )
 }
 
-export default CirclePackingCanvas
+export default CirclePacking

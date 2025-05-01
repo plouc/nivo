@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import merge from 'lodash/merge'
 import { ResponsivePolarBar, svgDefaultProps } from '@nivo/polar-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -87,7 +87,7 @@ const initialProperties: UnmappedPolarBarProps = {
     ],
 }
 
-const PolarBar = () => {
+const PolarBar = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -120,6 +120,7 @@ const PolarBar = () => {
             generateData={generateLightDataSet}
             getTabData={data => data.data}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTreeMapHtml, htmlDefaultProps as defaults } from '@nivo/treemap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
@@ -58,7 +58,7 @@ const initialProperties = {
     isInteractive: defaults.isInteractive,
 }
 
-const TreeMapHtml = () => {
+const TreeMapHtml = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -86,6 +86,7 @@ const TreeMapHtml = () => {
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

@@ -1,11 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateChordData } from '@nivo/generators'
 import { ResponsiveChord, svgDefaultProps } from '@nivo/chord'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
 import mapper, { UnmappedChordProps, MappedChordProps } from '../../data/components/chord/mapper'
 import { groups } from '../../data/components/chord/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const MATRIX_SIZE = 5
 
@@ -89,7 +89,7 @@ const initialProperties: UnmappedChordProps = {
 
 const generateData = () => generateChordData({ size: MATRIX_SIZE })
 
-const Chord = () => {
+const Chord = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -122,6 +122,7 @@ const Chord = () => {
             generateData={generateData}
             getTabData={data => data.matrix}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

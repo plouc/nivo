@@ -1,21 +1,18 @@
 import React from 'react'
 import range from 'lodash/range.js'
 import shuffle from 'lodash/shuffle.js'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import {
     ResponsiveBump,
     bumpSvgDefaultProps as defaults,
-    BumpCommonProps,
     DefaultBumpDatum,
     isBumpPoint,
     isComputedBumpSerie,
 } from '@nivo/bump'
-import { MotionProps } from '@nivo/core'
-import { AxisProps } from '@nivo/axes'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
-import mapper from '../../data/components/bump/mapper'
+import mapper, { UnmappedBumpProps, MappedBumpProps } from '../../data/components/bump/mapper'
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -43,24 +40,7 @@ const generateData = () => {
     return series
 }
 
-type Props = Omit<
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    BumpCommonProps<DefaultBumpDatum, {}>,
-    'theme' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick'
-> &
-    MotionProps
-
-type UnmappedProps = Omit<
-    Props,
-    'axisTop' | 'axisRight' | 'axisBottom' | 'axisLeft' | 'renderWrapper'
-> & {
-    axisTop: AxisProps & { enable: boolean }
-    axisRight: AxisProps & { enable: boolean }
-    axisBottom: AxisProps & { enable: boolean }
-    axisLeft: AxisProps & { enable: boolean }
-}
-
-const initialProperties: UnmappedProps = {
+const initialProperties: UnmappedBumpProps = {
     ...defaults,
     margin: {
         top: 40,
@@ -128,7 +108,7 @@ const initialProperties: UnmappedProps = {
     },
 }
 
-const Bump = () => {
+const Bump = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -144,7 +124,7 @@ const Bump = () => {
     `)
 
     return (
-        <ComponentTemplate<UnmappedProps, Props>
+        <ComponentTemplate<UnmappedBumpProps, MappedBumpProps, any>
             name="Bump"
             meta={meta.Bump}
             icon="chord"
@@ -156,6 +136,7 @@ const Bump = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
@@ -163,7 +144,7 @@ const Bump = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={(data: any) => {
+                        onClick={data => {
                             if (isComputedBumpSerie(data)) {
                                 logAction({
                                     type: 'click',

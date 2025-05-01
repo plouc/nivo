@@ -1,11 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateWinesTastes } from '@nivo/generators'
 import { ResponsiveRadar, svgDefaultProps } from '@nivo/radar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radar/meta.yml'
 import mapper, { UnmappedRadarProps, MappedRadarProps } from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radar/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties: UnmappedRadarProps = {
     indexBy: 'taste',
@@ -72,7 +72,7 @@ const initialProperties: UnmappedRadarProps = {
     ],
 }
 
-const Radar = () => {
+const Radar = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -105,6 +105,7 @@ const Radar = () => {
             generateData={generateWinesTastes}
             getTabData={data => data.data}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

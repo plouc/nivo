@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import merge from 'lodash/merge.js'
 import { ResponsiveParallelCoordinates, commonDefaultProps } from '@nivo/parallel-coordinates'
 import { generateParallelCoordinatesData } from '@nivo/generators'
@@ -113,7 +113,7 @@ const generateData = () =>
         variables,
     })
 
-const ParallelCoordinates = () => {
+const ParallelCoordinates = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -141,6 +141,7 @@ const ParallelCoordinates = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme) => {
                 return (

@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveRadialBar, svgDefaultProps } from '@nivo/radial-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radial-bar/meta.yml'
@@ -7,7 +8,6 @@ import mapper, {
     MappedRadarProps,
 } from '../../data/components/radial-bar/mapper'
 import { groups } from '../../data/components/radial-bar/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties: UnmappedRadarProps = {
     valueFormat: { format: '>-.2f', enabled: true },
@@ -121,7 +121,7 @@ const generateData = () => {
     }))
 }
 
-const RadialBar = () => {
+const RadialBar = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -149,6 +149,7 @@ const RadialBar = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => (
                 <ResponsiveRadialBar

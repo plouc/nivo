@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTree, svgDefaultProps as defaults, ComputedLink, ComputedNode } from '@nivo/tree'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/tree/meta.yml'
@@ -52,7 +52,7 @@ const initialProperties: MappedTreeSvgProps<Datum> = {
     linkTooltipAnchor: defaults.linkTooltipAnchor,
 }
 
-const Tree = () => {
+const Tree = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -80,6 +80,7 @@ const Tree = () => {
             generateData={generateLightDataSet}
             enableDiceRoll={false}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
