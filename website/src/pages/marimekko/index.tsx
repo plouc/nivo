@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveMarimekko, defaultProps, BarDatum } from '@nivo/marimekko'
 import { random, omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -143,7 +143,7 @@ const initialProperties: UnmappedMarimekkoProps = {
     ],
 }
 
-const Marimekko = () => {
+const Marimekko = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -171,6 +171,7 @@ const Marimekko = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 const handleClick = (bar: BarDatum<any>) => {

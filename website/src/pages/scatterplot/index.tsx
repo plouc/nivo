@@ -1,11 +1,11 @@
 import React from 'react'
-import { ResponsiveScatterPlotCanvas, canvasDefaultProps } from '@nivo/scatterplot'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import { ResponsiveScatterPlot, svgDefaultProps } from '@nivo/scatterplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
 import { groups } from '../../data/components/scatterplot/props'
-import { generateHeavyDataSet } from '../../data/components/scatterplot/generator'
-import { graphql, useStaticQuery } from 'gatsby'
+import { generateLightDataSet } from '../../data/components/scatterplot/generator'
 
 const initialProperties = {
     margin: {
@@ -28,13 +28,13 @@ const initialProperties = {
     },
     yFormat: { format: '>-.2f', enabled: true },
 
-    pixelRatio:
-        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    colors: svgDefaultProps.colors,
+    blendMode: 'multiply',
 
-    colors: canvasDefaultProps.colors,
+    nodeSize: svgDefaultProps.nodeSize,
 
-    nodeSize: 5,
-
+    enableGridX: svgDefaultProps.enableGridX,
+    enableGridY: svgDefaultProps.enableGridY,
     axisTop: {
         enable: false,
         orient: 'top',
@@ -43,6 +43,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -52,6 +53,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -63,6 +65,7 @@ const initialProperties = {
         legendPosition: 'middle',
         legendOffset: 46,
         format: d => `${d} kg`,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -74,14 +77,15 @@ const initialProperties = {
         legendPosition: 'middle',
         legendOffset: -60,
         format: d => `${d} cm`,
+        truncateTickAt: 0,
     },
 
-    enableGridX: canvasDefaultProps.enableGridX,
-    enableGridY: canvasDefaultProps.enableGridY,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 
-    isInteractive: canvasDefaultProps.isInteractive,
-    useMesh: canvasDefaultProps.useMesh,
-    debugMesh: canvasDefaultProps.debugMesh,
+    isInteractive: svgDefaultProps.isInteractive,
+    useMesh: svgDefaultProps.useMesh,
+    debugMesh: svgDefaultProps.debugMesh,
 
     legends: [
         {
@@ -95,7 +99,7 @@ const initialProperties = {
             itemsSpacing: 5,
             itemDirection: 'left-to-right',
             symbolSize: 12,
-            symbolShape: 'rect',
+            symbolShape: 'circle',
             onClick: d => {
                 alert(JSON.stringify(d, null, '    '))
             },
@@ -111,14 +115,14 @@ const initialProperties = {
     ],
 }
 
-const ScatterPlotCanvas = () => {
+const ScatterPlot = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/scatterplot-canvas.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/scatterplot.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -128,20 +132,21 @@ const ScatterPlotCanvas = () => {
 
     return (
         <ComponentTemplate
-            name="ScatterPlotCanvas"
-            meta={meta.ScatterPlotCanvas}
+            name="ScatterPlot"
+            meta={meta.ScatterPlot}
             icon="scatterplot"
             flavors={meta.flavors}
-            currentFlavor="canvas"
+            currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={canvasDefaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
-            generateData={generateHeavyDataSet}
+            generateData={generateLightDataSet}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => (
-                <ResponsiveScatterPlotCanvas
+                <ResponsiveScatterPlot
                     data={data}
                     {...properties}
                     theme={theme}
@@ -159,4 +164,4 @@ const ScatterPlotCanvas = () => {
     )
 }
 
-export default ScatterPlotCanvas
+export default ScatterPlot

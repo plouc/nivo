@@ -1,11 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveBoxPlot, svgDefaultProps } from '@nivo/boxplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/boxplot/meta.yml'
 import mapper from '../../data/components/boxplot/mapper'
 import { generateLightDataSet } from '../../data/components/boxplot/generator'
 import { groups } from '../../data/components/boxplot/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties = {
     margin: {
@@ -127,7 +127,7 @@ const initialProperties = {
     ],
 }
 
-const BoxPlot = () => {
+const BoxPlot = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -156,6 +156,7 @@ const BoxPlot = () => {
             generateData={generateLightDataSet}
             getTabData={data => data}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

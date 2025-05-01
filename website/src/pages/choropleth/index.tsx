@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { patternDotsDef, patternLinesDef, linearGradientDef } from '@nivo/core'
 import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
@@ -8,7 +9,6 @@ import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/choropleth/props'
 import { generateChoroplethData } from '../../data/components/geo/generator'
 import countries from '../../data/components/geo/world_countries'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -103,7 +103,7 @@ const initialProperties = {
     ],
 }
 
-const Choropleth = () => {
+const Choropleth = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -136,6 +136,7 @@ const Choropleth = () => {
             })}
             generateData={generateChoroplethData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

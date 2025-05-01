@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { ResponsiveLine, svgDefaultProps, isPoint } from '@nivo/line'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -68,7 +68,7 @@ const linearData: LineSampleSeries[] = [
     },
 ]
 
-const Line = () => {
+const Line = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -96,6 +96,7 @@ const Line = () => {
             propertiesMapper={svgMapper}
             generateData={generateLightDataSet}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

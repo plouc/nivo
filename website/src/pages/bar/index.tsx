@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveBar, svgDefaultProps } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -154,7 +154,7 @@ const initialProperties: UnmappedBarProps = {
     barAriaLabel: data => `${data.id}: ${data.formattedValue} in country: ${data.indexValue}`,
 }
 
-const Bar = () => {
+const Bar = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -188,6 +188,7 @@ const Bar = () => {
             generateData={generateLightDataSet}
             getTabData={data => data.data}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

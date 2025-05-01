@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ComputedNode, ResponsiveNetwork, svgDefaultProps as defaults } from '@nivo/network'
 import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -14,7 +14,7 @@ import { groups } from '../../data/components/network/props'
 type Node = ReturnType<typeof generateData>['nodes'][number]
 type Link = ReturnType<typeof generateData>['links'][number]
 
-const initialProperties = Object.freeze({
+const initialProperties = {
     margin: {
         top: 0,
         right: 0,
@@ -47,11 +47,11 @@ const initialProperties = Object.freeze({
 
     animate: true,
     motionConfig: 'wobbly',
-})
+}
 
 const generateData = () => generateNetworkData()
 
-const Network = () => {
+const Network = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -80,6 +80,7 @@ const Network = () => {
             generateData={generateData}
             getDataSize={data => data.nodes.length}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

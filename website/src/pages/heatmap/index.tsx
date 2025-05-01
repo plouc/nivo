@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveHeatMap, svgDefaultProps as defaults } from '@nivo/heatmap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
@@ -112,7 +112,7 @@ const initialProperties: SvgUnmappedProps = {
     motionConfig: defaults.motionConfig,
 }
 
-const HeatMap = () => {
+const HeatMap = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -140,6 +140,7 @@ const HeatMap = () => {
             propertiesMapper={mapper}
             generateData={getLightData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

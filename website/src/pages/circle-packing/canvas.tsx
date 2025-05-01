@@ -1,13 +1,24 @@
 import React from 'react'
-import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
-import { generateLibTree } from '@nivo/generators'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
+import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
-const generateData = () => generateLibTree()
+const NODE_COUNT = 800
+
+const generateData = () => {
+    return {
+        name: 'root',
+        children: range(NODE_COUNT).map(i => ({
+            name: `node.${i}`,
+            value: random(1, 100),
+        })),
+    }
+}
 
 const initialProperties = {
     margin: {
@@ -16,41 +27,46 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     id: 'name',
-    value: 'loc',
+    value: 'value',
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
-    colorBy: 'depth',
+    colorBy: 'id',
     inheritColorFromParent: false,
     childColor: {
         from: 'color',
         modifiers: [['brighter', 0.4]],
     },
-    padding: 2,
-    leavesOnly: false,
+    padding: 1,
+    leavesOnly: true,
     enableLabels: true,
-    label: 'id',
-    labelsFilter: label => label.node.depth === 2,
-    labelsSkipRadius: 10,
-    labelTextColor: '#000000',
+    label: 'value',
+    labelsSkipRadius: 8,
+    labelTextColor: {
+        from: 'color',
+        modifiers: [['darker', 2.4]],
+    },
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-    animate: true,
-    motionConfig: 'gentle',
     isInteractive: true,
+    animate: false,
 }
 
-const CirclePackingHtml = () => {
+const CirclePackingCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/circle-packing.png" }) {
+            image: file(
+                absolutePath: { glob: "**/src/assets/captures/circle-packing-canvas.png" }
+            ) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -60,21 +76,23 @@ const CirclePackingHtml = () => {
 
     return (
         <ComponentTemplate
-            name="CirclePackingHtml"
-            meta={meta.CirclePackingHtml}
+            name="CirclePackingCanvas"
+            meta={meta.CirclePackingCanvas}
             icon="circle-packing"
             flavors={meta.flavors}
-            currentFlavor="html"
+            currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
+            getDataSize={() => NODE_COUNT}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveCirclePackingHtml
+                    <ResponsiveCirclePackingCanvas
                         data={data}
                         {...properties}
                         theme={theme}
@@ -93,4 +111,4 @@ const CirclePackingHtml = () => {
     )
 }
 
-export default CirclePackingHtml
+export default CirclePackingCanvas

@@ -1,13 +1,13 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import range from 'lodash/range.js'
 import { ResponsiveVoronoi, defaultVoronoiProps } from '@nivo/voronoi'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/voronoi/meta.yml'
 import { groups } from '../../data/components/voronoi/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
-const xDomain = [0, 100]
-const yDomain = [0, 100]
+const xDomain: [number, number] = [0, 100]
+const yDomain: [number, number] = [0, 100]
 
 const generateData = () =>
     range(100).map(id => ({ id, x: Math.random() * xDomain[1], y: Math.random() * yDomain[1] }))
@@ -38,7 +38,7 @@ const initialProperties = {
     pointColor: '#c6432d',
 }
 
-const Voronoi = () => {
+const Voronoi = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -65,17 +65,10 @@ const Voronoi = () => {
             defaultProperties={defaultVoronoiProps}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme) => {
-                return (
-                    <ResponsiveVoronoi
-                        data={data}
-                        xDomain={xDomain}
-                        yDomain={yDomain}
-                        {...properties}
-                        theme={theme}
-                    />
-                )
+                return <ResponsiveVoronoi data={data} {...properties} theme={theme} />
             }}
         </ComponentTemplate>
     )

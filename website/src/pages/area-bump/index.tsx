@@ -1,7 +1,7 @@
 import React from 'react'
 import range from 'lodash/range.js'
 import random from 'lodash/random.js'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql, PageProps } from 'gatsby'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveAreaBump, areaBumpSvgDefaultProps as defaults, AreaBumpSerie } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -106,7 +106,7 @@ const initialProperties: UnmappedAreaBumpProps = {
     motionConfig: defaults.motionConfig,
 }
 
-const AreaBump = () => {
+const AreaBump = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -138,6 +138,7 @@ const AreaBump = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

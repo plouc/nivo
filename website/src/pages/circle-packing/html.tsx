@@ -1,12 +1,13 @@
 import React from 'react'
-import { patternLinesDef } from '@nivo/core'
-import { ResponsiveCirclePacking, defaultProps } from '@nivo/circle-packing'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
-import { graphql, useStaticQuery } from 'gatsby'
+
+const generateData = () => generateLibTree()
 
 const initialProperties = {
     margin: {
@@ -18,46 +19,31 @@ const initialProperties = {
     id: 'name',
     value: 'loc',
     valueFormat: { format: '', enabled: false },
-    colors: { scheme: 'nivo' },
+    colors: { scheme: 'spectral' },
     colorBy: 'depth',
     inheritColorFromParent: false,
     childColor: {
         from: 'color',
         modifiers: [['brighter', 0.4]],
     },
-    padding: 4,
+    padding: 2,
     leavesOnly: false,
     enableLabels: true,
     label: 'id',
     labelsFilter: label => label.node.depth === 2,
     labelsSkipRadius: 10,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 2]],
-    },
-    borderWidth: 1,
+    labelTextColor: '#000000',
+    borderWidth: 0,
     borderColor: {
         from: 'color',
-        modifiers: [['darker', 0.5]],
+        modifiers: [['darker', 0.3]],
     },
-    defs: [
-        patternLinesDef('lines', {
-            background: 'none',
-            color: 'inherit',
-            rotation: -45,
-            lineWidth: 5,
-            spacing: 8,
-        }),
-    ],
-    fill: [{ match: { depth: 1 }, id: 'lines' }],
     animate: true,
     motionConfig: 'gentle',
     isInteractive: true,
 }
 
-const generateData = () => generateLibTree()
-
-const CirclePacking = () => {
+const CirclePackingHtml = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -74,21 +60,22 @@ const CirclePacking = () => {
 
     return (
         <ComponentTemplate
-            name="CirclePacking"
-            meta={meta.CirclePacking}
+            name="CirclePackingHtml"
+            meta={meta.CirclePackingHtml}
             icon="circle-packing"
             flavors={meta.flavors}
-            currentFlavor="svg"
+            currentFlavor="html"
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveCirclePacking
+                    <ResponsiveCirclePackingHtml
                         data={data}
                         {...properties}
                         theme={theme}
@@ -107,4 +94,4 @@ const CirclePacking = () => {
     )
 }
 
-export default CirclePacking
+export default CirclePackingHtml

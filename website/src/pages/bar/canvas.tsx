@@ -1,11 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveBarCanvas } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateHeavyDataSet } from '../../data/components/bar/generator'
 import mapper, { UnmappedBarProps, MappedBarProps } from '../../data/components/bar/mapper'
 import { groups } from '../../data/components/bar/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const initialProperties: UnmappedBarProps = {
     indexBy: 'country',
@@ -102,7 +102,7 @@ const initialProperties: UnmappedBarProps = {
     legends: [],
 }
 
-const BarCanvas = () => {
+const BarCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -135,6 +135,7 @@ const BarCanvas = () => {
             generateData={generateHeavyDataSet}
             getTabData={data => data.data}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

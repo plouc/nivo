@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveNetworkCanvas, canvasDefaultProps as defaults } from '@nivo/network'
 import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -7,7 +7,7 @@ import meta from '../../data/components/network/meta.yml'
 import mapper, { dynamicLinkThicknessValue } from '../../data/components/network/mapper'
 import { groups } from '../../data/components/network/props'
 
-const initialProperties = Object.freeze({
+const initialProperties = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
@@ -39,7 +39,7 @@ const initialProperties = Object.freeze({
     annotations: defaults.annotations,
 
     isInteractive: true,
-})
+}
 
 const generateData = () =>
     generateNetworkData({
@@ -49,7 +49,7 @@ const generateData = () =>
         maxLeaves: 12,
     })
 
-const NetworkCanvas = () => {
+const NetworkCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -78,6 +78,7 @@ const NetworkCanvas = () => {
             generateData={generateData}
             getDataSize={data => data.nodes.length}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

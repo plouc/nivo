@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTreeCanvas, svgDefaultProps as defaults, ComputedNode } from '@nivo/tree'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/tree/meta.yml'
@@ -53,7 +53,7 @@ const initialProperties: MappedTreeCanvasProps<Datum> = {
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
 
-const TreeCanvas = () => {
+const TreeCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -81,6 +81,7 @@ const TreeCanvas = () => {
             generateData={generateLightDataSet}
             enableDiceRoll={false}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

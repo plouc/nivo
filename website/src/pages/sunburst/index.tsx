@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { defaultProps, ResponsiveSunburst } from '@nivo/sunburst'
 import { generateLibTree } from '@nivo/generators'
 import { omit } from 'lodash'
@@ -9,7 +10,6 @@ import mapper, {
     MappedSunburstProps,
 } from '../../data/components/sunburst/mapper'
 import { groups } from '../../data/components/sunburst/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const generateData = () => generateLibTree()
 
@@ -52,7 +52,7 @@ const initialProperties: UnmappedSunburstProps = {
     'showcase pattern usage': false,
 }
 
-const Sunburst = () => {
+const Sunburst = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -84,6 +84,7 @@ const Sunburst = () => {
             })}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

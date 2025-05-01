@@ -1,11 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveCalendar, calendarDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
 import { groups } from '../../data/components/calendar/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -65,7 +65,7 @@ const initialProperties = {
     ],
 }
 
-const Calendar = () => {
+const Calendar = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -97,6 +97,7 @@ const Calendar = () => {
             })}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

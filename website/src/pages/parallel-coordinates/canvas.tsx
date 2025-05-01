@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import merge from 'lodash/merge.js'
 import {
     ResponsiveParallelCoordinatesCanvas,
@@ -97,7 +97,7 @@ const generateData = () =>
         variables,
     })
 
-const ParallelCoordinatesCanvas = () => {
+const ParallelCoordinatesCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -127,6 +127,7 @@ const ParallelCoordinatesCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme) => {
                 return (

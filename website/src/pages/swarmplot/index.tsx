@@ -1,15 +1,13 @@
 import React from 'react'
-import { ResponsiveSwarmPlotCanvas, defaultProps } from '@nivo/swarmplot'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import { ResponsiveSwarmPlot, defaultProps } from '@nivo/swarmplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'
 import { groups } from '../../data/components/swarmplot/props'
-import { generateHeavyDataSet } from '../../data/components/swarmplot/generator'
-import { graphql, useStaticQuery } from 'gatsby'
+import { generateLightDataSet } from '../../data/components/swarmplot/generator'
 
 const initialProperties = Object.freeze({
-    pixelRatio:
-        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     groupBy: 'group',
     identity: 'id',
     value: 'price',
@@ -23,21 +21,24 @@ const initialProperties = Object.freeze({
     size: {
         key: 'volume',
         values: [4, 20],
-        sizes: [4, 12],
+        sizes: [6, 20],
     },
-    spacing: 1,
+    spacing: 2,
     layout: defaultProps.layout,
     gap: defaultProps.gap,
 
-    forceStrength: 1,
-    simulationIterations: 60,
+    forceStrength: 4,
+    simulationIterations: 100,
 
-    colors: { scheme: 'paired' },
+    colors: defaultProps.colors,
     colorBy: 'group',
     borderWidth: 0,
     borderColor: {
         from: 'color',
-        modifiers: [['darker', 0.6]],
+        modifiers: [
+            ['darker', 0.6],
+            ['opacity', 0.5],
+        ],
     },
     margin: {
         top: 80,
@@ -56,6 +57,7 @@ const initialProperties = Object.freeze({
         legend: 'group if vertical, price if horizontal',
         legendPosition: 'middle',
         legendOffset: -46,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
@@ -66,6 +68,7 @@ const initialProperties = Object.freeze({
         legend: 'price if vertical, group if horizontal',
         legendPosition: 'middle',
         legendOffset: 76,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -76,6 +79,7 @@ const initialProperties = Object.freeze({
         legend: 'group if vertical, price if horizontal',
         legendPosition: 'middle',
         legendOffset: 46,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -86,21 +90,25 @@ const initialProperties = Object.freeze({
         legend: 'price if vertical, group if horizontal',
         legendPosition: 'middle',
         legendOffset: -76,
+        truncateTickAt: 0,
     },
 
     isInteractive: true,
-    useMesh: true,
+    useMesh: false,
     debugMesh: false,
+
+    animate: true,
+    motionConfig: 'gentle',
 })
 
-const SwarmPlotCanvas = () => {
+const SwarmPlot = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/swarmplot-canvas.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/swarmplot.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -110,11 +118,11 @@ const SwarmPlotCanvas = () => {
 
     return (
         <ComponentTemplate
-            name="SwarmPlotCanvas"
-            meta={meta.SwarmPlotCanvas}
+            name="SwarmPlot"
+            meta={meta.SwarmPlot}
             icon="swarmplot"
             flavors={meta.flavors}
-            currentFlavor="canvas"
+            currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
@@ -123,14 +131,15 @@ const SwarmPlotCanvas = () => {
                 groups: data.groups,
                 ...properties,
             })}
-            generateData={generateHeavyDataSet}
+            generateData={generateLightDataSet}
             getTabData={data => data.data}
             getDataSize={data => data.data.length}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveSwarmPlotCanvas
+                    <ResponsiveSwarmPlot
                         data={data.data}
                         groups={data.groups}
                         {...properties}
@@ -150,4 +159,4 @@ const SwarmPlotCanvas = () => {
     )
 }
 
-export default SwarmPlotCanvas
+export default SwarmPlot

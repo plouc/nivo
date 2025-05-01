@@ -1,13 +1,13 @@
 import React from 'react'
-import { ResponsivePie, defaultProps } from '@nivo/pie'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import { defaultProps, ResponsivePieCanvas } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'
 import { groups } from '../../data/components/pie/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
-const DATASET_SIZE = 5
+const DATASET_SIZE = 24
 const generateData = () =>
     generateProgrammingLanguageStats(true, DATASET_SIZE).map(d => ({
         id: d.label,
@@ -17,33 +17,36 @@ const generateData = () =>
 const initialProperties = {
     margin: {
         top: 40,
-        right: 80,
-        bottom: 80,
+        right: 200,
+        bottom: 40,
         left: 80,
     },
 
     valueFormat: { format: '', enabled: false },
 
-    startAngle: defaultProps.startAngle,
-    endAngle: defaultProps.endAngle,
-    sortByValue: defaultProps.sortByValue,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
+    startAngle: 0,
+    endAngle: 360,
+    sortByValue: false,
     innerRadius: 0.5,
     padAngle: 0.7,
     cornerRadius: 3,
-    fit: defaultProps.fit,
+    fit: true,
     activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset: 8,
 
-    colors: defaultProps.colors,
+    colors: { scheme: 'paired' },
 
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: {
         from: 'color',
-        modifiers: [['darker', 0.2]],
+        modifiers: [['darker', 0.6]],
     },
 
-    enableArcLinkLabels: defaultProps.enableArcLinkLabels,
-    arcLinkLabel: defaultProps.arcLinkLabel,
+    enableArcLinkLabels: true,
+    arcLinkLabel: 'id',
     arcLinkLabelsSkipAngle: 10,
     arcLinkLabelsTextOffset: 6,
     arcLinkLabelsTextColor: '#333333',
@@ -58,10 +61,7 @@ const initialProperties = {
     arcLabelsRadiusOffset: 0.5,
     arcLabelsSkipAngle: 10,
     arcLabelsSkipRadius: 0,
-    arcLabelsTextColor: {
-        from: 'color',
-        modifiers: [['darker', 2]],
-    },
+    arcLabelsTextColor: '#333333',
 
     isInteractive: true,
     'custom tooltip example': false,
@@ -71,45 +71,33 @@ const initialProperties = {
     defs: [],
     fill: [],
 
-    animate: defaultProps.animate,
-    motionConfig: defaultProps.motionConfig,
-    transitionMode: defaultProps.transitionMode,
-
     legends: [
         {
-            anchor: 'bottom',
-            direction: 'row',
+            anchor: 'right',
+            direction: 'column',
             justify: false,
-            translateX: 0,
-            translateY: 56,
-            itemsSpacing: 0,
-            itemWidth: 100,
-            itemHeight: 18,
+            translateX: 140,
+            translateY: 0,
+            itemsSpacing: 2,
+            itemWidth: 60,
+            itemHeight: 14,
             itemTextColor: '#999',
             itemDirection: 'left-to-right',
             itemOpacity: 1,
-            symbolSize: 18,
+            symbolSize: 14,
             symbolShape: 'circle',
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }
 
-const Pie = () => {
+const PieCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/pie.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/pie-canvas.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -119,27 +107,25 @@ const Pie = () => {
 
     return (
         <ComponentTemplate
-            name="Pie"
-            meta={meta.Pie}
+            name="PieCanvas"
+            meta={meta.PieCanvas}
             icon="pie"
             flavors={meta.flavors}
-            currentFlavor="svg"
+            currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={defaultProps}
             propertiesMapper={mapper}
-            codePropertiesMapper={properties => ({
-                ...properties,
-                tooltip: properties.tooltip ? 'CustomTooltip' : undefined,
-            })}
             generateData={generateData}
+            getDataSize={data => data.length}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 const handleArcClick = slice => {
                     logAction({
                         type: 'click',
-                        label: `[arc] ${slice.id}: ${slice.formattedValue}`,
+                        label: `[arc] ${slice.label}: ${slice.value}`,
                         color: slice.color,
                         data: slice,
                     })
@@ -148,14 +134,14 @@ const Pie = () => {
                 const handleLegendClick = legendItem => {
                     logAction({
                         type: 'click',
-                        label: `[legend] ${legendItem.label}: ${legendItem.formattedValue}`,
+                        label: `[legend] ${legendItem.label}: ${legendItem.data.value}`,
                         color: legendItem.color,
                         data: legendItem,
                     })
                 }
 
                 return (
-                    <ResponsivePie
+                    <ResponsivePieCanvas
                         data={data}
                         {...properties}
                         theme={theme}
@@ -171,4 +157,4 @@ const Pie = () => {
     )
 }
 
-export default Pie
+export default PieCanvas

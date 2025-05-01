@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTreeMapCanvas, canvasDefaultProps as defaults } from '@nivo/treemap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
@@ -52,7 +52,7 @@ const initialProperties = {
     isInteractive: defaults.isInteractive,
 }
 
-const TreeMapCanvas = () => {
+const TreeMapCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -82,6 +82,7 @@ const TreeMapCanvas = () => {
             getTabData={data => data.root}
             getDataSize={data => data.nodeCount}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

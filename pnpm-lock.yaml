@@ -2180,7 +2180,7 @@ importers:
         specifier: ^5.14.0
         version: 5.14.0(gatsby-plugin-sharp@5.14.0(gatsby@5.14.3(@swc/core@1.11.22)(babel-eslint@10.1.0(eslint@7.32.0))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(typescript@4.9.5)(webpack-dev-server@4.15.2(webpack@5.98.0(@swc/core@1.11.22)))(webpack-hot-middleware@2.26.1))(graphql@16.10.0))(gatsby@5.14.3(@swc/core@1.11.22)(babel-eslint@10.1.0(eslint@7.32.0))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@2.19.0)(typescript@4.9.5)(webpack-dev-server@4.15.2(webpack@5.98.0(@swc/core@1.11.22)))(webpack-hot-middleware@2.26.1))(graphql@16.10.0)
       prism-react-renderer:
-        specifier: ^2.0.3
+        specifier: ^2.4.1
         version: 2.4.1(react@18.3.1)
       react:
         specifier: 18.3.1
@@ -2192,8 +2192,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(react@18.3.1)
       react-icons:
-        specifier: ^4.3.1
-        version: 4.12.0(react@18.3.1)
+        specifier: ^5.5.0
+        version: 5.5.0(react@18.3.1)
       react-markdown:
         specifier: ^8.0.7
         version: 8.0.7(@types/react@18.3.20)(react@18.3.1)
@@ -11220,8 +11220,8 @@ packages:
     peerDependencies:
       react: 18.3.1
 
-  react-icons@4.12.0:
-    resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==}
+  react-icons@5.5.0:
+    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
     peerDependencies:
       react: 18.3.1
 
@@ -24966,7 +24966,7 @@ snapshots:
       react-fast-compare: 3.2.2
       react-side-effect: 2.1.2(react@18.3.1)
 
-  react-icons@4.12.0(react@18.3.1):
+  react-icons@5.5.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 

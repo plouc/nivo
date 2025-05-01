@@ -16,6 +16,7 @@ declare module 'styled-components' {
             accent: string
             accentLight: string
             accentDark: string
+            accentDarker: string
             cardBackground: string
             cardAltBackground: string
             inputBackground: string
