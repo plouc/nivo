@@ -321,7 +321,7 @@ const props: ChartProperty[] = [
         required: false,
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg'], defaultProps),
     ...commonAccessibilityProps(['svg']),
 ]
 

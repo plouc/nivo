@@ -1,8 +1,13 @@
 import { useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { Axis } from '@nivo/axes'
-// @ts-ignore
-import { getColorScale, useMotionConfig, useTheme } from '@nivo/core'
+import {
+    // @ts-expect-error no types
+    getColorScale,
+    useMotionConfig,
+} from '@nivo/core'
+import { Text } from '@nivo/text'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
 import { BulletMarkers } from './BulletMarkers'
@@ -152,21 +157,21 @@ export const BulletItem = ({
         layout === 'horizontal'
             ? height / 2 + titleOffsetY
             : titlePosition === 'before'
-            ? titleOffsetY
-            : width + titleOffsetY
+              ? titleOffsetY
+              : width + titleOffsetY
 
     const titleNode = (
         <g transform={`translate(${titleX},${titleY}) rotate(${titleRotation})`}>
             {typeof title === 'string' ? (
-                <text
+                <Text
                     style={{
-                        ...theme?.labels?.text,
+                        ...theme.labels.text,
                         dominantBaseline: 'central',
                         textAnchor: titleAlign,
                     }}
                 >
                     {title}
-                </text>
+                </Text>
             ) : (
                 title
             )}

@@ -1,0 +1,6206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Waffle /> should render a basic waffle chart in SVG 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={400}
+    role="img"
+    width={400}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={0}
+        />
+      </g>
+      <g>
+        <path
+          d="M400,360L400,400L0,400L0,360Z"
+          fill="#000000"
+          fillOpacity={0}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+        />
+      </g>
+      <g />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`<Waffle /> should support bottom fill mode 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={400}
+    role="img"
+    width={400}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={360}
+        />
+      </g>
+      <g>
+        <path
+          d="M400,0L400,40L0,40L0,0Z"
+          fill="#000000"
+          fillOpacity={0}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+        />
+      </g>
+      <g />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`<Waffle /> should support left fill mode 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={400}
+    role="img"
+    width={400}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={320}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={280}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={240}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={200}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={160}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={120}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={80}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={40}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={0}
+        />
+      </g>
+      <g>
+        <path
+          d="M400,0L400,40L400,80L400,120L400,160L400,200L400,240L400,280L400,320L400,360L400,400L360,400L360,360L360,320L360,280L360,240L360,200L360,160L360,120L360,80L360,40L360,0Z"
+          fill="#000000"
+          fillOpacity={0}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+        />
+      </g>
+      <g />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`<Waffle /> should support right fill mode 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={400}
+    role="img"
+    width={400}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={0}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={40}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={80}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={120}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={160}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={200}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={240}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={280}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={320}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={360}
+        />
+      </g>
+      <g>
+        <path
+          d="M40,0L40,40L40,80L40,120L40,160L40,200L40,240L40,280L40,320L40,360L40,400L0,400L0,360L0,320L0,280L0,240L0,200L0,160L0,120L0,80L0,40L0,0Z"
+          fill="#000000"
+          fillOpacity={0}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+        />
+      </g>
+      <g />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`<Waffle /> should support top fill mode 1`] = `
+<div
+  style={
+    {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={400}
+    role="img"
+    width={400}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={360}
+        />
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(162, 135, 112, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={360}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={320}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={280}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={240}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={200}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={160}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={120}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={80}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={40}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={360}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={320}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={280}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={240}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={200}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={160}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={120}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={80}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={40}
+          y={0}
+        />
+        <rect
+          fill="rgba(204, 204, 204, 1)"
+          height={40}
+          opacity={1}
+          rx={0}
+          ry={0}
+          stroke="rgba(143, 143, 143, 1)"
+          strokeWidth={0}
+          width={40}
+          x={0}
+          y={0}
+        />
+      </g>
+      <g>
+        <path
+          d="M400,360L400,400L0,400L0,360Z"
+          fill="#000000"
+          fillOpacity={0}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+        />
+      </g>
+      <g />
+    </g>
+  </svg>
+</div>
+`;

@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
-import { Container, SvgWrapper, useValueFormatter, useTheme, useDimensions } from '@nivo/core'
+import { Container, SvgWrapper, useValueFormatter, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { BoxLegendSvg } from '@nivo/legends'
+import { Text } from '@nivo/text'
 import {
     computeWeekdays,
     computeCellSize,
@@ -38,6 +40,7 @@ const InnerTimeRange = ({
 
     weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
     weekdayTicks,
+    weekdays = timeRangeDefaultProps.weekdays,
 
     dayBorderColor = timeRangeDefaultProps.dayBorderColor,
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
@@ -53,6 +56,8 @@ const InnerTimeRange = ({
 
     legends = timeRangeDefaultProps.legends,
     role = timeRangeDefaultProps.role,
+
+    firstWeekday = timeRangeDefaultProps.firstWeekday,
 }: TimeRangeSvgProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -98,6 +103,7 @@ const InnerTimeRange = ({
         data,
         direction,
         daySpacing,
+        firstWeekday,
     })
 
     // map the days and reduce the month
@@ -117,6 +123,8 @@ const InnerTimeRange = ({
         cellWidth,
         daySpacing,
         ticks: weekdayTicks,
+        firstWeekday,
+        arrayOfWeekdays: weekdays,
     })
 
     const monthLegends = useMonthLegends({
@@ -132,14 +140,14 @@ const InnerTimeRange = ({
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {weekdayLegends.map(legend => (
-                <text
-                    key={legend.value}
+                <Text
+                    key={`${legend.value}-${legend.x}-${legend.y}`}
                     transform={`translate(${legend.x},${legend.y}) rotate(${legend.rotation})`}
                     textAnchor="left"
                     style={theme.labels.text}
                 >
                     {legend.value}
-                </text>
+                </Text>
             ))}
             {days.map(d => {
                 return (

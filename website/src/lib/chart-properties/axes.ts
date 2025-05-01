@@ -1,4 +1,4 @@
-import upperFirst from 'lodash/upperFirst'
+import upperFirst from 'lodash/upperFirst.js'
 import { ChartProperty, Flavor } from '../../types'
 
 const positions = [
@@ -88,6 +88,18 @@ export const axes = ({
                                 },
                             },
                             {
+                                key: `truncateTickAt`,
+                                flavors,
+                                help: `${axisKey} prevent the tick from overlapping truncating it`,
+                                type: 'number',
+                                required: false,
+                                control: {
+                                    type: 'range',
+                                    min: 0,
+                                    max: 100,
+                                },
+                            },
+                            {
                                 key: `legend`,
                                 flavors,
                                 help: `${axisKey} axis legend.`,
@@ -98,13 +110,31 @@ export const axes = ({
                                 key: `legendOffset`,
                                 flavors,
                                 help: `${axisKey} axis legend offset from axis.`,
-                                type: 'number',
+                                type: 'object',
                                 control: {
                                     type: 'range',
                                     unit: 'px',
                                     min: -60,
                                     max: 60,
                                 },
+                            },
+                            {
+                                key: 'style',
+                                flavors,
+                                type: `PartialTheme['axis']`,
+                                help: `${axisKey} axis style overrides.`,
+                                description: `
+                                    The theme contains a single style for all axes,
+                                    you can use this to override the style of a specific axis.
+                                    
+                                    Please note that the overrides are applied to the complete
+                                    theme object computed internally:
+                                    
+                                    \`(theme prop <- default theme & inheritance) -> axis <- axis style\`
+                                    
+                                    You should try to define the style statically, or to memoize it
+                                    in case it's dynamic.
+                                `,
                             },
                         ],
                     },

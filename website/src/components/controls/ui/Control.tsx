@@ -1,15 +1,15 @@
 import React, { useState, useCallback, PropsWithChildren } from 'react'
-import intersection from 'lodash/intersection'
+import intersection from 'lodash/intersection.js'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
-import { Flavor } from '../../../types'
+import { Flavor, FlavorAwareChartPropertyAttribute } from '../../../types'
 import { PropertyDescription } from './PropertyDescription'
 import { PropertyFlavors } from './PropertyFlavors'
 import { Cell } from './styled'
 
 interface ControlProps {
     id: string
-    description?: string
+    description?: FlavorAwareChartPropertyAttribute<string>
     flavors: Flavor[]
     currentFlavor: Flavor
     supportedFlavors?: Flavor[]
@@ -17,7 +17,7 @@ interface ControlProps {
 
 export const Control = ({
     id,
-    description,
+    description: _description,
     flavors,
     currentFlavor,
     supportedFlavors,
@@ -35,6 +35,14 @@ export const Control = ({
         if (!supportedFlavors.includes(currentFlavor)) {
             isPropertySupported = false
         }
+    }
+
+    let description: string | undefined = undefined
+    if (typeof _description === 'string') {
+        description = _description
+    } else if (typeof _description === 'object') {
+        // If an object is provided, it means it depends on the current flavor.
+        description = _description[currentFlavor]
     }
 
     return (

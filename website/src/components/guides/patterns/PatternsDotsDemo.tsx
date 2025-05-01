@@ -1,9 +1,9 @@
 import React from 'react'
-import { Defs, patternDotsDef, PatternDots } from '@nivo/core'
+import { Defs, patternDotsDef, PatternDotsDefaultProps } from '@nivo/core'
 import { ChartProperty } from '../../../types'
 import { GuideDemoBlock } from '../GuideDemoBlock'
 
-const defaults = (PatternDots as unknown as any).defaultProps as Settings
+const defaults = PatternDotsDefaultProps as Settings
 const SAMPLE_SIZE = 120
 const patternId = 'dots-pattern'
 
@@ -23,7 +23,7 @@ const initialSettings: Settings = {
     color: defaults.color,
 }
 
-const controls: ChartProperty[] = [
+const controls: Omit<ChartProperty, 'group' | 'key'>[] = [
     {
         name: 'size',
         type: 'number',

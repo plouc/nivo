@@ -1,4 +1,6 @@
-import { filter, isNumber, omit } from 'lodash'
+import filter from 'lodash/filter.js'
+import isNumber from 'lodash/isNumber.js'
+import omit from 'lodash/omit.js'
 import {
     radiansToDegrees,
     absoluteAngleDegrees,
@@ -19,15 +21,15 @@ export const bindAnnotations = <
     Datum = {
         x: number
         y: number
-    }
+    },
 >({
     data,
     annotations,
     getPosition,
     getDimensions,
 }: {
-    data: Datum[]
-    annotations: AnnotationMatcher<Datum>[]
+    data: readonly Datum[]
+    annotations: readonly AnnotationMatcher<Datum>[]
     getPosition: AnnotationPositionGetter<Datum>
     getDimensions: AnnotationDimensionsGetter<Datum>
 }): BoundAnnotation<Datum>[] =>

@@ -1,35 +1,41 @@
 {
-  "name": "@nivo/tooltip",
-  "version": "0.79.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/tooltip"
-  },
-  "main": "./dist/nivo-tooltip.cjs.js",
-  "module": "./dist/nivo-tooltip.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@react-spring/web": "9.3.1"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.79.0"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.79.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/tooltip",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/tooltip"
+    },
+    "main": "./dist/nivo-tooltip.cjs.js",
+    "module": "./dist/nivo-tooltip.mjs",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-tooltip.mjs",
+            "require": "./dist/nivo-tooltip.cjs.js"
+        }
+    }
 }

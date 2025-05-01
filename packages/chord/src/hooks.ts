@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import {
     useValueFormatter,
-    // @ts-ignore
+    // @ts-expect-error no types
     getLabelGenerator,
 } from '@nivo/core'
 import { OrdinalColorScale, useOrdinalColorScale } from '@nivo/colors'

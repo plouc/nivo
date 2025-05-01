@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react'
+import { PageProps } from 'gatsby'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import media from '../../../theming/mediaQueries'
@@ -6,27 +7,16 @@ import PageContent from '../../PageContent'
 import { ComponentsSearch } from './ComponentsSearch'
 import { ComponentsFilters } from './ComponentsFilters'
 import { ComponentsGrid } from './ComponentsGrid'
+import { navigate } from 'gatsby'
 
-interface ComponentsExplorerProps {
-    location: {
-        search: string
-    }
-    navigate: (
-        path: string,
-        options?: {
-            replace?: boolean
-        }
-    ) => void
-}
-
-export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerProps) => {
+export const ComponentsExplorer = ({ location }: Pick<PageProps, 'location'>) => {
     const [term, filter] = useMemo(() => {
         const params = new URLSearchParams(location.search)
         return [params.get('q'), params.get('filter')]
     }, [location.search])
 
     const handleSearch = useCallback(
-        term => {
+        (term: string | null) => {
             const params = new URLSearchParams()
             if (term) params.append('q', term)
             if (filter) params.append('filter', filter)
@@ -35,7 +25,7 @@ export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerPro
                 replace: true,
             })
         },
-        [filter, navigate]
+        [filter]
     )
     const handleFilter = useCallback(
         (filter: string | null) => {
@@ -45,7 +35,7 @@ export const ComponentsExplorer = ({ location, navigate }: ComponentsExplorerPro
 
             navigate(`/components/?${params.toString()}`)
         },
-        [term, navigate]
+        [term]
     )
 
     return (

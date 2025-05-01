@@ -1,5 +1,6 @@
 import { memo, ReactNode } from 'react'
-import { useTheme, ValueFormat, useValueFormatter } from '@nivo/core'
+import { ValueFormat, useValueFormatter } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { Chip } from './Chip'
 
 export interface BasicTooltipProps {
@@ -41,6 +42,10 @@ export const BasicTooltip = memo<BasicTooltipProps>(
             )
         }
 
-        return <div style={theme.tooltip.container}>{content}</div>
+        return (
+            <div style={theme.tooltip.container} role="tooltip">
+                {content}
+            </div>
+        )
     }
 )

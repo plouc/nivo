@@ -43,7 +43,7 @@ export const calendarDefaultProps = {
 
 export const calendarCanvasDefaultProps = {
     ...commonDefaultProps,
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 } as const
 
 export const timeRangeDefaultProps = {
@@ -52,4 +52,14 @@ export const timeRangeDefaultProps = {
     dayRadius: 0,
     square: true,
     weekdayLegendOffset: 75,
+    firstWeekday: 'sunday',
+    weekdays: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ] as string[],
 } as const

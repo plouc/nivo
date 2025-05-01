@@ -1,4 +1,6 @@
-import { isDate, memoize, range } from 'lodash'
+import isDate from 'lodash/isDate.js'
+import memoize from 'lodash/memoize.js'
+import range from 'lodash/range.js'
 import { alignBox } from '@nivo/core'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'

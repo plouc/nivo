@@ -387,7 +387,15 @@ const props: ChartProperty[] = [
         help: 'Override default slice tooltip.',
         flavors: ['svg'],
     },
-    ...motionProperties(['svg'], svgDefaultProps, 'react-spring'),
+    {
+        key: 'onClick',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: 'onClick handler, it receives target node data and mouse event.',
+        type: '(node, event) => void',
+        required: false,
+    },
+    ...motionProperties(['svg'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

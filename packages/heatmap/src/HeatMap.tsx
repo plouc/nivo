@@ -232,7 +232,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
 
 export const HeatMap = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 >({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,

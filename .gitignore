@@ -3,7 +3,7 @@
 *.log*
 node_modules
 coverage
-/storybook-static
+storybook/storybook-static
 
 package-lock.json
 
@@ -12,9 +12,23 @@ build
 
 /packages/*/dist
 
+/tmp
+
 *.lerna_backup
 
 /stats
 /api/app.js
 # Local Netlify folder
 .netlify
+
+# yarn 2 - not using zero-installs
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+cypress/cypress/screenshots
+cypress/cypress/videos

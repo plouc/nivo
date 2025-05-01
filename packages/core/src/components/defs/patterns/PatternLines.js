@@ -1,9 +1,23 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 import { degreesToRadians } from '../../../lib/polar'
 
+export const PatternLinesDefaultProps = {
+    spacing: 5,
+    rotation: 0,
+    background: '#000000',
+    color: '#ffffff',
+    lineWidth: 2,
+}
+
 export const PatternLines = memo(
-    ({ id, spacing: _spacing, rotation: _rotation, background, color, lineWidth }) => {
+    ({
+        id,
+        spacing: _spacing = PatternLinesDefaultProps.spacing,
+        rotation: _rotation = PatternLinesDefaultProps.rotation,
+        background = PatternLinesDefaultProps.background,
+        color = PatternLinesDefaultProps.color,
+        lineWidth = PatternLinesDefaultProps.lineWidth,
+    }) => {
         let rotation = Math.round(_rotation) % 360
         const spacing = Math.abs(_spacing)
 
@@ -59,23 +73,6 @@ export const PatternLines = memo(
         )
     }
 )
-
-PatternLines.displayName = 'PatternLines'
-PatternLines.propTypes = {
-    id: PropTypes.string.isRequired,
-    spacing: PropTypes.number.isRequired,
-    rotation: PropTypes.number.isRequired,
-    background: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    lineWidth: PropTypes.number.isRequired,
-}
-PatternLines.defaultProps = {
-    spacing: 5,
-    rotation: 0,
-    color: '#000000',
-    background: '#ffffff',
-    lineWidth: 2,
-}
 
 export const patternLinesDef = (id, options = {}) => ({
     id,

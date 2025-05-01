@@ -16,7 +16,7 @@ TreeMap:
     - label: Using custom tooltip
       link: treemap--custom-tooltip
     - label: Patterns & Gradients
-      link: treemap--patterns-gradients
+      link: treemap--patterns-and-gradients
   description: |
     A tree map component using
     [d3-hierarchy.treemap](https://github.com/d3/d3-hierarchy#treemap),

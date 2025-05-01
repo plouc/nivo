@@ -1,7 +1,23 @@
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 
-export const PatternDots = memo(({ id, background, color, size, padding, stagger }) => {
+export const PatternDotsDefaultProps = {
+    color: '#000000',
+    background: '#ffffff',
+    size: 4,
+    padding: 4,
+    stagger: false,
+}
+
+export const PatternDots = memo(props => {
+    const {
+        id,
+        background = PatternDotsDefaultProps.background,
+        color = PatternDotsDefaultProps.color,
+        size = PatternDotsDefaultProps.size,
+        padding = PatternDotsDefaultProps.padding,
+        stagger = PatternDotsDefaultProps.stagger,
+    } = props
+
     let fullSize = size + padding
     const radius = size / 2
     const halfPadding = padding / 2
@@ -24,24 +40,6 @@ export const PatternDots = memo(({ id, background, color, size, padding, stagger
         </pattern>
     )
 })
-
-PatternDots.displayName = 'PatternDots'
-PatternDots.propTypes = {
-    id: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    background: PropTypes.string.isRequired,
-    size: PropTypes.number.isRequired,
-    padding: PropTypes.number.isRequired,
-    stagger: PropTypes.bool.isRequired,
-}
-
-PatternDots.defaultProps = {
-    color: '#000000',
-    background: '#ffffff',
-    size: 4,
-    padding: 4,
-    stagger: false,
-}
 
 export const patternDotsDef = (id, options = {}) => ({
     id,

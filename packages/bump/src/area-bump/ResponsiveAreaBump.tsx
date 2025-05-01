@@ -9,7 +9,7 @@ import { AreaBump } from './AreaBump'
 
 export const ResponsiveAreaBump = <
     Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
 >(
     props: Omit<AreaBumpSvgProps<Datum, ExtraProps>, 'width' | 'height'>
 ) => (

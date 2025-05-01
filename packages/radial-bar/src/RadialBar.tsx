@@ -1,5 +1,13 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions, SvgWrapper, clampArc } from '@nivo/core'
+import {
+    Container,
+    useDimensions,
+    SvgWrapper,
+    clampArc,
+    // @ts-expect-error no types
+    bindDefs,
+} from '@nivo/core'
+
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { BoxLegendSvg } from '@nivo/legends'
 import { PolarGrid, RadialAxis, CircularAxis } from '@nivo/polar-axes'
@@ -37,11 +45,14 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     circularAxisInner = svgDefaultProps.circularAxisInner,
     circularAxisOuter = svgDefaultProps.circularAxisOuter,
     colors = svgDefaultProps.colors,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
     enableLabels = svgDefaultProps.enableLabels,
     label = svgDefaultProps.label,
     labelsSkipAngle = svgDefaultProps.labelsSkipAngle,
+    labelsSkipRadius = svgDefaultProps.labelsSkipRadius,
     labelsRadiusOffset = svgDefaultProps.labelsRadiusOffset,
     labelsTextColor = svgDefaultProps.labelsTextColor,
     isInteractive = svgDefaultProps.isInteractive,
@@ -114,19 +125,19 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                 />
                 {radialAxisStart && (
                     <RadialAxis
-                        type="start"
                         center={center}
                         angle={Math.min(startAngle, endAngle)}
                         scale={radiusScale}
+                        ticksPosition="before"
                         {...radialAxisStart}
                     />
                 )}
                 {radialAxisEnd && (
                     <RadialAxis
-                        type="end"
                         center={center}
                         angle={Math.max(startAngle, endAngle)}
                         scale={radiusScale}
+                        ticksPosition="after"
                         {...radialAxisEnd}
                     />
                 )}
@@ -197,6 +208,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
                 label={label}
                 radiusOffset={labelsRadiusOffset}
                 skipAngle={labelsSkipAngle}
+                skipRadius={labelsSkipRadius}
                 textColor={labelsTextColor}
                 transitionMode={transitionMode}
             />
@@ -219,11 +231,17 @@ const InnerRadialBar = <D extends RadialBarDatum>({
         )
     }
 
+    const boundDefs = bindDefs(defs, bars, fill, {
+        dataKey: 'data',
+        targetKey: 'fill',
+    })
+
     return (
         <SvgWrapper
             width={outerWidth}
             height={outerHeight}
             margin={margin}
+            defs={boundDefs}
             role={role}
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}

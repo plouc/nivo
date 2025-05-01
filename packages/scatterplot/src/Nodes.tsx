@@ -1,3 +1,4 @@
+import { createElement, useCallback, MouseEvent } from 'react'
 import { useTransition } from '@react-spring/web'
 import { CssMixBlendMode, useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -7,7 +8,6 @@ import {
     ScatterPlotNode,
     ScatterPlotNodeData,
 } from './types'
-import { createElement, useCallback } from 'react'
 
 interface NodesProps<RawDatum extends ScatterPlotDatum> {
     nodes: ScatterPlotNodeData<RawDatum>[]
@@ -16,7 +16,10 @@ interface NodesProps<RawDatum extends ScatterPlotDatum> {
     onMouseEnter?: ScatterPlotCommonProps<RawDatum>['onMouseEnter']
     onMouseMove?: ScatterPlotCommonProps<RawDatum>['onMouseMove']
     onMouseLeave?: ScatterPlotCommonProps<RawDatum>['onMouseLeave']
+    onMouseDown?: ScatterPlotCommonProps<RawDatum>['onMouseDown']
+    onMouseUp?: ScatterPlotCommonProps<RawDatum>['onMouseUp']
     onClick?: ScatterPlotCommonProps<RawDatum>['onClick']
+    onDoubleClick?: ScatterPlotCommonProps<RawDatum>['onDoubleClick']
     tooltip: ScatterPlotCommonProps<RawDatum>['tooltip']
     blendMode: CssMixBlendMode
 }
@@ -47,7 +50,10 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip,
     blendMode,
 }: NodesProps<RawDatum>) => {
@@ -72,27 +78,42 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseEnter = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseEnter?.(node, event)
         },
         [tooltip, showTooltipFromEvent, onMouseEnter]
     )
     const handleMouseMove = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
             onMouseMove?.(node, event)
         },
         [tooltip, showTooltipFromEvent, onMouseMove]
     )
     const handleMouseLeave = useCallback(
-        (node, event) => {
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave?.(node, event)
         },
         [hideTooltip, onMouseLeave]
     )
-    const handleClick = useCallback((node, event) => onClick?.(node, event), [onClick])
+    const handleMouseDown = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onMouseDown?.(node, event),
+        [onMouseDown]
+    )
+    const handleMouseUp = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onMouseUp?.(node, event),
+        [onMouseUp]
+    )
+    const handleClick = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onClick?.(node, event),
+        [onClick]
+    )
+    const handleDoubleClick = useCallback(
+        (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => onDoubleClick?.(node, event),
+        [onDoubleClick]
+    )
 
     return (
         <>
@@ -105,7 +126,10 @@ export const Nodes = <RawDatum extends ScatterPlotDatum>({
                     onMouseEnter: isInteractive ? handleMouseEnter : undefined,
                     onMouseMove: isInteractive ? handleMouseMove : undefined,
                     onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+                    onMouseDown: isInteractive ? handleMouseDown : undefined,
+                    onMouseUp: isInteractive ? handleMouseUp : undefined,
                     onClick: isInteractive ? handleClick : undefined,
+                    onDoubleClick: isInteractive ? handleDoubleClick : undefined,
                 })
             )}
         </>

@@ -1,5 +1,6 @@
 import { createElement, useMemo } from 'react'
-import { PropertyAccessor, usePropertyAccessor, radiansToDegrees, useTheme } from '@nivo/core'
+import { PropertyAccessor, usePropertyAccessor, radiansToDegrees } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useInheritedColor } from '@nivo/colors'
 import { useArcCentersTransition } from '../centers'
 import { ArcTransitionMode } from '../arcTransitionMode'
@@ -17,6 +18,7 @@ interface ArcLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     label: PropertyAccessor<Datum, string>
     radiusOffset: ArcLabelsProps<Datum>['arcLabelsRadiusOffset']
     skipAngle: ArcLabelsProps<Datum>['arcLabelsSkipAngle']
+    skipRadius: ArcLabelsProps<Datum>['arcLabelsSkipRadius']
     textColor: ArcLabelsProps<Datum>['arcLabelsTextColor']
     transitionMode: ArcTransitionMode
     component?: ArcLabelsProps<Datum>['arcLabelsComponent']
@@ -29,6 +31,7 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
     label: labelAccessor,
     radiusOffset,
     skipAngle,
+    skipRadius,
     textColor,
     component = ArcLabel,
 }: ArcLabelsLayerProps<Datum>) => {
@@ -39,12 +42,12 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
     const filteredData = useMemo(
         () =>
             data.filter(datum => {
-                return (
-                    Math.abs(radiansToDegrees(datum.arc.endAngle - datum.arc.startAngle)) >=
-                    skipAngle
-                )
+                const angle = Math.abs(radiansToDegrees(datum.arc.endAngle - datum.arc.startAngle))
+                const radius = Math.abs(datum.arc.outerRadius - datum.arc.innerRadius)
+
+                return angle >= skipAngle && radius >= skipRadius
             }),
-        [data, skipAngle]
+        [data, skipAngle, skipRadius]
     )
 
     const { transition, interpolate } = useArcCentersTransition<Datum>(
@@ -63,7 +66,7 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
                     datum,
                     label: getLabel(datum),
                     style: {
-                        ...transitionProps,
+                        progress: transitionProps.progress,
                         transform: interpolate(
                             transitionProps.startAngle,
                             transitionProps.endAngle,

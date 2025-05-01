@@ -27,6 +27,7 @@ const lightTheme: DefaultTheme = {
         accent: '#e25d47',
         accentLight: '#f88d81',
         accentDark: '#b44230',
+        accentDarker: '#9c3626',
 
         cardBackground: '#ffffff',
         cardAltBackground: '#f7fafb',
@@ -157,7 +158,8 @@ const darkTheme: DefaultTheme = {
 
         accent: '#3c91e8',
         accentLight: '#73b7fd',
-        accentDark: '#b44230',
+        accentDark: '#2b71ba',
+        accentDarker: '#1d4975',
 
         cardBackground: '#151b20',
         cardAltBackground: '#11171b',

@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { get, isPlainObject } from 'lodash'
+import get from 'lodash/get.js'
+import isPlainObject from 'lodash/isPlainObject.js'
 import { scaleOrdinal } from 'd3-scale'
 import {
     ColorSchemeId,

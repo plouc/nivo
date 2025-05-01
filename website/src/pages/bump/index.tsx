@@ -1,19 +1,18 @@
 import React from 'react'
-import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
-import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveBump, bumpSvgDefaultProps as defaults, BumpCommonProps } from '@nivo/bump'
-import { ModernMotionProps } from '@nivo/core'
-import { AxisProps } from '@nivo/axes'
+import range from 'lodash/range.js'
+import shuffle from 'lodash/shuffle.js'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import {
+    ResponsiveBump,
+    bumpSvgDefaultProps as defaults,
+    DefaultBumpDatum,
+    isBumpPoint,
+    isComputedBumpSerie,
+} from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
-import mapper from '../../data/components/bump/mapper'
-
-interface Datum {
-    x: number
-    y: number
-}
+import mapper, { UnmappedBumpProps, MappedBumpProps } from '../../data/components/bump/mapper'
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -21,7 +20,7 @@ const generateData = () => {
 
     const series: {
         id: string
-        data: Datum[]
+        data: DefaultBumpDatum[]
     }[] = ranks.map(rank => {
         return {
             id: `Serie ${rank}`,
@@ -32,7 +31,7 @@ const generateData = () => {
     years.forEach(year => {
         shuffle(ranks).forEach((rank, i) => {
             series[i].data.push({
-                x: year,
+                x: year.toString(),
                 y: rank,
             })
         })
@@ -41,20 +40,7 @@ const generateData = () => {
     return series
 }
 
-type Props = Omit<
-    BumpCommonProps<Datum, {}>,
-    'theme' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick' | 'renderWrapper'
-> &
-    ModernMotionProps
-
-type UnmappedProps = Omit<Props, 'axisTop' | 'axisRight' | 'axisBottom' | 'axisLeft'> & {
-    axisTop: AxisProps & { enable: boolean }
-    axisRight: AxisProps & { enable: boolean }
-    axisBottom: AxisProps & { enable: boolean }
-    axisLeft: AxisProps & { enable: boolean }
-}
-
-const initialProperties: UnmappedProps = {
+const initialProperties: UnmappedBumpProps = {
     ...defaults,
     margin: {
         top: 40,
@@ -86,6 +72,7 @@ const initialProperties: UnmappedProps = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: -36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -96,6 +83,7 @@ const initialProperties: UnmappedProps = {
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: 40,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -105,6 +93,7 @@ const initialProperties: UnmappedProps = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: 32,
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -115,10 +104,11 @@ const initialProperties: UnmappedProps = {
         legend: 'ranking',
         legendPosition: 'middle',
         legendOffset: -40,
+        truncateTickAt: 0,
     },
 }
 
-const Bump = () => {
+const Bump = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -134,7 +124,7 @@ const Bump = () => {
     `)
 
     return (
-        <ComponentTemplate<UnmappedProps, Props>
+        <ComponentTemplate<UnmappedBumpProps, MappedBumpProps, any>
             name="Bump"
             meta={meta.Bump}
             icon="chord"
@@ -146,21 +136,31 @@ const Bump = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBump<Datum>
+                    <ResponsiveBump
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={serie =>
-                            logAction({
-                                type: 'click',
-                                label: `[serie] ${serie.id}`,
-                                color: serie.color,
-                                data: serie,
-                            })
-                        }
+                        onClick={data => {
+                            if (isComputedBumpSerie(data)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[serie] ${data.id}`,
+                                    color: data.color,
+                                    data: data,
+                                })
+                            } else if (isBumpPoint(data)) {
+                                logAction({
+                                    type: 'click',
+                                    label: `[point] x: ${data.data.x}, y: ${data.data.y} (series: ${data.serie.id})`,
+                                    color: data.serie.color,
+                                    data: data,
+                                })
+                            }
+                        }}
                     />
                 )
             }}

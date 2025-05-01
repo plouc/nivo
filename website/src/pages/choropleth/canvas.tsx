@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveChoroplethCanvas, ChoroplethCanvasDefaultProps } from '@nivo/geo'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
@@ -6,7 +7,6 @@ import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/choropleth/props'
 import { generateChoroplethData } from '../../data/components/geo/generator'
 import countries from '../../data/components/geo/world_countries'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -63,7 +63,7 @@ const initialProperties = {
     ],
 }
 
-const ChoroplethCanvas = () => {
+const ChoroplethCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -96,6 +96,7 @@ const ChoroplethCanvas = () => {
             })}
             generateData={generateChoroplethData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

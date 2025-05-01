@@ -3,7 +3,7 @@ import {
     SvgWrapper,
     Container,
     useDimensions,
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
 } from '@nivo/core'
 import { useTreeMap, useCustomLayerProps } from './hooks'

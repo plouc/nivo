@@ -6,43 +6,80 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  test:
+    name: Tests
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['16']
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v2
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - run: pnpm install
+      - name: Build nivo packages
+        run: make pkgs-build
+      - run: make pkgs-lint
+      - run: make pkgs-test
+      - name: Build the website
+        run: make website-build
 
-      - name: Restore Lerna cache
-        uses: actions/cache@v2
+  end_to_end:
+    name: End-to-End Tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Cypress install
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+      - name: Build nivo packages
+        run: make pkgs-build
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          component: true
+          command: make end-to-end-test
 
-      - run: yarn install --frozen-lockfile
-      - run: make bootstrap
-      - run: make packages-build
-      - run: make packages-lint
-      - run: make packages-test
+  storybook_tests:
+    name: Storybook Tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Install dependencies & build packages
+        run: make init
+      - name: Build Storybook
+        run: make storybook-build
+      - name: Serve Storybook and run tests
+        run: make storybook-test-ci

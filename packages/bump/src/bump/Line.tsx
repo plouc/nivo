@@ -1,7 +1,13 @@
 import { useSpring, animated } from '@react-spring/web'
 import { Line as D3Line } from 'd3-shape'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { BumpCommonProps, BumpComputedSerie, BumpDatum, BumpSerieExtraProps } from './types'
+import {
+    BumpCommonProps,
+    BumpComputedSerie,
+    BumpDatum,
+    BumpSerieExtraProps,
+    BumpSerieMouseHandler,
+} from './types'
 import { useBumpSerieHandlers } from './hooks'
 
 interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
@@ -9,12 +15,16 @@ interface LineProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPr
     lineGenerator: D3Line<[number, number | null]>
     yStep: number
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onClick']
+    onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
     setActiveSerieIds: (serieIds: string[]) => void
-    tooltip: BumpCommonProps<Datum, ExtraProps>['tooltip']
+    lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
+    useMesh: BumpCommonProps<Datum, ExtraProps>['useMesh']
 }
 
 export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps>({
@@ -25,9 +35,13 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setActiveSerieIds,
-    tooltip,
+    lineTooltip,
+    useMesh,
 }: LineProps<Datum, ExtraProps>) => {
     const handlers = useBumpSerieHandlers<Datum, ExtraProps>({
         serie,
@@ -35,9 +49,12 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
+        onMouseDown,
+        onMouseUp,
         onClick,
+        onDoubleClick,
         setActiveSerieIds,
-        tooltip,
+        lineTooltip,
     })
 
     const { animate, config: springConfig } = useMotionConfig()
@@ -69,7 +86,7 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
                 strokeOpacity={animatedProps.opacity}
                 style={{ pointerEvents: 'none' }}
             />
-            {isInteractive && (
+            {isInteractive && !useMesh && (
                 <path
                     data-testid={`line.${serie.id}.interactive`}
                     fill="none"
@@ -81,7 +98,10 @@ export const Line = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraP
                     onMouseEnter={handlers.onMouseEnter}
                     onMouseMove={handlers.onMouseMove}
                     onMouseLeave={handlers.onMouseLeave}
+                    onMouseDown={handlers.onMouseDown}
+                    onMouseUp={handlers.onMouseUp}
                     onClick={handlers.onClick}
+                    onDoubleClick={handlers.onDoubleClick}
                 />
             )}
         </>

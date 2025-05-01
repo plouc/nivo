@@ -1,14 +1,15 @@
-import {
-    // @ts-ignore
-    defaultTheme as baseDefaultTheme,
-    // @ts-ignore
-    extendDefaultTheme,
-    CompleteTheme,
-} from '@nivo/core'
+import { Theme, defaultTheme as baseDefaultTheme, extendDefaultTheme } from '@nivo/theming'
 
-const extendedTheme: CompleteTheme = extendDefaultTheme(baseDefaultTheme)
+const extendedTheme: Theme = extendDefaultTheme(baseDefaultTheme, {})
 
-const axisDefaults: CompleteTheme['axis'] = {
+const textDefaults: Theme['text'] = {
+    fontSize: extendedTheme.text.fontSize,
+    fill: extendedTheme.text.fill,
+    outlineWidth: extendedTheme.text.outlineWidth,
+    outlineColor: extendedTheme.text.outlineColor,
+}
+
+const axisDefaults: Theme['axis'] = {
     domain: {
         line: {
             stroke: '#777777', // defaultTheme.axis.domain.line.stroke,
@@ -19,6 +20,8 @@ const axisDefaults: CompleteTheme['axis'] = {
         text: {
             fontSize: extendedTheme.axis.legend.text.fontSize,
             fill: extendedTheme.axis.legend.text.fill,
+            outlineWidth: extendedTheme.axis.legend.text.outlineWidth,
+            outlineColor: extendedTheme.axis.legend.text.outlineColor,
         },
     },
     ticks: {
@@ -29,38 +32,46 @@ const axisDefaults: CompleteTheme['axis'] = {
         text: {
             fontSize: extendedTheme.axis.ticks.text.fontSize,
             fill: extendedTheme.axis.ticks.text.fill,
+            outlineWidth: extendedTheme.axis.ticks.text.outlineWidth,
+            outlineColor: extendedTheme.axis.ticks.text.outlineColor,
         },
     },
 }
 
-const gridDefaults: CompleteTheme['grid'] = {
+const gridDefaults: Theme['grid'] = {
     line: {
         stroke: extendedTheme.grid.line.stroke,
         strokeWidth: extendedTheme.grid.line.strokeWidth,
     },
 }
 
-const legendsDefaults: CompleteTheme['legends'] = {
+const legendsDefaults: Theme['legends'] = {
     title: {
         text: {
             fontSize: extendedTheme.legends.title.text.fontSize,
             fill: extendedTheme.legends.title.text.fill,
+            outlineWidth: extendedTheme.legends.title.text.outlineWidth,
+            outlineColor: extendedTheme.legends.title.text.outlineColor,
         },
     },
     text: {
         fontSize: extendedTheme.legends.text.fontSize,
         fill: extendedTheme.legends.text.fill,
+        outlineWidth: extendedTheme.legends.text.outlineWidth,
+        outlineColor: extendedTheme.legends.text.outlineColor,
     },
     ticks: {
         line: {},
         text: {
             fontSize: extendedTheme.legends.ticks.text.fontSize,
             fill: extendedTheme.legends.ticks.text.fill,
+            outlineWidth: extendedTheme.legends.ticks.text.outlineWidth,
+            outlineColor: extendedTheme.legends.ticks.text.outlineColor,
         },
     },
 }
 
-const annotationsDefaults: CompleteTheme['annotations'] = {
+const annotationsDefaults: Theme['annotations'] = {
     text: {
         fontSize: extendedTheme.annotations.text.fontSize,
         fill: extendedTheme.annotations.text.fill,
@@ -90,10 +101,11 @@ const annotationsDefaults: CompleteTheme['annotations'] = {
     },
 }
 
-const tooltipDefaults: CompleteTheme['tooltip'] = {
+const tooltipDefaults: Theme['tooltip'] = {
+    wrapper: {},
     container: {
         background: '#ffffff',
-        color: extendedTheme.textColor,
+        color: extendedTheme.text.fill,
         fontSize: 12,
     },
     basic: {},
@@ -103,10 +115,9 @@ const tooltipDefaults: CompleteTheme['tooltip'] = {
     tableCellValue: {},
 }
 
-export const defaultTheme: CompleteTheme = {
-    background: '#ffffff', // defaultTheme.background,
-    textColor: extendedTheme.textColor,
-    fontSize: extendedTheme.fontSize,
+export const defaultTheme: Theme = {
+    background: '#ffffff',
+    text: textDefaults,
     axis: axisDefaults,
     grid: gridDefaults,
     legends: legendsDefaults,

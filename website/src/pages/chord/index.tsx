@@ -1,15 +1,15 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateChordData } from '@nivo/generators'
 import { ResponsiveChord, svgDefaultProps } from '@nivo/chord'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
-import mapper from '../../data/components/chord/mapper'
+import mapper, { UnmappedChordProps, MappedChordProps } from '../../data/components/chord/mapper'
 import { groups } from '../../data/components/chord/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const MATRIX_SIZE = 5
 
-const initialProperties = {
+const initialProperties: UnmappedChordProps = {
     margin: {
         top: 60,
         right: 60,
@@ -89,7 +89,7 @@ const initialProperties = {
 
 const generateData = () => generateChordData({ size: MATRIX_SIZE })
 
-const Chord = () => {
+const Chord = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -105,7 +105,7 @@ const Chord = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedChordProps, MappedChordProps, any>
             name="Chord"
             meta={meta.Chord}
             icon="chord"
@@ -122,6 +122,7 @@ const Chord = () => {
             generateData={generateData}
             getTabData={data => data.matrix}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
@@ -139,7 +140,6 @@ const Chord = () => {
                             })
                         }}
                         onRibbonClick={ribbon => {
-                            console.log(ribbon)
                             logAction({
                                 type: 'click',
                                 label: `[ribbon] ${ribbon.source.label} (${ribbon.source.formattedValue}) → ${ribbon.target.label} (${ribbon.target.formattedValue})`,

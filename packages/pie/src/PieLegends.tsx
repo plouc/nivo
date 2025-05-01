@@ -1,15 +1,15 @@
 import { BoxLegendSvg } from '@nivo/legends'
-import { CompletePieSvgProps, ComputedDatum, DatumId } from './types'
+import { CompletePieSvgProps, DatumId, LegendDatum } from './types'
 
 interface PieLegendsProps<RawDatum> {
     width: number
     height: number
     legends: CompletePieSvgProps<RawDatum>['legends']
-    data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
+    data: LegendDatum<RawDatum>[]
     toggleSerie: (id: DatumId) => void
 }
 
-const PieLegends = <RawDatum,>({
+export const PieLegends = <RawDatum,>({
     width,
     height,
     legends,
@@ -18,7 +18,7 @@ const PieLegends = <RawDatum,>({
 }: PieLegendsProps<RawDatum>) => {
     return (
         <>
-            {legends.map((legend, i) => (
+            {legends.map((legend, i: number) => (
                 <BoxLegendSvg
                     key={i}
                     {...legend}
@@ -31,5 +31,3 @@ const PieLegends = <RawDatum,>({
         </>
     )
 }
-
-export default PieLegends

@@ -1,57 +1,62 @@
 {
-  "name": "@nivo/swarmplot",
-  "version": "0.79.1",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/swarmplot"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "force",
-    "swarmplot"
-  ],
-  "main": "./dist/nivo-swarmplot.cjs.js",
-  "module": "./dist/nivo-swarmplot.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/annotations": "0.79.1",
-    "@nivo/axes": "0.79.0",
-    "@nivo/colors": "0.79.1",
-    "@nivo/legends": "0.79.1",
-    "@nivo/scales": "0.79.0",
-    "@nivo/tooltip": "0.79.0",
-    "@nivo/voronoi": "0.79.0",
-    "@react-spring/web": "9.3.1",
-    "d3-force": "^2.0.1",
-    "d3-scale": "^3.2.3",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.79.0",
-    "@types/d3-force": "^2.1.0",
-    "@types/d3-scale": "^3.2.2"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.79.0",
-    "react": ">= 16.14.0 < 18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/swarmplot",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/swarmplot"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "force",
+        "swarmplot"
+    ],
+    "main": "./dist/nivo-swarmplot.cjs.js",
+    "module": "./dist/nivo-swarmplot.mjs",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-swarmplot.mjs",
+            "require": "./dist/nivo-swarmplot.cjs.js"
+        }
+    },
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/annotations": "workspace:*",
+        "@nivo/axes": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/legends": "workspace:*",
+        "@nivo/scales": "workspace:*",
+        "@nivo/theming": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@nivo/voronoi": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-force": "^2.1.0",
+        "@types/d3-scale": "^4.0.8",
+        "d3-force": "^2.0.1",
+        "d3-scale": "^4.0.2",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

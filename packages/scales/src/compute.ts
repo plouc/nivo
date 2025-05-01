@@ -1,8 +1,8 @@
-import uniq from 'lodash/uniq'
-import uniqBy from 'lodash/uniqBy'
-import sortBy from 'lodash/sortBy'
-import last from 'lodash/last'
-import isDate from 'lodash/isDate'
+import uniq from 'lodash/uniq.js'
+import uniqBy from 'lodash/uniqBy.js'
+import sortBy from 'lodash/sortBy.js'
+import last from 'lodash/last.js'
+import isDate from 'lodash/isDate.js'
 import { createDateNormalizer } from './timeHelpers'
 import { ScaleAxis, ScaleSpec, ScaleValue, SerieAxis, ComputedSerieAxis } from './types'
 import { createLinearScale } from './linearScale'
@@ -22,16 +22,16 @@ type StackedXY = {
 }
 
 interface SerieDatum {
-    x: number | string | Date
+    x: number | string | Date | null
     // only numbers can be stacked
     xStacked?: number | null
-    y: number | string | Date
+    y: number | string | Date | null
     // only numbers can be stacked
     yStacked?: number | null
 }
 
 type Serie<S = never, D extends SerieDatum = SerieDatum> = S & {
-    data: D[]
+    data: readonly D[]
 }
 
 type NestedSerie<S = never, D extends SerieDatum = SerieDatum> = S & {
@@ -67,9 +67,9 @@ export function computeScale<Input extends ScaleValue>(
         case 'linear':
             return createLinearScale(spec, data, size, axis)
         case 'point':
-            return createPointScale<Input>(spec, data, size)
+            return createPointScale<Exclude<Input, null>>(spec, data, size)
         case 'band':
-            return createBandScale<Input>(spec, data, size, axis)
+            return createBandScale<Exclude<Input, null>>(spec, data, size, axis)
         case 'time':
             return createTimeScale(spec, data, size)
         case 'log':

@@ -1,4 +1,4 @@
-import { memo, useRef, useState, useEffect, useCallback } from 'react'
+import { memo, useRef, useState, useEffect, useCallback, MouseEvent } from 'react'
 import * as React from 'react'
 import {
     Box,
@@ -7,10 +7,11 @@ import {
     getRelativeCursor,
     degreesToRadians,
     useDimensions,
-    useTheme,
     useValueFormatter,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { calendarCanvasDefaultProps } from './props'
 import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
 import { useTooltip } from '@nivo/tooltip'
@@ -157,14 +158,17 @@ const InnerCalendarCanvas = memo(
 
             ctx.textAlign = 'center'
             ctx.textBaseline = 'middle'
-            ctx.fillStyle = theme.labels.text.fill ?? ''
-            ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+            setCanvasFont(ctx, theme.labels.text)
 
             monthLegends.forEach(month => {
                 ctx.save()
                 ctx.translate(month.x, month.y)
                 ctx.rotate(degreesToRadians(month.rotation))
-                ctx.fillText(String(monthLegend(month.year, month.month, month.date)), 0, 0)
+                drawCanvasText(
+                    ctx,
+                    theme.labels.text,
+                    String(monthLegend(month.year, month.month, month.date))
+                )
                 ctx.restore()
             })
 
@@ -172,7 +176,7 @@ const InnerCalendarCanvas = memo(
                 ctx.save()
                 ctx.translate(year.x, year.y)
                 ctx.rotate(degreesToRadians(year.rotation))
-                ctx.fillText(String(yearLegend(year.year)), 0, 0)
+                drawCanvasText(ctx, theme.labels.text, String(yearLegend(year.year)))
                 ctx.restore()
             })
 
@@ -214,7 +218,7 @@ const InnerCalendarCanvas = memo(
         ])
 
         const handleMouseHover = useCallback(
-            event => {
+            (event: MouseEvent<HTMLCanvasElement>) => {
                 if (!canvasEl.current) return
 
                 const data = findDayUnderCursor(
@@ -239,12 +243,12 @@ const InnerCalendarCanvas = memo(
                         data: { ...data.data },
                     }
                     showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                    !currentDay && onMouseEnter?.(data, event)
+                    if (!currentDay) onMouseEnter?.(data, event)
                     onMouseMove?.(data, event)
-                    currentDay && onMouseLeave?.(data, event)
+                    if (currentDay) onMouseLeave?.(data, event)
                 } else {
                     hideTooltip()
-                    data && onMouseLeave?.(data, event)
+                    if (data) onMouseLeave?.(data, event)
                 }
             },
             [
@@ -270,7 +274,7 @@ const InnerCalendarCanvas = memo(
         }, [setCurrentDay, hideTooltip])
 
         const handleClick = useCallback(
-            event => {
+            (event: MouseEvent<HTMLCanvasElement>) => {
                 if (!onClick || !canvasEl.current) return
 
                 const data = findDayUnderCursor(
@@ -282,7 +286,7 @@ const InnerCalendarCanvas = memo(
                     margin
                 )
 
-                data && onClick(data, event)
+                if (data) onClick(data, event)
             },
             [canvasEl, daySpacing, margin, days, onClick]
         )

@@ -1,5 +1,5 @@
 import 'styled-components'
-import { Theme as NivoTheme } from '@nivo/core'
+import { PartialTheme as NivoTheme } from '@nivo/theming'
 
 declare module 'styled-components' {
     export interface DefaultTheme {
@@ -16,6 +16,7 @@ declare module 'styled-components' {
             accent: string
             accentLight: string
             accentDark: string
+            accentDarker: string
             cardBackground: string
             cardAltBackground: string
             inputBackground: string

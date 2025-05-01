@@ -24,6 +24,15 @@ declare module '*/bar/meta.yml' {
     export default meta
 }
 
+declare module '*/boxplot/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        BoxPlot: ChartMeta
+    }
+
+    export default meta
+}
+
 declare module '*/bullet/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
@@ -37,16 +46,6 @@ declare module '*/bump/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Bump: ChartMeta
-    }
-
-    export default meta
-}
-
-declare module '*/calendar/meta.yml' {
-    const meta: {
-        flavors: ChartMetaFlavors
-        Calendar: ChartMeta
-        CalendarCanvas: ChartMeta
     }
 
     export default meta
@@ -106,6 +105,7 @@ declare module '*/geomap/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         GeoMap: ChartMeta
+        GeoMapCanvas: ChartMeta
     }
 
     export default meta
@@ -174,6 +174,15 @@ declare module '*/pie/meta.yml' {
         flavors: ChartMetaFlavors
         Pie: ChartMeta
         PieCanvas: ChartMeta
+    }
+
+    export default meta
+}
+
+declare module '*/polar-bar/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        PolarBar: ChartMeta
     }
 
     export default meta
@@ -248,6 +257,16 @@ declare module '*/time-range/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         TimeRange: ChartMeta
+    }
+
+    export default meta
+}
+
+declare module '*/tree/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        Tree: ChartMeta
+        TreeCanvas: ChartMeta
     }
 
     export default meta

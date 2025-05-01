@@ -58,19 +58,19 @@ const Range = (colors: [string, string]) => (rect: BulletRectsItemProps) => {
     return <rect x={rect.x} y={rect.y} width={rect.width} height={rect.height} fill={color} />
 }
 
-const Measure = (color: string) => (rect: BulletRectsItemProps) =>
+const Measure = (color: string) => (rect: BulletRectsItemProps) => (
     <rect x={rect.x} y={rect.y} width={rect.width} height={rect.height} fill={color} />
+)
 
-const Marker = (color: string) => (marker: BulletMarkersItemProps) =>
-    (
-        <rect
-            fill={color}
-            x={marker.x - marker.size / 2}
-            y={marker.y - marker.size / 2}
-            width={marker.size}
-            height={marker.size}
-        />
-    )
+const Marker = (color: string) => (marker: BulletMarkersItemProps) => (
+    <rect
+        fill={color}
+        x={marker.x - marker.size / 2}
+        y={marker.y - marker.size / 2}
+        width={marker.size}
+        height={marker.size}
+    />
+)
 
 const BulletIconItem = ({ type }: { type: IconType }) => (
     <Icon id={`bullet-${type}`} type={type}>

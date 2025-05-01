@@ -1,6 +1,6 @@
-import { createElement, useMemo, useCallback, useState } from 'react'
+import { createElement, useMemo, useCallback, useState, MouseEvent } from 'react'
 import { line as d3Line, curveBasis, curveLinear } from 'd3-shape'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import {
@@ -14,6 +14,8 @@ import {
     BumpLabel,
     BumpLabelData,
     BumpSerieExtraProps,
+    BumpPointMouseHandler,
+    BumpSerieMouseHandler,
 } from './types'
 import { computeSeries } from './compute'
 
@@ -104,7 +106,7 @@ const usePointStyle = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtr
     activePointBorderWidth,
     inactivePointBorderWidth,
     isInteractive,
-    activeSerieIds,
+    activePointIds,
 }: {
     pointSize: BumpCommonProps<Datum, ExtraProps>['pointSize']
     activePointSize: BumpCommonProps<Datum, ExtraProps>['activePointSize']
@@ -113,7 +115,7 @@ const usePointStyle = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtr
     activePointBorderWidth: BumpCommonProps<Datum, ExtraProps>['activePointBorderWidth']
     inactivePointBorderWidth: BumpCommonProps<Datum, ExtraProps>['inactivePointBorderWidth']
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    activeSerieIds: string[]
+    activePointIds: string[]
 }) => {
     type Point = Omit<BumpPoint<Datum, ExtraProps>, 'size' | 'borderWidth'>
 
@@ -149,17 +151,17 @@ const usePointStyle = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtr
 
     return useCallback(
         (point: Point) => {
-            if (!isInteractive || activeSerieIds.length === 0) return getNormalStyle(point)
-            if (activeSerieIds.includes(point.serie.id)) return getActiveStyle(point)
+            if (!isInteractive || activePointIds.length === 0) return getNormalStyle(point)
+            if (activePointIds.includes(point.id)) return getActiveStyle(point)
             return getInactiveStyle(point)
         },
-        [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, activeSerieIds]
+        [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, activePointIds]
     )
 }
 
 export const useBump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = Record<string, never>
+    ExtraProps extends BumpSerieExtraProps = Record<string, never>,
 >({
     width,
     height,
@@ -212,6 +214,7 @@ export const useBump = <
     defaultActiveSerieIds: string[]
 }) => {
     const [activeSerieIds, setActiveSerieIds] = useState<string[]>(defaultActiveSerieIds)
+    const [activePointIds, setActivePointIds] = useState<string[]>(defaultActiveSerieIds)
 
     const {
         series: rawSeries,
@@ -265,13 +268,14 @@ export const useBump = <
         activePointBorderWidth,
         inactivePointBorderWidth,
         isInteractive,
-        activeSerieIds,
+        activePointIds,
     })
     const points: BumpPoint<Datum, ExtraProps>[] = useMemo(() => {
         const pts: BumpPoint<Datum, ExtraProps>[] = []
         series.forEach(serie => {
             serie.points.forEach(rawPoint => {
-                // @ts-ignore
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
                 const point: BumpPoint<Datum, ExtraProps> = {
                     ...rawPoint,
                     serie,
@@ -289,7 +293,7 @@ export const useBump = <
         })
 
         return pts
-    }, [series, getPointColor, getPointBorderColor, getPointStyle, activeSerieIds])
+    }, [series, activeSerieIds, getPointColor, getPointBorderColor, getPointStyle])
 
     return {
         xScale,
@@ -299,64 +303,93 @@ export const useBump = <
         lineGenerator,
         activeSerieIds,
         setActiveSerieIds,
+        activePointIds,
+        setActivePointIds,
     }
 }
 
 export const useBumpSerieHandlers = <
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 >({
     serie,
     isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     setActiveSerieIds,
-    tooltip,
+    lineTooltip: tooltip,
 }: {
     serie: BumpComputedSerie<Datum, ExtraProps>
     isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
-    onMouseEnter?: BumpCommonProps<Datum, ExtraProps>['onMouseEnter']
-    onMouseMove?: BumpCommonProps<Datum, ExtraProps>['onMouseMove']
-    onMouseLeave?: BumpCommonProps<Datum, ExtraProps>['onMouseLeave']
-    onClick?: BumpCommonProps<Datum, ExtraProps>['onClick']
+    onMouseEnter?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onClick?: BumpSerieMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpSerieMouseHandler<Datum, ExtraProps>
     setActiveSerieIds: (serieIds: string[]) => void
-    tooltip: BumpCommonProps<Datum, ExtraProps>['tooltip']
+    lineTooltip: BumpCommonProps<Datum, ExtraProps>['lineTooltip']
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             setActiveSerieIds([serie.id])
-            onMouseEnter && onMouseEnter(serie, event)
+            onMouseEnter?.(serie, event)
         },
         [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds, tooltip]
     )
 
     const handleMouseMove = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
-            onMouseMove && onMouseMove(serie, event)
+            onMouseMove?.(serie, event)
         },
         [serie, onMouseMove, showTooltipFromEvent, tooltip]
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             hideTooltip()
             setActiveSerieIds([])
-            onMouseLeave && onMouseLeave(serie, event)
+            onMouseLeave?.(serie, event)
         },
         [serie, onMouseLeave, hideTooltip, setActiveSerieIds]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseDown?.(serie, event)
+        },
+        [serie, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseUp?.(serie, event)
+        },
+        [serie, onMouseUp]
+    )
+
     const handleClick = useCallback(
-        event => {
-            onClick && onClick(serie, event)
+        (event: MouseEvent<SVGPathElement>) => {
+            onClick?.(serie, event)
         },
         [serie, onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onDoubleClick?.(serie, event)
+        },
+        [serie, onDoubleClick]
     )
 
     return useMemo(
@@ -364,15 +397,138 @@ export const useBumpSerieHandlers = <
             onMouseEnter: isInteractive ? handleMouseEnter : undefined,
             onMouseMove: isInteractive ? handleMouseMove : undefined,
             onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+            onMouseDown: isInteractive ? handleMouseDown : undefined,
+            onMouseUp: isInteractive ? handleMouseUp : undefined,
             onClick: isInteractive ? handleClick : undefined,
+            onDoubleClick: isInteractive ? handleDoubleClick : undefined,
         }),
-        [isInteractive, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
+        [
+            isInteractive,
+            handleMouseEnter,
+            handleMouseMove,
+            handleMouseLeave,
+            handleMouseDown,
+            handleMouseUp,
+            handleClick,
+            handleDoubleClick,
+        ]
+    )
+}
+
+export const useBumpPointHandlers = <
+    Datum extends BumpDatum,
+    ExtraProps extends BumpSerieExtraProps,
+>({
+    point,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onMouseDown,
+    onMouseUp,
+    onClick,
+    onDoubleClick,
+    setActivePointIds,
+    setActiveSerieIds,
+    pointTooltip: tooltip,
+}: {
+    point: BumpPoint<Datum, ExtraProps>
+    isInteractive: BumpCommonProps<Datum, ExtraProps>['isInteractive']
+    onMouseEnter?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseMove?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseLeave?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseDown?: BumpPointMouseHandler<Datum, ExtraProps>
+    onMouseUp?: BumpPointMouseHandler<Datum, ExtraProps>
+    onClick?: BumpPointMouseHandler<Datum, ExtraProps>
+    onDoubleClick?: BumpPointMouseHandler<Datum, ExtraProps>
+    setActivePointIds: (pointIds: string[]) => void
+    setActiveSerieIds: (pointIds: string[]) => void
+    pointTooltip: BumpCommonProps<Datum, ExtraProps>['pointTooltip']
+}) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            showTooltipFromEvent(createElement(tooltip, { point }), event)
+            setActivePointIds([point.id])
+            setActiveSerieIds([point.serie.id])
+            onMouseEnter?.(point, event)
+        },
+        [showTooltipFromEvent, tooltip, point, setActivePointIds, setActiveSerieIds, onMouseEnter]
+    )
+
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            showTooltipFromEvent(createElement(tooltip, { point }), event)
+            onMouseMove?.(point, event)
+        },
+        [showTooltipFromEvent, tooltip, point, onMouseMove]
+    )
+
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            hideTooltip()
+            setActivePointIds([])
+            setActiveSerieIds([])
+            onMouseLeave?.(point, event)
+        },
+        [hideTooltip, setActivePointIds, setActiveSerieIds, onMouseLeave, point]
+    )
+
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseDown?.(point, event)
+        },
+        [point, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onMouseUp?.(point, event)
+        },
+        [point, onMouseUp]
+    )
+
+    const handleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onClick?.(point, event)
+        },
+        [point, onClick]
+    )
+
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => {
+            onDoubleClick?.(point, event)
+        },
+        [point, onDoubleClick]
+    )
+
+    return useMemo(
+        () => ({
+            onMouseEnter: isInteractive ? handleMouseEnter : undefined,
+            onMouseMove: isInteractive ? handleMouseMove : undefined,
+            onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+            onMouseDown: isInteractive ? handleMouseDown : undefined,
+            onMouseUp: isInteractive ? handleMouseUp : undefined,
+            onClick: isInteractive ? handleClick : undefined,
+            onDoubleClick: isInteractive ? handleDoubleClick : undefined,
+        }),
+        [
+            isInteractive,
+            handleMouseEnter,
+            handleMouseMove,
+            handleMouseLeave,
+            handleMouseDown,
+            handleMouseUp,
+            handleClick,
+            handleDoubleClick,
+        ]
     )
 }
 
 export const useBumpSeriesLabels = <
     Datum extends BumpDatum,
-    ExtraProps extends BumpSerieExtraProps
+    ExtraProps extends BumpSerieExtraProps,
 >({
     series,
     position,
@@ -413,7 +569,7 @@ export const useBumpSeriesLabels = <
                     : serie.linePoints[serie.linePoints.length - 1]
 
             // exclude labels for series having missing data at the beginning/end
-            if (point[0] === null || point[1] === null) {
+            if (point?.[0] === null || point?.[1] === null) {
                 return
             }
 
@@ -422,7 +578,7 @@ export const useBumpSeriesLabels = <
                 label,
                 x: point[0] + signedPadding,
                 y: point[1],
-                color: getColor(serie),
+                color: getColor(serie) as string,
                 opacity: serie.opacity,
                 serie,
                 textAnchor,

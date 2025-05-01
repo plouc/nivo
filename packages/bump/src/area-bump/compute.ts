@@ -10,7 +10,7 @@ import {
 
 export const computeSeries = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     data,
     width,

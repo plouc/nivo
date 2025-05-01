@@ -1,11 +1,14 @@
 import React from 'react'
-import { ResponsiveMarimekko, defaultProps } from '@nivo/marimekko'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import { ResponsiveMarimekko, defaultProps, BarDatum } from '@nivo/marimekko'
 import { random, omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/marimekko/meta.yml'
-import mapper from '../../data/components/marimekko/mapper'
+import mapper, {
+    UnmappedMarimekkoProps,
+    MappedMarimekkoProps,
+} from '../../data/components/marimekko/mapper'
 import { groups } from '../../data/components/marimekko/props'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const getRandomValue = () => random(0, 32)
 
@@ -19,7 +22,7 @@ const generateData = () =>
         stronglyDisagree: getRandomValue(),
     }))
 
-const initialProperties = {
+const initialProperties: UnmappedMarimekkoProps = {
     id: 'statement',
     value: 'participation',
     dimensions: [
@@ -47,41 +50,41 @@ const initialProperties = {
 
     axisTop: {
         enable: false,
-        orient: 'top',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
-        orient: 'right',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: 'participation',
         legendOffset: 36,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: 'opinions',
         legendOffset: -40,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     enableGridX: defaultProps.enableGridX,
     enableGridY: defaultProps.enableGridY,
@@ -105,7 +108,6 @@ const initialProperties = {
 
     isInteractive: true,
     'custom tooltip example': false,
-    tooltip: null,
     'showcase pattern usage': true,
 
     defs: [],
@@ -141,7 +143,7 @@ const initialProperties = {
     ],
 }
 
-const Marimekko = () => {
+const Marimekko = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -157,7 +159,7 @@ const Marimekko = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<UnmappedMarimekkoProps, MappedMarimekkoProps, readonly any[]>
             name="Marimekko"
             meta={meta.Marimekko}
             icon="marimekko"
@@ -169,9 +171,10 @@ const Marimekko = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
-                const handleClick = bar => {
+                const handleClick = (bar: BarDatum<any>) => {
                     logAction({
                         type: 'click',
                         label: `[bar] ${bar.datum.id} - ${bar.id}: ${bar.value}`,
@@ -190,7 +193,7 @@ const Marimekko = () => {
                         {...properties}
                         theme={theme}
                         onClick={handleClick}
-                        legends={properties.legends.map(legend => ({
+                        legends={properties.legends!.map(legend => ({
                             ...legend,
                         }))}
                     />

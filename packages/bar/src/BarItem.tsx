@@ -1,7 +1,8 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { animated, to } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
+import { Text } from '@nivo/text'
 import { BarDatum, BarItemProps } from './types'
 
 export const BarItem = <RawDatum extends BarDatum>({
@@ -17,6 +18,7 @@ export const BarItem = <RawDatum extends BarDatum>({
         labelY,
         transform,
         width,
+        textAnchor,
     },
 
     borderRadius,
@@ -36,6 +38,8 @@ export const BarItem = <RawDatum extends BarDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    ariaDisabled,
+    ariaHidden,
 }: BarItemProps<RawDatum>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
@@ -93,28 +97,32 @@ export const BarItem = <RawDatum extends BarDatum>({
                 aria-label={ariaLabel ? ariaLabel(data) : undefined}
                 aria-labelledby={ariaLabelledBy ? ariaLabelledBy(data) : undefined}
                 aria-describedby={ariaDescribedBy ? ariaDescribedBy(data) : undefined}
+                aria-disabled={ariaDisabled ? ariaDisabled(data) : undefined}
+                aria-hidden={ariaHidden ? ariaHidden(data) : undefined}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
                 onMouseMove={isInteractive ? handleTooltip : undefined}
                 onMouseLeave={isInteractive ? handleMouseLeave : undefined}
                 onClick={isInteractive ? handleClick : undefined}
                 onFocus={isInteractive && isFocusable ? handleFocus : undefined}
                 onBlur={isInteractive && isFocusable ? handleBlur : undefined}
+                data-testid={`bar.item.${data.id}.${data.index}`}
             />
             {shouldRenderLabel && (
-                <animated.text
+                <Text
                     x={labelX}
                     y={labelY}
-                    textAnchor="middle"
+                    textAnchor={textAnchor}
                     dominantBaseline="central"
                     fillOpacity={labelOpacity}
                     style={{
                         ...theme.labels.text,
+                        // We don't want the label to intercept mouse events
                         pointerEvents: 'none',
                         fill: labelColor,
                     }}
                 >
                     {label}
-                </animated.text>
+                </Text>
             )}
         </animated.g>
     )

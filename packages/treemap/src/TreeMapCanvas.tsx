@@ -1,14 +1,15 @@
-import { createElement, useCallback, useEffect, useRef } from 'react'
+import { createElement, useCallback, useEffect, useRef, MouseEvent } from 'react'
 import {
     degreesToRadians,
     getRelativeCursor,
     isCursorInRect,
     Container,
     useDimensions,
-    useTheme,
     Margin,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { useTreeMap } from './hooks'
 import { ComputedNode, DefaultTreeMapDatum, TreeMapCanvasProps, TreeMapCommonProps } from './types'
 import { canvasDefaultProps } from './defaults'
@@ -120,7 +121,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
         if (enableLabel) {
             ctx.textAlign = 'center'
             ctx.textBaseline = 'middle'
-            ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+            setCanvasFont(ctx, theme.labels.text)
 
             nodes.forEach(node => {
                 const showLabel =
@@ -135,8 +136,14 @@ const InnerTreeMapCanvas = <Datum extends object>({
                 ctx.translate(node.x + node.width / 2, node.y + node.height / 2)
                 ctx.rotate(degreesToRadians(rotate ? -90 : 0))
 
-                ctx.fillStyle = node.labelTextColor
-                ctx.fillText(`${node.label}`, 0, 0)
+                drawCanvasText(
+                    ctx,
+                    {
+                        ...theme.labels.text,
+                        fill: node.labelTextColor,
+                    },
+                    String(node.label)
+                )
 
                 ctx.restore()
             })
@@ -160,7 +167,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -181,7 +188,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
     }, [hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)

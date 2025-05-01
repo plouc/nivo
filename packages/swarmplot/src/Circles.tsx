@@ -1,7 +1,8 @@
 import { createElement, useMemo, MouseEvent } from 'react'
 import * as React from 'react'
 import { useTransition, to, SpringValue } from '@react-spring/web'
-import { useMotionConfig, useTheme } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CircleComponent, MouseHandlers, SwarmPlotCommonProps } from './types'
@@ -62,7 +63,10 @@ export const Circles = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip,
 }: CirclesProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -94,6 +98,22 @@ export const Circles = <RawDatum,>({
         }
     }, [isInteractive, hideTooltip, onMouseLeave])
 
+    const handleMouseDown = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            onMouseDown?.(node, event)
+        }
+    }, [isInteractive, onMouseDown])
+
+    const handleMouseUp = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            onMouseUp?.(node, event)
+        }
+    }, [isInteractive, onMouseUp])
+
     const handleClick = useMemo(() => {
         if (!isInteractive) return undefined
 
@@ -101,6 +121,14 @@ export const Circles = <RawDatum,>({
             onClick?.(node, event)
         }
     }, [isInteractive, onClick])
+
+    const handleDoubleClick = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            onDoubleClick?.(node, event)
+        }
+    }, [isInteractive, onDoubleClick])
 
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -148,7 +176,10 @@ export const Circles = <RawDatum,>({
                     onMouseEnter: handleMouseEnter,
                     onMouseMove: handleMouseMove,
                     onMouseLeave: handleMouseLeave,
+                    onMouseDown: handleMouseDown,
+                    onMouseUp: handleMouseUp,
                     onClick: handleClick,
+                    onDoubleClick: handleDoubleClick,
                 })
             })}
         </>

@@ -1,50 +1,56 @@
 {
-  "name": "@nivo/network",
-  "version": "0.79.1",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/network"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "d3",
-    "charts",
-    "graph",
-    "directed-layout",
-    "network"
-  ],
-  "main": "./dist/nivo-network.cjs.js",
-  "module": "./dist/nivo-network.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/annotations": "0.79.1",
-    "@nivo/colors": "0.79.1",
-    "@nivo/tooltip": "0.79.0",
-    "@react-spring/web": "9.3.1",
-    "d3-force": "^2.0.1"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.79.0"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.79.0",
-    "react": ">= 16.14.0 < 18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/network",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/network"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "graph",
+        "directed-layout",
+        "network"
+    ],
+    "main": "./dist/nivo-network.cjs.js",
+    "module": "./dist/nivo-network.mjs",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-network.mjs",
+            "require": "./dist/nivo-network.cjs.js"
+        }
+    },
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/annotations": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@types/d3-force": "^2.1.0",
+        "d3-force": "^2.0.1"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

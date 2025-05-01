@@ -1,5 +1,0 @@
-globals:
-  module: true
-
-rules:
-  react/prop-types: 0

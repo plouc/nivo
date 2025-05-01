@@ -3,9 +3,11 @@ import { useSpring, animated, to } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { BumpDatum, BumpPoint, BumpSerieExtraProps } from './types'
 
-const pointStyle: SVGAttributes<SVGCircleElement>['style'] = { pointerEvents: 'none' }
+const pointStyle: SVGAttributes<SVGCircleElement>['style'] = {
+    pointerEvents: 'none',
+}
 
-interface PointProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
+export interface PointProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {
     point: BumpPoint<Datum, ExtraProps>
 }
 

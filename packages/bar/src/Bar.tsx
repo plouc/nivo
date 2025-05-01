@@ -1,20 +1,30 @@
 import { Axes, Grid } from '@nivo/axes'
-import { BarAnnotations } from './BarAnnotations'
-import { BarDatum, BarLayer, BarLayerId, BarSvgProps, ComputedBarDatumWithValue } from './types'
-import { BarLegends } from './BarLegends'
 import {
     CartesianMarkers,
     Container,
     SvgWrapper,
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useDimensions,
     useMotionConfig,
 } from '@nivo/core'
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'
+import { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { BarAnnotations } from './BarAnnotations'
+import { BarLegends } from './BarLegends'
 import { useBar } from './hooks'
+import { svgDefaultProps } from './props'
+import {
+    BarCustomLayerProps,
+    BarDatum,
+    BarItemProps,
+    BarLayer,
+    BarLayerId,
+    BarSvgProps,
+    ComputedBarDatumWithValue,
+} from './types'
+import { BarTotals } from './BarTotals'
+import { useComputeLabelLayout } from './compute/common'
 
 type InnerBarProps<RawDatum extends BarDatum> = Omit<
     BarSvgProps<RawDatum>,
@@ -51,14 +61,16 @@ const InnerBar = <RawDatum extends BarDatum>({
     gridXValues,
     gridYValues,
 
-    layers = svgDefaultProps.layers as BarLayer<RawDatum>[],
+    layers = svgDefaultProps.layers as readonly BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
 
-    enableLabel,
+    enableLabel = svgDefaultProps.enableLabel,
     label,
-    labelSkipWidth,
-    labelSkipHeight,
+    labelSkipWidth = svgDefaultProps.labelSkipWidth,
+    labelSkipHeight = svgDefaultProps.labelSkipHeight,
     labelTextColor,
+    labelPosition = svgDefaultProps.labelPosition,
+    labelOffset = svgDefaultProps.labelOffset,
 
     markers = svgDefaultProps.markers,
 
@@ -93,8 +105,13 @@ const InnerBar = <RawDatum extends BarDatum>({
     barAriaLabel,
     barAriaLabelledBy,
     barAriaDescribedBy,
+    barAriaHidden,
+    barAriaDisabled,
 
     initialHiddenIds,
+
+    enableTotals = svgDefaultProps.enableTotals,
+    totalsOffset = svgDefaultProps.totalsOffset,
 }: InnerBarProps<RawDatum>) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -115,6 +132,8 @@ const InnerBar = <RawDatum extends BarDatum>({
         shouldRenderBarLabel,
         toggleSerie,
         legendsWithData,
+        barTotals,
+        getColor,
     } = useBar<RawDatum>({
         indexBy,
         label,
@@ -144,7 +163,10 @@ const InnerBar = <RawDatum extends BarDatum>({
         legends,
         legendLabel,
         initialHiddenIds,
+        totalsOffset,
     })
+
+    const computeLabelLayout = useComputeLabelLayout(layout, reverse, labelPosition, labelOffset)
 
     const transition = useTransition<
         ComputedBarDatumWithValue<RawDatum>,
@@ -159,6 +181,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             opacity: number
             transform: string
             width: number
+            textAnchor: BarItemProps<RawDatum>['style']['textAnchor']
         }
     >(barsWithValue, {
         keys: bar => bar.key,
@@ -168,8 +191,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: 0,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 0,
-            labelX: bar.width / 2,
-            labelY: bar.height / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             transform: `translate(${bar.x}, ${bar.y + bar.height})`,
             width: bar.width,
             ...(layout === 'vertical'
@@ -186,8 +208,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: bar.height,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 1,
-            labelX: bar.width / 2,
-            labelY: bar.height / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             transform: `translate(${bar.x}, ${bar.y})`,
             width: bar.width,
         }),
@@ -197,8 +218,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: bar.height,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 1,
-            labelX: bar.width / 2,
-            labelY: bar.height / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             transform: `translate(${bar.x}, ${bar.y})`,
             width: bar.width,
         }),
@@ -208,15 +228,15 @@ const InnerBar = <RawDatum extends BarDatum>({
             height: 0,
             labelColor: getLabelColor(bar) as string,
             labelOpacity: 0,
-            labelX: bar.width / 2,
+            ...computeLabelLayout(bar.width, bar.height),
             labelY: 0,
             transform: `translate(${bar.x}, ${bar.y + bar.height})`,
             width: bar.width,
             ...(layout === 'vertical'
                 ? {}
                 : {
+                      ...computeLabelLayout(bar.width, bar.height),
                       labelX: 0,
-                      labelY: bar.height / 2,
                       height: bar.height,
                       transform: `translate(${bar.x}, ${bar.y})`,
                       width: 0,
@@ -224,6 +244,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         }),
         config: springConfig,
         immediate: !animate,
+        initial: animate ? undefined : null,
     })
 
     const commonProps = useMemo(
@@ -243,6 +264,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             ariaLabel: barAriaLabel,
             ariaLabelledBy: barAriaLabelledBy,
             ariaDescribedBy: barAriaDescribedBy,
+            ariaHidden: barAriaHidden,
+            ariaDisabled: barAriaDisabled,
         }),
         [
             borderRadius,
@@ -260,6 +283,8 @@ const InnerBar = <RawDatum extends BarDatum>({
             barAriaLabel,
             barAriaLabelledBy,
             barAriaDescribedBy,
+            barAriaHidden,
+            barAriaDisabled,
         ]
     )
 
@@ -275,6 +300,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         grid: null,
         legends: null,
         markers: null,
+        totals: null,
     }
 
     if (layers.includes('annotations')) {
@@ -287,8 +313,8 @@ const InnerBar = <RawDatum extends BarDatum>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={xScale as any}
-                yScale={yScale as any}
+                xScale={xScale}
+                yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop}
@@ -321,8 +347,8 @@ const InnerBar = <RawDatum extends BarDatum>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? (xScale as any) : null}
-                yScale={enableGridY ? (yScale as any) : null}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
@@ -354,20 +380,57 @@ const InnerBar = <RawDatum extends BarDatum>({
         )
     }
 
-    // We use `any` here until we can figure out the best way to type xScale/yScale
-    const layerContext: any = useMemo(
+    if (layers.includes('totals') && enableTotals) {
+        layerById.totals = (
+            <BarTotals
+                key="totals"
+                data={barTotals}
+                springConfig={springConfig}
+                animate={animate}
+                layout={layout}
+            />
+        )
+    }
+
+    const layerContext: BarCustomLayerProps<RawDatum> = useMemo(
         () => ({
             ...commonProps,
             margin,
-            innerWidth,
-            innerHeight,
             width,
             height,
+            innerWidth,
+            innerHeight,
             bars,
+            legendData: legendsWithData,
+            enableLabel,
             xScale,
             yScale,
+            tooltip,
+            getTooltipLabel,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            getColor,
         }),
-        [commonProps, margin, innerWidth, innerHeight, width, height, bars, xScale, yScale]
+        [
+            commonProps,
+            margin,
+            width,
+            height,
+            innerWidth,
+            innerHeight,
+            bars,
+            legendsWithData,
+            enableLabel,
+            xScale,
+            yScale,
+            tooltip,
+            getTooltipLabel,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            getColor,
+        ]
     )
 
     return (

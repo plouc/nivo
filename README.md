@@ -24,17 +24,17 @@ yarn add @nivo/core @nivo/bar
 
 ## Features
 
--   Highly Customizable
--   Motion/Transitions, powered by [react-spring](https://react-spring.io)
--   [Interactive Components Playground](http://nivo.rocks/)
--   [Exhaustive Documentation](http://nivo.rocks/)
--   [SVG Charts](http://nivo.rocks/components/?filter=svg)
--   [HTML Charts](http://nivo.rocks/components/?filter=html)
--   [Canvas Charts](http://nivo.rocks/components/?filter=canvas)
--   Server Side Rendering and HTTP API
--   [Patterns](http://nivo.rocks/guides/patterns/) & [Gradients](http://nivo.rocks/guides/gradients/)
--   [Theming](http://nivo.rocks/guides/theming/)
--   Responsive Charts
+- Highly Customizable
+- Motion/Transitions, powered by [react-spring](https://react-spring.io)
+- [Interactive Components Playground](http://nivo.rocks/)
+- [Exhaustive Documentation](http://nivo.rocks/)
+- [SVG Charts](http://nivo.rocks/components/?filter=svg)
+- [HTML Charts](http://nivo.rocks/components/?filter=html)
+- [Canvas Charts](http://nivo.rocks/components/?filter=canvas)
+- Server Side Rendering and HTTP API
+- [Patterns](http://nivo.rocks/guides/patterns/) & [Gradients](http://nivo.rocks/guides/gradients/)
+- [Theming](http://nivo.rocks/guides/theming/)
+- Responsive Charts
 
 ## Discussion
 
@@ -47,12 +47,12 @@ please use the [Components Explorer](http://nivo.rocks/components/).
 
 ## Guides
 
--   [Axes](http://nivo.rocks/guides/axes/)
--   [Colors](http://nivo.rocks/guides/colors/)
--   [Legends](http://nivo.rocks/guides/legends/)
--   [Gradients](http://nivo.rocks/guides/gradients/)
--   [Patterns](http://nivo.rocks/guides/patterns/)
--   [Theming](http://nivo.rocks/guides/theming/)
+- [Axes](http://nivo.rocks/guides/axes/)
+- [Colors](http://nivo.rocks/guides/colors/)
+- [Legends](http://nivo.rocks/guides/legends/)
+- [Gradients](http://nivo.rocks/guides/gradients/)
+- [Patterns](http://nivo.rocks/guides/patterns/)
+- [Theming](http://nivo.rocks/guides/theming/)
 
 ## Backers
 
@@ -69,7 +69,7 @@ your logo will show up here with a link to your website. [[Become a sponsor](htt
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
 [npm-image]: https://img.shields.io/npm/v/@nivo/core.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/~nivo
-[actions-image]: https://img.shields.io/github/workflow/status/plouc/nivo/CI.svg?style=flat-square
+[actions-image]: https://img.shields.io/github/actions/workflow/status/plouc/nivo/ci.yml?branch=master&style=flat-square
 [actions-url]: https://github.com/plouc/nivo/actions
 [prettier-image]: https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square
 [prettier-url]: https://github.com/prettier/prettier

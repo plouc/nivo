@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
-import { get, isPlainObject } from 'lodash'
+import get from 'lodash/get.js'
+import isPlainObject from 'lodash/isPlainObject.js'
 import { rgb, RGBColor } from 'd3-color'
-import { Theme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 
 export type ColorModifierBrightness = ['brighter', number]
 
@@ -32,13 +33,13 @@ export type InheritedColorConfig<Datum> =
     | InheritedColorConfigFromTheme
     | InheritedColorConfigFromContext
 
-const isInheritedColorConfigFromTheme = <Datum>(
+export const isInheritedColorConfigFromTheme = <Datum>(
     config: InheritedColorConfig<Datum>
 ): config is InheritedColorConfigFromTheme => {
     return (config as InheritedColorConfigFromTheme).theme !== undefined
 }
 
-const isInheritedColorConfigFromContext = <Datum>(
+export const isInheritedColorConfigFromContext = <Datum>(
     config: InheritedColorConfig<Datum>
 ): config is InheritedColorConfigFromContext => {
     return (config as InheritedColorConfigFromContext).from !== undefined

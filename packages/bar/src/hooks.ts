@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
-import { usePropertyAccessor, useTheme, useValueFormatter, Margin } from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter, Margin } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import {
     DataProps,
     BarCommonProps,
@@ -11,6 +12,7 @@ import {
 } from './types'
 import { defaultProps } from './props'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
+import { computeBarTotals } from './compute/totals'
 
 export const useBar = <RawDatum extends BarDatum>({
     indexBy = defaultProps.indexBy,
@@ -41,6 +43,7 @@ export const useBar = <RawDatum extends BarDatum>({
     labelSkipHeight = defaultProps.labelSkipHeight,
     legends = defaultProps.legends,
     legendLabel,
+    totalsOffset = defaultProps.totalsOffset,
 }: {
     indexBy?: BarCommonProps<RawDatum>['indexBy']
     label?: BarCommonProps<RawDatum>['label']
@@ -70,9 +73,10 @@ export const useBar = <RawDatum extends BarDatum>({
     labelSkipHeight?: BarCommonProps<RawDatum>['labelSkipHeight']
     legends?: BarCommonProps<RawDatum>['legends']
     legendLabel?: BarCommonProps<RawDatum>['legendLabel']
+    totalsOffset?: BarCommonProps<RawDatum>['totalsOffset']
 }) => {
     const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
-    const toggleSerie = useCallback(id => {
+    const toggleSerie = useCallback((id: string | number) => {
         setHiddenIds(state =>
             state.indexOf(id) > -1 ? state.filter(item => item !== id) : [...state, id]
         )
@@ -167,6 +171,11 @@ export const useBar = <RawDatum extends BarDatum>({
         [legends, legendData, bars, groupMode, layout, legendLabel, reverse]
     )
 
+    const barTotals = useMemo(
+        () => computeBarTotals(bars, xScale, yScale, layout, groupMode, totalsOffset, formatValue),
+        [bars, xScale, yScale, layout, groupMode, totalsOffset, formatValue]
+    )
+
     return {
         bars,
         barsWithValue,
@@ -183,5 +192,6 @@ export const useBar = <RawDatum extends BarDatum>({
         hiddenIds,
         toggleSerie,
         legendsWithData,
+        barTotals,
     }
 }

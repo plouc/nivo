@@ -345,7 +345,7 @@ const props: ChartProperty[] = [
         required: false,
         group: 'Interactivity',
     },
-    ...motionProperties(['svg', 'html'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg', 'html'], defaultProps),
 ]
 
 export const groups = groupProperties(props)

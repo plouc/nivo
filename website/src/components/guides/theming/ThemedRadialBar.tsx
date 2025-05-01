@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
-import { CompleteTheme } from '@nivo/core'
+import { Theme } from '@nivo/theming'
 import { ResponsiveRadialBar } from '@nivo/radial-bar'
 
-export const ThemedRadialBar = ({ theme }: { theme: CompleteTheme }) => {
+export const ThemedRadialBar = ({ theme }: { theme: Theme }) => {
     const data = useMemo(
         () => [
             {

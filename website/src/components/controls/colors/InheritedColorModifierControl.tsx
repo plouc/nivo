@@ -1,15 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TextInput, Select } from '../ui'
+import { ColorModifier } from '@nivo/colors'
 
-const modifierTypes = ['brighter', 'darker', 'opacity'].map(prop => ({
+const MODIFIERS = ['brighter', 'darker', 'opacity'] as const
+export type Modifier = (typeof MODIFIERS)[number]
+
+const modifierTypes = MODIFIERS.map(prop => ({
     label: prop,
     value: prop,
 }))
+export type ModifierOption = (typeof modifierTypes)[number]
 
 interface InheritedColorModifierControlProps {
-    modifier: any[]
-    onChange: (modifier: any[]) => void
+    modifier: ColorModifier
+    onChange: (modifier: ColorModifier) => void
 }
 
 export const InheritedColorModifierControl = ({
@@ -18,15 +23,15 @@ export const InheritedColorModifierControl = ({
 }: InheritedColorModifierControlProps) => {
     return (
         <Container>
-            <Select
+            <Select<ModifierOption>
                 options={modifierTypes}
                 value={modifierTypes.find(prop => prop.value === modifier[0])}
-                onChange={(value: any) => onChange([value.value, modifier[1]])}
+                onChange={value => onChange([value!.value, modifier[1]])}
             />
             <TextInput
                 value={modifier[1]}
                 isNumber={true}
-                onChange={event => onChange([modifier[0], event.target.value])}
+                onChange={event => onChange([modifier[0], Number(event.target.value)])}
             />
             <input
                 type="range"
@@ -34,7 +39,7 @@ export const InheritedColorModifierControl = ({
                 min={0}
                 max={3}
                 step={0.1}
-                onChange={event => onChange([modifier[0], event.target.value])}
+                onChange={event => onChange([modifier[0], Number(event.target.value)])}
             />
         </Container>
     )

@@ -1,4 +1,4 @@
-import { pick } from 'lodash'
+import pick from 'lodash/pick.js'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ChartProps, chartsMapping, ChartType } from './mappings'
@@ -29,7 +29,7 @@ export const renderChart = <T extends ChartType>(
         ...pick(override, chart.runtimeProps || []),
     }
     const rendered = renderToStaticMarkup(
-        // @ts-ignore
+        // @ts-expect-error need to properly type mergedProps
         createElement(component, mergedProps)
     )
 

@@ -1,6 +1,12 @@
-import * as React from 'react'
-import { Theme, Box } from '@nivo/core'
+import { MouseEvent, TouchEvent, FunctionComponent } from 'react'
+import { Box } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { Delaunay, Voronoi } from 'd3-delaunay'
+
+export type NodeMouseHandler<Node> = (node: Node, Node: MouseEvent) => void
+export type NodeTouchHandler<Node> = (node: Node, event: TouchEvent) => void
+
+export type NodePositionAccessor<Node> = (node: Node) => [number, number]
 
 export type VoronoiDatum = {
     id: string | number
@@ -22,7 +28,7 @@ export interface VoronoiCustomLayerProps {
     voronoi: Voronoi<Delaunay.Point>
 }
 
-export type VoronoiCustomLayer = React.FC<VoronoiCustomLayerProps>
+export type VoronoiCustomLayer = FunctionComponent<VoronoiCustomLayerProps>
 
 export type VoronoiLayer = VoronoiLayerId | VoronoiCustomLayer
 
@@ -34,7 +40,7 @@ export type VoronoiCommonProps = {
     xDomain: VoronoiDomain
     yDomain: VoronoiDomain
     layers: VoronoiLayer[]
-    theme?: Theme
+    theme?: PartialTheme
     enableLinks: boolean
     linkLineWidth: number
     linkLineColor: string

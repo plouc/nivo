@@ -12,14 +12,14 @@ import { computeArcLink } from './compute'
  */
 export const useArcLinks = <
     Datum extends DatumWithArc,
-    ExtraProps extends Record<string, any> = Record<string, any>
+    ExtraProps extends Record<string, any> = Record<string, any>,
 >({
     data,
     skipAngle = 0,
     offset = 0.5,
     diagonalLength,
     straightLength,
-    computeExtraProps = () => ({} as ExtraProps),
+    computeExtraProps = () => ({}) as ExtraProps,
 }: {
     data: Datum[]
     // arcs with a length below this (end angle - start angle in degrees)

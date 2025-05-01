@@ -10,7 +10,7 @@ export const defaultProps = {
     padAngle: 0,
     cornerRadius: 0,
 
-    layers: ['arcLinkLabels', 'arcs', 'arcLabels', 'legends'],
+    layers: ['arcs', 'arcLinkLabels', 'arcLabels', 'legends'],
 
     // layout
     startAngle: 0,
@@ -30,6 +30,7 @@ export const defaultProps = {
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsSkipAngle: 0,
+    arcLabelsSkipRadius: 0,
     arcLabelsRadiusOffset: 0.5,
     arcLabelsTextColor: { theme: 'labels.text.fill' },
 
@@ -61,5 +62,5 @@ export const defaultProps = {
 
     role: 'img',
 
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 }

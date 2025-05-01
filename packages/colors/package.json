@@ -1,44 +1,47 @@
 {
-  "name": "@nivo/colors",
-  "version": "0.79.1",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/colors"
-  },
-  "main": "./dist/nivo-colors.cjs.js",
-  "module": "./dist/nivo-colors.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "d3-color": "^2.0.0",
-    "d3-scale": "^3.2.3",
-    "d3-scale-chromatic": "^2.0.0",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.79.0",
-    "@types/d3-color": "^2.0.0",
-    "@types/d3-scale-chromatic": "^2.0.0",
-    "@types/lodash": "^4.14.170",
-    "@types/react-motion": "^0.0.29"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.79.0",
-    "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.14.0 < 18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/colors",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/colors"
+    },
+    "main": "./dist/nivo-colors.cjs.js",
+    "module": "./dist/nivo-colors.mjs",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-colors.mjs",
+            "require": "./dist/nivo-colors.cjs.js"
+        }
+    },
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
+        "@types/d3-color": "^3.0.0",
+        "@types/d3-scale": "^4.0.8",
+        "@types/d3-scale-chromatic": "^3.0.0",
+        "d3-color": "^3.1.0",
+        "d3-scale": "^4.0.2",
+        "d3-scale-chromatic": "^3.0.0",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

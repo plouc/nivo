@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useState } from 'react'
-import { useTheme, usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useInheritedColor, getContinuousColorScale } from '@nivo/colors'
 import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 import {
@@ -210,7 +211,7 @@ const useCellsStyle = <Datum extends HeatMapDatum = DefaultHeatMapDatum>({
 
 export const useHeatMap = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 >({
     data,
     valueFormat,

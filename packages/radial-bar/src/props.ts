@@ -31,6 +31,7 @@ export const commonDefaultProps = {
     enableLabels: false,
     label: 'formattedValue',
     labelsSkipAngle: 10,
+    labelsSkipRadius: 0,
     labelsRadiusOffset: 0.5,
     labelsTextColor: { theme: 'labels.text.fill' },
 
@@ -38,6 +39,9 @@ export const commonDefaultProps = {
     tooltip: RadialBarTooltip,
 
     legends: [],
+
+    defs: [],
+    fill: [],
 
     animate: true,
     motionConfig: 'gentle' as const,

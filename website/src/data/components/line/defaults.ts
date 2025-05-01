@@ -1,16 +1,14 @@
-import { LineDefaultProps } from '@nivo/line'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/line'
 
 export default {
     width: 600,
     height: 400,
-
     margin: {
         top: 50,
         right: 110,
         bottom: 50,
         left: 60,
     },
-
     xScale: {
         type: 'point',
     },
@@ -23,9 +21,7 @@ export default {
         reverse: false,
     },
     yFormat: { format: ' >-.2f', enabled: true },
-
-    curve: LineDefaultProps.curve,
-
+    curve: commonDefaultProps.curve,
     axisTop: {
         enable: false,
         orient: 'top',
@@ -34,6 +30,7 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: false,
@@ -43,52 +40,48 @@ export default {
         tickRotation: 0,
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: 'transportation',
         legendOffset: 36,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: 'count',
         legendOffset: -40,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
-
-    enableGridX: LineDefaultProps.enableGridX,
-    enableGridY: LineDefaultProps.enableGridY,
-
-    colors: LineDefaultProps.colors,
+    enableGridX: commonDefaultProps.enableGridX,
+    enableGridY: commonDefaultProps.enableGridY,
+    colors: commonDefaultProps.colors,
     lineWidth: 2,
-
     enablePoints: true,
     pointSize: 10,
     pointColor: { theme: 'background' },
     pointBorderWidth: 2,
-    pointBorderColor: { from: 'serieColor' },
-    enablePointLabel: LineDefaultProps.enablePointLabel,
-    pointLabel: LineDefaultProps.pointLabel,
+    pointBorderColor: { from: 'seriesColor' },
+    enablePointLabel: svgDefaultProps.enablePointLabel,
+    pointLabel: svgDefaultProps.pointLabel,
     pointLabelYOffset: -12,
-
-    enableArea: LineDefaultProps.enableArea,
-    areaBlendMode: LineDefaultProps.areaBlendMode,
-    areaBaselineValue: LineDefaultProps.areaBaselineValue,
-    areaOpacity: LineDefaultProps.areaOpacity,
-
-    isInteractive: LineDefaultProps.isInteractive,
+    enableArea: commonDefaultProps.enableArea,
+    areaBlendMode: svgDefaultProps.areaBlendMode,
+    areaBaselineValue: commonDefaultProps.areaBaselineValue,
+    areaOpacity: commonDefaultProps.areaOpacity,
+    isInteractive: commonDefaultProps.isInteractive,
     enableSlices: false,
     debugSlices: false,
-
     enableCrosshair: true,
+    enableTouchCrosshair: true,
     crosshairType: 'bottom-left',
 }

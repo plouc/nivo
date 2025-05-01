@@ -1,20 +1,20 @@
 import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react'
 import {
     useDimensions,
-    useTheme,
-    // @ts-ignore
     midAngle,
-    // @ts-ignore
+    // @ts-expect-error no types
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,
     Margin,
     Container,
 } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { findArcUnderCursor } from '@nivo/arcs'
 import { useInheritedColor } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
+import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { useChord, useChordSelection, useCustomLayerProps } from './hooks'
 import { ArcDatum, ChordCanvasProps } from './types'
 import { canvasDefaultProps } from './defaults'
@@ -198,9 +198,7 @@ const InnerChordCanvas = ({
                 ctx.save()
                 ctx.translate(margin.left + center[0], margin.top + center[1])
 
-                ctx.font = `${theme.labels.text.fontSize}px ${
-                    theme.labels.text.fontFamily || 'sans-serif'
-                }`
+                setCanvasFont(ctx, theme.labels.text)
 
                 arcs.forEach(arc => {
                     const angle = midAngle(arc)
@@ -212,8 +210,14 @@ const InnerChordCanvas = ({
 
                     ctx.textAlign = props.align
                     ctx.textBaseline = props.baseline
-                    ctx.fillStyle = getLabelTextColor(arc)
-                    ctx.fillText(arc.label, 0, 0)
+                    drawCanvasText(
+                        ctx,
+                        {
+                            ...theme.labels.text,
+                            fill: getLabelTextColor(arc),
+                        },
+                        arc.label
+                    )
 
                     ctx.restore()
                 })
@@ -281,7 +285,7 @@ const InnerChordCanvas = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null) return
 
             const arc = getArcFromMouseEvent({
@@ -297,16 +301,13 @@ const InnerChordCanvas = ({
             if (arc) {
                 setCurrentArc(arc)
                 showTooltipFromEvent(createElement(arcTooltip, { arc }), event)
-                !currentArc && onArcMouseEnter && onArcMouseEnter(arc, event)
-                onArcMouseMove && onArcMouseMove(arc, event)
-                currentArc &&
-                    currentArc.id !== arc.id &&
-                    onArcMouseLeave &&
-                    onArcMouseLeave(arc, event)
+                if (!currentArc) onArcMouseEnter?.(arc, event)
+                onArcMouseMove?.(arc, event)
+                if (currentArc && currentArc.id !== arc.id) onArcMouseLeave?.(arc, event)
             } else {
                 setCurrentArc(null)
                 hideTooltip()
-                currentArc && onArcMouseLeave && onArcMouseLeave(currentArc, event)
+                if (currentArc) onArcMouseLeave?.(currentArc, event)
             }
         },
         [
@@ -333,7 +334,7 @@ const InnerChordCanvas = ({
     }, [setCurrentArc, hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null || !onArcClick) return
 
             const arc = getArcFromMouseEvent({
@@ -346,7 +347,7 @@ const InnerChordCanvas = ({
                 arcs,
             })
 
-            arc && onArcClick(arc, event)
+            if (arc) onArcClick(arc, event)
         },
         [canvasEl, center, margin, radius, innerRadius, arcs, onArcClick]
     )

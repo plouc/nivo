@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import partial from 'lodash/partial'
+import partial from 'lodash/partial.js'
 import { isMatchingDef, bindDefs } from '../../src/lib/defs'
 
 describe('isMatchingDef()', () => {

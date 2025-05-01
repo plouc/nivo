@@ -1,5 +1,6 @@
-import uniq from 'lodash/uniq'
-import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
+import uniq from 'lodash/uniq.js'
+import { defaultAnimate } from '@nivo/core'
+import { TooltipPosition, TooltipAnchor } from '@nivo/tooltip'
 import { Flavor, ChartProperty } from '../types'
 
 export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
@@ -44,12 +45,8 @@ export const defsProperties = (group: string, flavors: Flavor[]): ChartProperty[
     },
 ]
 
-export const motionProperties = (
-    flavors: Flavor[],
-    defaults: any,
-    type: 'react-spring' | 'react-motion' = 'react-motion'
-): ChartProperty[] => {
-    const props: ChartProperty[] = [
+export const motionProperties = (flavors: Flavor[], defaults: any): ChartProperty[] => {
+    return [
         {
             key: 'animate',
             flavors,
@@ -60,46 +57,7 @@ export const motionProperties = (
             control: { type: 'switch' },
             group: 'Motion',
         },
-    ]
-
-    if (type === 'react-motion') {
-        props.push({
-            key: 'motionStiffness',
-            flavors,
-            help: 'Motion stiffness.',
-            type: 'number',
-            required: false,
-            defaultValue:
-                defaults.motionStiffness !== undefined
-                    ? defaults.motionStiffness
-                    : defaultMotionStiffness,
-            group: 'Motion',
-            control: {
-                type: 'range',
-                min: 0,
-                max: 300,
-                step: 5,
-            },
-        })
-        props.push({
-            key: 'motionDamping',
-            flavors,
-            help: 'Motion damping.',
-            type: 'number',
-            required: false,
-            defaultValue:
-                defaults.motionDamping !== undefined
-                    ? defaults.motionDamping
-                    : defaultMotionDamping,
-            group: 'Motion',
-            control: {
-                type: 'range',
-                min: 0,
-                max: 40,
-            },
-        })
-    } else if (type === 'react-spring') {
-        props.push({
+        {
             key: 'motionConfig',
             flavors,
             help: 'Motion config for react-spring, either a preset or a custom configuration.',
@@ -108,10 +66,8 @@ export const motionProperties = (
             defaultValue: defaults.motionConfig,
             control: { type: 'motionConfig' },
             group: 'Motion',
-        })
-    }
-
-    return props
+        },
+    ]
 }
 
 export const getLegendsProps = (flavors: Flavor[]): Omit<ChartProperty, 'group'>[] => [
@@ -281,15 +237,224 @@ export const groupProperties = (
     return grouped
 }
 
+export const tooltipPositionProperty = ({
+    group = 'Interactivity',
+    key = 'tooltipPosition',
+    help = `Define the tooltip positioning behavior.`,
+    flavors,
+    defaultValue,
+}: {
+    group?: string
+    key?: string
+    help?: string
+    flavors: Flavor[]
+    defaultValue?: TooltipPosition
+}): ChartProperty => {
+    return {
+        key,
+        group,
+        help,
+        description: `
+            For the \`cursor\` mode, the tooltip is going to follow the cursor position,
+            while for the \`fixed\` mode, the tooltip stays at the element's position. 
+        `,
+        type: `'cursor' | 'fixed'`,
+        required: false,
+        flavors,
+        defaultValue,
+        control: {
+            type: 'radio',
+            choices: [
+                {
+                    label: 'cursor',
+                    value: 'cursor',
+                },
+                {
+                    label: 'fixed',
+                    value: 'fixed',
+                },
+            ],
+        },
+    }
+}
+
+export const tooltipAnchorProperty = ({
+    group = 'Interactivity',
+    key = 'tooltipAnchor',
+    help = `Define the tooltip anchor.`,
+    flavors,
+    defaultValue,
+}: {
+    group?: string
+    key?: string
+    help?: string
+    flavors: Flavor[]
+    defaultValue?: TooltipAnchor
+}): ChartProperty => {
+    return {
+        key,
+        group,
+        help,
+        type: `'top' | 'right' | 'bottom' | 'left'`,
+        required: false,
+        flavors,
+        defaultValue,
+        control: {
+            type: 'choices',
+            choices: [
+                {
+                    label: 'top',
+                    value: 'top',
+                },
+                {
+                    label: 'right',
+                    value: 'right',
+                },
+                {
+                    label: 'bottom',
+                    value: 'bottom',
+                },
+                {
+                    label: 'left',
+                    value: 'left',
+                },
+            ],
+        },
+    }
+}
+
+type PolarAxisProperty =
+    | 'angle'
+    | 'ticksPosition'
+    | 'tickSize'
+    | 'tickPadding'
+    | 'tickRotation'
+    | 'tickComponent'
+    | 'style'
+
 export const polarAxisProperty = ({
     key,
     flavors,
     tickComponent,
+    exclude = [],
 }: {
     key: string
     flavors: Flavor[]
     tickComponent: string
+    exclude?: PolarAxisProperty[]
 }): ChartProperty => {
+    const props = [
+        {
+            key: 'enable',
+            type: 'boolean',
+            required: false,
+            help: `enable ${key} axis, it's not an actual prop (demo only).`,
+            flavors,
+            excludeFromDoc: true,
+            control: { type: 'switch' },
+        },
+        {
+            key: 'angle',
+            type: 'number',
+            required: true,
+            help: `${key} angle.`,
+            flavors,
+            control: {
+                type: 'angle',
+                start: 0,
+                min: 0,
+                max: 360,
+            },
+        },
+        {
+            key: 'ticksPosition',
+            type: `'before' | 'after'`,
+            required: true,
+            help: `${key} ticks position, considering the current angle.`,
+            flavors,
+            control: {
+                type: 'radio',
+                choices: [
+                    {
+                        label: 'before',
+                        value: 'before',
+                    },
+                    {
+                        label: 'after',
+                        value: 'after',
+                    },
+                ],
+            },
+        },
+        {
+            key: 'tickSize',
+            type: 'number',
+            required: false,
+            help: `${key} axis tick size.`,
+            flavors,
+            control: {
+                type: 'range',
+                unit: 'px',
+                min: 0,
+                max: 20,
+            },
+        },
+        {
+            key: 'tickPadding',
+            type: 'number',
+            required: false,
+            help: `${key} axis tick padding.`,
+            flavors,
+            control: {
+                type: 'range',
+                unit: 'px',
+                min: 0,
+                max: 20,
+            },
+        },
+        {
+            key: 'tickRotation',
+            type: 'number',
+            required: false,
+            help: `${key} axis tick rotation.`,
+            flavors,
+            control: {
+                type: 'angle',
+                start: 90,
+                min: -90,
+                max: 90,
+            },
+        },
+        {
+            key: 'tickComponent',
+            type: tickComponent,
+            required: false,
+            help: 'Override default tick component.',
+            flavors,
+        },
+        {
+            key: 'style',
+            type: `PartialTheme['axis']`,
+            required: false,
+            flavors,
+            help: `${key} axis style overrides.`,
+            description: `
+                The theme contains a single style for all axes,
+                you can use this to override the style of a specific axis.
+                
+                Please note that the overrides are applied to the complete
+                theme object computed internally:
+                
+                \`(theme prop <- default theme & inheritance) -> axis <- axis style\`
+                
+                You should try to define the style statically, or to memoize it
+                in case it's dynamic.
+            `,
+        },
+    ]
+
+    const filteredProps = props.filter(prop => !exclude.includes(prop.key as PolarAxisProperty))
+
     return {
         key,
         group: 'Grid & Axes',
@@ -299,63 +464,7 @@ export const polarAxisProperty = ({
         flavors,
         control: {
             type: 'object',
-            props: [
-                {
-                    key: 'enable',
-                    type: 'boolean',
-                    required: false,
-                    help: `enable ${key} axis, it's not an actual prop (demo only).`,
-                    flavors,
-                    excludeFromDoc: true,
-                    control: { type: 'switch' },
-                },
-                {
-                    key: 'tickSize',
-                    type: 'number',
-                    required: false,
-                    help: `${key} axis tick size.`,
-                    flavors,
-                    control: {
-                        type: 'range',
-                        unit: 'px',
-                        min: 0,
-                        max: 20,
-                    },
-                },
-                {
-                    key: 'tickPadding',
-                    type: 'number',
-                    required: false,
-                    help: `${key} axis tick padding.`,
-                    flavors,
-                    control: {
-                        type: 'range',
-                        unit: 'px',
-                        min: 0,
-                        max: 20,
-                    },
-                },
-                {
-                    key: 'tickRotation',
-                    type: 'number',
-                    required: false,
-                    help: `${key} axis tick rotation.`,
-                    flavors,
-                    control: {
-                        type: 'angle',
-                        start: 90,
-                        min: -90,
-                        max: 90,
-                    },
-                },
-                {
-                    key: 'tickComponent',
-                    type: tickComponent,
-                    required: false,
-                    help: 'Override default tick component.',
-                    flavors,
-                },
-            ],
+            props: filteredProps,
         },
     }
 }

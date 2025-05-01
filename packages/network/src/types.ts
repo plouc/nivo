@@ -1,6 +1,7 @@
 import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { AnimatedProps } from '@react-spring/web'
-import { Box, Theme, Dimensions, ModernMotionProps, CssMixBlendMode } from '@nivo/core'
+import { Box, Dimensions, MotionProps, CssMixBlendMode } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig } from '@nivo/colors'
 import { AnnotationMatcher } from '@nivo/annotations'
 
@@ -144,7 +145,7 @@ export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> =
     distanceMax: number
     iterations: number
 
-    theme: Theme
+    theme: PartialTheme
 
     nodeSize: DerivedProp<Node, number>
     activeNodeSize: DerivedProp<Node, number>
@@ -171,7 +172,7 @@ export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> =
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-} & Required<ModernMotionProps>
+} & Required<MotionProps>
 
 export type NetworkSvgProps<Node extends InputNode, Link extends InputLink> = Partial<
     NetworkCommonProps<Node, Link>

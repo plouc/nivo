@@ -1,7 +1,6 @@
-import { createElement, memo } from 'react'
-import PropTypes from 'prop-types'
+import { createElement, memo, useCallback } from 'react'
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme } from '../../theming'
+import { useTheme, sanitizeSvgTextStyle } from '@nivo/theming'
 import { useMotionConfig } from '../../motion'
 import DotsItemSymbol from './DotsItemSymbol'
 
@@ -17,6 +16,16 @@ const DotsItem = ({
     label,
     labelTextAnchor = 'middle',
     labelYOffset = -12,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
+    isFocusable = false,
+    tabIndex = 0,
+    onFocus,
+    onBlur,
+    testId,
 }) => {
     const theme = useTheme()
 
@@ -27,8 +36,35 @@ const DotsItem = ({
         immediate: !animate,
     })
 
+    const handleFocus = useCallback(
+        event => {
+            onFocus?.(datum, event)
+        },
+        [onFocus, datum]
+    )
+
+    const handleBlur = useCallback(
+        event => {
+            onBlur?.(datum, event)
+        },
+        [onBlur, datum]
+    )
+
     return (
-        <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
+        <animated.g
+            transform={animatedProps.transform}
+            style={{ pointerEvents: 'none' }}
+            focusable={isFocusable}
+            tabIndex={isFocusable ? tabIndex : undefined}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
+            aria-disabled={ariaDisabled}
+            aria-hidden={ariaHidden}
+            onFocus={isFocusable && onFocus ? handleFocus : undefined}
+            onBlur={isFocusable && onBlur ? handleBlur : undefined}
+            data-testid={testId}
+        >
             {createElement(symbol, {
                 size,
                 color,
@@ -37,29 +73,16 @@ const DotsItem = ({
                 borderColor,
             })}
             {label && (
-                <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
+                <text
+                    textAnchor={labelTextAnchor}
+                    y={labelYOffset}
+                    style={sanitizeSvgTextStyle(theme.dots.text)}
+                >
                     {label}
                 </text>
             )}
         </animated.g>
     )
-}
-
-DotsItem.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    datum: PropTypes.object.isRequired,
-
-    size: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-
-    symbol: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
-    labelYOffset: PropTypes.number,
 }
 
 export default memo(DotsItem)

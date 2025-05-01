@@ -1,14 +1,25 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { memo } from 'react'
-import PropTypes from 'prop-types'
 
+/**
+ * GeoMapFeature.propTypes = {
+ *     feature: PropTypes.shape({
+ *         id: PropTypes.string.isRequired,
+ *         type: PropTypes.oneOf(['Feature']).isRequired,
+ *         properties: PropTypes.object,
+ *         geometry: PropTypes.object.isRequired,
+ *     }).isRequired,
+ *     path: PropTypes.func.isRequired,
+ *
+ *     fillColor: PropTypes.string.isRequired,
+ *     borderWidth: PropTypes.number.isRequired,
+ *     borderColor: PropTypes.string.isRequired,
+ *
+ *     onMouseEnter: PropTypes.func.isRequired,
+ *     onMouseMove: PropTypes.func.isRequired,
+ *     onMouseLeave: PropTypes.func.isRequired,
+ *     onClick: PropTypes.func.isRequired,
+ * }
+ */
 const GeoMapFeature = memo(
     ({
         feature,
@@ -24,7 +35,7 @@ const GeoMapFeature = memo(
         return (
             <path
                 key={feature.id}
-                fill={fillColor}
+                fill={feature?.fill ?? fillColor}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
                 strokeLinejoin="bevel"
@@ -37,26 +48,5 @@ const GeoMapFeature = memo(
         )
     }
 )
-
-GeoMapFeature.propTypes = {
-    feature: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['Feature']).isRequired,
-        properties: PropTypes.object,
-        geometry: PropTypes.object.isRequired,
-    }).isRequired,
-    path: PropTypes.func.isRequired,
-
-    fillColor: PropTypes.string.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseMove: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-}
-
-GeoMapFeature.displayName = 'GeoMapFeature'
 
 export default GeoMapFeature

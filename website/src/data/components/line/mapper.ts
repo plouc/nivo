@@ -1,19 +1,62 @@
-import { settingsMapper, mapAxis, mapFormat } from '../../../lib/settings'
+import { LineSvgProps, LineCanvasProps } from '@nivo/line'
+import { settingsMapper, mapAxis, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { LineSampleSeries } from './generator'
 
-export default settingsMapper(
+export type MappedLineSvgProps = Omit<LineSvgProps<LineSampleSeries>, 'data' | 'width' | 'height'>
+export type UnmappedLineSvgProps = UnmappedSettings<
+    MappedLineSvgProps,
     {
-        pointLabel: value => {
-            if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.x}: ${d.y}`
-            return value
-        },
-        xFormat: mapFormat,
-        yFormat: mapFormat,
-        axisTop: mapAxis('top'),
-        axisRight: mapAxis('right'),
-        axisBottom: mapAxis('bottom'),
-        axisLeft: mapAxis('left'),
-    },
-    {
-        exclude: ['enable axisTop', 'enable axisRight', 'enable axisBottom', 'enable axisLeft'],
+        xFormat: {
+            format: string
+            enabled: boolean
+        }
+        yFormat: {
+            format: string
+            enabled: boolean
+        }
+        axisTop: { enable: boolean } & MappedLineSvgProps['axisTop']
+        axisRight: { enable: boolean } & MappedLineSvgProps['axisRight']
+        axisBottom: { enable: boolean } & MappedLineSvgProps['axisBottom']
+        axisLeft: { enable: boolean } & MappedLineSvgProps['axisLeft']
+        pointLabel: string
     }
-)
+>
+
+export type MappedLineCanvasProps = Omit<
+    LineCanvasProps<LineSampleSeries>,
+    'data' | 'width' | 'height'
+>
+export type UnmappedLineCanvasProps = UnmappedSettings<
+    MappedLineCanvasProps,
+    {
+        xFormat: {
+            format: string
+            enabled: boolean
+        }
+        yFormat: {
+            format: string
+            enabled: boolean
+        }
+        axisTop: { enable: boolean } & MappedLineCanvasProps['axisTop']
+        axisRight: { enable: boolean } & MappedLineCanvasProps['axisRight']
+        axisBottom: { enable: boolean } & MappedLineCanvasProps['axisBottom']
+        axisLeft: { enable: boolean } & MappedLineCanvasProps['axisLeft']
+    }
+>
+
+export const svgMapper = settingsMapper<UnmappedLineSvgProps, MappedLineSvgProps>({
+    xFormat: mapFormat,
+    yFormat: mapFormat,
+    axisTop: mapAxis('top'),
+    axisRight: mapAxis('right'),
+    axisBottom: mapAxis('bottom'),
+    axisLeft: mapAxis('left'),
+    pointLabel: value => {
+        if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.data.x}: ${d.data.y}`
+        return `data.${value}`
+    },
+})
+
+export const canvasMapper = svgMapper as ReturnType<
+    typeof settingsMapper<UnmappedLineCanvasProps, MappedLineCanvasProps>
+>

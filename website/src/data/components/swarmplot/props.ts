@@ -438,7 +438,7 @@ const props: ChartProperty[] = [
             element and will receive the node's data.
         `,
     },
-    ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg'], defaultProps),
 ]
 
 export const groups = groupProperties(props)

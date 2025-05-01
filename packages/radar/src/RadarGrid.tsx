@@ -1,5 +1,6 @@
 import { SVGProps, useMemo } from 'react'
-import { positionFromAngle, useTheme } from '@nivo/core'
+import { positionFromAngle } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { RadarGridLabels } from './RadarGridLabels'
 import { RadarGridLevels } from './RadarGridLevels'
 import { GridLabelComponent, RadarCommonProps } from './types'
@@ -9,6 +10,7 @@ interface RadarGridProps<D extends Record<string, unknown>> {
     shape: RadarCommonProps<D>['gridShape']
     radius: number
     levels: number
+    rotation: number
     angleStep: number
     label: GridLabelComponent
     labelOffset: number
@@ -19,6 +21,7 @@ export const RadarGrid = <D extends Record<string, unknown>>({
     levels,
     shape,
     radius,
+    rotation,
     angleStep,
     label,
     labelOffset,
@@ -29,9 +32,11 @@ export const RadarGrid = <D extends Record<string, unknown>>({
             radii: Array.from({ length: levels })
                 .map((_, i) => (radius / levels) * (i + 1))
                 .reverse(),
-            angles: Array.from({ length: indices.length }, (_, i) => i * angleStep - Math.PI / 2),
+            angles: Array.from({ length: indices.length }).map(
+                (_, i) => rotation + i * angleStep - Math.PI / 2
+            ),
         }
-    }, [indices, levels, radius, angleStep])
+    }, [indices, levels, radius, rotation, angleStep])
 
     return (
         <>
@@ -53,6 +58,7 @@ export const RadarGrid = <D extends Record<string, unknown>>({
                     key={`level.${i}`}
                     shape={shape}
                     radius={radius}
+                    rotation={rotation}
                     angleStep={angleStep}
                     dataLength={indices.length}
                 />

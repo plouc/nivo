@@ -1,21 +1,12 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useRef, useMemo, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import {
     TooltipActionsContext,
     TooltipStateContext,
     useTooltipHandlers,
     Tooltip,
 } from '@nivo/tooltip'
+import { ThemeProvider } from '@nivo/theming'
 import noop from '../lib/noop'
-import { ThemeProvider } from '../theming'
 import { MotionConfigProvider } from '../motion'
 import { ConditionalWrapper } from './ConditionalWrapper'
 
@@ -29,6 +20,15 @@ const containerStyle = {
  * `Container` component.
  *
  * @deprecated
+ *
+ * LegacyContainer.propTypes = {
+ *     children: PropTypes.func.isRequired,
+ *     isInteractive: PropTypes.bool,
+ *     renderWrapper: PropTypes.bool,
+ *     theme: PropTypes.object.isRequired,
+ *     animate: PropTypes.bool.isRequired,
+ *     motionConfig: PropTypes.oneOfType([PropTypes.string, motionPropTypes.motionConfig]),
+ * }
  */
 export const LegacyContainer = ({
     children,
@@ -36,8 +36,6 @@ export const LegacyContainer = ({
     isInteractive = true,
     renderWrapper = true,
     animate,
-    motionStiffness,
-    motionDamping,
     motionConfig,
 }) => {
     const container = useRef(null)
@@ -45,7 +43,7 @@ export const LegacyContainer = ({
 
     const showTooltip = useCallback(
         (content, event) => tooltipActions.showTooltipFromEvent(content, event),
-        [tooltipActions.showTooltipFromEvent]
+        [tooltipActions]
     )
 
     const handlers = useMemo(
@@ -53,17 +51,12 @@ export const LegacyContainer = ({
             showTooltip: isInteractive ? showTooltip : noop,
             hideTooltip: isInteractive ? tooltipActions.hideTooltip : noop,
         }),
-        [tooltipActions.hideTooltip, isInteractive, showTooltip]
+        [tooltipActions, isInteractive, showTooltip]
     )
 
     return (
         <ThemeProvider theme={theme}>
-            <MotionConfigProvider
-                animate={animate}
-                stiffness={motionStiffness}
-                damping={motionDamping}
-                config={motionConfig}
-            >
+            <MotionConfigProvider animate={animate} config={motionConfig}>
                 <TooltipActionsContext.Provider value={tooltipActions}>
                     <TooltipStateContext.Provider value={tooltipState}>
                         {/* we should not render the div element if using the HTTP API */}
@@ -79,15 +72,4 @@ export const LegacyContainer = ({
             </MotionConfigProvider>
         </ThemeProvider>
     )
-}
-
-LegacyContainer.propTypes = {
-    children: PropTypes.func.isRequired,
-    isInteractive: PropTypes.bool,
-    renderWrapper: PropTypes.bool,
-    theme: PropTypes.object.isRequired,
-    animate: PropTypes.bool.isRequired,
-    motionStiffness: PropTypes.number,
-    motionDamping: PropTypes.number,
-    motionConfig: PropTypes.string,
 }

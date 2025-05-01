@@ -43,7 +43,7 @@ export const ObjectControl = memo(
         )
 
         const newContext = {
-            path: [...(context ? context.path : []), property.key || property.name],
+            path: [...(context ? context.path : []), property.key || property.name] as string[],
         }
 
         return (

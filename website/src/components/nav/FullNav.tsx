@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import styled, { css } from 'styled-components'
 import { Link } from 'gatsby'
-import { FaGithub, FaTwitter } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import {
     FiExternalLink as ExternalLinkIcon,
     FiCoffee,
@@ -62,16 +62,6 @@ export const FullNav = memo(() => {
                     >
                         <FaGithub />
                         <span>GitHub</span>
-                        <ExternalLinkIcon />
-                    </ExternalLink>
-                    <ExternalLink
-                        href="https://twitter.com/benitteraphael"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="Twitter"
-                    >
-                        <FaTwitter />
-                        <span>Twitter</span>
                         <ExternalLinkIcon />
                     </ExternalLink>
                 </Other>

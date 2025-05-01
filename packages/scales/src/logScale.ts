@@ -52,5 +52,5 @@ export const createLogScale = (
     const typedScale = scale as ScaleLog
     typedScale.type = 'log'
 
-    return scale
+    return typedScale
 }

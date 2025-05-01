@@ -3,14 +3,14 @@ import { SpringValues } from '@react-spring/web'
 import {
     Dimensions,
     Box,
-    Theme,
     ValueFormat,
-    ModernMotionProps,
+    MotionProps,
     CssMixBlendMode,
     CartesianMarkerProps,
     PropertyAccessor,
 } from '@nivo/core'
-import { ScaleSpec } from '@nivo/scales'
+import { PartialTheme } from '@nivo/theming'
+import { AnyScale, ScaleSpec } from '@nivo/scales'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { LegendProps } from '@nivo/legends'
@@ -62,7 +62,10 @@ export interface ScatterPlotNodeProps<RawDatum extends ScatterPlotDatum> {
     onMouseEnter?: ScatterPlotMouseHandler<RawDatum>
     onMouseMove?: ScatterPlotMouseHandler<RawDatum>
     onMouseLeave?: ScatterPlotMouseHandler<RawDatum>
+    onMouseDown?: ScatterPlotMouseHandler<RawDatum>
+    onMouseUp?: ScatterPlotMouseHandler<RawDatum>
     onClick?: ScatterPlotMouseHandler<RawDatum>
+    onDoubleClick?: ScatterPlotMouseHandler<RawDatum>
 }
 export type ScatterPlotNode<RawDatum extends ScatterPlotDatum> = FunctionComponent<
     ScatterPlotNodeProps<RawDatum>
@@ -84,8 +87,8 @@ export type ScatterPlotLayerId =
     | 'legends'
     | 'annotations'
 export interface ScatterPlotLayerProps<RawDatum extends ScatterPlotDatum> {
-    xScale: any
-    yScale: any
+    xScale: AnyScale
+    yScale: AnyScale
     nodes: ScatterPlotNodeData<RawDatum>[]
     innerWidth: number
     innerHeight: number
@@ -130,7 +133,7 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     axisRight: AxisProps | null
     axisBottom: AxisProps | null
     axisLeft: AxisProps | null
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<{ serieId: ScatterPlotRawSerie<RawDatum>['id'] }>
     nodeSize:
         | number
@@ -143,7 +146,10 @@ export type ScatterPlotCommonProps<RawDatum extends ScatterPlotDatum> = {
     onMouseEnter: ScatterPlotMouseHandler<RawDatum>
     onMouseMove: ScatterPlotMouseHandler<RawDatum>
     onMouseLeave: ScatterPlotMouseHandler<RawDatum>
+    onMouseDown: ScatterPlotMouseHandler<RawDatum>
+    onMouseUp: ScatterPlotMouseHandler<RawDatum>
     onClick: ScatterPlotMouseHandler<RawDatum>
+    onDoubleClick: ScatterPlotMouseHandler<RawDatum>
     tooltip: ScatterPlotTooltip<RawDatum>
     annotations: AnnotationMatcher<ScatterPlotNodeData<RawDatum>>[]
     legends: LegendProps[]
@@ -158,7 +164,7 @@ export type ScatterPlotSvgProps<RawDatum extends ScatterPlotDatum> = Partial<
 > &
     ScatterPlotDataProps<RawDatum> &
     Dimensions &
-    ModernMotionProps & {
+    MotionProps & {
         blendMode?: CssMixBlendMode
         layers?: (ScatterPlotLayerId | ScatterPlotCustomSvgLayer<RawDatum>)[]
         nodeComponent?: ScatterPlotNode<RawDatum>

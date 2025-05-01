@@ -1,7 +1,7 @@
 {
-  "installCommand": "make:init",
+  "installCommand": "codesandbox:init",
   "buildCommand": false,
   "packages": ["packages/*"],
   "sandboxes": ["/examples/codesandbox", "/website"],
-  "node": "16"
+  "node": "18"
 }

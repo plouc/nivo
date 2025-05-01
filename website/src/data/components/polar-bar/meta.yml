@@ -1,0 +1,17 @@
+flavors:
+  - flavor: svg
+    path: /polar-bar/
+
+PolarBar:
+  package: '@nivo/polar-bar'
+  tags:
+    - radial
+  stories: []
+  description: |
+    The Polar Bar chart component displays data in a circular layout
+    where each bar extends radially from the center.
+    
+    Unlike radial bar charts, which vary both angle and length, polar bar charts use
+    equal angular spacing for each category (defined by `indexBy`) and rely on bar length
+    to represent values, making them perfect for visualizing cyclical patterns like seasons,
+    compass directions, or time-based data.

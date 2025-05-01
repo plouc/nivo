@@ -1,5 +1,4 @@
-// @ts-ignore
-import { WaffleDefaultProps } from '@nivo/waffle'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/waffle'
 import {
     themeProperty,
     motionProperties,
@@ -7,12 +6,17 @@ import {
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    ordinalColors,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'html', 'canvas']
 
-const defaults = WaffleDefaultProps
+const defaults = commonDefaultProps
 
 const props: ChartProperty[] = [
     {
@@ -42,21 +46,22 @@ const props: ChartProperty[] = [
         required: true,
         flavors: allFlavors,
     },
-    // {
-    //     key: 'hiddenIds',
-    //     type: 'Array<string | number>',
-    //     help: 'Hide parts of the data by id',
-    //     description: `
-    //         Hide parts of the data by id, this can be used
-    //         to implement toggle. Note that the datum will
-    //         still be visible in legends, if you want
-    //         to completely remove a datum from the data set,
-    //         you'll have to filter the data before passing
-    //         it to the component.
-    //     `,
-    //     required: false,
-    //     defaultValue: defaults.hiddenIds,
-    // },
+    {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        flavors: allFlavors,
+        type: 'string | (value: number) => string | number',
+        control: { type: 'valueFormat' },
+    },
     {
         key: 'rows',
         group: 'Base',
@@ -88,16 +93,37 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'string',
         required: false,
-        help: `How to fill the waffle.`,
+        help: "How to fill the grid, it's also going to affect the transitions if `motionStagger > 0`.",
+        description: `
+            \`\`\`
+            │   top             │   right           │
+            │                   │                   │
+            │   8 ─── 7 ─── 6   │ → 0  ╭─ 3  ╭─ 6   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   5 ─── 4 ─── 3   │   1  │  4  │  7   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   2 ─── 1 ─── 0   │   2 ─╯  5 ─╯  8   │
+            │               ↑   │                   │
+            ├───────────────────┼───────────────────┤
+            │   bottom          │   left            │
+            │   ↓               │                   │
+            │   0 ─── 1 ─── 2   │   8  ╭─ 5  ╭─ 2   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   3 ─── 4 ─── 5   │   5  │  4  │  1   │
+            │   ╭───────────╯   │   │  │  │  │  │   │
+            │   6 ─── 7 ─── 8   │   6 ─╯  3 ─╯  0 ← │
+            │                   │                   │
+            \`\`\`
+        `,
         flavors: allFlavors,
         defaultValue: defaults.fillDirection,
         control: {
             type: 'choices',
             choices: [
-                { label: 'top', value: 'top' },
-                { label: 'right', value: 'right' },
-                { label: 'bottom', value: 'bottom' },
-                { label: 'left', value: 'left' },
+                { label: '↑ top', value: 'top' },
+                { label: '→ right', value: 'right' },
+                { label: '↓ bottom', value: 'bottom' },
+                { label: '← left', value: 'left' },
             ],
         },
     },
@@ -106,7 +132,8 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'number',
         help: 'Padding between each cell.',
-        required: true,
+        required: false,
+        defaultValue: defaults.padding,
         flavors: allFlavors,
         control: {
             type: 'range',
@@ -115,23 +142,25 @@ const props: ChartProperty[] = [
             max: 10,
         },
     },
-    ...chartDimensions(allFlavors),
-    themeProperty(['svg', 'html', 'canvas']),
     {
-        key: 'cellComponent',
-        flavors: ['svg', 'html'],
-        help: 'Override default cell component.',
-        type: 'Function',
+        key: 'hiddenIds',
+        group: 'Base',
+        type: `Datum['id'][]`,
+        help: 'Hide parts of the data by id',
+        description: `
+             Hide parts of the data by id, this can be used
+             to implement toggle. Note that the datum will
+             still be visible in legends, if you want
+             to completely remove a datum from the data set,
+             you'll have to filter the data before passing
+             it to the component.
+         `,
         required: false,
-        group: 'Style',
-        control: {
-            type: 'choices',
-            choices: ['default', 'Custom(props) => (…)'].map(key => ({
-                label: key,
-                value: key,
-            })),
-        },
+        defaultValue: defaults.hiddenIds,
+        flavors: allFlavors,
     },
+    ...chartDimensions(allFlavors),
+    themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,
         defaultValue: defaults.colors,
@@ -157,6 +186,21 @@ const props: ChartProperty[] = [
         control: { type: 'opacity' },
     },
     {
+        key: 'borderRadius',
+        help: 'Cells border radius.',
+        type: 'number',
+        flavors: allFlavors,
+        required: false,
+        defaultValue: defaults.borderRadius,
+        group: 'Style',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 10,
+        },
+    },
+    {
         key: 'borderWidth',
         group: 'Style',
         type: 'number',
@@ -173,59 +217,92 @@ const props: ChartProperty[] = [
         required: false,
         help: 'Method to compute cell border color.',
         defaultValue: defaults.borderColor,
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
         control: { type: 'inheritedColor' },
     },
     ...defsProperties('Style', ['svg']),
+    {
+        key: 'layers',
+        type: `('nodes' | CustomSvgLayer | CustomHtmlLayer | CustomCanvasLayer)[]`,
+        group: 'Customization',
+        help: 'Define layers, please use the appropriate variant for custom layers.',
+        defaultValue: svgDefaultProps.layers,
+        flavors: ['svg', 'html'],
+    },
+    {
+        key: 'cellComponent',
+        flavors: ['svg', 'html'],
+        help: 'Override default cell component.',
+        type: 'CellComponent<D extends Datum>',
+        required: false,
+        group: 'Customization',
+    },
     isInteractive({
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
         defaultValue: defaults.isInteractive,
     }),
     {
+        key: 'onMouseEnter',
+        group: 'Interactivity',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'html'],
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        flavors: allFlavors,
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        flavors: ['svg', 'html'],
+    },
+    {
         key: 'onClick',
         group: 'Interactivity',
-        type: 'Function',
+        type: '(datum: ComputedDatum, event: MouseEvent) => void',
         required: false,
-        help: 'onClick handler, it receives clicked node data and style plus mouse event.',
-        flavors: ['svg', 'html', 'canvas'],
+        flavors: allFlavors,
     },
     {
         key: 'tooltip',
         group: 'Interactivity',
-        type: 'Function',
+        type: 'TooltipComponent',
         required: false,
         help: 'Custom tooltip component',
         flavors: allFlavors,
         description: `
-            A function allowing complete tooltip customisation,
-            it must return a valid HTML element and will
-            receive the following data:
-            \`\`\`
-            {
-                id:         {string|number},
-                value:      number,
-                label:      {string|number},
-                color:      string,
-                position:   number,
-                row:        number,
-                column:     number,
-                groupIndex: number,
-                startAt:    number,
-                endAt:      number,
-            }
-            \`\`\`
-            You can customize the tooltip style
-            using the \`theme.tooltip\` object.
+            Override the default tooltip, please look at
+            the TypeScript definition for \`TooltipComponent\`
+            from the package.
         `,
     },
     {
-        key: 'custom tooltip example',
-        group: 'Interactivity',
-        type: 'boolean',
+        key: 'forwardLegendData',
+        group: 'Legends',
+        type: '(data: LegendDatum<D>[]) => void',
         required: false,
-        control: { type: 'switch' },
-        help: 'Showcase custom tooltip.',
         flavors: allFlavors,
+        help: 'Can be used to get the computed legend data.',
+        description: `
+            This property allows you to implement custom
+            legends, bypassing the limitations of SVG/Canvas.
+            
+            For example you could have a state in the parent component,
+            and then pass the setter.
+            
+            Please be very careful when using this property though,
+            you could end up with an infinite loop if the properties
+            defining the data don't have a stable reference.
+            
+            For example, using a non static/memoized function for \`valueFormat\`
+            would lead to such issue.
+        `,
     },
     {
         key: 'legends',
@@ -267,7 +344,28 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    ...motionProperties(allFlavors, defaults),
+    {
+        key: 'motionStagger',
+        group: 'Motion',
+        type: 'number',
+        help: 'Staggered animation for the cells if > 0.',
+        description: `
+            You might want to adjust this value according to the number
+            of cells you have, more cells: lower value/delay, less cells: higher value/delay.
+            
+            Otherwise it might take a while before cells get updated. 
+        `,
+        defaultValue: 0,
+        required: false,
+        flavors: ['svg', 'html'],
+        control: {
+            type: 'range',
+            min: 0,
+            max: 100,
+        },
+    },
+    ...commonAccessibilityProps(allFlavors),
 ]
 
 export const groups = groupProperties(props)

@@ -1,13 +1,6 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useMemo } from 'react'
-import { isFunction, get } from 'lodash'
+import isFunction from 'lodash/isFunction.js'
+import get from 'lodash/get.js'
 import { format } from 'd3-format'
 import {
     geoPath,
@@ -23,7 +16,8 @@ import {
     geoNaturalEarth1,
     geoGraticule,
 } from 'd3-geo'
-import { guessQuantizeColorScale, useTheme } from '@nivo/core'
+import { guessQuantizeColorScale } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useInheritedColor } from '@nivo/colors'
 import { useQuantizeColorScaleLegendData } from '@nivo/legends'
 
@@ -51,24 +45,27 @@ export const useGeoMap = ({
     borderWidth,
     borderColor,
 }) => {
+    const [translateX, translateY] = projectionTranslation
+    const [rotateLambda, rotatePhi, rotateGamma] = projectionRotation
+
     const projection = useMemo(() => {
         return projectionById[projectionType]()
             .scale(projectionScale)
-            .translate([width * projectionTranslation[0], height * projectionTranslation[1]])
-            .rotate(projectionRotation)
+            .translate([width * translateX, height * translateY])
+            .rotate([rotateLambda, rotatePhi, rotateGamma])
     }, [
         width,
         height,
         projectionType,
         projectionScale,
-        projectionTranslation[0],
-        projectionTranslation[1],
-        projectionRotation[0],
-        projectionRotation[1],
-        projectionRotation[2],
+        translateX,
+        translateY,
+        rotateLambda,
+        rotatePhi,
+        rotateGamma,
     ])
     const path = useMemo(() => geoPath(projection), [projection])
-    const graticule = useMemo(() => geoGraticule())
+    const graticule = useMemo(() => geoGraticule(), [])
 
     const theme = useTheme()
     const getBorderWidth = useMemo(
@@ -157,7 +154,7 @@ export const useChoropleth = ({
 
                 return feature
             }),
-        [features, data, findMatchingDatum, getValue, valueFormatter, getFillColor]
+        [features, data, findMatchingDatum, getValue, valueFormatter, getFillColor, getLabel]
     )
 
     const legendData = useQuantizeColorScaleLegendData({

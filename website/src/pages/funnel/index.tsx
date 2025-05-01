@@ -1,14 +1,13 @@
 import React from 'react'
-import omit from 'lodash/omit'
-import merge from 'lodash/merge'
-import { ResponsiveFunnel, svgDefaultProps } from '@nivo/funnel'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import omit from 'lodash/omit.js'
+import merge from 'lodash/merge.js'
+import { ResponsiveFunnel, svgDefaultProps, FunnelDatum, FunnelSvgProps } from '@nivo/funnel'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'
 import mapper from '../../data/components/funnel/mapper'
 import { groups } from '../../data/components/funnel/props'
 import { generateLightDataSet } from '../../data/components/funnel/generator'
-import { FunnelDatum, FunnelSvgProps } from '@nivo/funnel/dist/types/types'
-import { graphql, useStaticQuery } from 'gatsby'
 
 type MappedFunnelProps = Omit<FunnelSvgProps<FunnelDatum>, 'data' | 'width' | 'height'>
 type UnmappedFunnelProps = Omit<MappedFunnelProps, 'valueFormat'> & {
@@ -57,7 +56,7 @@ const initialProperties: UnmappedFunnelProps = {
     motionConfig: 'wobbly' as const,
 }
 
-const Funnel = () => {
+const Funnel = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -85,6 +84,7 @@ const Funnel = () => {
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => (
                 <ResponsiveFunnel

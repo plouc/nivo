@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, MouseEvent } from 'react'
 import { ScaleOrdinal } from 'd3-scale'
 import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
@@ -228,15 +228,18 @@ export const useBorderWidth = <RawDatum>(
 export const useNodeMouseHandlers = <RawDatum>({
     isInteractive,
     onClick,
+    onDoubleClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
+    onMouseDown,
+    onMouseUp,
     tooltip,
 }: Pick<SwarmPlotCommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & MouseHandlers<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const mouseEnterHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             showTooltipFromEvent(tooltip(node), event)
@@ -246,7 +249,7 @@ export const useNodeMouseHandlers = <RawDatum>({
     )
 
     const mouseMoveHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             showTooltipFromEvent(tooltip(node), event)
@@ -256,7 +259,7 @@ export const useNodeMouseHandlers = <RawDatum>({
     )
 
     const mouseLeaveHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             hideTooltip()
@@ -265,8 +268,26 @@ export const useNodeMouseHandlers = <RawDatum>({
         [isInteractive, hideTooltip, onMouseLeave]
     )
 
+    const mouseDownHandler = useCallback(
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            if (!isInteractive) return
+
+            onMouseDown?.(node, event)
+        },
+        [isInteractive, onMouseDown]
+    )
+
+    const mouseUpHandler = useCallback(
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            if (!isInteractive) return
+
+            onMouseUp?.(node, event)
+        },
+        [isInteractive, onMouseUp]
+    )
+
     const clickHandler = useCallback(
-        (node, event) => {
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
             if (!isInteractive) return
 
             onClick?.(node, event)
@@ -274,11 +295,23 @@ export const useNodeMouseHandlers = <RawDatum>({
         [isInteractive, onClick]
     )
 
+    const doubleClickHandler = useCallback(
+        (node: ComputedDatum<RawDatum>, event: MouseEvent) => {
+            if (!isInteractive) return
+
+            onDoubleClick?.(node, event)
+        },
+        [isInteractive, onDoubleClick]
+    )
+
     return {
         onMouseEnter: mouseEnterHandler,
         onMouseMove: mouseMoveHandler,
         onMouseLeave: mouseLeaveHandler,
+        onMouseDown: mouseDownHandler,
+        onMouseUp: mouseUpHandler,
         onClick: clickHandler,
+        onDoubleClick: doubleClickHandler,
     }
 }
 
@@ -309,7 +342,7 @@ export const useSwarmPlotLayerContext = <
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number, never>
+        | ScaleOrdinal<string, number, never>,
 >({
     nodes,
     xScale,

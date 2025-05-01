@@ -1,6 +1,6 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 import { Flavor } from '../../../types'
 import { ControlContext, RangeControlConfig } from '../types'
 import { Control, PropertyHeader, Help, TextInput } from '../ui'
@@ -27,7 +27,10 @@ export const RangeControl = memo(
         onChange,
         context,
     }: RangeControlProps) => {
-        const handleChange = useCallback(event => onChange(Number(event.target.value)), [onChange])
+        const handleChange = useCallback(
+            (event: ChangeEvent<HTMLInputElement>) => onChange(Number(event.target.value)),
+            [onChange]
+        )
 
         return (
             <Control

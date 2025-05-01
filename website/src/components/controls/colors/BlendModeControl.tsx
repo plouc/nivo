@@ -1,6 +1,7 @@
 import React from 'react'
 // @ts-ignore
-import { blendModes, CssMixBlendMode } from '@nivo/core'
+import { blendModes } from '@nivo/core'
+import { CssMixBlendMode } from '@nivo/core'
 import { ChartProperty, Flavor } from '../../../types'
 import { BlendModeControlConfig, ControlContext } from '../types'
 import { ChoicesControl } from '../generics'
@@ -22,7 +23,7 @@ interface BlendModeControlProps {
 }
 
 export const BlendModeControl = ({ config, ...props }: BlendModeControlProps) => (
-    <ChoicesControl
+    <ChoicesControl<CssMixBlendMode>
         {...props}
         config={{
             ...config,

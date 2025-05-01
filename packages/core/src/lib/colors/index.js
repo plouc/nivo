@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import last from 'lodash/last'
-import isArray from 'lodash/isArray'
-import isString from 'lodash/isString'
+import last from 'lodash/last.js'
+import isArray from 'lodash/isArray.js'
+import isString from 'lodash/isString.js'
 import { scaleOrdinal, scaleSequential } from 'd3-scale'
 import {
     // categorical

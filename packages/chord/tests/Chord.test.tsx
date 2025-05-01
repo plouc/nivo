@@ -1,6 +1,5 @@
 import { mount } from 'enzyme'
 import { Globals } from '@react-spring/web'
-// @ts-ignore
 import { Chord } from '../src'
 
 const sampleData = {

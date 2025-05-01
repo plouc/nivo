@@ -1,19 +1,11 @@
 import React from 'react'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateWinesTastes } from '@nivo/generators'
-import { ResponsiveRadar, RadarSvgProps, svgDefaultProps } from '@nivo/radar'
+import { ResponsiveRadar, svgDefaultProps } from '@nivo/radar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radar/meta.yml'
-import mapper from '../../data/components/radar/mapper'
+import mapper, { UnmappedRadarProps, MappedRadarProps } from '../../data/components/radar/mapper'
 import { groups } from '../../data/components/radar/props'
-import { graphql, useStaticQuery } from 'gatsby'
-
-type MappedRadarProps = Omit<RadarSvgProps<any>, 'data' | 'keys' | 'width' | 'height'>
-type UnmappedRadarProps = Omit<MappedRadarProps, 'valueFormat'> & {
-    valueFormat: {
-        format: string
-        enabled: boolean
-    }
-}
 
 const initialProperties: UnmappedRadarProps = {
     indexBy: 'taste',
@@ -80,7 +72,7 @@ const initialProperties: UnmappedRadarProps = {
     ],
 }
 
-const Radar = () => {
+const Radar = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -113,14 +105,25 @@ const Radar = () => {
             generateData={generateWinesTastes}
             getTabData={data => data.data}
             image={image}
+            location={location}
         >
-            {(properties, data, theme) => {
+            {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveRadar
                         data={data.data}
                         keys={data.keys}
                         {...properties}
                         theme={theme}
+                        onClick={slice =>
+                            logAction({
+                                type: 'click',
+                                label: `[slice] {${Object.entries(slice)
+                                    .map(([key, value]) => `${key}: ${value}`)
+                                    .join(', ')}}`,
+                                color: slice.color,
+                                data: slice,
+                            })
+                        }
                     />
                 )
             }}

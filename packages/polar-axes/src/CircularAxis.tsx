@@ -1,7 +1,8 @@
 import { createElement, SVGProps, useMemo } from 'react'
 import { useSpring, useTransition } from '@react-spring/web'
-import { useMotionConfig, useTheme, positionFromAngle, degreesToRadians } from '@nivo/core'
-import { AnyScale, getScaleTicks } from '@nivo/scales'
+import { useMotionConfig, positionFromAngle, degreesToRadians } from '@nivo/core'
+import { useExtendedAxisTheme, useTheme } from '@nivo/theming'
+import { AnyScale, getScaleTicks, centerScale } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 import { CircularAxisConfig, CircularAxisTickAnimatedProps } from './types'
 import { CircularAxisTick } from './CircularAxisTick'
@@ -46,11 +47,10 @@ export const CircularAxis = ({
     tickSize = 5,
     tickPadding = 12,
     tickComponent = CircularAxisTick,
+    style,
 }: CircularAxisProps) => {
     const startAngle = originalStartAngle - 90
     const endAngle = originalEndAngle - 90
-
-    const theme = useTheme()
 
     const { animate, config: springConfig } = useMotionConfig()
     const spring = useSpring<{
@@ -69,18 +69,19 @@ export const CircularAxis = ({
 
     const ticks = useMemo(() => {
         const values = getScaleTicks(scale)
+        const angle = 'bandwidth' in scale ? centerScale(scale) : scale
 
         return values.map((value, index) => ({
             key: index,
             label: value,
-            angle: scale(value) - 90,
+            angle: angle(value) - 90,
         }))
     }, [scale])
 
     const outerRadius = type === 'inner' ? radius - tickSize : radius + tickSize
     const textRadius = type === 'inner' ? outerRadius - tickPadding : outerRadius + tickPadding
 
-    const transition = useTransition<typeof ticks[0], CircularAxisTickAnimatedProps>(ticks, {
+    const transition = useTransition<(typeof ticks)[0], CircularAxisTickAnimatedProps>(ticks, {
         keys: tick => tick.key,
         initial: tick => ({
             ...getLinePositions(tick.angle, radius, outerRadius),
@@ -111,17 +112,21 @@ export const CircularAxis = ({
         config: springConfig,
     })
 
+    const theme = useTheme()
+    const axisTheme = useExtendedAxisTheme(theme.axis, style)
+
     return (
-        <g transform={`translate(${center[0]}, ${center[1]})`}>
+        <g transform={`translate(${center[0]}, ${center[1]})`} style={{ pointerEvents: 'none' }}>
             <ArcLine
                 animated={spring}
-                {...(theme.axis.domain.line as Omit<SVGProps<SVGPathElement>, 'ref'>)}
+                {...(axisTheme.domain.line as Omit<SVGProps<SVGPathElement>, 'ref'>)}
                 fill="none"
             />
             {transition((animatedProps, tick) =>
                 createElement(tickComponent, {
                     key: tick.key,
                     label: tick.label,
+                    theme: axisTheme,
                     animated: animatedProps,
                 })
             )}

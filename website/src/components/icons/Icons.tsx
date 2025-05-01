@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Container } from './styled'
 import { AreaBumpIcon } from './AreaBumpIcon'
 import { BarIcon } from './BarIcon'
+import { BoxPlotIcon } from './BoxPlotIcon'
 import { BulletIcon } from './BulletIcon'
 import { BumpIcon } from './BumpIcon'
 import { CalendarIcon } from './CalendarIcon'
@@ -18,6 +19,7 @@ import { MarimekkoIcon } from './MarimekkoIcon'
 import { NetworkIcon } from './NetworkIcon'
 import { ParallelCoordinatesIcon } from './ParallelCoordinatesIcon'
 import { PieIcon } from './PieIcon'
+import { PolarBarIcon } from './PolarBarIcon'
 import { RadarIcon } from './RadarIcon'
 import { RadialBarIcon } from './RadialBarIcon'
 import { SankeyIcon } from './SankeyIcon'
@@ -27,6 +29,7 @@ import { SunburstIcon } from './SunburstIcon'
 import { IciclesIcon } from './IciclesIcon'
 import { SwarmPlotIcon } from './SwarmPlotIcon'
 import { TimeRangeIcon } from './TimeRangeIcon'
+import { TreeIcon } from './TreeIcon'
 import { TreeMapIcon } from './TreeMapIcon'
 import { VoronoiIcon } from './VoronoiIcon'
 import { WaffleIcon } from './WaffleIcon'
@@ -60,10 +63,13 @@ const ColorsDemo = ({ type }: { type: IconType }) => {
 
 export const Icons = () => (
     <Container>
+        <PolarBarIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <TreeIcon />
+        <BoxPlotIcon />
         <AreaBumpIcon />
         <BarIcon />
         <BulletIcon />

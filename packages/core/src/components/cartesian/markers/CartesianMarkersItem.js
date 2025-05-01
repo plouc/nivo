@@ -1,14 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { memo } from 'react'
-import PropTypes from 'prop-types'
-import { useTheme } from '../../../theming'
+import { useTheme } from '@nivo/theming'
 
 /**
  *
@@ -162,6 +153,34 @@ const computeLabel = ({ axis, width, height, position, offsetX, offsetY, orienta
     return { x, y, rotation, textAnchor }
 }
 
+/**
+ * CartesianMarkersItem.propTypes = {
+ *     width: PropTypes.number.isRequired,
+ *     height: PropTypes.number.isRequired,
+ *
+ *     axis: PropTypes.oneOf(['x', 'y']).isRequired,
+ *     scale: PropTypes.func.isRequired,
+ *     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+ *         .isRequired,
+ *     lineStyle: PropTypes.object,
+ *     textStyle: PropTypes.object,
+ *
+ *     legend: PropTypes.string,
+ *     legendPosition: PropTypes.oneOf([
+ *         'top-left',
+ *         'top',
+ *         'top-right',
+ *         'right',
+ *         'bottom-right',
+ *         'bottom',
+ *         'bottom-left',
+ *         'left',
+ *     ]),
+ *     legendOffsetX: PropTypes.number.isRequired,
+ *     legendOffsetY: PropTypes.number.isRequired,
+ *     legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
+ * }
+ */
 const CartesianMarkersItem = ({
     width,
     height,
@@ -171,10 +190,11 @@ const CartesianMarkersItem = ({
     lineStyle,
     textStyle,
     legend,
-    legendPosition,
-    legendOffsetX,
-    legendOffsetY,
-    legendOrientation,
+    legendNode,
+    legendPosition = 'top-right',
+    legendOffsetX = 14,
+    legendOffsetY = 14,
+    legendOrientation = 'horizontal',
 }) => {
     const theme = useTheme()
 
@@ -191,8 +211,7 @@ const CartesianMarkersItem = ({
         y2 = height
     }
 
-    let legendNode = null
-    if (legend) {
+    if (legend && !legendNode) {
         const legendProps = computeLabel({
             axis,
             width,
@@ -228,39 +247,6 @@ const CartesianMarkersItem = ({
             {legendNode}
         </g>
     )
-}
-
-CartesianMarkersItem.propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    scale: PropTypes.func.isRequired,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
-        .isRequired,
-    lineStyle: PropTypes.object,
-    textStyle: PropTypes.object,
-
-    legend: PropTypes.string,
-    legendPosition: PropTypes.oneOf([
-        'top-left',
-        'top',
-        'top-right',
-        'right',
-        'bottom-right',
-        'bottom',
-        'bottom-left',
-        'left',
-    ]),
-    legendOffsetX: PropTypes.number.isRequired,
-    legendOffsetY: PropTypes.number.isRequired,
-    legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-}
-CartesianMarkersItem.defaultProps = {
-    legendPosition: 'top-right',
-    legendOffsetX: 14,
-    legendOffsetY: 14,
-    legendOrientation: 'horizontal',
 }
 
 export default memo(CartesianMarkersItem)

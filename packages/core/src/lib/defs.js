@@ -1,9 +1,9 @@
-import isFunction from 'lodash/isFunction'
-import isPlainObject from 'lodash/isPlainObject'
-import pick from 'lodash/pick'
-import isEqual from 'lodash/isEqual'
-import get from 'lodash/get'
-import set from 'lodash/set'
+import isFunction from 'lodash/isFunction.js'
+import isPlainObject from 'lodash/isPlainObject.js'
+import pick from 'lodash/pick.js'
+import isEqual from 'lodash/isEqual.js'
+import get from 'lodash/get.js'
+import set from 'lodash/set.js'
 import { gradientTypes, patternTypes } from '../components/defs'
 
 const gradientKeys = Object.keys(gradientTypes)
@@ -58,8 +58,8 @@ export const bindDefs = (
         boundDefs = [...defs]
 
         nodes.forEach(node => {
-            for (let i = 0; i < rules.length; i++) {
-                const { id, match } = rules[i]
+            for (const rule of rules) {
+                const { id, match } = rule
                 if (isMatchingDef(match, node, dataKey)) {
                     const def = defs.find(({ id: defId }) => defId === id)
                     if (def) {

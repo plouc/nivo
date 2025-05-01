@@ -11,7 +11,7 @@ export const custom = Joi.extend(
 
                 try {
                     return { value: JSON.parse(value) }
-                } catch (ignoreErr) {
+                } catch (_ignoreErr) {
                     return {}
                 }
             },
@@ -27,7 +27,7 @@ export const custom = Joi.extend(
 
                 try {
                     return { value: JSON.parse(value) }
-                } catch (ignoreErr) {
+                } catch (_ignoreErr) {
                     return {}
                 }
             },

@@ -35,11 +35,11 @@ const About = () => {
                         <li>
                             Motion/transitions, powered by{' '}
                             <a
-                                href="https://github.com/chenglou/react-motion"
+                                href="https://www.react-spring.dev/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                react-motion
+                                @react-spring
                             </a>
                         </li>
                         <li>Component playground</li>
@@ -67,15 +67,13 @@ const About = () => {
                             <Link to="/guides/legends/">Legends</Link>
                         </li>
                         <li>
-                            <Link to="/guides/annotations">Annotations</Link>
-                        </li>
-                        <li>
                             <Link to="/guides/patterns/">SVG patterns</Link>
                         </li>
                         <li>
                             <Link to="/guides/gradients/">Gradients</Link>
                         </li>
                         <li>Responsive charts</li>
+                        <li>...</li>
                     </ul>
                 </DescriptionBlock>
             </PageContent>

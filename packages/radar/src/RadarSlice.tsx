@@ -1,8 +1,9 @@
-import { useMemo, useState, useCallback, createElement } from 'react'
+import { useMemo, useState, useCallback, createElement, MouseEvent } from 'react'
 import { Arc } from 'd3-shape'
-import { positionFromAngle, useTheme } from '@nivo/core'
+import { positionFromAngle } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
-import { RadarCommonProps, RadarDataProps, RadarSliceTooltipDatum } from './types'
+import { RadarCommonProps, RadarDataProps, RadarSliceTooltipDatum, RadarSvgProps } from './types'
 
 interface RadarSliceProps<D extends Record<string, unknown>> {
     datum: D
@@ -15,6 +16,7 @@ interface RadarSliceProps<D extends Record<string, unknown>> {
     radius: number
     arcGenerator: Arc<void, { startAngle: number; endAngle: number }>
     tooltip: RadarCommonProps<D>['sliceTooltip']
+    onClick?: RadarSvgProps<D>['onClick']
 }
 
 export const RadarSlice = <D extends Record<string, unknown>>({
@@ -28,10 +30,16 @@ export const RadarSlice = <D extends Record<string, unknown>>({
     endAngle,
     arcGenerator,
     tooltip,
+    onClick,
 }: RadarSliceProps<D>) => {
     const [isHover, setIsHover] = useState(false)
     const theme = useTheme()
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleClick = useCallback(
+        (event: MouseEvent<SVGPathElement>) => onClick?.(datum, event),
+        [onClick, datum]
+    )
 
     const tooltipData = useMemo(() => {
         const data: RadarSliceTooltipDatum[] = keys.map(key => ({
@@ -47,7 +55,7 @@ export const RadarSlice = <D extends Record<string, unknown>>({
     }, [datum, keys, formatValue, colorByKey])
 
     const showItemTooltip = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             setIsHover(true)
             showTooltipFromEvent(
                 createElement(tooltip, {
@@ -88,6 +96,7 @@ export const RadarSlice = <D extends Record<string, unknown>>({
                 onMouseEnter={showItemTooltip}
                 onMouseMove={showItemTooltip}
                 onMouseLeave={hideItemTooltip}
+                onClick={handleClick}
             />
         </>
     )

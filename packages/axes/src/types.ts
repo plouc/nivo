@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { ScaleValue, TicksSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
+import { PartialTheme, Theme } from '@nivo/theming'
 
 export type GridValuesBuilder<T> = T extends number
     ? number[]
     : T extends string
-    ? string[]
-    : T extends Date
-    ? Date[]
-    : never
+      ? string[]
+      : T extends Date
+        ? Date[]
+        : never
 
 export type GridValues<T extends ScaleValue> = number | GridValuesBuilder<T>
 
@@ -28,10 +29,12 @@ export interface AxisProps<Value extends ScaleValue = any> {
     tickPadding?: number
     tickRotation?: number
     format?: string | ValueFormatter<Value>
+    truncateTickAt?: number
     renderTick?: (props: AxisTickProps<Value>) => JSX.Element
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
     legendOffset?: number
+    style?: PartialTheme['axis']
     ariaHidden?: boolean
 }
 
@@ -54,11 +57,13 @@ export interface AxisTickProps<Value extends ScaleValue> {
     textAnchor: string
     opacity?: number
     rotate?: number
+    theme: Theme['axis']['ticks']
     animatedProps: SpringValues<{
         opacity: number
         textTransform: string
         transform: string
     }>
+    truncateTickAt: number | undefined
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }
 

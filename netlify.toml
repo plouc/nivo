@@ -1,7 +1,0 @@
-[build]
-  base = "/"
-  publish = "website/public/"
-  command = "make netlify-build"
-
-[build.environment]
-  NODE_OPTIONS = "--max_old_space_size=4096"

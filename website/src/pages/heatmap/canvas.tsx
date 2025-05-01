@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveHeatMapCanvas, canvasDefaultProps as defaults } from '@nivo/heatmap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
@@ -109,7 +109,7 @@ const initialProperties: CanvasUnmappedProps = {
     motionConfig: defaults.motionConfig,
 }
 
-const HeatMapCanvas = () => {
+const HeatMapCanvas = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -138,6 +138,7 @@ const HeatMapCanvas = () => {
             generateData={getHeavyData}
             getDataSize={data => data.length * data[0].data.length}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

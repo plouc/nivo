@@ -8,6 +8,7 @@ import {
     schemeSet1,
     schemeSet2,
     schemeSet3,
+    schemeTableau10,
 } from 'd3-scale-chromatic'
 
 export const categoricalColorSchemes = {
@@ -21,6 +22,7 @@ export const categoricalColorSchemes = {
     set1: schemeSet1,
     set2: schemeSet2,
     set3: schemeSet3,
+    tableau10: schemeTableau10,
 }
 
 export type CategoricalColorSchemeId = keyof typeof categoricalColorSchemes

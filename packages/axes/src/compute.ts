@@ -1,6 +1,6 @@
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
-// @ts-ignore
+// @ts-expect-error no types
 import { textPropsByEngine } from '@nivo/core'
 import { ScaleValue, AnyScale, TicksSpec, getScaleTicks, centerScale } from '@nivo/scales'
 import { Point, ValueFormatter, Line } from './types'
@@ -15,6 +15,7 @@ export const computeCartesianTicks = <Value extends ScaleValue>({
     tickSize,
     tickPadding,
     tickRotation,
+    truncateTickAt,
     engine = 'svg',
 }: {
     axis: 'x' | 'y'
@@ -24,6 +25,7 @@ export const computeCartesianTicks = <Value extends ScaleValue>({
     tickSize: number
     tickPadding: number
     tickRotation: number
+    truncateTickAt?: number
     engine?: 'svg' | 'canvas'
 }) => {
     const values = getScaleTicks<Value>(scale, tickValues)
@@ -79,13 +81,26 @@ export const computeCartesianTicks = <Value extends ScaleValue>({
         }
     }
 
-    const ticks = values.map((value: Value) => ({
-        key: value instanceof Date ? `${value.valueOf()}` : `${value}`,
-        value,
-        ...translate(value),
-        ...line,
-        ...text,
-    }))
+    const truncateTick = (value: string) => {
+        const valueLength = String(value).length
+
+        if (truncateTickAt && truncateTickAt > 0 && valueLength > truncateTickAt) {
+            return `${String(value).slice(0, truncateTickAt).concat('...')}`
+        }
+        return `${value}`
+    }
+
+    const ticks = values.map((value: Value) => {
+        const processedValue =
+            typeof value === 'string' ? (truncateTick(value) as unknown as Value) : value
+        return {
+            key: value instanceof Date ? `${value.valueOf()}` : `${value}`,
+            value: processedValue,
+            ...translate(value),
+            ...line,
+            ...text,
+        }
+    })
 
     return {
         ticks,

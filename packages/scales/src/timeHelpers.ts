@@ -10,7 +10,7 @@ export const timePrecisions = [
     'year',
 ] as const
 
-export type TIME_PRECISION = typeof timePrecisions[number]
+export type TIME_PRECISION = (typeof timePrecisions)[number]
 
 export const precisionCutOffs: ((date: Date) => void)[] = [
     date => date.setMilliseconds(0),

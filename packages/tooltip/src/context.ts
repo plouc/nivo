@@ -1,4 +1,4 @@
-import { createContext, MouseEvent } from 'react'
+import { createContext, MouseEvent, TouchEvent } from 'react'
 import { TooltipAnchor } from './types'
 
 export interface TooltipActionsContextData {
@@ -7,13 +7,20 @@ export interface TooltipActionsContextData {
         position: [number, number],
         anchor?: TooltipAnchor
     ) => void
-    showTooltipFromEvent: (content: JSX.Element, event: MouseEvent, anchor?: TooltipAnchor) => void
+    showTooltipFromEvent: (
+        content: JSX.Element,
+        event: MouseEvent | TouchEvent,
+        anchor?: TooltipAnchor
+    ) => void
     hideTooltip: () => void
 }
 
 const defaultActions: TooltipActionsContextData = {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     showTooltipAt: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     showTooltipFromEvent: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     hideTooltip: () => {},
 }
 

@@ -1,5 +1,16 @@
-import { createElement, useRef, useState, useEffect, useCallback, useMemo } from 'react'
-import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import {
+    ForwardedRef,
+    createElement,
+    forwardRef,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+    MouseEvent,
+} from 'react'
+import { Container, useDimensions, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
 import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -12,7 +23,9 @@ import { ScatterPlotCanvasProps, ScatterPlotDatum, ScatterPlotNodeData } from '.
 type InnerScatterPlotCanvasProps<RawDatum extends ScatterPlotDatum> = Omit<
     ScatterPlotCanvasProps<RawDatum>,
     'renderWrapper' | 'theme'
->
+> & {
+    canvasRef: ForwardedRef<HTMLCanvasElement>
+}
 
 const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     data,
@@ -43,9 +56,13 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onMouseDown,
+    onMouseUp,
     onClick,
+    onDoubleClick,
     tooltip = canvasDefaultProps.tooltip,
     legends = canvasDefaultProps.legends,
+    canvasRef,
 }: InnerScatterPlotCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
@@ -112,23 +129,25 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                 ctx.lineWidth = theme.grid.line.strokeWidth as number
                 ctx.strokeStyle = theme.grid.line.stroke as string
 
-                enableGridX &&
+                if (enableGridX) {
                     renderGridLinesToCanvas<RawDatum['x']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: xScale as any,
+                        scale: xScale,
                         axis: 'x',
                         values: gridXValues,
                     })
+                }
 
-                enableGridY &&
+                if (enableGridY) {
                     renderGridLinesToCanvas<RawDatum['y']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
-                        scale: yScale as any,
+                        scale: yScale,
                         axis: 'y',
                         values: gridYValues,
                     })
+                }
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas<ScatterPlotNodeData<RawDatum>>(ctx, {
                     annotations: boundAnnotations as any,
@@ -136,8 +155,8 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                 })
             } else if (layer === 'axes') {
                 renderAxesToCanvas<RawDatum['x'], RawDatum['y']>(ctx, {
-                    xScale: xScale as any,
-                    yScale: yScale as any,
+                    xScale: xScale,
+                    yScale: yScale,
                     width: innerWidth,
                     height: innerHeight,
                     top: axisTop as CanvasAxisProps<RawDatum['x']>,
@@ -190,7 +209,9 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         yScale,
         nodes,
         enableGridX,
+        gridXValues,
         enableGridY,
+        gridYValues,
         axisTop,
         axisRight,
         axisBottom,
@@ -206,34 +227,34 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const getNodeFromMouseEvent = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
             if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
 
             const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
             return nodes[nodeIndex]
         },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+        [canvasEl, margin, innerWidth, innerHeight, delaunay, nodes]
     )
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             const node = getNodeFromMouseEvent(event)
             setCurrentNode(node)
 
             if (node) {
                 showTooltipFromEvent(createElement(tooltip, { node }), event)
                 if (currentNode && currentNode.id !== node.id) {
-                    onMouseLeave && onMouseLeave(currentNode, event)
-                    onMouseEnter && onMouseEnter(node, event)
+                    onMouseLeave?.(currentNode, event)
+                    onMouseEnter?.(node, event)
                 }
                 if (!currentNode) {
-                    onMouseEnter && onMouseEnter(node, event)
+                    onMouseEnter?.(node, event)
                 }
-                onMouseMove && onMouseMove(node, event)
+                onMouseMove?.(node, event)
             } else {
                 hideTooltip()
-                currentNode && onMouseLeave && onMouseLeave(currentNode, event)
+                if (currentNode) onMouseLeave?.(currentNode, event)
             }
         },
         [
@@ -250,27 +271,60 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             hideTooltip()
             setCurrentNode(null)
-            currentNode && onMouseLeave && onMouseLeave(currentNode, event)
+            if (currentNode) onMouseLeave?.(currentNode, event)
         },
         [hideTooltip, currentNode, setCurrentNode, onMouseLeave]
     )
 
+    const handleMouseDown = useCallback(
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (onMouseDown) {
+                const node = getNodeFromMouseEvent(event)
+                if (node) onMouseDown(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onMouseDown]
+    )
+
+    const handleMouseUp = useCallback(
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (onMouseUp) {
+                const node = getNodeFromMouseEvent(event)
+                if (node) onMouseUp(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onMouseUp]
+    )
+
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (onClick) {
                 const node = getNodeFromMouseEvent(event)
-                node && onClick(node, event)
+                if (node) onClick(node, event)
             }
         },
         [getNodeFromMouseEvent, onClick]
     )
 
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent<HTMLCanvasElement>) => {
+            if (onDoubleClick) {
+                const node = getNodeFromMouseEvent(event)
+                if (node) onDoubleClick(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onDoubleClick]
+    )
+
     return (
         <canvas
-            ref={canvasEl}
+            ref={canvas => {
+                canvasEl.current = canvas
+                if (canvasRef && 'current' in canvasRef) canvasRef.current = canvas
+            }}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -281,18 +335,21 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             onMouseEnter={isInteractive ? handleMouseHover : undefined}
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onMouseDown={isInteractive ? handleMouseDown : undefined}
+            onMouseUp={isInteractive ? handleMouseUp : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            onDoubleClick={isInteractive ? handleDoubleClick : undefined}
         />
     )
 }
 
-export const ScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
-    isInteractive,
-    renderWrapper,
-    theme,
-    ...props
-}: ScatterPlotCanvasProps<RawDatum>) => (
-    <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
-        <InnerScatterPlotCanvas<RawDatum> {...props} />
-    </Container>
+export const ScatterPlotCanvas = forwardRef(
+    <RawDatum extends ScatterPlotDatum>(
+        { isInteractive, renderWrapper, theme, ...props }: ScatterPlotCanvasProps<RawDatum>,
+        ref: ForwardedRef<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
+            <InnerScatterPlotCanvas<RawDatum> {...props} canvasRef={ref} />
+        </Container>
+    )
 )

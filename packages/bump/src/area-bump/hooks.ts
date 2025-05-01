@@ -1,6 +1,6 @@
-import { createElement, useMemo, useCallback, useState } from 'react'
+import { createElement, useMemo, useCallback, useState, MouseEvent } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'
@@ -19,7 +19,7 @@ import {
 
 const useAreaBumpSeries = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     data,
     width,
@@ -146,7 +146,7 @@ const useSerieStyle = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
 
 export const useAreaBump = <
     Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
 >({
     data,
     width,
@@ -251,7 +251,7 @@ export const useAreaBump = <
 
 export const useAreaBumpSerieHandlers = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     serie,
     isInteractive,
@@ -274,34 +274,34 @@ export const useAreaBumpSerieHandlers = <
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             setActiveSerieIds([serie.id])
-            onMouseEnter && onMouseEnter(serie, event)
+            onMouseEnter?.(serie, event)
         },
         [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds, tooltip]
     )
 
     const handleMouseMove = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
-            onMouseMove && onMouseMove(serie, event)
+            onMouseMove?.(serie, event)
         },
         [serie, onMouseMove, showTooltipFromEvent, tooltip]
     )
 
     const handleMouseLeave = useCallback(
-        event => {
+        (event: MouseEvent<SVGPathElement>) => {
             hideTooltip()
             setActiveSerieIds([])
-            onMouseLeave && onMouseLeave(serie, event)
+            onMouseLeave?.(serie, event)
         },
         [serie, onMouseLeave, hideTooltip, setActiveSerieIds]
     )
 
     const handleClick = useCallback(
-        event => {
-            onClick && onClick(serie, event)
+        (event: MouseEvent<SVGPathElement>) => {
+            onClick?.(serie, event)
         },
         [serie, onClick]
     )
@@ -319,7 +319,7 @@ export const useAreaBumpSerieHandlers = <
 
 export const useAreaBumpSeriesLabels = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     series,
     position,

@@ -1,17 +1,16 @@
 import Joi from 'joi'
 import { Dimensions } from '@nivo/core'
-import { Line, LineSvgProps } from '@nivo/line'
-// @ts-ignore
+import { Line, LineSvgProps, DefaultSeries } from '@nivo/line'
+// @ts-expect-error no types
 import { curvePropKeys } from '@nivo/core'
 import { custom, axes, blendMode } from './common'
-// import { scale } from './commons/scales'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { OmitStrict } from '../types'
 import { FunctionComponent } from 'react'
 
 export type LineApiProps = OmitStrict<
-    LineSvgProps & Dimensions,
+    LineSvgProps<DefaultSeries> & Dimensions,
     | 'layers'
     | 'pointSymbol'
     | 'isInteractive'

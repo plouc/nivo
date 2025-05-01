@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     Container,
     SvgWrapper,
@@ -41,6 +41,7 @@ const InnerSunburst = <RawDatum,>({
     arcLabel = defaultProps.arcLabel,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
+    arcLabelsSkipRadius = defaultProps.arcLabelsSkipRadius,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsComponent,
     defs = defaultProps.defs,
@@ -119,6 +120,7 @@ const InnerSunburst = <RawDatum,>({
                 label={arcLabel}
                 radiusOffset={arcLabelsRadiusOffset}
                 skipAngle={arcLabelsSkipAngle}
+                skipRadius={arcLabelsSkipRadius}
                 textColor={arcLabelsTextColor}
                 transitionMode={transitionMode}
                 component={arcLabelsComponent}

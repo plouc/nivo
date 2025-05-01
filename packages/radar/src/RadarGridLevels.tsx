@@ -1,7 +1,8 @@
 import { memo, SVGProps, useMemo } from 'react'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { animated, useSpring, to } from '@react-spring/web'
-import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { RadarCommonProps } from './types'
 
 interface RadarGridLevelCircularProps {
@@ -29,20 +30,26 @@ const RadarGridLevelCircular = memo(({ radius }: RadarGridLevelCircularProps) =>
 
 interface RadarGridLevelLinearProps {
     radius: number
+    rotation: number
     angleStep: number
     dataLength: number
 }
 
-const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelLinearProps) => {
+const RadarGridLevelLinear = ({
+    radius,
+    rotation,
+    angleStep,
+    dataLength,
+}: RadarGridLevelLinearProps) => {
     const theme = useTheme()
 
     const radarLineGenerator = useMemo(
         () =>
             lineRadial<number>()
-                .angle(i => i * angleStep)
+                .angle(i => rotation + i * angleStep)
                 .radius(radius)
                 .curve(curveLinearClosed),
-        [angleStep, radius]
+        [rotation, angleStep, radius]
     )
 
     const points = Array.from({ length: dataLength }, (_, i) => i)
@@ -60,6 +67,7 @@ const RadarGridLevelLinear = ({ radius, angleStep, dataLength }: RadarGridLevelL
 interface RadarGridLevelsProps<D extends Record<string, unknown>> {
     shape: RadarCommonProps<D>['gridShape']
     radius: number
+    rotation: number
     angleStep: number
     dataLength: number
 }

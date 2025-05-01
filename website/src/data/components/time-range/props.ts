@@ -197,6 +197,15 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'weekdays',
+        help: 'define labels for weekdays',
+        flavors: allFlavors,
+        type: 'Array<string>',
+        required: false,
+        defaultValue: defaults.weekdays,
+        group: 'Weekday',
+    },
+    {
         key: 'weekdayTicks',
         help: 'define weekday tickmarks to show',
         flavors: allFlavors,
@@ -214,6 +223,22 @@ const props: ChartProperty[] = [
             5 = Friday\n
             6 = Saturday\n
         `,
+    },
+    {
+        key: 'firstWeekday',
+        help: `define the first weekday: 'sunday', 'monday', etc.`,
+        flavors: allFlavors,
+        type: 'Weekday',
+        required: false,
+        defaultValue: defaults.firstWeekday,
+        group: 'Weekday',
+        control: {
+            type: 'radio',
+            choices: [
+                { label: `'sunday'`, value: 'sunday' },
+                { label: `'monday'`, value: 'monday' },
+            ],
+        },
     },
     // Days
     {

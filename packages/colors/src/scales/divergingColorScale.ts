@@ -2,13 +2,29 @@ import { useMemo } from 'react'
 import { scaleDiverging } from 'd3-scale'
 import { colorInterpolators, ColorInterpolatorId } from '../schemes'
 
-export interface DivergingColorScaleConfig {
+interface DivergingColorScaleBaseConfig {
     type: 'diverging'
-    scheme?: ColorInterpolatorId
     minValue?: number
     maxValue?: number
     divergeAt?: number
 }
+
+export interface DivergingColorScaleSchemeConfig extends DivergingColorScaleBaseConfig {
+    scheme?: ColorInterpolatorId
+}
+
+export interface DivergingColorScaleColorsConfig extends DivergingColorScaleBaseConfig {
+    colors: [string, string, string]
+}
+
+export interface DivergingColorScaleInterpolatorConfig extends DivergingColorScaleBaseConfig {
+    interpolator: (t: number) => string
+}
+
+export type DivergingColorScaleConfig =
+    | DivergingColorScaleSchemeConfig
+    | DivergingColorScaleColorsConfig
+    | DivergingColorScaleInterpolatorConfig
 
 export interface DivergingColorScaleValues {
     min: number
@@ -24,23 +40,32 @@ export const divergingColorScaleDefaults: {
 }
 
 export const getDivergingColorScale = (
-    {
-        scheme = divergingColorScaleDefaults.scheme,
-        divergeAt = divergingColorScaleDefaults.divergeAt,
-        minValue,
-        maxValue,
-    }: DivergingColorScaleConfig,
+    config: DivergingColorScaleConfig,
     values: DivergingColorScaleValues
 ) => {
+    const { minValue, maxValue } = config
     const min = minValue !== undefined ? minValue : values.min
     const max = maxValue !== undefined ? maxValue : values.max
     const domain = [min, min + (max - min) / 2, max]
 
-    const interpolator = colorInterpolators[scheme]
+    const divergeAt = config.divergeAt ?? divergingColorScaleDefaults.divergeAt
     const offset = 0.5 - divergeAt
-    const offsetInterpolator = (t: number) => interpolator(t + offset)
 
-    return scaleDiverging(offsetInterpolator).domain(domain).clamp(true)
+    const colorScale = scaleDiverging<string>().domain(domain).clamp(true)
+    let interpolator = (t: number) => String(t) as string
+    if ('colors' in config) {
+        interpolator = scaleDiverging<string>()
+            .domain(domain.map(x => x - offset * (max - min)))
+            .range(config.colors)
+            .interpolator()
+    } else if ('interpolator' in config) {
+        interpolator = config.interpolator
+    } else {
+        const scheme = config.scheme ?? divergingColorScaleDefaults.scheme
+        interpolator = colorInterpolators[scheme]
+    }
+    const offsetInterpolator = (t: number) => interpolator(t + offset)
+    return colorScale.interpolator(offsetInterpolator)
 }
 
 export const useDivergingColorScale = (

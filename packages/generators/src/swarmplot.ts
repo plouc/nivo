@@ -1,6 +1,6 @@
-import range from 'lodash/range'
-import random from 'lodash/random'
-import shuffle from 'lodash/shuffle'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
+import shuffle from 'lodash/shuffle.js'
 
 type SwarmPlotDatum = {
     id: string

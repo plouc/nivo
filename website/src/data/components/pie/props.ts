@@ -285,6 +285,22 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'arcLabelsSkipRadius',
+        help: `Skip label if corresponding arc's radius is lower than provided value.`,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.arcLabelsSkipRadius,
+        group: 'Arc labels',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 60,
+            step: 1,
+        },
+    },
+    {
         key: 'arcLabelsTextColor',
         help: 'Defines how to compute arc label text color.',
         flavors: allFlavors,
@@ -509,6 +525,60 @@ const props: ChartProperty[] = [
         },
     },
     {
+        key: 'activeId',
+        flavors: ['svg', 'canvas'],
+        help: `Programmatically control the \`activeId\`.`,
+        description: `
+            This property should be used with \`onActiveIdChange\`,
+            allowing you to fully control which arc should be highlighted.
+            
+            You might want to use this in case:
+            
+            - You want to synchronize the \`activeId\` with other UI elements defined
+              outside of nivo, or other nivo charts.
+            - You're creating some kind of *story-telling* app where you want to highlight
+              certain arcs based on external input.
+            - You want to change the default behavior and highlight arcs depending on clicks
+              rather than \`onMouseEnter\`, which can be desirable on mobile for example.
+        `,
+        type: 'string | number | null',
+        required: false,
+        group: 'Interactivity',
+    },
+    {
+        key: 'onActiveIdChange',
+        flavors: ['svg', 'canvas'],
+        help: `Programmatically control the \`activeId\`.`,
+        description: `
+            This property should be used with \`activeId\`,
+            allowing you to fully control which arc should be highlighted.
+            
+            You might want to use this in case:
+            
+            - You want to synchronize the \`activeId\` with other UI elements defined
+              outside of nivo, or other nivo charts.
+            - You're creating some kind of *story-telling* app where you want to highlight
+              certain arcs based on external input.
+            - You want to change the default behavior and highlight arcs depending on clicks
+              rather than \`onMouseEnter\`, which can be desirable on mobile for example.
+        `,
+        type: '(id: string | number | null) => void',
+        required: false,
+        group: 'Interactivity',
+    },
+    {
+        key: 'defaultActiveId',
+        flavors: ['svg', 'canvas'],
+        help: `Default \`activeId\`.`,
+        description: `
+            You can use this property in case you want to define a default \`activeId\`,
+            but still don't want to control it by yourself (using \`activeId\` & \`onActiveIdChange\`).
+        `,
+        type: 'string | number | null',
+        required: false,
+        group: 'Interactivity',
+    },
+    {
         key: 'onMouseEnter',
         flavors: ['svg'],
         group: 'Interactivity',
@@ -571,7 +641,7 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg'], defaultProps),
     {
         key: 'transitionMode',
         flavors: ['svg'],
@@ -587,6 +657,28 @@ const props: ChartProperty[] = [
                 value: choice,
             })),
         },
+    },
+    {
+        key: 'forwardLegendData',
+        group: 'Legends',
+        type: '(data: LegendDatum[]) => void',
+        required: false,
+        flavors: ['svg', 'canvas'],
+        help: 'Can be used to get the computed legend data.',
+        description: `
+            This property allows you to implement custom
+            legends, bypassing the limitations of SVG/Canvas.
+            
+            For example you could have a state in the parent component,
+            and then pass the setter.
+            
+            Please be very careful when using this property though,
+            you could end up with an infinite loop if the properties
+            defining the data don't have a stable reference.
+            
+            For example, using a non static/memoized function for \`valueFormat\`
+            would lead to such issue.
+        `,
     },
     {
         key: 'legends',

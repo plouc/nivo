@@ -4,7 +4,6 @@ import {
     stackAxis,
     // computeAxisSlices,
     computeXYScalesForSeries,
-    // @ts-ignore
 } from '../src'
 
 const axes: ScaleAxis[] = ['x', 'y']
@@ -656,16 +655,16 @@ describe('computeXYScalesForSeries', () => {
         )
 
         expect(series).toMatchInlineSnapshot(`
-            Object {
-              "series": Array [],
-              "x": Object {
-                "all": Array [],
+            {
+              "series": [],
+              "x": {
+                "all": [],
                 "max": undefined,
                 "min": undefined,
               },
               "xScale": [Function],
-              "y": Object {
-                "all": Array [],
+              "y": {
+                "all": [],
                 "max": -Infinity,
                 "min": Infinity,
               },

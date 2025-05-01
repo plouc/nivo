@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, LineWidthControlConfig } from '../types'
@@ -29,7 +29,7 @@ export const LineWidthControl = memo(
         config,
     }: LineWidthControlProps) => {
         const handleChange = useCallback(
-            event => {
+            (event: ChangeEvent<HTMLInputElement>) => {
                 onChange(Number(event.target.value))
             },
             [onChange]

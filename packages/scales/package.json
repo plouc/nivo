@@ -1,37 +1,44 @@
 {
-  "name": "@nivo/scales",
-  "version": "0.79.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/scales"
-  },
-  "main": "./dist/nivo-scales.cjs.js",
-  "module": "./dist/nivo-scales.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "d3-scale": "^3.2.3",
-    "d3-time": "^1.0.11",
-    "d3-time-format": "^3.0.0",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@types/d3-scale": "^3.2.2",
-    "@types/d3-time": "^1.1.1",
-    "@types/d3-time-format": "^3.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/scales",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/scales"
+    },
+    "main": "./dist/nivo-scales.cjs.js",
+    "module": "./dist/nivo-scales.mjs",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@types/d3-interpolate": "^3.0.4",
+        "@types/d3-scale": "^4.0.8",
+        "@types/d3-time": "^1.1.1",
+        "@types/d3-time-format": "^3.0.0",
+        "d3-interpolate": "^3.0.1",
+        "d3-scale": "^4.0.2",
+        "d3-time": "^1.0.11",
+        "d3-time-format": "^3.0.0",
+        "lodash": "^4.17.21"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-scales.mjs",
+            "require": "./dist/nivo-scales.cjs.js"
+        }
+    }
 }

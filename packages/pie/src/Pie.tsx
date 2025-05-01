@@ -1,6 +1,6 @@
 import { ReactNode, Fragment, createElement } from 'react'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useDimensions,
     Container,
@@ -8,13 +8,13 @@ import {
 } from '@nivo/core'
 import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
 import { InheritedColorConfig } from '@nivo/colors'
-import PieLegends from './PieLegends'
+import { PieLegends } from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
-import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
+import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId, MayHaveLabel } from './types'
 import { defaultProps } from './props'
 import { Arcs } from './Arcs'
 
-const InnerPie = <RawDatum,>({
+const InnerPie = <RawDatum extends MayHaveLabel>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -46,6 +46,7 @@ const InnerPie = <RawDatum,>({
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
+    arcLabelsSkipRadius = defaultProps.arcLabelsSkipRadius,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
     arcLabelsComponent,
@@ -74,10 +75,15 @@ const InnerPie = <RawDatum,>({
     onMouseMove,
     onMouseLeave,
     tooltip = defaultProps.tooltip,
+    activeId: activeIdFromProps,
+    onActiveIdChange,
+    defaultActiveId,
 
     transitionMode = defaultProps.transitionMode,
 
     legends = defaultProps.legends,
+    forwardLegendData,
+
     role = defaultProps.role,
 }: PieSvgProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -117,35 +123,19 @@ const InnerPie = <RawDatum,>({
         cornerRadius,
         activeInnerRadiusOffset,
         activeOuterRadiusOffset,
+        activeId: activeIdFromProps,
+        onActiveIdChange,
+        defaultActiveId,
+        forwardLegendData,
     })
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 
     const layerById: Record<PieLayerId, ReactNode> = {
-        arcLinkLabels: null,
         arcs: null,
+        arcLinkLabels: null,
         arcLabels: null,
         legends: null,
-    }
-
-    if (enableArcLinkLabels && layers.includes('arcLinkLabels')) {
-        layerById.arcLinkLabels = (
-            <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
-                key="arcLinkLabels"
-                center={[centerX, centerY]}
-                data={dataWithArc}
-                label={arcLinkLabel}
-                skipAngle={arcLinkLabelsSkipAngle}
-                offset={arcLinkLabelsOffset}
-                diagonalLength={arcLinkLabelsDiagonalLength}
-                straightLength={arcLinkLabelsStraightLength}
-                strokeWidth={arcLinkLabelsThickness}
-                textOffset={arcLinkLabelsTextOffset}
-                textColor={arcLinkLabelsTextColor}
-                linkColor={arcLinkLabelsColor}
-                component={arcLinkLabelComponent}
-            />
-        )
     }
 
     if (layers.includes('arcs')) {
@@ -169,6 +159,26 @@ const InnerPie = <RawDatum,>({
         )
     }
 
+    if (enableArcLinkLabels && layers.includes('arcLinkLabels')) {
+        layerById.arcLinkLabels = (
+            <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
+                key="arcLinkLabels"
+                center={[centerX, centerY]}
+                data={dataWithArc}
+                label={arcLinkLabel}
+                skipAngle={arcLinkLabelsSkipAngle}
+                offset={arcLinkLabelsOffset}
+                diagonalLength={arcLinkLabelsDiagonalLength}
+                straightLength={arcLinkLabelsStraightLength}
+                strokeWidth={arcLinkLabelsThickness}
+                textOffset={arcLinkLabelsTextOffset}
+                textColor={arcLinkLabelsTextColor}
+                linkColor={arcLinkLabelsColor}
+                component={arcLinkLabelComponent}
+            />
+        )
+    }
+
     if (enableArcLabels && layers.includes('arcLabels')) {
         layerById.arcLabels = (
             <ArcLabelsLayer<ComputedDatum<RawDatum>>
@@ -178,6 +188,7 @@ const InnerPie = <RawDatum,>({
                 label={arcLabel}
                 radiusOffset={arcLabelsRadiusOffset}
                 skipAngle={arcLabelsSkipAngle}
+                skipRadius={arcLabelsSkipRadius}
                 textColor={arcLabelsTextColor}
                 transitionMode={transitionMode}
                 component={arcLabelsComponent}
@@ -230,7 +241,7 @@ const InnerPie = <RawDatum,>({
     )
 }
 
-export const Pie = <RawDatum,>({
+export const Pie = <RawDatum extends MayHaveLabel>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,

@@ -1,13 +1,15 @@
-import { useMemo, memo } from 'react'
+import { useMotionConfig } from '@nivo/core'
+import { useTheme, useExtendedAxisTheme } from '@nivo/theming'
+import { Text } from '@nivo/text'
+import { AnyScale, ScaleValue } from '@nivo/scales'
+import { animated, useSpring, useTransition } from '@react-spring/web'
 import * as React from 'react'
-import { useSpring, useTransition, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
-import { ScaleValue, AnyScale } from '@nivo/scales'
+import { memo, useCallback, useMemo } from 'react'
 import { computeCartesianTicks, getFormatter } from '../compute'
-import { AxisTick } from './AxisTick'
 import { AxisProps } from '../types'
+import { AxisTick } from './AxisTick'
 
-const Axis = <Value extends ScaleValue>({
+export const NonMemoizedAxis = <Value extends ScaleValue>({
     axis,
     scale,
     x = 0,
@@ -20,9 +22,11 @@ const Axis = <Value extends ScaleValue>({
     tickRotation = 0,
     format,
     renderTick = AxisTick,
+    truncateTickAt,
     legend,
     legendPosition = 'end',
     legendOffset = 0,
+    style,
     onClick,
     ariaHidden,
 }: AxisProps<Value> & {
@@ -34,6 +38,7 @@ const Axis = <Value extends ScaleValue>({
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }) => {
     const theme = useTheme()
+    const axisTheme = useExtendedAxisTheme(theme.axis, style)
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
@@ -45,6 +50,7 @@ const Axis = <Value extends ScaleValue>({
         tickSize,
         tickPadding,
         tickRotation,
+        truncateTickAt,
     })
 
     let legendNode = null
@@ -80,16 +86,18 @@ const Axis = <Value extends ScaleValue>({
         }
 
         legendNode = (
-            <text
-                transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
-                textAnchor={textAnchor}
-                style={{
-                    dominantBaseline: 'central',
-                    ...theme.axis.legend.text,
-                }}
-            >
-                {legend}
-            </text>
+            <>
+                <Text
+                    transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
+                    textAnchor={textAnchor}
+                    style={{
+                        ...axisTheme.legend.text,
+                        dominantBaseline: 'central',
+                    }}
+                >
+                    {legend}
+                </Text>
+            </>
         )
     }
 
@@ -103,31 +111,34 @@ const Axis = <Value extends ScaleValue>({
         immediate: !animate,
     })
 
-    const transition = useTransition<
-        typeof ticks[0],
-        { opacity: number; transform: string; textTransform: string }
-    >(ticks, {
-        keys: tick => tick.key,
-        initial: tick => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
-        from: tick => ({
+    const getAnimatedProps = useCallback(
+        (tick: (typeof ticks)[0]) => {
+            return {
+                opacity: 1,
+                transform: `translate(${tick.x},${tick.y})`,
+                textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
+            }
+        },
+        [tickRotation]
+    )
+    const getFromAnimatedProps = useCallback(
+        (tick: (typeof ticks)[0]) => ({
             opacity: 0,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        enter: tick => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
-        update: tick => ({
-            opacity: 1,
-            transform: `translate(${tick.x},${tick.y})`,
-            textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
-        }),
+        [tickRotation]
+    )
+
+    const transition = useTransition<
+        (typeof ticks)[0],
+        { opacity: number; transform: string; textTransform: string }
+    >(ticks, {
+        keys: tick => tick.key,
+        initial: getAnimatedProps,
+        from: getFromAnimatedProps,
+        enter: getAnimatedProps,
+        update: getAnimatedProps,
         leave: {
             opacity: 0,
         },
@@ -144,13 +155,15 @@ const Axis = <Value extends ScaleValue>({
                     rotate: tickRotation,
                     textBaseline,
                     textAnchor: textAlign,
+                    truncateTickAt: truncateTickAt,
                     animatedProps: transitionProps,
+                    theme: axisTheme.ticks,
                     ...tick,
                     ...(onClick ? { onClick } : {}),
                 })
             })}
             <animated.line
-                style={theme.axis.domain.line}
+                style={axisTheme.domain.line}
                 x1={0}
                 x2={animatedProps.lineX2}
                 y1={0}
@@ -161,6 +174,4 @@ const Axis = <Value extends ScaleValue>({
     )
 }
 
-const memoizedAxis = memo(Axis) as typeof Axis
-
-export { memoizedAxis as Axis }
+export const Axis = memo(NonMemoizedAxis) as typeof NonMemoizedAxis

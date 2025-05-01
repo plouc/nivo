@@ -1,45 +1,50 @@
 {
-  "name": "@nivo/annotations",
-  "version": "0.79.1",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/plouc/nivo.git",
-    "directory": "packages/annotations"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "charts",
-    "annotations"
-  ],
-  "main": "./dist/nivo-annotations.cjs.js",
-  "module": "./dist/nivo-annotations.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "dependencies": {
-    "@nivo/colors": "0.79.1",
-    "@react-spring/web": "9.3.1",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@nivo/core": "0.79.0"
-  },
-  "peerDependencies": {
-    "@nivo/core": "0.79.0",
-    "react": ">= 16.14.0 < 18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/annotations",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/annotations"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "charts",
+        "annotations"
+    ],
+    "main": "./dist/nivo-annotations.cjs.js",
+    "module": "./dist/nivo-annotations.mjs",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/theming": "workspace:*",
+        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-annotations.mjs",
+            "require": "./dist/nivo-annotations.cjs.js"
+        }
+    }
 }

@@ -1,7 +1,6 @@
 // @ts-ignore
 import { lineCurvePropKeys } from '@nivo/core'
-// @ts-ignore
-import { LineDefaultProps as defaults } from '@nivo/line'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/line'
 import {
     themeProperty,
     motionProperties,
@@ -16,6 +15,7 @@ import {
     chartGrid,
     axes,
     isInteractive,
+    commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -182,7 +182,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string',
         required: false,
-        defaultValue: defaults.curve,
+        defaultValue: commonDefaultProps.curve,
         group: 'Style',
         control: {
             type: 'choices',
@@ -195,7 +195,7 @@ const props: ChartProperty[] = [
     themeProperty(['svg', 'canvas', 'api']),
     ordinalColors({
         flavors: allFlavors,
-        defaultValue: defaults.colors,
+        defaultValue: commonDefaultProps.colors,
     }),
     {
         key: 'lineWidth',
@@ -203,7 +203,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.lineWidth,
+        defaultValue: commonDefaultProps.lineWidth,
         control: { type: 'lineWidth' },
         group: 'Style',
     },
@@ -213,7 +213,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableArea,
+        defaultValue: commonDefaultProps.enableArea,
         control: { type: 'switch' },
         group: 'Style',
     },
@@ -229,7 +229,7 @@ const props: ChartProperty[] = [
         `,
         type: 'number | string | Date',
         required: false,
-        defaultValue: defaults.areaBaselineValue,
+        defaultValue: commonDefaultProps.areaBaselineValue,
         group: 'Style',
         control: {
             type: 'range',
@@ -243,7 +243,7 @@ const props: ChartProperty[] = [
         help: 'Area opacity (0~1), depends on enableArea.',
         flavors: allFlavors,
         required: false,
-        defaultValue: defaults.areaOpacity,
+        defaultValue: commonDefaultProps.areaOpacity,
         type: 'number',
         control: { type: 'opacity' },
         group: 'Style',
@@ -252,7 +252,7 @@ const props: ChartProperty[] = [
         key: 'areaBlendMode',
         target: 'areas',
         flavors: ['svg'],
-        defaultValue: defaults.areaBlendMode,
+        defaultValue: svgDefaultProps.areaBlendMode,
     }),
     ...defsProperties('Style', ['svg']),
     {
@@ -268,7 +268,7 @@ const props: ChartProperty[] = [
             computed data and must return a valid SVG element.
         `,
         required: false,
-        defaultValue: defaults.layers,
+        defaultValue: commonDefaultProps.layers,
     },
     {
         key: 'enablePoints',
@@ -276,7 +276,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enablePoints,
+        defaultValue: commonDefaultProps.enablePoints,
         control: { type: 'switch' },
         group: 'Points',
     },
@@ -294,7 +294,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.pointSize,
+        defaultValue: commonDefaultProps.pointSize,
         group: 'Points',
         control: {
             type: 'range',
@@ -306,12 +306,12 @@ const props: ChartProperty[] = [
     {
         key: 'pointColor',
         help: 'Method to compute points color.',
-        type: 'string | object | Function',
+        type: 'InheritedColorConfig<PointColorContext>',
         flavors: allFlavors,
         required: false,
-        defaultValue: defaults.pointColor,
+        defaultValue: commonDefaultProps.pointColor,
         group: 'Points',
-        control: { type: 'inheritedColor' },
+        control: { type: 'inheritedColor', inheritableProperties: ['series.color'] },
     },
     {
         key: 'pointBorderWidth',
@@ -319,7 +319,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.pointBorderWidth,
+        defaultValue: commonDefaultProps.pointBorderWidth,
         group: 'Points',
         control: { type: 'lineWidth' },
     },
@@ -327,11 +327,11 @@ const props: ChartProperty[] = [
         key: 'pointBorderColor',
         help: 'Method to compute points border color.',
         flavors: allFlavors,
-        type: 'string | object | Function',
+        type: `InheritedColorConfig<Omit<Point, 'borderColor'>>`,
         required: false,
-        defaultValue: defaults.pointBorderColor,
+        defaultValue: commonDefaultProps.pointBorderColor,
         group: 'Points',
-        control: { type: 'inheritedColor' },
+        control: { type: 'inheritedColor', inheritableProperties: ['seriesColor'] },
     },
     {
         key: 'enablePointLabel',
@@ -340,7 +340,7 @@ const props: ChartProperty[] = [
         help: 'Enable/disable points label.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enablePointLabel,
+        defaultValue: svgDefaultProps.enablePointLabel,
         control: { type: 'switch' },
     },
     {
@@ -378,13 +378,18 @@ const props: ChartProperty[] = [
     ...chartGrid({
         flavors: allFlavors,
         values: true,
-        xDefault: defaults.enableGridX,
-        yDefault: defaults.enableGridY,
+        xDefault: commonDefaultProps.enableGridX,
+        yDefault: commonDefaultProps.enableGridY,
     }),
     ...axes({ flavors: allFlavors }),
     isInteractive({
         flavors: ['svg', 'canvas'],
-        defaultValue: defaults.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
+        help: [
+            'Enable/disable interactivity.',
+            'Using `enableSlices` will enable a crosshair on the `x` or `y` axis, that will move between the nearest slice to the mouse/touch point, and will show a tooltip of all data points for that slice.',
+            'Using `useMesh` will use a voronoi mesh to detect the closest point to the mouse cursor/touch point, which is useful for very dense datasets, as it can become difficult to hover a specific point, however, it will only return one data point.',
+        ].join(' '),
     }),
     {
         key: 'useMesh',
@@ -392,7 +397,7 @@ const props: ChartProperty[] = [
         help: 'Use a voronoi mesh to detect mouse interactions, enableSlices must be disabled',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.useMesh,
+        defaultValue: svgDefaultProps.useMesh,
         control: { type: 'switch' },
         group: 'Interactivity',
     },
@@ -402,7 +407,7 @@ const props: ChartProperty[] = [
         help: 'Display mesh used to detect mouse interactions (voronoi cells).',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.debugMesh,
+        defaultValue: commonDefaultProps.debugMesh,
         control: { type: 'switch' },
         group: 'Interactivity',
     },
@@ -439,6 +444,33 @@ const props: ChartProperty[] = [
         required: false,
     },
     {
+        key: 'onTouchStart',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: `onTouchStart handler, when a touch gesture is started inside the graph.`,
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
+        key: 'onTouchMove',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: [
+            'onTouchMove handler, when a touch gesture that originated from inside the graph is moved.',
+            'Note, when using slices, this will return the originally touched slice, not the slice currently being hovered over (use document.elementFromPoint()).',
+        ].join(' '),
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
+        key: 'onTouchEnd',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: `onTouchEnd handler, when a touch gesture that originated from inside the graph ends.`,
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
         key: 'tooltip',
         flavors: ['svg', 'canvas'],
         group: 'Interactivity',
@@ -453,7 +485,7 @@ const props: ChartProperty[] = [
         help: `Enable/disable slices tooltip for x or y axis, automatically disable mesh.`,
         type: `'x' | 'y' | false`,
         required: false,
-        defaultValue: defaults.enableSlicesTooltip,
+        defaultValue: svgDefaultProps.enableSlices,
         control: {
             type: 'choices',
             choices: [
@@ -478,7 +510,7 @@ const props: ChartProperty[] = [
         help: 'Display area used to detect mouse interactions for slices.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.debugSlices,
+        defaultValue: svgDefaultProps.debugSlices,
         control: { type: 'switch' },
         group: 'Interactivity',
     },
@@ -498,14 +530,30 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         control: { type: 'switch' },
-        defaultValue: defaults.enableCrosshair,
+        defaultValue: svgDefaultProps.enableCrosshair,
+    },
+    {
+        key: 'enableTouchCrosshair',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: `Enables the crosshair to be dragged around a touch screen.`,
+        type: 'boolean',
+        defaultValue: svgDefaultProps.enableTouchCrosshair,
+        control: { type: 'switch' },
+    },
+    {
+        key: 'initialHiddenIds',
+        flavors: allFlavors,
+        group: 'Interactivity',
+        help: `Hides certain series by default given their ids`,
+        type: 'string[]',
     },
     {
         key: 'crosshairType',
         flavors: ['svg'],
         group: 'Interactivity',
         required: false,
-        defaultValue: defaults.crosshairType,
+        defaultValue: svgDefaultProps.crosshairType,
         help: `Crosshair type, forced to slices axis if enabled.`,
         type: 'string',
         control: {
@@ -572,7 +620,65 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg'], defaults, 'react-spring'),
+    ...motionProperties(['svg'], svgDefaultProps),
+    {
+        key: 'isFocusable',
+        flavors: ['svg'],
+        required: false,
+        defaultValue: svgDefaultProps.isFocusable,
+        group: 'Accessibility',
+        help: 'Make the root SVG element and each point focusable, for keyboard navigation.',
+        description: `
+            If enabled, focusing will also reveal the tooltip if \`isInteractive\` is \`true\`,
+            when a point gains focus and hide it on blur.
+            
+            Also note that if this option is enabled, focusing a point will reposition the tooltip
+            at a fixed location.
+        `,
+        type: 'boolean',
+        control: { type: 'switch' },
+    },
+    ...commonAccessibilityProps(['svg'], svgDefaultProps),
+    {
+        key: 'pointAriaLabel',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => string | undefined',
+    },
+    {
+        key: 'pointAriaLabelledBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => string | undefined',
+    },
+    {
+        key: 'pointAriaDescribedBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => string | undefined',
+    },
+    {
+        key: 'pointAriaHidden',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => boolean | undefined',
+    },
+    {
+        key: 'pointAriaDisabled',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for points, `enablePoints` must be `true`.',
+        type: '(point: Point) => boolean | undefined',
+    },
 ]
 
 export const groups = groupProperties(props)

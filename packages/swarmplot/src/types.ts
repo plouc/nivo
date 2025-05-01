@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
 import { ForceX, ForceY, ForceCollide } from 'd3-force'
-import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
+import { PropertyAccessor, ValueFormat, MotionProps, Box, Margin } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AxisProps, CanvasAxisProps } from '@nivo/axes'
 import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@nivo/scales'
@@ -40,7 +41,7 @@ export interface SwarmPlotCustomLayerProps<
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>,
 > {
     nodes: ComputedDatum<RawDatum>[]
     xScale: Scale
@@ -57,7 +58,7 @@ export type SwarmPlotCustomLayer<
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>,
 > = React.FC<SwarmPlotCustomLayerProps<RawDatum, Scale>>
 
 export type SwarmPlotLayer<
@@ -65,7 +66,7 @@ export type SwarmPlotLayer<
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number> = ScaleLinear<number>
+        | ScaleOrdinal<string, number> = ScaleLinear<number>,
 > = SwarmPlotLayerId | SwarmPlotCustomLayer<RawDatum, Scale>
 
 export type SizeSpec<RawDatum> =
@@ -86,9 +87,12 @@ export type MouseHandler<RawDatum> = (
 
 export type MouseHandlers<RawDatum> = {
     onClick?: MouseHandler<RawDatum>
+    onDoubleClick?: MouseHandler<RawDatum>
     onMouseEnter?: MouseHandler<RawDatum>
     onMouseMove?: MouseHandler<RawDatum>
     onMouseLeave?: MouseHandler<RawDatum>
+    onMouseDown?: MouseHandler<RawDatum>
+    onMouseUp?: MouseHandler<RawDatum>
 }
 
 export type SwarmPlotCommonProps<RawDatum> = {
@@ -108,7 +112,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
     gap: number
     forceStrength: number
     simulationIterations: number
-    theme?: Theme
+    theme?: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color'>>
     colorBy: PropertyAccessor<Omit<ComputedDatum<RawDatum>, 'color'>, string>
     borderWidth: number | ((node: ComputedDatum<RawDatum>) => number)
@@ -127,7 +131,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
         ScaleLinear<number> | ScaleTime<string | Date> | ScaleOrdinal<string, number>
     >[]
     animate: boolean
-    motionConfig: ModernMotionProps['motionConfig']
+    motionConfig: MotionProps['motionConfig']
     role: string
     renderWrapper?: boolean
 }
@@ -142,7 +146,10 @@ export type SwarmPlotSvgProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
     }
 
 export type SwarmPlotCanvasProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &
-    Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'> & {
+    Pick<
+        MouseHandlers<RawDatum>,
+        'onMouseMove' | 'onMouseDown' | 'onMouseUp' | 'onClick' | 'onDoubleClick'
+    > & {
         axisTop?: CanvasAxisProps<string> | null
         axisRight?: CanvasAxisProps<string> | null
         axisBottom?: CanvasAxisProps<string> | null

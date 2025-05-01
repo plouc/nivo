@@ -1,5 +1,4 @@
 import { mount } from 'enzyme'
-// @ts-ignore
 import { Funnel, FunnelPart } from '../src'
 
 const sampleData = [

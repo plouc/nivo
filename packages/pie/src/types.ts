@@ -2,12 +2,12 @@ import * as React from 'react'
 import {
     Box,
     Dimensions,
-    Theme,
     SvgDefsAndFill,
-    ModernMotionProps,
+    MotionProps,
     ValueFormat,
     PropertyAccessor,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import {
     Arc,
     ArcGenerator,
@@ -26,6 +26,11 @@ export type DatumId = string | number
 export interface DefaultRawDatum {
     id: DatumId
     value: number
+}
+
+// eslint-disable-next-line
+export interface MayHaveLabel extends Object {
+    label?: string | number
 }
 
 export interface PieArc extends Arc {
@@ -54,7 +59,7 @@ export interface ComputedDatum<RawDatum> {
 }
 
 export interface DataProps<RawDatum> {
-    data: RawDatum[]
+    data: readonly RawDatum[]
 }
 
 export interface PieTooltipProps<RawDatum> {
@@ -69,7 +74,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
 export type PieLayerId = 'arcLinkLabels' | 'arcs' | 'arcLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
-    dataWithArc: ComputedDatum<RawDatum>[]
+    dataWithArc: readonly ComputedDatum<RawDatum>[]
     centerX: number
     centerY: number
     radius: number
@@ -99,7 +104,7 @@ export type CommonPieProps<RawDatum> = {
 
     // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill' | 'arc'>>
-    theme: Theme
+    theme: PartialTheme
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
@@ -109,8 +114,12 @@ export type CommonPieProps<RawDatum> = {
     // interactivity
     isInteractive: boolean
     tooltip: React.FC<PieTooltipProps<RawDatum>>
+    activeId: DatumId | null
+    onActiveIdChange: (id: DatumId | null) => void
+    defaultActiveId: DatumId | null
 
-    legends: LegendProps[]
+    legends: readonly LegendProps[]
+    forwardLegendData: (data: LegendDatum<RawDatum>[]) => void
 
     role: string
     renderWrapper: boolean
@@ -128,14 +137,22 @@ export type PieSvgCustomComponents<RawDatum> = {
     arcLinkLabelComponent?: ArcLinkLabelsProps<ComputedDatum<RawDatum>>['component']
 }
 
+export interface LegendDatum<RawDatum> {
+    id: ComputedDatum<RawDatum>['id']
+    label: ComputedDatum<RawDatum>['label']
+    color: string
+    hidden: boolean
+    data: Omit<ComputedDatum<RawDatum>, 'fill' | 'arc'>
+}
+
 export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonPieProps<RawDatum>> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
-        layers?: PieLayer<RawDatum>[]
+        layers?: readonly PieLayer<RawDatum>[]
         animate?: boolean
-        motionConfig?: ModernMotionProps['motionConfig']
+        motionConfig?: MotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
     } & PieSvgCustomComponents<RawDatum>
 
@@ -144,9 +161,9 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     CommonPieProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
-        layers: PieLayer<RawDatum>[]
+        layers: readonly PieLayer<RawDatum>[]
         animate: boolean
-        motionConfig: ModernMotionProps['motionConfig']
+        motionConfig: MotionProps['motionConfig']
         transitionMode: ArcTransitionMode
     } & PieSvgCustomComponents<RawDatum>
 

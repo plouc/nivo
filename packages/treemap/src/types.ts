@@ -3,12 +3,12 @@ import { SpringValues } from '@react-spring/web'
 import {
     Box,
     Dimensions,
-    Theme,
     ValueFormat,
     PropertyAccessor,
-    ModernMotionProps,
+    MotionProps,
     SvgDefsAndFill,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig, DatumIdentityAccessor } from '@nivo/colors'
 import { TileType } from './tiling'
 
@@ -145,7 +145,7 @@ export type TreeMapCommonProps<Datum extends object> = {
         }
     >
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<ComputedNodeWithoutStyles<Datum>>
     colorBy: string | DatumIdentityAccessor<ComputedNodeWithoutStyles<Datum>>
     nodeOpacity: number
@@ -169,7 +169,7 @@ export type TreeMapCommonProps<Datum extends object> = {
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
-} & ModernMotionProps
+} & MotionProps
 
 export type TreeMapSvgProps<Datum extends object> = Partial<TreeMapCommonProps<Datum>> &
     TreeMapDataProps<Datum> &

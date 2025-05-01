@@ -1,13 +1,16 @@
 import React from 'react'
-import range from 'lodash/range'
-import random from 'lodash/random'
-import { useStaticQuery, graphql } from 'gatsby'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
+import { useStaticQuery, graphql, PageProps } from 'gatsby'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { ResponsiveAreaBump, areaBumpSvgDefaultProps as defaults } from '@nivo/bump'
+import { ResponsiveAreaBump, areaBumpSvgDefaultProps as defaults, AreaBumpSerie } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/area-bump/meta.yml'
 import { groups } from '../../data/components/area-bump/props'
-import mapper from '../../data/components/area-bump/mapper'
+import mapper, {
+    UnmappedAreaBumpProps,
+    MappedAreaBumpProps,
+} from '../../data/components/area-bump/mapper'
 
 const serieIds = ['JavaScript', 'ReasonML', 'TypeScript', 'Elm', 'CoffeeScript']
 const generateData = () => {
@@ -22,7 +25,7 @@ const generateData = () => {
     }))
 }
 
-const initialProperties = {
+const initialProperties: UnmappedAreaBumpProps = {
     margin: {
         top: 40,
         right: 100,
@@ -68,10 +71,10 @@ const initialProperties = {
     activeBorderOpacity: defaults.activeBorderOpacity,
     inactiveBorderOpacity: defaults.inactiveBorderOpacity,
 
-    startLabel: 'id',
+    startLabel: true,
     startLabelPadding: defaults.startLabelPadding,
     startLabelTextColor: defaults.startLabelTextColor,
-    endLabel: 'id',
+    endLabel: true,
     endLabelPadding: defaults.endLabelPadding,
     endLabelTextColor: defaults.endLabelTextColor,
 
@@ -84,6 +87,7 @@ const initialProperties = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: -36,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -93,6 +97,7 @@ const initialProperties = {
         legend: '',
         legendPosition: 'middle',
         legendOffset: 32,
+        truncateTickAt: 0,
     },
 
     isInteractive: true,
@@ -101,7 +106,7 @@ const initialProperties = {
     motionConfig: defaults.motionConfig,
 }
 
-const AreaBump = () => {
+const AreaBump = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -117,7 +122,11 @@ const AreaBump = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<
+            UnmappedAreaBumpProps,
+            MappedAreaBumpProps,
+            AreaBumpSerie<{ x: number; y: number }, {}>[]
+        >
             name="AreaBump"
             meta={meta.AreaBump}
             icon="area-bump"
@@ -129,6 +138,7 @@ const AreaBump = () => {
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (
@@ -136,12 +146,12 @@ const AreaBump = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={serie =>
+                        onClick={series =>
                             logAction({
                                 type: 'click',
-                                label: `[serie] ${serie.id}`,
-                                color: serie.color,
-                                data: serie,
+                                label: `[series] ${series.id}`,
+                                color: series.color,
+                                data: series,
                             })
                         }
                     />

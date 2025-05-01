@@ -28,6 +28,10 @@ capture:
       - id: voronoi
 
     charts:
+      - pkg: boxplot
+        chart: boxplot
+        flavors: [svg]
+
       - pkg: bump
         chart: bump
         flavors: [svg]
@@ -53,6 +57,10 @@ capture:
         chart: bar
         flavors: [svg, canvas]
 
+      - pkg: bullet
+        chart: bullet
+        flavors: [ svg ]
+
       - pkg: calendar
         chart: calendar
         flavors: [svg]
@@ -66,10 +74,6 @@ capture:
         flavors: [svg, canvas]
         # html is broken for now
         # flavors: [svg, html, canvas]
-
-      - pkg: bullet
-        chart: bullet
-        flavors: [svg]
 
       - pkg: heatmap
         chart: heatmap
@@ -93,6 +97,10 @@ capture:
         chart: pie
         flavors: [svg, canvas]
 
+      - pkg: polar-bar
+        chart: polar-bar
+        flavors: [svg]
+
       - pkg: radar
         chart: radar
         flavors: [svg]
@@ -115,6 +123,11 @@ capture:
 
       - pkg: sunburst
         chart: sunburst
+        flavors: [svg]
+
+      - pkg: tree
+        chart: tree
+        theme: dark
         flavors: [svg]
 
       - pkg: treemap

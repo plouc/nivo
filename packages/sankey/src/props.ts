@@ -1,6 +1,7 @@
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
 import { SankeyLayerId, SankeyNodeDatum, SankeyAlignType } from './types'
 import { InheritedColorConfig } from '@nivo/colors'
+import { Text } from '@nivo/text'
 import { SankeyNodeTooltip } from './SankeyNodeTooltip'
 import { SankeyLinkTooltip } from './SankeyLinkTooltip'
 
@@ -49,6 +50,7 @@ export const svgDefaultProps = {
     labelTextColor: { from: 'color', modifiers: [['darker', 0.8]] } as InheritedColorConfig<
         SankeyNodeDatum<any, any>
     >,
+    labelComponent: Text,
 
     isInteractive: true,
     nodeTooltip: SankeyNodeTooltip,

@@ -1,12 +1,20 @@
 {
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules"],
+  "include": [
+    "./src/**/*",
+    "./gatsby-browser.tsx",
+    "./gatsby-node.ts",
+    "./gatsby-config.ts",
+    "./gatsby-ssr.tsx",
+    "./plugins/**/*"
+  ],
   "compilerOptions": {
-    "lib": ["ES2020", "DOM"],
-    "target": "es5",
+    "lib": ["dom", "esnext"],
+    "target": "esnext",
     "jsx": "react",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -14,9 +22,6 @@
     "noFallthroughCasesInSwitch": true,
     "typeRoots": ["node_modules/@types/", "./src/@types/"],
     "strict": true,
-    "baseUrl": "./",
-    "paths": {
-      "core/*": ["./src/core/*"]
-    }
+    "baseUrl": "."
   }
 }

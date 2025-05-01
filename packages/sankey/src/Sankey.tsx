@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { uniq } from 'lodash'
+import { createElement, Fragment, ReactNode, useMemo } from 'react'
+import uniq from 'lodash/uniq.js'
 import { SvgWrapper, useDimensions, Container } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from './props'
@@ -47,6 +47,7 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
     linkBlendMode = svgDefaultProps.linkBlendMode,
     enableLinkGradient = svgDefaultProps.enableLinkGradient,
     enableLabels = svgDefaultProps.enableLabels,
+    labelComponent = svgDefaultProps.labelComponent,
     labelPosition = svgDefaultProps.labelPosition,
     labelPadding = svgDefaultProps.labelPadding,
     labelOrientation = svgDefaultProps.labelOrientation,
@@ -96,42 +97,74 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
         labelTextColor,
     })
 
-    let isCurrentNode: (node: SankeyNodeDatum<N, L>) => boolean = () => false
-    let isCurrentLink: (link: SankeyLinkDatum<N, L>) => boolean = () => false
+    const { isCurrentNode, isCurrentLink } = useMemo(() => {
+        let isCurrentNode: (node: SankeyNodeDatum<N, L>) => boolean = () => false
+        let isCurrentLink: (link: SankeyLinkDatum<N, L>) => boolean = () => false
 
-    if (currentLink) {
-        isCurrentNode = ({ id }: SankeyNodeDatum<N, L>) =>
-            id === currentLink.source.id || id === currentLink.target.id
-        isCurrentLink = ({ source, target }: SankeyLinkDatum<N, L>) =>
-            source.id === currentLink.source.id && target.id === currentLink.target.id
-    }
+        if (currentLink) {
+            isCurrentNode = ({ id }) => id === currentLink.source.id || id === currentLink.target.id
+            isCurrentLink = ({ source, target }) =>
+                source.id === currentLink.source.id && target.id === currentLink.target.id
+        }
 
-    if (currentNode) {
-        let currentNodeIds = [currentNode.id]
-        links
-            .filter(
-                ({ source, target }) => source.id === currentNode.id || target.id === currentNode.id
-            )
-            .forEach(({ source, target }) => {
-                currentNodeIds.push(source.id)
-                currentNodeIds.push(target.id)
-            })
+        if (currentNode) {
+            let currentNodeIds = [currentNode.id]
+            links
+                .filter(
+                    ({ source, target }) =>
+                        source.id === currentNode.id || target.id === currentNode.id
+                )
+                .forEach(({ source, target }) => {
+                    currentNodeIds.push(source.id)
+                    currentNodeIds.push(target.id)
+                })
+            currentNodeIds = uniq(currentNodeIds)
 
-        currentNodeIds = uniq(currentNodeIds)
-        isCurrentNode = ({ id }) => currentNodeIds.includes(id)
-        isCurrentLink = ({ source, target }) =>
-            source.id === currentNode.id || target.id === currentNode.id
-    }
+            isCurrentNode = ({ id }) => currentNodeIds.includes(id)
+            isCurrentLink = ({ source, target }) =>
+                source.id === currentNode.id || target.id === currentNode.id
+        }
 
-    const layerProps = {
-        links,
-        nodes,
-        margin,
-        width,
-        height,
-        outerWidth,
-        outerHeight,
-    }
+        return {
+            isCurrentNode,
+            isCurrentLink,
+        }
+    }, [currentLink, currentNode, links])
+
+    const layerProps = useMemo(
+        () => ({
+            links,
+            nodes,
+            margin,
+            width,
+            height,
+            outerWidth,
+            outerHeight,
+            currentNode,
+            isCurrentNode,
+            setCurrentNode,
+            currentLink,
+            isCurrentLink,
+            setCurrentLink,
+            isInteractive,
+        }),
+        [
+            links,
+            nodes,
+            margin,
+            width,
+            height,
+            outerWidth,
+            outerHeight,
+            currentNode,
+            isCurrentNode,
+            setCurrentNode,
+            currentLink,
+            isCurrentLink,
+            setCurrentLink,
+            isInteractive,
+        ]
+    )
 
     const layerById: Record<SankeyLayerId, ReactNode> = {
         links: null,
@@ -197,6 +230,7 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
                 labelPadding={labelPadding}
                 labelOrientation={labelOrientation}
                 getLabelTextColor={getLabelTextColor}
+                labelComponent={labelComponent}
             />
         )
     }

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useCallback, createElement, useMemo } from 'react'
-import { getRelativeCursor, isCursorInRect, useDimensions, useTheme, Container } from '@nivo/core'
+import { useEffect, useRef, useCallback, createElement, useMemo, MouseEvent } from 'react'
+import { getRelativeCursor, isCursorInRect, useDimensions, Container } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { renderContinuousColorLegendToCanvas } from '@nivo/legends'
@@ -246,7 +247,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (canvasEl.current === null) return
 
             const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -288,7 +289,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     }, [setActiveCell, hideTooltip])
 
     const handleClick = useCallback(
-        event => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (activeCell === null) return
 
             onClick?.(activeCell, event)
@@ -319,7 +320,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 
 export const HeatMapCanvas = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 >({
     theme,
     isInteractive = canvasDefaultProps.isInteractive,

@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react'
-import isPlainObject from 'lodash/isPlainObject'
-import isArray from 'lodash/isArray'
-import isString from 'lodash/isString'
-import isNumber from 'lodash/isNumber'
-import isBoolean from 'lodash/isBoolean'
-import isFunction from 'lodash/isFunction'
+import isPlainObject from 'lodash/isPlainObject.js'
+import isArray from 'lodash/isArray.js'
+import isString from 'lodash/isString.js'
+import isNumber from 'lodash/isNumber.js'
+import isBoolean from 'lodash/isBoolean.js'
+import isFunction from 'lodash/isFunction.js'
 import styled from 'styled-components'
-import { ChartProperty } from '../../../types'
+import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext } from '../types'
 
 const getDefaultValue = (value: any) => {
@@ -39,6 +39,7 @@ type PropertyHeaderProps = ChartProperty & {
     id?: string
     name?: string
     context?: ControlContext
+    currentFlavor?: Flavor
 }
 
 export const PropertyHeader = ({
@@ -48,6 +49,7 @@ export const PropertyHeader = ({
     required,
     defaultValue,
     context,
+    currentFlavor,
 }: PropertyHeaderProps) => {
     let label: ReactNode = name
     if (context) {
@@ -59,10 +61,20 @@ export const PropertyHeader = ({
         )
     }
 
+    let propertyType: string | undefined = undefined
+    if (type !== undefined) {
+        if (typeof type === 'string') {
+            propertyType = type
+        } else if (typeof type === 'object' && currentFlavor) {
+            // If an object is provided, it means it depends on the current flavor.
+            propertyType = type[currentFlavor]
+        }
+    }
+
     return (
         <Container>
             <Label htmlFor={id}>{label}</Label>
-            {type !== undefined && <Type>{type}</Type>}
+            {propertyType && <Type>{propertyType}</Type>}
             {required && <Required>required</Required>}
             {!required && <Optional>optional</Optional>}
             {defaultValue !== undefined && (

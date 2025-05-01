@@ -1,15 +1,7 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { Fragment, useCallback, memo } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
-import { GeoMapPropTypes, GeoMapDefaultProps } from './props'
 import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'
 import { useGeoMap } from './hooks'
@@ -20,21 +12,22 @@ const GeoMap = memo(props => {
         height,
         margin: partialMargin,
         features,
-        layers,
-        projectionType,
-        projectionScale,
-        projectionTranslation,
-        projectionRotation,
-        fillColor,
-        borderWidth,
-        borderColor,
-        enableGraticule,
-        graticuleLineWidth,
-        graticuleLineColor,
-        isInteractive,
-        onClick,
+        layers = ['graticule', 'features'],
+        projectionType = 'mercator',
+        projectionScale = 100,
+        projectionTranslation = [0.5, 0.5],
+        projectionRotation = [0, 0, 0],
+        fillColor = '#dddddd',
+        borderWidth = 0,
+        borderColor = '#000000',
+        enableGraticule = false,
+        graticuleLineWidth = 0.5,
+        graticuleLineColor = '#999999',
+        isInteractive = true,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClick = () => {},
         tooltip: Tooltip,
-        role,
+        role = 'img',
     } = props
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
     const { graticule, path, getFillColor, getBorderWidth, getBorderColor } = useGeoMap({
@@ -119,9 +112,5 @@ const GeoMap = memo(props => {
         </SvgWrapper>
     )
 })
-
-GeoMap.displayName = 'GeoMap'
-GeoMap.propTypes = GeoMapPropTypes
-GeoMap.defaultProps = GeoMapDefaultProps
 
 export default withContainer(GeoMap)

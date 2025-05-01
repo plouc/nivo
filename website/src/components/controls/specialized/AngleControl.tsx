@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ChartProperty, Flavor } from '../../../types'
 import { AngleControlConfig, ControlContext } from '../types'
@@ -35,7 +35,7 @@ export const AngleControl = memo(
         const max = config.max || 360
 
         const handleChange = useCallback(
-            event => {
+            (event: ChangeEvent<HTMLInputElement>) => {
                 onChange(Number(event.target.value))
             },
             [onChange]

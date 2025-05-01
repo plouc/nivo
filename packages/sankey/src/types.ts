@@ -2,13 +2,14 @@ import { AriaAttributes, MouseEvent, FunctionComponent } from 'react'
 import { SankeyNodeMinimal } from 'd3-sankey'
 import {
     Box,
-    Theme,
     CssMixBlendMode,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     ValueFormat,
 } from '@nivo/core'
+import { TextProps } from '@nivo/text'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -71,8 +72,8 @@ export type SankeyNodeDatum<N extends DefaultNode, L extends DefaultLink> = N & 
     label: string
     formattedValue: string
     layer: number
-    sourceLinks: SankeyLinkDatum<N, L>[]
-    targetLinks: SankeyLinkDatum<N, L>[]
+    sourceLinks: readonly SankeyLinkDatum<N, L>[]
+    targetLinks: readonly SankeyLinkDatum<N, L>[]
     x: number
     y: number
     width: number
@@ -81,14 +82,20 @@ export type SankeyNodeDatum<N extends DefaultNode, L extends DefaultLink> = N & 
 
 export interface SankeyDataProps<N extends DefaultNode, L extends DefaultLink> {
     data: {
-        nodes: N[]
-        links: L[]
+        nodes: readonly N[]
+        links: readonly L[]
     }
 }
 
+export type SankeyCustomLayer<N extends DefaultNode, L extends DefaultLink> = FunctionComponent<
+    CustomSankeyLayerProps<N, L>
+>
 export type SankeyLayerId = 'links' | 'nodes' | 'labels' | 'legends'
+export type SankeyLayer<N extends DefaultNode, L extends DefaultLink> =
+    | SankeyLayerId
+    | SankeyCustomLayer<N, L>
 
-export type SankeyMouseHandler = <N extends DefaultNode, L extends DefaultLink>(
+export type SankeyMouseHandler<N extends DefaultNode, L extends DefaultLink> = (
     data: SankeyNodeDatum<N, L> | SankeyLinkDatum<N, L>,
     event: MouseEvent
 ) => void
@@ -102,6 +109,26 @@ export type SankeySortFunction<N extends DefaultNode, L extends DefaultLink> = (
     b: SankeyNodeDatum<N, L>
 ) => number
 
+export type SankeyLabelComponent<N extends DefaultNode, L extends DefaultLink> = FunctionComponent<
+    TextProps & { node: SankeyNodeDatum<N, L> }
+>
+
+export interface CustomSankeyLayerProps<N extends DefaultNode, L extends DefaultLink>
+    extends Dimensions {
+    nodes: readonly SankeyNodeDatum<N, L>[]
+    links: readonly SankeyLinkDatum<N, L>[]
+    margin: Box
+    outerWidth: number
+    outerHeight: number
+    currentNode: SankeyNodeDatum<N, L> | null
+    isCurrentNode: (node: SankeyNodeDatum<N, L>) => boolean
+    setCurrentNode: (node: SankeyNodeDatum<N, L> | null) => void
+    currentLink: SankeyLinkDatum<N, L> | null
+    isCurrentLink: (link: SankeyLinkDatum<N, L>) => boolean
+    setCurrentLink: (link: SankeyLinkDatum<N, L> | null) => void
+    isInteractive: boolean
+}
+
 export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink> {
     // formatting for link value
     valueFormat: ValueFormat<number>
@@ -110,12 +137,12 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     align: SankeyAlignType | SankeyAlignFunction
     sort: SankeySortType | SankeySortFunction<N, L>
 
-    layers: SankeyLayerId[]
+    layers: readonly SankeyLayer<N, L>[]
 
     margin: Box
 
     colors: OrdinalColorScaleConfig<Omit<SankeyNodeDatum<N, L>, 'color' | 'label'>>
-    theme: Theme
+    theme: PartialTheme
 
     nodeOpacity: number
     nodeHoverOpacity: number
@@ -140,13 +167,14 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     labelPadding: number
     labelOrientation: 'horizontal' | 'vertical'
     labelTextColor: InheritedColorConfig<SankeyNodeDatum<N, L>>
+    labelComponent: SankeyLabelComponent<N, L>
 
     isInteractive: boolean
-    onClick: SankeyMouseHandler
+    onClick: SankeyMouseHandler<N, L>
     nodeTooltip: FunctionComponent<{ node: SankeyNodeDatum<N, L> }>
     linkTooltip: FunctionComponent<{ link: SankeyLinkDatum<N, L> }>
 
-    legends: LegendProps[]
+    legends: readonly LegendProps[]
 
     renderWrapper: boolean
 
@@ -161,4 +189,4 @@ export type SankeySvgProps<N extends DefaultNode, L extends DefaultLink> = Parti
 > &
     SankeyDataProps<N, L> &
     Dimensions &
-    ModernMotionProps
+    MotionProps

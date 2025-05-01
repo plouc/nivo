@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, ChangeEvent } from 'react'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, TextControlConfig } from '../types'
 import { Control, PropertyHeader, Help, TextInput } from '../ui'
@@ -25,7 +25,10 @@ export const TextControl = memo(
         config,
         context,
     }: TextControlProps) => {
-        const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])
+        const handleUpdate = useCallback(
+            (event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
+            [onChange]
+        )
 
         return (
             <Control

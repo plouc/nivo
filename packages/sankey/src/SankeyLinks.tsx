@@ -59,7 +59,7 @@ export const SankeyLinks = <N extends DefaultNode, L extends DefaultLink>({
         <>
             {links.map(link => (
                 <SankeyLinksItem<N, L>
-                    key={`${link.source.id}.${link.target.id}`}
+                    key={`${link.source.id}.${link.target.id}.${link.index}`}
                     link={link}
                     layout={layout}
                     path={getLinkPath(link, linkContract)}

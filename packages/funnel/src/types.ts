@@ -1,14 +1,31 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { Area, Line } from 'd3-shape'
-import { Box, Theme, Dimensions, ModernMotionProps, ValueFormat } from '@nivo/core'
+import { Box, Dimensions, MotionProps, ValueFormat } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { PartTooltipProps } from './PartTooltip'
 
-export interface FunnelDatum {
+// Define size configuration
+export type SizeSpecCustomFunction<Datum> = (d: Datum) => number
+export type SizeSpecCustomSizes = number[]
+export interface SizeSpecDatumProperty {
+    datum: string
+}
+
+export type SizeSpec<Datum = any> =
+    | SizeSpecCustomFunction<Datum>
+    | SizeSpecCustomSizes
+    | SizeSpecDatumProperty
+
+type BaseFunnelDatum = {
     id: string | number
     value: number
     label?: string
+}
+
+export type FunnelDatum<T = Record<string, string | number>> = BaseFunnelDatum & {
+    [P in keyof T]: T[P]
 }
 
 export interface Position {
@@ -31,7 +48,7 @@ export type FunnelAreaGenerator = Area<FunnelAreaPoint>
 
 export type FunnelBorderGenerator = Line<Position | null>
 
-export interface FunnelPart<D extends FunnelDatum> extends BoxPosition {
+export interface FunnelPart<D extends FunnelDatum = BaseFunnelDatum> extends BoxPosition {
     data: D
     width: number
     height: number
@@ -87,14 +104,14 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
     layers: (FunnelLayerId | FunnelCustomLayer<D>)[]
 
     valueFormat: ValueFormat<number>
-
     direction: FunnelDirection
     interpolation: 'smooth' | 'linear'
     spacing: number
     shapeBlending: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<D>
+    size: SizeSpec<D>
     fillOpacity: number
     borderWidth: number
     borderColor: InheritedColorConfig<FunnelPart<D>>
@@ -132,4 +149,4 @@ export interface FunnelCommonProps<D extends FunnelDatum> {
 export type FunnelSvgProps<D extends FunnelDatum> = Partial<FunnelCommonProps<D>> &
     FunnelDataProps<D> &
     Dimensions &
-    ModernMotionProps
+    MotionProps

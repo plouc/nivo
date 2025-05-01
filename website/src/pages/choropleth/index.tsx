@@ -1,5 +1,7 @@
 import React from 'react'
-import omit from 'lodash/omit'
+import { graphql, useStaticQuery, PageProps } from 'gatsby'
+import omit from 'lodash/omit.js'
+import { patternDotsDef, patternLinesDef, linearGradientDef } from '@nivo/core'
 import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
@@ -7,7 +9,6 @@ import mapper from '../../data/components/geo/mapper'
 import { groups } from '../../data/components/choropleth/props'
 import { generateChoroplethData } from '../../data/components/geo/generator'
 import countries from '../../data/components/geo/world_countries'
-import { graphql, useStaticQuery } from 'gatsby'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -45,6 +46,33 @@ const initialProperties = {
     'custom tooltip example': false,
     tooltip: null,
 
+    defs: [
+        patternDotsDef('dots', {
+            background: 'inherit',
+            color: '#38bcb2',
+            size: 4,
+            padding: 1,
+            stagger: true,
+        }),
+        patternLinesDef('lines', {
+            background: 'inherit',
+            color: '#eed312',
+            rotation: -45,
+            lineWidth: 6,
+            spacing: 10,
+        }),
+        linearGradientDef('gradient', [
+            { offset: 0, color: '#000' },
+            { offset: 100, color: 'inherit' },
+        ]),
+    ],
+
+    fill: [
+        { match: { id: 'CAN' }, id: 'dots' },
+        { match: { id: 'CHN' }, id: 'lines' },
+        { match: { id: 'ATA' }, id: 'gradient' },
+    ],
+
     legends: [
         {
             anchor: 'bottom-left',
@@ -75,7 +103,7 @@ const initialProperties = {
     ],
 }
 
-const Choropleth = () => {
+const Choropleth = ({ location }: PageProps) => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -108,6 +136,7 @@ const Choropleth = () => {
             })}
             generateData={generateChoroplethData}
             image={image}
+            location={location}
         >
             {(properties, data, theme, logAction) => {
                 return (

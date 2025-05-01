@@ -1,7 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
-import { mapAxis, mapFormat, settingsMapper } from '../../../lib/settings'
+import { SvgProps, TooltipProps } from '@nivo/marimekko'
+import { mapAxis, mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+
+export type MappedMarimekkoProps = Omit<SvgProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedMarimekkoProps = UnmappedSettings<
+    MappedMarimekkoProps,
+    {
+        valueFormat: {
+            format: string
+            enabled: boolean
+        }
+        axisTop: { enable: boolean } & MappedMarimekkoProps['axisTop']
+        axisRight: { enable: boolean } & MappedMarimekkoProps['axisRight']
+        axisBottom: { enable: boolean } & MappedMarimekkoProps['axisBottom']
+        axisLeft: { enable: boolean } & MappedMarimekkoProps['axisLeft']
+        'custom tooltip example': boolean
+        'showcase pattern usage': boolean
+    }
+>
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -17,7 +35,7 @@ const TooltipValue = styled.span`
     font-weight: 600;
 `
 
-const CustomTooltip = ({ bar }) => (
+const CustomTooltip = ({ bar }: TooltipProps<any>) => (
     <TooltipWrapper style={{ color: bar.color }}>
         <TooltipKey>datum.id</TooltipKey>
         <TooltipValue>{bar.datum.id}</TooltipValue>
@@ -28,23 +46,23 @@ const CustomTooltip = ({ bar }) => (
         <TooltipKey>color</TooltipKey>
         <TooltipValue>{bar.color}</TooltipValue>
         <TooltipKey>thickness</TooltipKey>
-        <TooltipValue>{bar.datum.thickness}</TooltipValue>
+        <TooltipValue>{(bar.datum as any).thickness}</TooltipValue>
     </TooltipWrapper>
 )
 
-export default settingsMapper(
+export default settingsMapper<UnmappedMarimekkoProps, MappedMarimekkoProps>(
     {
         valueFormat: mapFormat,
         axisTop: mapAxis('top'),
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
-        tooltip: (value, values) => {
+        tooltip: (_value, values) => {
             if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
-        defs: (value, values) => {
+        defs: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [
@@ -57,7 +75,7 @@ export default settingsMapper(
                 }),
             ]
         },
-        fill: (value, values) => {
+        fill: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [

@@ -2,16 +2,16 @@ import { FunctionComponent, AriaAttributes } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import {
     Box,
-    Theme,
     CssMixBlendMode,
     Dimensions,
-    ModernMotionProps,
+    MotionProps,
     PropertyAccessor,
     ValueFormat,
     ClosedCurveFactoryId,
     DotsItemSymbolComponent,
     SvgDefsAndFill,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { ScaleLinear } from 'd3-scale'
@@ -90,6 +90,8 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     // second argument passed to the formatter is the key
     valueFormat: ValueFormat<number, string>
 
+    rotation: number
+
     layers: (RadarLayerId | RadarCustomLayer<D>)[]
 
     margin: Box
@@ -112,7 +114,7 @@ export interface RadarCommonProps<D extends Record<string, unknown>> {
     dotLabelFormat: ValueFormat<number>
     dotLabelYOffset: number
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<{ key: string; index: number }>
     fillOpacity: number
     blendMode: CssMixBlendMode
@@ -141,7 +143,17 @@ export interface RadarSvgFillMatcherDatum<D extends Record<string, unknown>> {
 export type RadarSvgProps<D extends Record<string, unknown>> = Partial<RadarCommonProps<D>> &
     RadarDataProps<D> &
     Dimensions &
-    ModernMotionProps &
-    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>>
+    MotionProps &
+    SvgDefsAndFill<RadarSvgFillMatcherDatum<D>> &
+    RadarHandlers<D, SVGPathElement>
 
 export type BoundLegendProps = Required<Pick<LegendProps, 'data'>> & Omit<LegendProps, 'data'>
+
+export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
+    datum: RawDatum,
+    event: React.MouseEvent<ElementType>
+) => void
+
+export type RadarHandlers<RawDatum, ElementType> = {
+    onClick?: MouseEventHandler<RawDatum, ElementType>
+}

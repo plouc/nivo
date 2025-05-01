@@ -1,9 +1,9 @@
 import React from 'react'
-import { Defs, PatternLines, patternLinesDef } from '@nivo/core'
+import { Defs, patternLinesDef, PatternLinesDefaultProps } from '@nivo/core'
 import { ChartProperty } from '../../../types'
 import { GuideDemoBlock } from '../GuideDemoBlock'
 
-const defaults = (PatternLines as unknown as any).defaultProps as Settings
+const defaults = PatternLinesDefaultProps as Settings
 const SAMPLE_SIZE = 120
 const patternId = 'lines-pattern'
 

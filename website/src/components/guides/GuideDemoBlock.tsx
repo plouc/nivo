@@ -9,7 +9,7 @@ import { ChartProperty } from '../../types'
 interface GuideDemoBlockProps<Settings> {
     title: string
     initialSettings: Settings
-    controls: ChartProperty[]
+    controls: Omit<ChartProperty, 'group' | 'key'>[]
     generateCode: (settings: Settings) => string
     children: (settings: Settings) => ReactNode
 }

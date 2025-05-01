@@ -4,7 +4,7 @@ import { HeatMap } from './HeatMap'
 
 export const ResponsiveHeatMap = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 >(
     props: Omit<HeatMapSvgProps<Datum, ExtraProps>, 'height' | 'width'>
 ) => (

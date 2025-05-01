@@ -1,6 +1,6 @@
-import range from 'lodash/range'
-import random from 'lodash/random'
-import shuffle from 'lodash/shuffle'
+import range from 'lodash/range.js'
+import random from 'lodash/random.js'
+import shuffle from 'lodash/shuffle.js'
 import { timeDays } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import * as color from './color'
@@ -66,11 +66,13 @@ export const generateDrinkStats = (xSize = 16) => {
     range(xSize).forEach(() => {
         const x = country()
         types.forEach(id => {
-            data.find(d => d.id === id)?.data.push({
-                color: randColor(),
-                x,
-                y: rand(),
-            })
+            data
+                .find(d => d.id === id)
+                ?.data.push({
+                    color: randColor(),
+                    x,
+                    y: rand(),
+                })
         })
     })
 
@@ -83,12 +85,29 @@ export const generateSerie = (xSize = 20) => {
     return range(xSize).map(() => Math.round(Math.random() * max))
 }
 
-export const generateSeries = (ids: string[], xKeys: string[]) =>
-    ids.map(id => ({
-        id,
-        color: randColor(),
-        data: xKeys.map(x => ({ x, y: Math.round(Math.random() * 300) })),
-    }))
+export const generateSeries = (
+    ids: string[],
+    xKeys: string[] | number[],
+    { withColors = true } = {}
+) =>
+    ids.map(id => {
+        const series: {
+            id: string
+            color?: string
+            data: {
+                x: string | number
+                y: number
+            }[]
+        } = {
+            id,
+            data: xKeys.map(x => ({ x, y: Math.round(Math.random() * 300) })),
+        }
+        if (withColors) {
+            series.color = randColor()
+        }
+
+        return series
+    })
 
 export const generateStackData = (size = 3) => {
     const length = 16
@@ -143,6 +162,27 @@ export const generateCountriesData = (
 
         return d
     })
+
+export const generateMonthlyData = (
+    keys: string[],
+    { size = 12, min = 0, max = 200, withColors = true, short = false } = {}
+) => {
+    const set = short ? sets.monthsShort : sets.months
+
+    return set.slice(0, size).map(month => {
+        const d: Record<string, unknown> = {
+            month,
+        }
+        keys.forEach(key => {
+            d[key] = random(min, max)
+            if (withColors) {
+                d[`${key}Color`] = randColor()
+            }
+        })
+
+        return d
+    })
+}
 
 const libTreeItems = [
     [
@@ -277,10 +317,12 @@ export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     return { data, keys: wines }
 }
 
+export * from './boxplot'
 export * from './bullet'
 export * from './chord'
 export * from './network'
 export * from './parallelCoordinates'
 export * from './sankey'
 export * from './swarmplot'
+export * from './waffle'
 export * from './xySeries'

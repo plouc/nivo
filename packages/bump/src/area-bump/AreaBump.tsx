@@ -1,6 +1,6 @@
 import { Fragment, useMemo, ReactNode, createElement } from 'react'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useDimensions,
     SvgWrapper,
@@ -22,7 +22,7 @@ import { areaBumpSvgDefaultProps } from './defaults'
 
 type InnerAreaBumpProps<
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 > = Omit<
     AreaBumpSvgProps<Datum, ExtraProps>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
@@ -236,7 +236,7 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
 
 export const AreaBump = <
     Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
 >({
     isInteractive = areaBumpSvgDefaultProps.isInteractive,
     animate = areaBumpSvgDefaultProps.animate,

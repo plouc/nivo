@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import * as uuid from 'uuid'
-import { forOwn } from 'lodash'
+import forOwn from 'lodash/forOwn.js'
 import { chartsMapping, ChartType, renderChart, samples } from '@nivo/static'
 import { validate } from './validation'
 import * as storage from './memory-storage'
 
-export const nivo = Router()
+export const nivo: Router = Router()
 
 nivo.get('/', (req, res) => {
     res.status(200).json({
@@ -15,10 +15,10 @@ nivo.get('/', (req, res) => {
     })
 })
 
-// @ts-ignore
+// @ts-expect-error missing type for schema
 forOwn(chartsMapping, ({ schema }, type: ChartType) => {
     nivo.post(`/charts/${type}`, validate(schema), (req, res) => {
-        // @ts-ignore
+        // @ts-expect-error missing type for req
         const props = req.payload
         const id = uuid.v4()
         const url = `${req.protocol}://${req.get('host')}/r/${id}`
@@ -44,7 +44,6 @@ nivo.get('/r/:id', (req, res) => {
             .send(`no chart found for id "${id}"`)
     }
 
-    // @ts-ignore
     const rendered = renderChart(config, req.query)
 
     res.set('Content-Type', 'image/svg+xml').status(200).send(rendered)
@@ -52,7 +51,6 @@ nivo.get('/r/:id', (req, res) => {
 
 forOwn(samples, (config, id) => {
     nivo.get(`/samples/${id}.svg`, (req, res) => {
-        // @ts-ignore
         const rendered = renderChart(config, req.query)
 
         res.set('Content-Type', 'image/svg+xml').status(200).send(rendered)

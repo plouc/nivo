@@ -2,8 +2,7 @@ import { FunctionComponent, AriaAttributes } from 'react'
 import {
     Box,
     Dimensions,
-    ModernMotionProps,
-    Theme,
+    MotionProps,
     PropertyAccessor,
     StackOrder,
     StackOffset,
@@ -11,24 +10,24 @@ import {
     SvgDefsAndFill,
     ValueFormat,
 } from '@nivo/core'
+import { PartialTheme } from '@nivo/theming'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { ScaleLinear, ScalePoint } from '@nivo/scales'
 
 export type StreamLayerId = 'grid' | 'axes' | 'layers' | 'dots' | 'slices' | 'legends'
 
 export interface StreamCustomLayerProps {
-    xScale: any
-    yScale: any
+    xScale: ScalePoint<number>
+    yScale: ScaleLinear<number>
     layers: StreamLayerData[]
     slices: StreamSliceData[]
 }
 export type StreamCustomLayer = FunctionComponent<StreamCustomLayerProps>
 export type StreamLayer = StreamLayerId | StreamCustomLayer
 
-export interface StreamDatum {
-    [key: string]: string | number
-}
+export type StreamDatum = Record<string, string | number>
 
 export type StackFunc<RawDatum extends StreamDatum> = (data: RawDatum[]) => {
     0: number
@@ -111,7 +110,7 @@ export type StreamCommonProps<RawDatum extends StreamDatum> = {
     enableGridY: boolean
     gridYValues: GridValues<number>
 
-    theme: Theme
+    theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<StreamLayerData, 'label' | 'color' | 'data'>>
     fillOpacity: number
     borderWidth: number
@@ -144,4 +143,4 @@ export type StreamSvgProps<RawDatum extends StreamDatum> = Partial<StreamCommonP
     StreamDataProps<RawDatum> &
     SvgDefsAndFill<StreamLayerData> &
     Dimensions &
-    ModernMotionProps
+    MotionProps

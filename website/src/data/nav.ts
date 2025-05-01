@@ -1,5 +1,6 @@
 import areaBump from './components/area-bump/meta.yml'
 import bar from './components/bar/meta.yml'
+import boxplot from './components/boxplot/meta.yml'
 import circlePacking from './components/circle-packing/meta.yml'
 import bump from './components/bump/meta.yml'
 import bullet from './components/bullet/meta.yml'
@@ -15,6 +16,7 @@ import marimekko from './components/marimekko/meta.yml'
 import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
 import pie from './components/pie/meta.yml'
+import polarBar from './components/polar-bar/meta.yml'
 import radar from './components/radar/meta.yml'
 import radialBar from './components/radial-bar/meta.yml'
 import sankey from './components/sankey/meta.yml'
@@ -23,6 +25,7 @@ import stream from './components/stream/meta.yml'
 import sunburst from './components/sunburst/meta.yml'
 import swarmplot from './components/swarmplot/meta.yml'
 import timeRange from './components/time-range/meta.yml'
+import tree from './components/tree/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
@@ -45,6 +48,14 @@ export const components: ChartNavData[] = [
             svg: true,
             canvas: true,
             api: true,
+        },
+    },
+    {
+        name: 'BoxPlot',
+        id: 'boxplot',
+        tags: boxplot.BoxPlot.tags,
+        flavors: {
+            svg: true,
         },
     },
     {
@@ -186,6 +197,14 @@ export const components: ChartNavData[] = [
         },
     },
     {
+        name: 'PolarBar',
+        id: 'polar-bar',
+        tags: polarBar.PolarBar.tags,
+        flavors: {
+            svg: true,
+        },
+    },
+    {
         name: 'Radar',
         id: 'radar',
         tags: radar.Radar.tags,
@@ -252,6 +271,15 @@ export const components: ChartNavData[] = [
         tags: timeRange.TimeRange.tags,
         flavors: {
             svg: true,
+        },
+    },
+    {
+        name: 'Tree',
+        id: 'tree',
+        tags: tree.Tree.tags,
+        flavors: {
+            svg: true,
+            canvas: true,
         },
     },
     {
