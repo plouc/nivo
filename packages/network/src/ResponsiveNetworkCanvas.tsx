@@ -5,7 +5,7 @@ import { NetworkCanvas } from './NetworkCanvas'
 
 export const ResponsiveNetworkCanvas = forwardRef(function ResponsiveBarCanvas<
     Node extends InputNode = InputNode,
-    Link extends InputLink = InputLink
+    Link extends InputLink = InputLink,
 >(
     props: Omit<NetworkCanvasProps<Node, Link>, 'height' | 'width'>,
     ref: ForwardedRef<HTMLCanvasElement>

@@ -177,8 +177,7 @@ export type LineCustomSvgLayer<Series extends LineSeries> = FunctionComponent<
 >
 export type LineSvgLayer<Series extends LineSeries> = LineLayerId | LineCustomSvgLayer<Series>
 
-export interface LineCustomCanvasLayerProps<Series extends LineSeries>
-    extends CommonCustomLayerProps<Series> {}
+export type LineCustomCanvasLayerProps<Series extends LineSeries> = CommonCustomLayerProps<Series>
 export type LineCustomCanvasLayer<Series extends LineSeries> = (
     context: CanvasRenderingContext2D,
     props: LineCustomCanvasLayerProps<Series>

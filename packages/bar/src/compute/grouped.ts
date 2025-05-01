@@ -47,7 +47,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
     yRef: number
 ): ComputedBarDatum<RawDatum>[] => {
     const compare = reverse ? lt : gt
-    const getY = (d: number) => (compare(d, 0) ? yScale(d) ?? 0 : yRef)
+    const getY = (d: number) => (compare(d, 0) ? (yScale(d) ?? 0) : yRef)
     const getHeight = (d: number, y: number) => (compare(d, 0) ? yRef - y : (yScale(d) ?? 0) - yRef)
     const cleanedData = data.map(filterNullValues)
 
@@ -109,7 +109,7 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
     xRef: number
 ): ComputedBarDatum<RawDatum>[] => {
     const compare = reverse ? lt : gt
-    const getX = (d: number) => (compare(d, 0) ? xRef : xScale(d) ?? 0)
+    const getX = (d: number) => (compare(d, 0) ? xRef : (xScale(d) ?? 0))
     const getWidth = (d: number, x: number) => (compare(d, 0) ? (xScale(d) ?? 0) - xRef : xRef - x)
     const cleanedData = data.map(filterNullValues)
 

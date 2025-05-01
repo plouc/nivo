@@ -3,7 +3,7 @@ import { useTransition, to } from '@react-spring/web'
 import {
     useMotionConfig,
     midAngle,
-    // @ts-ignore
+    // @ts-expect-error no types
     getPolarLabelProps,
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'

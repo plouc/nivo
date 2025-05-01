@@ -84,7 +84,7 @@ describe('Tree', () => {
                 expected: [
                     root: LabelPositionSpec,
                     intermediate: LabelPositionSpec,
-                    leaf: LabelPositionSpec
+                    leaf: LabelPositionSpec,
                 ]
             }[] = [
                 {

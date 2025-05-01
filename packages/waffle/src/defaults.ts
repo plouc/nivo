@@ -63,5 +63,5 @@ export const htmlDefaultProps = {
 export const canvasDefaultProps = {
     ...commonDefaultProps,
     legends: [],
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 }

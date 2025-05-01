@@ -326,7 +326,7 @@ export const computeMonthLegends = ({
     cellWidth,
 }: ComputeMonths) => {
     const accumulator: {
-        months: { [key: string]: Month }
+        months: Record<string, Month>
         weeks: Day[]
     } = {
         months: {},

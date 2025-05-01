@@ -18,14 +18,14 @@ export const createLinearScale = <Output extends NumberValue>(
 ) => {
     let minValue: NumberValue
     if (min === 'auto') {
-        minValue = stacked === true ? data.minStacked ?? 0 : data.min
+        minValue = stacked === true ? (data.minStacked ?? 0) : data.min
     } else {
         minValue = min
     }
 
     let maxValue: NumberValue
     if (max === 'auto') {
-        maxValue = stacked === true ? data.maxStacked ?? 0 : data.max
+        maxValue = stacked === true ? (data.maxStacked ?? 0) : data.max
     } else {
         maxValue = max
     }

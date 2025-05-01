@@ -1,5 +1,4 @@
 import { scaleLinear, scaleTime, scaleUtc } from 'd3-scale'
-// @ts-ignore
 import { getScaleTicks } from '../src'
 
 describe('linear scale', () => {

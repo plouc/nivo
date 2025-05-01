@@ -135,6 +135,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
             lineGenerator,
             areaGenerator,
             currentPoint,
+            setCurrentPoint,
         ]
     )
 
@@ -168,7 +169,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
                 ctx.lineWidth = theme.grid.line.strokeWidth as number
                 ctx.strokeStyle = theme.grid.line.stroke as string
 
-                enableGridX &&
+                if (enableGridX) {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -176,8 +177,9 @@ const InnerLineCanvas = <Series extends LineSeries>({
                         axis: 'x',
                         values: gridXValues,
                     })
+                }
 
-                enableGridY &&
+                if (enableGridY) {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -185,6 +187,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
                         axis: 'y',
                         values: gridYValues,
                     })
+                }
             }
 
             if (layer === 'axes') {
@@ -271,8 +274,13 @@ const InnerLineCanvas = <Series extends LineSeries>({
         })
     }, [
         canvasEl,
+        innerWidth,
         outerWidth,
+        innerHeight,
         outerHeight,
+        margin.left,
+        margin.top,
+        pixelRatio,
         layers,
         theme,
         lineGenerator,
@@ -291,7 +299,15 @@ const InnerLineCanvas = <Series extends LineSeries>({
         points,
         enablePoints,
         pointSize,
+        pointBorderWidth,
         currentPoint,
+        customLayerProps,
+        debugMesh,
+        enableArea,
+        areaGenerator,
+        areaOpacity,
+        lineWidth,
+        voronoi,
     ])
 
     const getPointFromMouseEvent = useCallback(
@@ -304,7 +320,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
             const pointIndex = delaunay.find(x - margin.left, y - margin.top)
             return points[pointIndex]
         },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+        [canvasEl, margin, innerWidth, innerHeight, delaunay, points]
     )
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -327,16 +343,16 @@ const InnerLineCanvas = <Series extends LineSeries>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             hideTooltip()
             setCurrentPoint(null)
-            currentPoint && onMouseLeave && onMouseLeave(currentPoint, event)
+            if (currentPoint) onMouseLeave?.(currentPoint, event)
         },
-        [hideTooltip, setCurrentPoint, onMouseLeave]
+        [hideTooltip, setCurrentPoint, onMouseLeave, currentPoint]
     )
 
     const handleMouseDown = useCallback(
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onMouseDown) {
                 const point = getPointFromMouseEvent(event)
-                point && onMouseDown(point, event)
+                if (point) onMouseDown(point, event)
             }
         },
         [getPointFromMouseEvent, onMouseDown]
@@ -346,7 +362,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onMouseUp) {
                 const point = getPointFromMouseEvent(event)
-                point && onMouseUp(point, event)
+                if (point) onMouseUp(point, event)
             }
         },
         [getPointFromMouseEvent, onMouseUp]
@@ -356,7 +372,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onClick) {
                 const point = getPointFromMouseEvent(event)
-                point && onClick(point, event)
+                if (point) onClick(point, event)
             }
         },
         [getPointFromMouseEvent, onClick]
@@ -366,7 +382,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onDoubleClick) {
                 const point = getPointFromMouseEvent(event)
-                point && onDoubleClick(point, event)
+                if (point) onDoubleClick(point, event)
             }
         },
         [getPointFromMouseEvent, onDoubleClick]

@@ -18,7 +18,7 @@ import { ParallelCoordinatesLine } from './ParallelCoordinatesLine'
 
 type InnerParallelCoordinatesProps<
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 > = Omit<
     ParallelCoordinatesProps<Datum, GroupBy>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
@@ -26,7 +26,7 @@ type InnerParallelCoordinatesProps<
 
 const InnerParallelCoordinates = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined,
 >({
     data,
     variables,
@@ -174,7 +174,7 @@ const InnerParallelCoordinates = <
 
 export const ParallelCoordinates = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined,
 >({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,

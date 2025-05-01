@@ -58,8 +58,8 @@ export const bindDefs = (
         boundDefs = [...defs]
 
         nodes.forEach(node => {
-            for (let i = 0; i < rules.length; i++) {
-                const { id, match } = rules[i]
+            for (const rule of rules) {
+                const { id, match } = rule
                 if (isMatchingDef(match, node, dataKey)) {
                     const def = defs.find(({ id: defId }) => defId === id)
                     if (def) {

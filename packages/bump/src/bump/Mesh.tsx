@@ -57,7 +57,7 @@ const InnerMesh = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
             )
             setActivePointIds([point.id])
             setActiveSerieIds([point.serie.id])
-            onMouseEnter && onMouseEnter(point, event)
+            onMouseEnter?.(point, event)
         },
         [
             showTooltipAt,
@@ -79,7 +79,7 @@ const InnerMesh = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
             )
             setActivePointIds([point.id])
             setActiveSerieIds([point.serie.id])
-            onMouseMove && onMouseMove(point, event)
+            onMouseMove?.(point, event)
         },
         [
             showTooltipAt,
@@ -97,35 +97,35 @@ const InnerMesh = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
             hideTooltip()
             setActivePointIds([])
             setActiveSerieIds([])
-            onMouseLeave && onMouseLeave(point, event)
+            onMouseLeave?.(point, event)
         },
         [hideTooltip, onMouseLeave, setActivePointIds, setActiveSerieIds]
     )
 
     const handleMouseDown = useCallback(
         (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
-            onMouseDown && onMouseDown(point, event)
+            onMouseDown?.(point, event)
         },
         [onMouseDown]
     )
 
     const handleMouseUp = useCallback(
         (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
-            onMouseUp && onMouseUp(point, event)
+            onMouseUp?.(point, event)
         },
         [onMouseUp]
     )
 
     const handleClick = useCallback(
         (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
-            onClick && onClick(point, event)
+            onClick?.(point, event)
         },
         [onClick]
     )
 
     const handleDoubleClick = useCallback(
         (point: BumpPoint<Datum, ExtraProps>, event: MouseEvent) => {
-            onDoubleClick && onDoubleClick(point, event)
+            onDoubleClick?.(point, event)
         },
         [onDoubleClick]
     )

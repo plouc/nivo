@@ -10,7 +10,7 @@ import { Bump } from './Bump'
 
 export const ResponsiveBump = <
     Datum extends BumpDatum = DefaultBumpDatum,
-    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
 >(
     props:
         | Omit<BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>, 'width' | 'height'>

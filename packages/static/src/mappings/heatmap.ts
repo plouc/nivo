@@ -9,7 +9,7 @@ import { OmitStrict } from '../types'
 
 export type HeatMapApiProps<
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 > = OmitStrict<
     HeatMapSvgProps<Datum, ExtraProps>,
     'isInteractive' | 'onClick' | 'hoverTarget' | 'activeOpacity' | 'inactiveOpacity' | 'animate'

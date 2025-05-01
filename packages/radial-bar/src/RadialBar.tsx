@@ -4,7 +4,7 @@ import {
     useDimensions,
     SvgWrapper,
     clampArc,
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
 } from '@nivo/core'
 

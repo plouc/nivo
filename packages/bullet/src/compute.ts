@@ -1,5 +1,5 @@
 import { BulletItemProps, BulletRectsProps, ComputedRangeDatum } from './types'
-// @ts-ignore
+// @ts-expect-error no types
 import { getColorScale } from '@nivo/core'
 
 type ComputeRect = Pick<BulletRectsProps, 'layout' | 'reverse' | 'scale' | 'height'>

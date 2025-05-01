@@ -232,7 +232,7 @@ export function useDimensions(
 
 export function useMeasure(): [
     React.RefObject<HTMLDivElement>,
-    { left: number; top: number; width: number; height: number }
+    { left: number; top: number; width: number; height: number },
 ]
 
 type SvgWrapperType = (
@@ -315,7 +315,7 @@ export interface CartesianMarkerProps<V extends DatumValue = DatumValue> {
 }
 interface CartesianMarkersProps<
     X extends DatumValue = DatumValue,
-    Y extends DatumValue = DatumValue
+    Y extends DatumValue = DatumValue,
 > {
     width: number
     height: number
@@ -419,8 +419,7 @@ export interface DotsItemProps<D = any> {
 }
 export const DotsItem: React.FunctionComponent<DotsItemProps>
 
-export type ExtractProps<TComponent> = TComponent extends ComponentType<infer TProps>
-    ? TProps
-    : never
+export type ExtractProps<TComponent> =
+    TComponent extends ComponentType<infer TProps> ? TProps : never
 
 export const mergeRefs: <T>(...refs: (React.Ref<T> | undefined)[]) => (value: T) => void

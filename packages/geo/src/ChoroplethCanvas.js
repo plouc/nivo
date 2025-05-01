@@ -40,7 +40,9 @@ const ChoroplethCanvas = memo(props => {
         layers = ['graticule', 'features', 'legends'],
         legends = [],
         isInteractive = true,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick = () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onMouseMove = () => {},
         tooltip: Tooltip = ChoroplethTooltip,
     } = props
@@ -54,6 +56,7 @@ const ChoroplethCanvas = memo(props => {
         projectionScale,
         projectionTranslation,
         projectionRotation,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         fillColor: () => {},
         borderWidth,
         borderColor,
@@ -125,7 +128,9 @@ const ChoroplethCanvas = memo(props => {
         })
     }, [
         canvasEl,
+        width,
         outerWidth,
+        height,
         outerHeight,
         margin,
         pixelRatio,
@@ -137,7 +142,11 @@ const ChoroplethCanvas = memo(props => {
         getBorderColor,
         boundFeatures,
         legends,
+        legendData,
         layers,
+        enableGraticule,
+        graticuleLineColor,
+        graticuleLineWidth,
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -156,7 +165,7 @@ const ChoroplethCanvas = memo(props => {
             } else {
                 hideTooltip()
             }
-            onMouseMove && onMouseMove(feature || null, event)
+            onMouseMove?.(feature || null, event)
         },
         [
             showTooltipFromEvent,
@@ -166,6 +175,7 @@ const ChoroplethCanvas = memo(props => {
             canvasEl,
             boundFeatures,
             projection,
+            onMouseMove,
         ]
     )
     const handleMouseLeave = useCallback(

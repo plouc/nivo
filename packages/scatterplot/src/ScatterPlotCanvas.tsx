@@ -129,7 +129,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                 ctx.lineWidth = theme.grid.line.strokeWidth as number
                 ctx.strokeStyle = theme.grid.line.stroke as string
 
-                enableGridX &&
+                if (enableGridX) {
                     renderGridLinesToCanvas<RawDatum['x']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -137,8 +137,9 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                         axis: 'x',
                         values: gridXValues,
                     })
+                }
 
-                enableGridY &&
+                if (enableGridY) {
                     renderGridLinesToCanvas<RawDatum['y']>(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -146,6 +147,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
                         axis: 'y',
                         values: gridYValues,
                     })
+                }
             } else if (layer === 'annotations') {
                 renderAnnotationsToCanvas<ScatterPlotNodeData<RawDatum>>(ctx, {
                     annotations: boundAnnotations as any,
@@ -207,7 +209,9 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         yScale,
         nodes,
         enableGridX,
+        gridXValues,
         enableGridY,
+        gridYValues,
         axisTop,
         axisRight,
         axisBottom,
@@ -230,7 +234,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
             return nodes[nodeIndex]
         },
-        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+        [canvasEl, margin, innerWidth, innerHeight, delaunay, nodes]
     )
 
     const handleMouseHover = useCallback(
@@ -241,16 +245,16 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             if (node) {
                 showTooltipFromEvent(createElement(tooltip, { node }), event)
                 if (currentNode && currentNode.id !== node.id) {
-                    onMouseLeave && onMouseLeave(currentNode, event)
-                    onMouseEnter && onMouseEnter(node, event)
+                    onMouseLeave?.(currentNode, event)
+                    onMouseEnter?.(node, event)
                 }
                 if (!currentNode) {
-                    onMouseEnter && onMouseEnter(node, event)
+                    onMouseEnter?.(node, event)
                 }
-                onMouseMove && onMouseMove(node, event)
+                onMouseMove?.(node, event)
             } else {
                 hideTooltip()
-                currentNode && onMouseLeave && onMouseLeave(currentNode, event)
+                if (currentNode) onMouseLeave?.(currentNode, event)
             }
         },
         [
@@ -270,7 +274,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             hideTooltip()
             setCurrentNode(null)
-            currentNode && onMouseLeave && onMouseLeave(currentNode, event)
+            if (currentNode) onMouseLeave?.(currentNode, event)
         },
         [hideTooltip, currentNode, setCurrentNode, onMouseLeave]
     )
@@ -279,7 +283,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onMouseDown) {
                 const node = getNodeFromMouseEvent(event)
-                node && onMouseDown(node, event)
+                if (node) onMouseDown(node, event)
             }
         },
         [getNodeFromMouseEvent, onMouseDown]
@@ -289,7 +293,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onMouseUp) {
                 const node = getNodeFromMouseEvent(event)
-                node && onMouseUp(node, event)
+                if (node) onMouseUp(node, event)
             }
         },
         [getNodeFromMouseEvent, onMouseUp]
@@ -299,7 +303,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onClick) {
                 const node = getNodeFromMouseEvent(event)
-                node && onClick(node, event)
+                if (node) onClick(node, event)
             }
         },
         [getNodeFromMouseEvent, onClick]
@@ -309,7 +313,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
         (event: MouseEvent<HTMLCanvasElement>) => {
             if (onDoubleClick) {
                 const node = getNodeFromMouseEvent(event)
-                node && onDoubleClick(node, event)
+                if (node) onDoubleClick(node, event)
             }
         },
         [getNodeFromMouseEvent, onDoubleClick]

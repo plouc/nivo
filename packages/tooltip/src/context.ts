@@ -16,8 +16,11 @@ export interface TooltipActionsContextData {
 }
 
 const defaultActions: TooltipActionsContextData = {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     showTooltipAt: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     showTooltipFromEvent: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     hideTooltip: () => {},
 }
 

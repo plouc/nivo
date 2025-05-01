@@ -20,7 +20,7 @@ interface ComponentTemplateProps<
     UnmappedProps extends Record<string, any>,
     MappedProps extends Record<string, any>,
     Data,
-    ComponentProps extends object = any
+    ComponentProps extends object = any,
 > {
     name: string
     meta: ChartMeta
@@ -58,7 +58,7 @@ export const ComponentTemplate = <
     UnmappedProps extends Record<string, any>,
     MappedProps extends Record<string, any>,
     Data,
-    ComponentProps extends object = any
+    ComponentProps extends object = any,
 >({
     name,
     meta,

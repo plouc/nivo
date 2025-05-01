@@ -4,7 +4,7 @@ import { ParallelCoordinates } from './ParallelCoordinates'
 
 export const ResponsiveParallelCoordinates = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined,
 >(
     props: Omit<ParallelCoordinatesProps<Datum, GroupBy>, 'height' | 'width'>
 ) => (

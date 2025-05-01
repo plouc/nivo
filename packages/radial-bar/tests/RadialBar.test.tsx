@@ -1,7 +1,6 @@
 import { mount } from 'enzyme'
 import { degreesToRadians } from '@nivo/core'
 import { DatumWithArcAndColor, ArcShape } from '@nivo/arcs'
-// @ts-ignore
 import { RadialBar, RadialBarSvgProps, ComputedBar, RadialBarTooltipProps } from '../src'
 
 const baseProps: RadialBarSvgProps = {

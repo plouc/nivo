@@ -107,7 +107,7 @@ export const canvasDefaultProps: Omit<
     'data' | 'width' | 'height' | 'margin' | 'theme'
 > = {
     ...commonDefaultProps,
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
     axisBottom: {},
     axisLeft: {},
 }

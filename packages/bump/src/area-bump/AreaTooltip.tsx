@@ -3,14 +3,14 @@ import { AreaBumpDatum, AreaBumpComputedSerie, AreaBumpSerieExtraProps } from '.
 
 interface AreaTooltipProps<
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 > {
     serie: AreaBumpComputedSerie<Datum, ExtraProps>
 }
 
 export const AreaTooltip = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     serie,
 }: AreaTooltipProps<Datum, ExtraProps>) => (

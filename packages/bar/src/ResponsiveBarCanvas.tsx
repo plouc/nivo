@@ -9,7 +9,7 @@ export type ResponsiveBarCanvasProps<RawDatum extends BarDatum> = Omit<
 >
 
 export const ResponsiveBarCanvas = forwardRef(function ResponsiveBarCanvas<
-    RawDatum extends BarDatum
+    RawDatum extends BarDatum,
 >(props: ResponsiveBarCanvasProps<RawDatum>, ref: ForwardedRef<HTMLCanvasElement>) {
     return (
         <ResponsiveWrapper>

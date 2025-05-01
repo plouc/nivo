@@ -24,6 +24,7 @@ const GeoMap = memo(props => {
         graticuleLineWidth = 0.5,
         graticuleLineColor = '#999999',
         isInteractive = true,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClick = () => {},
         tooltip: Tooltip,
         role = 'img',

@@ -249,7 +249,7 @@ export const useLabels = <Datum>({
                         node: node,
                         label: getLabel(node),
                         ...getPosition(node),
-                    } as ComputedLabel<Datum>)
+                    }) as ComputedLabel<Datum>
             ),
         [nodes, getLabel, getPosition]
     )

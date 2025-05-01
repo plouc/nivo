@@ -3,7 +3,7 @@ import { BaseDatum, TooltipProps, DatumGroupKeys } from './types'
 
 export const ParallelCoordinatesLineTooltip = <
     Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined
+    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined,
 >({
     datum,
     variables,

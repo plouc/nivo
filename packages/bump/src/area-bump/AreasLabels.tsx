@@ -21,7 +21,7 @@ interface AreaLabelsProps<Datum extends AreaBumpDatum, ExtraProps extends AreaBu
 
 export const AreasLabels = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     getLabel,
     series,

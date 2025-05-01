@@ -5,10 +5,10 @@ import * as React from 'react'
 export type GridValuesBuilder<T> = T extends number
     ? number[]
     : T extends string
-    ? string[]
-    : T extends Date
-    ? Date[]
-    : never
+      ? string[]
+      : T extends Date
+        ? Date[]
+        : never
 
 export type GridValues<T extends ScaleValue> = number | GridValuesBuilder<T>
 

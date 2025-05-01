@@ -50,7 +50,7 @@ export const CalendarDay = memo(
                     data: { ...data.data },
                 }
                 showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                onMouseMove && onMouseMove(data, event)
+                onMouseMove?.(data, event)
             },
             [showTooltipFromEvent, tooltip, data, onMouseMove, formatValue]
         )

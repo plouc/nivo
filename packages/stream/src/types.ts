@@ -27,9 +27,7 @@ export interface StreamCustomLayerProps {
 export type StreamCustomLayer = FunctionComponent<StreamCustomLayerProps>
 export type StreamLayer = StreamLayerId | StreamCustomLayer
 
-export interface StreamDatum {
-    [key: string]: string | number
-}
+export type StreamDatum = Record<string, string | number>
 
 export type StackFunc<RawDatum extends StreamDatum> = (data: RawDatum[]) => {
     0: number

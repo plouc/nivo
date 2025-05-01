@@ -1,4 +1,3 @@
-// @ts-ignore
 import { motionDefaultProps } from '@nivo/core'
 import { FunnelLayerId } from './types'
 

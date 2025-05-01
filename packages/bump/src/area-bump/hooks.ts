@@ -19,7 +19,7 @@ import {
 
 const useAreaBumpSeries = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     data,
     width,
@@ -146,7 +146,7 @@ const useSerieStyle = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
 
 export const useAreaBump = <
     Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>
+    ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
 >({
     data,
     width,
@@ -251,7 +251,7 @@ export const useAreaBump = <
 
 export const useAreaBumpSerieHandlers = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     serie,
     isInteractive,
@@ -277,7 +277,7 @@ export const useAreaBumpSerieHandlers = <
         (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
             setActiveSerieIds([serie.id])
-            onMouseEnter && onMouseEnter(serie, event)
+            onMouseEnter?.(serie, event)
         },
         [serie, onMouseEnter, showTooltipFromEvent, setActiveSerieIds, tooltip]
     )
@@ -285,7 +285,7 @@ export const useAreaBumpSerieHandlers = <
     const handleMouseMove = useCallback(
         (event: MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { serie }), event)
-            onMouseMove && onMouseMove(serie, event)
+            onMouseMove?.(serie, event)
         },
         [serie, onMouseMove, showTooltipFromEvent, tooltip]
     )
@@ -294,14 +294,14 @@ export const useAreaBumpSerieHandlers = <
         (event: MouseEvent<SVGPathElement>) => {
             hideTooltip()
             setActiveSerieIds([])
-            onMouseLeave && onMouseLeave(serie, event)
+            onMouseLeave?.(serie, event)
         },
         [serie, onMouseLeave, hideTooltip, setActiveSerieIds]
     )
 
     const handleClick = useCallback(
         (event: MouseEvent<SVGPathElement>) => {
-            onClick && onClick(serie, event)
+            onClick?.(serie, event)
         },
         [serie, onClick]
     )
@@ -319,7 +319,7 @@ export const useAreaBumpSerieHandlers = <
 
 export const useAreaBumpSeriesLabels = <
     Datum extends AreaBumpDatum,
-    ExtraProps extends AreaBumpSerieExtraProps
+    ExtraProps extends AreaBumpSerieExtraProps,
 >({
     series,
     position,

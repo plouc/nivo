@@ -4,7 +4,7 @@ import { HeatMapCanvas } from './HeatMapCanvas'
 
 export const ResponsiveHeatMapCanvas = <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
-    ExtraProps extends object = Record<string, never>
+    ExtraProps extends object = Record<string, never>,
 >(
     props: Omit<HeatMapCanvasProps<Datum, ExtraProps>, 'height' | 'width'>
 ) => (

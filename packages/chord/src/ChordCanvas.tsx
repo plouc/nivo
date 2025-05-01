@@ -2,7 +2,7 @@ import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react
 import {
     useDimensions,
     midAngle,
-    // @ts-ignore
+    // @ts-expect-error no types
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,
@@ -301,16 +301,13 @@ const InnerChordCanvas = ({
             if (arc) {
                 setCurrentArc(arc)
                 showTooltipFromEvent(createElement(arcTooltip, { arc }), event)
-                !currentArc && onArcMouseEnter && onArcMouseEnter(arc, event)
-                onArcMouseMove && onArcMouseMove(arc, event)
-                currentArc &&
-                    currentArc.id !== arc.id &&
-                    onArcMouseLeave &&
-                    onArcMouseLeave(arc, event)
+                if (!currentArc) onArcMouseEnter?.(arc, event)
+                onArcMouseMove?.(arc, event)
+                if (currentArc && currentArc.id !== arc.id) onArcMouseLeave?.(arc, event)
             } else {
                 setCurrentArc(null)
                 hideTooltip()
-                currentArc && onArcMouseLeave && onArcMouseLeave(currentArc, event)
+                if (currentArc) onArcMouseLeave?.(currentArc, event)
             }
         },
         [
@@ -350,7 +347,7 @@ const InnerChordCanvas = ({
                 arcs,
             })
 
-            arc && onArcClick(arc, event)
+            if (arc) onArcClick(arc, event)
         },
         [canvasEl, center, margin, radius, innerRadius, arcs, onArcClick]
     )

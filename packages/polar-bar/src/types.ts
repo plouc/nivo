@@ -7,9 +7,7 @@ import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { ScaleLinear, ScaleBand } from '@nivo/scales'
 import { LegendProps } from '@nivo/legends'
 
-export interface PolarBarDatum {
-    [key: string]: string | number
-}
+export type PolarBarDatum = Record<string, string | number>
 
 export interface PolarBarComputedDatum {
     index: string

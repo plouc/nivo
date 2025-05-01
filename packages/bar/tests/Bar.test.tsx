@@ -1,13 +1,8 @@
 import { mount } from 'enzyme'
-import { create, act, ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer'
+import { create, act, ReactTestRenderer } from 'react-test-renderer'
 import { LegendSvg, LegendSvgItem } from '@nivo/legends'
-import { Bar, BarDatum, BarItemProps, ComputedDatum, BarItem, BarTooltip, BarTotals } from '../'
+import { Bar, BarItem, BarTooltip, BarTotals } from '../'
 import { useComputeLabelLayout } from '../src/compute/common'
-
-type IdValue = {
-    id: string
-    value: number
-}
 
 it('should render a basic bar chart', () => {
     const instance = create(
@@ -763,7 +758,7 @@ describe('totals layer', () => {
 
         const totals = instance.findByType(BarTotals).findAllByType('text')
 
-        totals.forEach((total, index) => {
+        totals.forEach(total => {
             const props = total.findByType('text').props
             expect(props.style.fill).toBe('red')
             expect(props.fontSize).toBe(14)

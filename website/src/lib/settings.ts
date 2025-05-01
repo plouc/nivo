@@ -10,7 +10,7 @@ type RequiredKeys<T> = Exclude<keyof T, OptionalKeys<T>>
 
 type MergeSettings<
     FinalSettings extends Record<string, any>,
-    Overrides extends Record<string, any>
+    Overrides extends Record<string, any>,
 > =
     // Required keys from Overrides (override FinalSettings)
     {
@@ -26,7 +26,7 @@ type MergeSettings<
 export type UnmappedSettings<
     FinalSettings extends Record<string, any>,
     Overrides extends Record<string, any>,
-    Without extends keyof FinalSettings = never
+    Without extends keyof FinalSettings = never,
 > = Omit<MergeSettings<FinalSettings, Overrides>, Without>
 
 type Mapper<RawSettings, FinalSettings, Data, Key extends keyof FinalSettings> = (
@@ -50,7 +50,7 @@ export const settingsMapper =
     <
         RawSettings extends Record<string, any>,
         FinalSettings extends Record<string, any>,
-        Data = unknown
+        Data = unknown,
     >(
         mapping: Mappers<RawSettings, FinalSettings, Data>,
         { exclude = [] }: { exclude?: (keyof RawSettings)[] } = {}
@@ -82,8 +82,9 @@ export type AxisWithToggle<Axis extends AxisProps | CanvasAxisProps> = NonNullab
     enable: boolean
 }
 
-export const mapAxis = (type: 'top' | 'right' | 'bottom' | 'left') => (value: any, settings: any) =>
-    settings[`axis${upperFirst(type)}`].enable ? omit(value, ['enable']) : null
+export const mapAxis =
+    (type: 'top' | 'right' | 'bottom' | 'left') => (value: any, settings: any) =>
+        settings[`axis${upperFirst(type)}`].enable ? omit(value, ['enable']) : null
 
 export const mapFormat = ({ format, enabled }: { format: string; enabled: boolean }) =>
     enabled ? format : undefined

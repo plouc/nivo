@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer'
-// @ts-ignore
-import { WaffleHtml, FillDirection } from '../src'
+import { GridFillDirection } from '@nivo/grid'
+import { WaffleHtml } from '../src'
 
 describe('<WaffleHtml />', () => {
     it('should render a basic waffle chart in HTML', () => {
@@ -19,7 +19,7 @@ describe('<WaffleHtml />', () => {
         expect(tree).toMatchSnapshot()
     })
 
-    const fillModes: FillDirection[] = ['top', 'right', 'bottom', 'left']
+    const fillModes: GridFillDirection[] = ['top', 'right', 'bottom', 'left']
     for (const fillMode of fillModes) {
         it(`should support ${fillMode} fill mode`, () => {
             const component = create(

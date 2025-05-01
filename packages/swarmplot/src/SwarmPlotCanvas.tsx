@@ -129,7 +129,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     })
 
     const getBorderColor = useInheritedColor(borderColor, theme)
-    const getBorderWidth = () => 1
+    const getBorderWidth = useCallback(() => 1, [])
 
     useEffect(() => {
         if (!canvasEl.current) return
@@ -158,7 +158,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
                 ctx.lineWidth = theme.grid.line.strokeWidth
                 ctx.strokeStyle = theme.grid.line.stroke as string
 
-                enableGridX &&
+                if (enableGridX) {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -166,8 +166,9 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
                         axis: 'x',
                         values: gridXValues,
                     })
+                }
 
-                enableGridY &&
+                if (enableGridY) {
                     renderGridLinesToCanvas(ctx, {
                         width: innerWidth,
                         height: innerHeight,
@@ -175,6 +176,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
                         axis: 'y',
                         values: gridYValues,
                     })
+                }
             }
 
             if (layer === 'axes') {

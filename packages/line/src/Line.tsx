@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useState } from 'react'
 import {
-    // @ts-ignore
+    // @ts-expect-error no types
     bindDefs,
     useDimensions,
     SvgWrapper,

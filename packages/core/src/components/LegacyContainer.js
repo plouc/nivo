@@ -43,7 +43,7 @@ export const LegacyContainer = ({
 
     const showTooltip = useCallback(
         (content, event) => tooltipActions.showTooltipFromEvent(content, event),
-        [tooltipActions.showTooltipFromEvent]
+        [tooltipActions]
     )
 
     const handlers = useMemo(
@@ -51,7 +51,7 @@ export const LegacyContainer = ({
             showTooltip: isInteractive ? showTooltip : noop,
             hideTooltip: isInteractive ? tooltipActions.hideTooltip : noop,
         }),
-        [tooltipActions.hideTooltip, isInteractive, showTooltip]
+        [tooltipActions, isInteractive, showTooltip]
     )
 
     return (

@@ -243,12 +243,12 @@ const InnerCalendarCanvas = memo(
                         data: { ...data.data },
                     }
                     showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
-                    !currentDay && onMouseEnter?.(data, event)
+                    if (!currentDay) onMouseEnter?.(data, event)
                     onMouseMove?.(data, event)
-                    currentDay && onMouseLeave?.(data, event)
+                    if (currentDay) onMouseLeave?.(data, event)
                 } else {
                     hideTooltip()
-                    data && onMouseLeave?.(data, event)
+                    if (data) onMouseLeave?.(data, event)
                 }
             },
             [
@@ -286,7 +286,7 @@ const InnerCalendarCanvas = memo(
                     margin
                 )
 
-                data && onClick(data, event)
+                if (data) onClick(data, event)
             },
             [canvasEl, daySpacing, margin, days, onClick]
         )

@@ -1,6 +1,5 @@
 import { scaleLinear, scaleOrdinal, scalePoint, scaleBand } from 'd3-scale'
 import { castLinearScale, castBandScale, castPointScale } from '@nivo/scales'
-// @ts-ignore
 import { computeCartesianTicks } from '../src/compute'
 
 describe('computeCartesianTicks()', () => {

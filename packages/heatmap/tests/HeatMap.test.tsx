@@ -2,7 +2,6 @@ import { mount, ReactWrapper } from 'enzyme'
 import { Globals, SpringValue } from '@react-spring/web'
 import { Axes, Grid } from '@nivo/axes'
 import { Annotation } from '@nivo/annotations'
-// @ts-ignore
 import { HeatMap, HeatMapSvgProps, DefaultHeatMapDatum } from '../src'
 
 const baseProps: HeatMapSvgProps<DefaultHeatMapDatum, Record<string, unknown>> = {

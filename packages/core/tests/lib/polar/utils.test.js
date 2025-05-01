@@ -27,7 +27,7 @@ const absAngleDegUseCases = [
     },
 ]
 
-for (let absAngleDegUseCase of absAngleDegUseCases) {
+for (const absAngleDegUseCase of absAngleDegUseCases) {
     const { input, expected } = absAngleDegUseCase
 
     test(`absoluteAngleDegrees() should convert ${input}° to ${expected}°`, () => {

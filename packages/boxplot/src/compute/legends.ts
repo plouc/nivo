@@ -21,7 +21,7 @@ export const getLegendData = <RawDatum extends BoxPlotDatum>({
                 id: byGroup ? boxPlot.data.groupIndex : boxPlot.data.subGroupIndex,
                 label: getLegendLabel(boxPlot?.data),
                 color: boxPlot?.color,
-            } as LegendData)
+            }) as LegendData
     )
     // reduce to unique labels, then sort by id/index
     // ensures correct ordering of legends even when certain group-subGroup combos are missing

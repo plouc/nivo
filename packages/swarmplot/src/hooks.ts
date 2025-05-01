@@ -342,7 +342,7 @@ export const useSwarmPlotLayerContext = <
     Scale extends
         | ScaleLinear<number>
         | ScaleTime<string | Date>
-        | ScaleOrdinal<string, number, never>
+        | ScaleOrdinal<string, number, never>,
 >({
     nodes,
     xScale,

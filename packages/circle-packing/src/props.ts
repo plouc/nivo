@@ -34,5 +34,5 @@ export const defaultProps = {
     animate: true,
     motionConfig: 'gentle',
     role: 'img',
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 }

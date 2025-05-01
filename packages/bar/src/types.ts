@@ -18,9 +18,7 @@ import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 import { BarLabelLayout } from './compute/common'
 
-export interface BarDatum {
-    [key: string]: string | number
-}
+export type BarDatum = Record<string, string | number>
 
 export interface DataProps<RawDatum extends BarDatum> {
     data: readonly RawDatum[]

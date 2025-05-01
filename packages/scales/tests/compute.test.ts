@@ -4,7 +4,6 @@ import {
     stackAxis,
     // computeAxisSlices,
     computeXYScalesForSeries,
-    // @ts-ignore
 } from '../src'
 
 const axes: ScaleAxis[] = ['x', 'y']

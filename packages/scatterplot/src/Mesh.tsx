@@ -37,7 +37,7 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     const handleMouseEnter = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
-            onMouseEnter && onMouseEnter(node, event)
+            onMouseEnter?.(node, event)
         },
         [showTooltipFromEvent, tooltip, onMouseEnter]
     )
@@ -45,7 +45,7 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     const handleMouseMove = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, { node }), event)
-            onMouseMove && onMouseMove(node, event)
+            onMouseMove?.(node, event)
         },
         [showTooltipFromEvent, tooltip, onMouseMove]
     )
@@ -53,35 +53,35 @@ export const Mesh = <RawDatum extends ScatterPlotDatum>({
     const handleMouseLeave = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
             hideTooltip()
-            onMouseLeave && onMouseLeave(node, event)
+            onMouseLeave?.(node, event)
         },
         [hideTooltip, onMouseLeave]
     )
 
     const handleMouseDown = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
-            onMouseDown && onMouseDown(node, event)
+            onMouseDown?.(node, event)
         },
         [onMouseDown]
     )
 
     const handleMouseUp = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
-            onMouseUp && onMouseUp(node, event)
+            onMouseUp?.(node, event)
         },
         [onMouseUp]
     )
 
     const handleClick = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
-            onClick && onClick(node, event)
+            onClick?.(node, event)
         },
         [onClick]
     )
 
     const handleDoubleClick = useCallback(
         (node: ScatterPlotNodeData<RawDatum>, event: MouseEvent) => {
-            onDoubleClick && onDoubleClick(node, event)
+            onDoubleClick?.(node, event)
         },
         [onDoubleClick]
     )

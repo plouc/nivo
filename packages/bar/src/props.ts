@@ -73,5 +73,5 @@ export const canvasDefaultProps = {
     ...defaultProps,
     layers: ['grid', 'axes', 'bars', 'totals', 'legends', 'annotations'] as BarCanvasLayerId[],
 
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 }

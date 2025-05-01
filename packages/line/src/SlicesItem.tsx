@@ -45,7 +45,7 @@ export const NonMemoizedSlicesItem = <Series extends LineSeries>({
         (event: MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
-            onMouseEnter && onMouseEnter(slice, event)
+            onMouseEnter?.(slice, event)
         },
         [showTooltipFromEvent, tooltip, slice, axis, setCurrent, onMouseEnter]
     )
@@ -53,7 +53,7 @@ export const NonMemoizedSlicesItem = <Series extends LineSeries>({
     const handleMouseMove = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
-            onMouseMove && onMouseMove(slice, event)
+            onMouseMove?.(slice, event)
         },
         [showTooltipFromEvent, tooltip, slice, axis, onMouseMove]
     )
@@ -62,35 +62,35 @@ export const NonMemoizedSlicesItem = <Series extends LineSeries>({
         (event: MouseEvent<SVGRectElement>) => {
             hideTooltip()
             setCurrent(null)
-            onMouseLeave && onMouseLeave(slice, event)
+            onMouseLeave?.(slice, event)
         },
         [hideTooltip, setCurrent, onMouseLeave, slice]
     )
 
     const handleMouseDown = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            onMouseDown && onMouseDown(slice, event)
+            onMouseDown?.(slice, event)
         },
         [slice, onMouseDown]
     )
 
     const handleMouseUp = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            onMouseUp && onMouseUp(slice, event)
+            onMouseUp?.(slice, event)
         },
         [slice, onMouseUp]
     )
 
     const handleClick = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            onClick && onClick(slice, event)
+            onClick?.(slice, event)
         },
         [slice, onClick]
     )
 
     const handleDoubleClick = useCallback(
         (event: MouseEvent<SVGRectElement>) => {
-            onDoubleClick && onDoubleClick(slice, event)
+            onDoubleClick?.(slice, event)
         },
         [slice, onDoubleClick]
     )
@@ -99,7 +99,7 @@ export const NonMemoizedSlicesItem = <Series extends LineSeries>({
         (event: TouchEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, { slice, axis }), event, 'right')
             setCurrent(slice)
-            onTouchStart && onTouchStart(slice, event)
+            onTouchStart?.(slice, event)
         },
         [axis, onTouchStart, setCurrent, showTooltipFromEvent, slice, tooltip]
     )
@@ -126,7 +126,7 @@ export const NonMemoizedSlicesItem = <Series extends LineSeries>({
 
             // Note here, this will pass the original slice, not the one we found
             // But this can be found with document.elementFromPoint()
-            onTouchMove && onTouchMove(slice, event)
+            onTouchMove?.(slice, event)
         },
         [axis, onTouchMove, setCurrent, showTooltipFromEvent, slice, slices, tooltip]
     )
@@ -135,7 +135,7 @@ export const NonMemoizedSlicesItem = <Series extends LineSeries>({
         (event: TouchEvent<SVGRectElement>) => {
             hideTooltip()
             setCurrent(null)
-            onTouchEnd && onTouchEnd(slice, event)
+            onTouchEnd?.(slice, event)
         },
         [hideTooltip, setCurrent, onTouchEnd, slice]
     )
