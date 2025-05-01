@@ -61,8 +61,9 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
 
     setCanvasFont(ctx, theme.axis.ticks.text)
 
-    if ((theme.axis.domain.line.strokeWidth ?? 0) > 0) {
-        ctx.lineWidth = Number(theme.axis.domain.line.strokeWidth)
+    const domainLineWidth = theme.axis.domain.line.strokeWidth ?? 0
+    if (typeof domainLineWidth !== 'string' && domainLineWidth > 0) {
+        ctx.lineWidth = domainLineWidth
         ctx.lineCap = 'square'
 
         if (theme.axis.domain.line.stroke) {
@@ -77,9 +78,11 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
 
     const format = typeof _format === 'function' ? _format : (value: unknown) => `${value}`
 
+    const tickLineWidth = theme.axis.ticks.line.strokeWidth ?? 0
+    const shouldRenderTickLine = typeof tickLineWidth !== 'string' && tickLineWidth > 0
     ticks.forEach(tick => {
-        if ((theme.axis.ticks.line.strokeWidth ?? 0) > 0) {
-            ctx.lineWidth = Number(theme.axis.ticks.line.strokeWidth)
+        if (shouldRenderTickLine) {
+            ctx.lineWidth = tickLineWidth
             ctx.lineCap = 'square'
 
             if (theme.axis.ticks.line.stroke) {

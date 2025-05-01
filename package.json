@@ -70,7 +70,7 @@
     "rollup-plugin-strip-banner": "^3.0.0",
     "rollup-plugin-visualizer": "^5.5.2",
     "serve": "^13.0.2",
-    "typescript": "^4.9.5",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
     "wait-on": "^8.0.3",
     "yargs": "^17.7.2"
@@ -99,8 +99,23 @@
     "type": "opencollective",
     "url": "https://opencollective.com/nivo"
   },
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.10.0",
   "pnpm": {
-    "onlyBuiltDependencies": ["@parcel/watcher", "@swc/core", "core-js", "core-js-pure", "cypress", "es5-ext", "esbuild", "gatsby", "gatsby-cli", "lmdb", "msgpackr-extract", "nx", "puppeteer", "sharp"]
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "core-js",
+      "core-js-pure",
+      "cypress",
+      "es5-ext",
+      "esbuild",
+      "gatsby",
+      "gatsby-cli",
+      "lmdb",
+      "msgpackr-extract",
+      "nx",
+      "puppeteer",
+      "sharp"
+    ]
   }
 }

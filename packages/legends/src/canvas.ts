@@ -202,9 +202,11 @@ export const renderContinuousColorLegendToCanvas = (
 
     setCanvasFont(ctx, theme.legends.ticks.text)
 
+    const tickLineWidth = theme.legends.ticks.line.strokeWidth ?? 0
+    const shouldRenderTickLine = typeof tickLineWidth !== 'string' && tickLineWidth > 0
     ticks.forEach(tick => {
-        if ((theme.legends.ticks.line.strokeWidth ?? 0) > 0) {
-            ctx.lineWidth = Number(theme.axis.ticks.line.strokeWidth)
+        if (shouldRenderTickLine) {
+            ctx.lineWidth = tickLineWidth
             if (theme.axis.ticks.line.stroke) {
                 ctx.strokeStyle = theme.axis.ticks.line.stroke
             }

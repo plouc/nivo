@@ -32,7 +32,7 @@ export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['
             dimensions[dimension.id] =
                 typeof dimension.value === 'function'
                     ? dimension.value
-                    : (datum: RawDatum) => get(datum, dimension.value as string, 0)
+                    : (datum: RawDatum) => get(datum, dimension.value as string, 0) as number
         })
 
         return { dimensionIds, dimensions }
