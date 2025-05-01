@@ -1,6 +1,8 @@
 {
-    "packages": ["packages/*", "api"],
-    "version": "0.92.2",
-    "npmClient": "pnpm",
-    "useWorkspaces": true
+  "packages": [
+    "packages/*",
+    "api"
+  ],
+  "version": "0.92.2",
+  "npmClient": "pnpm"
 }
