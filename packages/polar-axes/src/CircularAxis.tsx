@@ -1,7 +1,7 @@
 import { createElement, SVGProps, useMemo } from 'react'
 import { useSpring, useTransition } from '@react-spring/web'
 import { useMotionConfig, positionFromAngle, degreesToRadians } from '@nivo/core'
-import { useTheme } from '@nivo/theming'
+import { useExtendedAxisTheme, useTheme } from '@nivo/theming'
 import { AnyScale, getScaleTicks, centerScale } from '@nivo/scales'
 import { ArcLine } from '@nivo/arcs'
 import { CircularAxisConfig, CircularAxisTickAnimatedProps } from './types'
@@ -47,11 +47,10 @@ export const CircularAxis = ({
     tickSize = 5,
     tickPadding = 12,
     tickComponent = CircularAxisTick,
+    style,
 }: CircularAxisProps) => {
     const startAngle = originalStartAngle - 90
     const endAngle = originalEndAngle - 90
-
-    const theme = useTheme()
 
     const { animate, config: springConfig } = useMotionConfig()
     const spring = useSpring<{
@@ -113,17 +112,21 @@ export const CircularAxis = ({
         config: springConfig,
     })
 
+    const theme = useTheme()
+    const axisTheme = useExtendedAxisTheme(theme.axis, style)
+
     return (
         <g transform={`translate(${center[0]}, ${center[1]})`} style={{ pointerEvents: 'none' }}>
             <ArcLine
                 animated={spring}
-                {...(theme.axis.domain.line as Omit<SVGProps<SVGPathElement>, 'ref'>)}
+                {...(axisTheme.domain.line as Omit<SVGProps<SVGPathElement>, 'ref'>)}
                 fill="none"
             />
             {transition((animatedProps, tick) =>
                 createElement(tickComponent, {
                     key: tick.key,
                     label: tick.label,
+                    theme: axisTheme,
                     animated: animatedProps,
                 })
             )}

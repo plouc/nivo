@@ -1,6 +1,7 @@
+import * as React from 'react'
 import { ScaleValue, TicksSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
-import * as React from 'react'
+import { PartialTheme, Theme } from '@nivo/theming'
 
 export type GridValuesBuilder<T> = T extends number
     ? number[]
@@ -33,6 +34,7 @@ export interface AxisProps<Value extends ScaleValue = any> {
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
     legendOffset?: number
+    style?: PartialTheme['axis']
     ariaHidden?: boolean
 }
 
@@ -55,6 +57,7 @@ export interface AxisTickProps<Value extends ScaleValue> {
     textAnchor: string
     opacity?: number
     rotate?: number
+    theme: Theme['axis']['ticks']
     animatedProps: SpringValues<{
         opacity: number
         textTransform: string

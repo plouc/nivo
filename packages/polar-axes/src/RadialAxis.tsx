@@ -2,6 +2,7 @@ import { createElement, useMemo } from 'react'
 import { useSpring, useTransition, animated } from '@react-spring/web'
 import { useMotionConfig, normalizeAngle } from '@nivo/core'
 import { AnyScale, getScaleTicks } from '@nivo/scales'
+import { useExtendedAxisTheme, useTheme } from '@nivo/theming'
 import { RadialAxisConfig, RadialAxisTickAnimatedProps } from './types'
 import { RadialAxisTick } from './RadialAxisTick'
 
@@ -22,6 +23,7 @@ export const RadialAxis = ({
     tickPadding = 5,
     tickRotation: extraRotation = 0,
     tickComponent = RadialAxisTick,
+    style,
 }: RadialAxisProps) => {
     const angle = normalizeAngle(rawAngle)
 
@@ -130,6 +132,9 @@ export const RadialAxis = ({
         config: springConfig,
     })
 
+    const theme = useTheme()
+    const axisTheme = useExtendedAxisTheme(theme.axis, style)
+
     return (
         <g transform={`translate(${center[0]}, ${center[1]})`} style={{ pointerEvents: 'none' }}>
             <animated.g transform={spring.rotation.to(value => `rotate(${value})`)}>
@@ -142,6 +147,7 @@ export const RadialAxis = ({
                         rotation: tickRotation,
                         length: lineX,
                         textAnchor,
+                        theme: axisTheme,
                         animated: animatedProps,
                     })
                 )}

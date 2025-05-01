@@ -1,5 +1,5 @@
 import { degreesToRadians } from '@nivo/core'
-import { Theme } from '@nivo/theming'
+import { Theme, PartialTheme, extendAxisTheme } from '@nivo/theming'
 import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
@@ -24,6 +24,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         legendPosition = 'end',
         legendOffset = 0,
         theme,
+        style,
     }: {
         axis: 'x' | 'y'
         scale: AnyScale
@@ -40,6 +41,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         legendPosition?: AxisLegendPosition
         legendOffset?: number
         theme: Theme
+        style?: PartialTheme['axis']
     }
 ) => {
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
@@ -56,18 +58,20 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
     ctx.save()
     ctx.translate(x, y)
 
+    const axisTheme = extendAxisTheme(theme.axis, style)
+
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
 
-    setCanvasFont(ctx, theme.axis.ticks.text)
+    setCanvasFont(ctx, axisTheme.ticks.text)
 
-    const domainLineWidth = theme.axis.domain.line.strokeWidth ?? 0
+    const domainLineWidth = axisTheme.domain.line.strokeWidth ?? 0
     if (typeof domainLineWidth !== 'string' && domainLineWidth > 0) {
         ctx.lineWidth = domainLineWidth
         ctx.lineCap = 'square'
 
-        if (theme.axis.domain.line.stroke) {
-            ctx.strokeStyle = theme.axis.domain.line.stroke
+        if (axisTheme.domain.line.stroke) {
+            ctx.strokeStyle = axisTheme.domain.line.stroke
         }
 
         ctx.beginPath()
@@ -78,15 +82,15 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
 
     const format = typeof _format === 'function' ? _format : (value: unknown) => `${value}`
 
-    const tickLineWidth = theme.axis.ticks.line.strokeWidth ?? 0
+    const tickLineWidth = axisTheme.ticks.line.strokeWidth ?? 0
     const shouldRenderTickLine = typeof tickLineWidth !== 'string' && tickLineWidth > 0
     ticks.forEach(tick => {
         if (shouldRenderTickLine) {
             ctx.lineWidth = tickLineWidth
             ctx.lineCap = 'square'
 
-            if (theme.axis.ticks.line.stroke) {
-                ctx.strokeStyle = theme.axis.ticks.line.stroke
+            if (axisTheme.ticks.line.stroke) {
+                ctx.strokeStyle = axisTheme.ticks.line.stroke
             }
 
             ctx.beginPath()
@@ -101,7 +105,7 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
 
-        drawCanvasText(ctx, theme.axis.ticks.text, `${value}`)
+        drawCanvasText(ctx, axisTheme.ticks.text, `${value}`)
 
         ctx.fillText(`${value}`, 0, 0)
         ctx.restore()
@@ -140,17 +144,15 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
 
         ctx.translate(legendX, legendY)
         ctx.rotate(degreesToRadians(legendRotation))
-        ctx.font = `${
-            theme.axis.legend.text.fontWeight ? `${theme.axis.legend.text.fontWeight} ` : ''
-        }${theme.axis.legend.text.fontSize}px ${theme.axis.legend.text.fontFamily}`
+        setCanvasFont(ctx, axisTheme.legend.text)
 
-        if (theme.axis.legend.text.fill) {
-            ctx.fillStyle = theme.axis.legend.text.fill
+        if (axisTheme.legend.text.fill) {
+            ctx.fillStyle = axisTheme.legend.text.fill
         }
 
         ctx.textAlign = textAlign
         ctx.textBaseline = 'middle'
-        ctx.fillText(legend, 0, 0)
+        drawCanvasText(ctx, axisTheme.legend.text, legend)
     }
 
     ctx.restore()
@@ -163,12 +165,10 @@ export const renderAxesToCanvas = <X extends ScaleValue, Y extends ScaleValue>(
         yScale,
         width,
         height,
-
         top,
         right,
         bottom,
         left,
-
         theme,
     }: {
         xScale: AnyScale

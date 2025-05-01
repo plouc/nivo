@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useCallback, useRef } from 'react'
 import { generateDrinkStats } from '@nivo/generators'
 import { LineCanvas } from '@nivo/line'
+import { axesCustomStyles } from './shared'
 
 const meta: Meta<typeof LineCanvas> = {
     title: 'LineCanvas',
@@ -230,4 +231,42 @@ export const DownloadTheChart: Story = {
             </div>
         )
     },
+}
+
+export const AxesCustomStyles: Story = {
+    render: () => (
+        <LineCanvas
+            {...commonProperties}
+            margin={{ top: 60, right: 80, bottom: 60, left: 80 }}
+            curve="monotoneX"
+            enablePoints
+            pointColor={{ from: 'series.color' }}
+            pointSize={8}
+            axisTop={{
+                legend: 'Top Axis',
+                legendPosition: 'middle',
+                legendOffset: -40,
+                style: axesCustomStyles.top,
+            }}
+            axisRight={{
+                legend: 'Right Axis',
+                legendPosition: 'end',
+                legendOffset: 40,
+                style: axesCustomStyles.right,
+            }}
+            axisBottom={{
+                tickRotation: -90,
+                legend: 'Bottom Axis',
+                legendPosition: 'middle',
+                legendOffset: 40,
+                style: axesCustomStyles.bottom,
+            }}
+            axisLeft={{
+                legend: 'Left Axis',
+                legendPosition: 'start',
+                legendOffset: -40,
+                style: axesCustomStyles.left,
+            }}
+        />
+    ),
 }

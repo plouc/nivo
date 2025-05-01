@@ -330,6 +330,7 @@ type PolarAxisProperty =
     | 'tickPadding'
     | 'tickRotation'
     | 'tickComponent'
+    | 'style'
 
 export const polarAxisProperty = ({
     key,
@@ -430,6 +431,25 @@ export const polarAxisProperty = ({
             required: false,
             help: 'Override default tick component.',
             flavors,
+        },
+        {
+            key: 'style',
+            type: `PartialTheme['axis']`,
+            required: false,
+            flavors,
+            help: `${key} axis style overrides.`,
+            description: `
+                The theme contains a single style for all axes,
+                you can use this to override the style of a specific axis.
+                
+                Please note that the overrides are applied to the complete
+                theme object computed internally:
+                
+                \`(theme prop <- default theme & inheritance) -> axis <- axis style\`
+                
+                You should try to define the style statically, or to memoize it
+                in case it's dynamic.
+            `,
         },
     ]
 

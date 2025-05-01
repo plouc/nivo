@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Component, useState, useEffect } from 'react'
 import range from 'lodash/range.js'
 import last from 'lodash/last.js'
-import { generateDrinkStats } from '@nivo/generators'
-import { Defs, linearGradientDef } from '@nivo/core'
 import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
-import { Line, LineSvgProps, PointSymbolProps, LineCustomSvgLayerProps } from '@nivo/line'
+import { generateDrinkStats } from '@nivo/generators'
+import { Defs, linearGradientDef, DotsItemSymbolProps } from '@nivo/core'
+import { Line, LineSvgProps, LineCustomSvgLayerProps } from '@nivo/line'
+import { axesCustomStyles } from './shared'
 
 const meta: Meta<typeof Line> = {
     title: 'Line',
@@ -50,7 +51,7 @@ const commonProperties: Pick<
     initialHiddenIds: ['cognac'],
 }
 
-const CustomSymbol = ({ size, color, borderWidth, borderColor }: PointSymbolProps<any>) => (
+const CustomSymbol = ({ size, color, borderWidth, borderColor }: DotsItemSymbolProps<any>) => (
     <g>
         <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
         <circle
@@ -1166,6 +1167,42 @@ export const AreaGradients: Story = {
                 ]),
             ]}
             fill={[{ match: '*', id: 'gradientA' }]}
+        />
+    ),
+}
+
+export const AxesCustomStyles: Story = {
+    render: () => (
+        <Line
+            {...commonProperties}
+            margin={{ top: 60, right: 80, bottom: 60, left: 80 }}
+            curve="monotoneX"
+            pointSize={8}
+            axisTop={{
+                legend: 'Top Axis',
+                legendPosition: 'middle',
+                legendOffset: -40,
+                style: axesCustomStyles.top,
+            }}
+            axisRight={{
+                legend: 'Right Axis',
+                legendPosition: 'end',
+                legendOffset: 40,
+                style: axesCustomStyles.right,
+            }}
+            axisBottom={{
+                tickRotation: -90,
+                legend: 'Bottom Axis',
+                legendPosition: 'middle',
+                legendOffset: 40,
+                style: axesCustomStyles.bottom,
+            }}
+            axisLeft={{
+                legend: 'Left Axis',
+                legendPosition: 'start',
+                legendOffset: -40,
+                style: axesCustomStyles.left,
+            }}
         />
     ),
 }

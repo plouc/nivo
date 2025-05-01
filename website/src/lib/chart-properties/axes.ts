@@ -118,6 +118,24 @@ export const axes = ({
                                     max: 60,
                                 },
                             },
+                            {
+                                key: 'style',
+                                flavors,
+                                type: `PartialTheme['axis']`,
+                                help: `${axisKey} axis style overrides.`,
+                                description: `
+                                    The theme contains a single style for all axes,
+                                    you can use this to override the style of a specific axis.
+                                    
+                                    Please note that the overrides are applied to the complete
+                                    theme object computed internally:
+                                    
+                                    \`(theme prop <- default theme & inheritance) -> axis <- axis style\`
+                                    
+                                    You should try to define the style statically, or to memoize it
+                                    in case it's dynamic.
+                                `,
+                            },
                         ],
                     },
                 },

@@ -1,5 +1,5 @@
 import { useMotionConfig } from '@nivo/core'
-import { useTheme } from '@nivo/theming'
+import { useTheme, useExtendedAxisTheme } from '@nivo/theming'
 import { Text } from '@nivo/text'
 import { AnyScale, ScaleValue } from '@nivo/scales'
 import { animated, useSpring, useTransition } from '@react-spring/web'
@@ -26,6 +26,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     legend,
     legendPosition = 'end',
     legendOffset = 0,
+    style,
     onClick,
     ariaHidden,
 }: AxisProps<Value> & {
@@ -37,6 +38,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value | string) => void
 }) => {
     const theme = useTheme()
+    const axisTheme = useExtendedAxisTheme(theme.axis, style)
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
@@ -89,7 +91,7 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
                     transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
                     textAnchor={textAnchor}
                     style={{
-                        ...theme.axis.legend.text,
+                        ...axisTheme.legend.text,
                         dominantBaseline: 'central',
                     }}
                 >
@@ -155,12 +157,13 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
                     textAnchor: textAlign,
                     truncateTickAt: truncateTickAt,
                     animatedProps: transitionProps,
+                    theme: axisTheme.ticks,
                     ...tick,
                     ...(onClick ? { onClick } : {}),
                 })
             })}
             <animated.line
-                style={theme.axis.domain.line}
+                style={axisTheme.domain.line}
                 x1={0}
                 x2={animatedProps.lineX2}
                 y1={0}
