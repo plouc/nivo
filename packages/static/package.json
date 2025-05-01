@@ -36,6 +36,7 @@
         "@nivo/radar": "workspace:*",
         "@nivo/sankey": "workspace:*",
         "@nivo/sunburst": "workspace:*",
+        "@nivo/icicles": "workspace:*",
         "@nivo/treemap": "workspace:*",
         "joi": "^17.5.0",
         "lodash": "^4.17.21"

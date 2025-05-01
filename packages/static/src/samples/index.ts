@@ -11,13 +11,14 @@ import { ChartProps, ChartType, LineApiProps } from '../mappings'
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const moreKeys = [...keys, 'junk', 'sushi', 'ramen', 'curry', 'udon', 'bagel']
 
-export const samples: Record<
-    string,
-    {
-        type: ChartType
-        props: ChartProps<ChartType>
+type Samples = {
+    [P in ChartType]?: {
+        type: P
+        props: ChartProps<P>
     }
-> = {
+}
+
+export const samples: Samples = {
     bar: {
         type: 'bar',
         props: {
@@ -73,7 +74,7 @@ export const samples: Record<
             borderWidth: 2,
             borderColor: 'inherit:darker(0.4)',
             labelTextColor: 'inherit:darker(2.4)',
-        },
+        } as ChartProps<'heatmap'>,
     },
     line: {
         type: 'line',
@@ -119,7 +120,7 @@ export const samples: Record<
                 enableMarkersLabel: true,
             },
             generateWinesTastes()
-        ),
+        ) as ChartProps<'radar'>,
     },
     sankey: {
         type: 'sankey',
@@ -148,7 +149,20 @@ export const samples: Record<
             enableArcLabels: true,
             arcLabelsSkipAngle: 10,
             arcLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
-        },
+        } as ChartProps<'sunburst'>,
+    },
+    icicles: {
+        type: 'icicles',
+        props: {
+            width: 800,
+            height: 800,
+            data: generateLibTree(),
+            id: 'name',
+            value: 'loc',
+            childColor: { from: 'color', modifiers: [['brighter', 0.1]] },
+            enableRectLabels: true,
+            rectLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
+        } as ChartProps<'icicles'>,
     },
     treemap: {
         type: 'treemap',

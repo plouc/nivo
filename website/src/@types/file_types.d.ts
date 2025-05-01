@@ -121,6 +121,15 @@ declare module '*/heatmap/meta.yml' {
     export default meta
 }
 
+declare module '*/icicles/meta.yml' {
+    const meta: {
+        flavors: ChartMetaFlavors
+        Icicles: ChartMeta
+    }
+
+    export default meta
+}
+
 declare module '*/line/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors

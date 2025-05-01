@@ -19,6 +19,7 @@ import radialBar from '../../assets/captures/home/radial-bar.png'
 import voronoi from '../../assets/captures/home/voronoi.png'
 import treemap from '../../assets/captures/home/treemap.png'
 import sunburst from '../../assets/captures/home/sunburst.png'
+import icicles from '../../assets/captures/home/sunburst.png'
 import sankey from '../../assets/captures/home/sankey.png'
 import swarmplot from '../../assets/captures/home/swarmplot.png'
 import marimekko from '../../assets/captures/home/marimekko.png'
@@ -55,7 +56,7 @@ const Home = () => {
             <Item name="Radial Bar Chart" to="/radial-bar/" image={radialBar} />
             <Item name="Choropleth Map" to="/choropleth/" image={choropleth} />
             <Item name="Bar Chart" to="/bar/" image={barVertical} />
-            <Item name="Tree Map" to="/treemap/" image={treemap} />
+            <Item name="Icicles Chart" to="/icicles/" image={icicles} />
             <Item name="Chord Diagram" to="/chord/" image={chord} />
         </Container>
     )
