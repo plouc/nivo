@@ -30,4 +30,5 @@ build
 !.yarn/sdks
 !.yarn/versions
 
+cypress/cypress/screenshots
 cypress/cypress/videos
