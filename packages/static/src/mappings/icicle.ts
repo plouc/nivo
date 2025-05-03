@@ -1,21 +1,21 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { Icicles, IciclesSvgProps } from '@nivo/icicles'
+import { Icicle, IcicleSvgProps } from '@nivo/icicle'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
 import { OmitStrict } from '../types'
 
-export type IciclesApiProps = OmitStrict<
-    IciclesSvgProps<any>,
+export type IcicleApiProps = OmitStrict<
+    IcicleSvgProps<any>,
     'isInteractive' | 'tooltip' | 'onClick' | 'animate' | 'motionConfig' | 'renderWrapper'
 >
 
-export const iciclesMapping = {
-    component: Icicles as FunctionComponent<IciclesApiProps>,
-    schema: Joi.object<IciclesApiProps>().keys({
+export const icicleMapping = {
+    component: Icicle as FunctionComponent<IcicleApiProps>,
+    schema: Joi.object<IcicleApiProps>().keys({
         data: custom.object().required(),
-        id: Joi.string(),
+        identity: Joi.string(),
         value: Joi.string(),
         valueFormat: Joi.string(),
         width: dimensions.width,
@@ -33,9 +33,10 @@ export const iciclesMapping = {
         enableRectLabels: Joi.boolean(),
         rectLabel: Joi.string(),
         rectLabelsTextColor: inheritedColor,
-        rectLabelsOffset: Joi.number(),
-        rectLabelsSkipLength: Joi.number().min(0),
-        rectLabelsSkipPercentage: Joi.number().min(0).max(100),
+        rectLabelsOffsetX: Joi.number(),
+        rectLabelsOffsetY: Joi.number(),
+        rectLabelsSkipWidth: Joi.number().min(0),
+        rectLabelsSkipHeight: Joi.number().min(0).max(100),
     }),
     runtimeProps: ['width', 'height', 'colors'],
     defaults: {
