@@ -151,8 +151,8 @@ export const samples: Samples = {
             arcLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
         } as ChartProps<'sunburst'>,
     },
-    icicles: {
-        type: 'icicles',
+    icicle: {
+        type: 'icicle',
         props: {
             width: 800,
             height: 800,
@@ -162,7 +162,7 @@ export const samples: Samples = {
             childColor: { from: 'color', modifiers: [['brighter', 0.1]] },
             enableRectLabels: true,
             rectLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
-        } as ChartProps<'icicles'>,
+        } as ChartProps<'icicle'>,
     },
     treemap: {
         type: 'treemap',
