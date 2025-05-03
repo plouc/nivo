@@ -6,4 +6,4 @@
 [![downloads](https://img.shields.io/npm/dm/@nivo/rects?style=for-the-badge)](https://www.npmjs.com/package/@nivo/rects)
 
 This package is used internally by nivo packages dealing with rects
-such as `@nivo/icicles`.
+such as `@nivo/icicle`.

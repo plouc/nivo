@@ -1,14 +1,8 @@
 export interface Rect {
-    height: number
-    /** size in percentage from the root node */
-    percentage: number
-    transformX: number
-    transformY: number
+    x: number
+    y: number
     width: number
-    x0: number
-    x1: number
-    y0: number
-    y1: number
+    height: number
 }
 
 export interface DatumWithRect {

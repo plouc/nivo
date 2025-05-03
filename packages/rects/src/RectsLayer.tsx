@@ -1,68 +1,67 @@
-import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { useTheme } from '@nivo/core'
 import { createElement } from 'react'
+import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
+import { useTheme } from '@nivo/theming'
 import { RectMouseHandler, RectShape, RectShapeProps, RectWheelHandler } from './RectShape'
 import { DatumWithRectAndColor } from './types'
+import { RectTransitionMode } from './rectTransitionMode'
 import { useRectsTransition } from './useRectsTransition'
 
-export type RectComponent<TDatum extends DatumWithRectAndColor> = (
-    props: RectShapeProps<TDatum>
+export type RectComponent<Datum extends DatumWithRectAndColor> = (
+    props: RectShapeProps<Datum>
 ) => JSX.Element
 
-export interface RectsLayerProps<TDatum extends DatumWithRectAndColor> {
-    borderColor: InheritedColorConfig<TDatum>
+export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
+    data: Datum[]
+    borderColor: InheritedColorConfig<Datum>
     borderWidth: number
-    component?: RectComponent<TDatum>
-    data: TDatum[]
-    onClick?: RectMouseHandler<TDatum>
-    onMouseEnter?: RectMouseHandler<TDatum>
-    onMouseLeave?: RectMouseHandler<TDatum>
-    onMouseMove?: RectMouseHandler<TDatum>
-    onWheel?: RectWheelHandler<TDatum>
-    onContextMenu?: RectMouseHandler<TDatum>
+    onClick?: RectMouseHandler<Datum>
+    onMouseEnter?: RectMouseHandler<Datum>
+    onMouseLeave?: RectMouseHandler<Datum>
+    onMouseMove?: RectMouseHandler<Datum>
+    onWheel?: RectWheelHandler<Datum>
+    onContextMenu?: RectMouseHandler<Datum>
+    transitionMode?: RectTransitionMode
+    component?: RectComponent<Datum>
 }
 
-export const RectsLayer = <TDatum extends DatumWithRectAndColor>({
+export const RectsLayer = <Datum extends DatumWithRectAndColor>({
+    data,
+    borderWidth,
+    borderColor,
     onMouseMove,
     onMouseLeave,
     onMouseEnter,
     onClick,
     onWheel,
     onContextMenu,
-    borderWidth,
-    data,
-    borderColor,
+    transitionMode = 'flow-down',
     component = RectShape,
-}: RectsLayerProps<TDatum>) => {
+}: RectsLayerProps<Datum>) => {
     const theme = useTheme()
-    const getBorderColor = useInheritedColor<TDatum>(borderColor, theme)
+    const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
 
-    const { transition, interpolate } = useRectsTransition<
-        TDatum,
+    const { transition } = useRectsTransition<
+        Datum,
         {
-            borderColor: string
             color: string
-            opacity: number
+            borderColor: string
         }
-    >(data, {
+    >(data, transitionMode, {
         enter: datum => ({
-            opacity: 0,
             color: datum.color,
             borderColor: getBorderColor(datum),
         }),
         update: datum => ({
-            opacity: 1,
             color: datum.color,
             borderColor: getBorderColor(datum),
         }),
         leave: datum => ({
-            opacity: 0,
             color: datum.color,
             borderColor: getBorderColor(datum),
         }),
     })
 
-    const Rect: RectComponent<TDatum> = component
+    const Rect: RectComponent<Datum> = component
 
     return (
         <g>
@@ -73,12 +72,6 @@ export const RectsLayer = <TDatum extends DatumWithRectAndColor>({
                     style: {
                         ...transitionProps,
                         borderWidth,
-                        transform: interpolate(
-                            transitionProps.transformX,
-                            transitionProps.transformY
-                        ),
-                        width: datum.rect.width,
-                        height: datum.rect.height,
                     },
                     onClick,
                     onMouseEnter,
