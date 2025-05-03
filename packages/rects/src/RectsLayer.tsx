@@ -1,4 +1,6 @@
-import { createElement } from 'react'
+import { createElement, FunctionComponent } from 'react'
+import { to } from '@react-spring/web'
+import { PropertyAccessor, usePropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
 import { RectMouseHandler, RectShape, RectShapeProps, RectWheelHandler } from './RectShape'
@@ -6,12 +8,14 @@ import { DatumWithRectAndColor } from './types'
 import { RectTransitionMode } from './rectTransitionMode'
 import { useRectsTransition } from './useRectsTransition'
 
-export type RectComponent<Datum extends DatumWithRectAndColor> = (
-    props: RectShapeProps<Datum>
-) => JSX.Element
+export type RectComponent<Datum extends DatumWithRectAndColor> = FunctionComponent<
+    RectShapeProps<Datum>
+>
 
 export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
     data: Datum[]
+    uid: PropertyAccessor<Datum, string>
+    borderRadius: number
     borderColor: InheritedColorConfig<Datum>
     borderWidth: number
     onClick?: RectMouseHandler<Datum>
@@ -26,6 +30,8 @@ export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
 
 export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     data,
+    uid,
+    borderRadius,
     borderWidth,
     borderColor,
     onMouseMove,
@@ -39,6 +45,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
 }: RectsLayerProps<Datum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
+    const getUid = usePropertyAccessor(uid)
 
     const { transition } = useRectsTransition<
         Datum,
@@ -46,7 +53,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
             color: string
             borderColor: string
         }
-    >(data, transitionMode, {
+    >(data, getUid, transitionMode, {
         enter: datum => ({
             color: datum.color,
             borderColor: getBorderColor(datum),
@@ -71,6 +78,11 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
                     datum,
                     style: {
                         ...transitionProps,
+                        transform: to(
+                            [transitionProps.x, transitionProps.y],
+                            (x, y) => `translate(${x},${y})`
+                        ),
+                        borderRadius,
                         borderWidth,
                     },
                     onClick,

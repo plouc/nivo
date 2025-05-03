@@ -5,7 +5,12 @@ import {
     motionProperties,
     themeProperty,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    ordinalColors,
+    isInteractive,
+    commonAccessibilityProps,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'api']
@@ -81,6 +86,22 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.value,
     },
     {
+        key: 'valueFormat',
+        group: 'Base',
+        flavors: allFlavors,
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        control: { type: 'valueFormat' },
+    },
+    {
         key: 'orientation',
         group: 'Base',
         flavors: allFlavors,
@@ -104,20 +125,24 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'valueFormat',
-        group: 'Base',
-        flavors: allFlavors,
-        help: 'Optional formatter for values.',
+        key: 'padding',
+        help: 'Padding between rects, affected by zoom.',
         description: `
-            The formatted value can then be used for labels & tooltips.
-
-            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
-            please have a look at it for available formats, you can also pass a function
-            which will receive the raw value and should return the formatted one.
+            If you want to have a constant space between rects
+            when zooming, you can use a border instead, using
+            the color of the background.
         `,
+        type: 'number',
         required: false,
-        type: 'string | (value: number) => string | number',
-        control: { type: 'valueFormat' },
+        flavors: allFlavors,
+        defaultValue: svgDefaultProps.padding,
+        group: 'Base',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 20,
+        },
     },
     ...chartDimensions(allFlavors),
     themeProperty(['svg', 'api']),
@@ -164,6 +189,21 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.childColor,
         control: { type: 'inheritedColor' },
         group: 'Style',
+    },
+    {
+        key: 'borderRadius',
+        help: 'Rectangle border radius.',
+        type: 'number',
+        flavors: allFlavors,
+        required: false,
+        defaultValue: commonDefaultProps.borderRadius,
+        group: 'Style',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 36,
+        },
     },
     {
         key: 'borderWidth',
@@ -329,7 +369,16 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         defaultValue: commonDefaultProps.isInteractive,
     }),
-    ...motionProperties(['svg'], svgDefaultProps),
+    {
+        key: 'enableZooming',
+        help: 'Enable/disable zooming by clicking on nodes.',
+        flavors: ['svg'],
+        type: 'boolean',
+        required: false,
+        defaultValue: commonDefaultProps.enableZooming,
+        control: { type: 'switch' },
+        group: 'Interactivity',
+    },
     {
         key: 'tooltip',
         flavors: ['svg'],
@@ -445,6 +494,8 @@ const props: ChartProperty[] = [
             \`\`\`
         `,
     },
+    ...commonAccessibilityProps(['svg']),
+    ...motionProperties(['svg'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

@@ -21,11 +21,13 @@ const InnerIcicle = <Datum,>({
     width,
     height,
     orientation = svgDefaultProps.orientation,
+    padding = svgDefaultProps.padding,
     layers = svgDefaultProps.layers as readonly IcicleLayerId[],
     colors = svgDefaultProps.colors as IcicleSvgPropsWithDefaults<Datum>['colors'],
     colorBy = svgDefaultProps.colorBy,
     inheritColorFromParent = svgDefaultProps.inheritColorFromParent,
     childColor = svgDefaultProps.childColor as IcicleSvgPropsWithDefaults<Datum>['childColor'],
+    borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor as IcicleSvgPropsWithDefaults<Datum>['borderColor'],
     defs = svgDefaultProps.defs,
@@ -39,6 +41,7 @@ const InnerIcicle = <Datum,>({
     rectLabelsTextColor = svgDefaultProps.rectLabelsTextColor as IcicleSvgPropsWithDefaults<Datum>['rectLabelsTextColor'],
     rectLabelsComponent,
     isInteractive = svgDefaultProps.isInteractive,
+    enableZooming = svgDefaultProps.enableZooming,
     tooltip = svgDefaultProps.tooltip as IcicleSvgPropsWithDefaults<Datum>['tooltip'],
     onClick,
     onMouseEnter,
@@ -57,7 +60,7 @@ const InnerIcicle = <Datum,>({
         partialMargin
     )
 
-    const { nodes, baseOffsetLeft, baseOffsetTop } = useIcicle<Datum>({
+    const { nodes, zoom } = useIcicle<Datum>({
         data,
         identity,
         value,
@@ -69,6 +72,7 @@ const InnerIcicle = <Datum,>({
         width: innerWidth,
         height: innerHeight,
         orientation,
+        padding,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {
@@ -87,9 +91,12 @@ const InnerIcicle = <Datum,>({
             <Rects<Datum>
                 key="rects"
                 data={nodes}
+                borderRadius={borderRadius}
                 borderWidth={borderWidth}
                 borderColor={borderColor}
                 isInteractive={isInteractive}
+                enableZooming={enableZooming}
+                zoom={zoom}
                 tooltip={tooltip}
                 onClick={onClick}
                 onMouseEnter={onMouseEnter}
@@ -119,8 +126,7 @@ const InnerIcicle = <Datum,>({
 
     const customLayerProps = useIcicleCustomLayerProps<Datum>({
         nodes,
-        baseOffsetLeft,
-        baseOffsetTop,
+        zoom,
     })
 
     return (
