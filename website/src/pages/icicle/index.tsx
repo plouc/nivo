@@ -7,10 +7,6 @@ import meta from '../../data/components/icicle/meta.yml'
 import mapper from '../../data/components/icicle/mapper'
 import { groups } from '../../data/components/icicle/props'
 
-const Tooltip = () => {
-    /* return custom tooltip */
-}
-
 const generateData = () => generateLibTree()
 
 const initialProperties = {
@@ -23,7 +19,7 @@ const initialProperties = {
     identity: 'name',
     value: 'loc',
     valueFormat: { format: '', enabled: false },
-    orientation: 'right',
+    orientation: svgDefaultProps.orientation,
     padding: 0,
     borderRadius: 2,
     borderWidth: 1,
@@ -47,6 +43,7 @@ const initialProperties = {
     fill: [],
     isInteractive: true,
     enableZooming: svgDefaultProps.enableZooming,
+    zoomMode: svgDefaultProps.zoomMode,
     'custom tooltip example': false,
     tooltip: null,
     'showcase pattern usage': false,

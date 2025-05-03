@@ -51,6 +51,7 @@ export interface ComputedDatum<Datum> {
     percentage: number
     rect: Rect
     value: number
+    maxDescendantDepth: number
 }
 
 // - top: Root at the top, children cascade downward, standard icicle.
@@ -58,6 +59,8 @@ export interface ComputedDatum<Datum> {
 // - bottom: Root at the bottom, children grow upward, flame chart.
 // - left: Root at the left, children grow to the right, left-to-right icicle.
 export type IcicleOrientation = 'top' | 'right' | 'bottom' | 'left'
+
+export type IcicleZoomMode = 'lateral' | 'global'
 
 export type IcicleCommonProps<Datum> = {
     identity: PropertyAccessor<Datum, string>
@@ -78,6 +81,7 @@ export type IcicleCommonProps<Datum> = {
     enableRectLabels: boolean
     isInteractive: boolean
     enableZooming: boolean
+    zoomMode: IcicleZoomMode
     tooltip: (props: ComputedDatum<Datum>) => JSX.Element
     renderWrapper: boolean
 } & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'rectLabelsComponent'>

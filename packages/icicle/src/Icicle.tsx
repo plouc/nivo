@@ -42,6 +42,7 @@ const InnerIcicle = <Datum,>({
     rectLabelsComponent,
     isInteractive = svgDefaultProps.isInteractive,
     enableZooming = svgDefaultProps.enableZooming,
+    zoomMode = svgDefaultProps.zoomMode,
     tooltip = svgDefaultProps.tooltip as IcicleSvgPropsWithDefaults<Datum>['tooltip'],
     onClick,
     onMouseEnter,
@@ -73,6 +74,8 @@ const InnerIcicle = <Datum,>({
         height: innerHeight,
         orientation,
         padding,
+        enableZooming,
+        zoomMode,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {
@@ -120,6 +123,7 @@ const InnerIcicle = <Datum,>({
                 offsetY={rectLabelsOffsetY}
                 skipWidth={rectLabelsSkipWidth}
                 skipHeight={rectLabelsSkipHeight}
+                transitionMode="flow-right"
             />
         )
     }

@@ -26,6 +26,7 @@ export const Rects = <Datum,>({
     borderWidth,
     borderColor,
     isInteractive,
+    enableZooming,
     zoom,
     onClick,
     onMouseEnter,
@@ -40,9 +41,9 @@ export const Rects = <Datum,>({
     const handleClick = useCallback(
         (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             onClick?.(datum, event)
-            zoom(datum.path)
+            if (enableZooming) zoom(datum.path)
         },
-        [onClick, zoom]
+        [onClick, enableZooming, zoom]
     )
 
     const handleMouseEnter = useCallback(
