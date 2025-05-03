@@ -1,0 +1,57 @@
+{
+    "name": "@nivo/icicle",
+    "version": "0.93.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "contributors": [
+        "Lilian Saget-Lethias <lilian.sagetlethias@gmail.com>",
+        "Mehdi Louraoui <med.louraoui@gmail.com>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/icicle"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "icicles-chart"
+    ],
+    "main": "./dist/nivo-icicle.cjs.js",
+    "module": "./dist/nivo-icicle.mjs",
+    "typings": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-icicle.mjs",
+            "require": "./dist/nivo-icicle.cjs.js"
+        }
+    },
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/rects": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@types/d3-hierarchy": "^1.1.8",
+        "d3-hierarchy": "^1.1.8",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 16.14.0 < 20.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
