@@ -12,7 +12,7 @@ const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const moreKeys = [...keys, 'junk', 'sushi', 'ramen', 'curry', 'udon', 'bagel']
 
 type Samples = {
-    [P in ChartType]?: {
+    [P in Exclude<ChartType, 'calendar'>]: {
         type: P
         props: ChartProps<P>
     }
@@ -75,6 +75,19 @@ export const samples: Samples = {
             borderColor: 'inherit:darker(0.4)',
             labelTextColor: 'inherit:darker(2.4)',
         } as ChartProps<'heatmap'>,
+    },
+    icicle: {
+        type: 'icicle',
+        props: {
+            width: 800,
+            height: 800,
+            data: generateLibTree(),
+            id: 'name',
+            value: 'loc',
+            childColor: { from: 'color', modifiers: [['brighter', 0.1]] },
+            enableRectLabels: true,
+            rectLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
+        } as ChartProps<'icicle'>,
     },
     line: {
         type: 'line',
@@ -150,19 +163,6 @@ export const samples: Samples = {
             arcLabelsSkipAngle: 10,
             arcLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
         } as ChartProps<'sunburst'>,
-    },
-    icicle: {
-        type: 'icicle',
-        props: {
-            width: 800,
-            height: 800,
-            data: generateLibTree(),
-            id: 'name',
-            value: 'loc',
-            childColor: { from: 'color', modifiers: [['brighter', 0.1]] },
-            enableRectLabels: true,
-            rectLabelsTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
-        } as ChartProps<'icicle'>,
     },
     treemap: {
         type: 'treemap',
