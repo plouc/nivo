@@ -74,12 +74,11 @@ export const useIcicle = <Datum>({
     } = useMemo(() => {
         // D3 mutates the data for performance reasons.
         // However, it does not work well with reactive programming.
-        // This ensures that we don't mutate the input data
+        // This ensures that we don't mutate the input data.
         const clonedData = cloneDeep(data)
 
-        const hierarchy = d3Hierarchy(clonedData)
+        const hierarchy = d3Hierarchy<Datum>(clonedData)
             .sum(getValue)
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             .sort((a, b) => b.height - a.height || b.value! - a.value!)
 
         const partition = d3Partition<Datum>().size(isLeftRight ? [height, width] : [width, height])

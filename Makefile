@@ -124,6 +124,10 @@ pkgs-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,mjs,ts,tsx}"
 
+pkgs-lint-errors: ##@1 packages run eslint on all packages, errors only
+	@echo "${YELLOW}Running eslint on all packages${RESET}"
+	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,mjs,ts,tsx}" --quiet
+
 pkgs-lint-fix: ##@1 packages run eslint on all packages with a fix option
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
