@@ -33,6 +33,7 @@
     "@nivo/pie": "workspace:*",
     "@nivo/radar": "workspace:*",
     "@nivo/radial-bar": "workspace:*",
+    "@nivo/rects": "workspace:*",
     "@nivo/sankey": "workspace:*",
     "@nivo/scatterplot": "workspace:*",
     "@nivo/stream": "workspace:*",

@@ -20,7 +20,7 @@
         "@nivo/generators": "workspace:*",
         "@nivo/geo": "workspace:*",
         "@nivo/heatmap": "workspace:*",
-        "@nivo/icicles": "workspace:*",
+        "@nivo/icicle": "workspace:*",
         "@nivo/legends": "workspace:*",
         "@nivo/line": "workspace:*",
         "@nivo/marimekko": "workspace:*",
