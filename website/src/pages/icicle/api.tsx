@@ -1,20 +1,20 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import { generateLibTree } from '@nivo/generators'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
-import { groups } from '../../data/components/icicles/props'
-import mapper from '../../data/components/icicles/mapper'
-import meta from '../../data/components/icicles/meta.yml'
-import { graphql, useStaticQuery } from 'gatsby'
+import { groups } from '../../data/components/icicle/props'
+import mapper from '../../data/components/icicle/mapper'
+import meta from '../../data/components/icicle/meta.yml'
 
 const data = generateLibTree()
 
-const IciclesApi = () => {
+const IcicleApi = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
-        // TODO: change with icicles capture
+        // TODO: change with icicle capture
     } = useStaticQuery(graphql`
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
@@ -28,14 +28,14 @@ const IciclesApi = () => {
     return (
         <>
             <Seo
-                title="Icicles HTTP API"
+                title="Icicle HTTP API"
                 image={image}
-                keywords={[...meta.Icicles.tags, 'HTTP API']}
+                keywords={[...meta.Icicle.tags, 'HTTP API']}
             />
             <ApiClient
-                componentName="Icicles"
-                chartClass="icicles"
-                apiPath="/charts/icicles"
+                componentName="Icicle"
+                chartClass="icicle"
+                apiPath="/charts/icicle"
                 flavors={meta.flavors}
                 dataProperty="data"
                 controlGroups={groups}
@@ -43,7 +43,7 @@ const IciclesApi = () => {
                 defaultProps={{
                     width: 600,
                     height: 600,
-                    direction: 'bottom',
+                    orientation: 'bottom',
                     data: JSON.stringify(data, null, '  '),
                     margin: {
                         top: 10,
@@ -51,7 +51,7 @@ const IciclesApi = () => {
                         bottom: 10,
                         left: 10,
                     },
-                    id: 'name',
+                    identity: 'name',
                     value: 'loc',
                     valueFormat: { format: '', enabled: false },
                     cornerRadius: 2,
@@ -78,4 +78,4 @@ const IciclesApi = () => {
     )
 }
 
-export default IciclesApi
+export default IcicleApi

@@ -31,7 +31,7 @@ export const useIcicle = <Datum>({
     identity = commonDefaultProps.identity as IcicleCommonProps<Datum>['identity'],
     value = commonDefaultProps.value as IcicleCommonProps<Datum>['value'],
     valueFormat,
-    direction = commonDefaultProps.direction,
+    orientation = commonDefaultProps.orientation,
     colors = commonDefaultProps.colors as IcicleCommonProps<Datum>['colors'],
     colorBy = commonDefaultProps.colorBy,
     inheritColorFromParent = commonDefaultProps.inheritColorFromParent,
@@ -44,7 +44,7 @@ export const useIcicle = <Datum>({
         | 'identity'
         | 'value'
         | 'valueFormat'
-        | 'direction'
+        | 'orientation'
         | 'colors'
         | 'colorBy'
         | 'inheritColorFromParent'
@@ -57,7 +57,7 @@ export const useIcicle = <Datum>({
     const getColor = useOrdinalColorScale(colors, colorBy)
     const getChildColor = useInheritedColor(childColor, theme)
 
-    const isLeftRight = direction === 'left' || direction === 'right'
+    const isLeftRight = orientation === 'left' || orientation === 'right'
 
     const getId = usePropertyAccessor(identity)
     const getValue = usePropertyAccessor(value)
@@ -100,8 +100,8 @@ export const useIcicle = <Datum>({
         // we pre-compute offsets relative from container
         // and from root node.
         // it will be used to later compute nodes and text positions
-        const baseOffsetLeft = direction === 'left' ? width : 0
-        const baseOffsetTop = direction === 'top' ? height : 0
+        const baseOffsetLeft = orientation === 'left' ? width : 0
+        const baseOffsetTop = orientation === 'top' ? height : 0
         // const rectOffsetLeft = direction === 'left' ? baseOffsetLeft - rootRect.width : 0
         // const rectOffsetTop = direction === 'top' ? baseOffsetTop - rootRect.height : 0
 
@@ -185,7 +185,7 @@ export const useIcicle = <Datum>({
         getChildColor,
         width,
         height,
-        direction,
+        orientation,
         isLeftRight,
     ])
 

@@ -1,0 +1,38 @@
+flavors:
+  - flavor: svg
+    path: /icicle/
+  - flavor: api
+    path: /icicle/api/
+
+Icicle:
+  package: "@nivo/icicle"
+  tags:
+    - hierarchy
+    - flat
+  stories:
+    - label: with child color modifier
+      link: icicle--with-child-color-modifier
+    - label: with child color independent of parent
+      link: icicle--with-child-colors-independent-of-parent
+    - label: with custom colors
+      link: icicle--with-custom-colors
+    - label: with formatted tooltip value
+      link: icicle--with-formatted-tooltip-value
+    - label: with custom tooltip
+      link: icicle--custom-tooltip
+    - label: with enter and leave actions
+      link: icicle--enter-leave-check-actions
+    - label: with wheel and contextmenu actions
+      link: icicle--wheel-contextmenu-check-actions
+    - label: with patterns and gradients
+      link: icicle--patterns-gradients
+    - label: drill down to children
+      link: icicle--children-drill-down
+    - label: with different direction
+      link: icicle--change-direction
+  description: |
+    The `Icicle` Chart is a space-filling visualization used to represent hierarchical data.
+    It displays nested structures as stacked rectangles, where each rectangle’s size typically
+    reflects a quantitative value (like count, size, or duration).
+    The chart provides a clear, compact view of tree-like data and allows users
+    to quickly understand parent-child relationships and the relative weight of each node.

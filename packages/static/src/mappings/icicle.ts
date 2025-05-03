@@ -24,7 +24,7 @@ export const icicleMapping = {
 
         colors: ordinalColors,
         colorBy: Joi.any().valid('id', 'depth'),
-        direction: Joi.any().valid('top', 'right', 'bottom', 'left'),
+        orientation: Joi.any().valid('top', 'right', 'bottom', 'left'),
         inheritColorFromParent: Joi.boolean(),
         childColor: inheritedColor,
         borderWidth: Joi.number().min(0),

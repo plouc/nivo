@@ -10,8 +10,8 @@ import { IconType } from './types'
 
 const arc = Arc().padAngle(degreesToRadians(2))
 
-const IciclesIconItem = ({ type }: { type: IconType }) => (
-    <Icon id={`icicles-${type}`} type={type}>
+const IcicleIconItem = ({ type }: { type: IconType }) => (
+    <Icon id={`icicle-${type}`} type={type}>
         <svg width={ICON_SIZE} height={ICON_SIZE}>
             <g transform={`translate(${ICON_SIZE / 2},${ICON_SIZE / 2})`}>
                 <path
@@ -118,15 +118,15 @@ const IciclesIconItem = ({ type }: { type: IconType }) => (
     </Icon>
 )
 
-export const IciclesIcon = () => (
+export const IcicleIcon = () => (
     <>
-        <IciclesIconItem type="lightNeutral" />
+        <IcicleIconItem type="lightNeutral" />
         <IconImg url={sunburstLightNeutralImg} />
-        <IciclesIconItem type="lightColored" />
+        <IcicleIconItem type="lightColored" />
         <IconImg url={sunburstLightColoredImg} />
-        <IciclesIconItem type="darkNeutral" />
+        <IcicleIconItem type="darkNeutral" />
         <IconImg url={sunburstDarkNeutralImg} />
-        <IciclesIconItem type="darkColored" />
+        <IcicleIconItem type="darkColored" />
         <IconImg url={sunburstDarkColoredImg} />
     </>
 )

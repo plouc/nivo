@@ -1,4 +1,4 @@
-import { defaultProps, IciclesDirection } from '@nivo/icicles'
+import { commonDefaultProps, svgDefaultProps, IcicleOrientation } from '@nivo/icicle'
 import {
     groupProperties,
     defsProperties,
@@ -10,14 +10,14 @@ import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'api']
 
-const directions: IciclesDirection[] = ['top', 'right', 'bottom', 'left']
+const directions: IcicleOrientation[] = ['top', 'right', 'bottom', 'left']
 
 const props: ChartProperty[] = [
     {
         key: 'data',
         group: 'Base',
         flavors: allFlavors,
-        help: 'Chart data, which should be immutable.',
+        help: 'Hierarchical chart data.',
         description: `
             Chart data, which must conform to this structure
             if using the default \`id\` and \`value\` accessors:
@@ -43,11 +43,11 @@ const props: ChartProperty[] = [
             Immutability of the data is important as re-computations
             depends on it.
         `,
-        type: 'object',
+        type: 'readonly Datum[]',
         required: true,
     },
     {
-        key: 'id',
+        key: 'identity',
         group: 'Base',
         flavors: allFlavors,
         help: 'Id accessor.',
@@ -57,11 +57,11 @@ const props: ChartProperty[] = [
             if function given, it will be invoked
             for each node and will receive the node as
             first argument, it must return the node
-            id (string | number).
+            id (string).
         `,
-        type: 'string | Function',
+        type: 'PropertyAccessor<Datum, string>',
         required: false,
-        defaultValue: defaultProps.id,
+        defaultValue: commonDefaultProps.identity,
     },
     {
         key: 'value',
@@ -76,19 +76,24 @@ const props: ChartProperty[] = [
             first argument, it must return the node
             value (number).
         `,
-        type: 'string | Function',
+        type: 'PropertyAccessor<Datum, number>',
         required: false,
-        defaultValue: defaultProps.value,
+        defaultValue: commonDefaultProps.value,
     },
     {
-        key: 'direction',
+        key: 'orientation',
         group: 'Base',
         flavors: allFlavors,
-        help: 'Optional chart direction.',
+        help: 'Chart orientation.',
         description: `
-            Change the reading direction of the chart.
+            Define the orientation of the chart:
+            - \`top\`: Root at the top, children cascade downward, *standard icicle*.
+            - \`right\`: Root at the right, children grow to the left, *right-to-left icicle*.
+            - \`bottom\`: Root at the bottom, children grow upward, *flame chart*.
+            - \`left\`: Root at the left, children grow to the right, *left-to-right icicle*.
         `,
         required: false,
+        defaultValue: commonDefaultProps.orientation,
         type: directions.map(d => `'${d}'`).join(' | '),
         control: {
             type: 'radio',
@@ -118,7 +123,7 @@ const props: ChartProperty[] = [
     themeProperty(['svg', 'api']),
     ordinalColors({
         flavors: allFlavors,
-        defaultValue: defaultProps.colors,
+        defaultValue: commonDefaultProps.colors,
     }),
     {
         key: 'colorBy',
@@ -130,7 +135,7 @@ const props: ChartProperty[] = [
         `,
         type: `'id' | 'depth'`,
         required: false,
-        defaultValue: defaultProps.colorBy,
+        defaultValue: commonDefaultProps.colorBy,
         group: 'Style',
         control: {
             type: 'radio',
@@ -146,7 +151,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaultProps.inheritColorFromParent,
+        defaultValue: commonDefaultProps.inheritColorFromParent,
         control: { type: 'switch' },
         group: 'Style',
     },
@@ -156,7 +161,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.childColor,
+        defaultValue: commonDefaultProps.childColor,
         control: { type: 'inheritedColor' },
         group: 'Style',
     },
@@ -166,7 +171,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaultProps.borderWidth,
+        defaultValue: commonDefaultProps.borderWidth,
         control: { type: 'lineWidth' },
         group: 'Style',
     },
@@ -176,7 +181,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.borderColor,
+        defaultValue: commonDefaultProps.borderColor,
         control: { type: 'inheritedColor' },
         group: 'Style',
     },
@@ -202,7 +207,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaultProps.enableRectLabels,
+        defaultValue: commonDefaultProps.enableRectLabels,
         control: { type: 'switch' },
         group: 'Rect labels',
     },
@@ -212,7 +217,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | Function',
         required: false,
-        defaultValue: defaultProps.rectLabel,
+        defaultValue: commonDefaultProps.rectLabel,
         group: 'Rect labels',
         control: {
             type: 'choices',
@@ -224,6 +229,7 @@ const props: ChartProperty[] = [
             ),
         },
     },
+    /*
     {
         key: 'rectLabelsOffset',
         help: `
@@ -233,7 +239,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaultProps.rectLabelsOffset,
+        defaultValue: commonDefaultProps.rectLabelsOffset,
         group: 'Rect labels',
         control: {
             type: 'range',
@@ -281,13 +287,14 @@ const props: ChartProperty[] = [
             step: 1,
         },
     },
+    */
     {
         key: 'rectLabelsTextColor',
         help: 'Defines how to compute rect label text color.',
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.rectLabelsTextColor,
+        defaultValue: commonDefaultProps.rectLabelsTextColor,
         control: { type: 'inheritedColor' },
         group: 'Rect labels',
     },
@@ -302,7 +309,7 @@ const props: ChartProperty[] = [
 
             The layer component which will receive the chart's
             context & computed data and must return a valid SVG element
-            for the \`Icicles\` component.
+            for the \`Icicle\` component.
 
             The context passed to layers has the following structure:
 
@@ -316,13 +323,13 @@ const props: ChartProperty[] = [
         `,
         required: false,
         type: 'Array<string | Function>',
-        defaultValue: defaultProps.layers,
+        defaultValue: commonDefaultProps.layers,
     },
     isInteractive({
         flavors: ['svg'],
-        defaultValue: defaultProps.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
     }),
-    ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    ...motionProperties(['svg'], svgDefaultProps),
     {
         key: 'tooltip',
         flavors: ['svg'],

@@ -1,12 +1,12 @@
 import React from 'react'
-import { defaultProps, ResponsiveIcicles } from '@nivo/icicles'
+import { graphql, useStaticQuery } from 'gatsby'
+import { svgDefaultProps, ResponsiveIcicle } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
 import { omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
-import meta from '../../data/components/icicles/meta.yml'
-import mapper from '../../data/components/icicles/mapper'
-import { groups } from '../../data/components/icicles/props'
-import { graphql, useStaticQuery } from 'gatsby'
+import meta from '../../data/components/icicle/meta.yml'
+import mapper from '../../data/components/icicle/mapper'
+import { groups } from '../../data/components/icicle/props'
 
 const Tooltip = () => {
     /* return custom tooltip */
@@ -16,12 +16,12 @@ const generateData = () => generateLibTree()
 
 const initialProperties = {
     margin: {
-        top: 10,
-        right: 10,
-        bottom: 10,
-        left: 10,
+        top: 1,
+        right: 1,
+        bottom: 1,
+        left: 1,
     },
-    id: 'name',
+    identity: 'name',
     value: 'loc',
     valueFormat: { format: '', enabled: false },
     borderWidth: 1,
@@ -34,31 +34,32 @@ const initialProperties = {
         modifiers: [['brighter', 0.1]],
     },
     enableRectLabels: true,
-    rectLabel: 'formattedValue',
+    rectLabel: 'id',
     rectLabelsTextColor: {
         from: 'color',
         modifiers: [['darker', 1.4]],
     },
-    animate: defaultProps.animate,
-    motionConfig: defaultProps.motionConfig,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
     defs: [],
     fill: [],
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
     'showcase pattern usage': false,
-    direction: 'bottom',
-    rectLabelsSkipLength: defaultProps.rectLabelsSkipLength,
-    rectLabelsSkipPercentage: defaultProps.rectLabelsSkipPercentage,
-    rectLabelsOffset: defaultProps.rectLabelsOffset,
+    orientation: 'bottom',
+    rectLabelsSkipWidth: svgDefaultProps.rectLabelsSkipWidth,
+    rectLabelsSkipHeight: svgDefaultProps.rectLabelsSkipHeight,
+    rectLabelsOffsetX: svgDefaultProps.rectLabelsOffsetX,
+    rectLabelsOffsetY: svgDefaultProps.rectLabelsOffsetY,
 }
 
-const Icicles = () => {
+const Icicle = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
-        // TODO: change with icicles capture
+        // TODO: change with icicle capture
     } = useStaticQuery(graphql`
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
@@ -71,13 +72,13 @@ const Icicles = () => {
 
     return (
         <ComponentTemplate
-            name="Icicles"
-            meta={meta.Icicles}
-            icon="icicles"
+            name="Icicle"
+            meta={meta.Icicle}
+            icon="icicle"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
-            defaultProperties={defaultProps}
+            defaultProperties={svgDefaultProps}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
@@ -85,14 +86,14 @@ const Icicles = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveIcicles
+                    <ResponsiveIcicle
                         data={data}
                         {...properties}
                         theme={theme}
                         onClick={node =>
                             logAction({
                                 type: 'click',
-                                label: `[icicles] ${node.id} - ${node.value}: ${
+                                label: `[node] ${node.id} - ${node.value}: ${
                                     Math.round(node.percentage * 100) / 100
                                 }%`,
                                 color: node.color,
@@ -110,4 +111,4 @@ const Icicles = () => {
     )
 }
 
-export default Icicles
+export default Icicle

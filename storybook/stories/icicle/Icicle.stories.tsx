@@ -5,6 +5,7 @@ import { Icicle, IcicleSvgProps, svgDefaultProps } from '@nivo/icicle'
 interface RawDatum {
     name: string
     loc: number
+    color: string
 }
 
 const commonProperties: IcicleSvgProps<RawDatum> = {
@@ -20,13 +21,13 @@ const meta: Meta<typeof Icicle> = {
     component: Icicle,
     tags: ['autodocs'],
     argTypes: {
-        direction: {
+        orientation: {
             control: 'select',
             options: ['top', 'right', 'bottom', 'left'],
         },
     },
     args: {
-        direction: svgDefaultProps.direction,
+        orientation: svgDefaultProps.orientation,
     },
 }
 
@@ -34,15 +35,57 @@ export default meta
 type Story = StoryObj<typeof Icicle>
 
 export const Basic: Story = {
-    render: args => <Icicle<RawDatum> {...commonProperties} direction={args.direction} />,
+    render: args => <Icicle<RawDatum> {...commonProperties} orientation={args.orientation} />,
 }
 
 export const WithChildColorModifier: Story = {
     render: args => (
         <Icicle<RawDatum>
             {...commonProperties}
-            direction={args.direction}
+            orientation={args.orientation}
             childColor={{ from: 'color', modifiers: [['brighter', 0.15]] }}
+        />
+    ),
+}
+
+export const WithChildColorIndependentFromParent: Story = {
+    render: args => (
+        <Icicle<RawDatum>
+            {...commonProperties}
+            orientation={args.orientation}
+            inheritColorFromParent={false}
+        />
+    ),
+}
+
+const customPalette = ['#ffd700', '#ffb14e', '#fa8775', '#ea5f94', '#cd34b5', '#9d02d7', '#0000ff']
+
+export const WithCustomColors: Story = {
+    render: args => (
+        <Icicle<RawDatum>
+            {...commonProperties}
+            orientation={args.orientation}
+            colors={customPalette}
+        />
+    ),
+}
+
+export const WithChildColorPickedFromData: Story = {
+    render: args => (
+        <Icicle<RawDatum>
+            {...commonProperties}
+            orientation={args.orientation}
+            childColor={(_parent, child) => child.data.color}
+        />
+    ),
+}
+
+export const WithFormattedValue: Story = {
+    render: args => (
+        <Icicle<RawDatum>
+            {...commonProperties}
+            orientation={args.orientation}
+            valueFormat=" >-$,.2f"
         />
     ),
 }
@@ -58,58 +101,6 @@ import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
 // @ts-ignore
 import { generateLibTree } from '@nivo/generators'
 import { colorSchemes } from '@nivo/colors'
-// @ts-ignore
-import { Icicles, IciclesComputedDatum, IciclesDirection } from '../src'
-
-interface RawDatum {
-    name: string
-    loc: number
-}
-
-const commonProperties = {
-    width: 900,
-    height: 500,
-    data: generateLibTree() as any,
-    id: 'name',
-    value: 'loc',
-}
-
-const stories = storiesOf('Icicles', module)
-
-stories.addDecorator(withKnobs)
-
-stories.add('default', () => <Icicles {...commonProperties} />)
-
-stories.add('with child color modifier', () => (
-    <Icicles<RawDatum>
-        {...commonProperties}
-        childColor={{ from: 'color', modifiers: [['brighter', 0.13]] }}
-    />
-))
-
-stories.add('with child colors independent of parent', () => (
-    <Icicles<RawDatum> {...commonProperties} inheritColorFromParent={false} />
-))
-
-const customPalette = ['#ffd700', '#ffb14e', '#fa8775', '#ea5f94', '#cd34b5', '#9d02d7', '#0000ff']
-
-stories.add('with custom colors', () => (
-    <Icicles<RawDatum> {...commonProperties} colors={customPalette} />
-))
-
-stories.add('with custom child colors', () => (
-    <Icicles<RawDatum>
-        {...commonProperties}
-        childColor={(parent, child) => {
-            // @ts-expect-error
-            return child.data.color
-        }}
-    />
-))
-
-stories.add('with formatted tooltip value', () => (
-    <Icicles<RawDatum> {...commonProperties} valueFormat=" >-$,.2f" />
-))
 
 const CustomTooltip = ({ id, value, color }: IciclesComputedDatum<unknown>) => {
     const theme = useTheme()
@@ -265,21 +256,4 @@ stories.add(
         },
     }
 )
-
-stories.add('change direction', () => (
-    <Icicles<RawDatum>
-        {...commonProperties}
-        direction={select<IciclesDirection>(
-            'direction',
-            ['top', 'right', 'bottom', 'left'],
-            'bottom'
-        )}
-        animate={boolean('animate', true)}
-        motionConfig={select(
-            'motion config',
-            ['default', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'],
-            'gentle'
-        )}
-    />
-))
 */

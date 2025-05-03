@@ -57,14 +57,18 @@ export interface ComputedDatum<RawDatum> {
     value: number
 }
 
-export type IcicleDirection = 'top' | 'right' | 'bottom' | 'left'
+// - top: Root at the top, children cascade downward, standard icicle.
+// - right: Root at the right, children grow to the left, right-to-left icicle.
+// - bottom: Root at the bottom, children grow upward, flame chart.
+// - left: Root at the left, children grow to the right, left-to-right icicle.
+export type IcicleOrientation = 'top' | 'right' | 'bottom' | 'left'
 
 export type IcicleCommonProps<Datum> = {
     identity: PropertyAccessor<Datum, string>
     value: PropertyAccessor<Datum, number>
     valueFormat?: ValueFormat<number>
     margin: Box
-    direction: IcicleDirection
+    orientation: IcicleOrientation
     theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<Datum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
