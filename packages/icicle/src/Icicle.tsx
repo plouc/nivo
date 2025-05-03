@@ -51,7 +51,11 @@ const InnerIcicle = <Datum,>({
     ariaLabelledBy,
     ariaDescribedBy,
 }: IcicleSvgProps<Datum>) => {
-    const { margin, outerHeight, outerWidth } = useDimensions(width, height, partialMargin)
+    const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
     const { nodes, baseOffsetLeft, baseOffsetTop } = useIcicle<Datum>({
         data,
@@ -62,8 +66,8 @@ const InnerIcicle = <Datum,>({
         colorBy,
         inheritColorFromParent,
         childColor,
-        height: outerHeight,
-        width: outerWidth,
+        width: innerWidth,
+        height: innerHeight,
         orientation,
     })
 

@@ -8,6 +8,7 @@ import {
     HomeChordDemo,
     HomeChoroplethDemo,
     HomeCirclePackingDemo,
+    HomeIcicleDemo,
     HomeLineDemo,
     HomeMarimekkoDemo,
     HomePieDemo,
@@ -15,7 +16,7 @@ import {
     HomeRadialBarDemo,
     HomeSankeyDemo,
     HomeStreamDemo,
-    HomeIcicleDemo,
+    HomeSunburstDemo,
     HomeSwarmPlotDemo,
     HomeTreeMapDemo,
     HomeVoronoiDemo,
@@ -38,6 +39,7 @@ const HomeDemosPage = () => (
         <HomeRadarDemo />
         <HomeSankeyDemo />
         <HomeStreamDemo />
+        <HomeSunburstDemo />
         <HomeIcicleDemo />
         <HomeSwarmPlotDemo />
         <HomeTreeMapDemo />

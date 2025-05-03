@@ -15,6 +15,7 @@ capture:
       - id: chord
       - id: choropleth
       - id: circle-packing
+      - id: icicle
       - id: line
       - id: marimekko
       - id: pie
