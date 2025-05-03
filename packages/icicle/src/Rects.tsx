@@ -42,7 +42,7 @@ export const Rects = <Datum,>({
             onClick?.(datum, event)
             zoom(datum.path)
         },
-        [onClick]
+        [onClick, zoom]
     )
 
     const handleMouseEnter = useCallback(
