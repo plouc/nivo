@@ -42,7 +42,7 @@ export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
     const filteredData = useMemo(
         () =>
             data.filter(datum => {
-                return datum.rect.width >= skipWidth && datum.rect.height >= skipWidth
+                return datum.rect.width >= skipWidth && datum.rect.height >= skipHeight
             }),
         [data, skipWidth, skipHeight]
     )
