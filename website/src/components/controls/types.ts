@@ -1,5 +1,6 @@
 import { AnnotationMatcher } from '@nivo/annotations'
 import { ChartProperty } from '../../types'
+import { Orientation } from './specialized'
 
 export interface SwitchControlAttrs {
     type: 'switch'
@@ -19,6 +20,11 @@ export interface MotionConfigControlConfig {
 
 export interface BoxAnchorControlConfig {
     type: 'boxAnchor'
+}
+
+export interface CartesianOrientationControlConfig {
+    type: 'cartesianOrientation'
+    mapping?: Record<Orientation, { label: string; value: string }>
 }
 
 export interface ChoicesControlConfig<Value extends string | boolean = string | boolean> {
@@ -174,6 +180,7 @@ export type ControlConfig =
     | ContinuousColorsControlConfig
     | ColorInterpolatorsControlConfig
     | BulletColorsControlConfig
+    | CartesianOrientationControlConfig
 
 export interface ControlContext {
     path: string[]

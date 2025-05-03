@@ -3,7 +3,7 @@ import omit from 'lodash/omit.js'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/line/props'
-import mapper from '../../data/components/line/mapper'
+import { svgMapper } from '../../data/components/line/mapper'
 import defaultSettings from '../../data/components/line/defaults'
 import { generateLightDataSet } from '../../data/components/line/generator'
 import meta from '../../data/components/line/meta.yml'
@@ -36,7 +36,7 @@ const LineApi = () => {
                 chartClass="line"
                 dataProperty="data"
                 controlGroups={groups}
-                propsMapper={mapper}
+                propsMapper={svgMapper}
                 defaultProps={{
                     ...omit(defaultSettings, [
                         'isInteractive',

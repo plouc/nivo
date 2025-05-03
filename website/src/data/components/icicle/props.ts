@@ -117,11 +117,7 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.orientation,
         type: directions.map(d => `'${d}'`).join(' | '),
         control: {
-            type: 'radio',
-            choices: directions.map(d => ({
-                label: d,
-                value: d,
-            })),
+            type: 'cartesianOrientation',
         },
     },
     {
