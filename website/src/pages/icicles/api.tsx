@@ -14,7 +14,7 @@ const IciclesApi = () => {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
-    // TODO: change with icicles capture
+        // TODO: change with icicles capture
     } = useStaticQuery(graphql`
         query {
             image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
@@ -43,7 +43,7 @@ const IciclesApi = () => {
                 defaultProps={{
                     width: 600,
                     height: 600,
-                    direction: "bottom",
+                    direction: 'bottom',
                     data: JSON.stringify(data, null, '  '),
                     margin: {
                         top: 10,

@@ -43,6 +43,7 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/rects": "workspace:*",
+        "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@types/d3-hierarchy": "^1.1.8",
         "d3-hierarchy": "^1.1.8",

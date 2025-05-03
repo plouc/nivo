@@ -26,6 +26,7 @@
     "@nivo/funnel": "workspace:*",
     "@nivo/generators": "workspace:*",
     "@nivo/heatmap": "workspace:*",
+    "@nivo/icicle": "workspace:*",
     "@nivo/line": "workspace:*",
     "@nivo/marimekko": "workspace:*",
     "@nivo/network": "workspace:*",

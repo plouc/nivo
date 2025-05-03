@@ -1,22 +1,17 @@
-import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
+import { useMemo } from 'react'
+import cloneDeep from 'lodash/cloneDeep'
+import sortBy from 'lodash/sortBy'
 import {
     partition as d3Partition,
     hierarchy as d3Hierarchy,
     HierarchyRectangularNode,
 } from 'd3-hierarchy'
-import cloneDeep from 'lodash/cloneDeep'
-import sortBy from 'lodash/sortBy'
-import { useMemo } from 'react'
+import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { useTheme } from '@nivo/theming'
 import { Rect } from '@nivo/rects'
-import { defaultProps } from './props'
-import {
-    DataProps,
-    DatumId,
-    IciclesCommonProps,
-    ComputedDatum,
-    IciclesCustomLayerProps,
-} from './types'
+import { commonDefaultProps } from './defaults'
+import { DataProps, IcicleCommonProps, ComputedDatum, IcicleCommonCustomLayerProps } from './types'
 
 const computeLength = (a: number, b: number) => b - a - Math.min(1, (b - a) / 2)
 
@@ -31,43 +26,42 @@ const widthHeight = <TDatum>(d: HierarchyRectangularNode<TDatum>) => ({
     }),
 })
 
-export const useIcicles = <RawDatum>({
+export const useIcicle = <Datum>({
     data,
-    id = defaultProps.id,
-    value = defaultProps.value,
+    identity = commonDefaultProps.identity as IcicleCommonProps<Datum>['identity'],
+    value = commonDefaultProps.value as IcicleCommonProps<Datum>['value'],
     valueFormat,
-    colors = defaultProps.colors,
-    colorBy = defaultProps.colorBy,
-    inheritColorFromParent = defaultProps.inheritColorFromParent,
-    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    direction = commonDefaultProps.direction,
+    colors = commonDefaultProps.colors as IcicleCommonProps<Datum>['colors'],
+    colorBy = commonDefaultProps.colorBy,
+    inheritColorFromParent = commonDefaultProps.inheritColorFromParent,
+    childColor = commonDefaultProps.childColor as IcicleCommonProps<Datum>['childColor'],
     width,
     height,
-    direction,
-}: {
-    childColor?: IciclesCommonProps<RawDatum>['childColor']
-    colorBy?: IciclesCommonProps<RawDatum>['colorBy']
-    colors?: IciclesCommonProps<RawDatum>['colors']
-    data: DataProps<RawDatum>['data']
-    direction: IciclesCommonProps<RawDatum>['direction']
-    height: IciclesCommonProps<RawDatum>['height']
-    id?: DataProps<RawDatum>['id']
-    inheritColorFromParent?: IciclesCommonProps<RawDatum>['inheritColorFromParent']
-    value?: DataProps<RawDatum>['value']
-    valueFormat?: DataProps<RawDatum>['valueFormat']
-    width: IciclesCommonProps<RawDatum>['width']
-}) => {
+}: DataProps<Datum> &
+    Pick<
+        IcicleCommonProps<Datum>,
+        | 'identity'
+        | 'value'
+        | 'valueFormat'
+        | 'direction'
+        | 'colors'
+        | 'colorBy'
+        | 'inheritColorFromParent'
+        | 'childColor'
+    > & {
+        width: number
+        height: number
+    }) => {
     const theme = useTheme()
-    const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
-        colors,
-        colorBy
-    )
-    const getChildColor = useInheritedColor<ComputedDatum<RawDatum>>(childColor, theme)
+    const getColor = useOrdinalColorScale(colors, colorBy)
+    const getChildColor = useInheritedColor(childColor, theme)
 
     const isLeftRight = direction === 'left' || direction === 'right'
 
-    const getId = usePropertyAccessor<RawDatum, DatumId>(id)
-    const getValue = usePropertyAccessor<RawDatum, number>(value)
-    const formatValue = useValueFormatter<number>(valueFormat)
+    const getId = usePropertyAccessor(identity)
+    const getValue = usePropertyAccessor(value)
+    const formatValue = useValueFormatter(valueFormat)
 
     const {
         nodes,
@@ -76,11 +70,11 @@ export const useIcicles = <RawDatum>({
     }: {
         baseOffsetLeft: number
         baseOffsetTop: number
-        nodes: ComputedDatum<RawDatum>[]
+        nodes: ComputedDatum<Datum>[]
     } = useMemo(() => {
-        // d3 mutates the data for performance reasons,
-        // however it does not work well with reactive programming,
-        // this ensures that we don't mutate the input data
+        // D3 mutates the data for performance reasons.
+        // However, it does not work well with reactive programming.
+        // This ensures that we don't mutate the input data
         const clonedData = cloneDeep(data)
 
         const hierarchy = d3Hierarchy(clonedData)
@@ -88,9 +82,7 @@ export const useIcicles = <RawDatum>({
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             .sort((a, b) => b.height - a.height || b.value! - a.value!)
 
-        const partition = d3Partition<RawDatum>().size(
-            isLeftRight ? [height, width] : [width, height]
-        )
+        const partition = d3Partition<Datum>().size(isLeftRight ? [height, width] : [width, height])
         const descendants = partition(hierarchy).descendants()
 
         const total = hierarchy.value ?? 0
@@ -101,22 +93,22 @@ export const useIcicles = <RawDatum>({
         // are going to be computed first
         const sortedNodes = sortBy(descendants, 'depth')
 
-        const rootRect = {
-            ...widthHeight(sortedNodes[0])[isLeftRight ? 'leftRight' : 'topBottom'](),
-        }
+        // const rootRect = {
+        //     ...widthHeight(sortedNodes[0])[isLeftRight ? 'leftRight' : 'topBottom'](),
+        // }
 
-        // we pre compute offsets relative from container
+        // we pre-compute offsets relative from container
         // and from root node.
         // it will be used to later compute nodes and text positions
         const baseOffsetLeft = direction === 'left' ? width : 0
         const baseOffsetTop = direction === 'top' ? height : 0
-        const rectOffsetLeft = direction === 'left' ? baseOffsetLeft - rootRect.width : 0
-        const rectOffsetTop = direction === 'top' ? baseOffsetTop - rootRect.height : 0
+        // const rectOffsetLeft = direction === 'left' ? baseOffsetLeft - rootRect.width : 0
+        // const rectOffsetTop = direction === 'top' ? baseOffsetTop - rootRect.height : 0
 
         return {
             baseOffsetLeft,
             baseOffsetTop,
-            nodes: sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
+            nodes: sortedNodes.reduce<ComputedDatum<Datum>[]>((acc, descendant) => {
                 const id = getId(descendant.data)
                 // d3 hierarchy node value is optional by default as it depends on
                 // a call to `count()` or `sum()`, and we previously called `sum()`,
@@ -132,26 +124,27 @@ export const useIcicles = <RawDatum>({
                     widthHeight(descendant)[isLeftRight ? 'leftRight' : 'topBottom']()
 
                 // if we switch direction, we need to switch point values
-                const x0 = isLeftRight ? descendant.y0 : descendant.x0,
-                    x1 = isLeftRight ? descendant.y1 : descendant.x1,
-                    y0 = isLeftRight ? descendant.x0 : descendant.y0,
-                    y1 = isLeftRight ? descendant.x1 : descendant.y1
+                const x0 = isLeftRight ? descendant.y0 : descendant.x0
+                // const x1 = isLeftRight ? descendant.y1 : descendant.x1
+                const y0 = isLeftRight ? descendant.x0 : descendant.y0
+                // const y1 = isLeftRight ? descendant.x1 : descendant.y1
 
-                const transformX = Math.abs(rectOffsetLeft - x0)
-                const transformY = Math.abs(rectOffsetTop - y0)
+                // const offsetX = Math.abs(rectOffsetLeft - x0)
+                // const offsetY = Math.abs(rectOffsetTop - y0)
 
                 const rect: Rect = {
                     ...descendantRect,
-                    transformX,
-                    transformY,
-                    x0,
-                    x1,
-                    y0,
-                    y1,
-                    percentage,
+                    x: x0,
+                    y: y0,
+                    // offsetY,
+                    // x0,
+                    // x1,
+                    // y0,
+                    // y1,
+                    // percentage,
                 }
 
-                let parent: ComputedDatum<RawDatum> | undefined
+                let parent: ComputedDatum<Datum> | undefined
                 if (descendant.parent) {
                     // as the parent is defined by the input data, and we sorted the data
                     // by `depth`, we can safely assume it's defined.
@@ -159,7 +152,7 @@ export const useIcicles = <RawDatum>({
                     parent = acc.find(node => node.id === getId(descendant.parent!.data))
                 }
 
-                const normalizedNode: ComputedDatum<RawDatum> = {
+                const normalizedNode: ComputedDatum<Datum> = {
                     id,
                     path,
                     value,
@@ -202,11 +195,11 @@ export const useIcicles = <RawDatum>({
 /**
  * Memoize the context to pass to custom layers.
  */
-export const useIciclesLayerContext = <RawDatum>({
+export const useIcicleCustomLayerProps = <Datum>({
     nodes,
     baseOffsetLeft,
     baseOffsetTop,
-}: IciclesCustomLayerProps<RawDatum>): IciclesCustomLayerProps<RawDatum> =>
+}: IcicleCommonCustomLayerProps<Datum>): IcicleCommonCustomLayerProps<Datum> =>
     useMemo(
         () => ({
             nodes,

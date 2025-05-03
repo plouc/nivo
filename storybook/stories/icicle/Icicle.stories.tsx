@@ -1,5 +1,54 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Meta, StoryObj } from '@storybook/react'
+import { generateLibTree } from '@nivo/generators'
+import { Icicle, IcicleSvgProps, svgDefaultProps } from '@nivo/icicle'
+
+interface RawDatum {
+    name: string
+    loc: number
+}
+
+const commonProperties: IcicleSvgProps<RawDatum> = {
+    width: 900,
+    height: 500,
+    data: generateLibTree() as any,
+    identity: 'name',
+    value: 'loc',
+}
+
+const meta: Meta<typeof Icicle> = {
+    title: 'Icicle',
+    component: Icicle,
+    tags: ['autodocs'],
+    argTypes: {
+        direction: {
+            control: 'select',
+            options: ['top', 'right', 'bottom', 'left'],
+        },
+    },
+    args: {
+        direction: svgDefaultProps.direction,
+    },
+}
+
+export default meta
+type Story = StoryObj<typeof Icicle>
+
+export const Basic: Story = {
+    render: args => <Icicle<RawDatum> {...commonProperties} direction={args.direction} />,
+}
+
+export const WithChildColorModifier: Story = {
+    render: args => (
+        <Icicle<RawDatum>
+            {...commonProperties}
+            direction={args.direction}
+            childColor={{ from: 'color', modifiers: [['brighter', 0.15]] }}
+        />
+    ),
+}
+
+/* eslint-disable @typescript-eslint/ban-ts-comment
+/* eslint-disable @typescript-eslint/no-explicit-any
 import { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
@@ -233,3 +282,4 @@ stories.add('change direction', () => (
         )}
     />
 ))
+*/
