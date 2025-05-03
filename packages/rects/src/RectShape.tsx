@@ -1,7 +1,6 @@
 import { MouseEvent, useCallback, WheelEvent } from 'react'
-import { SpringValue, animated } from '@react-spring/web'
+import { SpringValue, animated, Interpolation } from '@react-spring/web'
 import { DatumWithRectAndColor } from './types'
-import { offsetToTransform } from './rectTransitionMode'
 
 export type RectMouseHandler<Datum extends DatumWithRectAndColor> = (
     datum: Datum,
@@ -19,11 +18,11 @@ export interface RectShapeProps<Datum extends DatumWithRectAndColor> {
         progress: SpringValue<number>
         x: SpringValue<number>
         y: SpringValue<number>
-        offsetX: SpringValue<number>
-        offsetY: SpringValue<number>
+        transform: Interpolation<string>
         width: SpringValue<number>
         height: SpringValue<number>
         color: SpringValue<string>
+        borderRadius: number
         borderWidth: number
         borderColor: SpringValue<string>
     }
@@ -83,11 +82,11 @@ export const RectShape = <Datum extends DatumWithRectAndColor>({
 
     return (
         <animated.rect
-            x={style.x.to(v => Math.max(v, 0))}
-            y={style.y.to(v => Math.max(v, 0))}
             width={style.width.to(v => Math.max(v, 0))}
             height={style.height.to(v => Math.max(v, 0))}
-            transform={offsetToTransform(style.offsetX, style.offsetY)}
+            transform={style.transform}
+            rx={style.borderRadius}
+            ry={style.borderRadius}
             opacity={style.progress}
             fill={datum.fill || style.color}
             stroke={style.borderColor}

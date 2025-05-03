@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Rect, DatumWithRect } from './types'
-import { SpringValue, to } from '@react-spring/web'
 
 export interface RectTransitionModeConfig {
     enter: (rect: Rect) => Rect
@@ -21,28 +20,18 @@ export const rectTransitionModes = [
 ] as const
 export type RectTransitionMode = (typeof rectTransitionModes)[number]
 
-export const offsetToTransform = (offsetX: SpringValue<number>, offsetY: SpringValue<number>) =>
-    to([offsetX, offsetY], (x, y) => `translate(${x},${y})`)
-
-const transitionDefault = (rect: Rect) => ({
-    ...rect,
-    offsetX: 0,
-    offsetY: 0,
-})
+const transitionDefault = (rect: Rect) => rect
 
 export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionModeConfig> = {
     'reveal-up': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
-            offsetY: rect.height,
+            y: rect.y + rect.height,
             height: 0,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
-            offsetY: 0,
             height: 0,
         }),
     },
@@ -54,54 +43,47 @@ export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionMo
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: rect.width,
-            offsetY: 0,
+            x: rect.x + rect.width,
             width: 0,
         }),
     },
     'reveal-down': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
-            offsetY: 0,
             height: 0,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
-            offsetY: rect.height,
+            y: rect.y + rect.height,
             height: 0,
         }),
     },
     'reveal-left': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: rect.width,
-            offsetY: 0,
+            x: rect.x + rect.width,
             width: 0,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
-            offsetY: 0,
             width: 0,
         }),
     },
     center: {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: rect.width / 2,
-            offsetY: rect.height / 2,
+            x: rect.x + rect.width / 2,
+            y: rect.y + rect.height / 2,
             width: 0,
             height: 0,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: rect.width / 2,
-            offsetY: rect.height / 2,
+            x: rect.x + rect.width / 2,
+            y: rect.y + rect.height / 2,
             width: 0,
             height: 0,
         }),
@@ -109,13 +91,11 @@ export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionMo
     'flow-down': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
             offsetY: -rect.height,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
             offsetY: rect.height,
         }),
     },
@@ -123,25 +103,21 @@ export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionMo
         enter: (rect: Rect) => ({
             ...rect,
             offsetX: -rect.width,
-            offsetY: 0,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
             offsetX: rect.width,
-            offsetY: 0,
         }),
     },
     'flow-up': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
             offsetY: rect.height,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: 0,
             offsetY: -rect.height,
         }),
     },
@@ -149,13 +125,11 @@ export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionMo
         enter: (rect: Rect) => ({
             ...rect,
             offsetX: rect.width,
-            offsetY: 0,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
             offsetX: -rect.width,
-            offsetY: 0,
         }),
     },
 }
@@ -174,8 +148,6 @@ export interface TransitionExtra<
 export type RectTransitionProps<ExtraProps extends Record<string, any> = Record<string, never>> =
     Rect & {
         progress: number
-        offsetX: number
-        offsetY: number
     } & ExtraProps
 
 export const useRectTransitionMode = <

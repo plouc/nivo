@@ -1,4 +1,4 @@
-import { createElement, useMemo } from 'react'
+import { createElement, useMemo, FunctionComponent } from 'react'
 import { usePropertyAccessor } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
@@ -8,9 +8,9 @@ import { useRectCentersTransition } from '../centers'
 import { RectLabelsProps } from './props'
 import { RectLabel, RectLabelProps } from './RectLabel'
 
-export type RectLabelComponent<Datum extends DatumWithRectAndColor> = (
-    props: RectLabelProps<Datum>
-) => JSX.Element
+export type RectLabelComponent<Datum extends DatumWithRectAndColor> = FunctionComponent<
+    RectLabelProps<Datum>
+>
 
 export interface RectLabelsLayerProps<Datum extends DatumWithRectAndColor> {
     data: Datum[]
@@ -68,10 +68,8 @@ export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
                         transform: interpolate(
                             transitionProps.x,
                             transitionProps.width,
-                            transitionProps.offsetX,
                             transitionProps.y,
-                            transitionProps.height,
-                            transitionProps.offsetY
+                            transitionProps.height
                         ),
                         textColor: getTextColor(datum),
                     },

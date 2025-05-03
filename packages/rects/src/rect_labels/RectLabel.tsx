@@ -15,8 +15,6 @@ export interface RectLabelProps<TDatum extends DatumWithRectAndColor> {
         progress: SpringValue<number>
         x: SpringValue<number>
         y: SpringValue<number>
-        offsetX: SpringValue<number>
-        offsetY: SpringValue<number>
         transform: Interpolation<string>
         width: SpringValue<number>
         height: SpringValue<number>

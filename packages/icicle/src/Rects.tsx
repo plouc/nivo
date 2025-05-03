@@ -5,9 +5,12 @@ import { IcicleSvgPropsWithDefaults, ComputedDatum, MouseHandlers } from './type
 
 export interface RectsProps<Datum> {
     data: ComputedDatum<Datum>[]
+    borderRadius: IcicleSvgPropsWithDefaults<Datum>['borderRadius']
     borderWidth: IcicleSvgPropsWithDefaults<Datum>['borderWidth']
     borderColor: IcicleSvgPropsWithDefaults<Datum>['borderColor']
     isInteractive: IcicleSvgPropsWithDefaults<Datum>['isInteractive']
+    enableZooming: IcicleSvgPropsWithDefaults<Datum>['enableZooming']
+    zoom: (nodePath: string) => void
     onClick?: MouseHandlers<Datum>['onClick']
     onMouseEnter?: MouseHandlers<Datum>['onMouseEnter']
     onMouseLeave?: MouseHandlers<Datum>['onMouseLeave']
@@ -19,9 +22,11 @@ export interface RectsProps<Datum> {
 
 export const Rects = <Datum,>({
     data,
+    borderRadius,
     borderWidth,
     borderColor,
     isInteractive,
+    zoom,
     onClick,
     onMouseEnter,
     onMouseMove,
@@ -35,6 +40,7 @@ export const Rects = <Datum,>({
     const handleClick = useCallback(
         (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             onClick?.(datum, event)
+            zoom(datum.path)
         },
         [onClick]
     )
@@ -80,6 +86,8 @@ export const Rects = <Datum,>({
     return (
         <RectsLayer<ComputedDatum<Datum>>
             data={data}
+            uid="path"
+            borderRadius={borderRadius}
             borderWidth={borderWidth}
             borderColor={borderColor}
             onClick={isInteractive ? handleClick : undefined}

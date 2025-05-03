@@ -23,6 +23,7 @@ export const useRectsTransition = <
     ExtraProps extends Record<string, any> = Record<string, never>,
 >(
     data: Datum[],
+    getUid: (datum: Datum) => string,
     mode: RectTransitionMode = 'flow-down',
     extra?: TransitionExtra<Datum, ExtraProps>
 ) => {
@@ -31,7 +32,7 @@ export const useRectsTransition = <
     const phases = useRectTransitionMode<Datum, ExtraProps>(mode, extra)
 
     const transition = useTransition<Datum, RectTransitionProps<ExtraProps>>(data, {
-        keys: datum => datum.id,
+        keys: getUid,
         initial: phases.enter,
         from: phases.enter,
         enter: phases.update,

@@ -13,13 +13,11 @@ export const interpolateRectCenter =
     (
         x: SpringValue<number>,
         width: SpringValue<number>,
-        offsetX: SpringValue<number>,
         y: SpringValue<number>,
-        height: SpringValue<number>,
-        offsetY: SpringValue<number>
+        height: SpringValue<number>
     ) =>
-        to([x, width, offsetX, y, height, offsetY], (x, width, offsetX, y, height, offsetY) => {
-            return `translate(${x + offsetX + width * offsetXRatio},${y + offsetY + height * offsetYRatio})`
+        to([x, width, y, height], (x, width, y, height) => {
+            return `translate(${x + width * offsetXRatio},${y + height * offsetYRatio})`
         })
 
 export const useRectCentersTransition = <

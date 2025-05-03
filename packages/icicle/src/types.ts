@@ -23,35 +23,31 @@ export type IcicleLayerId = 'rects' | 'rectLabels'
 
 export interface IcicleCommonCustomLayerProps<Datum> {
     nodes: readonly ComputedDatum<Datum>[]
-    baseOffsetLeft: number
-    baseOffsetTop: number
+    zoom: (nodePath: string | null) => void
 }
 
 export type IcicleCustomSvgLayerProps<Datum> = IcicleCommonCustomLayerProps<Datum>
 export type IcicleCustomSvgLayer<Datum> = FunctionComponent<IcicleCustomSvgLayerProps<Datum>>
 export type IcicleSvgLayer<Datum> = IcicleLayerId | IcicleCustomSvgLayer<Datum>
 
-export interface DataProps<RawDatum> {
-    data: RawDatum
+export interface DataProps<Datum> {
+    data: Datum
 }
 
-export interface ChildrenDatum<RawDatum> {
-    children?: Array<RawDatum & ChildrenDatum<RawDatum>>
-}
-
-export interface ComputedDatum<RawDatum> {
+export interface ComputedDatum<Datum> {
+    id: string
+    path: string
+    // Contains own id plus all ancestors' ids, starting from the root
+    pathComponents: string[]
     color: string
     // contains the raw node's data
-    data: RawDatum
+    data: Omit<Datum, 'children'>
     depth: number
     // defined when using patterns or gradients
     fill?: string
     formattedValue: string
     height: number
-    id: DatumId
-    parent?: ComputedDatum<RawDatum>
-    // contain own id plus all ancestor ids
-    path: DatumId[]
+    parent?: ComputedDatum<Datum>
     percentage: number
     rect: Rect
     value: number
@@ -69,16 +65,19 @@ export type IcicleCommonProps<Datum> = {
     valueFormat?: ValueFormat<number>
     margin: Box
     orientation: IcicleOrientation
+    padding: number
     theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<Datum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
     inheritColorFromParent: boolean
     // used if `inheritColorFromParent` is `true`
     childColor: InheritedColorConfig<ComputedDatum<Datum>>
+    borderRadius: number
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<Datum>>
     enableRectLabels: boolean
     isInteractive: boolean
+    enableZooming: boolean
     tooltip: (props: ComputedDatum<Datum>) => JSX.Element
     renderWrapper: boolean
 } & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'rectLabelsComponent'>

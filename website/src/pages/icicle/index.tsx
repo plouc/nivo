@@ -2,7 +2,6 @@ import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import { svgDefaultProps, ResponsiveIcicle } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
-import { omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/icicle/meta.yml'
 import mapper from '../../data/components/icicle/mapper'
@@ -16,14 +15,17 @@ const generateData = () => generateLibTree()
 
 const initialProperties = {
     margin: {
-        top: 1,
-        right: 1,
-        bottom: 1,
-        left: 1,
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
     },
     identity: 'name',
     value: 'loc',
     valueFormat: { format: '', enabled: false },
+    orientation: 'right',
+    padding: 0,
+    borderRadius: 2,
     borderWidth: 1,
     borderColor: { theme: 'background' },
     colors: { scheme: 'nivo' },
@@ -44,10 +46,10 @@ const initialProperties = {
     defs: [],
     fill: [],
     isInteractive: true,
+    enableZooming: svgDefaultProps.enableZooming,
     'custom tooltip example': false,
     tooltip: null,
     'showcase pattern usage': false,
-    orientation: 'bottom',
     rectLabelsSkipWidth: svgDefaultProps.rectLabelsSkipWidth,
     rectLabelsSkipHeight: svgDefaultProps.rectLabelsSkipHeight,
     rectLabelsOffsetX: svgDefaultProps.rectLabelsOffsetX,
@@ -98,10 +100,7 @@ const Icicle = () => {
                                 }%`,
                                 color: node.color,
                                 // prevent cyclic dependency
-                                data: {
-                                    ...omit(node, ['parent']),
-                                    parent: omit(node.parent, ['data', 'parent', 'children']),
-                                },
+                                data: node,
                             })
                         }
                     />
