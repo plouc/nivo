@@ -1,7 +1,7 @@
 import { BasicTooltip } from '@nivo/tooltip'
 import { ComputedDatum } from './types'
 
-export const IciclesTooltip = <RawDatum,>({
+export const IcicleTooltip = <RawDatum,>({
     id,
     formattedValue,
     color,

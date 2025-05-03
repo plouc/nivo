@@ -10,7 +10,7 @@ import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'api']
 
-const directions: IciclesDirection[] = ['top', 'right', 'bottom', 'left'];
+const directions: IciclesDirection[] = ['top', 'right', 'bottom', 'left']
 
 const props: ChartProperty[] = [
     {
@@ -94,8 +94,8 @@ const props: ChartProperty[] = [
             type: 'radio',
             choices: directions.map(d => ({
                 label: d,
-                value: d
-            }))
+                value: d,
+            })),
         },
     },
     {

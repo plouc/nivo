@@ -1,24 +1,23 @@
+import { createElement, useCallback, MouseEvent, WheelEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
-import { createElement, useMemo } from 'react'
-import * as React from 'react'
 import { RectsLayer } from '@nivo/rects'
-import { IciclesCommonProps, ComputedDatum, MouseHandlers } from './types'
+import { IcicleSvgPropsWithDefaults, ComputedDatum, MouseHandlers } from './types'
 
-export interface RectsProps<RawDatum> {
-    borderColor: IciclesCommonProps<RawDatum>['borderColor']
-    borderWidth: IciclesCommonProps<RawDatum>['borderWidth']
-    data: ComputedDatum<RawDatum>[]
-    isInteractive: IciclesCommonProps<RawDatum>['isInteractive']
-    onClick?: MouseHandlers<RawDatum>['onClick']
-    onMouseEnter?: MouseHandlers<RawDatum>['onMouseEnter']
-    onMouseLeave?: MouseHandlers<RawDatum>['onMouseLeave']
-    onMouseMove?: MouseHandlers<RawDatum>['onMouseMove']
-    onWheel?: MouseHandlers<RawDatum>['onWheel']
-    onContextMenu?: MouseHandlers<RawDatum>['onContextMenu']
-    tooltip: IciclesCommonProps<RawDatum>['tooltip']
+export interface RectsProps<Datum> {
+    data: ComputedDatum<Datum>[]
+    borderWidth: IcicleSvgPropsWithDefaults<Datum>['borderWidth']
+    borderColor: IcicleSvgPropsWithDefaults<Datum>['borderColor']
+    isInteractive: IcicleSvgPropsWithDefaults<Datum>['isInteractive']
+    onClick?: MouseHandlers<Datum>['onClick']
+    onMouseEnter?: MouseHandlers<Datum>['onMouseEnter']
+    onMouseLeave?: MouseHandlers<Datum>['onMouseLeave']
+    onMouseMove?: MouseHandlers<Datum>['onMouseMove']
+    onWheel?: MouseHandlers<Datum>['onWheel']
+    onContextMenu?: MouseHandlers<Datum>['onContextMenu']
+    tooltip: IcicleSvgPropsWithDefaults<Datum>['tooltip']
 }
 
-export const Rects = <RawDatum,>({
+export const Rects = <Datum,>({
     data,
     borderWidth,
     borderColor,
@@ -30,71 +29,65 @@ export const Rects = <RawDatum,>({
     onWheel,
     onContextMenu,
     tooltip,
-}: RectsProps<RawDatum>) => {
+}: RectsProps<Datum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const handleClick = useMemo(() => {
-        if (!isInteractive) return undefined
-
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
+    const handleClick = useCallback(
+        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             onClick?.(datum, event)
-        }
-    }, [isInteractive, onClick])
+        },
+        [onClick]
+    )
 
-    const handleMouseEnter = useMemo(() => {
-        if (!isInteractive) return undefined
-
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
+    const handleMouseEnter = useCallback(
+        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseEnter?.(datum, event)
-        }
-    }, [isInteractive, showTooltipFromEvent, tooltip, onMouseEnter])
+        },
+        [showTooltipFromEvent, tooltip, onMouseEnter]
+    )
 
-    const handleMouseMove = useMemo(() => {
-        if (!isInteractive) return undefined
-
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
+    const handleMouseMove = useCallback(
+        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseMove?.(datum, event)
-        }
-    }, [isInteractive, showTooltipFromEvent, tooltip, onMouseMove])
+        },
+        [showTooltipFromEvent, tooltip, onMouseMove]
+    )
 
-    const handleMouseLeave = useMemo(() => {
-        if (!isInteractive) return undefined
-
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
+    const handleMouseLeave = useCallback(
+        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             hideTooltip()
             onMouseLeave?.(datum, event)
-        }
-    }, [isInteractive, hideTooltip, onMouseLeave])
+        },
+        [hideTooltip, onMouseLeave]
+    )
 
-    const handleWheel = useMemo(() => {
-        if (!isInteractive) return undefined
-
-        return (datum: ComputedDatum<RawDatum>, event: React.WheelEvent<SVGRectElement>) => {
+    const handleWheel = useCallback(
+        (datum: ComputedDatum<Datum>, event: WheelEvent<SVGRectElement>) => {
             onWheel?.(datum, event)
-        }
-    }, [isInteractive, onWheel])
+        },
+        [onWheel]
+    )
 
-    const handleContextMenu = useMemo(() => {
-        if (!isInteractive) return undefined
-
-        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGRectElement>) => {
+    const handleContextMenu = useCallback(
+        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
             onContextMenu?.(datum, event)
-        }
-    }, [isInteractive, onContextMenu])
+        },
+        [onContextMenu]
+    )
 
     return (
-        <RectsLayer<ComputedDatum<RawDatum>>
+        <RectsLayer<ComputedDatum<Datum>>
             data={data}
             borderWidth={borderWidth}
             borderColor={borderColor}
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onWheel={handleWheel}
-            onContextMenu={handleContextMenu}
+            onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+            onMouseMove={isInteractive ? handleMouseMove : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onWheel={isInteractive ? handleWheel : undefined}
+            onContextMenu={isInteractive ? handleContextMenu : undefined}
         />
     )
 }
