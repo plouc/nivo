@@ -15,7 +15,7 @@ import {
     HomeRadialBarDemo,
     HomeSankeyDemo,
     HomeStreamDemo,
-    HomeIciclesDemo,
+    HomeIcicleDemo,
     HomeSwarmPlotDemo,
     HomeTreeMapDemo,
     HomeVoronoiDemo,
@@ -38,7 +38,7 @@ const HomeDemosPage = () => (
         <HomeRadarDemo />
         <HomeSankeyDemo />
         <HomeStreamDemo />
-        <HomeIciclesDemo />
+        <HomeIcicleDemo />
         <HomeSwarmPlotDemo />
         <HomeTreeMapDemo />
         <HomeVoronoiDemo />

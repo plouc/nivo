@@ -20,7 +20,7 @@ const InnerIcicle = <Datum,>({
     margin: partialMargin,
     width,
     height,
-    direction = svgDefaultProps.direction,
+    orientation = svgDefaultProps.orientation,
     layers = svgDefaultProps.layers as readonly IcicleLayerId[],
     colors = svgDefaultProps.colors as IcicleSvgPropsWithDefaults<Datum>['colors'],
     colorBy = svgDefaultProps.colorBy,
@@ -64,7 +64,7 @@ const InnerIcicle = <Datum,>({
         childColor,
         height: outerHeight,
         width: outerWidth,
-        direction,
+        orientation,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {

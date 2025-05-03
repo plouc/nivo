@@ -14,7 +14,7 @@ export const commonDefaultProps: Omit<
 } = {
     identity: 'id',
     value: 'value',
-    direction: 'bottom',
+    orientation: 'bottom',
     layers: ['rects', 'rectLabels'],
     colors: { scheme: 'nivo' },
     colorBy: 'id',
