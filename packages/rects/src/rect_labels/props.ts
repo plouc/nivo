@@ -3,11 +3,12 @@ import { PropertyAccessor } from '@nivo/core'
 import { DatumWithRectAndColor } from '../types'
 import { RectLabelComponent } from './RectLabelsLayer'
 
-export interface RectLabelsProps<TDatum extends DatumWithRectAndColor> {
-    rectLabel: PropertyAccessor<TDatum, string>
-    rectLabelsComponent: RectLabelComponent<TDatum>
-    rectLabelsOffset: number
-    rectLabelsSkipLength: number
-    rectLabelsSkipPercentage: number
-    rectLabelsTextColor: InheritedColorConfig<TDatum>
+export interface RectLabelsProps<Datum extends DatumWithRectAndColor> {
+    rectLabel: PropertyAccessor<Datum, string>
+    rectLabelsOffsetX: number
+    rectLabelsOffsetY: number
+    rectLabelsSkipWidth: number
+    rectLabelsSkipHeight: number
+    rectLabelsTextColor: InheritedColorConfig<Datum>
+    rectLabelsComponent: RectLabelComponent<Datum>
 }

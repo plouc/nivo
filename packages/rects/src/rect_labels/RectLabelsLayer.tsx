@@ -1,46 +1,60 @@
+import { createElement, useMemo } from 'react'
+import { usePropertyAccessor } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
-import { PropertyAccessor, usePropertyAccessor, useTheme } from '@nivo/core'
-import { createElement } from 'react'
-import { useRectCentersTransition } from '../centers'
+import { useTheme } from '@nivo/theming'
 import { DatumWithRectAndColor } from '../types'
-import { RectLabel, RectLabelProps } from './RectLabel'
+import { RectTransitionMode } from '../rectTransitionMode'
+import { useRectCentersTransition } from '../centers'
 import { RectLabelsProps } from './props'
+import { RectLabel, RectLabelProps } from './RectLabel'
 
-export type RectLabelComponent<TDatum extends DatumWithRectAndColor> = (
-    props: RectLabelProps<TDatum>
+export type RectLabelComponent<Datum extends DatumWithRectAndColor> = (
+    props: RectLabelProps<Datum>
 ) => JSX.Element
 
-export interface RectLabelsLayerProps<TDatum extends DatumWithRectAndColor> {
-    baseOffsetLeft: number
-    baseOffsetTop: number
-    component?: RectLabelsProps<TDatum>['rectLabelsComponent']
-    data: TDatum[]
-    label: PropertyAccessor<TDatum, string>
-    offset: RectLabelsProps<TDatum>['rectLabelsOffset']
-    textColor: RectLabelsProps<TDatum>['rectLabelsTextColor']
+export interface RectLabelsLayerProps<Datum extends DatumWithRectAndColor> {
+    data: Datum[]
+    label: RectLabelsProps<Datum>['rectLabel']
+    offsetX?: RectLabelsProps<Datum>['rectLabelsOffsetX']
+    offsetY?: RectLabelsProps<Datum>['rectLabelsOffsetY']
+    skipWidth?: RectLabelsProps<Datum>['rectLabelsSkipWidth']
+    skipHeight?: RectLabelsProps<Datum>['rectLabelsSkipHeight']
+    textColor: RectLabelsProps<Datum>['rectLabelsTextColor']
+    transitionMode?: RectTransitionMode
+    component?: RectLabelsProps<Datum>['rectLabelsComponent']
 }
 
-export const RectLabelsLayer = <TDatum extends DatumWithRectAndColor>({
+export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
     data,
     label: labelAccessor,
+    offsetX = 0.5,
+    offsetY = 0.5,
+    skipWidth = 0,
+    skipHeight = 0,
     textColor,
-    offset,
-    baseOffsetLeft,
-    baseOffsetTop,
+    transitionMode = 'flow-down',
     component = RectLabel,
-}: RectLabelsLayerProps<TDatum>) => {
-    const getLabel = usePropertyAccessor<TDatum, string>(labelAccessor)
+}: RectLabelsLayerProps<Datum>) => {
+    const getLabel = usePropertyAccessor<Datum, string>(labelAccessor)
     const theme = useTheme()
-    const getTextColor = useInheritedColor<TDatum>(textColor, theme)
+    const getTextColor = useInheritedColor<Datum>(textColor, theme)
 
-    const { transition, interpolate } = useRectCentersTransition<TDatum>(
-        data,
-        offset,
-        baseOffsetLeft,
-        baseOffsetTop
+    const filteredData = useMemo(
+        () =>
+            data.filter(datum => {
+                return datum.rect.width >= skipWidth && datum.rect.height >= skipWidth
+            }),
+        [data, skipWidth, skipHeight]
     )
 
-    const Label: RectLabelComponent<TDatum> = component
+    const { transition, interpolate } = useRectCentersTransition<Datum, { opacity: number }>(
+        filteredData,
+        offsetX,
+        offsetY,
+        transitionMode
+    )
+
+    const Label: RectLabelComponent<Datum> = component
 
     return (
         <g>
@@ -51,13 +65,15 @@ export const RectLabelsLayer = <TDatum extends DatumWithRectAndColor>({
                     label: getLabel(datum),
                     style: {
                         ...transitionProps,
-                        textColor: getTextColor(datum),
                         transform: interpolate(
-                            transitionProps.x0,
-                            transitionProps.y0,
+                            transitionProps.x,
                             transitionProps.width,
-                            transitionProps.height
+                            transitionProps.offsetX,
+                            transitionProps.y,
+                            transitionProps.height,
+                            transitionProps.offsetY
                         ),
+                        textColor: getTextColor(datum),
                     },
                 })
             })}

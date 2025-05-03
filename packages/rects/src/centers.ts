@@ -1,45 +1,46 @@
 import { useMotionConfig } from '@nivo/core'
-import { SpringValue, to, useTransition } from '@react-spring/web'
+import { SpringValue, to, TransitionFn, useTransition } from '@react-spring/web'
 import { DatumWithRect } from './types'
-import { TransitionExtra, useRectExtraTransition } from './useRectsTransition'
+import {
+    RectTransitionMode,
+    useRectTransitionMode,
+    RectTransitionProps,
+    TransitionExtra,
+} from './rectTransitionMode'
 
 export const interpolateRectCenter =
-    (offset: number, baseOffsetLeft: number, baseOffsetTop: number) =>
+    (offsetXRatio: number, offsetYRatio: number) =>
     (
-        x0Value: SpringValue<number>,
-        y0Value: SpringValue<number>,
-        widthValue: SpringValue<number>,
-        heightValue: SpringValue<number>
+        x: SpringValue<number>,
+        width: SpringValue<number>,
+        offsetX: SpringValue<number>,
+        y: SpringValue<number>,
+        height: SpringValue<number>,
+        offsetY: SpringValue<number>
     ) =>
-        to(
-            [x0Value, y0Value, widthValue, heightValue],
-            (x0, y0, width, height) =>
-                `translate(${Math.abs(baseOffsetLeft - (x0 + width / 2))}, ${Math.abs(
-                    baseOffsetTop - (y0 + height / 2) * offset
-                )})`
-        )
+        to([x, width, offsetX, y, height, offsetY], (x, width, offsetX, y, height, offsetY) => {
+            return `translate(${x + offsetX + width * offsetXRatio},${y + offsetY + height * offsetYRatio})`
+        })
 
-export const useRectCentersTransition = <TDatum extends DatumWithRect, TExtraProps = unknown>(
-    data: TDatum[],
-    offset = 1,
-    baseOffsetLeft = 0,
-    baseOffsetTop = 0,
-    extra?: TransitionExtra<TDatum, TExtraProps>
+export const useRectCentersTransition = <
+    Datum extends DatumWithRect,
+    ExtraProps extends Record<string, any> = Record<string, never>,
+>(
+    data: Datum[],
+    // define where the centers should be placed,
+    // 0.0: left/top
+    // 0.5: center
+    // 1.0: right/bottom
+    offsetX = 0.5,
+    offsetY = 0.5,
+    mode: RectTransitionMode = 'flow-down',
+    extra?: TransitionExtra<Datum, ExtraProps>
 ) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const phases = useRectExtraTransition<TDatum, TExtraProps>(extra)
+    const phases = useRectTransitionMode<Datum, ExtraProps>(mode, extra)
 
-    const transition = useTransition<
-        TDatum,
-        {
-            height: number
-            progress: number
-            width: number
-            x0: number
-            y0: number
-        } & TExtraProps
-    >(data, {
+    const transition = useTransition<Datum, RectTransitionProps<ExtraProps>>(data, {
         keys: datum => datum.id,
         initial: phases.update,
         from: phases.enter,
@@ -48,10 +49,10 @@ export const useRectCentersTransition = <TDatum extends DatumWithRect, TExtraPro
         leave: phases.leave,
         config: springConfig,
         immediate: !animate,
-    })
+    }) as unknown as TransitionFn<Datum, RectTransitionProps<ExtraProps>>
 
     return {
         transition,
-        interpolate: interpolateRectCenter(offset, baseOffsetLeft, baseOffsetTop),
+        interpolate: interpolateRectCenter(offsetX, offsetY),
     }
 }

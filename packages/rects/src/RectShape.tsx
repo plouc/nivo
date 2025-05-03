@@ -1,34 +1,38 @@
-import { SpringValue, animated, Interpolation } from '@react-spring/web'
 import { MouseEvent, useCallback, WheelEvent } from 'react'
+import { SpringValue, animated } from '@react-spring/web'
 import { DatumWithRectAndColor } from './types'
+import { offsetToTransform } from './rectTransitionMode'
 
-export type RectMouseHandler<TDatum extends DatumWithRectAndColor> = (
-    datum: TDatum,
+export type RectMouseHandler<Datum extends DatumWithRectAndColor> = (
+    datum: Datum,
     event: MouseEvent<SVGRectElement>
 ) => void
 
-export type RectWheelHandler<TDatum extends DatumWithRectAndColor> = (
-    datum: TDatum,
+export type RectWheelHandler<Datum extends DatumWithRectAndColor> = (
+    datum: Datum,
     event: WheelEvent<SVGRectElement>
 ) => void
 
-export interface RectShapeProps<TDatum extends DatumWithRectAndColor> {
-    datum: TDatum
-    onClick?: RectMouseHandler<TDatum>
-    onMouseEnter?: RectMouseHandler<TDatum>
-    onMouseLeave?: RectMouseHandler<TDatum>
-    onMouseMove?: RectMouseHandler<TDatum>
-    onWheel?: RectWheelHandler<TDatum>
-    onContextMenu?: RectMouseHandler<TDatum>
+export interface RectShapeProps<Datum extends DatumWithRectAndColor> {
+    datum: Datum
     style: {
-        borderColor: SpringValue<string>
-        borderWidth: number
+        progress: SpringValue<number>
+        x: SpringValue<number>
+        y: SpringValue<number>
+        offsetX: SpringValue<number>
+        offsetY: SpringValue<number>
+        width: SpringValue<number>
+        height: SpringValue<number>
         color: SpringValue<string>
-        height: number
-        opacity: SpringValue<number>
-        transform: Interpolation<string>
-        width: number
+        borderWidth: number
+        borderColor: SpringValue<string>
     }
+    onClick?: RectMouseHandler<Datum>
+    onMouseEnter?: RectMouseHandler<Datum>
+    onMouseLeave?: RectMouseHandler<Datum>
+    onMouseMove?: RectMouseHandler<Datum>
+    onWheel?: RectWheelHandler<Datum>
+    onContextMenu?: RectMouseHandler<Datum>
 }
 
 /**
@@ -37,7 +41,7 @@ export interface RectShapeProps<TDatum extends DatumWithRectAndColor> {
  * Please note that the component accepts `SpringValue`s instead of
  * regular values to support animations.
  */
-export const RectShape = <TDatum extends DatumWithRectAndColor>({
+export const RectShape = <Datum extends DatumWithRectAndColor>({
     datum,
     style,
     onClick,
@@ -46,34 +50,46 @@ export const RectShape = <TDatum extends DatumWithRectAndColor>({
     onMouseMove,
     onWheel,
     onContextMenu,
-}: RectShapeProps<TDatum>) => {
-    const handleClick = useCallback(event => onClick?.(datum, event), [onClick, datum])
+}: RectShapeProps<Datum>) => {
+    const handleClick = useCallback(
+        (event: MouseEvent<SVGRectElement>) => onClick?.(datum, event),
+        [onClick, datum]
+    )
 
     const handleMouseEnter = useCallback(
-        event => onMouseEnter?.(datum, event),
+        (event: MouseEvent<SVGRectElement>) => onMouseEnter?.(datum, event),
         [onMouseEnter, datum]
     )
 
-    const handleMouseMove = useCallback(event => onMouseMove?.(datum, event), [onMouseMove, datum])
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<SVGRectElement>) => onMouseMove?.(datum, event),
+        [onMouseMove, datum]
+    )
 
     const handleMouseLeave = useCallback(
-        event => onMouseLeave?.(datum, event),
+        (event: MouseEvent<SVGRectElement>) => onMouseLeave?.(datum, event),
         [onMouseLeave, datum]
     )
 
-    const handleWheel = useCallback(event => onWheel?.(datum, event), [onWheel, datum])
+    const handleWheel = useCallback(
+        (event: WheelEvent<SVGRectElement>) => onWheel?.(datum, event),
+        [onWheel, datum]
+    )
 
     const handleContextMenu = useCallback(
-        event => onContextMenu?.(datum, event),
+        (event: MouseEvent<SVGRectElement>) => onContextMenu?.(datum, event),
         [onContextMenu, datum]
     )
 
     return (
         <animated.rect
-            data-id={datum.id}
-            opacity={style.opacity}
+            x={style.x.to(v => Math.max(v, 0))}
+            y={style.y.to(v => Math.max(v, 0))}
+            width={style.width.to(v => Math.max(v, 0))}
+            height={style.height.to(v => Math.max(v, 0))}
+            transform={offsetToTransform(style.offsetX, style.offsetY)}
+            opacity={style.progress}
             fill={datum.fill || style.color}
-            transform={style.transform}
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             onClick={onClick ? handleClick : undefined}
@@ -82,8 +98,7 @@ export const RectShape = <TDatum extends DatumWithRectAndColor>({
             onMouseLeave={onMouseLeave ? handleMouseLeave : undefined}
             onWheel={onWheel ? handleWheel : undefined}
             onContextMenu={onContextMenu ? handleContextMenu : undefined}
-            width={style.width}
-            height={style.height}
+            data-testid={`rect.${datum.id}`}
         />
     )
 }
