@@ -91,45 +91,45 @@ export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionMo
     'flow-down': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetY: -rect.height,
+            y: rect.y - rect.height,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetY: rect.height,
+            y: rect.y + rect.height,
         }),
     },
     'flow-right': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: -rect.width,
+            x: rect.x - rect.width,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: rect.width,
+            x: rect.x + rect.width,
         }),
     },
     'flow-up': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetY: rect.height,
+            y: rect.y + rect.height,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetY: -rect.height,
+            y: rect.y - rect.height,
         }),
     },
     'flow-left': {
         enter: (rect: Rect) => ({
             ...rect,
-            offsetX: rect.width,
+            x: rect.x + rect.width,
         }),
         update: transitionDefault,
         leave: (rect: Rect) => ({
             ...rect,
-            offsetX: -rect.width,
+            x: rect.x - rect.width,
         }),
     },
 }

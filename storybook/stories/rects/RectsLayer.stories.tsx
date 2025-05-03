@@ -218,7 +218,7 @@ const sampleData: DatumWithRectAndColor[][] = [
     [],
 ]
 
-export const Basic: Story = {
+export const TransitionModeShowcase: Story = {
     argTypes: {
         transitionMode: {
             control: 'select',
@@ -240,7 +240,7 @@ export const Basic: Story = {
         },
     },
     args: {
-        transitionMode: 'bottom-to-top',
+        transitionMode: 'flow-up',
         motionConfig: 'gentle',
     },
     render: args => {
@@ -272,7 +272,9 @@ export const Basic: Story = {
                 >
                     <g transform="translate(50, 50)">
                         <RectsLayer
+                            uid="id"
                             data={sampleData[current]}
+                            borderRadius={0}
                             borderColor="#000000"
                             borderWidth={0}
                             transitionMode={args.transitionMode}
