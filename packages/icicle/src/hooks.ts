@@ -154,7 +154,6 @@ export const useIcicle = <Datum>({
         data,
         getValue,
         getIdentity,
-        valueFormat,
         formatValue,
         getColor,
         inheritColorFromParent,
@@ -197,7 +196,7 @@ export const useIcicle = <Datum>({
                 height: node.rect.height * yMult,
             },
         }))
-    }, [zoomedNodePath, nodes, nodeByPath, width, height])
+    }, [zoomedNodePath, nodes, nodeByPath, width, height, orientation])
 
     const zoom = useCallback(
         (nodePath: string | null) => {
@@ -227,5 +226,5 @@ export const useIcicleCustomLayerProps = <Datum>({
             nodes,
             zoom,
         }),
-        [nodes]
+        [nodes, zoom]
     )
