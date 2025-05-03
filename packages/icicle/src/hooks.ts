@@ -19,7 +19,10 @@ const computeNodePath = <Datum>(
         .map(ancestor => getIdentity(ancestor.data))
         .reverse()
 
-    return { path: path.join('.'), pathComponents: path }
+    return {
+        path: path.join('.'),
+        pathComponents: path,
+    }
 }
 
 export const useIcicle = <Datum>({
@@ -35,6 +38,8 @@ export const useIcicle = <Datum>({
     childColor = commonDefaultProps.childColor as IcicleCommonProps<Datum>['childColor'],
     width,
     height,
+    enableZooming = commonDefaultProps.enableZooming,
+    zoomMode = commonDefaultProps.zoomMode,
 }: DataProps<Datum> &
     Pick<
         IcicleCommonProps<Datum>,
@@ -47,6 +52,8 @@ export const useIcicle = <Datum>({
         | 'colorBy'
         | 'inheritColorFromParent'
         | 'childColor'
+        | 'enableZooming'
+        | 'zoomMode'
     > & {
         width: number
         height: number
@@ -125,6 +132,12 @@ export const useIcicle = <Datum>({
                     parent = nodeByPath[parentPath]
                 }
 
+                let maxDescendantDepth = node.depth
+                if (node.height > 0) {
+                    const nodeLeaves = node.leaves().sort((a, b) => b.depth - a.depth)
+                    if (nodeLeaves.length > 0) maxDescendantDepth = nodeLeaves[0].depth
+                }
+
                 const normalizedNode: ComputedDatum<Datum> = {
                     id,
                     path,
@@ -137,6 +150,7 @@ export const useIcicle = <Datum>({
                     data: omit(node.data!, 'children'),
                     depth: node.depth,
                     height: node.height,
+                    maxDescendantDepth,
                 }
 
                 if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
@@ -167,7 +181,7 @@ export const useIcicle = <Datum>({
     const [zoomedNodePath, setZoomedNodePath] = useState<string | null>(null)
 
     const zoomedNodes = useMemo(() => {
-        if (!zoomedNodePath) return nodes
+        if (!enableZooming || !zoomedNodePath) return nodes
 
         const zoomedNode = nodeByPath[zoomedNodePath]
         if (!zoomedNode) return nodes
@@ -179,12 +193,39 @@ export const useIcicle = <Datum>({
         let yMult = 1
         let yOffset = 0
 
+        let deepestDescendant: ComputedDatum<Datum> | undefined
+        if (zoomedNode.depth > 0 && zoomedNode.maxDescendantDepth > zoomedNode.height) {
+            deepestDescendant = nodes.find(node => node.depth === zoomedNode.maxDescendantDepth)
+        }
+
         if (!isHorizontal) {
             xMult = width / zoomedNode.rect.width
             xOffset = zoomedNode.rect.x * xMult * -1
+
+            if (zoomMode === 'global' && zoomedNode.depth > 0) {
+                let aggregatedHeight = zoomedNode.rect.height
+                if (deepestDescendant) {
+                    aggregatedHeight =
+                        deepestDescendant.rect.y + deepestDescendant.rect.height - zoomedNode.rect.y
+                }
+
+                yMult = height / aggregatedHeight
+                yOffset = zoomedNode.rect.y * yMult * -1
+            }
         } else {
             yMult = height / zoomedNode.rect.height
             yOffset = zoomedNode.rect.y * yMult * -1
+
+            if (zoomMode === 'global' && zoomedNode.depth > 0) {
+                let aggregatedWidth = zoomedNode.rect.width
+                if (deepestDescendant) {
+                    aggregatedWidth =
+                        deepestDescendant.rect.x + deepestDescendant.rect.width - zoomedNode.rect.x
+                }
+
+                xMult = width / aggregatedWidth
+                xOffset = zoomedNode.rect.x * xMult * -1
+            }
         }
 
         return nodes.map(node => ({
@@ -196,16 +237,18 @@ export const useIcicle = <Datum>({
                 height: node.rect.height * yMult,
             },
         }))
-    }, [zoomedNodePath, nodes, nodeByPath, width, height, orientation])
+    }, [enableZooming, zoomMode, zoomedNodePath, nodes, nodeByPath, width, height, orientation])
 
     const zoom = useCallback(
         (nodePath: string | null) => {
+            if (!enableZooming) return
+
             setZoomedNodePath(prev => {
                 if (prev === nodePath) return null
                 return nodePath
             })
         },
-        [setZoomedNodePath]
+        [enableZooming, setZoomedNodePath]
     )
 
     return {

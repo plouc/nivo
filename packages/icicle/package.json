@@ -21,7 +21,7 @@
         "react",
         "d3",
         "charts",
-        "icicles-chart"
+        "icicle-chart"
     ],
     "main": "./dist/nivo-icicle.cjs.js",
     "module": "./dist/nivo-icicle.mjs",

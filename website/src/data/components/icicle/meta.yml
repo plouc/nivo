@@ -31,8 +31,8 @@ Icicle:
     - label: with different direction
       link: icicle--change-direction
   description: |
-    The `Icicle` Chart is a space-filling visualization used to represent hierarchical data.
-    It displays nested structures as stacked rectangles, where each rectangle’s size typically
-    reflects a quantitative value (like count, size, or duration).
-    The chart provides a clear, compact view of tree-like data and allows users
-    to quickly understand parent-child relationships and the relative weight of each node.
+    An Icicle Chart with zooming ability.
+
+    This chart type visualizes hierarchical data using nested rectangles.
+    Each rectangle represents a node, sized by a value like count or duration,
+    making it easy to compare parts of a tree and see their structure at a glance.

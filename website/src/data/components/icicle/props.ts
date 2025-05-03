@@ -12,6 +12,7 @@ import {
     commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
+import { svgDefaultProps as defaults } from '@nivo/funnel'
 
 const allFlavors: Flavor[] = ['svg', 'api']
 
@@ -374,6 +375,22 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.enableZooming,
         control: { type: 'switch' },
         group: 'Interactivity',
+    },
+    {
+        key: 'zoomMode',
+        group: 'Interactivity',
+        help: `Define the behavior of zooming.`,
+        type: `'lateral' | 'global'`,
+        required: false,
+        defaultValue: defaults.zoomMode,
+        flavors: ['svg'],
+        control: {
+            type: 'radio',
+            choices: [
+                { label: 'lateral', value: 'lateral' },
+                { label: 'global', value: 'global' },
+            ],
+        },
     },
     {
         key: 'tooltip',

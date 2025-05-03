@@ -29,6 +29,7 @@ export const commonDefaultProps: Omit<
     rectLabelsTextColor: { theme: 'labels.text.fill' },
     isInteractive: true,
     enableZooming: true,
+    zoomMode: 'lateral',
     tooltip: IcicleTooltip,
     rectLabelsSkipWidth: 32,
     rectLabelsSkipHeight: 0,
