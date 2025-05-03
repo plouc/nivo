@@ -50,8 +50,8 @@ const initialProperties = {
     'custom tooltip example': false,
     tooltip: null,
     'showcase pattern usage': false,
-    rectLabelsSkipWidth: svgDefaultProps.rectLabelsSkipWidth,
-    rectLabelsSkipHeight: svgDefaultProps.rectLabelsSkipHeight,
+    rectLabelsSkipWidth: 32,
+    rectLabelsSkipHeight: 32,
     rectLabelsOffsetX: svgDefaultProps.rectLabelsOffsetX,
     rectLabelsOffsetY: svgDefaultProps.rectLabelsOffsetY,
 }

@@ -16,13 +16,14 @@ import {
     PropertyDocumentation,
 } from './generics'
 import {
-    BoxAnchorControl,
-    MarginControl,
-    LineWidthControl,
-    MotionConfigControl,
     AngleControl,
-    ValueFormatControl,
     AnnotationsControl,
+    BoxAnchorControl,
+    CartesianOrientationControl,
+    LineWidthControl,
+    MarginControl,
+    MotionConfigControl,
+    ValueFormatControl,
 } from './specialized'
 import {
     BlendModeControl,
@@ -462,6 +463,20 @@ const ControlSwitcher = memo(
             case 'bullet_colors':
                 return (
                     <BulletColorsControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        config={controlConfig}
+                        value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'cartesianOrientation':
+                return (
+                    <CartesianOrientationControl
                         id={id}
                         property={property}
                         flavors={flavors}

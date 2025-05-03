@@ -87,13 +87,13 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaults.layout,
         control: {
-            type: 'choices',
-            choices: ['top-to-bottom', 'right-to-left', 'bottom-to-top', 'left-to-right'].map(
-                choice => ({
-                    label: choice,
-                    value: choice,
-                })
-            ),
+            type: 'cartesianOrientation',
+            mapping: {
+                top: { label: 'bottom-to-top', value: 'bottom-to-top' },
+                right: { label: 'left-to-right', value: 'left-to-right' },
+                bottom: { label: 'top-to-bottom', value: 'top-to-bottom' },
+                left: { label: 'right-to-left', value: 'right-to-left' },
+            },
         },
     },
     ...chartDimensions(allFlavors),

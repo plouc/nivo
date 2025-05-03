@@ -1,6 +1,7 @@
 export * from './AngleControl'
 export * from './AnnotationsControl'
 export * from './BoxAnchorControl'
+export * from './CartesianOrientationControl'
 export * from './LineWidthControl'
 export * from './MarginControl'
 export * from './MotionConfigControl'
