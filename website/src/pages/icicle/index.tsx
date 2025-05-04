@@ -58,10 +58,9 @@ const Icicle = () => {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
-        // TODO: change with icicle capture
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/icicle.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }

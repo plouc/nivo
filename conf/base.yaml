@@ -72,13 +72,15 @@ capture:
 
       - pkg: circle-packing
         chart: circle-packing
-        flavors: [svg, canvas]
-        # html is broken for now
-        # flavors: [svg, html, canvas]
+        flavors: [svg, html, canvas]
 
       - pkg: heatmap
         chart: heatmap
         flavors: [svg, canvas]
+
+      - pkg: icicle
+        chart: icicle
+        flavors: [svg]
 
       - pkg: line
         chart: line

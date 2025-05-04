@@ -7,7 +7,7 @@ import chalk from 'chalk-template'
 import _ from 'lodash'
 import config from '@ekino/config'
 
-const HEADLESS = 'new' // 'new'
+const HEADLESS = 'new'
 const DEFAULT_FLAVOR = 'svg'
 const CHART_SELECTOR = '#chart'
 const VIEWPORT = {
