@@ -11,8 +11,6 @@ import {
 import { PartialTheme } from '@nivo/theming'
 import { type Rect, RectLabelsProps } from '@nivo/rects'
 
-export type DatumId = string | number
-
 export interface DefaultIcicleDatum {
     id: string
     value?: number

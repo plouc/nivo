@@ -79,7 +79,6 @@ const InnerIcicle = <Datum,>({
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {
-        dataKey: '.',
         colorKey: 'color',
         targetKey: 'fill',
     })

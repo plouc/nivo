@@ -32,6 +32,7 @@ export interface RectShapeProps<Datum extends DatumWithRectAndColor> {
     onMouseMove?: RectMouseHandler<Datum>
     onWheel?: RectWheelHandler<Datum>
     onContextMenu?: RectMouseHandler<Datum>
+    getTestId?: (datum: Datum) => string
 }
 
 /**
@@ -49,6 +50,7 @@ export const RectShape = <Datum extends DatumWithRectAndColor>({
     onMouseMove,
     onWheel,
     onContextMenu,
+    getTestId,
 }: RectShapeProps<Datum>) => {
     const handleClick = useCallback(
         (event: MouseEvent<SVGRectElement>) => onClick?.(datum, event),
@@ -97,7 +99,7 @@ export const RectShape = <Datum extends DatumWithRectAndColor>({
             onMouseLeave={onMouseLeave ? handleMouseLeave : undefined}
             onWheel={onWheel ? handleWheel : undefined}
             onContextMenu={onContextMenu ? handleContextMenu : undefined}
-            data-testid={`rect.${datum.id}`}
+            data-testid={getTestId?.(datum)}
         />
     )
 }

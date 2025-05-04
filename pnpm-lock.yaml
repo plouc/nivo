@@ -287,6 +287,9 @@ importers:
       '@nivo/heatmap':
         specifier: workspace:*
         version: link:../packages/heatmap
+      '@nivo/icicle':
+        specifier: workspace:*
+        version: link:../packages/icicle
       '@nivo/legends':
         specifier: workspace:*
         version: link:../packages/legends
@@ -345,12 +348,18 @@ importers:
         specifier: workspace:*
         version: link:../packages/waffle
     devDependencies:
+      '@testing-library/cypress':
+        specifier: ^10.0.3
+        version: 10.0.3(cypress@14.3.2)
       '@vitejs/plugin-react':
         specifier: ^4.4.1
         version: 4.4.1(vite@6.3.4(@types/node@18.19.87)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.1))
       cypress:
         specifier: ^14.3.2
         version: 14.3.2
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -4804,6 +4813,12 @@ packages:
   '@szmarczak/http-timer@5.0.1':
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
+
+  '@testing-library/cypress@10.0.3':
+    resolution: {integrity: sha512-TeZJMCNtiS59cPWalra7LgADuufO5FtbqQBYxuAgdX6ZFAR2D9CtQwAG8VbgvFcchW3K414va/+7P4OkQ80UVg==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      cypress: ^12.0.0 || ^13.0.0 || ^14.0.0
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -16305,6 +16320,12 @@ snapshots:
   '@szmarczak/http-timer@5.0.1':
     dependencies:
       defer-to-connect: 2.0.1
+
+  '@testing-library/cypress@10.0.3(cypress@14.3.2)':
+    dependencies:
+      '@babel/runtime': 7.27.0
+      '@testing-library/dom': 10.4.0
+      cypress: 14.3.2
 
   '@testing-library/dom@10.4.0':
     dependencies:

@@ -26,6 +26,7 @@ export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
     onContextMenu?: RectMouseHandler<Datum>
     transitionMode?: RectTransitionMode
     component?: RectComponent<Datum>
+    getRectTestId?: (datum: Datum) => string
 }
 
 export const RectsLayer = <Datum extends DatumWithRectAndColor>({
@@ -42,6 +43,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     onContextMenu,
     transitionMode = 'flow-down',
     component = RectShape,
+    getRectTestId,
 }: RectsLayerProps<Datum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
@@ -91,6 +93,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
                     onMouseLeave,
                     onWheel,
                     onContextMenu,
+                    getTestId: getRectTestId,
                 })
             })}
         </g>
