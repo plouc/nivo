@@ -84,6 +84,11 @@ export const Rects = <Datum,>({
         [onContextMenu]
     )
 
+    const getRectTestId = useCallback(
+        (datum: ComputedDatum<Datum>) => `icicle.rect.${datum.path}`,
+        []
+    )
+
     return (
         <RectsLayer<ComputedDatum<Datum>>
             data={data}
@@ -97,6 +102,7 @@ export const Rects = <Datum,>({
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onWheel={isInteractive ? handleWheel : undefined}
             onContextMenu={isInteractive ? handleContextMenu : undefined}
+            getRectTestId={getRectTestId}
         />
     )
 }
