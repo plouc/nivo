@@ -10,26 +10,14 @@ Icicle:
     - hierarchy
     - flat
   stories:
-    - label: with child color modifier
-      link: icicle--with-child-color-modifier
-    - label: with child color independent of parent
-      link: icicle--with-child-colors-independent-of-parent
-    - label: with custom colors
-      link: icicle--with-custom-colors
-    - label: with formatted tooltip value
-      link: icicle--with-formatted-tooltip-value
-    - label: with custom tooltip
+    - label: custom colors
+      link: icicle--custom-colors
+    - label: colors from data
+      link: icicle--child-color-picked-from-data
+    - label: custom tooltip
       link: icicle--custom-tooltip
-    - label: with enter and leave actions
-      link: icicle--enter-leave-check-actions
-    - label: with wheel and contextmenu actions
-      link: icicle--wheel-contextmenu-check-actions
-    - label: with patterns and gradients
-      link: icicle--patterns-gradients
-    - label: drill down to children
-      link: icicle--children-drill-down
-    - label: with different direction
-      link: icicle--change-direction
+    - label: patterns and gradients
+      link: icicle--patterns-and-gradients
   description: |
     An Icicle Chart with zooming ability.
 
