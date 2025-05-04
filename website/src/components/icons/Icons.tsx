@@ -14,6 +14,7 @@ import { DataIcon } from './DataIcon'
 import { FunnelIcon } from './FunnelIcon'
 import { GeoMapIcon } from './GeoMapIcon'
 import { HeatMapIcon } from './HeatMapIcon'
+import { IcicleIcon } from './IcicleIcon'
 import { LineIcon } from './LineIcon'
 import { MarimekkoIcon } from './MarimekkoIcon'
 import { NetworkIcon } from './NetworkIcon'
@@ -26,7 +27,6 @@ import { SankeyIcon } from './SankeyIcon'
 import { ScatterPlotIcon } from './ScatterPlotIcon'
 import { StreamIcon } from './StreamIcon'
 import { SunburstIcon } from './SunburstIcon'
-import { IcicleIcon } from './IcicleIcon'
 import { SwarmPlotIcon } from './SwarmPlotIcon'
 import { TimeRangeIcon } from './TimeRangeIcon'
 import { TreeIcon } from './TreeIcon'
@@ -63,7 +63,7 @@ const ColorsDemo = ({ type }: { type: IconType }) => {
 
 export const Icons = () => (
     <Container>
-        <PolarBarIcon />
+        <IcicleIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
@@ -86,6 +86,7 @@ export const Icons = () => (
         <NetworkIcon />
         <ParallelCoordinatesIcon />
         <PieIcon />
+        <PolarBarIcon />
         <RadarIcon />
         <RadialBarIcon />
         <CodeIcon />
@@ -94,7 +95,6 @@ export const Icons = () => (
         <ScatterPlotIcon />
         <StreamIcon />
         <SunburstIcon />
-        <IcicleIcon />
         <SwarmPlotIcon />
         <TimeRangeIcon />
         <TreeMapIcon />

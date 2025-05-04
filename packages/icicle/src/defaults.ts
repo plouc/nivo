@@ -22,7 +22,7 @@ export const commonDefaultProps: Omit<
     inheritColorFromParent: true,
     childColor: { from: 'color' },
     borderRadius: 0,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: { from: 'color', modifiers: [['darker', 0.6]] },
     enableRectLabels: false,
     rectLabel: 'formattedValue',
