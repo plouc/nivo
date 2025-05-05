@@ -3,7 +3,7 @@ import isNumber from 'lodash/isNumber.js'
 import omit from 'lodash/omit.js'
 import {
     radiansToDegrees,
-    absoluteAngleDegrees,
+    normalizeAngleDegrees,
     degreesToRadians,
     positionFromAngle,
 } from '@nivo/core'
@@ -86,7 +86,7 @@ export const getLinkAngle = (
 ) => {
     const angle = Math.atan2(targetY - sourceY, targetX - sourceX)
 
-    return absoluteAngleDegrees(radiansToDegrees(angle))
+    return normalizeAngleDegrees(radiansToDegrees(angle))
 }
 
 export const computeAnnotation = <Datum>(

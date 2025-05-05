@@ -1,7 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
+import { IcicleSvgProps } from '@nivo/icicle'
 import { patternLinesDef } from '@nivo/core'
-import { mapFormat, settingsMapper } from '../../../lib/settings'
+import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+
+export type MappedIcicleSvgProps = Omit<IcicleSvgProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedIcicleSvgProps = UnmappedSettings<
+    MappedIcicleSvgProps,
+    {
+        valueFormat: {
+            format: string
+            enabled: boolean
+        }
+        'custom tooltip example': boolean
+        'showcase pattern usage': boolean
+    }
+>
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -32,19 +46,19 @@ const CustomTooltip = node => {
     )
 }
 
-export default settingsMapper(
+export default settingsMapper<UnmappedIcicleSvgProps, MappedIcicleSvgProps>(
     {
         valueFormat: mapFormat,
         rectLabel: value => {
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
-        tooltip: (value, values) => {
+        tooltip: (_value, values) => {
             if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
-        defs: (value, values) => {
+        defs: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [
@@ -57,12 +71,13 @@ export default settingsMapper(
                 }),
             ]
         },
-        fill: (value, values) => {
+        fill: (_value, values) => {
             if (!values['showcase pattern usage']) return
 
             return [
                 { match: { id: 'set' }, id: 'lines' },
                 { match: { id: 'misc' }, id: 'lines' },
+                { match: { id: 'colors' }, id: 'lines' },
             ]
         },
     },

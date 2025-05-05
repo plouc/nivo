@@ -1,4 +1,5 @@
 import { commonDefaultProps, svgDefaultProps, IcicleOrientation } from '@nivo/icicle'
+import { RECT_TRANSITION_MODES } from '@nivo/rects'
 import {
     groupProperties,
     defsProperties,
@@ -12,11 +13,15 @@ import {
     commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
-import { svgDefaultProps as defaults } from '@nivo/funnel'
 
 const allFlavors: Flavor[] = ['svg', 'api']
 
 const directions: IcicleOrientation[] = ['top', 'right', 'bottom', 'left']
+
+const transitionModeOptions = RECT_TRANSITION_MODES.map(mode => ({
+    label: mode,
+    value: mode,
+}))
 
 const props: ChartProperty[] = [
     {
@@ -122,17 +127,35 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'padding',
-        help: 'Padding between rects, affected by zoom.',
+        key: 'gapX',
+        help: 'Horizontal spacing between nodes.',
         description: `
-            If you want to have a constant space between rects
-            when zooming, you can use a border instead, using
-            the color of the background.
+            Please note that it's also going to act as an horizontal padding
+            for the whole chart, using half this value.
         `,
         type: 'number',
         required: false,
         flavors: allFlavors,
-        defaultValue: svgDefaultProps.padding,
+        defaultValue: svgDefaultProps.gapX,
+        group: 'Base',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: 0,
+            max: 20,
+        },
+    },
+    {
+        key: 'gapY',
+        help: 'Vertical spacing between nodes.',
+        description: `
+            Please note that it's also going to act as a vertical padding
+            for the whole chart, using half this value.
+        `,
+        type: 'number',
+        required: false,
+        flavors: allFlavors,
+        defaultValue: svgDefaultProps.gapY,
         group: 'Base',
         control: {
             type: 'range',
@@ -239,23 +262,23 @@ const props: ChartProperty[] = [
         group: 'Style',
     },
     {
-        key: 'enableRectLabels',
-        help: 'Enable/disable rect labels.',
+        key: 'enableLabels',
+        help: 'Enable/disable labels.',
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: commonDefaultProps.enableRectLabels,
+        defaultValue: commonDefaultProps.enableLabels,
         control: { type: 'switch' },
-        group: 'Rect labels',
+        group: 'Labels',
     },
     {
-        key: 'rectLabel',
+        key: 'label',
         help: 'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
         flavors: allFlavors,
         type: 'string | Function',
         required: false,
-        defaultValue: commonDefaultProps.rectLabel,
-        group: 'Rect labels',
+        defaultValue: commonDefaultProps.label,
+        group: 'Labels',
         control: {
             type: 'choices',
             choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
@@ -266,74 +289,137 @@ const props: ChartProperty[] = [
             ),
         },
     },
-    /*
     {
-        key: 'rectLabelsOffset',
-        help: `
-            Define the ratio offset when centering a label.
-            The offset affects the vertical postion.
-        `,
+        key: 'labelBoxAnchor',
+        help: 'Defines where labels are placed within their corresponding rectangle.',
         flavors: allFlavors,
-        type: 'number',
+        type: 'BoxAnchor',
         required: false,
-        defaultValue: commonDefaultProps.rectLabelsOffset,
-        group: 'Rect labels',
+        defaultValue: commonDefaultProps.labelBoxAnchor,
+        group: 'Labels',
         control: {
-            type: 'range',
-            min: 0.5,
-            max: 2,
-            step: 0.05,
+            type: 'boxAnchor',
         },
     },
     {
-        key: 'rectLabelsSkipLength',
-        help: `
-            Skip label if corresponding rect's length is lower than provided value.
-            "Length" is determined by width when direction is top or bottom,
-            and by height when direction is left or right.
-        `,
+        key: 'labelAnchor',
+        type: `SvgTextAnchor | 'auto'`,
+        required: false,
+        defaultValue: commonDefaultProps.labelAnchor,
+        help: 'Label text-anchor, `auto` assumes no rotation.',
+        flavors: allFlavors,
+        group: 'Labels',
+        control: {
+            type: 'choices',
+            choices: [
+                { label: 'auto', value: 'auto' },
+                { label: 'start', value: 'start' },
+                { label: 'middle', value: 'middle' },
+                { label: 'end', value: 'end' },
+            ],
+        },
+    },
+    {
+        key: 'labelBaseline',
+        type: `SvgTextDominantBaseline | 'auto'`,
+        required: false,
+        defaultValue: commonDefaultProps.labelBaseline,
+        help: 'Label dominant-baseline, `auto` assumes no rotation.',
+        flavors: allFlavors,
+        group: 'Labels',
+        control: {
+            type: 'choices',
+            choices: [
+                { label: 'auto', value: 'auto' },
+                { label: 'text-before-edge', value: 'text-before-edge' },
+                { label: 'middle', value: 'middle' },
+                { label: 'text-after-edge', value: 'text-after-edge' },
+            ],
+        },
+    },
+    {
+        key: 'labelPaddingX',
+        help: `Label y padding.`,
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaultProps.rectLabelsSkipLength,
-        group: 'Rect labels',
+        defaultValue: commonDefaultProps.labelPaddingX,
+        group: 'Labels',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: -40,
+            max: 40,
+        },
+    },
+    {
+        key: 'labelPaddingY',
+        help: `Label y padding.`,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: commonDefaultProps.labelPaddingY,
+        group: 'Labels',
+        control: {
+            type: 'range',
+            unit: 'px',
+            min: -40,
+            max: 40,
+        },
+    },
+    {
+        key: 'labelRotation',
+        type: 'number',
+        required: false,
+        defaultValue: commonDefaultProps.labelRotation,
+        help: `Label rotation`,
+        flavors: allFlavors,
+        group: 'Labels',
+        control: {
+            type: 'angle',
+            start: 90,
+            marker: 'diameter',
+        },
+    },
+    {
+        key: 'labelSkipWidth',
+        help: `Skip label if rect width is smaller than this value.`,
+        flavors: allFlavors,
+        type: 'number',
+        required: false,
+        defaultValue: commonDefaultProps.labelSkipWidth,
+        group: 'Labels',
         control: {
             type: 'range',
             unit: 'px',
             min: 0,
-            max: 900,
-            step: 1,
+            max: 100,
         },
     },
     {
-        key: 'rectLabelsSkipPercentage',
-        help: `
-            Skip label if corresponding rect's relative size is lower than provided value.
-            The size is relative to the root node considered as 100%.
-            This value is a percentage.
-        `,
+        key: 'labelSkipHeight',
+        help: `Skip label if rect height is smaller than this value.`,
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaultProps.rectLabelsSkipPercentage,
-        group: 'Rect labels',
+        defaultValue: commonDefaultProps.labelSkipHeight,
+        group: 'Labels',
         control: {
             type: 'range',
+            unit: 'px',
             min: 0,
             max: 100,
-            step: 1,
         },
     },
-    */
     {
-        key: 'rectLabelsTextColor',
-        help: 'Defines how to compute rect label text color.',
+        key: 'labelTextColor',
+        help: 'Defines how to compute label text color.',
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: commonDefaultProps.rectLabelsTextColor,
+        defaultValue: commonDefaultProps.labelTextColor,
         control: { type: 'inheritedColor' },
-        group: 'Rect labels',
+        group: 'Labels',
     },
     {
         key: 'layers',
@@ -352,9 +438,8 @@ const props: ChartProperty[] = [
 
             \`\`\`
             {
-                nodes:  ComputedDatum<RawDatum>[]
-                baseOffsetLeft: number
-                baseOffsetTop:  number
+                nodes: ComputedDatum[]
+                zoom: (nodePath: string | null) => void
             }
             \`\`\`
         `,
@@ -382,7 +467,7 @@ const props: ChartProperty[] = [
         help: `Define the behavior of zooming.`,
         type: `'lateral' | 'global'`,
         required: false,
-        defaultValue: defaults.zoomMode,
+        defaultValue: commonDefaultProps.zoomMode,
         flavors: ['svg'],
         control: {
             type: 'radio',
@@ -402,20 +487,8 @@ const props: ChartProperty[] = [
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will receive
-            the following data:
-            \`\`\`
-            {
-                id:         string | number,
-                value:      number,
-                depth:      number,
-                color:      string,
-                name:       string
-                loc:        number
-                percentage: number
-                // the parent datum
-                ancestor:   object
-            }
-            \`\`\`
+            the computed node as first argument.
+
             You can also customize the style of the tooltip
             using the \`theme.tooltip\` object.
         `,
@@ -430,85 +503,81 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
     },
     {
+        key: 'onMouseEnter',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: '(node: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        help: 'onMouseEnter handler',
+    },
+    {
+        key: 'onMouseMove',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: '(node: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        help: 'onMouseMove handler',
+    },
+    {
+        key: 'onMouseLeave',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: '(node: ComputedDatum, event: MouseEvent) => void',
+        required: false,
+        help: 'onMouseMove handler',
+    },
+    {
         key: 'onClick',
         flavors: ['svg'],
         group: 'Interactivity',
-        type: 'Function',
+        type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
         help: 'onClick handler',
-        description: `
-            onClick handler, will receive node data as first argument
-            & event as second one. The node data has the following shape:
-
-            \`\`\`
-            {
-                id:         string | number,
-                value:      number,
-                depth:      number,
-                color:      string,
-                name:       string
-                loc:        number
-                percentage: number
-                // the parent datum
-                ancestor:   object
-            }
-            \`\`\`
-        `,
     },
     {
         key: 'onWheel',
         flavors: ['svg'],
         group: 'Interactivity',
-        type: 'Function',
+        type: '(node: ComputedDatum, event: WheelEvent) => void',
         required: false,
         help: 'onWheel handler',
-        description: `
-            onWheel handler, will receive node data as first argument
-            & event as second one. The node data has the following shape:
-
-            \`\`\`
-            {
-                id:         string | number,
-                value:      number,
-                depth:      number,
-                color:      string,
-                name:       string
-                loc:        number
-                percentage: number
-                // the parent datum
-                ancestor:   object
-            }
-            \`\`\`
-        `,
     },
     {
         key: 'onContextMenu',
         flavors: ['svg'],
         group: 'Interactivity',
-        type: 'Function',
+        type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
         help: 'onContextMenu handler',
-        description: `
-            onContextMenu handler, will receive node data as first argument
-            & event as second one. The node data has the following shape:
-
-            \`\`\`
-            {
-                id:         string | number,
-                value:      number,
-                depth:      number,
-                color:      string,
-                name:       string
-                loc:        number
-                percentage: number
-                // the parent datum
-                ancestor:   object
-            }
-            \`\`\`
-        `,
     },
     ...commonAccessibilityProps(['svg']),
     ...motionProperties(['svg'], svgDefaultProps),
+    {
+        key: 'rectsTransitionMode',
+        group: 'Motion',
+        help: `Define the transitions for rects when appearing/disappearing.`,
+        type: `RectTransitionMode`,
+        required: false,
+        defaultValue: svgDefaultProps.rectsTransitionMode,
+        flavors: ['svg'],
+        control: {
+            type: 'choices',
+            choices: transitionModeOptions,
+        },
+    },
+    {
+        key: 'labelsTransitionMode',
+        group: 'Motion',
+        help: `Define the transitions for labels when appearing/disappearing.`,
+        type: `RectTransitionMode`,
+        required: false,
+        defaultValue: svgDefaultProps.labelsTransitionMode,
+        flavors: ['svg'],
+        control: {
+            type: 'choices',
+            choices: transitionModeOptions,
+        },
+    },
 ]
 
 export const groups = groupProperties(props)

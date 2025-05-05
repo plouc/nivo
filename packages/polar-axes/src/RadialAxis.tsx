@@ -1,6 +1,6 @@
 import { createElement, useMemo } from 'react'
 import { useSpring, useTransition, animated } from '@react-spring/web'
-import { useMotionConfig, normalizeAngle } from '@nivo/core'
+import { useMotionConfig, normalizeAngleDegrees } from '@nivo/core'
 import { AnyScale, getScaleTicks } from '@nivo/scales'
 import { useExtendedAxisTheme, useTheme } from '@nivo/theming'
 import { RadialAxisConfig, RadialAxisTickAnimatedProps } from './types'
@@ -25,7 +25,7 @@ export const RadialAxis = ({
     tickComponent = RadialAxisTick,
     style,
 }: RadialAxisProps) => {
-    const angle = normalizeAngle(rawAngle)
+    const angle = normalizeAngleDegrees(rawAngle)
 
     let textAnchor: 'start' | 'end'
     let lineX: number

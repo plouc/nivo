@@ -1,11 +1,10 @@
-import { createElement, FunctionComponent } from 'react'
+import { createElement, FunctionComponent, useCallback } from 'react'
 import { to } from '@react-spring/web'
 import { PropertyAccessor, usePropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
 import { RectMouseHandler, RectShape, RectShapeProps, RectWheelHandler } from './RectShape'
-import { DatumWithRectAndColor } from './types'
-import { RectTransitionMode } from './rectTransitionMode'
+import { DatumWithRectAndColor, RectTransitionMode } from './types'
 import { useRectsTransition } from './useRectsTransition'
 
 export type RectComponent<Datum extends DatumWithRectAndColor> = FunctionComponent<
@@ -26,7 +25,7 @@ export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
     onContextMenu?: RectMouseHandler<Datum>
     transitionMode?: RectTransitionMode
     component?: RectComponent<Datum>
-    getRectTestId?: (datum: Datum) => string
+    getTestId?: (datum: Datum) => string
 }
 
 export const RectsLayer = <Datum extends DatumWithRectAndColor>({
@@ -43,31 +42,30 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     onContextMenu,
     transitionMode = 'flow-down',
     component = RectShape,
-    getRectTestId,
+    getTestId,
 }: RectsLayerProps<Datum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
     const getUid = usePropertyAccessor(uid)
 
-    const { transition } = useRectsTransition<
+    const extractColors = useCallback(
+        (datum: Datum) => ({
+            color: datum.color,
+            borderColor: getBorderColor(datum),
+        }),
+        [getBorderColor]
+    )
+
+    const transition = useRectsTransition<
         Datum,
         {
             color: string
             borderColor: string
         }
     >(data, getUid, transitionMode, {
-        enter: datum => ({
-            color: datum.color,
-            borderColor: getBorderColor(datum),
-        }),
-        update: datum => ({
-            color: datum.color,
-            borderColor: getBorderColor(datum),
-        }),
-        leave: datum => ({
-            color: datum.color,
-            borderColor: getBorderColor(datum),
-        }),
+        enter: extractColors,
+        update: extractColors,
+        leave: extractColors,
     })
 
     const Rect: RectComponent<Datum> = component
@@ -93,7 +91,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
                     onMouseLeave,
                     onWheel,
                     onContextMenu,
-                    getTestId: getRectTestId,
+                    testId: getTestId?.(datum),
                 })
             })}
         </g>

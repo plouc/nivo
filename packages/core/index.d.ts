@@ -210,8 +210,7 @@ export function positionFromAngle(
     x: number
     y: number
 }
-export function absoluteAngleDegrees(degrees: number): number
-export function normalizeAngle(degrees: number): number
+export function normalizeAngleDegrees(degrees: number): number
 export function clampArc(startAngle: number, endAngle: number, length?: number): [number, number]
 
 type Accessor<T extends keyof U, U> = T extends string ? U[T] : never
@@ -423,3 +422,15 @@ export type ExtractProps<TComponent> =
     TComponent extends ComponentType<infer TProps> ? TProps : never
 
 export const mergeRefs: <T>(...refs: (React.Ref<T> | undefined)[]) => (value: T) => void
+
+export type BoxAnchor =
+    | 'center'
+    | 'top-left'
+    | 'top'
+    | 'top-right'
+    | 'right'
+    | 'bottom-right'
+    | 'bottom'
+    | 'bottom-left'
+    | 'left'
+export const BOX_ANCHORS: readonly BoxAnchor[]

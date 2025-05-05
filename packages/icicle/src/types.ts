@@ -9,7 +9,7 @@ import {
     Dimensions,
 } from '@nivo/core'
 import { PartialTheme } from '@nivo/theming'
-import { type Rect, RectLabelsProps } from '@nivo/rects'
+import { type Rect, RectLabelsProps, RectTransitionMode } from '@nivo/rects'
 
 export interface DefaultIcicleDatum {
     id: string
@@ -17,7 +17,7 @@ export interface DefaultIcicleDatum {
     children?: DefaultIcicleDatum[]
 }
 
-export type IcicleLayerId = 'rects' | 'rectLabels'
+export type IcicleLayerId = 'rects' | 'labels'
 
 export interface IcicleCommonCustomLayerProps<Datum> {
     nodes: readonly ComputedDatum<Datum>[]
@@ -66,7 +66,8 @@ export type IcicleCommonProps<Datum> = {
     valueFormat?: ValueFormat<number>
     margin: Box
     orientation: IcicleOrientation
-    padding: number
+    gapX: number
+    gapY: number
     theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<Datum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
@@ -76,13 +77,13 @@ export type IcicleCommonProps<Datum> = {
     borderRadius: number
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<Datum>>
-    enableRectLabels: boolean
+    enableLabels: boolean
     isInteractive: boolean
     enableZooming: boolean
     zoomMode: IcicleZoomMode
-    tooltip: (props: ComputedDatum<Datum>) => JSX.Element
+    tooltip: FunctionComponent<ComputedDatum<Datum>>
     renderWrapper: boolean
-} & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'rectLabelsComponent'>
+} & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'uid' | 'labelComponent'>
 
 export type MouseHandler<Datum> = (datum: ComputedDatum<Datum>, event: MouseEvent) => void
 
@@ -99,9 +100,11 @@ export type MouseHandlers<Datum> = Partial<{
 
 export interface IcicleSvgExtraProps<Datum> {
     layers: readonly IcicleSvgLayer<Datum>[]
-    rectLabelsComponent?: RectLabelsProps<ComputedDatum<Datum>>['rectLabelsComponent']
+    labelComponent?: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
+    rectsTransitionMode: RectTransitionMode
+    labelsTransitionMode: RectTransitionMode
     role: string
     ariaLabel?: AriaAttributes['aria-label']
     ariaLabelledBy?: AriaAttributes['aria-labelledby']

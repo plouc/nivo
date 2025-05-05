@@ -113,6 +113,7 @@ export interface AngleControlConfig {
     min?: number
     max?: number
     step?: number
+    marker?: 'radius' | 'diameter'
 }
 
 export interface ObjectControlConfig {

@@ -423,6 +423,7 @@ export const polarAxisProperty = ({
                 start: 90,
                 min: -90,
                 max: 90,
+                marker: 'diameter',
             },
         },
         {

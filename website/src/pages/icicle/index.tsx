@@ -4,12 +4,15 @@ import { svgDefaultProps, ResponsiveIcicle } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/icicle/meta.yml'
-import mapper from '../../data/components/icicle/mapper'
+import mapper, {
+    UnmappedIcicleSvgProps,
+    MappedIcicleSvgProps,
+} from '../../data/components/icicle/mapper'
 import { groups } from '../../data/components/icicle/props'
 
 const generateData = () => generateLibTree()
 
-const initialProperties = {
+const initialProperties: UnmappedIcicleSvgProps = {
     margin: {
         top: 20,
         right: 20,
@@ -20,37 +23,43 @@ const initialProperties = {
     value: 'loc',
     valueFormat: { format: '', enabled: false },
     orientation: svgDefaultProps.orientation,
-    padding: 0,
+    gapX: 2,
+    gapY: 2,
     borderRadius: 2,
-    borderWidth: 1,
-    borderColor: { theme: 'background' },
-    colors: { scheme: 'nivo' },
-    colorBy: 'id',
-    inheritColorFromParent: true,
+    borderWidth: svgDefaultProps.borderWidth,
+    borderColor: svgDefaultProps.borderColor,
+    colors: { scheme: 'tableau10' },
+    colorBy: svgDefaultProps.colorBy,
+    inheritColorFromParent: svgDefaultProps.inheritColorFromParent,
     childColor: {
         from: 'color',
-        modifiers: [['brighter', 0.1]],
+        modifiers: [['brighter', 0.3]],
     },
-    enableRectLabels: true,
-    rectLabel: 'id',
-    rectLabelsTextColor: {
+    enableLabels: true,
+    label: svgDefaultProps.label,
+    labelBoxAnchor: 'top',
+    labelPaddingX: 6,
+    labelPaddingY: 6,
+    labelAnchor: 'end',
+    labelBaseline: 'middle',
+    labelRotation: 270,
+    labelSkipWidth: 12,
+    labelSkipHeight: 32,
+    labelTextColor: {
         from: 'color',
-        modifiers: [['darker', 1.4]],
+        modifiers: [['darker', 1.7]],
     },
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
+    rectsTransitionMode: svgDefaultProps.rectsTransitionMode,
+    labelsTransitionMode: 'flow-down',
     defs: [],
     fill: [],
     isInteractive: true,
     enableZooming: svgDefaultProps.enableZooming,
     zoomMode: svgDefaultProps.zoomMode,
     'custom tooltip example': false,
-    tooltip: null,
     'showcase pattern usage': false,
-    rectLabelsSkipWidth: 32,
-    rectLabelsSkipHeight: 32,
-    rectLabelsOffsetX: svgDefaultProps.rectLabelsOffsetX,
-    rectLabelsOffsetY: svgDefaultProps.rectLabelsOffsetY,
 }
 
 const Icicle = () => {
@@ -69,7 +78,11 @@ const Icicle = () => {
     `)
 
     return (
-        <ComponentTemplate
+        <ComponentTemplate<
+            UnmappedIcicleSvgProps,
+            MappedIcicleSvgProps,
+            ReturnType<typeof generateData>
+        >
             name="Icicle"
             meta={meta.Icicle}
             icon="icicle"
@@ -95,7 +108,6 @@ const Icicle = () => {
                                     Math.round(node.percentage * 100) / 100
                                 }%`,
                                 color: node.color,
-                                // prevent cyclic dependency
                                 data: node,
                             })
                         }

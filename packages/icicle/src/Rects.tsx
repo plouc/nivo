@@ -18,6 +18,7 @@ export interface RectsProps<Datum> {
     onWheel?: MouseHandlers<Datum>['onWheel']
     onContextMenu?: MouseHandlers<Datum>['onContextMenu']
     tooltip: IcicleSvgPropsWithDefaults<Datum>['tooltip']
+    transitionMode: IcicleSvgPropsWithDefaults<Datum>['rectsTransitionMode']
 }
 
 export const Rects = <Datum,>({
@@ -35,6 +36,7 @@ export const Rects = <Datum,>({
     onWheel,
     onContextMenu,
     tooltip,
+    transitionMode,
 }: RectsProps<Datum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
@@ -84,10 +86,7 @@ export const Rects = <Datum,>({
         [onContextMenu]
     )
 
-    const getRectTestId = useCallback(
-        (datum: ComputedDatum<Datum>) => `icicle.rect.${datum.path}`,
-        []
-    )
+    const getTestId = useCallback((datum: ComputedDatum<Datum>) => `icicle.rect.${datum.path}`, [])
 
     return (
         <RectsLayer<ComputedDatum<Datum>>
@@ -102,7 +101,8 @@ export const Rects = <Datum,>({
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onWheel={isInteractive ? handleWheel : undefined}
             onContextMenu={isInteractive ? handleContextMenu : undefined}
-            getRectTestId={getRectTestId}
+            getTestId={getTestId}
+            transitionMode={transitionMode}
         />
     )
 }

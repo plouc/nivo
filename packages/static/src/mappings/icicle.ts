@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
 import { Icicle, IcicleSvgProps } from '@nivo/icicle'
+import { BOX_ANCHORS } from '@nivo/core'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'
@@ -8,7 +9,20 @@ import { OmitStrict } from '../types'
 
 export type IcicleApiProps = OmitStrict<
     IcicleSvgProps<any>,
-    'isInteractive' | 'tooltip' | 'onClick' | 'animate' | 'motionConfig' | 'renderWrapper'
+    | 'isInteractive'
+    | 'tooltip'
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'onWheel'
+    | 'onContextMenu'
+    | 'animate'
+    | 'motionConfig'
+    | 'renderWrapper'
+    | 'labelComponent'
+    | 'enableZooming'
+    | 'zoomMode'
 >
 
 export const icicleMapping = {
@@ -30,13 +44,15 @@ export const icicleMapping = {
         borderWidth: Joi.number().min(0),
         borderColor: inheritedColor,
 
-        enableRectLabels: Joi.boolean(),
-        rectLabel: Joi.string(),
-        rectLabelsTextColor: inheritedColor,
-        rectLabelsOffsetX: Joi.number(),
-        rectLabelsOffsetY: Joi.number(),
-        rectLabelsSkipWidth: Joi.number().min(0),
-        rectLabelsSkipHeight: Joi.number().min(0).max(100),
+        enableLabels: Joi.boolean(),
+        label: Joi.string(),
+        labelAnchor: Joi.any().valid(...BOX_ANCHORS),
+        labelPaddingX: Joi.number(),
+        labelPaddingY: Joi.number(),
+        labelRotation: Joi.number(),
+        labelSkipWidth: Joi.number().min(0),
+        labelSkipHeight: Joi.number().min(0).max(100),
+        labelTextColor: inheritedColor,
     }),
     runtimeProps: ['width', 'height', 'colors'],
     defaults: {

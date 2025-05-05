@@ -85,6 +85,7 @@ export const axes = ({
                                     start: 90,
                                     min: -90,
                                     max: 90,
+                                    marker: 'diameter',
                                 },
                             },
                             {

@@ -30,14 +30,15 @@ export const useIcicle = <Datum>({
     identity = commonDefaultProps.identity as IcicleCommonProps<Datum>['identity'],
     value = commonDefaultProps.value as IcicleCommonProps<Datum>['value'],
     valueFormat,
+    width,
+    height,
     orientation = commonDefaultProps.orientation,
-    padding = commonDefaultProps.padding,
+    gapX = commonDefaultProps.gapX,
+    gapY = commonDefaultProps.gapY,
     colors = commonDefaultProps.colors as IcicleCommonProps<Datum>['colors'],
     colorBy = commonDefaultProps.colorBy,
     inheritColorFromParent = commonDefaultProps.inheritColorFromParent,
     childColor = commonDefaultProps.childColor as IcicleCommonProps<Datum>['childColor'],
-    width,
-    height,
     enableZooming = commonDefaultProps.enableZooming,
     zoomMode = commonDefaultProps.zoomMode,
 }: DataProps<Datum> &
@@ -47,7 +48,8 @@ export const useIcicle = <Datum>({
         | 'value'
         | 'valueFormat'
         | 'orientation'
-        | 'padding'
+        | 'gapX'
+        | 'gapY'
         | 'colors'
         | 'colorBy'
         | 'inheritColorFromParent'
@@ -77,9 +79,9 @@ export const useIcicle = <Datum>({
 
         const isHorizontal = orientation === 'left' || orientation === 'right'
 
-        const partition = d3Partition<Datum>()
-            .size(isHorizontal ? [height, width] : [width, height])
-            .padding(padding)
+        const partition = d3Partition<Datum>().size(
+            isHorizontal ? [height, width] : [width, height]
+        )
 
         const descendants = partition(hierarchy).descendants()
 
@@ -175,7 +177,6 @@ export const useIcicle = <Datum>({
         width,
         height,
         orientation,
-        padding,
     ])
 
     const [zoomedNodePath, setZoomedNodePath] = useState<string | null>(null)
@@ -239,6 +240,20 @@ export const useIcicle = <Datum>({
         }))
     }, [enableZooming, zoomMode, zoomedNodePath, nodes, nodeByPath, width, height, orientation])
 
+    const spacedNodes = useMemo(() => {
+        return zoomedNodes.map(node => {
+            return {
+                ...node,
+                rect: {
+                    x: node.rect.x + gapX / 2,
+                    y: node.rect.y + gapY / 2,
+                    width: node.rect.width - gapX,
+                    height: node.rect.height - gapY,
+                },
+            }
+        })
+    }, [zoomedNodes, gapX, gapY])
+
     const zoom = useCallback(
         (nodePath: string | null) => {
             if (!enableZooming) return
@@ -252,7 +267,7 @@ export const useIcicle = <Datum>({
     )
 
     return {
-        nodes: zoomedNodes,
+        nodes: spacedNodes,
         zoom,
     }
 }
