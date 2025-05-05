@@ -30,6 +30,7 @@
         "@nivo/polar-bar": "workspace:*",
         "@nivo/radar": "workspace:*",
         "@nivo/radial-bar": "workspace:*",
+        "@nivo/rects": "workspace:*",
         "@nivo/sankey": "workspace:*",
         "@nivo/scales": "workspace:*",
         "@nivo/scatterplot": "workspace:*",

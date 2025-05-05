@@ -6,6 +6,7 @@ import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/icicle/props'
 import mapper from '../../data/components/icicle/mapper'
 import meta from '../../data/components/icicle/meta.yml'
+import { svgDefaultProps } from '@nivo/icicle'
 
 const data = generateLibTree()
 
@@ -54,7 +55,8 @@ const IcicleApi = () => {
                     identity: 'name',
                     value: 'loc',
                     valueFormat: { format: '', enabled: false },
-                    padding: 0,
+                    gapX: 2,
+                    gapY: 2,
                     borderRadius: 2,
                     borderWidth: 1,
                     borderColor: '#fff',
@@ -64,15 +66,18 @@ const IcicleApi = () => {
                     childColor: {
                         from: 'color',
                     },
-                    enableRectLabels: true,
-                    rectLabel: 'formattedValue',
-                    rectLabelsTextColor: {
+                    enableLabels: true,
+                    label: svgDefaultProps.label,
+                    labelsAnchor: svgDefaultProps.labelsAnchor,
+                    labelsPaddingX: svgDefaultProps.labelsPaddingX,
+                    labelsPaddingY: svgDefaultProps.labelsPaddingY,
+                    labelsSkipWidth: 32,
+                    labelsSkipHeight: 32,
+                    labelsRotation: 0,
+                    labelsTextColor: {
                         from: 'color',
                         modifiers: [['darker', 1.4]],
                     },
-                    rectLabelsSkipLength: 0,
-                    rectLabelsSkipPercentage: 0,
-                    rectLabelsOffset: 1,
                 }}
             />
         </>

@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode, useCallback } from 'react'
 import { RectLabelsLayer } from '@nivo/rects'
 import {
     // @ts-expect-error no types
@@ -21,7 +21,8 @@ const InnerIcicle = <Datum,>({
     width,
     height,
     orientation = svgDefaultProps.orientation,
-    padding = svgDefaultProps.padding,
+    gapX = svgDefaultProps.gapX,
+    gapY = svgDefaultProps.gapY,
     layers = svgDefaultProps.layers as readonly IcicleLayerId[],
     colors = svgDefaultProps.colors as IcicleSvgPropsWithDefaults<Datum>['colors'],
     colorBy = svgDefaultProps.colorBy,
@@ -32,14 +33,18 @@ const InnerIcicle = <Datum,>({
     borderColor = svgDefaultProps.borderColor as IcicleSvgPropsWithDefaults<Datum>['borderColor'],
     defs = svgDefaultProps.defs,
     fill = svgDefaultProps.fill,
-    enableRectLabels = svgDefaultProps.enableRectLabels,
-    rectLabel = svgDefaultProps.rectLabel as IcicleSvgPropsWithDefaults<Datum>['rectLabel'],
-    rectLabelsOffsetX = svgDefaultProps.rectLabelsOffsetX,
-    rectLabelsOffsetY = svgDefaultProps.rectLabelsOffsetY,
-    rectLabelsSkipWidth = svgDefaultProps.rectLabelsSkipWidth,
-    rectLabelsSkipHeight = svgDefaultProps.rectLabelsSkipHeight,
-    rectLabelsTextColor = svgDefaultProps.rectLabelsTextColor as IcicleSvgPropsWithDefaults<Datum>['rectLabelsTextColor'],
-    rectLabelsComponent,
+    enableLabels = svgDefaultProps.enableLabels,
+    label = svgDefaultProps.label as IcicleSvgPropsWithDefaults<Datum>['label'],
+    labelBoxAnchor = svgDefaultProps.labelBoxAnchor,
+    labelAnchor = svgDefaultProps.labelAnchor,
+    labelBaseline = svgDefaultProps.labelBaseline,
+    labelPaddingX = svgDefaultProps.labelPaddingX,
+    labelPaddingY = svgDefaultProps.labelPaddingY,
+    labelRotation = svgDefaultProps.labelRotation,
+    labelSkipWidth = svgDefaultProps.labelSkipWidth,
+    labelSkipHeight = svgDefaultProps.labelSkipHeight,
+    labelTextColor = svgDefaultProps.labelTextColor as IcicleSvgPropsWithDefaults<Datum>['labelTextColor'],
+    labelComponent,
     isInteractive = svgDefaultProps.isInteractive,
     enableZooming = svgDefaultProps.enableZooming,
     zoomMode = svgDefaultProps.zoomMode,
@@ -50,6 +55,8 @@ const InnerIcicle = <Datum,>({
     onMouseMove,
     onWheel,
     onContextMenu,
+    rectsTransitionMode = svgDefaultProps.rectsTransitionMode,
+    labelsTransitionMode = svgDefaultProps.labelsTransitionMode,
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -66,14 +73,15 @@ const InnerIcicle = <Datum,>({
         identity,
         value,
         valueFormat,
+        width: innerWidth,
+        height: innerHeight,
+        orientation,
+        gapX,
+        gapY,
         colors,
         colorBy,
         inheritColorFromParent,
         childColor,
-        width: innerWidth,
-        height: innerHeight,
-        orientation,
-        padding,
         enableZooming,
         zoomMode,
     })
@@ -85,7 +93,7 @@ const InnerIcicle = <Datum,>({
 
     const layerById: Record<IcicleLayerId, ReactNode> = {
         rects: null,
-        rectLabels: null,
+        labels: null,
     }
 
     if (layers.includes('rects')) {
@@ -106,23 +114,35 @@ const InnerIcicle = <Datum,>({
                 onMouseMove={onMouseMove}
                 onWheel={onWheel}
                 onContextMenu={onContextMenu}
+                transitionMode={rectsTransitionMode}
             />
         )
     }
 
-    if (enableRectLabels && layers.includes('rectLabels')) {
-        layerById.rectLabels = (
+    const getLabelTestId = useCallback(
+        (datum: Omit<ComputedDatum<Datum>, 'rect'>) => `icicle.label.${datum.path}`,
+        []
+    )
+
+    if (enableLabels && layers.includes('labels')) {
+        layerById.labels = (
             <RectLabelsLayer<ComputedDatum<Datum>>
-                key="rectLabels"
+                key="labels"
                 data={nodes}
-                label={rectLabel}
-                textColor={rectLabelsTextColor}
-                component={rectLabelsComponent}
-                offsetX={rectLabelsOffsetX}
-                offsetY={rectLabelsOffsetY}
-                skipWidth={rectLabelsSkipWidth}
-                skipHeight={rectLabelsSkipHeight}
-                transitionMode="flow-right"
+                uid="path"
+                label={label}
+                boxAnchor={labelBoxAnchor}
+                anchor={labelAnchor}
+                baseline={labelBaseline}
+                paddingX={labelPaddingX}
+                paddingY={labelPaddingY}
+                rotation={labelRotation}
+                skipWidth={labelSkipWidth}
+                skipHeight={labelSkipHeight}
+                textColor={labelTextColor}
+                component={labelComponent}
+                transitionMode={labelsTransitionMode}
+                getTestId={getLabelTestId}
             />
         )
     }

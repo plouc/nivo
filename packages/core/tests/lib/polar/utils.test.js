@@ -1,10 +1,10 @@
-import { absoluteAngleDegrees, midAngle } from '../../../src/lib/polar/utils'
+import { normalizeAngleDegrees, midAngle } from '../../../src/lib/polar/utils'
 
 test('midAngle() should compute center of given angles', () => {
     expect(midAngle({ startAngle: 0, endAngle: 90 })).toBe(45)
 })
 
-const absAngleDegUseCases = [
+const normAngleDegUseCases = [
     {
         input: 0,
         expected: 0,
@@ -27,10 +27,10 @@ const absAngleDegUseCases = [
     },
 ]
 
-for (const absAngleDegUseCase of absAngleDegUseCases) {
-    const { input, expected } = absAngleDegUseCase
+for (const normAngleDegUseCase of normAngleDegUseCases) {
+    const { input, expected } = normAngleDegUseCase
 
-    test(`absoluteAngleDegrees() should convert ${input}° to ${expected}°`, () => {
-        expect(absoluteAngleDegrees(input)).toBe(expected)
+    test(`normalizeAngleDegrees() should convert ${input}° to ${expected}°`, () => {
+        expect(normalizeAngleDegrees(input)).toBe(expected)
     })
 }

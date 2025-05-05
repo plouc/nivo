@@ -33,6 +33,7 @@ export const AngleControl = memo(
         const start = config.start || 0
         const min = config.min || 0
         const max = config.max || 360
+        const marker = config.marker || 'radius'
 
         const handleChange = useCallback(
             (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +41,9 @@ export const AngleControl = memo(
             },
             [onChange]
         )
+
+        const y0 = marker === 'radius' ? 0 : size / 2 - markerSize / 2
+        const y1 = -size / 2 + markerSize / 2
 
         return (
             <Control
@@ -62,9 +66,10 @@ export const AngleControl = memo(
                         <Circle cx={center} cy={center} r={center - markerSize / 2} />
                         <g transform={`translate(${center},${center})`}>
                             <g transform={`rotate(${start + value})`}>
-                                <Line y2={-size / 2 + markerSize / 2} />
-                                <Marker r={markerSize / 4} />
-                                <Marker cy={-size / 2 + markerSize / 2} r={markerSize / 2} />
+                                <Line y1={y0} y2={y1} />
+                                {marker === 'radius' && <Marker r={markerSize / 4} />}
+                                <Marker cy={y1} r={markerSize / 2} />
+                                {marker === 'diameter' && <Marker cy={y0} r={markerSize / 2} />}
                             </g>
                         </g>
                     </svg>

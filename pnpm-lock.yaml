@@ -1726,6 +1726,9 @@ importers:
 
   packages/text:
     dependencies:
+      '@nivo/core':
+        specifier: workspace:*
+        version: link:../core
       '@nivo/theming':
         specifier: workspace:*
         version: link:../theming
@@ -2149,6 +2152,9 @@ importers:
       '@nivo/radial-bar':
         specifier: workspace:*
         version: link:../packages/radial-bar
+      '@nivo/rects':
+        specifier: workspace:*
+        version: link:../packages/rects
       '@nivo/sankey':
         specifier: workspace:*
         version: link:../packages/sankey

@@ -15,31 +15,13 @@ export const positionFromAngle = (angle, distance) => ({
  * Normalize given angle (degrees) in the 0~360 range.
  *
  * @param {number} angle
- *
  * @return {number}
  */
-export const absoluteAngleDegrees = angle => {
+export const normalizeAngleDegrees = angle => {
     let absAngle = angle % 360
-    if (absAngle < 0) {
-        absAngle += 360
-    }
+    if (absAngle < 0) absAngle += 360
 
     return absAngle
-}
-
-/**
- * Ensure angle is always between 0~360.
- *
- * @param {number} rawAngle - in degrees
- *
- * @returns {number}
- */
-export const normalizeAngle = rawAngle => {
-    if (rawAngle < 0) {
-        return 360 - (-rawAngle % 360)
-    }
-
-    return rawAngle % 360
 }
 
 /**
