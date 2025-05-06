@@ -31,7 +31,7 @@ const props: ChartProperty[] = [
         help: 'Hierarchical chart data.',
         description: `
             Chart data, which must conform to this structure
-            if using the default \`id\` and \`value\` accessors:
+            if using the default \`identity\` and \`value\` accessors:
 
             \`\`\`
             {
@@ -47,7 +47,7 @@ const props: ChartProperty[] = [
             \`\`\`
 
             If using a different data structure, you must make sure
-            to adjust both \`id\` and \`value\`. Meaning you can provide
+            to adjust both \`identity\` and \`value\`. Meaning you can provide
             a completely different data structure as long as \`id\` and \`value\`
             return the appropriate values.
 
@@ -63,12 +63,13 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         help: 'Id accessor.',
         description: `
-            define id accessor, if string given,
-            will use \`node[value]\`,
-            if function given, it will be invoked
-            for each node and will receive the node as
-            first argument, it must return the node
-            id (string).
+            Define id accessor, if a string given, will use \`node[value]\`,
+            if a function is provided, it will be invoked for each node
+            and will receive the node as first argument, it must return
+            the node id (string).
+            
+            You can have duplicate ids in the data, internally, we compute
+            the full path of the node to generate a unique id.
         `,
         type: 'PropertyAccessor<Datum, string>',
         required: false,

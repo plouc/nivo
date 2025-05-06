@@ -1,6 +1,13 @@
-import { linearGradientDef, patternDotsDef } from '@nivo/core'
+import { linearGradientDef, patternDotsDef, BoxAnchor } from '@nivo/core'
 import { colorSchemes } from '@nivo/colors'
-import { Icicle, IcicleSvgProps, DefaultIcicleDatum } from '@nivo/icicle'
+import {
+    Icicle,
+    IcicleSvgProps,
+    DefaultIcicleDatum,
+    IcicleCommonCustomLayerProps,
+} from '@nivo/icicle'
+import { useTheme } from '@nivo/theming'
+import { Text, SvgTextAnchor, SvgTextDominantBaseline } from '@nivo/text'
 import get from 'lodash/get.js'
 
 const getNode = <N,>(root: N, path: string): N => get(root, path)
@@ -14,6 +21,38 @@ const defaultData: DefaultIcicleDatum = {
                 {
                     id: '0',
                     value: 25,
+                },
+                {
+                    id: '1',
+                    value: 25,
+                },
+            ],
+        },
+        {
+            id: 'B',
+            value: 50,
+        },
+    ],
+}
+
+const deeperData = {
+    id: 'root',
+    children: [
+        {
+            id: 'A',
+            children: [
+                {
+                    id: '0',
+                    children: [
+                        {
+                            id: 'X',
+                            value: 10,
+                        },
+                        {
+                            id: 'Y',
+                            value: 15,
+                        },
+                    ],
                 },
                 {
                     id: '1',
@@ -99,29 +138,110 @@ const defaultProps: IcicleSvgProps<DefaultIcicleDatum> = {
         bottom: 10,
         left: 10,
     },
-    padding: 2,
+    gapX: 2,
+    gapY: 2,
     enableZooming: false,
     animate: false,
+    theme: {
+        text: {
+            fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace`,
+        },
+    },
     data: defaultData,
 }
 
+// Remove the gaps and margins to get nice round values,
+// As the chart is 400x400, we'll have a max depth of 4,
+// so that we can use multiple of 100 for most assertions.
+const propsForLayoutTesting: IcicleSvgProps<DefaultIcicleDatum> = {
+    ...defaultProps,
+    margin: {},
+    gapX: 0,
+    gapY: 0,
+    data: deeperData,
+    colors: { scheme: 'tableau10' },
+    inheritColorFromParent: false,
+    enableLabels: true,
+}
+
 interface ExpectedNode {
+    // Used to select the nodes/labels by test id.
     path: string
-    id: string
-    value: number
-    color: string
+    // If provided, test the node's transform and dimensions.
+    rect?: {
+        x: number
+        y: number
+        width: number
+        height: number
+    }
+    fill?: string
+    // If provided, test that the provided value is contained
+    // in the tooltip.
+    // This also determines if we try to hover the node or not.
+    tooltip?: string
+    // If provided, test that the provided value is contained
+    // in the label text element.
+    label?: string
+    labelLayout?: {
+        position?: [number, number]
+        rotation?: number
+        anchor?: SvgTextAnchor
+        baseline?: SvgTextDominantBaseline
+    }
 }
 
 const testNode = (expectedNode: ExpectedNode) => {
     const node = cy.findByTestId(`icicle.rect.${expectedNode.path}`).should('exist')
-    node.should('have.attr', 'fill', expectedNode.color)
 
-    node.trigger('mouseover')
-    let tooltip = cy.findByRole('tooltip').should('exist')
-    tooltip.should('contain', `${expectedNode.id}: ${expectedNode.value}`)
+    if (expectedNode.rect) {
+        node.should(
+            'have.attr',
+            'transform',
+            `translate(${expectedNode.rect.x},${expectedNode.rect.y})`
+        )
+        node.should('have.attr', 'width', expectedNode.rect.width)
+        node.should('have.attr', 'height', expectedNode.rect.height)
+    }
 
-    node.trigger('mouseout')
-    cy.findByRole('tooltip').should('not.exist')
+    if (expectedNode.fill) {
+        node.should('have.attr', 'fill', expectedNode.fill)
+    }
+
+    if (expectedNode.tooltip) {
+        node.trigger('mouseover')
+        let tooltip = cy.findByRole('tooltip').should('exist')
+
+        tooltip.should('contain', expectedNode.tooltip)
+
+        node.trigger('mouseout')
+        cy.findByRole('tooltip').should('not.exist')
+    }
+
+    if (expectedNode.label || expectedNode.labelLayout) {
+        const label = cy.findByTestId(`icicle.label.${expectedNode.path}`).should('exist')
+
+        if (expectedNode.label) {
+            label.should('contain', expectedNode.label)
+        }
+
+        if (expectedNode.labelLayout) {
+            if (expectedNode.labelLayout.anchor) {
+                label.should('have.attr', 'text-anchor', expectedNode.labelLayout.anchor)
+            }
+            if (expectedNode.labelLayout.baseline) {
+                label.should('have.attr', 'dominant-baseline', expectedNode.labelLayout.baseline)
+            }
+
+            if (expectedNode.labelLayout.position) {
+                const labelGroup = label.parent().should('exist')
+
+                const labelRotation = expectedNode.labelLayout.rotation ?? 0
+                const expectedLabelTransform = `translate(${expectedNode.labelLayout.position[0]},${expectedNode.labelLayout.position[1]}) rotate(${labelRotation})`
+
+                labelGroup.should('have.attr', 'transform', expectedLabelTransform)
+            }
+        }
+    }
 }
 
 const testNodes = (expectedNodes: ExpectedNode[]) => {
@@ -141,33 +261,18 @@ describe('<Icicle />', () => {
         testNodes([
             {
                 path: 'root',
-                id: 'root',
-                value: 100,
-                color: colorSchemes.nivo[0],
             },
             {
                 path: 'root.A',
-                id: 'A',
-                value: 50,
-                color: colorSchemes.nivo[1],
             },
             {
                 path: 'root.A.0',
-                id: '0',
-                value: 25,
-                color: colorSchemes.nivo[1],
             },
             {
                 path: 'root.A.1',
-                id: '1',
-                value: 25,
-                color: colorSchemes.nivo[1],
             },
             {
                 path: 'root.B',
-                id: 'B',
-                value: 50,
-                color: colorSchemes.nivo[2],
             },
         ])
     })
@@ -185,34 +290,19 @@ describe('<Icicle />', () => {
 
             testNodes([
                 {
-                    id: 'root',
                     path: 'root',
-                    value: 100,
-                    color: colorSchemes.nivo[0],
                 },
                 {
-                    id: 'A',
                     path: 'root.A',
-                    value: 50,
-                    color: colorSchemes.nivo[1],
                 },
                 {
-                    id: '0',
                     path: 'root.A.0',
-                    value: 25,
-                    color: colorSchemes.nivo[1],
                 },
                 {
-                    id: '1',
                     path: 'root.A.1',
-                    value: 25,
-                    color: colorSchemes.nivo[1],
                 },
                 {
-                    id: 'B',
                     path: 'root.B',
-                    value: 50,
-                    color: colorSchemes.nivo[2],
                 },
             ])
         })
@@ -229,34 +319,229 @@ describe('<Icicle />', () => {
 
             testNodes([
                 {
-                    id: 'root',
                     path: 'root',
-                    value: 100,
-                    color: colorSchemes.nivo[0],
                 },
                 {
-                    id: 'A',
                     path: 'root.A',
-                    value: 50,
-                    color: colorSchemes.nivo[1],
                 },
                 {
-                    id: '0',
                     path: 'root.A.0',
-                    value: 25,
-                    color: colorSchemes.nivo[1],
                 },
                 {
-                    id: '1',
                     path: 'root.A.1',
-                    value: 25,
-                    color: colorSchemes.nivo[1],
                 },
                 {
-                    id: 'B',
                     path: 'root.B',
-                    value: 50,
-                    color: colorSchemes.nivo[2],
+                },
+            ])
+        })
+    })
+
+    describe('layout', () => {
+        it('should have bottom orientation by default', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 400,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A',
+                    rect: {
+                        x: 0,
+                        y: 100,
+                        width: 200,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.B',
+                    rect: {
+                        x: 200,
+                        y: 100,
+                        width: 200,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A.0',
+                    rect: {
+                        x: 0,
+                        y: 200,
+                        width: 100,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A.0.X',
+                    rect: {
+                        x: 0,
+                        y: 300,
+                        width: 40,
+                        height: 100,
+                    },
+                },
+            ])
+        })
+
+        it('should support top orientation', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="top" />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    rect: {
+                        x: 0,
+                        y: 300,
+                        width: 400,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A',
+                    rect: {
+                        x: 0,
+                        y: 200,
+                        width: 200,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.B',
+                    rect: {
+                        x: 200,
+                        y: 200,
+                        width: 200,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A.0',
+                    rect: {
+                        x: 0,
+                        y: 100,
+                        width: 100,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A.0.X',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 40,
+                        height: 100,
+                    },
+                },
+            ])
+        })
+
+        it('should support right orientation', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="right" />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 100,
+                        height: 400,
+                    },
+                },
+                {
+                    path: 'root.A',
+                    rect: {
+                        x: 100,
+                        y: 0,
+                        width: 100,
+                        height: 200,
+                    },
+                },
+                {
+                    path: 'root.B',
+                    rect: {
+                        x: 100,
+                        y: 200,
+                        width: 100,
+                        height: 200,
+                    },
+                },
+                {
+                    path: 'root.A.0',
+                    rect: {
+                        x: 200,
+                        y: 0,
+                        width: 100,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A.0.X',
+                    rect: {
+                        x: 300,
+                        y: 0,
+                        width: 100,
+                        height: 40,
+                    },
+                },
+            ])
+        })
+
+        it('should support left orientation', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="left" />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    rect: {
+                        x: 300,
+                        y: 0,
+                        width: 100,
+                        height: 400,
+                    },
+                },
+                {
+                    path: 'root.A',
+                    rect: {
+                        x: 200,
+                        y: 0,
+                        width: 100,
+                        height: 200,
+                    },
+                },
+                {
+                    path: 'root.B',
+                    rect: {
+                        x: 200,
+                        y: 200,
+                        width: 100,
+                        height: 200,
+                    },
+                },
+                {
+                    path: 'root.A.0',
+                    rect: {
+                        x: 100,
+                        y: 0,
+                        width: 100,
+                        height: 100,
+                    },
+                },
+                {
+                    path: 'root.A.0.X',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 100,
+                        height: 40,
+                    },
                 },
             ])
         })
@@ -269,33 +554,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    id: 'root',
-                    value: 100,
-                    color: colorSchemes.accent[0],
+                    fill: colorSchemes.accent[0],
                 },
                 {
                     path: 'root.A',
-                    id: 'A',
-                    value: 50,
-                    color: colorSchemes.accent[1],
+                    fill: colorSchemes.accent[1],
                 },
                 {
                     path: 'root.A.0',
-                    id: '0',
-                    value: 25,
-                    color: colorSchemes.accent[1],
+                    fill: colorSchemes.accent[1],
                 },
                 {
                     path: 'root.A.1',
-                    id: '1',
-                    value: 25,
-                    color: colorSchemes.accent[1],
+                    fill: colorSchemes.accent[1],
                 },
                 {
                     path: 'root.B',
-                    id: 'B',
-                    value: 50,
-                    color: colorSchemes.accent[2],
+                    fill: colorSchemes.accent[2],
                 },
             ])
         })
@@ -313,33 +588,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    id: 'root',
-                    value: 100,
-                    color: dataWithColor.color,
+                    fill: dataWithColor.color,
                 },
                 {
                     path: 'root.A',
-                    id: 'A',
-                    value: 50,
-                    color: getNode(dataWithColor, 'children.0').color,
+                    fill: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.A.0',
-                    id: '0',
-                    value: 25,
-                    color: getNode(dataWithColor, 'children.0.children.0').color,
+                    fill: getNode(dataWithColor, 'children.0.children.0').color,
                 },
                 {
                     path: 'root.A.1',
-                    id: '1',
-                    value: 25,
-                    color: getNode(dataWithColor, 'children.0.children.1').color,
+                    fill: getNode(dataWithColor, 'children.0.children.1').color,
                 },
                 {
                     path: 'root.B',
-                    id: 'B',
-                    value: 50,
-                    color: getNode(dataWithColor, 'children.1').color,
+                    fill: getNode(dataWithColor, 'children.1').color,
                 },
             ])
         })
@@ -356,33 +621,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    id: 'root',
-                    value: 100,
-                    color: dataWithColor.color,
+                    fill: dataWithColor.color,
                 },
                 {
                     path: 'root.A',
-                    id: 'A',
-                    value: 50,
-                    color: getNode(dataWithColor, 'children.0').color,
+                    fill: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.A.0',
-                    id: '0',
-                    value: 25,
-                    color: getNode(dataWithColor, 'children.0').color,
+                    fill: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.A.1',
-                    id: '1',
-                    value: 25,
-                    color: getNode(dataWithColor, 'children.0').color,
+                    fill: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.B',
-                    id: 'B',
-                    value: 50,
-                    color: getNode(dataWithColor, 'children.1').color,
+                    fill: getNode(dataWithColor, 'children.1').color,
                 },
             ])
         })
@@ -399,33 +654,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    id: 'root',
-                    value: 100,
-                    color: colorSchemes.nivo[0],
+                    fill: colorSchemes.nivo[0],
                 },
                 {
                     path: 'root.A',
-                    id: 'A',
-                    value: 50,
-                    color: colorSchemes.nivo[1],
+                    fill: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.0',
-                    id: '0',
-                    value: 25,
-                    color: colorSchemes.nivo[2],
+                    fill: colorSchemes.nivo[2],
                 },
                 {
                     path: 'root.A.1',
-                    id: '1',
-                    value: 25,
-                    color: colorSchemes.nivo[2],
+                    fill: colorSchemes.nivo[2],
                 },
                 {
                     path: 'root.B',
-                    id: 'B',
-                    value: 50,
-                    color: colorSchemes.nivo[1],
+                    fill: colorSchemes.nivo[1],
                 },
             ])
         })
@@ -436,7 +681,8 @@ describe('<Icicle />', () => {
             cy.mount(
                 <Icicle<DefaultIcicleDatum>
                     {...defaultProps}
-                    padding={4}
+                    gapX={4}
+                    gapY={4}
                     borderRadius={2}
                     borderWidth={2}
                     borderColor={{ from: 'color' }}
@@ -459,33 +705,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    id: 'root',
-                    value: 100,
-                    color: `url(#pattern.bg.${colorSchemes.nivo[0]})`,
+                    fill: `url(#pattern.bg.${colorSchemes.nivo[0]})`,
                 },
                 {
                     path: 'root.A',
-                    id: 'A',
-                    value: 50,
-                    color: colorSchemes.nivo[1],
+                    fill: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.0',
-                    id: '0',
-                    value: 25,
-                    color: colorSchemes.nivo[1],
+                    fill: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.1',
-                    id: '1',
-                    value: 25,
-                    color: `url(#pattern.bg.${colorSchemes.nivo[1]})`,
+                    fill: `url(#pattern.bg.${colorSchemes.nivo[1]})`,
                 },
                 {
                     path: 'root.B',
-                    id: 'B',
-                    value: 50,
-                    color: colorSchemes.nivo[2],
+                    fill: colorSchemes.nivo[2],
                 },
             ])
         })
@@ -494,7 +730,8 @@ describe('<Icicle />', () => {
             cy.mount(
                 <Icicle<DefaultIcicleDatum>
                     {...defaultProps}
-                    padding={4}
+                    gapX={4}
+                    gapY={4}
                     borderRadius={2}
                     borderWidth={2}
                     borderColor={{ from: 'color' }}
@@ -514,35 +751,500 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    id: 'root',
-                    value: 100,
-                    color: `url(#gradient.0.${colorSchemes.nivo[0]}.1.${colorSchemes.nivo[0]})`,
+                    fill: `url(#gradient.0.${colorSchemes.nivo[0]}.1.${colorSchemes.nivo[0]})`,
                 },
                 {
                     path: 'root.A',
-                    id: 'A',
-                    value: 50,
-                    color: colorSchemes.nivo[1],
+                    fill: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.0',
-                    id: '0',
-                    value: 25,
-                    color: colorSchemes.nivo[1],
+                    fill: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.1',
-                    id: '1',
-                    value: 25,
-                    color: `url(#gradient.0.${colorSchemes.nivo[1]}.1.${colorSchemes.nivo[1]})`,
+                    fill: `url(#gradient.0.${colorSchemes.nivo[1]}.1.${colorSchemes.nivo[1]})`,
                 },
                 {
                     path: 'root.B',
-                    id: 'B',
-                    value: 50,
-                    color: colorSchemes.nivo[2],
+                    fill: colorSchemes.nivo[2],
                 },
             ])
+        })
+    })
+
+    describe('labels', () => {
+        it('should support labels', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    label: 'root',
+                },
+                {
+                    path: 'root.A',
+                    label: 'A',
+                },
+                {
+                    path: 'root.A.0',
+                    label: '0',
+                },
+                {
+                    path: 'root.A.1',
+                    label: '1',
+                },
+                {
+                    path: 'root.B',
+                    label: 'B',
+                },
+            ])
+        })
+
+        it('should show no labels when disabled', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels={false} />)
+
+            cy.findByTestId('icicle.label.root').should('not.exist')
+        })
+
+        it('should support defining labels as a property', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels label="path" />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    label: 'root',
+                },
+                {
+                    path: 'root.A',
+                    label: 'root.A',
+                },
+                {
+                    path: 'root.A.0',
+                    label: 'root.A.0',
+                },
+                {
+                    path: 'root.A.1',
+                    label: 'root.A.1',
+                },
+                {
+                    path: 'root.B',
+                    label: 'root.B',
+                },
+            ])
+        })
+
+        it('should support using the formatted value', () => {
+            cy.mount(
+                <Icicle<DefaultIcicleDatum>
+                    {...defaultProps}
+                    enableLabels
+                    valueFormat=" >-$.2f"
+                    label="formattedValue"
+                />
+            )
+
+            testNodes([
+                {
+                    path: 'root',
+                    label: '$100.00',
+                },
+                {
+                    path: 'root.A',
+                    label: '$50.00',
+                },
+                {
+                    path: 'root.A.0',
+                    label: '$25.00',
+                },
+                {
+                    path: 'root.A.1',
+                    label: '$25.00',
+                },
+                {
+                    path: 'root.B',
+                    tooltip: 'B: $50.00',
+                },
+            ])
+        })
+
+        it('should support using a function to define the label', () => {
+            cy.mount(
+                <Icicle<DefaultIcicleDatum>
+                    {...defaultProps}
+                    enableLabels
+                    label={d => `func:${d.id}`}
+                />
+            )
+
+            testNodes([
+                {
+                    path: 'root',
+                    label: 'func:root',
+                },
+                {
+                    path: 'root.A',
+                    label: 'func:A',
+                },
+                {
+                    path: 'root.A.0',
+                    label: 'func:0',
+                },
+                {
+                    path: 'root.A.1',
+                    label: 'func:1',
+                },
+                {
+                    path: 'root.B',
+                    label: 'func:B',
+                },
+            ])
+        })
+
+        describe('positioning & rotation', () => {
+            const boxAnchorUseCases: {
+                boxAnchor: BoxAnchor
+                expectedNodes: ExpectedNode[]
+            }[] = [
+                {
+                    boxAnchor: 'top-left',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [10, 10],
+                                anchor: 'start',
+                                baseline: 'text-before-edge',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [210, 110],
+                                anchor: 'start',
+                                baseline: 'text-before-edge',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'top',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [200, 10],
+                                anchor: 'middle',
+                                baseline: 'text-before-edge',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [300, 110],
+                                anchor: 'middle',
+                                baseline: 'text-before-edge',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'top-right',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [390, 10],
+                                anchor: 'end',
+                                baseline: 'text-before-edge',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [390, 110],
+                                anchor: 'end',
+                                baseline: 'text-before-edge',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'right',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [390, 50],
+                                anchor: 'end',
+                                baseline: 'middle',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [390, 150],
+                                anchor: 'end',
+                                baseline: 'middle',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'bottom-right',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [390, 90],
+                                anchor: 'end',
+                                baseline: 'text-after-edge',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [390, 190],
+                                anchor: 'end',
+                                baseline: 'text-after-edge',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'bottom',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [200, 90],
+                                anchor: 'middle',
+                                baseline: 'text-after-edge',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [300, 190],
+                                anchor: 'middle',
+                                baseline: 'text-after-edge',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'bottom-left',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [10, 90],
+                                anchor: 'start',
+                                baseline: 'text-after-edge',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [210, 190],
+                                anchor: 'start',
+                                baseline: 'text-after-edge',
+                            },
+                        },
+                    ],
+                },
+                {
+                    boxAnchor: 'left',
+                    expectedNodes: [
+                        {
+                            path: 'root',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                width: 400,
+                                height: 100,
+                            },
+                            label: 'root',
+                            labelLayout: {
+                                position: [10, 50],
+                                anchor: 'start',
+                                baseline: 'middle',
+                            },
+                        },
+                        {
+                            path: 'root.B',
+                            rect: {
+                                x: 200,
+                                y: 100,
+                                width: 200,
+                                height: 100,
+                            },
+                            label: 'B',
+                            labelLayout: {
+                                position: [210, 150],
+                                anchor: 'start',
+                                baseline: 'middle',
+                            },
+                        },
+                    ],
+                },
+            ]
+
+            for (const useCase of boxAnchorUseCases) {
+                it(`should support ${useCase.boxAnchor} boxAnchor`, () => {
+                    cy.mount(
+                        <Icicle<DefaultIcicleDatum>
+                            {...propsForLayoutTesting}
+                            enableLabels
+                            labelPaddingX={10}
+                            labelPaddingY={10}
+                            labelBoxAnchor={useCase.boxAnchor}
+                        />
+                    )
+
+                    testNodes(useCase.expectedNodes)
+                })
+            }
+
+            it(`should support rotation`, () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableLabels
+                        labelBoxAnchor="center"
+                        labelRotation={270}
+                    />
+                )
+
+                testNodes([
+                    {
+                        path: 'root',
+                        labelLayout: { rotation: 270 },
+                    },
+                    {
+                        path: 'root.A',
+                        labelLayout: { rotation: 270 },
+                    },
+                    {
+                        path: 'root.A.0',
+                        labelLayout: { rotation: 270 },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        labelLayout: { rotation: 270 },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        labelLayout: { rotation: 270 },
+                    },
+                    {
+                        path: 'root.A.1',
+                        labelLayout: { rotation: 270 },
+                    },
+                    {
+                        path: 'root.B',
+                        labelLayout: { rotation: 270 },
+                    },
+                ])
+            })
         })
     })
 
@@ -650,153 +1352,747 @@ describe('<Icicle />', () => {
         })
     })
 
-    /*
-    describe('slice labels', () => {
-        it('should be disabled by default', () => {
-            const wrapper = mount(<Icicles width={400} height={400} data={sampleData} />)
-            expect(wrapper.find(RectLabelsLayer).exists()).toBeFalsy()
+    describe('tooltip', () => {
+        it('should support tooltips', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} />)
+
+            testNodes([
+                {
+                    path: 'root',
+                    tooltip: 'root: 100',
+                },
+                {
+                    path: 'root.A',
+                    tooltip: 'A: 50',
+                },
+                {
+                    path: 'root.A.0',
+                    tooltip: '0: 25',
+                },
+                {
+                    path: 'root.A.1',
+                    tooltip: '1: 25',
+                },
+                {
+                    path: 'root.B',
+                    tooltip: 'B: 50',
+                },
+            ])
         })
 
-        it('should render labels when enabled', () => {
-            const wrapper = mount(
-                <Icicles width={400} height={400} data={sampleData} enableRectLabels />
-            )
+        it('should use the formatted value', () => {
+            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} valueFormat=" >-$.2f" />)
 
-            const labels = wrapper.find(RectLabel)
-            expect(labels).toHaveLength(6)
-
-            expect(labels.at(0).text()).toEqual('100.00%')
-            expect(labels.at(1).text()).toEqual('84.62%')
-            expect(labels.at(2).text()).toEqual('15.38%')
-            expect(labels.at(3).text()).toEqual('46.15%')
-            expect(labels.at(4).text()).toEqual('38.46%')
-            expect(labels.at(5).text()).toEqual('46.15%')
+            testNodes([
+                {
+                    path: 'root',
+                    tooltip: 'root: $100.00',
+                },
+                {
+                    path: 'root.A',
+                    tooltip: 'A: $50.00',
+                },
+                {
+                    path: 'root.A.0',
+                    tooltip: '0: $25.00',
+                },
+                {
+                    path: 'root.A.1',
+                    tooltip: '1: $25.00',
+                },
+                {
+                    path: 'root.B',
+                    tooltip: 'B: $50.00',
+                },
+            ])
         })
 
-        it('should use formattedValue', () => {
-            const wrapper = mount(
-                <Icicles
-                    width={400}
-                    height={400}
-                    data={sampleData}
-                    enableRectLabels
+        it('should support custom tooltip', () => {
+            cy.mount(
+                <Icicle<DefaultIcicleDatum>
+                    {...defaultProps}
                     valueFormat=" >-$.2f"
+                    tooltip={d => (
+                        <div role="tooltip" style={{ background: 'white', padding: 10 }}>
+                            <span>Custom tooltip</span>
+                            <br />
+                            <strong>{d.id}</strong>: {d.formattedValue}
+                        </div>
+                    )}
                 />
             )
 
-            const labels = wrapper.find(RectLabel)
-            expect(labels).toHaveLength(6)
-
-            expect(labels.at(1).prop('datum').formattedValue).toEqual('$110.00')
-            expect(labels.at(1).find('text').text()).toEqual('$110.00')
-
-            expect(labels.at(2).prop('datum').formattedValue).toEqual('$20.00')
-            expect(labels.at(2).find('text').text()).toEqual('$20.00')
-
-            expect(labels.at(3).prop('datum').formattedValue).toEqual('$60.00')
-            expect(labels.at(3).find('text').text()).toEqual('$60.00')
-
-            expect(labels.at(4).prop('datum').formattedValue).toEqual('$50.00')
-            expect(labels.at(4).find('text').text()).toEqual('$50.00')
-
-            expect(labels.at(5).prop('datum').formattedValue).toEqual('$60.00')
-            expect(labels.at(5).find('text').text()).toEqual('$60.00')
-        })
-
-        it('should allow to change the label accessor using a path', () => {
-            const wrapper = mount(
-                <Icicles
-                    width={400}
-                    height={400}
-                    data={sampleData}
-                    enableRectLabels
-                    rectLabel="id"
-                />
-            )
-
-            const labels = wrapper.find(RectLabel)
-            expect(labels).toHaveLength(6)
-
-            expect(labels.at(0).text()).toEqual('root')
-            expect(labels.at(1).text()).toEqual('A')
-            expect(labels.at(2).text()).toEqual('B')
-            expect(labels.at(3).text()).toEqual('A-1')
-            expect(labels.at(4).text()).toEqual('A-2')
-            expect(labels.at(5).text()).toEqual('A-1-I')
-        })
-
-        it('should allow to change the label accessor using a function', () => {
-            const wrapper = mount(
-                <Icicles
-                    width={400}
-                    height={400}
-                    data={sampleData}
-                    enableRectLabels
-                    rectLabel={datum => `${datum.id} - ${datum.value}`}
-                />
-            )
-
-            const labels = wrapper.find(RectLabel)
-            expect(labels).toHaveLength(6)
-
-            expect(labels.at(1).find('text').text()).toEqual('A - 110')
-            expect(labels.at(2).find('text').text()).toEqual('B - 20')
+            testNodes([
+                {
+                    path: 'root',
+                    tooltip: 'root: $100.00',
+                },
+                {
+                    path: 'root.A',
+                    tooltip: 'A: $50.00',
+                },
+                {
+                    path: 'root.A.0',
+                    tooltip: '0: $25.00',
+                },
+                {
+                    path: 'root.A.1',
+                    tooltip: '1: $25.00',
+                },
+                {
+                    path: 'root.B',
+                    tooltip: 'B: $50.00',
+                },
+            ])
         })
     })
 
-    describe('tooltip', () => {
-        it('should render a tooltip when hovering a slice', () => {
-            const wrapper = mount(<Icicles width={400} height={400} data={sampleData} />)
+    describe('zooming', () => {
+        describe('lateral', () => {
+            it('should support bottom orientation', () => {
+                cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} enableZooming />)
 
-            expect(wrapper.find('IciclesTooltip').exists()).toBeFalsy()
+                const nonZoomedNode: ExpectedNode = {
+                    path: 'root.A.1',
+                    rect: {
+                        x: 100,
+                        y: 200,
+                        width: 100,
+                        height: 100,
+                    },
+                }
 
-            wrapper.find(RectShape).at(2).simulate('mouseenter')
+                testNode(nonZoomedNode)
 
-            const tooltip = wrapper.find('IciclesTooltip')
-            expect(tooltip.exists()).toBeTruthy()
-            expect(tooltip.text()).toEqual('B: 15.38%')
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: -400,
+                            y: 0,
+                            width: 1600,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: -400,
+                            y: 100,
+                            width: 800,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        rect: {
+                            x: 0,
+                            y: 200,
+                            width: 400,
+                            height: 100,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNode(nonZoomedNode)
+            })
+
+            it('should support top orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        orientation="top"
+                    />
+                )
+
+                const nonZoomedNode: ExpectedNode = {
+                    path: 'root.A.1',
+                    rect: {
+                        x: 100,
+                        y: 100,
+                        width: 100,
+                        height: 100,
+                    },
+                }
+
+                testNode(nonZoomedNode)
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: -400,
+                            y: 300,
+                            width: 1600,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: -400,
+                            y: 200,
+                            width: 800,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        rect: {
+                            x: 0,
+                            y: 100,
+                            width: 400,
+                            height: 100,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNode(nonZoomedNode)
+            })
+
+            it('should support right orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        orientation="right"
+                    />
+                )
+
+                const nonZoomedNode: ExpectedNode = {
+                    path: 'root.A.1',
+                    rect: {
+                        x: 200,
+                        y: 100,
+                        width: 100,
+                        height: 100,
+                    },
+                }
+
+                testNode(nonZoomedNode)
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: 0,
+                            y: -400,
+                            width: 100,
+                            height: 1600,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: 100,
+                            y: -400,
+                            width: 100,
+                            height: 800,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        rect: {
+                            x: 200,
+                            y: 0,
+                            width: 100,
+                            height: 400,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNode(nonZoomedNode)
+            })
+
+            it('should support left orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        orientation="left"
+                    />
+                )
+
+                const nonZoomedNode: ExpectedNode = {
+                    path: 'root.A.1',
+                    rect: {
+                        x: 100,
+                        y: 100,
+                        width: 100,
+                        height: 100,
+                    },
+                }
+
+                testNode(nonZoomedNode)
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: 300,
+                            y: -400,
+                            width: 100,
+                            height: 1600,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: 200,
+                            y: -400,
+                            width: 100,
+                            height: 800,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        rect: {
+                            x: 100,
+                            y: 0,
+                            width: 100,
+                            height: 400,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+                testNode(nonZoomedNode)
+            })
         })
 
-        it('should allow to override the default tooltip', () => {
-            const CustomTooltip = ({ id }) => <span>{id}</span>
-            const wrapper = mount(
-                <Icicles width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
-            )
+        describe('global', () => {
+            it('should support bottom orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        zoomMode="global"
+                    />
+                )
 
-            wrapper.find(RectShape).at(2).simulate('mouseenter')
+                const nonZoomedNodes: ExpectedNode[] = [
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 0,
+                            y: 200,
+                            width: 100,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 0,
+                            y: 300,
+                            width: 40,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 40,
+                            y: 300,
+                            width: 60,
+                            height: 100,
+                        },
+                    },
+                ]
 
-            const tooltip = wrapper.find(CustomTooltip)
-            expect(tooltip.exists()).toBeTruthy()
-            expect(tooltip.text()).toEqual('B')
+                testNodes(nonZoomedNodes)
+
+                cy.findByTestId('icicle.rect.root.A.0').click()
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: 0,
+                            y: -400,
+                            width: 1600,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: 0,
+                            y: -200,
+                            width: 800,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            width: 400,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 0,
+                            y: 200,
+                            width: 160,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 160,
+                            y: 200,
+                            width: 240,
+                            height: 200,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.0').click()
+                testNodes(nonZoomedNodes)
+            })
+
+            xit('should support top orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        zoomMode="global"
+                        orientation="top"
+                    />
+                )
+
+                testNodes([
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 0,
+                            y: 100,
+                            width: 100,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            width: 40,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 40,
+                            y: 0,
+                            width: 60,
+                            height: 100,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.0').click()
+
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: 0,
+                            y: -400,
+                            width: 1600,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: 0,
+                            y: -200,
+                            width: 800,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            width: 400,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 0,
+                            y: 200,
+                            width: 160,
+                            height: 200,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 160,
+                            y: 200,
+                            width: 240,
+                            height: 200,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.0').click()
+
+                testNodes([
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 0,
+                            y: 200,
+                            width: 100,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 0,
+                            y: 300,
+                            width: 40,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 40,
+                            y: 300,
+                            width: 60,
+                            height: 100,
+                        },
+                    },
+                ])
+            })
+
+            it('should support right orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        zoomMode="global"
+                        orientation="right"
+                    />
+                )
+
+                const nonZoomedNodes: ExpectedNode[] = [
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 200,
+                            y: 0,
+                            width: 100,
+                            height: 100,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 300,
+                            y: 0,
+                            width: 100,
+                            height: 40,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 300,
+                            y: 40,
+                            width: 100,
+                            height: 60,
+                        },
+                    },
+                ]
+
+                testNodes(nonZoomedNodes)
+
+                cy.findByTestId('icicle.rect.root.A.0').click()
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: -400,
+                            y: 0,
+                            width: 200,
+                            height: 1600,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: -200,
+                            y: 0,
+                            width: 200,
+                            height: 800,
+                        },
+                    },
+                    {
+                        path: 'root.A.0',
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            width: 200,
+                            height: 400,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.X',
+                        rect: {
+                            x: 200,
+                            y: 0,
+                            width: 200,
+                            height: 160,
+                        },
+                    },
+                    {
+                        path: 'root.A.0.Y',
+                        rect: {
+                            x: 200,
+                            y: 160,
+                            width: 200,
+                            height: 240,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.0').click()
+                testNodes(nonZoomedNodes)
+            })
+
+            xit('should support left orientation', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        enableZooming
+                        orientation="left"
+                    />
+                )
+
+                testNode({
+                    path: 'root.A.1',
+                    rect: {
+                        x: 100,
+                        y: 100,
+                        width: 100,
+                        height: 100,
+                    },
+                })
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+
+                testNodes([
+                    {
+                        path: 'root',
+                        rect: {
+                            x: 300,
+                            y: -400,
+                            width: 100,
+                            height: 1600,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        rect: {
+                            x: 200,
+                            y: -400,
+                            width: 100,
+                            height: 800,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        rect: {
+                            x: 100,
+                            y: 0,
+                            width: 100,
+                            height: 400,
+                        },
+                    },
+                ])
+
+                cy.findByTestId('icicle.rect.root.A.1').click()
+
+                testNode({
+                    path: 'root.A.1',
+                    rect: {
+                        x: 100,
+                        y: 100,
+                        width: 100,
+                        height: 100,
+                    },
+                })
+            })
         })
     })
 
     describe('layers', () => {
         it('should support disabling a layer', () => {
-            const wrapper = mount(<Icicles width={400} height={400} data={sampleData} />)
-            expect(wrapper.find(RectShape)).toHaveLength(6) // root included
+            cy.mount(<Icicle {...defaultProps} layers={['labels']} enableLabels />)
 
-            wrapper.setProps({ layers: ['rectLabels'] })
-            expect(wrapper.find(RectShape)).toHaveLength(0)
+            cy.findByTestId('icicle.rect.root').should('not.exist')
+            cy.findByTestId('icicle.label.root').should('exist')
         })
 
-        it('should support adding a custom layer', () => {
-            const CustomLayer = () => null
+        it('should support custom layers', () => {
+            const CustomLayer = ({ nodes }: IcicleCommonCustomLayerProps<DefaultIcicleDatum>) => {
+                const theme = useTheme()
 
-            const wrapper = mount(
-                <Icicles
-                    width={400}
-                    height={400}
-                    data={sampleData}
-                    layers={['rects', 'rectLabels', CustomLayer]}
-                />
-            )
+                return (
+                    <>
+                        {nodes.map(node => (
+                            <g
+                                key={node.id}
+                                transform={`translate(${node.rect.x + node.rect.width / 2}, ${node.rect.y + node.rect.height / 2})`}
+                                data-testid={`custom_layer_node.${node.path}`}
+                            >
+                                <circle r={22} fill="white" />
+                                <Text
+                                    textAnchor="middle"
+                                    dominantBaseline="central"
+                                    style={{
+                                        ...theme.labels.text,
+                                        fill: node.color,
+                                        fontSize: 16,
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    {node.id}
+                                </Text>
+                            </g>
+                        ))}
+                    </>
+                )
+            }
 
-            const customLayer = wrapper.find(CustomLayer)
+            cy.mount(<Icicle {...defaultProps} layers={['rects', CustomLayer]} enableLabels />)
 
-            // root included
-            expect(customLayer.prop('nodes')).toHaveLength(6)
+            cy.findByTestId('custom_layer_node.root').should('exist')
+            cy.findByTestId('custom_layer_node.root.A').should('exist')
+            cy.findByTestId('custom_layer_node.root.A.0').should('exist')
+            cy.findByTestId('custom_layer_node.root.A.1').should('exist')
+            cy.findByTestId('custom_layer_node.root.B').should('exist')
         })
     })
-    */
 })

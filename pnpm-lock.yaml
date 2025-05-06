@@ -335,6 +335,12 @@ importers:
       '@nivo/swarmplot':
         specifier: workspace:*
         version: link:../packages/swarmplot
+      '@nivo/text':
+        specifier: workspace:*
+        version: link:../packages/text
+      '@nivo/theming':
+        specifier: workspace:*
+        version: link:../packages/theming
       '@nivo/tree':
         specifier: workspace:*
         version: link:../packages/tree
