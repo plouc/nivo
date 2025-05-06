@@ -1,3 +1,4 @@
+import { color as d3Color } from 'd3-color'
 import { linearGradientDef, patternDotsDef, BoxAnchor } from '@nivo/core'
 import { colorSchemes } from '@nivo/colors'
 import {
@@ -7,8 +8,15 @@ import {
     IcicleCommonCustomLayerProps,
 } from '@nivo/icicle'
 import { useTheme } from '@nivo/theming'
-import { Text, SvgTextAnchor, SvgTextDominantBaseline } from '@nivo/text'
+import { Text } from '@nivo/text'
 import get from 'lodash/get.js'
+
+const hexToRgba = (hex: string, alpha = 1): string => {
+    const r = parseInt(hex.slice(1, 3), 16)
+    const g = parseInt(hex.slice(3, 5), 16)
+    const b = parseInt(hex.slice(5, 7), 16)
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
 
 const getNode = <N,>(root: N, path: string): N => get(root, path)
 
@@ -174,6 +182,8 @@ interface ExpectedNode {
         width: number
         height: number
     }
+    color?: string
+    // For patterns and gradients
     fill?: string
     // If provided, test that the provided value is contained
     // in the tooltip.
@@ -185,8 +195,8 @@ interface ExpectedNode {
     labelLayout?: {
         position?: [number, number]
         rotation?: number
-        anchor?: SvgTextAnchor
-        baseline?: SvgTextDominantBaseline
+        align?: string
+        baseline?: string
     }
 }
 
@@ -203,7 +213,9 @@ const testNode = (expectedNode: ExpectedNode) => {
         node.should('have.attr', 'height', expectedNode.rect.height)
     }
 
-    if (expectedNode.fill) {
+    if (expectedNode.color) {
+        node.should('have.attr', 'fill', hexToRgba(expectedNode.color))
+    } else if (expectedNode.fill) {
         node.should('have.attr', 'fill', expectedNode.fill)
     }
 
@@ -225,8 +237,8 @@ const testNode = (expectedNode: ExpectedNode) => {
         }
 
         if (expectedNode.labelLayout) {
-            if (expectedNode.labelLayout.anchor) {
-                label.should('have.attr', 'text-anchor', expectedNode.labelLayout.anchor)
+            if (expectedNode.labelLayout.align) {
+                label.should('have.attr', 'text-anchor', expectedNode.labelLayout.align)
             }
             if (expectedNode.labelLayout.baseline) {
                 label.should('have.attr', 'dominant-baseline', expectedNode.labelLayout.baseline)
@@ -554,23 +566,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    fill: colorSchemes.accent[0],
+                    color: colorSchemes.accent[0],
                 },
                 {
                     path: 'root.A',
-                    fill: colorSchemes.accent[1],
+                    color: colorSchemes.accent[1],
                 },
                 {
                     path: 'root.A.0',
-                    fill: colorSchemes.accent[1],
+                    color: colorSchemes.accent[1],
                 },
                 {
                     path: 'root.A.1',
-                    fill: colorSchemes.accent[1],
+                    color: colorSchemes.accent[1],
                 },
                 {
                     path: 'root.B',
-                    fill: colorSchemes.accent[2],
+                    color: colorSchemes.accent[2],
                 },
             ])
         })
@@ -588,23 +600,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    fill: dataWithColor.color,
+                    color: dataWithColor.color,
                 },
                 {
                     path: 'root.A',
-                    fill: getNode(dataWithColor, 'children.0').color,
+                    color: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.A.0',
-                    fill: getNode(dataWithColor, 'children.0.children.0').color,
+                    color: getNode(dataWithColor, 'children.0.children.0').color,
                 },
                 {
                     path: 'root.A.1',
-                    fill: getNode(dataWithColor, 'children.0.children.1').color,
+                    color: getNode(dataWithColor, 'children.0.children.1').color,
                 },
                 {
                     path: 'root.B',
-                    fill: getNode(dataWithColor, 'children.1').color,
+                    color: getNode(dataWithColor, 'children.1').color,
                 },
             ])
         })
@@ -621,23 +633,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    fill: dataWithColor.color,
+                    color: dataWithColor.color,
                 },
                 {
                     path: 'root.A',
-                    fill: getNode(dataWithColor, 'children.0').color,
+                    color: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.A.0',
-                    fill: getNode(dataWithColor, 'children.0').color,
+                    color: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.A.1',
-                    fill: getNode(dataWithColor, 'children.0').color,
+                    color: getNode(dataWithColor, 'children.0').color,
                 },
                 {
                     path: 'root.B',
-                    fill: getNode(dataWithColor, 'children.1').color,
+                    color: getNode(dataWithColor, 'children.1').color,
                 },
             ])
         })
@@ -654,23 +666,23 @@ describe('<Icicle />', () => {
             testNodes([
                 {
                     path: 'root',
-                    fill: colorSchemes.nivo[0],
+                    color: colorSchemes.nivo[0],
                 },
                 {
                     path: 'root.A',
-                    fill: colorSchemes.nivo[1],
+                    color: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.0',
-                    fill: colorSchemes.nivo[2],
+                    color: colorSchemes.nivo[2],
                 },
                 {
                     path: 'root.A.1',
-                    fill: colorSchemes.nivo[2],
+                    color: colorSchemes.nivo[2],
                 },
                 {
                     path: 'root.B',
-                    fill: colorSchemes.nivo[1],
+                    color: colorSchemes.nivo[1],
                 },
             ])
         })
@@ -709,11 +721,11 @@ describe('<Icicle />', () => {
                 },
                 {
                     path: 'root.A',
-                    fill: colorSchemes.nivo[1],
+                    color: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.0',
-                    fill: colorSchemes.nivo[1],
+                    color: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.1',
@@ -721,7 +733,7 @@ describe('<Icicle />', () => {
                 },
                 {
                     path: 'root.B',
-                    fill: colorSchemes.nivo[2],
+                    color: colorSchemes.nivo[2],
                 },
             ])
         })
@@ -755,11 +767,11 @@ describe('<Icicle />', () => {
                 },
                 {
                     path: 'root.A',
-                    fill: colorSchemes.nivo[1],
+                    color: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.0',
-                    fill: colorSchemes.nivo[1],
+                    color: colorSchemes.nivo[1],
                 },
                 {
                     path: 'root.A.1',
@@ -767,7 +779,7 @@ describe('<Icicle />', () => {
                 },
                 {
                     path: 'root.B',
-                    fill: colorSchemes.nivo[2],
+                    color: colorSchemes.nivo[2],
                 },
             ])
         })
@@ -920,7 +932,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [10, 10],
-                                anchor: 'start',
+                                align: 'start',
                                 baseline: 'text-before-edge',
                             },
                         },
@@ -955,7 +967,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [200, 10],
-                                anchor: 'middle',
+                                align: 'middle',
                                 baseline: 'text-before-edge',
                             },
                         },
@@ -970,7 +982,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [300, 110],
-                                anchor: 'middle',
+                                align: 'middle',
                                 baseline: 'text-before-edge',
                             },
                         },
@@ -990,7 +1002,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [390, 10],
-                                anchor: 'end',
+                                align: 'end',
                                 baseline: 'text-before-edge',
                             },
                         },
@@ -1005,7 +1017,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [390, 110],
-                                anchor: 'end',
+                                align: 'end',
                                 baseline: 'text-before-edge',
                             },
                         },
@@ -1025,7 +1037,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [390, 50],
-                                anchor: 'end',
+                                align: 'end',
                                 baseline: 'middle',
                             },
                         },
@@ -1040,7 +1052,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [390, 150],
-                                anchor: 'end',
+                                align: 'end',
                                 baseline: 'middle',
                             },
                         },
@@ -1060,7 +1072,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [390, 90],
-                                anchor: 'end',
+                                align: 'end',
                                 baseline: 'text-after-edge',
                             },
                         },
@@ -1075,7 +1087,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [390, 190],
-                                anchor: 'end',
+                                align: 'end',
                                 baseline: 'text-after-edge',
                             },
                         },
@@ -1095,7 +1107,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [200, 90],
-                                anchor: 'middle',
+                                align: 'middle',
                                 baseline: 'text-after-edge',
                             },
                         },
@@ -1110,7 +1122,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [300, 190],
-                                anchor: 'middle',
+                                align: 'middle',
                                 baseline: 'text-after-edge',
                             },
                         },
@@ -1130,7 +1142,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [10, 90],
-                                anchor: 'start',
+                                align: 'start',
                                 baseline: 'text-after-edge',
                             },
                         },
@@ -1145,7 +1157,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [210, 190],
-                                anchor: 'start',
+                                align: 'start',
                                 baseline: 'text-after-edge',
                             },
                         },
@@ -1165,7 +1177,7 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [10, 50],
-                                anchor: 'start',
+                                align: 'start',
                                 baseline: 'middle',
                             },
                         },
@@ -1180,7 +1192,7 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [210, 150],
-                                anchor: 'start',
+                                align: 'start',
                                 baseline: 'middle',
                             },
                         },
