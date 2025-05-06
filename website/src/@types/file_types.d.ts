@@ -125,6 +125,7 @@ declare module '*/icicle/meta.yml' {
     const meta: {
         flavors: ChartMetaFlavors
         Icicle: ChartMeta
+        IcicleHtml: ChartMeta
     }
 
     export default meta

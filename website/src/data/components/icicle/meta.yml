@@ -1,6 +1,8 @@
 flavors:
   - flavor: svg
     path: /icicle/
+  - flavor: html
+    path: /icicle/html/
   - flavor: api
     path: /icicle/api/
 
@@ -8,7 +10,6 @@ Icicle:
   package: "@nivo/icicle"
   tags:
     - hierarchy
-    - flat
   stories:
     - label: custom colors
       link: icicle--custom-colors
@@ -24,3 +25,25 @@ Icicle:
     This chart type visualizes hierarchical data using nested rectangles.
     Each rectangle represents a node, sized by a value like count or duration,
     making it easy to compare parts of a tree and see their structure at a glance.
+
+IcicleHtml:
+  package: "@nivo/icicle"
+  tags:
+    - hierarchy
+  stories:
+    - label: custom colors
+      link: icicle--custom-colors
+    - label: colors from data
+      link: icicle--child-color-picked-from-data
+    - label: custom tooltip
+      link: icicle--custom-tooltip
+    - label: patterns and gradients
+      link: icicle--patterns-and-gradients
+  description: |
+    A HTML implementation of the [Icicle](self:/icicle) component.
+    
+    SVG can be pretty limited when it comes to rendering text, images...
+    So if you want to render more complex content, you can use the HTML version.
+    
+    Also web developers are used to HTML, CSS and JS, so this version might be more familiar
+    if customization is needed.

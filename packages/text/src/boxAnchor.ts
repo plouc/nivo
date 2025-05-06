@@ -1,31 +1,30 @@
 import { BoxAnchor } from '@nivo/core'
-import { SvgTextAnchor, SvgTextDominantBaseline } from './types'
+import { TextAlign, TextBaseline } from '@nivo/theming'
 
-const svgTextAnchorByBoxAnchor: Record<BoxAnchor, SvgTextAnchor> = {
-    center: 'middle',
+const textAlignByBoxAnchor: Record<BoxAnchor, TextAlign> = {
+    center: 'center',
     'top-left': 'start',
-    top: 'middle',
+    top: 'center',
     'top-right': 'end',
     right: 'end',
     'bottom-right': 'end',
-    bottom: 'middle',
+    bottom: 'center',
     'bottom-left': 'start',
     left: 'start',
 }
 
-const svgTextDominantBaselineByBoxAnchor: Record<BoxAnchor, SvgTextDominantBaseline> = {
-    center: 'middle',
-    'top-left': 'text-before-edge',
-    top: 'text-before-edge',
-    'top-right': 'text-before-edge',
-    right: 'middle',
-    'bottom-right': 'text-after-edge',
-    bottom: 'text-after-edge',
-    'bottom-left': 'text-after-edge',
-    left: 'middle',
+const textBaselineByBoxAnchor: Record<BoxAnchor, TextBaseline> = {
+    center: 'center',
+    'top-left': 'top',
+    top: 'top',
+    'top-right': 'top',
+    right: 'center',
+    'bottom-right': 'bottom',
+    bottom: 'bottom',
+    'bottom-left': 'bottom',
+    left: 'center',
 }
 
-export const getSvgTextAnchorFromBoxAnchor = (anchor: BoxAnchor) => svgTextAnchorByBoxAnchor[anchor]
+export const getTextAlignFromBoxAnchor = (anchor: BoxAnchor) => textAlignByBoxAnchor[anchor]
 
-export const getSvgTextDominantBaselineFromBoxAnchor = (anchor: BoxAnchor) =>
-    svgTextDominantBaselineByBoxAnchor[anchor]
+export const getTextBaselineFromBoxAnchor = (anchor: BoxAnchor) => textBaselineByBoxAnchor[anchor]

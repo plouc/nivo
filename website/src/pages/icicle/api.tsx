@@ -15,10 +15,9 @@ const IcicleApi = () => {
         image: {
             childImageSharp: { gatsbyImageData: image },
         },
-        // TODO: change with icicle capture
     } = useStaticQuery(graphql`
         query {
-            image: file(absolutePath: { glob: "**/src/assets/captures/sunburst.png" }) {
+            image: file(absolutePath: { glob: "**/src/assets/captures/icicle.png" }) {
                 childImageSharp {
                     gatsbyImageData(layout: FIXED, width: 700, quality: 100)
                 }
@@ -69,7 +68,7 @@ const IcicleApi = () => {
                     enableLabels: true,
                     label: svgDefaultProps.label,
                     labelBoxAnchor: svgDefaultProps.labelBoxAnchor,
-                    labelAnchor: svgDefaultProps.labelAnchor,
+                    labelAlign: svgDefaultProps.labelAlign,
                     labelBaseline: svgDefaultProps.labelBaseline,
                     labelPaddingX: svgDefaultProps.labelPaddingX,
                     labelPaddingY: svgDefaultProps.labelPaddingY,

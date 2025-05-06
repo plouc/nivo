@@ -52,6 +52,12 @@ export interface ComputedDatum<Datum> {
     maxDescendantDepth: number
 }
 
+export interface ComputedDatumWithLabel<Datum> extends ComputedDatum<Datum> {
+    label: {
+        label: string
+    }
+}
+
 // - top: Root at the top, children cascade downward, standard icicle.
 // - right: Root at the right, children grow to the left, right-to-left icicle.
 // - bottom: Root at the bottom, children grow upward, flame chart.
@@ -107,9 +113,10 @@ export type EventHandlers<Datum, E = Element> = Partial<{
 export interface IcicleSvgExtraProps<Datum> {
     layers: readonly IcicleSvgLayer<Datum>[]
     nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
-    labelComponent?: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
+    labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
+    animateOnMount: boolean
     rectsTransitionMode: RectTransitionMode
     labelsTransitionMode: RectTransitionMode
     role: string
@@ -123,10 +130,36 @@ export type IcicleSvgProps<Datum> = DataProps<Datum> &
     Partial<IcicleCommonProps<Datum>> &
     Partial<IcicleSvgExtraProps<Datum>> &
     EventHandlers<Datum> &
-    SvgDefsAndFill<any>
+    SvgDefsAndFill<ComputedDatum<Datum>>
 export type IcicleSvgPropsWithDefaults<Datum> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum> &
     IcicleSvgExtraProps<Datum> &
     EventHandlers<Datum> &
-    SvgDefsAndFill<any>
+    SvgDefsAndFill<ComputedDatum<Datum>>
+
+export interface IcicleHtmlExtraProps<Datum> {
+    layers: readonly IcicleSvgLayer<Datum>[]
+    nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
+    labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
+    animate: boolean
+    motionConfig: MotionProps['motionConfig']
+    animateOnMount: boolean
+    rectsTransitionMode: RectTransitionMode
+    labelsTransitionMode: RectTransitionMode
+    role: string
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
+}
+
+export type IcicleHtmlProps<Datum> = DataProps<Datum> &
+    Dimensions &
+    Partial<IcicleCommonProps<Datum>> &
+    Partial<IcicleHtmlExtraProps<Datum>> &
+    EventHandlers<Datum>
+export type IcicleHtmlPropsWithDefaults<Datum> = DataProps<Datum> &
+    Dimensions &
+    IcicleCommonProps<Datum> &
+    IcicleHtmlExtraProps<Datum> &
+    EventHandlers<Datum>

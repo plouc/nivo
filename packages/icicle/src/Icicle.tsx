@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, useCallback } from 'react'
-import { RectLabelsLayer } from '@nivo/rects'
+import { RectLabels } from '@nivo/rects'
 import {
     // @ts-expect-error no types
     bindDefs,
@@ -10,7 +10,7 @@ import {
 import { IcicleSvgProps, IcicleSvgPropsWithDefaults, IcicleLayerId, ComputedDatum } from './types'
 import { useIcicle, useIcicleCustomLayerProps } from './hooks'
 import { svgDefaultProps } from './defaults'
-import { Rects } from './Rects'
+import { IcicleNodes } from './IcicleNodes'
 
 const InnerIcicle = <Datum,>({
     data,
@@ -33,11 +33,11 @@ const InnerIcicle = <Datum,>({
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor as IcicleSvgPropsWithDefaults<Datum>['borderColor'],
     defs = svgDefaultProps.defs,
-    fill = svgDefaultProps.fill,
+    fill = svgDefaultProps.fill as IcicleSvgPropsWithDefaults<Datum>['fill'],
     enableLabels = svgDefaultProps.enableLabels,
     label = svgDefaultProps.label as IcicleSvgPropsWithDefaults<Datum>['label'],
     labelBoxAnchor = svgDefaultProps.labelBoxAnchor,
-    labelAnchor = svgDefaultProps.labelAnchor,
+    labelAlign = svgDefaultProps.labelAlign,
     labelBaseline = svgDefaultProps.labelBaseline,
     labelPaddingX = svgDefaultProps.labelPaddingX,
     labelPaddingY = svgDefaultProps.labelPaddingY,
@@ -45,7 +45,7 @@ const InnerIcicle = <Datum,>({
     labelSkipWidth = svgDefaultProps.labelSkipWidth,
     labelSkipHeight = svgDefaultProps.labelSkipHeight,
     labelTextColor = svgDefaultProps.labelTextColor as IcicleSvgPropsWithDefaults<Datum>['labelTextColor'],
-    labelComponent,
+    labelComponent = svgDefaultProps.labelComponent as IcicleSvgPropsWithDefaults<Datum>['labelComponent'],
     isInteractive = svgDefaultProps.isInteractive,
     enableZooming = svgDefaultProps.enableZooming,
     zoomMode = svgDefaultProps.zoomMode,
@@ -56,6 +56,7 @@ const InnerIcicle = <Datum,>({
     onMouseMove,
     onWheel,
     onContextMenu,
+    animateOnMount = svgDefaultProps.animateOnMount,
     rectsTransitionMode = svgDefaultProps.rectsTransitionMode,
     labelsTransitionMode = svgDefaultProps.labelsTransitionMode,
     role = svgDefaultProps.role,
@@ -99,7 +100,7 @@ const InnerIcicle = <Datum,>({
 
     if (layers.includes('rects')) {
         layerById.rects = (
-            <Rects<Datum>
+            <IcicleNodes<Datum>
                 key="rects"
                 data={nodes}
                 component={nodeComponent}
@@ -116,6 +117,7 @@ const InnerIcicle = <Datum,>({
                 onMouseMove={onMouseMove}
                 onWheel={onWheel}
                 onContextMenu={onContextMenu}
+                animateOnMount={animateOnMount}
                 transitionMode={rectsTransitionMode}
             />
         )
@@ -128,13 +130,13 @@ const InnerIcicle = <Datum,>({
 
     if (enableLabels && layers.includes('labels')) {
         layerById.labels = (
-            <RectLabelsLayer<ComputedDatum<Datum>>
+            <RectLabels<ComputedDatum<Datum>>
                 key="labels"
                 data={nodes}
                 uid="path"
                 label={label}
                 boxAnchor={labelBoxAnchor}
-                anchor={labelAnchor}
+                align={labelAlign}
                 baseline={labelBaseline}
                 paddingX={labelPaddingX}
                 paddingY={labelPaddingY}

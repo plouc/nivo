@@ -147,6 +147,7 @@ export const components: ChartNavData[] = [
         tags: icicle.Icicle.tags,
         flavors: {
             svg: true,
+            html: true,
             api: true,
         },
     },

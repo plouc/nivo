@@ -14,7 +14,7 @@ import {
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
-const allFlavors: Flavor[] = ['svg', 'api']
+const allFlavors: Flavor[] = ['svg', 'html', 'api']
 
 const directions: IcicleOrientation[] = ['top', 'right', 'bottom', 'left']
 
@@ -166,7 +166,7 @@ const props: ChartProperty[] = [
         },
     },
     ...chartDimensions(allFlavors),
-    themeProperty(['svg', 'api']),
+    themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,
         defaultValue: commonDefaultProps.colors,
@@ -229,6 +229,11 @@ const props: ChartProperty[] = [
     {
         key: 'borderWidth',
         help: 'Node border width.',
+        description: `
+            Please note that the border behaves differently
+            beween svg and html, in svg, the border is centered,
+            while we use \`box-sizing: border-box\` in html.
+        `,
         flavors: allFlavors,
         type: 'number',
         required: false,
@@ -303,38 +308,38 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'labelAnchor',
-        type: `SvgTextAnchor | 'auto'`,
+        key: 'labelAlign',
+        type: `TextAlign | 'auto'`,
         required: false,
-        defaultValue: commonDefaultProps.labelAnchor,
-        help: 'Label text-anchor, `auto` assumes no rotation.',
+        defaultValue: commonDefaultProps.labelAlign,
+        help: 'Label alignment, `auto` assumes no rotation.',
         flavors: allFlavors,
         group: 'Labels',
         control: {
-            type: 'choices',
+            type: 'radio',
             choices: [
                 { label: 'auto', value: 'auto' },
                 { label: 'start', value: 'start' },
-                { label: 'middle', value: 'middle' },
+                { label: 'center', value: 'center' },
                 { label: 'end', value: 'end' },
             ],
         },
     },
     {
         key: 'labelBaseline',
-        type: `SvgTextDominantBaseline | 'auto'`,
+        type: `TextBaseline | 'auto'`,
         required: false,
         defaultValue: commonDefaultProps.labelBaseline,
-        help: 'Label dominant-baseline, `auto` assumes no rotation.',
+        help: 'Label baseline, `auto` assumes no rotation.',
         flavors: allFlavors,
         group: 'Labels',
         control: {
-            type: 'choices',
+            type: 'radio',
             choices: [
                 { label: 'auto', value: 'auto' },
-                { label: 'text-before-edge', value: 'text-before-edge' },
-                { label: 'middle', value: 'middle' },
-                { label: 'text-after-edge', value: 'text-after-edge' },
+                { label: 'top', value: 'top' },
+                { label: 'center', value: 'center' },
+                { label: 'bottom', value: 'bottom' },
             ],
         },
     },
@@ -448,14 +453,23 @@ const props: ChartProperty[] = [
         type: 'Array<string | Function>',
         defaultValue: commonDefaultProps.layers,
     },
+    {
+        key: 'nodeComponent',
+        group: 'Customization',
+        help: 'Override the default node component.',
+        flavors: ['svg', 'html'],
+        required: false,
+        type: 'RectNode',
+        defaultValue: `RectNodeSvg | RectNodeHtml`,
+    },
     isInteractive({
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         defaultValue: commonDefaultProps.isInteractive,
     }),
     {
         key: 'enableZooming',
         help: 'Enable/disable zooming by clicking on nodes.',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         type: 'boolean',
         required: false,
         defaultValue: commonDefaultProps.enableZooming,
@@ -469,7 +483,7 @@ const props: ChartProperty[] = [
         type: `'lateral' | 'global'`,
         required: false,
         defaultValue: commonDefaultProps.zoomMode,
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         control: {
             type: 'radio',
             choices: [
@@ -480,7 +494,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'tooltip',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -496,7 +510,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'custom tooltip example',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         required: false,
         help: 'Showcase custom tooltip component.',
@@ -505,7 +519,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onMouseEnter',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
@@ -513,7 +527,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onMouseMove',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
@@ -521,7 +535,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onMouseLeave',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
@@ -529,7 +543,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onClick',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
@@ -537,7 +551,7 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onWheel',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: '(node: ComputedDatum, event: WheelEvent) => void',
         required: false,
@@ -545,14 +559,23 @@ const props: ChartProperty[] = [
     },
     {
         key: 'onContextMenu',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
         type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
         help: 'onContextMenu handler',
     },
-    ...commonAccessibilityProps(['svg']),
-    ...motionProperties(['svg'], svgDefaultProps),
+    ...commonAccessibilityProps(['svg', 'html']),
+    ...motionProperties(['svg', 'html'], svgDefaultProps),
+    {
+        key: 'animateOnMount',
+        group: 'Motion',
+        help: `If enabled, animate elements when the chart is mounted.`,
+        type: `boolean`,
+        required: false,
+        defaultValue: svgDefaultProps.animateOnMount,
+        flavors: ['svg', 'html'],
+    },
     {
         key: 'rectsTransitionMode',
         group: 'Motion',
@@ -560,7 +583,7 @@ const props: ChartProperty[] = [
         type: `RectTransitionMode`,
         required: false,
         defaultValue: svgDefaultProps.rectsTransitionMode,
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         control: {
             type: 'choices',
             choices: transitionModeOptions,
@@ -573,7 +596,7 @@ const props: ChartProperty[] = [
         type: `RectTransitionMode`,
         required: false,
         defaultValue: svgDefaultProps.labelsTransitionMode,
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         control: {
             type: 'choices',
             choices: transitionModeOptions,

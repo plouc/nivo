@@ -1,4 +1,5 @@
 export * from './compute'
-export { RectLabel as RectLabelComponent } from './RectLabel'
-export * from './RectLabelsLayer'
+export * from './RectLabelHtml'
+export * from './RectLabels'
+export * from './RectLabelSvg'
 export * from './types'

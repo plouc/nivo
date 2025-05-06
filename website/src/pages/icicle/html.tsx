@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { svgDefaultProps, ResponsiveIcicle } from '@nivo/icicle'
+import { svgDefaultProps, ResponsiveIcicleHtml } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/icicle/meta.yml'
@@ -51,7 +51,6 @@ const initialProperties: UnmappedIcicleSvgProps = {
     },
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
-    animateOnMount: false,
     rectsTransitionMode: svgDefaultProps.rectsTransitionMode,
     labelsTransitionMode: 'flow-down',
     defs: [],
@@ -63,7 +62,7 @@ const initialProperties: UnmappedIcicleSvgProps = {
     'showcase pattern usage': false,
 }
 
-const Icicle = () => {
+const IcicleHtml = () => {
     const {
         image: {
             childImageSharp: { gatsbyImageData: image },
@@ -84,11 +83,11 @@ const Icicle = () => {
             MappedIcicleSvgProps,
             ReturnType<typeof generateData>
         >
-            name="Icicle"
-            meta={meta.Icicle}
+            name="IcicleHtml"
+            meta={meta.IcicleHtml}
             icon="icicle"
             flavors={meta.flavors}
-            currentFlavor="svg"
+            currentFlavor="html"
             properties={groups}
             defaultProperties={svgDefaultProps}
             initialProperties={initialProperties}
@@ -98,7 +97,7 @@ const Icicle = () => {
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveIcicle
+                    <ResponsiveIcicleHtml
                         data={data}
                         {...properties}
                         theme={theme}
@@ -119,4 +118,4 @@ const Icicle = () => {
     )
 }
 
-export default Icicle
+export default IcicleHtml
