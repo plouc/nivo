@@ -317,6 +317,7 @@ const props: ChartProperty[] = [
         group: 'Labels',
         control: {
             type: 'radio',
+            columns: 4,
             choices: [
                 { label: 'auto', value: 'auto' },
                 { label: 'start', value: 'start' },
@@ -335,6 +336,7 @@ const props: ChartProperty[] = [
         group: 'Labels',
         control: {
             type: 'radio',
+            columns: 4,
             choices: [
                 { label: 'auto', value: 'auto' },
                 { label: 'top', value: 'top' },
