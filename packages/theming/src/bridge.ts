@@ -18,8 +18,8 @@ export const svgStyleAttributesMapping: EngineStyleAttributesMapping = {
     },
     textBaseline: {
         top: 'text-before-edge',
-        center: 'central',
-        bottom: 'alphabetic',
+        center: 'middle',
+        bottom: 'text-after-edge',
     },
 }
 
