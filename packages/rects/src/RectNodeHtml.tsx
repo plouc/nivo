@@ -13,19 +13,18 @@ export const RectNodeHtml = <Datum extends DatumWithRectAndColor>({
     testId,
     children,
 }: PropsWithChildren<RectNodeProps<Datum>>) => {
-    const { x, y, color, transform, progress, ...rest } = style
+    const { x, y, color, transform, progress, ...extraStyle } = style
 
     return (
         <animated.div
             style={{
                 position: 'absolute',
-                display: 'flex',
                 borderStyle: 'solid',
                 boxSizing: 'border-box',
                 left: x,
                 top: y,
                 backgroundColor: style.color,
-                ...rest,
+                ...extraStyle,
             }}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
