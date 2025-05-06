@@ -32,3 +32,5 @@ build
 
 cypress/cypress/screenshots
 cypress/cypress/videos
+
+examples/local*
