@@ -245,12 +245,10 @@ const testNode = (expectedNode: ExpectedNode) => {
             }
 
             if (expectedNode.labelLayout.position) {
-                const labelGroup = label.parent().should('exist')
-
                 const labelRotation = expectedNode.labelLayout.rotation ?? 0
                 const expectedLabelTransform = `translate(${expectedNode.labelLayout.position[0]},${expectedNode.labelLayout.position[1]}) rotate(${labelRotation})`
 
-                labelGroup.should('have.attr', 'transform', expectedLabelTransform)
+                label.should('have.attr', 'transform', expectedLabelTransform)
             }
         }
     }
