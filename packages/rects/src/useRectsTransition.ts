@@ -178,7 +178,7 @@ export const useRectsTransition = <
     Datum extends DatumWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 >(
-    data: Datum[],
+    data: readonly Datum[],
     getUid: (datum: Datum) => string,
     mode: RectTransitionMode = 'flow-down',
     extra?: RectTransitionExtra<Datum, ExtraProps>

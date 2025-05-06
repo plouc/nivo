@@ -1,39 +1,44 @@
-import { createElement, FunctionComponent, useCallback } from 'react'
+import { useCallback } from 'react'
 import { to } from '@react-spring/web'
 import { PropertyAccessor, usePropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
-import { RectMouseHandler, RectShape, RectShapeProps, RectWheelHandler } from './RectShape'
-import { DatumWithRectAndColor, RectTransitionMode } from './types'
+import {
+    DatumWithRectAndColor,
+    RectTransitionMode,
+    RectNodeComponent,
+    RectMouseHandler,
+    RectWheelHandler,
+} from './types'
 import { useRectsTransition } from './useRectsTransition'
-
-export type RectComponent<Datum extends DatumWithRectAndColor> = FunctionComponent<
-    RectShapeProps<Datum>
->
+import { RectNodeWrapper } from './RectNodeWrapper'
 
 export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
-    data: Datum[]
+    data: readonly Datum[]
     uid: PropertyAccessor<Datum, string>
     borderRadius: number
     borderColor: InheritedColorConfig<Datum>
     borderWidth: number
-    onClick?: RectMouseHandler<Datum>
+    isInteractive: boolean
     onMouseEnter?: RectMouseHandler<Datum>
-    onMouseLeave?: RectMouseHandler<Datum>
     onMouseMove?: RectMouseHandler<Datum>
-    onWheel?: RectWheelHandler<Datum>
+    onMouseLeave?: RectMouseHandler<Datum>
+    onClick?: RectMouseHandler<Datum>
     onContextMenu?: RectMouseHandler<Datum>
+    onWheel?: RectWheelHandler<Datum>
     transitionMode?: RectTransitionMode
-    component?: RectComponent<Datum>
+    component: RectNodeComponent<Datum>
     getTestId?: (datum: Datum) => string
 }
 
 export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     data,
     uid,
+    component,
     borderRadius,
     borderWidth,
     borderColor,
+    isInteractive,
     onMouseMove,
     onMouseLeave,
     onMouseEnter,
@@ -41,7 +46,6 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     onWheel,
     onContextMenu,
     transitionMode = 'flow-down',
-    component = RectShape,
     getTestId,
 }: RectsLayerProps<Datum>) => {
     const theme = useTheme()
@@ -68,32 +72,35 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
         leave: extractColors,
     })
 
-    const Rect: RectComponent<Datum> = component
-
     return (
-        <g>
-            {transition((transitionProps, datum) => {
-                return createElement(Rect, {
-                    key: datum.id,
-                    datum,
-                    style: {
+        <>
+            {transition((transitionProps, datum) => (
+                <RectNodeWrapper
+                    key={datum.id}
+                    datum={datum}
+                    style={{
                         ...transitionProps,
+                        width: transitionProps.width.to(v => Math.max(v, 0)),
+                        height: transitionProps.height.to(v => Math.max(v, 0)),
                         transform: to(
                             [transitionProps.x, transitionProps.y],
                             (x, y) => `translate(${x},${y})`
                         ),
+                        opacity: transitionProps.progress,
                         borderRadius,
                         borderWidth,
-                    },
-                    onClick,
-                    onMouseEnter,
-                    onMouseMove,
-                    onMouseLeave,
-                    onWheel,
-                    onContextMenu,
-                    testId: getTestId?.(datum),
-                })
-            })}
-        </g>
+                    }}
+                    isInteractive={isInteractive}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    onClick={onClick}
+                    onContextMenu={onContextMenu}
+                    onWheel={onWheel}
+                    testId={getTestId?.(datum)}
+                    nodeComponent={component}
+                />
+            ))}
+        </>
     )
 }

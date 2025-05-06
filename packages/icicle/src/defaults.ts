@@ -1,3 +1,4 @@
+import { RectNodeSvg } from '@nivo/rects'
 import {
     IcicleCommonProps,
     IcicleSvgPropsWithDefaults,
@@ -48,6 +49,7 @@ export const svgDefaultProps: Omit<
     'data' | 'width' | 'height' | 'margin' | 'theme'
 > = {
     ...commonDefaultProps,
+    nodeComponent: RectNodeSvg,
     defs: [],
     fill: [],
     animate: true,
