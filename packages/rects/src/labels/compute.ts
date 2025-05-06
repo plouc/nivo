@@ -1,9 +1,5 @@
 import { BoxAnchor } from '@nivo/core'
-import {
-    SvgTextLayout,
-    getSvgTextAnchorFromBoxAnchor,
-    getSvgTextDominantBaselineFromBoxAnchor,
-} from '@nivo/text'
+import { getTextAlignFromBoxAnchor, getTextBaselineFromBoxAnchor } from '@nivo/text'
 import { Rect } from '../types'
 import { RectLabelsProps } from './types'
 
@@ -78,12 +74,11 @@ const anchorFactoriesMap: Record<BoxAnchor, AnchorGetterFactory> = {
 export const anchorGetter = (anchor: BoxAnchor, paddingX = 0, paddingY = 0) =>
     anchorFactoriesMap[anchor](paddingX, paddingY)
 
-export const getSvgTextLayout = (
+export const getTextLayout = (
     boxAnchor: BoxAnchor,
-    anchor: RectLabelsProps<any>['labelAnchor'],
+    align: RectLabelsProps<any>['labelAlign'],
     baseline: RectLabelsProps<any>['labelBaseline']
-): SvgTextLayout => ({
-    textAnchor: anchor === 'auto' ? getSvgTextAnchorFromBoxAnchor(boxAnchor) : anchor,
-    dominantBaseline:
-        baseline === 'auto' ? getSvgTextDominantBaselineFromBoxAnchor(boxAnchor) : baseline,
+) => ({
+    align: align === 'auto' ? getTextAlignFromBoxAnchor(boxAnchor) : align,
+    baseline: baseline === 'auto' ? getTextBaselineFromBoxAnchor(boxAnchor) : baseline,
 })

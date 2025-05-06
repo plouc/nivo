@@ -13,7 +13,7 @@ import {
 import { useRectsTransition } from './useRectsTransition'
 import { RectNodeWrapper } from './RectNodeWrapper'
 
-export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
+export interface RectNodesProps<Datum extends DatumWithRectAndColor> {
     data: readonly Datum[]
     uid: PropertyAccessor<Datum, string>
     borderRadius: number
@@ -27,11 +27,12 @@ export interface RectsLayerProps<Datum extends DatumWithRectAndColor> {
     onContextMenu?: RectMouseHandler<Datum>
     onWheel?: RectWheelHandler<Datum>
     transitionMode?: RectTransitionMode
+    animateOnMount?: boolean
     component: RectNodeComponent<Datum>
     getTestId?: (datum: Datum) => string
 }
 
-export const RectsLayer = <Datum extends DatumWithRectAndColor>({
+export const RectNodes = <Datum extends DatumWithRectAndColor>({
     data,
     uid,
     component,
@@ -46,8 +47,9 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     onWheel,
     onContextMenu,
     transitionMode = 'flow-down',
+    animateOnMount = false,
     getTestId,
-}: RectsLayerProps<Datum>) => {
+}: RectNodesProps<Datum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
     const getUid = usePropertyAccessor(uid)
@@ -66,7 +68,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
             color: string
             borderColor: string
         }
-    >(data, getUid, transitionMode, {
+    >(data, getUid, transitionMode, animateOnMount, {
         enter: extractColors,
         update: extractColors,
         leave: extractColors,
@@ -75,7 +77,7 @@ export const RectsLayer = <Datum extends DatumWithRectAndColor>({
     return (
         <>
             {transition((transitionProps, datum) => (
-                <RectNodeWrapper
+                <RectNodeWrapper<Datum>
                     key={datum.id}
                     datum={datum}
                     style={{

@@ -1,16 +1,50 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ComponentProps } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Container, SvgWrapper } from '@nivo/core'
-import { RectsLayer, RectNodeSvg, DatumWithRectAndColor, RectLabelsLayer } from '@nivo/rects'
+import {
+    RectNodes,
+    RectNodeSvg,
+    DatumWithRectAndColor,
+    RectLabels,
+    RectLabelSvg,
+} from '@nivo/rects'
 
-const meta: Meta<typeof RectsLayer> = {
-    title: 'RectsLayer',
-    component: RectsLayer,
+interface ExtraArgs {
+    motionConfig: string
+}
+
+const meta: Meta<ComponentProps<typeof RectNodes> & ExtraArgs> = {
+    title: 'RectNodes',
+    component: RectNodes,
     tags: ['autodocs'],
+    argTypes: {
+        transitionMode: {
+            control: 'select',
+            options: [
+                'reveal-up',
+                'reveal-right',
+                'reveal-down',
+                'reveal-left',
+                'center',
+                'flow-up',
+                'flow-right',
+                'flow-down',
+                'flow-left',
+            ],
+        },
+        motionConfig: {
+            control: 'select',
+            options: ['default', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'],
+        },
+    },
+    args: {
+        transitionMode: 'flow-up',
+        motionConfig: 'gentle',
+    },
 }
 
 export default meta
-type Story = StoryObj<typeof RectsLayer>
+type Story = StoryObj<Meta<ComponentProps<typeof RectNodes> & ExtraArgs>>
 
 const baseData: Record<'A' | 'B' | 'C' | 'D', Omit<DatumWithRectAndColor, 'rect'>> = {
     A: {
@@ -219,30 +253,6 @@ const sampleData: DatumWithRectAndColor[][] = [
 ]
 
 export const TransitionModeShowcase: Story = {
-    argTypes: {
-        transitionMode: {
-            control: 'select',
-            options: [
-                'reveal-up',
-                'reveal-right',
-                'reveal-down',
-                'reveal-left',
-                'center',
-                'flow-up',
-                'flow-right',
-                'flow-down',
-                'flow-left',
-            ],
-        },
-        motionConfig: {
-            control: 'select',
-            options: ['default', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'],
-        },
-    },
-    args: {
-        transitionMode: 'flow-up',
-        motionConfig: 'gentle',
-    },
     render: args => {
         const [current, setCurrent] = useState(0)
 
@@ -271,7 +281,7 @@ export const TransitionModeShowcase: Story = {
                     margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
                 >
                     <g transform="translate(50, 50)">
-                        <RectsLayer
+                        <RectNodes
                             uid="id"
                             data={sampleData[current]}
                             component={RectNodeSvg}
@@ -281,12 +291,13 @@ export const TransitionModeShowcase: Story = {
                             isInteractive={false}
                             transitionMode={args.transitionMode}
                         />
-                        <RectLabelsLayer
+                        <RectLabels
+                            uid="id"
                             data={sampleData[current]}
+                            component={RectLabelSvg}
                             label="id"
+                            boxAnchor="center"
                             textColor={{ from: 'color', modifiers: [['darker', 1.4]] }}
-                            offsetX={0.5}
-                            offsetY={0.5}
                             transitionMode={args.transitionMode}
                         />
                     </g>

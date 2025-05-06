@@ -1,11 +1,11 @@
 import { createElement, useCallback, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
-import { RectsLayer } from '@nivo/rects'
+import { RectNodeComponent, RectNodes } from '@nivo/rects'
 import { IcicleSvgPropsWithDefaults, ComputedDatum, EventHandlers } from './types'
 
-export interface RectsProps<Datum> {
+export interface IcicleNodesProps<Datum> {
     data: ComputedDatum<Datum>[]
-    component: IcicleSvgPropsWithDefaults<Datum>['nodeComponent']
+    component: RectNodeComponent<ComputedDatum<Datum>>
     borderRadius: IcicleSvgPropsWithDefaults<Datum>['borderRadius']
     borderWidth: IcicleSvgPropsWithDefaults<Datum>['borderWidth']
     borderColor: IcicleSvgPropsWithDefaults<Datum>['borderColor']
@@ -19,10 +19,11 @@ export interface RectsProps<Datum> {
     onWheel?: EventHandlers<Datum>['onWheel']
     onContextMenu?: EventHandlers<Datum>['onContextMenu']
     tooltip: IcicleSvgPropsWithDefaults<Datum>['tooltip']
+    animateOnMount: IcicleSvgPropsWithDefaults<Datum>['animateOnMount']
     transitionMode: IcicleSvgPropsWithDefaults<Datum>['rectsTransitionMode']
 }
 
-export const Rects = <Datum,>({
+export const IcicleNodes = <Datum,>({
     data,
     component,
     borderRadius,
@@ -38,8 +39,9 @@ export const Rects = <Datum,>({
     onWheel,
     onContextMenu,
     tooltip,
+    animateOnMount,
     transitionMode,
-}: RectsProps<Datum>) => {
+}: IcicleNodesProps<Datum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleClick = useCallback(
@@ -77,7 +79,7 @@ export const Rects = <Datum,>({
     const getTestId = useCallback((datum: ComputedDatum<Datum>) => `icicle.rect.${datum.path}`, [])
 
     return (
-        <RectsLayer<ComputedDatum<Datum>>
+        <RectNodes<ComputedDatum<Datum>>
             data={data}
             component={component}
             uid="path"
@@ -91,8 +93,9 @@ export const Rects = <Datum,>({
             onClick={handleClick}
             onContextMenu={onContextMenu}
             onWheel={onWheel}
-            getTestId={getTestId}
+            animateOnMount={animateOnMount}
             transitionMode={transitionMode}
+            getTestId={getTestId}
         />
     )
 }

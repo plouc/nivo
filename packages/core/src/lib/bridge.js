@@ -1,3 +1,6 @@
+/**
+ * @TODO: use @nivo/theming instead.
+ */
 export const textPropsByEngine = {
     svg: {
         align: {

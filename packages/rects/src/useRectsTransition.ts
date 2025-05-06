@@ -181,6 +181,7 @@ export const useRectsTransition = <
     data: readonly Datum[],
     getUid: (datum: Datum) => string,
     mode: RectTransitionMode = 'flow-down',
+    animateOnMount: boolean = false,
     extra?: RectTransitionExtra<Datum, ExtraProps>
 ) => {
     const { animate, config: springConfig } = useMotionConfig()
@@ -189,7 +190,7 @@ export const useRectsTransition = <
 
     return useTransition<Datum, RectTransitionProps<ExtraProps>>(data, {
         keys: getUid,
-        initial: phases.enter,
+        initial: animate && animateOnMount ? phases.enter : null,
         from: phases.enter,
         enter: phases.update,
         update: phases.update,

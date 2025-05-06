@@ -5,36 +5,39 @@ import { useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
 import { DatumWithRectAndColor, RectTransitionMode } from '../types'
 import { useRectAnchorsTransition } from '../useRectAnchorsTransition'
-import { RectLabelsProps, RectComputedLabel, RectLabelComponent } from './types'
-import { RectLabel } from './RectLabel'
-import { anchorGetter, getSvgTextLayout } from './compute'
+import {
+    RectLabelsProps as PublicRectLabelProps,
+    RectComputedLabel,
+    RectLabelComponent,
+} from './types'
+import { anchorGetter, getTextLayout } from './compute'
 
-export interface RectLabelsLayerProps<Datum extends DatumWithRectAndColor> {
+interface RectLabelsProps<Datum extends DatumWithRectAndColor> {
     data: readonly Datum[]
-    uid: RectLabelsProps<Datum>['uid']
-    label: RectLabelsProps<Datum>['label']
-    boxAnchor: RectLabelsProps<Datum>['labelBoxAnchor']
-    anchor?: RectLabelsProps<Datum>['labelAnchor']
-    baseline?: RectLabelsProps<Datum>['labelBaseline']
-    paddingX?: RectLabelsProps<Datum>['labelPaddingX']
-    paddingY?: RectLabelsProps<Datum>['labelPaddingY']
-    rotation?: RectLabelsProps<Datum>['labelRotation']
-    skipWidth?: RectLabelsProps<Datum>['labelSkipWidth']
-    skipHeight?: RectLabelsProps<Datum>['labelSkipHeight']
-    textColor: RectLabelsProps<Datum>['labelTextColor']
+    uid: PublicRectLabelProps<Datum>['uid']
+    label: PublicRectLabelProps<Datum>['label']
+    boxAnchor: PublicRectLabelProps<Datum>['labelBoxAnchor']
+    align?: PublicRectLabelProps<Datum>['labelAlign']
+    baseline?: PublicRectLabelProps<Datum>['labelBaseline']
+    paddingX?: PublicRectLabelProps<Datum>['labelPaddingX']
+    paddingY?: PublicRectLabelProps<Datum>['labelPaddingY']
+    rotation?: PublicRectLabelProps<Datum>['labelRotation']
+    skipWidth?: PublicRectLabelProps<Datum>['labelSkipWidth']
+    skipHeight?: PublicRectLabelProps<Datum>['labelSkipHeight']
+    textColor: PublicRectLabelProps<Datum>['labelTextColor']
     transitionMode?: RectTransitionMode
-    component?: RectLabelsProps<Datum>['labelComponent']
+    component: RectLabelComponent<Datum>
     getTestId?: (datum: Omit<Datum, 'rect'>) => string
 }
 
 const extractRotation = ({ rotation }: { rotation: number }) => ({ rotation })
 
-export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
+export const RectLabels = <Datum extends DatumWithRectAndColor>({
     data,
     uid,
     label: labelAccessor,
     boxAnchor = 'center',
-    anchor = 'auto',
+    align = 'auto',
     baseline = 'auto',
     paddingX = 0,
     paddingY = 0,
@@ -43,9 +46,9 @@ export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
     skipHeight = 0,
     textColor = { theme: 'labels.text.fill' },
     transitionMode = 'flow-down',
-    component = RectLabel,
+    component,
     getTestId,
-}: RectLabelsLayerProps<Datum>) => {
+}: RectLabelsProps<Datum>) => {
     const getUid = usePropertyAccessor(uid)
     const getLabel = usePropertyAccessor(labelAccessor)
 
@@ -53,8 +56,8 @@ export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
     const getTextColor = useInheritedColor(textColor, theme)
 
     const textLayout = useMemo(
-        () => getSvgTextLayout(boxAnchor, anchor, baseline),
-        [boxAnchor, anchor, baseline]
+        () => getTextLayout(boxAnchor, align, baseline),
+        [boxAnchor, align, baseline]
     )
 
     const computedLabels = useMemo(() => {
@@ -101,12 +104,10 @@ export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
         }
     )
 
-    const Label: RectLabelComponent<Datum> = component
-
     return (
-        <g>
+        <>
             {transition((transitionProps, datum) => {
-                return createElement(Label, {
+                return createElement(component, {
                     key: datum.id,
                     ...datum,
                     style: {
@@ -120,6 +121,6 @@ export const RectLabelsLayer = <Datum extends DatumWithRectAndColor>({
                     testId: getTestId?.(datum.data),
                 })
             })}
-        </g>
+        </>
     )
 }

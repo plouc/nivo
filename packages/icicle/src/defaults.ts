@@ -1,7 +1,8 @@
-import { RectNodeSvg } from '@nivo/rects'
+import { RectNodeSvg, RectNodeHtml, RectLabelSvg, RectLabelHtml } from '@nivo/rects'
 import {
     IcicleCommonProps,
     IcicleSvgPropsWithDefaults,
+    IcicleHtmlPropsWithDefaults,
     IcicleLayerId,
     DefaultIcicleDatum,
 } from './types'
@@ -29,9 +30,9 @@ export const commonDefaultProps: Omit<
     enableLabels: false,
     label: 'id',
     labelBoxAnchor: 'center',
-    labelAnchor: 'auto',
+    labelAlign: 'auto',
     labelBaseline: 'auto',
-    labelSkipWidth: 32,
+    labelSkipWidth: 0,
     labelSkipHeight: 0,
     labelPaddingX: 0,
     labelPaddingY: 0,
@@ -50,11 +51,28 @@ export const svgDefaultProps: Omit<
 > = {
     ...commonDefaultProps,
     nodeComponent: RectNodeSvg,
+    labelComponent: RectLabelSvg,
     defs: [],
     fill: [],
     animate: true,
     motionConfig: 'default',
+    animateOnMount: false,
     rectsTransitionMode: 'flow-down',
     labelsTransitionMode: 'center',
     role: 'img',
+}
+
+export const htmlDefaultProps: Omit<
+    IcicleHtmlPropsWithDefaults<DefaultIcicleDatum>,
+    'data' | 'width' | 'height' | 'margin' | 'theme'
+> = {
+    ...commonDefaultProps,
+    nodeComponent: RectNodeHtml,
+    labelComponent: RectLabelHtml,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
+    animateOnMount: svgDefaultProps.animateOnMount,
+    rectsTransitionMode: svgDefaultProps.rectsTransitionMode,
+    labelsTransitionMode: svgDefaultProps.labelsTransitionMode,
+    role: svgDefaultProps.role,
 }
