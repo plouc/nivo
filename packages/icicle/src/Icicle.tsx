@@ -24,6 +24,7 @@ const InnerIcicle = <Datum,>({
     gapX = svgDefaultProps.gapX,
     gapY = svgDefaultProps.gapY,
     layers = svgDefaultProps.layers as readonly IcicleLayerId[],
+    nodeComponent = svgDefaultProps.nodeComponent as IcicleSvgPropsWithDefaults<Datum>['nodeComponent'],
     colors = svgDefaultProps.colors as IcicleSvgPropsWithDefaults<Datum>['colors'],
     colorBy = svgDefaultProps.colorBy,
     inheritColorFromParent = svgDefaultProps.inheritColorFromParent,
@@ -101,6 +102,7 @@ const InnerIcicle = <Datum,>({
             <Rects<Datum>
                 key="rects"
                 data={nodes}
+                component={nodeComponent}
                 borderRadius={borderRadius}
                 borderWidth={borderWidth}
                 borderColor={borderColor}

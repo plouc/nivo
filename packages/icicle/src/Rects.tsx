@@ -1,28 +1,30 @@
-import { createElement, useCallback, MouseEvent, WheelEvent } from 'react'
+import { createElement, useCallback, MouseEvent } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { RectsLayer } from '@nivo/rects'
-import { IcicleSvgPropsWithDefaults, ComputedDatum, MouseHandlers } from './types'
+import { IcicleSvgPropsWithDefaults, ComputedDatum, EventHandlers } from './types'
 
 export interface RectsProps<Datum> {
     data: ComputedDatum<Datum>[]
+    component: IcicleSvgPropsWithDefaults<Datum>['nodeComponent']
     borderRadius: IcicleSvgPropsWithDefaults<Datum>['borderRadius']
     borderWidth: IcicleSvgPropsWithDefaults<Datum>['borderWidth']
     borderColor: IcicleSvgPropsWithDefaults<Datum>['borderColor']
     isInteractive: IcicleSvgPropsWithDefaults<Datum>['isInteractive']
     enableZooming: IcicleSvgPropsWithDefaults<Datum>['enableZooming']
     zoom: (nodePath: string) => void
-    onClick?: MouseHandlers<Datum>['onClick']
-    onMouseEnter?: MouseHandlers<Datum>['onMouseEnter']
-    onMouseLeave?: MouseHandlers<Datum>['onMouseLeave']
-    onMouseMove?: MouseHandlers<Datum>['onMouseMove']
-    onWheel?: MouseHandlers<Datum>['onWheel']
-    onContextMenu?: MouseHandlers<Datum>['onContextMenu']
+    onClick?: EventHandlers<Datum>['onClick']
+    onMouseEnter?: EventHandlers<Datum>['onMouseEnter']
+    onMouseLeave?: EventHandlers<Datum>['onMouseLeave']
+    onMouseMove?: EventHandlers<Datum>['onMouseMove']
+    onWheel?: EventHandlers<Datum>['onWheel']
+    onContextMenu?: EventHandlers<Datum>['onContextMenu']
     tooltip: IcicleSvgPropsWithDefaults<Datum>['tooltip']
     transitionMode: IcicleSvgPropsWithDefaults<Datum>['rectsTransitionMode']
 }
 
 export const Rects = <Datum,>({
     data,
+    component,
     borderRadius,
     borderWidth,
     borderColor,
@@ -41,7 +43,7 @@ export const Rects = <Datum,>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleClick = useCallback(
-        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
+        (datum: ComputedDatum<Datum>, event: MouseEvent) => {
             onClick?.(datum, event)
             if (enableZooming) zoom(datum.path)
         },
@@ -49,7 +51,7 @@ export const Rects = <Datum,>({
     )
 
     const handleMouseEnter = useCallback(
-        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
+        (datum: ComputedDatum<Datum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseEnter?.(datum, event)
         },
@@ -57,7 +59,7 @@ export const Rects = <Datum,>({
     )
 
     const handleMouseMove = useCallback(
-        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
+        (datum: ComputedDatum<Datum>, event: MouseEvent) => {
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseMove?.(datum, event)
         },
@@ -65,25 +67,11 @@ export const Rects = <Datum,>({
     )
 
     const handleMouseLeave = useCallback(
-        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
+        (datum: ComputedDatum<Datum>, event: MouseEvent) => {
             hideTooltip()
             onMouseLeave?.(datum, event)
         },
         [hideTooltip, onMouseLeave]
-    )
-
-    const handleWheel = useCallback(
-        (datum: ComputedDatum<Datum>, event: WheelEvent<SVGRectElement>) => {
-            onWheel?.(datum, event)
-        },
-        [onWheel]
-    )
-
-    const handleContextMenu = useCallback(
-        (datum: ComputedDatum<Datum>, event: MouseEvent<SVGRectElement>) => {
-            onContextMenu?.(datum, event)
-        },
-        [onContextMenu]
     )
 
     const getTestId = useCallback((datum: ComputedDatum<Datum>) => `icicle.rect.${datum.path}`, [])
@@ -91,16 +79,18 @@ export const Rects = <Datum,>({
     return (
         <RectsLayer<ComputedDatum<Datum>>
             data={data}
+            component={component}
             uid="path"
             borderRadius={borderRadius}
             borderWidth={borderWidth}
             borderColor={borderColor}
-            onClick={isInteractive ? handleClick : undefined}
-            onMouseEnter={isInteractive ? handleMouseEnter : undefined}
-            onMouseMove={isInteractive ? handleMouseMove : undefined}
-            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-            onWheel={isInteractive ? handleWheel : undefined}
-            onContextMenu={isInteractive ? handleContextMenu : undefined}
+            isInteractive={isInteractive}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+            onContextMenu={onContextMenu}
+            onWheel={onWheel}
             getTestId={getTestId}
             transitionMode={transitionMode}
         />

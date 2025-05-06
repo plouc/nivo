@@ -1,5 +1,5 @@
 export * from './constants'
-export * from './RectShape'
+export * from './RectNodeSvg'
 export * from './RectsLayer'
 export * from './types'
 export * from './useRectsTransition'

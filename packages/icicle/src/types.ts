@@ -9,7 +9,7 @@ import {
     Dimensions,
 } from '@nivo/core'
 import { PartialTheme } from '@nivo/theming'
-import { type Rect, RectLabelsProps, RectTransitionMode } from '@nivo/rects'
+import { type Rect, RectLabelsProps, RectTransitionMode, RectNodeComponent } from '@nivo/rects'
 
 export interface DefaultIcicleDatum {
     id: string
@@ -85,21 +85,28 @@ export type IcicleCommonProps<Datum> = {
     renderWrapper: boolean
 } & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'uid' | 'labelComponent'>
 
-export type MouseHandler<Datum> = (datum: ComputedDatum<Datum>, event: MouseEvent) => void
+export type MouseHandler<Datum, E = Element> = (
+    datum: ComputedDatum<Datum>,
+    event: MouseEvent<E>
+) => void
 
-export type WheelHandler<Datum> = (datum: ComputedDatum<Datum>, event: WheelEvent) => void
+export type WheelHandler<Datum, E = Element> = (
+    datum: ComputedDatum<Datum>,
+    event: WheelEvent<E>
+) => void
 
-export type MouseHandlers<Datum> = Partial<{
-    onClick: MouseHandler<Datum>
-    onMouseEnter: MouseHandler<Datum>
-    onMouseLeave: MouseHandler<Datum>
-    onMouseMove: MouseHandler<Datum>
-    onWheel: WheelHandler<Datum>
-    onContextMenu: MouseHandler<Datum>
+export type EventHandlers<Datum, E = Element> = Partial<{
+    onClick: MouseHandler<Datum, E>
+    onMouseEnter: MouseHandler<Datum, E>
+    onMouseLeave: MouseHandler<Datum, E>
+    onMouseMove: MouseHandler<Datum, E>
+    onWheel: WheelHandler<Datum, E>
+    onContextMenu: MouseHandler<Datum, E>
 }>
 
 export interface IcicleSvgExtraProps<Datum> {
     layers: readonly IcicleSvgLayer<Datum>[]
+    nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
     labelComponent?: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
@@ -115,11 +122,11 @@ export type IcicleSvgProps<Datum> = DataProps<Datum> &
     Dimensions &
     Partial<IcicleCommonProps<Datum>> &
     Partial<IcicleSvgExtraProps<Datum>> &
-    MouseHandlers<Datum> &
+    EventHandlers<Datum> &
     SvgDefsAndFill<any>
 export type IcicleSvgPropsWithDefaults<Datum> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum> &
     IcicleSvgExtraProps<Datum> &
-    MouseHandlers<Datum> &
+    EventHandlers<Datum> &
     SvgDefsAndFill<any>

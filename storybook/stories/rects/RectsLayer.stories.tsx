@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Container, SvgWrapper } from '@nivo/core'
-import { RectsLayer, DatumWithRectAndColor, RectLabelsLayer } from '@nivo/rects'
+import { RectsLayer, RectNodeSvg, DatumWithRectAndColor, RectLabelsLayer } from '@nivo/rects'
 
 const meta: Meta<typeof RectsLayer> = {
     title: 'RectsLayer',
@@ -274,9 +274,11 @@ export const TransitionModeShowcase: Story = {
                         <RectsLayer
                             uid="id"
                             data={sampleData[current]}
+                            component={RectNodeSvg}
                             borderRadius={0}
                             borderColor="#000000"
                             borderWidth={0}
+                            isInteractive={false}
                             transitionMode={args.transitionMode}
                         />
                         <RectLabelsLayer
