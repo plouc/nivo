@@ -14,6 +14,7 @@ import {
     IcicleCommonCustomLayerProps,
     IcicleChartContext,
     IcicleZoomFunction,
+    IcicleOrientation,
 } from './types'
 
 const computeNodePath = <Datum>(
@@ -301,9 +302,16 @@ export const useIcicle = <Datum>({
 }
 
 export const useMemoizeChartContext = <Context>(
-    zoom: IcicleZoomFunction,
+    {
+        orientation,
+        zoom,
+    }: {
+        orientation: IcicleOrientation
+        zoom: IcicleZoomFunction
+    },
     extra: Context
-): IcicleChartContext<Context> => useMemo(() => ({ zoom, ...extra }), [zoom, extra])
+): IcicleChartContext<Context> =>
+    useMemo(() => ({ orientation, zoom, ...extra }), [orientation, zoom, extra])
 
 export const useIcicleContext = <Context = Record<string, unknown>>() => {
     const ctx = useContext(ChartContext)

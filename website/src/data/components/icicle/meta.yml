@@ -11,13 +11,15 @@ Icicle:
   tags:
     - hierarchy
   stories:
-    - label: custom colors
+    - label: Custom node component (html)
+      link: iciclehtml--custom-node
+    - label: Custom colors
       link: icicle--custom-colors
-    - label: colors from data
+    - label: Colors from data
       link: icicle--child-color-picked-from-data
-    - label: custom tooltip
+    - label: Custom tooltip
       link: icicle--custom-tooltip
-    - label: patterns and gradients
+    - label: Patterns and gradients
       link: icicle--patterns-and-gradients
   description: |
     An Icicle Chart with zooming ability.
@@ -30,7 +32,15 @@ IcicleHtml:
   package: "@nivo/icicle"
   tags:
     - hierarchy
-  stories: []
+  stories:
+    - label: Custom node component
+      link: iciclehtml--custom-node
+    - label: Custom colors
+      link: iciclehtml--custom-colors
+    - label: Colors from data
+      link: child-color-picked-from-data
+    - label: Custom tooltip
+      link: iciclehtml--custom-tooltip
   description: |
     A HTML implementation of the [Icicle](self:/icicle) component.
     
