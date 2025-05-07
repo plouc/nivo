@@ -8,6 +8,7 @@ import { IcicleNodes } from './IcicleNodes'
 
 const InnerIcicleHtml = <Datum,>({
     data,
+    sort = htmlDefaultProps.sort as IcicleHtmlPropsWithDefaults<Datum>['sort'],
     identity = htmlDefaultProps.identity as IcicleHtmlPropsWithDefaults<Datum>['identity'],
     value = htmlDefaultProps.value as IcicleHtmlPropsWithDefaults<Datum>['value'],
     valueFormat,
@@ -64,6 +65,7 @@ const InnerIcicleHtml = <Datum,>({
 
     const { nodes, zoom } = useIcicle<Datum>({
         data,
+        sort,
         identity,
         value,
         valueFormat,

@@ -21,6 +21,7 @@ const initialProperties: UnmappedIcicleSvgProps = {
     },
     identity: 'name',
     value: 'loc',
+    sort: 'input',
     valueFormat: { format: '', enabled: false },
     orientation: svgDefaultProps.orientation,
     gapX: 2,

@@ -15,11 +15,11 @@ const commonProperties: IcicleSvgProps<RawDatum> = {
     data: generateLibTree() as any,
     identity: 'name',
     value: 'loc',
-    enableRectLabels: true,
-    rectLabel: 'id',
-    rectLabelsTextColor: { from: 'color', modifiers: [['darker', 0.6]] },
-    rectLabelsSkipWidth: 32,
-    rectLabelsSkipHeight: 32,
+    enableLabels: true,
+    label: 'id',
+    labelTextColor: { from: 'color', modifiers: [['darker', 0.6]] },
+    labelSkipWidth: 32,
+    labelSkipHeight: 32,
     theme: {
         labels: {
             text: {

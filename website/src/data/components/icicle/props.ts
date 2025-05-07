@@ -93,6 +93,23 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.value,
     },
     {
+        key: 'sort',
+        group: 'Base',
+        type: `NodesSorting`,
+        flavors: allFlavors,
+        required: false,
+        help: 'Define how to sort the nodes.',
+        control: {
+            type: 'radio',
+            columns: 3,
+            choices: [
+                { label: 'input', value: 'input' },
+                { label: 'asc', value: 'asc' },
+                { label: 'desc', value: 'desc' },
+            ],
+        },
+    },
+    {
         key: 'valueFormat',
         group: 'Base',
         flavors: allFlavors,

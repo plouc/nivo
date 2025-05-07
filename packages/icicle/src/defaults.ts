@@ -14,6 +14,7 @@ export const commonDefaultProps: Omit<
 > & {
     layers: IcicleLayerId[]
 } = {
+    sort: 'input',
     identity: 'id',
     value: 'value',
     orientation: 'bottom',
