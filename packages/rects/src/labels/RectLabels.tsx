@@ -1,5 +1,4 @@
 import { createElement, useMemo } from 'react'
-import { to } from '@react-spring/web'
 import { usePropertyAccessor } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
@@ -112,11 +111,8 @@ export const RectLabels = <Datum extends DatumWithRectAndColor>({
                     ...datum,
                     style: {
                         ...transitionProps,
-                        transform: to(
-                            [transitionProps.x, transitionProps.y, transitionProps.rotation],
-                            (x, y, rotation) => `translate(${x},${y}) rotate(${rotation})`
-                        ),
-                        ...textLayout,
+                        align: textLayout.align,
+                        baseline: textLayout.baseline,
                     },
                     testId: getTestId?.(datum.data),
                 })

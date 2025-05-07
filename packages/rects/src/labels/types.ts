@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { Interpolation, SpringValue } from '@react-spring/web'
+import { SpringValue } from '@react-spring/web'
 import { PropertyAccessor, BoxAnchor } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 import { TextAlign, TextBaseline } from '@nivo/theming'
@@ -12,8 +12,6 @@ export interface RectLabelProps<Datum extends DatumWithRectAndColor>
         y: SpringValue<number>
         rotation: SpringValue<number>
         progress: SpringValue<number>
-        transform: Interpolation<string>
-    } & {
         align: TextAlign
         baseline: TextBaseline
     }

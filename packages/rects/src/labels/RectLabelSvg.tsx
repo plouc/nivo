@@ -1,3 +1,4 @@
+import { to } from '@react-spring/web'
 import { useTheme, svgStyleAttributesMapping } from '@nivo/theming'
 import { Text } from '@nivo/text'
 import { DatumWithRectAndColor } from '../types'
@@ -13,9 +14,12 @@ export const RectLabelSvg = <Datum extends DatumWithRectAndColor>({
 
     return (
         <Text
-            transform={style.transform}
             textAnchor={svgStyleAttributesMapping.textAlign[style.align]}
             dominantBaseline={svgStyleAttributesMapping.textBaseline[style.baseline]}
+            transform={to(
+                [style.x, style.y, style.rotation],
+                (x, y, rotation) => `translate(${x},${y}) rotate(${rotation})`
+            )}
             style={{
                 ...theme.labels.text,
                 fill: color,
