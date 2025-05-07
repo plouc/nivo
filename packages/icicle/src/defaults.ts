@@ -44,6 +44,7 @@ export const commonDefaultProps: Omit<
     zoomMode: 'lateral',
     tooltip: IcicleTooltip,
     renderWrapper: true,
+    context: {},
 }
 
 export const svgDefaultProps: Omit<

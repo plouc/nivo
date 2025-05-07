@@ -1,12 +1,12 @@
 import { Fragment, ReactNode, useCallback } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { Container, useDimensions, DefaultChartContext, ChartContext } from '@nivo/core'
 import { RectLabels } from '@nivo/rects'
 import { IcicleHtmlProps, IcicleHtmlPropsWithDefaults, IcicleLayerId, ComputedDatum } from './types'
-import { useIcicle, useIcicleCustomLayerProps } from './hooks'
+import { useIcicle, useIcicleCustomLayerProps, useMemoizeChartContext } from './hooks'
 import { htmlDefaultProps } from './defaults'
 import { IcicleNodes } from './IcicleNodes'
 
-const InnerIcicleHtml = <Datum,>({
+const InnerIcicleHtml = <Datum, Context>({
     data,
     sort = htmlDefaultProps.sort as IcicleHtmlPropsWithDefaults<Datum>['sort'],
     identity = htmlDefaultProps.identity as IcicleHtmlPropsWithDefaults<Datum>['identity'],
@@ -56,7 +56,8 @@ const InnerIcicleHtml = <Datum,>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: IcicleHtmlProps<Datum>) => {
+    context = htmlDefaultProps.context as IcicleHtmlPropsWithDefaults<Datum, Context>['context'],
+}: IcicleHtmlProps<Datum, Context>) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -145,6 +146,8 @@ const InnerIcicleHtml = <Datum,>({
         zoom,
     })
 
+    const memoizedContext = useMemoizeChartContext(zoom, context)
+
     return (
         <div
             style={{
@@ -158,28 +161,30 @@ const InnerIcicleHtml = <Datum,>({
             aria-labelledby={ariaLabelledBy}
             aria-describedby={ariaDescribedBy}
         >
-            <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
-                {layers.map((layer, i) => {
-                    if (typeof layer === 'function') {
-                        return <Fragment key={i}>{layer(customLayerProps)}</Fragment>
-                    }
+            <ChartContext.Provider value={memoizedContext}>
+                <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
+                    {layers.map((layer, i) => {
+                        if (typeof layer === 'function') {
+                            return <Fragment key={i}>{layer(customLayerProps)}</Fragment>
+                        }
 
-                    return layerById[layer]
-                })}
-            </div>
+                        return layerById[layer]
+                    })}
+                </div>
+            </ChartContext.Provider>
         </div>
     )
 }
 
-export const IcicleHtml = <Datum,>({
+export const IcicleHtml = <Datum, Context = DefaultChartContext>({
     isInteractive = htmlDefaultProps.isInteractive,
     animate = htmlDefaultProps.animate,
     motionConfig = htmlDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: IcicleHtmlProps<Datum>) => (
+}: IcicleHtmlProps<Datum, Context>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerIcicleHtml<Datum> isInteractive={isInteractive} {...otherProps} />
+        <InnerIcicleHtml<Datum, Context> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

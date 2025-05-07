@@ -434,3 +434,7 @@ export type BoxAnchor =
     | 'bottom-left'
     | 'left'
 export const BOX_ANCHORS: readonly BoxAnchor[]
+
+export type DefaultChartContext = Record<string, unknown>
+
+export const ChartContext: React.Context<DefaultChartContext>

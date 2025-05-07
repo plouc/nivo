@@ -6,13 +6,15 @@ import {
     Container,
     SvgWrapper,
     useDimensions,
+    ChartContext,
+    DefaultChartContext,
 } from '@nivo/core'
 import { IcicleSvgProps, IcicleSvgPropsWithDefaults, IcicleLayerId, ComputedDatum } from './types'
-import { useIcicle, useIcicleCustomLayerProps } from './hooks'
+import { useIcicle, useIcicleCustomLayerProps, useMemoizeChartContext } from './hooks'
 import { svgDefaultProps } from './defaults'
 import { IcicleNodes } from './IcicleNodes'
 
-const InnerIcicle = <Datum,>({
+const InnerIcicle = <Datum, Context>({
     data,
     sort = svgDefaultProps.sort as IcicleSvgPropsWithDefaults<Datum>['sort'],
     identity = svgDefaultProps.identity as IcicleSvgPropsWithDefaults<Datum>['identity'],
@@ -64,7 +66,8 @@ const InnerIcicle = <Datum,>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: IcicleSvgProps<Datum>) => {
+    context = svgDefaultProps.context as IcicleSvgPropsWithDefaults<Datum, Context>['context'],
+}: IcicleSvgProps<Datum, Context>) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -158,6 +161,8 @@ const InnerIcicle = <Datum,>({
         zoom,
     })
 
+    const memoizedContext = useMemoizeChartContext(zoom, context)
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -169,26 +174,28 @@ const InnerIcicle = <Datum,>({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
         >
-            {layers.map((layer, i) => {
-                if (typeof layer === 'function') {
-                    return <Fragment key={i}>{layer(customLayerProps)}</Fragment>
-                }
+            <ChartContext.Provider value={memoizedContext}>
+                {layers.map((layer, i) => {
+                    if (typeof layer === 'function') {
+                        return <Fragment key={i}>{layer(customLayerProps)}</Fragment>
+                    }
 
-                return layerById[layer]
-            })}
+                    return layerById[layer]
+                })}
+            </ChartContext.Provider>
         </SvgWrapper>
     )
 }
 
-export const Icicle = <Datum,>({
+export const Icicle = <Datum, Context = DefaultChartContext>({
     isInteractive = svgDefaultProps.isInteractive,
     animate = svgDefaultProps.animate,
     motionConfig = svgDefaultProps.motionConfig,
     theme,
     renderWrapper,
     ...otherProps
-}: IcicleSvgProps<Datum>) => (
+}: IcicleSvgProps<Datum, Context>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerIcicle<Datum> isInteractive={isInteractive} {...otherProps} />
+        <InnerIcicle<Datum, Context> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )
