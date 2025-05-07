@@ -1,6 +1,6 @@
 {
     "name": "@nivo/voronoi",
-    "version": "0.93.0",
+    "version": "0.94.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
@@ -38,7 +38,7 @@
     "dependencies": {
         "@nivo/core": "workspace:*",
         "@nivo/theming": "workspace:*",
-        "@nivo/tooltip": "workspace:0.93.0",
+        "@nivo/tooltip": "workspace:0.94.0",
         "@types/d3-delaunay": "^6.0.4",
         "@types/d3-scale": "^4.0.8",
         "d3-delaunay": "^6.0.4",
