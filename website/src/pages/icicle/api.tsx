@@ -53,6 +53,7 @@ const IcicleApi = () => {
                     },
                     identity: 'name',
                     value: 'loc',
+                    sort: 'input',
                     valueFormat: { format: '', enabled: false },
                     gapX: 2,
                     gapY: 2,

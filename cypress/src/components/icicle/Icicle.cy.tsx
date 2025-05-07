@@ -1,4 +1,3 @@
-import { color as d3Color } from 'd3-color'
 import { linearGradientDef, patternDotsDef, BoxAnchor } from '@nivo/core'
 import { colorSchemes } from '@nivo/colors'
 import {

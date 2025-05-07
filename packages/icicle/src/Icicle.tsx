@@ -14,6 +14,7 @@ import { IcicleNodes } from './IcicleNodes'
 
 const InnerIcicle = <Datum,>({
     data,
+    sort = svgDefaultProps.sort as IcicleSvgPropsWithDefaults<Datum>['sort'],
     identity = svgDefaultProps.identity as IcicleSvgPropsWithDefaults<Datum>['identity'],
     value = svgDefaultProps.value as IcicleSvgPropsWithDefaults<Datum>['value'],
     valueFormat,
@@ -72,6 +73,7 @@ const InnerIcicle = <Datum,>({
 
     const { nodes, zoom } = useIcicle<Datum>({
         data,
+        sort,
         identity,
         value,
         valueFormat,

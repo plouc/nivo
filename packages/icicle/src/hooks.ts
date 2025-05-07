@@ -27,6 +27,7 @@ const computeNodePath = <Datum>(
 
 export const useIcicle = <Datum>({
     data,
+    sort = commonDefaultProps.sort as IcicleCommonProps<Datum>['sort'],
     identity = commonDefaultProps.identity as IcicleCommonProps<Datum>['identity'],
     value = commonDefaultProps.value as IcicleCommonProps<Datum>['value'],
     valueFormat,
@@ -44,6 +45,7 @@ export const useIcicle = <Datum>({
 }: DataProps<Datum> &
     Pick<
         IcicleCommonProps<Datum>,
+        | 'sort'
         | 'identity'
         | 'value'
         | 'valueFormat'
@@ -75,7 +77,11 @@ export const useIcicle = <Datum>({
         const clonedData = cloneDeep(data)
 
         const hierarchy = d3Hierarchy<Datum>(clonedData).sum(getValue)
-        // .sort((a, b) => b.height - a.height || b.value! - a.value!)
+        if (sort === 'asc') {
+            hierarchy.sort((a, b) => a.height - b.height || a.value! - b.value!)
+        } else if (sort === 'desc') {
+            hierarchy.sort((a, b) => b.height - a.height || b.value! - a.value!)
+        }
 
         const isHorizontal = orientation === 'left' || orientation === 'right'
 
@@ -168,6 +174,7 @@ export const useIcicle = <Datum>({
         }
     }, [
         data,
+        sort,
         getValue,
         getIdentity,
         formatValue,

@@ -10,12 +10,19 @@ import {
 } from '@nivo/core'
 import { PartialTheme } from '@nivo/theming'
 import { type Rect, RectLabelsProps, RectTransitionMode, RectNodeComponent } from '@nivo/rects'
+import { HierarchyNode } from 'd3-hierarchy'
 
 export interface DefaultIcicleDatum {
     id: string
     value?: number
     children?: DefaultIcicleDatum[]
 }
+
+export type NodesSortingFunction<Datum> = (
+    a: HierarchyNode<Datum>,
+    b: HierarchyNode<Datum>
+) => number
+export type NodesSorting<Datum> = 'input' | 'asc' | 'desc' | NodesSortingFunction<Datum>
 
 export type IcicleLayerId = 'rects' | 'labels'
 
@@ -68,6 +75,7 @@ export type IcicleZoomMode = 'lateral' | 'global'
 
 export type IcicleCommonProps<Datum> = {
     identity: PropertyAccessor<Datum, string>
+    sort: NodesSorting<Datum>
     value: PropertyAccessor<Datum, number>
     valueFormat?: ValueFormat<number>
     margin: Box
