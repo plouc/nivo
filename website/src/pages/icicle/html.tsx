@@ -1,18 +1,19 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { svgDefaultProps, ResponsiveIcicleHtml } from '@nivo/icicle'
+import { htmlDefaultProps, ResponsiveIcicleHtml } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/icicle/meta.yml'
-import mapper, {
-    UnmappedIcicleSvgProps,
-    MappedIcicleSvgProps,
+import {
+    UnmappedIcicleHtmlProps,
+    MappedIcicleHtmlProps,
+    htmlMapper,
 } from '../../data/components/icicle/mapper'
 import { groups } from '../../data/components/icicle/props'
 
 const generateData = () => generateLibTree()
 
-const initialProperties: UnmappedIcicleSvgProps = {
+const initialProperties: UnmappedIcicleHtmlProps = {
     margin: {
         top: 0,
         right: 0,
@@ -22,22 +23,22 @@ const initialProperties: UnmappedIcicleSvgProps = {
     identity: 'name',
     value: 'loc',
     sort: 'input',
-    valueFormat: { format: '', enabled: false },
-    orientation: svgDefaultProps.orientation,
+    valueFormat: { format: '>-.0s', enabled: true },
+    orientation: htmlDefaultProps.orientation,
     gapX: 2,
     gapY: 2,
     borderRadius: 2,
-    borderWidth: svgDefaultProps.borderWidth,
-    borderColor: svgDefaultProps.borderColor,
+    borderWidth: htmlDefaultProps.borderWidth,
+    borderColor: htmlDefaultProps.borderColor,
     colors: { scheme: 'tableau10' },
-    colorBy: svgDefaultProps.colorBy,
-    inheritColorFromParent: svgDefaultProps.inheritColorFromParent,
+    colorBy: htmlDefaultProps.colorBy,
+    inheritColorFromParent: htmlDefaultProps.inheritColorFromParent,
     childColor: {
         from: 'color',
         modifiers: [['brighter', 0.3]],
     },
     enableLabels: true,
-    label: svgDefaultProps.label,
+    label: htmlDefaultProps.label as string,
     labelBoxAnchor: 'top',
     labelPaddingX: 6,
     labelPaddingY: 6,
@@ -50,15 +51,13 @@ const initialProperties: UnmappedIcicleSvgProps = {
         from: 'color',
         modifiers: [['darker', 1.7]],
     },
-    animate: svgDefaultProps.animate,
-    motionConfig: svgDefaultProps.motionConfig,
-    rectsTransitionMode: svgDefaultProps.rectsTransitionMode,
+    animate: htmlDefaultProps.animate,
+    motionConfig: htmlDefaultProps.motionConfig,
+    rectsTransitionMode: htmlDefaultProps.rectsTransitionMode,
     labelsTransitionMode: 'flow-down',
-    defs: [],
-    fill: [],
     isInteractive: true,
-    enableZooming: svgDefaultProps.enableZooming,
-    zoomMode: svgDefaultProps.zoomMode,
+    enableZooming: htmlDefaultProps.enableZooming,
+    zoomMode: htmlDefaultProps.zoomMode,
     'custom tooltip example': false,
     'showcase pattern usage': false,
 }
@@ -80,8 +79,8 @@ const IcicleHtml = () => {
 
     return (
         <ComponentTemplate<
-            UnmappedIcicleSvgProps,
-            MappedIcicleSvgProps,
+            UnmappedIcicleHtmlProps,
+            MappedIcicleHtmlProps,
             ReturnType<typeof generateData>
         >
             name="IcicleHtml"
@@ -90,9 +89,9 @@ const IcicleHtml = () => {
             flavors={meta.flavors}
             currentFlavor="html"
             properties={groups}
-            defaultProperties={svgDefaultProps}
+            defaultProperties={htmlDefaultProps}
             initialProperties={initialProperties}
-            propertiesMapper={mapper}
+            propertiesMapper={htmlMapper}
             generateData={generateData}
             image={image}
         >
@@ -105,9 +104,9 @@ const IcicleHtml = () => {
                         onClick={node =>
                             logAction({
                                 type: 'click',
-                                label: `[node] ${node.id} - ${node.value}: ${
+                                label: `[node] ${node.id} - ${node.formattedValue} (${node.value} -> ${
                                     Math.round(node.percentage * 100) / 100
-                                }%`,
+                                }%)`,
                                 color: node.color,
                                 data: node,
                             })
