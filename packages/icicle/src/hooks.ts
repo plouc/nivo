@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState, useContext } from 'react'
 import cloneDeep from 'lodash/cloneDeep.js'
-import sortBy from 'lodash/sortBy.js'
 import omit from 'lodash/omit.js'
 import { partition as d3Partition, hierarchy as d3Hierarchy, HierarchyNode } from 'd3-hierarchy'
 import { usePropertyAccessor, useValueFormatter, ChartContext } from '@nivo/core'
@@ -40,6 +39,11 @@ const sortDescending =
     <Datum>() =>
     (a: HierarchyNode<Datum>, b: HierarchyNode<Datum>) =>
         b.height - a.height || b.value! - a.value!
+
+const calculateZoomMult = (size: number, totalSize: number, offset: number) => [
+    totalSize / size,
+    offset * (totalSize / size) * -1,
+]
 
 export const useIcicle = <Datum>({
     data,
@@ -96,94 +100,88 @@ export const useIcicle = <Datum>({
         if (sort === 'asc') hierarchy.sort(sortAscending<Datum>())
         else if (sort === 'desc') hierarchy.sort(sortDescending<Datum>())
 
-        const isHorizontal = orientation === 'left' || orientation === 'right'
+        const total = hierarchy.value ?? 0
 
+        const isHorizontal = orientation === 'left' || orientation === 'right'
         const partition = d3Partition<Datum>().size(
             isHorizontal ? [height, width] : [width, height]
         )
-
-        const descendants = partition(hierarchy).descendants()
-
-        const total = hierarchy.value ?? 0
-
-        // It's important to sort node by depth.
-        // It ensures that we assign a parent node which has already been computed.
-        // Because parent nodes are going to be computed first.
-        const sortedNodes = sortBy(descendants, 'depth')
 
         const nodeByPath: Record<string, ComputedDatum<Datum>> = {}
 
         return {
             nodeByPath,
-            nodes: sortedNodes.reduce<ComputedDatum<Datum>[]>((acc, node) => {
-                const id = getIdentity(node.data)
-                // d3 hierarchy node value is optional by default as it depends on
-                // a call to `count()` or `sum()`, and we previously called `sum()`.
-                const value = node.value!
-                const percentage = (100 * value) / total
-                const { path, pathComponents } = computeNodePath(node, getIdentity)
+            nodes: partition(hierarchy)
+                .descendants()
+                .reduce<ComputedDatum<Datum>[]>((acc, node) => {
+                    const id = getIdentity(node.data)
+                    // d3 hierarchy node value is optional by default as it depends on
+                    // a call to `count()` or `sum()`, and we previously called `sum()`.
+                    const value = node.value!
+                    const percentage = (100 * value) / total
+                    const { path, pathComponents } = computeNodePath(node, getIdentity)
 
-                let { x0, x1, y0, y1 } = node
-                if (isHorizontal) {
-                    x0 = node.y0
-                    x1 = node.y1
-                    y0 = node.x0
-                    y1 = node.x1
-                }
+                    let { x0, x1, y0, y1 } = node
+                    if (isHorizontal) {
+                        x0 = node.y0
+                        x1 = node.y1
+                        y0 = node.x0
+                        y1 = node.x1
+                    }
 
-                const nodeWidth = x1 - x0
-                const nodeHeight = y1 - y0
+                    const nodeWidth = x1 - x0
+                    const nodeHeight = y1 - y0
 
-                if (orientation === 'left') {
-                    x0 = width - x1
-                } else if (orientation === 'top') {
-                    y0 = height - y1
-                }
+                    if (orientation === 'left') {
+                        x0 = width - x1
+                    } else if (orientation === 'top') {
+                        y0 = height - y1
+                    }
 
-                const rect: Rect = {
-                    x: x0,
-                    y: y0,
-                    width: nodeWidth,
-                    height: nodeHeight,
-                }
+                    const rect: Rect = {
+                        x: x0,
+                        y: y0,
+                        width: nodeWidth,
+                        height: nodeHeight,
+                    }
 
-                let parent: ComputedDatum<Datum> | undefined
-                if (node.parent) {
-                    const parentPath = pathComponents.slice(0, -1).join('.')
-                    parent = nodeByPath[parentPath]
-                }
+                    let parent: ComputedDatum<Datum> | undefined
+                    if (node.parent) {
+                        const parentPath = pathComponents.slice(0, -1).join('.')
+                        parent = nodeByPath[parentPath]
+                    }
 
-                let maxDescendantDepth = node.depth
-                if (node.height > 0) {
-                    const nodeLeaves = node.leaves().sort((a, b) => b.depth - a.depth)
-                    if (nodeLeaves.length > 0) maxDescendantDepth = nodeLeaves[0].depth
-                }
+                    let maxDescendantDepth = node.depth
+                    if (node.height > 0) {
+                        const nodeLeaves = node.leaves().sort((a, b) => b.depth - a.depth)
+                        if (nodeLeaves.length > 0) maxDescendantDepth = nodeLeaves[0].depth
+                    }
 
-                const normalizedNode: ComputedDatum<Datum> = {
-                    id,
-                    path,
-                    pathComponents,
-                    value,
-                    percentage,
-                    rect,
-                    formattedValue: formatValue(value),
-                    color: '',
-                    data: omit(node.data!, 'children'),
-                    depth: node.depth,
-                    height: node.height,
-                    maxDescendantDepth,
-                }
+                    const normalizedNode: ComputedDatum<Datum> = {
+                        id,
+                        path,
+                        pathComponents,
+                        value,
+                        percentage,
+                        rect,
+                        formattedValue: formatValue(value),
+                        color: '',
+                        data: omit(node.data!, 'children'),
+                        depth: node.depth,
+                        height: node.height,
+                        maxDescendantDepth,
+                    }
 
-                if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
-                    normalizedNode.color = getChildColor(parent, normalizedNode)
-                } else {
-                    normalizedNode.color = getColor(normalizedNode)
-                }
+                    if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
+                        normalizedNode.color = getChildColor(parent, normalizedNode)
+                    } else {
+                        normalizedNode.color = getColor(normalizedNode)
+                    }
 
-                nodeByPath[path] = normalizedNode
+                    nodeByPath[path] = normalizedNode
 
-                return [...acc, normalizedNode]
-            }, []),
+                    return [...acc, normalizedNode]
+                }, []),
         }
     }, [
         data,
@@ -208,44 +206,54 @@ export const useIcicle = <Datum>({
         if (!zoomedNode) return nodes
 
         const isHorizontal = orientation === 'left' || orientation === 'right'
+        let xMult = 1,
+            xOffset = 0,
+            yMult = 1,
+            yOffset = 0
 
-        let xMult = 1
-        let xOffset = 0
-        let yMult = 1
-        let yOffset = 0
-
-        let deepestDescendant: ComputedDatum<Datum> | undefined
-        if (zoomedNode.depth > 0 && zoomedNode.maxDescendantDepth > zoomedNode.height) {
-            deepestDescendant = nodes.find(node => node.depth === zoomedNode.maxDescendantDepth)
-        }
+        const needsDepthScaling = zoomMode === 'global' && zoomedNode.depth > 0
+        const deepestDescendant =
+            needsDepthScaling && zoomedNode.maxDescendantDepth > zoomedNode.height
+                ? nodes.find(node => node.depth === zoomedNode.maxDescendantDepth)
+                : undefined
 
         if (!isHorizontal) {
-            xMult = width / zoomedNode.rect.width
-            xOffset = zoomedNode.rect.x * xMult * -1
+            ;[xMult, xOffset] = calculateZoomMult(zoomedNode.rect.width, width, zoomedNode.rect.x)
 
-            if (zoomMode === 'global' && zoomedNode.depth > 0) {
-                let aggregatedHeight = zoomedNode.rect.height
-                if (deepestDescendant) {
-                    aggregatedHeight =
-                        deepestDescendant.rect.y + deepestDescendant.rect.height - zoomedNode.rect.y
-                }
+            if (needsDepthScaling) {
+                const isBottomOrientation = orientation === 'bottom'
+                const aggregatedHeight = deepestDescendant
+                    ? isBottomOrientation
+                        ? deepestDescendant.rect.y +
+                          deepestDescendant.rect.height -
+                          zoomedNode.rect.y
+                        : zoomedNode.rect.y + zoomedNode.rect.height - deepestDescendant.rect.y
+                    : zoomedNode.rect.height
 
-                yMult = height / aggregatedHeight
-                yOffset = zoomedNode.rect.y * yMult * -1
+                const y = isBottomOrientation
+                    ? zoomedNode.rect.y
+                    : (deepestDescendant?.rect.y ?? zoomedNode.rect.y)
+
+                ;[yMult, yOffset] = calculateZoomMult(aggregatedHeight, height, y)
             }
         } else {
-            yMult = height / zoomedNode.rect.height
-            yOffset = zoomedNode.rect.y * yMult * -1
+            ;[yMult, yOffset] = calculateZoomMult(zoomedNode.rect.height, height, zoomedNode.rect.y)
 
-            if (zoomMode === 'global' && zoomedNode.depth > 0) {
-                let aggregatedWidth = zoomedNode.rect.width
-                if (deepestDescendant) {
-                    aggregatedWidth =
-                        deepestDescendant.rect.x + deepestDescendant.rect.width - zoomedNode.rect.x
-                }
+            if (needsDepthScaling) {
+                const isRightOrientation = orientation === 'right'
+                const aggregatedWidth = deepestDescendant
+                    ? isRightOrientation
+                        ? deepestDescendant.rect.x +
+                          deepestDescendant.rect.width -
+                          zoomedNode.rect.x
+                        : zoomedNode.rect.x + zoomedNode.rect.width - deepestDescendant.rect.x
+                    : zoomedNode.rect.width
 
-                xMult = width / aggregatedWidth
-                xOffset = zoomedNode.rect.x * xMult * -1
+                const x = isRightOrientation
+                    ? zoomedNode.rect.x
+                    : (deepestDescendant?.rect.x ?? zoomedNode.rect.x)
+
+                ;[xMult, xOffset] = calculateZoomMult(aggregatedWidth, width, x)
             }
         }
 
@@ -295,20 +303,14 @@ export const useIcicle = <Datum>({
 export const useMemoizeChartContext = <Context>(
     zoom: IcicleZoomFunction,
     extra: Context
-): IcicleChartContext<Context> =>
-    useMemo(
-        () => ({
-            zoom,
-            ...extra,
-        }),
-        [zoom, extra]
-    )
+): IcicleChartContext<Context> => useMemo(() => ({ zoom, ...extra }), [zoom, extra])
 
 export const useIcicleContext = <Context = Record<string, unknown>>() => {
     const ctx = useContext(ChartContext)
     if (!ctx) {
         throw new Error('No context found, make sure to use the component inside a chart component')
     }
+
     return ctx as IcicleChartContext<Context>
 }
 
