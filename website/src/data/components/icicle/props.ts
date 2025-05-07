@@ -452,12 +452,13 @@ const props: ChartProperty[] = [
         help: 'Defines the order of layers and add custom layers.',
         flavors: ['svg'],
         description: `
-            You can also use this to insert extra layers
-            to the chart, the extra layer must be a function.
+            You can also use this to insert extra layers, although for
+            this chart type, you might want to just use a custom
+             \`nodeComponent\` and remove the \`labels\` layer.
 
-            The layer component which will receive the chart's
-            context & computed data and must return a valid SVG element
-            for the \`Icicle\` component.
+            The custom layer will receive the chart's computed data 
+            and context and must return a valid SVG/HTML element depending
+            on the flavor you are using.
 
             The context passed to layers has the following structure:
 
@@ -469,7 +470,7 @@ const props: ChartProperty[] = [
             \`\`\`
         `,
         required: false,
-        type: 'Array<string | Function>',
+        type: 'readonly Array<IcicleLayerId | IcicleCustomLayer>',
         defaultValue: commonDefaultProps.layers,
     },
     {

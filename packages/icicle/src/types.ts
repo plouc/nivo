@@ -24,16 +24,22 @@ export type NodesSortingFunction<Datum> = (
 ) => number
 export type NodesSorting<Datum> = 'input' | 'asc' | 'desc' | NodesSortingFunction<Datum>
 
+export type IcicleZoomFunction = (nodePath: string | null) => void
+
 export type IcicleLayerId = 'rects' | 'labels'
+
+export type IcicleChartContext<Context = Record<string, unknown>> = {
+    zoom: IcicleZoomFunction
+} & Context
 
 export interface IcicleCommonCustomLayerProps<Datum> {
     nodes: readonly ComputedDatum<Datum>[]
-    zoom: (nodePath: string | null) => void
+    zoom: IcicleZoomFunction
 }
 
-export type IcicleCustomSvgLayerProps<Datum> = IcicleCommonCustomLayerProps<Datum>
-export type IcicleCustomSvgLayer<Datum> = FunctionComponent<IcicleCustomSvgLayerProps<Datum>>
-export type IcicleSvgLayer<Datum> = IcicleLayerId | IcicleCustomSvgLayer<Datum>
+export type IcicleCustomLayerProps<Datum> = IcicleCommonCustomLayerProps<Datum>
+export type IcicleCustomLayer<Datum> = FunctionComponent<IcicleCustomLayerProps<Datum>>
+export type IcicleLayer<Datum> = IcicleLayerId | IcicleCustomLayer<Datum>
 
 export interface DataProps<Datum> {
     data: Datum
@@ -73,13 +79,13 @@ export type IcicleOrientation = 'top' | 'right' | 'bottom' | 'left'
 
 export type IcicleZoomMode = 'lateral' | 'global'
 
-export type IcicleCommonProps<Datum> = {
+export type IcicleCommonProps<Datum, Context = Record<string, unknown>> = {
     identity: PropertyAccessor<Datum, string>
     sort: NodesSorting<Datum>
     value: PropertyAccessor<Datum, number>
     valueFormat?: ValueFormat<number>
-    margin: Box
     orientation: IcicleOrientation
+    margin: Box
     gapX: number
     gapY: number
     theme: PartialTheme
@@ -96,6 +102,7 @@ export type IcicleCommonProps<Datum> = {
     enableZooming: boolean
     zoomMode: IcicleZoomMode
     tooltip: FunctionComponent<ComputedDatum<Datum>>
+    context: Context
     renderWrapper: boolean
 } & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'uid' | 'labelComponent'>
 
@@ -119,7 +126,7 @@ export type EventHandlers<Datum, E = Element> = Partial<{
 }>
 
 export interface IcicleSvgExtraProps<Datum> {
-    layers: readonly IcicleSvgLayer<Datum>[]
+    layers: readonly IcicleLayer<Datum>[]
     nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
     labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
@@ -133,21 +140,24 @@ export interface IcicleSvgExtraProps<Datum> {
     ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 
-export type IcicleSvgProps<Datum> = DataProps<Datum> &
+export type IcicleSvgProps<Datum, Context = Record<string, unknown>> = DataProps<Datum> &
     Dimensions &
-    Partial<IcicleCommonProps<Datum>> &
+    Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleSvgExtraProps<Datum>> &
     EventHandlers<Datum> &
     SvgDefsAndFill<ComputedDatum<Datum>>
-export type IcicleSvgPropsWithDefaults<Datum> = DataProps<Datum> &
+export type IcicleSvgPropsWithDefaults<
+    Datum,
+    Context = Record<string, unknown>,
+> = DataProps<Datum> &
     Dimensions &
-    IcicleCommonProps<Datum> &
+    IcicleCommonProps<Datum, Context> &
     IcicleSvgExtraProps<Datum> &
     EventHandlers<Datum> &
     SvgDefsAndFill<ComputedDatum<Datum>>
 
 export interface IcicleHtmlExtraProps<Datum> {
-    layers: readonly IcicleSvgLayer<Datum>[]
+    layers: readonly IcicleLayer<Datum>[]
     nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
     labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
@@ -161,13 +171,16 @@ export interface IcicleHtmlExtraProps<Datum> {
     ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 
-export type IcicleHtmlProps<Datum> = DataProps<Datum> &
+export type IcicleHtmlProps<Datum, Context = Record<string, unknown>> = DataProps<Datum> &
     Dimensions &
-    Partial<IcicleCommonProps<Datum>> &
+    Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleHtmlExtraProps<Datum>> &
     EventHandlers<Datum>
-export type IcicleHtmlPropsWithDefaults<Datum> = DataProps<Datum> &
+export type IcicleHtmlPropsWithDefaults<
+    Datum,
+    Context = Record<string, unknown>,
+> = DataProps<Datum> &
     Dimensions &
-    IcicleCommonProps<Datum> &
+    IcicleCommonProps<Datum, Context> &
     IcicleHtmlExtraProps<Datum> &
     EventHandlers<Datum>

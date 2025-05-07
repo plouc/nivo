@@ -1,14 +1,21 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState, useContext } from 'react'
 import cloneDeep from 'lodash/cloneDeep.js'
 import sortBy from 'lodash/sortBy.js'
 import omit from 'lodash/omit.js'
 import { partition as d3Partition, hierarchy as d3Hierarchy, HierarchyNode } from 'd3-hierarchy'
+import { usePropertyAccessor, useValueFormatter, ChartContext } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
-import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { Rect } from '@nivo/rects'
 import { commonDefaultProps } from './defaults'
-import { DataProps, IcicleCommonProps, ComputedDatum, IcicleCommonCustomLayerProps } from './types'
+import {
+    DataProps,
+    IcicleCommonProps,
+    ComputedDatum,
+    IcicleCommonCustomLayerProps,
+    IcicleChartContext,
+    IcicleZoomFunction,
+} from './types'
 
 const computeNodePath = <Datum>(
     node: HierarchyNode<Datum>,
@@ -24,6 +31,15 @@ const computeNodePath = <Datum>(
         pathComponents: path,
     }
 }
+
+const sortAscending =
+    <Datum>() =>
+    (a: HierarchyNode<Datum>, b: HierarchyNode<Datum>) =>
+        a.height - b.height || a.value! - b.value!
+const sortDescending =
+    <Datum>() =>
+    (a: HierarchyNode<Datum>, b: HierarchyNode<Datum>) =>
+        b.height - a.height || b.value! - a.value!
 
 export const useIcicle = <Datum>({
     data,
@@ -77,11 +93,8 @@ export const useIcicle = <Datum>({
         const clonedData = cloneDeep(data)
 
         const hierarchy = d3Hierarchy<Datum>(clonedData).sum(getValue)
-        if (sort === 'asc') {
-            hierarchy.sort((a, b) => a.height - b.height || a.value! - b.value!)
-        } else if (sort === 'desc') {
-            hierarchy.sort((a, b) => b.height - a.height || b.value! - a.value!)
-        }
+        if (sort === 'asc') hierarchy.sort(sortAscending<Datum>())
+        else if (sort === 'desc') hierarchy.sort(sortDescending<Datum>())
 
         const isHorizontal = orientation === 'left' || orientation === 'right'
 
@@ -279,9 +292,26 @@ export const useIcicle = <Datum>({
     }
 }
 
-/**
- * Memoize the context to pass to custom layers.
- */
+export const useMemoizeChartContext = <Context>(
+    zoom: IcicleZoomFunction,
+    extra: Context
+): IcicleChartContext<Context> =>
+    useMemo(
+        () => ({
+            zoom,
+            ...extra,
+        }),
+        [zoom, extra]
+    )
+
+export const useIcicleContext = <Context = Record<string, unknown>>() => {
+    const ctx = useContext(ChartContext)
+    if (!ctx) {
+        throw new Error('No context found, make sure to use the component inside a chart component')
+    }
+    return ctx as IcicleChartContext<Context>
+}
+
 export const useIcicleCustomLayerProps = <Datum>({
     nodes,
     zoom,
