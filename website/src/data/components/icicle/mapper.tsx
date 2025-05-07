@@ -1,21 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
-import { IcicleSvgProps } from '@nivo/icicle'
 import { patternLinesDef } from '@nivo/core'
+import { IcicleSvgProps, IcicleHtmlProps, ComputedDatum, DefaultIcicleDatum } from '@nivo/icicle'
 import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
 
-export type MappedIcicleSvgProps = Omit<IcicleSvgProps<any>, 'data' | 'width' | 'height'>
-export type UnmappedIcicleSvgProps = UnmappedSettings<
-    MappedIcicleSvgProps,
-    {
-        valueFormat: {
-            format: string
-            enabled: boolean
-        }
-        'custom tooltip example': boolean
-        'showcase pattern usage': boolean
+interface CustomProps {
+    valueFormat: {
+        format: string
+        enabled: boolean
     }
->
+    label: string
+    'custom tooltip example': boolean
+    'showcase pattern usage': boolean
+}
+
+export type MappedIcicleSvgProps = Omit<IcicleSvgProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedIcicleSvgProps = UnmappedSettings<MappedIcicleSvgProps, CustomProps>
+
+export type MappedIcicleHtmlProps = Omit<IcicleHtmlProps<any>, 'data' | 'width' | 'height'>
+export type UnmappedIcicleHtmlProps = UnmappedSettings<MappedIcicleHtmlProps, CustomProps>
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -31,25 +34,23 @@ const TooltipKey = styled.span`
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = node => {
-    return (
-        <TooltipWrapper style={{ color: node.color }}>
-            <TooltipKey>id</TooltipKey>
-            <TooltipValue>{node.id}</TooltipValue>
-            <TooltipKey>value</TooltipKey>
-            <TooltipValue>{node.value}</TooltipValue>
-            <TooltipKey>percentage</TooltipKey>
-            <TooltipValue>{Math.round(node.percentage * 100) / 100}%</TooltipValue>
-            <TooltipKey>color</TooltipKey>
-            <TooltipValue>{node.color}</TooltipValue>
-        </TooltipWrapper>
-    )
-}
+const CustomTooltip = (node: ComputedDatum<DefaultIcicleDatum>) => (
+    <TooltipWrapper style={{ color: node.color }}>
+        <TooltipKey>id</TooltipKey>
+        <TooltipValue>{node.id}</TooltipValue>
+        <TooltipKey>value</TooltipKey>
+        <TooltipValue>{node.value}</TooltipValue>
+        <TooltipKey>percentage</TooltipKey>
+        <TooltipValue>{Math.round(node.percentage * 100) / 100}%</TooltipValue>
+        <TooltipKey>color</TooltipKey>
+        <TooltipValue>{node.color}</TooltipValue>
+    </TooltipWrapper>
+)
 
-export default settingsMapper<UnmappedIcicleSvgProps, MappedIcicleSvgProps>(
+export const svgMapper = settingsMapper<UnmappedIcicleSvgProps, MappedIcicleSvgProps>(
     {
         valueFormat: mapFormat,
-        rectLabel: value => {
+        label: value => {
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
@@ -85,3 +86,7 @@ export default settingsMapper<UnmappedIcicleSvgProps, MappedIcicleSvgProps>(
         exclude: ['custom tooltip example', 'showcase pattern usage'],
     }
 )
+
+export const htmlMapper = svgMapper as ReturnType<
+    typeof settingsMapper<UnmappedIcicleHtmlProps, MappedIcicleHtmlProps>
+>

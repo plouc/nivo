@@ -4,7 +4,8 @@ import { svgDefaultProps, ResponsiveIcicle } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/icicle/meta.yml'
-import mapper, {
+import {
+    svgMapper,
     UnmappedIcicleSvgProps,
     MappedIcicleSvgProps,
 } from '../../data/components/icicle/mapper'
@@ -22,7 +23,7 @@ const initialProperties: UnmappedIcicleSvgProps = {
     identity: 'name',
     value: 'loc',
     sort: 'input',
-    valueFormat: { format: '', enabled: false },
+    valueFormat: { format: '>-.0s', enabled: true },
     orientation: svgDefaultProps.orientation,
     gapX: 2,
     gapY: 2,
@@ -37,7 +38,7 @@ const initialProperties: UnmappedIcicleSvgProps = {
         modifiers: [['brighter', 0.3]],
     },
     enableLabels: true,
-    label: svgDefaultProps.label,
+    label: svgDefaultProps.label as string,
     labelBoxAnchor: 'top',
     labelPaddingX: 6,
     labelPaddingY: 6,
@@ -93,7 +94,7 @@ const Icicle = () => {
             properties={groups}
             defaultProperties={svgDefaultProps}
             initialProperties={initialProperties}
-            propertiesMapper={mapper}
+            propertiesMapper={svgMapper}
             generateData={generateData}
             image={image}
         >
@@ -106,9 +107,9 @@ const Icicle = () => {
                         onClick={node =>
                             logAction({
                                 type: 'click',
-                                label: `[node] ${node.id} - ${node.value}: ${
+                                label: `[node] ${node.id} - ${node.formattedValue} (${node.value} -> ${
                                     Math.round(node.percentage * 100) / 100
-                                }%`,
+                                }%)`,
                                 color: node.color,
                                 data: node,
                             })

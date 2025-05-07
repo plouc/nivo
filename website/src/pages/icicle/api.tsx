@@ -4,7 +4,7 @@ import { generateLibTree } from '@nivo/generators'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/icicle/props'
-import mapper from '../../data/components/icicle/mapper'
+import { svgMapper } from '../../data/components/icicle/mapper'
 import meta from '../../data/components/icicle/meta.yml'
 import { svgDefaultProps } from '@nivo/icicle'
 
@@ -39,7 +39,7 @@ const IcicleApi = () => {
                 flavors={meta.flavors}
                 dataProperty="data"
                 controlGroups={groups}
-                propsMapper={mapper}
+                propsMapper={svgMapper}
                 defaultProps={{
                     width: 600,
                     height: 600,
@@ -54,7 +54,7 @@ const IcicleApi = () => {
                     identity: 'name',
                     value: 'loc',
                     sort: 'input',
-                    valueFormat: { format: '', enabled: false },
+                    valueFormat: { format: '>-.0s', enabled: true },
                     gapX: 2,
                     gapY: 2,
                     borderRadius: 2,

@@ -30,15 +30,7 @@ IcicleHtml:
   package: "@nivo/icicle"
   tags:
     - hierarchy
-  stories:
-    - label: custom colors
-      link: icicle--custom-colors
-    - label: colors from data
-      link: icicle--child-color-picked-from-data
-    - label: custom tooltip
-      link: icicle--custom-tooltip
-    - label: patterns and gradients
-      link: icicle--patterns-and-gradients
+  stories: []
   description: |
     A HTML implementation of the [Icicle](self:/icicle) component.
     
