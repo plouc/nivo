@@ -161,7 +161,7 @@ const InnerIcicle = <Datum, Context>({
         zoom,
     })
 
-    const memoizedContext = useMemoizeChartContext(zoom, context)
+    const memoizedContext = useMemoizeChartContext({ orientation, zoom }, context)
 
     return (
         <SvgWrapper

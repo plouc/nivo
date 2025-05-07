@@ -30,6 +30,7 @@ export type IcicleZoomFunction = (nodePath: string | null) => void
 export type IcicleLayerId = 'rects' | 'labels'
 
 export type IcicleChartContext<Context = Record<string, unknown>> = {
+    orientation: IcicleOrientation
     zoom: IcicleZoomFunction
 } & Context
 
@@ -111,6 +112,8 @@ export type WheelHandler<Datum, E = Element> = (
     event: WheelEvent<E>
 ) => void
 
+export type IcicleNodeComponent<Datum> = RectNodeComponent<ComputedDatum<Datum>>
+
 export type EventHandlers<Datum> = Partial<{
     onClick: MouseHandler<Datum>
     onMouseEnter: MouseHandler<Datum>
@@ -122,7 +125,7 @@ export type EventHandlers<Datum> = Partial<{
 
 export interface IcicleSvgExtraProps<Datum> {
     layers: readonly IcicleLayer<Datum>[]
-    nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
+    nodeComponent: IcicleNodeComponent<Datum>
     labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
@@ -150,7 +153,7 @@ export type IcicleSvgPropsWithDefaults<Datum, Context = DefaultChartContext> = D
 
 export interface IcicleHtmlExtraProps<Datum> {
     layers: readonly IcicleLayer<Datum>[]
-    nodeComponent: RectNodeComponent<ComputedDatum<Datum>>
+    nodeComponent: IcicleNodeComponent<Datum>
     labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
