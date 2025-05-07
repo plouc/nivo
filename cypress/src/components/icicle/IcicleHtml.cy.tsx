@@ -1,8 +1,8 @@
-import { linearGradientDef, patternDotsDef, BoxAnchor } from '@nivo/core'
+import { BoxAnchor } from '@nivo/core'
 import { colorSchemes } from '@nivo/colors'
 import {
-    Icicle,
-    IcicleSvgProps,
+    IcicleHtml,
+    IcicleHtmlProps,
     DefaultIcicleDatum,
     IcicleCommonCustomLayerProps,
 } from '@nivo/icicle'
@@ -10,11 +10,11 @@ import { useTheme } from '@nivo/theming'
 import { Text } from '@nivo/text'
 import get from 'lodash/get.js'
 
-const hexToRgba = (hex: string, alpha = 1): string => {
+const hexToRgb = (hex: string): string => {
     const r = parseInt(hex.slice(1, 3), 16)
     const g = parseInt(hex.slice(3, 5), 16)
     const b = parseInt(hex.slice(5, 7), 16)
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`
+    return `rgb(${r}, ${g}, ${b})`
 }
 
 const getNode = <N,>(root: N, path: string): N => get(root, path)
@@ -136,7 +136,7 @@ const customData: CustomDatum = {
     ],
 }
 
-const defaultProps: IcicleSvgProps<DefaultIcicleDatum> = {
+const defaultProps: IcicleHtmlProps<DefaultIcicleDatum> = {
     width: 400,
     height: 400,
     margin: {
@@ -160,7 +160,7 @@ const defaultProps: IcicleSvgProps<DefaultIcicleDatum> = {
 // Remove the gaps and margins to get nice round values,
 // As the chart is 400x400, we'll have a max depth of 4,
 // so that we can use multiple of 100 for most assertions.
-const propsForLayoutTesting: IcicleSvgProps<DefaultIcicleDatum> = {
+const propsForLayoutTesting: IcicleHtmlProps<DefaultIcicleDatum> = {
     ...defaultProps,
     margin: {},
     gapX: 0,
@@ -182,8 +182,6 @@ interface ExpectedNode {
         height: number
     }
     color?: string
-    // For patterns and gradients
-    fill?: string
     // If provided, test that the provided value is contained
     // in the tooltip.
     // This also determines if we try to hover the node or not.
@@ -193,9 +191,6 @@ interface ExpectedNode {
     label?: string
     labelLayout?: {
         position?: [number, number]
-        rotation?: number
-        align?: string
-        baseline?: string
     }
 }
 
@@ -203,19 +198,14 @@ const testNode = (expectedNode: ExpectedNode) => {
     const node = cy.findByTestId(`icicle.rect.${expectedNode.path}`).should('exist')
 
     if (expectedNode.rect) {
-        node.should(
-            'have.attr',
-            'transform',
-            `translate(${expectedNode.rect.x},${expectedNode.rect.y})`
-        )
-            .and('have.attr', 'width', expectedNode.rect.width)
-            .and('have.attr', 'height', expectedNode.rect.height)
+        node.should('have.css', 'top', `${expectedNode.rect.y}px`)
+            .and('have.css', 'left', `${expectedNode.rect.x}px`)
+            .and('have.css', 'width', `${expectedNode.rect.width}px`)
+            .and('have.css', 'height', `${expectedNode.rect.height}px`)
     }
 
     if (expectedNode.color) {
-        node.should('have.attr', 'fill', hexToRgba(expectedNode.color))
-    } else if (expectedNode.fill) {
-        node.should('have.attr', 'fill', expectedNode.fill)
+        node.should('have.css', 'background-color', hexToRgb(expectedNode.color))
     }
 
     if (expectedNode.tooltip) {
@@ -234,18 +224,10 @@ const testNode = (expectedNode: ExpectedNode) => {
         }
 
         if (expectedNode.labelLayout) {
-            if (expectedNode.labelLayout.align) {
-                label.should('have.attr', 'text-anchor', expectedNode.labelLayout.align)
-            }
-            if (expectedNode.labelLayout.baseline) {
-                label.should('have.attr', 'dominant-baseline', expectedNode.labelLayout.baseline)
-            }
-
             if (expectedNode.labelLayout.position) {
-                const labelRotation = expectedNode.labelLayout.rotation ?? 0
-                const expectedLabelTransform = `translate(${expectedNode.labelLayout.position[0]},${expectedNode.labelLayout.position[1]}) rotate(${labelRotation})`
-
-                label.should('have.attr', 'transform', expectedLabelTransform)
+                label
+                    .should('have.css', 'top', `${expectedNode.labelLayout.position[1]}px`)
+                    .and('have.css', 'left', `${expectedNode.labelLayout.position[0]}px`)
             }
         }
     }
@@ -263,7 +245,7 @@ describe('<Icicle />', () => {
     })
 
     it('should render an icicle chart', () => {
-        cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} />)
+        cy.mount(<IcicleHtml<DefaultIcicleDatum> {...defaultProps} />)
 
         testNodes([
             {
@@ -287,8 +269,8 @@ describe('<Icicle />', () => {
     describe('identity & value', () => {
         it('should support custom id and value accessor defined as a path', () => {
             cy.mount(
-                <Icicle<CustomDatum>
-                    {...(defaultProps as unknown as IcicleSvgProps<CustomDatum>)}
+                <IcicleHtml<CustomDatum>
+                    {...(defaultProps as unknown as IcicleHtmlProps<CustomDatum>)}
                     identity="name"
                     value="size"
                     data={customData}
@@ -316,8 +298,8 @@ describe('<Icicle />', () => {
 
         it('should support custom id and value accessor defined as a function', () => {
             cy.mount(
-                <Icicle<CustomDatum>
-                    {...(defaultProps as unknown as IcicleSvgProps<CustomDatum>)}
+                <IcicleHtml<CustomDatum>
+                    {...(defaultProps as unknown as IcicleHtmlProps<CustomDatum>)}
                     identity={d => d.name}
                     value={d => d.size ?? 0}
                     data={customData}
@@ -346,7 +328,7 @@ describe('<Icicle />', () => {
 
     describe('layout', () => {
         it('should have bottom orientation by default', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} />)
+            cy.mount(<IcicleHtml<DefaultIcicleDatum> {...propsForLayoutTesting} />)
 
             testNodes([
                 {
@@ -398,7 +380,9 @@ describe('<Icicle />', () => {
         })
 
         it('should support top orientation', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="top" />)
+            cy.mount(
+                <IcicleHtml<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="top" />
+            )
 
             testNodes([
                 {
@@ -450,7 +434,9 @@ describe('<Icicle />', () => {
         })
 
         it('should support right orientation', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="right" />)
+            cy.mount(
+                <IcicleHtml<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="right" />
+            )
 
             testNodes([
                 {
@@ -502,7 +488,9 @@ describe('<Icicle />', () => {
         })
 
         it('should support left orientation', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="left" />)
+            cy.mount(
+                <IcicleHtml<DefaultIcicleDatum> {...propsForLayoutTesting} orientation="left" />
+            )
 
             testNodes([
                 {
@@ -556,7 +544,9 @@ describe('<Icicle />', () => {
 
     describe('colors', () => {
         it('should support color schemes', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} colors={{ scheme: 'accent' }} />)
+            cy.mount(
+                <IcicleHtml<DefaultIcicleDatum> {...defaultProps} colors={{ scheme: 'accent' }} />
+            )
 
             testNodes([
                 {
@@ -584,8 +574,8 @@ describe('<Icicle />', () => {
 
         it('should support picking colors from the data using a path', () => {
             cy.mount(
-                <Icicle<DatumWithColor>
-                    {...(defaultProps as IcicleSvgProps<DatumWithColor>)}
+                <IcicleHtml<DatumWithColor>
+                    {...(defaultProps as IcicleHtmlProps<DatumWithColor>)}
                     data={dataWithColor}
                     inheritColorFromParent={false}
                     colors={{ datum: 'data.color' }}
@@ -618,8 +608,8 @@ describe('<Icicle />', () => {
 
         it('should support picking colors from the data using a function', () => {
             cy.mount(
-                <Icicle<DatumWithColor>
-                    {...(defaultProps as IcicleSvgProps<DatumWithColor>)}
+                <IcicleHtml<DatumWithColor>
+                    {...(defaultProps as IcicleHtmlProps<DatumWithColor>)}
                     data={dataWithColor}
                     colors={d => d.data.color}
                 />
@@ -651,7 +641,7 @@ describe('<Icicle />', () => {
 
         it('should support picking colors according to depth', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     colorBy="depth"
                     inheritColorFromParent={false}
@@ -683,106 +673,9 @@ describe('<Icicle />', () => {
         })
     })
 
-    describe('patterns & gradients', () => {
-        it('should support patterns', () => {
-            cy.mount(
-                <Icicle<DefaultIcicleDatum>
-                    {...defaultProps}
-                    gapX={4}
-                    gapY={4}
-                    borderRadius={2}
-                    borderWidth={2}
-                    borderColor={{ from: 'color' }}
-                    defs={[
-                        patternDotsDef('pattern', {
-                            background: 'inherit',
-                            color: '#ffffff',
-                            size: 8,
-                            padding: 2,
-                            stagger: true,
-                        }),
-                    ]}
-                    fill={[
-                        { match: { path: 'root' }, id: 'pattern' },
-                        { match: { path: 'root.A.1' }, id: 'pattern' },
-                    ]}
-                />
-            )
-
-            testNodes([
-                {
-                    path: 'root',
-                    fill: `url(#pattern.bg.${colorSchemes.nivo[0]})`,
-                },
-                {
-                    path: 'root.A',
-                    color: colorSchemes.nivo[1],
-                },
-                {
-                    path: 'root.A.0',
-                    color: colorSchemes.nivo[1],
-                },
-                {
-                    path: 'root.A.1',
-                    fill: `url(#pattern.bg.${colorSchemes.nivo[1]})`,
-                },
-                {
-                    path: 'root.B',
-                    color: colorSchemes.nivo[2],
-                },
-            ])
-        })
-
-        it('should support gradients', () => {
-            cy.mount(
-                <Icicle<DefaultIcicleDatum>
-                    {...defaultProps}
-                    gapX={4}
-                    gapY={4}
-                    borderRadius={2}
-                    borderWidth={2}
-                    borderColor={{ from: 'color' }}
-                    defs={[
-                        linearGradientDef('gradient', [
-                            { offset: 0, color: 'inherit', opacity: 0.65 },
-                            { offset: 100, color: 'inherit' },
-                        ]),
-                    ]}
-                    fill={[
-                        { match: { path: 'root' }, id: 'gradient' },
-                        { match: { path: 'root.A.1' }, id: 'gradient' },
-                    ]}
-                />
-            )
-
-            testNodes([
-                {
-                    path: 'root',
-                    fill: `url(#gradient.0.${colorSchemes.nivo[0]}.1.${colorSchemes.nivo[0]})`,
-                },
-                {
-                    path: 'root.A',
-                    color: colorSchemes.nivo[1],
-                },
-                {
-                    path: 'root.A.0',
-                    color: colorSchemes.nivo[1],
-                },
-                {
-                    path: 'root.A.1',
-                    fill: `url(#gradient.0.${colorSchemes.nivo[1]}.1.${colorSchemes.nivo[1]})`,
-                },
-                {
-                    path: 'root.B',
-                    color: colorSchemes.nivo[2],
-                },
-            ])
-        })
-    })
-
     describe('labels', () => {
         it('should support labels', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels />)
+            cy.mount(<IcicleHtml<DefaultIcicleDatum> {...defaultProps} enableLabels />)
 
             testNodes([
                 {
@@ -809,13 +702,13 @@ describe('<Icicle />', () => {
         })
 
         it('should show no labels when disabled', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels={false} />)
+            cy.mount(<IcicleHtml<DefaultIcicleDatum> {...defaultProps} enableLabels={false} />)
 
             cy.findByTestId('icicle.label.root').should('not.exist')
         })
 
         it('should support defining labels as a property', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels label="path" />)
+            cy.mount(<IcicleHtml<DefaultIcicleDatum> {...defaultProps} enableLabels label="path" />)
 
             testNodes([
                 {
@@ -843,7 +736,7 @@ describe('<Icicle />', () => {
 
         it('should support using the formatted value', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     enableLabels
                     valueFormat=" >-$.2f"
@@ -877,7 +770,7 @@ describe('<Icicle />', () => {
 
         it('should support using a function to define the label', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     enableLabels
                     label={d => `func:${d.id}`}
@@ -908,7 +801,7 @@ describe('<Icicle />', () => {
             ])
         })
 
-        describe('positioning & rotation', () => {
+        describe('positioning', () => {
             const boxAnchorUseCases: {
                 boxAnchor: BoxAnchor
                 expectedNodes: ExpectedNode[]
@@ -927,8 +820,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [10, 10],
-                                align: 'start',
-                                baseline: 'text-before-edge',
                             },
                         },
                         {
@@ -942,8 +833,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [210, 110],
-                                align: 'start',
-                                baseline: 'text-before-edge',
                             },
                         },
                     ],
@@ -962,8 +851,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [200, 10],
-                                align: 'middle',
-                                baseline: 'text-before-edge',
                             },
                         },
                         {
@@ -977,8 +864,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [300, 110],
-                                align: 'middle',
-                                baseline: 'text-before-edge',
                             },
                         },
                     ],
@@ -997,8 +882,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [390, 10],
-                                align: 'end',
-                                baseline: 'text-before-edge',
                             },
                         },
                         {
@@ -1012,8 +895,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [390, 110],
-                                align: 'end',
-                                baseline: 'text-before-edge',
                             },
                         },
                     ],
@@ -1032,8 +913,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [390, 50],
-                                align: 'end',
-                                baseline: 'middle',
                             },
                         },
                         {
@@ -1047,8 +926,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [390, 150],
-                                align: 'end',
-                                baseline: 'middle',
                             },
                         },
                     ],
@@ -1067,8 +944,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [390, 90],
-                                align: 'end',
-                                baseline: 'text-after-edge',
                             },
                         },
                         {
@@ -1082,8 +957,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [390, 190],
-                                align: 'end',
-                                baseline: 'text-after-edge',
                             },
                         },
                     ],
@@ -1102,8 +975,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [200, 90],
-                                align: 'middle',
-                                baseline: 'text-after-edge',
                             },
                         },
                         {
@@ -1117,8 +988,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [300, 190],
-                                align: 'middle',
-                                baseline: 'text-after-edge',
                             },
                         },
                     ],
@@ -1137,8 +1006,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [10, 90],
-                                align: 'start',
-                                baseline: 'text-after-edge',
                             },
                         },
                         {
@@ -1152,8 +1019,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [210, 190],
-                                align: 'start',
-                                baseline: 'text-after-edge',
                             },
                         },
                     ],
@@ -1172,8 +1037,6 @@ describe('<Icicle />', () => {
                             label: 'root',
                             labelLayout: {
                                 position: [10, 50],
-                                align: 'start',
-                                baseline: 'middle',
                             },
                         },
                         {
@@ -1187,8 +1050,6 @@ describe('<Icicle />', () => {
                             label: 'B',
                             labelLayout: {
                                 position: [210, 150],
-                                align: 'start',
-                                baseline: 'middle',
                             },
                         },
                     ],
@@ -1198,7 +1059,7 @@ describe('<Icicle />', () => {
             for (const useCase of boxAnchorUseCases) {
                 it(`should support ${useCase.boxAnchor} boxAnchor`, () => {
                     cy.mount(
-                        <Icicle<DefaultIcicleDatum>
+                        <IcicleHtml<DefaultIcicleDatum>
                             {...propsForLayoutTesting}
                             enableLabels
                             labelPaddingX={10}
@@ -1210,55 +1071,16 @@ describe('<Icicle />', () => {
                     testNodes(useCase.expectedNodes)
                 })
             }
-
-            it(`should support rotation`, () => {
-                cy.mount(
-                    <Icicle<DefaultIcicleDatum>
-                        {...propsForLayoutTesting}
-                        enableLabels
-                        labelBoxAnchor="center"
-                        labelRotation={270}
-                    />
-                )
-
-                testNodes([
-                    {
-                        path: 'root',
-                        labelLayout: { rotation: 270 },
-                    },
-                    {
-                        path: 'root.A',
-                        labelLayout: { rotation: 270 },
-                    },
-                    {
-                        path: 'root.A.0',
-                        labelLayout: { rotation: 270 },
-                    },
-                    {
-                        path: 'root.A.0.X',
-                        labelLayout: { rotation: 270 },
-                    },
-                    {
-                        path: 'root.A.0.Y',
-                        labelLayout: { rotation: 270 },
-                    },
-                    {
-                        path: 'root.A.1',
-                        labelLayout: { rotation: 270 },
-                    },
-                    {
-                        path: 'root.B',
-                        labelLayout: { rotation: 270 },
-                    },
-                ])
-            })
         })
     })
 
     describe('interactivity', () => {
         it('should support onClick', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum> {...defaultProps} onClick={cy.stub().as('handler')} />
+                <IcicleHtml<DefaultIcicleDatum>
+                    {...defaultProps}
+                    onClick={cy.stub().as('handler')}
+                />
             )
 
             cy.findByTestId('icicle.rect.root').click()
@@ -1270,7 +1092,7 @@ describe('<Icicle />', () => {
 
         it('should support onMouseEnter', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     onMouseEnter={cy.stub().as('handler')}
                 />
@@ -1282,7 +1104,7 @@ describe('<Icicle />', () => {
 
         it('should support onMouseLeave', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     onMouseLeave={cy.stub().as('handler')}
                 />
@@ -1294,7 +1116,7 @@ describe('<Icicle />', () => {
 
         it('should support onMouseMove', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     onMouseMove={cy.stub().as('handler')}
                 />
@@ -1306,7 +1128,10 @@ describe('<Icicle />', () => {
 
         it('should support onWheel', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum> {...defaultProps} onWheel={cy.stub().as('handler')} />
+                <IcicleHtml<DefaultIcicleDatum>
+                    {...defaultProps}
+                    onWheel={cy.stub().as('handler')}
+                />
             )
 
             cy.findByTestId('icicle.rect.root.A.1').trigger('wheel')
@@ -1315,7 +1140,7 @@ describe('<Icicle />', () => {
 
         it('should support onContextMenu', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     onContextMenu={cy.stub().as('handler')}
                 />
@@ -1330,7 +1155,7 @@ describe('<Icicle />', () => {
 
         it('should support disabling interactivity', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     isInteractive={false}
                     onClick={cy.stub().as('onClick')}
@@ -1361,7 +1186,7 @@ describe('<Icicle />', () => {
 
     describe('tooltip', () => {
         it('should support tooltips', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} />)
+            cy.mount(<IcicleHtml<DefaultIcicleDatum> {...defaultProps} />)
 
             testNodes([
                 {
@@ -1388,7 +1213,7 @@ describe('<Icicle />', () => {
         })
 
         it('should use the formatted value', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} valueFormat=" >-$.2f" />)
+            cy.mount(<IcicleHtml<DefaultIcicleDatum> {...defaultProps} valueFormat=" >-$.2f" />)
 
             testNodes([
                 {
@@ -1416,7 +1241,7 @@ describe('<Icicle />', () => {
 
         it('should support custom tooltip', () => {
             cy.mount(
-                <Icicle<DefaultIcicleDatum>
+                <IcicleHtml<DefaultIcicleDatum>
                     {...defaultProps}
                     valueFormat=" >-$.2f"
                     tooltip={d => (
@@ -1457,7 +1282,9 @@ describe('<Icicle />', () => {
     describe('zooming', () => {
         describe('lateral', () => {
             it('should support bottom orientation', () => {
-                cy.mount(<Icicle<DefaultIcicleDatum> {...propsForLayoutTesting} enableZooming />)
+                cy.mount(
+                    <IcicleHtml<DefaultIcicleDatum> {...propsForLayoutTesting} enableZooming />
+                )
 
                 const nonZoomedNode: ExpectedNode = {
                     path: 'root.A.1',
@@ -1508,7 +1335,7 @@ describe('<Icicle />', () => {
 
             it('should support top orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         orientation="top"
@@ -1564,7 +1391,7 @@ describe('<Icicle />', () => {
 
             it('should support right orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         orientation="right"
@@ -1620,7 +1447,7 @@ describe('<Icicle />', () => {
 
             it('should support left orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         orientation="left"
@@ -1678,7 +1505,7 @@ describe('<Icicle />', () => {
         describe('global', () => {
             it('should support bottom orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         zoomMode="global"
@@ -1772,7 +1599,7 @@ describe('<Icicle />', () => {
 
             it('should support top orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         zoomMode="global"
@@ -1867,7 +1694,7 @@ describe('<Icicle />', () => {
 
             it('should support right orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         zoomMode="global"
@@ -1962,7 +1789,7 @@ describe('<Icicle />', () => {
 
             it('should support left orientation', () => {
                 cy.mount(
-                    <Icicle<DefaultIcicleDatum>
+                    <IcicleHtml<DefaultIcicleDatum>
                         {...propsForLayoutTesting}
                         enableZooming
                         zoomMode="global"
@@ -2059,7 +1886,7 @@ describe('<Icicle />', () => {
 
     describe('layers', () => {
         it('should support disabling a layer', () => {
-            cy.mount(<Icicle {...defaultProps} layers={['labels']} enableLabels />)
+            cy.mount(<IcicleHtml {...defaultProps} layers={['labels']} enableLabels />)
 
             cy.findByTestId('icicle.rect.root').should('not.exist')
             cy.findByTestId('icicle.label.root').should('exist')
@@ -2072,31 +1899,24 @@ describe('<Icicle />', () => {
                 return (
                     <>
                         {nodes.map(node => (
-                            <g
+                            <div
                                 key={node.id}
-                                transform={`translate(${node.rect.x + node.rect.width / 2}, ${node.rect.y + node.rect.height / 2})`}
+                                style={{
+                                    position: 'absolute',
+                                    top: node.rect.y,
+                                    left: node.rect.x,
+                                    width: node.rect.width,
+                                    height: node.rect.height,
+                                    backgroundColor: node.color,
+                                }}
                                 data-testid={`custom_layer_node.${node.path}`}
-                            >
-                                <circle r={22} fill="white" />
-                                <Text
-                                    textAnchor="middle"
-                                    dominantBaseline="central"
-                                    style={{
-                                        ...theme.labels.text,
-                                        fill: node.color,
-                                        fontSize: 16,
-                                        fontWeight: 600,
-                                    }}
-                                >
-                                    {node.id}
-                                </Text>
-                            </g>
+                            />
                         ))}
                     </>
                 )
             }
 
-            cy.mount(<Icicle {...defaultProps} layers={['rects', CustomLayer]} enableLabels />)
+            cy.mount(<IcicleHtml {...defaultProps} layers={['rects', CustomLayer]} enableLabels />)
 
             cy.findByTestId('custom_layer_node.root').should('exist')
             cy.findByTestId('custom_layer_node.root.A').should('exist')

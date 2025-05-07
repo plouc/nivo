@@ -1,4 +1,5 @@
 import { AriaAttributes, FunctionComponent, MouseEvent, WheelEvent } from 'react'
+import { HierarchyNode } from 'd3-hierarchy'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import {
     Box,
@@ -7,10 +8,10 @@ import {
     MotionProps,
     PropertyAccessor,
     Dimensions,
+    DefaultChartContext,
 } from '@nivo/core'
 import { PartialTheme } from '@nivo/theming'
 import { type Rect, RectLabelsProps, RectTransitionMode, RectNodeComponent } from '@nivo/rects'
-import { HierarchyNode } from 'd3-hierarchy'
 
 export interface DefaultIcicleDatum {
     id: string
@@ -65,12 +66,6 @@ export interface ComputedDatum<Datum> {
     maxDescendantDepth: number
 }
 
-export interface ComputedDatumWithLabel<Datum> extends ComputedDatum<Datum> {
-    label: {
-        label: string
-    }
-}
-
 // - top: Root at the top, children cascade downward, standard icicle.
 // - right: Root at the right, children grow to the left, right-to-left icicle.
 // - bottom: Root at the bottom, children grow upward, flame chart.
@@ -79,7 +74,7 @@ export type IcicleOrientation = 'top' | 'right' | 'bottom' | 'left'
 
 export type IcicleZoomMode = 'lateral' | 'global'
 
-export type IcicleCommonProps<Datum, Context = Record<string, unknown>> = {
+export type IcicleCommonProps<Datum, Context = DefaultChartContext> = {
     identity: PropertyAccessor<Datum, string>
     sort: NodesSorting<Datum>
     value: PropertyAccessor<Datum, number>
@@ -116,13 +111,13 @@ export type WheelHandler<Datum, E = Element> = (
     event: WheelEvent<E>
 ) => void
 
-export type EventHandlers<Datum, E = Element> = Partial<{
-    onClick: MouseHandler<Datum, E>
-    onMouseEnter: MouseHandler<Datum, E>
-    onMouseLeave: MouseHandler<Datum, E>
-    onMouseMove: MouseHandler<Datum, E>
-    onWheel: WheelHandler<Datum, E>
-    onContextMenu: MouseHandler<Datum, E>
+export type EventHandlers<Datum> = Partial<{
+    onClick: MouseHandler<Datum>
+    onMouseEnter: MouseHandler<Datum>
+    onMouseLeave: MouseHandler<Datum>
+    onMouseMove: MouseHandler<Datum>
+    onWheel: WheelHandler<Datum>
+    onContextMenu: MouseHandler<Datum>
 }>
 
 export interface IcicleSvgExtraProps<Datum> {
@@ -140,16 +135,13 @@ export interface IcicleSvgExtraProps<Datum> {
     ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 
-export type IcicleSvgProps<Datum, Context = Record<string, unknown>> = DataProps<Datum> &
+export type IcicleSvgProps<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleSvgExtraProps<Datum>> &
     EventHandlers<Datum> &
     SvgDefsAndFill<ComputedDatum<Datum>>
-export type IcicleSvgPropsWithDefaults<
-    Datum,
-    Context = Record<string, unknown>,
-> = DataProps<Datum> &
+export type IcicleSvgPropsWithDefaults<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum, Context> &
     IcicleSvgExtraProps<Datum> &
@@ -171,15 +163,12 @@ export interface IcicleHtmlExtraProps<Datum> {
     ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 
-export type IcicleHtmlProps<Datum, Context = Record<string, unknown>> = DataProps<Datum> &
+export type IcicleHtmlProps<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleHtmlExtraProps<Datum>> &
     EventHandlers<Datum>
-export type IcicleHtmlPropsWithDefaults<
-    Datum,
-    Context = Record<string, unknown>,
-> = DataProps<Datum> &
+export type IcicleHtmlPropsWithDefaults<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum, Context> &
     IcicleHtmlExtraProps<Datum> &
