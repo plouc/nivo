@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, RefObject, MutableRefObject } from 'react'
 import { to } from '@react-spring/web'
 import { PropertyAccessor, usePropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
@@ -8,7 +8,10 @@ import {
     RectTransitionMode,
     RectNodeComponent,
     RectMouseHandler,
+    RectFocusHandler,
+    RectKeyboardHandler,
     RectWheelHandler,
+    RectNodeHandle,
 } from './types'
 import { useRectsTransition } from './useRectsTransition'
 import { RectNodeWrapper } from './RectNodeWrapper'
@@ -24,12 +27,17 @@ export interface RectNodesProps<Datum extends DatumWithRectAndColor> {
     onMouseMove?: RectMouseHandler<Datum>
     onMouseLeave?: RectMouseHandler<Datum>
     onClick?: RectMouseHandler<Datum>
+    onFocus?: RectFocusHandler<Datum>
+    onBlur?: RectFocusHandler<Datum>
+    onKeyDown?: RectKeyboardHandler<Datum>
     onContextMenu?: RectMouseHandler<Datum>
     onWheel?: RectWheelHandler<Datum>
     transitionMode?: RectTransitionMode
     animateOnMount?: boolean
     component: RectNodeComponent<Datum>
+    isFocusable?: boolean
     getTestId?: (datum: Datum) => string
+    nodeRefs?: MutableRefObject<Record<string, RefObject<RectNodeHandle>>>
 }
 
 export const RectNodes = <Datum extends DatumWithRectAndColor>({
@@ -44,15 +52,19 @@ export const RectNodes = <Datum extends DatumWithRectAndColor>({
     onMouseLeave,
     onMouseEnter,
     onClick,
+    onFocus,
+    onBlur,
+    onKeyDown,
     onWheel,
     onContextMenu,
     transitionMode = 'flow-down',
     animateOnMount = false,
     getTestId,
+    nodeRefs,
 }: RectNodesProps<Datum>) => {
+    const getUid = usePropertyAccessor(uid)
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Datum>(borderColor, theme)
-    const getUid = usePropertyAccessor(uid)
 
     const extractColors = useCallback(
         (datum: Datum) => ({
@@ -78,6 +90,7 @@ export const RectNodes = <Datum extends DatumWithRectAndColor>({
         <>
             {transition((transitionProps, datum) => (
                 <RectNodeWrapper<Datum>
+                    ref={nodeRefs?.current[getUid(datum)]}
                     key={datum.id}
                     datum={datum}
                     style={{
@@ -97,6 +110,9 @@ export const RectNodes = <Datum extends DatumWithRectAndColor>({
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
                     onClick={onClick}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    onKeyDown={onKeyDown}
                     onContextMenu={onContextMenu}
                     onWheel={onWheel}
                     testId={getTestId?.(datum)}

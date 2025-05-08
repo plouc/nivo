@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { linearGradientDef, patternDotsDef } from '@nivo/core'
-import { Icicle, IcicleSvgProps, svgDefaultProps, ComputedDatum } from '@nivo/icicle'
+import { Icicle, IcicleSvgProps, svgDefaultProps, IcicleNode } from '@nivo/icicle'
 
 interface RawDatum {
     name: string
@@ -124,14 +124,14 @@ export const PatternsAndGradients: Story = {
                 {
                     match: node =>
                         ['viz', 'text', 'utils'].includes(
-                            (node as unknown as ComputedDatum<RawDatum>).id as string
+                            (node as unknown as IcicleNode<RawDatum>).id as string
                         ),
                     id: 'gradient',
                 },
                 {
                     match: node =>
                         ['set', 'generators', 'misc'].includes(
-                            (node as unknown as ComputedDatum<RawDatum>).id as string
+                            (node as unknown as IcicleNode<RawDatum>).id as string
                         ),
                     id: 'pattern',
                 },

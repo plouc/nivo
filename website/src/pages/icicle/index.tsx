@@ -61,6 +61,7 @@ const initialProperties: UnmappedIcicleSvgProps = {
     isInteractive: svgDefaultProps.isInteractive,
     enableZooming: svgDefaultProps.enableZooming,
     zoomMode: svgDefaultProps.zoomMode,
+    isFocusable: true, // svgDefaultProps.isFocusable,
     'custom tooltip example': false,
     'showcase pattern usage': false,
 }
@@ -104,6 +105,7 @@ const Icicle = () => {
                         data={data}
                         {...properties}
                         theme={theme}
+                        nodeAriaLabel={node => `"${node.id}" node with a value of: ${node.value}`}
                         onClick={node =>
                             logAction({
                                 type: 'click',

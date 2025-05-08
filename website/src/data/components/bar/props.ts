@@ -582,7 +582,6 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...motionProperties(['svg'], svgDefaultProps),
     {
         key: 'isFocusable',
         flavors: ['svg'],
@@ -640,6 +639,7 @@ const props: ChartProperty[] = [
         help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for bar items.',
         type: '(data) => boolean',
     },
+    ...motionProperties(['svg'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

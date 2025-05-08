@@ -5,13 +5,12 @@ import { partition as d3Partition, hierarchy as d3Hierarchy, HierarchyNode } fro
 import { usePropertyAccessor, useValueFormatter, ChartContext } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
-import { Rect } from '@nivo/rects'
+import { useNodeRefs } from '@nivo/rects'
 import { commonDefaultProps } from './defaults'
 import {
     DataProps,
     IcicleCommonProps,
-    ComputedDatum,
-    IcicleCommonCustomLayerProps,
+    IcicleNode,
     IcicleChartContext,
     IcicleZoomFunction,
     IcicleOrientation,
@@ -47,7 +46,7 @@ const sortDescending =
  * This is the first step in the computing process, then the nodes might
  * be altered by the zooming process.
  */
-export const useIcicleNodes = <Datum>({
+const useIcicleNodes = <Datum>({
     data,
     getValue,
     sort,
@@ -69,8 +68,8 @@ export const useIcicleNodes = <Datum>({
     getIdentity: (node: Datum) => string
     formatValue: (value: number) => string
     inheritColorFromParent: IcicleCommonProps<Datum>['inheritColorFromParent']
-    getColor: (node: Omit<ComputedDatum<Datum>, 'color' | 'fill'>) => string
-    getChildColor: (node: ComputedDatum<Datum>) => string
+    getColor: (node: Omit<IcicleNode<Datum>, 'color' | 'fill'>) => string
+    getChildColor: (node: IcicleNode<Datum>) => string
 }) =>
     useMemo(() => {
         // D3 mutates the data for performance reasons.
@@ -89,81 +88,96 @@ export const useIcicleNodes = <Datum>({
             isHorizontal ? [height, width] : [width, height]
         )
 
-        const nodeByPath: Record<string, ComputedDatum<Datum>> = {}
+        const nodeByPath: Record<string, IcicleNode<Datum>> = {}
+        const nodes = partition(hierarchy)
+            .descendants()
+            .map((node, index, allNodes) => {
+                const id = getIdentity(node.data)
+                // d3 hierarchy node value is optional by default as it depends on
+                // a call to `count()` or `sum()`, and we previously called `sum()`.
+                const value = node.value!
+                const percentage = (100 * value) / total
+                const { path, pathComponents } = computeNodePath(node, getIdentity)
 
-        return {
-            nodeByPath,
-            nodes: partition(hierarchy)
-                .descendants()
-                .reduce<ComputedDatum<Datum>[]>((acc, node) => {
-                    const id = getIdentity(node.data)
-                    // d3 hierarchy node value is optional by default as it depends on
-                    // a call to `count()` or `sum()`, and we previously called `sum()`.
-                    const value = node.value!
-                    const percentage = (100 * value) / total
-                    const { path, pathComponents } = computeNodePath(node, getIdentity)
+                let { x0, x1, y0, y1 } = node
+                if (isHorizontal) {
+                    ;[x0, x1, y0, y1] = [node.y0, node.y1, node.x0, node.x1]
+                }
 
-                    let { x0, x1, y0, y1 } = node
-                    if (isHorizontal) {
-                        x0 = node.y0
-                        x1 = node.y1
-                        y0 = node.x0
-                        y1 = node.x1
-                    }
+                const nodeWidth = x1 - x0
+                const nodeHeight = y1 - y0
 
-                    const nodeWidth = x1 - x0
-                    const nodeHeight = y1 - y0
+                if (orientation === 'left') {
+                    x0 = width - x1
+                } else if (orientation === 'top') {
+                    y0 = height - y1
+                }
 
-                    if (orientation === 'left') {
-                        x0 = width - x1
-                    } else if (orientation === 'top') {
-                        y0 = height - y1
-                    }
+                const parent = node.parent
+                    ? nodeByPath[pathComponents.slice(0, -1).join('.')]
+                    : undefined
 
-                    const rect: Rect = {
+                const maxDescendantDepth =
+                    node.height > 0
+                        ? Math.max(...node.leaves().map(leaf => leaf.depth))
+                        : node.depth
+
+                const previousPath =
+                    index > 0 && allNodes[index - 1].depth === node.depth
+                        ? computeNodePath(allNodes[index - 1], getIdentity).path
+                        : null
+
+                const nextPath =
+                    index < allNodes.length - 1 && allNodes[index + 1].depth === node.depth
+                        ? computeNodePath(allNodes[index + 1], getIdentity).path
+                        : null
+
+                const firstChildPath =
+                    node.children && node.children.length > 0
+                        ? computeNodePath(node.children[0], getIdentity).path
+                        : null
+
+                const normalizedNode: IcicleNode<Datum> = {
+                    id,
+                    path,
+                    pathComponents,
+                    value,
+                    percentage,
+                    rect: {
                         x: x0,
                         y: y0,
                         width: nodeWidth,
                         height: nodeHeight,
-                    }
+                    },
+                    isVisible: true,
+                    formattedValue: formatValue(value),
+                    color: '',
+                    data: omit(node.data!, 'children'),
+                    depth: node.depth,
+                    height: node.height,
+                    maxDescendantDepth,
+                    nav: {
+                        up: parent?.path ?? null,
+                        prev: previousPath,
+                        next: nextPath,
+                        down: firstChildPath,
+                    },
+                    a11y: {},
+                }
 
-                    let parent: ComputedDatum<Datum> | undefined
-                    if (node.parent) {
-                        const parentPath = pathComponents.slice(0, -1).join('.')
-                        parent = nodeByPath[parentPath]
-                    }
+                if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
+                    normalizedNode.color = getChildColor(parent)
+                } else {
+                    normalizedNode.color = getColor(normalizedNode)
+                }
 
-                    let maxDescendantDepth = node.depth
-                    if (node.height > 0) {
-                        const nodeLeaves = node.leaves().sort((a, b) => b.depth - a.depth)
-                        if (nodeLeaves.length > 0) maxDescendantDepth = nodeLeaves[0].depth
-                    }
+                nodeByPath[path] = normalizedNode
+                return normalizedNode
+            })
 
-                    const normalizedNode: ComputedDatum<Datum> = {
-                        id,
-                        path,
-                        pathComponents,
-                        value,
-                        percentage,
-                        rect,
-                        formattedValue: formatValue(value),
-                        color: '',
-                        data: omit(node.data!, 'children'),
-                        depth: node.depth,
-                        height: node.height,
-                        maxDescendantDepth,
-                    }
-
-                    if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
-                        normalizedNode.color = getChildColor(parent)
-                    } else {
-                        normalizedNode.color = getColor(normalizedNode)
-                    }
-
-                    nodeByPath[path] = normalizedNode
-
-                    return [...acc, normalizedNode]
-                }, []),
+        return {
+            nodes,
+            nodeByPath,
         }
     }, [
         data,
@@ -179,6 +193,56 @@ export const useIcicleNodes = <Datum>({
         orientation,
     ])
 
+const useIcicleA11y = <Datum>({
+    nodes,
+    isEnabled,
+    isFocusable,
+    nodeRole,
+    nodeAriaLabel,
+    nodeAriaLabelledBy,
+    nodeAriaDescribedBy,
+    nodeAriaHidden,
+    nodeAriaDisabled,
+}: {
+    nodes: readonly IcicleNode<Datum>[]
+    isEnabled: boolean
+    isFocusable: boolean
+} & Omit<IcicleNodesA11yProps<Datum>, 'isFocusable'>) =>
+    useMemo(() => {
+        if (!isEnabled) return nodes
+
+        const getRole =
+            nodeRole === undefined
+                ? undefined
+                : typeof nodeRole === 'string'
+                  ? () => nodeRole
+                  : nodeRole
+
+        return nodes.map(node => ({
+            ...node,
+            a11y: {
+                isFocusable,
+                role: getRole?.(node),
+                label: nodeAriaLabel?.(node),
+                labelledBy: nodeAriaLabelledBy?.(node),
+                describedBy: nodeAriaDescribedBy?.(node),
+                level: node.depth + 1,
+                hidden: nodeAriaHidden?.(node),
+                disabled: nodeAriaDisabled?.(node),
+            },
+        }))
+    }, [
+        nodes,
+        isFocusable,
+        isEnabled,
+        nodeRole,
+        nodeAriaLabel,
+        nodeAriaLabelledBy,
+        nodeAriaDescribedBy,
+        nodeAriaHidden,
+        nodeAriaDisabled,
+    ])
+
 const calculateZoomMult = (size: number, totalSize: number, offset: number) => [
     totalSize / size,
     offset * (totalSize / size) * -1,
@@ -187,7 +251,7 @@ const calculateZoomMult = (size: number, totalSize: number, offset: number) => [
 /**
  * This hook handles re-computing all nodes if a node is currently zoomed.
  */
-export const useIcicleZoom = <Datum>({
+const useIcicleZoom = <Datum>({
     nodes,
     nodeByPath,
     orientation,
@@ -196,8 +260,8 @@ export const useIcicleZoom = <Datum>({
     width,
     height,
 }: {
-    nodes: readonly ComputedDatum<Datum>[]
-    nodeByPath: Record<string, ComputedDatum<Datum>>
+    nodes: readonly IcicleNode<Datum>[]
+    nodeByPath: Record<string, IcicleNode<Datum>>
     orientation: IcicleCommonProps<Datum>['orientation']
     enableZooming: IcicleCommonProps<Datum>['enableZooming']
     zoomMode: IcicleCommonProps<Datum>['zoomMode']
@@ -240,16 +304,16 @@ export const useIcicleZoom = <Datum>({
             ;[xMult, xOffset] = calculateZoomMult(zoomedNode.rect.width, width, zoomedNode.rect.x)
 
             if (needsDepthScaling) {
-                const isBottomOrientation = orientation === 'bottom'
+                const isBottom = orientation === 'bottom'
                 const aggregatedHeight = deepestDescendant
-                    ? isBottomOrientation
+                    ? isBottom
                         ? deepestDescendant.rect.y +
                           deepestDescendant.rect.height -
                           zoomedNode.rect.y
                         : zoomedNode.rect.y + zoomedNode.rect.height - deepestDescendant.rect.y
                     : zoomedNode.rect.height
 
-                const y = isBottomOrientation
+                const y = isBottom
                     ? zoomedNode.rect.y
                     : (deepestDescendant?.rect.y ?? zoomedNode.rect.y)
 
@@ -259,16 +323,16 @@ export const useIcicleZoom = <Datum>({
             ;[yMult, yOffset] = calculateZoomMult(zoomedNode.rect.height, height, zoomedNode.rect.y)
 
             if (needsDepthScaling) {
-                const isRightOrientation = orientation === 'right'
+                const isRight = orientation === 'right'
                 const aggregatedWidth = deepestDescendant
-                    ? isRightOrientation
+                    ? isRight
                         ? deepestDescendant.rect.x +
                           deepestDescendant.rect.width -
                           zoomedNode.rect.x
                         : zoomedNode.rect.x + zoomedNode.rect.width - deepestDescendant.rect.x
                     : zoomedNode.rect.width
 
-                const x = isRightOrientation
+                const x = isRight
                     ? zoomedNode.rect.x
                     : (deepestDescendant?.rect.x ?? zoomedNode.rect.x)
 
@@ -289,7 +353,6 @@ export const useIcicleZoom = <Datum>({
 
     return {
         zoomedNodes,
-        zoomedNodePath,
         zoom,
     }
 }
@@ -298,22 +361,25 @@ export const useIcicleZoom = <Datum>({
  * This hook handles the spacing between nodes, we cannot use d3.partition.padding
  * due to zooming, otherwise the spacing would be scaled as well when zooming.
  *
- * The nodes with a width or height of 0, after spacing, are rejected, this is not ideal
- * as this might create gaps in the chart, but it is the best we can do for now.
+ * The nodes with a width or height of 0, after spacing, are kept,
+ * this is not ideal, but this is important for keyboard navigation
+ * and transitions.
  */
-export const useIcicleSpacing = <Datum>({
+const useIcicleSpacing = <Datum>({
     nodes,
     gapX,
     gapY,
 }: {
-    nodes: readonly ComputedDatum<Datum>[]
+    nodes: readonly IcicleNode<Datum>[]
     gapX: IcicleCommonProps<Datum>['gapX']
     gapY: IcicleCommonProps<Datum>['gapY']
 }) =>
-    useMemo(
-        () =>
-            nodes
-                .map(node => ({
+    useMemo(() => {
+        const spacedNodeByPath: Record<string, IcicleNode<Datum>> = {}
+
+        return {
+            spacedNodes: nodes.map(node => {
+                const spacedNode = {
                     ...node,
                     rect: {
                         x: node.rect.x + gapX / 2,
@@ -321,11 +387,25 @@ export const useIcicleSpacing = <Datum>({
                         width: Math.max(node.rect.width - gapX, 0),
                         height: Math.max(node.rect.height - gapY, 0),
                     },
-                }))
-                .filter(node => node.rect.width > 0 && node.rect.height > 0),
-        [nodes, gapX, gapY]
-    )
+                }
+                spacedNodeByPath[node.path] = spacedNode
+                return spacedNode
+            }),
+            spacedNodeByPath,
+        }
+    }, [nodes, gapX, gapY])
 
+/**
+ * This hook handles the main logic of the icicle chart.
+ *
+ * The logic is split into three parts:
+ * 1. Computing base nodes
+ * 2. Add a11y properties
+ * 3. Applying the zoom
+ * 4. Applying the spacing
+ *
+ * This might not be the most efficient, but this is the best we can do for now.
+ */
 export const useIcicle = <Datum>({
     data,
     sort = commonDefaultProps.sort as IcicleCommonProps<Datum>['sort'],
@@ -343,6 +423,14 @@ export const useIcicle = <Datum>({
     childColor = commonDefaultProps.childColor as IcicleCommonProps<Datum>['childColor'],
     enableZooming = commonDefaultProps.enableZooming,
     zoomMode = commonDefaultProps.zoomMode,
+    isFocusable = false,
+    withA11y = false,
+    nodeRole,
+    nodeAriaLabel,
+    nodeAriaLabelledBy,
+    nodeAriaDescribedBy,
+    nodeAriaHidden,
+    nodeAriaDisabled,
 }: DataProps<Datum> &
     Pick<
         IcicleCommonProps<Datum>,
@@ -362,6 +450,8 @@ export const useIcicle = <Datum>({
     > & {
         width: number
         height: number
+        isFocusable?: boolean
+        withA11y?: boolean
     } & Omit<IcicleNodesA11yProps<Datum>, 'isFocusable'>) => {
     const getIdentity = usePropertyAccessor(identity)
     const getValue = usePropertyAccessor(value)
@@ -385,8 +475,20 @@ export const useIcicle = <Datum>({
         getChildColor,
     })
 
-    const { zoomedNodes, zoomedNodePath, zoom } = useIcicleZoom<Datum>({
+    const nodesWithA11y = useIcicleA11y<Datum>({
         nodes,
+        isEnabled: withA11y,
+        isFocusable,
+        nodeRole,
+        nodeAriaLabel,
+        nodeAriaLabelledBy,
+        nodeAriaDescribedBy,
+        nodeAriaHidden,
+        nodeAriaDisabled,
+    })
+
+    const { zoomedNodes, zoom } = useIcicleZoom<Datum>({
+        nodes: nodesWithA11y,
         nodeByPath,
         orientation,
         enableZooming,
@@ -395,7 +497,7 @@ export const useIcicle = <Datum>({
         height,
     })
 
-    const spacedNodes = useIcicleSpacing({
+    const { spacedNodes, spacedNodeByPath } = useIcicleSpacing<Datum>({
         nodes: zoomedNodes,
         gapX,
         gapY,
@@ -403,8 +505,58 @@ export const useIcicle = <Datum>({
 
     return {
         nodes: spacedNodes,
+        nodeByPath: spacedNodeByPath,
         zoom,
-        zoomedNodePath,
+    }
+}
+
+export const useIcicleNav = <Datum>(
+    nodes: IcicleNode<Datum>[],
+    nodeByPath: Record<string, IcicleNode<Datum>>
+) => {
+    const nodeRefs = useNodeRefs(nodes.map(node => node.path))
+
+    const nav = useMemo(() => {
+        const moveTo = (nodePath: string, to: keyof IcicleNode<Datum>['nav']) => {
+            const node = nodeByPath[nodePath]
+            if (!node || !node.nav[to]) return
+
+            const target = nodeByPath[node.nav[to]]
+            if (!target) return
+
+            const ref = nodeRefs.current[target.path]
+            if (!ref || !ref.current) return
+
+            ref.current.focus()
+        }
+
+        const moveUp = (nodePath: string) => {
+            moveTo(nodePath, 'up')
+        }
+
+        const movePrev = (nodePath: string) => {
+            moveTo(nodePath, 'prev')
+        }
+
+        const moveNext = (nodePath: string) => {
+            moveTo(nodePath, 'next')
+        }
+
+        const moveDown = (nodePath: string) => {
+            moveTo(nodePath, 'down')
+        }
+
+        return {
+            moveUp,
+            movePrev,
+            moveNext,
+            moveDown,
+        }
+    }, [nodeRefs, nodeByPath])
+
+    return {
+        nodeRefs,
+        nav,
     }
 }
 
@@ -420,6 +572,19 @@ export const useMemoizeChartContext = <Context>(
 ): IcicleChartContext<Context> =>
     useMemo(() => ({ orientation, zoom, ...extra }), [orientation, zoom, extra])
 
+/**
+ * This hook returns the chart context, which contains global properties
+ * that might be useful when using custom components for nodes or labels.
+ *
+ * Let's say you want to create a custom node/label component, and you want
+ * to pass a custom function to the nodes or labels which requires a state
+ * defined outside the Icicle chart.
+ * Without the context, you would have to pass the state down to the node/label,
+ * which is not ideal, you would have to make the node/label component dynamic,
+ * defeating the purpose of memoization.
+ * With the context, you're able to define custom components externally while
+ * still having access to the chart context.
+ */
 export const useIcicleContext = <Context = Record<string, unknown>>() => {
     const ctx = useContext(ChartContext)
     if (!ctx) {
@@ -428,15 +593,3 @@ export const useIcicleContext = <Context = Record<string, unknown>>() => {
 
     return ctx as IcicleChartContext<Context>
 }
-
-export const useIcicleCustomLayerProps = <Datum>({
-    nodes,
-    zoom,
-}: IcicleCommonCustomLayerProps<Datum>): IcicleCommonCustomLayerProps<Datum> =>
-    useMemo(
-        () => ({
-            nodes,
-            zoom,
-        }),
-        [nodes, zoom]
-    )

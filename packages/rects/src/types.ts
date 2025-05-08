@@ -2,8 +2,15 @@ import {
     FunctionComponent,
     MouseEvent,
     MouseEventHandler,
+    FocusEvent,
+    FocusEventHandler,
+    KeyboardEvent,
+    KeyboardEventHandler,
     WheelEvent,
     WheelEventHandler,
+    AriaAttributes,
+    Ref,
+    RefObject,
 } from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
 
@@ -14,9 +21,27 @@ export interface Rect {
     height: number
 }
 
+export type RectNodeHandle = {
+    focus: () => void
+}
+
+export type NodeRefMap = Record<string, RefObject<RectNodeHandle>>
+
+export interface DatumA11yProps {
+    isFocusable?: boolean
+    role?: string
+    label?: AriaAttributes['aria-label']
+    labelledBy?: AriaAttributes['aria-labelledby']
+    describedBy?: AriaAttributes['aria-describedby']
+    level?: AriaAttributes['aria-level']
+    hidden?: AriaAttributes['aria-hidden']
+    disabled?: AriaAttributes['aria-disabled']
+}
+
 export interface DatumWithRect {
     id: string | number
     rect: Rect
+    a11y?: DatumA11yProps
 }
 
 export interface DatumWithRectAndColor extends DatumWithRect {
@@ -51,12 +76,23 @@ export type RectMouseHandler<Datum extends DatumWithRectAndColor> = (
     event: MouseEvent
 ) => void
 
+export type RectFocusHandler<Datum extends DatumWithRectAndColor> = (
+    datum: Datum,
+    event: FocusEvent
+) => void
+
+export type RectKeyboardHandler<Datum extends DatumWithRectAndColor> = (
+    datum: Datum,
+    event: KeyboardEvent
+) => void
+
 export type RectWheelHandler<Datum extends DatumWithRectAndColor> = (
     datum: Datum,
     event: WheelEvent
 ) => void
 
 export interface RectNodeProps<Datum extends DatumWithRectAndColor> {
+    ref?: Ref<RectNodeHandle>
     datum: Datum
     style: {
         progress: SpringValue<number>
@@ -76,6 +112,9 @@ export interface RectNodeProps<Datum extends DatumWithRectAndColor> {
     onMouseMove?: MouseEventHandler
     onMouseLeave?: MouseEventHandler
     onClick?: MouseEventHandler
+    onFocus?: FocusEventHandler
+    onBlur?: FocusEventHandler
+    onKeyDown?: KeyboardEventHandler
     onContextMenu?: MouseEventHandler
     onWheel?: WheelEventHandler
     testId?: string
