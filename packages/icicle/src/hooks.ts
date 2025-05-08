@@ -15,6 +15,7 @@ import {
     IcicleChartContext,
     IcicleZoomFunction,
     IcicleOrientation,
+    IcicleNodesA11yProps,
 } from './types'
 
 const computeNodePath = <Datum>(
@@ -41,57 +42,37 @@ const sortDescending =
     (a: HierarchyNode<Datum>, b: HierarchyNode<Datum>) =>
         b.height - a.height || b.value! - a.value!
 
-const calculateZoomMult = (size: number, totalSize: number, offset: number) => [
-    totalSize / size,
-    offset * (totalSize / size) * -1,
-]
-
-export const useIcicle = <Datum>({
+/**
+ * This hook handles computing the base nodes for the icicle chart.
+ * This is the first step in the computing process, then the nodes might
+ * be altered by the zooming process.
+ */
+export const useIcicleNodes = <Datum>({
     data,
-    sort = commonDefaultProps.sort as IcicleCommonProps<Datum>['sort'],
-    identity = commonDefaultProps.identity as IcicleCommonProps<Datum>['identity'],
-    value = commonDefaultProps.value as IcicleCommonProps<Datum>['value'],
-    valueFormat,
+    getValue,
+    sort,
+    orientation,
     width,
     height,
-    orientation = commonDefaultProps.orientation,
-    gapX = commonDefaultProps.gapX,
-    gapY = commonDefaultProps.gapY,
-    colors = commonDefaultProps.colors as IcicleCommonProps<Datum>['colors'],
-    colorBy = commonDefaultProps.colorBy,
-    inheritColorFromParent = commonDefaultProps.inheritColorFromParent,
-    childColor = commonDefaultProps.childColor as IcicleCommonProps<Datum>['childColor'],
-    enableZooming = commonDefaultProps.enableZooming,
-    zoomMode = commonDefaultProps.zoomMode,
-}: DataProps<Datum> &
-    Pick<
-        IcicleCommonProps<Datum>,
-        | 'sort'
-        | 'identity'
-        | 'value'
-        | 'valueFormat'
-        | 'orientation'
-        | 'gapX'
-        | 'gapY'
-        | 'colors'
-        | 'colorBy'
-        | 'inheritColorFromParent'
-        | 'childColor'
-        | 'enableZooming'
-        | 'zoomMode'
-    > & {
-        width: number
-        height: number
-    }) => {
-    const getIdentity = usePropertyAccessor(identity)
-    const getValue = usePropertyAccessor(value)
-    const formatValue = useValueFormatter(valueFormat)
-
-    const theme = useTheme()
-    const getColor = useOrdinalColorScale(colors, colorBy)
-    const getChildColor = useInheritedColor(childColor, theme)
-
-    const { nodes, nodeByPath } = useMemo(() => {
+    getIdentity,
+    formatValue,
+    inheritColorFromParent,
+    getColor,
+    getChildColor,
+}: {
+    data: DataProps<Datum>['data']
+    getValue: (node: Datum) => number
+    sort: IcicleCommonProps<Datum>['sort']
+    orientation: IcicleCommonProps<Datum>['orientation']
+    width: number
+    height: number
+    getIdentity: (node: Datum) => string
+    formatValue: (value: number) => string
+    inheritColorFromParent: IcicleCommonProps<Datum>['inheritColorFromParent']
+    getColor: (node: Omit<ComputedDatum<Datum>, 'color' | 'fill'>) => string
+    getChildColor: (node: ComputedDatum<Datum>) => string
+}) =>
+    useMemo(() => {
         // D3 mutates the data for performance reasons.
         // However, it does not work well with reactive programming.
         // This ensures that we don't mutate the input data.
@@ -174,7 +155,7 @@ export const useIcicle = <Datum>({
                     }
 
                     if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
-                        normalizedNode.color = getChildColor(parent, normalizedNode)
+                        normalizedNode.color = getChildColor(parent)
                     } else {
                         normalizedNode.color = getColor(normalizedNode)
                     }
@@ -198,7 +179,44 @@ export const useIcicle = <Datum>({
         orientation,
     ])
 
+const calculateZoomMult = (size: number, totalSize: number, offset: number) => [
+    totalSize / size,
+    offset * (totalSize / size) * -1,
+]
+
+/**
+ * This hook handles re-computing all nodes if a node is currently zoomed.
+ */
+export const useIcicleZoom = <Datum>({
+    nodes,
+    nodeByPath,
+    orientation,
+    enableZooming,
+    zoomMode,
+    width,
+    height,
+}: {
+    nodes: readonly ComputedDatum<Datum>[]
+    nodeByPath: Record<string, ComputedDatum<Datum>>
+    orientation: IcicleCommonProps<Datum>['orientation']
+    enableZooming: IcicleCommonProps<Datum>['enableZooming']
+    zoomMode: IcicleCommonProps<Datum>['zoomMode']
+    width: number
+    height: number
+}) => {
     const [zoomedNodePath, setZoomedNodePath] = useState<string | null>(null)
+
+    const zoom = useCallback(
+        (nodePath: string | null) => {
+            if (!enableZooming) return null
+
+            setZoomedNodePath(prev => {
+                if (prev === nodePath) return null
+                return nodePath
+            })
+        },
+        [enableZooming, setZoomedNodePath]
+    )
 
     const zoomedNodes = useMemo(() => {
         if (!enableZooming || !zoomedNodePath) return nodes
@@ -269,35 +287,124 @@ export const useIcicle = <Datum>({
         }))
     }, [enableZooming, zoomMode, zoomedNodePath, nodes, nodeByPath, width, height, orientation])
 
-    const spacedNodes = useMemo(() => {
-        return zoomedNodes.map(node => {
-            return {
-                ...node,
-                rect: {
-                    x: node.rect.x + gapX / 2,
-                    y: node.rect.y + gapY / 2,
-                    width: node.rect.width - gapX,
-                    height: node.rect.height - gapY,
-                },
-            }
-        })
-    }, [zoomedNodes, gapX, gapY])
+    return {
+        zoomedNodes,
+        zoomedNodePath,
+        zoom,
+    }
+}
 
-    const zoom = useCallback(
-        (nodePath: string | null) => {
-            if (!enableZooming) return
-
-            setZoomedNodePath(prev => {
-                if (prev === nodePath) return null
-                return nodePath
-            })
-        },
-        [enableZooming, setZoomedNodePath]
+/**
+ * This hook handles the spacing between nodes, we cannot use d3.partition.padding
+ * due to zooming, otherwise the spacing would be scaled as well when zooming.
+ *
+ * The nodes with a width or height of 0, after spacing, are rejected, this is not ideal
+ * as this might create gaps in the chart, but it is the best we can do for now.
+ */
+export const useIcicleSpacing = <Datum>({
+    nodes,
+    gapX,
+    gapY,
+}: {
+    nodes: readonly ComputedDatum<Datum>[]
+    gapX: IcicleCommonProps<Datum>['gapX']
+    gapY: IcicleCommonProps<Datum>['gapY']
+}) =>
+    useMemo(
+        () =>
+            nodes
+                .map(node => ({
+                    ...node,
+                    rect: {
+                        x: node.rect.x + gapX / 2,
+                        y: node.rect.y + gapY / 2,
+                        width: Math.max(node.rect.width - gapX, 0),
+                        height: Math.max(node.rect.height - gapY, 0),
+                    },
+                }))
+                .filter(node => node.rect.width > 0 && node.rect.height > 0),
+        [nodes, gapX, gapY]
     )
+
+export const useIcicle = <Datum>({
+    data,
+    sort = commonDefaultProps.sort as IcicleCommonProps<Datum>['sort'],
+    identity = commonDefaultProps.identity as IcicleCommonProps<Datum>['identity'],
+    value = commonDefaultProps.value as IcicleCommonProps<Datum>['value'],
+    valueFormat,
+    width,
+    height,
+    orientation = commonDefaultProps.orientation,
+    gapX = commonDefaultProps.gapX,
+    gapY = commonDefaultProps.gapY,
+    colors = commonDefaultProps.colors as IcicleCommonProps<Datum>['colors'],
+    colorBy = commonDefaultProps.colorBy,
+    inheritColorFromParent = commonDefaultProps.inheritColorFromParent,
+    childColor = commonDefaultProps.childColor as IcicleCommonProps<Datum>['childColor'],
+    enableZooming = commonDefaultProps.enableZooming,
+    zoomMode = commonDefaultProps.zoomMode,
+}: DataProps<Datum> &
+    Pick<
+        IcicleCommonProps<Datum>,
+        | 'sort'
+        | 'identity'
+        | 'value'
+        | 'valueFormat'
+        | 'orientation'
+        | 'gapX'
+        | 'gapY'
+        | 'colors'
+        | 'colorBy'
+        | 'inheritColorFromParent'
+        | 'childColor'
+        | 'enableZooming'
+        | 'zoomMode'
+    > & {
+        width: number
+        height: number
+    } & Omit<IcicleNodesA11yProps<Datum>, 'isFocusable'>) => {
+    const getIdentity = usePropertyAccessor(identity)
+    const getValue = usePropertyAccessor(value)
+    const formatValue = useValueFormatter(valueFormat)
+
+    const theme = useTheme()
+    const getColor = useOrdinalColorScale(colors, colorBy)
+    const getChildColor = useInheritedColor(childColor, theme)
+
+    const { nodes, nodeByPath } = useIcicleNodes<Datum>({
+        data,
+        getValue,
+        sort,
+        orientation,
+        width,
+        height,
+        getIdentity,
+        formatValue,
+        inheritColorFromParent,
+        getColor,
+        getChildColor,
+    })
+
+    const { zoomedNodes, zoomedNodePath, zoom } = useIcicleZoom<Datum>({
+        nodes,
+        nodeByPath,
+        orientation,
+        enableZooming,
+        zoomMode,
+        width,
+        height,
+    })
+
+    const spacedNodes = useIcicleSpacing({
+        nodes: zoomedNodes,
+        gapX,
+        gapY,
+    })
 
     return {
         nodes: spacedNodes,
         zoom,
+        zoomedNodePath,
     }
 }
 
