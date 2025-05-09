@@ -8,12 +8,17 @@ import { CalendarMonthLegends } from './CalendarMonthLegends'
 import { CalendarDay } from './CalendarDay'
 import { calendarDefaultProps } from './props'
 import { useMonthLegends, useYearLegends, useCalendarLayout, useDays, useColorScale } from './hooks'
+import { computeCellSize, computeTotalDays } from './compute/timeRange'
+import { computeWeekdays } from './compute/calendar'
+import { useMemo } from 'react'
+import { Text } from '@nivo/text'
 
 const InnerCalendar = ({
     margin: partialMargin,
     width,
     height,
 
+    square = calendarDefaultProps.square,
     align = calendarDefaultProps.align,
     colors = calendarDefaultProps.colors,
     colorScale,
@@ -38,6 +43,11 @@ const InnerCalendar = ({
     monthLegendOffset = calendarDefaultProps.monthLegendOffset,
     monthLegendPosition = calendarDefaultProps.monthLegendPosition,
     monthSpacing = calendarDefaultProps.monthSpacing,
+
+    weekdayLegendOffset = calendarDefaultProps.weekdayLegendOffset,
+    weekdayTicks,
+    weekdays = calendarDefaultProps.weekdays,
+    firstWeekday = calendarDefaultProps.firstWeekday,
 
     dayBorderColor = calendarDefaultProps.dayBorderColor,
     dayBorderWidth = calendarDefaultProps.dayBorderWidth,
@@ -82,8 +92,52 @@ const InnerCalendar = ({
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
 
+    const dayData = useMemo(
+        () =>
+            data
+                .map(data => ({ ...data, date: new Date(`${data.day}T00:00:00`) }))
+                .sort((left, right) => left.day.localeCompare(right.day)),
+        [data]
+    )
+
+    const totalDays = computeTotalDays({
+        from,
+        to,
+        data: dayData,
+    })
+
+    const { cellHeight, cellWidth } = computeCellSize({
+        square,
+        offset: weekdayLegendOffset,
+        totalDays: totalDays,
+        width: innerWidth,
+        height: innerHeight,
+        daySpacing,
+        direction,
+    })
+
+    const weekdayLegends = computeWeekdays({
+        direction,
+        cellHeight,
+        cellWidth,
+        daySpacing,
+        ticks: weekdayTicks,
+        firstWeekday,
+        arrayOfWeekdays: weekdays,
+    })
+
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+            {weekdayLegends.map(legend => (
+                <Text
+                    key={`${legend.value}-${legend.x}-${legend.y}`}
+                    transform={`translate(${legend.x},${legend.y}) rotate(${legend.rotation})`}
+                    textAnchor="left"
+                    style={theme.labels.text}
+                >
+                    {legend.value}
+                </Text>
+            ))}
             {days.map(d => (
                 <CalendarDay
                     key={d.date.toString()}

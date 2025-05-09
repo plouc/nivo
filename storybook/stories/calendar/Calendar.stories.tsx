@@ -106,3 +106,15 @@ export const CustomLegendFormatter: Story = {
         />
     ),
 }
+
+export const DaysOfTheWeekLegend: Story = {
+    render: () => (
+        <Calendar
+            {...commonProps}
+            yearLegendOffset={40}
+            weekdayLegendOffset={0}
+            weekdayTicks={[0, 1, 2, 3, 4, 5, 6]}
+            weekdays={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+        />
+    ),
+}
