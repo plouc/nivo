@@ -7,6 +7,7 @@ const monthLabelFormat = timeFormat('%b')
 const commonDefaultProps = {
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'] as string[],
 
+    square: true,
     align: 'center',
     direction: 'horizontal',
     emptyColor: '#fff',
@@ -25,6 +26,18 @@ const commonDefaultProps = {
     monthLegend: (_year: number, _month: number, date: Date) => monthLabelFormat(date),
     monthLegendPosition: 'before',
     monthLegendOffset: 10,
+
+    weekdayLegendOffset: 10,
+    weekdays: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ] as string[],
+    firstWeekday: 'sunday',
 
     daySpacing: 0,
     dayBorderWidth: 1,

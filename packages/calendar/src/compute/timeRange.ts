@@ -51,7 +51,7 @@ interface ComputeCellPositions
     firstWeekday: Weekday
 }
 
-interface ComputeWeekdays
+export interface ComputeWeekdays
     extends Omit<ComputeBaseProps, 'daysInRange'>,
         Omit<ComputeBaseSpaceProps, 'offset'>,
         ComputeBaseDimensionProps {
@@ -181,7 +181,7 @@ const getTimeInterval = (firstWeekday: Weekday) => {
     ][getFirstWeekdayIndex(firstWeekday)]
 }
 
-function shiftArray<T>(arr: T[], x: number): T[] {
+export function shiftArray<T>(arr: T[], x: number): T[] {
     if (!arr.length || !x) return arr
 
     x = x % arr.length

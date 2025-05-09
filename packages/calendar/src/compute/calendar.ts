@@ -6,6 +6,7 @@ import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 import { ScaleQuantize } from 'd3-scale'
 import { BBox, CalendarSvgProps, ColorScale, Datum, Year } from '../types'
+import { ARRAY_OF_WEEKDAYS, ComputeWeekdays, getFirstWeekdayIndex, shiftArray } from './timeRange'
 
 /**
  * Compute min/max values.
@@ -465,4 +466,26 @@ export const computeMonthLegendPositions = <Month extends { bbox: BBox }>({
             rotation,
         }
     })
+}
+
+export const computeWeekdays = ({
+    cellHeight,
+    cellWidth,
+    direction,
+    daySpacing,
+    ticks = [1, 3, 5],
+    firstWeekday,
+    arrayOfWeekdays = ARRAY_OF_WEEKDAYS,
+}: ComputeWeekdays) => {
+    const sizes = {
+        width: cellWidth + daySpacing,
+        height: cellHeight + daySpacing,
+    }
+    const shiftedWeekdays = shiftArray(arrayOfWeekdays, getFirstWeekdayIndex(firstWeekday))
+    return ticks.map(day => ({
+        value: shiftedWeekdays[day],
+        rotation: direction === 'horizontal' ? 0 : -90,
+        y: direction === 'horizontal' ? sizes.height * (day + 1) - sizes.height / 3 + 48 : 0,
+        x: direction === 'horizontal' ? -30 : sizes.width * (day + 1) - sizes.width / 3,
+    }))
 }

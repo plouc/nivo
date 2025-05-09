@@ -126,6 +126,7 @@ export type CommonCalendarProps = {
     colorScale: ColorScale
     margin: Box
     align: BoxAlign
+    square: boolean
 
     yearLegend: (year: number) => string | number
     yearSpacing: number
@@ -138,6 +139,11 @@ export type CommonCalendarProps = {
     monthLegend: (year: number, month: number, date: Date) => string | number
     monthLegendOffset: number
     monthLegendPosition: 'before' | 'after'
+
+    weekdayLegendOffset: number
+    weekdayTicks: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>
+    weekdays: string[]
+    firstWeekday: Weekday
 
     daySpacing: number
     dayBorderWidth: number
