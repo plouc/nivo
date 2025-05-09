@@ -94,6 +94,8 @@ export type BulletSvgProps = Partial<CommonBulletProps> &
     BulletHandlers &
     MotionProps & {
         data: Datum[]
+        axisFormat?: (d: number) => string
+        xAxis?: boolean
     }
 
 type MouseEventWithDatum<D, Element> = (
@@ -205,6 +207,8 @@ export type BulletItemProps = Omit<
     Point & {
         measureHeight: number
         markerHeight: number
+        axisFormat?: (d: number) => string
+        xAxis?: boolean
     }
 
 export interface BulletTooltipProps {
