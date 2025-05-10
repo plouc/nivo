@@ -10,3 +10,9 @@
 [documentation](http://nivo.rocks/icicle/)
 
 ![Icicle](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/icicle.png)
+
+## IcicleHtml
+
+[documentation](http://nivo.rocks/icicle/html/)
+
+![IcicleHtml](https://raw.githubusercontent.com/plouc/nivo/master/website/src/assets/captures/icicle.png)

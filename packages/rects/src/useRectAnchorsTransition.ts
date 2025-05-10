@@ -116,12 +116,12 @@ export const rectAnchorTransitionModeById: Record<
 // TransitionExtra is used to add extra animated properties to the anchors,
 // for example, you could use it to animate a color.
 export interface ReactAnchorTransitionExtra<
-    Datum extends AnchorWithRect,
+    Node extends AnchorWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 > {
-    enter: (datum: Datum) => ExtraProps
-    update: (datum: Datum) => ExtraProps
-    leave: (datum: Datum) => ExtraProps
+    enter: (node: Node) => ExtraProps
+    update: (node: Node) => ExtraProps
+    leave: (node: Node) => ExtraProps
 }
 
 export type RectAnchorTransitionProps<
@@ -131,33 +131,33 @@ export type RectAnchorTransitionProps<
 } & ExtraProps
 
 export const useRectAnchorTransitionMode = <
-    Datum extends AnchorWithRect,
+    Node extends AnchorWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 >(
     mode: RectTransitionMode,
-    extraTransition?: ReactAnchorTransitionExtra<Datum, ExtraProps>
+    extraTransition?: ReactAnchorTransitionExtra<Node, ExtraProps>
 ) =>
     useMemo(() => {
         const transitionMode = rectAnchorTransitionModeById[mode]
 
         return {
-            enter: (datum: Datum) =>
+            enter: (node: Node) =>
                 ({
                     progress: 0,
-                    ...transitionMode.enter(datum),
-                    ...(extraTransition ? extraTransition.enter(datum) : {}),
+                    ...transitionMode.enter(node),
+                    ...(extraTransition ? extraTransition.enter(node) : {}),
                 }) as RectAnchorTransitionProps<ExtraProps>,
-            update: (datum: Datum) =>
+            update: (node: Node) =>
                 ({
                     progress: 1,
-                    ...transitionMode.update(datum),
-                    ...(extraTransition ? extraTransition.update(datum) : {}),
+                    ...transitionMode.update(node),
+                    ...(extraTransition ? extraTransition.update(node) : {}),
                 }) as RectAnchorTransitionProps<ExtraProps>,
-            leave: (datum: Datum) =>
+            leave: (node: Node) =>
                 ({
                     progress: 0,
-                    ...transitionMode.leave(datum),
-                    ...(extraTransition ? extraTransition.leave(datum) : {}),
+                    ...transitionMode.leave(node),
+                    ...(extraTransition ? extraTransition.leave(node) : {}),
                 }) as RectAnchorTransitionProps<ExtraProps>,
         }
     }, [mode, extraTransition])
@@ -165,18 +165,18 @@ export const useRectAnchorTransitionMode = <
 const getId = (anchor: AnchorWithRect) => anchor.id
 
 export const useRectAnchorsTransition = <
-    Datum extends AnchorWithRect,
+    Node extends AnchorWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 >(
-    data: Datum[],
+    nodes: Node[],
     mode: RectTransitionMode = 'flow-down',
-    extra?: ReactAnchorTransitionExtra<Datum, ExtraProps>
+    extra?: ReactAnchorTransitionExtra<Node, ExtraProps>
 ) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const phases = useRectAnchorTransitionMode<Datum, ExtraProps>(mode, extra)
+    const phases = useRectAnchorTransitionMode<Node, ExtraProps>(mode, extra)
 
-    return useTransition<Datum, RectAnchorTransitionProps<ExtraProps>>(data, {
+    return useTransition<Node, RectAnchorTransitionProps<ExtraProps>>(nodes, {
         keys: getId,
         initial: phases.update,
         from: phases.enter,
@@ -185,5 +185,5 @@ export const useRectAnchorsTransition = <
         leave: phases.leave,
         config: springConfig,
         immediate: !animate,
-    }) as unknown as TransitionFn<Datum, RectAnchorTransitionProps<ExtraProps>>
+    }) as unknown as TransitionFn<Node, RectAnchorTransitionProps<ExtraProps>>
 }

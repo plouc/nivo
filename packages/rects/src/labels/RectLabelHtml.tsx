@@ -1,6 +1,6 @@
 import { animated } from '@react-spring/web'
 import { useTheme, sanitizeHtmlTextStyle, TextAlign, TextBaseline } from '@nivo/theming'
-import { DatumWithRectAndColor } from '../types'
+import { NodeWithRectAndColor } from '../types'
 import { RectLabelProps } from './types'
 
 const getTranslation = (align: TextAlign, baseline: TextBaseline) => {
@@ -10,12 +10,12 @@ const getTranslation = (align: TextAlign, baseline: TextBaseline) => {
     return `translate(${translateX}, ${translateY})`
 }
 
-export const RectLabelHtml = <Datum extends DatumWithRectAndColor>({
+export const RectLabelHtml = <Node extends NodeWithRectAndColor>({
     label,
     color,
     style,
     testId,
-}: RectLabelProps<Datum>) => {
+}: RectLabelProps<Node>) => {
     const theme = useTheme()
 
     return (

@@ -178,8 +178,8 @@ interface ExpectedNode {
     rect?: {
         x: number
         y: number
-        width: number
-        height: number
+        width?: number
+        height?: number
     }
     color?: string
     // For patterns and gradients
@@ -197,6 +197,14 @@ interface ExpectedNode {
         align?: string
         baseline?: string
     }
+    aria?: {
+        role?: string
+        level?: number
+        label?: string
+        labelledBy?: string
+        describedBy?: string
+        hidden?: boolean
+    }
 }
 
 const testNode = (expectedNode: ExpectedNode) => {
@@ -208,8 +216,13 @@ const testNode = (expectedNode: ExpectedNode) => {
             'transform',
             `translate(${expectedNode.rect.x},${expectedNode.rect.y})`
         )
-            .and('have.attr', 'width', expectedNode.rect.width)
-            .and('have.attr', 'height', expectedNode.rect.height)
+
+        if (expectedNode.rect.width !== undefined) {
+            node.should('have.attr', 'width', expectedNode.rect.width)
+        }
+        if (expectedNode.rect.height !== undefined) {
+            node.should('have.attr', 'height', expectedNode.rect.height)
+        }
     }
 
     if (expectedNode.color) {
@@ -247,6 +260,27 @@ const testNode = (expectedNode: ExpectedNode) => {
 
                 label.should('have.attr', 'transform', expectedLabelTransform)
             }
+        }
+    }
+
+    if (expectedNode.aria) {
+        if (expectedNode.aria.role) {
+            node.should('have.attr', 'role', expectedNode.aria.role)
+        }
+        if (expectedNode.aria.level) {
+            node.should('have.attr', 'aria-level', expectedNode.aria.level)
+        }
+        if (expectedNode.aria.label) {
+            node.should('have.attr', 'aria-label', expectedNode.aria.label)
+        }
+        if (expectedNode.aria.labelledBy) {
+            node.should('have.attr', 'aria-labelledby', expectedNode.aria.labelledBy)
+        }
+        if (expectedNode.aria.describedBy) {
+            node.should('have.attr', 'aria-describedby', expectedNode.aria.describedBy)
+        }
+        if (expectedNode.aria.hidden !== undefined) {
+            node.should('have.attr', 'aria-hidden', `${expectedNode.aria.hidden}`)
         }
     }
 }
@@ -703,8 +737,8 @@ describe('<Icicle />', () => {
                         }),
                     ]}
                     fill={[
-                        { match: { path: 'root' }, id: 'pattern' },
-                        { match: { path: 'root.A.1' }, id: 'pattern' },
+                        { match: { id: 'root' }, id: 'pattern' },
+                        { match: { id: '1' }, id: 'pattern' },
                     ]}
                 />
             )
@@ -749,8 +783,8 @@ describe('<Icicle />', () => {
                         ]),
                     ]}
                     fill={[
-                        { match: { path: 'root' }, id: 'gradient' },
-                        { match: { path: 'root.A.1' }, id: 'gradient' },
+                        { match: { id: 'root' }, id: 'gradient' },
+                        { match: { id: '1' }, id: 'gradient' },
                     ]}
                 />
             )
@@ -815,7 +849,9 @@ describe('<Icicle />', () => {
         })
 
         it('should support defining labels as a property', () => {
-            cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels label="path" />)
+            cy.mount(
+                <Icicle<DefaultIcicleDatum> {...defaultProps} enableLabels label="hierarchy.path" />
+            )
 
             testNodes([
                 {
@@ -2057,6 +2093,410 @@ describe('<Icicle />', () => {
         })
     })
 
+    describe('a11y', () => {
+        describe('aria attributes', () => {
+            it('should set default aria attributes', () => {
+                cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} />)
+
+                cy.findByRole('tree').should('exist')
+                cy.findAllByRole('treeitem').should('have.length', 5)
+
+                testNodes([
+                    {
+                        path: 'root',
+                        aria: {
+                            role: 'treeitem',
+                            level: 1,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        aria: {
+                            role: 'treeitem',
+                            level: 2,
+                        },
+                    },
+                    {
+                        path: 'root.A.0',
+                        aria: {
+                            role: 'treeitem',
+                            level: 3,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        aria: {
+                            role: 'treeitem',
+                            level: 3,
+                        },
+                    },
+                    {
+                        path: 'root.B',
+                        aria: {
+                            role: 'treeitem',
+                            level: 2,
+                        },
+                    },
+                ])
+            })
+
+            it('should allow customizing/extending aria attributes', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...defaultProps}
+                        nodeAriaLabel={node => `${node.id}: ${node.formattedValue}`}
+                        nodeAriaLabelledBy={node => `${node.id}-label`}
+                        nodeAriaDescribedBy={node => `${node.id}-description`}
+                        nodeAriaHidden={node => node.hierarchy.depth === 0}
+                    />
+                )
+
+                cy.findByRole('tree').should('exist')
+                // root is hidden.
+                cy.findAllByRole('treeitem').should('have.length', 4)
+
+                testNodes([
+                    {
+                        path: 'root',
+                        aria: {
+                            role: 'treeitem',
+                            level: 1,
+                            label: 'root: 100',
+                            labelledBy: 'root-label',
+                            describedBy: 'root-description',
+                            hidden: true,
+                        },
+                    },
+                    {
+                        path: 'root.A',
+                        aria: {
+                            role: 'treeitem',
+                            level: 2,
+                            label: 'A: 50',
+                            labelledBy: 'A-label',
+                            describedBy: 'A-description',
+                            hidden: false,
+                        },
+                    },
+                    {
+                        path: 'root.A.0',
+                        aria: {
+                            role: 'treeitem',
+                            level: 3,
+                            label: '0: 25',
+                            labelledBy: '0-label',
+                            describedBy: '0-description',
+                            hidden: false,
+                        },
+                    },
+                    {
+                        path: 'root.A.1',
+                        aria: {
+                            role: 'treeitem',
+                            level: 3,
+                            label: '1: 25',
+                            labelledBy: '1-label',
+                            describedBy: '1-description',
+                            hidden: false,
+                        },
+                    },
+                    {
+                        path: 'root.B',
+                        aria: {
+                            role: 'treeitem',
+                            level: 2,
+                            label: 'B: 50',
+                            labelledBy: 'B-label',
+                            describedBy: 'B-description',
+                            hidden: false,
+                        },
+                    },
+                ])
+            })
+        })
+
+        describe('keyboard navigation', () => {
+            it('should allow keyboard navigation via TAB', () => {
+                cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} isFocusable />)
+
+                cy.findByRole('tree').focus()
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.0')
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.1')
+            })
+
+            describe('should support navigation via ARROW keys', () => {
+                it('bottom orientation', () => {
+                    cy.mount(<Icicle<DefaultIcicleDatum> {...defaultProps} isFocusable />)
+
+                    cy.findByRole('tree').focus()
+
+                    cy.press('Tab')
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.0')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.1')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowLeft' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+                })
+
+                it('right orientation', () => {
+                    cy.mount(
+                        <Icicle<DefaultIcicleDatum>
+                            {...defaultProps}
+                            isFocusable
+                            orientation="right"
+                        />
+                    )
+
+                    cy.findByRole('tree').focus()
+
+                    cy.press('Tab')
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.0')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.1')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowLeft' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowLeft' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+                })
+
+                it('top orientation', () => {
+                    cy.mount(
+                        <Icicle<DefaultIcicleDatum>
+                            {...defaultProps}
+                            isFocusable
+                            orientation="top"
+                        />
+                    )
+
+                    cy.findByRole('tree').focus()
+
+                    cy.press('Tab')
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.0')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.1')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowLeft' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+                })
+
+                it('left orientation', () => {
+                    cy.mount(
+                        <Icicle<DefaultIcicleDatum>
+                            {...defaultProps}
+                            isFocusable
+                            orientation="left"
+                        />
+                    )
+
+                    cy.findByRole('tree').focus()
+
+                    cy.press('Tab')
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowLeft' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowLeft' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.0')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A.1')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                    cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                    cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+                })
+            })
+
+            it('should zoom in/out via ENTER/ESCAPE or SPACE', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        isFocusable
+                        enableZooming
+                        zoomMode="global"
+                    />
+                )
+
+                cy.findByRole('tree').focus()
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                cy.focused().trigger('keydown', { key: ' ' })
+                testNode({
+                    path: 'root.A',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 400,
+                    },
+                })
+
+                cy.focused().trigger('keydown', { key: ' ' })
+                testNode({
+                    path: 'root.A',
+                    rect: {
+                        x: 0,
+                        y: 100,
+                        width: 200,
+                        height: 100,
+                    },
+                })
+
+                cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+
+                cy.focused().trigger('keydown', { key: 'Enter' })
+                testNode({
+                    path: 'root.B',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 400,
+                        height: 400,
+                    },
+                })
+
+                cy.focused().trigger('keydown', { key: 'Escape' })
+                testNode({
+                    path: 'root.B',
+                    rect: {
+                        x: 200,
+                        y: 100,
+                        width: 200,
+                        height: 100,
+                    },
+                })
+            })
+
+            it('should zoom hidden nodes when focused', () => {
+                cy.mount(
+                    <Icicle<DefaultIcicleDatum>
+                        {...propsForLayoutTesting}
+                        isFocusable
+                        enableZooming
+                        zoomMode="global"
+                    />
+                )
+
+                cy.findByRole('tree').focus()
+
+                cy.press('Tab')
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+
+                cy.focused().trigger('keydown', { key: 'ArrowDown' })
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.A')
+
+                cy.focused().trigger('keydown', { key: 'Enter' })
+                testNode({
+                    path: 'root.A',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 400,
+                    },
+                })
+
+                cy.focused().trigger('keydown', { key: 'ArrowRight' })
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root.B')
+                testNode({
+                    path: 'root.B',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 400,
+                        height: 400,
+                    },
+                })
+
+                cy.focused().trigger('keydown', { key: 'ArrowUp' })
+                cy.focused().should('have.attr', 'data-testid', 'icicle.rect.root')
+                testNode({
+                    path: 'root',
+                    rect: {
+                        x: 0,
+                        y: 0,
+                        width: 400,
+                        height: 100,
+                    },
+                })
+            })
+        })
+    })
+
     describe('layers', () => {
         it('should support disabling a layer', () => {
             cy.mount(<Icicle {...defaultProps} layers={['labels']} enableLabels />)
@@ -2075,7 +2515,7 @@ describe('<Icicle />', () => {
                             <g
                                 key={node.id}
                                 transform={`translate(${node.rect.x + node.rect.width / 2}, ${node.rect.y + node.rect.height / 2})`}
-                                data-testid={`custom_layer_node.${node.path}`}
+                                data-testid={`custom_layer_node.${node.hierarchy.path}`}
                             >
                                 <circle r={22} fill="white" />
                                 <Text
