@@ -1,15 +1,15 @@
 import { to } from '@react-spring/web'
 import { useTheme, svgStyleAttributesMapping } from '@nivo/theming'
 import { Text } from '@nivo/text'
-import { DatumWithRectAndColor } from '../types'
+import { NodeWithRectAndColor } from '../types'
 import { RectLabelProps } from './types'
 
-export const RectLabelSvg = <Datum extends DatumWithRectAndColor>({
+export const RectLabelSvg = <Node extends NodeWithRectAndColor>({
     label,
     color,
     style,
     testId,
-}: RectLabelProps<Datum>) => {
+}: RectLabelProps<Node>) => {
     const theme = useTheme()
 
     return (

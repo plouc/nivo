@@ -15,6 +15,7 @@ import {
     IcicleZoomFunction,
     IcicleOrientation,
     IcicleNodesA11yProps,
+    IcicleZoomMode,
 } from './types'
 
 const computeNodePath = <Datum>(
@@ -60,18 +61,18 @@ const useIcicleNodes = <Datum>({
     getChildColor,
 }: {
     data: DataProps<Datum>['data']
-    getValue: (node: Datum) => number
+    getValue: (datum: Datum) => number
     sort: IcicleCommonProps<Datum>['sort']
     orientation: IcicleCommonProps<Datum>['orientation']
     width: number
     height: number
-    getIdentity: (node: Datum) => string
+    getIdentity: (datum: Datum) => string
     formatValue: (value: number) => string
     inheritColorFromParent: IcicleCommonProps<Datum>['inheritColorFromParent']
     getColor: (node: Omit<IcicleNode<Datum>, 'color' | 'fill'>) => string
     getChildColor: (node: IcicleNode<Datum>) => string
-}) =>
-    useMemo(() => {
+}) => {
+    return useMemo(() => {
         // D3 mutates the data for performance reasons.
         // However, it does not work well with reactive programming.
         // This ensures that we don't mutate the input data.
@@ -117,55 +118,55 @@ const useIcicleNodes = <Datum>({
                     ? nodeByPath[pathComponents.slice(0, -1).join('.')]
                     : undefined
 
-                const maxDescendantDepth =
+                const deepestChildDepth =
                     node.height > 0
                         ? Math.max(...node.leaves().map(leaf => leaf.depth))
                         : node.depth
 
-                const previousPath =
+                const previousAtDepth =
                     index > 0 && allNodes[index - 1].depth === node.depth
                         ? computeNodePath(allNodes[index - 1], getIdentity).path
                         : null
 
-                const nextPath =
+                const nextAtDepth =
                     index < allNodes.length - 1 && allNodes[index + 1].depth === node.depth
                         ? computeNodePath(allNodes[index + 1], getIdentity).path
                         : null
 
-                const firstChildPath =
+                const firstChild =
                     node.children && node.children.length > 0
                         ? computeNodePath(node.children[0], getIdentity).path
                         : null
 
                 const normalizedNode: IcicleNode<Datum> = {
                     id,
-                    path,
-                    pathComponents,
                     value,
                     percentage,
+                    isVisible: true,
+                    formattedValue: formatValue(value),
+                    color: '',
+                    data: omit(node.data!, 'children'),
                     rect: {
                         x: x0,
                         y: y0,
                         width: nodeWidth,
                         height: nodeHeight,
                     },
-                    isVisible: true,
-                    formattedValue: formatValue(value),
-                    color: '',
-                    data: omit(node.data!, 'children'),
-                    depth: node.depth,
-                    height: node.height,
-                    maxDescendantDepth,
-                    nav: {
-                        up: parent?.path ?? null,
-                        prev: previousPath,
-                        next: nextPath,
-                        down: firstChildPath,
+                    hierarchy: {
+                        path,
+                        pathComponents,
+                        depth: node.depth,
+                        height: node.height,
+                        deepestChildDepth,
+                        parent: parent?.hierarchy.path ?? null,
+                        previousAtDepth,
+                        nextAtDepth,
+                        firstChild,
                     },
                     a11y: {},
                 }
 
-                if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
+                if (inheritColorFromParent && parent && normalizedNode.hierarchy.depth > 1) {
                     normalizedNode.color = getChildColor(parent)
                 } else {
                     normalizedNode.color = getColor(normalizedNode)
@@ -192,6 +193,7 @@ const useIcicleNodes = <Datum>({
         height,
         orientation,
     ])
+}
 
 const useIcicleA11y = <Datum>({
     nodes,
@@ -202,7 +204,6 @@ const useIcicleA11y = <Datum>({
     nodeAriaLabelledBy,
     nodeAriaDescribedBy,
     nodeAriaHidden,
-    nodeAriaDisabled,
 }: {
     nodes: readonly IcicleNode<Datum>[]
     isEnabled: boolean
@@ -226,9 +227,8 @@ const useIcicleA11y = <Datum>({
                 label: nodeAriaLabel?.(node),
                 labelledBy: nodeAriaLabelledBy?.(node),
                 describedBy: nodeAriaDescribedBy?.(node),
-                level: node.depth + 1,
+                level: node.hierarchy.depth + 1,
                 hidden: nodeAriaHidden?.(node),
-                disabled: nodeAriaDisabled?.(node),
             },
         }))
     }, [
@@ -240,13 +240,37 @@ const useIcicleA11y = <Datum>({
         nodeAriaLabelledBy,
         nodeAriaDescribedBy,
         nodeAriaHidden,
-        nodeAriaDisabled,
     ])
 
 const calculateZoomMult = (size: number, totalSize: number, offset: number) => [
     totalSize / size,
     offset * (totalSize / size) * -1,
 ]
+
+const getIsVisible = <Datum>(currentNode: IcicleNode<Datum>, zoomMode: IcicleZoomMode) => {
+    if (zoomMode === 'global') {
+        return (node: IcicleNode<Datum>) =>
+            node.hierarchy.path.startsWith(currentNode.hierarchy.path)
+    }
+
+    return (node: IcicleNode<Datum>) => {
+        if (node.hierarchy.depth >= currentNode.hierarchy.depth)
+            return node.hierarchy.path.startsWith(currentNode.hierarchy.path)
+
+        const parentPaths = currentNode.hierarchy.pathComponents
+            .slice(0, -1)
+            .reduce((paths, pathComponent) => {
+                const path =
+                    paths.length === 0
+                        ? pathComponent
+                        : `${paths[paths.length - 1]}.${pathComponent}`
+
+                return [...paths, path]
+            }, [] as string[])
+
+        return parentPaths.includes(node.hierarchy.path)
+    }
+}
 
 /**
  * This hook handles re-computing all nodes if a node is currently zoomed.
@@ -294,10 +318,13 @@ const useIcicleZoom = <Datum>({
             yMult = 1,
             yOffset = 0
 
-        const needsDepthScaling = zoomMode === 'global' && zoomedNode.depth > 0
+        const needsDepthScaling = zoomMode === 'global' && zoomedNode.hierarchy.depth > 0
         const deepestDescendant =
-            needsDepthScaling && zoomedNode.maxDescendantDepth > zoomedNode.height
-                ? nodes.find(node => node.depth === zoomedNode.maxDescendantDepth)
+            needsDepthScaling &&
+            zoomedNode.hierarchy.deepestChildDepth > zoomedNode.hierarchy.height
+                ? nodes.find(
+                      node => node.hierarchy.depth === zoomedNode.hierarchy.deepestChildDepth
+                  )
                 : undefined
 
         if (!isHorizontal) {
@@ -340,15 +367,20 @@ const useIcicleZoom = <Datum>({
             }
         }
 
-        return nodes.map(node => ({
-            ...node,
-            rect: {
-                x: xOffset + node.rect.x * xMult,
-                y: yOffset + node.rect.y * yMult,
-                width: node.rect.width * xMult,
-                height: node.rect.height * yMult,
-            },
-        }))
+        const isVisible = getIsVisible<Datum>(zoomedNode, zoomMode)
+
+        return nodes.map(node => {
+            return {
+                ...node,
+                rect: {
+                    x: xOffset + node.rect.x * xMult,
+                    y: yOffset + node.rect.y * yMult,
+                    width: node.rect.width * xMult,
+                    height: node.rect.height * yMult,
+                },
+                isVisible: isVisible(node),
+            }
+        })
     }, [enableZooming, zoomMode, zoomedNodePath, nodes, nodeByPath, width, height, orientation])
 
     return {
@@ -388,7 +420,7 @@ const useIcicleSpacing = <Datum>({
                         height: Math.max(node.rect.height - gapY, 0),
                     },
                 }
-                spacedNodeByPath[node.path] = spacedNode
+                spacedNodeByPath[node.hierarchy.path] = spacedNode
                 return spacedNode
             }),
             spacedNodeByPath,
@@ -430,7 +462,6 @@ export const useIcicle = <Datum>({
     nodeAriaLabelledBy,
     nodeAriaDescribedBy,
     nodeAriaHidden,
-    nodeAriaDisabled,
 }: DataProps<Datum> &
     Pick<
         IcicleCommonProps<Datum>,
@@ -458,7 +489,7 @@ export const useIcicle = <Datum>({
     const formatValue = useValueFormatter(valueFormat)
 
     const theme = useTheme()
-    const getColor = useOrdinalColorScale(colors, colorBy)
+    const getColor = useOrdinalColorScale(colors, colorBy === 'depth' ? 'hierarchy.depth' : colorBy)
     const getChildColor = useInheritedColor(childColor, theme)
 
     const { nodes, nodeByPath } = useIcicleNodes<Datum>({
@@ -484,7 +515,6 @@ export const useIcicle = <Datum>({
         nodeAriaLabelledBy,
         nodeAriaDescribedBy,
         nodeAriaHidden,
-        nodeAriaDisabled,
     })
 
     const { zoomedNodes, zoom } = useIcicleZoom<Datum>({
@@ -512,38 +542,52 @@ export const useIcicle = <Datum>({
 
 export const useIcicleNav = <Datum>(
     nodes: IcicleNode<Datum>[],
-    nodeByPath: Record<string, IcicleNode<Datum>>
+    nodeByPath: Record<string, IcicleNode<Datum>>,
+    orientation: IcicleOrientation
 ) => {
-    const nodeRefs = useNodeRefs(nodes.map(node => node.path))
+    const nodeRefs = useNodeRefs(nodes.map(node => node.hierarchy.path))
 
     const nav = useMemo(() => {
-        const moveTo = (nodePath: string, to: keyof IcicleNode<Datum>['nav']) => {
-            const node = nodeByPath[nodePath]
-            if (!node || !node.nav[to]) return
+        const moveTo = (
+            path: string,
+            to: keyof Pick<
+                IcicleNode<Datum>['hierarchy'],
+                'parent' | 'previousAtDepth' | 'nextAtDepth' | 'firstChild'
+            >
+        ) => {
+            const node = nodeByPath[path]
+            if (!node || !node.hierarchy[to]) return
 
-            const target = nodeByPath[node.nav[to]]
+            const target = nodeByPath[node.hierarchy[to]]
             if (!target) return
 
-            const ref = nodeRefs.current[target.path]
+            const ref = nodeRefs.current[target.hierarchy.path]
             if (!ref || !ref.current) return
 
             ref.current.focus()
         }
 
-        const moveUp = (nodePath: string) => {
-            moveTo(nodePath, 'up')
+        // Movements for bottom orientation, which is the default.
+        let moveUp = (path: string) => {
+            moveTo(path, 'parent')
+        }
+        let movePrev = (path: string) => {
+            moveTo(path, 'previousAtDepth')
+        }
+        let moveNext = (path: string) => {
+            moveTo(path, 'nextAtDepth')
+        }
+        let moveDown = (path: string) => {
+            moveTo(path, 'firstChild')
         }
 
-        const movePrev = (nodePath: string) => {
-            moveTo(nodePath, 'prev')
-        }
-
-        const moveNext = (nodePath: string) => {
-            moveTo(nodePath, 'next')
-        }
-
-        const moveDown = (nodePath: string) => {
-            moveTo(nodePath, 'down')
+        if (orientation === 'top') {
+            // eslint-disable-next-line no-self-assign
+            ;[moveUp, movePrev, moveNext, moveDown] = [moveDown, movePrev, moveNext, moveUp]
+        } else if (orientation === 'right') {
+            ;[moveUp, movePrev, moveNext, moveDown] = [movePrev, moveUp, moveDown, moveNext]
+        } else if (orientation === 'left') {
+            ;[moveUp, movePrev, moveNext, moveDown] = [movePrev, moveDown, moveUp, moveNext]
         }
 
         return {
@@ -552,7 +596,7 @@ export const useIcicleNav = <Datum>(
             moveNext,
             moveDown,
         }
-    }, [nodeRefs, nodeByPath])
+    }, [nodeRefs, nodeByPath, orientation])
 
     return {
         nodeRefs,

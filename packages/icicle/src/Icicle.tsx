@@ -81,7 +81,6 @@ const InnerIcicle = <Datum, Context>({
     nodeAriaLabelledBy,
     nodeAriaDescribedBy,
     nodeAriaHidden,
-    nodeAriaDisabled,
     context = svgDefaultProps.context as IcicleSvgPropsWithDefaults<Datum, Context>['context'],
 }: IcicleSvgProps<Datum, Context>) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
@@ -114,7 +113,6 @@ const InnerIcicle = <Datum, Context>({
         nodeAriaLabelledBy,
         nodeAriaDescribedBy,
         nodeAriaHidden,
-        nodeAriaDisabled,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {
@@ -127,14 +125,14 @@ const InnerIcicle = <Datum, Context>({
         labels: null,
     }
 
-    const { nodeRefs, nav } = useIcicleNav<Datum>(nodes, nodeByPath)
+    const { nodeRefs, nav } = useIcicleNav<Datum>(nodes, nodeByPath, orientation)
 
     if (layers.includes('rects')) {
         layerById.rects = (
             <IcicleNodes<Datum>
                 key="rects"
                 nodeRefs={nodeRefs}
-                data={nodes}
+                nodes={nodes}
                 component={nodeComponent}
                 borderRadius={borderRadius}
                 borderWidth={borderWidth}
@@ -161,7 +159,7 @@ const InnerIcicle = <Datum, Context>({
     }
 
     const getLabelTestId = useCallback(
-        (datum: Omit<IcicleNode<Datum>, 'rect'>) => `icicle.label.${datum.path}`,
+        (datum: Omit<IcicleNode<Datum>, 'rect'>) => `icicle.label.${datum.hierarchy.path}`,
         []
     )
 
@@ -169,8 +167,8 @@ const InnerIcicle = <Datum, Context>({
         layerById.labels = (
             <RectLabels<IcicleNode<Datum>>
                 key="labels"
-                data={nodes}
-                uid="path"
+                nodes={nodes}
+                uid="hierarchy.path"
                 label={label}
                 boxAnchor={labelBoxAnchor}
                 align={labelAlign}

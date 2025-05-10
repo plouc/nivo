@@ -669,14 +669,6 @@ const props: ChartProperty[] = [
         help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for nodes.',
         type: '(node: IcicleNode) => boolean',
     },
-    {
-        key: 'nodeAriaDisabled',
-        flavors: allFlavors,
-        required: false,
-        group: 'Accessibility',
-        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for nodes.',
-        type: '(node: IcicleNode) => boolean',
-    },
     ...motionProperties(['svg', 'html'], svgDefaultProps),
     {
         key: 'animateOnMount',

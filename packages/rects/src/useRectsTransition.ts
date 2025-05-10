@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useMotionConfig } from '@nivo/core'
 import { TransitionFn, useTransition } from '@react-spring/web'
-import { Rect, DatumWithRect, RectTransitionMode } from './types'
+import { Rect, NodeWithRect, RectTransitionMode } from './types'
 
 export interface RectTransitionModeConfig {
     enter: (rect: Rect) => Rect
@@ -126,12 +126,12 @@ export const rectTransitionModeById: Record<RectTransitionMode, RectTransitionMo
 // TransitionExtra is used to add extra animated properties to the rectangles,
 // for example, you could use it to animate the color of the rect
 export interface RectTransitionExtra<
-    Datum extends DatumWithRect,
+    Node extends NodeWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 > {
-    enter: (datum: Datum) => ExtraProps
-    update: (datum: Datum) => ExtraProps
-    leave: (datum: Datum) => ExtraProps
+    enter: (node: Node) => ExtraProps
+    update: (node: Node) => ExtraProps
+    leave: (node: Node) => ExtraProps
 }
 
 export type RectTransitionProps<ExtraProps extends Record<string, any> = Record<string, never>> =
@@ -140,33 +140,33 @@ export type RectTransitionProps<ExtraProps extends Record<string, any> = Record<
     } & ExtraProps
 
 export const useRectTransitionMode = <
-    Datum extends DatumWithRect,
+    Node extends NodeWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 >(
     mode: RectTransitionMode,
-    extraTransition?: RectTransitionExtra<Datum, ExtraProps>
+    extraTransition?: RectTransitionExtra<Node, ExtraProps>
 ) =>
     useMemo(() => {
         const transitionMode = rectTransitionModeById[mode]
 
         return {
-            enter: (datum: Datum) =>
+            enter: (node: Node) =>
                 ({
                     progress: 0,
-                    ...transitionMode.enter(datum.rect),
-                    ...(extraTransition ? extraTransition.enter(datum) : {}),
+                    ...transitionMode.enter(node.rect),
+                    ...(extraTransition ? extraTransition.enter(node) : {}),
                 }) as RectTransitionProps<ExtraProps>,
-            update: (datum: Datum) =>
+            update: (node: Node) =>
                 ({
                     progress: 1,
-                    ...transitionMode.update(datum.rect),
-                    ...(extraTransition ? extraTransition.update(datum) : {}),
+                    ...transitionMode.update(node.rect),
+                    ...(extraTransition ? extraTransition.update(node) : {}),
                 }) as RectTransitionProps<ExtraProps>,
-            leave: (datum: Datum) =>
+            leave: (node: Node) =>
                 ({
                     progress: 0,
-                    ...transitionMode.leave(datum.rect),
-                    ...(extraTransition ? extraTransition.leave(datum) : {}),
+                    ...transitionMode.leave(node.rect),
+                    ...(extraTransition ? extraTransition.leave(node) : {}),
                 }) as RectTransitionProps<ExtraProps>,
         }
     }, [mode, extraTransition])
@@ -175,20 +175,20 @@ export const useRectTransitionMode = <
  * This hook can be used to animate a group of rectangles.
  */
 export const useRectsTransition = <
-    Datum extends DatumWithRect,
+    Node extends NodeWithRect,
     ExtraProps extends Record<string, any> = Record<string, never>,
 >(
-    data: readonly Datum[],
-    getUid: (datum: Datum) => string,
+    nodes: readonly Node[],
+    getUid: (node: Node) => string,
     mode: RectTransitionMode = 'flow-down',
     animateOnMount = false,
-    extra?: RectTransitionExtra<Datum, ExtraProps>
+    extra?: RectTransitionExtra<Node, ExtraProps>
 ) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const phases = useRectTransitionMode<Datum, ExtraProps>(mode, extra)
+    const phases = useRectTransitionMode<Node, ExtraProps>(mode, extra)
 
-    return useTransition<Datum, RectTransitionProps<ExtraProps>>(data, {
+    return useTransition<Node, RectTransitionProps<ExtraProps>>(nodes, {
         keys: getUid,
         initial: animate && animateOnMount ? phases.enter : null,
         from: phases.enter,
@@ -197,5 +197,5 @@ export const useRectsTransition = <
         leave: phases.leave,
         config: springConfig,
         immediate: !animate,
-    }) as unknown as TransitionFn<Datum, RectTransitionProps<ExtraProps>>
+    }) as unknown as TransitionFn<Node, RectTransitionProps<ExtraProps>>
 }

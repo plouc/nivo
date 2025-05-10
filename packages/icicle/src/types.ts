@@ -23,7 +23,7 @@ import {
     RectLabelsProps,
     RectTransitionMode,
     RectNodeComponent,
-    DatumA11yProps,
+    NodeA11yProps,
 } from '@nivo/rects'
 
 export interface DefaultIcicleDatum {
@@ -60,30 +60,40 @@ export interface DataProps<Datum> {
     data: Datum
 }
 
-export interface IcicleNodeNavigation {
+export interface IcicleNodeHierarchy {
+    // Full dot-delimited path from the root.
+    // Used as a unique key for the node.
+    path: string
+    // Own id plus all ancestors' ids, starting from the root.
+    // [rootId, …, thisNodeId]
+    pathComponents: string[]
+
+    // Distance from the root (root = 0).
+    depth: number
+    // Distance to the furthest leaf (leaf = 0).
+    height: number
+    // Maximum depth among descendants.
+    deepestChildDepth: number
+
     // Path of the parent, or null if the node is the root.
-    up: string | null
+    parent: string | null
     // Path of the previous node at the same depth.
-    prev: string | null
+    previousAtDepth: string | null
     // Path of the next node at the same depth.
-    next: string | null
+    nextAtDepth: string | null
     // Path of the first child.
-    down: string | null
+    firstChild: string | null
 }
 
 export interface IcicleNode<Datum> {
+    // The ID should be unique among siblings,
+    // but not necessarily across the entire tree.
+    // The uniqueness is guaranteed by the path.
     id: string
-    // Used as a unique key for the node, it contains the id of the node
-    // and all its ancestors separated by a dot.
-    path: string
-    // Contains own id plus all ancestors' ids, starting from the root
-    pathComponents: string[]
     // Contains the raw node's data, without the children for lighter structure.
     data: Omit<Datum, 'children'>
-    depth: number
-    // Height in the tree, not the rendered height
-    height: number
     value: number
+    // Human-readable version of `value` (e.g. with separators or units)
     formattedValue: string
     // Percentage of the node's value compared to the root node's value.
     percentage: number
@@ -95,10 +105,8 @@ export interface IcicleNode<Datum> {
     fill?: string
     // Coordinates of the node in the rendered chart.
     rect: Rect
-    // The max depth of the node's descendant, which is used for zooming.
-    maxDescendantDepth: number
-    nav: IcicleNodeNavigation
-    a11y: DatumA11yProps
+    hierarchy: IcicleNodeHierarchy
+    a11y: NodeA11yProps
 }
 
 // - top: Root at the top, children cascade downward, standard icicle.
@@ -164,7 +172,6 @@ export interface IcicleNodesA11yProps<Datum> {
     nodeAriaLabelledBy?: (node: IcicleNode<Datum>) => AriaAttributes['aria-labelledby']
     nodeAriaDescribedBy?: (node: IcicleNode<Datum>) => AriaAttributes['aria-describedby']
     nodeAriaHidden?: (node: IcicleNode<Datum>) => AriaAttributes['aria-hidden']
-    nodeAriaDisabled?: (node: IcicleNode<Datum>) => AriaAttributes['aria-disabled']
 }
 
 export interface IcicleSvgExtraProps<Datum> {

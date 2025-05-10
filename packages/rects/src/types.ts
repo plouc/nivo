@@ -27,7 +27,7 @@ export type RectNodeHandle = {
 
 export type NodeRefMap = Record<string, RefObject<RectNodeHandle>>
 
-export interface DatumA11yProps {
+export interface NodeA11yProps {
     isFocusable?: boolean
     role?: string
     label?: AriaAttributes['aria-label']
@@ -35,16 +35,15 @@ export interface DatumA11yProps {
     describedBy?: AriaAttributes['aria-describedby']
     level?: AriaAttributes['aria-level']
     hidden?: AriaAttributes['aria-hidden']
-    disabled?: AriaAttributes['aria-disabled']
 }
 
-export interface DatumWithRect {
+export interface NodeWithRect {
     id: string | number
     rect: Rect
-    a11y?: DatumA11yProps
+    a11y?: NodeA11yProps
 }
 
-export interface DatumWithRectAndColor extends DatumWithRect {
+export interface NodeWithRectAndColor extends NodeWithRect {
     color: string
     /** When using patterns/gradients */
     fill?: string
@@ -71,29 +70,29 @@ export type RectTransitionMode =
     | 'flow-down'
     | 'flow-left'
 
-export type RectMouseHandler<Datum extends DatumWithRectAndColor> = (
-    datum: Datum,
+export type RectMouseHandler<Node extends NodeWithRectAndColor> = (
+    node: Node,
     event: MouseEvent
 ) => void
 
-export type RectFocusHandler<Datum extends DatumWithRectAndColor> = (
-    datum: Datum,
+export type RectFocusHandler<Node extends NodeWithRectAndColor> = (
+    node: Node,
     event: FocusEvent
 ) => void
 
-export type RectKeyboardHandler<Datum extends DatumWithRectAndColor> = (
-    datum: Datum,
+export type RectKeyboardHandler<Node extends NodeWithRectAndColor> = (
+    node: Node,
     event: KeyboardEvent
 ) => void
 
-export type RectWheelHandler<Datum extends DatumWithRectAndColor> = (
-    datum: Datum,
+export type RectWheelHandler<Node extends NodeWithRectAndColor> = (
+    node: Node,
     event: WheelEvent
 ) => void
 
-export interface RectNodeProps<Datum extends DatumWithRectAndColor> {
+export interface RectNodeComponentProps<Node extends NodeWithRectAndColor> {
     ref?: Ref<RectNodeHandle>
-    datum: Datum
+    node: Node
     style: {
         progress: SpringValue<number>
         x: SpringValue<number>
@@ -119,6 +118,6 @@ export interface RectNodeProps<Datum extends DatumWithRectAndColor> {
     onWheel?: WheelEventHandler
     testId?: string
 }
-export type RectNodeComponent<Datum extends DatumWithRectAndColor> = FunctionComponent<
-    RectNodeProps<Datum>
+export type RectNodeComponent<Node extends NodeWithRectAndColor> = FunctionComponent<
+    RectNodeComponentProps<Node>
 >

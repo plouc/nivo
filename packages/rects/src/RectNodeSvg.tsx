@@ -1,10 +1,10 @@
 import { forwardRef, Ref, useImperativeHandle, useRef, ReactElement } from 'react'
 import { animated } from '@react-spring/web'
-import { DatumWithRectAndColor, RectNodeProps, RectNodeHandle } from './types'
+import { NodeWithRectAndColor, RectNodeComponentProps, RectNodeHandle } from './types'
 
-const InnerRectNodeSvg = <Datum extends DatumWithRectAndColor>(
+const InnerRectNodeSvg = <Node extends NodeWithRectAndColor>(
     {
-        datum,
+        node,
         style,
         onClick,
         onMouseEnter,
@@ -16,7 +16,7 @@ const InnerRectNodeSvg = <Datum extends DatumWithRectAndColor>(
         onWheel,
         onContextMenu,
         testId,
-    }: RectNodeProps<Datum>,
+    }: RectNodeComponentProps<Node>,
     ref: Ref<RectNodeHandle>
 ) => {
     // Expose the focus method to the parent component.
@@ -36,7 +36,7 @@ const InnerRectNodeSvg = <Datum extends DatumWithRectAndColor>(
             rx={style.borderRadius}
             ry={style.borderRadius}
             opacity={style.opacity}
-            fill={datum.fill || style.color}
+            fill={node.fill || style.color}
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             onClick={onClick}
@@ -48,17 +48,18 @@ const InnerRectNodeSvg = <Datum extends DatumWithRectAndColor>(
             onKeyDown={onKeyDown}
             onWheel={onWheel}
             onContextMenu={onContextMenu}
-            tabIndex={datum.a11y?.isFocusable ? 0 : undefined}
-            role={datum.a11y?.role}
-            aria-label={datum.a11y?.label}
-            aria-labelledby={datum.a11y?.labelledBy}
-            aria-describedby={datum.a11y?.describedBy}
-            aria-level={datum.a11y?.level}
+            tabIndex={node.a11y?.isFocusable ? 0 : undefined}
+            role={node.a11y?.role}
+            aria-label={node.a11y?.label}
+            aria-labelledby={node.a11y?.labelledBy}
+            aria-describedby={node.a11y?.describedBy}
+            aria-hidden={node.a11y?.hidden}
+            aria-level={node.a11y?.level}
             data-testid={testId}
         />
     )
 }
 
-export const RectNodeSvg = forwardRef(InnerRectNodeSvg) as <Datum extends DatumWithRectAndColor>(
-    props: RectNodeProps<Datum> & { ref?: Ref<RectNodeHandle> }
+export const RectNodeSvg = forwardRef(InnerRectNodeSvg) as <Node extends NodeWithRectAndColor>(
+    props: RectNodeComponentProps<Node> & { ref?: Ref<RectNodeHandle> }
 ) => ReactElement

@@ -71,7 +71,6 @@ const InnerIcicleHtml = <Datum, Context>({
     nodeAriaLabelledBy,
     nodeAriaDescribedBy,
     nodeAriaHidden,
-    nodeAriaDisabled,
     context = htmlDefaultProps.context as IcicleHtmlPropsWithDefaults<Datum, Context>['context'],
 }: IcicleHtmlProps<Datum, Context>) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
@@ -104,7 +103,6 @@ const InnerIcicleHtml = <Datum, Context>({
         nodeAriaLabelledBy,
         nodeAriaDescribedBy,
         nodeAriaHidden,
-        nodeAriaDisabled,
     })
 
     const layerById: Record<IcicleLayerId, ReactNode> = {
@@ -112,14 +110,14 @@ const InnerIcicleHtml = <Datum, Context>({
         labels: null,
     }
 
-    const { nodeRefs, nav } = useIcicleNav<Datum>(nodes, nodeByPath)
+    const { nodeRefs, nav } = useIcicleNav<Datum>(nodes, nodeByPath, orientation)
 
     if (layers.includes('rects')) {
         layerById.rects = (
             <IcicleNodes<Datum>
                 nodeRefs={nodeRefs}
                 key="rects"
-                data={nodes}
+                nodes={nodes}
                 component={nodeComponent}
                 borderRadius={borderRadius}
                 borderWidth={borderWidth}
@@ -146,7 +144,7 @@ const InnerIcicleHtml = <Datum, Context>({
     }
 
     const getLabelTestId = useCallback(
-        (datum: Omit<IcicleNode<Datum>, 'rect'>) => `icicle.label.${datum.path}`,
+        (datum: Omit<IcicleNode<Datum>, 'rect'>) => `icicle.label.${datum.hierarchy.path}`,
         []
     )
 
@@ -154,8 +152,8 @@ const InnerIcicleHtml = <Datum, Context>({
         layerById.labels = (
             <RectLabels<IcicleNode<Datum>>
                 key="labels"
-                data={nodes}
-                uid="path"
+                nodes={nodes}
+                uid="hierarchy.path"
                 label={label}
                 boxAnchor={labelBoxAnchor}
                 align={labelAlign}

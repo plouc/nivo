@@ -10,19 +10,19 @@ import {
 } from 'react'
 import { SpringValue, Interpolation } from '@react-spring/web'
 import {
-    DatumWithRectAndColor,
+    NodeWithRectAndColor,
     RectNodeComponent,
     RectMouseHandler,
     RectKeyboardHandler,
     RectWheelHandler,
     RectFocusHandler,
-    RectNodeProps,
+    RectNodeComponentProps,
     RectNodeHandle,
 } from './types'
 
-export interface RectNodeWrapperProps<Datum extends DatumWithRectAndColor> {
-    nodeComponent: RectNodeComponent<Datum>
-    datum: Datum
+export interface RectNodeWrapperProps<Node extends NodeWithRectAndColor> {
+    nodeComponent: RectNodeComponent<Node>
+    node: Node
     style: {
         progress: SpringValue<number>
         x: SpringValue<number>
@@ -37,15 +37,15 @@ export interface RectNodeWrapperProps<Datum extends DatumWithRectAndColor> {
         borderColor: SpringValue<string>
     }
     isInteractive: boolean
-    onClick?: RectMouseHandler<Datum>
-    onMouseEnter?: RectMouseHandler<Datum>
-    onMouseLeave?: RectMouseHandler<Datum>
-    onMouseMove?: RectMouseHandler<Datum>
-    onFocus?: RectFocusHandler<Datum>
-    onBlur?: RectFocusHandler<Datum>
-    onKeyDown?: RectKeyboardHandler<Datum>
-    onContextMenu?: RectMouseHandler<Datum>
-    onWheel?: RectWheelHandler<Datum>
+    onClick?: RectMouseHandler<Node>
+    onMouseEnter?: RectMouseHandler<Node>
+    onMouseLeave?: RectMouseHandler<Node>
+    onMouseMove?: RectMouseHandler<Node>
+    onFocus?: RectFocusHandler<Node>
+    onBlur?: RectFocusHandler<Node>
+    onKeyDown?: RectKeyboardHandler<Node>
+    onContextMenu?: RectMouseHandler<Node>
+    onWheel?: RectWheelHandler<Node>
     testId?: string
 }
 
@@ -59,10 +59,10 @@ export interface RectNodeWrapperProps<Datum extends DatumWithRectAndColor> {
  * This is used to create both SVG and HTML implementations
  * of some charts.
  */
-const InnerRectNodeWrapper = <Datum extends DatumWithRectAndColor>(
+const InnerRectNodeWrapper = <Node extends NodeWithRectAndColor>(
     {
         nodeComponent: Node,
-        datum,
+        node,
         style,
         isInteractive,
         onClick,
@@ -75,12 +75,12 @@ const InnerRectNodeWrapper = <Datum extends DatumWithRectAndColor>(
         onWheel,
         onContextMenu,
         testId,
-    }: RectNodeWrapperProps<Datum>,
+    }: RectNodeWrapperProps<Node>,
     ref: Ref<RectNodeHandle>
 ) => {
     const eventHandlers = useMemo(() => {
         const handlers: Pick<
-            RectNodeProps<Datum>,
+            RectNodeComponentProps<Node>,
             | 'onMouseEnter'
             | 'onMouseMove'
             | 'onMouseLeave'
@@ -95,54 +95,54 @@ const InnerRectNodeWrapper = <Datum extends DatumWithRectAndColor>(
 
         if (onMouseEnter) {
             handlers.onMouseEnter = (event: MouseEvent) => {
-                onMouseEnter(datum, event)
+                onMouseEnter(node, event)
             }
         }
         if (onMouseMove) {
             handlers.onMouseMove = (event: MouseEvent) => {
-                onMouseMove(datum, event)
+                onMouseMove(node, event)
             }
         }
         if (onMouseLeave) {
             handlers.onMouseLeave = (event: MouseEvent) => {
-                onMouseLeave(datum, event)
+                onMouseLeave(node, event)
             }
         }
         if (onClick) {
             handlers.onClick = (event: MouseEvent) => {
-                onClick(datum, event)
+                onClick(node, event)
             }
         }
         if (onFocus) {
             handlers.onFocus = (event: FocusEvent) => {
-                onFocus(datum, event)
+                onFocus(node, event)
             }
         }
         if (onBlur) {
             handlers.onBlur = (event: FocusEvent) => {
-                onBlur(datum, event)
+                onBlur(node, event)
             }
         }
         if (onKeyDown) {
             handlers.onKeyDown = (event: KeyboardEvent) => {
-                onKeyDown(datum, event)
+                onKeyDown(node, event)
             }
         }
         if (onContextMenu) {
             handlers.onContextMenu = (event: MouseEvent) => {
-                onContextMenu(datum, event)
+                onContextMenu(node, event)
             }
         }
         if (onWheel) {
             handlers.onWheel = (event: WheelEvent) => {
-                onWheel(datum, event)
+                onWheel(node, event)
             }
         }
 
         return handlers
     }, [
         isInteractive,
-        datum,
+        node,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
@@ -157,7 +157,7 @@ const InnerRectNodeWrapper = <Datum extends DatumWithRectAndColor>(
     return (
         <Node
             ref={ref}
-            datum={datum}
+            node={node}
             style={style}
             isInteractive={isInteractive}
             {...eventHandlers}
@@ -167,7 +167,7 @@ const InnerRectNodeWrapper = <Datum extends DatumWithRectAndColor>(
 }
 
 export const RectNodeWrapper = forwardRef(InnerRectNodeWrapper) as <
-    Datum extends DatumWithRectAndColor,
+    Node extends NodeWithRectAndColor,
 >(
-    props: RectNodeWrapperProps<Datum> & { ref?: Ref<RectNodeHandle> }
+    props: RectNodeWrapperProps<Node> & { ref?: Ref<RectNodeHandle> }
 ) => ReactElement
