@@ -61,7 +61,7 @@ const initialProperties: UnmappedIcicleSvgProps = {
     isInteractive: svgDefaultProps.isInteractive,
     enableZooming: svgDefaultProps.enableZooming,
     zoomMode: svgDefaultProps.zoomMode,
-    isFocusable: true, // svgDefaultProps.isFocusable,
+    isFocusable: svgDefaultProps.isFocusable,
     'custom tooltip example': false,
     'showcase pattern usage': false,
 }

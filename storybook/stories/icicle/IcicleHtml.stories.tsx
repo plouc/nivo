@@ -2,8 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { IcicleHtml, IcicleHtmlProps, htmlDefaultProps } from '@nivo/icicle'
 import { BonsaiIcicle } from './BonsaisIcicle'
-import { userEvent, within } from '@storybook/test'
-import { sleep } from '../internal/helpers'
+import { useKeyLoggerRef, KeyLogger } from '../internal/KeyLogger'
+import {
+    KeyboardNavigationContainer,
+    KeyboardDoc,
+    playKeyboardNavigationDemo,
+    SUPPORTED_KEYBOARD_KEYS,
+} from './shared'
 
 interface RawDatum {
     name: string
@@ -117,57 +122,28 @@ export const CustomNode: Story = {
 }
 
 export const KeyboardNavigation: Story = {
-    render: args => (
-        <IcicleHtml<RawDatum> {...commonProperties} orientation={args.orientation} isFocusable />
-    ),
+    render: args => {
+        const keyLogger = useKeyLoggerRef()
+
+        return (
+            <>
+                <KeyLogger ref={keyLogger} only={SUPPORTED_KEYBOARD_KEYS} duration={2000} />
+                <KeyboardNavigationContainer>
+                    <IcicleHtml<RawDatum>
+                        {...commonProperties}
+                        width={600}
+                        orientation={args.orientation}
+                        isFocusable
+                        onKeyDown={(_node, event) => {
+                            keyLogger.current?.logKey(event)
+                        }}
+                    />
+                    <KeyboardDoc />
+                </KeyboardNavigationContainer>
+            </>
+        )
+    },
     play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement)
-
-        const root = canvas.getByTestId('icicle.rect.nivo')
-
-        root.focus()
-        await sleep(400)
-        await userEvent.keyboard('{arrowdown}') // -> nivo.viz
-        await sleep(200)
-        await userEvent.keyboard('{arrowright}') // -> nivo.colors
-        await sleep(200)
-        await userEvent.keyboard('{arrowright}') // -> nivo.utils
-        await sleep(200)
-        await userEvent.keyboard(' ') // zoom nivo.utils
-        await sleep(400)
-        await userEvent.keyboard('{arrowdown}') // -> nivo.utils.randomize
-        await sleep(100)
-        await userEvent.keyboard('{arrowright}') // -> nivo.viz.resetClock
-        await sleep(100)
-        await userEvent.keyboard('{arrowright}') // -> nivo.viz.noop
-        await sleep(100)
-        await userEvent.keyboard('{arrowright}') // -> nivo.viz.tick
-        await sleep(100)
-        await userEvent.keyboard('{arrowup}') // -> nivo.viz
-        await sleep(200)
-        await userEvent.keyboard('{arrowright}') // -> nivo.generators
-        await sleep(400)
-        await userEvent.keyboard('{arrowright}') // -> nivo.set
-        await sleep(400)
-        await userEvent.keyboard('{arrowright}') // -> nivo.text
-        await sleep(400)
-        await userEvent.keyboard('{arrowright}') // -> nivo.misc
-        await sleep(400)
-        await userEvent.keyboard(' ') // dezoom nivo.misc
-        await sleep(400)
-        await userEvent.keyboard('{arrowdown}') // -> nivo.misc.greetings
-        await sleep(100)
-        await userEvent.keyboard('{arrowright}') // -> nivo.misc.other
-        await sleep(100)
-        await userEvent.keyboard('{arrowright}') // -> nivo.misc.path
-        await sleep(100)
-        await userEvent.keyboard('{arrowdown}') // -> nivo.misc.path.pathA
-        await sleep(100)
-        await userEvent.keyboard('{arrowright}') // -> nivo.misc.path.pathB
-        await sleep(100)
-        await userEvent.keyboard(' ') // zoom nivo.misc.path.pathB
-        await sleep(400)
-        await userEvent.keyboard(' ') // dezoom nivo.misc.path.pathB
-        await sleep(400)
+        await playKeyboardNavigationDemo(canvasElement)
     },
 }

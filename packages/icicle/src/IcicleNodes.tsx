@@ -123,6 +123,8 @@ export const IcicleNodes = <Datum,>({
 
     const handleKeyDown = useCallback(
         (datum: IcicleNode<Datum>, event: KeyboardEvent) => {
+            onKeyDown?.(datum, event)
+
             if (event.key === 'ArrowUp') {
                 nav.moveUp(datum.hierarchy.path)
                 event.preventDefault()
@@ -149,8 +151,6 @@ export const IcicleNodes = <Datum,>({
                 zoom(null)
                 event.preventDefault()
             }
-
-            onKeyDown?.(datum, event)
         },
         [nav, enableZooming, zoom, onKeyDown]
     )
