@@ -102,12 +102,15 @@ export const IcicleNodes = <Datum,>({
 
     const handleFocus = useCallback(
         (datum: IcicleNode<Datum>, event: FocusEvent) => {
-            if (!datum.isVisible) zoom(datum.hierarchy.path)
+            if (datum.isVisible) {
+                showTooltipAt(createElement(tooltip, datum), [
+                    datum.rect.x + datum.rect.width / 2,
+                    datum.rect.y,
+                ])
+            } else {
+                zoom(datum.hierarchy.path)
+            }
 
-            showTooltipAt(createElement(tooltip, datum), [
-                datum.rect.x + datum.rect.width / 2,
-                datum.rect.y,
-            ])
             onFocus?.(datum, event)
         },
         [zoom, showTooltipAt, tooltip, onFocus]
