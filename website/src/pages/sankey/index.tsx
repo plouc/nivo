@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Ref} from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { generateSankeyData } from '@nivo/generators'
@@ -124,13 +124,15 @@ const Sankey = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveSankey
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         onClick={node => {
                             let label
                             if ('id' in node) {

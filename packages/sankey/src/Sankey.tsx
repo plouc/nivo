@@ -1,4 +1,13 @@
-import { createElement, Fragment, ReactNode, useMemo } from 'react'
+import {
+    createElement,
+    ForwardedRef,
+    forwardRef,
+    Fragment,
+    ReactElement,
+    ReactNode,
+    Ref,
+    useMemo,
+} from 'react'
 import uniq from 'lodash/uniq.js'
 import { SvgWrapper, useDimensions, Container } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -63,7 +72,10 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: InnerSankeyProps<N, L>) => {
+    forwardedRef,
+}: InnerSankeyProps<N, L> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -260,6 +272,7 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -272,23 +285,32 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
     )
 }
 
-export const Sankey = <N extends DefaultNode = DefaultNode, L extends DefaultLink = DefaultLink>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: SankeySvgProps<N, L>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Sankey = forwardRef(
+    <N extends DefaultNode = DefaultNode, L extends DefaultLink = DefaultLink>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerSankey<N, L> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: SankeySvgProps<N, L>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerSankey<N, L> isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
+) as <N extends DefaultNode = DefaultNode, L extends DefaultLink = DefaultLink>(
+    props: SankeySvgProps<N, L> & {
+        ref?: ForwardedRef<SVGSVGElement>
+    }
+) => ReactElement
