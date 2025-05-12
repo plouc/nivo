@@ -8,6 +8,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     chartGrid,
     axes,
@@ -247,6 +248,7 @@ const props: ChartProperty[] = [
         },
     },
     ...chartDimensions(allFlavors),
+    chartRef(['svg', 'canvas']),
     themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,

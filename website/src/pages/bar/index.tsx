@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveBar, svgDefaultProps } from '@nivo/bar'
@@ -189,14 +189,16 @@ const Bar = ({ location }: PageProps) => {
             getTabData={data => data.data}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveBar
+                        {...properties}
                         data={data.data}
                         keys={data.keys}
-                        {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         onClick={node =>
                             logAction({
                                 type: 'click',

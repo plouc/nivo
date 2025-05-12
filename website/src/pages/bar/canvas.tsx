@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveBarCanvas } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -136,14 +136,16 @@ const BarCanvas = ({ location }: PageProps) => {
             getTabData={data => data.data}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveBarCanvas
+                        {...properties}
                         data={data.data}
                         keys={data.keys}
-                        {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
                         onClick={node =>
                             logAction({
                                 type: 'click',
