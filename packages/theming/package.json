@@ -31,6 +31,9 @@
         "dist/",
         "!dist/tsconfig.tsbuildinfo"
     ],
+    "dependencies": {
+        "lodash": "^4.17.21"
+    },
     "peerDependencies": {
         "react": ">= 16.14.0 < 20.0.0"
     },
