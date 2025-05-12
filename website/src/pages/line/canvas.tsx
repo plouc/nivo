@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { ResponsiveLineCanvas, canvasDefaultProps, isPoint } from '@nivo/line'
@@ -148,13 +148,15 @@ const LineCanvas = ({ location }: PageProps) => {
             getDataSize={data => data.length * data[0].data.length}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveLineCanvas
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as RefObject<HTMLCanvasElement>}
                         onClick={datum => {
                             if (isPoint(datum)) {
                                 logAction({

@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
+import { FaCameraRetro } from 'react-icons/fa'
 import media from '../../theming/mediaQueries'
 import { Highlight } from '../Highlight'
 import { CodeBlock } from '../CodeBlock'
@@ -15,6 +16,7 @@ interface ComponentTabsProps<D = any> {
     nodeCount?: number
     nodeCountWording?: string
     diceRoll?: () => void
+    download?: () => void
 }
 
 export const ComponentTabs = <D extends any = any>({
@@ -26,6 +28,7 @@ export const ComponentTabs = <D extends any = any>({
     diceRoll,
     nodeCount,
     nodeCountWording = 'nodes',
+    download,
 }: PropsWithChildren<ComponentTabsProps<D>>) => {
     const theme = useTheme()
 
@@ -60,42 +63,58 @@ export const ComponentTabs = <D extends any = any>({
 
     return (
         <Wrapper className={`chart-tabs--${currentTab}`}>
-            <Nav role="tablist">
-                {availableTabs.map((tab, index) => {
-                    const isCurrent = tab === currentTab
-                    const icon = tab === 'chart' ? chartClass : tab
-                    const iconColors = isCurrent || hoverTab === tab ? 'colored' : 'neutral'
+            <Header>
+                <Nav role="tablist">
+                    {availableTabs.map((tab, index) => {
+                        const isCurrent = tab === currentTab
+                        const icon = tab === 'chart' ? chartClass : tab
+                        const iconColors = isCurrent || hoverTab === tab ? 'colored' : 'neutral'
 
-                    return (
-                        <NavItem
-                            key={tab}
-                            role="tab"
-                            tabIndex={0}
-                            aria-setsize={availableTabs.length}
-                            aria-posinset={index + 1}
-                            aria-selected={isCurrent}
+                        return (
+                            <NavItem
+                                key={tab}
+                                role="tab"
+                                tabIndex={0}
+                                aria-setsize={availableTabs.length}
+                                aria-posinset={index + 1}
+                                aria-selected={isCurrent}
+                                className="no-select"
+                                isCurrent={isCurrent}
+                                onClick={() => setCurrentTab(tab)}
+                                onMouseEnter={() => setHoverTab(tab)}
+                                onMouseLeave={() => setHoverTab(null)}
+                            >
+                                <Icon
+                                    className={`sprite-icons-${icon}-${theme.id}-${iconColors}`}
+                                />
+                                {tab === 'data' ? dataKey : tab}
+                            </NavItem>
+                        )
+                    })}
+                </Nav>
+                <ExtraButtons>
+                    {diceRoll && (
+                        <DiceRollButton
                             className="no-select"
-                            isCurrent={isCurrent}
-                            onClick={() => setCurrentTab(tab)}
-                            onMouseEnter={() => setHoverTab(tab)}
-                            onMouseLeave={() => setHoverTab(null)}
+                            onClick={diceRoll}
+                            role="button"
+                            tabIndex={0}
                         >
-                            <Icon className={`sprite-icons-${icon}-${theme.id}-${iconColors}`} />
-                            {tab === 'data' ? dataKey : tab}
-                        </NavItem>
-                    )
-                })}
-                {diceRoll && (
-                    <DiceRollButton
-                        className="no-select"
-                        onClick={diceRoll}
-                        role="button"
-                        tabIndex={0}
-                    >
-                        roll the dice
-                    </DiceRollButton>
-                )}
-            </Nav>
+                            roll the dice
+                        </DiceRollButton>
+                    )}
+                    {download && (
+                        <DownloadButton
+                            className="no-select"
+                            onClick={download}
+                            role="button"
+                            tabIndex={0}
+                        >
+                            <FaCameraRetro />
+                        </DownloadButton>
+                    )}
+                </ExtraButtons>
+            </Header>
             {content}
             {currentTab === 'chart' && nodeCount !== undefined && (
                 <NodeCount>
@@ -144,11 +163,18 @@ const Wrapper = styled.div`
     `}
 `
 
-const Nav = styled.nav`
+const Header = styled.div`
     height: 46px;
     background: ${({ theme }) => theme.colors.background};
     font-size: 15px;
     color: #aaa;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+`
+
+const Nav = styled.nav`
+    height: 100%;
     position: relative;
     display: flex;
 
@@ -195,12 +221,23 @@ const Content = styled.div`
     width: 100%;
 `
 
-const DiceRollButton = styled.span`
-    position: absolute;
-    top: 7px;
-    right: 16px;
-    display: block;
-    padding: 8px 10px;
+const ExtraButtons = styled.div`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-right: 16px;
+
+    ${media.mobile`
+        & {
+            padding-right: 9px;
+        }
+    `}
+`
+
+const ExtraButton = styled.span`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 32px;
     line-height: 1em;
     border-radius: 2px;
@@ -216,15 +253,16 @@ const DiceRollButton = styled.span`
         background: ${({ theme }) => theme.colors.accent};
         color: ${({ theme }) => theme.colors.background};
     }
+`
 
-    ${media.mobile`
-        & {
-            grid-column-start: 4;
-            justify-self: end;
-            right: 8px;
-            padding: 8px 8px;
-        }
-    `}
+const DiceRollButton = styled(ExtraButton)`
+    padding: 0 10px;
+`
+
+const DownloadButton = styled(ExtraButton)`
+    width: 32px;
+    font-size: 20px;
+    margin-left: 6px;
 `
 
 const NodeCount = styled.span`
