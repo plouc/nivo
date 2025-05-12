@@ -253,6 +253,7 @@ type SvgWrapperType = (
         ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
         ariaDescribedBy?: React.AriaAttributes['aria-describedby']
         isFocusable?: boolean
+        ref?: React.Ref<SVGSVGElement>
     }>
 ) => JSX.Element
 export const SvgWrapper: SvgWrapperType
