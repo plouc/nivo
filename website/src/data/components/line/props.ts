@@ -16,6 +16,7 @@ import {
     axes,
     isInteractive,
     commonAccessibilityProps,
+    chartRef,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -192,6 +193,7 @@ const props: ChartProperty[] = [
             })),
         },
     },
+    chartRef(['canvas']),
     themeProperty(['svg', 'canvas', 'api']),
     ordinalColors({
         flavors: allFlavors,

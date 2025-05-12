@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import merge from 'lodash/merge'
 import { ResponsivePolarBar, svgDefaultProps } from '@nivo/polar-bar'
@@ -121,13 +121,15 @@ const PolarBar = ({ location }: PageProps) => {
             getTabData={data => data.data}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsivePolarBar
+                        {...properties}
                         data={data.data}
                         keys={data.keys}
-                        {...properties}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         theme={merge({}, theme, {
                             labels: {
                                 text: {

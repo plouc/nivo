@@ -9,6 +9,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     isInteractive,
     commonAccessibilityProps,
@@ -183,6 +184,7 @@ const props: ChartProperty[] = [
             step: 1,
         },
     },
+    chartRef(allFlavors),
     themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,
