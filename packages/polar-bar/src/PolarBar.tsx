@@ -1,4 +1,12 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import {
+    createElement,
+    ForwardedRef,
+    forwardRef,
+    Fragment,
+    ReactElement,
+    ReactNode,
+    Ref,
+} from 'react'
 import { useDimensions, Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { ArcLabelsLayer } from '@nivo/arcs'
@@ -15,22 +23,17 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     valueSteps,
     adjustValueRange = svgDefaultProps.adjustValueRange,
     valueFormat,
-
     layers = svgDefaultProps.layers,
-
     width,
     height,
     margin: partialMargin,
-
     startAngle = svgDefaultProps.startAngle,
     endAngle = svgDefaultProps.endAngle,
     innerRadius: innerRadiusRatio = svgDefaultProps.innerRadius,
     cornerRadius = svgDefaultProps.cornerRadius,
-
     colors = svgDefaultProps.colors,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor = svgDefaultProps.borderColor,
-
     enableArcLabels = svgDefaultProps.enableArcLabels,
     arcLabel = svgDefaultProps.arcLabel,
     arcLabelsSkipAngle = svgDefaultProps.arcLabelsSkipAngle,
@@ -38,30 +41,28 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     arcLabelsTextColor = svgDefaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = svgDefaultProps.arcLabelsRadiusOffset,
     arcLabelsComponent,
-
     enableRadialGrid = svgDefaultProps.enableRadialGrid,
     enableCircularGrid = svgDefaultProps.enableCircularGrid,
     radialAxis = svgDefaultProps.radialAxis,
     circularAxisInner = svgDefaultProps.circularAxisInner,
     circularAxisOuter = svgDefaultProps.circularAxisOuter,
-
     legends = svgDefaultProps.legends,
     forwardLegendData,
-
     isInteractive = svgDefaultProps.isInteractive,
     tooltip = svgDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-
     transitionMode = svgDefaultProps.transitionMode,
-
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
-}: PolarBarSvgProps<RawDatum>) => {
+    forwardedRef,
+}: PolarBarSvgProps<RawDatum> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { innerWidth, innerHeight, outerWidth, outerHeight, margin } = useDimensions(
         width,
         height,
@@ -218,6 +219,7 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -230,23 +232,32 @@ const InnerPolarBar = <RawDatum extends PolarBarDatum>({
     )
 }
 
-export const PolarBar = <RawDatum extends PolarBarDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: PolarBarSvgProps<RawDatum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const PolarBar = forwardRef(
+    <RawDatum extends PolarBarDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerPolarBar isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: PolarBarSvgProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerPolarBar isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
+) as <RawDatum extends PolarBarDatum>(
+    props: PolarBarSvgProps<RawDatum> & {
+        ref?: ForwardedRef<SVGSVGElement>
+    }
+) => ReactElement

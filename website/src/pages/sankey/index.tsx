@@ -1,4 +1,4 @@
-import React, {Ref} from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { generateSankeyData } from '@nivo/generators'

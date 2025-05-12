@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { ResponsiveLineCanvas, canvasDefaultProps, isPoint } from '@nivo/line'
@@ -156,7 +156,7 @@ const LineCanvas = ({ location }: PageProps) => {
                         {...properties}
                         data={data}
                         theme={theme}
-                        ref={chartRef as RefObject<HTMLCanvasElement>}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
                         onClick={datum => {
                             if (isPoint(datum)) {
                                 logAction({

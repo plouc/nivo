@@ -2,6 +2,7 @@ import { svgDefaultProps, sankeyAlignmentPropKeys } from '@nivo/sankey'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     blendMode,
     isInteractive,
@@ -120,6 +121,7 @@ const props: ChartProperty[] = [
         },
     },
     ...chartDimensions(allFlavors),
+    chartRef(['svg']),
     themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,

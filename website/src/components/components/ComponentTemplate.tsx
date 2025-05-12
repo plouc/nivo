@@ -132,7 +132,7 @@ export const ComponentTemplate = <
 
         toPng(chartRef.current as HTMLElement, { cacheBust: true }).then(dataUrl => {
             const link = document.createElement('a')
-            link.download = `${name}.png`
+            link.download = `nivo${name}.png`
             link.href = dataUrl
             link.click()
         })
