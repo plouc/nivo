@@ -1,3 +1,4 @@
+import { forwardRef, Ref, ReactElement } from 'react'
 import { Axes, Grid } from '@nivo/axes'
 import {
     CartesianMarkers,
@@ -112,7 +113,10 @@ const InnerBar = <RawDatum extends BarDatum>({
 
     enableTotals = svgDefaultProps.enableTotals,
     totalsOffset = svgDefaultProps.totalsOffset,
-}: InnerBarProps<RawDatum>) => {
+    forwardedRef,
+}: InnerBarProps<RawDatum> & {
+    forwardedRef?: Ref<SVGSVGElement>
+}) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -444,6 +448,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
             isFocusable={isFocusable}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -456,23 +461,32 @@ const InnerBar = <RawDatum extends BarDatum>({
     )
 }
 
-export const Bar = <RawDatum extends BarDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: BarSvgProps<RawDatum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Bar = forwardRef(
+    <RawDatum extends BarDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerBar<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...otherProps
+        }: BarSvgProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerBar<RawDatum> isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
+        </Container>
+    )
+) as <RawDatum extends BarDatum>(
+    props: BarSvgProps<RawDatum> & {
+        ref?: Ref<SVGSVGElement>
+    }
+) => ReactElement
