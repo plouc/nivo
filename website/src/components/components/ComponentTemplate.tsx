@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useCallback, useMemo, createRef, JSX, RefObject } from 'react'
 import { PageProps } from 'gatsby'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 import { useTheme } from 'styled-components'
+import { toPng } from 'html-to-image'
 import { PartialTheme as NivoTheme } from '@nivo/theming'
 import { startCase } from 'lodash'
 import { Seo } from '../Seo'
@@ -43,6 +44,7 @@ interface ComponentTemplateProps<
     codePropertiesMapper?: (props: MappedProps, data: Data) => Record<string, any>
     generateData: (previousData?: Data | null) => Data
     enableDiceRoll?: boolean
+    enableChartDownload?: boolean
     dataKey?: string
     getDataSize?: (data: Data) => number
     getTabData?: (data: Data) => Data
@@ -50,7 +52,8 @@ interface ComponentTemplateProps<
         properties: MappedProps,
         data: Data,
         theme: NivoTheme,
-        logAction: ActionLoggerLogFn
+        logAction: ActionLoggerLogFn,
+        chartRef: RefObject<Element>
     ) => JSX.Element
     image?: IGatsbyImageData
     location?: PageProps['location']
@@ -74,6 +77,7 @@ export const ComponentTemplate = <
     codePropertiesMapper,
     generateData,
     enableDiceRoll = true,
+    enableChartDownload = false,
     dataKey = 'data',
     getDataSize,
     getTabData = data => data,
@@ -121,6 +125,19 @@ export const ComponentTemplate = <
 
     const tabData = useMemo(() => getTabData(data), [data])
 
+    const chartRef = createRef<Element>()
+
+    const handleDownload = useCallback(() => {
+        if (chartRef.current === null) return
+
+        toPng(chartRef.current as HTMLElement, { cacheBust: true }).then(dataUrl => {
+            const link = document.createElement('a')
+            link.download = `${name}.png`
+            link.href = dataUrl
+            link.click()
+        })
+    }, [chartRef, name])
+
     return (
         <Layout>
             <ComponentPage>
@@ -137,8 +154,9 @@ export const ComponentTemplate = <
                     diceRoll={
                         enableDiceRoll ? (data !== undefined ? diceRoll : undefined) : undefined
                     }
+                    download={enableChartDownload ? handleDownload : undefined}
                 >
-                    {children(mappedProperties, data, theme.nivo, logAction)}
+                    {children(mappedProperties, data, theme.nivo, logAction, chartRef)}
                 </ComponentTabs>
                 <ActionsLogger actions={actions} isFullWidth={!hasStories} />
                 <ComponentSettings
