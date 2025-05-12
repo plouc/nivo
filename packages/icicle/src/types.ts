@@ -1,13 +1,5 @@
-import {
-    AriaAttributes,
-    FunctionComponent,
-    MouseEvent,
-    FocusEvent,
-    KeyboardEvent,
-    WheelEvent,
-} from 'react'
+import { AriaAttributes, FunctionComponent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
-import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import {
     Box,
     ValueFormat,
@@ -16,7 +8,10 @@ import {
     PropertyAccessor,
     Dimensions,
     DefaultChartContext,
+    EventMap,
+    InteractionHandlers,
 } from '@nivo/core'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { PartialTheme } from '@nivo/theming'
 import {
     type Rect,
@@ -144,27 +139,26 @@ export type IcicleCommonProps<Datum, Context = DefaultChartContext> = {
     renderWrapper: boolean
 } & Omit<RectLabelsProps<IcicleNode<Datum>>, 'uid' | 'labelComponent'>
 
-export type MouseHandler<Datum> = (datum: IcicleNode<Datum>, event: MouseEvent) => void
+type IcicleEventMap = Pick<
+    EventMap,
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'onDoubleClick'
+    | 'onFocus'
+    | 'onBlur'
+    | 'onKeyDown'
+    | 'onWheel'
+    | 'onContextMenu'
+>
 
-export type FocusHandler<Datum> = (datum: IcicleNode<Datum>, event: FocusEvent) => void
-
-export type KeyboardHandler<Datum> = (datum: IcicleNode<Datum>, event: KeyboardEvent) => void
-
-export type WheelHandler<Datum> = (datum: IcicleNode<Datum>, event: WheelEvent) => void
+export type IcicleInteractionHandlers<Datum> = InteractionHandlers<
+    IcicleNode<Datum>,
+    IcicleEventMap
+>
 
 export type IcicleNodeComponent<Datum> = RectNodeComponent<IcicleNode<Datum>>
-
-export type EventHandlers<Datum> = Partial<{
-    onClick: MouseHandler<Datum>
-    onMouseEnter: MouseHandler<Datum>
-    onMouseLeave: MouseHandler<Datum>
-    onMouseMove: MouseHandler<Datum>
-    onFocus: FocusHandler<Datum>
-    onBlur: FocusHandler<Datum>
-    onKeyDown: KeyboardHandler<Datum>
-    onWheel: WheelHandler<Datum>
-    onContextMenu: MouseHandler<Datum>
-}>
 
 export interface IcicleNodesA11yProps<Datum> {
     nodeRole?: string | ((node: IcicleNode<Datum>) => string | undefined)
@@ -194,14 +188,14 @@ export type IcicleSvgProps<Datum, Context = DefaultChartContext> = DataProps<Dat
     Dimensions &
     Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleSvgExtraProps<Datum>> &
-    EventHandlers<Datum> &
+    IcicleInteractionHandlers<Datum> &
     SvgDefsAndFill<IcicleNode<Datum>> &
     Partial<IcicleNodesA11yProps<Datum>>
 export type IcicleSvgPropsWithDefaults<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum, Context> &
     IcicleSvgExtraProps<Datum> &
-    EventHandlers<Datum> &
+    IcicleInteractionHandlers<Datum> &
     SvgDefsAndFill<IcicleNode<Datum>> &
     IcicleNodesA11yProps<Datum>
 
@@ -225,11 +219,11 @@ export type IcicleHtmlProps<Datum, Context = DefaultChartContext> = DataProps<Da
     Dimensions &
     Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleHtmlExtraProps<Datum>> &
-    EventHandlers<Datum> &
+    IcicleInteractionHandlers<Datum> &
     Partial<IcicleNodesA11yProps<Datum>>
 export type IcicleHtmlPropsWithDefaults<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum, Context> &
     IcicleHtmlExtraProps<Datum> &
-    EventHandlers<Datum> &
+    IcicleInteractionHandlers<Datum> &
     IcicleNodesA11yProps<Datum>

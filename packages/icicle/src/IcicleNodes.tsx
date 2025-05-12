@@ -8,9 +8,9 @@ import {
 } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { RectNodeComponent, RectNodes, NodeRefMap } from '@nivo/rects'
-import { IcicleSvgPropsWithDefaults, IcicleNode, EventHandlers } from './types'
+import { IcicleSvgPropsWithDefaults, IcicleNode, IcicleInteractionHandlers } from './types'
 
-export interface IcicleNodesProps<Datum> {
+export interface IcicleNodesProps<Datum> extends IcicleInteractionHandlers<Datum> {
     nodeRefs: MutableRefObject<NodeRefMap>
     nodes: IcicleNode<Datum>[]
     component: RectNodeComponent<IcicleNode<Datum>>
@@ -20,15 +20,6 @@ export interface IcicleNodesProps<Datum> {
     isInteractive: IcicleSvgPropsWithDefaults<Datum>['isInteractive']
     enableZooming: IcicleSvgPropsWithDefaults<Datum>['enableZooming']
     zoom: (path: string | null) => void
-    onMouseEnter?: EventHandlers<Datum>['onMouseEnter']
-    onMouseMove?: EventHandlers<Datum>['onMouseMove']
-    onMouseLeave?: EventHandlers<Datum>['onMouseLeave']
-    onClick?: EventHandlers<Datum>['onClick']
-    onFocus?: EventHandlers<Datum>['onFocus']
-    onBlur?: EventHandlers<Datum>['onBlur']
-    onKeyDown?: EventHandlers<Datum>['onKeyDown']
-    onWheel?: EventHandlers<Datum>['onWheel']
-    onContextMenu?: EventHandlers<Datum>['onContextMenu']
     tooltip: IcicleSvgPropsWithDefaults<Datum>['tooltip']
     isFocusable: IcicleSvgPropsWithDefaults<Datum>['isFocusable']
     nav: {
@@ -51,10 +42,11 @@ export const IcicleNodes = <Datum,>({
     isInteractive,
     enableZooming,
     zoom,
-    onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onClick,
+    onDoubleClick,
     onFocus,
     onBlur,
     onKeyDown,
@@ -68,85 +60,85 @@ export const IcicleNodes = <Datum,>({
 }: IcicleNodesProps<Datum>) => {
     const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
 
-    const handleClick = useCallback(
-        (datum: IcicleNode<Datum>, event: MouseEvent) => {
-            onClick?.(datum, event)
-            if (enableZooming) zoom(datum.hierarchy.path)
-        },
-        [onClick, enableZooming, zoom]
-    )
-
     const handleMouseEnter = useCallback(
-        (datum: IcicleNode<Datum>, event: MouseEvent) => {
-            showTooltipFromEvent(createElement(tooltip, datum), event)
-            onMouseEnter?.(datum, event)
+        (node: IcicleNode<Datum>, event: MouseEvent) => {
+            showTooltipFromEvent(createElement(tooltip, node), event)
+            onMouseEnter?.(node, event)
         },
         [showTooltipFromEvent, tooltip, onMouseEnter]
     )
 
     const handleMouseMove = useCallback(
-        (datum: IcicleNode<Datum>, event: MouseEvent) => {
-            showTooltipFromEvent(createElement(tooltip, datum), event)
-            onMouseMove?.(datum, event)
+        (node: IcicleNode<Datum>, event: MouseEvent) => {
+            showTooltipFromEvent(createElement(tooltip, node), event)
+            onMouseMove?.(node, event)
         },
         [showTooltipFromEvent, tooltip, onMouseMove]
     )
 
     const handleMouseLeave = useCallback(
-        (datum: IcicleNode<Datum>, event: MouseEvent) => {
+        (node: IcicleNode<Datum>, event: MouseEvent) => {
             hideTooltip()
-            onMouseLeave?.(datum, event)
+            onMouseLeave?.(node, event)
         },
         [hideTooltip, onMouseLeave]
     )
 
+    const handleClick = useCallback(
+        (node: IcicleNode<Datum>, event: MouseEvent) => {
+            onClick?.(node, event)
+            if (enableZooming) zoom(node.hierarchy.path)
+        },
+        [onClick, enableZooming, zoom]
+    )
+
     const handleFocus = useCallback(
-        (datum: IcicleNode<Datum>, event: FocusEvent) => {
-            if (datum.isVisible) {
-                showTooltipAt(createElement(tooltip, datum), [
-                    datum.rect.x + datum.rect.width / 2,
-                    datum.rect.y,
+        (node: IcicleNode<Datum>, event: FocusEvent) => {
+            if (node.isVisible) {
+                showTooltipAt(createElement(tooltip, node), [
+                    node.rect.x + node.rect.width / 2,
+                    node.rect.y,
                 ])
             } else {
-                zoom(datum.hierarchy.path)
+                zoom(node.hierarchy.path)
             }
 
-            onFocus?.(datum, event)
+            onFocus?.(node, event)
         },
         [zoom, showTooltipAt, tooltip, onFocus]
     )
 
     const handleBlur = useCallback(
-        (datum: IcicleNode<Datum>, event: FocusEvent) => {
+        (node: IcicleNode<Datum>, event: FocusEvent) => {
             hideTooltip()
-            onBlur?.(datum, event)
+            onBlur?.(node, event)
         },
         [hideTooltip, onBlur]
     )
 
     const handleKeyDown = useCallback(
-        (datum: IcicleNode<Datum>, event: KeyboardEvent) => {
-            onKeyDown?.(datum, event)
+        (node: IcicleNode<Datum>, event: KeyboardEvent) => {
+            onKeyDown?.(node, event)
 
             if (event.key === 'ArrowUp') {
-                nav.moveUp(datum.hierarchy.path)
+                nav.moveUp(node.hierarchy.path)
                 event.preventDefault()
             }
             if (event.key === 'ArrowLeft') {
-                nav.movePrev(datum.hierarchy.path)
+                nav.movePrev(node.hierarchy.path)
                 event.preventDefault()
             }
             if (event.key === 'ArrowRight') {
-                nav.moveNext(datum.hierarchy.path)
+                nav.moveNext(node.hierarchy.path)
                 event.preventDefault()
             }
             if (event.key === 'ArrowDown') {
-                nav.moveDown(datum.hierarchy.path)
+                nav.moveDown(node.hierarchy.path)
                 event.preventDefault()
             }
 
             if (enableZooming && (event.key === 'Enter' || event.key === ' ')) {
-                zoom(datum.hierarchy.path)
+                zoom(node.hierarchy.path)
                 event.preventDefault()
             }
 
@@ -159,7 +151,7 @@ export const IcicleNodes = <Datum,>({
     )
 
     const getTestId = useCallback(
-        (datum: IcicleNode<Datum>) => `icicle.rect.${datum.hierarchy.path}`,
+        (node: IcicleNode<Datum>) => `icicle.rect.${node.hierarchy.path}`,
         []
     )
 
@@ -177,6 +169,7 @@ export const IcicleNodes = <Datum,>({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
+            onDoubleClick={onDoubleClick}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}

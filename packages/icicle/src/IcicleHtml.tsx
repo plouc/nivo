@@ -49,10 +49,11 @@ const InnerIcicleHtml = <Datum, Context>({
     enableZooming = htmlDefaultProps.enableZooming,
     zoomMode = htmlDefaultProps.zoomMode,
     tooltip = htmlDefaultProps.tooltip as IcicleHtmlPropsWithDefaults<Datum>['tooltip'],
-    onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onClick,
+    onDoubleClick,
     onFocus,
     onBlur,
     onKeyDown,
@@ -126,10 +127,11 @@ const InnerIcicleHtml = <Datum, Context>({
                 enableZooming={enableZooming}
                 zoom={zoom}
                 tooltip={tooltip}
-                onClick={onClick}
                 onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
                 onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                onDoubleClick={onDoubleClick}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}

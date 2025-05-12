@@ -6,10 +6,11 @@ const InnerRectNodeSvg = <Node extends NodeWithRectAndColor>(
     {
         node,
         style,
-        onClick,
         onMouseEnter,
-        onMouseLeave,
         onMouseMove,
+        onMouseLeave,
+        onClick,
+        onDoubleClick,
         onFocus,
         onBlur,
         onKeyDown,
@@ -39,10 +40,11 @@ const InnerRectNodeSvg = <Node extends NodeWithRectAndColor>(
             fill={node.fill || style.color}
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
-            onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
+            onClick={onClick}
+            onDoubleClick={onDoubleClick}
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyDown={onKeyDown}

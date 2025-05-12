@@ -7,31 +7,20 @@ import {
     NodeWithRectAndColor,
     RectTransitionMode,
     RectNodeComponent,
-    RectMouseHandler,
-    RectFocusHandler,
-    RectKeyboardHandler,
-    RectWheelHandler,
+    NodeInteractionHandlers,
     RectNodeHandle,
 } from './types'
 import { useRectsTransition } from './useRectsTransition'
 import { RectNodeWrapper } from './RectNodeWrapper'
 
-export interface RectNodesProps<Node extends NodeWithRectAndColor> {
+export interface RectNodesProps<Node extends NodeWithRectAndColor>
+    extends NodeInteractionHandlers<Node> {
     nodes: readonly Node[]
     uid: PropertyAccessor<Node, string>
     borderRadius: number
     borderColor: InheritedColorConfig<Node>
     borderWidth: number
     isInteractive: boolean
-    onMouseEnter?: RectMouseHandler<Node>
-    onMouseMove?: RectMouseHandler<Node>
-    onMouseLeave?: RectMouseHandler<Node>
-    onClick?: RectMouseHandler<Node>
-    onFocus?: RectFocusHandler<Node>
-    onBlur?: RectFocusHandler<Node>
-    onKeyDown?: RectKeyboardHandler<Node>
-    onContextMenu?: RectMouseHandler<Node>
-    onWheel?: RectWheelHandler<Node>
     transitionMode?: RectTransitionMode
     animateOnMount?: boolean
     component: RectNodeComponent<Node>
@@ -48,10 +37,11 @@ export const RectNodes = <Node extends NodeWithRectAndColor>({
     borderWidth,
     borderColor,
     isInteractive,
+    onMouseEnter,
     onMouseMove,
     onMouseLeave,
-    onMouseEnter,
     onClick,
+    onDoubleClick,
     onFocus,
     onBlur,
     onKeyDown,
@@ -110,6 +100,7 @@ export const RectNodes = <Node extends NodeWithRectAndColor>({
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
                     onClick={onClick}
+                    onDoubleClick={onDoubleClick}
                     onFocus={onFocus}
                     onBlur={onBlur}
                     onKeyDown={onKeyDown}

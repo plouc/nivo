@@ -1,4 +1,12 @@
-import { ComponentType } from 'react'
+import {
+    ComponentType,
+    FocusEvent,
+    JSX,
+    KeyboardEvent,
+    MouseEvent,
+    SyntheticEvent,
+    WheelEvent,
+} from 'react'
 import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
 import { CurveFactory } from 'd3-shape'
@@ -438,3 +446,40 @@ export const BOX_ANCHORS: readonly BoxAnchor[]
 export type DefaultChartContext = Record<string, unknown>
 
 export const ChartContext: React.Context<DefaultChartContext>
+
+export type EventMap = {
+    onMouseEnter: MouseEvent
+    onMouseMove: MouseEvent
+    onMouseLeave: MouseEvent
+    onClick: MouseEvent
+    onDoubleClick: MouseEvent
+    onFocus: FocusEvent
+    onBlur: FocusEvent
+    onKeyDown: KeyboardEvent
+    onWheel: WheelEvent
+    onContextMenu: MouseEvent
+}
+
+export type NodeEventHandler<NodeType, E extends SyntheticEvent> = (
+    node: NodeType,
+    event: E
+) => void
+
+export type InteractionHandlers<Node, EM extends Record<string, SyntheticEvent>> = {
+    [K in keyof EM]?: NodeEventHandler<Node, EM[K]>
+}
+
+export type SvgElementTag = Exclude<
+    {
+        [K in keyof JSX.IntrinsicElements]: JSX.IntrinsicElements[K] extends React.SVGProps<SVGElement>
+            ? K
+            : never
+    }[keyof JSX.IntrinsicElements],
+    'svg'
+>
+
+type HtmlElementTag = {
+    [K in keyof JSX.IntrinsicElements]: JSX.IntrinsicElements[K] extends React.HTMLAttributes<HTMLElement>
+        ? K
+        : never
+}[keyof JSX.IntrinsicElements]

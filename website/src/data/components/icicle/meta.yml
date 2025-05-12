@@ -24,7 +24,7 @@ Icicle:
     - label: Patterns and gradients
       link: icicle--patterns-and-gradients
   description: |
-    An Icicle Chart with zooming ability.
+    An Icicle Chart with zooming ability and keyboard navigation support.
 
     This chart type visualizes hierarchical data using nested rectangles.
     Each rectangle represents a node, sized by a value like count or duration,

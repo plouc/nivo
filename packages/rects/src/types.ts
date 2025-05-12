@@ -1,18 +1,15 @@
 import {
     FunctionComponent,
-    MouseEvent,
     MouseEventHandler,
-    FocusEvent,
     FocusEventHandler,
-    KeyboardEvent,
     KeyboardEventHandler,
-    WheelEvent,
     WheelEventHandler,
     AriaAttributes,
     Ref,
     RefObject,
 } from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
+import { EventMap, InteractionHandlers } from '@nivo/core'
 
 export interface Rect {
     x: number
@@ -70,25 +67,24 @@ export type RectTransitionMode =
     | 'flow-down'
     | 'flow-left'
 
-export type RectMouseHandler<Node extends NodeWithRectAndColor> = (
-    node: Node,
-    event: MouseEvent
-) => void
+type NodeEventMap = Pick<
+    EventMap,
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'onDoubleClick'
+    | 'onFocus'
+    | 'onBlur'
+    | 'onKeyDown'
+    | 'onWheel'
+    | 'onContextMenu'
+>
 
-export type RectFocusHandler<Node extends NodeWithRectAndColor> = (
-    node: Node,
-    event: FocusEvent
-) => void
-
-export type RectKeyboardHandler<Node extends NodeWithRectAndColor> = (
-    node: Node,
-    event: KeyboardEvent
-) => void
-
-export type RectWheelHandler<Node extends NodeWithRectAndColor> = (
-    node: Node,
-    event: WheelEvent
-) => void
+export type NodeInteractionHandlers<Node extends NodeWithRectAndColor> = InteractionHandlers<
+    Node,
+    NodeEventMap
+>
 
 export interface RectNodeComponentProps<Node extends NodeWithRectAndColor> {
     ref?: Ref<RectNodeHandle>
@@ -111,6 +107,7 @@ export interface RectNodeComponentProps<Node extends NodeWithRectAndColor> {
     onMouseMove?: MouseEventHandler
     onMouseLeave?: MouseEventHandler
     onClick?: MouseEventHandler
+    onDoubleClick?: MouseEventHandler
     onFocus?: FocusEventHandler
     onBlur?: FocusEventHandler
     onKeyDown?: KeyboardEventHandler

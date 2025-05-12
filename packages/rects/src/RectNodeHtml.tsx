@@ -7,10 +7,11 @@ const InnerRectNodeHtml = <Node extends NodeWithRectAndColor>(
     {
         node,
         style,
-        onClick,
         onMouseEnter,
-        onMouseLeave,
         onMouseMove,
+        onMouseLeave,
+        onClick,
+        onDoubleClick,
         onFocus,
         onBlur,
         onKeyDown,
@@ -43,10 +44,11 @@ const InnerRectNodeHtml = <Node extends NodeWithRectAndColor>(
                 backgroundColor: style.color,
                 ...extraStyle,
             }}
-            onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
+            onClick={onClick}
+            onDoubleClick={onDoubleClick}
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyDown={onKeyDown}

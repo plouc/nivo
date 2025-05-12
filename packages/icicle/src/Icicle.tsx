@@ -59,10 +59,11 @@ const InnerIcicle = <Datum, Context>({
     enableZooming = svgDefaultProps.enableZooming,
     zoomMode = svgDefaultProps.zoomMode,
     tooltip = svgDefaultProps.tooltip as IcicleSvgPropsWithDefaults<Datum>['tooltip'],
-    onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
+    onClick,
+    onDoubleClick,
     onFocus,
     onBlur,
     onKeyDown,
@@ -141,10 +142,11 @@ const InnerIcicle = <Datum, Context>({
                 enableZooming={enableZooming}
                 zoom={zoom}
                 tooltip={tooltip}
-                onClick={onClick}
                 onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
                 onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                onDoubleClick={onDoubleClick}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}

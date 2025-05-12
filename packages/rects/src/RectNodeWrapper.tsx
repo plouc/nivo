@@ -12,15 +12,13 @@ import { SpringValue, Interpolation } from '@react-spring/web'
 import {
     NodeWithRectAndColor,
     RectNodeComponent,
-    RectMouseHandler,
-    RectKeyboardHandler,
-    RectWheelHandler,
-    RectFocusHandler,
+    NodeInteractionHandlers,
     RectNodeComponentProps,
     RectNodeHandle,
 } from './types'
 
-export interface RectNodeWrapperProps<Node extends NodeWithRectAndColor> {
+export interface RectNodeWrapperProps<Node extends NodeWithRectAndColor>
+    extends NodeInteractionHandlers<Node> {
     nodeComponent: RectNodeComponent<Node>
     node: Node
     style: {
@@ -37,15 +35,6 @@ export interface RectNodeWrapperProps<Node extends NodeWithRectAndColor> {
         borderColor: SpringValue<string>
     }
     isInteractive: boolean
-    onClick?: RectMouseHandler<Node>
-    onMouseEnter?: RectMouseHandler<Node>
-    onMouseLeave?: RectMouseHandler<Node>
-    onMouseMove?: RectMouseHandler<Node>
-    onFocus?: RectFocusHandler<Node>
-    onBlur?: RectFocusHandler<Node>
-    onKeyDown?: RectKeyboardHandler<Node>
-    onContextMenu?: RectMouseHandler<Node>
-    onWheel?: RectWheelHandler<Node>
     testId?: string
 }
 
@@ -65,10 +54,11 @@ const InnerRectNodeWrapper = <Node extends NodeWithRectAndColor>(
         node,
         style,
         isInteractive,
-        onClick,
         onMouseEnter,
-        onMouseLeave,
         onMouseMove,
+        onMouseLeave,
+        onClick,
+        onDoubleClick,
         onFocus,
         onBlur,
         onKeyDown,
@@ -79,18 +69,7 @@ const InnerRectNodeWrapper = <Node extends NodeWithRectAndColor>(
     ref: Ref<RectNodeHandle>
 ) => {
     const eventHandlers = useMemo(() => {
-        const handlers: Pick<
-            RectNodeComponentProps<Node>,
-            | 'onMouseEnter'
-            | 'onMouseMove'
-            | 'onMouseLeave'
-            | 'onClick'
-            | 'onFocus'
-            | 'onBlur'
-            | 'onKeyDown'
-            | 'onContextMenu'
-            | 'onWheel'
-        > = {}
+        const handlers: Pick<RectNodeComponentProps<Node>, keyof NodeInteractionHandlers<Node>> = {}
         if (!isInteractive) return handlers
 
         if (onMouseEnter) {
@@ -111,6 +90,11 @@ const InnerRectNodeWrapper = <Node extends NodeWithRectAndColor>(
         if (onClick) {
             handlers.onClick = (event: MouseEvent) => {
                 onClick(node, event)
+            }
+        }
+        if (onDoubleClick) {
+            handlers.onDoubleClick = (event: MouseEvent) => {
+                onDoubleClick(node, event)
             }
         }
         if (onFocus) {
@@ -147,6 +131,7 @@ const InnerRectNodeWrapper = <Node extends NodeWithRectAndColor>(
         onMouseMove,
         onMouseLeave,
         onClick,
+        onDoubleClick,
         onFocus,
         onBlur,
         onKeyDown,
