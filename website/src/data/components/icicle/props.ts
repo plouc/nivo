@@ -10,6 +10,7 @@ import {
     chartDimensions,
     ordinalColors,
     isInteractive,
+    interactionHandlers,
     commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
@@ -464,7 +465,7 @@ const props: ChartProperty[] = [
 
             \`\`\`
             {
-                nodes: ComputedDatum[]
+                nodes: IcicleNode[]
                 zoom: (nodePath: string | null) => void
             }
             \`\`\`
@@ -477,6 +478,15 @@ const props: ChartProperty[] = [
         key: 'nodeComponent',
         group: 'Customization',
         help: 'Override the default node component.',
+        description: `
+            In case you want to maintain keyboard navigation support,
+            you'll need to *lift up* the \`focus\` method of the node
+            via a \`ref\`, so that the chart can call it when needed.
+            
+            You might want to have a look at the default node components,
+            \`RectNodeSvg\` and \`RectNodeHtml\` to see how it's done
+            in the \`@nivo/rects\` package.
+        `,
         flavors: ['svg', 'html'],
         required: false,
         type: 'RectNode',
@@ -537,55 +547,81 @@ const props: ChartProperty[] = [
         type: 'boolean',
         control: { type: 'switch' },
     },
+    ...interactionHandlers(
+        [
+            { type: 'onMouseEnter' },
+            { type: 'onMouseMove' },
+            { type: 'onMouseLeave' },
+            { type: 'onClick' },
+            { type: 'onDoubleClick' },
+            { type: 'onFocus' },
+            { type: 'onBlur' },
+            { type: 'onKeyDown' },
+            { type: 'onWheel' },
+            { type: 'onContextMenu' },
+        ],
+        'IcicleNode',
+        ['svg', 'html']
+    ),
     {
-        key: 'onMouseEnter',
+        key: 'isFocusable',
         flavors: ['svg', 'html'],
-        group: 'Interactivity',
-        type: '(node: ComputedDatum, event: MouseEvent) => void',
         required: false,
-        help: 'onMouseEnter handler',
+        group: 'Accessibility',
+        help: 'Make the root element and each node item focusable, for keyboard navigation.',
+        description: `
+            If enabled, focusing will also reveal the tooltip if \`isInteractive\` is \`true\`,
+            when a node gains focus and hide it on blur.
+            
+            Also note that if this option is enabled, focusing a node will reposition the tooltip
+            at a fixed location.
+        `,
+        type: 'boolean',
+        control: { type: 'switch' },
+        defaultValue: svgDefaultProps.isFocusable,
+    },
+    ...commonAccessibilityProps(['svg', 'html'], svgDefaultProps),
+    {
+        key: 'nodeRole',
+        flavors: allFlavors,
+        required: false,
+        group: 'Accessibility',
+        help: 'Role for node items.',
+        type: 'string | (node: ComputedNode) => string',
+        defaultValue: svgDefaultProps.nodeRole,
     },
     {
-        key: 'onMouseMove',
-        flavors: ['svg', 'html'],
-        group: 'Interactivity',
-        type: '(node: ComputedDatum, event: MouseEvent) => void',
+        key: 'nodeAriaLabel',
+        flavors: allFlavors,
         required: false,
-        help: 'onMouseMove handler',
+        group: 'Accessibility',
+        help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for nodes.',
+        type: '(node: IcicleNode) => string',
     },
     {
-        key: 'onMouseLeave',
-        flavors: ['svg', 'html'],
-        group: 'Interactivity',
-        type: '(node: ComputedDatum, event: MouseEvent) => void',
+        key: 'nodeAriaLabelledBy',
+        flavors: allFlavors,
         required: false,
-        help: 'onMouseMove handler',
+        group: 'Accessibility',
+        help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for nodes.',
+        type: '(node: IcicleNode) => string',
     },
     {
-        key: 'onClick',
-        flavors: ['svg', 'html'],
-        group: 'Interactivity',
-        type: '(node: ComputedDatum, event: MouseEvent) => void',
+        key: 'nodeAriaDescribedBy',
+        flavors: allFlavors,
         required: false,
-        help: 'onClick handler',
+        group: 'Accessibility',
+        help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for nodes.',
+        type: '(node: IcicleNode) => string',
     },
     {
-        key: 'onWheel',
-        flavors: ['svg', 'html'],
-        group: 'Interactivity',
-        type: '(node: ComputedDatum, event: WheelEvent) => void',
+        key: 'nodeAriaHidden',
+        flavors: allFlavors,
         required: false,
-        help: 'onWheel handler',
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for nodes.',
+        type: '(node: IcicleNode) => boolean',
     },
-    {
-        key: 'onContextMenu',
-        flavors: ['svg', 'html'],
-        group: 'Interactivity',
-        type: '(node: ComputedDatum, event: MouseEvent) => void',
-        required: false,
-        help: 'onContextMenu handler',
-    },
-    ...commonAccessibilityProps(['svg', 'html']),
     ...motionProperties(['svg', 'html'], svgDefaultProps),
     {
         key: 'animateOnMount',

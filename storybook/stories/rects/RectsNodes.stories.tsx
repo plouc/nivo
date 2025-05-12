@@ -1,13 +1,7 @@
 import { useState, useEffect, ComponentProps } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Container, SvgWrapper } from '@nivo/core'
-import {
-    RectNodes,
-    RectNodeSvg,
-    DatumWithRectAndColor,
-    RectLabels,
-    RectLabelSvg,
-} from '@nivo/rects'
+import { RectNodes, RectNodeSvg, NodeWithRectAndColor, RectLabels, RectLabelSvg } from '@nivo/rects'
 
 interface ExtraArgs {
     motionConfig: string
@@ -46,7 +40,7 @@ const meta: Meta<ComponentProps<typeof RectNodes> & ExtraArgs> = {
 export default meta
 type Story = StoryObj<Meta<ComponentProps<typeof RectNodes> & ExtraArgs>>
 
-const baseData: Record<'A' | 'B' | 'C' | 'D', Omit<DatumWithRectAndColor, 'rect'>> = {
+const baseData: Record<'A' | 'B' | 'C' | 'D', Omit<NodeWithRectAndColor, 'rect'>> = {
     A: {
         id: 'A',
         color: '#b68e26',
@@ -65,7 +59,7 @@ const baseData: Record<'A' | 'B' | 'C' | 'D', Omit<DatumWithRectAndColor, 'rect'
     },
 }
 
-const sampleData: DatumWithRectAndColor[][] = [
+const sampleData: NodeWithRectAndColor[][] = [
     [
         {
             ...baseData.A,
@@ -283,7 +277,7 @@ export const TransitionModeShowcase: Story = {
                     <g transform="translate(50, 50)">
                         <RectNodes
                             uid="id"
-                            data={sampleData[current]}
+                            nodes={sampleData[current]}
                             component={RectNodeSvg}
                             borderRadius={0}
                             borderColor="#000000"
@@ -293,7 +287,7 @@ export const TransitionModeShowcase: Story = {
                         />
                         <RectLabels
                             uid="id"
-                            data={sampleData[current]}
+                            nodes={sampleData[current]}
                             component={RectLabelSvg}
                             label="id"
                             boxAnchor="center"

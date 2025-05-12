@@ -2,7 +2,7 @@ import { createElement, useMemo } from 'react'
 import { usePropertyAccessor } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTheme } from '@nivo/theming'
-import { DatumWithRectAndColor, RectTransitionMode } from '../types'
+import { NodeWithRectAndColor, RectTransitionMode } from '../types'
 import { useRectAnchorsTransition } from '../useRectAnchorsTransition'
 import {
     RectLabelsProps as PublicRectLabelProps,
@@ -11,28 +11,28 @@ import {
 } from './types'
 import { anchorGetter, getTextLayout } from './compute'
 
-interface RectLabelsProps<Datum extends DatumWithRectAndColor> {
-    data: readonly Datum[]
-    uid: PublicRectLabelProps<Datum>['uid']
-    label: PublicRectLabelProps<Datum>['label']
-    boxAnchor: PublicRectLabelProps<Datum>['labelBoxAnchor']
-    align?: PublicRectLabelProps<Datum>['labelAlign']
-    baseline?: PublicRectLabelProps<Datum>['labelBaseline']
-    paddingX?: PublicRectLabelProps<Datum>['labelPaddingX']
-    paddingY?: PublicRectLabelProps<Datum>['labelPaddingY']
-    rotation?: PublicRectLabelProps<Datum>['labelRotation']
-    skipWidth?: PublicRectLabelProps<Datum>['labelSkipWidth']
-    skipHeight?: PublicRectLabelProps<Datum>['labelSkipHeight']
-    textColor: PublicRectLabelProps<Datum>['labelTextColor']
+interface RectLabelsProps<Node extends NodeWithRectAndColor> {
+    nodes: readonly Node[]
+    uid: PublicRectLabelProps<Node>['uid']
+    label: PublicRectLabelProps<Node>['label']
+    boxAnchor: PublicRectLabelProps<Node>['labelBoxAnchor']
+    align?: PublicRectLabelProps<Node>['labelAlign']
+    baseline?: PublicRectLabelProps<Node>['labelBaseline']
+    paddingX?: PublicRectLabelProps<Node>['labelPaddingX']
+    paddingY?: PublicRectLabelProps<Node>['labelPaddingY']
+    rotation?: PublicRectLabelProps<Node>['labelRotation']
+    skipWidth?: PublicRectLabelProps<Node>['labelSkipWidth']
+    skipHeight?: PublicRectLabelProps<Node>['labelSkipHeight']
+    textColor: PublicRectLabelProps<Node>['labelTextColor']
     transitionMode?: RectTransitionMode
-    component: RectLabelComponent<Datum>
-    getTestId?: (datum: Omit<Datum, 'rect'>) => string
+    component: RectLabelComponent<Node>
+    getTestId?: (node: Omit<Node, 'rect'>) => string
 }
 
 const extractRotation = ({ rotation }: { rotation: number }) => ({ rotation })
 
-export const RectLabels = <Datum extends DatumWithRectAndColor>({
-    data,
+export const RectLabels = <Node extends NodeWithRectAndColor>({
+    nodes,
     uid,
     label: labelAccessor,
     boxAnchor = 'center',
@@ -47,7 +47,7 @@ export const RectLabels = <Datum extends DatumWithRectAndColor>({
     transitionMode = 'flow-down',
     component,
     getTestId,
-}: RectLabelsProps<Datum>) => {
+}: RectLabelsProps<Node>) => {
     const getUid = usePropertyAccessor(uid)
     const getLabel = usePropertyAccessor(labelAccessor)
 
@@ -63,25 +63,25 @@ export const RectLabels = <Datum extends DatumWithRectAndColor>({
         const getAnchor = anchorGetter(boxAnchor, paddingX, paddingY)
 
         return (
-            data
-                .filter(datum => {
-                    return datum.rect.width >= skipWidth && datum.rect.height >= skipHeight
+            nodes
+                .filter(node => {
+                    return node.rect.width >= skipWidth && node.rect.height >= skipHeight
                 })
-                // We lift the rect from the datum, for easier access.
-                .map(({ rect, ...datum }) => {
+                // We lift the rect from the node, for easier access.
+                .map(({ rect, ...node }) => {
                     return {
-                        id: getUid(datum),
-                        label: getLabel(datum),
-                        color: getTextColor(datum),
+                        id: getUid(node),
+                        label: getLabel(node),
+                        color: getTextColor(node),
                         ...getAnchor(rect),
                         rotation,
                         rect,
-                        data: datum,
+                        node,
                     }
-                }) as RectComputedLabel<Datum>[]
+                }) as RectComputedLabel<Node>[]
         )
     }, [
-        data,
+        nodes,
         getUid,
         paddingX,
         paddingY,
@@ -93,7 +93,7 @@ export const RectLabels = <Datum extends DatumWithRectAndColor>({
         getTextColor,
     ])
 
-    const transition = useRectAnchorsTransition<RectComputedLabel<Datum>, { rotation: number }>(
+    const transition = useRectAnchorsTransition<RectComputedLabel<Node>, { rotation: number }>(
         computedLabels,
         transitionMode,
         {
@@ -105,16 +105,16 @@ export const RectLabels = <Datum extends DatumWithRectAndColor>({
 
     return (
         <>
-            {transition((transitionProps, datum) => {
+            {transition((transitionProps, label) => {
                 return createElement(component, {
-                    key: datum.id,
-                    ...datum,
+                    key: label.id,
+                    ...label,
                     style: {
                         ...transitionProps,
                         align: textLayout.align,
                         baseline: textLayout.baseline,
                     },
-                    testId: getTestId?.(datum.data),
+                    testId: getTestId?.(label.node),
                 })
             })}
         </>

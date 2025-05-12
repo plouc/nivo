@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
-import { IcicleSvgProps, IcicleHtmlProps, ComputedDatum, DefaultIcicleDatum } from '@nivo/icicle'
+import { IcicleSvgProps, IcicleHtmlProps, IcicleNode, DefaultIcicleDatum } from '@nivo/icicle'
 import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
 
 interface CustomProps {
@@ -34,7 +34,7 @@ const TooltipKey = styled.span`
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = (node: ComputedDatum<DefaultIcicleDatum>) => (
+const CustomTooltip = (node: IcicleNode<DefaultIcicleDatum>) => (
     <TooltipWrapper style={{ color: node.color }}>
         <TooltipKey>id</TooltipKey>
         <TooltipValue>{node.id}</TooltipValue>

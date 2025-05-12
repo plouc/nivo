@@ -61,7 +61,9 @@ export const svgDefaultProps: Omit<
     animateOnMount: false,
     rectsTransitionMode: 'flow-down',
     labelsTransitionMode: 'center',
-    role: 'img',
+    role: 'tree',
+    nodeRole: 'treeitem',
+    isFocusable: false,
 }
 
 export const htmlDefaultProps: Omit<
@@ -77,4 +79,6 @@ export const htmlDefaultProps: Omit<
     rectsTransitionMode: svgDefaultProps.rectsTransitionMode,
     labelsTransitionMode: svgDefaultProps.labelsTransitionMode,
     role: svgDefaultProps.role,
+    nodeRole: svgDefaultProps.nodeRole,
+    isFocusable: svgDefaultProps.isFocusable,
 }

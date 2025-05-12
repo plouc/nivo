@@ -1,6 +1,5 @@
-import { AriaAttributes, FunctionComponent, MouseEvent, WheelEvent } from 'react'
+import { AriaAttributes, FunctionComponent } from 'react'
 import { HierarchyNode } from 'd3-hierarchy'
-import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import {
     Box,
     ValueFormat,
@@ -9,9 +8,18 @@ import {
     PropertyAccessor,
     Dimensions,
     DefaultChartContext,
+    EventMap,
+    InteractionHandlers,
 } from '@nivo/core'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { PartialTheme } from '@nivo/theming'
-import { type Rect, RectLabelsProps, RectTransitionMode, RectNodeComponent } from '@nivo/rects'
+import {
+    type Rect,
+    RectLabelsProps,
+    RectTransitionMode,
+    RectNodeComponent,
+    NodeA11yProps,
+} from '@nivo/rects'
 
 export interface DefaultIcicleDatum {
     id: string
@@ -35,7 +43,7 @@ export type IcicleChartContext<Context = Record<string, unknown>> = {
 } & Context
 
 export interface IcicleCommonCustomLayerProps<Datum> {
-    nodes: readonly ComputedDatum<Datum>[]
+    nodes: readonly IcicleNode<Datum>[]
     zoom: IcicleZoomFunction
 }
 
@@ -47,24 +55,53 @@ export interface DataProps<Datum> {
     data: Datum
 }
 
-export interface ComputedDatum<Datum> {
-    id: string
+export interface IcicleNodeHierarchy {
+    // Full dot-delimited path from the root.
+    // Used as a unique key for the node.
     path: string
-    // Contains own id plus all ancestors' ids, starting from the root
+    // Own id plus all ancestors' ids, starting from the root.
+    // [rootId, …, thisNodeId]
     pathComponents: string[]
-    color: string
-    // contains the raw node's data
-    data: Omit<Datum, 'children'>
+
+    // Distance from the root (root = 0).
     depth: number
-    // defined when using patterns or gradients
-    fill?: string
-    formattedValue: string
+    // Distance to the furthest leaf (leaf = 0).
     height: number
-    parent?: ComputedDatum<Datum>
-    percentage: number
-    rect: Rect
+    // Maximum depth among descendants.
+    deepestChildDepth: number
+
+    // Path of the parent, or null if the node is the root.
+    parent: string | null
+    // Path of the previous node at the same depth.
+    previousAtDepth: string | null
+    // Path of the next node at the same depth.
+    nextAtDepth: string | null
+    // Path of the first child.
+    firstChild: string | null
+}
+
+export interface IcicleNode<Datum> {
+    // The ID should be unique among siblings,
+    // but not necessarily across the entire tree.
+    // The uniqueness is guaranteed by the path.
+    id: string
+    // Contains the raw node's data, without the children for lighter structure.
+    data: Omit<Datum, 'children'>
     value: number
-    maxDescendantDepth: number
+    // Human-readable version of `value` (e.g. with separators or units)
+    formattedValue: string
+    // Percentage of the node's value compared to the root node's value.
+    percentage: number
+    // Defined when zooming, if false, this means that the node is off-screen,
+    // it is important to know this state when using keyboard navigation.
+    isVisible: boolean
+    color: string
+    // Defined when using patterns or gradients
+    fill?: string
+    // Coordinates of the node in the rendered chart.
+    rect: Rect
+    hierarchy: IcicleNodeHierarchy
+    a11y: NodeA11yProps
 }
 
 // - top: Root at the top, children cascade downward, standard icicle.
@@ -85,54 +122,63 @@ export type IcicleCommonProps<Datum, Context = DefaultChartContext> = {
     gapX: number
     gapY: number
     theme: PartialTheme
-    colors: OrdinalColorScaleConfig<Omit<ComputedDatum<Datum>, 'color' | 'fill'>>
+    colors: OrdinalColorScaleConfig<Omit<IcicleNode<Datum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
     inheritColorFromParent: boolean
     // used if `inheritColorFromParent` is `true`
-    childColor: InheritedColorConfig<ComputedDatum<Datum>>
+    childColor: InheritedColorConfig<IcicleNode<Datum>>
     borderRadius: number
     borderWidth: number
-    borderColor: InheritedColorConfig<ComputedDatum<Datum>>
+    borderColor: InheritedColorConfig<IcicleNode<Datum>>
     enableLabels: boolean
     isInteractive: boolean
     enableZooming: boolean
     zoomMode: IcicleZoomMode
-    tooltip: FunctionComponent<ComputedDatum<Datum>>
+    tooltip: FunctionComponent<IcicleNode<Datum>>
     context: Context
     renderWrapper: boolean
-} & Omit<RectLabelsProps<ComputedDatum<Datum>>, 'uid' | 'labelComponent'>
+} & Omit<RectLabelsProps<IcicleNode<Datum>>, 'uid' | 'labelComponent'>
 
-export type MouseHandler<Datum, E = Element> = (
-    datum: ComputedDatum<Datum>,
-    event: MouseEvent<E>
-) => void
+type IcicleEventMap = Pick<
+    EventMap,
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'onDoubleClick'
+    | 'onFocus'
+    | 'onBlur'
+    | 'onKeyDown'
+    | 'onWheel'
+    | 'onContextMenu'
+>
 
-export type WheelHandler<Datum, E = Element> = (
-    datum: ComputedDatum<Datum>,
-    event: WheelEvent<E>
-) => void
+export type IcicleInteractionHandlers<Datum> = InteractionHandlers<
+    IcicleNode<Datum>,
+    IcicleEventMap
+>
 
-export type IcicleNodeComponent<Datum> = RectNodeComponent<ComputedDatum<Datum>>
+export type IcicleNodeComponent<Datum> = RectNodeComponent<IcicleNode<Datum>>
 
-export type EventHandlers<Datum> = Partial<{
-    onClick: MouseHandler<Datum>
-    onMouseEnter: MouseHandler<Datum>
-    onMouseLeave: MouseHandler<Datum>
-    onMouseMove: MouseHandler<Datum>
-    onWheel: WheelHandler<Datum>
-    onContextMenu: MouseHandler<Datum>
-}>
+export interface IcicleNodesA11yProps<Datum> {
+    nodeRole?: string | ((node: IcicleNode<Datum>) => string | undefined)
+    nodeAriaLabel?: (node: IcicleNode<Datum>) => AriaAttributes['aria-label']
+    nodeAriaLabelledBy?: (node: IcicleNode<Datum>) => AriaAttributes['aria-labelledby']
+    nodeAriaDescribedBy?: (node: IcicleNode<Datum>) => AriaAttributes['aria-describedby']
+    nodeAriaHidden?: (node: IcicleNode<Datum>) => AriaAttributes['aria-hidden']
+}
 
 export interface IcicleSvgExtraProps<Datum> {
     layers: readonly IcicleLayer<Datum>[]
     nodeComponent: IcicleNodeComponent<Datum>
-    labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
+    labelComponent: RectLabelsProps<IcicleNode<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
     animateOnMount: boolean
     rectsTransitionMode: RectTransitionMode
     labelsTransitionMode: RectTransitionMode
     role: string
+    isFocusable: boolean
     ariaLabel?: AriaAttributes['aria-label']
     ariaLabelledBy?: AriaAttributes['aria-labelledby']
     ariaDescribedBy?: AriaAttributes['aria-describedby']
@@ -142,25 +188,28 @@ export type IcicleSvgProps<Datum, Context = DefaultChartContext> = DataProps<Dat
     Dimensions &
     Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleSvgExtraProps<Datum>> &
-    EventHandlers<Datum> &
-    SvgDefsAndFill<ComputedDatum<Datum>>
+    IcicleInteractionHandlers<Datum> &
+    SvgDefsAndFill<IcicleNode<Datum>> &
+    Partial<IcicleNodesA11yProps<Datum>>
 export type IcicleSvgPropsWithDefaults<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum, Context> &
     IcicleSvgExtraProps<Datum> &
-    EventHandlers<Datum> &
-    SvgDefsAndFill<ComputedDatum<Datum>>
+    IcicleInteractionHandlers<Datum> &
+    SvgDefsAndFill<IcicleNode<Datum>> &
+    IcicleNodesA11yProps<Datum>
 
 export interface IcicleHtmlExtraProps<Datum> {
     layers: readonly IcicleLayer<Datum>[]
     nodeComponent: IcicleNodeComponent<Datum>
-    labelComponent: RectLabelsProps<ComputedDatum<Datum>>['labelComponent']
+    labelComponent: RectLabelsProps<IcicleNode<Datum>>['labelComponent']
     animate: boolean
     motionConfig: MotionProps['motionConfig']
     animateOnMount: boolean
     rectsTransitionMode: RectTransitionMode
     labelsTransitionMode: RectTransitionMode
     role: string
+    isFocusable: boolean
     ariaLabel?: AriaAttributes['aria-label']
     ariaLabelledBy?: AriaAttributes['aria-labelledby']
     ariaDescribedBy?: AriaAttributes['aria-describedby']
@@ -170,9 +219,11 @@ export type IcicleHtmlProps<Datum, Context = DefaultChartContext> = DataProps<Da
     Dimensions &
     Partial<IcicleCommonProps<Datum, Context>> &
     Partial<IcicleHtmlExtraProps<Datum>> &
-    EventHandlers<Datum>
+    IcicleInteractionHandlers<Datum> &
+    Partial<IcicleNodesA11yProps<Datum>>
 export type IcicleHtmlPropsWithDefaults<Datum, Context = DefaultChartContext> = DataProps<Datum> &
     Dimensions &
     IcicleCommonProps<Datum, Context> &
     IcicleHtmlExtraProps<Datum> &
-    EventHandlers<Datum>
+    IcicleInteractionHandlers<Datum> &
+    IcicleNodesA11yProps<Datum>

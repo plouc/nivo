@@ -2,6 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { IcicleHtml, IcicleHtmlProps, htmlDefaultProps } from '@nivo/icicle'
 import { BonsaiIcicle } from './BonsaisIcicle'
+import { useKeyLoggerRef, KeyLogger } from '../internal/KeyLogger'
+import {
+    KeyboardNavigationContainer,
+    KeyboardDoc,
+    playKeyboardNavigationDemo,
+    SUPPORTED_KEYBOARD_KEYS,
+} from './shared'
 
 interface RawDatum {
     name: string
@@ -67,12 +74,12 @@ export const CustomColors: Story = {
     ),
 }
 
-export const ChildColorPickedFromData: Story = {
+export const ColorPickedFromData: Story = {
     render: args => (
         <IcicleHtml<RawDatum>
             {...commonProperties}
             orientation={args.orientation}
-            childColor={(_parent, child) => child.data.color}
+            colors={node => node.data.color}
         />
     ),
 }
@@ -112,4 +119,31 @@ export const CustomNode: Story = {
         orientation: 'bottom',
     },
     render: args => <BonsaiIcicle orientation={args.orientation} />,
+}
+
+export const KeyboardNavigation: Story = {
+    render: args => {
+        const keyLogger = useKeyLoggerRef()
+
+        return (
+            <>
+                <KeyLogger ref={keyLogger} only={SUPPORTED_KEYBOARD_KEYS} duration={2000} />
+                <KeyboardNavigationContainer>
+                    <IcicleHtml<RawDatum>
+                        {...commonProperties}
+                        width={600}
+                        orientation={args.orientation}
+                        isFocusable
+                        onKeyDown={(_node, event) => {
+                            keyLogger.current?.logKey(event)
+                        }}
+                    />
+                    <KeyboardDoc />
+                </KeyboardNavigationContainer>
+            </>
+        )
+    },
+    play: async ({ canvasElement }) => {
+        await playKeyboardNavigationDemo(canvasElement)
+    },
 }

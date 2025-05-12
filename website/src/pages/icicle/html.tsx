@@ -58,6 +58,7 @@ const initialProperties: UnmappedIcicleHtmlProps = {
     isInteractive: true,
     enableZooming: htmlDefaultProps.enableZooming,
     zoomMode: htmlDefaultProps.zoomMode,
+    isFocusable: htmlDefaultProps.isFocusable,
     'custom tooltip example': false,
     'showcase pattern usage': false,
 }
@@ -101,6 +102,7 @@ const IcicleHtml = () => {
                         data={data}
                         {...properties}
                         theme={theme}
+                        nodeAriaLabel={node => `"${node.id}" node with a value of: ${node.value}`}
                         onClick={node =>
                             logAction({
                                 type: 'click',

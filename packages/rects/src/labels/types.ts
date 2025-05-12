@@ -3,10 +3,9 @@ import { SpringValue } from '@react-spring/web'
 import { PropertyAccessor, BoxAnchor } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 import { TextAlign, TextBaseline } from '@nivo/theming'
-import { DatumWithRect, AnchorWithRect, DatumWithRectAndColor } from '../types'
+import { NodeWithRect, AnchorWithRect, NodeWithRectAndColor } from '../types'
 
-export interface RectLabelProps<Datum extends DatumWithRectAndColor>
-    extends RectComputedLabel<Datum> {
+export interface RectLabelProps<Node extends NodeWithRectAndColor> extends RectComputedLabel<Node> {
     style: {
         x: SpringValue<number>
         y: SpringValue<number>
@@ -18,13 +17,13 @@ export interface RectLabelProps<Datum extends DatumWithRectAndColor>
     testId?: string
 }
 
-export type RectLabelComponent<Datum extends DatumWithRectAndColor> = FunctionComponent<
-    RectLabelProps<Datum>
+export type RectLabelComponent<Node extends NodeWithRectAndColor> = FunctionComponent<
+    RectLabelProps<Node>
 >
 
-export interface RectLabelsProps<Datum extends DatumWithRectAndColor> {
-    uid: PropertyAccessor<Omit<Datum, 'rect'>, string>
-    label: PropertyAccessor<Omit<Datum, 'rect'>, string>
+export interface RectLabelsProps<Node extends NodeWithRectAndColor> {
+    uid: PropertyAccessor<Omit<Node, 'rect'>, string>
+    label: PropertyAccessor<Omit<Node, 'rect'>, string>
     labelBoxAnchor: BoxAnchor
     labelPaddingX: number
     labelPaddingY: number
@@ -33,12 +32,12 @@ export interface RectLabelsProps<Datum extends DatumWithRectAndColor> {
     labelRotation: number
     labelSkipWidth: number
     labelSkipHeight: number
-    labelTextColor: InheritedColorConfig<Omit<Datum, 'rect'>>
-    labelComponent: RectLabelComponent<Datum>
+    labelTextColor: InheritedColorConfig<Omit<Node, 'rect'>>
+    labelComponent: RectLabelComponent<Node>
 }
 
-export interface RectComputedLabel<Datum extends DatumWithRect> extends AnchorWithRect {
-    data: Omit<Datum, 'rect'>
+export interface RectComputedLabel<Node extends NodeWithRect> extends AnchorWithRect {
+    node: Omit<Node, 'rect'>
     label: string
     color: string
     rotation: number

@@ -13,16 +13,18 @@ Icicle:
   stories:
     - label: Custom node component (html)
       link: iciclehtml--custom-node
+    - label: Keyboard navigation
+      link: icicle--keyboard-navigation
     - label: Custom colors
       link: icicle--custom-colors
     - label: Colors from data
-      link: icicle--child-color-picked-from-data
+      link: icicle--color-picked-from-data
     - label: Custom tooltip
       link: icicle--custom-tooltip
     - label: Patterns and gradients
       link: icicle--patterns-and-gradients
   description: |
-    An Icicle Chart with zooming ability.
+    An Icicle Chart with zooming ability and keyboard navigation support.
 
     This chart type visualizes hierarchical data using nested rectangles.
     Each rectangle represents a node, sized by a value like count or duration,
@@ -35,10 +37,12 @@ IcicleHtml:
   stories:
     - label: Custom node component
       link: iciclehtml--custom-node
+    - label: Keyboard navigation
+      link: iciclehtml--keyboard-navigation
     - label: Custom colors
       link: iciclehtml--custom-colors
     - label: Colors from data
-      link: child-color-picked-from-data
+      link: iciclehtml--color-picked-from-data
     - label: Custom tooltip
       link: iciclehtml--custom-tooltip
   description: |

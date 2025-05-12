@@ -1,8 +1,14 @@
 import { Fragment, ReactNode, useCallback } from 'react'
 import { Container, useDimensions, DefaultChartContext, ChartContext } from '@nivo/core'
 import { RectLabels } from '@nivo/rects'
-import { IcicleHtmlProps, IcicleHtmlPropsWithDefaults, IcicleLayerId, ComputedDatum } from './types'
-import { useIcicle, useIcicleCustomLayerProps, useMemoizeChartContext } from './hooks'
+import {
+    IcicleCustomLayerProps,
+    IcicleHtmlProps,
+    IcicleHtmlPropsWithDefaults,
+    IcicleLayerId,
+    IcicleNode,
+} from './types'
+import { useIcicle, useIcicleNav, useMemoizeChartContext } from './hooks'
 import { htmlDefaultProps } from './defaults'
 import { IcicleNodes } from './IcicleNodes'
 
@@ -43,10 +49,14 @@ const InnerIcicleHtml = <Datum, Context>({
     enableZooming = htmlDefaultProps.enableZooming,
     zoomMode = htmlDefaultProps.zoomMode,
     tooltip = htmlDefaultProps.tooltip as IcicleHtmlPropsWithDefaults<Datum>['tooltip'],
-    onClick,
     onMouseEnter,
-    onMouseLeave,
     onMouseMove,
+    onMouseLeave,
+    onClick,
+    onDoubleClick,
+    onFocus,
+    onBlur,
+    onKeyDown,
     onWheel,
     onContextMenu,
     animateOnMount = htmlDefaultProps.animateOnMount,
@@ -56,6 +66,12 @@ const InnerIcicleHtml = <Datum, Context>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    isFocusable = htmlDefaultProps.isFocusable,
+    nodeRole = htmlDefaultProps.nodeRole as string,
+    nodeAriaLabel,
+    nodeAriaLabelledBy,
+    nodeAriaDescribedBy,
+    nodeAriaHidden,
     context = htmlDefaultProps.context as IcicleHtmlPropsWithDefaults<Datum, Context>['context'],
 }: IcicleHtmlProps<Datum, Context>) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
@@ -64,7 +80,7 @@ const InnerIcicleHtml = <Datum, Context>({
         partialMargin
     )
 
-    const { nodes, zoom } = useIcicle<Datum>({
+    const { nodes, nodeByPath, zoom } = useIcicle<Datum>({
         data,
         sort,
         identity,
@@ -81,6 +97,13 @@ const InnerIcicleHtml = <Datum, Context>({
         childColor,
         enableZooming,
         zoomMode,
+        isFocusable,
+        withA11y: true,
+        nodeRole,
+        nodeAriaLabel,
+        nodeAriaLabelledBy,
+        nodeAriaDescribedBy,
+        nodeAriaHidden,
     })
 
     const layerById: Record<IcicleLayerId, ReactNode> = {
@@ -88,11 +111,14 @@ const InnerIcicleHtml = <Datum, Context>({
         labels: null,
     }
 
+    const { nodeRefs, nav } = useIcicleNav<Datum>(nodes, nodeByPath, orientation)
+
     if (layers.includes('rects')) {
         layerById.rects = (
             <IcicleNodes<Datum>
+                nodeRefs={nodeRefs}
                 key="rects"
-                data={nodes}
+                nodes={nodes}
                 component={nodeComponent}
                 borderRadius={borderRadius}
                 borderWidth={borderWidth}
@@ -101,12 +127,18 @@ const InnerIcicleHtml = <Datum, Context>({
                 enableZooming={enableZooming}
                 zoom={zoom}
                 tooltip={tooltip}
-                onClick={onClick}
                 onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
                 onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                onDoubleClick={onDoubleClick}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onKeyDown={onKeyDown}
                 onWheel={onWheel}
                 onContextMenu={onContextMenu}
+                isFocusable={isFocusable}
+                nav={nav}
                 animateOnMount={animateOnMount}
                 transitionMode={rectsTransitionMode}
             />
@@ -114,16 +146,16 @@ const InnerIcicleHtml = <Datum, Context>({
     }
 
     const getLabelTestId = useCallback(
-        (datum: Omit<ComputedDatum<Datum>, 'rect'>) => `icicle.label.${datum.path}`,
+        (datum: Omit<IcicleNode<Datum>, 'rect'>) => `icicle.label.${datum.hierarchy.path}`,
         []
     )
 
     if (enableLabels && layers.includes('labels')) {
         layerById.labels = (
-            <RectLabels<ComputedDatum<Datum>>
+            <RectLabels<IcicleNode<Datum>>
                 key="labels"
-                data={nodes}
-                uid="path"
+                nodes={nodes}
+                uid="hierarchy.path"
                 label={label}
                 boxAnchor={labelBoxAnchor}
                 align={labelAlign}
@@ -141,10 +173,10 @@ const InnerIcicleHtml = <Datum, Context>({
         )
     }
 
-    const customLayerProps = useIcicleCustomLayerProps<Datum>({
+    const customLayerProps: IcicleCustomLayerProps<Datum> = {
         nodes,
         zoom,
-    })
+    }
 
     const memoizedContext = useMemoizeChartContext({ orientation, zoom }, context)
 
@@ -160,6 +192,7 @@ const InnerIcicleHtml = <Datum, Context>({
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}
             aria-describedby={ariaDescribedBy}
+            tabIndex={isFocusable ? 0 : undefined}
         >
             <ChartContext.Provider value={memoizedContext}>
                 <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>

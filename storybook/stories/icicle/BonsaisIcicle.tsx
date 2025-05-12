@@ -118,7 +118,7 @@ const TooltipWrapper = styled.div`
 `
 
 const CustomNodeComponent: IcicleNodeComponent<BonsaiNode> = ({
-    datum,
+    node,
     style,
     onMouseEnter,
     onMouseMove,
@@ -126,7 +126,7 @@ const CustomNodeComponent: IcicleNodeComponent<BonsaiNode> = ({
     onClick,
 }) => {
     const { orientation } = useIcicleContext()
-    const isRoot = datum.depth === 0
+    const isRoot = node.hierarchy.depth === 0
 
     if (isRoot) {
         return (
@@ -137,7 +137,7 @@ const CustomNodeComponent: IcicleNodeComponent<BonsaiNode> = ({
                     left: style.x,
                     width: style.width,
                     height: style.height,
-                    backgroundColor: datum.color,
+                    backgroundColor: node.color,
                 }}
                 onClick={onClick}
             >
@@ -165,17 +165,17 @@ const CustomNodeComponent: IcicleNodeComponent<BonsaiNode> = ({
                 left: style.x,
                 width: style.width,
                 height: style.height,
-                backgroundColor: datum.color,
+                backgroundColor: node.color,
             }}
-            img={datum.data.img}
+            img={node.data.img}
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
             onClick={onClick}
         >
-            {datum.rect.width >= 80 && datum.rect.height >= 36 && (
+            {node.rect.width >= 80 && node.rect.height >= 36 && (
                 <Label>
-                    <LabelText>{datum.data.taxon}</LabelText>
+                    <LabelText>{node.data.taxon}</LabelText>
                 </Label>
             )}
         </NodeWrapper>

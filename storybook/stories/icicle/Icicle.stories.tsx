@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
 import { linearGradientDef, patternDotsDef } from '@nivo/core'
-import { Icicle, IcicleSvgProps, svgDefaultProps, ComputedDatum } from '@nivo/icicle'
+import { Icicle, IcicleSvgProps, svgDefaultProps, IcicleNode } from '@nivo/icicle'
+import { useKeyLoggerRef, KeyLogger } from '../internal/KeyLogger'
+import {
+    KeyboardNavigationContainer,
+    KeyboardDoc,
+    playKeyboardNavigationDemo,
+    SUPPORTED_KEYBOARD_KEYS,
+} from './shared'
 
 interface RawDatum {
     name: string
@@ -67,12 +74,12 @@ export const CustomColors: Story = {
     ),
 }
 
-export const ChildColorPickedFromData: Story = {
+export const ColorPickedFromData: Story = {
     render: args => (
         <Icicle<RawDatum>
             {...commonProperties}
             orientation={args.orientation}
-            childColor={(_parent, child) => child.data.color}
+            colors={node => node.data.color}
         />
     ),
 }
@@ -124,18 +131,45 @@ export const PatternsAndGradients: Story = {
                 {
                     match: node =>
                         ['viz', 'text', 'utils'].includes(
-                            (node as unknown as ComputedDatum<RawDatum>).id as string
+                            (node as unknown as IcicleNode<RawDatum>).id as string
                         ),
                     id: 'gradient',
                 },
                 {
                     match: node =>
                         ['set', 'generators', 'misc'].includes(
-                            (node as unknown as ComputedDatum<RawDatum>).id as string
+                            (node as unknown as IcicleNode<RawDatum>).id as string
                         ),
                     id: 'pattern',
                 },
             ]}
         />
     ),
+}
+
+export const KeyboardNavigation: Story = {
+    render: args => {
+        const keyLogger = useKeyLoggerRef()
+
+        return (
+            <>
+                <KeyLogger ref={keyLogger} only={SUPPORTED_KEYBOARD_KEYS} duration={2000} />
+                <KeyboardNavigationContainer>
+                    <Icicle<RawDatum>
+                        {...commonProperties}
+                        width={600}
+                        orientation={args.orientation}
+                        isFocusable
+                        onKeyDown={(_node, event) => {
+                            keyLogger.current?.logKey(event)
+                        }}
+                    />
+                    <KeyboardDoc />
+                </KeyboardNavigationContainer>
+            </>
+        )
+    },
+    play: async ({ canvasElement }) => {
+        await playKeyboardNavigationDemo(canvasElement)
+    },
 }
