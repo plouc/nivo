@@ -68,6 +68,8 @@ export type SankeyNodeDatum<N extends DefaultNode, L extends DefaultLink> = N & 
     y1: number
     value: number
     // custom nivo properties
+    manualX?: number  
+    manualY?: number
     color: string
     label: string
     formattedValue: string
@@ -138,6 +140,7 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     sort: SankeySortType | SankeySortFunction<N, L>
 
     layers: readonly SankeyLayer<N, L>[]
+    nodePositions?: Record<string, { x?: number, y?: number }>  
 
     margin: Box
 
