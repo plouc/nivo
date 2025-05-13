@@ -24,6 +24,12 @@ const defaultData = [
 
 const defaultResponsiveProps: ResponsiveProps<BulletSvgProps> = {
     data: defaultData,
+    margin: {
+        top: 0,
+        right: 24,
+        bottom: 24,
+        left: 24,
+    },
     animate: false,
     role: 'chart',
 }
