@@ -106,17 +106,13 @@ export type ChordRibbonMouseHandler = (ribbon: any, event: MouseEvent) => void
 
 export type ChordCommonProps = {
     margin: Box
-
     label: PropertyAccessor<Omit<ArcDatum, 'label' | 'color'>, string>
     valueFormat: ValueFormat<number>
-
     padAngle: number
     innerRadiusRatio: number
     innerRadiusOffset: number
-
     theme: PartialTheme
     colors: OrdinalColorScaleConfig<Omit<ArcDatum, 'label' | 'color'>>
-
     arcOpacity: number
     activeArcOpacity: number
     inactiveArcOpacity: number
@@ -127,25 +123,19 @@ export type ChordCommonProps = {
     onArcMouseLeave: ChordArcMouseHandler
     onArcClick: ChordArcMouseHandler
     arcTooltip: ArcTooltipComponent
-
     ribbonBlendMode: CssMixBlendMode
     ribbonOpacity: number
     activeRibbonOpacity: number
     inactiveRibbonOpacity: number
     ribbonBorderWidth: number
     ribbonBorderColor: InheritedColorConfig<ArcDatum>
-
     enableLabel: boolean
     labelOffset: number
     labelRotation: number
     labelTextColor: InheritedColorConfig<ArcDatum>
-
     isInteractive: boolean
-
     legends: LegendProps[]
-
     renderWrapper: boolean
-
     role: string
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']

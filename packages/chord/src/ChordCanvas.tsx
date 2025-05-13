@@ -83,6 +83,7 @@ const InnerChordCanvas = ({
     onArcMouseLeave,
     onArcClick,
     legends = canvasDefaultProps.legends,
+    role,
     forwardedRef,
 }: InnerChordCanvasProps) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
@@ -370,6 +371,7 @@ const InnerChordCanvas = ({
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            role={role}
         />
     )
 }
