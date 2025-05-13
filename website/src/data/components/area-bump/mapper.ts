@@ -1,5 +1,6 @@
 import { AreaBumpSvgProps } from '@nivo/bump'
-import { settingsMapper, mapAxis, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapAxis } from '../../../lib/property-mappers'
 
 export type MappedAreaBumpProps = Omit<AreaBumpSvgProps<any, {}>, 'data' | 'width' | 'height'>
 export type UnmappedAreaBumpProps = UnmappedSettings<
@@ -11,6 +12,6 @@ export type UnmappedAreaBumpProps = UnmappedSettings<
 >
 
 export default settingsMapper<UnmappedAreaBumpProps, MappedAreaBumpProps>({
-    axisTop: mapAxis('top'),
-    axisBottom: mapAxis('bottom'),
+    axisTop: mapAxis,
+    axisBottom: mapAxis,
 })

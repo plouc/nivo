@@ -1,6 +1,6 @@
 import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
+// import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveBar, svgDefaultProps } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
@@ -10,14 +10,12 @@ import { groups } from '../../data/components/bar/props'
 
 const initialProperties: UnmappedBarProps = {
     indexBy: 'country',
-
     margin: {
         top: 50,
         right: 130,
         bottom: 50,
         left: 60,
     },
-
     padding: 0.3,
     innerPadding: 0,
     minValue: 'auto',
@@ -28,34 +26,33 @@ const initialProperties: UnmappedBarProps = {
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
     valueFormat: { format: '', enabled: false },
-    colors: { scheme: 'nivo' },
+    colors: svgDefaultProps.colors,
     colorBy: 'id',
-    defs: [
-        patternDotsDef('dots', {
-            background: 'inherit',
-            color: '#38bcb2',
-            size: 4,
-            padding: 1,
-            stagger: true,
-        }),
-        patternLinesDef('lines', {
-            background: 'inherit',
-            color: '#eed312',
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-        }),
-    ],
-    fill: [
-        { match: { id: 'fries' }, id: 'dots' },
-        { match: { id: 'sandwich' }, id: 'lines' },
-    ],
+    // Patterns should be disabled by default, otherwise the code
+    // becomes too complex for a simple example.
+    // defs: [
+    //     patternDotsDef('dots', {
+    //         background: 'inherit',
+    //         color: '#38bcb2',
+    //         size: 4,
+    //         padding: 1,
+    //         stagger: true,
+    //     }),
+    //     patternLinesDef('lines', {
+    //         background: 'inherit',
+    //         color: '#eed312',
+    //         rotation: -45,
+    //         lineWidth: 6,
+    //         spacing: 10,
+    //     }),
+    // ],
+    // fill: [
+    //     { match: { id: 'fries' }, id: 'dots' },
+    //     { match: { id: 'sandwich' }, id: 'lines' },
+    // ],
     borderRadius: 0,
     borderWidth: 0,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 1.6]],
-    },
+    borderColor: svgDefaultProps.borderColor,
     axisTop: {
         enable: false,
         tickSize: 5,
@@ -101,10 +98,7 @@ const initialProperties: UnmappedBarProps = {
     totalsOffset: 10,
     labelSkipWidth: 12,
     labelSkipHeight: 12,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 1.6]],
-    },
+    labelTextColor: svgDefaultProps.labelTextColor,
     labelPosition: 'middle',
     labelOffset: 0,
     legends: [
@@ -115,33 +109,18 @@ const initialProperties: UnmappedBarProps = {
             justify: false,
             translateX: 120,
             translateY: 0,
-            itemsSpacing: 2,
+            itemsSpacing: 3,
             itemWidth: 100,
-            itemHeight: 20,
+            itemHeight: 16,
             itemDirection: 'left-to-right',
-            itemOpacity: 0.85,
-            symbolSize: 20,
-            onClick: data => {
-                alert(JSON.stringify(data, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemOpacity: 1,
-                    },
-                },
-            ],
+            symbolSize: 16,
         },
     ],
-    isInteractive: true,
+    isInteractive: svgDefaultProps.isInteractive,
     'custom tooltip example': false,
-    animate: true,
-    motionConfig: 'default',
-    role: 'application',
-    isFocusable: false,
-    ariaLabel: 'Nivo bar chart demo',
-    barAriaLabel: data => `${data.id}: ${data.formattedValue} in country: ${data.indexValue}`,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
+    isFocusable: svgDefaultProps.isFocusable,
 }
 
 const Bar = ({ location }: PageProps) => {

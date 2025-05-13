@@ -14,22 +14,18 @@ import {
 const initialProperties: UnmappedWaffleCanvasProps = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     total: 140,
-
     rows: 40,
     columns: 40,
     fillDirection: canvasDefaultProps.fillDirection,
     padding: 0.5,
     valueFormat: { format: '.2f', enabled: true },
-
     margin: {
         top: 10,
         right: 10,
         bottom: 10,
         left: 120,
     },
-
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     colors: { scheme: 'category10' },
@@ -39,12 +35,9 @@ const initialProperties: UnmappedWaffleCanvasProps = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
     animate: canvasDefaultProps.animate,
     motionConfig: canvasDefaultProps.motionConfig,
-
     isInteractive: true,
-
     legends: [
         {
             anchor: 'top-left',
@@ -59,18 +52,6 @@ const initialProperties: UnmappedWaffleCanvasProps = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: datum => {
-                alert(JSON.stringify(datum, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                        itemBackground: '#f7fafb',
-                    },
-                },
-            ],
         },
     ],
 }

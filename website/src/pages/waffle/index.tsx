@@ -57,18 +57,6 @@ const initialProperties: UnmappedWaffleSvgProps = {
             itemOpacity: 1,
             itemTextColor: '#777',
             symbolSize: 20,
-            onClick: datum => {
-                alert(JSON.stringify(datum, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                        itemBackground: '#f7fafb',
-                    },
-                },
-            ],
         },
     ],
 }

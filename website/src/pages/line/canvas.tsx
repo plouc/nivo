@@ -102,18 +102,6 @@ const initialProperties: UnmappedLineCanvasProps = {
             symbolSize: 12,
             symbolShape: 'circle',
             symbolBorderColor: 'rgba(0, 0, 0, .5)',
-            onClick: data => {
-                alert(JSON.stringify(data, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemBackground: 'rgba(0, 0, 0, .03)',
-                        itemOpacity: 1,
-                    },
-                },
-            ],
         },
     ],
 }

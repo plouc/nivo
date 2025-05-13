@@ -1,3 +1,4 @@
+import { defaultAxisProps } from '@nivo/axes'
 import { LineTooltip } from './LineTooltip'
 import { Point } from './Point'
 import { BumpCommonProps, DefaultBumpDatum, BumpSvgPropsWithDefaults } from './types'
@@ -32,9 +33,10 @@ const commonDefaultProps: BumpCommonProps<DefaultBumpDatum, Record<string, unkno
     pointBorderColor: { from: 'serie.color', modifiers: [['darker', 1.4]] },
     enableGridX: true,
     enableGridY: true,
-    axisTop: {},
-    axisBottom: {},
-    axisLeft: {},
+    axisTop: defaultAxisProps,
+    axisRight: null,
+    axisBottom: defaultAxisProps,
+    axisLeft: defaultAxisProps,
     isInteractive: true,
     defaultActiveSerieIds: [],
     lineTooltip: LineTooltip,

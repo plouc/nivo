@@ -81,17 +81,6 @@ const initialProperties = {
             itemDirection: 'left-to-right',
             itemOpacity: 0.85,
             symbolSize: 20,
-            onClick: (data: any) => {
-                alert(JSON.stringify(data, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemOpacity: 1,
-                    },
-                },
-            ],
         },
     ],
 }

@@ -55,22 +55,18 @@ const initialProperties = {
     arcLinkLabelsStraightLength: 24,
     arcLinkLabelsThickness: 2,
     arcLinkLabelsColor: { from: 'color' },
-
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsRadiusOffset: 0.5,
     arcLabelsSkipAngle: 10,
     arcLabelsSkipRadius: 0,
     arcLabelsTextColor: '#333333',
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
-    'showcase pattern usage': true,
-
+    'showcase pattern usage': false,
     defs: [],
     fill: [],
-
     legends: [
         {
             anchor: 'right',

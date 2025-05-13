@@ -1,4 +1,5 @@
-import { settingsMapper, mapFormat } from '../../../lib/settings'
+import { settingsMapper } from '../../../lib/settings'
+import { mapFormat } from '../../../lib/property-mappers'
 
 export default settingsMapper({
     label: value => {

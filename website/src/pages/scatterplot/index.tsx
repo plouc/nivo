@@ -14,7 +14,6 @@ const initialProperties = {
         bottom: 70,
         left: 90,
     },
-
     xScale: {
         type: 'linear',
         min: 0,
@@ -27,17 +26,13 @@ const initialProperties = {
         max: 'auto',
     },
     yFormat: { format: '>-.2f', enabled: true },
-
     colors: svgDefaultProps.colors,
     blendMode: 'multiply',
-
     nodeSize: svgDefaultProps.nodeSize,
-
     enableGridX: svgDefaultProps.enableGridX,
     enableGridY: svgDefaultProps.enableGridY,
     axisTop: {
         enable: false,
-        orient: 'top',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -47,7 +42,6 @@ const initialProperties = {
     },
     axisRight: {
         enable: false,
-        orient: 'right',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -57,7 +51,6 @@ const initialProperties = {
     },
     axisBottom: {
         enable: true,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -69,7 +62,6 @@ const initialProperties = {
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -79,14 +71,11 @@ const initialProperties = {
         format: d => `${d} cm`,
         truncateTickAt: 0,
     },
-
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
-
     isInteractive: svgDefaultProps.isInteractive,
     useMesh: svgDefaultProps.useMesh,
     debugMesh: svgDefaultProps.debugMesh,
-
     legends: [
         {
             anchor: 'bottom-right',
@@ -100,17 +89,6 @@ const initialProperties = {
             itemDirection: 'left-to-right',
             symbolSize: 12,
             symbolShape: 'circle',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemOpacity: 1,
-                    },
-                },
-            ],
         },
     ],
 }

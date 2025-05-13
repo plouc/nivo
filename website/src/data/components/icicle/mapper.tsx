@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
 import { IcicleSvgProps, IcicleHtmlProps, IcicleNode, DefaultIcicleDatum } from '@nivo/icicle'
-import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat } from '../../../lib/property-mappers'
 
 interface CustomProps {
     valueFormat: {

@@ -63,17 +63,6 @@ const initialProperties: UnmappedChordProps = {
             itemDirection: 'left-to-right',
             symbolSize: 12,
             symbolShape: 'circle',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }

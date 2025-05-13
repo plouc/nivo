@@ -1,4 +1,5 @@
 import { MotionProps, SvgDefsAndFill } from '@nivo/core'
+import { defaultAxisProps } from '@nivo/axes'
 import { AreaBumpCommonProps, AreaBumpComputedSerie, DefaultAreaBumpDatum } from './types'
 import { AreaTooltip } from './AreaTooltip'
 
@@ -13,13 +14,10 @@ const commonDefaultProps: Omit<
     | 'renderWrapper'
 > = {
     align: 'middle',
-
     layers: ['grid', 'axes', 'labels', 'areas'],
-
     interpolation: 'smooth',
     spacing: 0,
     xPadding: 0.6,
-
     colors: { scheme: 'nivo' },
     blendMode: 'normal',
     fillOpacity: 0.8,
@@ -32,22 +30,18 @@ const commonDefaultProps: Omit<
     borderOpacity: 1,
     activeBorderOpacity: 1,
     inactiveBorderOpacity: 0,
-
-    startLabel: false,
+    startLabel: true,
     startLabelPadding: 12,
     startLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
     endLabel: true,
     endLabelPadding: 12,
     endLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
-
     enableGridX: true,
-    axisTop: {},
-    axisBottom: {},
-
+    axisTop: defaultAxisProps,
+    axisBottom: defaultAxisProps,
     isInteractive: true,
     defaultActiveSerieIds: [],
     tooltip: AreaTooltip,
-
     role: 'img',
 }
 

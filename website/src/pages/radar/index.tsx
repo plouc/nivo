@@ -11,23 +11,18 @@ const initialProperties: UnmappedRadarProps = {
     indexBy: 'taste',
     maxValue: 'auto',
     valueFormat: { format: '>-.2f', enabled: true },
-
     margin: {
         top: 70,
         right: 80,
         bottom: 40,
         left: 80,
     },
-
     curve: 'linearClosed',
-
     borderWidth: 2,
     borderColor: { from: 'color' },
-
     gridLevels: 5,
     gridShape: 'circular',
     gridLabelOffset: 36,
-
     enableDots: svgDefaultProps.enableDots,
     dotSize: 10,
     dotColor: { theme: 'background' },
@@ -36,16 +31,12 @@ const initialProperties: UnmappedRadarProps = {
     enableDotLabel: svgDefaultProps.enableDotLabel,
     dotLabel: svgDefaultProps.dotLabel,
     dotLabelYOffset: svgDefaultProps.dotLabelYOffset,
-
     colors: { scheme: 'nivo' },
     fillOpacity: 0.25,
     blendMode: 'multiply',
-
     animate: true,
     motionConfig: 'wobbly',
-
     isInteractive: true,
-
     legends: [
         {
             anchor: 'top-left',
@@ -57,17 +48,6 @@ const initialProperties: UnmappedRadarProps = {
             itemTextColor: '#999',
             symbolSize: 12,
             symbolShape: 'circle',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }

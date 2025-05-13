@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
 import { SvgProps, TooltipProps } from '@nivo/marimekko'
-import { mapAxis, mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapAxis, mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedMarimekkoProps = Omit<SvgProps<any>, 'data' | 'width' | 'height'>
 export type UnmappedMarimekkoProps = UnmappedSettings<
@@ -53,10 +54,11 @@ const CustomTooltip = ({ bar }: TooltipProps<any>) => (
 export default settingsMapper<UnmappedMarimekkoProps, MappedMarimekkoProps>(
     {
         valueFormat: mapFormat,
-        axisTop: mapAxis('top'),
-        axisRight: mapAxis('right'),
-        axisBottom: mapAxis('bottom'),
-        axisLeft: mapAxis('left'),
+        axisTop: mapAxis,
+        axisRight: mapAxis,
+        axisBottom: mapAxis,
+        axisLeft: mapAxis,
+        legends: mapLegends,
         tooltip: (_value, values) => {
             if (!values['custom tooltip example']) return undefined
 

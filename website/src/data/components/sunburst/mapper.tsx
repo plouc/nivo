@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
 import { SunburstSvgProps, ComputedDatum } from '@nivo/sunburst'
-import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat } from '../../../lib/property-mappers'
 
 export type MappedSunburstProps = Omit<
     SunburstSvgProps<any>,

@@ -2,9 +2,56 @@ import forOwn from 'lodash/forOwn.js'
 import isPlainObject from 'lodash/isPlainObject.js'
 import isArray from 'lodash/isArray.js'
 import isString from 'lodash/isString.js'
-import isNumber from 'lodash/isNumber.js'
 import isBoolean from 'lodash/isBoolean.js'
+import isEqual from 'lodash/isEqual.js'
 import dedent from 'dedent-js'
+
+const compactArrays = (str: string) => {
+    let out = ''
+    let inString = false
+    let quoteChar = ''
+
+    for (let i = 0; i < str.length; i++) {
+        const c = str[i]
+
+        // enter/exit string literal
+        if (!inString && (c === '"' || c === "'")) {
+            inString = true
+            quoteChar = c
+            out += c
+            continue
+        }
+        if (inString && c === quoteChar && str[i - 1] !== '\\') {
+            inString = false
+            quoteChar = ''
+            out += c
+            continue
+        }
+
+        // handle [ outside strings
+        if (!inString && c === '[') {
+            out += '['
+            // skip any spaces immediately after
+            while (str[i + 1] === ' ') i++
+            continue
+        }
+
+        // handle ] outside strings
+        if (!inString && c === ']') {
+            // remove any spaces we just output
+            while (out.endsWith(' ')) {
+                out = out.slice(0, -1)
+            }
+            out += ']'
+            continue
+        }
+
+        // default: copy character
+        out += c
+    }
+
+    return out
+}
 
 const indent = (content: string, spaces: number = 8) =>
     content
@@ -23,9 +70,8 @@ const toJson = (value: any) => {
         })
         .replace(/"/gm, `'`)
 
-    if (normalized.length < 80) {
-        return normalized.replace(/\n/gm, ' ').replace(/\s{2,}/g, ' ')
-    }
+    const compacted = compactArrays(normalized.replace(/\n/gm, ' ').replace(/\s{2,}/g, ' '))
+    if (compacted.length <= 100) return compacted
 
     return indent(normalized)
 }
@@ -55,10 +101,11 @@ export const generateChartCode = (
 
     forOwn(props, (_value, key) => {
         if (_value === undefined) return
-        if (defaults && defaults[key] === _value) return
+        if (defaults && isEqual(defaults[key], _value)) return
+        // Ignore the theme property as it's customized for the website.
         if (key === 'theme') return
 
-        let value
+        let value: string | undefined
         if (isPlainObject(_value)) {
             value = `{${toJson(_value)}}`
         } else if (isArray(_value)) {
@@ -67,39 +114,22 @@ export const generateChartCode = (
             value = `"${_value}"`
         } else if (isBoolean(_value)) {
             value = `{${_value ? 'true' : 'false'}}`
-        } else if (isNumber(_value)) {
-            value = `{${_value}}`
         } else if (typeof _value === 'function') {
             value = `{${indent(dedent(_value.toString()), 8)}}`
         } else if (_value === null) {
             value = `{null}`
         } else {
-            value = _value
+            value = `{${_value}}`
         }
+
+        if (!value) return
 
         properties.push(`${key}=${value}`)
     })
 
-    const install = `// yarn add ${pkg}`
-
     const imports = [name, ...children.map(([c]) => c)].map(i => `import { ${i} } from '${pkg}'`)
 
-    let responsiveWarning = ''
-    if (name.indexOf('Responsive') === 0) {
-        responsiveWarning = [
-            ``,
-            `// make sure parent container have a defined height when using`,
-            `// responsive component, otherwise height will be 0 and`,
-            `// no chart will be rendered.`,
-            `// website examples showcase many properties,`,
-            `// you'll often use just a few of them.`,
-        ].join('\n')
-    }
-
-    return `// install (please try to align the version of installed @nivo packages)
-${install}
-${imports.join('\n')}
-${responsiveWarning}
+    return `${imports.join('\n')}\n
 const My${name} = (${args}) => (
     <${name}
         ${properties.join('\n        ')}

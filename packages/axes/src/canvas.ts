@@ -2,6 +2,7 @@ import { degreesToRadians } from '@nivo/core'
 import { Theme, PartialTheme, extendAxisTheme } from '@nivo/theming'
 import { setCanvasFont, drawCanvasText } from '@nivo/text'
 import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
+import { defaultAxisProps } from './defaults'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { positions } from './props'
 import { AxisLegendPosition, CanvasAxisProps, ValueFormatter } from './types'
@@ -16,13 +17,13 @@ export const renderAxisToCanvas = <Value extends ScaleValue>(
         length,
         ticksPosition,
         tickValues,
-        tickSize = 5,
-        tickPadding = 5,
-        tickRotation = 0,
+        tickSize = defaultAxisProps.tickSize,
+        tickPadding = defaultAxisProps.tickPadding,
+        tickRotation = defaultAxisProps.tickRotation,
         format: _format,
         legend,
-        legendPosition = 'end',
-        legendOffset = 0,
+        legendPosition = defaultAxisProps.legendPosition,
+        legendOffset = defaultAxisProps.legendOffset,
         theme,
         style,
     }: {

@@ -3,6 +3,7 @@ import * as React from 'react'
 import { useTheme } from '@nivo/theming'
 import { Text } from '@nivo/text'
 import { LegendSvgItemProps } from '../types'
+import { legendDefaults } from '../defaults'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
 
@@ -28,23 +29,20 @@ export const LegendSvgItem = ({
     width,
     height,
     data,
-    direction = 'left-to-right',
-    justify = false,
+    direction = legendDefaults.itemDirection,
+    justify = legendDefaults.justify,
     textColor,
     background = 'transparent',
     opacity = 1,
-
-    symbolShape = 'square',
-    symbolSize = 16,
-    symbolSpacing = 8,
+    symbolShape = legendDefaults.symbolShape,
+    symbolSize = legendDefaults.symbolSize,
+    symbolSpacing = legendDefaults.symbolSpacing,
     symbolBorderWidth = 0,
     symbolBorderColor = 'transparent',
-
     onClick,
     onMouseEnter,
     onMouseLeave,
     toggleSerie,
-
     effects,
 }: LegendSvgItemProps) => {
     const [style, setStyle] = useState<Style>({})

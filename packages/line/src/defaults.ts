@@ -1,3 +1,4 @@
+import { defaultAxisProps } from '@nivo/axes'
 import {
     CommonLineProps,
     LineSvgPropsWithDefaults,
@@ -21,8 +22,6 @@ export const commonDefaultProps: Omit<
     | 'pointSymbol'
     | 'gridXValues'
     | 'gridYValues'
-    | 'axisTop'
-    | 'axisRight'
     | 'onMouseEnter'
     | 'onMouseMove'
     | 'onMouseLeave'
@@ -87,8 +86,10 @@ export const svgDefaultProps: Omit<
     enablePointLabel: false,
     pointLabel: 'data.yFormatted',
     areaBlendMode: 'normal',
-    axisBottom: {},
-    axisLeft: {},
+    axisTop: null,
+    axisRight: null,
+    axisBottom: defaultAxisProps,
+    axisLeft: defaultAxisProps,
     useMesh: false,
     enableSlices: false,
     debugSlices: false,
@@ -108,6 +109,8 @@ export const canvasDefaultProps: Omit<
 > = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
-    axisBottom: {},
-    axisLeft: {},
+    axisTop: null,
+    axisRight: null,
+    axisBottom: defaultAxisProps,
+    axisLeft: defaultAxisProps,
 }

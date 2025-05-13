@@ -1,5 +1,6 @@
 import { LineSvgProps, LineCanvasProps } from '@nivo/line'
-import { settingsMapper, mapAxis, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapAxis, mapFormat, mapLegends } from '../../../lib/property-mappers'
 import { LineSampleSeries } from './generator'
 
 export type MappedLineSvgProps = Omit<LineSvgProps<LineSampleSeries>, 'data' | 'width' | 'height'>
@@ -47,14 +48,15 @@ export type UnmappedLineCanvasProps = UnmappedSettings<
 export const svgMapper = settingsMapper<UnmappedLineSvgProps, MappedLineSvgProps>({
     xFormat: mapFormat,
     yFormat: mapFormat,
-    axisTop: mapAxis('top'),
-    axisRight: mapAxis('right'),
-    axisBottom: mapAxis('bottom'),
-    axisLeft: mapAxis('left'),
+    axisTop: mapAxis,
+    axisRight: mapAxis,
+    axisBottom: mapAxis,
+    axisLeft: mapAxis,
     pointLabel: value => {
         if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.data.x}: ${d.data.y}`
         return `data.${value}`
     },
+    legends: mapLegends,
 })
 
 export const canvasMapper = svgMapper as ReturnType<
