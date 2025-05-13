@@ -37,23 +37,18 @@ const InnerBar = <RawDatum extends BarDatum>({
     data,
     indexBy,
     keys,
-
     margin: partialMargin,
     width,
     height,
-
     groupMode,
     layout,
     reverse,
     minValue,
     maxValue,
-
     valueScale,
     indexScale,
-
     padding,
     innerPadding,
-
     axisTop,
     axisRight,
     axisBottom = svgDefaultProps.axisBottom,
@@ -62,10 +57,8 @@ const InnerBar = <RawDatum extends BarDatum>({
     enableGridY = svgDefaultProps.enableGridY,
     gridXValues,
     gridYValues,
-
     layers = svgDefaultProps.layers as readonly BarLayer<RawDatum>[],
     barComponent = svgDefaultProps.barComponent,
-
     enableLabel = svgDefaultProps.enableLabel,
     label,
     labelSkipWidth = svgDefaultProps.labelSkipWidth,
@@ -73,9 +66,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     labelTextColor,
     labelPosition = svgDefaultProps.labelPosition,
     labelOffset = svgDefaultProps.labelOffset,
-
     markers = svgDefaultProps.markers,
-
     colorBy,
     colors,
     defs = svgDefaultProps.defs,
@@ -83,22 +74,16 @@ const InnerBar = <RawDatum extends BarDatum>({
     borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor,
-
     annotations = svgDefaultProps.annotations,
-
     legendLabel,
     tooltipLabel,
-
     valueFormat,
-
     isInteractive = svgDefaultProps.isInteractive,
     tooltip = svgDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
-
     legends,
-
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -109,14 +94,12 @@ const InnerBar = <RawDatum extends BarDatum>({
     barAriaDescribedBy,
     barAriaHidden,
     barAriaDisabled,
-
     initialHiddenIds,
-
     enableTotals = svgDefaultProps.enableTotals,
     totalsOffset = svgDefaultProps.totalsOffset,
     forwardedRef,
 }: InnerBarProps<RawDatum> & {
-    forwardedRef?: Ref<SVGSVGElement>
+    forwardedRef: Ref<SVGSVGElement>
 }) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(

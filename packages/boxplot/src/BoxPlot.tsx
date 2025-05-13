@@ -35,25 +35,19 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     subGroupBy = svgDefaultProps.subGroupBy,
     subGroups = svgDefaultProps.subGroups,
     quantiles = svgDefaultProps.quantiles,
-
     margin: partialMargin,
     width,
     height,
-
     layout = svgDefaultProps.layout,
     minValue = svgDefaultProps.minValue,
     maxValue = svgDefaultProps.maxValue,
-
     valueScale = svgDefaultProps.valueScale,
     indexScale = svgDefaultProps.indexScale,
-
     padding = svgDefaultProps.padding,
     innerPadding = svgDefaultProps.innerPadding,
-
     opacity = svgDefaultProps.opacity,
     activeOpacity = svgDefaultProps.activeOpacity,
     inactiveOpacity = svgDefaultProps.inactiveOpacity,
-
     axisTop,
     axisRight,
     axisBottom = svgDefaultProps.axisBottom,
@@ -97,7 +91,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     boxPlotAriaDescribedBy,
     forwardedRef,
 }: InnerBoxPlotProps<RawDatum> & {
-    forwardedRef?: Ref<SVGSVGElement>
+    forwardedRef: Ref<SVGSVGElement>
 }) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(

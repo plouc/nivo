@@ -1,6 +1,6 @@
 import { calendarDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
+import { chartDimensions, chartRef, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
@@ -114,6 +114,7 @@ const props: ChartProperty[] = [
             max: 600,
         },
     },
+    chartRef(['svg', 'canvas']),
     themeProperty(['svg', 'canvas', 'api']),
     {
         key: 'colors',

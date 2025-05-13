@@ -26,7 +26,12 @@ export const Container = styled.div`
         display: inline;
     }
 
-    a {
+    a,
+    code {
         color: ${({ theme }) => theme.colors.text};
+
+        code {
+            color: ${({ theme }) => theme.colors.text};
+        }
     }
 `

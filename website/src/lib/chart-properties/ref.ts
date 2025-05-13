@@ -19,7 +19,7 @@ export const chartRef = (flavors: Flavor[]): ChartProperty => {
         group: 'Base',
         type: `Ref<${elementTypes.join(' | ')}>`,
         required: false,
-        help: `Ref to the chart's container. Used on this page to generate/download the chart's image.`,
+        help: `Ref to the chart's container. Used on this page to generate/download the chart's image via [\`html-to-image\`](https://www.npmjs.com/package/html-to-image).`,
         flavors,
     } as ChartProperty
 }

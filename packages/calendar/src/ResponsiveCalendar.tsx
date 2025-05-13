@@ -1,9 +1,12 @@
+import { forwardRef, Ref } from 'react'
+import { ResponsiveWrapper, ResponsiveProps } from '@nivo/core'
 import { Calendar } from './Calendar'
 import { CalendarSvgProps } from './types'
-import { ResponsiveWrapper } from '@nivo/core'
 
-export const ResponsiveCalendar = (props: Omit<CalendarSvgProps, 'height' | 'width'>) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => <Calendar width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
+export const ResponsiveCalendar = forwardRef(
+    (props: ResponsiveProps<CalendarSvgProps>, ref: Ref<SVGSVGElement>) => (
+        <ResponsiveWrapper>
+            {({ width, height }) => <Calendar width={width} height={height} {...props} ref={ref} />}
+        </ResponsiveWrapper>
+    )
 )
