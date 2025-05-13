@@ -83,6 +83,24 @@ export const chartDebounceResize = (flavors: Flavor[]): ChartProperty => ({
     flavors,
 })
 
+export const chartOnResize = (flavors: Flavor[]): ChartProperty => ({
+    key: 'onResize',
+    group: 'Base',
+    type: '(dimensions: { width: number; height: number }) => void',
+    required: false,
+    help: 'A callback for when responsive component is resized.',
+    description: `
+    When using a responsive component, you might need to adjust
+    some elements of the chart to accommodate the new size,
+    such as axes, labels, or legends.
+
+    You could use this callback to adjust some properties,
+    but memoization should be used when the updated properties
+    aren't scalar values, otherwise this might lead to needless updates.
+    `,
+    flavors,
+})
+
 export const chartMargin = (flavors: Flavor[]): ChartProperty => ({
     key: 'margin',
     group: 'Base',
@@ -121,6 +139,7 @@ export const chartDimensions = (
     if (withResponsiveProps) {
         properties.push(chartDefaultHeight(flavors))
         properties.push(chartDebounceResize(flavors))
+        properties.push(chartOnResize(flavors))
     }
 
     if (flavors.includes('canvas')) {

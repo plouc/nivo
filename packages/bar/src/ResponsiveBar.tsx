@@ -8,6 +8,7 @@ export const ResponsiveBar = forwardRef(
         {
             defaultWidth,
             defaultHeight,
+            onResize,
             debounceResize,
             ...props
         }: ResponsiveProps<BarSvgProps<RawDatum>>,
@@ -16,6 +17,7 @@ export const ResponsiveBar = forwardRef(
         <ResponsiveWrapper
             defaultWidth={defaultWidth}
             defaultHeight={defaultHeight}
+            onResize={onResize}
             debounceResize={debounceResize}
         >
             {({ width, height }) => (

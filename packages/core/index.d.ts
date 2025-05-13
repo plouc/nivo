@@ -273,6 +273,7 @@ type ResponsiveWrapperType = (props: {
     children: (dimensions: { width: number; height: number }) => JSX.Element
     defaultWidth?: number
     defaultHeight?: number
+    onResize?: (dimensions: { width: number; height: number }) => void
     debounceResize?: number
 }) => JSX.Element
 export const ResponsiveWrapper: ResponsiveWrapperType
@@ -280,6 +281,7 @@ export const ResponsiveWrapper: ResponsiveWrapperType
 export type ResponsiveProps<Props> = Omit<Props, 'width' | 'height'> & {
     defaultWidth?: number
     defaultHeight?: number
+    onResize?: (dimensions: { width: number; height: number }) => void
     debounceResize?: number
 }
 
