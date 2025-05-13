@@ -8,6 +8,7 @@ export const ResponsiveBarCanvas = forwardRef(
         {
             defaultWidth,
             defaultHeight,
+            onResize,
             debounceResize,
             ...props
         }: ResponsiveProps<BarCanvasProps<RawDatum>>,
@@ -16,6 +17,7 @@ export const ResponsiveBarCanvas = forwardRef(
         <ResponsiveWrapper
             defaultWidth={defaultWidth}
             defaultHeight={defaultHeight}
+            onResize={onResize}
             debounceResize={debounceResize}
         >
             {({ width, height }) => (
