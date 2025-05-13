@@ -4,8 +4,11 @@ import { BulletSvgProps } from './types'
 import { Bullet } from './Bullet'
 
 export const ResponsiveBullet = forwardRef(
-    (props: ResponsiveProps<BulletSvgProps>, ref: Ref<SVGSVGElement>) => (
-        <ResponsiveWrapper>
+    (
+        { defaultWidth, defaultHeight, ...props }: ResponsiveProps<BulletSvgProps>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper defaultWidth={defaultWidth} defaultHeight={defaultHeight}>
             {({ width, height }) => <Bullet width={width} height={height} {...props} ref={ref} />}
         </ResponsiveWrapper>
     )
