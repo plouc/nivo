@@ -1,3 +1,4 @@
+import { forwardRef, Ref } from 'react'
 import { Container, SvgWrapper, useDimensions, useValueFormatter } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -13,7 +14,6 @@ const InnerCalendar = ({
     margin: partialMargin,
     width,
     height,
-
     align = calendarDefaultProps.align,
     colors = calendarDefaultProps.colors,
     colorScale,
@@ -26,33 +26,31 @@ const InnerCalendar = ({
     maxValue = calendarDefaultProps.maxValue,
     valueFormat,
     legendFormat,
-
     yearLegend = calendarDefaultProps.yearLegend,
     yearLegendOffset = calendarDefaultProps.yearLegendOffset,
     yearLegendPosition = calendarDefaultProps.yearLegendPosition,
     yearSpacing = calendarDefaultProps.yearSpacing,
-
     monthBorderColor = calendarDefaultProps.monthBorderColor,
     monthBorderWidth = calendarDefaultProps.monthBorderWidth,
     monthLegend = calendarDefaultProps.monthLegend,
     monthLegendOffset = calendarDefaultProps.monthLegendOffset,
     monthLegendPosition = calendarDefaultProps.monthLegendPosition,
     monthSpacing = calendarDefaultProps.monthSpacing,
-
     dayBorderColor = calendarDefaultProps.dayBorderColor,
     dayBorderWidth = calendarDefaultProps.dayBorderWidth,
     daySpacing = calendarDefaultProps.daySpacing,
-
     isInteractive = calendarDefaultProps.isInteractive,
     tooltip = calendarDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
-
     legends = calendarDefaultProps.legends,
     role = calendarDefaultProps.role,
-}: CalendarSvgProps) => {
+    forwardedRef,
+}: CalendarSvgProps & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const theme = useTheme()
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -83,7 +81,13 @@ const InnerCalendar = ({
     const formatValue = useValueFormatter(valueFormat)
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ref={forwardedRef}
+        >
             {days.map(d => (
                 <CalendarDay
                     key={d.date.toString()}
@@ -134,13 +138,18 @@ const InnerCalendar = ({
     )
 }
 
-export const Calendar = ({
-    isInteractive = calendarDefaultProps.isInteractive,
-    renderWrapper,
-    theme,
-    ...props
-}: CalendarSvgProps) => (
-    <Container {...{ isInteractive, renderWrapper, theme }}>
-        <InnerCalendar isInteractive={isInteractive} {...props} />
-    </Container>
+export const Calendar = forwardRef(
+    (
+        {
+            isInteractive = calendarDefaultProps.isInteractive,
+            renderWrapper,
+            theme,
+            ...props
+        }: CalendarSvgProps,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }}>
+            <InnerCalendar isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
 )

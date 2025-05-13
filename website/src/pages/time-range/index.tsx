@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { PageProps } from 'gatsby'
 import { ResponsiveTimeRange, timeRangeDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
@@ -18,13 +18,11 @@ const generateData = () => generateDayCounts(from, to)
 const initialProperties = {
     from: '2018-04-01',
     to: '2018-08-12',
-
     align: 'center',
     emptyColor: '#eeeeee',
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
     minValue: 0,
     maxValue: 'auto',
-
     margin: {
         top: 40,
         right: 40,
@@ -32,23 +30,18 @@ const initialProperties = {
         left: 40,
     },
     direction: 'horizontal',
-
     monthLegendPosition: 'before',
     monthLegendOffset: 10,
-
     weekdayLegendOffset: 75,
     firstWeekday: 'sunday',
-
     square: true,
     dayRadius: 0,
     daySpacing: 0,
     dayBorderWidth: 2,
     dayBorderColor: '#ffffff',
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
-
     legends: [
         {
             anchor: 'bottom-right',
@@ -84,13 +77,15 @@ const TimeRange = ({ location }: PageProps) => {
             })}
             generateData={generateData}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveTimeRange
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         onClick={day => {
                             logAction({
                                 type: 'click',

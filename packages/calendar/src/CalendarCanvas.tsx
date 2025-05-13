@@ -1,4 +1,4 @@
-import { memo, useRef, useState, useEffect, useCallback, MouseEvent } from 'react'
+import { memo, useRef, useState, useEffect, useCallback, MouseEvent, forwardRef, Ref } from 'react'
 import * as React from 'react'
 import {
     Box,
@@ -8,6 +8,7 @@ import {
     degreesToRadians,
     useDimensions,
     useValueFormatter,
+    mergeRefs,
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -47,7 +48,6 @@ const InnerCalendarCanvas = memo(
         width,
         height,
         pixelRatio = calendarCanvasDefaultProps.pixelRatio,
-
         align = calendarCanvasDefaultProps.align,
         colors = calendarCanvasDefaultProps.colors,
         colorScale,
@@ -60,30 +60,28 @@ const InnerCalendarCanvas = memo(
         maxValue = calendarCanvasDefaultProps.maxValue,
         valueFormat,
         legendFormat,
-
         yearLegend = calendarCanvasDefaultProps.yearLegend,
         yearLegendOffset = calendarCanvasDefaultProps.yearLegendOffset,
         yearLegendPosition = calendarCanvasDefaultProps.yearLegendPosition,
         yearSpacing = calendarCanvasDefaultProps.yearSpacing,
-
         monthLegend = calendarCanvasDefaultProps.monthLegend,
         monthLegendOffset = calendarCanvasDefaultProps.monthLegendOffset,
         monthLegendPosition = calendarCanvasDefaultProps.monthLegendPosition,
         monthSpacing = calendarCanvasDefaultProps.monthSpacing,
-
         dayBorderColor = calendarCanvasDefaultProps.dayBorderColor,
         dayBorderWidth = calendarCanvasDefaultProps.dayBorderWidth,
         daySpacing = calendarCanvasDefaultProps.daySpacing,
-
         isInteractive = calendarCanvasDefaultProps.isInteractive,
         tooltip = calendarCanvasDefaultProps.tooltip,
         onClick,
         onMouseEnter,
         onMouseLeave,
         onMouseMove,
-
         legends = calendarCanvasDefaultProps.legends,
-    }: CalendarCanvasProps) => {
+        forwardedRef,
+    }: CalendarCanvasProps & {
+        forwardedRef: Ref<HTMLCanvasElement>
+    }) => {
         const canvasEl = useRef<HTMLCanvasElement | null>(null)
         const { innerWidth, innerHeight, outerWidth, outerHeight, margin } = useDimensions(
             width,
@@ -293,7 +291,7 @@ const InnerCalendarCanvas = memo(
 
         return (
             <canvas
-                ref={canvasEl}
+                ref={mergeRefs(canvasEl, forwardedRef)}
                 width={outerWidth * pixelRatio}
                 height={outerHeight * pixelRatio}
                 style={{
@@ -309,13 +307,18 @@ const InnerCalendarCanvas = memo(
     }
 )
 
-export const CalendarCanvas = ({
-    isInteractive = calendarCanvasDefaultProps.isInteractive,
-    renderWrapper,
-    theme,
-    ...props
-}: CalendarCanvasProps) => (
-    <Container {...{ isInteractive, renderWrapper, theme }}>
-        <InnerCalendarCanvas isInteractive={isInteractive} {...props} />
-    </Container>
+export const CalendarCanvas = forwardRef(
+    (
+        {
+            isInteractive = calendarCanvasDefaultProps.isInteractive,
+            renderWrapper,
+            theme,
+            ...props
+        }: CalendarCanvasProps,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }}>
+            <InnerCalendarCanvas isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
 )

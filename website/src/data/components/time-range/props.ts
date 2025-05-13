@@ -1,6 +1,6 @@
 import { timeRangeDefaultProps as defaults } from '@nivo/calendar'
 import { themeProperty, getLegendsProps, groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
+import { chartDimensions, chartRef, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg']
@@ -114,6 +114,7 @@ const props: ChartProperty[] = [
             max: 600,
         },
     },
+    chartRef(['svg']),
     themeProperty(['svg']),
     {
         key: 'colors',

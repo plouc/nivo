@@ -24,7 +24,6 @@ const initialProperties = {
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
     minValue: 0,
     maxValue: 'auto',
-
     margin: {
         top: 40,
         right: 40,
@@ -32,25 +31,20 @@ const initialProperties = {
         left: 40,
     },
     direction: 'horizontal',
-
     yearSpacing: 40,
     yearLegendPosition: 'before',
     yearLegendOffset: 10,
-
     monthSpacing: 0,
     monthBorderWidth: 2,
     monthBorderColor: '#ffffff',
     monthLegendPosition: 'before',
     monthLegendOffset: 10,
-
     daySpacing: 0,
     dayBorderWidth: 2,
     dayBorderColor: '#ffffff',
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
-
     legends: [
         {
             anchor: 'bottom-right',
@@ -98,13 +92,15 @@ const Calendar = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCalendar
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef}
                         onClick={day => {
                             logAction({
                                 type: 'click',

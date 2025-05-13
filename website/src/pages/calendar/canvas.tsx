@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveCalendarCanvas, calendarCanvasDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
@@ -100,13 +100,15 @@ const CalendarCanvas = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCalendarCanvas
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
                         onClick={day => {
                             logAction({
                                 type: 'click',

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, forwardRef, Ref } from 'react'
 import { Container, SvgWrapper, useValueFormatter, useDimensions } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -20,7 +20,6 @@ const InnerTimeRange = ({
     margin: partialMargin,
     width,
     height,
-
     square = timeRangeDefaultProps.square,
     colors = timeRangeDefaultProps.colors,
     colorScale,
@@ -33,32 +32,29 @@ const InnerTimeRange = ({
     maxValue = timeRangeDefaultProps.maxValue,
     valueFormat,
     legendFormat,
-
     monthLegend = timeRangeDefaultProps.monthLegend,
     monthLegendOffset = timeRangeDefaultProps.monthLegendOffset,
     monthLegendPosition = timeRangeDefaultProps.monthLegendPosition,
-
     weekdayLegendOffset = timeRangeDefaultProps.weekdayLegendOffset,
     weekdayTicks,
     weekdays = timeRangeDefaultProps.weekdays,
-
     dayBorderColor = timeRangeDefaultProps.dayBorderColor,
     dayBorderWidth = timeRangeDefaultProps.dayBorderWidth,
     daySpacing = timeRangeDefaultProps.daySpacing,
     dayRadius = timeRangeDefaultProps.dayRadius,
-
     isInteractive = timeRangeDefaultProps.isInteractive,
     tooltip = timeRangeDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
-
     legends = timeRangeDefaultProps.legends,
     role = timeRangeDefaultProps.role,
-
     firstWeekday = timeRangeDefaultProps.firstWeekday,
-}: TimeRangeSvgProps) => {
+    forwardedRef,
+}: TimeRangeSvgProps & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -138,7 +134,13 @@ const InnerTimeRange = ({
     const formatLegend = useValueFormatter(legendFormat)
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ref={forwardedRef}
+        >
             {weekdayLegends.map(legend => (
                 <Text
                     key={`${legend.value}-${legend.x}-${legend.y}`}
@@ -196,13 +198,18 @@ const InnerTimeRange = ({
     )
 }
 
-export const TimeRange = ({
-    isInteractive = timeRangeDefaultProps.isInteractive,
-    renderWrapper,
-    theme,
-    ...props
-}: TimeRangeSvgProps) => (
-    <Container {...{ isInteractive, renderWrapper, theme }}>
-        <InnerTimeRange isInteractive={isInteractive} {...props} />
-    </Container>
+export const TimeRange = forwardRef(
+    (
+        {
+            isInteractive = timeRangeDefaultProps.isInteractive,
+            renderWrapper,
+            theme,
+            ...props
+        }: TimeRangeSvgProps,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }}>
+            <InnerTimeRange isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
 )
