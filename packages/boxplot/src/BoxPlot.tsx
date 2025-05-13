@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { Fragment, ReactNode, createElement, useMemo, forwardRef, Ref, ReactElement } from 'react'
 import { Axes, Grid } from '@nivo/axes'
 import {
     CartesianMarkers,
@@ -8,6 +8,7 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
+    WithChartRef,
 } from '@nivo/core'
 import { BoxPlotAnnotations } from './BoxPlotAnnotations'
 import { BoxPlotLegends } from './BoxPlotLegends'
@@ -61,10 +62,8 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     enableGridY = svgDefaultProps.enableGridY,
     gridXValues,
     gridYValues,
-
     layers = svgDefaultProps.layers as BoxPlotLayer<RawDatum>[],
     boxPlotComponent = svgDefaultProps.boxPlotComponent,
-
     colorBy = svgDefaultProps.colorBy,
     colors = svgDefaultProps.colors,
     defs = svgDefaultProps.defs,
@@ -77,23 +76,17 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     whiskerWidth = svgDefaultProps.whiskerWidth,
     whiskerColor = svgDefaultProps.whiskerColor,
     whiskerEndSize = svgDefaultProps.whiskerEndSize,
-
     markers = svgDefaultProps.markers,
-
     legendLabel,
     tooltipLabel = svgDefaultProps.tooltipLabel,
-
     valueFormat,
-
     isInteractive = svgDefaultProps.isInteractive,
     tooltip = svgDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
-
     annotations = svgDefaultProps.annotations,
     legends = svgDefaultProps.legends,
-
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
@@ -102,7 +95,10 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     boxPlotAriaLabel,
     boxPlotAriaLabelledBy,
     boxPlotAriaDescribedBy,
-}: InnerBoxPlotProps<RawDatum>) => {
+    forwardedRef,
+}: InnerBoxPlotProps<RawDatum> & {
+    forwardedRef?: Ref<SVGSVGElement>
+}) => {
     const { animate, config: springConfig } = useMotionConfig()
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -347,6 +343,7 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
             isFocusable={isFocusable}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -358,23 +355,34 @@ const InnerBoxPlot = <RawDatum extends BoxPlotDatum>({
     )
 }
 
-export const BoxPlot = <RawDatum extends BoxPlotDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: BoxPlotSvgProps<RawDatum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const BoxPlot = forwardRef(
+    <RawDatum extends BoxPlotDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerBoxPlot<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...otherProps
+        }: BoxPlotSvgProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerBoxPlot<RawDatum>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <RawDatum extends BoxPlotDatum>(
+    props: WithChartRef<BoxPlotSvgProps<RawDatum>, SVGSVGElement>
+) => ReactElement

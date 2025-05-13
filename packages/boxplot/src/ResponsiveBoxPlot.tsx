@@ -1,11 +1,19 @@
-import { BoxPlot } from './BoxPlot'
+import { forwardRef, ReactElement, Ref } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { BoxPlotDatum, BoxPlotSvgProps } from './types'
-import { ResponsiveWrapper } from '@nivo/core'
+import { BoxPlot } from './BoxPlot'
 
-export const ResponsiveBoxPlot = <RawDatum extends BoxPlotDatum>(
-    props: Omit<BoxPlotSvgProps<RawDatum>, 'height' | 'width'>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => <BoxPlot<RawDatum> width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
-)
+export const ResponsiveBoxPlot = forwardRef(
+    <RawDatum extends BoxPlotDatum>(
+        props: ResponsiveProps<BoxPlotSvgProps<RawDatum>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper>
+            {({ width, height }) => (
+                <BoxPlot<RawDatum> width={width} height={height} {...props} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <RawDatum extends BoxPlotDatum>(
+    props: WithChartRef<ResponsiveProps<BoxPlotSvgProps<RawDatum>>, SVGSVGElement>
+) => ReactElement

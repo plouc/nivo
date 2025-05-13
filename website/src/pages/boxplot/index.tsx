@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveBoxPlot, svgDefaultProps } from '@nivo/boxplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -14,7 +14,6 @@ const initialProperties = {
         bottom: 60,
         left: 60,
     },
-
     value: svgDefaultProps.value,
     minValue: 0,
     maxValue: 10,
@@ -24,9 +23,7 @@ const initialProperties = {
     layout: svgDefaultProps.layout,
     padding: 0.12,
     innerPadding: 6,
-
     valueFormat: '.2f',
-
     enableGridX: true,
     enableGridY: true,
     axisTop: {
@@ -67,7 +64,6 @@ const initialProperties = {
         legendOffset: -40,
         truncateTickAt: 0,
     },
-
     colors: { scheme: 'nivo' },
     colorBy: svgDefaultProps.colorBy,
     opacity: svgDefaultProps.opacity,
@@ -88,16 +84,12 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
     isInteractive: true,
     activeOpacity: svgDefaultProps.activeOpacity,
     inactiveOpacity: svgDefaultProps.inactiveOpacity,
-
     animate: true,
     motionConfig: 'stiff',
-
     isFocusable: svgDefaultProps.isFocusable,
-
     legends: [
         {
             anchor: 'right',
@@ -157,13 +149,15 @@ const BoxPlot = ({ location }: PageProps) => {
             getTabData={data => data}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveBoxPlot
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         onClick={boxPlot => {
                             logAction({
                                 type: 'click',
