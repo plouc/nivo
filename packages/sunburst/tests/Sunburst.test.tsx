@@ -181,6 +181,35 @@ describe('Sunburst', () => {
             expect(layer.exists()).toBeTruthy()
             expect(layer.prop('arcGenerator').cornerRadius()()).toEqual(3)
         })
+
+        it('should render the root node correctly when innerRadius and renderRootNode are set', () => {
+            const width = 400
+            const height = 400
+            const innerRadiusProp = 0.6
+
+            // Assuming default margins { top: 0, right: 0, bottom: 0, left: 0 }
+            // as per Sunburst defaultProps
+            const chartRadius = Math.min(width, height) / 2
+            const expectedRootOuterRadius = chartRadius * innerRadiusProp
+
+            const wrapper = mount(
+                <Sunburst
+                    width={width}
+                    height={height}
+                    data={sampleData} // sampleData has a root with id: 'root'
+                    innerRadius={innerRadiusProp}
+                    renderRootNode
+                />
+            )
+
+            const rootArcShape = wrapper.find(ArcShape).filterWhere(n => n.prop('datum').depth === 0)
+            expect(rootArcShape.exists()).toBe(true)
+
+            const rootDatum = rootArcShape.prop('datum')
+            expect(rootDatum.id).toEqual('root') // Verify we got the correct root node
+            expect(rootDatum.arc.innerRadius).toEqual(0)
+            expect(rootDatum.arc.outerRadius).toEqual(expectedRootOuterRadius)
+        })
     })
 
     describe('colors', () => {
