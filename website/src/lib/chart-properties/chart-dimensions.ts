@@ -5,11 +5,9 @@ export const chartWidth = (flavors: Flavor[]): ChartProperty => ({
     group: 'Base',
     type: 'number',
     required: true,
-    help: 'Chart width.',
+    help: 'Chart width for non-responsive component.',
     description: `
-        Not required if using responsive component, \`<Responsive* />\`.
-
-        Also note that width does not include labels/axes,
+        Please note that this does not include labels/axes,
         so you should add enough margin to display them.
     `,
     flavors,
@@ -23,16 +21,28 @@ export const chartWidth = (flavors: Flavor[]): ChartProperty => ({
     },
 })
 
+export const chartDefaultWidth = (flavors: Flavor[]): ChartProperty => ({
+    key: 'defaultWidth',
+    group: 'Base',
+    type: 'number',
+    required: false,
+    help: 'Chart default width for responsive component.',
+    description: `
+        This can be used for SSR to set a default width for the chart.
+
+        It's going to be adjusted once mounted in the DOM.
+    `,
+    flavors,
+})
+
 export const chartHeight = (flavors: Flavor[]): ChartProperty => ({
     key: 'height',
     group: 'Base',
     type: 'number',
     required: true,
-    help: 'Chart height.',
+    help: 'Chart height for non-responsive component.',
     description: `
-        Not required if using responsive component, \`<Responsive* />\`.
-
-        Also note that height does not include labels/axes,
+        Please note that this does not include labels/axes,
         so you should add enough margin to display them.
     `,
     flavors,
@@ -44,6 +54,33 @@ export const chartHeight = (flavors: Flavor[]): ChartProperty => ({
         max: 1000,
         step: 5,
     },
+})
+
+export const chartDefaultHeight = (flavors: Flavor[]): ChartProperty => ({
+    key: 'defaultHeight',
+    group: 'Base',
+    type: 'number',
+    required: false,
+    help: 'Chart default height for responsive component.',
+    description: `
+        This can be used for SSR to set a default height for the chart.
+
+        It's going to be adjusted once mounted in the DOM.
+    `,
+    flavors,
+})
+
+export const chartDebounceResize = (flavors: Flavor[]): ChartProperty => ({
+    key: 'debounceResize',
+    group: 'Base',
+    type: 'number (ms)',
+    required: false,
+    help: 'Debounce `width`/`height` updates for responsive component.',
+    description: `
+        Chart dimensions updates requires to recompute the layout,
+        which can be pretty expensive.
+    `,
+    flavors,
 })
 
 export const chartMargin = (flavors: Flavor[]): ChartProperty => ({
@@ -71,8 +108,20 @@ export const pixelRatio = (): ChartProperty => ({
     },
 })
 
-export const chartDimensions = (flavors: Flavor[]): ChartProperty[] => {
-    const properties: ChartProperty[] = [chartWidth(flavors), chartHeight(flavors)]
+export const chartDimensions = (
+    flavors: Flavor[],
+    withResponsiveProps = false
+): ChartProperty[] => {
+    const properties: ChartProperty[] = [chartWidth(flavors)]
+    if (withResponsiveProps) {
+        properties.push(chartDefaultWidth(flavors))
+    }
+
+    properties.push(chartHeight(flavors))
+    if (withResponsiveProps) {
+        properties.push(chartDefaultHeight(flavors))
+        properties.push(chartDebounceResize(flavors))
+    }
 
     if (flavors.includes('canvas')) {
         properties.push(pixelRatio())
