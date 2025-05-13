@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import shuffle from 'lodash/shuffle.js'
 import { ResponsiveBullet, defaultProps } from '@nivo/bullet'
@@ -74,13 +74,15 @@ const Bullet = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveBullet
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         onRangeClick={range => {
                             logAction({
                                 type: 'click',

@@ -1,6 +1,6 @@
 import { defaultProps } from '@nivo/bullet'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions } from '../../../lib/chart-properties'
+import { chartDimensions, chartRef } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg']
@@ -151,6 +151,7 @@ const props: ChartProperty[] = [
             step: 0.05,
         },
     },
+    chartRef(allFlavors),
     themeProperty(['svg']),
     {
         key: 'rangeBorderColor',
