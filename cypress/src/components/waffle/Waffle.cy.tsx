@@ -1,6 +1,6 @@
 import { Waffle } from '@nivo/waffle'
 
-describe('<Waffle />', () => {
+describe('Waffle', () => {
     it('should show a tooltip when hovering the areas', () => {
         cy.mount(
             <Waffle
