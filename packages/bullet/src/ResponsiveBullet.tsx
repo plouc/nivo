@@ -1,9 +1,12 @@
-import { ResponsiveWrapper, Dimensions } from '@nivo/core'
+import { forwardRef, Ref } from 'react'
+import { ResponsiveWrapper, ResponsiveProps } from '@nivo/core'
 import { BulletSvgProps } from './types'
 import { Bullet } from './Bullet'
 
-export const ResponsiveBullet = (props: Omit<BulletSvgProps, 'height' | 'width'>) => (
-    <ResponsiveWrapper>
-        {({ width, height }: Dimensions) => <Bullet width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
+export const ResponsiveBullet = forwardRef(
+    (props: ResponsiveProps<BulletSvgProps>, ref: Ref<SVGSVGElement>) => (
+        <ResponsiveWrapper>
+            {({ width, height }) => <Bullet width={width} height={height} {...props} ref={ref} />}
+        </ResponsiveWrapper>
+    )
 )
