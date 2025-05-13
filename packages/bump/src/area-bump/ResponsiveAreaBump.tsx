@@ -1,4 +1,5 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import {
     AreaBumpDatum,
     AreaBumpSerieExtraProps,
@@ -7,15 +8,23 @@ import {
 } from './types'
 import { AreaBump } from './AreaBump'
 
-export const ResponsiveAreaBump = <
+export const ResponsiveAreaBump = forwardRef(
+    <
+        Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
+        ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
+    >(
+        props: ResponsiveProps<AreaBumpSvgProps<Datum, ExtraProps>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper>
+            {({ width, height }) => (
+                <AreaBump<Datum, ExtraProps> width={width} height={height} {...props} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <
     Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
 >(
-    props: Omit<AreaBumpSvgProps<Datum, ExtraProps>, 'width' | 'height'>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => (
-            <AreaBump<Datum, ExtraProps> width={width} height={height} {...props} />
-        )}
-    </ResponsiveWrapper>
-)
+    props: WithChartRef<ResponsiveProps<AreaBumpSvgProps<Datum, ExtraProps>>, SVGSVGElement>
+) => ReactElement | null

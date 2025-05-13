@@ -1,5 +1,5 @@
-import { createElement, useMemo, Fragment, ReactNode } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { createElement, useMemo, Fragment, ReactNode, forwardRef, ReactElement, Ref } from 'react'
+import { Container, useDimensions, SvgWrapper, WithChartRef } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import {
     BumpCustomLayerProps,
@@ -102,7 +102,10 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
         ExtraProps
     >['pointTooltip'],
     role = bumpSvgDefaultProps.role,
-}: InnerBumpProps<Datum, ExtraProps>) => {
+    forwardedRef,
+}: InnerBumpProps<Datum, ExtraProps> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -296,7 +299,13 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     )
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ref={forwardedRef}
+        >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return <Fragment key={i}>{createElement(layer, customLayerProps)}</Fragment>
@@ -308,26 +317,40 @@ const InnerBump = <Datum extends BumpDatum, ExtraProps extends BumpSerieExtraPro
     )
 }
 
-export const Bump = <
+export const Bump = forwardRef(
+    <
+        Datum extends BumpDatum = DefaultBumpDatum,
+        ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
+    >(
+        {
+            isInteractive = bumpSvgDefaultProps.isInteractive,
+            animate = bumpSvgDefaultProps.animate,
+            motionConfig = bumpSvgDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...otherProps
+        }: BumpSvgProps<Datum, ExtraProps>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerBump<Datum, ExtraProps>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <
     Datum extends BumpDatum = DefaultBumpDatum,
     ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
->({
-    isInteractive = bumpSvgDefaultProps.isInteractive,
-    animate = bumpSvgDefaultProps.animate,
-    motionConfig = bumpSvgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: BumpSvgProps<Datum, ExtraProps>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
-            theme,
-        }}
-    >
-        <InnerBump<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+>(
+    props: WithChartRef<BumpSvgProps<Datum, ExtraProps>, SVGSVGElement>
+) => ReactElement

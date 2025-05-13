@@ -48,13 +48,11 @@ const initialProperties: UnmappedBumpProps = {
         bottom: 40,
         left: 60,
     },
-
     colors: { scheme: 'spectral' },
     lineWidth: 3,
     activeLineWidth: 6,
     inactiveLineWidth: 3,
     inactiveOpacity: 0.15,
-
     pointSize: 10,
     activePointSize: 16,
     inactivePointSize: 0,
@@ -63,7 +61,6 @@ const initialProperties: UnmappedBumpProps = {
     activePointBorderWidth: 3,
     inactivePointBorderWidth: 0,
     pointBorderColor: { from: 'serie.color' },
-
     axisTop: {
         enable: true,
         tickSize: 5,
@@ -127,7 +124,7 @@ const Bump = ({ location }: PageProps) => {
         <ComponentTemplate<UnmappedBumpProps, MappedBumpProps, any>
             name="Bump"
             meta={meta.Bump}
-            icon="chord"
+            icon="bump"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
@@ -137,13 +134,15 @@ const Bump = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveBump
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef}
                         onClick={data => {
                             if (isComputedBumpSerie(data)) {
                                 logAction({

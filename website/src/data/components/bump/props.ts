@@ -2,6 +2,7 @@ import { bumpSvgDefaultProps as defaults } from '@nivo/bump'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     chartGrid,
     axes,
@@ -102,6 +103,7 @@ const props: ChartProperty[] = [
             step: 0.05,
         },
     },
+    chartRef(['svg']),
     themeProperty(['svg']),
     ordinalColors({
         flavors: allFlavors,

@@ -1,11 +1,12 @@
 import {
-    ForwardedRef,
     createElement,
     forwardRef,
     useCallback,
     useEffect,
     useMemo,
     useRef,
+    ReactElement,
+    Ref,
 } from 'react'
 import {
     Container,
@@ -14,6 +15,8 @@ import {
     isCursorInRect,
     useDimensions,
     useValueFormatter,
+    WithChartRef,
+    mergeRefs,
 } from '@nivo/core'
 import { Theme, useTheme } from '@nivo/theming'
 import { setCanvasFont, drawCanvasText } from '@nivo/text'
@@ -43,7 +46,7 @@ type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
     BarCanvasProps<RawDatum>,
     'renderWrapper' | 'theme'
 > & {
-    canvasRef: ForwardedRef<HTMLCanvasElement>
+    forwardedRef: Ref<HTMLCanvasElement>
 }
 
 const findBarUnderCursor = <RawDatum,>(
@@ -172,7 +175,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 
     pixelRatio = canvasDefaultProps.pixelRatio,
 
-    canvasRef,
+    forwardedRef,
 
     enableTotals = canvasDefaultProps.enableTotals,
     totalsOffset = canvasDefaultProps.totalsOffset,
@@ -499,10 +502,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 
     return (
         <canvas
-            ref={canvas => {
-                canvasEl.current = canvas
-                if (canvasRef && 'current' in canvasRef) canvasRef.current = canvas
-            }}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -521,10 +521,12 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
 export const BarCanvas = forwardRef(
     <RawDatum extends BarDatum>(
         { isInteractive, renderWrapper, theme, ...props }: BarCanvasProps<RawDatum>,
-        ref: ForwardedRef<HTMLCanvasElement>
+        ref: Ref<HTMLCanvasElement>
     ) => (
         <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
-            <InnerBarCanvas<RawDatum> {...props} canvasRef={ref} />
+            <InnerBarCanvas<RawDatum> {...props} forwardedRef={ref} />
         </Container>
     )
-)
+) as <RawDatum extends BarDatum>(
+    props: WithChartRef<BarCanvasProps<RawDatum>, HTMLCanvasElement>
+) => ReactElement

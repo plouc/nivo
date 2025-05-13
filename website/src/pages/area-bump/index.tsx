@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import range from 'lodash/range.js'
 import random from 'lodash/random.js'
 import { useStaticQuery, graphql, PageProps } from 'gatsby'
@@ -32,12 +32,10 @@ const initialProperties: UnmappedAreaBumpProps = {
         bottom: 40,
         left: 100,
     },
-
     align: defaults.align,
     interpolation: defaults.interpolation,
     spacing: 8,
     xPadding: defaults.xPadding,
-
     colors: { scheme: 'nivo' },
     blendMode: 'multiply',
     fillOpacity: defaults.fillOpacity,
@@ -70,14 +68,12 @@ const initialProperties: UnmappedAreaBumpProps = {
     borderOpacity: defaults.borderOpacity,
     activeBorderOpacity: defaults.activeBorderOpacity,
     inactiveBorderOpacity: defaults.inactiveBorderOpacity,
-
     startLabel: true,
     startLabelPadding: defaults.startLabelPadding,
     startLabelTextColor: defaults.startLabelTextColor,
     endLabel: true,
     endLabelPadding: defaults.endLabelPadding,
     endLabelTextColor: defaults.endLabelTextColor,
-
     enableGridX: defaults.enableGridX,
     axisTop: {
         enable: true,
@@ -99,9 +95,7 @@ const initialProperties: UnmappedAreaBumpProps = {
         legendOffset: 32,
         truncateTickAt: 0,
     },
-
     isInteractive: true,
-
     animate: defaults.animate,
     motionConfig: defaults.motionConfig,
 }
@@ -139,13 +133,15 @@ const AreaBump = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveAreaBump<{ x: number; y: number }>
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
                         onClick={series =>
                             logAction({
                                 type: 'click',

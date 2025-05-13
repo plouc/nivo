@@ -6,6 +6,7 @@ import {
     MouseEvent,
     SyntheticEvent,
     WheelEvent,
+    Ref,
 } from 'react'
 import * as React from 'react'
 import { Interpolation, SpringConfig } from '@react-spring/web'
@@ -484,3 +485,10 @@ type HtmlElementTag = {
         ? K
         : never
 }[keyof JSX.IntrinsicElements]
+
+export type ResponsiveProps<Props> = Omit<Props, 'width' | 'height'>
+
+export type WithChartRef<
+    Props,
+    T extends SVGSVGElement | HTMLCanvasElement | HTMLDivElement,
+> = Props & { ref?: Ref<T> }

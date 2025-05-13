@@ -1,10 +1,11 @@
-import { Fragment, useMemo, ReactNode, createElement } from 'react'
+import { Fragment, useMemo, ReactNode, createElement, forwardRef, Ref, ReactElement } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
     useDimensions,
     SvgWrapper,
     Container,
+    WithChartRef,
 } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { useAreaBump } from './hooks'
@@ -31,19 +32,15 @@ type InnerAreaBumpProps<
 const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpSerieExtraProps>({
     data,
     align = areaBumpSvgDefaultProps.align,
-
     width,
     height,
     margin: partialMargin,
-
     layers = areaBumpSvgDefaultProps.layers as NonNullable<
         AreaBumpSvgProps<Datum, ExtraProps>['layers']
     >,
-
     interpolation = areaBumpSvgDefaultProps.interpolation,
     spacing = areaBumpSvgDefaultProps.spacing,
     xPadding = areaBumpSvgDefaultProps.xPadding,
-
     colors = areaBumpSvgDefaultProps.colors as NonNullable<
         AreaBumpSvgProps<Datum, ExtraProps>['colors']
     >,
@@ -62,7 +59,6 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
     borderOpacity = areaBumpSvgDefaultProps.borderOpacity,
     activeBorderOpacity = areaBumpSvgDefaultProps.activeBorderOpacity,
     inactiveBorderOpacity = areaBumpSvgDefaultProps.inactiveBorderOpacity,
-
     startLabel = areaBumpSvgDefaultProps.startLabel as NonNullable<
         AreaBumpSvgProps<Datum, ExtraProps>['startLabel']
     >,
@@ -77,11 +73,9 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
     endLabelTextColor = areaBumpSvgDefaultProps.endLabelTextColor as NonNullable<
         AreaBumpSvgProps<Datum, ExtraProps>['endLabelTextColor']
     >,
-
     enableGridX = areaBumpSvgDefaultProps.enableGridX,
     axisTop = areaBumpSvgDefaultProps.axisTop,
     axisBottom = areaBumpSvgDefaultProps.axisBottom,
-
     isInteractive = areaBumpSvgDefaultProps.isInteractive,
     defaultActiveSerieIds = areaBumpSvgDefaultProps.defaultActiveSerieIds,
     onMouseEnter,
@@ -92,7 +86,10 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
         AreaBumpSvgProps<Datum, ExtraProps>['tooltip']
     >,
     role = areaBumpSvgDefaultProps.role,
-}: InnerAreaBumpProps<Datum, ExtraProps>) => {
+    forwardedRef,
+}: InnerAreaBumpProps<Datum, ExtraProps> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -222,6 +219,7 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
             height={outerHeight}
             margin={margin}
             role={role}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -234,26 +232,40 @@ const InnerAreaBump = <Datum extends AreaBumpDatum, ExtraProps extends AreaBumpS
     )
 }
 
-export const AreaBump = <
+export const AreaBump = forwardRef(
+    <
+        Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
+        ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
+    >(
+        {
+            isInteractive = areaBumpSvgDefaultProps.isInteractive,
+            animate = areaBumpSvgDefaultProps.animate,
+            motionConfig = areaBumpSvgDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...props
+        }: AreaBumpSvgProps<Datum, ExtraProps>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerAreaBump<Datum, ExtraProps>
+                isInteractive={isInteractive}
+                {...props}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <
     Datum extends AreaBumpDatum = DefaultAreaBumpDatum,
     ExtraProps extends AreaBumpSerieExtraProps = Record<string, unknown>,
->({
-    isInteractive = areaBumpSvgDefaultProps.isInteractive,
-    animate = areaBumpSvgDefaultProps.animate,
-    motionConfig = areaBumpSvgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: AreaBumpSvgProps<Datum, ExtraProps>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
-            theme,
-        }}
-    >
-        <InnerAreaBump<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+>(
+    props: WithChartRef<AreaBumpSvgProps<Datum, ExtraProps>, SVGSVGElement>
+) => ReactElement
