@@ -1,5 +1,6 @@
 import { Margin } from '@nivo/core'
-import { PolarBar, PolarBarSvgProps, PolarBarDatum } from '@nivo/polar-bar'
+import { PolarBar, ResponsivePolarBar, PolarBarSvgProps, PolarBarDatum } from '@nivo/polar-bar'
+import { testChartResponsiveness } from '../../helpers/responsive'
 
 interface Datum extends PolarBarDatum {
     id: string
@@ -25,6 +26,29 @@ const arcIds = [
     'arc.D.y',
 ]
 
+const responsiveDefaultProps: Required<
+    Pick<
+        PolarBarSvgProps<Datum>,
+        'data' | 'keys' | 'borderWidth' | 'borderColor' | 'cornerRadius' | 'role' | 'animate'
+    >
+> & {
+    margin: Margin
+} = {
+    data: sampleData,
+    keys: ['x', 'y'],
+    margin: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+    },
+    borderWidth: 1,
+    borderColor: '#ffffff',
+    cornerRadius: 5,
+    role: 'chart',
+    animate: false,
+}
+
 const defaultProps: Required<
     Pick<
         PolarBarSvgProps<Datum>,
@@ -35,25 +59,15 @@ const defaultProps: Required<
         | 'borderWidth'
         | 'borderColor'
         | 'cornerRadius'
+        | 'role'
         | 'animate'
     >
 > & {
     margin: Margin
 } = {
-    data: sampleData,
-    keys: ['x', 'y'],
+    ...responsiveDefaultProps,
     width: 540,
     height: 540,
-    margin: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20,
-    },
-    borderWidth: 1,
-    borderColor: '#ffffff',
-    cornerRadius: 5,
-    animate: false,
 }
 
 describe('PolarBar', () => {
@@ -91,4 +105,12 @@ describe('PolarBar', () => {
             })
         })
     })
+
+    testChartResponsiveness(defaults => (
+        <ResponsivePolarBar<Datum>
+            defaultWidth={defaults?.[0]}
+            defaultHeight={defaults?.[1]}
+            {...responsiveDefaultProps}
+        />
+    ))
 })
