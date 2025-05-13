@@ -16,13 +16,10 @@ const initialProperties: UnmappedChordProps = {
         bottom: 90,
         left: 60,
     },
-
     valueFormat: '.2f',
-
     padAngle: 0.02,
     innerRadiusRatio: 0.96,
     innerRadiusOffset: 0.02,
-
     arcOpacity: 1,
     activeArcOpacity: 1,
     inactiveArcOpacity: 0.25,
@@ -31,7 +28,6 @@ const initialProperties: UnmappedChordProps = {
         from: 'color',
         modifiers: [['darker', 0.6]],
     },
-
     ribbonBlendMode: 'normal',
     ribbonOpacity: 0.5,
     activeRibbonOpacity: 0.75,
@@ -41,7 +37,6 @@ const initialProperties: UnmappedChordProps = {
         from: 'color',
         modifiers: [['darker', 0.6]],
     },
-
     enableLabel: true,
     label: 'id',
     labelOffset: 12,
@@ -50,14 +45,10 @@ const initialProperties: UnmappedChordProps = {
         from: 'color',
         modifiers: [['darker', 1]],
     },
-
     colors: { scheme: 'nivo' },
-
     isInteractive: true,
-
     animate: true,
     motionConfig: 'stiff',
-
     legends: [
         {
             anchor: 'bottom',
@@ -123,14 +114,16 @@ const Chord = ({ location }: PageProps) => {
             getTabData={data => data.matrix}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveChord
+                        {...properties}
                         data={data.matrix}
                         keys={data.keys}
-                        {...properties}
                         theme={theme}
+                        ref={chartRef}
                         onArcClick={arc => {
                             logAction({
                                 type: 'click',

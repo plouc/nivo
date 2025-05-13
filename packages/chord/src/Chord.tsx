@@ -1,4 +1,4 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode, Ref, forwardRef } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from './defaults'
@@ -8,33 +8,32 @@ import { ChordArcs } from './ChordArcs'
 import { ChordLabels } from './ChordLabels'
 import { ChordSvgProps, LayerId } from './types'
 
-type InnerChordProps = Omit<ChordSvgProps, 'animate' | 'motionConfig' | 'renderWrapper' | 'theme'>
+type InnerChordProps = Omit<
+    ChordSvgProps,
+    'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerChord = ({
     data,
     keys,
     label,
     valueFormat,
-
     margin: partialMargin,
     width,
     height,
-
     innerRadiusRatio = svgDefaultProps.innerRadiusRatio,
     innerRadiusOffset = svgDefaultProps.innerRadiusOffset,
     padAngle = svgDefaultProps.padAngle,
-
     layers = svgDefaultProps.layers,
-
     colors = svgDefaultProps.colors,
-
     arcBorderWidth = svgDefaultProps.arcBorderWidth,
     arcBorderColor = svgDefaultProps.arcBorderColor,
     arcOpacity = svgDefaultProps.arcOpacity,
     activeArcOpacity = svgDefaultProps.activeArcOpacity,
     inactiveArcOpacity = svgDefaultProps.inactiveArcOpacity,
     arcTooltip = svgDefaultProps.arcTooltip,
-
     ribbonBorderWidth = svgDefaultProps.ribbonBorderWidth,
     ribbonBorderColor = svgDefaultProps.ribbonBorderColor,
     ribbonBlendMode = svgDefaultProps.ribbonBlendMode,
@@ -42,12 +41,10 @@ const InnerChord = ({
     activeRibbonOpacity = svgDefaultProps.activeRibbonOpacity,
     inactiveRibbonOpacity = svgDefaultProps.inactiveRibbonOpacity,
     ribbonTooltip = svgDefaultProps.ribbonTooltip,
-
     enableLabel = svgDefaultProps.enableLabel,
     labelOffset = svgDefaultProps.labelOffset,
     labelRotation = svgDefaultProps.labelRotation,
     labelTextColor = svgDefaultProps.labelTextColor,
-
     isInteractive = svgDefaultProps.isInteractive,
     onArcMouseEnter,
     onArcMouseMove,
@@ -57,13 +54,12 @@ const InnerChord = ({
     onRibbonMouseMove,
     onRibbonMouseLeave,
     onRibbonClick,
-
     legends = svgDefaultProps.legends,
-
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerChordProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -199,6 +195,7 @@ const InnerChord = ({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -211,23 +208,26 @@ const InnerChord = ({
     )
 }
 
-export const Chord = ({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: ChordSvgProps) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Chord = forwardRef(
+    (
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerChord isInteractive={isInteractive} {...otherProps} />
-    </Container>
+            renderWrapper,
+            ...props
+        }: ChordSvgProps,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerChord isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
 )

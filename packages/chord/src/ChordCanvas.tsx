@@ -1,4 +1,4 @@
-import { createElement, useRef, useEffect, useCallback, MouseEvent } from 'react'
+import { createElement, useRef, useEffect, useCallback, MouseEvent, forwardRef, Ref } from 'react'
 import {
     useDimensions,
     midAngle,
@@ -8,6 +8,7 @@ import {
     getRelativeCursor,
     Margin,
     Container,
+    mergeRefs,
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { findArcUnderCursor } from '@nivo/arcs'
@@ -43,7 +44,9 @@ const getArcFromMouseEvent = ({
     return findArcUnderCursor(centerX, centerY, radius, innerRadius, arcs as any[], x, y)
 }
 
-type InnerChordCanvasProps = Omit<ChordCanvasProps, 'renderWrapper' | 'theme'>
+type InnerChordCanvasProps = Omit<ChordCanvasProps, 'renderWrapper' | 'theme'> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
 const InnerChordCanvas = ({
     pixelRatio = canvasDefaultProps.pixelRatio,
@@ -80,6 +83,7 @@ const InnerChordCanvas = ({
     onArcMouseLeave,
     onArcClick,
     legends = canvasDefaultProps.legends,
+    forwardedRef,
 }: InnerChordCanvasProps) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -354,7 +358,7 @@ const InnerChordCanvas = ({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -370,15 +374,20 @@ const InnerChordCanvas = ({
     )
 }
 
-export const ChordCanvas = ({
-    theme,
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: ChordCanvasProps) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerChordCanvas isInteractive={isInteractive} {...otherProps} />
-    </Container>
+export const ChordCanvas = forwardRef(
+    (
+        {
+            theme,
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
+            renderWrapper,
+            ...otherProps
+        }: ChordCanvasProps,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+            <InnerChordCanvas isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
+        </Container>
+    )
 )
