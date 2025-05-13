@@ -22,6 +22,12 @@ const dataSubGroups = [
 
 const defaultResponsiveProps: ResponsiveProps<BoxPlotSvgProps<any>> = {
     data: dataGroups,
+    margin: {
+        top: 0,
+        right: 0,
+        bottom: 24,
+        left: 24,
+    },
     animate: false,
     role: 'chart',
 }

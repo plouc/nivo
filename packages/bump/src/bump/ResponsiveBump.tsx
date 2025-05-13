@@ -14,12 +14,16 @@ export const ResponsiveBump = forwardRef(
         Datum extends BumpDatum = DefaultBumpDatum,
         ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
     >(
-        props:
+        {
+            defaultWidth,
+            defaultHeight,
+            ...props
+        }:
             | ResponsiveProps<BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>>
             | ResponsiveProps<BumpSvgPropsWithPointMouseHandlers<Datum, ExtraProps>>,
         ref: Ref<SVGSVGElement>
     ) => (
-        <ResponsiveWrapper>
+        <ResponsiveWrapper defaultWidth={defaultWidth} defaultHeight={defaultHeight}>
             {({ width, height }) => (
                 <Bump<Datum, ExtraProps> width={width} height={height} {...props} ref={ref} />
             )}
