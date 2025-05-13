@@ -16,16 +16,12 @@ const initialProperties: UnmappedChordProps = {
         bottom: 60,
         left: 60,
     },
-
     valueFormat: '.2f',
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     padAngle: 0.006,
     innerRadiusRatio: 0.86,
     innerRadiusOffset: 0,
-
     arcOpacity: 1,
     activeArcOpacity: 1,
     inactiveArcOpacity: 0.4,
@@ -34,7 +30,6 @@ const initialProperties: UnmappedChordProps = {
         from: 'color',
         modifiers: [['darker', 0.4]],
     },
-
     ribbonOpacity: 0.5,
     activeRibbonOpacity: 0.75,
     inactiveRibbonOpacity: 0,
@@ -43,7 +38,6 @@ const initialProperties: UnmappedChordProps = {
         from: 'color',
         modifiers: [['darker', 0.4]],
     },
-
     enableLabel: true,
     label: 'id',
     labelOffset: 9,
@@ -52,11 +46,8 @@ const initialProperties: UnmappedChordProps = {
         from: 'color',
         modifiers: [['darker', 1]],
     },
-
     colors: { scheme: 'red_blue' },
-
     isInteractive: true,
-
     legends: [
         {
             anchor: 'right',
@@ -122,14 +113,16 @@ const ChordCanvas = ({ location }: PageProps) => {
             getTabData={data => data.matrix}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveChordCanvas
+                        {...properties}
                         data={data.matrix}
                         keys={data.keys}
-                        {...properties}
                         theme={theme}
+                        ref={chartRef}
                         onArcClick={arc => {
                             logAction({
                                 type: 'click',

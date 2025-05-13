@@ -1,6 +1,6 @@
 import { ChartProperty, Flavor } from '../../types'
 
-export const chartRef = (flavors: Flavor[]): ChartProperty => {
+export const chartRef = (flavors: Exclude<Flavor, 'api'>[]): ChartProperty => {
     const elementTypes = flavors.map(flavor => {
         switch (flavor) {
             case 'svg':
