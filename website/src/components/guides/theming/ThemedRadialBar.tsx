@@ -68,6 +68,7 @@ export const ThemedRadialBar = ({ theme }: { theme: Theme }) => {
             data={data}
             theme={theme}
             animate={false}
+            debounceResize={200}
         />
     )
 }

@@ -57,10 +57,18 @@ const Theming = () => {
                     </Nav>
                     {mode === 'demo' && (
                         <>
-                            <ThemedBar theme={theme} />
-                            <ThemedLine theme={theme} />
-                            <ThemedRadialBar theme={theme} />
-                            <ThemedHeatMap theme={theme} />
+                            <div>
+                                <ThemedBar theme={theme} />
+                            </div>
+                            <div>
+                                <ThemedLine theme={theme} />
+                            </div>
+                            <div>
+                                <ThemedRadialBar theme={theme} />
+                            </div>
+                            <div>
+                                <ThemedHeatMap theme={theme} />
+                            </div>
                         </>
                     )}
                     {mode === 'code' && (

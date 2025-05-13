@@ -37,6 +37,7 @@ export const ThemedHeatMap = ({ theme }: { theme: Theme }) => {
             }}
             inactiveOpacity={0.35}
             animate={false}
+            debounceResize={200}
             xOuterPadding={0.1}
             yOuterPadding={0.1}
             axisTop={null}
