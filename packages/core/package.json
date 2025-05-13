@@ -32,7 +32,8 @@
         "d3-scale-chromatic": "^3.0.0",
         "d3-shape": "^3.2.0",
         "d3-time-format": "^3.0.0",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "react-virtualized-auto-sizer": "^1.0.26"
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 20.0.0"
