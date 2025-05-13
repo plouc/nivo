@@ -17,7 +17,7 @@
 .guide__illustrations__item {
     width: 31%;
     height: 200px;
-    border: 2px solid #333;
+    box-shadow: 0 0 0 2px #333;
     background: var(--main-background-color);
 }
 

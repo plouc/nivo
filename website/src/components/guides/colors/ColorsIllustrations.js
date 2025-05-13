@@ -27,6 +27,7 @@ const ColorsIllustrations = () => {
                         borderColor="#333"
                         isInteractive={false}
                         animate={false}
+                        debounceResize={200}
                         theme={theme.nivo}
                     />
                 </div>
@@ -46,6 +47,7 @@ const ColorsIllustrations = () => {
                         borderColor="#333"
                         isInteractive={false}
                         animate={false}
+                        debounceResize={200}
                         theme={theme.nivo}
                     />
                 </div>
@@ -66,6 +68,7 @@ const ColorsIllustrations = () => {
                         nodeOpacity={1}
                         isInteractive={false}
                         animate={false}
+                        debounceResize={200}
                         enableLabel={false}
                         theme={theme.nivo}
                     />

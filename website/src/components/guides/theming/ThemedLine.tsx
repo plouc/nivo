@@ -48,6 +48,7 @@ export const ThemedLine = ({ theme }: { theme: Theme }) => {
             pointSize={10}
             theme={theme}
             animate={false}
+            debounceResize={200}
             axisBottom={{
                 legend: 'X axis legend',
                 legendPosition: 'middle',

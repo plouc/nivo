@@ -22,6 +22,7 @@ export const ThemedBar = ({ theme }: { theme: Theme }) => {
             theme={theme}
             colorBy="indexValue"
             animate={false}
+            debounceResize={200}
             enableGridX={true}
             axisBottom={{
                 legend: 'X axis legend',
