@@ -1,4 +1,5 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import {
     BumpDatum,
     BumpSvgPropsWithSeriesMouseHandlers,
@@ -8,17 +9,33 @@ import {
 } from './types'
 import { Bump } from './Bump'
 
-export const ResponsiveBump = <
+export const ResponsiveBump = forwardRef(
+    <
+        Datum extends BumpDatum = DefaultBumpDatum,
+        ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
+    >(
+        props:
+            | ResponsiveProps<BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>>
+            | ResponsiveProps<BumpSvgPropsWithPointMouseHandlers<Datum, ExtraProps>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper>
+            {({ width, height }) => (
+                <Bump<Datum, ExtraProps> width={width} height={height} {...props} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <
     Datum extends BumpDatum = DefaultBumpDatum,
     ExtraProps extends BumpSerieExtraProps = Record<string, unknown>,
 >(
     props:
-        | Omit<BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>, 'width' | 'height'>
-        | Omit<BumpSvgPropsWithPointMouseHandlers<Datum, ExtraProps>, 'width' | 'height'>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => (
-            <Bump<Datum, ExtraProps> width={width} height={height} {...props} />
-        )}
-    </ResponsiveWrapper>
-)
+        | WithChartRef<
+              ResponsiveProps<BumpSvgPropsWithSeriesMouseHandlers<Datum, ExtraProps>>,
+              SVGSVGElement
+          >
+        | WithChartRef<
+              ResponsiveProps<BumpSvgPropsWithPointMouseHandlers<Datum, ExtraProps>>,
+              SVGSVGElement
+          >
+) => ReactElement | null

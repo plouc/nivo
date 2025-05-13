@@ -8,6 +8,7 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
+    WithChartRef,
 } from '@nivo/core'
 import { useTransition } from '@react-spring/web'
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
@@ -469,24 +470,20 @@ export const Bar = forwardRef(
             motionConfig = svgDefaultProps.motionConfig,
             theme,
             renderWrapper,
-            ...otherProps
+            ...props
         }: BarSvgProps<RawDatum>,
         ref: Ref<SVGSVGElement>
     ) => (
         <Container
-            {...{
-                animate,
-                isInteractive,
-                motionConfig,
-                renderWrapper,
-                theme,
-            }}
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
         >
-            <InnerBar<RawDatum> isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
+            <InnerBar<RawDatum> isInteractive={isInteractive} {...props} forwardedRef={ref} />
         </Container>
     )
 ) as <RawDatum extends BarDatum>(
-    props: BarSvgProps<RawDatum> & {
-        ref?: Ref<SVGSVGElement>
-    }
+    props: WithChartRef<BarSvgProps<RawDatum>, SVGSVGElement>
 ) => ReactElement

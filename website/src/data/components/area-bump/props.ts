@@ -7,6 +7,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     blendMode,
     chartGrid,
@@ -109,6 +110,7 @@ const props: ChartProperty[] = [
             step: 0.05,
         },
     },
+    chartRef(['svg']),
     themeProperty(allFlavors),
     ordinalColors({ flavors: allFlavors, defaultValue: defaults.colors }),
     blendMode({
