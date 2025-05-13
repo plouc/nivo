@@ -80,23 +80,18 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     data,
     indexBy,
     keys,
-
     margin: partialMargin,
     width,
     height,
-
     groupMode,
     layout,
     reverse,
     minValue,
     maxValue,
-
     valueScale,
     indexScale,
-
     padding,
     innerPadding,
-
     axisTop,
     axisRight,
     axisBottom = canvasDefaultProps.axisBottom,
@@ -105,10 +100,8 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
     enableGridY = canvasDefaultProps.enableGridY,
     gridXValues,
     gridYValues,
-
     labelPosition = canvasDefaultProps.labelPosition,
     labelOffset = canvasDefaultProps.labelOffset,
-
     layers = canvasDefaultProps.layers as BarCanvasLayer<RawDatum>[],
     renderBar = (
         ctx,
@@ -145,38 +138,29 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             drawCanvasText(ctx, labelStyle, label, x + labelX, y + labelY)
         }
     },
-
     enableLabel = canvasDefaultProps.enableLabel,
     label,
     labelSkipWidth = canvasDefaultProps.labelSkipWidth,
     labelSkipHeight = canvasDefaultProps.labelSkipHeight,
     labelTextColor,
-
     colorBy,
     colors,
     borderRadius = canvasDefaultProps.borderRadius,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor,
-
     annotations = canvasDefaultProps.annotations,
-
     legendLabel,
     tooltipLabel,
-
     valueFormat,
-
     isInteractive = canvasDefaultProps.isInteractive,
     tooltip = canvasDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
-
     legends,
-
     pixelRatio = canvasDefaultProps.pixelRatio,
-
+    role,
     forwardedRef,
-
     enableTotals = canvasDefaultProps.enableTotals,
     totalsOffset = canvasDefaultProps.totalsOffset,
 }: InnerBarCanvasProps<RawDatum>) => {
@@ -514,6 +498,7 @@ const InnerBarCanvas = <RawDatum extends BarDatum>({
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            role={role}
         />
     )
 }

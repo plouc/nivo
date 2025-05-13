@@ -271,6 +271,8 @@ export const Container: ContainerType
 
 type ResponsiveWrapperType = (props: {
     children: (dimensions: { width: number; height: number }) => JSX.Element
+    defaultWidth?: number
+    defaultHeight?: number
 }) => JSX.Element
 export const ResponsiveWrapper: ResponsiveWrapperType
 
@@ -486,7 +488,10 @@ type HtmlElementTag = {
         : never
 }[keyof JSX.IntrinsicElements]
 
-export type ResponsiveProps<Props> = Omit<Props, 'width' | 'height'>
+export type ResponsiveProps<Props> = Omit<Props, 'width' | 'height'> & {
+    defaultWidth?: number
+    defaultHeight?: number
+}
 
 export type WithChartRef<
     Props,

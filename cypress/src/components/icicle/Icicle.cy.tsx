@@ -291,7 +291,7 @@ const testNodes = (expectedNodes: ExpectedNode[]) => {
     }
 }
 
-describe('<Icicle />', () => {
+describe('Icicle', () => {
     beforeEach(() => {
         cy.viewport(420, 420)
     })

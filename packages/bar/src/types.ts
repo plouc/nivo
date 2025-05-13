@@ -269,6 +269,8 @@ export type BarCommonProps<RawDatum> = {
 
     enableTotals: boolean
     totalsOffset: number
+
+    role?: string
 }
 
 export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
@@ -289,7 +291,6 @@ export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawD
 
         layers: readonly BarLayer<RawDatum>[]
 
-        role: string
         ariaLabel?: React.AriaAttributes['aria-label']
         ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
         ariaDescribedBy?: React.AriaAttributes['aria-describedby']

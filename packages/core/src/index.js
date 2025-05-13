@@ -8,7 +8,7 @@
  */
 export * from './components/Container'
 export * from './components/LegacyContainer'
-export { default as ResponsiveWrapper } from './components/ResponsiveWrapper'
+export * from './components/ResponsiveWrapper'
 export { default as SvgWrapper } from './components/SvgWrapper'
 export * from './components/dots'
 export * from './components/defs'

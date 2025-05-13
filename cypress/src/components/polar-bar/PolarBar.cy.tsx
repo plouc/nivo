@@ -56,7 +56,7 @@ const defaultProps: Required<
     animate: false,
 }
 
-describe('<Tree />', () => {
+describe('PolarBar', () => {
     beforeEach(() => {
         cy.viewport(defaultProps.width, defaultProps.height)
     })

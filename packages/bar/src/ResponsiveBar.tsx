@@ -5,10 +5,10 @@ import { BarDatum, BarSvgProps } from './types'
 
 export const ResponsiveBar = forwardRef(
     <RawDatum extends BarDatum>(
-        props: ResponsiveProps<BarSvgProps<RawDatum>>,
+        { defaultWidth, defaultHeight, ...props }: ResponsiveProps<BarSvgProps<RawDatum>>,
         ref: Ref<SVGSVGElement>
     ) => (
-        <ResponsiveWrapper>
+        <ResponsiveWrapper defaultWidth={defaultWidth} defaultHeight={defaultHeight}>
             {({ width, height }) => (
                 <Bar<RawDatum> width={width} height={height} {...props} ref={ref} />
             )}

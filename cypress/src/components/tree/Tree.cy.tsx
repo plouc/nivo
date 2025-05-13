@@ -53,7 +53,7 @@ const defaultProps: Required<
     animate: false,
 }
 
-describe('<Tree />', () => {
+describe('Tree', () => {
     beforeEach(() => {
         cy.viewport(
             defaultProps.margin.left + defaultProps.width + defaultProps.margin.right,

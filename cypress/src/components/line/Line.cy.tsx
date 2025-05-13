@@ -1,6 +1,6 @@
 import { Line } from '@nivo/line'
 
-describe('<Line />', () => {
+describe('Line', () => {
     beforeEach(() => {
         cy.viewport(600, 500)
     })
