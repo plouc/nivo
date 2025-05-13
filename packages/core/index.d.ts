@@ -273,8 +273,15 @@ type ResponsiveWrapperType = (props: {
     children: (dimensions: { width: number; height: number }) => JSX.Element
     defaultWidth?: number
     defaultHeight?: number
+    debounceResize?: number
 }) => JSX.Element
 export const ResponsiveWrapper: ResponsiveWrapperType
+
+export type ResponsiveProps<Props> = Omit<Props, 'width' | 'height'> & {
+    defaultWidth?: number
+    defaultHeight?: number
+    debounceResize?: number
+}
 
 export function getDistance(x1: number, y1: number, x2: number, y2: number): number
 export function getAngle(x1: number, y1: number, x2: number, y2: number): number
@@ -487,11 +494,6 @@ type HtmlElementTag = {
         ? K
         : never
 }[keyof JSX.IntrinsicElements]
-
-export type ResponsiveProps<Props> = Omit<Props, 'width' | 'height'> & {
-    defaultWidth?: number
-    defaultHeight?: number
-}
 
 export type WithChartRef<
     Props,

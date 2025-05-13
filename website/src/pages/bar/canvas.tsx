@@ -9,30 +9,24 @@ import { groups } from '../../data/components/bar/props'
 
 const initialProperties: UnmappedBarProps = {
     indexBy: 'country',
-
     margin: {
         top: 50,
         right: 60,
         bottom: 50,
         left: 60,
     },
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     padding: 0.15,
     innerPadding: 0,
     minValue: 'auto',
     maxValue: 'auto',
-
     groupMode: 'stacked',
     layout: 'horizontal',
     reverse: false,
-
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
     valueFormat: { format: '', enabled: false },
-
     colors: { scheme: 'red_blue' },
     colorBy: 'id',
     borderWidth: 0,
@@ -41,7 +35,6 @@ const initialProperties: UnmappedBarProps = {
         from: 'color',
         modifiers: [['darker', 1.6]],
     },
-
     axisTop: {
         enable: true,
         tickSize: 5,
@@ -80,10 +73,8 @@ const initialProperties: UnmappedBarProps = {
         legendOffset: -40,
         truncateTickAt: 0,
     },
-
     enableGridX: true,
     enableGridY: false,
-
     enableLabel: true,
     enableTotals: false,
     totalsOffset: 10,
@@ -95,10 +86,8 @@ const initialProperties: UnmappedBarProps = {
     },
     labelPosition: 'middle',
     labelOffset: 0,
-
     isInteractive: true,
     'custom tooltip example': false,
-
     legends: [],
 }
 
@@ -145,6 +134,7 @@ const BarCanvas = ({ location }: PageProps) => {
                         data={data.data}
                         keys={data.keys}
                         theme={theme}
+                        debounceResize={200}
                         ref={chartRef as Ref<HTMLCanvasElement>}
                         onClick={node =>
                             logAction({

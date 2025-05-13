@@ -5,10 +5,19 @@ import { BarCanvas } from './BarCanvas'
 
 export const ResponsiveBarCanvas = forwardRef(
     <RawDatum extends BarDatum>(
-        { defaultWidth, defaultHeight, ...props }: ResponsiveProps<BarCanvasProps<RawDatum>>,
+        {
+            defaultWidth,
+            defaultHeight,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<BarCanvasProps<RawDatum>>,
         ref: ForwardedRef<HTMLCanvasElement>
     ) => (
-        <ResponsiveWrapper defaultWidth={defaultWidth} defaultHeight={defaultHeight}>
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            debounceResize={debounceResize}
+        >
             {({ width, height }) => (
                 <BarCanvas width={width} height={height} {...props} ref={ref} />
             )}

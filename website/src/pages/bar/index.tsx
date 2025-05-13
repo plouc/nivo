@@ -22,15 +22,12 @@ const initialProperties: UnmappedBarProps = {
     innerPadding: 0,
     minValue: 'auto',
     maxValue: 'auto',
-
     groupMode: 'stacked',
     layout: 'vertical',
     reverse: false,
-
     valueScale: { type: 'linear' },
     indexScale: { type: 'band', round: true },
     valueFormat: { format: '', enabled: false },
-
     colors: { scheme: 'nivo' },
     colorBy: 'id',
     defs: [
@@ -59,7 +56,6 @@ const initialProperties: UnmappedBarProps = {
         from: 'color',
         modifiers: [['darker', 1.6]],
     },
-
     axisTop: {
         enable: false,
         tickSize: 5,
@@ -98,10 +94,8 @@ const initialProperties: UnmappedBarProps = {
         legendOffset: -40,
         truncateTickAt: 0,
     },
-
     enableGridX: false,
     enableGridY: true,
-
     enableLabel: true,
     enableTotals: false,
     totalsOffset: 10,
@@ -113,7 +107,6 @@ const initialProperties: UnmappedBarProps = {
     },
     labelPosition: 'middle',
     labelOffset: 0,
-
     legends: [
         {
             dataFrom: 'keys',
@@ -141,13 +134,10 @@ const initialProperties: UnmappedBarProps = {
             ],
         },
     ],
-
     isInteractive: true,
     'custom tooltip example': false,
-
     animate: true,
     motionConfig: 'default',
-
     role: 'application',
     isFocusable: false,
     ariaLabel: 'Nivo bar chart demo',
@@ -198,6 +188,7 @@ const Bar = ({ location }: PageProps) => {
                         data={data.data}
                         keys={data.keys}
                         theme={theme}
+                        debounceResize={200}
                         ref={chartRef as Ref<SVGSVGElement>}
                         onClick={node =>
                             logAction({
