@@ -21,14 +21,11 @@ const initialProperties: UnmappedSankeyProps = {
         bottom: 40,
         left: 50,
     },
-
     valueFormat: { format: '', enabled: false },
-
     layout: 'horizontal' as const,
     align: 'justify' as const,
     sort: 'auto' as const,
     colors: { scheme: 'category10' as const },
-
     nodeOpacity: 1,
     nodeHoverOpacity: 1,
     nodeHoverOthersOpacity: 0.35,
@@ -41,14 +38,12 @@ const initialProperties: UnmappedSankeyProps = {
         modifiers: [['darker', 0.8]],
     },
     nodeBorderRadius: 3,
-
     linkOpacity: 0.5,
     linkHoverOpacity: 0.6,
     linkHoverOthersOpacity: 0.1,
     linkContract: 3,
     linkBlendMode: 'multiply' as const,
     enableLinkGradient: true,
-
     enableLabels: true,
     labelPosition: 'outside' as const,
     labelOrientation: 'vertical' as const,
@@ -57,12 +52,9 @@ const initialProperties: UnmappedSankeyProps = {
         from: 'color',
         modifiers: [['darker', 1]],
     },
-
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
-
     isInteractive: svgDefaultProps.isInteractive,
-
     legends: [
         {
             anchor: 'bottom-right',
@@ -74,17 +66,6 @@ const initialProperties: UnmappedSankeyProps = {
             itemsSpacing: 2,
             itemTextColor: '#999',
             symbolSize: 14,
-            onClick: (d: any) => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }

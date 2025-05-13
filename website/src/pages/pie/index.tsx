@@ -21,9 +21,7 @@ const initialProperties = {
         bottom: 80,
         left: 80,
     },
-
     valueFormat: { format: '', enabled: false },
-
     startAngle: defaultProps.startAngle,
     endAngle: defaultProps.endAngle,
     sortByValue: defaultProps.sortByValue,
@@ -33,15 +31,12 @@ const initialProperties = {
     fit: defaultProps.fit,
     activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset: 8,
-
     colors: defaultProps.colors,
-
     borderWidth: 1,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.2]],
     },
-
     enableArcLinkLabels: defaultProps.enableArcLinkLabels,
     arcLinkLabel: defaultProps.arcLinkLabel,
     arcLinkLabelsSkipAngle: 10,
@@ -52,7 +47,6 @@ const initialProperties = {
     arcLinkLabelsStraightLength: 24,
     arcLinkLabelsThickness: 2,
     arcLinkLabelsColor: { from: 'color' },
-
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsRadiusOffset: 0.5,
@@ -62,19 +56,15 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 2]],
     },
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
-    'showcase pattern usage': true,
-
+    'showcase pattern usage': false,
     defs: [],
     fill: [],
-
     animate: defaultProps.animate,
     motionConfig: defaultProps.motionConfig,
     transitionMode: defaultProps.transitionMode,
-
     legends: [
         {
             anchor: 'bottom',
@@ -90,14 +80,6 @@ const initialProperties = {
             itemOpacity: 1,
             symbolSize: 18,
             symbolShape: 'circle',
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }

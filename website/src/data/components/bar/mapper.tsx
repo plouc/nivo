@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BarSvgProps } from '@nivo/bar'
-import { settingsMapper, mapAxis, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapAxis, mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedBarProps = Omit<BarSvgProps<any>, 'data' | 'width' | 'height'>
 export type UnmappedBarProps = UnmappedSettings<
@@ -55,10 +56,11 @@ const CustomTooltip = ({ color, ...bar }: any) => {
 export default settingsMapper<UnmappedBarProps, MappedBarProps>(
     {
         valueFormat: mapFormat,
-        axisTop: mapAxis('top'),
-        axisRight: mapAxis('right'),
-        axisBottom: mapAxis('bottom'),
-        axisLeft: mapAxis('left'),
+        axisTop: mapAxis,
+        axisRight: mapAxis,
+        axisBottom: mapAxis,
+        axisLeft: mapAxis,
+        legends: mapLegends,
         tooltip: (_value: any, values: any) => {
             if (!values['custom tooltip example']) return undefined
 

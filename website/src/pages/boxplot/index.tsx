@@ -84,11 +84,11 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-    isInteractive: true,
+    isInteractive: svgDefaultProps.isInteractive,
     activeOpacity: svgDefaultProps.activeOpacity,
     inactiveOpacity: svgDefaultProps.inactiveOpacity,
-    animate: true,
-    motionConfig: 'stiff',
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
     isFocusable: svgDefaultProps.isFocusable,
     legends: [
         {
@@ -104,17 +104,6 @@ const initialProperties = {
             itemDirection: 'left-to-right',
             symbolSize: 20,
             symbolShape: 'square',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }

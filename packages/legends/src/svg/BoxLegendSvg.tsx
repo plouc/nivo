@@ -1,38 +1,34 @@
 import { LegendSvg } from './LegendSvg'
 import { BoxLegendSvgProps } from '../types'
+import { legendDefaults } from '../defaults'
 import { computeDimensions, computePositionFromAnchor } from '../compute'
 
 export const BoxLegendSvg = ({
     data,
-
     containerWidth,
     containerHeight,
-    translateX = 0,
-    translateY = 0,
+    translateX = legendDefaults.translateX,
+    translateY = legendDefaults.translateY,
     anchor,
     direction,
-    padding = 0,
+    padding = legendDefaults.padding,
     justify,
-
-    itemsSpacing = 0,
+    itemsSpacing = legendDefaults.itemsSpacing,
     itemWidth,
     itemHeight,
     itemDirection,
     itemTextColor,
     itemBackground,
     itemOpacity,
-
     symbolShape,
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
-
     onClick,
     onMouseEnter,
     onMouseLeave,
     toggleSerie,
-
     effects,
 }: BoxLegendSvgProps) => {
     const { width, height } = computeDimensions({

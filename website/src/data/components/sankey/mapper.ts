@@ -1,5 +1,6 @@
 import { DefaultLink, DefaultNode, SankeySvgProps } from '@nivo/sankey'
-import { settingsMapper, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedSankeyProps = Omit<
     SankeySvgProps<DefaultNode, DefaultLink>,
@@ -17,4 +18,5 @@ export type UnmappedSankeyProps = UnmappedSettings<
 
 export default settingsMapper<UnmappedSankeyProps, MappedSankeyProps>({
     valueFormat: mapFormat,
+    legends: mapLegends,
 })

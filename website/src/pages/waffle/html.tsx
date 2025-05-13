@@ -13,20 +13,17 @@ import {
 
 const initialProperties: UnmappedWaffleHtmlProps = {
     total: 100,
-
     rows: 18,
     columns: 14,
     fillDirection: htmlDefaultProps.fillDirection,
     padding: 1,
     valueFormat: { format: '.2f', enabled: true },
-
     margin: {
         top: 10,
         right: 10,
         bottom: 10,
         left: 10,
     },
-
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     colors: { scheme: 'set2' },
@@ -36,11 +33,9 @@ const initialProperties: UnmappedWaffleHtmlProps = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
     animate: htmlDefaultProps.animate,
     motionConfig: htmlDefaultProps.motionConfig,
     motionStagger: 2,
-
     isInteractive: true,
 }
 

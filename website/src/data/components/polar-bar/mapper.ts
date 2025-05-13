@@ -1,6 +1,7 @@
 import omit from 'lodash/omit'
 import { PolarBarSvgProps } from '@nivo/polar-bar'
-import { settingsMapper, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedPolarBarProps = Omit<PolarBarSvgProps<any>, 'data' | 'width' | 'height'>
 export type UnmappedPolarBarProps = UnmappedSettings<
@@ -27,4 +28,5 @@ export default settingsMapper<UnmappedPolarBarProps, MappedPolarBarProps>({
     radialAxis: mapAxis<UnmappedPolarBarProps['radialAxis']>(),
     circularAxisInner: mapAxis<UnmappedPolarBarProps['circularAxisInner']>(),
     circularAxisOuter: mapAxis<UnmappedPolarBarProps['circularAxisOuter']>(),
+    legends: mapLegends,
 })

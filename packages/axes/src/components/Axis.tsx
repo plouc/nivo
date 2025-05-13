@@ -8,6 +8,7 @@ import { memo, useCallback, useMemo } from 'react'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { AxisProps } from '../types'
 import { AxisTick } from './AxisTick'
+import { defaultAxisProps } from '../defaults'
 
 export const NonMemoizedAxis = <Value extends ScaleValue>({
     axis,
@@ -17,15 +18,15 @@ export const NonMemoizedAxis = <Value extends ScaleValue>({
     length,
     ticksPosition,
     tickValues,
-    tickSize = 5,
-    tickPadding = 5,
-    tickRotation = 0,
+    tickSize = defaultAxisProps.tickSize,
+    tickPadding = defaultAxisProps.tickPadding,
+    tickRotation = defaultAxisProps.tickRotation,
     format,
     renderTick = AxisTick,
     truncateTickAt,
     legend,
-    legendPosition = 'end',
-    legendOffset = 0,
+    legendPosition = defaultAxisProps.legendPosition,
+    legendOffset = defaultAxisProps.legendOffset,
     style,
     onClick,
     ariaHidden,

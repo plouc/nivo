@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { settingsMapper } from '../../../lib/settings'
+import { mapLegends } from '../../../lib/property-mappers'
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -35,6 +36,7 @@ const CustomTooltip = day => {
 
 export default settingsMapper(
     {
+        legends: mapLegends,
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return undefined
 

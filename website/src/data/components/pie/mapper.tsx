@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { PieSvgProps, PieTooltipProps } from '@nivo/pie'
-// @ts-ignore
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { mapFormat, settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedPieProps = Omit<PieSvgProps<any>, 'data' | 'width' | 'height'>
 export type UnmappedPieProps = UnmappedSettings<
@@ -56,6 +56,7 @@ export default settingsMapper<UnmappedPieProps, MappedPieProps>(
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
+        legends: mapLegends,
         tooltip: (_value, values) => {
             if (!values['custom tooltip example']) return undefined
             return CustomTooltip

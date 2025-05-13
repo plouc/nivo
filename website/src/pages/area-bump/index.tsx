@@ -34,33 +34,35 @@ const initialProperties: UnmappedAreaBumpProps = {
     },
     align: defaults.align,
     interpolation: defaults.interpolation,
-    spacing: 8,
+    spacing: defaults.spacing,
     xPadding: defaults.xPadding,
-    colors: { scheme: 'nivo' },
+    colors: defaults.colors,
     blendMode: 'multiply',
     fillOpacity: defaults.fillOpacity,
     activeFillOpacity: defaults.activeFillOpacity,
     inactiveFillOpacity: defaults.inactiveFillOpacity,
-    defs: [
-        patternDotsDef('dots', {
-            background: 'inherit',
-            color: '#38bcb2',
-            size: 4,
-            padding: 1,
-            stagger: true,
-        }),
-        patternLinesDef('lines', {
-            background: 'inherit',
-            color: '#eed312',
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-        }),
-    ],
-    fill: [
-        { match: { id: 'CoffeeScript' }, id: 'dots' },
-        { match: { id: 'TypeScript' }, id: 'lines' },
-    ],
+    // Patterns should be disabled by default, otherwise the code
+    // becomes too complex for a simple example.
+    // defs: [
+    //     patternDotsDef('dots', {
+    //         background: 'inherit',
+    //         color: '#38bcb2',
+    //         size: 4,
+    //         padding: 1,
+    //         stagger: true,
+    //     }),
+    //     patternLinesDef('lines', {
+    //         background: 'inherit',
+    //         color: '#eed312',
+    //         rotation: -45,
+    //         lineWidth: 6,
+    //         spacing: 10,
+    //     }),
+    // ],
+    // fill: [
+    //     { match: { id: 'CoffeeScript' }, id: 'dots' },
+    //     { match: { id: 'TypeScript' }, id: 'lines' },
+    // ],
     borderWidth: defaults.borderWidth,
     activeBorderWidth: defaults.activeBorderWidth,
     inactiveBorderWidth: defaults.inactiveBorderWidth,

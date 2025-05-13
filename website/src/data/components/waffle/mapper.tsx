@@ -1,5 +1,6 @@
 import { WaffleSvgProps, CanvasProps, WaffleHtmlProps } from '@nivo/waffle'
-import { settingsMapper, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedWaffleSvgProps = Omit<WaffleSvgProps, 'data' | 'width' | 'height'>
 export type UnmappedWaffleSvgProps = UnmappedSettings<
@@ -37,6 +38,7 @@ export type UnmappedWaffleHtmlProps = UnmappedSettings<
 export const svgMapper = settingsMapper<UnmappedWaffleSvgProps, MappedWaffleSvgProps>(
     {
         valueFormat: mapFormat,
+        legends: mapLegends,
     },
     {}
 )

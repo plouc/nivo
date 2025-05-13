@@ -47,7 +47,6 @@ const initialProperties: UnmappedMarimekkoProps = {
     offset: defaultProps.offset,
     outerPadding: defaultProps.outerPadding,
     innerPadding: 9,
-
     axisTop: {
         enable: false,
         tickSize: 5,
@@ -88,34 +87,26 @@ const initialProperties: UnmappedMarimekkoProps = {
     },
     enableGridX: defaultProps.enableGridX,
     enableGridY: defaultProps.enableGridY,
-
     margin: {
         top: 40,
         right: 80,
         bottom: 100,
         left: 80,
     },
-
     valueFormat: { format: '', enabled: false },
-
     colors: { scheme: 'spectral' },
-
     borderWidth: 1,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.2]],
     },
-
     isInteractive: true,
     'custom tooltip example': false,
     'showcase pattern usage': true,
-
     defs: [],
     fill: [],
-
     animate: defaultProps.animate,
     motionConfig: defaultProps.motionConfig,
-
     legends: [
         {
             anchor: 'bottom',
@@ -131,14 +122,6 @@ const initialProperties: UnmappedMarimekkoProps = {
             itemOpacity: 1,
             symbolSize: 18,
             symbolShape: 'square',
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000',
-                    },
-                },
-            ],
         },
     ],
 }

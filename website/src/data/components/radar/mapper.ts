@@ -1,5 +1,6 @@
 import { RadarSvgProps } from '@nivo/radar'
-import { settingsMapper, mapFormat, UnmappedSettings } from '../../../lib/settings'
+import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
+import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedRadarProps = Omit<RadarSvgProps<any>, 'data' | 'keys' | 'width' | 'height'>
 export type UnmappedRadarProps = UnmappedSettings<
@@ -21,4 +22,5 @@ export default settingsMapper<UnmappedRadarProps, MappedRadarProps>({
             return (p: any) => `${p.index}: ${p.value}`
         return value
     },
+    legends: mapLegends,
 })

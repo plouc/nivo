@@ -47,7 +47,7 @@ const props: ChartProperty[] = [
         type: 'AreaBumpSerie<Datum, ExtraProps>[]',
         flavors: allFlavors,
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'align',
         group: 'Base',

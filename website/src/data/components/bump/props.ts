@@ -41,7 +41,7 @@ const props: ChartProperty[] = [
         `,
         required: true,
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'interpolation',
         group: 'Base',

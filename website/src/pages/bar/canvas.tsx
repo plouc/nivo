@@ -1,6 +1,6 @@
 import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import { ResponsiveBarCanvas } from '@nivo/bar'
+import { ResponsiveBarCanvas, canvasDefaultProps } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateHeavyDataSet } from '../../data/components/bar/generator'
@@ -115,6 +115,7 @@ const BarCanvas = ({ location }: PageProps) => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
+            defaultProperties={canvasDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,

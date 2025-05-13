@@ -40,16 +40,18 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.5]],
     },
-    defs: [
-        patternLinesDef('lines', {
-            background: 'none',
-            color: 'inherit',
-            rotation: -45,
-            lineWidth: 5,
-            spacing: 8,
-        }),
-    ],
-    fill: [{ match: { depth: 1 }, id: 'lines' }],
+    // Patterns should be disabled by default, otherwise the code
+    // becomes too complex for a simple example.
+    // defs: [
+    //     patternLinesDef('lines', {
+    //         background: 'none',
+    //         color: 'inherit',
+    //         rotation: -45,
+    //         lineWidth: 5,
+    //         spacing: 8,
+    //     }),
+    // ],
+    // fill: [{ match: { depth: 1 }, id: 'lines' }],
     animate: true,
     motionConfig: 'gentle',
     isInteractive: true,

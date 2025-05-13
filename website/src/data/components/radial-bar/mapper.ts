@@ -1,6 +1,7 @@
 import omit from 'lodash/omit.js'
-import { settingsMapper, mapFormat } from '../../../lib/settings'
 import { RadialBarSvgProps } from '@nivo/radial-bar'
+import { settingsMapper } from '../../../lib/settings'
+import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
 export type MappedRadarProps = Omit<RadialBarSvgProps, 'data' | 'width' | 'height'>
 export type UnmappedRadarProps = Omit<
@@ -26,4 +27,5 @@ export default settingsMapper<UnmappedRadarProps, MappedRadarProps>({
     radialAxisEnd: mapAxis('radialAxisEnd'),
     circularAxisInner: mapAxis('circularAxisInner'),
     circularAxisOuter: mapAxis('circularAxisOuter'),
+    legends: mapLegends,
 })

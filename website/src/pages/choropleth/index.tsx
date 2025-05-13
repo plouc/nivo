@@ -21,58 +21,51 @@ const initialProperties = {
         bottom: 0,
         left: 0,
     },
-
     colors: 'nivo',
     domain: [0, 1000000],
     unknownColor: '#666666',
-
     label: 'properties.name',
     value: 'value',
     valueFormat: '.2s',
-
     projectionType: 'mercator',
     projectionScale: 100,
     projectionTranslation: [0.5, 0.5],
     projectionRotation: [0, 0, 0],
-
     enableGraticule: true,
     graticuleLineWidth: 0.5,
     graticuleLineColor: '#dddddd',
-
     borderWidth: 0.5,
     borderColor: '#152538',
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
-
-    defs: [
-        patternDotsDef('dots', {
-            background: 'inherit',
-            color: '#38bcb2',
-            size: 4,
-            padding: 1,
-            stagger: true,
-        }),
-        patternLinesDef('lines', {
-            background: 'inherit',
-            color: '#eed312',
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-        }),
-        linearGradientDef('gradient', [
-            { offset: 0, color: '#000' },
-            { offset: 100, color: 'inherit' },
-        ]),
-    ],
-
-    fill: [
-        { match: { id: 'CAN' }, id: 'dots' },
-        { match: { id: 'CHN' }, id: 'lines' },
-        { match: { id: 'ATA' }, id: 'gradient' },
-    ],
-
+    // Patterns should be disabled by default, otherwise the code
+    // becomes too complex for a simple example.
+    // defs: [
+    //     patternDotsDef('dots', {
+    //         background: 'inherit',
+    //         color: '#38bcb2',
+    //         size: 4,
+    //         padding: 1,
+    //         stagger: true,
+    //     }),
+    //     patternLinesDef('lines', {
+    //         background: 'inherit',
+    //         color: '#eed312',
+    //         rotation: -45,
+    //         lineWidth: 6,
+    //         spacing: 10,
+    //     }),
+    //     linearGradientDef('gradient', [
+    //         { offset: 0, color: '#000' },
+    //         { offset: 100, color: 'inherit' },
+    //     ]),
+    // ],
+    // fill: [
+    //     { match: { id: 'CAN' }, id: 'dots' },
+    //     { match: { id: 'CHN' }, id: 'lines' },
+    //     { match: { id: 'ATA' }, id: 'gradient' },
+    // ],
     legends: [
         {
             anchor: 'bottom-left',
@@ -87,18 +80,6 @@ const initialProperties = {
             itemTextColor: '#444444',
             itemOpacity: 0.85,
             symbolSize: 18,
-            onClick: data => {
-                alert(JSON.stringify(data, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemTextColor: '#000000',
-                        itemOpacity: 1,
-                    },
-                },
-            ],
         },
     ],
 }

@@ -1,31 +1,28 @@
 import { LegendSvgItem } from './LegendSvgItem'
 import { LegendSvgProps } from '../types'
+import { legendDefaults } from '../defaults'
 import { computeDimensions } from '../compute'
 
 export const LegendSvg = ({
     data,
-
     x,
     y,
     direction,
-    padding: _padding = 0,
+    padding: _padding = legendDefaults.padding,
     justify,
     effects,
-
     itemWidth,
     itemHeight,
-    itemDirection = 'left-to-right',
-    itemsSpacing = 0,
+    itemDirection = legendDefaults.itemDirection,
+    itemsSpacing = legendDefaults.itemsSpacing,
     itemTextColor,
     itemBackground = 'transparent',
     itemOpacity = 1,
-
     symbolShape,
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
-
     onClick,
     onMouseEnter,
     onMouseLeave,

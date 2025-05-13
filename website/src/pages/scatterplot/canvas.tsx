@@ -14,7 +14,6 @@ const initialProperties = {
         bottom: 70,
         left: 90,
     },
-
     xScale: {
         type: 'linear',
         min: 0,
@@ -27,17 +26,12 @@ const initialProperties = {
         max: 'auto',
     },
     yFormat: { format: '>-.2f', enabled: true },
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     colors: canvasDefaultProps.colors,
-
     nodeSize: 5,
-
     axisTop: {
         enable: false,
-        orient: 'top',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -46,7 +40,6 @@ const initialProperties = {
     },
     axisRight: {
         enable: false,
-        orient: 'right',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -55,7 +48,6 @@ const initialProperties = {
     },
     axisBottom: {
         enable: true,
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -66,7 +58,6 @@ const initialProperties = {
     },
     axisLeft: {
         enable: true,
-        orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -75,14 +66,11 @@ const initialProperties = {
         legendOffset: -60,
         format: d => `${d} cm`,
     },
-
     enableGridX: canvasDefaultProps.enableGridX,
     enableGridY: canvasDefaultProps.enableGridY,
-
     isInteractive: canvasDefaultProps.isInteractive,
     useMesh: canvasDefaultProps.useMesh,
     debugMesh: canvasDefaultProps.debugMesh,
-
     legends: [
         {
             anchor: 'bottom-right',
@@ -96,17 +84,6 @@ const initialProperties = {
             itemDirection: 'left-to-right',
             symbolSize: 12,
             symbolShape: 'rect',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
-            effects: [
-                {
-                    on: 'hover',
-                    style: {
-                        itemOpacity: 1,
-                    },
-                },
-            ],
         },
     ],
 }
