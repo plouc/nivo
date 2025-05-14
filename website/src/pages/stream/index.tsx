@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveStream, svgDefaultProps } from '@nivo/stream'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -57,14 +57,17 @@ const Stream = ({ location }: PageProps) => {
             getTabData={data => data.data}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme) => {
+            {(properties, data, theme, _logAction, chartRef) => {
                 return (
                     <ResponsiveStream
+                        {...properties}
                         data={data.data}
                         keys={data.keys}
-                        {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                     />
                 )
             }}
