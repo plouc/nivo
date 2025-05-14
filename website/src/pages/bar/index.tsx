@@ -16,7 +16,7 @@ const initialProperties: UnmappedBarProps = {
         bottom: 50,
         left: 60,
     },
-    padding: 0.3,
+    padding: svgDefaultProps.padding,
     innerPadding: 0,
     minValue: 'auto',
     maxValue: 'auto',

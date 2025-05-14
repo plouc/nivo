@@ -74,7 +74,7 @@ const props: ChartProperty[] = [
             max: 100,
         },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'layout',
         group: 'Base',

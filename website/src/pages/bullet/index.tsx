@@ -82,6 +82,7 @@ const Bullet = ({ location }: PageProps) => {
                         {...properties}
                         data={data}
                         theme={theme}
+                        debounceResize={200}
                         ref={chartRef as Ref<SVGSVGElement>}
                         onRangeClick={range => {
                             logAction({
