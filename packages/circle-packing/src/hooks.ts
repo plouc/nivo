@@ -6,13 +6,14 @@ import { usePropertyAccessor, useValueFormatter, getRelativeCursor, getDistance 
 import { useTheme } from '@nivo/theming'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
+    CirclePackingDataProps,
     CirclePackingCommonProps,
     CirclePackingCustomLayerProps,
     ComputedDatum,
     MouseHandlers,
 } from './types'
 
-export const useCirclePacking = <RawDatum>({
+export const useCirclePacking = <Datum>({
     data,
     id,
     value,
@@ -26,38 +27,38 @@ export const useCirclePacking = <RawDatum>({
     inheritColorFromParent,
     childColor,
 }: {
-    data: CirclePackingCommonProps<RawDatum>['data']
-    id: CirclePackingCommonProps<RawDatum>['id']
-    value: CirclePackingCommonProps<RawDatum>['value']
-    valueFormat?: CirclePackingCommonProps<RawDatum>['valueFormat']
+    data: CirclePackingDataProps<Datum>['data']
+    id: CirclePackingCommonProps<Datum>['id']
+    value: CirclePackingCommonProps<Datum>['value']
+    valueFormat?: CirclePackingCommonProps<Datum>['valueFormat']
     width: number
     height: number
-    padding: CirclePackingCommonProps<RawDatum>['padding']
-    leavesOnly: CirclePackingCommonProps<RawDatum>['leavesOnly']
-    colors: CirclePackingCommonProps<RawDatum>['colors']
-    colorBy: CirclePackingCommonProps<RawDatum>['colorBy']
-    inheritColorFromParent: CirclePackingCommonProps<RawDatum>['inheritColorFromParent']
-    childColor: CirclePackingCommonProps<RawDatum>['childColor']
-}): ComputedDatum<RawDatum>[] => {
-    const getId = usePropertyAccessor<RawDatum, string>(id)
-    const getValue = usePropertyAccessor<RawDatum, number>(value)
+    padding: CirclePackingCommonProps<Datum>['padding']
+    leavesOnly: CirclePackingCommonProps<Datum>['leavesOnly']
+    colors: CirclePackingCommonProps<Datum>['colors']
+    colorBy: CirclePackingCommonProps<Datum>['colorBy']
+    inheritColorFromParent: CirclePackingCommonProps<Datum>['inheritColorFromParent']
+    childColor: CirclePackingCommonProps<Datum>['childColor']
+}): ComputedDatum<Datum>[] => {
+    const getId = usePropertyAccessor<Datum, string>(id)
+    const getValue = usePropertyAccessor<Datum, number>(value)
     const formatValue = useValueFormatter(valueFormat)
 
-    const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
+    const getColor = useOrdinalColorScale<Omit<ComputedDatum<Datum>, 'color' | 'fill'>>(
         colors,
         colorBy
     )
     const theme = useTheme()
-    const getChildColor = useInheritedColor<ComputedDatum<RawDatum>>(childColor, theme)
+    const getChildColor = useInheritedColor<ComputedDatum<Datum>>(childColor, theme)
 
     // d3 mutates the data for performance reasons,
     // however it does not work well with reactive programming,
     // this ensures that we don't mutate the input data
     const clonedData = cloneDeep(data)
 
-    const hierarchy = d3Hierarchy<RawDatum>(clonedData).sum(getValue)
+    const hierarchy = d3Hierarchy<Datum>(clonedData).sum(getValue)
 
-    const pack = d3Pack<RawDatum>().size([width, height]).padding(padding)
+    const pack = d3Pack<Datum>().size([width, height]).padding(padding)
     const packedData = pack(hierarchy)
 
     const nodes = leavesOnly ? packedData.leaves() : packedData.descendants()
@@ -65,23 +66,23 @@ export const useCirclePacking = <RawDatum>({
     // It's important to sort node by depth,
     // it ensures that we assign a parent node
     // which has already been computed, because parent nodes
-    // are gonna be computed first
+    // are going to be computed first
     const sortedNodes = sortBy(nodes, 'depth')
 
     const total = hierarchy.value ?? 0
 
-    const computedNodes = sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
+    return sortedNodes.reduce<ComputedDatum<Datum>[]>((acc, descendant) => {
         const id = getId(descendant.data)
         const value = descendant.value!
         const percentage = (100 * value) / total
         const path = descendant.ancestors().map(ancestor => getId(ancestor.data))
 
-        let parent: ComputedDatum<RawDatum> | undefined
+        let parent: ComputedDatum<Datum> | undefined
         if (descendant.parent) {
             parent = acc.find(node => node.id === getId(descendant.parent!.data))
         }
 
-        const normalizedNode: ComputedDatum<RawDatum> = {
+        const normalizedNode: ComputedDatum<Datum> = {
             id,
             path,
             value,
@@ -104,13 +105,11 @@ export const useCirclePacking = <RawDatum>({
 
         return [...acc, normalizedNode]
     }, [])
-
-    return computedNodes
 }
 
-export const useCirclePackingZoom = <RawDatum>(
-    nodes: ComputedDatum<RawDatum>[],
-    zoomedId: CirclePackingCommonProps<RawDatum>['zoomedId'],
+export const useCirclePackingZoom = <Datum>(
+    nodes: ComputedDatum<Datum>[],
+    zoomedId: CirclePackingCommonProps<Datum>['zoomedId'],
     width: number,
     height: number
 ) =>
@@ -132,22 +131,22 @@ export const useCirclePackingZoom = <RawDatum>(
         }))
     }, [nodes, zoomedId, width, height])
 
-export const useCirclePackingLabels = <RawDatum>({
+export const useCirclePackingLabels = <Datum>({
     nodes,
     label,
     filter,
     skipRadius,
     textColor,
 }: {
-    nodes: ComputedDatum<RawDatum>[]
-    label: CirclePackingCommonProps<RawDatum>['label']
-    filter: CirclePackingCommonProps<RawDatum>['labelsFilter']
-    skipRadius: CirclePackingCommonProps<RawDatum>['labelsSkipRadius']
-    textColor: CirclePackingCommonProps<RawDatum>['labelTextColor']
+    nodes: ComputedDatum<Datum>[]
+    label: CirclePackingCommonProps<Datum>['label']
+    filter: CirclePackingCommonProps<Datum>['labelsFilter']
+    skipRadius: CirclePackingCommonProps<Datum>['labelsSkipRadius']
+    textColor: CirclePackingCommonProps<Datum>['labelTextColor']
 }) => {
-    const getLabel = usePropertyAccessor<ComputedDatum<RawDatum>, string | number>(label)
+    const getLabel = usePropertyAccessor<ComputedDatum<Datum>, string | number>(label)
     const theme = useTheme()
-    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
+    const getTextColor = useInheritedColor<ComputedDatum<Datum>>(textColor, theme)
 
     // computing the labels
     const labels = useMemo(
@@ -170,9 +169,9 @@ export const useCirclePackingLabels = <RawDatum>({
     }, [labels, filter])
 }
 
-export const useNodeMouseHandlers = <RawDatum>(
-    node: ComputedDatum<RawDatum>,
-    { onMouseEnter, onMouseMove, onMouseLeave, onClick }: MouseHandlers<RawDatum>
+export const useNodeMouseHandlers = <Datum>(
+    node: ComputedDatum<Datum>,
+    { onMouseEnter, onMouseMove, onMouseLeave, onClick }: MouseHandlers<Datum>
 ): Partial<
     Record<'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick', (event: MouseEvent) => void>
 > =>
@@ -202,12 +201,12 @@ export const useNodeMouseHandlers = <RawDatum>(
         [node, onMouseEnter, onMouseMove, onMouseLeave, onClick]
     )
 
-export const useMouseCircleDetection = <RawDatum>({
+export const useMouseCircleDetection = <Datum>({
     nodes,
     canvasEl,
     margin,
 }: {
-    nodes: ComputedDatum<RawDatum>[]
+    nodes: ComputedDatum<Datum>[]
     canvasEl: MutableRefObject<HTMLCanvasElement | null>
     margin: {
         top: number
@@ -240,11 +239,11 @@ export const useMouseCircleDetection = <RawDatum>({
 /**
  * Memoize the context to pass to custom layers.
  */
-export const useCirclePackingLayerContext = <RawDatum>({
+export const useCirclePackingLayerContext = <Datum>({
     nodes,
 }: {
-    nodes: ComputedDatum<RawDatum>[]
-}): CirclePackingCustomLayerProps<RawDatum> =>
+    nodes: ComputedDatum<Datum>[]
+}): CirclePackingCustomLayerProps<Datum> =>
     useMemo(
         () => ({
             nodes,

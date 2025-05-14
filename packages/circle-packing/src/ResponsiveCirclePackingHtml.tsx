@@ -1,18 +1,30 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { CirclePackingHtmlProps } from './types'
 import { CirclePackingHtml } from './CirclePackingHtml'
 
-type ResponsiveCirclePackingHtmlProps<RawDatum> = Partial<
-    Omit<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>
-> &
-    Pick<CirclePackingHtmlProps<RawDatum>, 'data'>
-
-export const ResponsiveCirclePackingHtml = <RawDatum,>(
-    props: ResponsiveCirclePackingHtmlProps<RawDatum>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }: { width: number; height: number }) => (
-            <CirclePackingHtml<RawDatum> width={width} height={height} {...props} />
-        )}
-    </ResponsiveWrapper>
-)
+export const ResponsiveCirclePackingHtml = forwardRef(
+    <Datum,>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<CirclePackingHtmlProps<Datum>>,
+        ref: Ref<HTMLDivElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
+            {({ width, height }: { width: number; height: number }) => (
+                <CirclePackingHtml<Datum> width={width} height={height} {...props} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <Datum>(
+    props: WithChartRef<ResponsiveProps<CirclePackingHtmlProps<Datum>>, HTMLDivElement>
+) => ReactElement

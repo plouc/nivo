@@ -13,17 +13,17 @@ export const interpolateSize = (radiusValue: Interpolation<number>) =>
 export const interpolateBorderWidth = (borderWidth: number, radiusValue: Interpolation<number>) =>
     to([radiusValue], radius => Math.min(borderWidth, radius))
 
-export const CircleHtml = <RawDatum,>({
+export const CircleHtml = <Datum,>({
     node,
     style,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-}: CircleProps<RawDatum>) => {
+}: CircleProps<Datum>) => {
     const size = interpolateSize(style.radius)
 
-    const handlers = useNodeMouseHandlers<RawDatum>(node, {
+    const handlers = useNodeMouseHandlers<Datum>(node, {
         onMouseEnter,
         onMouseMove,
         onMouseLeave,

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import range from 'lodash/range.js'
 import random from 'lodash/random.js'
-import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePackingCanvas, canvasDefaultProps } from '@nivo/circle-packing'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
@@ -83,19 +83,22 @@ const CirclePackingCanvas = ({ location }: PageProps) => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaultProps}
+            defaultProperties={canvasDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={() => NODE_COUNT}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCirclePackingCanvas
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',

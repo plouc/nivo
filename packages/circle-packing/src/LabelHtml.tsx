@@ -3,7 +3,7 @@ import { useTheme } from '@nivo/theming'
 import { LabelProps } from './types'
 import { interpolatePosition, interpolateSize } from './CircleHtml'
 
-export const LabelHtml = <RawDatum,>({ node, label, style }: LabelProps<RawDatum>) => {
+export const LabelHtml = <Datum,>({ node, label, style }: LabelProps<Datum>) => {
     const theme = useTheme()
     const size = interpolateSize(style.radius)
 

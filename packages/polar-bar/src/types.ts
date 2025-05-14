@@ -53,40 +53,31 @@ export type PolarBarCommonProps<RawDatum extends PolarBarDatum> = {
     adjustValueRange: boolean
     valueSteps?: number | readonly number[]
     valueFormat?: ValueFormat<number>
-
     margin: Box
     startAngle: number
     endAngle: number
     innerRadius: number
     cornerRadius: number
-
     layers: readonly (PolarBarLayerId | PolarBarCustomLayer)[]
-
     colors: OrdinalColorScaleConfig<Omit<PolarBarComputedDatum, 'color' | 'fill' | 'arc'>>
     theme: PartialTheme
     borderWidth: number
     borderColor: InheritedColorConfig<PolarBarComputedDatum>
-
     enableArcLabels: boolean
-
     enableRadialGrid: boolean
     enableCircularGrid: boolean
     radialAxis: Omit<RadialAxisProps, 'center' | 'scale'> | null
     circularAxisInner: CircularAxisConfig | null
     circularAxisOuter: CircularAxisConfig | null
-
     isInteractive: boolean
     tooltip: PolarBarTooltipComponent
     onClick: (arc: PolarBarComputedDatum, event: MouseEvent) => void
     onMouseEnter: (arc: PolarBarComputedDatum, event: MouseEvent) => void
     onMouseMove: (arc: PolarBarComputedDatum, event: MouseEvent) => void
     onMouseLeave: (arc: PolarBarComputedDatum, event: MouseEvent) => void
-
     legends: readonly LegendProps[]
     forwardLegendData: (data: PolarBarLegendDatum[]) => void
-
     renderWrapper: boolean
-
     role: string
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']

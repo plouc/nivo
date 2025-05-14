@@ -1,18 +1,30 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, ReactElement, Ref } from 'react'
+import { ResponsiveProps, ResponsiveWrapper, WithChartRef } from '@nivo/core'
 import { CirclePackingSvgProps } from './types'
 import { CirclePacking } from './CirclePacking'
 
-type ResponsiveCirclePackingProps<RawDatum> = Partial<
-    Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>
-> &
-    Pick<CirclePackingSvgProps<RawDatum>, 'data'>
-
-export const ResponsiveCirclePacking = <RawDatum,>(
-    props: ResponsiveCirclePackingProps<RawDatum>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }: { width: number; height: number }) => (
-            <CirclePacking<RawDatum> width={width} height={height} {...props} />
-        )}
-    </ResponsiveWrapper>
-)
+export const ResponsiveCirclePacking = forwardRef(
+    <Datum,>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<CirclePackingSvgProps<Datum>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
+            {({ width, height }) => (
+                <CirclePacking<Datum> width={width} height={height} {...props} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <Datum>(
+    props: WithChartRef<ResponsiveProps<CirclePackingSvgProps<Datum>>, SVGSVGElement>
+) => ReactElement
