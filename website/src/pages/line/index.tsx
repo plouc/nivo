@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import omit from 'lodash/omit.js'
 import { ResponsiveLine, svgDefaultProps, isPoint } from '@nivo/line'
@@ -84,13 +84,16 @@ const Line = ({ location }: PageProps) => {
             generateData={generateLightDataSet}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveLine
                         data={properties.xScale!.type === 'linear' ? linearData : data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={datum => {
                             if (isPoint(datum)) {
                                 logAction({

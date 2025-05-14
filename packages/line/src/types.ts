@@ -223,6 +223,7 @@ export type CommonLineProps<Series extends LineSeries> = {
     tooltip: PointTooltipComponent<Series>
     sliceTooltip: SliceTooltipComponent<Series>
     renderWrapper: boolean
+    role?: string
 }
 
 export interface LineSvgExtraProps<Series extends LineSeries> {
@@ -245,7 +246,6 @@ export interface LineSvgExtraProps<Series extends LineSeries> {
     initialHiddenIds: readonly InferSeriesId<Series>[]
     animate: boolean
     motionConfig: MotionProps['motionConfig']
-    role: string
     ariaLabel?: AriaAttributes['aria-label']
     ariaLabelledBy?: AriaAttributes['aria-labelledby']
     ariaDescribedBy?: AriaAttributes['aria-describedby']

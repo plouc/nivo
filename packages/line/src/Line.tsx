@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useState } from 'react'
+import { Fragment, ReactNode, useState, forwardRef, Ref, ReactElement } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
@@ -7,6 +7,7 @@ import {
     CartesianMarkers,
     Container,
     LineCurveFactoryId,
+    WithChartRef,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
@@ -35,7 +36,9 @@ import {
 } from './types'
 import { svgDefaultProps } from './defaults'
 
-function InnerLine<Series extends LineSeries>(props: LineSvgProps<Series>) {
+function InnerLine<Series extends LineSeries>(
+    props: LineSvgProps<Series> & { forwardedRef: Ref<SVGSVGElement> }
+) {
     const {
         data,
         xScale: xScaleSpec = svgDefaultProps.xScale,
@@ -107,6 +110,7 @@ function InnerLine<Series extends LineSeries>(props: LineSvgProps<Series>) {
         pointAriaHidden,
         pointAriaDisabled,
         initialHiddenIds = svgDefaultProps.initialHiddenIds as InferSeriesId<Series>[],
+        forwardedRef,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -376,6 +380,7 @@ function InnerLine<Series extends LineSeries>(props: LineSvgProps<Series>) {
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
             isFocusable={isFocusable}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -388,25 +393,28 @@ function InnerLine<Series extends LineSeries>(props: LineSvgProps<Series>) {
     )
 }
 
-export function Line<Series extends LineSeries>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: LineSvgProps<Series>) {
-    return (
+export const Line = forwardRef(
+    <Series extends LineSeries>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...otherProps
+        }: LineSvgProps<Series>,
+        ref: Ref<SVGSVGElement>
+    ) => (
         <Container
-            {...{
-                animate,
-                isInteractive,
-                motionConfig,
-                renderWrapper,
-                theme,
-            }}
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
         >
-            <InnerLine<Series> isInteractive={isInteractive} {...otherProps} />
+            <InnerLine<Series> isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
         </Container>
     )
-}
+) as <Series extends LineSeries>(
+    props: WithChartRef<LineSvgProps<Series>, SVGSVGElement>
+) => ReactElement

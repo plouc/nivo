@@ -37,23 +37,18 @@ const InnerLineCanvas = <Series extends LineSeries>({
     height,
     margin: partialMargin,
     pixelRatio = canvasDefaultProps.pixelRatio,
-
     data,
     xScale: xScaleSpec = canvasDefaultProps.xScale,
     xFormat,
     yScale: yScaleSpec = canvasDefaultProps.yScale,
     yFormat,
     curve = canvasDefaultProps.curve,
-
     layers = canvasDefaultProps.layers as LineLayerId[],
-
     colors = canvasDefaultProps.colors as OrdinalColorScaleConfig<Series>,
     lineWidth = canvasDefaultProps.lineWidth,
-
     enableArea = canvasDefaultProps.enableArea,
     areaBaselineValue = canvasDefaultProps.areaBaselineValue as InferY<Series>,
     areaOpacity = canvasDefaultProps.areaOpacity,
-
     enablePoints = canvasDefaultProps.enablePoints,
     pointSize = canvasDefaultProps.pointSize,
     pointColor = canvasDefaultProps.pointColor as InheritedColorConfig<PointColorContext<Series>>,
@@ -61,7 +56,6 @@ const InnerLineCanvas = <Series extends LineSeries>({
     pointBorderColor = canvasDefaultProps.pointBorderColor as InheritedColorConfig<
         Omit<Point<Series>, 'borderColor'>
     >,
-
     enableGridX = canvasDefaultProps.enableGridX,
     gridXValues,
     enableGridY = canvasDefaultProps.enableGridY,
@@ -70,9 +64,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
     axisRight,
     axisBottom = canvasDefaultProps.axisBottom,
     axisLeft = canvasDefaultProps.axisLeft,
-
     legends = canvasDefaultProps.legends,
-
     isInteractive = canvasDefaultProps.isInteractive,
     debugMesh = canvasDefaultProps.debugMesh,
     onMouseLeave,
@@ -81,6 +73,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
     onClick,
     onDoubleClick,
     tooltip = canvasDefaultProps.tooltip as PointTooltipComponent<Series>,
+    role,
     forwardedRef,
 }: Omit<LineCanvasProps<Series>, 'renderWrapper' | 'theme'> & {
     forwardedRef: Ref<HTMLCanvasElement>
@@ -406,6 +399,7 @@ const InnerLineCanvas = <Series extends LineSeries>({
             onMouseUp={isInteractive ? handleMouseUp : undefined}
             onClick={isInteractive ? handleClick : undefined}
             onDoubleClick={isInteractive ? handleDoubleClick : undefined}
+            role={role}
         />
     )
 }
