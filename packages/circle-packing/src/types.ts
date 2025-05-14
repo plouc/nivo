@@ -1,10 +1,17 @@
-import * as React from 'react'
+import { JSX, FunctionComponent, MouseEvent } from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
-import { Box, MotionProps, PropertyAccessor, ValueFormat, SvgDefsAndFill } from '@nivo/core'
+import {
+    Box,
+    MotionProps,
+    PropertyAccessor,
+    ValueFormat,
+    SvgDefsAndFill,
+    Dimensions,
+} from '@nivo/core'
 import { PartialTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 
-export interface ComputedDatum<RawDatum> {
+export interface ComputedDatum<Datum> {
     id: string
     // contain own id plus all ancestor ids
     path: string[]
@@ -18,83 +25,118 @@ export interface ComputedDatum<RawDatum> {
     // defined when using patterns or gradients
     fill?: string
     // contains the raw node's data
-    data: RawDatum
+    data: Datum
     depth: number
     height: number
-    parent?: ComputedDatum<RawDatum>
+    parent?: ComputedDatum<Datum>
 }
 
 export type CirclePackingLayerId = 'circles' | 'labels'
 
-export interface CirclePackingCustomLayerProps<RawDatum> {
-    nodes: ComputedDatum<RawDatum>[]
+export interface CirclePackingCustomLayerProps<Datum> {
+    nodes: ComputedDatum<Datum>[]
 }
 
-export type CirclePackingCustomLayer<RawDatum> = React.FC<CirclePackingCustomLayerProps<RawDatum>>
+export type CirclePackingCustomLayer<Datum> = FunctionComponent<
+    CirclePackingCustomLayerProps<Datum>
+>
 
-export type CirclePackingLayer<RawDatum> = CirclePackingLayerId | CirclePackingCustomLayer<RawDatum>
+export type CirclePackingLayer<Datum> = CirclePackingLayerId | CirclePackingCustomLayer<Datum>
 
-export type MouseHandler<RawDatum> = (
-    datum: ComputedDatum<RawDatum>,
-    event: React.MouseEvent
-) => void
+export type MouseHandler<Datum> = (datum: ComputedDatum<Datum>, event: MouseEvent) => void
 
-export type MouseHandlers<RawDatum> = {
-    onClick?: MouseHandler<RawDatum>
-    onMouseEnter?: MouseHandler<RawDatum>
-    onMouseMove?: MouseHandler<RawDatum>
-    onMouseLeave?: MouseHandler<RawDatum>
+export type MouseHandlers<Datum> = {
+    onClick?: MouseHandler<Datum>
+    onMouseEnter?: MouseHandler<Datum>
+    onMouseMove?: MouseHandler<Datum>
+    onMouseLeave?: MouseHandler<Datum>
 }
 
-export interface CirclePackingCommonProps<RawDatum> {
-    data: RawDatum
-    id: PropertyAccessor<RawDatum, string>
-    value: PropertyAccessor<RawDatum, number>
+export interface CirclePackingDataProps<Datum> {
+    data: Readonly<Datum>
+}
+
+export interface CirclePackingCommonProps<Datum> {
+    id: PropertyAccessor<Datum, string>
+    value: PropertyAccessor<Datum, number>
     valueFormat?: ValueFormat<number>
-    width: number
-    height: number
-    margin?: Box
+    margin: Box
     padding: number
     leavesOnly: boolean
-    theme?: PartialTheme
-    colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
+    theme: PartialTheme
+    colors: OrdinalColorScaleConfig<Omit<ComputedDatum<Datum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
     inheritColorFromParent: boolean
     // used if `inheritColorFromParent` is `true`
-    childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    childColor: InheritedColorConfig<ComputedDatum<Datum>>
     borderWidth: number
-    borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-    circleComponent: CircleComponent<RawDatum>
+    borderColor: InheritedColorConfig<ComputedDatum<Datum>>
     enableLabels: boolean
-    label: PropertyAccessor<ComputedDatum<RawDatum>, string>
-    labelsFilter?: (label: ComputedLabel<RawDatum>) => boolean
+    label: PropertyAccessor<ComputedDatum<Datum>, string>
+    labelsFilter?: (label: ComputedLabel<Datum>) => boolean
     labelsSkipRadius: number
-    labelTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-    labelComponent: LabelComponent<RawDatum>
-    layers: CirclePackingLayer<RawDatum>[]
+    labelTextColor: InheritedColorConfig<ComputedDatum<Datum>>
+    layers: CirclePackingLayer<Datum>[]
     isInteractive: boolean
-    tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
+    tooltip: (props: ComputedDatum<Datum>) => JSX.Element
     zoomedId?: string | null
     animate: boolean
     motionConfig: MotionProps['motionConfig']
-    role: string
-    renderWrapper?: boolean
+    role?: string
+    renderWrapper: boolean
 }
 
-export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
-    MouseHandlers<RawDatum> &
-    SvgDefsAndFill<ComputedDatum<RawDatum>>
+export interface CirclePackingSvgExtraProps<Datum> {
+    circleComponent: CircleComponent<Datum>
+    labelComponent: LabelComponent<Datum>
+}
 
-export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
-    MouseHandlers<RawDatum>
+export type CirclePackingSvgProps<Datum> = Dimensions &
+    CirclePackingDataProps<Datum> &
+    Partial<CirclePackingCommonProps<Datum>> &
+    Partial<CirclePackingSvgExtraProps<Datum>> &
+    MouseHandlers<Datum> &
+    SvgDefsAndFill<ComputedDatum<Datum>>
+export type CirclePackingSvgPropsWithDefaults<Datum> = Dimensions &
+    CirclePackingDataProps<Datum> &
+    CirclePackingCommonProps<Datum> &
+    CirclePackingSvgExtraProps<Datum> &
+    MouseHandlers<Datum> &
+    SvgDefsAndFill<ComputedDatum<Datum>>
 
-export type CirclePackingCanvasProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
-    Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'> & {
-        pixelRatio: number
-    }
+export interface CirclePackingHtmlExtraProps<Datum> {
+    circleComponent: CircleComponent<Datum>
+    labelComponent: LabelComponent<Datum>
+}
 
-export type CircleProps<RawDatum> = {
-    node: ComputedDatum<RawDatum>
+export type CirclePackingHtmlProps<Datum> = Dimensions &
+    CirclePackingDataProps<Datum> &
+    Partial<CirclePackingCommonProps<Datum>> &
+    Partial<CirclePackingHtmlExtraProps<Datum>> &
+    MouseHandlers<Datum>
+export type CirclePackingHtmlPropsWithDefaults<Datum> = Dimensions &
+    CirclePackingDataProps<Datum> &
+    CirclePackingCommonProps<Datum> &
+    CirclePackingHtmlExtraProps<Datum> &
+    MouseHandlers<Datum>
+
+export interface CirclePackingCanvasExtraProps {
+    pixelRatio: number
+}
+
+export type CirclePackingCanvasProps<Datum> = Dimensions &
+    CirclePackingDataProps<Datum> &
+    Partial<CirclePackingCommonProps<Datum>> &
+    Partial<CirclePackingCanvasExtraProps> &
+    Pick<MouseHandlers<Datum>, 'onMouseMove' | 'onClick'>
+export type CirclePackingCanvasPropsWithDefaults<Datum> = Dimensions &
+    CirclePackingDataProps<Datum> &
+    CirclePackingCommonProps<Datum> &
+    CirclePackingCanvasExtraProps &
+    Pick<MouseHandlers<Datum>, 'onMouseMove' | 'onClick'>
+
+export type CircleProps<Datum> = {
+    node: ComputedDatum<Datum>
     style: {
         x: SpringValue<number>
         y: SpringValue<number>
@@ -105,18 +147,18 @@ export type CircleProps<RawDatum> = {
         borderWidth: number
         borderColor: SpringValue<string>
     }
-} & MouseHandlers<RawDatum>
+} & MouseHandlers<Datum>
 
-export type CircleComponent<RawDatum> = (props: CircleProps<RawDatum>) => JSX.Element
+export type CircleComponent<Datum> = (props: CircleProps<Datum>) => JSX.Element
 
-export interface ComputedLabel<RawDatum> {
+export interface ComputedLabel<Datum> {
     label: string | number
     textColor: string
-    node: ComputedDatum<RawDatum>
+    node: ComputedDatum<Datum>
 }
 
-export interface LabelProps<RawDatum> {
-    node: ComputedDatum<RawDatum>
+export interface LabelProps<Datum> {
+    node: ComputedDatum<Datum>
     label: string | number
     style: {
         x: SpringValue<number>
@@ -128,4 +170,4 @@ export interface LabelProps<RawDatum> {
     }
 }
 
-export type LabelComponent<RawDatum> = (props: LabelProps<RawDatum>) => JSX.Element
+export type LabelComponent<Datum> = (props: LabelProps<Datum>) => JSX.Element

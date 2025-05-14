@@ -4,11 +4,13 @@ import { CirclePacking, CirclePackingHtml } from '../src'
 
 const testCases = [
     {
+        name: 'CirclePacking',
         Chart: CirclePacking,
         circle: 'CircleSvg',
         label: 'LabelSvg',
     },
     {
+        name: 'CirclePackingHtml',
         Chart: CirclePackingHtml,
         circle: 'CircleHtml',
         label: 'LabelHtml',
@@ -16,7 +18,7 @@ const testCases = [
 ]
 
 testCases.forEach(testCase => {
-    describe(testCase.Chart, () => {
+    describe(testCase.name, () => {
         describe('circles', () => {
             it('should render as much circles as items', () => {
                 const wrapper = mount(

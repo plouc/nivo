@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePackingHtml, htmlDefaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -67,18 +67,21 @@ const CirclePackingHtml = ({ location }: PageProps) => {
             currentFlavor="html"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaultProps}
+            defaultProperties={htmlDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCirclePackingHtml
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLDivElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',

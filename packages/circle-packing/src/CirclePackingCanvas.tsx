@@ -1,11 +1,19 @@
-import { useCallback, useEffect, useRef, createElement } from 'react'
-import * as React from 'react'
-import { useDimensions, Container } from '@nivo/core'
+import {
+    useCallback,
+    useEffect,
+    useRef,
+    createElement,
+    MouseEvent,
+    forwardRef,
+    ReactElement,
+    Ref,
+} from 'react'
+import { useDimensions, Container, mergeRefs, WithChartRef } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { CirclePackingCanvasProps, ComputedDatum } from './types'
-import { defaultProps } from './props'
+import { canvasDefaultProps } from './defaults'
 import {
     useCirclePacking,
     useCirclePackingZoom,
@@ -13,45 +21,47 @@ import {
     useMouseCircleDetection,
 } from './hooks'
 
-type InnerCirclePackingCanvasProps<RawDatum> = Partial<
-    Omit<
-        CirclePackingCanvasProps<RawDatum>,
-        'data' | 'width' | 'height' | 'animate' | 'motionConfig'
-    >
-> &
-    Pick<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>
+type InnerCirclePackingCanvasProps<Datum> = Omit<
+    CirclePackingCanvasProps<Datum>,
+    'animate' | 'motionConfig'
+> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
-const InnerCirclePackingCanvas = <RawDatum,>({
+const InnerCirclePackingCanvas = <Datum,>({
     data,
-    id = defaultProps.id,
-    value = defaultProps.value,
+    id = canvasDefaultProps.id,
+    value = canvasDefaultProps.value,
     valueFormat,
     width,
     height,
     margin: partialMargin,
-    padding = defaultProps.padding,
-    leavesOnly = defaultProps.leavesOnly,
-    colors = defaultProps.colors as OrdinalColorScaleConfig<
-        Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
+    padding = canvasDefaultProps.padding,
+    leavesOnly = canvasDefaultProps.leavesOnly,
+    colors = canvasDefaultProps.colors as OrdinalColorScaleConfig<
+        Omit<ComputedDatum<Datum>, 'color' | 'fill'>
     >,
-    colorBy = defaultProps.colorBy,
-    inheritColorFromParent = defaultProps.inheritColorFromParent,
-    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    enableLabels = defaultProps.enableLabels,
-    label = defaultProps.label,
+    colorBy = canvasDefaultProps.colorBy,
+    inheritColorFromParent = canvasDefaultProps.inheritColorFromParent,
+    childColor = canvasDefaultProps.childColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    borderWidth = canvasDefaultProps.borderWidth,
+    borderColor = canvasDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    enableLabels = canvasDefaultProps.enableLabels,
+    label = canvasDefaultProps.label,
     labelsFilter,
-    labelsSkipRadius = defaultProps.labelsSkipRadius,
-    labelTextColor = defaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    isInteractive,
+    labelsSkipRadius = canvasDefaultProps.labelsSkipRadius,
+    labelTextColor = canvasDefaultProps.labelTextColor as InheritedColorConfig<
+        ComputedDatum<Datum>
+    >,
+    isInteractive = canvasDefaultProps.isInteractive,
     onMouseMove,
     onClick,
-    tooltip = defaultProps.tooltip,
+    tooltip = canvasDefaultProps.tooltip,
     zoomedId,
-    role = defaultProps.role,
-    pixelRatio = defaultProps.pixelRatio,
-}: InnerCirclePackingCanvasProps<RawDatum>) => {
+    role = canvasDefaultProps.role,
+    pixelRatio = canvasDefaultProps.pixelRatio,
+    forwardedRef,
+}: InnerCirclePackingCanvasProps<Datum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
 
@@ -61,7 +71,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         partialMargin
     )
 
-    const nodes = useCirclePacking<RawDatum>({
+    const nodes = useCirclePacking<Datum>({
         data,
         id,
         value,
@@ -76,7 +86,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         childColor,
     })
 
-    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
+    const zoomedNodes = useCirclePackingZoom<Datum>(nodes, zoomedId, innerWidth, innerHeight)
 
     const labels = useCirclePackingLabels({
         nodes: zoomedNodes,
@@ -86,7 +96,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         textColor: labelTextColor,
     })
 
-    const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
+    const getBorderColor = useInheritedColor<ComputedDatum<Datum>>(borderColor, theme)
 
     useEffect(() => {
         if (!canvasEl.current) return
@@ -147,7 +157,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         getBorderColor,
     ])
 
-    const getNodeFromMouseEvent = useMouseCircleDetection<RawDatum>({
+    const getNodeFromMouseEvent = useMouseCircleDetection<Datum>({
         nodes: zoomedNodes,
         canvasEl,
         margin,
@@ -156,7 +166,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = useCallback(
-        (event: React.MouseEvent<HTMLCanvasElement>) => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             const node = getNodeFromMouseEvent(event)
             if (node) {
                 onMouseMove?.(node, event)
@@ -173,7 +183,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     }, [hideTooltip])
 
     const handleClick = useCallback(
-        (event: React.MouseEvent<HTMLCanvasElement>) => {
+        (event: MouseEvent<HTMLCanvasElement>) => {
             if (!onClick) return
 
             const node = getNodeFromMouseEvent(event)
@@ -186,7 +196,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -203,13 +213,23 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     )
 }
 
-export const CirclePackingCanvas = <RawDatum,>({
-    isInteractive = defaultProps.isInteractive,
-    theme,
-    ...otherProps
-}: Partial<Omit<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>> &
-    Pick<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>) => (
-    <Container isInteractive={isInteractive} theme={theme}>
-        <InnerCirclePackingCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const CirclePackingCanvas = forwardRef(
+    <Datum,>(
+        {
+            isInteractive = canvasDefaultProps.isInteractive,
+            theme,
+            ...otherProps
+        }: CirclePackingCanvasProps<Datum>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container isInteractive={isInteractive} theme={theme}>
+            <InnerCirclePackingCanvas<Datum>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum>(
+    props: WithChartRef<CirclePackingCanvasProps<Datum>, HTMLCanvasElement>
+) => ReactElement

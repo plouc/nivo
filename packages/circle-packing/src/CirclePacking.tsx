@@ -1,72 +1,71 @@
-import { createElement, Fragment, ReactNode, useMemo } from 'react'
+import { createElement, forwardRef, Fragment, ReactElement, ReactNode, Ref, useMemo } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
     useDimensions,
     Container,
     SvgWrapper,
+    WithChartRef,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './types'
 import { useCirclePacking, useCirclePackingZoom, useCirclePackingLayerContext } from './hooks'
-import { defaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import { Circles } from './Circles'
-import { CircleSvg } from './CircleSvg'
 import { Labels } from './Labels'
-import { LabelSvg } from './LabelSvg'
 
-type InnerCirclePackingProps<RawDatum> = Partial<
-    Omit<
-        CirclePackingSvgProps<RawDatum>,
-        'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
-    >
-> &
-    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
+type InnerCirclePackingProps<Datum> = Omit<
+    CirclePackingSvgProps<Datum>,
+    'animate' | 'motionConfig'
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
-const InnerCirclePacking = <RawDatum,>({
+const InnerCirclePacking = <Datum,>({
     data,
-    id = defaultProps.id,
-    value = defaultProps.value,
+    id = svgDefaultProps.id,
+    value = svgDefaultProps.value,
     valueFormat,
     width,
     height,
     margin: partialMargin,
-    padding = defaultProps.padding,
-    leavesOnly = defaultProps.leavesOnly,
-    colors = defaultProps.colors as OrdinalColorScaleConfig<
-        Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
+    padding = svgDefaultProps.padding,
+    leavesOnly = svgDefaultProps.leavesOnly,
+    colors = svgDefaultProps.colors as OrdinalColorScaleConfig<
+        Omit<ComputedDatum<Datum>, 'color' | 'fill'>
     >,
-    colorBy = defaultProps.colorBy,
-    inheritColorFromParent = defaultProps.inheritColorFromParent,
-    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    circleComponent = CircleSvg,
-    defs = defaultProps.defs,
-    fill = defaultProps.fill,
-    enableLabels = defaultProps.enableLabels,
-    label = defaultProps.label,
+    colorBy = svgDefaultProps.colorBy,
+    inheritColorFromParent = svgDefaultProps.inheritColorFromParent,
+    childColor = svgDefaultProps.childColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    borderWidth = svgDefaultProps.borderWidth,
+    borderColor = svgDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    circleComponent = svgDefaultProps.circleComponent,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
+    enableLabels = svgDefaultProps.enableLabels,
+    label = svgDefaultProps.label,
     labelsFilter,
-    labelsSkipRadius = defaultProps.labelsSkipRadius,
-    labelTextColor = defaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    labelComponent = LabelSvg,
-    layers = defaultProps.layers,
-    isInteractive,
+    labelsSkipRadius = svgDefaultProps.labelsSkipRadius,
+    labelTextColor = svgDefaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    labelComponent = svgDefaultProps.labelComponent,
+    layers = svgDefaultProps.layers,
+    isInteractive = svgDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = defaultProps.tooltip,
+    tooltip = svgDefaultProps.tooltip,
     zoomedId,
-    role = defaultProps.role,
-}: InnerCirclePackingProps<RawDatum>) => {
+    role = svgDefaultProps.role,
+    forwardedRef,
+}: InnerCirclePackingProps<Datum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const nodes = useCirclePacking<RawDatum>({
+    const nodes = useCirclePacking<Datum>({
         data,
         id,
         value,
@@ -81,7 +80,7 @@ const InnerCirclePacking = <RawDatum,>({
         childColor,
     })
 
-    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
+    const zoomedNodes = useCirclePackingZoom<Datum>(nodes, zoomedId, innerWidth, innerHeight)
 
     const boundDefs = useMemo(
         () => bindDefs(defs, zoomedNodes, fill, { targetKey: 'fill' }),
@@ -95,7 +94,7 @@ const InnerCirclePacking = <RawDatum,>({
 
     if (layers.includes('circles')) {
         layerById.circles = (
-            <Circles<RawDatum>
+            <Circles<Datum>
                 key="circles"
                 nodes={zoomedNodes}
                 borderWidth={borderWidth}
@@ -113,7 +112,7 @@ const InnerCirclePacking = <RawDatum,>({
 
     if (enableLabels && layers.includes('labels')) {
         layerById.labels = (
-            <Labels<RawDatum>
+            <Labels<Datum>
                 key="labels"
                 nodes={zoomedNodes}
                 label={label}
@@ -125,7 +124,7 @@ const InnerCirclePacking = <RawDatum,>({
         )
     }
 
-    const layerContext = useCirclePackingLayerContext<RawDatum>({
+    const layerContext = useCirclePackingLayerContext<Datum>({
         nodes,
     })
 
@@ -136,6 +135,7 @@ const InnerCirclePacking = <RawDatum,>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (layerById[layer as CirclePackingLayerId] !== undefined) {
@@ -152,22 +152,30 @@ const InnerCirclePacking = <RawDatum,>({
     )
 }
 
-export const CirclePacking = <RawDatum,>({
-    theme,
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: Partial<Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
-    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
-    <Container
-        isInteractive={isInteractive}
-        animate={animate}
-        motionConfig={motionConfig}
-        renderWrapper={renderWrapper}
-        theme={theme}
-    >
-        <InnerCirclePacking<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const CirclePacking = forwardRef(
+    <Datum,>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...props
+        }: CirclePackingSvgProps<Datum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerCirclePacking<Datum>
+                isInteractive={isInteractive}
+                {...props}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum>(props: WithChartRef<CirclePackingSvgProps<Datum>, SVGSVGElement>) => ReactElement

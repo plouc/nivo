@@ -1,11 +1,16 @@
-import { defaultProps } from '@nivo/circle-packing'
+import { commonDefaultProps, svgDefaultProps } from '@nivo/circle-packing'
 import {
     themeProperty,
     motionProperties,
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    chartRef,
+    ordinalColors,
+    isInteractive,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'html', 'canvas', 'api']
@@ -59,7 +64,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaultProps.id,
+        defaultValue: commonDefaultProps.id,
     },
     {
         key: 'value',
@@ -76,7 +81,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaultProps.value,
+        defaultValue: commonDefaultProps.value,
     },
     {
         key: 'valueFormat',
@@ -107,7 +112,7 @@ const props: ChartProperty[] = [
         `,
         type: 'number',
         required: false,
-        defaultValue: defaultProps.padding,
+        defaultValue: commonDefaultProps.padding,
         group: 'Base',
         control: {
             type: 'range',
@@ -122,15 +127,16 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaultProps.leavesOnly,
+        defaultValue: commonDefaultProps.leavesOnly,
         group: 'Base',
         control: { type: 'switch' },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg', 'html', 'canvas']),
     themeProperty(['svg', 'html', 'canvas']),
     ordinalColors({
         flavors: allFlavors,
-        defaultValue: { scheme: 'nivo' },
+        defaultValue: commonDefaultProps.colors,
     }),
     {
         key: 'colorBy',
@@ -141,7 +147,7 @@ const props: ChartProperty[] = [
         `,
         type: `'id' | 'depth'`,
         required: false,
-        defaultValue: defaultProps.colorBy,
+        defaultValue: commonDefaultProps.colorBy,
         flavors: allFlavors,
         group: 'Style',
         control: {
@@ -158,7 +164,7 @@ const props: ChartProperty[] = [
         type: 'boolean',
         required: false,
         flavors: allFlavors,
-        defaultValue: defaultProps.inheritColorFromParent,
+        defaultValue: commonDefaultProps.inheritColorFromParent,
         control: { type: 'switch' },
         group: 'Style',
     },
@@ -168,7 +174,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.childColor,
+        defaultValue: commonDefaultProps.childColor,
         control: { type: 'inheritedColor' },
         group: 'Style',
     },
@@ -178,7 +184,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaultProps.borderWidth,
+        defaultValue: commonDefaultProps.borderWidth,
         control: { type: 'lineWidth' },
         group: 'Style',
     },
@@ -192,7 +198,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.borderColor,
+        defaultValue: commonDefaultProps.borderColor,
         control: { type: 'inheritedColor' },
         group: 'Style',
     },
@@ -201,7 +207,7 @@ const props: ChartProperty[] = [
         key: 'circleComponent',
         help: 'Custom circle component.',
         type: 'Component',
-        flavors: ['svg'],
+        flavors: ['svg', 'html'],
         group: 'Style',
         required: false,
     },
@@ -211,7 +217,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'boolean',
         required: false,
-        defaultValue: defaultProps.enableLabels,
+        defaultValue: commonDefaultProps.enableLabels,
         control: { type: 'switch' },
         group: 'Labels',
     },
@@ -226,7 +232,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaultProps.label,
+        defaultValue: commonDefaultProps.label,
         group: 'Labels',
         control: {
             type: 'choices',
@@ -265,7 +271,7 @@ const props: ChartProperty[] = [
         type: 'number',
         required: false,
         flavors: allFlavors,
-        defaultValue: defaultProps.labelsSkipRadius,
+        defaultValue: commonDefaultProps.labelsSkipRadius,
         group: 'Labels',
         control: {
             type: 'range',
@@ -284,7 +290,7 @@ const props: ChartProperty[] = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.labelTextColor,
+        defaultValue: commonDefaultProps.labelTextColor,
         control: { type: 'inheritedColor' },
         group: 'Labels',
     },
@@ -292,13 +298,13 @@ const props: ChartProperty[] = [
         key: 'labelComponent',
         help: 'Custom label component.',
         type: 'Component',
-        flavors: allFlavors,
+        flavors: ['svg', 'html'],
         group: 'Labels',
         required: false,
     },
     isInteractive({
         flavors: ['svg', 'html', 'canvas'],
-        defaultValue: defaultProps.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
     }),
     {
         key: 'onMouseEnter',
@@ -345,7 +351,7 @@ const props: ChartProperty[] = [
         required: false,
         group: 'Interactivity',
     },
-    ...motionProperties(['svg', 'html'], defaultProps),
+    ...motionProperties(['svg', 'html'], svgDefaultProps),
 ]
 
 export const groups = groupProperties(props)

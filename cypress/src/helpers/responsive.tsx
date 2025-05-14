@@ -1,6 +1,13 @@
 import { ReactNode } from 'react'
 
-export const testChartResponsiveness = (render: (defaults?: [number, number]) => ReactNode) => {
+export const testChartResponsiveness = (
+    render: (defaults?: [number, number]) => ReactNode,
+    {
+        isHtml = false,
+    }: {
+        isHtml?: boolean
+    } = {}
+) => {
     describe('Responsiveness', () => {
         it('should adapt to the container size', () => {
             cy.viewport(600, 400)
@@ -23,17 +30,21 @@ export const testChartResponsiveness = (render: (defaults?: [number, number]) =>
                 </div>
             )
 
-            cy.findByRole('chart')
-                .should('exist')
-                .and('have.attr', 'width', 600)
-                .and('have.attr', 'height', 400)
+            let root = cy.findByRole('chart').should('exist')
+            if (!isHtml) {
+                root.should('have.attr', 'width', 600).and('have.attr', 'height', 400)
+            } else {
+                root.should('have.css', 'width', `${600}px`).and('have.css', 'height', `${400}px`)
+            }
 
             cy.viewport(500, 300)
 
-            cy.findByRole('chart')
-                .should('exist')
-                .and('have.attr', 'width', 500)
-                .and('have.attr', 'height', 300)
+            root = cy.findByRole('chart').should('exist')
+            if (!isHtml) {
+                root.should('have.attr', 'width', 500).and('have.attr', 'height', 300)
+            } else {
+                root.should('have.css', 'width', `${500}px`).and('have.css', 'height', `${300}px`)
+            }
         })
 
         it('should support CSS grids', () => {
@@ -56,10 +67,12 @@ export const testChartResponsiveness = (render: (defaults?: [number, number]) =>
                 </div>
             )
 
-            cy.findByRole('chart')
-                .should('exist')
-                .and('have.attr', 'width', 300)
-                .and('have.attr', 'height', 300)
+            const root = cy.findByRole('chart').should('exist')
+            if (!isHtml) {
+                root.should('have.attr', 'width', 300).and('have.attr', 'height', 300)
+            } else {
+                root.should('have.css', 'width', `${300}px`).and('have.css', 'height', `${300}px`)
+            }
         })
 
         it('should support flexbox', () => {
@@ -78,10 +91,12 @@ export const testChartResponsiveness = (render: (defaults?: [number, number]) =>
                 </div>
             )
 
-            cy.findByRole('chart')
-                .should('exist')
-                .and('have.attr', 'width', 500)
-                .and('have.attr', 'height', 300)
+            const root = cy.findByRole('chart').should('exist')
+            if (!isHtml) {
+                root.should('have.attr', 'width', 500).and('have.attr', 'height', 300)
+            } else {
+                root.should('have.css', 'width', `${500}px`).and('have.css', 'height', `${300}px`)
+            }
         })
 
         it('should support default dimensions', () => {

@@ -2,15 +2,15 @@ import { animated } from '@react-spring/web'
 import { CircleProps } from './types'
 import { useNodeMouseHandlers } from './hooks'
 
-export const CircleSvg = <RawDatum,>({
+export const CircleSvg = <Datum,>({
     node,
     style,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-}: CircleProps<RawDatum>) => {
-    const handlers = useNodeMouseHandlers<RawDatum>(node, {
+}: CircleProps<Datum>) => {
+    const handlers = useNodeMouseHandlers<Datum>(node, {
         onMouseEnter,
         onMouseMove,
         onMouseLeave,

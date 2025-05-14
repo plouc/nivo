@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import { patternLinesDef } from '@nivo/core'
-import { ResponsiveCirclePacking, defaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePacking, svgDefaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -31,11 +30,8 @@ const initialProperties = {
     label: 'id',
     labelsFilter: label => label.node.depth === 2,
     labelsSkipRadius: 10,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 2]],
-    },
-    borderWidth: 1,
+    labelTextColor: svgDefaultProps.labelTextColor,
+    borderWidth: svgDefaultProps.borderWidth,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.5]],
@@ -83,18 +79,21 @@ const CirclePacking = ({ location }: PageProps) => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCirclePacking
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',

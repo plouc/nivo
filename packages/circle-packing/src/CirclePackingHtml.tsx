@@ -1,64 +1,62 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, WithChartRef } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingHtmlProps, CirclePackingLayerId, ComputedDatum } from './types'
 import { useCirclePacking, useCirclePackingLayerContext, useCirclePackingZoom } from './hooks'
 import { Circles } from './Circles'
-import { CircleHtml } from './CircleHtml'
-import { defaultProps } from './props'
+import { htmlDefaultProps } from './defaults'
 import { Labels } from './Labels'
-import { LabelHtml } from './LabelHtml'
 
-type InnerCirclePackingHtmlProps<RawDatum> = Partial<
-    Omit<
-        CirclePackingHtmlProps<RawDatum>,
-        'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
-    >
-> &
-    Pick<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
+type InnerCirclePackingHtmlProps<Datum> = Omit<
+    CirclePackingHtmlProps<Datum>,
+    'animate' | 'motionConfig'
+> & {
+    forwardedRef: Ref<HTMLDivElement>
+}
 
-export const InnerCirclePackingHtml = <RawDatum,>({
+export const InnerCirclePackingHtml = <Datum,>({
     data,
-    id = defaultProps.id,
-    value = defaultProps.value,
+    id = htmlDefaultProps.id,
+    value = htmlDefaultProps.value,
     valueFormat,
     width,
     height,
     margin: partialMargin,
-    padding = defaultProps.padding,
-    leavesOnly = defaultProps.leavesOnly,
-    colors = defaultProps.colors as OrdinalColorScaleConfig<
-        Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
+    padding = htmlDefaultProps.padding,
+    leavesOnly = htmlDefaultProps.leavesOnly,
+    colors = htmlDefaultProps.colors as OrdinalColorScaleConfig<
+        Omit<ComputedDatum<Datum>, 'color' | 'fill'>
     >,
-    colorBy = defaultProps.colorBy,
-    inheritColorFromParent = defaultProps.inheritColorFromParent,
-    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    circleComponent = CircleHtml,
-    enableLabels = defaultProps.enableLabels,
-    label = defaultProps.label,
+    colorBy = htmlDefaultProps.colorBy,
+    inheritColorFromParent = htmlDefaultProps.inheritColorFromParent,
+    childColor = htmlDefaultProps.childColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    borderWidth = htmlDefaultProps.borderWidth,
+    borderColor = htmlDefaultProps.borderColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    circleComponent = htmlDefaultProps.circleComponent,
+    enableLabels = htmlDefaultProps.enableLabels,
+    label = htmlDefaultProps.label,
     labelsFilter,
-    labelsSkipRadius = defaultProps.labelsSkipRadius,
-    labelTextColor = defaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    labelComponent = LabelHtml,
-    layers = defaultProps.layers,
-    isInteractive,
+    labelsSkipRadius = htmlDefaultProps.labelsSkipRadius,
+    labelTextColor = htmlDefaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<Datum>>,
+    labelComponent = htmlDefaultProps.labelComponent,
+    layers = htmlDefaultProps.layers,
+    isInteractive = htmlDefaultProps.isInteractive,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip = defaultProps.tooltip,
+    tooltip = htmlDefaultProps.tooltip,
     zoomedId,
-    role = defaultProps.role,
-}: InnerCirclePackingHtmlProps<RawDatum>) => {
+    role = htmlDefaultProps.role,
+    forwardedRef,
+}: InnerCirclePackingHtmlProps<Datum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
 
-    const nodes = useCirclePacking<RawDatum>({
+    const nodes = useCirclePacking<Datum>({
         data,
         id,
         value,
@@ -73,7 +71,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         childColor,
     })
 
-    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
+    const zoomedNodes = useCirclePackingZoom<Datum>(nodes, zoomedId, innerWidth, innerHeight)
 
     const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
@@ -82,7 +80,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
 
     if (layers.includes('circles')) {
         layerById.circles = (
-            <Circles<RawDatum>
+            <Circles<Datum>
                 key="circles"
                 nodes={zoomedNodes}
                 borderWidth={borderWidth}
@@ -100,7 +98,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
 
     if (enableLabels && layers.includes('labels')) {
         layerById.labels = (
-            <Labels<RawDatum>
+            <Labels<Datum>
                 key="labels"
                 nodes={zoomedNodes}
                 label={label}
@@ -112,7 +110,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         )
     }
 
-    const layerContext = useCirclePackingLayerContext<RawDatum>({
+    const layerContext = useCirclePackingLayerContext<Datum>({
         nodes,
     })
 
@@ -125,6 +123,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
                 width: outerWidth,
                 height: outerHeight,
             }}
+            ref={forwardedRef}
         >
             <div
                 style={{
@@ -149,20 +148,28 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     )
 }
 
-export const CirclePackingHtml = <RawDatum,>({
-    theme,
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    ...otherProps
-}: Partial<Omit<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>> &
-    Pick<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>) => (
-    <Container
-        isInteractive={isInteractive}
-        animate={animate}
-        motionConfig={motionConfig}
-        theme={theme}
-    >
-        <InnerCirclePackingHtml<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const CirclePackingHtml = forwardRef(
+    <Datum,>(
+        {
+            theme,
+            isInteractive = htmlDefaultProps.isInteractive,
+            animate = htmlDefaultProps.animate,
+            motionConfig = htmlDefaultProps.motionConfig,
+            ...otherProps
+        }: CirclePackingHtmlProps<Datum>,
+        ref: Ref<HTMLDivElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+        >
+            <InnerCirclePackingHtml<Datum>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum>(props: WithChartRef<CirclePackingHtmlProps<Datum>, HTMLDivElement>) => ReactElement
