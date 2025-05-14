@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveRadialBar, svgDefaultProps } from '@nivo/radial-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -74,8 +74,7 @@ const initialProperties: UnmappedRadarProps = {
             itemDirection: 'left-to-right',
             itemWidth: 100,
             itemHeight: 18,
-            itemTextColor: '#999',
-            symbolSize: 18,
+            symbolSize: 16,
             symbolShape: 'square',
         },
     ],
@@ -130,12 +129,15 @@ const RadialBar = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => (
+            {(properties, data, theme, logAction, chartRef) => (
                 <ResponsiveRadialBar
                     data={data}
                     {...properties}
                     theme={theme}
+                    ref={chartRef as Ref<SVGSVGElement>}
+                    debounceResize={200}
                     onClick={bar => {
                         logAction({
                             type: 'click',
