@@ -208,7 +208,7 @@ const props: ChartProperty[] = [
             max: 10,
         },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     chartRef(allFlavors),
     themeProperty(allFlavors),
     ordinalColors({

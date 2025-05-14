@@ -146,6 +146,7 @@ const BoxPlot = ({ location }: PageProps) => {
                         {...properties}
                         data={data}
                         theme={theme}
+                        debounceResize={200}
                         ref={chartRef as Ref<SVGSVGElement>}
                         onClick={boxPlot => {
                             logAction({

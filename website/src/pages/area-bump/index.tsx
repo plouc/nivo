@@ -2,7 +2,6 @@ import React, { Ref } from 'react'
 import range from 'lodash/range.js'
 import random from 'lodash/random.js'
 import { useStaticQuery, graphql, PageProps } from 'gatsby'
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveAreaBump, areaBumpSvgDefaultProps as defaults, AreaBumpSerie } from '@nivo/bump'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/area-bump/meta.yml'
@@ -144,6 +143,7 @@ const AreaBump = ({ location }: PageProps) => {
                         {...properties}
                         theme={theme}
                         ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={series =>
                             logAction({
                                 type: 'click',

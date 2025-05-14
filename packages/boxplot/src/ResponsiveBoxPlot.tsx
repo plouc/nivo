@@ -5,10 +5,21 @@ import { BoxPlot } from './BoxPlot'
 
 export const ResponsiveBoxPlot = forwardRef(
     <RawDatum extends BoxPlotDatum>(
-        { defaultWidth, defaultHeight, ...props }: ResponsiveProps<BoxPlotSvgProps<RawDatum>>,
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<BoxPlotSvgProps<RawDatum>>,
         ref: Ref<SVGSVGElement>
     ) => (
-        <ResponsiveWrapper defaultWidth={defaultWidth} defaultHeight={defaultHeight}>
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
             {({ width, height }) => (
                 <BoxPlot<RawDatum> width={width} height={height} {...props} ref={ref} />
             )}

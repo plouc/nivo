@@ -16,11 +16,18 @@ export const ResponsiveAreaBump = forwardRef(
         {
             defaultWidth,
             defaultHeight,
+            onResize,
+            debounceResize,
             ...props
         }: ResponsiveProps<AreaBumpSvgProps<Datum, ExtraProps>>,
         ref: Ref<SVGSVGElement>
     ) => (
-        <ResponsiveWrapper defaultWidth={defaultWidth} defaultHeight={defaultHeight}>
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
             {({ width, height }) => (
                 <AreaBump<Datum, ExtraProps> width={width} height={height} {...props} ref={ref} />
             )}
