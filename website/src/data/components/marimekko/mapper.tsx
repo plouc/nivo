@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternLinesDef } from '@nivo/core'
-import { SvgProps, TooltipProps } from '@nivo/marimekko'
+import { MarimekkoSvgProps, TooltipProps } from '@nivo/marimekko'
 import { settingsMapper, UnmappedSettings } from '../../../lib/settings'
 import { mapAxis, mapFormat, mapLegends } from '../../../lib/property-mappers'
 
-export type MappedMarimekkoProps = Omit<SvgProps<any>, 'data' | 'width' | 'height'>
+export type MappedMarimekkoProps = Omit<MarimekkoSvgProps<any>, 'data' | 'width' | 'height'>
 export type UnmappedMarimekkoProps = UnmappedSettings<
     MappedMarimekkoProps,
     {

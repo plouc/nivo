@@ -12,7 +12,7 @@ import {
     DatumPropertyAccessor,
     Layout,
     DimensionDatum,
-    CommonProps,
+    MarimekkoCommonProps,
     CustomLayerProps,
     BarDatum,
     OffsetId,
@@ -23,38 +23,38 @@ import {
 // a mix of keys and custom value accessors, so we're
 // building a map of accessors in any case, we're gonna
 // use it later for `stack.value()`.
-export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['dimensions']) =>
+export const useDataDimensions = <Datum>(rawDimensions: DataProps<Datum>['dimensions']) =>
     useMemo(() => {
-        const dimensions: Record<string, (datum: RawDatum) => number> = {}
+        const dimensions: Record<string, (datum: Datum) => number> = {}
         const dimensionIds: string[] = []
         rawDimensions.forEach(dimension => {
             dimensionIds.push(dimension.id)
             dimensions[dimension.id] =
                 typeof dimension.value === 'function'
                     ? dimension.value
-                    : (datum: RawDatum) => get(datum, dimension.value as string, 0) as number
+                    : (datum: Datum) => get(datum, dimension.value as string, 0) as number
         })
 
         return { dimensionIds, dimensions }
     }, [rawDimensions])
 
-export const useStack = <RawDatum>(
+export const useStack = <Datum>(
     dimensionIds: readonly string[],
-    dimensions: Record<string, (datum: RawDatum) => number>,
+    dimensions: Record<string, (datum: Datum) => number>,
     offset: OffsetId
 ) =>
     useMemo(() => {
         const offsetFunction = offsetById[offset]
 
-        return d3Stack<RawDatum>()
+        return d3Stack<Datum>()
             .keys(dimensionIds)
             .value((datum, key) => dimensions[key](datum))
             .offset(offsetFunction)
     }, [dimensionIds, dimensions, offset])
 
-export const useStackedData = <RawDatum>(
-    stack: Stack<any, RawDatum, string>,
-    data: DataProps<RawDatum>['data']
+export const useStackedData = <Datum>(
+    stack: Stack<any, Datum, string>,
+    data: DataProps<Datum>['data']
 ) =>
     useMemo(() => {
         const stacked = stack(data)
@@ -92,20 +92,20 @@ export const useDimensionsScale = (
         return createLinearScale({ type: 'linear', min, max }, scaleData, size, axis)
     }, [min, max, width, height, layout])
 
-export const useNormalizedData = <RawDatum>(
-    data: DataProps<RawDatum>['data'],
-    id: DataProps<RawDatum>['id'],
-    value: DataProps<RawDatum>['value']
+export const useNormalizedData = <Datum>(
+    data: DataProps<Datum>['data'],
+    id: DataProps<Datum>['id'],
+    value: DataProps<Datum>['value']
 ) => {
-    const getId: DatumPropertyAccessor<RawDatum, string | number> = useMemo(() => {
-        return typeof id === 'function' ? id : (datum: RawDatum) => get(datum, id)
+    const getId: DatumPropertyAccessor<Datum, string | number> = useMemo(() => {
+        return typeof id === 'function' ? id : (datum: Datum) => get(datum, id)
     }, [id])
-    const getValue: DatumPropertyAccessor<RawDatum, number> = useMemo(() => {
-        return typeof value === 'function' ? value : (datum: RawDatum) => get(datum, value, 0)
+    const getValue: DatumPropertyAccessor<Datum, number> = useMemo(() => {
+        return typeof value === 'function' ? value : (datum: Datum) => get(datum, value, 0)
     }, [value])
 
     return useMemo(() => {
-        const normalized: NormalizedDatum<RawDatum>[] = []
+        const normalized: NormalizedDatum<Datum>[] = []
         data.forEach((datum, index) => {
             const datumId = getId(datum)
             const datumValue = getValue(datum)
@@ -122,7 +122,7 @@ export const useNormalizedData = <RawDatum>(
     }, [data, getId, getValue])
 }
 
-export const useThicknessScale = <RawDatum>({
+export const useThicknessScale = <Datum>({
     data,
     width,
     height,
@@ -130,7 +130,7 @@ export const useThicknessScale = <RawDatum>({
     outerPadding,
     innerPadding,
 }: {
-    data: NormalizedDatum<RawDatum>[]
+    data: NormalizedDatum<Datum>[]
     width: number
     height: number
     layout: Layout
@@ -146,7 +146,7 @@ export const useThicknessScale = <RawDatum>({
         return createLinearScale({ type: 'linear' }, scaleData, size, 'x')
     }, [data, width, height, layout, innerPadding, outerPadding])
 
-export const useComputedData = <RawDatum>({
+export const useComputedData = <Datum>({
     data,
     stacked,
     rawDimensions,
@@ -158,30 +158,30 @@ export const useComputedData = <RawDatum>({
     outerPadding,
     innerPadding,
 }: {
-    data: NormalizedDatum<RawDatum>[]
-    stacked: Series<RawDatum, string>[]
-    rawDimensions: DataProps<RawDatum>['dimensions']
-    valueFormat: DataProps<RawDatum>['valueFormat']
+    data: NormalizedDatum<Datum>[]
+    stacked: Series<Datum, string>[]
+    rawDimensions: DataProps<Datum>['dimensions']
+    valueFormat: MarimekkoCommonProps<Datum>['valueFormat']
     thicknessScale: ScaleLinear<number>
     dimensionsScale: ScaleLinear<number>
-    colors: CommonProps<RawDatum>['colors']
+    colors: MarimekkoCommonProps<Datum>['colors']
     layout: Layout
     outerPadding: number
     innerPadding: number
 }) => {
-    const getColor = useOrdinalColorScale<Omit<DimensionDatum<RawDatum>, 'color'>>(colors, 'id')
+    const getColor = useOrdinalColorScale<Omit<DimensionDatum<Datum>, 'color'>>(colors, 'id')
 
     const formatValue = useValueFormatter<number>(valueFormat)
 
     return useMemo(() => {
-        const computedData: ComputedDatum<RawDatum>[] = []
+        const computedData: ComputedDatum<Datum>[] = []
 
         let position = outerPadding
 
         data.forEach(datum => {
             const thickness = thicknessScale(datum.value)
 
-            const computedDatum: ComputedDatum<RawDatum> = {
+            const computedDatum: ComputedDatum<Datum> = {
                 ...datum,
                 x: layout === 'vertical' ? position : 0,
                 y: layout === 'vertical' ? 0 : position,
@@ -189,7 +189,7 @@ export const useComputedData = <RawDatum>({
                 height: layout === 'vertical' ? 0 : thickness,
                 dimensions: [],
             }
-            const dimensions: DimensionDatum<RawDatum>[] = []
+            const dimensions: DimensionDatum<Datum>[] = []
 
             const allPositions: number[] = []
             let totalSize = 0
@@ -200,7 +200,7 @@ export const useComputedData = <RawDatum>({
                 const dimension = stacked.find(stack => stack.key === rawDimension.id)
                 if (dimension) {
                     const dimensionPoint = dimension[datum.index]
-                    const dimensionDatum: DimensionDatum<RawDatum> = {
+                    const dimensionDatum: DimensionDatum<Datum> = {
                         id: rawDimension.id,
                         dimension: rawDimension,
                         datum: computedDatum,
@@ -267,16 +267,16 @@ export const useComputedData = <RawDatum>({
     ])
 }
 
-export const useBars = <RawDatum>(
-    data: ComputedDatum<RawDatum>[],
-    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>,
+export const useBars = <Datum>(
+    data: ComputedDatum<Datum>[],
+    borderColor: InheritedColorConfig<DimensionDatum<Datum>>,
     borderWidth: number
 ) => {
     const theme = useTheme()
-    const getBorderColor = useInheritedColor<DimensionDatum<RawDatum>>(borderColor, theme)
+    const getBorderColor = useInheritedColor<DimensionDatum<Datum>>(borderColor, theme)
 
     return useMemo(() => {
-        const all: BarDatum<RawDatum>[] = []
+        const all: BarDatum<Datum>[] = []
         data.forEach(datum => {
             datum.dimensions.forEach(dimension => {
                 all.push({
@@ -292,7 +292,7 @@ export const useBars = <RawDatum>(
     }, [data, borderWidth, getBorderColor])
 }
 
-export const useMarimekko = <RawDatum>({
+export const useMarimekko = <Datum>({
     data,
     id,
     value,
@@ -308,25 +308,25 @@ export const useMarimekko = <RawDatum>({
     width,
     height,
 }: {
-    data: DataProps<RawDatum>['data']
-    id: DataProps<RawDatum>['id']
-    value: DataProps<RawDatum>['value']
-    valueFormat: DataProps<RawDatum>['valueFormat']
-    dimensions: DataProps<RawDatum>['dimensions']
+    data: DataProps<Datum>['data']
+    id: DataProps<Datum>['id']
+    value: DataProps<Datum>['value']
+    valueFormat: MarimekkoCommonProps<Datum>['valueFormat']
+    dimensions: DataProps<Datum>['dimensions']
     layout: Layout
     offset: OffsetId
     outerPadding: number
     innerPadding: number
-    colors: CommonProps<RawDatum>['colors']
-    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
+    colors: MarimekkoCommonProps<Datum>['colors']
+    borderColor: InheritedColorConfig<DimensionDatum<Datum>>
     borderWidth: number
     width: number
     height: number
 }) => {
-    const { dimensionIds, dimensions } = useDataDimensions<RawDatum>(rawDimensions)
-    const stack = useStack<RawDatum>(dimensionIds, dimensions, offset)
-    const { stacked, min, max } = useStackedData<RawDatum>(stack, data)
-    const normalizedData = useNormalizedData<RawDatum>(data, id, value)
+    const { dimensionIds, dimensions } = useDataDimensions<Datum>(rawDimensions)
+    const stack = useStack<Datum>(dimensionIds, dimensions, offset)
+    const { stacked, min, max } = useStackedData<Datum>(stack, data)
+    const normalizedData = useNormalizedData<Datum>(data, id, value)
     const thicknessScale = useThicknessScale({
         data: normalizedData,
         width,
@@ -336,7 +336,7 @@ export const useMarimekko = <RawDatum>({
         innerPadding,
     })
     const dimensionsScale = useDimensionsScale(min, max, width, height, layout)
-    const computedData = useComputedData<RawDatum>({
+    const computedData = useComputedData<Datum>({
         data: normalizedData,
         stacked,
         rawDimensions,
@@ -348,7 +348,7 @@ export const useMarimekko = <RawDatum>({
         outerPadding,
         innerPadding,
     })
-    const bars = useBars<RawDatum>(computedData, borderColor, borderWidth)
+    const bars = useBars<Datum>(computedData, borderColor, borderWidth)
 
     return {
         computedData,
@@ -359,17 +359,17 @@ export const useMarimekko = <RawDatum>({
     }
 }
 
-export const useLayerContext = <RawDatum>({
+export const useLayerContext = <Datum>({
     data,
     bars,
     thicknessScale,
     dimensionsScale,
 }: {
-    data: ComputedDatum<RawDatum>[]
-    bars: BarDatum<RawDatum>[]
+    data: ComputedDatum<Datum>[]
+    bars: BarDatum<Datum>[]
     thicknessScale: ScaleLinear<number>
     dimensionsScale: ScaleLinear<number>
-}): CustomLayerProps<RawDatum> =>
+}): CustomLayerProps<Datum> =>
     useMemo(
         () => ({
             data,
@@ -380,7 +380,7 @@ export const useLayerContext = <RawDatum>({
         [data, bars, thicknessScale, dimensionsScale]
     )
 
-export const useLegendData = <RawDatum>(dimensionIds: string[], bars: BarDatum<RawDatum>[]) => {
+export const useLegendData = <Datum>(dimensionIds: string[], bars: BarDatum<Datum>[]) => {
     const legendData: {
         id: string
         label: string

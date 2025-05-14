@@ -15,31 +15,29 @@ import { LegendProps } from '@nivo/legends'
 
 export type DatumId = string | number
 export type DatumValue = number
-export type DatumFormattedValue = string | number
 
-export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
+export type DatumPropertyAccessor<Datum, T> = (datum: Datum) => T
 
-export type RawDimensionDatum<RawDatum> = {
+export type RawDimensionDatum<Datum> = {
     id: string
-    value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
+    value: string | number | DatumPropertyAccessor<Datum, DatumValue>
 }
 
-export interface DataProps<RawDatum> {
-    data: readonly RawDatum[]
-    id: string | number | DatumPropertyAccessor<RawDatum, DatumId>
-    value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
-    dimensions: readonly RawDimensionDatum<RawDatum>[]
-    valueFormat?: ValueFormat<number>
+export interface DataProps<Datum> {
+    data: readonly Datum[]
+    id: string | number | DatumPropertyAccessor<Datum, DatumId>
+    value: string | number | DatumPropertyAccessor<Datum, DatumValue>
+    dimensions: readonly RawDimensionDatum<Datum>[]
 }
 
-export interface NormalizedDatum<RawDatum> {
+export interface NormalizedDatum<Datum> {
     index: number
     id: DatumId
     value: DatumValue
-    data: RawDatum
+    data: Datum
 }
 
-export interface DimensionDatum<RawDatum> {
+export interface DimensionDatum<Datum> {
     id: string
     value: number
     formattedValue: string | number
@@ -48,45 +46,45 @@ export interface DimensionDatum<RawDatum> {
     y: number
     width: number
     height: number
-    dimension: RawDimensionDatum<RawDatum>
-    datum: ComputedDatum<RawDatum>
+    dimension: RawDimensionDatum<Datum>
+    datum: ComputedDatum<Datum>
 }
 
-export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
+export interface ComputedDatum<Datum> extends NormalizedDatum<Datum> {
     x: number
     y: number
     width: number
     height: number
-    dimensions: readonly DimensionDatum<RawDatum>[]
+    dimensions: readonly DimensionDatum<Datum>[]
 }
 
-export interface BarDatum<RawDatum> extends DimensionDatum<RawDatum> {
+export interface BarDatum<Datum> extends DimensionDatum<Datum> {
     key: string
     fill?: string
     borderColor: string
     borderWidth: number
 }
 
-export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
+export type LabelAccessorFunction<Datum> = (datum: ComputedDatum<Datum>) => string | number
 
-export type LayerId = 'grid' | 'axes' | 'bars' | 'legends'
+export type MarimekkoLayerId = 'grid' | 'axes' | 'bars' | 'legends'
 
-export interface CustomLayerProps<RawDatum> {
-    data: readonly ComputedDatum<RawDatum>[]
-    bars: readonly BarDatum<RawDatum>[]
+export interface CustomLayerProps<Datum> {
+    data: readonly ComputedDatum<Datum>[]
+    bars: readonly BarDatum<Datum>[]
     thicknessScale: ScaleLinear<number>
     dimensionsScale: ScaleLinear<number>
 }
 
-export type CustomLayer<RawDatum> = React.FC<CustomLayerProps<RawDatum>>
+export type CustomLayer<Datum> = React.FC<CustomLayerProps<Datum>>
 
-export type Layer<RawDatum> = LayerId | CustomLayer<RawDatum>
+export type Layer<Datum> = MarimekkoLayerId | CustomLayer<Datum>
 
-export interface TooltipProps<RawDatum> {
-    bar: BarDatum<RawDatum>
+export interface TooltipProps<Datum> {
+    bar: BarDatum<Datum>
 }
 
-export type BarTooltipType<RawDatum> = (props: TooltipProps<RawDatum>) => JSX.Element
+export type BarTooltipType<Datum> = (props: TooltipProps<Datum>) => JSX.Element
 
 export type Layout = 'horizontal' | 'vertical'
 
@@ -110,14 +108,13 @@ export const offsetById = {
 
 export type OffsetId = keyof typeof offsetById
 
-export type CommonProps<RawDatum> = {
+export interface MarimekkoCommonProps<Datum> {
+    valueFormat?: ValueFormat<number>
     margin: Box
     layout: Layout
     offset: OffsetId
     outerPadding: number
     innerPadding: number
-
-    // axes and grid
     axisTop?: AxisProps | null
     axisRight?: AxisProps | null
     axisBottom?: AxisProps | null
@@ -126,46 +123,43 @@ export type CommonProps<RawDatum> = {
     gridXValues?: readonly number[]
     enableGridY: boolean
     gridYValues?: readonly number[]
-
-    // colors, theme and border
-    colors: OrdinalColorScaleConfig<Omit<DimensionDatum<RawDatum>, 'color' | 'fill'>>
+    colors: OrdinalColorScaleConfig<Omit<DimensionDatum<Datum>, 'color' | 'fill'>>
     theme: PartialTheme
     borderWidth: number
-    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
-
-    // labels
-    enableLabels: boolean
-    label: string | LabelAccessorFunction<RawDatum>
-    labelSkipWidth: number
-    labelSkipHeight: number
-    labelTextColor: InheritedColorConfig<DimensionDatum<RawDatum>>
-
-    // interactivity
+    borderColor: InheritedColorConfig<DimensionDatum<Datum>>
     isInteractive: boolean
-    tooltip: BarTooltipType<RawDatum>
-
+    tooltip: BarTooltipType<Datum>
     legends: readonly LegendProps[]
-
-    role: string
+    role?: string
 }
 
-export type MouseEventHandler<RawDatum, ElementType> = (
-    datum: BarDatum<RawDatum>,
+export type MouseEventHandler<Datum, ElementType> = (
+    datum: BarDatum<Datum>,
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
-    onClick: MouseEventHandler<RawDatum, ElementType>
-    onMouseEnter: MouseEventHandler<RawDatum, ElementType>
-    onMouseMove: MouseEventHandler<RawDatum, ElementType>
-    onMouseLeave: MouseEventHandler<RawDatum, ElementType>
+export type MouseEventHandlers<Datum, ElementType> = Partial<{
+    onClick: MouseEventHandler<Datum, ElementType>
+    onMouseEnter: MouseEventHandler<Datum, ElementType>
+    onMouseMove: MouseEventHandler<Datum, ElementType>
+    onMouseLeave: MouseEventHandler<Datum, ElementType>
 }>
 
-export type SvgProps<RawDatum> = DataProps<RawDatum> &
+export interface MarimekkoSvgExtraProps<Datum> {
+    layers: readonly Layer<Datum>[]
+}
+
+export type MarimekkoSvgProps<Datum> = DataProps<Datum> &
     Dimensions &
-    Partial<CommonProps<RawDatum>> &
+    Partial<MarimekkoCommonProps<Datum>> &
+    Partial<MarimekkoSvgExtraProps<Datum>> &
+    MouseEventHandlers<Datum, SVGRectElement> &
     MotionProps &
-    SvgDefsAndFill<BarDatum<RawDatum>> &
-    MouseEventHandlers<RawDatum, SVGRectElement> & {
-        layers?: readonly Layer<RawDatum>[]
-    }
+    SvgDefsAndFill<BarDatum<Datum>>
+export type MarimekkoSvgPropsWithDefaults<Datum> = DataProps<Datum> &
+    Dimensions &
+    MarimekkoCommonProps<Datum> &
+    MarimekkoSvgExtraProps<Datum> &
+    MouseEventHandlers<Datum, SVGRectElement> &
+    MotionProps &
+    SvgDefsAndFill<BarDatum<Datum>>

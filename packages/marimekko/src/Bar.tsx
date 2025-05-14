@@ -1,10 +1,10 @@
 import { createElement, useCallback, MouseEvent } from 'react'
 import { animated, SpringValues, to } from '@react-spring/web'
 import { useTooltip } from '@nivo/tooltip'
-import { BarDatum, CommonProps, MouseEventHandlers } from './types'
+import { BarDatum, MarimekkoCommonProps, MouseEventHandlers } from './types'
 
-interface BarProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {
-    bar: BarDatum<RawDatum>
+interface BarProps<Datum> extends MouseEventHandlers<Datum, SVGRectElement> {
+    bar: BarDatum<Datum>
     animatedProps: SpringValues<{
         x: number
         y: number
@@ -15,10 +15,10 @@ interface BarProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement
         borderColor: string
     }>
     isInteractive: boolean
-    tooltip: CommonProps<RawDatum>['tooltip']
+    tooltip: MarimekkoCommonProps<Datum>['tooltip']
 }
 
-export const Bar = <RawDatum,>({
+export const Bar = <Datum,>({
     bar,
     animatedProps,
     isInteractive,
@@ -27,7 +27,7 @@ export const Bar = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: BarProps<RawDatum>) => {
+}: BarProps<Datum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const showTooltip = useCallback(

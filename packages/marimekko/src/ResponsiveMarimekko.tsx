@@ -1,11 +1,30 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { Marimekko } from './Marimekko'
-import { SvgProps } from './types'
+import { MarimekkoSvgProps } from './types'
 
-export const ResponsiveMarimekko = <RawDatum,>(
-    props: Omit<SvgProps<RawDatum>, 'width' | 'height'>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => <Marimekko<RawDatum> width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
-)
+export const ResponsiveMarimekko = forwardRef(
+    <Datum,>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<MarimekkoSvgProps<Datum>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
+            {({ width, height }) => (
+                <Marimekko<Datum> width={width} height={height} {...props} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <Datum>(
+    props: WithChartRef<ResponsiveProps<MarimekkoSvgProps<Datum>>, SVGSVGElement>
+) => ReactElement

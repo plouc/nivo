@@ -1,21 +1,21 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode, ReactElement, forwardRef, Ref } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
     Container,
     SvgWrapper,
     useDimensions,
+    WithChartRef,
 } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import { SvgProps, LayerId, DimensionDatum } from './types'
-import { defaultProps } from './props'
+import { MarimekkoSvgProps, MarimekkoLayerId, DimensionDatum } from './types'
+import { svgDefaultProps } from './defaults'
 import { useMarimekko, useLayerContext, useLegendData } from './hooks'
 import { Bars } from './Bars'
-import { BarTooltip } from './BarTooltip'
 
-const InnerMarimekko = <RawDatum,>({
+const InnerMarimekko = <Datum,>({
     data,
     id,
     value,
@@ -24,35 +24,38 @@ const InnerMarimekko = <RawDatum,>({
     width,
     height,
     margin: partialMargin,
-    layout = defaultProps.layout,
-    offset = defaultProps.offset,
-    outerPadding = defaultProps.outerPadding,
-    innerPadding = defaultProps.innerPadding,
-    layers = defaultProps.layers,
+    layout = svgDefaultProps.layout,
+    offset = svgDefaultProps.offset,
+    outerPadding = svgDefaultProps.outerPadding,
+    innerPadding = svgDefaultProps.innerPadding,
+    layers = svgDefaultProps.layers,
     axisTop,
     axisRight,
     axisBottom,
     axisLeft,
-    enableGridX = defaultProps.enableGridX,
+    enableGridX = svgDefaultProps.enableGridX,
     gridXValues,
-    enableGridY = defaultProps.enableGridY,
+    enableGridY = svgDefaultProps.enableGridY,
     gridYValues,
-    colors = defaultProps.colors as OrdinalColorScaleConfig<
-        Omit<DimensionDatum<RawDatum>, 'color'>
+    colors = svgDefaultProps.colors as OrdinalColorScaleConfig<
+        Omit<DimensionDatum<Datum>, 'color'>
     >,
-    defs = [],
-    fill = [],
-    borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColorConfig<DimensionDatum<RawDatum>>,
-    isInteractive = defaultProps.isInteractive,
-    tooltip = BarTooltip,
+    defs = svgDefaultProps.defs,
+    fill = svgDefaultProps.fill,
+    borderWidth = svgDefaultProps.borderWidth,
+    borderColor = svgDefaultProps.borderColor as InheritedColorConfig<DimensionDatum<Datum>>,
+    isInteractive = svgDefaultProps.isInteractive,
+    tooltip = svgDefaultProps.tooltip,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-    legends = [],
+    legends = svgDefaultProps.legends,
     role,
-}: SvgProps<RawDatum>) => {
+    forwardedRef,
+}: MarimekkoSvgProps<Datum> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -60,7 +63,7 @@ const InnerMarimekko = <RawDatum,>({
     )
 
     const { computedData, bars, thicknessScale, dimensionsScale, dimensionIds } =
-        useMarimekko<RawDatum>({
+        useMarimekko<Datum>({
             data,
             id,
             value,
@@ -77,7 +80,7 @@ const InnerMarimekko = <RawDatum,>({
             height: innerHeight,
         })
 
-    const layerById: Record<LayerId, ReactNode> = {
+    const layerById: Record<MarimekkoLayerId, ReactNode> = {
         grid: null,
         axes: null,
         bars: null,
@@ -88,7 +91,7 @@ const InnerMarimekko = <RawDatum,>({
 
     if (layers.includes('bars')) {
         layerById.bars = (
-            <Bars<RawDatum>
+            <Bars<Datum>
                 key="bars"
                 bars={bars}
                 isInteractive={isInteractive}
@@ -134,7 +137,7 @@ const InnerMarimekko = <RawDatum,>({
         )
     }
 
-    const legendData = useLegendData<RawDatum>(dimensionIds, bars)
+    const legendData = useLegendData<Datum>(dimensionIds, bars)
 
     if (layers.includes('legends')) {
         layerById.legends = (
@@ -152,7 +155,7 @@ const InnerMarimekko = <RawDatum,>({
         )
     }
 
-    const layerContext = useLayerContext<RawDatum>({
+    const layerContext = useLayerContext<Datum>({
         data: computedData,
         bars,
         thicknessScale,
@@ -166,39 +169,42 @@ const InnerMarimekko = <RawDatum,>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
-                if (layerById[layer as LayerId] !== undefined) {
-                    return layerById[layer as LayerId]
-                }
-
                 if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
+                    return <Fragment key={i}>{layer(layerContext)}</Fragment>
                 }
 
-                return null
+                return layerById[layer]
             })}
         </SvgWrapper>
     )
 }
 
-export const Marimekko = <RawDatum,>({
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    ...otherProps
-}: SvgProps<RawDatum>) => (
-    <Container
-        theme={otherProps.theme}
-        isInteractive={isInteractive}
-        animate={animate}
-        motionConfig={motionConfig}
-    >
-        <InnerMarimekko<RawDatum>
+export const Marimekko = forwardRef(
+    <Datum,>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
+            ...props
+        }: MarimekkoSvgProps<Datum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            theme={props.theme}
             isInteractive={isInteractive}
             animate={animate}
             motionConfig={motionConfig}
-            {...otherProps}
-        />
-    </Container>
-)
+        >
+            <InnerMarimekko<Datum>
+                isInteractive={isInteractive}
+                animate={animate}
+                motionConfig={motionConfig}
+                {...props}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum>(props: WithChartRef<MarimekkoSvgProps<Datum>, SVGSVGElement>) => ReactElement
