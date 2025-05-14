@@ -1,10 +1,11 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
 import {
     Container,
     SvgWrapper,
     useDimensions,
     // @ts-expect-error no types
     bindDefs,
+    WithChartRef,
 } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -18,7 +19,9 @@ import { StreamDatum, StreamLayerId, StreamSvgProps } from './types'
 type InnerStreamProps<RawDatum extends StreamDatum> = Omit<
     StreamSvgProps<RawDatum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerStream = <RawDatum extends StreamDatum>({
     data,
@@ -60,6 +63,7 @@ const InnerStream = <RawDatum extends StreamDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerStreamProps<RawDatum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -218,6 +222,7 @@ const InnerStream = <RawDatum extends StreamDatum>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {chartLayers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -230,23 +235,28 @@ const InnerStream = <RawDatum extends StreamDatum>({
     )
 }
 
-export const Stream = <RawDatum extends StreamDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: StreamSvgProps<RawDatum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Stream = forwardRef(
+    <RawDatum extends StreamDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerStream<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: StreamSvgProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerStream<RawDatum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <RawDatum extends StreamDatum>(
+    props: WithChartRef<StreamSvgProps<RawDatum>, SVGSVGElement>
+) => ReactElement
