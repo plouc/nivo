@@ -8,6 +8,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     blendMode,
     isInteractive,
@@ -122,7 +123,8 @@ const props: ChartProperty[] = [
             })),
         },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg']),
     themeProperty(['svg', 'api']),
     ordinalColors({
         flavors: allFlavors,

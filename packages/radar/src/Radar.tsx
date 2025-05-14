@@ -1,18 +1,20 @@
-import { ReactNode, Fragment, createElement } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { ReactNode, Fragment, createElement, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, SvgWrapper, WithChartRef } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { RadarLayer } from './RadarLayer'
 import { RadarGrid } from './RadarGrid'
 import { RadarSlices } from './RadarSlices'
 import { RadarDots } from './RadarDots'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import { RadarLayerId, RadarSvgProps } from './types'
 import { useRadar } from './hooks'
 
 type InnerRadarProps<D extends Record<string, unknown>> = Omit<
     RadarSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerRadar = <D extends Record<string, unknown>>({
     data,
@@ -54,6 +56,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
     defs = svgDefaultProps.defs,
     fill = svgDefaultProps.fill,
     onClick,
+    forwardedRef,
 }: InnerRadarProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -211,6 +214,7 @@ const InnerRadar = <D extends Record<string, unknown>>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -223,23 +227,28 @@ const InnerRadar = <D extends Record<string, unknown>>({
     )
 }
 
-export const Radar = <D extends Record<string, unknown>>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: RadarSvgProps<D>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Radar = forwardRef(
+    <D extends Record<string, unknown>>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerRadar<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: RadarSvgProps<D>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerRadar<D> isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
+) as <D extends Record<string, unknown>>(
+    props: WithChartRef<RadarSvgProps<D>, SVGSVGElement>
+) => ReactElement
