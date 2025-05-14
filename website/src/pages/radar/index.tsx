@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateWinesTastes } from '@nivo/generators'
 import { ResponsiveRadar, svgDefaultProps } from '@nivo/radar'
@@ -10,7 +10,7 @@ import { groups } from '../../data/components/radar/props'
 const initialProperties: UnmappedRadarProps = {
     indexBy: 'taste',
     maxValue: 'auto',
-    valueFormat: { format: '>-.2f', enabled: true },
+    valueFormat: { format: '>-.2f', enabled: false },
     margin: {
         top: 70,
         right: 80,
@@ -85,14 +85,17 @@ const Radar = ({ location }: PageProps) => {
             getTabData={data => data.data}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveRadar
                         data={data.data}
                         keys={data.keys}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={slice =>
                             logAction({
                                 type: 'click',

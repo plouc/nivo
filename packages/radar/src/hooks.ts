@@ -9,7 +9,7 @@ import {
 } from '@nivo/core'
 import { degreesToRadians } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import {
     RadarColorMapping,
     RadarCommonProps,

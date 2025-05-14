@@ -8,7 +8,7 @@ import { useInheritedColor } from '@nivo/colors'
 import { RadarCommonProps, RadarSvgProps } from './types'
 
 interface RadarLayerProps<D extends Record<string, unknown>> {
-    data: D[]
+    data: readonly D[]
     item: string
     colorByKey: Record<string | number, string>
     fillByKey: Record<string, string | null>
