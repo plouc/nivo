@@ -1,30 +1,30 @@
 import { forwardRef, Ref, ReactElement } from 'react'
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { LineCanvasProps, LineSeries } from './types'
 import { LineCanvas } from './LineCanvas'
 
-export type ResponsiveLineCanvasProps<Series extends LineSeries> = Omit<
-    LineCanvasProps<Series>,
-    'width' | 'height'
->
-
-function InnerResponsiveLineCanvas<Series extends LineSeries>(
-    props: ResponsiveLineCanvasProps<Series>,
-    ref: Ref<HTMLCanvasElement>
-) {
-    return (
-        <ResponsiveWrapper>
+export const ResponsiveLineCanvas = forwardRef(
+    <Series extends LineSeries>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<LineCanvasProps<Series>>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultWidth}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
             {({ width, height }: { width: number; height: number }) => (
                 <LineCanvas<Series> width={width} height={height} {...props} ref={ref} />
             )}
         </ResponsiveWrapper>
     )
-}
-
-export const ResponsiveLineCanvas = forwardRef<HTMLCanvasElement, ResponsiveLineCanvasProps<any>>(
-    InnerResponsiveLineCanvas
 ) as <Series extends LineSeries>(
-    props: ResponsiveLineCanvasProps<Series> & {
-        ref?: Ref<HTMLCanvasElement>
-    }
+    props: WithChartRef<ResponsiveProps<LineCanvasProps<Series>>, HTMLCanvasElement>
 ) => ReactElement

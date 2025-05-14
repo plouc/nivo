@@ -1,4 +1,6 @@
-import { Line } from '@nivo/line'
+import { Line, ResponsiveLine } from '@nivo/line'
+import { testChartResponsiveness } from '../../helpers/responsive'
+import { defaultData } from './shared'
 
 describe('Line', () => {
     beforeEach(() => {
@@ -12,28 +14,7 @@ describe('Line', () => {
                 height={500}
                 margin={{ top: 100, right: 50, bottom: 50, left: 50 }}
                 yScale={{ type: 'linear', stacked: true }}
-                data={[
-                    {
-                        id: 'A',
-                        data: [
-                            { x: 'V', y: 30 },
-                            { x: 'W', y: 0 },
-                            { x: 'X', y: 30 },
-                            { x: 'Y', y: 10 },
-                            { x: 'Z', y: 20 },
-                        ],
-                    },
-                    {
-                        id: 'B',
-                        data: [
-                            { x: 'V', y: 0 },
-                            { x: 'W', y: 30 },
-                            { x: 'X', y: 10 },
-                            { x: 'Y', y: 30 },
-                            { x: 'Z', y: 20 },
-                        ],
-                    },
-                ]}
+                data={defaultData}
                 animate={false}
                 isFocusable={true}
             />
@@ -66,4 +47,14 @@ describe('Line', () => {
         cy.get('[data-testid="line.point.B.2"]').blur()
         cy.get('svg + div').should('not.exist')
     })
+
+    testChartResponsiveness(defaults => (
+        <ResponsiveLine
+            data={defaultData}
+            role="chart"
+            defaultWidth={defaults?.[0]}
+            defaultHeight={defaults?.[1]}
+            animate={false}
+        />
+    ))
 })

@@ -173,7 +173,7 @@ const props: ChartProperty[] = [
         type: 'Function | string',
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'curve',
         help: 'Curve interpolation.',
@@ -193,7 +193,7 @@ const props: ChartProperty[] = [
             })),
         },
     },
-    chartRef(['canvas']),
+    chartRef(['svg', 'canvas']),
     themeProperty(['svg', 'canvas', 'api']),
     ordinalColors({
         flavors: allFlavors,

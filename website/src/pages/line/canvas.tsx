@@ -54,6 +54,7 @@ const initialProperties: UnmappedLineCanvasProps = {
         format: '.2f',
         legend: '',
         legendOffset: 36,
+        truncateTickAt: 0,
     },
     axisRight: {
         enable: true,
@@ -64,6 +65,7 @@ const initialProperties: UnmappedLineCanvasProps = {
         format: '.2s',
         legend: '',
         legendOffset: 0,
+        truncateTickAt: 0,
     },
     axisBottom: {
         enable: true,
@@ -75,6 +77,7 @@ const initialProperties: UnmappedLineCanvasProps = {
         legend: 'price',
         legendOffset: 36,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     axisLeft: {
         enable: true,
@@ -86,6 +89,7 @@ const initialProperties: UnmappedLineCanvasProps = {
         legend: 'volume',
         legendOffset: -40,
         legendPosition: 'middle',
+        truncateTickAt: 0,
     },
     legends: [
         {
@@ -123,7 +127,7 @@ const LineCanvas = ({ location }: PageProps) => {
 
     return (
         <ComponentTemplate<UnmappedLineCanvasProps, MappedLineCanvasProps, LineSampleSeries[]>
-            name="Line"
+            name="LineCanvas"
             meta={meta.LineCanvas}
             icon="line"
             flavors={meta.flavors}
@@ -145,6 +149,7 @@ const LineCanvas = ({ location }: PageProps) => {
                         data={data}
                         theme={theme}
                         ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={datum => {
                             if (isPoint(datum)) {
                                 logAction({
