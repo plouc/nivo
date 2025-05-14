@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import { htmlDefaultProps, ResponsiveIcicleHtml } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
@@ -89,13 +89,16 @@ const IcicleHtml = () => {
             propertiesMapper={htmlMapper}
             generateData={generateData}
             image={image}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveIcicleHtml
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLDivElement>}
+                        debounceResize={200}
                         nodeAriaLabel={node => `"${node.id}" node with a value of: ${node.value}`}
                         onClick={node =>
                             logAction({

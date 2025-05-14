@@ -1,7 +1,8 @@
-import { linearGradientDef, patternDotsDef, BoxAnchor } from '@nivo/core'
+import { linearGradientDef, patternDotsDef, BoxAnchor, ResponsiveProps } from '@nivo/core'
 import { colorSchemes } from '@nivo/colors'
 import {
     Icicle,
+    ResponsiveIcicle,
     IcicleSvgProps,
     DefaultIcicleDatum,
     IcicleCommonCustomLayerProps,
@@ -9,6 +10,7 @@ import {
 import { useTheme } from '@nivo/theming'
 import { Text } from '@nivo/text'
 import get from 'lodash/get.js'
+import { testChartResponsiveness } from '../../helpers/responsive'
 
 const hexToRgba = (hex: string, alpha = 1): string => {
     const r = parseInt(hex.slice(1, 3), 16)
@@ -136,9 +138,7 @@ const customData: CustomDatum = {
     ],
 }
 
-const defaultProps: IcicleSvgProps<DefaultIcicleDatum> = {
-    width: 400,
-    height: 400,
+const responsiveDefaultProps: ResponsiveProps<IcicleSvgProps<DefaultIcicleDatum>> = {
     margin: {
         top: 10,
         right: 10,
@@ -155,6 +155,12 @@ const defaultProps: IcicleSvgProps<DefaultIcicleDatum> = {
         },
     },
     data: defaultData,
+}
+
+const defaultProps: IcicleSvgProps<DefaultIcicleDatum> = {
+    ...responsiveDefaultProps,
+    width: 400,
+    height: 400,
 }
 
 // Remove the gaps and margins to get nice round values,
@@ -2545,4 +2551,13 @@ describe('Icicle', () => {
             cy.findByTestId('custom_layer_node.root.B').should('exist')
         })
     })
+
+    testChartResponsiveness(defaults => (
+        <ResponsiveIcicle
+            {...responsiveDefaultProps}
+            defaultWidth={defaults?.[0]}
+            defaultHeight={defaults?.[1]}
+            role="chart"
+        />
+    ))
 })

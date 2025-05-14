@@ -1,5 +1,4 @@
-import { Fragment, ReactNode, useCallback } from 'react'
-import { RectLabels } from '@nivo/rects'
+import { Fragment, ReactNode, useCallback, forwardRef, Ref, ReactElement } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
@@ -8,7 +7,9 @@ import {
     useDimensions,
     ChartContext,
     DefaultChartContext,
+    WithChartRef,
 } from '@nivo/core'
+import { RectLabels } from '@nivo/rects'
 import {
     IcicleSvgProps,
     IcicleSvgPropsWithDefaults,
@@ -83,7 +84,10 @@ const InnerIcicle = <Datum, Context>({
     nodeAriaDescribedBy,
     nodeAriaHidden,
     context = svgDefaultProps.context as IcicleSvgPropsWithDefaults<Datum, Context>['context'],
-}: IcicleSvgProps<Datum, Context>) => {
+    forwardedRef,
+}: IcicleSvgProps<Datum, Context> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -206,6 +210,7 @@ const InnerIcicle = <Datum, Context>({
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
             isFocusable={isFocusable}
+            ref={forwardedRef}
         >
             <ChartContext.Provider value={memoizedContext}>
                 {layers.map((layer, i) => {
@@ -220,15 +225,26 @@ const InnerIcicle = <Datum, Context>({
     )
 }
 
-export const Icicle = <Datum, Context = DefaultChartContext>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: IcicleSvgProps<Datum, Context>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerIcicle<Datum, Context> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const Icicle = forwardRef(
+    <Datum, Context = DefaultChartContext>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...props
+        }: IcicleSvgProps<Datum, Context>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+            <InnerIcicle<Datum, Context>
+                isInteractive={isInteractive}
+                {...props}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum, Context = DefaultChartContext>(
+    props: WithChartRef<IcicleSvgProps<Datum, Context>, SVGSVGElement>
+) => ReactElement

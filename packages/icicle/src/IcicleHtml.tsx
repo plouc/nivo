@@ -1,5 +1,11 @@
-import { Fragment, ReactNode, useCallback } from 'react'
-import { Container, useDimensions, DefaultChartContext, ChartContext } from '@nivo/core'
+import { Fragment, ReactNode, useCallback, forwardRef, Ref, ReactElement } from 'react'
+import {
+    Container,
+    useDimensions,
+    DefaultChartContext,
+    ChartContext,
+    WithChartRef,
+} from '@nivo/core'
 import { RectLabels } from '@nivo/rects'
 import {
     IcicleCustomLayerProps,
@@ -73,7 +79,10 @@ const InnerIcicleHtml = <Datum, Context>({
     nodeAriaDescribedBy,
     nodeAriaHidden,
     context = htmlDefaultProps.context as IcicleHtmlPropsWithDefaults<Datum, Context>['context'],
-}: IcicleHtmlProps<Datum, Context>) => {
+    forwardedRef,
+}: IcicleHtmlProps<Datum, Context> & {
+    forwardedRef: Ref<HTMLDivElement>
+}) => {
     const { margin, outerHeight, outerWidth, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -193,6 +202,7 @@ const InnerIcicleHtml = <Datum, Context>({
             aria-labelledby={ariaLabelledBy}
             aria-describedby={ariaDescribedBy}
             tabIndex={isFocusable ? 0 : undefined}
+            ref={forwardedRef}
         >
             <ChartContext.Provider value={memoizedContext}>
                 <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
@@ -209,15 +219,26 @@ const InnerIcicleHtml = <Datum, Context>({
     )
 }
 
-export const IcicleHtml = <Datum, Context = DefaultChartContext>({
-    isInteractive = htmlDefaultProps.isInteractive,
-    animate = htmlDefaultProps.animate,
-    motionConfig = htmlDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: IcicleHtmlProps<Datum, Context>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerIcicleHtml<Datum, Context> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const IcicleHtml = forwardRef(
+    <Datum, Context = DefaultChartContext>(
+        {
+            isInteractive = htmlDefaultProps.isInteractive,
+            animate = htmlDefaultProps.animate,
+            motionConfig = htmlDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...props
+        }: IcicleHtmlProps<Datum, Context>,
+        ref: Ref<HTMLDivElement>
+    ) => (
+        <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+            <InnerIcicleHtml<Datum, Context>
+                isInteractive={isInteractive}
+                {...props}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum, Context = DefaultChartContext>(
+    props: WithChartRef<IcicleHtmlProps<Datum, Context>, HTMLDivElement>
+) => ReactElement
