@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { SvgWrapper, Container, useDimensions } from '@nivo/core'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
+import { SvgWrapper, Container, useDimensions, WithChartRef } from '@nivo/core'
 import { svgDefaultProps } from './props'
 import { useFunnel } from './hooks'
 import { Parts } from './Parts'
@@ -11,7 +11,9 @@ import { FunnelDatum, FunnelLayerId, FunnelSvgProps } from './types'
 type InnerFunnelProps<D extends FunnelDatum> = Omit<
     FunnelSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerFunnel = <D extends FunnelDatum>({
     data,
@@ -51,6 +53,7 @@ const InnerFunnel = <D extends FunnelDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerFunnelProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -144,6 +147,7 @@ const InnerFunnel = <D extends FunnelDatum>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -156,23 +160,30 @@ const InnerFunnel = <D extends FunnelDatum>({
     )
 }
 
-export const Funnel = <D extends FunnelDatum = FunnelDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: FunnelSvgProps<D>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Funnel = forwardRef(
+    <D extends FunnelDatum = FunnelDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerFunnel<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...otherProps
+        }: FunnelSvgProps<D>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerFunnel<D> isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
+        </Container>
+    )
+) as <D extends FunnelDatum = FunnelDatum>(
+    props: WithChartRef<FunnelSvgProps<D>, SVGSVGElement>
+) => ReactElement

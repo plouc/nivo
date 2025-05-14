@@ -1,6 +1,11 @@
 import { svgDefaultProps as defaults } from '@nivo/funnel'
 import { themeProperty, groupProperties, motionProperties } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    chartRef,
+    ordinalColors,
+    isInteractive,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg']
@@ -29,7 +34,7 @@ const props: ChartProperty[] = [
             this for the \`colors\` property.            
         `,
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'direction',
         group: 'Base',
@@ -104,7 +109,8 @@ const props: ChartProperty[] = [
         flavors: ['svg'],
         control: { type: 'valueFormat' },
     },
-    themeProperty(['svg']),
+    chartRef(['svg']),
+    themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,
         defaultValue: defaults.colors,
