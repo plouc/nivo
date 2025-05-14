@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveCalendar, calendarDefaultProps } from '@nivo/calendar'
 import { generateDayCounts } from '@nivo/generators'
@@ -100,7 +100,8 @@ const Calendar = ({ location }: PageProps) => {
                         {...properties}
                         data={data}
                         theme={theme}
-                        ref={chartRef}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={day => {
                             logAction({
                                 type: 'click',

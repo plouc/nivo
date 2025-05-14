@@ -4,8 +4,22 @@ import { TimeRange } from './TimeRange'
 import { TimeRangeSvgProps } from './types'
 
 export const ResponsiveTimeRange = forwardRef(
-    (props: ResponsiveProps<TimeRangeSvgProps>, ref: Ref<SVGSVGElement>) => (
-        <ResponsiveWrapper>
+    (
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<TimeRangeSvgProps>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
             {({ width, height }) => (
                 <TimeRange width={width} height={height} {...props} ref={ref} />
             )}

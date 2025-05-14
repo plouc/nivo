@@ -86,6 +86,7 @@ const TimeRange = ({ location }: PageProps) => {
                         {...properties}
                         theme={theme}
                         ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={day => {
                             logAction({
                                 type: 'click',

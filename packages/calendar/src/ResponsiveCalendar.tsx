@@ -4,8 +4,22 @@ import { Calendar } from './Calendar'
 import { CalendarSvgProps } from './types'
 
 export const ResponsiveCalendar = forwardRef(
-    (props: ResponsiveProps<CalendarSvgProps>, ref: Ref<SVGSVGElement>) => (
-        <ResponsiveWrapper>
+    (
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<CalendarSvgProps>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
             {({ width, height }) => <Calendar width={width} height={height} {...props} ref={ref} />}
         </ResponsiveWrapper>
     )
