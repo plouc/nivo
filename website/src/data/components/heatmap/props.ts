@@ -2,6 +2,7 @@ import { commonDefaultProps as defaults, svgDefaultProps as svgDefaults } from '
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     chartGrid,
     axes,
     isInteractive,
@@ -49,7 +50,7 @@ const props: ChartProperty[] = [
         type: 'string | (value: number) => string | number',
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'forceSquare',
         help: 'Force square cells (width = height), please note that **padding is ignored**.',
@@ -126,6 +127,7 @@ const props: ChartProperty[] = [
         type: 'false | SizeVariationConfig',
         group: 'Base',
     },
+    chartRef(['svg', 'canvas']),
     themeProperty(allFlavors),
     {
         key: 'colors',

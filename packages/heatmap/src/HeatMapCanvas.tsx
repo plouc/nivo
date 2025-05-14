@@ -1,5 +1,22 @@
-import { useEffect, useRef, useCallback, createElement, useMemo, MouseEvent } from 'react'
-import { getRelativeCursor, isCursorInRect, useDimensions, Container } from '@nivo/core'
+import {
+    useEffect,
+    useRef,
+    useCallback,
+    createElement,
+    useMemo,
+    MouseEvent,
+    forwardRef,
+    Ref,
+    ReactElement,
+} from 'react'
+import {
+    getRelativeCursor,
+    isCursorInRect,
+    useDimensions,
+    Container,
+    WithChartRef,
+    mergeRefs,
+} from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
@@ -21,7 +38,9 @@ import {
 type InnerNetworkCanvasProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
     HeatMapCanvasProps<Datum, ExtraProps>,
     'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
 const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
@@ -64,6 +83,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     ariaLabelledBy,
     ariaDescribedBy,
     pixelRatio = canvasDefaultProps.pixelRatio,
+    forwardedRef,
 }: InnerNetworkCanvasProps<Datum, ExtraProps>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -299,7 +319,7 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -318,18 +338,32 @@ const InnerHeatMapCanvas = <Datum extends HeatMapDatum, ExtraProps extends objec
     )
 }
 
-export const HeatMapCanvas = <
+export const HeatMapCanvas = forwardRef(
+    <
+        Datum extends HeatMapDatum = DefaultHeatMapDatum,
+        ExtraProps extends object = Record<string, never>,
+    >(
+        {
+            theme,
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
+            renderWrapper,
+            ...otherProps
+        }: HeatMapCanvasProps<Datum, ExtraProps>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
+            <InnerHeatMapCanvas<Datum, ExtraProps>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
     ExtraProps extends object = Record<string, never>,
->({
-    theme,
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: HeatMapCanvasProps<Datum, ExtraProps>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerHeatMapCanvas<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+>(
+    props: WithChartRef<HeatMapCanvasProps<Datum, ExtraProps>, HTMLCanvasElement>
+) => ReactElement

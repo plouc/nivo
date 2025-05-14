@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveHeatMapCanvas, canvasDefaultProps as defaults } from '@nivo/heatmap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -139,13 +139,16 @@ const HeatMapCanvas = ({ location }: PageProps) => {
             getDataSize={data => data.length * data[0].data.length}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveHeatMapCanvas<Datum, ExtraProps>
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={cell => {
                             logAction({
                                 type: 'click',

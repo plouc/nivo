@@ -1,5 +1,5 @@
-import { ReactNode, Fragment, createElement, useMemo } from 'react'
-import { SvgWrapper, Container, useDimensions } from '@nivo/core'
+import { ReactNode, Fragment, createElement, useMemo, forwardRef, Ref, ReactElement } from 'react'
+import { SvgWrapper, Container, useDimensions, WithChartRef } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { AnchoredContinuousColorsLegendSvg } from '@nivo/legends'
 import {
@@ -18,7 +18,9 @@ import { HeatMapCellAnnotations } from './HeatMapCellAnnotations'
 type InnerHeatMapProps<Datum extends HeatMapDatum, ExtraProps extends object> = Omit<
     HeatMapSvgProps<Datum, ExtraProps>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     data,
@@ -66,6 +68,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerHeatMapProps<Datum, ExtraProps>) => {
     const {
         margin: _margin,
@@ -218,6 +221,7 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -230,26 +234,40 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     )
 }
 
-export const HeatMap = <
+export const HeatMap = forwardRef(
+    <
+        Datum extends HeatMapDatum = DefaultHeatMapDatum,
+        ExtraProps extends object = Record<string, never>,
+    >(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...otherProps
+        }: HeatMapSvgProps<Datum, ExtraProps>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            {...{
+                animate,
+                isInteractive,
+                motionConfig,
+                renderWrapper,
+                theme,
+            }}
+        >
+            <InnerHeatMap<Datum, ExtraProps>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <
     Datum extends HeatMapDatum = DefaultHeatMapDatum,
     ExtraProps extends object = Record<string, never>,
->({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: HeatMapSvgProps<Datum, ExtraProps>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
-            theme,
-        }}
-    >
-        <InnerHeatMap<Datum, ExtraProps> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+>(
+    props: WithChartRef<HeatMapSvgProps<Datum, ExtraProps>, SVGSVGElement>
+) => ReactElement

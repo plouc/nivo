@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveHeatMap, svgDefaultProps as defaults } from '@nivo/heatmap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -141,13 +141,16 @@ const HeatMap = ({ location }: PageProps) => {
             generateData={getLightData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveHeatMap<Datum, ExtraProps>
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={cell => {
                             logAction({
                                 type: 'click',
