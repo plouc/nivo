@@ -114,6 +114,7 @@ const Sankey = ({ location }: PageProps) => {
                         data={data}
                         theme={theme}
                         ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={node => {
                             let label
                             if ('id' in node) {
