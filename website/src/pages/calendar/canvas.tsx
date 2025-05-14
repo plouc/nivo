@@ -109,6 +109,7 @@ const CalendarCanvas = ({ location }: PageProps) => {
                         data={data}
                         theme={theme}
                         ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={day => {
                             logAction({
                                 type: 'click',
