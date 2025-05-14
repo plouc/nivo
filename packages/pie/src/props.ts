@@ -9,32 +9,23 @@ export const defaultProps = {
     innerRadius: 0,
     padAngle: 0,
     cornerRadius: 0,
-
     layers: ['arcs', 'arcLinkLabels', 'arcLabels', 'legends'],
-
-    // layout
     startAngle: 0,
     endAngle: 360,
     fit: true,
     activeInnerRadiusOffset: 0,
     activeOuterRadiusOffset: 0,
-
-    // border
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 1]],
     },
-
-    // arc labels
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsSkipAngle: 0,
     arcLabelsSkipRadius: 0,
     arcLabelsRadiusOffset: 0.5,
     arcLabelsTextColor: { theme: 'labels.text.fill' },
-
-    // arc link labels
     enableArcLinkLabels: true,
     arcLinkLabel: 'id',
     arcLinkLabelsSkipAngle: 0,
@@ -45,22 +36,15 @@ export const defaultProps = {
     arcLinkLabelsTextOffset: 6,
     arcLinkLabelsTextColor: { theme: 'labels.text.fill' },
     arcLinkLabelsColor: { theme: 'axis.ticks.line.stroke' },
-
     colors: { scheme: 'nivo' } as unknown as OrdinalColorScaleConfig,
     defs: [],
     fill: [],
-
     isInteractive: true,
-
     animate: true,
     motionConfig: 'gentle',
     transitionMode: 'innerRadius' as ArcTransitionMode,
-
     tooltip: PieTooltip,
-
     legends: [],
-
     role: 'img',
-
     pixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1,
 }

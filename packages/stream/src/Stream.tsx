@@ -25,31 +25,25 @@ const InnerStream = <RawDatum extends StreamDatum>({
     keys,
     label,
     valueFormat,
-
     offsetType,
     order,
     curve,
-
     layers: chartLayers = svgDefaultProps.layers,
-
     width,
     height,
     margin: partialMargin,
-
     axisTop,
     axisRight,
     axisBottom = svgDefaultProps.axisBottom,
     axisLeft = svgDefaultProps.axisLeft,
     enableGridX = svgDefaultProps.enableGridX,
     enableGridY = svgDefaultProps.enableGridY,
-
     colors,
     fillOpacity = svgDefaultProps.fillOpacity,
     borderWidth = svgDefaultProps.borderWidth,
     borderColor,
     defs = svgDefaultProps.defs,
     fill = svgDefaultProps.fill,
-
     enableDots = svgDefaultProps.enableDots,
     dotPosition = svgDefaultProps.dotPosition,
     dotComponent = svgDefaultProps.dotComponent,
@@ -57,14 +51,11 @@ const InnerStream = <RawDatum extends StreamDatum>({
     dotColor,
     dotBorderWidth,
     dotBorderColor,
-
     isInteractive = svgDefaultProps.isInteractive,
     tooltip = svgDefaultProps.tooltip,
     enableStackTooltip = svgDefaultProps.enableStackTooltip,
     stackTooltip = svgDefaultProps.stackTooltip,
-
     legends = svgDefaultProps.legends,
-
     role,
     ariaLabel,
     ariaLabelledBy,

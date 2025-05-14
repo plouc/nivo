@@ -34,9 +34,9 @@ const initialProperties: UnmappedRadarProps = {
     colors: { scheme: 'nivo' },
     fillOpacity: 0.25,
     blendMode: 'multiply',
-    animate: true,
-    motionConfig: 'wobbly',
-    isInteractive: true,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
+    isInteractive: svgDefaultProps.isInteractive,
     legends: [
         {
             anchor: 'top-left',
@@ -45,8 +45,7 @@ const initialProperties: UnmappedRadarProps = {
             translateY: -40,
             itemWidth: 80,
             itemHeight: 20,
-            itemTextColor: '#999',
-            symbolSize: 12,
+            symbolSize: 16,
             symbolShape: 'circle',
         },
     ],

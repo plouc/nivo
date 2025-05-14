@@ -1,4 +1,4 @@
-import { patternDotsDef, patternSquaresDef } from '@nivo/core'
+// import { patternDotsDef, patternSquaresDef } from '@nivo/core'
 import { defaultProps, svgDefaultProps } from '@nivo/stream'
 
 export default {
@@ -49,11 +49,11 @@ export default {
     enableGridX: true,
     enableGridY: false,
     curve: 'catmullRom',
-    offsetType: 'silhouette',
+    offsetType: defaultProps.offsetType,
     order: 'none',
     colors: { scheme: 'nivo' },
-    fillOpacity: 0.85,
-    borderWidth: 0,
+    fillOpacity: defaultProps.fillOpacity,
+    borderWidth: defaultProps.borderWidth,
     borderColor: {
         theme: 'background',
     },

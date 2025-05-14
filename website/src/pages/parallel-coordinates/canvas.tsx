@@ -61,7 +61,6 @@ const initialProperties: Pick<
             itemWidth: 100,
             itemHeight: 16,
             itemDirection: 'left-to-right',
-            itemOpacity: 1,
             symbolSize: 16,
         },
     ],

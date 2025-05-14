@@ -16,30 +16,25 @@ const initialProperties: UnmappedPolarBarProps = {
     valueSteps: 5,
     adjustValueRange: true,
     valueFormat: { format: '>-$.0f', enabled: true },
-
     margin: {
         top: 30,
         right: 20,
         bottom: 70,
         left: 20,
     },
-
     startAngle: svgDefaultProps.startAngle,
     endAngle: svgDefaultProps.endAngle,
     innerRadius: 0.25,
     cornerRadius: 2,
-
     colors: svgDefaultProps.colors,
     borderWidth: 1,
     borderColor: svgDefaultProps.borderColor,
-
     enableArcLabels: svgDefaultProps.enableArcLabels,
     arcLabel: svgDefaultProps.arcLabel,
     arcLabelsRadiusOffset: 0.5,
     arcLabelsSkipAngle: 0,
     arcLabelsSkipRadius: 28,
     arcLabelsTextColor: svgDefaultProps.arcLabelsTextColor,
-
     enableRadialGrid: true,
     enableCircularGrid: true,
     radialAxis: {
@@ -62,13 +57,10 @@ const initialProperties: UnmappedPolarBarProps = {
         tickPadding: 15,
         tickRotation: 0,
     },
-
-    animate: true,
-    motionConfig: 'gentle',
-    transitionMode: 'startAngle',
-
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
+    transitionMode: svgDefaultProps.transitionMode,
     isInteractive: true,
-
     legends: [
         {
             anchor: 'bottom',
@@ -80,7 +72,6 @@ const initialProperties: UnmappedPolarBarProps = {
             itemDirection: 'left-to-right',
             itemWidth: 90,
             itemHeight: 16,
-            itemTextColor: '#999',
             symbolSize: 16,
             symbolShape: 'circle',
         },

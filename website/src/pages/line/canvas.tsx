@@ -102,10 +102,8 @@ const initialProperties: UnmappedLineCanvasProps = {
             itemDirection: 'left-to-right',
             itemWidth: 80,
             itemHeight: 12,
-            itemOpacity: 0.75,
             symbolSize: 12,
             symbolShape: 'circle',
-            symbolBorderColor: 'rgba(0, 0, 0, .5)',
         },
     ],
 }

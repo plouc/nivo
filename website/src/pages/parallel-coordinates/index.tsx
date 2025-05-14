@@ -77,10 +77,9 @@ const initialProperties = {
             translateY: 0,
             itemsSpacing: 2,
             itemWidth: 60,
-            itemHeight: 20,
+            itemHeight: 16,
             itemDirection: 'left-to-right',
-            itemOpacity: 0.85,
-            symbolSize: 20,
+            symbolSize: 16,
         },
     ],
 }
