@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import { ResponsiveMarimekko, defaultProps, BarDatum } from '@nivo/marimekko'
+import { ResponsiveMarimekko, svgDefaultProps } from '@nivo/marimekko'
 import { random, omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/marimekko/meta.yml'
@@ -43,9 +43,9 @@ const initialProperties: UnmappedMarimekkoProps = {
             value: 'stronglyAgree',
         },
     ],
-    layout: defaultProps.layout,
-    offset: defaultProps.offset,
-    outerPadding: defaultProps.outerPadding,
+    layout: svgDefaultProps.layout,
+    offset: svgDefaultProps.offset,
+    outerPadding: svgDefaultProps.outerPadding,
     innerPadding: 9,
     axisTop: {
         enable: false,
@@ -85,8 +85,8 @@ const initialProperties: UnmappedMarimekkoProps = {
         legendPosition: 'middle',
         truncateTickAt: 0,
     },
-    enableGridX: defaultProps.enableGridX,
-    enableGridY: defaultProps.enableGridY,
+    enableGridX: svgDefaultProps.enableGridX,
+    enableGridY: svgDefaultProps.enableGridY,
     margin: {
         top: 40,
         right: 80,
@@ -94,19 +94,19 @@ const initialProperties: UnmappedMarimekkoProps = {
         left: 80,
     },
     valueFormat: { format: '', enabled: false },
-    colors: defaultProps.colors,
-    borderWidth: defaultProps.borderWidth,
+    colors: svgDefaultProps.colors,
+    borderWidth: svgDefaultProps.borderWidth,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.2]],
     },
-    isInteractive: defaultProps.isInteractive,
+    isInteractive: svgDefaultProps.isInteractive,
     'custom tooltip example': false,
     'showcase pattern usage': false,
     defs: [],
     fill: [],
-    animate: defaultProps.animate,
-    motionConfig: defaultProps.motionConfig,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
     legends: [
         {
             anchor: 'bottom',
@@ -148,35 +148,33 @@ const Marimekko = ({ location }: PageProps) => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaultProps}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
-                const handleClick = (bar: BarDatum<any>) => {
-                    logAction({
-                        type: 'click',
-                        label: `[bar] ${bar.datum.id} - ${bar.id}: ${bar.value}`,
-                        color: bar.color,
-                        // prevent cyclic dependency
-                        data: {
-                            ...omit(bar, ['datum']),
-                            datum: omit(bar.datum, ['dimensions']),
-                        },
-                    })
-                }
-
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveMarimekko
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={handleClick}
-                        legends={properties.legends!.map(legend => ({
-                            ...legend,
-                        }))}
+                        debounceResize={200}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        onClick={bar => {
+                            logAction({
+                                type: 'click',
+                                label: `[bar] ${bar.datum.id} - ${bar.id}: ${bar.value}`,
+                                color: bar.color,
+                                // prevent cyclic dependency
+                                data: {
+                                    ...omit(bar, ['datum']),
+                                    datum: omit(bar.datum, ['dimensions']),
+                                },
+                            })
+                        }}
                     />
                 )
             }}

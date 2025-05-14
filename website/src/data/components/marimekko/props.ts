@@ -1,5 +1,4 @@
-import { defaultProps as defaults, offsetById } from '@nivo/marimekko'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { commonDefaultProps, svgDefaultProps, offsetById } from '@nivo/marimekko'
 import {
     themeProperty,
     defsProperties,
@@ -9,6 +8,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     chartGrid,
     axes,
@@ -87,7 +87,7 @@ const props: ChartProperty[] = [
         type: 'string',
         flavors: allFlavors,
         required: false,
-        defaultValue: defaults.layout,
+        defaultValue: commonDefaultProps.layout,
         group: 'Base',
         control: {
             type: 'radio',
@@ -104,7 +104,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         required: false,
         group: 'Base',
-        defaultValue: defaults.offset,
+        defaultValue: commonDefaultProps.offset,
         control: {
             type: 'choices',
             choices: Object.keys(offsetById).map(key => ({
@@ -119,7 +119,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.outerPadding,
+        defaultValue: commonDefaultProps.outerPadding,
         group: 'Base',
         control: {
             type: 'range',
@@ -134,7 +134,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.innerPadding,
+        defaultValue: commonDefaultProps.innerPadding,
         group: 'Base',
         control: {
             type: 'range',
@@ -143,11 +143,12 @@ const props: ChartProperty[] = [
             unit: 'px',
         },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg']),
     themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,
-        defaultValue: defaults.colors as OrdinalColorScaleConfig,
+        defaultValue: commonDefaultProps.colors,
     }),
     ...defsProperties('Style', allFlavors),
     {
@@ -171,7 +172,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: commonDefaultProps.borderWidth,
         control: { type: 'lineWidth' },
         group: 'Style',
     },
@@ -181,15 +182,15 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: commonDefaultProps.borderColor,
         control: { type: 'inheritedColor' },
         group: 'Style',
     },
     ...chartGrid({
         flavors: allFlavors,
         values: true,
-        xDefault: defaults.enableGridX,
-        yDefault: defaults.enableGridY,
+        xDefault: commonDefaultProps.enableGridX,
+        yDefault: commonDefaultProps.enableGridY,
     }),
     ...axes({ flavors: allFlavors }),
     {
@@ -218,11 +219,11 @@ const props: ChartProperty[] = [
         `,
         required: false,
         type: 'Array<string | Function>',
-        defaultValue: defaults.layers,
+        defaultValue: svgDefaultProps.layers,
     },
     isInteractive({
         flavors: ['svg'],
-        defaultValue: defaults.isInteractive,
+        defaultValue: commonDefaultProps.isInteractive,
     }),
     {
         key: 'onClick',
@@ -287,7 +288,7 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], svgDefaultProps),
     {
         key: 'legends',
         flavors: ['svg'],

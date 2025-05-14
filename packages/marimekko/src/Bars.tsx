@@ -1,15 +1,15 @@
 import { useTransition } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
-import { BarDatum, CommonProps, MouseEventHandlers } from './types'
+import { BarDatum, MarimekkoCommonProps, MouseEventHandlers } from './types'
 import { Bar } from './Bar'
 
-interface BarsProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {
+interface BarsProps<Datum> extends MouseEventHandlers<Datum, SVGRectElement> {
     isInteractive: boolean
-    bars: readonly BarDatum<RawDatum>[]
-    tooltip: CommonProps<RawDatum>['tooltip']
+    bars: readonly BarDatum<Datum>[]
+    tooltip: MarimekkoCommonProps<Datum>['tooltip']
 }
 
-export const Bars = <RawDatum,>({
+export const Bars = <Datum,>({
     bars,
     isInteractive,
     tooltip,
@@ -17,11 +17,11 @@ export const Bars = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-}: BarsProps<RawDatum>) => {
+}: BarsProps<Datum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const transition = useTransition<
-        BarDatum<RawDatum>,
+        BarDatum<Datum>,
         {
             x: number
             y: number
@@ -84,7 +84,7 @@ export const Bars = <RawDatum,>({
     return (
         <>
             {transition((style, bar) => (
-                <Bar<RawDatum>
+                <Bar<Datum>
                     key={bar.key}
                     bar={bar}
                     animatedProps={style}
