@@ -1,10 +1,11 @@
-import { ReactNode, Fragment, createElement } from 'react'
+import { ReactNode, Fragment, createElement, forwardRef, Ref, ReactElement } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
     useDimensions,
     Container,
     SvgWrapper,
+    WithChartRef,
 } from '@nivo/core'
 import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
 import { InheritedColorConfig } from '@nivo/colors'
@@ -20,9 +21,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     value = defaultProps.value,
     valueFormat,
     sortByValue = defaultProps.sortByValue,
-
     layers = defaultProps.layers as PieLayer<RawDatum>[],
-
     startAngle = defaultProps.startAngle,
     endAngle = defaultProps.endAngle,
     padAngle = defaultProps.padAngle,
@@ -31,18 +30,12 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     cornerRadius = defaultProps.cornerRadius,
     activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
-
     width,
     height,
     margin: partialMargin,
-
     colors = defaultProps.colors,
-
-    // border
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-
-    // arc labels
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
@@ -50,8 +43,6 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
     arcLabelsComponent,
-
-    // arc link labels
     enableArcLinkLabels = defaultProps.enableArcLinkLabels,
     arcLinkLabel = defaultProps.arcLinkLabel,
     arcLinkLabelsSkipAngle = defaultProps.arcLinkLabelsSkipAngle,
@@ -63,12 +54,8 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     arcLinkLabelsTextColor = defaultProps.arcLinkLabelsTextColor,
     arcLinkLabelsColor = defaultProps.arcLinkLabelsColor,
     arcLinkLabelComponent,
-
-    // styling
     defs = defaultProps.defs,
     fill = defaultProps.fill,
-
-    // interactivity
     isInteractive = defaultProps.isInteractive,
     onClick,
     onMouseEnter,
@@ -78,14 +65,14 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     activeId: activeIdFromProps,
     onActiveIdChange,
     defaultActiveId,
-
     transitionMode = defaultProps.transitionMode,
-
     legends = defaultProps.legends,
     forwardLegendData,
-
     role = defaultProps.role,
-}: PieSvgProps<RawDatum>) => {
+    forwardedRef,
+}: PieSvgProps<RawDatum> & {
+    forwardedRef: Ref<SVGSVGElement>
+}) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -225,6 +212,7 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (layerById[layer as PieLayerId] !== undefined) {
@@ -241,23 +229,28 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     )
 }
 
-export const Pie = <RawDatum extends MayHaveLabel>({
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: PieSvgProps<RawDatum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Pie = forwardRef(
+    <RawDatum extends MayHaveLabel>(
+        {
+            isInteractive = defaultProps.isInteractive,
+            animate = defaultProps.animate,
+            motionConfig = defaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerPie<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...otherProps
+        }: PieSvgProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerPie<RawDatum> isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
+        </Container>
+    )
+) as <RawDatum extends MayHaveLabel>(
+    props: WithChartRef<PieSvgProps<RawDatum>, SVGSVGElement>
+) => ReactElement

@@ -1,6 +1,14 @@
-import { createElement, useEffect, useMemo, useRef } from 'react'
-import * as React from 'react'
-import { getRelativeCursor, useDimensions, Container } from '@nivo/core'
+import {
+    createElement,
+    useEffect,
+    useMemo,
+    useRef,
+    MouseEvent,
+    forwardRef,
+    Ref,
+    ReactElement,
+} from 'react'
+import { getRelativeCursor, useDimensions, Container, WithChartRef, mergeRefs } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
@@ -23,7 +31,6 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     value = defaultProps.value,
     valueFormat,
     sortByValue = defaultProps.sortByValue,
-
     startAngle = defaultProps.startAngle,
     endAngle = defaultProps.endAngle,
     padAngle = defaultProps.padAngle,
@@ -32,26 +39,18 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     cornerRadius = defaultProps.cornerRadius,
     activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
-
     width,
     height,
     margin: partialMargin,
     pixelRatio = defaultProps.pixelRatio,
-
     colors = defaultProps.colors,
-
-    // border
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-
-    // arc labels
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
-
-    // arc link labels
     enableArcLinkLabels = defaultProps.enableArcLinkLabels,
     arcLinkLabel = defaultProps.arcLinkLabel,
     arcLinkLabelsSkipAngle = defaultProps.arcLinkLabelsSkipAngle,
@@ -62,8 +61,6 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     arcLinkLabelsTextOffset = defaultProps.arcLinkLabelsTextOffset,
     arcLinkLabelsTextColor = defaultProps.arcLinkLabelsTextColor,
     arcLinkLabelsColor = defaultProps.arcLinkLabelsColor,
-
-    // interactivity
     isInteractive = defaultProps.isInteractive,
     onClick,
     onMouseMove,
@@ -71,10 +68,13 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     activeId: activeIdFromProps,
     onActiveIdChange,
     defaultActiveId,
-
     legends = defaultProps.legends,
     forwardLegendData,
-}: PieCanvasProps<RawDatum>) => {
+    role,
+    forwardedRef,
+}: PieCanvasProps<RawDatum> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
 
@@ -228,7 +228,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         [dataWithArc]
     )
 
-    const getArcFromMouse = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const getArcFromMouse = (event: MouseEvent<HTMLCanvasElement>) => {
         if (!canvasEl.current) return null
 
         const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -250,7 +250,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const handleMouseHover = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const handleMouseHover = (event: MouseEvent<HTMLCanvasElement>) => {
         const datum = getArcFromMouse(event)
         if (datum) {
             onMouseMove?.(datum, event)
@@ -266,7 +266,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
         hideTooltip()
     }
 
-    const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const handleClick = (event: MouseEvent<HTMLCanvasElement>) => {
         if (!onClick) return
 
         const arc = getArcFromMouse(event)
@@ -277,7 +277,7 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -289,17 +289,29 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
             onMouseMove={isInteractive ? handleMouseHover : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
+            role={role}
         />
     )
 }
 
-export const PieCanvas = <RawDatum extends MayHaveLabel>({
-    isInteractive = defaultProps.isInteractive,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: PieCanvasProps<RawDatum>) => (
-    <Container {...{ isInteractive, renderWrapper, theme }}>
-        <InnerPieCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const PieCanvas = forwardRef(
+    <RawDatum extends MayHaveLabel>(
+        {
+            isInteractive = defaultProps.isInteractive,
+            theme,
+            renderWrapper,
+            ...otherProps
+        }: PieCanvasProps<RawDatum>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container {...{ isInteractive, renderWrapper, theme }}>
+            <InnerPieCanvas<RawDatum>
+                isInteractive={isInteractive}
+                {...otherProps}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <RawDatum extends MayHaveLabel>(
+    props: WithChartRef<PieCanvasProps<RawDatum>, HTMLCanvasElement>
+) => ReactElement

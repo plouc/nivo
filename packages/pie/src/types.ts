@@ -90,7 +90,6 @@ export type CommonPieProps<RawDatum> = {
     id: PropertyAccessor<RawDatum, DatumId>
     value: PropertyAccessor<RawDatum, number>
     valueFormat?: ValueFormat<number>
-
     margin: Box
     sortByValue: boolean
     innerRadius: number
@@ -101,27 +100,20 @@ export type CommonPieProps<RawDatum> = {
     fit: boolean
     activeInnerRadiusOffset: number
     activeOuterRadiusOffset: number
-
-    // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill' | 'arc'>>
     theme: PartialTheme
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-
     enableArcLabels: boolean
     enableArcLinkLabels: boolean
-
-    // interactivity
     isInteractive: boolean
     tooltip: React.FC<PieTooltipProps<RawDatum>>
     activeId: DatumId | null
     onActiveIdChange: (id: DatumId | null) => void
     defaultActiveId: DatumId | null
-
     legends: readonly LegendProps[]
     forwardLegendData: (data: LegendDatum<RawDatum>[]) => void
-
-    role: string
+    role?: string
     renderWrapper: boolean
 } & Partial<ArcLabelsProps<ComputedDatum<RawDatum>>> &
     Partial<ArcLinkLabelsProps<ComputedDatum<RawDatum>>>

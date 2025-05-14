@@ -7,7 +7,12 @@ import {
     getLegendsProps,
     motionProperties,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    chartRef,
+    ordinalColors,
+    isInteractive,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'canvas', 'api']
@@ -83,7 +88,7 @@ const props: ChartProperty[] = [
         type: 'string | (value: number) => string | number',
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'startAngle',
         help: 'Start angle (in degrees), useful to make gauges for example.',
@@ -181,6 +186,7 @@ const props: ChartProperty[] = [
         control: { type: 'switch' },
         group: 'Base',
     },
+    chartRef(['svg', 'canvas']),
     themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,

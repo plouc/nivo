@@ -127,11 +127,13 @@ export const generateChartCode = (
         properties.push(`${key}=${value}`)
     })
 
-    const imports = [name, ...children.map(([c]) => c)].map(i => `import { ${i} } from '${pkg}'`)
+    const imports = [`Responsive${name}`, ...children.map(([c]) => c)].map(
+        i => `import { ${i} } from '${pkg}'`
+    )
 
     return `${imports.join('\n')}\n
 const My${name} = (${args}) => (
-    <${name}
+    <Responsive${name} /* or ${name} for fixed dimensions */
         ${properties.join('\n        ')}
     />
 )`

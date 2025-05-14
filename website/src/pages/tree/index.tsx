@@ -23,22 +23,18 @@ const initialProperties: MappedTreeSvgProps<Datum> = {
     activeLinkThickness: 8,
     inactiveLinkThickness: 2,
     linkColor: { from: 'target.color', modifiers: [['opacity', 0.4]] },
-
     enableLabel: defaults.enableLabel,
     labelsPosition: defaults.labelsPosition,
     orientLabel: defaults.orientLabel,
     labelOffset: defaults.labelOffset,
-
     margin: {
         top: 90,
         right: 90,
         bottom: 90,
         left: 90,
     },
-
     animate: defaults.animate,
-    motionConfig: 'stiff',
-
+    motionConfig: defaults.motionConfig,
     isInteractive: defaults.isInteractive,
     useMesh: true,
     meshDetectionRadius: 80,

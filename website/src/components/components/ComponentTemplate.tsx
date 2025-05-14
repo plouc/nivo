@@ -109,7 +109,7 @@ export const ComponentTemplate = <
         codeProperties = codePropertiesMapper(mappedProperties, data)
     }
 
-    const code = generateChartCode(`Responsive${name}`, codeProperties, {
+    const code = generateChartCode(name, codeProperties, {
         pkg: meta.package,
         defaults: defaultProperties,
         dataKey: data !== undefined ? dataKey : undefined,

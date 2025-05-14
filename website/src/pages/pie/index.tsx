@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsivePie, defaultProps } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
@@ -26,17 +26,14 @@ const initialProperties = {
     endAngle: defaultProps.endAngle,
     sortByValue: defaultProps.sortByValue,
     innerRadius: 0.5,
-    padAngle: 0.7,
-    cornerRadius: 3,
+    padAngle: 0.6,
+    cornerRadius: 2,
     fit: defaultProps.fit,
     activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
     activeOuterRadiusOffset: 8,
     colors: defaultProps.colors,
-    borderWidth: 1,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.2]],
-    },
+    borderWidth: defaultProps.borderWidth,
+    borderColor: defaultProps.borderColor,
     enableArcLinkLabels: defaultProps.enableArcLinkLabels,
     arcLinkLabel: defaultProps.arcLinkLabel,
     arcLinkLabelsSkipAngle: 10,
@@ -75,10 +72,8 @@ const initialProperties = {
             itemsSpacing: 0,
             itemWidth: 100,
             itemHeight: 18,
-            itemTextColor: '#999',
             itemDirection: 'left-to-right',
-            itemOpacity: 1,
-            symbolSize: 18,
+            symbolSize: 16,
             symbolShape: 'circle',
         },
     ],
@@ -117,36 +112,24 @@ const Pie = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
-                const handleArcClick = slice => {
-                    logAction({
-                        type: 'click',
-                        label: `[arc] ${slice.id}: ${slice.formattedValue}`,
-                        color: slice.color,
-                        data: slice,
-                    })
-                }
-
-                const handleLegendClick = legendItem => {
-                    logAction({
-                        type: 'click',
-                        label: `[legend] ${legendItem.label}: ${legendItem.formattedValue}`,
-                        color: legendItem.color,
-                        data: legendItem,
-                    })
-                }
-
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsivePie
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={handleArcClick}
-                        legends={properties.legends.map(legend => ({
-                            ...legend,
-                            onClick: handleLegendClick,
-                        }))}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
+                        onClick={slice => {
+                            logAction({
+                                type: 'click',
+                                label: `[arc] ${slice.id}: ${slice.formattedValue}`,
+                                color: slice.color,
+                                data: slice,
+                            })
+                        }}
                     />
                 )
             }}

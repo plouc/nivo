@@ -7,7 +7,6 @@ flavors:
 Tree:
   package: '@nivo/tree'
   tags:
-    - experimental
     - hierarchy
     - tree
   stories:
@@ -30,7 +29,6 @@ Tree:
 TreeCanvas:
   package: '@nivo/tree'
   tags:
-    - experimental
     - hierarchy
     - tree
     - canvas
