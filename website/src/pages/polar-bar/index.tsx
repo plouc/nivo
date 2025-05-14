@@ -130,6 +130,7 @@ const PolarBar = ({ location }: PageProps) => {
                         data={data.data}
                         keys={data.keys}
                         ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         theme={merge({}, theme, {
                             labels: {
                                 text: {
