@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import range from 'lodash/range.js'
 import shuffle from 'lodash/shuffle.js'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
@@ -142,7 +142,8 @@ const Bump = ({ location }: PageProps) => {
                         {...properties}
                         data={data}
                         theme={theme}
-                        ref={chartRef}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={data => {
                             if (isComputedBumpSerie(data)) {
                                 logAction({

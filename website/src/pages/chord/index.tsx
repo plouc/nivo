@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateChordData } from '@nivo/generators'
 import { ResponsiveChord, svgDefaultProps } from '@nivo/chord'
@@ -112,7 +112,8 @@ const Chord = ({ location }: PageProps) => {
                         data={data.matrix}
                         keys={data.keys}
                         theme={theme}
-                        ref={chartRef}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onArcClick={arc => {
                             logAction({
                                 type: 'click',
