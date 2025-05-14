@@ -1,4 +1,4 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
 import {
     Container,
     useDimensions,
@@ -6,6 +6,7 @@ import {
     clampArc,
     // @ts-expect-error no types
     bindDefs,
+    WithChartRef,
 } from '@nivo/core'
 
 import { ArcLabelsLayer } from '@nivo/arcs'
@@ -20,7 +21,9 @@ import { RadialBarTracks } from './RadialBarTracks'
 type InnerRadialBarProps<D extends RadialBarDatum = RadialBarDatum> = Omit<
     RadialBarSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerRadialBar = <D extends RadialBarDatum>({
     data,
@@ -67,6 +70,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerRadialBarProps<D>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -246,6 +250,7 @@ const InnerRadialBar = <D extends RadialBarDatum>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -258,23 +263,28 @@ const InnerRadialBar = <D extends RadialBarDatum>({
     )
 }
 
-export const RadialBar = <D extends RadialBarDatum = RadialBarDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: RadialBarSvgProps<D>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const RadialBar = forwardRef(
+    <D extends RadialBarDatum = RadialBarDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerRadialBar<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...otherProps
+        }: RadialBarSvgProps<D>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerRadialBar<D> isInteractive={isInteractive} {...otherProps} forwardedRef={ref} />
+        </Container>
+    )
+) as <D extends RadialBarDatum = RadialBarDatum>(
+    props: WithChartRef<RadialBarSvgProps<D>, SVGSVGElement>
+) => ReactElement

@@ -9,6 +9,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     isInteractive,
     commonAccessibilityProps,
@@ -104,7 +105,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
     {
         key: 'startAngle',
         group: 'Base',
@@ -197,6 +198,7 @@ const props: ChartProperty[] = [
             step: 1,
         },
     },
+    chartRef(['svg']),
     themeProperty(['svg']),
     ordinalColors({
         flavors: allFlavors,
