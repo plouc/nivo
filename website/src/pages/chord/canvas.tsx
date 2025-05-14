@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateChordData } from '@nivo/generators'
 import { ResponsiveChordCanvas, canvasDefaultProps } from '@nivo/chord'
@@ -122,7 +122,8 @@ const ChordCanvas = ({ location }: PageProps) => {
                         data={data.matrix}
                         keys={data.keys}
                         theme={theme}
-                        ref={chartRef}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onArcClick={arc => {
                             logAction({
                                 type: 'click',
