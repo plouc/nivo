@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import { svgDefaultProps, ResponsiveIcicle } from '@nivo/icicle'
 import { generateLibTree } from '@nivo/generators'
@@ -92,13 +92,16 @@ const Icicle = () => {
             propertiesMapper={svgMapper}
             generateData={generateData}
             image={image}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveIcicle
                         data={data}
                         {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         nodeAriaLabel={node => `"${node.id}" node with a value of: ${node.value}`}
                         onClick={node =>
                             logAction({

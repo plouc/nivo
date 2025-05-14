@@ -1,13 +1,15 @@
-import { BoxAnchor } from '@nivo/core'
+import { BoxAnchor, ResponsiveProps } from '@nivo/core'
 import { colorSchemes } from '@nivo/colors'
 import {
     IcicleHtml,
+    ResponsiveIcicleHtml,
     IcicleHtmlProps,
     DefaultIcicleDatum,
     IcicleCommonCustomLayerProps,
 } from '@nivo/icicle'
 import { useTheme } from '@nivo/theming'
 import get from 'lodash/get.js'
+import { testChartResponsiveness } from '../../helpers/responsive'
 
 const hexToRgb = (hex: string): string => {
     const r = parseInt(hex.slice(1, 3), 16)
@@ -135,9 +137,7 @@ const customData: CustomDatum = {
     ],
 }
 
-const defaultProps: IcicleHtmlProps<DefaultIcicleDatum> = {
-    width: 400,
-    height: 400,
+const responsiveDefaultProps: ResponsiveProps<IcicleHtmlProps<DefaultIcicleDatum>> = {
     margin: {
         top: 10,
         right: 10,
@@ -154,6 +154,12 @@ const defaultProps: IcicleHtmlProps<DefaultIcicleDatum> = {
         },
     },
     data: defaultData,
+}
+
+const defaultProps: IcicleHtmlProps<DefaultIcicleDatum> = {
+    ...responsiveDefaultProps,
+    width: 400,
+    height: 400,
 }
 
 // Remove the gaps and margins to get nice round values,
@@ -2371,4 +2377,16 @@ describe('Icicle', () => {
             cy.findByTestId('custom_layer_node.root.B').should('exist')
         })
     })
+
+    testChartResponsiveness(
+        defaults => (
+            <ResponsiveIcicleHtml
+                {...responsiveDefaultProps}
+                defaultWidth={defaults?.[0]}
+                defaultHeight={defaults?.[1]}
+                role="chart"
+            />
+        ),
+        { isHtml: true }
+    )
 })
