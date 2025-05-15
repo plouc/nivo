@@ -1,5 +1,5 @@
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { Fragment, ReactNode, createElement, useMemo, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, SvgWrapper, WithChartRef } from '@nivo/core'
 import { svgDefaultProps } from './defaults'
 import { useNetwork } from './hooks'
 import { NetworkLinks } from './NetworkLinks'
@@ -17,24 +17,22 @@ import {
 type InnerNetworkProps<Node extends InputNode, Link extends InputLink> = Omit<
     NetworkSvgProps<Node, Link>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     width,
     height,
     margin: partialMargin,
-
     data: { nodes: rawNodes, links: rawLinks },
-
     linkDistance = svgDefaultProps.linkDistance,
     centeringStrength = svgDefaultProps.centeringStrength,
     repulsivity = svgDefaultProps.repulsivity,
     distanceMin = svgDefaultProps.distanceMin,
     distanceMax = svgDefaultProps.distanceMax,
     iterations = svgDefaultProps.iterations,
-
     layers = svgDefaultProps.layers,
-
     nodeComponent = svgDefaultProps.nodeComponent as unknown as NonNullable<
         NetworkSvgProps<Node, Link>['nodeComponent']
     >,
@@ -44,18 +42,15 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     nodeColor = svgDefaultProps.nodeColor,
     nodeBorderWidth = svgDefaultProps.nodeBorderWidth,
     nodeBorderColor = svgDefaultProps.nodeBorderColor,
-
     linkComponent = svgDefaultProps.linkComponent as NonNullable<
         NetworkSvgProps<Node, Link>['linkComponent']
     >,
     linkThickness = svgDefaultProps.linkThickness,
     linkColor = svgDefaultProps.linkColor,
     linkBlendMode = svgDefaultProps.linkBlendMode,
-
     annotations = svgDefaultProps.annotations as NonNullable<
         NetworkSvgProps<Node, Link>['annotations']
     >,
-
     isInteractive = svgDefaultProps.isInteractive,
     defaultActiveNodeIds = svgDefaultProps.defaultActiveNodeIds,
     nodeTooltip = svgDefaultProps.nodeTooltip as NodeTooltip<Node>,
@@ -63,11 +58,11 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     onMouseMove,
     onMouseLeave,
     onClick,
-
     role = svgDefaultProps.role,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerNetworkProps<Node, Link>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -160,6 +155,7 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -172,23 +168,28 @@ const InnerNetwork = <Node extends InputNode, Link extends InputLink>({
     )
 }
 
-export const Network = <Node extends InputNode = InputNode, Link extends InputLink = InputLink>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: NetworkSvgProps<Node, Link>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Network = forwardRef(
+    <Node extends InputNode = InputNode, Link extends InputLink = InputLink>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerNetwork<Node, Link> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: NetworkSvgProps<Node, Link>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerNetwork<Node, Link> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <Node extends InputNode = InputNode, Link extends InputLink = InputLink>(
+    props: WithChartRef<NetworkSvgProps<Node, Link>, SVGSVGElement>
+) => ReactElement

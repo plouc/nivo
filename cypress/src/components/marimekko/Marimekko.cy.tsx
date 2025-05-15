@@ -1,5 +1,5 @@
 import { ResponsiveProps } from '@nivo/core'
-import { Marimekko, ResponsiveMarimekko, SvgProps } from '@nivo/marimekko'
+import { Marimekko, ResponsiveMarimekko, MarimekkoSvgProps } from '@nivo/marimekko'
 import { testChartResponsiveness } from '../../helpers/responsive'
 
 interface Datum {
@@ -34,7 +34,7 @@ const defaultData: Datum[] = [
     },
 ]
 
-const defaultResponsiveProps: ResponsiveProps<SvgProps<Datum>> = {
+const defaultResponsiveProps: ResponsiveProps<MarimekkoSvgProps<Datum>> = {
     data: defaultData,
     id: 'statement',
     value: 'participation',
@@ -65,7 +65,7 @@ const defaultResponsiveProps: ResponsiveProps<SvgProps<Datum>> = {
     role: 'chart',
 }
 
-const defaultProps: SvgProps<Datum> = {
+const defaultProps: MarimekkoSvgProps<Datum> = {
     ...defaultResponsiveProps,
     width: 500,
     height: 500,

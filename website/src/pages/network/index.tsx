@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import { ComputedNode, ResponsiveNetwork, svgDefaultProps as defaults } from '@nivo/network'
+import { ComputedNode, ResponsiveNetwork, svgDefaultProps } from '@nivo/network'
 import { generateNetworkData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
@@ -21,32 +21,23 @@ const initialProperties = {
         bottom: 0,
         left: 0,
     },
-
     linkDistance: (link: Link) => link.distance,
-    centeringStrength: 0.3,
-    repulsivity: 6,
-    iterations: defaults.iterations,
-
+    centeringStrength: svgDefaultProps.centeringStrength,
+    repulsivity: svgDefaultProps.repulsivity,
+    iterations: svgDefaultProps.iterations,
     nodeSize: dynamicNodeSizeValue,
     activeNodeSize: dynamicActiveNodeSizeValue,
-    inactiveNodeSize: defaults.inactiveNodeSize,
+    inactiveNodeSize: svgDefaultProps.inactiveNodeSize,
     nodeColor: (node: any) => node.color,
-    nodeBorderWidth: 1,
-    nodeBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.8]],
-    },
-
+    nodeBorderWidth: svgDefaultProps.nodeBorderWidth,
+    nodeBorderColor: svgDefaultProps.nodeBorderColor,
     linkThickness: dynamicLinkThicknessValue,
-    linkColor: defaults.linkColor,
+    linkColor: svgDefaultProps.linkColor,
     linkBlendMode: 'multiply',
-
-    annotations: defaults.annotations,
-
-    isInteractive: true,
-
-    animate: true,
-    motionConfig: 'wobbly',
+    annotations: svgDefaultProps.annotations,
+    isInteractive: svgDefaultProps.isInteractive,
+    animate: svgDefaultProps.animate,
+    motionConfig: svgDefaultProps.motionConfig,
 }
 
 const generateData = () => generateNetworkData()
@@ -75,19 +66,22 @@ const Network = ({ location }: PageProps) => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaults}
+            defaultProperties={svgDefaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={data => data.nodes.length}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveNetwork<Node, Link>
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={(node: ComputedNode<any>) => {
                             logAction({
                                 type: 'click',
