@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, WithChartRef } from '@nivo/core'
 import { useCustomLayerProps, useTreeMap } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
 import { DefaultTreeMapDatum, TreeMapCommonProps, TreeMapHtmlProps, LayerId } from './types'
@@ -8,7 +8,9 @@ import { htmlDefaultProps, svgDefaultProps } from './defaults'
 type InnerTreeMapHtmlProps<Datum extends object> = Omit<
     TreeMapHtmlProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<HTMLDivElement>
+}
 
 const InnerTreeMapHtml = <Datum extends object>({
     data,
@@ -50,6 +52,7 @@ const InnerTreeMapHtml = <Datum extends object>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerTreeMapHtmlProps<Datum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -120,6 +123,7 @@ const InnerTreeMapHtml = <Datum extends object>({
                 width: outerWidth,
                 height: outerHeight,
             }}
+            ref={forwardedRef}
         >
             <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
                 {layers.map((layer, i) => {
@@ -134,23 +138,28 @@ const InnerTreeMapHtml = <Datum extends object>({
     )
 }
 
-export const TreeMapHtml = <Datum extends object = DefaultTreeMapDatum>({
-    isInteractive = htmlDefaultProps.isInteractive,
-    animate = htmlDefaultProps.animate,
-    motionConfig = htmlDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: TreeMapHtmlProps<Datum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const TreeMapHtml = forwardRef(
+    <Datum extends object = DefaultTreeMapDatum>(
+        {
+            isInteractive = htmlDefaultProps.isInteractive,
+            animate = htmlDefaultProps.animate,
+            motionConfig = htmlDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerTreeMapHtml<Datum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: TreeMapHtmlProps<Datum>,
+        ref: Ref<HTMLDivElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerTreeMapHtml<Datum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <Datum extends object = DefaultTreeMapDatum>(
+    props: WithChartRef<TreeMapHtmlProps<Datum>, HTMLDivElement>
+) => ReactElement

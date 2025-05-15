@@ -1,10 +1,11 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
 import {
     SvgWrapper,
     Container,
     useDimensions,
     // @ts-expect-error no types
     bindDefs,
+    WithChartRef,
 } from '@nivo/core'
 import { useTreeMap, useCustomLayerProps } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
@@ -20,7 +21,9 @@ import { svgDefaultProps } from './defaults'
 type InnerTreeMapProps<Datum extends object> = Omit<
     TreeMapSvgProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerTreeMap = <Datum extends object>({
     data,
@@ -64,6 +67,7 @@ const InnerTreeMap = <Datum extends object>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerTreeMapProps<Datum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -135,6 +139,7 @@ const InnerTreeMap = <Datum extends object>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -147,23 +152,28 @@ const InnerTreeMap = <Datum extends object>({
     )
 }
 
-export const TreeMap = <Datum extends object = DefaultTreeMapDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: TreeMapSvgProps<Datum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const TreeMap = forwardRef(
+    <Datum extends object = DefaultTreeMapDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerTreeMap<Datum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: TreeMapSvgProps<Datum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerTreeMap<Datum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <Datum extends object = DefaultTreeMapDatum>(
+    props: WithChartRef<TreeMapSvgProps<Datum>, SVGSVGElement>
+) => ReactElement

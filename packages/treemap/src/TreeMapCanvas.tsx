@@ -1,4 +1,13 @@
-import { createElement, useCallback, useEffect, useRef, MouseEvent } from 'react'
+import {
+    createElement,
+    useCallback,
+    useEffect,
+    useRef,
+    MouseEvent,
+    forwardRef,
+    Ref,
+    ReactElement,
+} from 'react'
 import {
     degreesToRadians,
     getRelativeCursor,
@@ -6,6 +15,8 @@ import {
     Container,
     useDimensions,
     Margin,
+    WithChartRef,
+    mergeRefs,
 } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
@@ -27,7 +38,9 @@ const findNodeUnderCursor = <Datum extends object>(
 type InnerTreeMapCanvasProps<Datum extends object> = Omit<
     TreeMapCanvasProps<Datum>,
     'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
 const InnerTreeMapCanvas = <Datum extends object>({
     data,
@@ -60,6 +73,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerTreeMapCanvasProps<Datum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -203,7 +217,7 @@ const InnerTreeMapCanvas = <Datum extends object>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -222,15 +236,32 @@ const InnerTreeMapCanvas = <Datum extends object>({
     )
 }
 
-export const TreeMapCanvas = <Datum extends object = DefaultTreeMapDatum>({
-    theme,
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: TreeMapCanvasProps<Datum>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerTreeMapCanvas<Datum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const TreeMapCanvas = forwardRef(
+    <Datum extends object = DefaultTreeMapDatum>(
+        {
+            theme,
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
+            renderWrapper,
+            ...props
+        }: TreeMapCanvasProps<Datum>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerTreeMapCanvas<Datum>
+                {...props}
+                isInteractive={isInteractive}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum extends object = DefaultTreeMapDatum>(
+    props: WithChartRef<TreeMapCanvasProps<Datum>, HTMLCanvasElement>
+) => ReactElement
