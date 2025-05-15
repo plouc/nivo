@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveNetworkCanvas, canvasDefaultProps as defaults } from '@nivo/network'
 import { generateNetworkData } from '@nivo/generators'
@@ -10,35 +10,26 @@ import { groups } from '../../data/components/network/props'
 const initialProperties = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     margin: {
         top: 0,
         right: 0,
         bottom: 0,
         left: 0,
     },
-
     linkDistance: (link: any) => link.distance,
-    centeringStrength: 0.3,
-    repulsivity: 6,
+    centeringStrength: defaults.centeringStrength,
+    repulsivity: defaults.repulsivity,
     iterations: defaults.iterations,
-
     nodeSize: defaults.nodeSize,
     activeNodeSize: defaults.activeNodeSize,
     inactiveNodeSize: defaults.inactiveNodeSize,
     nodeColor: (node: any) => node.color,
-    nodeBorderWidth: 1,
-    nodeBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.8]],
-    },
-
+    nodeBorderWidth: defaults.nodeBorderWidth,
+    nodeBorderColor: defaults.nodeBorderColor,
     linkThickness: dynamicLinkThicknessValue,
     linkColor: defaults.linkColor,
-
     annotations: defaults.annotations,
-
-    isInteractive: true,
+    isInteractive: defaults.isInteractive,
 }
 
 const generateData = () =>
@@ -79,13 +70,16 @@ const NetworkCanvas = ({ location }: PageProps) => {
             getDataSize={data => data.nodes.length}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveNetworkCanvas
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',

@@ -137,16 +137,13 @@ export type DerivedProp<Target, Output extends number | string> =
 
 export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> = {
     margin: Box
-
     linkDistance: DerivedProp<Link, number>
     centeringStrength: number
     repulsivity: number
     distanceMin: number
     distanceMax: number
     iterations: number
-
     theme: PartialTheme
-
     nodeSize: DerivedProp<Node, number>
     activeNodeSize: DerivedProp<Node, number>
     inactiveNodeSize: DerivedProp<Node, number>
@@ -155,20 +152,15 @@ export type NetworkCommonProps<Node extends InputNode, Link extends InputLink> =
     nodeBorderColor: InheritedColorConfig<
         Omit<ComputedNode<Node>, 'size' | 'borderWidth' | 'borderColor'>
     >
-
     linkThickness: DerivedProp<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>, number>
     linkColor: InheritedColorConfig<Omit<ComputedLink<Node, Link>, 'color' | 'thickness'>>
-
     annotations: AnnotationMatcher<ComputedNode<Node>>[]
-
     isInteractive: boolean
     defaultActiveNodeIds: string[]
     nodeTooltip: NodeTooltip<Node>
     onClick: (node: ComputedNode<Node>, event: MouseEvent) => void
-
     renderWrapper: boolean
-
-    role: string
+    role?: string
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']

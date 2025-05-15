@@ -2,6 +2,7 @@ import { commonDefaultProps as defaults, svgDefaultProps } from '@nivo/network'
 import { groupProperties, themeProperty, motionProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     isInteractive,
     commonAccessibilityProps,
     blendMode,
@@ -42,7 +43,8 @@ const props: ChartProperty[] = [
             Please note that each node id **must** be unique.
         `,
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg', 'canvas']),
     {
         key: 'linkDistance',
         group: 'Simulation',
