@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTreeMapCanvas, canvasDefaultProps as defaults } from '@nivo/treemap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -17,17 +17,14 @@ const initialProperties = {
     leavesOnly: true,
     innerPadding: 0,
     outerPadding: 0,
-
     margin: {
         top: 10,
         right: 10,
         bottom: 10,
         left: 10,
     },
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
     enableLabel: true,
     label: defaults.label,
     labelSkipSize: 18,
@@ -36,7 +33,6 @@ const initialProperties = {
         modifiers: [['darker', 3]],
     },
     orientLabel: defaults.orientLabel,
-
     colors: { scheme: 'spectral' },
     colorBy: 'id',
     nodeOpacity: defaults.nodeOpacity,
@@ -45,10 +41,8 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
-
     animate: defaults.animate,
     motionConfig: defaults.motionConfig,
-
     isInteractive: defaults.isInteractive,
 }
 
@@ -83,13 +77,16 @@ const TreeMapCanvas = ({ location }: PageProps) => {
             getDataSize={data => data.nodeCount}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveTreeMapCanvas<Datum>
-                        data={data.root}
                         {...properties}
+                        data={data.root}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',

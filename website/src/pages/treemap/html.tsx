@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTreeMapHtml, htmlDefaultProps as defaults } from '@nivo/treemap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -17,14 +17,12 @@ const initialProperties = {
     leavesOnly: defaults.leavesOnly,
     innerPadding: defaults.innerPadding,
     outerPadding: defaults.outerPadding,
-
     margin: {
         top: 10,
         right: 10,
         bottom: 10,
         left: 10,
     },
-
     enableLabel: true,
     label: defaults.label,
     labelSkipSize: 12,
@@ -42,7 +40,6 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 3]],
     },
-
     colors: { scheme: 'yellow_orange_red' },
     colorBy: defaults.colorBy,
     nodeOpacity: defaults.nodeOpacity,
@@ -51,10 +48,8 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.1]],
     },
-
     animate: defaults.animate,
     motionConfig: defaults.motionConfig,
-
     isInteractive: defaults.isInteractive,
 }
 
@@ -87,13 +82,16 @@ const TreeMapHtml = ({ location }: PageProps) => {
             generateData={generateLightDataSet}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveTreeMapHtml<Datum>
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLDivElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',
