@@ -1,21 +1,39 @@
 import { Margin } from '@nivo/core'
-import { Tree, TreeSvgProps } from '@nivo/tree'
+import { Tree, ResponsiveTree, TreeSvgProps } from '@nivo/tree'
+import { testChartResponsiveness } from '../../helpers/responsive'
+import { Datum, defaultData } from './shared'
 
-interface Datum {
-    id: string
-    children?: Datum[]
-}
-
-const sampleData: Datum = {
-    id: 'A',
-    children: [
-        { id: '0' },
-        {
-            id: '1',
-            children: [{ id: 'A' }, { id: 'B' }],
-        },
-        { id: '2' },
-    ],
+const responsiveDefaultProps: Required<
+    Pick<
+        TreeSvgProps<Datum>,
+        | 'data'
+        | 'nodeSize'
+        | 'linkThickness'
+        | 'activeLinkThickness'
+        | 'inactiveLinkThickness'
+        | 'animate'
+        | 'role'
+    >
+> & {
+    margin: Margin
+    activeNodeSize: number
+    inactiveNodeSize: number
+} = {
+    data: defaultData,
+    margin: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+    },
+    nodeSize: 12,
+    activeNodeSize: 24,
+    inactiveNodeSize: 8,
+    linkThickness: 2,
+    activeLinkThickness: 12,
+    inactiveLinkThickness: 1,
+    animate: false,
+    role: 'chart',
 }
 
 const defaultProps: Required<
@@ -35,30 +53,14 @@ const defaultProps: Required<
     activeNodeSize: number
     inactiveNodeSize: number
 } = {
-    data: sampleData,
+    ...responsiveDefaultProps,
     width: 640,
     height: 640,
-    margin: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20,
-    },
-    nodeSize: 12,
-    activeNodeSize: 24,
-    inactiveNodeSize: 8,
-    linkThickness: 2,
-    activeLinkThickness: 12,
-    inactiveLinkThickness: 1,
-    animate: false,
 }
 
 describe('Tree', () => {
     beforeEach(() => {
-        cy.viewport(
-            defaultProps.margin.left + defaultProps.width + defaultProps.margin.right,
-            defaultProps.margin.top + defaultProps.height + defaultProps.margin.bottom
-        )
+        cy.viewport(defaultProps.width, defaultProps.height)
     })
 
     it('should render a tree graph', () => {
@@ -174,4 +176,12 @@ describe('Tree', () => {
             })
         }
     })
+
+    testChartResponsiveness(defaults => (
+        <ResponsiveTree
+            defaultWidth={defaults?.[0]}
+            defaultHeight={defaults?.[1]}
+            {...responsiveDefaultProps}
+        />
+    ))
 })

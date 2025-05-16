@@ -8,6 +8,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     isInteractive,
     commonAccessibilityProps,
     ordinalColors,
@@ -96,8 +97,8 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...chartDimensions(allFlavors),
-    // Style
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg', 'canvas']),
     themeProperty(allFlavors),
     {
         group: 'Style',
@@ -211,7 +212,6 @@ const props: ChartProperty[] = [
         defaultValue: defaults.linkColor,
         flavors: allFlavors,
     },
-    // Labels
     {
         group: 'Labels',
         key: 'enableLabel',
@@ -309,7 +309,6 @@ const props: ChartProperty[] = [
         flavors: ['canvas'],
         required: false,
     },
-    // Customization
     {
         group: 'Customization',
         key: 'layers',
@@ -393,7 +392,6 @@ const props: ChartProperty[] = [
         flavors: ['canvas'],
         required: false,
     },
-    // Interactivity
     isInteractive({
         flavors: allFlavors,
         defaultValue: defaults.isInteractive,

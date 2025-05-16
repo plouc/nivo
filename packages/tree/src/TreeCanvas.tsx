@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, createElement } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { useEffect, useMemo, useRef, createElement, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, WithChartRef, mergeRefs } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { setCanvasFont } from '@nivo/text'
 import { useMesh, renderDebugToCanvas } from '@nivo/voronoi'
@@ -11,7 +11,9 @@ import { useLabels } from './labelsHooks'
 type InnerTreeCanvasProps<Datum> = Omit<
     TreeCanvasProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
 const InnerTreeCanvas = <Datum,>({
     width,
@@ -62,6 +64,7 @@ const InnerTreeCanvas = <Datum,>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerTreeCanvasProps<Datum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -232,7 +235,7 @@ const InnerTreeCanvas = <Datum,>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -255,23 +258,28 @@ const InnerTreeCanvas = <Datum,>({
     )
 }
 
-export const TreeCanvas = <Datum = DefaultDatum,>({
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: TreeCanvasProps<Datum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const TreeCanvas = forwardRef(
+    <Datum = DefaultDatum,>(
+        {
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerTreeCanvas<Datum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: TreeCanvasProps<Datum>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerTreeCanvas<Datum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <Datum = DefaultDatum>(
+    props: WithChartRef<TreeCanvasProps<Datum>, HTMLCanvasElement>
+) => ReactElement

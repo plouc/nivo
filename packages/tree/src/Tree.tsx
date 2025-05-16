@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode, useMemo } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { createElement, Fragment, ReactNode, useMemo, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, SvgWrapper, WithChartRef } from '@nivo/core'
 import { DefaultDatum, LayerId, TreeSvgProps, CustomSvgLayerProps } from './types'
 import { svgDefaultProps } from './defaults'
 import { useTree } from './hooks'
@@ -11,7 +11,9 @@ import { Mesh } from './Mesh'
 type InnerTreeProps<Datum> = Omit<
     TreeSvgProps<Datum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerTree = <Datum,>({
     width,
@@ -71,6 +73,7 @@ const InnerTree = <Datum,>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerTreeProps<Datum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -214,6 +217,7 @@ const InnerTree = <Datum,>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -226,23 +230,26 @@ const InnerTree = <Datum,>({
     )
 }
 
-export const Tree = <Datum = DefaultDatum,>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: TreeSvgProps<Datum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Tree = forwardRef(
+    <Datum = DefaultDatum,>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerTree<Datum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: TreeSvgProps<Datum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerTree<Datum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <Datum = DefaultDatum>(props: WithChartRef<TreeSvgProps<Datum>, SVGSVGElement>) => ReactElement

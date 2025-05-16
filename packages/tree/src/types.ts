@@ -286,8 +286,6 @@ export type TreeSvgProps<Datum> = TreeDataProps<Datum> &
         linkTooltipAnchor?: TooltipAnchor
     }
 
-export type ResponsiveTreeSvgProps<Datum> = Omit<TreeSvgProps<Datum>, 'height' | 'width'>
-
 export type TreeCanvasProps<Datum> = TreeDataProps<Datum> &
     Dimensions &
     Partial<CommonProps<Datum>> & {
@@ -297,5 +295,3 @@ export type TreeCanvasProps<Datum> = TreeDataProps<Datum> &
         renderLabel?: LabelCanvasRenderer<Datum>
         pixelRatio?: number
     }
-
-export type ResponsiveTreeCanvasProps<Datum> = Omit<TreeCanvasProps<Datum>, 'height' | 'width'>
