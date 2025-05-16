@@ -23,7 +23,7 @@
     "dependencies": {
         "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
-        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
         "@types/d3-shape": "^3.1.6",
         "d3-color": "^3.1.0",
         "d3-format": "^1.4.4",

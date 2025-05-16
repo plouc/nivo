@@ -31,7 +31,7 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/theming": "workspace:*",
-        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
         "lodash": "^4.17.21"
     },
     "peerDependencies": {

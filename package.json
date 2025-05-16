@@ -76,6 +76,8 @@
     "yargs": "^17.7.2"
   },
   "resolutions": {
+    "@react-spring/core": "^10.0.0",
+    "@react-spring/web": "^10.0.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@types/eslint": "7.29.0",

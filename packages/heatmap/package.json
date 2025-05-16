@@ -38,8 +38,8 @@
         "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
-        "@react-spring/core": "9.4.5 || ^9.7.2",
-        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@react-spring/core": "9.4.5 || ^9.7.2 || ^10.0",
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
         "@types/d3-scale": "^4.0.8",
         "d3-scale": "^4.0.2"
     },

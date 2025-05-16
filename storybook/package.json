@@ -46,7 +46,7 @@
     "@nivo/treemap": "workspace:*",
     "@nivo/voronoi": "workspace:*",
     "@nivo/waffle": "workspace:*",
-    "@react-spring/web": "9.4.5 || ^9.7.2",
+    "@react-spring/web": "^10.0",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-links": "^8.6.12",

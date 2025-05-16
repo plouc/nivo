@@ -40,7 +40,7 @@
         "@nivo/core": "workspace:*",
         "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
-        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
         "@types/d3-hierarchy": "^3.1.7",
         "d3-hierarchy": "^3.1.2",
         "lodash": "^4.17.21"
