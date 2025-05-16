@@ -1,10 +1,11 @@
-import { Fragment, ReactNode, createElement, useMemo } from 'react'
+import { Fragment, ReactNode, createElement, useMemo, forwardRef, Ref, ReactElement } from 'react'
 import {
     // @ts-expect-error no types
     bindDefs,
     Container,
     SvgWrapper,
     useDimensions,
+    WithChartRef,
 } from '@nivo/core'
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { defaultProps } from './props'
@@ -19,7 +20,9 @@ type InnerSunburstProps<RawDatum> = Partial<
         'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
     >
 > &
-    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
+    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'> & {
+        forwardedRef: Ref<SVGSVGElement>
+    }
 
 const InnerSunburst = <RawDatum,>({
     data,
@@ -54,6 +57,7 @@ const InnerSunburst = <RawDatum,>({
     onMouseMove,
     tooltip = defaultProps.tooltip,
     role = defaultProps.role,
+    forwardedRef,
 }: InnerSunburstProps<RawDatum>) => {
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
         width,
@@ -142,6 +146,7 @@ const InnerSunburst = <RawDatum,>({
             defs={boundDefs}
             margin={margin}
             role={role}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (layerById[layer as SunburstLayerId] !== undefined) {
@@ -158,16 +163,33 @@ const InnerSunburst = <RawDatum,>({
     )
 }
 
-export const Sunburst = <RawDatum,>({
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: Partial<Omit<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
-    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerSunburst<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const Sunburst = forwardRef(
+    <RawDatum,>(
+        {
+            isInteractive = defaultProps.isInteractive,
+            animate = defaultProps.animate,
+            motionConfig = defaultProps.motionConfig,
+            theme,
+            renderWrapper,
+            ...props
+        }: Partial<Omit<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
+            Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerSunburst<RawDatum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <RawDatum>(
+    props: WithChartRef<
+        Partial<Omit<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
+            Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>,
+        SVGSVGElement
+    >
+) => ReactElement

@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { useEffect, useRef, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, WithChartRef, mergeRefs } from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderAxisToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -10,7 +10,9 @@ import { canvasDefaultProps } from '../defaults'
 type InnerParallelCoordinatesCanvasProps<D extends BaseDatum> = Omit<
     ParallelCoordinatesCanvasProps<D>,
     'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
 export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     data,
@@ -34,6 +36,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     ariaLabelledBy,
     ariaDescribedBy,
     pixelRatio = canvasDefaultProps.pixelRatio,
+    forwardedRef,
 }: InnerParallelCoordinatesCanvasProps<D>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -147,7 +150,7 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -162,15 +165,32 @@ export const InnerParallelCoordinatesCanvas = <D extends BaseDatum>({
     )
 }
 
-export const ParallelCoordinatesCanvas = <D extends BaseDatum>({
-    theme,
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: ParallelCoordinatesCanvasProps<D>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerParallelCoordinatesCanvas<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const ParallelCoordinatesCanvas = forwardRef(
+    <D extends BaseDatum>(
+        {
+            theme,
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
+            renderWrapper,
+            ...props
+        }: ParallelCoordinatesCanvasProps<D>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerParallelCoordinatesCanvas<D>
+                {...props}
+                isInteractive={isInteractive}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <D extends BaseDatum>(
+    props: WithChartRef<ParallelCoordinatesCanvasProps<D>, HTMLCanvasElement>
+) => ReactElement

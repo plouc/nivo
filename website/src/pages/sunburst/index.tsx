@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { defaultProps, ResponsiveSunburst } from '@nivo/sunburst'
 import { generateLibTree } from '@nivo/generators'
@@ -85,13 +85,16 @@ const Sunburst = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveSunburst
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={node =>
                             logAction({
                                 type: 'click',
