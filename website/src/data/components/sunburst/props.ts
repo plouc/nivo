@@ -6,7 +6,12 @@ import {
     motionProperties,
     themeProperty,
 } from '../../../lib/componentProperties'
-import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
+import {
+    chartDimensions,
+    chartRef,
+    ordinalColors,
+    isInteractive,
+} from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg', 'api']
@@ -111,7 +116,8 @@ const props: ChartProperty[] = [
             step: 1,
         },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg']),
     themeProperty(['svg', 'api']),
     ordinalColors({
         flavors: allFlavors,

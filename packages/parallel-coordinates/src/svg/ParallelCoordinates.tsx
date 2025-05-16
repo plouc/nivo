@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { Container, SvgWrapper, useDimensions } from '@nivo/core'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
+import { Container, SvgWrapper, useDimensions, WithChartRef } from '@nivo/core'
 import { Axis } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { svgDefaultProps } from '../defaults'
@@ -22,7 +22,9 @@ type InnerParallelCoordinatesProps<
 > = Omit<
     ParallelCoordinatesProps<Datum, GroupBy>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerParallelCoordinates = <
     Datum extends BaseDatum,
@@ -50,6 +52,7 @@ const InnerParallelCoordinates = <
     ariaLabelledBy,
     ariaDescribedBy,
     testIdPrefix,
+    forwardedRef,
 }: InnerParallelCoordinatesProps<Datum, GroupBy>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -160,6 +163,7 @@ const InnerParallelCoordinates = <
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -172,26 +176,32 @@ const InnerParallelCoordinates = <
     )
 }
 
-export const ParallelCoordinates = <
-    Datum extends BaseDatum,
-    GroupBy extends DatumGroupKeys<Datum> | undefined = undefined,
->({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: ParallelCoordinatesProps<Datum, GroupBy>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const ParallelCoordinates = forwardRef(
+    <Datum extends BaseDatum, GroupBy extends DatumGroupKeys<Datum> | undefined = undefined>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerParallelCoordinates<Datum, GroupBy> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: ParallelCoordinatesProps<Datum, GroupBy>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerParallelCoordinates<Datum, GroupBy>
+                {...props}
+                isInteractive={isInteractive}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <Datum extends BaseDatum, GroupBy extends DatumGroupKeys<Datum> | undefined = undefined>(
+    props: WithChartRef<ParallelCoordinatesProps<Datum, GroupBy>, SVGSVGElement>
+) => ReactElement

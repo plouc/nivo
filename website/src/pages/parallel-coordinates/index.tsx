@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import merge from 'lodash/merge.js'
 import { ResponsiveParallelCoordinates, commonDefaultProps } from '@nivo/parallel-coordinates'
@@ -130,12 +130,15 @@ const ParallelCoordinates = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme) => {
+            {(properties, data, theme, _logAction, chartRef) => {
                 return (
                     <ResponsiveParallelCoordinates
-                        data={data}
                         {...properties}
+                        data={data}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         theme={merge({}, theme, {
                             text: {
                                 outlineWidth: 2,

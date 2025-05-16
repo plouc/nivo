@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import merge from 'lodash/merge.js'
 import {
@@ -127,12 +127,15 @@ const ParallelCoordinatesCanvas = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme) => {
+            {(properties, data, theme, _logAction, chartRef) => {
                 return (
                     <ResponsiveParallelCoordinatesCanvas
-                        data={data}
                         {...properties}
+                        data={data}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         theme={merge({}, theme, {
                             text: {
                                 outlineWidth: 3,
