@@ -46,7 +46,7 @@
         "@nivo/theming": "workspace:*",
         "@nivo/tooltip": "workspace:*",
         "@nivo/voronoi": "workspace:*",
-        "@react-spring/web": "9.4.5 || ^9.7.2",
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
         "@types/d3-force": "^2.1.0",
         "@types/d3-scale": "^4.0.8",
         "d3-force": "^2.0.1",

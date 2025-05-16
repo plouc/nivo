@@ -40,7 +40,7 @@
         "@nivo/scales": "workspace:*",
         "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",
-        "@react-spring/web": "9.4.5 || ^9.7.2"
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0"
     },
     "peerDependencies": {
         "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"
