@@ -45,7 +45,7 @@
         "d3-scale": "^4.0.2"
     },
     "peerDependencies": {
-        "react": ">= 16.14.0 < 20.0.0"
+        "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"
     },
     "publishConfig": {
         "access": "public"
