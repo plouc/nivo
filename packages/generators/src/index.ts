@@ -269,14 +269,19 @@ const libTreeItems = [
 interface LibTreeDatum {
     name: string
     loc?: number
-    color: string
+    color?: string
     children?: LibTreeDatum[]
 }
 
 export const generateLibTree = (
     name = 'nivo',
     limit?: number | null,
-    children = libTreeItems
+    children = libTreeItems,
+    {
+        withColors = true,
+    }: {
+        withColors?: boolean
+    } = {}
 ): LibTreeDatum => {
     limit = limit || children.length
     if (limit > children.length) {
@@ -285,14 +290,19 @@ export const generateLibTree = (
 
     const tree: LibTreeDatum = {
         name,
-        color: randColor(),
     }
+    if (withColors) {
+        tree.color = randColor()
+    }
+
     if (children?.length > 0) {
         tree.children = range(limit).map((_, i) => {
             const leaf = children[i]
 
             // full path `${name}.${leaf[0]}`
-            return generateLibTree(leaf[0] as string, null, (leaf[1] ?? []) as any)
+            return generateLibTree(leaf[0] as string, null, (leaf[1] ?? []) as any, {
+                withColors,
+            })
         })
     } else {
         tree.loc = Math.round(Math.random() * 200000)

@@ -1,5 +1,22 @@
-import { createElement, MouseEvent, useCallback, useEffect, useRef } from 'react'
-import { isCursorInRect, getRelativeCursor, Container, useDimensions, Margin } from '@nivo/core'
+import {
+    createElement,
+    MouseEvent,
+    useCallback,
+    useEffect,
+    useRef,
+    forwardRef,
+    Ref,
+    ReactElement,
+} from 'react'
+import {
+    isCursorInRect,
+    getRelativeCursor,
+    Container,
+    useDimensions,
+    Margin,
+    WithChartRef,
+    mergeRefs,
+} from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { roundedRect } from '@nivo/canvas'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
@@ -19,7 +36,9 @@ const findCellUnderCursor = <D extends Datum>(
         isCursorInRect(margin.left + cell.x, margin.top + cell.y, cell.width, cell.height, x, y)
     )
 
-type InnerWaffleCanvasProps<D extends Datum> = Omit<CanvasProps<D>, 'renderWrapper' | 'theme'>
+type InnerWaffleCanvasProps<D extends Datum> = Omit<CanvasProps<D>, 'renderWrapper' | 'theme'> & {
+    forwardedRef: Ref<HTMLCanvasElement>
+}
 
 const InnerWaffleCanvas = <D extends Datum>({
     width,
@@ -50,6 +69,7 @@ const InnerWaffleCanvas = <D extends Datum>({
     ariaLabelledBy,
     ariaDescribedBy,
     pixelRatio = canvasDefaultProps.pixelRatio,
+    forwardedRef,
 }: InnerWaffleCanvasProps<D>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
@@ -185,7 +205,7 @@ const InnerWaffleCanvas = <D extends Datum>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -204,15 +224,28 @@ const InnerWaffleCanvas = <D extends Datum>({
     )
 }
 
-export const WaffleCanvas = <D extends Datum = Datum>({
-    theme,
-    isInteractive = canvasDefaultProps.isInteractive,
-    animate = canvasDefaultProps.animate,
-    motionConfig = canvasDefaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: CanvasProps<D>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerWaffleCanvas<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const WaffleCanvas = forwardRef(
+    <D extends Datum = Datum>(
+        {
+            theme,
+            isInteractive = canvasDefaultProps.isInteractive,
+            animate = canvasDefaultProps.animate,
+            motionConfig = canvasDefaultProps.motionConfig,
+            renderWrapper,
+            ...props
+        }: CanvasProps<D>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerWaffleCanvas<D> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <D extends Datum = Datum>(
+    props: WithChartRef<CanvasProps<D>, HTMLCanvasElement>
+) => ReactElement

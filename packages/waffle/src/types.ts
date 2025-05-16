@@ -23,7 +23,7 @@ export interface ComputedDatum<D extends Datum> extends Datum {
     startAt: number
     // Index of the ending cell
     endAt: number
-    polygons: Vertex[][]
+    polygons: readonly Vertex[][]
     color: string
     // Used for patterns & gradients
     fill?: string
@@ -97,7 +97,7 @@ export type TooltipComponent<D extends Datum> = FunctionComponent<TooltipProps<D
 // Most of those props are optional for the public API,
 // but required internally, using defaults.
 export interface CommonProps<D extends Datum> extends MotionProps {
-    hiddenIds: D['id'][]
+    hiddenIds: readonly D['id'][]
     margin: Box
     valueFormat?: ValueFormat<D['value']>
     fillDirection: GridFillDirection
@@ -134,8 +134,8 @@ export interface MouseHandlers<D extends Datum, E extends Element> {
 export type LayerId = 'cells' | 'areas' | 'legends'
 
 export interface CustomLayerProps<D extends Datum> {
-    cells: Cell<D>[]
-    computedData: ComputedDatum<D>[]
+    cells: readonly Cell<D>[]
+    computedData: readonly ComputedDatum<D>[]
 }
 
 export type WaffleSvgLayer<D extends Datum> = LayerId | FunctionComponent<CustomLayerProps<D>>
@@ -145,8 +145,8 @@ export type WaffleSvgProps<D extends Datum = Datum> = DataProps<D> &
     Partial<CommonProps<D>> &
     SvgDefsAndFill<ComputedDatum<D>> &
     Partial<MouseHandlers<D, SVGGeometryElement>> & {
-        layers?: WaffleSvgLayer<D>[]
-        legends?: LegendProps[]
+        layers?: readonly WaffleSvgLayer<D>[]
+        legends?: readonly LegendProps[]
         cellComponent?: CellComponent<D>
         motionStagger?: number
         testIdPrefix?: string
@@ -160,7 +160,7 @@ export type WaffleHtmlProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     Partial<MouseHandlers<D, HTMLElement>> & {
-        layers?: WaffleHtmlLayer<D>[]
+        layers?: readonly WaffleHtmlLayer<D>[]
         cellComponent?: CellComponent<D>
         motionStagger?: number
         testIdPrefix?: string
@@ -170,6 +170,6 @@ export type CanvasProps<D extends Datum = Datum> = DataProps<D> &
     Dimensions &
     Partial<CommonProps<D>> &
     Partial<Omit<MouseHandlers<D, HTMLCanvasElement>, 'onMouseEnter' | 'onMouseLeave'>> & {
-        legends?: LegendProps[]
+        legends?: readonly LegendProps[]
         pixelRatio?: number
     }

@@ -1,11 +1,30 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { WaffleSvgProps, Datum } from './types'
 import { Waffle } from './Waffle'
 
-export const ResponsiveWaffle = <RawDatum extends Datum>(
-    props: Omit<WaffleSvgProps<RawDatum>, 'height' | 'width'>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => <Waffle<RawDatum> width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
-)
+export const ResponsiveWaffle = forwardRef(
+    <D extends Datum = Datum>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<WaffleSvgProps<D>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
+            {({ width, height }) => (
+                <Waffle<D> {...props} width={width} height={height} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <D extends Datum = Datum>(
+    props: WithChartRef<ResponsiveProps<WaffleSvgProps<D>>, SVGSVGElement>
+) => ReactElement
