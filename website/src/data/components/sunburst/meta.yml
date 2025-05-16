@@ -29,5 +29,5 @@ Sunburst:
     - label: adding a metric in the center using a custom layer
       link: sunburst--adding-a-metric-in-the-center-using-a-custom-layer
   description: |
-    The responsive alternative of this component is
-    `ResponsiveSunburst`.
+    Sunburst is a radial treemap visualization that displays hierarchical data in a circular layout.
+

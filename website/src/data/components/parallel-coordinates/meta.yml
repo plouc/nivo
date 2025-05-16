@@ -12,9 +12,7 @@ ParallelCoordinates:
     Parallel coordinates chart, supports continuous numerical
     variables and discrete values.
 
-    The responsive alternative of this component is
-    `ResponsiveParallelCoordinates`, it also offers another
-    implementation, see
+    It also offers another implementation, see
     [ParallelCoordinatesCanvas](self:/parallel-coordinates/canvas).
 
 ParallelCoordinatesCanvas:
@@ -27,6 +25,3 @@ ParallelCoordinatesCanvas:
     [ParallelCoordinates](self:/parallel-coordinates) component.
     Well suited for large data sets as it does not impact DOM tree depth,
     however you'll lose the isomorphic ability and transitions.
-    
-    The responsive alternative of this component is
-    `ResponsiveParallelCoordinatesCanvas`.

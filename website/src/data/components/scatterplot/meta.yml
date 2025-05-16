@@ -29,8 +29,7 @@ ScatterPlot:
     show a third quantitative dimension if you enable **dynamic node size**,
     please have a look at the `nodeSize` property for further information.
 
-    The responsive alternative of this component is
-    `ResponsiveScatterPlot`, it also offers another
+    It also offers another
     implementation, see [ScatterPlotCanvas](self:/scatterplot/canvas).
     You can also see more example usages in
     [the storybook](storybook:scatterplot--default).
@@ -56,7 +55,3 @@ ScatterPlotCanvas:
     A variation around the [ScatterPlot](self:/scatterplot) component.
     Well suited for large data sets as it does not impact DOM tree depth,
     however you'll lose the isomorphic ability and transitions.
-
-    The responsive alternative of this component is
-    `ResponsiveScatterPlotCanvas`, it also offers another
-    implementation, see [ScatterPlot](self:/scatterplot).

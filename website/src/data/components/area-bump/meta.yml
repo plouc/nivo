@@ -13,5 +13,3 @@ AreaBump:
 
     If you're only interested in ranking, you can also you use
     the [Bump](self:/bump/) component.
-
-    The responsive alternative of this component is `ResponsiveAreaBump`.

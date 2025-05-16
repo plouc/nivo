@@ -28,11 +28,6 @@ Waffle:
     You can also see more example usages in
     [storybook](storybook:waffle--docs).
 
-    The responsive alternative of this component is `ResponsiveWaffle`,
-    it also offers other implementations, see
-    [WaffleHtml](self:/waffle/html) and
-    [WaffleCanvas](self:/waffle/canvas).
-
 WaffleHtml:
   package: '@nivo/waffle'
   tags: 

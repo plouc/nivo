@@ -43,9 +43,7 @@ export function ComponentSettings<Settings = any>({
         setSearchTerm('')
     }, [setSearchTerm])
 
-    const [openedGroups, setOpenedGroups] = React.useState<string[]>(
-        groups.map(group => group.name).filter((_groupName, groupIndex) => groupIndex === 0)
-    )
+    const [openedGroups, setOpenedGroups] = React.useState<string[]>([])
 
     const toggleGroup = useCallback(
         (groupName: string) => {

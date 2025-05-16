@@ -36,8 +36,6 @@ SwarmPlot:
     with a simulation involving collisions and x/y forces, the quality of
     the simulation can be adjusted, the strength of the *value* force too.
 
-    The responsive alternative of this component is `ResponsiveSwarmPlot`.
-
 SwarmPlotCanvas:
   package: '@nivo/swarmplot'
   tags:
@@ -56,7 +54,3 @@ SwarmPlotCanvas:
     Even if the canvas implementation is faster, please note that
     if you have a lot of nodes **calculating the underlying simulation
     will involve a lot of computing and will affect performance**.
-
-    The responsive alternative of this component is
-    `ResponsiveSwarmPlotCanvas`.
-

@@ -30,7 +30,6 @@ Choropleth:
     [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
     you'll have to pass the `features` array to the `features` property.
 
-    The responsive alternative of this component is `ResponsiveChoropleth`.
     This component also have a canvas implementations,
     [ChoroplethCanvas](self:/choropleth/canvas), which should be used
     when you have complex geometries as it offers better performance.
@@ -50,6 +49,3 @@ ChoroplethCanvas:
     in the generated code**, you can find the file used for this example
     [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
     you'll have to pass the `features` array to the `features` property.
-
-    The responsive alternative of this component is
-    `ResponsiveChoropleth`.

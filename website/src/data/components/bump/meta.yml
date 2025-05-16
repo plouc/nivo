@@ -24,5 +24,3 @@ Bump:
     y-axis values, you can also you use the [AreaBump](self:/area-bump/)
     component.
 
-    The responsive alternative of this component is `ResponsiveBump`.
-
