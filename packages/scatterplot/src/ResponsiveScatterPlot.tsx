@@ -1,11 +1,30 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { ScatterPlot } from './ScatterPlot'
 import { ScatterPlotDatum, ScatterPlotSvgProps } from './types'
 
-export const ResponsiveScatterPlot = <RawDatum extends ScatterPlotDatum>(
-    props: Omit<ScatterPlotSvgProps<RawDatum>, 'width' | 'height'>
-) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => <ScatterPlot<RawDatum> width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
-)
+export const ResponsiveScatterPlot = forwardRef(
+    <RawDatum extends ScatterPlotDatum>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<ScatterPlotSvgProps<RawDatum>>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
+            {({ width, height }) => (
+                <ScatterPlot<RawDatum> {...props} width={width} height={height} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <RawDatum extends ScatterPlotDatum>(
+    props: WithChartRef<ResponsiveProps<ScatterPlotSvgProps<RawDatum>>, SVGSVGElement>
+) => ReactElement

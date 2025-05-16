@@ -1,5 +1,5 @@
 import {
-    ForwardedRef,
+    Ref,
     createElement,
     forwardRef,
     useCallback,
@@ -8,8 +8,16 @@ import {
     useRef,
     useState,
     MouseEvent,
+    ReactElement,
 } from 'react'
-import { Container, useDimensions, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import {
+    Container,
+    useDimensions,
+    getRelativeCursor,
+    isCursorInRect,
+    mergeRefs,
+    WithChartRef,
+} from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { renderAnnotationsToCanvas } from '@nivo/annotations'
 import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
@@ -24,7 +32,7 @@ type InnerScatterPlotCanvasProps<RawDatum extends ScatterPlotDatum> = Omit<
     ScatterPlotCanvasProps<RawDatum>,
     'renderWrapper' | 'theme'
 > & {
-    canvasRef: ForwardedRef<HTMLCanvasElement>
+    forwardedRef: Ref<HTMLCanvasElement>
 }
 
 const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
@@ -62,7 +70,8 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
     onDoubleClick,
     tooltip = canvasDefaultProps.tooltip,
     legends = canvasDefaultProps.legends,
-    canvasRef,
+    role,
+    forwardedRef,
 }: InnerScatterPlotCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
@@ -321,10 +330,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
 
     return (
         <canvas
-            ref={canvas => {
-                canvasEl.current = canvas
-                if (canvasRef && 'current' in canvasRef) canvasRef.current = canvas
-            }}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -339,6 +345,7 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
             onMouseUp={isInteractive ? handleMouseUp : undefined}
             onClick={isInteractive ? handleClick : undefined}
             onDoubleClick={isInteractive ? handleDoubleClick : undefined}
+            role={role}
         />
     )
 }
@@ -346,10 +353,21 @@ const InnerScatterPlotCanvas = <RawDatum extends ScatterPlotDatum>({
 export const ScatterPlotCanvas = forwardRef(
     <RawDatum extends ScatterPlotDatum>(
         { isInteractive, renderWrapper, theme, ...props }: ScatterPlotCanvasProps<RawDatum>,
-        ref: ForwardedRef<HTMLCanvasElement>
+        ref: Ref<HTMLCanvasElement>
     ) => (
-        <Container {...{ isInteractive, renderWrapper, theme }} animate={false}>
-            <InnerScatterPlotCanvas<RawDatum> {...props} canvasRef={ref} />
+        <Container
+            isInteractive={isInteractive}
+            renderWrapper={renderWrapper}
+            theme={theme}
+            animate={false}
+        >
+            <InnerScatterPlotCanvas<RawDatum>
+                {...props}
+                isInteractive={isInteractive}
+                forwardedRef={ref}
+            />
         </Container>
     )
-)
+) as <RawDatum extends ScatterPlotDatum>(
+    props: WithChartRef<ScatterPlotCanvasProps<RawDatum>, HTMLCanvasElement>
+) => ReactElement

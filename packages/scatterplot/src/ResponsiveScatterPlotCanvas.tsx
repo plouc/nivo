@@ -1,28 +1,30 @@
-import { ResponsiveWrapper } from '@nivo/core'
-import { ForwardedRef, forwardRef } from 'react'
-
+import { ResponsiveWrapper, WithChartRef, ResponsiveProps } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
 import { ScatterPlotCanvas } from './ScatterPlotCanvas'
 import { ScatterPlotCanvasProps, ScatterPlotDatum } from './types'
 
-export const ResponsiveScatterPlotCanvas = forwardRef(function ResponsiveScatterPlotCanvas<
-    RawDatum extends ScatterPlotDatum,
->(
-    props: Omit<ScatterPlotCanvasProps<RawDatum>, 'width' | 'height'>,
-    ref: ForwardedRef<HTMLCanvasElement>
-) {
-    return (
-        <ResponsiveWrapper>
+export const ResponsiveScatterPlotCanvas = forwardRef(
+    <RawDatum extends ScatterPlotDatum>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveProps<ScatterPlotCanvasProps<RawDatum>>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
             {({ width, height }) => (
-                <ScatterPlotCanvas
-                    width={width}
-                    height={height}
-                    {...(props as Omit<
-                        ScatterPlotCanvasProps<ScatterPlotDatum>,
-                        'height' | 'width'
-                    >)}
-                    ref={ref}
-                />
+                <ScatterPlotCanvas {...props} width={width} height={height} ref={ref} />
             )}
         </ResponsiveWrapper>
     )
-})
+) as <RawDatum extends ScatterPlotDatum>(
+    props: WithChartRef<ResponsiveProps<ScatterPlotCanvasProps<RawDatum>>, HTMLCanvasElement>
+) => ReactElement

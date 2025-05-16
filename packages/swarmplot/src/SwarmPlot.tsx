@@ -1,5 +1,5 @@
-import { ReactNode, Fragment, createElement } from 'react'
-import { Container, SvgWrapper, useDimensions } from '@nivo/core'
+import { ReactNode, Fragment, createElement, forwardRef, Ref, ReactElement } from 'react'
+import { Container, SvgWrapper, useDimensions, WithChartRef } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { AnyScale } from '@nivo/scales'
 import { Axes, Grid } from '@nivo/axes'
@@ -17,7 +17,9 @@ type InnerSwarmPlotProps<RawDatum> = Partial<
         'data' | 'groups' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
     >
 > &
-    Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height' | 'isInteractive'>
+    Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height' | 'isInteractive'> & {
+        forwardedRef: Ref<SVGSVGElement>
+    }
 
 const InnerSwarmPlot = <RawDatum,>({
     data,
@@ -63,6 +65,7 @@ const InnerSwarmPlot = <RawDatum,>({
     tooltip = defaultProps.tooltip,
     annotations = defaultProps.annotations,
     role = defaultProps.role,
+    forwardedRef,
 }: InnerSwarmPlotProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -205,7 +208,13 @@ const InnerSwarmPlot = <RawDatum,>({
     })
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ref={forwardedRef}
+        >
             {layers.map((layer, i) => {
                 if (layerById[layer as SwarmPlotLayerId] !== undefined) {
                     return layerById[layer as SwarmPlotLayerId]
@@ -221,16 +230,33 @@ const InnerSwarmPlot = <RawDatum,>({
     )
 }
 
-export const SwarmPlot = <RawDatum,>({
-    theme,
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: Partial<Omit<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
-    Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerSwarmPlot<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const SwarmPlot = forwardRef(
+    <RawDatum,>(
+        {
+            theme,
+            isInteractive = defaultProps.isInteractive,
+            animate = defaultProps.animate,
+            motionConfig = defaultProps.motionConfig,
+            renderWrapper,
+            ...props
+        }: Partial<Omit<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
+            Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerSwarmPlot<RawDatum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+        </Container>
+    )
+) as <RawDatum>(
+    props: WithChartRef<
+        Partial<Omit<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
+            Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>,
+        SVGSVGElement
+    >
+) => ReactElement

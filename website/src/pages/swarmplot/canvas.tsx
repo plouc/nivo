@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveSwarmPlotCanvas, defaultProps } from '@nivo/swarmplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -125,14 +125,17 @@ const SwarmPlotCanvas = ({ location }: PageProps) => {
             getDataSize={data => data.data.length}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveSwarmPlotCanvas
+                        {...properties}
                         data={data.data}
                         groups={data.groups}
-                        {...properties}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         onClick={node => {
                             logAction({
                                 type: 'click',
