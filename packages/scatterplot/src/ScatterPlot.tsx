@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode, useMemo } from 'react'
-import { SvgWrapper, Container, useDimensions, CartesianMarkers } from '@nivo/core'
+import { createElement, Fragment, ReactNode, useMemo, forwardRef, Ref, ReactElement } from 'react'
+import { SvgWrapper, Container, useDimensions, CartesianMarkers, WithChartRef } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { useScatterPlot } from './hooks'
@@ -12,7 +12,9 @@ import { ScatterPlotDatum, ScatterPlotLayerId, ScatterPlotSvgProps } from './typ
 type InnerScatterPlotProps<RawDatum extends ScatterPlotDatum> = Omit<
     ScatterPlotSvgProps<RawDatum>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     data,
@@ -55,6 +57,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    forwardedRef,
 }: InnerScatterPlotProps<RawDatum>) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -213,6 +216,7 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'string' && layerById[layer] !== undefined) {
@@ -229,23 +233,32 @@ const InnerScatterPlot = <RawDatum extends ScatterPlotDatum>({
     )
 }
 
-export const ScatterPlot = <RawDatum extends ScatterPlotDatum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: ScatterPlotSvgProps<RawDatum>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const ScatterPlot = forwardRef(
+    <RawDatum extends ScatterPlotDatum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerScatterPlot<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: ScatterPlotSvgProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerScatterPlot<RawDatum>
+                {...props}
+                isInteractive={isInteractive}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <RawDatum extends ScatterPlotDatum>(
+    props: WithChartRef<ScatterPlotSvgProps<RawDatum>, SVGSVGElement>
+) => ReactElement

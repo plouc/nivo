@@ -14,6 +14,7 @@ describe('<Waffle />', () => {
                 rows={10}
                 columns={10}
                 total={100}
+                padding={0}
                 data={[{ id: 'one', label: 'one', value: 10 }]}
             />
         )
@@ -32,6 +33,7 @@ describe('<Waffle />', () => {
                     rows={10}
                     columns={10}
                     total={100}
+                    padding={0}
                     data={[{ id: 'one', label: 'one', value: 10 }]}
                     fillDirection={fillMode}
                 />

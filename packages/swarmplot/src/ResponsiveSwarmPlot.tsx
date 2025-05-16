@@ -1,16 +1,35 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { forwardRef, Ref, ReactElement } from 'react'
+import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
 import { SwarmPlotSvgProps } from './types'
 import { SwarmPlot } from './SwarmPlot'
 
-type ResponsiveSwarmPlotProps<RawDatum> = Partial<
-    Omit<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>
-> &
-    Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups'>
+type ResponsiveSwarmPlotProps<RawDatum> = ResponsiveProps<
+    Partial<Omit<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
+        Pick<SwarmPlotSvgProps<RawDatum>, 'data' | 'groups'>
+>
 
-export const ResponsiveSwarmPlot = <RawDatum,>(props: ResponsiveSwarmPlotProps<RawDatum>) => (
-    <ResponsiveWrapper>
-        {({ width, height }: { width: number; height: number }) => (
-            <SwarmPlot<RawDatum> width={width} height={height} {...props} />
-        )}
-    </ResponsiveWrapper>
-)
+export const ResponsiveSwarmPlot = forwardRef(
+    <RawDatum,>(
+        {
+            defaultWidth,
+            defaultHeight,
+            onResize,
+            debounceResize,
+            ...props
+        }: ResponsiveSwarmPlotProps<RawDatum>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <ResponsiveWrapper
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            onResize={onResize}
+            debounceResize={debounceResize}
+        >
+            {({ width, height }) => (
+                <SwarmPlot<RawDatum> {...props} width={width} height={height} ref={ref} />
+            )}
+        </ResponsiveWrapper>
+    )
+) as <RawDatum>(
+    props: WithChartRef<ResponsiveSwarmPlotProps<RawDatum>, SVGSVGElement>
+) => ReactElement

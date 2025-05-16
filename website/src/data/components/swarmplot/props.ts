@@ -3,6 +3,7 @@ import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     chartGrid,
     axes,
@@ -132,7 +133,8 @@ const props: ChartProperty[] = [
             max: 20,
         },
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg', 'canvas']),
     {
         key: 'forceStrength',
         help: 'Force strength.',

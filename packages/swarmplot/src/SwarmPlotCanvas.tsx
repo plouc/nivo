@@ -1,7 +1,23 @@
-import { createElement, useCallback, useEffect, useRef, useState } from 'react'
+import {
+    createElement,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+    forwardRef,
+    Ref,
+    ReactElement,
+} from 'react'
 import * as React from 'react'
 import isNumber from 'lodash/isNumber.js'
-import { Container, getRelativeCursor, isCursorInRect, useDimensions } from '@nivo/core'
+import {
+    Container,
+    getRelativeCursor,
+    isCursorInRect,
+    useDimensions,
+    WithChartRef,
+    mergeRefs,
+} from '@nivo/core'
 import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'
 import { AnyScale } from '@nivo/scales'
@@ -46,7 +62,12 @@ type InnerSwarmCanvasPlotProps<RawDatum> = Partial<
         'data' | 'groups' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
     >
 > &
-    Pick<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height' | 'isInteractive'>
+    Pick<
+        SwarmPlotCanvasProps<RawDatum>,
+        'data' | 'groups' | 'width' | 'height' | 'isInteractive'
+    > & {
+        forwardedRef: Ref<HTMLCanvasElement>
+    }
 
 export const InnerSwarmPlotCanvas = <RawDatum,>({
     data,
@@ -88,6 +109,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     tooltip = defaultProps.tooltip,
     role = defaultProps.role,
     pixelRatio = defaultProps.pixelRatio,
+    forwardedRef,
 }: InnerSwarmCanvasPlotProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
@@ -326,7 +348,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
 
     return (
         <canvas
-            ref={canvasEl}
+            ref={mergeRefs(canvasEl, forwardedRef)}
             width={outerWidth * pixelRatio}
             height={outerHeight * pixelRatio}
             style={{
@@ -346,16 +368,37 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
     )
 }
 
-export const SwarmPlotCanvas = <RawDatum,>({
-    theme,
-    isInteractive = defaultProps.isInteractive,
-    animate = defaultProps.animate,
-    motionConfig = defaultProps.motionConfig,
-    renderWrapper,
-    ...otherProps
-}: Partial<Omit<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
-    Pick<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>) => (
-    <Container {...{ isInteractive, animate, motionConfig, theme, renderWrapper }}>
-        <InnerSwarmPlotCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+export const SwarmPlotCanvas = forwardRef(
+    <RawDatum,>(
+        {
+            theme,
+            isInteractive = defaultProps.isInteractive,
+            animate = defaultProps.animate,
+            motionConfig = defaultProps.motionConfig,
+            renderWrapper,
+            ...props
+        }: Partial<Omit<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
+            Pick<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>,
+        ref: Ref<HTMLCanvasElement>
+    ) => (
+        <Container
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            theme={theme}
+            renderWrapper={renderWrapper}
+        >
+            <InnerSwarmPlotCanvas<RawDatum>
+                {...props}
+                isInteractive={isInteractive}
+                forwardedRef={ref}
+            />
+        </Container>
+    )
+) as <RawDatum>(
+    props: WithChartRef<
+        Partial<Omit<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>> &
+            Pick<SwarmPlotCanvasProps<RawDatum>, 'data' | 'groups' | 'width' | 'height'>,
+        HTMLCanvasElement
+    >
+) => ReactElement

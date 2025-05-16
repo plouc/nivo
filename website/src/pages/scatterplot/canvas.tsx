@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveScatterPlotCanvas, canvasDefaultProps } from '@nivo/scatterplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -117,12 +117,15 @@ const ScatterPlotCanvas = ({ location }: PageProps) => {
             generateData={generateHeavyDataSet}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => (
+            {(properties, data, theme, logAction, chartRef) => (
                 <ResponsiveScatterPlotCanvas
-                    data={data}
                     {...properties}
+                    data={data}
                     theme={theme}
+                    ref={chartRef as Ref<HTMLCanvasElement>}
+                    debounceResize={200}
                     onClick={node => {
                         logAction({
                             type: 'click',
