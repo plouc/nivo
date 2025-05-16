@@ -13,7 +13,6 @@ Sankey:
   description: |
     Computes a sankey diagram from nodes and links, built
     on top of [d3-sankey](https://github.com/d3/d3-sankey).
-    The responsive alternative of this component is `ResponsiveSankey`.
 
     Please be careful with the data you use for this chart as
     it does not support cyclic dependencies.

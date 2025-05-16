@@ -21,5 +21,3 @@ Bullet:
 
     You can fully customize this chart using custom components via
     `rangeComponent`, `measureComponent` and `markerComponent` properties.
-
-    The responsive alternative of this component is `ResponsiveBullet`.

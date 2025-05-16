@@ -50,8 +50,6 @@ Line:
     All datum having null x or y will be treated as holes, thus portions
     of the corresponding line will be skipped.
 
-    The responsive alternative of this component is `ResponsiveLine`.
-
     This component is available in the `@nivo/api`, see
     [sample](api:/samples/line.svg) or
     [try it using the API client](self:/line/api).
@@ -74,6 +72,3 @@ LineCanvas:
     A variation around the [Line](self:/line) component. Well suited
     for large data sets as it does not impact DOM tree depth, however
     you'll lose the isomorphic ability and transitions.
-
-    The responsive alternative of this component is
-    `ResponsiveLineCanvas`.

@@ -20,8 +20,6 @@ Marimekko:
     It also shares some behavior of the `Stream` chart regarding
     the way we can configure the `offset`.
 
-    The responsive alternative of this component is `ResponsiveMarimekko`.
-
     You can also see more example usages in
     [the storybook](storybook:marimekko--default).
 

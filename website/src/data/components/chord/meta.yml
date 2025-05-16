@@ -17,12 +17,6 @@ Chord:
     Chord diagram, uses [d3-chord](https://github.com/d3/d3-chord),
     see [this demo](https://observablehq.com/@d3/chord-diagram).
 
-    The responsive alternative of this component is `ResponsiveChord`.
-
-    This component is available in the `@nivo/api`,
-    see [sample](api:/samples/chord) or
-    [try it using the API client](self:/chord/api).
-
     See the [dedicated guide](self:/guides/legends) on how to setup
     legends for this component.
 
@@ -36,7 +30,4 @@ ChordCanvas:
     A variation around the [Chord](self:/chord) component. Well suited
     for large data sets as it does not impact DOM tree depth, however
     you'll lose the isomorphic ability and transitions (for now).
-
-    The responsive alternative of this component is
-    `ResponsiveChordCanvas`.
 

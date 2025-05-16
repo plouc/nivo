@@ -22,8 +22,6 @@ Network:
 
     You can also add some extra constrains via `distanceMin` and `distanceMax`.
 
-    The responsive alternative of this component is `ResponsiveNetwork`.
-
     Please note that you can also use the `useNetwork` React hook if you want
     to handle the rendering by yourself, it accepts an object with almost
     the same props as the component and returns computed nodes & links.
@@ -43,9 +41,6 @@ NetworkCanvas:
     A variation around the [Network](self:/network/) component.
     Well suited for large data sets as it does not impact DOM tree depth,
     however you'll lose the isomorphic ability and transitions.
-
-    The responsive alternative of this component is
-    `ResponsiveNetworkCanvas`.
 
     Please note that you can also use the `useNetwork` React hook if you want
     to handle the rendering by yourself, it accepts an object with almost
