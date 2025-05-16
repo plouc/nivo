@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import range from 'lodash/range.js'
 import { ResponsiveVoronoi, defaultVoronoiProps } from '@nivo/voronoi'
@@ -14,25 +14,20 @@ const generateData = () =>
 
 const initialProperties = {
     ...defaultVoronoiProps,
-
     xDomain,
     yDomain,
-
     margin: {
         top: 1,
         right: 1,
         bottom: 1,
         left: 1,
     },
-
     enableLinks: true,
     linkLineWidth: 1,
     linkLineColor: '#cccccc',
-
     enableCells: true,
     cellLineWidth: 2,
     cellLineColor: '#c6432d',
-
     enablePoints: true,
     pointSize: 6,
     pointColor: '#c6432d',
@@ -66,9 +61,18 @@ const Voronoi = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme) => {
-                return <ResponsiveVoronoi data={data} {...properties} theme={theme} />
+            {(properties, data, theme, _logAction, chartRef) => {
+                return (
+                    <ResponsiveVoronoi
+                        {...properties}
+                        data={data}
+                        theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
+                    />
+                )
             }}
         </ComponentTemplate>
     )
