@@ -20,11 +20,10 @@ export default {
         stacked: true,
         reverse: false,
     },
-    yFormat: { format: ' >-.2f', enabled: true },
+    yFormat: { format: ' >-.2f', enabled: false },
     curve: commonDefaultProps.curve,
     axisTop: {
         enable: false,
-        orient: 'top',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -34,7 +33,6 @@ export default {
     },
     axisRight: {
         enable: false,
-        orient: 'right',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,

@@ -13,7 +13,7 @@ export type UnmappedBarProps = UnmappedSettings<
             enabled: boolean
         }
         axisTop: { enable: boolean } & MappedBarProps['axisTop']
-        axisRight: { enable: boolean } & MappedBarProps['axisTop']
+        axisRight: { enable: boolean } & MappedBarProps['axisRight']
         axisBottom: { enable: boolean } & MappedBarProps['axisBottom']
         axisLeft: { enable: boolean } & MappedBarProps['axisLeft']
         'custom tooltip example': boolean

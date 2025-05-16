@@ -28,6 +28,8 @@ export const defaultProps = {
     activeOpacity: 1,
     inactiveOpacity: 0.25,
 
+    axisTop: null,
+    axisRight: null,
     axisBottom: {},
     axisLeft: {},
     enableGridX: false,
@@ -42,7 +44,7 @@ export const defaultProps = {
     borderWidth: 0,
     borderColor: { from: 'color' } as InheritedColorConfig<ComputedBoxPlotSummary>,
 
-    medianWidth: 3,
+    medianWidth: 2,
     medianColor: {
         from: 'color',
         modifiers: [['darker', 2.0]],
@@ -52,7 +54,7 @@ export const defaultProps = {
     whiskerColor: {
         from: 'color',
     } as InheritedColorConfig<ComputedBoxPlotSummary>,
-    whiskerEndSize: 0,
+    whiskerEndSize: 0.6,
 
     isInteractive: true,
     tooltip: BoxPlotTooltip,

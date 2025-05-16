@@ -19,28 +19,22 @@ export const commonDefaultProps = {
         min: 0,
         max: 'auto',
     } as ScatterPlotCommonProps<ScatterPlotDatum>['yScale'],
-
     enableGridX: true,
     enableGridY: true,
+    axisTop: null,
+    axisRight: null,
     axisBottom: {},
     axisLeft: {},
-
     nodeId: (({ serieId, index }) =>
         `${serieId}.${index}`) as ScatterPlotCommonProps<ScatterPlotDatum>['nodeId'],
     nodeSize: 9,
     nodeComponent: Node,
-
     colors: { scheme: 'nivo' } as ScatterPlotCommonProps<ScatterPlotDatum>['colors'],
-
     isInteractive: true,
     debugMesh: false,
-
     tooltip: Tooltip,
-
     markers: [],
-
     legends: [],
-
     annotations: [],
 }
 

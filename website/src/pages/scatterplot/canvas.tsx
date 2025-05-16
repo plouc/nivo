@@ -19,13 +19,13 @@ const initialProperties = {
         min: 0,
         max: 'auto',
     },
-    xFormat: { format: '>-.2f', enabled: true },
+    xFormat: { format: '>-.2f', enabled: false },
     yScale: {
         type: 'linear',
         min: 0,
         max: 'auto',
     },
-    yFormat: { format: '>-.2f', enabled: true },
+    yFormat: { format: '>-.2f', enabled: false },
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     colors: canvasDefaultProps.colors,
@@ -69,7 +69,6 @@ const initialProperties = {
     enableGridX: canvasDefaultProps.enableGridX,
     enableGridY: canvasDefaultProps.enableGridY,
     isInteractive: canvasDefaultProps.isInteractive,
-    useMesh: canvasDefaultProps.useMesh,
     debugMesh: canvasDefaultProps.debugMesh,
     legends: [
         {
@@ -79,10 +78,10 @@ const initialProperties = {
             translateX: 130,
             translateY: 0,
             itemWidth: 100,
-            itemHeight: 12,
-            itemsSpacing: 5,
+            itemHeight: 16,
+            itemsSpacing: 3,
             itemDirection: 'left-to-right',
-            symbolSize: 12,
+            symbolSize: 16,
             symbolShape: 'rect',
         },
     ],

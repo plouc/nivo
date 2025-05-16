@@ -1,5 +1,4 @@
 import omit from 'lodash/omit.js'
-import isEmpty from 'lodash/isEmpty.js'
 import { defaultAxisProps } from '@nivo/axes'
 import { objectDiff } from '../objectDiff'
 
@@ -26,8 +25,5 @@ export const mapAxis = (value: any) => {
         omitKeys.push('truncateTickAt')
     }
 
-    const diff = objectDiff(omit(value, omitKeys), defaultAxisProps)
-    if (isEmpty(diff)) return undefined
-
-    return diff
+    return objectDiff(omit(value, omitKeys), defaultAxisProps)
 }

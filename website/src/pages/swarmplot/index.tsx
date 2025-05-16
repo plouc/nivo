@@ -8,10 +8,8 @@ import { groups } from '../../data/components/swarmplot/props'
 import { generateLightDataSet } from '../../data/components/swarmplot/generator'
 
 const initialProperties = Object.freeze({
-    groupBy: 'group',
-    identity: 'id',
     value: 'price',
-    valueFormat: { format: '$.2f', enabled: true },
+    valueFormat: { format: '$.2f', enabled: false },
     valueScale: {
         type: 'linear',
         min: 0,
@@ -31,13 +29,7 @@ const initialProperties = Object.freeze({
     colors: defaultProps.colors,
     colorBy: 'group',
     borderWidth: 0,
-    borderColor: {
-        from: 'color',
-        modifiers: [
-            ['darker', 0.6],
-            ['opacity', 0.5],
-        ],
-    },
+    borderColor: defaultProps.borderColor,
     margin: {
         top: 80,
         right: 100,
@@ -51,7 +43,7 @@ const initialProperties = Object.freeze({
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'group if vertical, price if horizontal',
+        legend: '',
         legendPosition: 'middle',
         legendOffset: -40,
         truncateTickAt: 0,
@@ -61,7 +53,7 @@ const initialProperties = Object.freeze({
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'price if vertical, group if horizontal',
+        legend: '',
         legendPosition: 'middle',
         legendOffset: 60,
         truncateTickAt: 0,
