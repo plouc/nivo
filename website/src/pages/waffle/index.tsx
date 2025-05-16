@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateWaffleData } from '@nivo/generators'
 import { ResponsiveWaffle, svgDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
@@ -13,36 +13,27 @@ import {
 
 const initialProperties: UnmappedWaffleSvgProps = {
     total: 100,
-
     rows: 18,
     columns: 14,
     fillDirection: svgDefaultProps.fillDirection,
-    padding: 1,
+    padding: svgDefaultProps.padding,
     valueFormat: { format: '.2f', enabled: true },
-
     margin: {
         top: 10,
         right: 10,
         bottom: 10,
         left: 120,
     },
-
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     colors: { scheme: 'nivo' },
     borderRadius: 3,
-    borderWidth: 0,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.3]],
-    },
-
+    borderWidth: svgDefaultProps.borderWidth,
+    borderColor: svgDefaultProps.borderColor,
     animate: svgDefaultProps.animate,
     motionConfig: svgDefaultProps.motionConfig,
     motionStagger: 2,
-
-    isInteractive: true,
-
+    isInteractive: svgDefaultProps.isInteractive,
     legends: [
         {
             anchor: 'top-left',
@@ -54,8 +45,6 @@ const initialProperties: UnmappedWaffleSvgProps = {
             itemWidth: 100,
             itemHeight: 20,
             itemDirection: 'left-to-right',
-            itemOpacity: 1,
-            itemTextColor: '#777',
             symbolSize: 20,
         },
     ],
@@ -109,13 +98,16 @@ const Waffle = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveWaffle
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<SVGSVGElement>}
+                        debounceResize={200}
                         onClick={(datum: ComputedDatum<Datum>) => {
                             logAction({
                                 type: 'click',

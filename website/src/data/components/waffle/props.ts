@@ -8,6 +8,7 @@ import {
 } from '../../../lib/componentProperties'
 import {
     chartDimensions,
+    chartRef,
     ordinalColors,
     isInteractive,
     commonAccessibilityProps,
@@ -159,7 +160,8 @@ const props: ChartProperty[] = [
         defaultValue: defaults.hiddenIds,
         flavors: allFlavors,
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg', 'html', 'canvas']),
     themeProperty(allFlavors),
     ordinalColors({
         flavors: allFlavors,

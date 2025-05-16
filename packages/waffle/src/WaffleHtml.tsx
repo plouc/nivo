@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, WithChartRef } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { Datum, CellComponent, WaffleHtmlProps, TooltipComponent, HtmlLayerId } from './types'
 import { htmlDefaultProps } from './defaults'
@@ -10,7 +10,9 @@ import { WaffleAreasHtml } from './WaffleAreasHtml'
 type InnerWaffleHtmlProps<D extends Datum> = Omit<
     WaffleHtmlProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<HTMLDivElement>
+}
 
 const InnerWaffleHtml = <D extends Datum>({
     width,
@@ -45,6 +47,7 @@ const InnerWaffleHtml = <D extends Datum>({
     ariaLabelledBy,
     ariaDescribedBy,
     testIdPrefix,
+    forwardedRef,
 }: InnerWaffleHtmlProps<D>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -123,6 +126,7 @@ const InnerWaffleHtml = <D extends Datum>({
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}
             aria-describedby={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -135,23 +139,28 @@ const InnerWaffleHtml = <D extends Datum>({
     )
 }
 
-export const WaffleHtml = <D extends Datum = Datum>({
-    isInteractive = htmlDefaultProps.isInteractive,
-    animate = htmlDefaultProps.animate,
-    motionConfig = htmlDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: WaffleHtmlProps<D>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const WaffleHtml = forwardRef(
+    <D extends Datum = Datum>(
+        {
+            isInteractive = htmlDefaultProps.isInteractive,
+            animate = htmlDefaultProps.animate,
+            motionConfig = htmlDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerWaffleHtml<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: WaffleHtmlProps<D>,
+        ref: Ref<HTMLDivElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerWaffleHtml<D> isInteractive={isInteractive} {...props} forwardedRef={ref} />
+        </Container>
+    )
+) as <D extends Datum = Datum>(
+    props: WithChartRef<WaffleHtmlProps<D>, HTMLDivElement>
+) => ReactElement

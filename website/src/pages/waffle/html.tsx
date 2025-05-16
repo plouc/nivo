@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { generateWaffleData } from '@nivo/generators'
 import { ResponsiveWaffleHtml, htmlDefaultProps, ComputedDatum, Datum } from '@nivo/waffle'
@@ -87,13 +87,16 @@ const WaffleHtml = ({ location }: PageProps) => {
             generateData={generateData}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveWaffleHtml
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
+                        ref={chartRef as Ref<HTMLDivElement>}
+                        debounceResize={200}
                         onClick={(datum: ComputedDatum<Datum>) => {
                             logAction({
                                 type: 'click',

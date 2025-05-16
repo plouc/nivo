@@ -20,22 +20,17 @@ export const commonDefaultProps: Omit<
     | 'ariaDescribedBy'
 > = {
     hiddenIds: [],
-
     fillDirection: 'top',
-    padding: 0,
-
+    padding: 1,
     colors: { scheme: 'nivo' },
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     borderRadius: 0,
     borderWidth: 0,
     borderColor: { from: 'color', modifiers: [['darker', 1]] },
-
     isInteractive: true,
     tooltip: WaffleTooltip,
-
     role: 'img',
-
     animate: true,
     motionConfig: 'gentle',
 }

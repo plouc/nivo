@@ -1,5 +1,5 @@
-import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { createElement, Fragment, ReactNode, forwardRef, Ref, ReactElement } from 'react'
+import { Container, useDimensions, SvgWrapper, WithChartRef } from '@nivo/core'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Datum, WaffleSvgProps, LayerId, TooltipComponent } from './types'
@@ -11,7 +11,9 @@ import { WaffleAreas } from './WaffleAreas'
 type InnerWaffleProps<D extends Datum> = Omit<
     WaffleSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
->
+> & {
+    forwardedRef: Ref<SVGSVGElement>
+}
 
 const InnerWaffle = <D extends Datum>({
     width,
@@ -49,6 +51,7 @@ const InnerWaffle = <D extends Datum>({
     ariaLabelledBy,
     ariaDescribedBy,
     testIdPrefix,
+    forwardedRef,
 }: InnerWaffleProps<D>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -143,6 +146,7 @@ const InnerWaffle = <D extends Datum>({
             ariaLabel={ariaLabel}
             ariaLabelledBy={ariaLabelledBy}
             ariaDescribedBy={ariaDescribedBy}
+            ref={forwardedRef}
         >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
@@ -155,23 +159,28 @@ const InnerWaffle = <D extends Datum>({
     )
 }
 
-export const Waffle = <D extends Datum = Datum>({
-    isInteractive = svgDefaultProps.isInteractive,
-    animate = svgDefaultProps.animate,
-    motionConfig = svgDefaultProps.motionConfig,
-    theme,
-    renderWrapper,
-    ...otherProps
-}: WaffleSvgProps<D>) => (
-    <Container
-        {...{
-            animate,
-            isInteractive,
-            motionConfig,
-            renderWrapper,
+export const Waffle = forwardRef(
+    <D extends Datum = Datum>(
+        {
+            isInteractive = svgDefaultProps.isInteractive,
+            animate = svgDefaultProps.animate,
+            motionConfig = svgDefaultProps.motionConfig,
             theme,
-        }}
-    >
-        <InnerWaffle<D> isInteractive={isInteractive} {...otherProps} />
-    </Container>
-)
+            renderWrapper,
+            ...props
+        }: WaffleSvgProps<D>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container
+            animate={animate}
+            isInteractive={isInteractive}
+            motionConfig={motionConfig}
+            renderWrapper={renderWrapper}
+            theme={theme}
+        >
+            <InnerWaffle<D> {...props} forwardedRef={ref} isInteractive={isInteractive} />
+        </Container>
+    )
+) as <D extends Datum = Datum>(
+    props: WithChartRef<WaffleSvgProps<D>, SVGSVGElement>
+) => ReactElement
