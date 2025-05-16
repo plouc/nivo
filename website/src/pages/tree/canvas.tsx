@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
 import { ResponsiveTreeCanvas, svgDefaultProps as defaults, ComputedNode } from '@nivo/tree'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
@@ -23,22 +23,18 @@ const initialProperties: MappedTreeCanvasProps<Datum> = {
     activeLinkThickness: 8,
     inactiveLinkThickness: 2,
     linkColor: { from: 'target.color', modifiers: [['opacity', 0.4]] },
-
     enableLabel: defaults.enableLabel,
     labelsPosition: defaults.labelsPosition,
     orientLabel: defaults.orientLabel,
     labelOffset: defaults.labelOffset,
-
     margin: {
         top: 90,
         right: 90,
         bottom: 90,
         left: 90,
     },
-
     animate: defaults.animate,
     motionConfig: 'stiff',
-
     isInteractive: defaults.isInteractive,
     meshDetectionRadius: 80,
     debugMesh: defaults.debugMesh,
@@ -48,7 +44,6 @@ const initialProperties: MappedTreeCanvasProps<Datum> = {
     highlightDescendantLinks: defaults.highlightDescendantLinks,
     nodeTooltipPosition: defaults.nodeTooltipPosition,
     nodeTooltipAnchor: defaults.nodeTooltipAnchor,
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
@@ -82,12 +77,15 @@ const TreeCanvas = ({ location }: PageProps) => {
             enableDiceRoll={false}
             image={image}
             location={location}
+            enableChartDownload
         >
-            {(properties, data, theme, logAction) => {
+            {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveTreeCanvas<Datum>
-                        data={data}
                         {...properties}
+                        data={data}
+                        ref={chartRef as Ref<HTMLCanvasElement>}
+                        debounceResize={200}
                         theme={{
                             ...theme,
                             labels: {
