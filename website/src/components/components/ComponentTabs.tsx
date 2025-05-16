@@ -93,7 +93,7 @@ export const ComponentTabs = <D extends any = any>({
                     })}
                 </Nav>
                 <ExtraButtons>
-                    {diceRoll && (
+                    {diceRoll && currentTab !== 'code' && (
                         <DiceRollButton
                             className="no-select"
                             onClick={diceRoll}
@@ -103,7 +103,7 @@ export const ComponentTabs = <D extends any = any>({
                             roll the dice
                         </DiceRollButton>
                     )}
-                    {download && (
+                    {download && currentTab === 'chart' && (
                         <DownloadButton
                             className="no-select"
                             onClick={download}

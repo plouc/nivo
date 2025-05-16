@@ -266,31 +266,31 @@ const libTreeItems = [
     ],
 ]
 
-interface LibTreeDatum {
-    name: string
-    loc?: number
-    color?: string
-    children?: LibTreeDatum[]
-}
+type LibTreeDatum<ID extends string = 'name', V extends string = 'loc'> = Record<ID, string> &
+    Record<V, number> & {
+        color?: string
+        children?: LibTreeDatum<ID, V>[]
+    }
 
-export const generateLibTree = (
+export const generateLibTree = <ID extends string = 'name', V extends string = 'loc'>(
     name = 'nivo',
     limit?: number | null,
     children = libTreeItems,
-    {
-        withColors = true,
-    }: {
+    options: {
         withColors?: boolean
+        idKey?: ID
+        valueKey?: V
     } = {}
-): LibTreeDatum => {
+): LibTreeDatum<ID, V> => {
+    const { withColors = true, idKey = 'name' as ID, valueKey = 'loc' as V } = options
+
     limit = limit || children.length
     if (limit > children.length) {
         limit = children.length
     }
 
-    const tree: LibTreeDatum = {
-        name,
-    }
+    const tree = { [idKey]: name } as LibTreeDatum<ID, V>
+
     if (withColors) {
         tree.color = randColor()
     }
@@ -300,12 +300,10 @@ export const generateLibTree = (
             const leaf = children[i]
 
             // full path `${name}.${leaf[0]}`
-            return generateLibTree(leaf[0] as string, null, (leaf[1] ?? []) as any, {
-                withColors,
-            })
+            return generateLibTree<ID, V>(leaf[0] as string, null, (leaf[1] ?? []) as any, options)
         })
     } else {
-        tree.loc = Math.round(Math.random() * 200000)
+        tree[valueKey as V] = Math.round(Math.random() * 200000) as any
     }
 
     return tree

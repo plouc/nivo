@@ -11,7 +11,12 @@ import mapper, {
 } from '../../data/components/sunburst/mapper'
 import { groups } from '../../data/components/sunburst/props'
 
-const generateData = () => generateLibTree()
+const generateData = () =>
+    generateLibTree(undefined, undefined, undefined, {
+        withColors: false,
+        idKey: 'id',
+        valueKey: 'value',
+    })
 
 const initialProperties: UnmappedSunburstProps = {
     margin: {
@@ -20,8 +25,6 @@ const initialProperties: UnmappedSunburstProps = {
         bottom: 10,
         left: 10,
     },
-    id: 'name',
-    value: 'loc',
     valueFormat: { format: '', enabled: false },
     cornerRadius: 2,
     borderWidth: 1,
@@ -29,10 +32,7 @@ const initialProperties: UnmappedSunburstProps = {
     colors: { scheme: 'nivo' },
     colorBy: 'id',
     inheritColorFromParent: true,
-    childColor: {
-        from: 'color',
-        modifiers: [['brighter', 0.1]],
-    },
+    childColor: defaultProps.childColor,
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsRadiusOffset: 0.5,

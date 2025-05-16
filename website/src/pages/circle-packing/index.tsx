@@ -14,16 +14,11 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
-    id: 'name',
-    value: 'loc',
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'nivo' },
     colorBy: 'depth',
     inheritColorFromParent: false,
-    childColor: {
-        from: 'color',
-        modifiers: [['brighter', 0.4]],
-    },
+    childColor: svgDefaultProps.childColor,
     padding: 4,
     leavesOnly: false,
     enableLabels: true,
@@ -32,10 +27,7 @@ const initialProperties = {
     labelsSkipRadius: 10,
     labelTextColor: svgDefaultProps.labelTextColor,
     borderWidth: svgDefaultProps.borderWidth,
-    borderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.5]],
-    },
+    borderColor: svgDefaultProps.borderColor,
     // Patterns should be disabled by default, otherwise the code
     // becomes too complex for a simple example.
     // defs: [
@@ -53,7 +45,12 @@ const initialProperties = {
     isInteractive: true,
 }
 
-const generateData = () => generateLibTree()
+const generateData = () =>
+    generateLibTree(undefined, undefined, undefined, {
+        withColors: false,
+        idKey: 'id',
+        valueKey: 'value',
+    })
 
 const CirclePacking = ({ location }: PageProps) => {
     const {
@@ -89,8 +86,8 @@ const CirclePacking = ({ location }: PageProps) => {
             {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCirclePacking
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
                         ref={chartRef as Ref<SVGSVGElement>}
                         debounceResize={200}

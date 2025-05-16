@@ -11,7 +11,12 @@ import {
 } from '../../data/components/icicle/mapper'
 import { groups } from '../../data/components/icicle/props'
 
-const generateData = () => generateLibTree()
+const generateData = () =>
+    generateLibTree(undefined, undefined, undefined, {
+        withColors: false,
+        idKey: 'id',
+        valueKey: 'value',
+    })
 
 const initialProperties: UnmappedIcicleHtmlProps = {
     margin: {
@@ -20,8 +25,6 @@ const initialProperties: UnmappedIcicleHtmlProps = {
         bottom: 3,
         left: 3,
     },
-    identity: 'name',
-    value: 'loc',
     sort: 'input',
     valueFormat: { format: '>-.0s', enabled: true },
     orientation: htmlDefaultProps.orientation,

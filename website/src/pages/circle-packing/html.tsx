@@ -7,7 +7,12 @@ import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
 
-const generateData = () => generateLibTree()
+const generateData = () =>
+    generateLibTree(undefined, undefined, undefined, {
+        withColors: false,
+        idKey: 'id',
+        valueKey: 'value',
+    })
 
 const initialProperties = {
     margin: {
@@ -16,8 +21,6 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
-    id: 'name',
-    value: 'loc',
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
     colorBy: 'depth',
@@ -77,8 +80,8 @@ const CirclePackingHtml = ({ location }: PageProps) => {
             {(properties, data, theme, logAction, chartRef) => {
                 return (
                     <ResponsiveCirclePackingHtml
-                        data={data}
                         {...properties}
+                        data={data}
                         theme={theme}
                         ref={chartRef as Ref<HTMLDivElement>}
                         debounceResize={200}
