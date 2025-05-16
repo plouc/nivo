@@ -1,6 +1,6 @@
 import { defaultVoronoiProps } from '@nivo/voronoi'
 import { groupProperties } from '../../../lib/componentProperties'
-import { chartDimensions } from '../../../lib/chart-properties'
+import { chartDimensions, chartRef } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
 const allFlavors: Flavor[] = ['svg']
@@ -42,7 +42,8 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaultVoronoiProps.yDomain,
     },
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, true),
+    chartRef(['svg']),
     {
         key: 'layers',
         flavors: allFlavors,

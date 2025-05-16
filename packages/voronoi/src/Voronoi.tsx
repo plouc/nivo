@@ -1,11 +1,13 @@
-import { createElement, Fragment, ReactNode } from 'react'
+import { createElement, Fragment, ReactNode, forwardRef, Ref } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { VoronoiSvgProps, VoronoiLayerId } from './types'
 import { defaultVoronoiProps } from './props'
 import { useVoronoi, useVoronoiLayerContext } from './hooks'
 
 type InnerVoronoiProps = Partial<Omit<VoronoiSvgProps, 'data' | 'width' | 'height'>> &
-    Pick<VoronoiSvgProps, 'data' | 'width' | 'height'>
+    Pick<VoronoiSvgProps, 'data' | 'width' | 'height'> & {
+        forwardedRef: Ref<SVGSVGElement>
+    }
 
 const InnerVoronoi = ({
     data,
@@ -25,6 +27,7 @@ const InnerVoronoi = ({
     pointSize = defaultVoronoiProps.pointSize,
     pointColor = defaultVoronoiProps.pointColor,
     role = defaultVoronoiProps.role,
+    forwardedRef,
 }: InnerVoronoiProps) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
@@ -101,7 +104,13 @@ const InnerVoronoi = ({
     })
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+            ref={forwardedRef}
+        >
             {layers.map((layer, i) => {
                 if (layerById[layer as VoronoiLayerId] !== undefined) {
                     return layerById[layer as VoronoiLayerId]
@@ -117,12 +126,17 @@ const InnerVoronoi = ({
     )
 }
 
-export const Voronoi = ({
-    theme,
-    ...otherProps
-}: Partial<Omit<VoronoiSvgProps, 'data' | 'width' | 'height'>> &
-    Pick<VoronoiSvgProps, 'data' | 'width' | 'height'>) => (
-    <Container isInteractive={false} animate={false} theme={theme}>
-        <InnerVoronoi {...otherProps} />
-    </Container>
+export const Voronoi = forwardRef(
+    (
+        {
+            theme,
+            ...props
+        }: Partial<Omit<VoronoiSvgProps, 'data' | 'width' | 'height'>> &
+            Pick<VoronoiSvgProps, 'data' | 'width' | 'height'>,
+        ref: Ref<SVGSVGElement>
+    ) => (
+        <Container isInteractive={false} animate={false} theme={theme}>
+            <InnerVoronoi {...props} forwardedRef={ref} />
+        </Container>
+    )
 )
