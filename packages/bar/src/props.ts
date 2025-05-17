@@ -13,7 +13,7 @@ export const defaultProps = {
     reverse: false,
     minValue: 'auto' as const,
     maxValue: 'auto' as const,
-    valueScale: { type: 'linear' } as ScaleSpec,
+    valueScale: { type: 'linear', nice: true } as ScaleSpec,
     indexScale: { type: 'band', round: true } as ScaleBandSpec,
     padding: 0.1,
     innerPadding: 0,

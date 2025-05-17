@@ -1,0 +1,116 @@
+.nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: var(--dimension-header-height);
+
+    /*
+    ${media.tablet`
+        & {
+            left: 0;
+            flex-direction: row-reverse;
+            padding-right: 16px;
+            justify-content: space-between;
+        }
+    `}
+
+    ${media.mobile`
+        & {
+            left: 0;
+            flex-direction: row-reverse;
+            padding-right: 16px;
+            justify-content: space-between;
+        }
+    `}
+     */
+}
+
+.item {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    padding: 6px 0;
+
+    & svg {
+        font-size: 16px;
+        opacity: 0.5;
+        margin-left: 5px;
+    }
+
+    /*
+    ${media.tablet`
+        & {
+            display: none;
+        }
+    `}
+
+    ${media.mobile`
+        & {
+            display: none;
+        }
+    `}
+     */
+}
+.item:hover .dropdown {
+    display: block;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-card-background);
+    z-index: 1000;
+    border-radius: 2px;
+    padding: 10px 0;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 160px;
+}
+
+.subitem {
+    display: block;
+    padding: 7px 15px;
+    line-height: 1em;
+    text-decoration: none;
+
+    &:hover {
+        background: var(--color-card-alt-background);
+    }
+}
+
+/*
+External link icon
+cursor: pointer;
+    font-size: 22px;
+    color: #ffffff;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+
+    ${media.tablet`
+        & {
+            display: none;
+        }
+    `}
+
+    ${media.mobile`
+        & {
+            display: none;
+        }
+    `}
+ */

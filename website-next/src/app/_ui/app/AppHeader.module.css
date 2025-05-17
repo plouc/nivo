@@ -1,0 +1,17 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-accent-gradient-0);
+    background-image: linear-gradient(
+        -90deg,
+        var(--color-accent-gradient-0),
+        var(--color-accent-gradient-1),
+    );
+    height: var(--dimension-header-height);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 11;
+}

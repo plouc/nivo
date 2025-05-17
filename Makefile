@@ -97,6 +97,7 @@ clean-all: ##@0 global uninstall node modules, remove transpiled code & lock fil
 	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
 	@rm -rf website/node_modules
 	@rm -rf website/package-lock.json
+	@rm -rf website-next/node_modules
 	@rm -rf api/node_modules
 	@rm -rf api/package-lock.json
 
@@ -107,6 +108,7 @@ endef
 define clean-source-all
 	rm -rf $(1)/*/dist/
 	rm -rf $(1)/*/node_modules/
+	rm -rf $(1)/*/pnpm-lock.yaml
 	rm -rf $(1)/*/package-lock.json
 endef
 

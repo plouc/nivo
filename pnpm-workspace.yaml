@@ -2,5 +2,6 @@ packages:
   - 'packages/*'
   - 'api/'
   - 'website/'
+  - 'website-next/'
   - 'storybook/'
   - 'cypress/'
