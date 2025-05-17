@@ -1,20 +1,36 @@
-import { BarSvgProps, BarDatum } from '@nivo/bar'
+import { BarSvgProps, BarCanvasProps, BarDatum } from '@nivo/bar'
 import { UnmappedChartProps, chartPropsMapper} from "@/lib/charts/mapping/chartPropsMapper";
 import { AxisWithToggle, mapAxis} from "@/lib/charts/mapping/axes";
-// import { mapAxis, mapFormat, mapLegends } from '../../../lib/property-mappers'
+// import { mapFormat, mapLegends } from '../../../lib/property-mappers'
 
-export type MappedBarProps = Omit<BarSvgProps<BarDatum>, 'data' | 'width' | 'height'>
-export type UnmappedBarProps = UnmappedChartProps<
-    MappedBarProps,
+export type MappedBarSvgProps = Omit<BarSvgProps<BarDatum>, 'data' | 'width' | 'height'>
+export type UnmappedBarSvgProps = UnmappedChartProps<
+    MappedBarSvgProps,
     {
         // valueFormat: {
         //     format: string
         //     enabled: boolean
         // }
-        axisTop: AxisWithToggle<MappedBarProps['axisTop']>
-        axisRight: AxisWithToggle<MappedBarProps['axisRight']>
-        axisBottom: AxisWithToggle<MappedBarProps['axisBottom']>
-        axisLeft: AxisWithToggle<MappedBarProps['axisLeft']>
+        axisTop: AxisWithToggle<MappedBarSvgProps['axisTop']>
+        axisRight: AxisWithToggle<MappedBarSvgProps['axisRight']>
+        axisBottom: AxisWithToggle<MappedBarSvgProps['axisBottom']>
+        axisLeft: AxisWithToggle<MappedBarSvgProps['axisLeft']>
+        // 'custom tooltip example': boolean
+    }
+>
+
+export type MappedBarCanvasProps = Omit<BarCanvasProps<BarDatum>, 'data' | 'width' | 'height'>
+export type UnmappedBarCanvasProps = UnmappedChartProps<
+    MappedBarCanvasProps,
+    {
+        // valueFormat: {
+        //     format: string
+        //     enabled: boolean
+        // }
+        axisTop: AxisWithToggle<MappedBarCanvasProps['axisTop']>
+        axisRight: AxisWithToggle<MappedBarCanvasProps['axisRight']>
+        axisBottom: AxisWithToggle<MappedBarCanvasProps['axisBottom']>
+        axisLeft: AxisWithToggle<MappedBarCanvasProps['axisLeft']>
         // 'custom tooltip example': boolean
     }
 >
@@ -54,7 +70,7 @@ const CustomTooltip = ({ color, ...bar }: any) => {
 }
 */
 
-export const barSvgPropsMapper = chartPropsMapper<UnmappedBarProps, MappedBarProps>({
+export const barSvgPropsMapper = chartPropsMapper<UnmappedBarSvgProps, MappedBarSvgProps>({
     // valueFormat: mapFormat,
     axisTop: mapAxis,
     axisRight: mapAxis,
@@ -71,3 +87,7 @@ export const barSvgPropsMapper = chartPropsMapper<UnmappedBarProps, MappedBarPro
         // exclude: ['custom tooltip example'],
     }
 )
+
+export const barCanvasMapper = barSvgPropsMapper as ReturnType<
+    typeof chartPropsMapper<UnmappedBarCanvasProps, MappedBarCanvasProps>
+>

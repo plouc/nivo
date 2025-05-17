@@ -40,7 +40,6 @@
     height: 46px;
     background: var(--color-background);
     font-size: 15px;
-    color: #aaa;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -64,23 +63,39 @@
 .navitem {
     cursor: pointer;
     height: 46px;
-    display: block;
+    display: flex;
+    align-items: center;
     position: relative;
-    padding-left: 46px;
-    padding-right: 14px;
-    padding-top: 11px;
+    padding-left: 12px;
+    padding-right: 18px;
     user-select: none;
+    color: var(--color-text-lighter);
     background-color: transparent;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+    }
 
     &:hover {
         color: var(--color-text);
+
+        svg {
+            color: var(--color-accent);
+        }
     }
 }
 
 .navitem__curent {
     composes: navitem;
 
+    color: var(--color-text);
     background-color: var(--color-card-background);
+
+    svg {
+        color: var(--color-accent);
+    }
 }
 
 .actions {
@@ -114,10 +129,16 @@
     font-size: 0.9rem;
     white-space: pre;
     user-select: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.1s;
+    box-shadow: 0 0 0 0 var(--color-accent);
 
     &:hover {
         background: var(--color-accent);
         color: var(--color-background);
+    }
+
+    &:active {
+        box-shadow: 0 0 0 3px var(--color-accent);
     }
 }
 
@@ -129,6 +150,11 @@
     width: 32px;
     font-size: 20px;
     margin-left: 6px;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 .content {

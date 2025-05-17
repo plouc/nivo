@@ -1,10 +1,10 @@
 'use client'
-import {ResponsiveBarCanvas, svgDefaultProps} from "@nivo/bar";
-import { AppHeader} from "@/app/_ui/app/AppHeader";
+import {ResponsiveBarCanvas, canvasDefaultProps} from "@nivo/bar";
+import { PageLayout} from "@/app/_ui/app/PageLayout";
 import { ChartTemplate } from "@/app/_ui/charts/ChartTemplate";
 import { BarMeta, barFlavors} from "../meta";
 import { generateHeavyDataSet} from '../data'
-import { UnmappedBarProps, MappedBarProps} from '../mapper'
+import { UnmappedBarCanvasProps, MappedBarCanvasProps, barCanvasMapper} from '../mapper'
 
 interface DataWithKeys {
     data: ({
@@ -15,40 +15,22 @@ interface DataWithKeys {
     keys: string[]
 }
 
-const unmappedBarProps: UnmappedBarProps = {
-    ...svgDefaultProps,
+const unmappedBarProps: UnmappedBarCanvasProps = {
+    ...canvasDefaultProps,
     indexBy: 'country',
     margin: {
         top: 50,
-        right: 130,
+        right: 60,
         bottom: 50,
         left: 60,
     },
-    // valueFormat: { format: '', enabled: false },
-    // Patterns should be disabled by default, otherwise the code
-    // becomes too complex for a simple example.
-    // defs: [
-    //     patternDotsDef('dots', {
-    //         background: 'inherit',
-    //         color: '#38bcb2',
-    //         size: 4,
-    //         padding: 1,
-    //         stagger: true,
-    //     }),
-    //     patternLinesDef('lines', {
-    //         background: 'inherit',
-    //         color: '#eed312',
-    //         rotation: -45,
-    //         lineWidth: 6,
-    //         spacing: 10,
-    //     }),
-    // ],
-    // fill: [
-    //     { match: { id: 'fries' }, id: 'dots' },
-    //     { match: { id: 'sandwich' }, id: 'lines' },
-    // ],
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    padding: 0.15,
+    layout: 'horizontal',
+    colors: { scheme: 'red_blue' },
     axisTop: {
-        enable: false,
+        enable: true,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -87,29 +69,13 @@ const unmappedBarProps: UnmappedBarProps = {
     },
     labelSkipWidth: 12,
     labelSkipHeight: 12,
-    legends: [
-        {
-            dataFrom: 'keys',
-            anchor: 'bottom-right',
-            direction: 'column',
-            justify: false,
-            translateX: 120,
-            translateY: 0,
-            itemsSpacing: 3,
-            itemWidth: 100,
-            itemHeight: 16,
-            itemDirection: 'left-to-right',
-            symbolSize: 16,
-        },
-    ],
     // 'custom tooltip example': false,
 }
 
 export default function BarCanvas() {
   return (
-    <div>
-        <AppHeader/>
-        <ChartTemplate<UnmappedBarProps, MappedBarProps, DataWithKeys, HTMLCanvasElement>
+    <PageLayout>
+        <ChartTemplate<UnmappedBarCanvasProps, MappedBarCanvasProps, DataWithKeys, HTMLCanvasElement>
             component="BarCanvas"
             icon="bar"
             meta={BarMeta}
@@ -117,14 +83,14 @@ export default function BarCanvas() {
             currentFlavor="canvas"
             generateData={generateHeavyDataSet as () => DataWithKeys}
             unmappedProps={unmappedBarProps}
+            propsMapper={barCanvasMapper}
             enableDiceRoll
-            // initialProperties={{}}
             enableChartDownload
         >
-            {({ data, chartRef }) => (
-                <ResponsiveBarCanvas data={data.data} keys={data.keys} ref={chartRef}/>
+            {({ data, props, chartRef }) => (
+                <ResponsiveBarCanvas {...props} data={data.data} keys={data.keys} ref={chartRef}/>
             )}
         </ChartTemplate>
-    </div>
+    </PageLayout>
   )
 }

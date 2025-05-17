@@ -39,6 +39,8 @@
 .title {
     margin: 0 0 10px;
     padding: 0;
+    font-size: 1.9rem;
+    font-weight: 300;
 }
 
 .tag {

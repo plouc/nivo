@@ -1,0 +1,41 @@
+.content {
+    margin-top: var(--dimension-header-height);
+    margin-left: var(--dimension-mini-nav-width);
+    overflow-x: hidden;
+
+    /*
+    .isCapturing & {
+        background: transparent;
+    }
+
+    ${media.tablet`
+        & {
+            margin-left: 0;
+        }
+    `}
+
+    ${media.mobile`
+        & {
+            margin-left: 0;
+        }
+    `}
+     */
+}
+
+.content_inner {
+    padding-top: 10px;
+    background-image: linear-gradient(
+        -90deg,
+        var(--color-accent-gradient-0),
+        var(--color-accent-gradient-1)
+    );
+    background-size: 100% 150px;
+    background-repeat: no-repeat;
+    background-position: top left;
+
+    /*
+    .isCapturing & {
+        background: transparent;
+    }
+     */
+}

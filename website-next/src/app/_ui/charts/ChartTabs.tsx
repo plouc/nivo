@@ -1,5 +1,6 @@
 'use client'
 import {JSX, useState} from "react";
+import { ChartBarIcon, CodeBracketIcon, CircleStackIcon, CameraIcon } from '@heroicons/react/24/outline'
 import styles from './ChartTabs.module.css'
 
 type TabType = 'chart' | 'code' | 'data'
@@ -83,14 +84,12 @@ export const ChartTabs = <Data,>({
                                 // onMouseEnter={() => setHoverTab(tab)}
                                 // onMouseLeave={() => setHoverTab(null)}
                             >
+                                {tab === 'chart' && <ChartBarIcon/>}
+                                {tab === 'code' && <CodeBracketIcon/>}
+                                {tab === 'data' && <CircleStackIcon/>}
                                 {/* <Icon}
                                     className={`sprite-icons-${icon}-${theme.id}-${iconColors}`}
                                 /> */}
-                                {/*
-                                <Icon
-                                    className={`sprite-icons-${icon}-${theme.id}-${iconColors}`}
-                                />
-                                */}
                                 {tab === 'data' ? dataKey : tab}
                             </span>
                         )
@@ -114,8 +113,7 @@ export const ChartTabs = <Data,>({
                             role="button"
                             tabIndex={0}
                         >
-                            X
-                            {/*<FaCameraRetro />*/}
+                            <CameraIcon/>
                         </span>
                     )}
                 </div>

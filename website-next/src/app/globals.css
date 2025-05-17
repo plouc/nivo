@@ -2,6 +2,7 @@
     --color-background: #f7fafb;
     --color-text: #000000;
     --color-text-light: #666666;
+    --color-text-lighter: #939393;
     --color-code-text: #222222;
     --color-title-text: #e25d47;
     --color-link-text: #e25d47;
@@ -44,8 +45,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+      /* Dark mode */
   }
 }
 

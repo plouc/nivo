@@ -1,10 +1,10 @@
 'use client'
 import { ResponsiveBar, svgDefaultProps} from '@nivo/bar'
-import { AppHeader} from "@/app/_ui/app/AppHeader";
+import { PageLayout} from "@/app/_ui/app/PageLayout";
 import { ChartTemplate } from "@/app/_ui/charts/ChartTemplate";
 import { barFlavors, BarMeta} from "./meta";
 import { generateLightDataSet} from './data'
-import { UnmappedBarProps, MappedBarProps, barSvgPropsMapper} from './mapper'
+import { UnmappedBarSvgProps, MappedBarSvgProps, barSvgPropsMapper} from './mapper'
 
 interface DataWithKeys {
     data: ({
@@ -15,7 +15,7 @@ interface DataWithKeys {
     keys: string[]
 }
 
-const unmappedBarProps: UnmappedBarProps = {
+const unmappedBarProps: UnmappedBarSvgProps = {
     ...svgDefaultProps,
     indexBy: 'country',
     margin: {
@@ -107,9 +107,8 @@ const unmappedBarProps: UnmappedBarProps = {
 
 export default function Bar() {
   return (
-    <div>
-        <AppHeader/>
-        <ChartTemplate<UnmappedBarProps, MappedBarProps, DataWithKeys, SVGSVGElement>
+    <PageLayout>
+        <ChartTemplate<UnmappedBarSvgProps, MappedBarSvgProps, DataWithKeys, SVGSVGElement>
             component="Bar"
             icon="bar"
             meta={BarMeta}
@@ -122,9 +121,9 @@ export default function Bar() {
             enableChartDownload
         >
             {({ data, props, chartRef }) => (
-               <ResponsiveBar {...props} data={data.data} keys={data.keys} ref={chartRef}/>
+               <ResponsiveBar {...props} data={data.data} keys={data.keys} ref={chartRef} debounceResize={100}/>
             )}
         </ChartTemplate>
-    </div>
+    </PageLayout>
   )
 }

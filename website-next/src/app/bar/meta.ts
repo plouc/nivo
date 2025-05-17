@@ -8,7 +8,7 @@ export const barFlavors: ChartFlavor[] = [
 
 export const BarMeta: ChartMeta = {
     package: '@nivo/bar',
-    tags: ['chart', 'bar'],
+    tags: ['XY'],
     description: 'A simple bar chart',
     stories: [
         {

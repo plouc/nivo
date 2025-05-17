@@ -7,6 +7,8 @@ import {ChartFlavorSelector} from "./ChartFlavorSelector";
 import {ChartTabs} from "./ChartTabs";
 import { ChartStories } from './ChartStories'
 
+import { ChoicesControl} from "@/app/_ui/controls/generics/ChoicesControl";
+
 interface ChartTemplateProps<
     UnmappedProps extends Record<string, unknown>,
     MappedProps extends Record<string, unknown>,
@@ -94,10 +96,11 @@ export const ChartTemplate = <
 
     return (
         <div>
-            <ChartHeader component={component} tags={meta.tags} />
+            <ChartHeader component={component} tags={[meta.package, ...meta.tags]} />
             <ChartFlavorSelector flavors={flavors} current={currentFlavor} />
             <ChartTabs<Data>
                 chartIcon={icon}
+                data={data}
                 code={`<${component} data={data} />`}
                 diceRoll={
                     enableDiceRoll ? (data !== undefined ? diceRoll : undefined) : undefined
@@ -106,6 +109,56 @@ export const ChartTemplate = <
             >
                 {children({ data, props: mappedProps, chartRef })}
             </ChartTabs>
+            <div>
+                <ChoicesControl<'red' | 'blue' | 'green'>
+                    id="colors"
+                    property={{
+                        name: 'colors',
+                        description: 'Choose a color',
+                        key: 'colors',
+                        required: false,
+                        type: {
+                            svg: 'stringSvg',
+                            canvas: 'stringCanvas',
+                        },
+                        group: 'Style',
+                    }}
+                    config={{
+                        type: 'choices',
+                        choices: ['red', 'blue', 'green'],
+                    }}
+                    flavors={['svg', 'canvas', 'api']}
+                    currentFlavor={currentFlavor}
+                    value="blue"
+                    onChange={() => {
+                        console.log('onChange')
+                    }}
+                />
+                <ChoicesControl<'top' | 'right' | 'bottom' | 'left'>
+                    id="orientation"
+                    property={{
+                        name: 'orientation',
+                        description: 'Choose an orientation',
+                        key: 'orientation',
+                        required: false,
+                        type: {
+                            svg: 'stringSvg',
+                            canvas: 'stringCanvas',
+                        },
+                        group: 'Style',
+                    }}
+                    config={{
+                        type: 'choices',
+                        choices: ['top', 'right', 'bottom', 'left'],
+                    }}
+                    flavors={['svg', 'canvas', 'api']}
+                    currentFlavor={currentFlavor}
+                    value="right"
+                    onChange={(v) => {
+                        console.log('onChange', {v})
+                    }}
+                />
+            </div>
             {hasStories && <ChartStories stories={meta.stories} />}
         </div>
     )

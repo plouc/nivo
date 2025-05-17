@@ -8,11 +8,11 @@ export const AppHeaderNav = () => {
                 Why nivo?
                 {/* <FiChevronDown /> */}
                 <span className={styles.dropdown}>
-                    <Link href="/about" className={styles.subitem}>About</Link>
-                    <Link href="/references" className={styles.subitem}>References</Link>
+                    <Link href="/about/" className={styles.subitem}>About</Link>
+                    <Link href="/references/" className={styles.subitem}>References</Link>
                 </span>
             </span>
-            <Link href="/components" className={styles.item}>
+            <Link href="/components/" className={styles.item}>
                 Components
             </Link>
             {/*
@@ -30,12 +30,12 @@ export const AppHeaderNav = () => {
             <span className={styles.item}>
                 Guides
                 <span className={styles.dropdown}>
-                    <Link href="/guides/axes" className={styles.subitem}>Axes</Link>
-                    <Link href="/guides/colors" className={styles.subitem}>Colors</Link>
-                    <Link href="/guides/legends" className={styles.subitem}>Legends</Link>
-                    <Link href="/guides/gradients" className={styles.subitem}>Gradients</Link>
-                    <Link href="/guides/patterns" className={styles.subitem}>Patterns</Link>
-                    <Link href="/guides/theming" className={styles.subitem}>Theming</Link>
+                    <Link href="/guides/axes/" className={styles.subitem}>Axes</Link>
+                    <Link href="/guides/colors/" className={styles.subitem}>Colors</Link>
+                    <Link href="/guides/legends/" className={styles.subitem}>Legends</Link>
+                    <Link href="/guides/gradients/" className={styles.subitem}>Gradients</Link>
+                    <Link href="/guides/patterns/" className={styles.subitem}>Patterns</Link>
+                    <Link href="/guides/theming/" className={styles.subitem}>Theming</Link>
                 </span>
             </span>
             <a href="https://nivo.rocks/storybook/"

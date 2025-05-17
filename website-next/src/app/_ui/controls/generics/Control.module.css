@@ -1,0 +1,36 @@
+.control {
+    position: relative;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--color-border-light);
+    padding: 14px 30px;
+
+    &:last-child {
+        border-bottom-width: 0;
+    }
+
+    /*
+    ${media.desktopLarge`
+        & {
+            padding: 14px 40px;
+        }
+    `}
+
+    ${media.desktop`
+        & {
+            padding: 14px 30px;
+        }
+    `}
+
+    ${media.tablet`
+        & {
+            padding: 14px 20px 14px 30px;
+        }
+    `}
+
+    ${media.mobile`
+        & {
+            padding: 14px 20px 14px 30px;
+        }
+    `}
+    */
+}
