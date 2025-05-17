@@ -1,0 +1,31 @@
+{
+  "name": "website-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nivo/axes": "^0.98.0",
+    "@nivo/bar": "^0.98.0",
+    "@nivo/generators": "^0.98.0",
+    "@heroicons/react": "^2.2.0",
+    "html-to-image": "^1.11.13",
+    "lodash": "^4.17.21",
+    "next": "15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "@eslint/eslintrc": "^3"
+  }
+}

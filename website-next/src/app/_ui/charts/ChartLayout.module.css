@@ -1,0 +1,34 @@
+.layout {
+    margin-right: 55%;
+
+    &:after {
+        content: ' ';
+        position: fixed;
+        top: var(--dimension-header-height);
+        box-shadow: var(--shadow-card-top);
+        right: 0;
+        bottom: 0;
+        --innerWidth: calc(100% - var(--dimension-mini-nav-width));
+        width: calc(var(--innerWidth) * 0.55);
+        background: rgba(0, 0, 0, 0);
+    }
+    /*
+    ${media.tablet`
+        & {
+            margin-right: 55%;
+            &:after {
+                width: 55%;
+            }
+        }
+    `}
+
+    ${media.mobile`
+        & {
+            margin: 0;
+            &:after {
+                display: none;
+            }
+        }
+    `}
+    */
+}

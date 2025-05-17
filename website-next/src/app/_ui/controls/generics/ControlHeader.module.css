@@ -1,0 +1,39 @@
+.header {
+    margin-bottom: 7px;
+}
+
+.label {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.prop_type {
+    display: inline-block;
+    white-space: nowrap;
+    margin-left: 9px;
+    color: var(--color-text-light);
+}
+
+.required {
+    display: inline-block;
+    white-space: nowrap;
+    margin-left: 9px;
+    color: var(--color-text);
+}
+
+.optional {
+    display: inline-block;
+    white-space: nowrap;
+    margin-left: 9px;
+    color: var(--color-text);
+    font-style: italic;
+}
+
+.default {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 0 5px 0 9px;
+    color: var(--color-text-light);
+}
