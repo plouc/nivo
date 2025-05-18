@@ -1,7 +1,10 @@
 import { Annotation, useAnnotations } from '@nivo/annotations'
-import { BarAnnotationsProps } from './types'
+import { BarAnnotationsProps, BarDatum } from './types'
 
-export const BarAnnotations = <RawDatum,>({ bars, annotations }: BarAnnotationsProps<RawDatum>) => {
+export const BarAnnotations = <D extends BarDatum>({
+    bars,
+    annotations,
+}: BarAnnotationsProps<D>) => {
     const boundAnnotations = useAnnotations({
         data: bars,
         annotations,

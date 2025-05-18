@@ -1,13 +1,13 @@
 import { ScaleBandSpec, ScaleBand, computeScale } from '@nivo/scales'
-import { defaultProps } from '../props'
+import { commonDefaultProps } from '../defaults'
 import { BarCommonProps, BarDatum } from '../types'
 
 /**
  * Generates indexed scale.
  */
-export const getIndexScale = <RawDatum>(
-    data: readonly RawDatum[],
-    getIndex: (datum: RawDatum) => string,
+export const getIndexScale = <D extends BarDatum>(
+    data: readonly D[],
+    getIndex: (datum: D) => string,
     padding: number,
     indexScale: ScaleBandSpec,
     size: number,
@@ -26,7 +26,7 @@ export const getIndexScale = <RawDatum>(
 /**
  * This method ensures all the provided keys exist in the entire series.
  */
-export const normalizeData = <RawDatum>(data: readonly RawDatum[], keys: readonly string[]) =>
+export const normalizeData = <D extends BarDatum>(data: readonly D[], keys: readonly string[]) =>
     data.map(
         item =>
             ({
@@ -35,16 +35,16 @@ export const normalizeData = <RawDatum>(data: readonly RawDatum[], keys: readonl
                     return acc
                 }, {}),
                 ...item,
-            }) as RawDatum
+            }) as D
     )
 
-export const filterNullValues = <RawDatum extends Record<string, unknown>>(data: RawDatum) =>
+export const filterNullValues = <D extends BarDatum>(data: D) =>
     Object.keys(data).reduce<Record<string, unknown>>((acc, key) => {
         if (data[key]) {
             acc[key] = data[key]
         }
         return acc
-    }, {}) as Exclude<RawDatum, null | undefined | false | '' | 0>
+    }, {}) as Exclude<D, null | undefined | false | '' | 0>
 
 export const coerceValue = <T>(value: T) => [value, Number(value)] as const
 
@@ -57,11 +57,11 @@ export type BarLabelLayout = {
 /**
  * Compute the label position and alignment based on a given position and offset.
  */
-export function useComputeLabelLayout<RawDatum extends BarDatum>(
-    layout: BarCommonProps<RawDatum>['layout'] = defaultProps.layout,
-    reverse: BarCommonProps<RawDatum>['reverse'] = defaultProps.reverse,
-    labelPosition: BarCommonProps<RawDatum>['labelPosition'] = defaultProps.labelPosition,
-    labelOffset: BarCommonProps<RawDatum>['labelOffset'] = defaultProps.labelOffset
+export function useComputeLabelLayout<D extends BarDatum>(
+    layout: BarCommonProps<D>['layout'] = commonDefaultProps.layout,
+    reverse: BarCommonProps<D>['reverse'] = commonDefaultProps.reverse,
+    labelPosition: BarCommonProps<D>['labelPosition'] = commonDefaultProps.labelPosition,
+    labelOffset: BarCommonProps<D>['labelOffset'] = commonDefaultProps.labelOffset
 ): (width: number, height: number) => BarLabelLayout {
     return (width: number, height: number) => {
         // If the chart is reversed, we want to make sure the offset is also reversed

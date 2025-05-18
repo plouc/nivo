@@ -5,15 +5,15 @@ import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
 import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
-type StackDatum<RawDatum> = SeriesPoint<RawDatum>
+type StackDatum<D extends BarDatum> = SeriesPoint<D>
 
-type Params<RawDatum, XScaleInput, YScaleInput> = {
+type Params<D extends BarDatum, XScaleInput, YScaleInput> = {
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
-    getIndex: (datum: RawDatum) => string
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    getColor: OrdinalColorScale<ComputedDatum<D>>
+    getIndex: (datum: D) => string
+    getTooltipLabel: (datum: ComputedDatum<D>) => string
     innerPadding: number
-    stackedData: Series<RawDatum, string>[]
+    stackedData: Series<D, string>[]
     xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
     yScale: YScaleInput extends string ? ScaleBand<YScaleInput> : Scale<YScaleInput, number>
     margin: Margin
@@ -28,7 +28,7 @@ const filterZerosIfLog = (array: number[], type: string) =>
 /**
  * Generates x/y scales & bars for vertical stacked bar chart.
  */
-const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
+const generateVerticalStackedBars = <D extends BarDatum>(
     {
         formatValue,
         getColor,
@@ -39,14 +39,14 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
         xScale,
         yScale,
         margin,
-    }: Params<RawDatum, string, number>,
+    }: Params<D, string, number>,
     barWidth: number,
     reverse: boolean
-): ComputedBarDatum<RawDatum>[] => {
-    const getY = (d: StackDatum<RawDatum>) => yScale(d[reverse ? 0 : 1])
-    const getHeight = (d: StackDatum<RawDatum>, y: number) => (yScale(d[reverse ? 1 : 0]) ?? 0) - y
+): ComputedBarDatum<D>[] => {
+    const getY = (d: StackDatum<D>) => yScale(d[reverse ? 0 : 1])
+    const getHeight = (d: StackDatum<D>, y: number) => (yScale(d[reverse ? 1 : 0]) ?? 0) - y
 
-    const bars: ComputedBarDatum<RawDatum>[] = []
+    const bars: ComputedBarDatum<D>[] = []
     stackedData.forEach(stackedDataItem =>
         xScale.domain().forEach((index, i) => {
             const d = stackedDataItem[i]
@@ -55,7 +55,7 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
             const barHeight = getHeight(d, y) - innerPadding
             const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
 
-            const barData: ComputedDatum<RawDatum> = {
+            const barData: ComputedDatum<D> = {
                 id: stackedDataItem.key,
                 value: rawValue === null ? rawValue : value,
                 formattedValue: formatValue(value),
@@ -87,7 +87,7 @@ const generateVerticalStackedBars = <RawDatum extends Record<string, unknown>>(
 /**
  * Generates x/y scales & bars for horizontal stacked bar chart.
  */
-const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>(
+const generateHorizontalStackedBars = <D extends BarDatum>(
     {
         formatValue,
         getColor,
@@ -98,14 +98,14 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
         xScale,
         yScale,
         margin,
-    }: Params<RawDatum, number, string>,
+    }: Params<D, number, string>,
     barHeight: number,
     reverse: boolean
-): ComputedBarDatum<RawDatum>[] => {
-    const getX = (d: StackDatum<RawDatum>) => xScale(d[reverse ? 1 : 0])
-    const getWidth = (d: StackDatum<RawDatum>, x: number) => (xScale(d[reverse ? 0 : 1]) ?? 0) - x
+): ComputedBarDatum<D>[] => {
+    const getX = (d: StackDatum<D>) => xScale(d[reverse ? 1 : 0])
+    const getWidth = (d: StackDatum<D>, x: number) => (xScale(d[reverse ? 0 : 1]) ?? 0) - x
 
-    const bars: ComputedBarDatum<RawDatum>[] = []
+    const bars: ComputedBarDatum<D>[] = []
     stackedData.forEach(stackedDataItem =>
         yScale.domain().forEach((index, i) => {
             const d = stackedDataItem[i]
@@ -114,7 +114,7 @@ const generateHorizontalStackedBars = <RawDatum extends Record<string, unknown>>
             const barWidth = getWidth(d, x) - innerPadding
             const [rawValue, value] = coerceValue(d.data[stackedDataItem.key])
 
-            const barData: ComputedDatum<RawDatum> = {
+            const barData: ComputedDatum<D> = {
                 id: stackedDataItem.key,
                 value: rawValue === null ? rawValue : value,
                 formattedValue: formatValue(value),

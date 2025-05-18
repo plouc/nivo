@@ -10,70 +10,74 @@ import {
     LegendData,
     BarLegendProps,
 } from './types'
-import { defaultProps } from './props'
+import { commonDefaultProps } from './defaults'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import { computeBarTotals } from './compute/totals'
 
-export const useBar = <RawDatum extends BarDatum>({
-    indexBy = defaultProps.indexBy,
-    keys = defaultProps.keys,
-    label = defaultProps.label,
-    tooltipLabel = defaultProps.tooltipLabel,
+export const useBar = <D extends BarDatum>({
+    indexBy = commonDefaultProps.indexBy,
+    keys = commonDefaultProps.keys,
+    label = commonDefaultProps.label,
+    tooltipLabel = commonDefaultProps.tooltipLabel,
     valueFormat,
-    colors = defaultProps.colors,
-    colorBy = defaultProps.colorBy,
-    borderColor = defaultProps.borderColor,
-    labelTextColor = defaultProps.labelTextColor,
-    groupMode = defaultProps.groupMode,
-    layout = defaultProps.layout,
-    reverse = defaultProps.reverse,
+    colors = commonDefaultProps.colors,
+    colorBy = commonDefaultProps.colorBy,
+    borderColor = commonDefaultProps.borderColor,
+    labelTextColor = commonDefaultProps.labelTextColor,
+    groupMode = commonDefaultProps.groupMode,
+    layout = commonDefaultProps.layout,
+    reverse = commonDefaultProps.reverse,
     data,
-    minValue = defaultProps.minValue,
-    maxValue = defaultProps.maxValue,
+    minValue = commonDefaultProps.minValue,
+    maxValue = commonDefaultProps.maxValue,
     margin,
     width,
     height,
-    padding = defaultProps.padding,
-    innerPadding = defaultProps.innerPadding,
-    valueScale = defaultProps.valueScale,
-    indexScale = defaultProps.indexScale,
-    initialHiddenIds = defaultProps.initialHiddenIds,
-    enableLabel = defaultProps.enableLabel,
-    labelSkipWidth = defaultProps.labelSkipWidth,
-    labelSkipHeight = defaultProps.labelSkipHeight,
-    legends = defaultProps.legends,
+    padding = commonDefaultProps.padding,
+    innerPadding = commonDefaultProps.innerPadding,
+    valueScale = commonDefaultProps.valueScale,
+    indexScale = commonDefaultProps.indexScale,
+    initialHiddenIds = commonDefaultProps.initialHiddenIds,
+    enableLabel = commonDefaultProps.enableLabel,
+    labelSkipWidth = commonDefaultProps.labelSkipWidth,
+    labelSkipHeight = commonDefaultProps.labelSkipHeight,
+    legends = commonDefaultProps.legends,
     legendLabel,
-    totalsOffset = defaultProps.totalsOffset,
-}: {
-    indexBy?: BarCommonProps<RawDatum>['indexBy']
-    label?: BarCommonProps<RawDatum>['label']
-    tooltipLabel?: BarCommonProps<RawDatum>['tooltipLabel']
-    valueFormat?: BarCommonProps<RawDatum>['valueFormat']
-    colors?: BarCommonProps<RawDatum>['colors']
-    colorBy?: BarCommonProps<RawDatum>['colorBy']
-    borderColor?: BarCommonProps<RawDatum>['borderColor']
-    labelTextColor?: BarCommonProps<RawDatum>['labelTextColor']
-    groupMode?: BarCommonProps<RawDatum>['groupMode']
-    layout?: BarCommonProps<RawDatum>['layout']
-    reverse?: BarCommonProps<RawDatum>['reverse']
-    data: DataProps<RawDatum>['data']
-    keys?: BarCommonProps<RawDatum>['keys']
-    minValue?: BarCommonProps<RawDatum>['minValue']
-    maxValue?: BarCommonProps<RawDatum>['maxValue']
-    margin: Margin
+    totalsOffset = commonDefaultProps.totalsOffset,
+}: Partial<
+    Pick<
+        BarCommonProps<D>,
+        | 'indexBy'
+        | 'keys'
+        | 'label'
+        | 'tooltipLabel'
+        | 'valueFormat'
+        | 'colors'
+        | 'colorBy'
+        | 'borderColor'
+        | 'labelTextColor'
+        | 'groupMode'
+        | 'layout'
+        | 'reverse'
+        | 'minValue'
+        | 'maxValue'
+        | 'padding'
+        | 'innerPadding'
+        | 'valueScale'
+        | 'indexScale'
+        | 'initialHiddenIds'
+        | 'enableLabel'
+        | 'labelSkipWidth'
+        | 'labelSkipHeight'
+        | 'legends'
+        | 'legendLabel'
+        | 'totalsOffset'
+    >
+> & {
     width: number
     height: number
-    padding?: BarCommonProps<RawDatum>['padding']
-    innerPadding?: BarCommonProps<RawDatum>['innerPadding']
-    valueScale?: BarCommonProps<RawDatum>['valueScale']
-    indexScale?: BarCommonProps<RawDatum>['indexScale']
-    initialHiddenIds?: BarCommonProps<RawDatum>['initialHiddenIds']
-    enableLabel?: BarCommonProps<RawDatum>['enableLabel']
-    labelSkipWidth?: BarCommonProps<RawDatum>['labelSkipWidth']
-    labelSkipHeight?: BarCommonProps<RawDatum>['labelSkipHeight']
-    legends?: BarCommonProps<RawDatum>['legends']
-    legendLabel?: BarCommonProps<RawDatum>['legendLabel']
-    totalsOffset?: BarCommonProps<RawDatum>['totalsOffset']
+    margin: Margin
+    data: DataProps<D>['data']
 }) => {
     const [hiddenIds, setHiddenIds] = useState(initialHiddenIds ?? [])
     const toggleSerie = useCallback((id: string | number) => {
@@ -89,14 +93,8 @@ export const useBar = <RawDatum extends BarDatum>({
 
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, colorBy)
-    const getBorderColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
-        borderColor,
-        theme
-    )
-    const getLabelColor = useInheritedColor<ComputedBarDatumWithValue<RawDatum>>(
-        labelTextColor,
-        theme
-    )
+    const getBorderColor = useInheritedColor<ComputedBarDatumWithValue<D>>(borderColor, theme)
+    const getLabelColor = useInheritedColor<ComputedBarDatumWithValue<D>>(labelTextColor, theme)
 
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
     const { bars, xScale, yScale } = generateBars({
@@ -123,9 +121,7 @@ export const useBar = <RawDatum extends BarDatum>({
     const barsWithValue = useMemo(
         () =>
             bars
-                .filter(
-                    (bar): bar is ComputedBarDatumWithValue<RawDatum> => bar.data.value !== null
-                )
+                .filter((bar): bar is ComputedBarDatumWithValue<D> => bar.data.value !== null)
                 .map((bar, index) => ({
                     ...bar,
                     index,

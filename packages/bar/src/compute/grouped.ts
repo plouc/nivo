@@ -4,12 +4,12 @@ import { Scale, ScaleBand, computeScale } from '@nivo/scales'
 import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
-type Params<RawDatum, XScaleInput, YScaleInput> = {
-    data: readonly RawDatum[]
+type Params<D extends BarDatum, XScaleInput, YScaleInput> = {
+    data: readonly D[]
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
-    getIndex: (datum: RawDatum) => string
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    getColor: OrdinalColorScale<ComputedDatum<D>>
+    getIndex: (datum: D) => string
+    getTooltipLabel: (datum: ComputedDatum<D>) => string
     innerPadding: number
     keys: string[]
     xScale: XScaleInput extends string ? ScaleBand<XScaleInput> : Scale<XScaleInput, number>
@@ -29,7 +29,7 @@ const zeroIfNotFinite = (value: number) => (isFinite(value) ? value : 0)
 /**
  * Generates x/y scales & bars for vertical grouped bar chart.
  */
-const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
+const generateVerticalGroupedBars = <D extends BarDatum>(
     {
         data,
         formatValue,
@@ -41,17 +41,17 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
         xScale,
         yScale,
         margin,
-    }: Params<RawDatum, string, number>,
+    }: Params<D, string, number>,
     barWidth: number,
     reverse: boolean,
     yRef: number
-): ComputedBarDatum<RawDatum>[] => {
+): ComputedBarDatum<D>[] => {
     const compare = reverse ? lt : gt
     const getY = (d: number) => (compare(d, 0) ? (yScale(d) ?? 0) : yRef)
     const getHeight = (d: number, y: number) => (compare(d, 0) ? yRef - y : (yScale(d) ?? 0) - yRef)
     const cleanedData = data.map(filterNullValues)
 
-    const bars: ComputedBarDatum<RawDatum>[] = []
+    const bars: ComputedBarDatum<D>[] = []
     keys.forEach((key, i) =>
         range(0, xScale.domain().length).forEach(index => {
             const [rawValue, value] = coerceValue(data[index][key])
@@ -59,7 +59,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
             const x = (xScale(indexValue) ?? 0) + barWidth * i + innerPadding * i
             const y = getY(value)
             const barHeight = getHeight(value, y)
-            const barData: ComputedDatum<RawDatum> = {
+            const barData: ComputedDatum<D> = {
                 id: key,
                 value: rawValue === null ? rawValue : value,
                 formattedValue: formatValue(value),
@@ -91,7 +91,7 @@ const generateVerticalGroupedBars = <RawDatum extends Record<string, unknown>>(
 /**
  * Generates x/y scales & bars for horizontal grouped bar chart.
  */
-const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>(
+const generateHorizontalGroupedBars = <D extends BarDatum>(
     {
         data,
         formatValue,
@@ -103,17 +103,17 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
         xScale,
         yScale,
         margin,
-    }: Params<RawDatum, number, string>,
+    }: Params<D, number, string>,
     barHeight: number,
     reverse: boolean,
     xRef: number
-): ComputedBarDatum<RawDatum>[] => {
+): ComputedBarDatum<D>[] => {
     const compare = reverse ? lt : gt
     const getX = (d: number) => (compare(d, 0) ? xRef : (xScale(d) ?? 0))
     const getWidth = (d: number, x: number) => (compare(d, 0) ? (xScale(d) ?? 0) - xRef : xRef - x)
     const cleanedData = data.map(filterNullValues)
 
-    const bars: ComputedBarDatum<RawDatum>[] = []
+    const bars: ComputedBarDatum<D>[] = []
     keys.forEach((key, i) =>
         range(0, yScale.domain().length).forEach(index => {
             const [rawValue, value] = coerceValue(data[index][key])
@@ -121,7 +121,7 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
             const x = getX(value)
             const y = (yScale(indexValue) ?? 0) + barHeight * i + innerPadding * i
             const barWidth = getWidth(value, x)
-            const barData: ComputedDatum<RawDatum> = {
+            const barData: ComputedDatum<D> = {
                 id: key,
                 value: rawValue === null ? rawValue : value,
                 formattedValue: formatValue(value),
@@ -153,7 +153,7 @@ const generateHorizontalGroupedBars = <RawDatum extends Record<string, unknown>>
 /**
  * Generates x/y scales & bars for grouped bar chart.
  */
-export const generateGroupedBars = <RawDatum extends BarDatum>({
+export const generateGroupedBars = <D extends BarDatum>({
     layout,
     minValue,
     maxValue,
@@ -167,7 +167,7 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     hiddenIds = [],
     ...props
 }: Pick<
-    Required<BarSvgProps<RawDatum>>,
+    Required<BarSvgProps<D>>,
     | 'data'
     | 'height'
     | 'indexScale'
@@ -182,9 +182,9 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
     | 'width'
 > & {
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
-    getIndex: (datum: RawDatum) => string
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    getColor: OrdinalColorScale<ComputedDatum<D>>
+    getIndex: (datum: D) => string
+    getTooltipLabel: (datum: ComputedDatum<D>) => string
     margin: Margin
     hiddenIds?: readonly (string | number)[]
 }) => {
@@ -227,13 +227,13 @@ export const generateGroupedBars = <RawDatum extends BarDatum>({
 
     const bandwidth = (indexScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const params = [
-        { ...props, data, keys, innerPadding, xScale, yScale } as Params<RawDatum, any, any>,
+        { ...props, data, keys, innerPadding, xScale, yScale } as Params<D, any, any>,
         bandwidth,
         scaleSpec.reverse,
         scale(0) ?? 0,
     ] as const
 
-    const bars: ComputedBarDatum<RawDatum>[] =
+    const bars: ComputedBarDatum<D>[] =
         bandwidth > 0
             ? layout === 'vertical'
                 ? generateVerticalGroupedBars(...params)
