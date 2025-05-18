@@ -290,7 +290,7 @@ storybook-playwright-install: ##@3 storybook install playwright
 	@echo "${YELLOW}Installing playwright${RESET}"
 	@pnpm pnpm exec playwright install chromium
 
-storybook-test-ci: ##@3 start storybook & run playwright tests
+storybook-test-ci: ##@3 storybook start storybook & run playwright tests
 	@echo "${YELLOW}Start storybook and run playwright tests${RESET}"
 	@npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
         "npx http-server storybook/storybook-static --port 6006 --silent" \
