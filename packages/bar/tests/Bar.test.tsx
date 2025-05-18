@@ -52,6 +52,8 @@ it('should allow grouped mode', () => {
         <Bar
             width={500}
             height={300}
+            valueScale={{ type: 'linear', round: true }}
+            indexScale={{ type: 'band', round: true }}
             enableLabel={false}
             groupMode="grouped"
             keys={['value1', 'value2']}
@@ -121,6 +123,8 @@ it('should allow horizontal layout', () => {
         <Bar
             width={500}
             height={300}
+            valueScale={{ type: 'linear', round: true }}
+            indexScale={{ type: 'band', round: true }}
             enableLabel={false}
             layout="horizontal"
             data={[
@@ -171,6 +175,8 @@ it('should allow grouped horizontal layout', () => {
         <Bar
             width={500}
             height={300}
+            valueScale={{ type: 'linear', round: true }}
+            indexScale={{ type: 'band', round: true }}
             enableLabel={false}
             groupMode="grouped"
             layout="horizontal"
@@ -369,6 +375,8 @@ it(`should generate grouped bars correctly when keys are mismatched`, () => {
         <Bar
             width={500}
             height={300}
+            valueScale={{ type: 'linear', round: true }}
+            indexScale={{ type: 'band', round: true }}
             data={[
                 { id: 'one', A: 10, C: 3 },
                 { id: 'two', B: 9 },
@@ -451,6 +459,8 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
         <Bar
             width={500}
             height={300}
+            valueScale={{ type: 'linear', round: true }}
+            indexScale={{ type: 'band', round: true }}
             data={[
                 { id: 'one', A: 10, C: 3 },
                 { id: 'two', B: 9 },
@@ -527,11 +537,13 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
     })
 })
 
-it(`should apply scale rounding by default`, () => {
+it(`should support scale rounding`, () => {
     const instance = create(
         <Bar
             width={500}
             height={300}
+            valueScale={{ type: 'linear', round: true }}
+            indexScale={{ type: 'band', round: true }}
             data={[
                 { id: 'one', value: 10 },
                 { id: 'two', value: 20 },
