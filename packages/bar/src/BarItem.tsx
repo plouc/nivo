@@ -5,9 +5,8 @@ import { useTooltip } from '@nivo/tooltip'
 import { Text } from '@nivo/text'
 import { BarDatum, BarItemProps } from './types'
 
-export const BarItem = <RawDatum extends BarDatum>({
+export const BarItem = <D extends BarDatum>({
     bar: { data, ...bar },
-
     style: {
         borderColor,
         color,
@@ -20,27 +19,22 @@ export const BarItem = <RawDatum extends BarDatum>({
         width,
         textAnchor,
     },
-
     borderRadius,
     borderWidth,
-
     label,
     shouldRenderLabel,
-
     isInteractive,
     onClick,
     onMouseEnter,
     onMouseLeave,
-
     tooltip,
-
     isFocusable,
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
     ariaDisabled,
     ariaHidden,
-}: BarItemProps<RawDatum>) => {
+}: BarItemProps<D>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
 

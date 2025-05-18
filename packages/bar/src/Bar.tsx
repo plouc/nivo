@@ -15,25 +15,26 @@ import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { BarAnnotations } from './BarAnnotations'
 import { BarLegends } from './BarLegends'
 import { useBar } from './hooks'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import {
+    BarComponent,
     BarCustomLayerProps,
     BarDatum,
     BarItemProps,
-    BarLayer,
     BarLayerId,
     BarSvgProps,
+    BarTooltipComponent,
     ComputedBarDatumWithValue,
 } from './types'
 import { BarTotals } from './BarTotals'
 import { useComputeLabelLayout } from './compute/common'
 
-type InnerBarProps<RawDatum extends BarDatum> = Omit<
-    BarSvgProps<RawDatum>,
+type InnerBarProps<D extends BarDatum> = Omit<
+    BarSvgProps<D>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerBar = <RawDatum extends BarDatum>({
+const InnerBar = <D extends BarDatum>({
     data,
     indexBy,
     keys,
@@ -57,8 +58,8 @@ const InnerBar = <RawDatum extends BarDatum>({
     enableGridY = svgDefaultProps.enableGridY,
     gridXValues,
     gridYValues,
-    layers = svgDefaultProps.layers as readonly BarLayer<RawDatum>[],
-    barComponent = svgDefaultProps.barComponent,
+    layers = svgDefaultProps.layers as BarLayerId[],
+    barComponent = svgDefaultProps.barComponent as unknown as BarComponent<D>,
     enableLabel = svgDefaultProps.enableLabel,
     label,
     labelSkipWidth = svgDefaultProps.labelSkipWidth,
@@ -79,7 +80,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     tooltipLabel,
     valueFormat,
     isInteractive = svgDefaultProps.isInteractive,
-    tooltip = svgDefaultProps.tooltip,
+    tooltip = svgDefaultProps.tooltip as BarTooltipComponent<D>,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -98,7 +99,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     enableTotals = svgDefaultProps.enableTotals,
     totalsOffset = svgDefaultProps.totalsOffset,
     forwardedRef,
-}: InnerBarProps<RawDatum> & {
+}: InnerBarProps<D> & {
     forwardedRef: Ref<SVGSVGElement>
 }) => {
     const { animate, config: springConfig } = useMotionConfig()
@@ -122,7 +123,7 @@ const InnerBar = <RawDatum extends BarDatum>({
         legendsWithData,
         barTotals,
         getColor,
-    } = useBar<RawDatum>({
+    } = useBar<D>({
         indexBy,
         label,
         tooltipLabel,
@@ -157,7 +158,7 @@ const InnerBar = <RawDatum extends BarDatum>({
     const computeLabelLayout = useComputeLabelLayout(layout, reverse, labelPosition, labelOffset)
 
     const transition = useTransition<
-        ComputedBarDatumWithValue<RawDatum>,
+        ComputedBarDatumWithValue<D>,
         {
             borderColor: string
             color: string
@@ -169,7 +170,7 @@ const InnerBar = <RawDatum extends BarDatum>({
             opacity: number
             transform: string
             width: number
-            textAnchor: BarItemProps<RawDatum>['style']['textAnchor']
+            textAnchor: BarItemProps<D>['style']['textAnchor']
         }
     >(barsWithValue, {
         keys: bar => bar.key,
@@ -380,46 +381,25 @@ const InnerBar = <RawDatum extends BarDatum>({
         )
     }
 
-    const layerContext: BarCustomLayerProps<RawDatum> = useMemo(
-        () => ({
-            ...commonProps,
-            margin,
-            width,
-            height,
-            innerWidth,
-            innerHeight,
-            bars,
-            legendData: legendsWithData,
-            enableLabel,
-            xScale,
-            yScale,
-            tooltip,
-            getTooltipLabel,
-            onClick,
-            onMouseEnter,
-            onMouseLeave,
-            getColor,
-        }),
-        [
-            commonProps,
-            margin,
-            width,
-            height,
-            innerWidth,
-            innerHeight,
-            bars,
-            legendsWithData,
-            enableLabel,
-            xScale,
-            yScale,
-            tooltip,
-            getTooltipLabel,
-            onClick,
-            onMouseEnter,
-            onMouseLeave,
-            getColor,
-        ]
-    )
+    const layerContext: BarCustomLayerProps<D> = {
+        ...commonProps,
+        margin,
+        width,
+        height,
+        innerWidth,
+        innerHeight,
+        bars,
+        legendData: legendsWithData,
+        enableLabel,
+        xScale,
+        yScale,
+        tooltip,
+        getTooltipLabel,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+        getColor,
+    }
 
     return (
         <SvgWrapper
@@ -446,7 +426,7 @@ const InnerBar = <RawDatum extends BarDatum>({
 }
 
 export const Bar = forwardRef(
-    <RawDatum extends BarDatum>(
+    <D extends BarDatum>(
         {
             isInteractive = svgDefaultProps.isInteractive,
             animate = svgDefaultProps.animate,
@@ -454,7 +434,7 @@ export const Bar = forwardRef(
             theme,
             renderWrapper,
             ...props
-        }: BarSvgProps<RawDatum>,
+        }: BarSvgProps<D>,
         ref: Ref<SVGSVGElement>
     ) => (
         <Container
@@ -464,9 +444,7 @@ export const Bar = forwardRef(
             renderWrapper={renderWrapper}
             theme={theme}
         >
-            <InnerBar<RawDatum> isInteractive={isInteractive} {...props} forwardedRef={ref} />
+            <InnerBar<D> {...props} isInteractive={isInteractive} forwardedRef={ref} />
         </Container>
     )
-) as <RawDatum extends BarDatum>(
-    props: WithChartRef<BarSvgProps<RawDatum>, SVGSVGElement>
-) => ReactElement
+) as <D extends BarDatum>(props: WithChartRef<BarSvgProps<D>, SVGSVGElement>) => ReactElement

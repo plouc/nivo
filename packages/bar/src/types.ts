@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { MouseEvent, AriaAttributes, FunctionComponent } from 'react'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { AxisProps, CanvasAxisProps, GridValues } from '@nivo/axes'
 import {
@@ -10,6 +10,8 @@ import {
     PropertyAccessor,
     SvgDefsAndFill,
     ValueFormat,
+    WithChartRef,
+    ResponsiveProps,
 } from '@nivo/core'
 import { PartialTheme, TextStyle } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScale, OrdinalColorScaleConfig } from '@nivo/colors'
@@ -20,35 +22,31 @@ import { BarLabelLayout } from './compute/common'
 
 export type BarDatum = Record<string, string | number>
 
-export interface DataProps<RawDatum extends BarDatum> {
-    data: readonly RawDatum[]
+export interface DataProps<D extends BarDatum> {
+    data: readonly D[]
 }
 
-export type BarDatumWithColor = BarDatum & {
-    color: string
-}
-
-export type ComputedDatum<RawDatum> = {
+export type ComputedDatum<D extends BarDatum> = {
     id: string | number
     value: number | null
     formattedValue: string
     hidden: boolean
     index: number
     indexValue: string | number
-    data: Exclude<RawDatum, null | undefined | false | '' | 0>
+    data: Exclude<D, null | undefined | false | '' | 0>
     fill?: string
 }
 
-export type ComputedBarDatumWithValue<RawDatum> = ComputedBarDatum<RawDatum> & {
-    data: ComputedDatum<RawDatum> & {
+export type ComputedBarDatumWithValue<D extends BarDatum> = ComputedBarDatum<D> & {
+    data: ComputedDatum<D> & {
         value: number
     }
 }
 
-export type ComputedBarDatum<RawDatum> = {
+export type ComputedBarDatum<D extends BarDatum> = {
     key: string
     index: number
-    data: ComputedDatum<RawDatum>
+    data: ComputedDatum<D>
     x: number
     y: number
     absX: number
@@ -59,7 +57,7 @@ export type ComputedBarDatum<RawDatum> = {
     label: string
 }
 
-export type BarsWithHidden<RawDatum> = Array<
+export type BarsWithHidden<D extends BarDatum> = Array<
     Partial<{
         key: string
         x: number
@@ -68,14 +66,14 @@ export type BarsWithHidden<RawDatum> = Array<
         height: number
         color: string
     }> & {
-        data: Partial<ComputedDatum<RawDatum>> & {
+        data: Partial<ComputedDatum<D>> & {
             id: string | number
             hidden: boolean
         }
     }
 >
 
-export type LegendLabelDatum<RawDatum> = Partial<ComputedDatum<RawDatum>> & {
+export type LegendLabelDatum<D extends BarDatum> = Partial<ComputedDatum<D>> & {
     id: string | number
     hidden: boolean
 }
@@ -92,14 +90,13 @@ export interface BarLegendProps extends LegendProps {
 }
 
 export type LabelFormatter = (label: string | number) => string | number
-export type ValueFormatter = (value: number) => string | number
 
 export type BarLayerId = 'grid' | 'axes' | 'bars' | 'markers' | 'legends' | 'annotations' | 'totals'
 export type BarCanvasLayerId = Exclude<BarLayerId, 'markers'>
 
-interface BarCustomLayerBaseProps<RawDatum>
+interface BarCustomLayerBaseProps<D extends BarDatum>
     extends Pick<
-            BarCommonProps<RawDatum>,
+            BarCommonProps<D>,
             | 'borderRadius'
             | 'borderWidth'
             | 'enableLabel'
@@ -109,51 +106,43 @@ interface BarCustomLayerBaseProps<RawDatum>
             | 'tooltip'
         >,
         Dimensions {
-    bars: readonly ComputedBarDatum<RawDatum>[]
+    bars: readonly ComputedBarDatum<D>[]
     legendData: [BarLegendProps, readonly LegendData[]][]
-
     margin: Margin
     innerWidth: number
     innerHeight: number
-
     isFocusable: boolean
-
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string | number
-
+    getTooltipLabel: (datum: ComputedDatum<D>) => string | number
     xScale: AnyScale
     yScale: AnyScale
-    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
+    getColor: OrdinalColorScale<ComputedDatum<D>>
 }
 
-export interface BarCustomLayerProps<RawDatum>
-    extends BarCustomLayerBaseProps<RawDatum>,
-        BarHandlers<RawDatum, SVGRectElement> {}
+export interface BarCustomLayerProps<D extends BarDatum>
+    extends BarCustomLayerBaseProps<D>,
+        BarHandlers<D, SVGRectElement> {}
 
-export interface BarCanvasCustomLayerProps<RawDatum>
-    extends BarCustomLayerBaseProps<RawDatum>,
-        BarHandlers<RawDatum, HTMLCanvasElement> {}
+export interface BarCanvasCustomLayerProps<D extends BarDatum>
+    extends BarCustomLayerBaseProps<D>,
+        BarHandlers<D, HTMLCanvasElement> {}
 
-export type BarCanvasCustomLayer<RawDatum> = (
+export type BarCanvasCustomLayer<D extends BarDatum> = (
     context: CanvasRenderingContext2D,
-    props: BarCanvasCustomLayerProps<RawDatum>
+    props: BarCanvasCustomLayerProps<D>
 ) => void
-export type BarCustomLayer<RawDatum> = React.FC<BarCustomLayerProps<RawDatum>>
+export type BarCustomLayer<D extends BarDatum> = FunctionComponent<BarCustomLayerProps<D>>
 
-export type BarCanvasLayer<RawDatum> = BarCanvasLayerId | BarCanvasCustomLayer<RawDatum>
-export type BarLayer<RawDatum> = BarLayerId | BarCustomLayer<RawDatum>
+export type BarCanvasLayer<D extends BarDatum> = BarCanvasLayerId | BarCanvasCustomLayer<D>
+export type BarLayer<D extends BarDatum> = BarLayerId | BarCustomLayer<D>
 
-export interface BarItemProps<RawDatum extends BarDatum>
-    extends Pick<
-            BarCommonProps<RawDatum>,
-            'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
-        >,
-        BarHandlers<RawDatum, SVGRectElement> {
-    bar: ComputedBarDatum<RawDatum> & {
+export interface BarItemProps<D extends BarDatum>
+    extends Pick<BarCommonProps<D>, 'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'>,
+        BarHandlers<D, SVGRectElement> {
+    bar: ComputedBarDatum<D> & {
         data: {
             value: number
         }
     }
-
     style: SpringValues<{
         borderColor: string
         color: string
@@ -167,20 +156,19 @@ export interface BarItemProps<RawDatum extends BarDatum>
         width: number
         textAnchor: 'start' | 'middle'
     }>
-
     label: string
     shouldRenderLabel: boolean
-
     isFocusable: boolean
-    ariaLabel?: BarSvgProps<RawDatum>['barAriaLabel']
-    ariaLabelledBy?: BarSvgProps<RawDatum>['barAriaLabelledBy']
-    ariaDescribedBy?: BarSvgProps<RawDatum>['barAriaDescribedBy']
-    ariaHidden?: BarSvgProps<RawDatum>['barAriaHidden']
-    ariaDisabled?: BarSvgProps<RawDatum>['barAriaDisabled']
+    ariaLabel?: BarSvgProps<D>['barAriaLabel']
+    ariaLabelledBy?: BarSvgProps<D>['barAriaLabelledBy']
+    ariaDescribedBy?: BarSvgProps<D>['barAriaDescribedBy']
+    ariaHidden?: BarSvgProps<D>['barAriaHidden']
+    ariaDisabled?: BarSvgProps<D>['barAriaDisabled']
 }
+export type BarComponent<D extends BarDatum> = FunctionComponent<BarItemProps<D>>
 
-export type RenderBarProps<RawDatum extends BarDatum> = Omit<
-    BarItemProps<RawDatum>,
+export type RenderBarProps<D extends BarDatum> = Omit<
+    BarItemProps<D>,
     | 'isInteractive'
     | 'style'
     | 'tooltip'
@@ -195,134 +183,134 @@ export type RenderBarProps<RawDatum extends BarDatum> = Omit<
         borderColor: string
         labelStyle: TextStyle
     }
+export type BarCanvasRenderer<D extends BarDatum> = (
+    context: CanvasRenderingContext2D,
+    props: RenderBarProps<D>
+) => void
 
-export interface BarTooltipProps<RawDatum> extends ComputedDatum<RawDatum> {
+export interface BarTooltipProps<D extends BarDatum> extends ComputedDatum<D> {
     color: string
     label: string
     value: number
 }
+export type BarTooltipComponent<D extends BarDatum> = FunctionComponent<BarTooltipProps<D>>
 
-export type BarHandlers<RawDatum, Element> = {
-    onClick?: (
-        datum: ComputedDatum<RawDatum> & { color: string },
-        event: React.MouseEvent<Element>
-    ) => void
-    onMouseEnter?: (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<Element>) => void
-    onMouseLeave?: (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<Element>) => void
+export type BarHandlers<D extends BarDatum, E extends Element> = {
+    onClick?: (datum: ComputedDatum<D> & { color: string }, event: MouseEvent<E>) => void
+    onMouseEnter?: (datum: ComputedDatum<D>, event: MouseEvent<E>) => void
+    onMouseLeave?: (datum: ComputedDatum<D>, event: MouseEvent<E>) => void
 }
 
-export type BarCommonProps<RawDatum> = {
-    indexBy: PropertyAccessor<RawDatum, string>
+export type BarCommonProps<D extends BarDatum> = {
+    indexBy: PropertyAccessor<D, string>
     keys: readonly string[]
-
     maxValue: 'auto' | number
     minValue: 'auto' | number
-
     margin?: Box
     innerPadding: number
     padding: number
-
     valueScale: ScaleSpec
     indexScale: ScaleBandSpec
-
     enableGridX: boolean
     gridXValues?: GridValues<string | number>
     enableGridY: boolean
     gridYValues?: GridValues<string | number>
-
-    borderColor: InheritedColorConfig<ComputedBarDatumWithValue<RawDatum>>
+    borderColor: InheritedColorConfig<ComputedBarDatumWithValue<D>>
     borderRadius: number
     borderWidth: number
-
     enableLabel: boolean
-    label: PropertyAccessor<ComputedDatum<RawDatum>, string>
+    label: PropertyAccessor<ComputedDatum<D>, string>
     labelPosition: 'start' | 'middle' | 'end'
     labelOffset: number
-    labelFormat: string | LabelFormatter
+    labelFormat?: string | LabelFormatter
     labelSkipWidth: number
     labelSkipHeight: number
-    labelTextColor: InheritedColorConfig<ComputedBarDatumWithValue<RawDatum>>
-
+    labelTextColor: InheritedColorConfig<ComputedBarDatumWithValue<D>>
     isInteractive: boolean
-
-    tooltip: React.FC<BarTooltipProps<RawDatum>>
-
+    tooltip: BarTooltipComponent<D>
     valueFormat?: ValueFormat<number>
-
-    legendLabel?: PropertyAccessor<LegendLabelDatum<RawDatum>, string>
-    tooltipLabel: PropertyAccessor<ComputedDatum<RawDatum>, string>
-
+    legendLabel?: PropertyAccessor<LegendLabelDatum<D>, string>
+    tooltipLabel: PropertyAccessor<ComputedDatum<D>, string>
     groupMode: 'grouped' | 'stacked'
     layout: 'horizontal' | 'vertical'
     reverse: boolean
-
     colorBy: 'id' | 'indexValue'
-    colors: OrdinalColorScaleConfig<ComputedDatum<RawDatum>>
+    colors: OrdinalColorScaleConfig<ComputedDatum<D>>
     theme: PartialTheme
-
-    annotations: readonly AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
+    annotations: readonly AnnotationMatcher<ComputedBarDatum<D>>[]
     legends: readonly BarLegendProps[]
-
     renderWrapper?: boolean
-
     initialHiddenIds: readonly (string | number)[]
-
     enableTotals: boolean
     totalsOffset: number
-
     role?: string
 }
 
-export type BarSvgProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
-    DataProps<RawDatum> &
-    BarHandlers<RawDatum, SVGRectElement> &
-    SvgDefsAndFill<ComputedBarDatum<RawDatum>> &
+interface BarSvgExtraProps<D extends BarDatum> {
+    axisBottom: AxisProps | null
+    axisLeft: AxisProps | null
+    axisRight: AxisProps | null
+    axisTop: AxisProps | null
+    barComponent: BarComponent<D>
+    markers: readonly CartesianMarkerProps[]
+    layers: readonly BarLayer<D>[]
+    animateOnMount: boolean
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
+    isFocusable: boolean
+    barRole?: string | ((data: ComputedDatum<D>) => string)
+    barAriaLabel?: (data: ComputedDatum<D>) => AriaAttributes['aria-label']
+    barAriaLabelledBy?: (data: ComputedDatum<D>) => AriaAttributes['aria-labelledby']
+    barAriaDescribedBy?: (data: ComputedDatum<D>) => AriaAttributes['aria-describedby']
+    barAriaHidden?: (data: ComputedDatum<D>) => AriaAttributes['aria-hidden']
+    barAriaDisabled?: (data: ComputedDatum<D>) => AriaAttributes['aria-disabled']
+}
+
+export type BarSvgProps<D extends BarDatum> = DataProps<D> &
+    Partial<BarCommonProps<D>> &
+    Partial<BarSvgExtraProps<D>> &
+    BarHandlers<D, SVGRectElement> &
+    SvgDefsAndFill<ComputedBarDatum<D>> &
     Dimensions &
-    MotionProps &
-    Partial<{
-        axisBottom: AxisProps | null
-        axisLeft: AxisProps | null
-        axisRight: AxisProps | null
-        axisTop: AxisProps | null
-
-        barComponent: React.FC<BarItemProps<RawDatum>>
-
-        markers: readonly CartesianMarkerProps[]
-
-        layers: readonly BarLayer<RawDatum>[]
-
-        ariaLabel?: React.AriaAttributes['aria-label']
-        ariaLabelledBy?: React.AriaAttributes['aria-labelledby']
-        ariaDescribedBy?: React.AriaAttributes['aria-describedby']
-        isFocusable?: boolean
-        barAriaLabel?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-label']
-        barAriaLabelledBy?: (
-            data: ComputedDatum<RawDatum>
-        ) => React.AriaAttributes['aria-labelledby']
-        barAriaDescribedBy?: (
-            data: ComputedDatum<RawDatum>
-        ) => React.AriaAttributes['aria-describedby']
-        barAriaHidden?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-hidden']
-        barAriaDisabled?: (data: ComputedDatum<RawDatum>) => React.AriaAttributes['aria-disabled']
-    }>
-
-export type BarCanvasProps<RawDatum extends BarDatum> = Partial<BarCommonProps<RawDatum>> &
-    DataProps<RawDatum> &
-    BarHandlers<RawDatum, HTMLCanvasElement> &
+    MotionProps
+export type ResponsiveBarSvgProps<D extends BarDatum> = WithChartRef<
+    ResponsiveProps<BarSvgProps<D>>,
+    SVGSVGElement
+>
+export type BarSvgPropsWithDefaults<D extends BarDatum> = DataProps<D> &
+    BarCommonProps<D> &
+    BarSvgExtraProps<D> &
+    SvgDefsAndFill<ComputedBarDatum<D>> &
     Dimensions &
-    Partial<{
-        axisBottom: CanvasAxisProps<any> | null
-        axisLeft: CanvasAxisProps<any> | null
-        axisRight: CanvasAxisProps<any> | null
-        axisTop: CanvasAxisProps<any> | null
+    MotionProps
 
-        renderBar: (context: CanvasRenderingContext2D, props: RenderBarProps<RawDatum>) => void
+interface BarCanvasExtraProps<D extends BarDatum> {
+    axisBottom: CanvasAxisProps<any> | null
+    axisLeft: CanvasAxisProps<any> | null
+    axisRight: CanvasAxisProps<any> | null
+    axisTop: CanvasAxisProps<any> | null
+    renderBar: BarCanvasRenderer<D>
+    layers: BarCanvasLayer<D>[]
+    pixelRatio: number
+}
 
-        layers: BarCanvasLayer<RawDatum>[]
-        pixelRatio: number
-    }>
+export type BarCanvasProps<D extends BarDatum> = DataProps<D> &
+    Partial<BarCommonProps<D>> &
+    Partial<BarCanvasExtraProps<D>> &
+    BarHandlers<D, HTMLCanvasElement> &
+    Dimensions
+export type ResponsiveBarCanvasProps<D extends BarDatum> = WithChartRef<
+    ResponsiveProps<BarCanvasProps<D>>,
+    HTMLCanvasElement
+>
+export type BarCanvasPropsWithDefaults<D extends BarDatum> = DataProps<D> &
+    BarCommonProps<D> &
+    BarCanvasExtraProps<D> &
+    BarHandlers<D, HTMLCanvasElement> &
+    Dimensions
 
-export type BarAnnotationsProps<RawDatum> = {
-    annotations: readonly AnnotationMatcher<ComputedBarDatum<RawDatum>>[]
-    bars: readonly ComputedBarDatum<RawDatum>[]
+export type BarAnnotationsProps<D extends BarDatum> = {
+    annotations: readonly AnnotationMatcher<ComputedBarDatum<D>>[]
+    bars: readonly ComputedBarDatum<D>[]
 }

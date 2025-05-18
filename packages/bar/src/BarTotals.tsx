@@ -1,7 +1,7 @@
 import { useTheme } from '@nivo/theming'
 import { AnimationConfig, animated, useTransition } from '@react-spring/web'
 import { BarCommonProps, BarDatum } from './types'
-import { svgDefaultProps } from './props'
+import { svgDefaultProps } from './defaults'
 import { BarTotalsData } from './compute/totals'
 
 interface Props<RawDatum extends BarDatum> {

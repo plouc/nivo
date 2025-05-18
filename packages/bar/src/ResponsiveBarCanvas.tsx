@@ -1,17 +1,17 @@
 import { ForwardedRef, forwardRef, ReactElement } from 'react'
-import { ResponsiveWrapper, ResponsiveProps, WithChartRef } from '@nivo/core'
-import { BarDatum, BarCanvasProps } from './types'
+import { ResponsiveWrapper } from '@nivo/core'
+import { BarDatum, ResponsiveBarCanvasProps } from './types'
 import { BarCanvas } from './BarCanvas'
 
 export const ResponsiveBarCanvas = forwardRef(
-    <RawDatum extends BarDatum>(
+    <D extends BarDatum>(
         {
             defaultWidth,
             defaultHeight,
             onResize,
             debounceResize,
             ...props
-        }: ResponsiveProps<BarCanvasProps<RawDatum>>,
+        }: Omit<ResponsiveBarCanvasProps<D>, 'ref'>,
         ref: ForwardedRef<HTMLCanvasElement>
     ) => (
         <ResponsiveWrapper
@@ -21,10 +21,8 @@ export const ResponsiveBarCanvas = forwardRef(
             debounceResize={debounceResize}
         >
             {({ width, height }) => (
-                <BarCanvas width={width} height={height} {...props} ref={ref} />
+                <BarCanvas<D> {...props} width={width} height={height} ref={ref} />
             )}
         </ResponsiveWrapper>
     )
-) as <RawDatum extends BarDatum>(
-    props: WithChartRef<ResponsiveProps<BarCanvasProps<RawDatum>>, HTMLCanvasElement>
-) => ReactElement
+) as <D extends BarDatum>(props: ResponsiveBarCanvasProps<D>) => ReactElement
