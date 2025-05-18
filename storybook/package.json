@@ -22,6 +22,7 @@
     "@nivo/chord": "workspace:*",
     "@nivo/circle-packing": "workspace:*",
     "@nivo/colors": "workspace:*",
+    "@nivo/controls": "workspace:*",
     "@nivo/core": "workspace:*",
     "@nivo/funnel": "workspace:*",
     "@nivo/generators": "workspace:*",
@@ -60,7 +61,6 @@
     "@types/d3-sankey": "^0.11.2",
     "@types/d3-scale": "^4.0.8",
     "@types/d3-shape": "^3.1.6",
-    "@types/styled-components": "^5.1.18",
     "d3-random": "^1.1.2",
     "d3-sankey": "^0.12.3",
     "d3-scale": "^4.0.2",
@@ -69,6 +69,6 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "storybook": "^8.6.12",
-    "styled-components": "^5.3.3"
+    "styled-components": "^6.1.18"
   }
 }

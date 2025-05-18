@@ -76,14 +76,16 @@
     "yargs": "^17.7.2"
   },
   "resolutions": {
-    "@react-spring/core": "^10.0.0",
-    "@react-spring/web": "^10.0.0",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
     "@types/eslint": "7.29.0",
     "cheerio": "1.0.0-rc.10",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@types/react": "18.3.20",
+    "react-dom": "18.3.1",
+    "@types/react-dom": "18.3.6",
+    "@react-spring/core": "10.0.0",
+    "@react-spring/web": "10.0.0",
+    "styled-components": "6.1.18",
+    "react-markdown": "10.1.0"
   },
   "scripts": {
     "make:init": "make init",

@@ -1,0 +1,62 @@
+{
+    "name": "@nivo/controls",
+    "version": "0.98.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/chord"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "d3",
+        "charts",
+        "controls",
+        "UI"
+    ],
+    "main": "./dist/nivo-controls.cjs.js",
+    "module": "./dist/nivo-controls.mjs",
+    "types": "./dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/nivo-controls.mjs",
+            "require": "./dist/nivo-controls.cjs.js"
+        }
+    },
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "dependencies": {
+        "@nivo/arcs": "workspace:*",
+        "@nivo/colors": "workspace:*",
+        "@nivo/core": "workspace:*",
+        "@nivo/legends": "workspace:*",
+        "@nivo/scales": "workspace:*",
+        "@nivo/text": "workspace:*",
+        "@nivo/theming": "workspace:*",
+        "@nivo/tooltip": "workspace:*",
+        "@react-spring/core": "9.4.5 || ^9.7.2 || ^10.0",
+        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
+        "dedent-js": "^1.0.1",
+        "lodash": "^4.17.21",
+        "react-icons": "^5.5.0",
+        "react-markdown": "^10.1.0",
+        "styled-components": "^6.1.18"
+    },
+    "peerDependencies": {
+        "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
