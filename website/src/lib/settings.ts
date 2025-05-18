@@ -77,6 +77,6 @@ export const settingsMapper =
         } as FinalSettings
     }
 
-export type AxisWithToggle<Axis extends AxisProps | CanvasAxisProps> = NonNullable<Axis> & {
+export type AxisWithToggle<Axis> = NonNullable<Axis> & {
     enable: boolean
 }

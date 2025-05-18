@@ -316,6 +316,10 @@ export const components: ChartNavData[] = [
 
 export const guides = [
     {
+        label: 'Scales',
+        path: '/guides/scales/',
+    },
+    {
         label: 'Axes',
         path: '/guides/axes/',
     },

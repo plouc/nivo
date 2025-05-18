@@ -27,6 +27,12 @@ export interface ScaleTypeToSpec {
 export type ScaleType = keyof ScaleTypeToSpec
 export type ScaleSpec = ScaleTypeToSpec[keyof ScaleTypeToSpec]
 
+export type ReversibleScaleSpec = ScaleLinearSpec | ScaleLogSpec | ScaleSymlogSpec
+
+export const isReversibleScaleSpec = (scaleSpec: ScaleSpec): scaleSpec is ReversibleScaleSpec => {
+    return scaleSpec.type === 'linear' || scaleSpec.type === 'log' || scaleSpec.type === 'symlog'
+}
+
 export interface ScaleTypeToScale<Input, Output> {
     linear: Input extends NumericValue ? ScaleLinear<Output> : never
     log: Input extends NumericValue ? ScaleLog : never
