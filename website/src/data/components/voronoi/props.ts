@@ -42,7 +42,7 @@ const props: ChartProperty[] = [
         required: false,
         defaultValue: defaultVoronoiProps.yDomain,
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg']),
     {
         key: 'layers',

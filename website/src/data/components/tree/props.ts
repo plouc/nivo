@@ -97,7 +97,7 @@ const props: ChartProperty[] = [
             },
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'canvas']),
     themeProperty(allFlavors),
     {

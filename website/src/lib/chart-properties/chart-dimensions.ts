@@ -1,8 +1,10 @@
 import { ChartProperty, Flavor } from '../../types'
 
-export const chartWidth = (flavors: Flavor[]): ChartProperty => ({
+const DIMENSIONS_GROUP = 'Dimensions'
+
+export const chartWidth = (flavors: Flavor[], group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'width',
-    group: 'Base',
+    group,
     type: 'number',
     required: true,
     help: 'Chart width for non-responsive component.',
@@ -21,9 +23,9 @@ export const chartWidth = (flavors: Flavor[]): ChartProperty => ({
     },
 })
 
-export const chartDefaultWidth = (flavors: Flavor[]): ChartProperty => ({
+export const chartDefaultWidth = (flavors: Flavor[], group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'defaultWidth',
-    group: 'Base',
+    group,
     type: 'number',
     required: false,
     help: 'Chart default width for responsive component.',
@@ -35,9 +37,9 @@ export const chartDefaultWidth = (flavors: Flavor[]): ChartProperty => ({
     flavors,
 })
 
-export const chartHeight = (flavors: Flavor[]): ChartProperty => ({
+export const chartHeight = (flavors: Flavor[], group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'height',
-    group: 'Base',
+    group,
     type: 'number',
     required: true,
     help: 'Chart height for non-responsive component.',
@@ -56,9 +58,9 @@ export const chartHeight = (flavors: Flavor[]): ChartProperty => ({
     },
 })
 
-export const chartDefaultHeight = (flavors: Flavor[]): ChartProperty => ({
+export const chartDefaultHeight = (flavors: Flavor[], group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'defaultHeight',
-    group: 'Base',
+    group,
     type: 'number',
     required: false,
     help: 'Chart default height for responsive component.',
@@ -70,9 +72,12 @@ export const chartDefaultHeight = (flavors: Flavor[]): ChartProperty => ({
     flavors,
 })
 
-export const chartDebounceResize = (flavors: Flavor[]): ChartProperty => ({
+export const chartDebounceResize = (
+    flavors: Flavor[],
+    group = DIMENSIONS_GROUP
+): ChartProperty => ({
     key: 'debounceResize',
-    group: 'Base',
+    group,
     type: 'number (ms)',
     required: false,
     help: 'Debounce `width`/`height` updates for responsive component.',
@@ -83,9 +88,9 @@ export const chartDebounceResize = (flavors: Flavor[]): ChartProperty => ({
     flavors,
 })
 
-export const chartOnResize = (flavors: Flavor[]): ChartProperty => ({
+export const chartOnResize = (flavors: Flavor[], group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'onResize',
-    group: 'Base',
+    group,
     type: '(dimensions: { width: number; height: number }) => void',
     required: false,
     help: 'A callback for when responsive component is resized.',
@@ -101,9 +106,9 @@ export const chartOnResize = (flavors: Flavor[]): ChartProperty => ({
     flavors,
 })
 
-export const chartMargin = (flavors: Flavor[]): ChartProperty => ({
+export const chartMargin = (flavors: Flavor[], group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'margin',
-    group: 'Base',
+    group,
     help: 'Chart margin.',
     type: 'object',
     required: false,
@@ -111,14 +116,14 @@ export const chartMargin = (flavors: Flavor[]): ChartProperty => ({
     control: { type: 'margin' },
 })
 
-export const pixelRatio = (): ChartProperty => ({
+export const pixelRatio = (group = DIMENSIONS_GROUP): ChartProperty => ({
     key: 'pixelRatio',
     flavors: ['canvas'],
     help: `Adjust pixel ratio, useful for HiDPI screens.`,
     required: false,
     defaultValue: 'Depends on device',
     type: `number`,
-    group: 'Base',
+    group,
     control: {
         type: 'range',
         min: 1,
@@ -128,25 +133,31 @@ export const pixelRatio = (): ChartProperty => ({
 
 export const chartDimensions = (
     flavors: Flavor[],
-    withResponsiveProps = false
+    {
+        responsive = true,
+        group = DIMENSIONS_GROUP,
+    }: {
+        responsive?: boolean
+        group?: string
+    } = {}
 ): ChartProperty[] => {
     const properties: ChartProperty[] = [chartWidth(flavors)]
-    if (withResponsiveProps) {
-        properties.push(chartDefaultWidth(flavors))
+    if (responsive) {
+        properties.push(chartDefaultWidth(flavors, group))
     }
 
-    properties.push(chartHeight(flavors))
-    if (withResponsiveProps) {
-        properties.push(chartDefaultHeight(flavors))
-        properties.push(chartDebounceResize(flavors))
-        properties.push(chartOnResize(flavors))
+    properties.push(chartHeight(flavors, group))
+    if (responsive) {
+        properties.push(chartDefaultHeight(flavors, group))
+        properties.push(chartDebounceResize(flavors, group))
+        properties.push(chartOnResize(flavors, group))
     }
 
     if (flavors.includes('canvas')) {
-        properties.push(pixelRatio())
+        properties.push(pixelRatio(group))
     }
 
-    properties.push(chartMargin(flavors))
+    properties.push(chartMargin(flavors, group))
 
     return properties
 }

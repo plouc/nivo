@@ -43,7 +43,7 @@ const props: ChartProperty[] = [
             Please note that each node id **must** be unique.
         `,
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'canvas']),
     {
         key: 'linkDistance',

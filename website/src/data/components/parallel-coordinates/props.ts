@@ -198,7 +198,7 @@ const props: ChartProperty[] = [
             ],
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'canvas']),
     themeProperty(['svg', 'canvas']),
     ordinalColors({

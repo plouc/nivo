@@ -248,7 +248,7 @@ const props: ChartProperty[] = [
             max: 24,
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'canvas']),
     themeProperty(['svg', 'canvas']),
     ordinalColors({

@@ -88,7 +88,7 @@ const props: ChartProperty[] = [
         type: 'string | (value: number) => string | number',
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     {
         key: 'startAngle',
         help: 'Start angle (in degrees), useful to make gauges for example.',

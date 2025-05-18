@@ -1,6 +1,7 @@
 import omit from 'lodash/omit.js'
-import { defaultAxisProps } from '@nivo/axes'
+import { AxisProps, CanvasAxisProps, defaultAxisProps } from '@nivo/axes'
 import { objectDiff } from '../objectDiff'
+import { AxisWithToggle } from '../settings'
 
 /**
  * Exclude default values from axis objects for simpler code snippets.
@@ -8,7 +9,7 @@ import { objectDiff } from '../objectDiff'
  * of an axis config, it's just used for the demo, to toggle axes while
  * retaining the current config.
  */
-export const mapAxis = (value: any) => {
+export const mapAxis = (value: AxisWithToggle<AxisProps | CanvasAxisProps>) => {
     // There's a distinction between `null` and `undefined`,
     // `null` can be used to disable an axis which is enabled by default,
     // while `undefined` fallback to the default value.

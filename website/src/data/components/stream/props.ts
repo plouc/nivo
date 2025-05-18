@@ -138,7 +138,7 @@ const props: ChartProperty[] = [
             })),
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg']),
     themeProperty(['svg']),
     ordinalColors({

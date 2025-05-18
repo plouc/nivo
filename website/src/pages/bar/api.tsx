@@ -3,7 +3,7 @@ import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/bar/props'
 import meta from '../../data/components/bar/meta.yml'
-import mapper from '../../data/components/bar/mapper'
+import { barSvgMapper } from '../../data/components/bar/mapper'
 import { generateLightDataSet } from '../../data/components/bar/generator'
 import { graphql, useStaticQuery } from 'gatsby'
 
@@ -34,7 +34,7 @@ const BarApi = () => {
                 flavors={meta.flavors}
                 dataProperty="data"
                 controlGroups={groups}
-                propsMapper={mapper}
+                propsMapper={barSvgMapper}
                 defaultProps={{
                     width: 1200,
                     height: 500,

@@ -89,66 +89,53 @@ const props: ChartProperty[] = [
         key: 'valueScale',
         group: 'Base',
         type: 'object',
-        help: `value scale configuration.`,
+        help: 'Value scale configuration, supports `linear`, and `symlog` types.',
         defaultValue: svgDefaultProps.valueScale,
         flavors: allFlavors,
         required: false,
         control: {
-            type: 'object',
-            props: [
-                {
-                    key: 'type',
-                    help: `Scale type.`,
-                    type: 'string',
-                    required: true,
-                    flavors: allFlavors,
-                    control: {
-                        type: 'choices',
-                        disabled: true,
-                        choices: ['linear', 'symlog'].map(v => ({
-                            label: v,
-                            value: v,
-                        })),
-                    },
-                },
-            ],
+            type: 'scale',
+            isOpenedByDefault: true,
+            allowedTypes: ['linear', 'symlog'],
         },
     },
     {
         key: 'indexScale',
         group: 'Base',
         type: 'object',
-        help: `index scale configuration.`,
+        help: 'Index scale configuration, supports `band` type only.',
         defaultValue: svgDefaultProps.indexScale,
         flavors: allFlavors,
         required: false,
         control: {
-            type: 'object',
-            props: [
-                {
-                    key: 'type',
-                    help: `Scale type.`,
-                    type: 'string',
-                    required: true,
-                    flavors: ['svg', 'canvas', 'api'],
-                    control: {
-                        type: 'choices',
-                        disabled: true,
-                        choices: ['band'].map(v => ({
-                            label: v,
-                            value: v,
-                        })),
-                    },
-                },
-                {
-                    key: 'round',
-                    required: true,
-                    flavors: ['svg', 'canvas', 'api'],
-                    help: 'Toggle index scale (for bar width) rounding.',
-                    type: 'boolean',
-                    control: { type: 'switch' },
-                },
-            ],
+            type: 'scale',
+            isOpenedByDefault: true,
+            allowedTypes: ['band'],
+            // props: [
+            //     {
+            //         key: 'type',
+            //         help: `Scale type.`,
+            //         type: 'string',
+            //         required: true,
+            //         flavors: ['svg', 'canvas', 'api'],
+            //         control: {
+            //             type: 'choices',
+            //             disabled: true,
+            //             choices: ['band'].map(v => ({
+            //                 label: v,
+            //                 value: v,
+            //             })),
+            //         },
+            //     },
+            //     {
+            //         key: 'round',
+            //         required: true,
+            //         flavors: ['svg', 'canvas', 'api'],
+            //         help: 'Toggle index scale (for bar width) rounding.',
+            //         type: 'boolean',
+            //         control: { type: 'switch' },
+            //     },
+            // ],
         },
     },
     {
@@ -247,7 +234,7 @@ const props: ChartProperty[] = [
             max: 10,
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'canvas']),
     themeProperty(allFlavors),
     ordinalColors({

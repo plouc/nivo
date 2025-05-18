@@ -7,7 +7,7 @@ import { ChartProperty, Flavor } from '../../../types'
 const allFlavors: Flavor[] = ['svg', 'canvas']
 
 export const props: ChartProperty[] = [
-    ...chartDimensions(allFlavors),
+    ...chartDimensions(allFlavors, { responsive: false }),
     {
         key: 'projectionType',
         flavors: ['svg', 'canvas'],
