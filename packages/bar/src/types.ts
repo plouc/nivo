@@ -204,8 +204,6 @@ export type BarHandlers<D extends BarDatum, E extends Element> = {
 export type BarCommonProps<D extends BarDatum> = {
     indexBy: PropertyAccessor<D, string>
     keys: readonly string[]
-    maxValue: 'auto' | number
-    minValue: 'auto' | number
     margin?: Box
     innerPadding: number
     padding: number
@@ -233,7 +231,6 @@ export type BarCommonProps<D extends BarDatum> = {
     tooltipLabel: PropertyAccessor<ComputedDatum<D>, string>
     groupMode: 'grouped' | 'stacked'
     layout: 'horizontal' | 'vertical'
-    reverse: boolean
     colorBy: 'id' | 'indexValue'
     colors: OrdinalColorScaleConfig<ComputedDatum<D>>
     theme: PartialTheme

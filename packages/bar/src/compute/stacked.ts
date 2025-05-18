@@ -149,9 +149,6 @@ const generateHorizontalStackedBars = <D extends BarDatum>(
 export const generateStackedBars = <RawDatum extends BarDatum>({
     data,
     layout,
-    minValue,
-    maxValue,
-    reverse,
     width,
     height,
     padding = 0,
@@ -163,15 +160,12 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     Required<BarSvgProps<RawDatum>>,
     | 'data'
     | 'height'
+    | 'valueScale'
     | 'indexScale'
     | 'innerPadding'
     | 'keys'
     | 'layout'
-    | 'maxValue'
-    | 'minValue'
     | 'padding'
-    | 'reverse'
-    | 'valueScale'
     | 'width'
 > & {
     formatValue: (value: number) => string
@@ -197,13 +191,6 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
         otherAxis
     )
 
-    const scaleSpec = {
-        max: maxValue,
-        min: minValue,
-        reverse,
-        ...valueScale,
-    }
-
     const values = filterZerosIfLog(
         flattenDeep(stackedData as unknown as number[][]),
         valueScale.type
@@ -212,7 +199,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     const max = Math.max(...values)
 
     const scale = computeScale(
-        scaleSpec as any,
+        valueScale,
         { all: values, min, max },
         axis === 'x' ? width : height,
         axis
@@ -225,7 +212,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     const params = [
         { ...props, innerPadding, stackedData, xScale, yScale } as Params<RawDatum, any, any>,
         bandwidth,
-        scaleSpec.reverse,
+        valueScale.reverse ?? false,
     ] as const
 
     const bars: ComputedBarDatum<RawDatum>[] =

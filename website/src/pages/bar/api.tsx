@@ -47,7 +47,6 @@ const BarApi = () => {
                     data: JSON.stringify(data, null, '  '),
                     keys: keys,
                     indexBy: 'country',
-
                     colors: { scheme: 'nivo' },
                     colorBy: 'id',
                     borderRadius: 0,
@@ -56,20 +55,13 @@ const BarApi = () => {
                         from: 'color',
                         modifiers: [['darker', 1.6]],
                     },
-
                     padding: 0.2,
                     innerPadding: 0,
-                    minValue: 'auto',
-                    maxValue: 'auto',
-
                     groupMode: 'stacked',
                     layout: 'vertical',
-                    reverse: false,
-
-                    valueScale: { type: 'linear' },
-                    indexScale: { type: 'band', round: true },
+                    valueScale: { type: 'linear', nice: true, round: false },
+                    indexScale: { type: 'band', round: false },
                     valueFormat: { format: '', enabled: false },
-
                     axisTop: {
                         enable: false,
                         tickSize: 5,
@@ -104,10 +96,8 @@ const BarApi = () => {
                         legendPosition: 'middle',
                         legendOffset: -40,
                     },
-
                     enableGridX: false,
                     enableGridY: true,
-
                     enableLabel: true,
                     enableTotals: false,
                     totalsOffset: 10,

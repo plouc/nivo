@@ -26,10 +26,7 @@ export const useBar = <D extends BarDatum>({
     labelTextColor = commonDefaultProps.labelTextColor,
     groupMode = commonDefaultProps.groupMode,
     layout = commonDefaultProps.layout,
-    reverse = commonDefaultProps.reverse,
     data,
-    minValue = commonDefaultProps.minValue,
-    maxValue = commonDefaultProps.maxValue,
     margin,
     width,
     height,
@@ -58,9 +55,6 @@ export const useBar = <D extends BarDatum>({
         | 'labelTextColor'
         | 'groupMode'
         | 'layout'
-        | 'reverse'
-        | 'minValue'
-        | 'maxValue'
         | 'padding'
         | 'innerPadding'
         | 'valueScale'
@@ -99,12 +93,9 @@ export const useBar = <D extends BarDatum>({
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
     const { bars, xScale, yScale } = generateBars({
         layout,
-        reverse,
         data,
         getIndex,
         keys,
-        minValue,
-        maxValue,
         width,
         height,
         getColor,
@@ -148,6 +139,8 @@ export const useBar = <D extends BarDatum>({
             }),
         [hiddenIds, keys, bars]
     )
+
+    const reverse = valueScale.reverse ?? false
 
     const legendsWithData: [BarLegendProps, LegendData[]][] = useMemo(
         () =>

@@ -43,9 +43,6 @@ const InnerBar = <D extends BarDatum>({
     height,
     groupMode,
     layout,
-    reverse,
-    minValue,
-    maxValue,
     valueScale,
     indexScale,
     padding,
@@ -134,11 +131,8 @@ const InnerBar = <D extends BarDatum>({
         labelTextColor,
         groupMode,
         layout,
-        reverse,
         data,
         keys,
-        minValue,
-        maxValue,
         margin,
         width: innerWidth,
         height: innerHeight,
@@ -155,7 +149,12 @@ const InnerBar = <D extends BarDatum>({
         totalsOffset,
     })
 
-    const computeLabelLayout = useComputeLabelLayout(layout, reverse, labelPosition, labelOffset)
+    const computeLabelLayout = useComputeLabelLayout(
+        layout,
+        valueScale?.reverse ?? false,
+        labelPosition,
+        labelOffset
+    )
 
     const transition = useTransition<
         ComputedBarDatumWithValue<D>,
