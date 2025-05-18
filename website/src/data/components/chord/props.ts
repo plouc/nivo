@@ -67,7 +67,7 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         // control: { type: 'valueFormat'}
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     {
         key: 'padAngle',
         help: 'Padding angle.',

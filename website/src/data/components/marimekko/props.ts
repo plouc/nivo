@@ -143,7 +143,7 @@ const props: ChartProperty[] = [
             unit: 'px',
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg']),
     themeProperty(allFlavors),
     ordinalColors({

@@ -131,7 +131,7 @@ const props: ChartProperty[] = [
         group: 'Base',
         control: { type: 'switch' },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'html', 'canvas']),
     themeProperty(['svg', 'html', 'canvas']),
     ordinalColors({

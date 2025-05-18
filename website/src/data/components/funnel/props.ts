@@ -34,7 +34,7 @@ const props: ChartProperty[] = [
             this for the \`colors\` property.            
         `,
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     {
         key: 'direction',
         group: 'Base',

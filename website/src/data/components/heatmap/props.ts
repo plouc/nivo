@@ -50,7 +50,7 @@ const props: ChartProperty[] = [
         type: 'string | (value: number) => string | number',
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     {
         key: 'forceSquare',
         help: 'Force square cells (width = height), please note that **padding is ignored**.',

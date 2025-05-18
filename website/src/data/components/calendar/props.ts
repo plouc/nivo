@@ -41,7 +41,7 @@ const props: ChartProperty[] = [
         required: true,
         flavors: allFlavors,
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     {
         key: 'direction',
         help: 'defines calendar layout direction.',

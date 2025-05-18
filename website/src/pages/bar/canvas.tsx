@@ -4,10 +4,14 @@ import { ResponsiveBarCanvas, canvasDefaultProps } from '@nivo/bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateHeavyDataSet } from '../../data/components/bar/generator'
-import mapper, { UnmappedBarProps, MappedBarProps } from '../../data/components/bar/mapper'
+import {
+    barCanvasMapper,
+    UnmappedBarCanvasProps,
+    MappedBarCanvasProps,
+} from '../../data/components/bar/mapper'
 import { groups } from '../../data/components/bar/props'
 
-const initialProperties: UnmappedBarProps = {
+const initialProperties: UnmappedBarCanvasProps = {
     indexBy: 'country',
     margin: {
         top: 50,
@@ -107,7 +111,7 @@ const BarCanvas = ({ location }: PageProps) => {
     `)
 
     return (
-        <ComponentTemplate<UnmappedBarProps, MappedBarProps, any>
+        <ComponentTemplate<UnmappedBarCanvasProps, MappedBarCanvasProps, any>
             name="BarCanvas"
             meta={meta.BarCanvas}
             icon="bar"
@@ -116,7 +120,7 @@ const BarCanvas = ({ location }: PageProps) => {
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={canvasDefaultProps}
-            propertiesMapper={mapper}
+            propertiesMapper={barCanvasMapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,
                 ...properties,

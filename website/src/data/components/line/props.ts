@@ -173,7 +173,7 @@ const props: ChartProperty[] = [
         type: 'Function | string',
         control: { type: 'valueFormat' },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     {
         key: 'curve',
         help: 'Curve interpolation.',

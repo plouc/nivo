@@ -133,7 +133,7 @@ const props: ChartProperty[] = [
             max: 20,
         },
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'canvas']),
     {
         key: 'forceStrength',

@@ -160,7 +160,7 @@ const props: ChartProperty[] = [
         defaultValue: defaults.hiddenIds,
         flavors: allFlavors,
     },
-    ...chartDimensions(allFlavors, true),
+    ...chartDimensions(allFlavors),
     chartRef(['svg', 'html', 'canvas']),
     themeProperty(allFlavors),
     ordinalColors({
