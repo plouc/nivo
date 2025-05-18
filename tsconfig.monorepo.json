@@ -53,8 +53,5 @@
         // Static rendering and express middleware
         { "path": "./packages/static" },
         { "path": "./packages/express" },
-
-        // Used for the website
-        { "path": "./packages/controls" }
     ]
 }

@@ -802,57 +802,6 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
 
-  packages/controls:
-    dependencies:
-      '@nivo/arcs':
-        specifier: workspace:*
-        version: link:../arcs
-      '@nivo/colors':
-        specifier: workspace:*
-        version: link:../colors
-      '@nivo/core':
-        specifier: workspace:*
-        version: link:../core
-      '@nivo/legends':
-        specifier: workspace:*
-        version: link:../legends
-      '@nivo/scales':
-        specifier: workspace:*
-        version: link:../scales
-      '@nivo/text':
-        specifier: workspace:*
-        version: link:../text
-      '@nivo/theming':
-        specifier: workspace:*
-        version: link:../theming
-      '@nivo/tooltip':
-        specifier: workspace:*
-        version: link:../tooltip
-      '@react-spring/core':
-        specifier: 10.0.0
-        version: 10.0.0(react@18.3.1)
-      '@react-spring/web':
-        specifier: 10.0.0
-        version: 10.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      dedent-js:
-        specifier: ^1.0.1
-        version: 1.0.1
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-icons:
-        specifier: ^5.5.0
-        version: 5.5.0(react@18.3.1)
-      react-markdown:
-        specifier: 10.1.0
-        version: 10.1.0(@types/react@18.3.20)(react@18.3.1)
-      styled-components:
-        specifier: 6.1.18
-        version: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   packages/core:
     dependencies:
       '@nivo/theming':
@@ -2003,9 +1952,6 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../packages/colors
-      '@nivo/controls':
-        specifier: workspace:*
-        version: link:../packages/controls
       '@nivo/core':
         specifier: workspace:*
         version: link:../packages/core
@@ -2183,9 +2129,6 @@ importers:
       '@nivo/colors':
         specifier: workspace:*
         version: link:../packages/colors
-      '@nivo/controls':
-        specifier: workspace:*
-        version: link:../packages/controls
       '@nivo/core':
         specifier: workspace:*
         version: link:../packages/core
