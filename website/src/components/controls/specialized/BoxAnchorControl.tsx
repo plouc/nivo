@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { BoxAnchorControlConfig, ControlContext } from '../types'
-import { Control, PropertyHeader, Help } from '../ui'
+import { Control } from '../ui'
 
 const boxWidth = 80
 const boxHeight = 50
@@ -61,11 +61,10 @@ const Value = styled.span`
 
 interface BoxAnchorControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<BoxAnchorControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: string
-    config: BoxAnchorControlConfig
     onChange: (value: string) => void
     context?: ControlContext
 }
@@ -82,12 +81,11 @@ export const BoxAnchorControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Row>
                 <svg width={boxWidth + boxPadding * 2} height={boxHeight + boxPadding * 2}>
                     <g transform={`translate(${boxPadding},${boxPadding})`}>
@@ -118,7 +116,6 @@ export const BoxAnchorControl = ({
                 </svg>
                 <Value>{value}</Value>
             </Row>
-            <Help>{property.help}</Help>
         </Control>
     )
 }

@@ -1,45 +1,38 @@
 import React, { memo, useMemo, useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ObjectControlConfig, ControlContext } from '../types'
 import { PropertyHeader, Help, Cell, Toggle } from '../ui'
 import { ControlsGroup } from '../ControlsGroup'
 
 interface ObjectControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<ObjectControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    onChange: (value: object) => void
-    value: object
+    value: Record<string, unknown>
+    onChange: (value: Record<string, unknown>) => void
     isOpenedByDefault?: boolean
-    config: ObjectControlConfig
     context?: ControlContext
 }
 
 export const ObjectControl = memo(
-    ({
-        property,
-        config,
-        flavors,
-        currentFlavor,
-        value,
-        onChange,
-        context,
-    }: ObjectControlProps) => {
+    ({ property, flavors, currentFlavor, value, onChange, context }: ObjectControlProps) => {
+        const { control } = property
+
         const [isOpened, setIsOpened] = useState(
-            config.isOpenedByDefault !== undefined ? config.isOpenedByDefault : false
+            control.isOpenedByDefault !== undefined ? control.isOpenedByDefault : false
         )
         const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
 
         const subProps = useMemo(
             () =>
-                config.props.map(prop => ({
+                control.props.map(prop => ({
                     ...prop,
                     name: prop.key,
                     group: property.group,
                 })),
-            [config.props]
+            [control.props]
         )
 
         const newContext = {

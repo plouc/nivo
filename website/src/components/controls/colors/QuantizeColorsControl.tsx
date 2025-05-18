@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, QuantizeColorsControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Select } from '../ui'
+import { Control, Select } from '../ui'
 import {
     ColorSchemeSelectOption,
     ColorSchemeSelectValue,
@@ -12,10 +12,9 @@ export type LegacyQuantizeColorsOption = ReturnType<typeof useLegacyQuantizeColo
 
 interface QuantizeColorsControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<QuantizeColorsControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: QuantizeColorsControlConfig
     onChange: (value: string) => void
     value: string
     context?: ControlContext
@@ -41,12 +40,11 @@ export const QuantizeColorsControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Select<LegacyQuantizeColorsOption>
                 options={options}
                 onChange={handleChange}
@@ -58,7 +56,6 @@ export const QuantizeColorsControl = ({
                     Option: ColorSchemeSelectOption,
                 }}
             />
-            <Help>{property.help}</Help>
         </Control>
     )
 }

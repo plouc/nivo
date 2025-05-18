@@ -1,15 +1,14 @@
 import React, { ChangeEvent, Fragment, useCallback } from 'react'
 import styled from 'styled-components'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, NumberArrayControlConfig } from '../types'
-import { Control, PropertyHeader, Label, Help, TextInput } from '../ui'
+import { Control, Label, TextInput } from '../ui'
 
 interface NumberArrayControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<NumberArrayControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: NumberArrayControlConfig
     value: number[]
     onChange: (value: number[]) => void
     context?: ControlContext
@@ -20,11 +19,12 @@ export const NumberArrayControl = ({
     property,
     flavors,
     currentFlavor,
-    config: { unit, items },
     value,
     onChange,
     context,
 }: NumberArrayControlProps) => {
+    const { unit, items } = property.control
+
     const handleChange = useCallback(
         (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
             const updatedArray = [...value]
@@ -37,12 +37,11 @@ export const NumberArrayControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Value>
                 <span>value</span>
                 <code>
@@ -82,7 +81,6 @@ export const NumberArrayControl = ({
                     </Row>
                 )
             })}
-            <Help>{property.help}</Help>
         </Control>
     )
 }

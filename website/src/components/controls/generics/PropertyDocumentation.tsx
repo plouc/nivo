@@ -1,11 +1,11 @@
 import React from 'react'
-import { Flavor } from '../../../types'
+import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext } from '../types'
-import { Control, PropertyHeader, Help } from '../ui'
+import { Control } from '../ui'
 
 interface PropertyDocumentationProps {
     id: string
-    property: any
+    property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
     context?: ControlContext
@@ -21,13 +21,10 @@ export const PropertyDocumentation = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
-        >
-            <PropertyHeader {...property} currentFlavor={currentFlavor} context={context} />
-            <Help>{property.help}</Help>
-        </Control>
+            context={context}
+        />
     )
 }

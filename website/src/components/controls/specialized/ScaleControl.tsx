@@ -1,19 +1,18 @@
 import React, { memo, useMemo, useState, useCallback, useRef } from 'react'
 import styled from 'styled-components'
 import { ScaleSpec, ScaleType } from '@nivo/scales'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartProperty, ChartPropertyWithControl, Flavor } from '../../../types'
 import { ScaleControlConfig, ControlContext, KeysOfUnion } from '../types'
 import { PropertyHeader, Help, Cell, Toggle } from '../ui'
 import { ControlsGroup } from '../ControlsGroup'
 
 interface ScaleControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<ScaleControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    onChange: (value: object) => void
     value: ScaleSpec
-    config: ScaleControlConfig
+    onChange: (value: Record<string, unknown>) => void
     context?: ControlContext
 }
 
@@ -106,16 +105,8 @@ const defaultsByScaleType: Partial<Record<ScaleType, Partial<ScaleSpec>>> = {
 }
 
 export const ScaleControl = memo(
-    ({
-        property,
-        config,
-        flavors,
-        currentFlavor,
-        value: _value,
-        onChange,
-        context,
-    }: ScaleControlProps) => {
-        const [isOpened, setIsOpened] = useState(config.isOpenedByDefault === true)
+    ({ property, flavors, currentFlavor, value: _value, onChange, context }: ScaleControlProps) => {
+        const [isOpened, setIsOpened] = useState(property.control.isOpenedByDefault === true)
         const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
 
         // We need to keep the latest value used for a given scale type,
@@ -126,7 +117,7 @@ export const ScaleControl = memo(
         const value = { ..._value }
 
         const excludedProps: NonNullable<ScaleControlConfig['disabledProps']> =
-            config.disabledProps || {}
+            property.control.disabledProps || {}
         const excludedPropsForType = excludedProps[value.type] || []
 
         const defaults = defaultsByScaleType[value.type]

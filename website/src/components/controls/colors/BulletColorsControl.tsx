@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, BulletColorsControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Select } from '../ui'
+import { Control, Select } from '../ui'
 import {
     ColorSchemeSelectOption,
     ColorSchemeSelectValue,
@@ -12,12 +12,11 @@ export type BulletColorOption = ReturnType<typeof useBulletColors>[number]
 
 interface QuantizeColorsControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<BulletColorsControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: BulletColorsControlConfig
-    onChange: (value: string) => void
     value: string
+    onChange: (value: string) => void
     context?: ControlContext
 }
 
@@ -41,12 +40,11 @@ export const BulletColorsControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Select<BulletColorOption>
                 options={options}
                 onChange={handleChange}
@@ -58,7 +56,6 @@ export const BulletColorsControl = ({
                     Option: ColorSchemeSelectOption,
                 }}
             />
-            <Help>{property.help}</Help>
         </Control>
     )
 }

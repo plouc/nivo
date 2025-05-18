@@ -5,16 +5,15 @@ import {
     divergingColorScaleDefaults,
     quantizeColorScaleDefaults,
 } from '@nivo/colors'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartProperty, ChartPropertyWithControl, Flavor } from '../../../types'
 import { ContinuousColorsControlConfig, ControlContext, ObjectControlConfig } from '../types'
 import { ObjectControl } from '../generics'
 
 interface ContinuousColorsControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<ContinuousColorsControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: ContinuousColorsControlConfig
     value: ContinuousColorScaleConfig
     onChange: (config: ContinuousColorScaleConfig) => void
     context?: ControlContext

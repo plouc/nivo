@@ -1,30 +1,22 @@
 import React, { memo, useCallback, ChangeEvent } from 'react'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, RadioControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Radio } from '../ui'
+import { Control, Radio } from '../ui'
 
 interface RadioControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<RadioControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: string
-    config: RadioControlConfig
     onChange: (value: string) => void
     context?: ControlContext
 }
 
 export const RadioControl = memo(
-    ({
-        id,
-        property,
-        flavors,
-        currentFlavor,
-        config: { choices, columns },
-        value,
-        onChange,
-        context,
-    }: RadioControlProps) => {
+    ({ id, property, flavors, currentFlavor, value, onChange, context }: RadioControlProps) => {
+        const { choices, columns } = property.control
+
         const handleUpdate = useCallback(
             (event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
             [onChange]
@@ -33,14 +25,12 @@ export const RadioControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader {...property} context={context} />
                 <Radio options={choices} columns={columns} value={value} onChange={handleUpdate} />
-                <Help>{property.help}</Help>
             </Control>
         )
     }

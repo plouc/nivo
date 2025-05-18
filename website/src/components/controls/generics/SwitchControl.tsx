@@ -1,11 +1,11 @@
 import React, { memo } from 'react'
-import { ChartProperty, Flavor } from '../../../types'
-import { Control, PropertyHeader, Help, Switch } from '../ui'
-import { ControlContext } from '../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
+import { Control, Switch } from '../ui'
+import { ControlContext, SwitchControlConfig } from '../types'
 
 interface SwitchControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<SwitchControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: boolean
@@ -18,15 +18,13 @@ export const SwitchControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader id={id} {...property} context={context} />
                 <Switch id={id} value={value} onChange={onChange} />
                 &nbsp;&nbsp;&nbsp;
-                <Help>{property.help}</Help>
             </Control>
         )
     }

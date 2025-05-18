@@ -8,9 +8,9 @@ import {
     isInheritedColorConfigFromContext,
     ColorModifier,
 } from '@nivo/colors'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, InheritedColorControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Select } from '../ui'
+import { Control, Select } from '../ui'
 import { InheritedColorModifierControl } from './InheritedColorModifierControl'
 
 const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].map(prop => ({
@@ -29,11 +29,10 @@ type ColorType = '' | 'custom' | 'theme' | 'inherit'
 
 interface InheritedColorControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<InheritedColorControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: InheritedColorConfig<any>
-    config: InheritedColorControlConfig
     onChange: (value: InheritedColorConfig<any>) => any
     context?: ControlContext
 }
@@ -45,13 +44,15 @@ export const InheritedColorControl = ({
     currentFlavor,
     value,
     onChange,
-    config: {
+    context,
+}: InheritedColorControlProps) => {
+    const {
         inheritableProperties = defaultInheritableProperties,
         defaultCustomColor = 'black',
         defaultThemeProperty = 'background',
         defaultFrom = 'color',
-    },
-}: InheritedColorControlProps) => {
+    } = property.control
+
     const [customColor, setCustomColor] = useState(isString(value) ? value : defaultCustomColor)
     const [themeProp, setThemeProp] = useState(
         isInheritedColorConfigFromTheme(value) ? value.theme : defaultThemeProperty
@@ -165,12 +166,11 @@ export const InheritedColorControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} />
             <TypeSelector>
                 <TypeSelectorItem
                     $isActive={type === 'inherit'}
@@ -192,7 +192,6 @@ export const InheritedColorControl = ({
                 </TypeSelectorItem>
             </TypeSelector>
             {subControl}
-            <Help>{property.help}</Help>
         </Control>
     )
 }

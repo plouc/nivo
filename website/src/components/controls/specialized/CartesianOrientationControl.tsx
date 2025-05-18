@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Select } from '../ui'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
+import { Control, Select } from '../ui'
 import { CartesianOrientationControlConfig, ControlContext } from '../types'
-import { Control, PropertyHeader, Help } from '../ui'
 
 const BOX_WIDTH = 70
 const BOX_HEIGHT = 70
@@ -21,11 +20,10 @@ export type OrientationOption = {
 
 interface CartesianOrientationControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<CartesianOrientationControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: string
-    config: CartesianOrientationControlConfig
     onChange: (value: string) => void
     context?: ControlContext
 }
@@ -43,11 +41,10 @@ export const CartesianOrientationControl = ({
     flavors,
     currentFlavor,
     value,
-    config,
     onChange,
     context,
 }: CartesianOrientationControlProps) => {
-    const mapping = config.mapping ?? DEFAULT_MAPPING
+    const mapping = property.control.mapping ?? DEFAULT_MAPPING
     const invertedMapping: Record<string, Orientation> = {
         [mapping.top.value]: 'top',
         [mapping.right.value]: 'right',
@@ -75,12 +72,11 @@ export const CartesianOrientationControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Row>
                 <svg width={BOX_WIDTH + BOX_PADDING * 2} height={BOX_HEIGHT + BOX_PADDING * 2}>
                     <g transform={`translate(${BOX_PADDING},${BOX_PADDING})`}>
@@ -114,7 +110,6 @@ export const CartesianOrientationControl = ({
                     onChange={handleSelectChange}
                 />
             </Row>
-            <Help>{property.help}</Help>
         </Control>
     )
 }

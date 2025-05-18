@@ -2,8 +2,8 @@ import React, { useCallback, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import pick from 'lodash/pick.js'
 import { ControlContext, SwitchableRangeControlConfig } from '../types'
-import { ChartProperty, Flavor } from '../../../types'
-import { Control, PropertyHeader, Help, TextInput, Switch } from '../ui'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
+import { Control, TextInput, Switch } from '../ui'
 
 const SwitchRow = styled.div`
     display: flex;
@@ -26,8 +26,7 @@ const RangeRow = styled.div`
 
 interface SwitchableRangeControlProps {
     id: string
-    property: ChartProperty
-    config: SwitchableRangeControlConfig
+    property: ChartPropertyWithControl<SwitchableRangeControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: number | string
@@ -41,13 +40,12 @@ export const SwitchableRangeControl = ({
     flavors,
     currentFlavor,
     value,
-    config,
     onChange,
     context,
 }: SwitchableRangeControlProps) => {
-    const [isSliderEnabled, setIsSliderEnabled] = useState(value !== config.disabledValue)
+    const [isSliderEnabled, setIsSliderEnabled] = useState(value !== property.control.disabledValue)
     const [sliderValue, setSliderValue] = useState(
-        value === config.disabledValue ? config.defaultValue : value
+        value === property.control.disabledValue ? property.control.defaultValue : value
     )
 
     const handleSliderUpdate = useCallback(
@@ -65,21 +63,20 @@ export const SwitchableRangeControl = ({
                 onChange(Number(sliderValue))
             } else {
                 setIsSliderEnabled(false)
-                onChange(config.disabledValue)
+                onChange(property.control.disabledValue)
             }
         },
-        [onChange, config.disabledValue, sliderValue, setIsSliderEnabled]
+        [onChange, property.control.disabledValue, sliderValue, setIsSliderEnabled]
     )
 
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <SwitchRow>
                 <Switch
                     id={`${id}.switch`}
@@ -91,22 +88,26 @@ export const SwitchableRangeControl = ({
                         color: isSliderEnabled ? '#bbbbbb' : 'inherit',
                     }}
                 >
-                    {config.disabledValue}
+                    {property.control.disabledValue}
                 </span>
             </SwitchRow>
             {isSliderEnabled && (
                 <RangeRow>
-                    <TextInput value={value} unit={config.unit} isNumber={true} disabled={true} />
+                    <TextInput
+                        value={value}
+                        unit={property.control.unit}
+                        isNumber={true}
+                        disabled={true}
+                    />
                     <input
                         id={`${id}.slider`}
                         type="range"
                         value={sliderValue}
                         onChange={handleSliderUpdate}
-                        {...pick(config, ['min', 'max', 'step'])}
+                        {...pick(property.control, ['min', 'max', 'step'])}
                     />
                 </RangeRow>
             )}
-            <Help>{property.help}</Help>
         </Control>
     )
 }

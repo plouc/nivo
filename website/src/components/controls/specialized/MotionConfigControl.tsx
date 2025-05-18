@@ -2,9 +2,9 @@ import React, { ChangeEvent, memo, useCallback, useState } from 'react'
 import { config as springConfig } from '@react-spring/web'
 import { isString } from 'lodash'
 import styled from 'styled-components'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, MotionConfigControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Radio, Select, Switch } from '../ui'
+import { Control, Radio, Select, Switch } from '../ui'
 
 const presetOptions = Object.keys(springConfig).map(presetId => ({
     value: presetId,
@@ -23,10 +23,9 @@ const defaultConfig = {
 
 interface MotionConfigControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<MotionConfigControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: MotionConfigControlConfig
     value: any
     onChange: (value: any) => void
     context?: ControlContext
@@ -108,12 +107,11 @@ export const MotionConfigControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader id={id} {...property} context={context} />
                 <Row>
                     <Radio
                         options={[
@@ -172,7 +170,6 @@ export const MotionConfigControl = memo(
                         </CustomControls>
                     )}
                 </Row>
-                <Help>{property.help}</Help>
             </Control>
         )
     }
