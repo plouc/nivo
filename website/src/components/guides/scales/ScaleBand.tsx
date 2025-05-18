@@ -19,7 +19,9 @@ export const ScaleBand = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="band-scale">Band scale</h2>
+                <h2 id="band-scale">
+                    <a href="#band-scale">Band scale</a>
+                </h2>
                 <p>
                     A band scale is an ordinal scale that maps a set of discrete input values (your
                     categories) to a continuous numeric output range by dividing that range into

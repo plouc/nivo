@@ -26,7 +26,7 @@ const link = ({ href, children }: { href: string; children: ReactNode }) => {
 const customComponents = { a: link }
 
 export const Markdown = memo(({ source }: { source: string }) => (
-    <ReactMarkdown transformLinkUri={u => u} components={customComponents as any}>
+    <ReactMarkdown urlTransform={u => u} components={customComponents as any}>
         {source}
     </ReactMarkdown>
 ))

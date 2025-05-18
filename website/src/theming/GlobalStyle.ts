@@ -55,6 +55,36 @@ export const GlobalStyle = createGlobalStyle<{ isCapturing: boolean }>`
         font-size: 1.2rem;
     }
 
+    h2[id],
+    h3[id] {
+        scroll-margin-top: ${({ theme }) => theme.dimensions.headerHeight + 12}px;
+        
+        a[href^="#"] {
+            text-decoration: none;
+            
+            &:before {
+                content: "#";
+                display: inline-block;
+                font-size: .9em;
+                line-height: 1;
+                margin-left: -.9em;
+                text-decoration: none;
+                visibility: hidden;
+                color: ${({ theme }) => theme.colors.textLight};
+                opacity: .4;
+                width: .9em;
+            }
+            
+            &:hover {
+                text-decoration: underline;
+                
+                &:before {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+    
     p {
         margin: 15px 0;
     }

@@ -19,7 +19,9 @@ export const ScaleLinear = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="linear-scale">Linear scale</h2>
+                <h2 id="linear-scale">
+                    <a href="#linear-scale">Linear scale</a>
+                </h2>
                 <p>
                     A linear scale is the most basic quantitative (continuous) scale in D3. It
                     defines a piecewise‐linear mapping from a numeric input domain to a numeric
